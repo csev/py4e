@@ -1,2 +1,2 @@
 # pythonlearn
-Web site for www.ptyhonlearn.com
+Web site for www.pythonlearn.com
