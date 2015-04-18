@@ -3,8 +3,9 @@
 <?php
    function navto($arg)
    {
+    $uri = isset($_ENV["REQUEST_URI"]) ? $_ENV["REQUEST_URI"] : $_SERVER["REQUEST_URI"];
 	echo ('href="' . $arg . '"');
-   	if ( strpos($_ENV["REQUEST_URI"], $arg) )  echo ' class="selected" ';
+   	if ( strpos($uri, $arg) )  echo ' class="selected" ';
    }
    ?>
 <ul class="toolbar">
