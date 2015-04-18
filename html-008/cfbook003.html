@@ -1,0 +1,721 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="GENERATOR" content="hevea 1.07" />
+<title>
+Variables, expressions and statements
+</title>
+</head>
+<body>
+<a href="cfbook002.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook004.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1><font color="black"><a name="htoc16">Chapter&nbsp;2</a>&nbsp;&nbsp;Variables, expressions and statements</font></h1>
+<a name="toc16"></a>
+<h2><font color="black"><a name="htoc17">2.1</a>&nbsp;&nbsp;Values and types</font></h2>
+<a name="@default36"></a>
+<a name="@default37"></a>
+<a name="@default38"></a>
+<font color="black">A <b>value</b> is one of the basic things a program works with,
+like a letter or a
+number. The values we have seen so far
+are <tt>1</tt>, <tt>2</tt>, and
+<code>'Hello, World!'</code>.<br />
+<br />
+These values belong to different <b>types</b>:
+<tt>2</tt> is an integer, and <code>'Hello, World!'</code> is a <b>string</b>,
+so-called because it contains a "string" of letters.
+You (and the interpreter) can identify
+strings because they are enclosed in quotation marks.<br />
+<br />
+<a name="@default39"></a><br />
+<br />
+The <tt>print</tt> statement also works for integers. We use the 
+<tt>python</tt> command to start the interpreter.
+</font><pre><font size="4" color="blue">
+python
+&gt;&gt;&gt; print 4
+4
+</font></pre><font color="black">If you are not sure what type a value has, the interpreter can tell you.
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; type('Hello, World!')
+&lt;type 'str'&gt;
+&gt;&gt;&gt; type(17)
+&lt;type 'int'&gt;
+</font></pre><font color="black">Not surprisingly, strings belong to the type <tt>str</tt> and
+integers belong to the type <tt>int</tt>. Less obviously, numbers
+with a decimal point belong to a type called <tt>float</tt>,
+because these numbers are represented in a
+format called <b>floating-point</b>.</font><br />
+<br />
+<a name="@default40"></a>
+<a name="@default41"></a>
+<a name="@default42"></a>
+<a name="@default43"></a>
+<a name="@default44"></a>
+<a name="@default45"></a>
+<a name="@default46"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; type(3.2)
+&lt;type 'float'&gt;
+</font></pre><font color="black">What about values like <code>'17'</code> and <code>'3.2'</code>?
+They look like numbers, but they are in quotation marks like
+strings.</font><br />
+<br />
+<a name="@default47"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; type('17')
+&lt;type 'str'&gt;
+&gt;&gt;&gt; type('3.2')
+&lt;type 'str'&gt;
+</font></pre><font color="black">They're strings.<br />
+<br />
+When you type a large integer, you might be tempted to use commas
+between groups of three digits, as in <tt>1,000,000</tt>. This is not a
+legal integer in Python, but it is legal:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; print 1,000,000
+1 0 0
+</font></pre><font color="black">Well, that's not what we expected at all! Python interprets <tt>1,000,000</tt> as a comma-separated sequence of integers, which it
+prints with spaces between.<br />
+<br />
+<a name="@default48"></a>
+<a name="@default49"></a>
+<a name="@default50"></a><br />
+<br />
+This is the first example we have seen of a semantic error: the code
+runs without producing an error message, but it doesn't do the
+"right" thing.</font><br />
+<br />
+<a name="toc17"></a>
+<h2><font color="black"><a name="htoc18">2.2</a>&nbsp;&nbsp;Variables</font></h2>
+<a name="@default51"></a>
+<a name="@default52"></a>
+<a name="@default53"></a>
+<font color="black">One of the most powerful features of a programming language is the
+ability to manipulate <b>variables</b>. A variable is a name that
+refers to a value.<br />
+<br />
+An <b>assignment statement</b> creates new variables and gives
+them values:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; message = 'And now for something completely different'
+&gt;&gt;&gt; n = 17
+&gt;&gt;&gt; pi = 3.1415926535897931
+</font></pre><font color="black">This example makes three assignments. The first assigns a string
+to a new variable named <tt>message</tt>;
+the second assigns the integer <tt>17</tt> to <tt>n</tt>; the third
+assigns the (approximate) value of <font face="symbol">p</font> to <tt>pi</tt>.<br />
+<br />
+To display the value of a variable, you can use a print statement:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; print n
+17
+&gt;&gt;&gt; print pi
+3.14159265359
+</font></pre><font color="black">The type of a variable is the type of the value it refers to.
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; type(message)
+&lt;type 'str'&gt;
+&gt;&gt;&gt; type(n)
+&lt;type 'int'&gt;
+&gt;&gt;&gt; type(pi)
+&lt;type 'float'&gt;
+</font></pre>
+<a name="toc18"></a>
+<h2><font color="black"><a name="htoc19">2.3</a>&nbsp;&nbsp;Variable names and keywords</font></h2>
+<a name="@default54"></a>
+<font color="black">Programmers generally choose names for their variables that
+are meaningful---they document what the variable is used for.<br />
+<br />
+Variable names can be arbitrarily long. They can contain
+both letters and numbers, but they have to begin with a letter.
+It is legal to use uppercase letters, but it is a good idea
+to begin variable names with a lowercase letter (you'll
+see why later).<br />
+<br />
+The underscore character (<code>_</code>) can appear in a name.
+It is often used in names with multiple words, such as
+<code>my_name</code> or <code>airspeed_of_unladen_swallow</code>.<br />
+<br />
+<a name="@default55"></a><br />
+<br />
+If you give a variable an illegal name, you get a syntax error:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; 76trombones = 'big parade'
+SyntaxError: invalid syntax
+&gt;&gt;&gt; more@ = 1000000
+SyntaxError: invalid syntax
+&gt;&gt;&gt; class = 'Advanced Theoretical Zymurgy'
+SyntaxError: invalid syntax
+</font></pre><font color="black"><tt>76trombones</tt> is illegal because it does not begin with a letter.
+<tt>more@</tt> is illegal because it contains an illegal character, <tt>@</tt>. But what's wrong with <tt>class</tt>?<br />
+<br />
+It turns out that <tt>class</tt> is one of Python's <b>keywords</b>. The
+interpreter uses keywords to recognize the structure of the program,
+and they cannot be used as variable names.<br />
+<br />
+<a name="@default56"></a><br />
+<br />
+Python reserves 31 keywords<sup><a name="text3" href="#note3">1</a></sup> for its use:
+</font><pre><font size="4" color="blue">
+and       del       from      not       while    
+as        elif      global    or        with     
+assert    else      if        pass      yield    
+break     except    import    print              
+class     exec      in        raise              
+continue  finally   is        return             
+def       for       lambda    try
+</font></pre><font color="black">You might want to keep this list handy. If the interpreter complains
+about one of your variable names and you don't know why, see if it
+is on this list.</font><br />
+<br />
+<a name="toc19"></a>
+<h2><font color="black"><a name="htoc20">2.4</a>&nbsp;&nbsp;Statements</font></h2>
+<font color="black">A <b>statement</b> is a unit of code that the Python interpreter can
+execute. We have seen two kinds of statements: print
+and assignment.<br />
+<br />
+<a name="@default57"></a>
+<a name="@default58"></a>
+<a name="@default59"></a><br />
+<br />
+When you type a statement in interactive mode, the interpreter
+executes it and displays the result, if there is one.<br />
+<br />
+A script usually contains a sequence of statements. If there
+is more than one statement, the results appear one at a time
+as the statements execute.<br />
+<br />
+For example, the script
+</font><pre><font size="4" color="blue">
+print 1
+x = 2
+print x
+</font></pre><font color="black">produces the output
+</font><pre><font size="4" color="blue">
+1
+2
+</font></pre><font color="black">The assignment statement produces no output.</font><br />
+<br />
+<a name="toc20"></a>
+<h2><font color="black"><a name="htoc21">2.5</a>&nbsp;&nbsp;Operators and operands</font></h2>
+<a name="@default60"></a>
+<a name="@default61"></a>
+<a name="@default62"></a>
+<a name="@default63"></a>
+<font color="black"><b>Operators</b> are special symbols that represent computations like
+addition and multiplication. The values the operator is applied to
+are called <b>operands</b>.<br />
+<br />
+The operators <tt>+</tt>, <tt>-</tt>, <tt>*</tt>, <tt>/</tt> and <tt>**</tt>
+perform addition, subtraction, multiplication, division and
+exponentiation, as in the following examples:
+</font><pre><font size="4" color="blue">
+20+32   hour-1   hour*60+minute   minute/60   5**2   (5+9)*(15-7)
+</font></pre><font color="black">The division operator might not do what you expect:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; minute = 59
+&gt;&gt;&gt; minute/60
+0
+</font></pre><font color="black">The value of <tt>minute</tt> is 59, and in conventional arithmetic 59
+divided by 60 is 0.98333, not 0. The reason for the discrepancy is
+that Python is performing <b>floor division</b><sup><a name="text4" href="#note4">2</a></sup>.<br />
+<br />
+<a name="@default64"></a>
+<a name="@default65"></a>
+<a name="@default66"></a>
+<a name="@default67"></a>
+<a name="@default68"></a><br />
+<br />
+When both of the operands are integers, the result is also an
+integer; floor division chops off the fraction
+part, so in this example it rounds down to zero.<br />
+<br />
+If either of the operands is a floating-point number, Python performs
+floating-point division, and the result is a <tt>float</tt>:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; minute/60.0
+0.98333333333333328
+</font></pre>
+<a name="toc21"></a>
+<h2><font color="black"><a name="htoc22">2.6</a>&nbsp;&nbsp;Expressions</font></h2>
+<font color="black">An <b>expression</b> is a combination of values, variables, and operators.
+A value all by itself is considered an expression, and so is
+a variable, so the following are all legal expressions
+(assuming that the variable <tt>x</tt> has been assigned a value):</font><br />
+<br />
+<a name="@default69"></a>
+<a name="@default70"></a>
+<pre><font size="4" color="blue">
+17
+x
+x + 17
+</font></pre><font color="black">If you type an expression in interactive mode, the interpreter
+<b>evaluates</b> it and displays the result:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; 1 + 1
+2
+</font></pre><font color="black">But in a script, an expression all by itself doesn't
+do anything! This is a common
+source of confusion for beginners.<br />
+</font><div align="left"><font color="black"><b>Exercise&nbsp;1</b>&nbsp;&nbsp;<em>
+Type the following statements in the Python interpreter to see
+what they do:
+</em></font><pre><font size="4" color="blue"><em>
+5
+x = 5
+x + 1
+</em></font></pre></div><br />
+<a name="toc22"></a>
+<h2><font color="black"><a name="htoc23">2.7</a>&nbsp;&nbsp;Order of operations</font></h2>
+<a name="@default71"></a>
+<a name="@default72"></a>
+<a name="@default73"></a>
+<font color="black">When more than one operator appears in an expression, the order of
+evaluation depends on the <b>rules of precedence</b>. For
+mathematical operators, Python follows mathematical convention.
+The acronym <b>PEMDAS</b> is a useful way to
+remember the rules:</font><br />
+<br />
+<a name="@default74"></a>
+<ul><li><font color="black"><b>P</b>arentheses have the highest precedence and can be used 
+to force an expression to evaluate in the order you want. Since
+expressions in parentheses are evaluated first, <tt>2 * (3-1)</tt> is 4,
+and <tt>(1+1)**(5-2)</tt> is 8. You can also use parentheses to make an
+expression easier to read, as in <tt>(minute * 100) / 60</tt>, even
+if it doesn't change the result.</font><br />
+<br />
+</li><li><font color="black"><b>E</b>xponentiation has the next highest precedence, so
+<tt>2**1+1</tt> is 3, not 4, and <tt>3*1**3</tt> is 3, not 27.</font><br />
+<br />
+</li><li><font color="black"><b>M</b>ultiplication and <b>D</b>ivision have the same precedence,
+which is higher than <b>A</b>ddition and <b>S</b>ubtraction, which also
+have the same precedence. So <tt>2*3-1</tt> is 5, not 4, and
+<tt>6+4/2</tt> is 8, not 5.</font><br />
+<br />
+</li><li><font color="black">Operators with the same precedence are evaluated from left to 
+right. So in the expression <tt>5-3-1</tt> is 1, not 3 because the
+<tt>5-3</tt> happens first and then <tt>1</tt> is subtracted from <tt>2</tt>.</font></li></ul>
+<font color="black">When in doubt always put parentheses in your expressions to make sure
+the computations are performed in the order you intend.</font><br />
+<br />
+<a name="toc23"></a>
+<h2><font color="black"><a name="htoc24">2.8</a>&nbsp;&nbsp;Modulus operator</font></h2>
+<a name="@default75"></a>
+<a name="@default76"></a>
+<font color="black">The <b>modulus operator</b> works on integers and yields the remainder
+when the first operand is divided by the second. In Python, the
+modulus operator is a percent sign (<code>%</code>). The syntax is the same
+as for other operators:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; quotient = 7 / 3
+&gt;&gt;&gt; print quotient
+2
+&gt;&gt;&gt; remainder = 7 % 3
+&gt;&gt;&gt; print remainder
+1
+</font></pre><font color="black">So 7 divided by 3 is 2 with 1 left over.<br />
+<br />
+The modulus operator turns out to be surprisingly useful. For
+example, you can check whether one number is divisible by another---if
+<tt>x % y</tt> is zero, then <tt>x</tt> is divisible by <tt>y</tt>.<br />
+<br />
+<a name="@default77"></a><br />
+<br />
+Also, you can extract the right-most digit
+or digits from a number. For example, <tt>x % 10</tt> yields the
+right-most digit of <tt>x</tt> (in base 10). Similarly <tt>x % 100</tt>
+yields the last two digits.</font><br />
+<br />
+<a name="toc24"></a>
+<h2><font color="black"><a name="htoc25">2.9</a>&nbsp;&nbsp;String operations</font></h2>
+<a name="@default78"></a>
+<a name="@default79"></a>
+<font color="black">The <tt>+</tt> operator works with strings, but it
+is not addition in the mathematical sense. Instead it performs
+<b>concatenation</b>, which means joining the strings by
+linking them end-to-end. For example:</font><br />
+<br />
+<a name="@default80"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; first = 10
+&gt;&gt;&gt; second = 15
+&gt;&gt;&gt; print first+second
+25
+&gt;&gt;&gt; first = '100'
+&gt;&gt;&gt; second = '150'
+&gt;&gt;&gt; print first + second
+100150
+</font></pre><font color="black">The output of this program is <tt>throatwarbler</tt>.</font><br />
+<br />
+<a name="toc25"></a>
+<h2><font color="black"><a name="htoc26">2.10</a>&nbsp;&nbsp;Asking the user for input</font></h2>
+<a name="@default81"></a>
+<font color="black">Sometimes we would like to take the value for a variable from the user
+via their keyboard.
+Python provides a built-in function called <code>raw_input</code> that gets
+input from the keyboard<sup><a name="text5" href="#note5">3</a></sup>. When this function is called, the program stops and
+waits for the user to type something. When the user presses <font color="purple">Return</font> or <font color="purple">Enter</font>, the program resumes and <code>raw_input</code>
+returns what the user typed as a string.</font><br />
+<br />
+<a name="@default82"></a>
+<a name="@default83"></a>
+<a name="@default84"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; input = raw_input()
+Some silly stuff
+&gt;&gt;&gt; print input
+Some silly stuff
+</font></pre><font color="black">Before getting input from the user, it is a good idea to print a
+prompt telling the user what to input. You can pass a string
+to <code>raw_input</code> to be displayed to the user before pausing
+for input:</font><br />
+<br />
+<a name="@default85"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; name = raw_input('What is your name?\n')
+What is your name?
+Chuck
+&gt;&gt;&gt; print name
+Chuck
+</font></pre><font color="black">The sequence <code>\n</code> at the end of the prompt represents a <b>newline</b>,
+which is a special character that causes a line break.
+That's why the user's input appears below the prompt.<br />
+<br />
+<a name="@default86"></a><br />
+<br />
+If you expect the user to type an integer, you can try to convert
+the return value to <tt>int</tt> using the <tt>int()</tt> function:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; prompt = 'What...is the airspeed velocity of an unladen swallow?\n'
+&gt;&gt;&gt; speed = raw_input(prompt)
+What...is the airspeed velocity of an unladen swallow?
+17
+&gt;&gt;&gt; int(speed)
+17
+&gt;&gt;&gt; int(speed) + 5
+22
+</font></pre><font color="black">But if the user types something other than a string of digits,
+you get an error:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; speed = raw_input(prompt)
+What...is the airspeed velocity of an unladen swallow?
+What do you mean, an African or a European swallow?
+&gt;&gt;&gt; int(speed)
+ValueError: invalid literal for int()
+</font></pre><font color="black">We will see how to handle this kind of error later.</font><br />
+<br />
+<a name="@default87"></a>
+<a name="@default88"></a><br />
+<br />
+<a name="toc26"></a>
+<h2><font color="black"><a name="htoc27">2.11</a>&nbsp;&nbsp;Comments</font></h2>
+<a name="@default89"></a>
+<font color="black">As programs get bigger and more complicated, they get more difficult
+to read. Formal languages are dense, and it is often difficult to
+look at a piece of code and figure out what it is doing, or why.<br />
+<br />
+For this reason, it is a good idea to add notes to your programs to explain
+in natural language what the program is doing. These notes are called
+<b>comments</b>, and they start with the <code>#</code> symbol:
+</font><pre><font size="4" color="blue">
+# compute the percentage of the hour that has elapsed
+percentage = (minute * 100) / 60
+</font></pre><font color="black">In this case, the comment appears on a line by itself. You can also put
+comments at the end of a line:
+</font><pre><font size="4" color="blue">
+percentage = (minute * 100) / 60     # percentage of an hour
+</font></pre><font color="black">Everything from the <tt>#</tt> to the end of the line is ignored---it
+has no effect on the program.<br />
+<br />
+Comments are most useful when they document non-obvious features of
+the code. It is reasonable to assume that the reader can figure out
+<em>what</em> the code does; it is much more useful to explain <em>why</em>.<br />
+<br />
+This comment is redundant with the code and useless:
+</font><pre><font size="4" color="blue">
+v = 5     # assign 5 to v
+</font></pre><font color="black">This comment contains useful information that is not in the code:
+</font><pre><font size="4" color="blue">
+v = 5     # velocity in meters/second. 
+</font></pre><font color="black">Good variable names can reduce the need for comments, but
+long names can make complex expressions hard to read, so there is
+a tradeoff.</font><br />
+<br />
+<a name="toc27"></a>
+<h2><font color="black"><a name="htoc28">2.12</a>&nbsp;&nbsp;Choosing mnemonic variable names</font></h2>
+<a name="@default90"></a>
+<font color="black">As long as you follow the simple rules of variable naming, and avoid
+reserved words, you have a lot of choice when you name your variables.
+In the beginning, this choice can be confusing both when you read a 
+program and when you write your own programs. For example, the
+following three programs are identical in terms of what they accomplish,
+but very different when you read them and try to understand them.
+</font><pre><font size="4" color="blue">
+a = 35.0
+b = 12.50
+c = a * b
+print c
+
+hours = 35.0
+rate = 12.50
+pay = hours * rate
+print pay
+
+x1q3z9ahd = 35.0
+x1q3z9afd = 12.50
+x1q3p9afd = x1q3z9ahd * x1q3z9afd
+print x1q3p9afd
+</font></pre><font color="black">The Python interpreter sees all three of these programs as <em>exactly the 
+same</em> but humans see and understand these programs quite differently. 
+Humans will most quickly understand the <b>intent</b> 
+of the second program because the 
+programmer has chosen variable names that reflect the intent of the programmer
+regarding what data will be stored in each variable.<br />
+<br />
+We call these wisely-chosen variable names "mnemonic variable names". The
+word <em>mnemonic</em><sup><a name="text6" href="#note6">4</a></sup> 
+means "memory aid".
+We choose mnemonic variable names to help us remember why we created the variable
+in the first place.<br />
+<br />
+While this all sounds great, and it is a very good idea to use mnemonic variable
+names, mnemonic variable names can get in the way of a beginning programmer's 
+ability to parse and understand code. This is because beginning programmers 
+have not yet memorized the reserved words (there are only 31 of them) and sometimes
+variables which have names that are too descriptive start to look like 
+part of the language and not just well-chosen variable names.<br />
+<br />
+Take a quick look at the following Python sample code which loops through some data. 
+We will cover loops soon, but for now try to just puzzle through what this means:
+</font><pre><font size="4" color="blue">
+for word in words:
+    print word
+</font></pre><font color="black">What is happening here? Which of the tokens (for, word, in, etc.) are reserved words
+and which are just variable names? Does Python understand at a fundamental level 
+the notion of words? Beginning programmers have 
+trouble separating what parts of the
+code <em>must</em> be the same as this example and what parts of the code are simply
+choices made by the programmer.<br />
+<br />
+The following code is equivalent to the above code:
+</font><pre><font size="4" color="blue">
+for slice in pizza:
+    print slice
+</font></pre><font color="black">It is easier for the beginning programmer to look at this code and know which 
+parts are reserved words defined by Python and which parts are simply variable
+names chosen by the programmer. It is pretty clear that Python has no fundamental
+understanding of pizza and slices and the fact that a pizza consists of a set
+of one or more slices.<br />
+<br />
+But if our program is truly about reading data and looking for words in the data,
+<tt>pizza</tt> and <tt>slice</tt> are very un-mnemonic variable names. Choosing them 
+as variable names distracts from the meaning of the program.<br />
+<br />
+After a pretty short period of time, you will know the most common reserved words
+and you will start to see the reserved words jumping out at you:<tt><br />
+<br />
+<b>for</b> word <b>in</b> words<b>:<br />
+<code> </code>print</b> word </tt><br />
+<br />
+The parts of the code that are defined by 
+Python (<tt>for</tt>, <tt>in</tt>, <tt>print</tt>, and <tt>:</tt>) are in bold
+and the programmer chosen variables (<tt>word</tt> and <tt>words</tt>) are not in bold. 
+Many text editors are aware of Python
+syntax and will color reserved words differently to give you clues to keep 
+your variables and reserved words separate.
+After a while you will begin to read Python and quickly determine what
+is a variable and what is a reserved word.</font><br />
+<br />
+<a name="toc28"></a>
+<h2><font color="black"><a name="htoc29">2.13</a>&nbsp;&nbsp;Debugging</font></h2>
+<a name="@default91"></a>
+<font color="black">At this point the syntax error you are most likely to make is
+an illegal variable name, like <tt>class</tt> and <tt>yield</tt>, which
+are keywords, or <code>odd~job</code> and <code>US$</code>, which contain
+illegal characters.<br />
+<br />
+<a name="@default92"></a>
+<a name="@default93"></a><br />
+<br />
+If you put a space in a variable name, Python thinks it is two
+operands without an operator:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; bad name = 5
+SyntaxError: invalid syntax
+</font></pre><font color="black">For syntax errors, the error messages don't help much.
+The most common messages are <tt>SyntaxError: invalid syntax</tt> and
+<tt>SyntaxError: invalid token</tt>, neither of which is very informative.<br />
+<br />
+<a name="@default94"></a>
+<a name="@default95"></a>
+<a name="@default96"></a>
+<a name="@default97"></a>
+<a name="@default98"></a><br />
+<br />
+The runtime error you are most likely to make is a "use before
+def;" that is, trying to use a variable before you have assigned
+a value. This can happen if you spell a variable name wrong:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; principal = 327.68
+&gt;&gt;&gt; interest = principle * rate
+NameError: name 'principle' is not defined
+</font></pre><font color="black">Variables names are case sensitive, so <tt>LaTeX</tt> is not the
+same as <tt>latex</tt>.<br />
+<br />
+<a name="@default99"></a>
+<a name="@default100"></a>
+<a name="@default101"></a><br />
+<br />
+At this point the most likely cause of a semantic error is
+the order of operations. For example, to evaluate 1/2 <font face="symbol">p</font>,
+you might be tempted to write
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; 1.0 / 2.0 * pi
+</font></pre><font color="black">But the division happens first, so you would get <font face="symbol">p</font> / 2, which
+is not the same thing! There is no way for Python
+to know what you meant to write, so in this case you don't
+get an error message; you just get the wrong answer.</font><br />
+<br />
+<a name="@default102"></a><br />
+<br />
+<a name="toc29"></a>
+<h2><font color="black"><a name="htoc30">2.14</a>&nbsp;&nbsp;Glossary</font></h2>
+<dl compact="compact"><dt><font color="black"><b>assignment:</b></font></dt><dd><font color="black"> A statement that assigns a value to a variable.
+</font><a name="@default103"></a><br />
+<br />
+</dd><dt><font color="black"><b>concatenate:</b></font></dt><dd><font color="black"> To join two operands end-to-end.
+</font><a name="@default104"></a><br />
+<br />
+</dd><dt><font color="black"><b>comment:</b></font></dt><dd><font color="black"> Information in a program that is meant for other
+programmers (or anyone reading the source code) and has no effect on the
+execution of the program.
+</font><a name="@default105"></a><br />
+<br />
+</dd><dt><font color="black"><b>evaluate:</b></font></dt><dd><font color="black"> To simplify an expression by performing the operations
+in order to yield a single value.</font><br />
+<br />
+</dd><dt><font color="black"><b>expression:</b></font></dt><dd><font color="black"> A combination of variables, operators, and values that
+represents a single result value.
+</font><a name="@default106"></a><br />
+<br />
+</dd><dt><font color="black"><b>floating-point:</b></font></dt><dd><font color="black"> A type that represents numbers with fractional
+parts.
+</font><a name="@default107"></a><br />
+<br />
+</dd><dt><font color="black"><b>floor division:</b></font></dt><dd><font color="black"> The operation that divides two numbers and chops off
+the fraction part.
+</font><a name="@default108"></a><br />
+<br />
+</dd><dt><font color="black"><b>integer:</b></font></dt><dd><font color="black"> A type that represents whole numbers.
+</font><a name="@default109"></a><br />
+<br />
+</dd><dt><font color="black"><b>keyword:</b></font></dt><dd><font color="black"> A reserved word that is used by the compiler to parse a
+program; you cannot use keywords like <tt>if</tt>, <tt>def</tt>, and <tt>while</tt> as
+variable names.
+</font><a name="@default110"></a><br />
+<br />
+</dd><dt><font color="black"><b>mnemonic:</b></font></dt><dd><font color="black"> A memory aid. We often give variables mnemonic names
+to help us remember what is stored in the variable.
+</font><a name="@default111"></a><br />
+<br />
+</dd><dt><font color="black"><b>modulus operator:</b></font></dt><dd><font color="black"> An operator, denoted with a percent sign
+(<tt>%</tt>), that works on integers and yields the remainder when one
+number is divided by another.
+</font><a name="@default112"></a>
+<a name="@default113"></a><br />
+<br />
+</dd><dt><font color="black"><b>operand:</b></font></dt><dd><font color="black"> One of the values on which an operator operates.
+</font><a name="@default114"></a><br />
+<br />
+</dd><dt><font color="black"><b>operator:</b></font></dt><dd><font color="black"> A special symbol that represents a simple computation like
+addition, multiplication, or string concatenation.
+</font><a name="@default115"></a><br />
+<br />
+</dd><dt><font color="black"><b>rules of precedence:</b></font></dt><dd><font color="black"> The set of rules governing the order in which
+expressions involving multiple operators and operands are evaluated.
+</font><a name="@default116"></a>
+<a name="@default117"></a><br />
+<br />
+</dd><dt><font color="black"><b>statement:</b></font></dt><dd><font color="black"> A section of code that represents a command or action. So
+far, the statements we have seen are assignments and print statements.
+</font><a name="@default118"></a><br />
+<br />
+</dd><dt><font color="black"><b>string:</b></font></dt><dd><font color="black"> A type that represents sequences of characters.
+</font><a name="@default119"></a><br />
+<br />
+</dd><dt><font color="black"><b>type:</b></font></dt><dd><font color="black"> A category of values. The types we have seen so far
+are integers (type <tt>int</tt>), floating-point numbers (type <tt>float</tt>), and strings (type <tt>str</tt>).
+</font><a name="@default120"></a><br />
+<br />
+</dd><dt><font color="black"><b>value:</b></font></dt><dd><font color="black"> One of the basic units of data, like a number or string, 
+that a program manipulates.
+</font><a name="@default121"></a><br />
+<br />
+</dd><dt><font color="black"><b>variable:</b></font></dt><dd><font color="black"> A name that refers to a value.
+</font><a name="@default122"></a></dd></dl>
+<a name="toc30"></a>
+<h2><font color="black"><a name="htoc31">2.15</a>&nbsp;&nbsp;Exercises</font></h2><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;2</b>&nbsp;&nbsp;<em>
+Write a program that uses <code>raw_input</code> to prompt a user for their name 
+and then welcomes them.
+</em></font><pre><font color="black"><em>
+Enter your name: Chuck
+Hello Chuck
+</em></font></pre></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;3</b>&nbsp;&nbsp;<em>
+Write a program to prompt the user for hours and rate per hour to compute
+gross pay.
+</em></font><pre><font color="black"><em>
+Enter Hours: 35
+Enter Rate: 2.75
+Pay: 96.25
+</em></font></pre></div><font color="black">
+We won't worry about making sure our pay has exactly two digits after
+the decimal place for now. If you want, you can play with the 
+built-in Python <tt>round</tt> function to properly round the resulting pay
+to two decimal places.<br />
+</font><div align="left"><font color="black"><b>Exercise&nbsp;4</b>&nbsp;&nbsp;<em>
+Assume that we execute the following assignment statements:
+</em></font><pre><font color="black"><em>
+width = 17
+height = 12.0
+</em></font></pre>
+<font color="black"><em>For each of the following expressions, write the value of the
+expression and the type (of the value of the expression).
+</em></font><ol type="1"><li><font color="black"><tt><em>width/2</em></tt></font><br />
+<br />
+</li><li><font color="black"><tt><em>width/2.0</em></tt></font><br />
+<br />
+</li><li><font color="black"><tt><em>height/3</em></tt></font><br />
+<br />
+</li><li><font color="black"><tt><em>1 + 2 * 5</em></tt></font></li></ol>
+<font color="black"><em>Use the Python interpreter to check your answers.
+</em></font></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;5</b>&nbsp;&nbsp;<em>
+Write a program which prompts the user for a Celsius temperature,
+convert the temperature to Fahrenheit and print out the converted
+temperature.
+</em></font></div><br />
+<hr width="50%" size="1" /><dl><dt><font size="5" color="black"><a name="note3" href="#text3">1</a></font></dt><dd><font color="black">In Python 3.0, <tt>exec</tt> is no
+longer a keyword, but <tt>nonlocal</tt> is.
+</font></dd><dt><font size="5" color="black"><a name="note4" href="#text4">2</a></font></dt><dd><font color="black">In Python 3.0,
+the result of this division is a <tt>float</tt>. 
+In Python 3.0, the new operator
+<tt>//</tt> performs integer division.
+</font></dd><dt><font size="5" color="black"><a name="note5" href="#text5">3</a></font></dt><dd><font color="black">In Python 3.0, this function is named
+ <tt>input</tt>.
+</font></dd><dt><font size="5" color="black"><a name="note6" href="#text6">4</a></font></dt><dd><font color="black">See 
+<tt>http://en.wikipedia.org/wiki/Mnemonic</tt>
+for an extended description of the word "mnemonic".
+</font></dd></dl>
+<hr />
+<a href="cfbook002.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook004.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

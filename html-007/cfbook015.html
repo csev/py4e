@@ -1,0 +1,1178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="GENERATOR" content="hevea 1.07">
+<TITLE>
+Using databases and Structured Query Language (SQL)
+</TITLE>
+</HEAD>
+<BODY >
+<A HREF="cfbook014.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfbook016.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+<HR>
+
+<H1><FONT COLOR=black><A NAME="htoc165">Chapter&nbsp;14</A>&nbsp;&nbsp;Using databases and Structured Query Language (SQL)</FONT></H1>
+<A NAME="toc151"></A>
+<H2><FONT COLOR=black><A NAME="htoc166">14.1</A>&nbsp;&nbsp;What is a database?</FONT></H2>
+<A NAME="@default765"></A>
+<FONT COLOR=black>A <B>database</B> is a file that is organized for storing data.
+Most databases are organized like a dictionary in the sense
+that they map from keys to values. The biggest difference
+is that the database is on disk (or other permanent storage),
+so it persists after the program ends. Because a database is
+stored on permanent storage, it can store far more data than
+a dictionary, which is limited to the size of the memory 
+in the computer.<BR>
+<BR>
+<A NAME="@default766"></A>
+Like a dictionary, database software is designed to keep 
+the inserting and accessing of data very fast, even for large
+amounts of data. Database software maintains its performance by 
+building <B>indexes</B> as data is added to the database
+to allow the computer to jump quickly to a particular
+entry.<BR>
+<BR>
+There are many different database systems which are used for a wide
+variety of purposes including: Oracle, MySQL, Microsoft SQL Server, 
+PostgreSQL, and SQLite. We focus on SQLite in this book because
+it is a very common database and is already built into Python. 
+SQLite is designed to be <EM>embedded</EM> into other applications
+to provide database support within the application. For example,
+the Firefox browser also uses the SQLite database internally as do 
+many other products.<BR>
+<BR>
+<TT>http://sqlite.org/</TT><BR>
+<BR>
+SQLite is well suited to some of the data manipulation problems that we 
+see in Informatics such as the Twitter spidering application that we 
+describe in this chapter.</FONT><BR>
+<BR>
+<A NAME="toc152"></A>
+<H2><FONT COLOR=black><A NAME="htoc167">14.2</A>&nbsp;&nbsp;Database concepts</FONT></H2>
+<FONT COLOR=black>When you first look at a database it looks like a 
+spreadsheet with multiple sheets. The primary data structures 
+in a database are:
+<B>tables</B>, <B>rows</B>, and <B>columns</B>. <BR>
+</FONT><DIV ALIGN=center><FONT COLOR=black><IMG SRC="cfbook016.png"></FONT></DIV><FONT COLOR=black>
+<BR>
+In technical descriptions of relational databases the concepts of 
+table, row, and column are more formally referred
+to as <B>relation</B>, <B>tuple</B>, and <B>attribute</B>, respectively.
+We will use the less formal terms in this chapter.</FONT><BR>
+<BR>
+<A NAME="toc153"></A>
+<H2><FONT COLOR=black><A NAME="htoc168">14.3</A>&nbsp;&nbsp;SQLite manager Firefox add-on</FONT></H2>
+<FONT COLOR=black>While this chapter will focus on using Python to work with data 
+in SQLite database files, many operations can be done more
+conveniently using a Firefox add-on called the <B>SQLite
+Database Manager</B> which is freely available from:<BR>
+<BR>
+<TT>https://addons.mozilla.org/en-us/firefox/addon/sqlite-manager/</TT><BR>
+<BR>
+Using the browser you can easily create tables, insert data, edit data, 
+or run simple SQL queries on the data in the database.<BR>
+<BR>
+In a sense, the database manager is similar to a text editor
+when working with text files. When you want to do one or
+very few operations on a text file, you can just open it
+in a text editor and make the changes you want. When you have 
+many changes that you need to do to a text file, often you 
+will write a simple Python program. You will find the same 
+pattern when working with databases. You will do simple
+operations in the database manager and more complex operations
+will be most conveniently done in Python.</FONT><BR>
+<BR>
+<A NAME="toc154"></A>
+<H2><FONT COLOR=black><A NAME="htoc169">14.4</A>&nbsp;&nbsp;Creating a database table</FONT></H2>
+<FONT COLOR=black>Databases require more defined structure than Python lists 
+or dictionaries<SUP><A NAME="text11" HREF="#note11">1</A></SUP>. <BR>
+<BR>
+When we create a database <B>table</B> we
+must tell the database in advance the names of each of the
+<B>columns</B> in the table and the type of data which we are 
+planning to store in each <B>column</B>. When the database software
+knows the type of data in each column, it can choose the most 
+efficient way to store and lookup the data based on the type of
+data. <BR>
+<BR>
+You can look at the various data types supported by SQLite
+at the following url:<BR>
+<BR>
+<TT>http://www.sqlite.org/datatypes.html</TT><BR>
+<BR>
+Defining structure for your data up front may seem inconvenient
+at the beginning, but the payoff is fast access to your data 
+even when the database contains a large amount of data.<BR>
+<BR>
+The code to create a database file and a table 
+named <TT>Tracks</TT> with two columns in the 
+database is as follows:</FONT><BR>
+<BR>
+<A NAME="@default767"></A>
+<A NAME="@default768"></A>
+<PRE><FONT SIZE=4 COLOR=blue>
+import sqlite3
+
+conn = sqlite3.connect('music.db')
+cur = conn.cursor()
+
+cur.execute('DROP TABLE IF EXISTS Tracks ')
+cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
+
+conn.close()
+</FONT></PRE><A NAME="@default769"></A>
+<A NAME="@default770"></A>
+<A NAME="@default771"></A>
+<A NAME="@default772"></A><FONT COLOR=black>
+The <TT>connect</TT> operation makes a ``connection'' to the database 
+stored in the file <TT>music.db</TT> in the current directory. If
+the file does not exist, it will be created. The reason this
+is called a ``connection'' is that sometimes the database is stored
+on a separate ``database server'' from the server on which we 
+are running our application. In our simple examples 
+the database will just be a local file in the same directory
+as the Python code we are running.<BR>
+<BR>
+A <B>cursor</B> is like a file handle that we can use to perform
+operations on the data stored in the database. Calling 
+<TT>cursor()</TT> is very similar conceptually to calling
+<TT>open()</TT> when dealing with text files.<BR>
+</FONT><DIV ALIGN=center><FONT COLOR=black><IMG SRC="cfbook017.png"></FONT></DIV><FONT COLOR=black>
+<BR>
+Once we have the cursor, we can begin to execute 
+commands on the contents of the database using the <TT>execute()</TT>
+method.<BR>
+<BR>
+Database commands are expressed in a special language that has 
+been standardized across many different database vendors 
+to allow us to learn a single database language. The database
+language is called <B>Structured Query Language</B> or <B>SQL</B>
+for short.<BR>
+<BR>
+<TT>http://en.wikipedia.org/wiki/SQL</TT><BR>
+<BR>
+In our example, we are executing two SQL commands in our database.
+As a convention, we will show the SQL keywords in uppercase 
+and the parts of the command that we are adding (such as the
+table and column names) will be shown in lowercase.<BR>
+<BR>
+The first SQL command removes the <TT>Tracks</TT> table from the 
+database if it exists. This pattern is simply to allow us to 
+run the same program to create the <TT>Tracks</TT> table over 
+and over again without causing an error. Note that the
+<TT>DROP TABLE</TT> command deletes the table and all of its contents
+from the database (i.e. there is no ``undo'').
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+cur.execute('DROP TABLE IF EXISTS Tracks ')
+</FONT></PRE><FONT COLOR=black>The second command creates a table named
+<TT>Tracks</TT> with a text column named <TT>title</TT>
+and an integer column named <TT>plays</TT>.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
+</FONT></PRE><FONT COLOR=black>Now that we have created a table named <TT>Tracks</TT>, we can put some data
+into that table using the SQL <TT>INSERT</TT> operation. Again, we begin
+by making a connection to the database and obtaining the <TT>cursor</TT>.
+We can then execute SQL commands using the cursor.<BR>
+<BR>
+The SQL <TT>INSERT</TT> command indicates which table we are using 
+and then defines a new row by listing the fields we want to 
+include <TT>(title, plays) </TT> followed by the <TT>VALUES</TT> we want
+placed in the new row in the table. We specify the values
+as question marks <TT>(?, ?)</TT> to indicate that the actual 
+values are passed in as a tuple <TT>( 'My Way', 15 ) </TT> as the
+second parameter to the <TT>execute()</TT> call.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+import sqlite3
+
+conn = sqlite3.connect('music.db')
+cur = conn.cursor()
+
+cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )', 
+    ( 'Thunderstruck', 20 ) )
+cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )', 
+    ( 'My Way', 15 ) )
+conn.commit()
+
+print 'Tracks:'
+cur.execute('SELECT title, plays FROM Tracks')
+for row in cur :
+   print row
+
+cur.execute('DELETE FROM Tracks WHERE plays &lt; 100')
+conn.commit()
+
+cur.close()
+</FONT></PRE><FONT COLOR=black>First we <TT>INSERT</TT> two rows into our table and use <TT>commit()</TT> 
+to force the data to be written to the database file.<BR>
+</FONT><DIV ALIGN=center><FONT COLOR=black><IMG SRC="cfbook018.png"></FONT></DIV><FONT COLOR=black>
+<BR>
+Then we use the <TT>SELECT</TT> command
+to retrieve the rows we just inserted from the table. 
+On the 
+<TT>SELECT</TT> command, we indicate which columns we would like <TT>(title, plays)</TT>
+and indicate which table we want to retrieve the data from. After we 
+execute the <TT>SELECT</TT> statement, the cursor is something we can loop through
+in a <TT>for</TT> statement. For efficiency,
+the cursor does not read all of the data from the
+database when we execute the <TT>SELECT</TT> statement. 
+Instead, the data is read on-demand
+as we loop through the rows in the <TT>for</TT> statement.<BR>
+<BR>
+The output of the program is as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+Tracks:
+(u'Thunderstruck', 20)
+(u'My Way', 15)
+</FONT></PRE><A NAME="@default773"></A><FONT COLOR=black>
+Our <TT>for</TT> loop finds two rows, and each row is a Python tuple with the
+first value as the <TT>title</TT> and the second value as the number of <TT>plays</TT>.
+Do not be concerned that the title strings are shown starting with 
+<TT>u'</TT>. This is an indication that the strings are <B>Unicode</B> strings
+that are capable of storing non-Latin character sets.<BR>
+<BR>
+At the very end of the program, we execute an SQL command to <TT>DELETE</TT> 
+the rows we have just created so we can run the program over and over.
+The <TT>DELETE</TT> command shows the use of a <TT>WHERE</TT> clause that
+allows us to express a selection criterion so that we can ask the database
+to apply the command to only the rows that match the criterion. In this example
+the criterion happens to apply to all the rows so we empty the table
+out so we can run the program repeatedly. After the <TT>DELETE</TT> is performed
+we also call <TT>commit()</TT> to force the data to be removed from the database.</FONT><BR>
+<BR>
+<A NAME="toc155"></A>
+<H2><FONT COLOR=black><A NAME="htoc170">14.5</A>&nbsp;&nbsp;Structured Query Language (SQL) summary</FONT></H2>
+<FONT COLOR=black>So far, we have been using the Structured Query Language in our Python
+examples and have covered many of the basics of the SQL commands.
+In this section, we look at the SQL language in particular
+and give an overview of SQL syntax.<BR>
+<BR>
+Since there are so many different database vendors, the Structured Query
+Language (SQL) was standardized so we could communicate in a portable
+manner to database systems from multiple vendors.<BR>
+<BR>
+A relational database is made up of tables, rows, and columns. The columns
+generally have a type such as text, numeric, or date data. When we create
+a table, we indicate the names and types of the columns:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+CREATE TABLE Tracks (title TEXT, plays INTEGER)
+</FONT></PRE><FONT COLOR=black>To insert a row into a table, we use the SQL <TT>INSERT</TT> command:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+INSERT INTO Tracks (title, plays) VALUES ('My Way', 15)
+</FONT></PRE><FONT COLOR=black>The <TT>INSERT</TT> statement specifies the table name, and then a list of
+the fields/columns that you would like to set in the new row, and then 
+the keyword <TT>VALUES</TT> and then a list of corresponding values 
+for each of the fields.<BR>
+<BR>
+The SQL <TT>SELECT</TT> command is used to retrieve rows and columns from a database.
+The <TT>SELECT</TT> statement lets you specify which columns you would
+like to retrieve as well as a <TT>WHERE</TT> clause to select which 
+rows you would like to see. It also allows an optional 
+<TT>ORDER BY</TT> clause to control the sorting of the returned rows.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+SELECT * FROM Tracks WHERE title = 'My Way'
+</FONT></PRE><FONT COLOR=black>Using <CODE>*</CODE> indicates that you want the database to return all of 
+the columns for each row that matches the <TT>WHERE</TT> clause. <BR>
+<BR>
+Note, unlike in Python, in a SQL <TT>WHERE</TT> clause 
+we use a single equal sign 
+to indicate a test for equality rather than a double equal sign.
+Other logical operations allowed in a <TT>WHERE</TT> clause include 
+<CODE>&lt;</CODE>,
+<CODE>&gt;</CODE>,
+<CODE>&lt;=</CODE>,
+<CODE>&gt;=</CODE>,
+<CODE>!=</CODE>,
+as well as <TT>AND</TT> and <TT>OR</TT> and parentheses
+to build your logical expressions.<BR>
+<BR>
+You can request that the returned rows be sorted by one of 
+the fields as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+SELECT title,plays FROM Tracks ORDER BY title
+</FONT></PRE><FONT COLOR=black>To remove a row, you need a <TT>WHERE</TT> clause on an SQL <TT>DELETE</TT>
+statement. The <TT>WHERE</TT> clause determines which rows are to be deleted:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+DELETE FROM Tracks WHERE title = 'My Way'
+</FONT></PRE><FONT COLOR=black>It is possible to <TT>UPDATE</TT> a column or columns within one or more rows
+in a table using the SQL <TT>UPDATE</TT> statement as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
+</FONT></PRE><FONT COLOR=black>The <TT>UPDATE</TT> statement specifies a table and 
+then a list of fields and values to change after the <TT>SET</TT> 
+keyword and then an optional <TT>WHERE</TT> clause to select
+the rows that are to be updated. A single <TT>UPDATE</TT> statement
+will change all of the rows that match the <TT>WHERE</TT> clause, or if 
+a <TT>WHERE</TT> clause is not specified, it performs the <TT>UPDATE</TT>
+on all of the rows in the table.<BR>
+<BR>
+These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow 
+the four basic operations needed to create and maintain data.</FONT><BR>
+<BR>
+<A NAME="toc156"></A>
+<H2><FONT COLOR=black><A NAME="htoc171">14.6</A>&nbsp;&nbsp;Spidering Twitter using a database</FONT></H2>
+<FONT COLOR=black>In this section, we will create a simple spidering program that will 
+go through Twitter accounts and build a database of them.
+<EM>Note: Be very careful when running this program. You do not
+want to pull too much data or run the program for too long and
+end up having your Twitter access shut off.</EM><BR>
+<BR>
+One of the problems of any kind of spidering program is that it 
+needs to be able to be stopped and restarted many times and 
+you do not want to lose the data that you have retrieved so far.
+You don't want to always restart your data retrieval at the
+very beginning so we want to store data as we retrieve it so our
+program can start back up and pick up where it left off.<BR>
+<BR>
+We will start by retrieving one person's Twitter friends and their
+statuses, looping through the list of friends, and adding each 
+of the friends to a database to be retrieved in the future. After
+we process one person's Twitter friends, we check in our database
+and retrieve one of the friends of the friend. We do this over and
+over, picking an ``unvisited'' person, retrieving their friend list
+and adding friends we have not seen to our list for a future visit.<BR>
+<BR>
+We also track how many times we have seen a particular friend in the
+database to get some sense of ``popularity''.<BR>
+<BR>
+By storing our list of known accounts and whether 
+we have retrieved the account or not, 
+and how popular the account is in a database on the disk
+of the computer, we can stop and
+restart our program as many times as we like.<BR>
+<BR>
+This program is a bit complex. It is based on the code 
+from the exercise earlier in the book that uses
+the Twitter API.<BR>
+<BR>
+Here is the source code for our Twitter spidering application:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+import sqlite3
+import urllib
+import xml.etree.ElementTree as ET
+
+TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+
+conn = sqlite3.connect('twdata.db')
+cur = conn.cursor()
+
+cur.execute('''
+CREATE TABLE IF NOT EXISTS 
+Twitter (name TEXT, retrieved INTEGER, friends INTEGER)''')
+
+while True:
+    acct = raw_input('Enter a Twitter account, or quit: ')
+    if ( acct == 'quit' ) : break
+    if ( len(acct) &lt; 1 ) :
+        cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
+        try:
+            acct = cur.fetchone()[0]
+        except:
+            print 'No unretrieved Twitter accounts found'
+            continue
+
+    url = TWITTER_URL.replace('ACCT', acct)
+    print 'Retrieving', url
+    document = urllib.urlopen (url).read()
+    tree = ET.fromstring(document)
+
+    cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
+
+    countnew = 0
+    countold = 0
+    for user in tree.findall('user'):
+        friend = user.find('screen_name').text
+        cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1', 
+            (friend, ) )
+        try:
+            count = cur.fetchone()[0]
+            cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?', 
+                (count+1, friend) )
+            countold = countold + 1
+        except:
+            cur.execute('''INSERT INTO Twitter (name, retrieved, friends) 
+                VALUES ( ?, 0, 1 )''', ( friend, ) )
+            countnew = countnew + 1
+    print 'New accounts=',countnew,' revisited=',countold
+    conn.commit()
+
+cur.close()
+</FONT></PRE><FONT COLOR=black>Our database is stored in the file <TT>twdata.db</TT> and it has one 
+table named <TT>Twitter</TT> and each row in the <TT>Twitter</TT> table
+has a column for the account name, whether we have retrieved the friends
+of this account, and how many times this account has been ``friended''.<BR>
+<BR>
+In the main loop of the program, we prompt the user for a Twitter
+account name or ``quit'' to exit the program. 
+If the user enters a Twitter account, we retrieve the 
+list of friends and statuses
+for that user and add each friend to the database if 
+not already in the database. If the friend is already in the list, 
+we add one to the <TT>friends</TT> field in the row in the database.<BR>
+<BR>
+If the user presses enter, we look in the database for the next 
+Twitter account that we have not yet retrieved and retrieve the
+friends and statuses for that account, add them to the database 
+or update them and increase their <TT>friends count</TT>.<BR>
+<BR>
+Once we retrieve the list of friends and statuses, we loop 
+through all of the <TT>user</TT> items in the returned XML
+and retrieve the <CODE>screen_name</CODE> for each user. Then we use
+the <TT>SELECT </TT> statement to see if we already have stored this
+particular <CODE>screen_name</CODE> in the database and retrieve the
+friend count (<TT>friends</TT>) if the record exists.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+    countnew = 0
+    countold = 0
+    for user in tree.findall('user'):
+        friend = user.find('screen_name').text
+        cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1', 
+            (friend, ) )
+        try:
+            count = cur.fetchone()[0]
+            cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?', 
+                (count+1, friend) )
+            countold = countold + 1
+        except:
+            cur.execute('''INSERT INTO Twitter (name, retrieved, friends) 
+                VALUES ( ?, 0, 1 )''', ( friend, ) )
+            countnew = countnew + 1
+    print 'New accounts=',countnew,' revisited=',countold
+    conn.commit()
+</FONT></PRE><FONT COLOR=black>Once the cursor executes the <TT>SELECT</TT> statement, 
+we must retrieve the rows. We could do this with a <TT>for</TT> 
+statement, but since we are only retrieving
+one row (<TT>LIMIT 1</TT>), we can use the <TT>fetchone()</TT> method to fetch the
+first (and only) row that is the result of the <TT>SELECT</TT> operation. 
+Since <TT>fetchone()</TT> returns the row as a <B>tuple</B> (even though there is only
+one field), we take the first value from the tuple using <TT>[0]</TT> to get the 
+current friend count into the variable <TT>count</TT>. <BR>
+<BR>
+If this retrieval is successful, we use the SQL <TT>UPDATE</TT> statement with a 
+<TT>WHERE</TT> clause to add one to the <TT>friends</TT> column for the row that 
+matches the friend's account. Notice that there are two placeholders (i.e.
+question marks) in the SQL, and the second parameter to the <TT>execute()</TT> is
+a two-element tuple which holds the values to be substituted into the SQL
+in place of the question marks.<BR>
+<BR>
+If the code in the <TT>try</TT> block fails it is probably because no record
+matched the <TT>WHERE name = ?</TT> clause on the SELECT statement. So in the
+<TT>except</TT> block, we use the SQL <TT>INSERT</TT> statement to add the friend's
+<CODE>screen_name</CODE> to the table with an indication that we have not yet 
+retrieved the <CODE>screen_name</CODE> and setting the friend count to zero.<BR>
+<BR>
+So the first time the program runs and we enter a Twitter account, the program
+runs as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+Enter a Twitter account, or quit: drchuck
+Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
+New accounts= 100  revisited= 0
+Enter a Twitter account, or quit: quit
+</FONT></PRE><FONT COLOR=black>Since this is the first time we have run the program, the database
+is empty and we create the database in the file <TT>twdata.db</TT> and
+add a table named <TT>Twitter</TT> to the database. Then we retrieve
+some friends and add them all to the database since the database is
+empty.<BR>
+<BR>
+At this point, we might want to write a simple database dumper
+to take a look at what is in our <TT>twdata.db</TT> file:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+import sqlite3
+
+conn = sqlite3.connect('twdata.db')
+cur = conn.cursor()
+cur.execute('SELECT * FROM Twitter')
+count = 0
+for row in cur :
+   print row
+   count = count + 1
+print count, 'rows.'
+cur.close()
+</FONT></PRE><FONT COLOR=black>This program simply opens the database and selects all of the 
+columns of all of the rows in the table <TT>Twitter</TT>, then 
+loops through the rows and prints out each row.<BR>
+<BR>
+If we run this program after the first execution of our Twitter
+spider above, its output will be as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+(u'opencontent', 0, 1)
+(u'lhawthorn', 0, 1)
+(u'steve_coppin', 0, 1)
+(u'davidkocher', 0, 1)
+(u'hrheingold', 0, 1)
+...
+100 rows.
+</FONT></PRE><FONT COLOR=black>We see one row for each <CODE>screen_name</CODE>, that we 
+have not retrieved the data for that <CODE>screen_name</CODE> and 
+everyone in the database has one friend.<BR>
+<BR>
+Now our database reflects the retrieval of the friends of 
+our first Twitter account (<B>drchuck</B>). We can run the program
+again and tell it to retrieve the friends of the next 
+``unprocessed'' account by simply pressing enter instead of
+a Twitter account as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+Enter a Twitter account, or quit: 
+Retrieving http://api.twitter.com/l/statuses/friends/opencontent.xml
+New accounts= 98  revisited= 2
+Enter a Twitter account, or quit: 
+Retrieving http://api.twitter.com/l/statuses/friends/lhawthorn.xml
+New accounts= 97  revisited= 3
+Enter a Twitter account, or quit: quit
+</FONT></PRE><FONT COLOR=black>Since we pressed enter (i.e. we did not specify a Twitter account),
+the following code is executed:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+    if ( len(acct) &lt; 1 ) :
+        cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
+        try:
+            acct = cur.fetchone()[0]
+        except:
+            print 'No unretrieved twitter accounts found'
+            continue
+</FONT></PRE><FONT COLOR=black>We use the SQL <TT>SELECT</TT> statement to retrieve the name of the first 
+(<TT>LIMIT 1</TT>) user who still has their ``have we retrieved this user''
+value set to zero. We also use the <TT>fetchone()[0]</TT> pattern within 
+a try/except block to either extract a <CODE>screen_name</CODE> from the retrieved
+data or put out an error message and loop back up.<BR>
+<BR>
+If we successfully retrieved an unprocessed <CODE>screen_name</CODE>, we retrieve
+their data as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+    url = TWITTER_URL.replace('ACCT', acct)
+    print 'Retrieving', url
+    document = urllib.urlopen (url).read()
+    tree = ET.fromstring(document)
+
+    cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
+</FONT></PRE><FONT COLOR=black>Once we retrieve the data successfully, we use the <TT>UPDATE</TT> statement 
+to set the <TT>retrieved</TT> column to one to indicate that we have completed 
+the retrieval of the friends of this account. This keeps us from re-retrieving
+the same data over and over and keeps us progressing forward through the network
+of Twitter friends.<BR>
+<BR>
+If we run the friend program and press enter twice to retrieve the next 
+unvisited friend's friends,
+then run the dumping program, it will give us the following output:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+(u'opencontent', 1, 1)
+(u'lhawthorn', 1, 1)
+(u'steve_coppin', 0, 1)
+(u'davidkocher', 0, 1)
+(u'hrheingold', 0, 1)
+...
+(u'cnxorg', 0, 2)
+(u'knoop', 0, 1)
+(u'kthanos', 0, 2)
+(u'LectureTools', 0, 1)
+...
+295 rows.
+</FONT></PRE><FONT COLOR=black>We can see that we have properly recorded that we have visited 
+<TT>lhawthorn</TT> and <TT>opencontent</TT>. Also the accounts 
+<TT>cnxorg</TT> and <TT>kthanos</TT> already have two followers.
+Since we now have retrieved the friends of three people
+(<TT>drchuck</TT>, <TT>opencontent</TT> and <TT>lhawthorn</TT>) our table has 295 rows 
+of friends to retrieve.<BR>
+<BR>
+Each time we run the program and press enter, it will pick the next 
+unvisited account (e.g. the next account will be <CODE>steve_coppin</CODE>),
+retrieve their friends, mark them as retrieved and for each of the 
+friends of <CODE>steve_coppin</CODE>, either add them to the end of the 
+database, or update their friend count if they are already in the
+database.<BR>
+<BR>
+Since the program's data is all stored on disk in a database, 
+the spidering activity can be suspended and resumed as many times as you 
+like with no loss of data.<BR>
+<BR>
+<EM>Note: One more time before we leave this topic, 
+be very careful when running this Twitter spidering program. 
+You do not want to pull too much data or run the program for 
+too long and end up having your Twitter access shut off.</EM></FONT><BR>
+<BR>
+<A NAME="toc157"></A>
+<H2><FONT COLOR=black><A NAME="htoc172">14.7</A>&nbsp;&nbsp;Basic data modeling</FONT></H2>
+<FONT COLOR=black>The real power of a relational database is when we make multiple tables
+and make links between those tables. The act of deciding how to break
+up your application data into multiple tables and establishing the
+relationships between the two tables is called <B>data modeling</B>. The
+design document that shows the tables and their relationships 
+is called a <B>data model</B>.<BR>
+<BR>
+Data modeling is a relatively sophisticated skill and we will only introduce
+the most basic concepts of relational data modeling in this section. For more
+detail on data modeling you can start with:<BR>
+<BR>
+<TT>http://en.wikipedia.org/wiki/Relational_model</TT><BR>
+<BR>
+Let's say for our Twitter spider application, instead of just 
+counting a person's friends, we wanted to keep a list of 
+all of the incoming relationships so we could find a list of 
+everyone who is following a particular account.<BR>
+<BR>
+Since everyone will potentially have many accounts that follow
+them, we cannot simply add a single column to our <TT>Twitter</TT> table. 
+So we create a new table that keeps track of pairs of friends.
+The following is a simple way of making such a table:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+CREATE TABLE Pals (from_friend TEXT, to_friend TEXT)
+</FONT></PRE><FONT COLOR=black>Each time we encounter a person who <TT>drchuck</TT> is following, we
+would insert a row of the form:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+INSERT INTO Pals (from_friend,to_friend) VALUES ('drchuck', 'lhawthorn')
+</FONT></PRE><FONT COLOR=black>As we are processing the 100 friends from the <TT>drchuck</TT>
+Twitter feed, we will insert 100 records with ``drchuck''
+as the first parameter so we will end up duplicating the 
+string many times in the database.<BR>
+<BR>
+This duplication of string data violates the best practices 
+for <B>database normalization</B> which basically states that
+we should never put the same string data in the database more than once. 
+If we need the data more than once, we create a 
+numeric <B>key</B> for the data and reference the actual data 
+using this key.<BR>
+<BR>
+In practical terms, a string takes up a lot more 
+space than an integer on the disk
+and in the memory of our computer and takes more processor time
+to compare and sort. If we only have a few hundred entries 
+the storage and processor time hardly matters. But if we have 
+a million people in our database and a possibility of 100 million
+friend links, it is important to be able to scan data as quickly
+as possible.<BR>
+<BR>
+We will store our Twitter accounts in a table named <TT>People</TT>
+instead of the <TT>Twitter</TT> table used in the previous example.
+The <TT>People</TT> table has an additional column 
+to store the numeric key associated with the 
+row for this Twitter user. 
+SQLite has a feature that automatically adds the key value
+for any row we insert into a table using a special type of 
+data column (<TT>INTEGER PRIMARY KEY</TT>).<BR>
+<BR>
+We can create the <TT>People</TT> table with this additional 
+<TT>id</TT> column as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+CREATE TABLE People 
+    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)
+</FONT></PRE><FONT COLOR=black>Notice that we are no longer maintaining a friend count in each row
+of the <TT>People</TT> table.
+When we select <TT>INTEGER PRIMARY KEY</TT> as the type of our <TT>id</TT> column,
+we are indicating that we would like SQLite to manage this column and 
+assign a unique numeric key to each row we insert automatically.
+We also add the keyword <TT>UNIQUE</TT> to indicate that we will not 
+allow SQLite to insert two rows with the same value for <TT>name</TT>.<BR>
+<BR>
+Now instead of creating the table <TT>Pals</TT> above, we create
+a table called <TT>Follows</TT> with two integer columns
+<CODE>from_id</CODE> and <CODE>to_id</CODE> and a constraint on the table that
+the <EM>combination</EM> of <CODE>from_id</CODE> and <CODE>to_id</CODE> must be unique 
+in this table (i.e. we cannot insert duplicate rows) in our database.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+CREATE TABLE Follows 
+    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id) )
+</FONT></PRE><FONT COLOR=black>When we add <TT>UNIQUE</TT> clauses to our tables, we are communicating a set
+of rules that we are asking the database to enforce when we attempt to insert
+records. We are creating these rules as a convenience in our programs as we
+will see in a moment. The rules both keep us from making mistakes and make
+it simpler to write some of our code.<BR>
+<BR>
+In essence, in creating this <TT>Follows</TT> table, we are modelling a 
+"relationship" where one person "follows" someone else
+and representing it with a pair of numbers indicating that (a) the people are
+connected and (b) the direction of the relationship.<BR>
+</FONT><DIV ALIGN=center><FONT COLOR=black><IMG SRC="cfbook019.png"></FONT></DIV>
+<BR>
+<A NAME="toc158"></A>
+<H2><FONT COLOR=black><A NAME="htoc173">14.8</A>&nbsp;&nbsp;Programming with multiple tables</FONT></H2>
+<FONT COLOR=black>We will now re-do the Twitter spider program using two tables, the primary
+keys, and the key references as described above. Here is the code for 
+the new version of the program:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+import sqlite3
+import urllib
+import xml.etree.ElementTree as ET
+
+TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+
+conn = sqlite3.connect('twdata.db')
+cur = conn.cursor()
+
+cur.execute('''CREATE TABLE IF NOT EXISTS People 
+    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Follows 
+    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+
+while True:
+    acct = raw_input('Enter a Twitter account, or quit: ')
+    if ( acct == 'quit' ) : break
+    if ( len(acct) &lt; 1 ) :
+        cur.execute('''SELECT id,name FROM People 
+            WHERE retrieved = 0 LIMIT 1''')
+        try:
+            (id, acct) = cur.fetchone()
+        except:
+            print 'No unretrieved Twitter accounts found'
+            continue
+    else:
+        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1', 
+            (acct, ) )
+        try:
+            id = cur.fetchone()[0]
+        except:
+            cur.execute('''INSERT OR IGNORE INTO People 
+                (name, retrieved) VALUES ( ?, 0)''', ( acct, ) )
+            conn.commit()
+            if cur.rowcount != 1 : 
+                print 'Error inserting account:',acct
+                continue
+            id = cur.lastrowid
+
+    url = TWITTER_URL.replace('ACCT', acct)
+    print 'Retrieving', url
+    document = urllib.urlopen (url).read()
+    tree = ET.fromstring(document)
+
+    cur.execute('UPDATE People SET retrieved=1 WHERE name = ?', (acct, ) )
+
+    countnew = 0
+    countold = 0
+    for user in tree.findall('user'):
+        friend = user.find('screen_name').text
+        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1', 
+            (friend, ) )
+        try:
+            friend_id = cur.fetchone()[0]
+            countold = countold + 1
+        except:
+            cur.execute('''INSERT OR IGNORE INTO People (name, retrieved) 
+                VALUES ( ?, 0)''', ( friend, ) )
+            conn.commit()
+            if cur.rowcount != 1 :
+                print 'Error inserting account:',friend
+                continue
+            friend_id = cur.lastrowid
+            countnew = countnew + 1
+        cur.execute('''INSERT OR IGNORE INTO Follows 
+            (from_id, to_id) VALUES (?, ?)''', (id, friend_id) )
+    print 'New accounts=',countnew,' revisited=',countold
+    conn.commit()
+
+cur.close()
+</FONT></PRE><FONT COLOR=black>This program is starting to get a bit complicated, but it illustrates
+the patterns that we need to use when we are
+using integer keys to link tables. The basic patterns are:
+</FONT><OL type=1><LI><FONT COLOR=black>Creating tables with primary keys and constraints.</FONT><BR>
+<BR>
+<LI><FONT COLOR=black>When we have a logical key for a person (i.e. account
+name) and we need the <TT>id</TT> value for the person.
+Depending on whether or not the person is already
+in the <TT>People</TT> table, we either need to: 
+(1) look up the person in the <TT>People</TT> table and 
+retrieve the <TT>id</TT> value for the person 
+or (2) add the person the the <TT>People</TT> table and get the 
+<TT>id</TT> value for the newly added row.</FONT><BR>
+<BR>
+<LI><FONT COLOR=black>Insert the row that captures the ``follows'' relationship.</FONT></OL>
+<FONT COLOR=black>We will cover each of these in turn.</FONT><BR>
+<BR>
+
+<H3><FONT COLOR=black><A NAME="htoc174">14.8.1</A>&nbsp;&nbsp;Constraints in database tables</FONT></H3>
+<FONT COLOR=black>As we design our table structures, we can tell the database system 
+that we would like it to enforce a few rules on us. These rules
+help us from making mistakes and introducing incorrect data into 
+out tables. When we create our tables:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+cur.execute('''CREATE TABLE IF NOT EXISTS People 
+    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Follows 
+    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+</FONT></PRE><FONT COLOR=black>We indicate that the <TT>name</TT> column in the <TT>People</TT> table must be
+<TT>UNIQUE</TT>. We also indicate that the combination of the two numbers
+in each row of the <TT>Follows</TT> table must be unique. These constraints
+keep us from making mistakes such as adding the same relationship more than
+once.<BR>
+<BR>
+We can take advantage of these constraints in the following code:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+cur.execute('''INSERT OR IGNORE INTO People (name, retrieved) 
+    VALUES ( ?, 0)''', ( friend, ) )
+</FONT></PRE><FONT COLOR=black>We add the <TT>OR IGNORE</TT> clause to our <TT>INSERT</TT> statement to indicate
+that if this particular <TT>INSERT</TT> would cause a violation of the
+``<TT>name</TT> must be unique'' rule, the database system is allowed to ignore the 
+<TT>INSERT</TT>. We are using the database constraint as a safety net
+to make sure we don't inadvertently do something incorrect.<BR>
+<BR>
+Similarly, the following code ensures that we don't add the 
+exact same <TT>Follows</TT> relationship twice.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+cur.execute('''INSERT OR IGNORE INTO Follows 
+    (from_id, to_id) VALUES (?, ?)''', (id, friend_id) )
+</FONT></PRE><FONT COLOR=black>Again we simply tell the database to ignore our attempted 
+<TT>INSERT</TT> if it would violate the uniqueness constraint
+that we specified for the <TT>Follows</TT> rows.</FONT><BR>
+<BR>
+
+<H3><FONT COLOR=black><A NAME="htoc175">14.8.2</A>&nbsp;&nbsp;Retrieve and/or insert a record</FONT></H3>
+<FONT COLOR=black>When we prompt the user for a Twitter account, if the account 
+exists, we must look up its <TT>id</TT> value. If the account
+does not yet exist in the <TT>People</TT> table, we must insert 
+the record and get the <TT>id</TT> value from the inserted
+row.<BR>
+<BR>
+This is a very common pattern and is done twice in the program above.
+This code shows how we look up the <TT>id</TT> for a 
+friend's account when we have extracted a <CODE>screen_name</CODE>
+from a <TT>user</TT> node in the retrieved Twitter XML.<BR>
+<BR>
+Since over time it will be increasingly likely that the account
+will already be in the database, we first check to see if the
+<TT>People</TT> record exists using a <TT>SELECT</TT> statement.<BR>
+<BR>
+If all goes well<SUP><A NAME="text12" HREF="#note12">2</A></SUP> inside the <TT>try</TT> section, we retrieve the
+record using <TT>fetchone()</TT> and then retrieve the
+first (and only) element of the returned tuple and store it in 
+<CODE>friend_id</CODE>.<BR>
+<BR>
+If the <TT>SELECT</TT> fails, the <TT>fetchone()[0]</TT> code will fail
+and control will transfer into the <TT>except</TT> section.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+        friend = user.find('screen_name').text
+        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
+            (friend, ) )
+        try:
+            friend_id = cur.fetchone()[0]
+            countold = countold + 1
+        except:
+            cur.execute('''INSERT OR IGNORE INTO People (name, retrieved) 
+                VALUES ( ?, 0)''', ( friend, ) )
+            conn.commit()
+            if cur.rowcount != 1 :
+                print 'Error inserting account:',friend
+                continue
+            friend_id = cur.lastrowid
+            countnew = countnew + 1
+</FONT></PRE><FONT COLOR=black>If we end up in the <TT>except</TT> code, it simply means that the row
+was not found so we must insert the row. We use <TT>INSERT OR 
+IGNORE</TT> just to avoid errors and then call <TT>commit()</TT> to 
+force the database to really be updated. After the write is done, we can 
+check the <TT>cur.rowcount</TT> to see how many rows were affected. Since
+we are attempting to insert a single row, if the number of 
+affected rows is something other than one, it is an error. <BR>
+<BR>
+If the <TT>INSERT</TT> is successful, we can look at <TT>cur.lastrowid</TT> 
+to find out what value the database assigned to the <TT>id</TT> column in 
+our newly created row.</FONT><BR>
+<BR>
+
+<H3><FONT COLOR=black><A NAME="htoc176">14.8.3</A>&nbsp;&nbsp;Storing the friend relationship</FONT></H3>
+<FONT COLOR=black>Once we know the key value for both the Twitter user
+and the friend in the XML, it is a simple matter to insert
+the two numbers into the <TT>Follows</TT> table
+with the following code:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+cur.execute('INSERT OR IGNORE INTO Follows (from_id, to_id) VALUES (?, ?)',
+    (id, friend_id) )
+</FONT></PRE><FONT COLOR=black>Notice that we let the database take care of keeping us from ``double-inserting''
+a relationship by creating the table with a uniqueness constraint and then
+adding <TT>OR IGNORE</TT> to our <TT>INSERT</TT> statement.<BR>
+<BR>
+Here is a sample execution of this program:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+Enter a Twitter account, or quit: 
+No unretrieved Twitter accounts found
+Enter a Twitter account, or quit: drchuck
+Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
+New accounts= 100  revisited= 0
+Enter a Twitter account, or quit: 
+Retrieving http://api.twitter.com/l/statuses/friends/opencontent.xml
+New accounts= 97  revisited= 3
+Enter a Twitter account, or quit: 
+Retrieving http://api.twitter.com/l/statuses/friends/lhawthorn.xml
+New accounts= 97  revisited= 3
+Enter a Twitter account, or quit: quit
+</FONT></PRE><FONT COLOR=black>We started with the <TT>drchuck</TT> account and then let the program
+automatically pick the next two accounts to retrieve and add to 
+our database.<BR>
+<BR>
+The following is the first few rows in the <TT>People</TT> 
+and <TT>Follows</TT> tables after this run is completed:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+People:
+(1, u'drchuck', 1)
+(2, u'opencontent', 1)
+(3, u'lhawthorn', 1)
+(4, u'steve_coppin', 0)
+(5, u'davidkocher', 0)
+295 rows.
+Follows:
+(1, 2)
+(1, 3)
+(1, 4)
+(1, 5)
+(1, 6)
+300 rows.
+</FONT></PRE><FONT COLOR=black>You can see the <TT>id</TT>, <TT>name</TT>, and <TT>visited</TT> fields in the 
+<TT>People</TT> table and you see the numbers of both ends of 
+the relationship <TT>Follows</TT> table. 
+In the <TT>People</TT> table, we can see that the first three people
+have been visited and their data has been retrieved.
+The data in the <TT>Follows</TT> table indicates that
+<TT>drchuck</TT> (user 1) is a friend to all of the people shown in the first
+five rows. This makes sense because
+the first data we retrieved and stored was the Twitter friends of
+<TT>drchuck</TT>. If you were to print more rows from the <TT>Follows</TT> table,
+you would see the friends of user two and three as well.</FONT><BR>
+<BR>
+<A NAME="toc159"></A>
+<H2><FONT COLOR=black><A NAME="htoc177">14.9</A>&nbsp;&nbsp;Three kinds of keys</FONT></H2>
+<FONT COLOR=black>Now that we have started building a data model putting our
+data into multiple linked tables, and linking the rows in those
+tables using <B>keys</B>, we need to look at some terminology 
+around keys. There are generally three kinds of keys used 
+in a database model.
+</FONT><UL><LI><FONT COLOR=black>A <B>logical key</B> is a key that the ``real world'' might use
+to look up a row. In our example data model, the <TT>name</TT>
+field is a logical key. It is the screen name for the user 
+and we indeed look up a user's row several times in the program
+using the <TT>name</TT> field. You will often find that it makes
+sense to add a <TT>UNIQUE</TT> constraint to a logical key. Since the 
+logical key is how we look up a row from the outside world, it makes
+little sense to allow multiple rows with the same value in the table.</FONT><BR>
+<BR>
+<LI><FONT COLOR=black>A <B>primary key</B> is usually a number that is assigned
+automatically by the database. It generally has no meaning outside
+the program and is only used to link rows from different tables
+together. When we want to look up a row in a table, usually 
+searching for the row using the primary key is the fastest 
+way to find a row. Since primary keys are integer numbers, they 
+take up very little storage and can be compared or sorted very quickly.
+In our data model, the <TT>id</TT> field is an example of a primary key.</FONT><BR>
+<BR>
+<LI><FONT COLOR=black>A <B>foreign key</B> is usually a number that points to the primary key
+of an associated row in a different table. An example of a foreign
+key in our data model is the <CODE>from_id</CODE>. </FONT></UL>
+<FONT COLOR=black>We are using a
+naming convention of always calling the primary key field name
+<TT>id</TT> and appending the suffix <CODE>_id</CODE> to any field name
+that is a foreign key.</FONT><BR>
+<BR>
+<A NAME="toc160"></A>
+<H2><FONT COLOR=black><A NAME="htoc178">14.10</A>&nbsp;&nbsp;Using JOIN to retrieve data</FONT></H2>
+<FONT COLOR=black>Now that we have followed the rules of database normalization
+and have data separated into two tables, linked together using
+primary and foreign keys, we need to be able to build a 
+<TT>SELECT</TT> that re-assembles the data across the tables.<BR>
+<BR>
+SQL uses the <TT>JOIN</TT> clause to re-connect these tables. 
+In the <TT>JOIN</TT> clause you specify the fields that are used 
+to re-connect the rows between the tables.<BR>
+<BR>
+The following is an example of a <TT>SELECT</TT> with a 
+<TT>JOIN</TT> clause:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+SELECT * FROM Follows JOIN People 
+    ON Follows.to_id = People.id WHERE Follows.from_id = 2
+</FONT></PRE><FONT COLOR=black>The <TT>JOIN</TT> clause indicates that the fields we are selecting
+cross both the <TT>Follows</TT> and <TT>People</TT> tables. The <TT>ON</TT>
+clause indicates how the two tables are to be joined. Take the rows
+from <TT>Follows</TT> and append the row from <TT>People</TT> where the
+field <CODE>from_id</CODE> in <TT>Follows</TT> is the same the <TT>id</TT> value
+in the <TT>People</TT> table.<BR>
+</FONT><DIV ALIGN=center><FONT COLOR=black><IMG SRC="cfbook020.png"></FONT></DIV><FONT COLOR=black>
+<BR>
+The result of the JOIN is to create extra-long ``meta-rows'' which have both 
+the fields from <TT>People</TT> and the matching fields from <TT>Follows</TT>.
+Where there is more than one match between the <TT>id</TT> field from <TT>People</TT>
+and the <CODE>from_id</CODE> from <TT>People</TT>, then JOIN creates a meta-row 
+for <EM>each</EM> of the matching pairs of rows, duplicating data as needed.<BR>
+<BR>
+The following code demonstrates the data that we will have in the 
+database after the multi-table Twitter spider program (above) has
+been run several times.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+import sqlite3
+
+conn = sqlite3.connect('twdata.db')
+cur = conn.cursor()
+
+cur.execute('SELECT * FROM People')
+count = 0
+print 'People:'
+for row in cur :
+   if count &lt; 5: print row
+   count = count + 1
+print count, 'rows.'
+
+cur.execute('SELECT * FROM Follows')
+count = 0
+print 'Follows:'
+for row in cur :
+   if count &lt; 5: print row
+   count = count + 1
+print count, 'rows.'
+
+cur.execute('''SELECT * FROM Follows JOIN People 
+    ON Follows.to_id = People.id WHERE Follows.from_id = 2''')
+count = 0
+print 'Connections for id=2:'
+for row in cur :
+   if count &lt; 5: print row
+   count = count + 1
+print count, 'rows.'
+
+cur.close()
+</FONT></PRE><FONT COLOR=black>In this program, we first dump out the <TT>People</TT>
+and <TT>Follows</TT> and then dump out a subset of the
+data in the tables joined together.<BR>
+<BR>
+Here is the output of the program:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+python twjoin.py 
+People:
+(1, u'drchuck', 1)
+(2, u'opencontent', 1)
+(3, u'lhawthorn', 1)
+(4, u'steve_coppin', 0)
+(5, u'davidkocher', 0)
+295 rows.
+Follows:
+(1, 2)
+(1, 3)
+(1, 4)
+(1, 5)
+(1, 6)
+300 rows.
+Connections for id=2:
+(2, 1, 1, u'drchuck', 1)
+(2, 28, 28, u'cnxorg', 0)
+(2, 30, 30, u'kthanos', 0)
+(2, 102, 102, u'SomethingGirl', 0)
+(2, 103, 103, u'ja_Pac', 0)
+100 rows.
+</FONT></PRE><FONT COLOR=black>You see the columns from the <TT>People</TT> and <TT>Follows</TT> tables and the last
+set of rows is the result of the <TT>SELECT</TT> with the <TT>JOIN</TT> clause.<BR>
+<BR>
+In the last select, we are looking for accounts that are friends of 
+``opencontent'' (i.e. <TT>People.id=2</TT>).<BR>
+<BR>
+In each of the ``meta-rows'' in the last select, the first two columns are
+from the <TT>Follows</TT>
+table followed by columns three through five from the <TT>People</TT> table. You can also
+see that the second column (<CODE>Follows.to_id</CODE>) matches the third column
+(<TT>People.id</TT>) in each of the joined-up ``meta-rows''.</FONT><BR>
+<BR>
+<A NAME="toc161"></A>
+<H2><FONT COLOR=black><A NAME="htoc179">14.11</A>&nbsp;&nbsp;Summary</FONT></H2>
+<FONT COLOR=black>This chapter has covered a lot of ground to give you an overview of the basics
+of using a database in Python. It is more complicated to write the code to use 
+a database to store data than Python dictionaries or flat files so there is 
+little reason to use a database unless your application truly needs the capabilities
+of a database. The situations where a database can be quite useful are: 
+(1) when your application needs to make small many random updates within a large data set,
+(2) when your data is so large it cannot fit in a dictionary and you need to 
+look up information repeatedly, or
+(3) you have a long-running process that you want to be able to stop 
+and restart and retain the data from one run to the next.<BR>
+<BR>
+You can build a simple database with a single table to suit many application 
+needs, but most problems will require several tables and links/relationships
+between rows in different tables. When you start making links between 
+tables, it is important to do some thoughtful design and follow the 
+rules of database normalization to make the best use of the database's
+capabilities. Since the primary motivation for using a database
+is that you have a large amount of data to deal with, it is important
+to model your data efficiently so your programs run as fast as possible.</FONT><BR>
+<BR>
+<A NAME="toc162"></A>
+<H2><FONT COLOR=black><A NAME="htoc180">14.12</A>&nbsp;&nbsp;Debugging</FONT></H2>
+<FONT COLOR=black>One common pattern when you are developing a Python program to connect to
+an SQLite database will be to run a Python program and check the
+results using the SQLite Database Browser. The browser allows you 
+to quickly check to see if your program is working properly.<BR>
+<BR>
+You must be careful because SQLite takes care to keep two programs
+from changing the same data at the same time. For example, if
+you open a database in the browser and make a change to the database
+and have not yet pressed the ``save'' button in the browser, the 
+browser ``locks'' the database file and keeping any other program
+from accessing the file. In particular, your Python program
+will not be able to access the file if it is locked.<BR>
+<BR>
+So a solution is to make sure to either close the database browser 
+or use the <B>File</B> menu to close the database in the browser
+before you attempt to access the database from Python to avoid
+the problem of your Python code failing because the database is
+locked.</FONT><BR>
+<BR>
+<A NAME="toc163"></A>
+<H2><FONT COLOR=black><A NAME="htoc181">14.13</A>&nbsp;&nbsp;Glossary</FONT></H2>
+<DL COMPACT=compact><DT><FONT COLOR=black><B>attribute:</B></FONT><DD><FONT COLOR=black> One of the values within a tuple. More commonly
+called a ``column'' or ``field''.
+</FONT><A NAME="@default774"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>constraint:</B></FONT><DD><FONT COLOR=black> 
+When we tell the database to enforce a rule on a field or a row
+in a table. A common constraint is to insist that there can be no
+duplicate values in a particular field (i.e. all the values must be unique).
+</FONT><A NAME="@default775"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>cursor:</B></FONT><DD><FONT COLOR=black> A cursor allows you to execute SQL commands in a database
+and retrieve data from the database. A cursor is similar to 
+a socket or file handle for network connections and files respectively.
+</FONT><A NAME="@default776"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>database browser:</B></FONT><DD><FONT COLOR=black> 
+A piece of software that allows you to directly connect to a database 
+and manipulate the database directly without writing a program.
+</FONT><A NAME="@default777"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>foreign key:</B></FONT><DD><FONT COLOR=black> A numeric key that points to the primary key of 
+a row in another table. Foreign keys establish relationships between rows
+stored in different tables.
+</FONT><A NAME="@default778"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>index:</B></FONT><DD><FONT COLOR=black> Additional data that the database software maintains as rows
+are inserted into a table designed to make lookups very fast.
+</FONT><A NAME="@default779"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>logical key:</B></FONT><DD><FONT COLOR=black> A key that the ``outside world'' uses to look up a particular
+row. For example in a table of user accounts, a person's e-mail address
+might be a good candidate as the logical key for the user's data. 
+</FONT><A NAME="@default780"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>normalization:</B></FONT><DD><FONT COLOR=black> Designing a data model so that no data
+is replicated. We store each item of data at one place in the database
+and reference it elsewhere using a foreign key.
+</FONT><A NAME="@default781"></A>
+<A NAME="@default782"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>primary key:</B></FONT><DD><FONT COLOR=black> A numeric key assigned to each row that is used to 
+refer to one row in a table from another table. Often the database
+is configured to automatically assign primary keys as rows are inserted.
+</FONT><A NAME="@default783"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>relation:</B></FONT><DD><FONT COLOR=black> An area within a database that contains tuples and 
+attributes. More typically called a ``table''.
+</FONT><A NAME="@default784"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>tuple:</B></FONT><DD><FONT COLOR=black> A single entry in a database table that is a set 
+of attributes. More typically called ``row''.
+</FONT><A NAME="@default785"></A></DL>
+<HR WIDTH="50%" SIZE=1><DL><DT><FONT SIZE=5 COLOR=black><A NAME="note11" HREF="#text11">1</A></FONT><DD><FONT COLOR=black>SQLite actually does allow some 
+flexibility in the type of data stored in a column,
+but we will keep our data types strict in this chapter
+so the concepts apply equally to other database systems 
+such as MySQL.
+</FONT><DT><FONT SIZE=5 COLOR=black><A NAME="note12" HREF="#text12">2</A></FONT><DD><FONT COLOR=black>In general, when a sentence starts 
+with ``if all goes well'' you will find that the code needs
+to use try/except.
+</FONT></DL>
+<HR>
+<A HREF="cfbook014.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfbook016.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

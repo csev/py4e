@@ -1,0 +1,683 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="GENERATOR" content="hevea 1.07">
+<TITLE>
+Tuples
+</TITLE>
+</HEAD>
+<BODY >
+<A HREF="cfbook010.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfbook012.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+<HR>
+
+<H1><FONT COLOR=black><A NAME="htoc124">Chapter&nbsp;10</A>&nbsp;&nbsp;Tuples</FONT></H1>
+<A NAME="tuplechap"></A>
+<A NAME="toc114"></A>
+<H2><FONT COLOR=black><A NAME="htoc125">10.1</A>&nbsp;&nbsp;Tuples are immutable</FONT></H2>
+<A NAME="@default635"></A>
+<A NAME="@default636"></A>
+<A NAME="@default637"></A>
+<FONT COLOR=black>A tuple<SUP><A NAME="text8" HREF="#note8">1</A></SUP>
+is a sequence of values much like a list. 
+The values stored in a tuple can be any type, and
+they are indexed by integers.
+The important difference is that tuples are <B>immutable</B>.
+Tuples are also <B>comparable</B> and <B>hashable</B> so we can 
+sort lists of them and use tuples as key values in Python
+dictionaries.<BR>
+<BR>
+<A NAME="@default638"></A>
+<A NAME="@default639"></A>
+<A NAME="@default640"></A>
+<A NAME="@default641"></A><BR>
+<BR>
+Syntactically, a tuple is a comma-separated list of values:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; t = 'a', 'b', 'c', 'd', 'e'
+</FONT></PRE><FONT COLOR=black>Although it is not necessary, it is common to enclose tuples in
+parentheses to help us quickly identify tuples when we look at
+Python code:</FONT><BR>
+<BR>
+<A NAME="@default642"></A>
+<PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; t = ('a', 'b', 'c', 'd', 'e')
+</FONT></PRE><FONT COLOR=black>To create a tuple with a single element, you have to include the final
+comma:</FONT><BR>
+<BR>
+<A NAME="@default643"></A>
+<A NAME="@default644"></A>
+<PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; t1 = ('a',)
+&gt;&gt;&gt; type(t1)
+&lt;type 'tuple'&gt;
+</FONT></PRE><FONT COLOR=black>Without the comma Python treats <CODE>('a')</CODE> as an expression 
+with a string in parentheses that evaluates to a string:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; t2 = ('a')
+&gt;&gt;&gt; type(t2)
+&lt;type 'str'&gt;
+</FONT></PRE><FONT COLOR=black>Another way to construct a tuple is the built-in function <TT>tuple</TT>.
+With no argument, it creates an empty tuple:</FONT><BR>
+<BR>
+<A NAME="@default645"></A>
+<A NAME="@default646"></A>
+<PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; t = tuple()
+&gt;&gt;&gt; print t
+()
+</FONT></PRE><FONT COLOR=black>If the argument is a sequence (string, list or tuple), the result
+of the call to <TT>tuple</TT>
+is a tuple with the elements of the sequence:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; t = tuple('lupins')
+&gt;&gt;&gt; print t
+('l', 'u', 'p', 'i', 'n', 's')
+</FONT></PRE><FONT COLOR=black>Because <TT>tuple</TT> is the name of a constructor, you should
+avoid using it as a variable name.<BR>
+<BR>
+Most list operators also work on tuples. The bracket operator
+indexes an element:</FONT><BR>
+<BR>
+<A NAME="@default647"></A>
+<A NAME="@default648"></A>
+<PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; t = ('a', 'b', 'c', 'd', 'e')
+&gt;&gt;&gt; print t[0]
+'a'
+</FONT></PRE><FONT COLOR=black>And the slice operator selects a range of elements.</FONT><BR>
+<BR>
+<A NAME="@default649"></A>
+<A NAME="@default650"></A>
+<A NAME="@default651"></A>
+<A NAME="@default652"></A>
+<PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; print t[1:3]
+('b', 'c')
+</FONT></PRE><FONT COLOR=black>But if you try to modify one of the elements of the tuple, you get
+an error:</FONT><BR>
+<BR>
+<A NAME="@default653"></A>
+<A NAME="@default654"></A>
+<A NAME="@default655"></A>
+<A NAME="@default656"></A>
+<PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; t[0] = 'A'
+TypeError: object doesn't support item assignment
+</FONT></PRE><FONT COLOR=black>You can't modify the elements of a tuple, but you can replace
+one tuple with another:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; t = ('A',) + t[1:]
+&gt;&gt;&gt; print t
+('A', 'b', 'c', 'd', 'e')
+</FONT></PRE>
+<A NAME="toc115"></A>
+<H2><FONT COLOR=black><A NAME="htoc126">10.2</A>&nbsp;&nbsp;Comparing tuples</FONT></H2>
+<A NAME="@default657"></A>
+<A NAME="@default658"></A>
+<A NAME="@default659"></A>
+<A NAME="@default660"></A>
+<FONT COLOR=black>The comparison operators work with tuples and other sequences;
+Python starts by comparing the first element from each
+sequence. If they are equal, it goes on to the next element,
+and so on, until it finds elements that differ. Subsequent
+elements are not considered (even if they are really big).
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; (0, 1, 2) &lt; (0, 3, 4)
+True
+&gt;&gt;&gt; (0, 1, 2000000) &lt; (0, 3, 4)
+True
+</FONT></PRE><FONT COLOR=black>The <TT>sort</TT> function works the same way. It sorts 
+primarily by first element, but in the case of a tie, it sorts
+by second element, and so on. <BR>
+<BR>
+This feature lends itself to a pattern called <B>DSU</B> for 
+</FONT><DL COMPACT=compact><DT><FONT COLOR=black><B>Decorate</B></FONT><DD><FONT COLOR=black> a sequence by building a list of tuples
+with one or more sort keys preceding the elements from the sequence,</FONT><BR>
+<BR>
+<DT><FONT COLOR=black><B>Sort</B></FONT><DD><FONT COLOR=black> the list of tuples uring the Python built-in <TT>sort</TT>, and</FONT><BR>
+<BR>
+<DT><FONT COLOR=black><B>Undecorate</B></FONT><DD><FONT COLOR=black> by extracting the sorted elements of the sequence.</FONT></DL>
+<A NAME="DSU"></A>
+<A NAME="@default661"></A>
+<A NAME="@default662"></A>
+<A NAME="@default663"></A>
+<A NAME="@default664"></A>
+<FONT COLOR=black>For example, suppose you have a list of words and you want to
+sort them from longest to shortest:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+def sort_by_length(words):
+    t = list()
+    for word in words:
+       t.append((len(word), word))
+
+    t.sort(reverse=True)
+
+    res = list()
+    for length, word in t:
+        res.append(word)
+    return res
+</FONT></PRE><FONT COLOR=black>The first loop builds a list of tuples, where each
+tuple is a word preceded by its length.<BR>
+<BR>
+<TT>sort</TT> compares the first element, length, first, and
+only considers the second element to break ties. The keyword argument
+<TT>reverse=True</TT> tells <TT>sort</TT> to go in decreasing order.<BR>
+<BR>
+<A NAME="@default665"></A>
+<A NAME="@default666"></A>
+<A NAME="@default667"></A><BR>
+<BR>
+The second loop traverses the list of tuples and builds a list of
+words in descending order of length.</FONT><BR>
+<BR>
+<A NAME="toc116"></A>
+<H2><FONT COLOR=black><A NAME="htoc127">10.3</A>&nbsp;&nbsp;Tuple assignment</FONT></H2>
+<A NAME="tuple assignment"></A>
+<A NAME="@default668"></A>
+<A NAME="@default669"></A>
+<A NAME="@default670"></A>
+<A NAME="@default671"></A>
+<FONT COLOR=black>One of the unique syntactic features of the Python language
+is the ability to have a tuple on the left hand
+side of an assignment statement. This allows you to assign
+more than one variable at a time when the left hand side is a 
+sequence.<BR>
+<BR>
+In this example we have a two element list (which is a sequence) and
+assign the first and second elements of the sequence
+to the variables <TT>x</TT> and <TT>y</TT> in a single statement.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; m = [ 'have', 'fun' ]
+&gt;&gt;&gt; x, y = m
+&gt;&gt;&gt; x
+'have'
+&gt;&gt;&gt; y
+'fun'
+&gt;&gt;&gt; 
+</FONT></PRE><FONT COLOR=black>It is not magic, Python <EM>roughly</EM> translates the 
+tuple assignment syntax
+to be the following:<SUP><A NAME="text9" HREF="#note9">2</A></SUP></FONT>
+<PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; m = [ 'have', 'fun' ]
+&gt;&gt;&gt; x = m[0]
+&gt;&gt;&gt; y = m[1]
+&gt;&gt;&gt; x
+'have'
+&gt;&gt;&gt; y
+'fun'
+&gt;&gt;&gt; 
+</FONT></PRE>
+<FONT COLOR=black>Stylistically when we use a tuple on the left hand side of the assignment
+statement, we omit the parentheses, but the following is an equally 
+valid syntax:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; m = [ 'have', 'fun' ]
+&gt;&gt;&gt; (x, y) = m
+&gt;&gt;&gt; x
+'have'
+&gt;&gt;&gt; y
+'fun'
+&gt;&gt;&gt; 
+</FONT></PRE><FONT COLOR=black>A particularly clever application of tuple assignment allows
+us to <B>swap</B> the values of two variables in a single statement:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; a, b = b, a
+</FONT></PRE><FONT COLOR=black>Both sides of this statement are tuples, but
+the left side is a tuple of variables; the right side is a tuple of
+expressions. Each value on the right side 
+is assigned to its respective variable on the left side. 
+All the expressions on the right side are evaluated before any
+of the assignments.<BR>
+<BR>
+The number of variables on the left and the number of
+values on the right have to be the same:</FONT><BR>
+<BR>
+<A NAME="@default672"></A>
+<A NAME="@default673"></A>
+<PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; a, b = 1, 2, 3
+ValueError: too many values to unpack
+</FONT></PRE><FONT COLOR=black>More generally, the right side can be any kind of sequence
+(string, list or tuple). For example, to split an email address
+into a user name and a domain, you could write:</FONT><BR>
+<BR>
+<A NAME="@default674"></A>
+<A NAME="@default675"></A>
+<A NAME="@default676"></A>
+<PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; addr = 'monty@python.org'
+&gt;&gt;&gt; uname, domain = addr.split('@')
+</FONT></PRE><FONT COLOR=black>The return value from <TT>split</TT> is a list with two elements;
+the first element is assigned to <TT>uname</TT>, the second to
+<TT>domain</TT>.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; print uname
+monty
+&gt;&gt;&gt; print domain
+python.org
+</FONT></PRE>
+<A NAME="toc117"></A>
+<H2><FONT COLOR=black><A NAME="htoc128">10.4</A>&nbsp;&nbsp;Dictionaries and tuples</FONT></H2>
+<A NAME="@default677"></A>
+<A NAME="@default678"></A>
+<A NAME="@default679"></A>
+<A NAME="@default680"></A>
+<FONT COLOR=black>Dictionaries have a method called <TT>items</TT> that returns a list of
+tuples, where each tuple is a key-value 
+pair<SUP><A NAME="text10" HREF="#note10">3</A></SUP>.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; d = {'a':10, 'b':1, 'c':22}
+&gt;&gt;&gt; t = d.items()
+&gt;&gt;&gt; print t
+[('a', 10), ('c', 22), ('b', 1)]
+</FONT></PRE><FONT COLOR=black>As you should expect from a dictionary, the items are in no
+particular order.<BR>
+<BR>
+However, since the list of tuples is a list, and tuples are comparable,
+we can now sort the list of tuples. Converting a dictionary
+to a list of tuples is a way for us to output the contents of a 
+dictionary sorted by key:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; d = {'a':10, 'b':1, 'c':22}
+&gt;&gt;&gt; t = d.items()
+&gt;&gt;&gt; t
+[('a', 10), ('c', 22), ('b', 1)]
+&gt;&gt;&gt; t.sort()
+&gt;&gt;&gt; t
+[('a', 10), ('b', 1), ('c', 22)]
+</FONT></PRE><FONT COLOR=black>The new list is sorted in ascending alphabetical order by the key value.</FONT><BR>
+<BR>
+<A NAME="toc118"></A>
+<H2><FONT COLOR=black><A NAME="htoc129">10.5</A>&nbsp;&nbsp;Multiple assignment with dictionaries</FONT></H2>
+<A NAME="@default681"></A>
+<A NAME="@default682"></A>
+<FONT COLOR=black>Combining <TT>items</TT>, tuple assignment and <TT>for</TT>, you
+can see a nice code pattern for traversing the keys and values of a dictionary
+in a single loop:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+for key, val in d.items():
+    print val, key
+</FONT></PRE><FONT COLOR=black>This loop has two <B>iteration variables</B> because <TT>items</TT> returns
+a list of tuples and <TT>key, val</TT> is a tuple assignment
+that successively iterates through each of the key/value pairs in the dictionary. <BR>
+<BR>
+For each iteration
+through the loop, both <TT>key</TT> and <TT>value</TT> are advanced to the
+next key/value pair in the dictionary (still in hash order).<BR>
+<BR>
+The output of this loop is:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+0 a
+2 c
+1 b
+</FONT></PRE><FONT COLOR=black>Again in hash key order (i.e. no particular order).<BR>
+<BR>
+If we combine these two techniques, we can print out the contents
+of a dictionary sorted by the <EM>value</EM> stored in each key/value
+pair.<BR>
+<BR>
+To do this, we first make a list of tuples where each tuple is 
+<TT>(value, key)</TT>. The <TT>items</TT> method would give us a list of 
+<TT>(key, value)</TT> tuples--but this time we want to sort by value not key.
+Once we have constructed the list with the value/key tuples, it is a simple
+matter to sort the list in reverse order and print out the new, sorted list.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&gt;&gt;&gt; d = {'a':10, 'b':1, 'c':22}
+&gt;&gt;&gt; l = list()
+&gt;&gt;&gt; for key, val in d.items() :
+...     l.append( (val, key) )
+... 
+&gt;&gt;&gt; l
+[(10, 'a'), (22, 'c'), (1, 'b')]
+&gt;&gt;&gt; l.sort(reverse=True)
+&gt;&gt;&gt; l
+[(22, 'c'), (10, 'a'), (1, 'b')]
+&gt;&gt;&gt; 
+</FONT></PRE><FONT COLOR=black>By hand-constructing the list of tuples to have the value as the first
+element of each tuple, we can sort the list of tuples and get our dictionary
+contents sorted by value.</FONT><BR>
+<BR>
+<A NAME="toc119"></A>
+<H2><FONT COLOR=black><A NAME="htoc130">10.6</A>&nbsp;&nbsp;The most common words</FONT></H2>
+<FONT COLOR=black>Coming back to our running example of the text from <EM>Romeo and Juliet</EM> 
+Act 2, Scene 2, we can augment our program to use this technique to 
+print the ten most common words in the text as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+import string
+fhand = open('romeo-full.txt')
+counts = dict()
+for line in fhand:
+    line = line.translate(None, string.punctuation)
+    line = line.lower()
+    words = line.split()
+    for word in words:
+        if word not in counts:
+            counts[word] = 1
+        else:
+            counts[word] += 1
+
+# Sort the dictionary by value
+lst = list()
+for key, val in counts.items():
+    lst.append( (val, key) )
+
+lst.sort(reverse=True)
+
+for key, val in lst[:10] :
+    print key, val
+</FONT></PRE><FONT COLOR=black>The first part of the program which reads the file and computes 
+the dictionary that maps each word to the count of words in the 
+document is unchanged. But instead of simply printing out 
+<TT>counts</TT> and ending the program, we construct a list 
+of <TT>(val, key)</TT> tuples and then sort the list in reverse order.<BR>
+<BR>
+Since the value is first, it will be used for the comparisons and 
+if there is more than one tuple with the same value, it will look
+at the second element (the key) so tuples where the value is the
+same will be further sorted by the alphabetical order of the key.<BR>
+<BR>
+At the end we write a nice <TT>for loop</TT> which does a multiple
+assignment iteration and prints out the ten most common words
+by iterating through a slice of the list (<TT>lst[:10]</TT>).<BR>
+<BR>
+So now the output finally looks like what we want for our word 
+frequency analysis.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+61 i
+42 and
+40 romeo
+34 to
+34 the
+32 thou
+32 juliet
+30 that
+29 my
+24 thee
+</FONT></PRE><FONT COLOR=black>The fact that this complex data parsing and analysis 
+can be done with an easy-to-understand 19 line Python
+program is one reason why Python is a good choice as a language 
+for exploring information.</FONT><BR>
+<BR>
+<A NAME="toc120"></A>
+<H2><FONT COLOR=black><A NAME="htoc131">10.7</A>&nbsp;&nbsp;Using tuples as keys in dictionaries</FONT></H2>
+<A NAME="@default683"></A>
+<A NAME="@default684"></A>
+<FONT COLOR=black>Because tuples are <B>hashable</B> and lists are not, if we want to 
+create a <B>composite</B> key to use in a dictionary we must use a tuple as
+the key.<BR>
+<BR>
+We would encounter a composite key if we wanted to create a 
+telephone directory that maps
+from last-name, first-name pairs to telephone numbers. Assuming
+that we have defined the variables 
+<TT>last</TT>, <TT>first</TT> and <TT>number</TT>, we could write
+a dictionary assignment statement as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+directory[last,first] = number
+</FONT></PRE><FONT COLOR=black>The expression in brackets is a tuple. We could use tuple
+assignment in a <TT>for</TT> loop to traverse this dictionary.</FONT><BR>
+<BR>
+<A NAME="@default685"></A>
+<PRE><FONT SIZE=4 COLOR=blue>
+for last, first in directory:
+    print first, last, directory[last,first]
+</FONT></PRE><FONT COLOR=black>This loop traverses the keys in <TT>directory</TT>, which are tuples. It
+assigns the elements of each tuple to <TT>last</TT> and <TT>first</TT>, then
+prints the name and corresponding telephone number.</FONT><BR>
+<BR>
+<A NAME="toc121"></A>
+<H2><FONT COLOR=black><A NAME="htoc132">10.8</A>&nbsp;&nbsp;Sequences: strings, lists, and tuples--Oh My!</FONT></H2>
+<A NAME="@default686"></A>
+<FONT COLOR=black>I have focused on lists of tuples, but almost all of the examples in
+this chapter also work with lists of lists, tuples of tuples, and
+tuples of lists. To avoid enumerating the possible combinations, it
+is sometimes easier to talk about sequences of sequences.<BR>
+<BR>
+In many contexts, the different kinds of sequences (strings, lists and
+tuples) can be used interchangeably. So how and why do you choose one
+over the others?<BR>
+<BR>
+<A NAME="@default687"></A>
+<A NAME="@default688"></A>
+<A NAME="@default689"></A>
+<A NAME="@default690"></A>
+<A NAME="@default691"></A><BR>
+<BR>
+To start with the obvious, strings are more limited than other
+sequences because the elements have to be characters. They are
+also immutable. If you need the ability to change the characters
+in a string (as opposed to creating a new string), you might
+want to use a list of characters instead.<BR>
+<BR>
+Lists are more common than tuples, mostly because they are mutable.
+But there are a few cases where you might prefer tuples:
+</FONT><OL type=1><LI><FONT COLOR=black>In some contexts, like a <TT>return</TT> statement, it is
+syntactically simpler to create a tuple than a list. In other
+contexts, you might prefer a list.</FONT><BR>
+<BR>
+<LI><FONT COLOR=black>If you want to use a sequence as a dictionary key, you
+have to use an immutable type like a tuple or string.</FONT><BR>
+<BR>
+<LI><FONT COLOR=black>If you are passing a sequence as an argument to a function,
+using tuples reduces the potential for unexpected behavior
+due to aliasing.</FONT></OL>
+<FONT COLOR=black>Because tuples are immutable, they don't provide methods
+like <TT>sort</TT> and <TT>reverse</TT>, which modify existing lists.
+However Python provides the built-in functions <TT>sorted</TT>
+and <TT>reversed</TT>, which take any sequence as a parameter
+and return a new list with the same elements in a different
+order.</FONT><BR>
+<BR>
+<A NAME="@default692"></A>
+<A NAME="@default693"></A>
+<A NAME="@default694"></A>
+<A NAME="@default695"></A><BR>
+<BR>
+<A NAME="toc122"></A>
+<H2><FONT COLOR=black><A NAME="htoc133">10.9</A>&nbsp;&nbsp;Debugging</FONT></H2>
+<A NAME="@default696"></A>
+<A NAME="@default697"></A>
+<A NAME="@default698"></A>
+<A NAME="@default699"></A>
+<FONT COLOR=black>Lists, dictionaries and tuples are known generically as <B>data
+ structures</B>; in this chapter we are starting to see compound data
+structures, like lists of tuples, and dictionaries that contain tuples
+as keys and lists as values. Compound data structures are useful, but
+they are prone to what I call <B>shape errors</B>; that is, errors
+caused when a data structure has the wrong type, size or composition
+or perhaps you write some code and forget the shape of your data
+and introduce an error.<BR>
+<BR>
+For example, if you are expecting a list with one integer and I
+give you a plain old integer (not in a list), it won't work.<BR>
+<BR>
+When you are debugging a program, and especially if you are
+working on a hard bug, there are four things to try:
+</FONT><DL COMPACT=compact><DT><FONT COLOR=black><B>reading:</B></FONT><DD><FONT COLOR=black> Examine your code, read it back to yourself, and
+check that it says what you meant to say.</FONT><BR>
+<BR>
+<DT><FONT COLOR=black><B>running:</B></FONT><DD><FONT COLOR=black> Experiment by making changes and running different
+versions. Often if you display the right thing at the right place
+in the program, the problem becomes obvious, but sometimes you have to
+spend some time to build scaffolding.</FONT><BR>
+<BR>
+<DT><FONT COLOR=black><B>ruminating:</B></FONT><DD><FONT COLOR=black> Take some time to think! What kind of error
+is it: syntax, runtime, semantic? What information can you get from
+the error messages, or from the output of the program? What kind of
+error could cause the problem you're seeing? What did you change
+last, before the problem appeared?</FONT><BR>
+<BR>
+<DT><FONT COLOR=black><B>retreating:</B></FONT><DD><FONT COLOR=black> At some point, the best thing to do is back
+off, undoing recent changes, until you get back to a program that
+works and that you understand. Then you can start rebuilding.</FONT></DL>
+<FONT COLOR=black>Beginning programmers sometimes get stuck on one of these activities
+and forget the others. Each activity comes with its own failure
+mode.<BR>
+<BR>
+<A NAME="@default700"></A><BR>
+<BR>
+For example, reading your code might help if the problem is a
+typographical error, but not if the problem is a conceptual
+misunderstanding. If you don't understand what your program does, you
+can read it 100 times and never see the error, because the error is in
+your head.<BR>
+<BR>
+<A NAME="@default701"></A><BR>
+<BR>
+Running experiments can help, especially if you run small, simple
+tests. But if you run experiments without thinking or reading your
+code, you might fall into a pattern I call ``random walk programming,''
+which is the process of making random changes until the program
+does the right thing. Needless to say, random walk programming
+can take a long time.<BR>
+<BR>
+<A NAME="@default702"></A>
+<A NAME="@default703"></A><BR>
+<BR>
+You have to take time to think. Debugging is like an
+experimental science. You should have at least one hypothesis about
+what the problem is. If there are two or more possibilities, try to
+think of a test that would eliminate one of them.<BR>
+<BR>
+Taking a break helps with the thinking. So does talking.
+If you explain the problem to someone else (or even yourself), you
+will sometimes find the answer before you finish asking the question.<BR>
+<BR>
+But even the best debugging techniques will fail if there are too many
+errors, or if the code you are trying to fix is too big and
+complicated. Sometimes the best option is to retreat, simplifying the
+program until you get to something that works and that you
+understand.<BR>
+<BR>
+Beginning programmers are often reluctant to retreat because
+they can't stand to delete a line of code (even if it's wrong).
+If it makes you feel better, copy your program into another file
+before you start stripping it down. Then you can paste the pieces
+back in a little bit at a time.<BR>
+<BR>
+Finding a hard bug requires reading, running, ruminating, and
+sometimes retreating. If you get stuck on one of these activities,
+try the others.</FONT><BR>
+<BR>
+<A NAME="toc123"></A>
+<H2><FONT COLOR=black><A NAME="htoc134">10.10</A>&nbsp;&nbsp;Glossary</FONT></H2>
+<DL COMPACT=compact><DT><FONT COLOR=black><B>comparable:</B></FONT><DD><FONT COLOR=black> A type where one value can be checked to see if it is
+greater than, less than or equal to another value of the same type.
+Types which are comparable can be put in a list and sorted.
+</FONT><A NAME="@default704"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>data structure:</B></FONT><DD><FONT COLOR=black> A collection of related values, often
+organized in lists, dictionaries, tuples, etc.
+</FONT><A NAME="@default705"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>DSU:</B></FONT><DD><FONT COLOR=black> Abbreviation of ``decorate-sort-undecorate,'' a
+pattern that involves building a list of tuples, sorting, and
+extracting part of the result.
+</FONT><A NAME="@default706"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>gather:</B></FONT><DD><FONT COLOR=black> The operation of assembling a variable-length
+argument tuple.
+</FONT><A NAME="@default707"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>hashable:</B></FONT><DD><FONT COLOR=black> A type that has a hash function. Immutable
+types like integers,
+floats and strings are hashable; mutable types like lists and
+dictionaries are not.
+</FONT><A NAME="@default708"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>scatter:</B></FONT><DD><FONT COLOR=black> The operation of treating a sequence as a list of
+arguments.
+</FONT><A NAME="@default709"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>shape (of a data structure):</B></FONT><DD><FONT COLOR=black> A summary of the type,
+size and composition of a data structure.
+</FONT><A NAME="@default710"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>singleton:</B></FONT><DD><FONT COLOR=black> A list (or other sequence) with a single element.
+</FONT><A NAME="@default711"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>tuple:</B></FONT><DD><FONT COLOR=black> An immutable sequence of elements.
+</FONT><A NAME="@default712"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>tuple assignment:</B></FONT><DD><FONT COLOR=black> An assignment with a sequence on the
+right side and a tuple of variables on the left. The right
+side is evaluated and then its elements are assigned to the
+variables on the left.
+</FONT><A NAME="@default713"></A>
+<A NAME="@default714"></A></DL>
+<A NAME="toc124"></A>
+<H2><FONT COLOR=black><A NAME="htoc135">10.11</A>&nbsp;&nbsp;Exercises</FONT></H2><BR>
+<DIV ALIGN=left><FONT COLOR=black><B>Exercise&nbsp;1</B>&nbsp;&nbsp;<EM>
+Revise a previous program as follows: Read and 
+parse the ``From'' lines and pull out the 
+addresses from the line. Count the number of
+messages from each person using a dictionary.<BR>
+<BR>
+After all the data has been read print 
+the person with the most commits by creating
+a list of (count, email) tuples from the 
+dictionary and then sorting the list in reverse
+order and print out the person who has the most
+commits.
+</EM></FONT><PRE><FONT SIZE=4 COLOR=blue><EM>
+Sample Line:
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+
+Enter a file name: mbox-short.txt
+cwen@iupui.edu 5
+
+Enter a file name: mbox.txt
+zqian@umich.edu 195
+</EM></FONT></PRE></DIV>
+<DIV ALIGN=left><FONT COLOR=black><B>Exercise&nbsp;2</B>&nbsp;&nbsp;<EM>
+This program counts the distribution of the hour of the day for 
+each of the messages. You can pull the hour from the ``From'' 
+line by finding the time string and then splitting that string 
+into parts using the colon character. Once you have accumulated 
+the counts for each hour, print out the counts, one per line, 
+sorted by hour as shown below. 
+</EM></FONT><PRE><FONT SIZE=4 COLOR=blue><EM>
+Sample Execution:
+python timeofday.py
+Enter a file name: mbox-short.txt
+04 3
+06 1
+07 1
+09 2
+10 3
+11 6
+14 1
+15 2
+16 4
+17 2
+18 1
+19 1
+</EM></FONT></PRE></DIV><BR>
+<DIV ALIGN=left><FONT COLOR=black><B>Exercise&nbsp;3</B>&nbsp;&nbsp;<EM>
+Write a function called <CODE>most_frequent</CODE> that takes a string and
+prints the letters in decreasing order of frequency. Find text
+samples from several different languages and see how letter frequency
+varies between languages. Compare your results with the tables at
+<TT>wikipedia.org/wiki/Letter_frequencies</TT>.</EM></FONT><BR>
+<BR>
+<A NAME="@default715"></A>
+<A NAME="@default716"></A></DIV><BR>
+<HR WIDTH="50%" SIZE=1><DL><DT><FONT SIZE=5 COLOR=black><A NAME="note8" HREF="#text8">1</A></FONT><DD><FONT COLOR=black>Fun fact: The word ``tuple'' comes from the names
+given to seqences of numbers of varying lengths: single, 
+double, triple, quadruple, quituple, sextuple, septuple, etc.
+</FONT><DT><FONT SIZE=5 COLOR=black><A NAME="note9" HREF="#text9">2</A></FONT><DD><FONT COLOR=black>Python does not translate the 
+syntax literally. For example if you try this with a dictionary
+it will not work as might expect.
+</FONT><DT><FONT SIZE=5 COLOR=black><A NAME="note10" HREF="#text10">3</A></FONT><DD><FONT COLOR=black>This behavior is slightly different in Python 3.0.
+</FONT></DL>
+<HR>
+<A HREF="cfbook010.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfbook012.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

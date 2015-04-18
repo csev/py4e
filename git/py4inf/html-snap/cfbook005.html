@@ -1,0 +1,785 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="GENERATOR" content="hevea 1.07" />
+<title>
+Functions
+</title>
+</head>
+<body>
+<a href="cfbook004.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook006.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1><font color="black"><a name="htoc44">Chapter&nbsp;4</a>&nbsp;&nbsp;Functions</font></h1>
+<a name="funcchap"></a>
+<a name="toc42"></a>
+<h2><font color="black"><a name="htoc45">4.1</a>&nbsp;&nbsp;Function calls</font></h2>
+<a name="functionchap"></a>
+<a name="@default195"></a>
+<font color="black">In the context of programming, a <b>function</b> is a named sequence of
+statements that performs a computation. When you define a function,
+you specify the name and the sequence of statements. Later, you can
+"call" the function by name. 
+We have already seen one example of a <b>function call</b>:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; type(32)
+&lt;type 'int'&gt;
+</font></pre><font color="black">The name of the function is <tt>type</tt>. The expression in parentheses
+is called the <b>argument</b> of the function. The argument is 
+a value or variable that we are passing into the function as input 
+to the function. 
+The result, for the <tt>type</tt> function, is the type of the argument.<br />
+<br />
+<a name="@default196"></a><br />
+<br />
+It is common to say that a function "takes" an argument and "returns"
+a result. The result is called the <b>return value</b>.</font><br />
+<br />
+<a name="@default197"></a>
+<a name="@default198"></a><br />
+<br />
+<a name="toc43"></a>
+<h2><font color="black"><a name="htoc46">4.2</a>&nbsp;&nbsp;Built-in functions</font></h2>
+<font color="black">Python provides a number of important built-in functions that
+we can use without needing to provide the function definition.
+The creators of Python wrote a set of functions 
+to solve common problems and included them in Python for us to use.<br />
+<br />
+The <tt>max</tt> and <tt>min</tt> functions give us the largest and 
+smallest values in a list, respectively:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; max('Hello world')
+'w'
+&gt;&gt;&gt; min('Hello world')
+' '
+&gt;&gt;&gt;
+</font></pre><font color="black">The <tt>max</tt> function tells us the "largest character" in the 
+string (which turns out to be the letter "w") and the <tt>min</tt>
+function shows us the smallest character which turns out to be a 
+space.<br />
+<br />
+Another very common built-in function is the <tt>len</tt> function
+which tells us how many items are in its argument. If the argument
+to <tt>len</tt> is a string, it returns the number of characters 
+in the string.
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; len('Hello world')
+11
+&gt;&gt;&gt;
+</font></pre><font color="black">These functions are not limited to looking at strings, they can operate
+on any set of values as we will see in later chapters.<br />
+<br />
+You should treat the names of built-in functions as reserved words (i.e.
+avoid using "max" as a variable name).</font><br />
+<br />
+<a name="toc44"></a>
+<h2><font color="black"><a name="htoc47">4.3</a>&nbsp;&nbsp;Type conversion functions</font></h2>
+<a name="@default199"></a>
+<a name="@default200"></a>
+<font color="black">Python also provides built-in functions that convert values
+from one type to another. The <tt>int</tt> function takes any value and
+converts it to an integer, if it can, or complains otherwise:</font><br />
+<br />
+<a name="@default201"></a>
+<a name="@default202"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; int('32')
+32
+&gt;&gt;&gt; int('Hello')
+ValueError: invalid literal for int(): Hello
+</font></pre><font color="black"><tt>int</tt> can convert floating-point values to integers, but it
+doesn't round off; it chops off the fraction part:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; int(3.99999)
+3
+&gt;&gt;&gt; int(-2.3)
+-2
+</font></pre><font color="black"><tt>float</tt> converts integers and strings to floating-point
+numbers:</font><br />
+<br />
+<a name="@default203"></a>
+<a name="@default204"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; float(32)
+32.0
+&gt;&gt;&gt; float('3.14159')
+3.14159
+</font></pre><font color="black">Finally, <tt>str</tt> converts its argument to a string:</font><br />
+<br />
+<a name="@default205"></a>
+<a name="@default206"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; str(32)
+'32'
+&gt;&gt;&gt; str(3.14159)
+'3.14159'
+</font></pre>
+<a name="toc45"></a>
+<h2><font color="black"><a name="htoc48">4.4</a>&nbsp;&nbsp;Random numbers</font></h2>
+<a name="@default207"></a>
+<a name="@default208"></a>
+<a name="@default209"></a>
+<a name="@default210"></a>
+<font color="black">Given the same inputs, most computer programs generate the same
+outputs every time, so they are said to be <b>deterministic</b>.
+Determinism is usually a good thing, since we expect the same
+calculation to yield the same result. For some applications, though,
+we want the computer to be unpredictable. Games are an obvious
+example, but there are more.<br />
+<br />
+Making a program truly nondeterministic turns out to be not so easy,
+but there are ways to make it at least seem nondeterministic. One of
+them is to use <b>algorithms</b> that generate <b>pseudorandom</b> numbers.
+Pseudorandom numbers are not truly random because they are generated
+by a deterministic computation, but just by looking at the numbers it
+is all but impossible to distinguish them from random.<br />
+<br />
+<a name="@default211"></a>
+<a name="@default212"></a><br />
+<br />
+The <tt>random</tt> module provides functions that generate
+pseudorandom numbers (which I will simply call "random" from
+here on).<br />
+<br />
+<a name="@default213"></a>
+<a name="@default214"></a><br />
+<br />
+The function <tt>random</tt> returns a random float
+between 0.0 and 1.0 (including 0.0 but not 1.0). Each time you
+call <tt>random</tt>, you get the next number in a long series. To see a
+sample, run this loop:
+</font><pre><font size="4" color="blue">
+import random
+
+for i in range(10):
+    x = random.random()
+    print x
+</font></pre><font color="black">This program produces the following list of 10 random numbers
+between 0.0 and up to but not including 1.0.
+</font><pre><font size="4" color="blue">
+0.301927091705
+0.513787075867
+0.319470430881
+0.285145917252
+0.839069045123
+0.322027080731
+0.550722110248
+0.366591677812
+0.396981483964
+0.838116437404
+</font></pre><div align="left"><font color="black"><b>Exercise&nbsp;1</b>&nbsp;&nbsp;<em>
+Run the program on your system and see what numbers you get.
+Run the program more than once and see what numbers you get.
+</em></font></div><br />
+<font color="black">The <tt>random</tt> function is only one of many 
+functions which handle random numbers.
+The function <tt>randint</tt> takes parameters <tt>low</tt> and
+<tt>high</tt> and returns an integer between <tt>low</tt> and
+<tt>high</tt> (including both).</font><br />
+<br />
+<a name="@default215"></a>
+<a name="@default216"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; random.randint(5, 10)
+5
+&gt;&gt;&gt; random.randint(5, 10)
+9
+</font></pre><font color="black">To choose an element from a sequence at random, you can use
+<tt>choice</tt>:</font><br />
+<br />
+<a name="@default217"></a>
+<a name="@default218"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; t = [1, 2, 3]
+&gt;&gt;&gt; random.choice(t)
+2
+&gt;&gt;&gt; random.choice(t)
+3
+</font></pre><font color="black">The <tt>random</tt> module also provides functions to generate
+random values from continuous distributions including
+Gaussian, exponential, gamma, and a few more.</font><br />
+<br />
+<a name="toc46"></a>
+<h2><font color="black"><a name="htoc49">4.5</a>&nbsp;&nbsp;Math functions</font></h2>
+<a name="@default219"></a>
+<a name="@default220"></a>
+<a name="@default221"></a>
+<a name="@default222"></a>
+<font color="black">Python has a math <b>module</b> that provides most of the familiar
+mathematical functions. 
+Before we can use the module, we have to import it:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; import math
+</font></pre><font color="black">This statement creates a <b>module object</b> named math. If
+you print the module object, you get some information about it:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; print math
+&lt;module 'math' from '/usr/lib/python2.5/lib-dynload/math.so'&gt;
+</font></pre><font color="black">The module object contains the functions and variables defined in the
+module. To access one of the functions, you have to specify the name
+of the module and the name of the function, separated by a dot (also
+known as a period). This format is called <b>dot notation</b>.</font><br />
+<br />
+<a name="@default223"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; ratio = signal_power / noise_power
+&gt;&gt;&gt; decibels = 10 * math.log10(ratio)
+
+&gt;&gt;&gt; radians = 0.7
+&gt;&gt;&gt; height = math.sin(radians)
+</font></pre><font color="black">The first example computes the logarithm base 10 of the
+signal-to-noise ratio. The math module also provides a
+function called <tt>log</tt> that computes logarithms base <tt>e</tt>.<br />
+<br />
+<a name="@default224"></a>
+<a name="@default225"></a>
+<a name="@default226"></a>
+<a name="@default227"></a>
+<a name="@default228"></a>
+<a name="@default229"></a><br />
+<br />
+The second example finds the sine of <tt>radians</tt>. The name of the
+variable is a hint that <tt>sin</tt> and the other trigonometric
+functions (<tt>cos</tt>, <tt>tan</tt>, etc.) take arguments in radians. To
+convert from degrees to radians, divide by 360 and multiply by 2
+<font face="symbol">p</font>:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; degrees = 45
+&gt;&gt;&gt; radians = degrees / 360.0 * 2 * math.pi
+&gt;&gt;&gt; math.sin(radians)
+0.707106781187
+</font></pre><font color="black">The expression <tt>math.pi</tt> gets the variable <tt>pi</tt> from the math
+module. The value of this variable is an approximation
+of <font face="symbol">p</font>, accurate to about 15 digits.<br />
+<br />
+<a name="@default230"></a><br />
+<br />
+If you know
+your trigonometry, you can check the previous result by comparing it to
+the square root of two divided by two:</font><br />
+<br />
+<a name="@default231"></a>
+<a name="@default232"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; math.sqrt(2) / 2.0
+0.707106781187
+</font></pre>
+<a name="toc47"></a>
+<h2><font color="black"><a name="htoc50">4.6</a>&nbsp;&nbsp;Adding new functions</font></h2>
+<font color="black">So far, we have only been using the functions that come with Python,
+but it is also possible to add new functions.
+A <b>function definition</b> specifies the name of a new function and
+the sequence of statements that execute when the function is called.
+Once we define a function, we can reuse the function over and over 
+throughout our program.<br />
+<br />
+<a name="@default233"></a>
+<a name="@default234"></a>
+<a name="@default235"></a><br />
+<br />
+Here is an example:
+</font><pre><font size="4" color="blue">
+def print_lyrics():
+    print "I'm a lumberjack, and I'm okay."
+    print 'I sleep all night and I work all day.'
+</font></pre><font color="black"><tt>def</tt> is a keyword that indicates that this is a function
+definition. The name of the function is <code>print_lyrics</code>. The
+rules for function names are the same as for variable names: letters,
+numbers and some punctuation marks are legal, but the first character
+can't be a number. You can't use a keyword as the name of a function,
+and you should avoid having a variable and a function with the same
+name.<br />
+<br />
+<a name="@default236"></a>
+<a name="@default237"></a>
+<a name="@default238"></a><br />
+<br />
+The empty parentheses after the name indicate that this function
+doesn't take any arguments. Later we will build functions that 
+take arguments as their inputs.<br />
+<br />
+<a name="@default239"></a>
+<a name="@default240"></a>
+<a name="@default241"></a>
+<a name="@default242"></a>
+<a name="@default243"></a><br />
+<br />
+The first line of the function definition is called the <b>header</b>;
+the rest is called the <b>body</b>. The header has to end with a colon
+and the body has to be indented. By convention, the indentation is
+always four spaces. The body can contain
+any number of statements.<br />
+<br />
+The strings in the print statements are enclosed in double
+quotes. Single quotes and double quotes do the same thing;
+most people use single quotes except in cases like this where
+a single quote (which is also an apostrophe) appears in the string.<br />
+<br />
+<a name="@default244"></a><br />
+<br />
+If you type a function definition in interactive mode, the interpreter
+prints ellipses (<em>...</em>) to let you know that the definition
+isn't complete:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; def print_lyrics():
+...     print "I'm a lumberjack, and I'm okay."
+...     print 'I sleep all night and I work all day.'
+...
+</font></pre><font color="black">To end the function, you have to enter an empty line (this is
+not necessary in a script).<br />
+<br />
+Defining a function creates a variable with the same name.
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; print print_lyrics
+&lt;function print_lyrics at 0xb7e99e9c&gt;
+&gt;&gt;&gt; print type(print_lyrics)
+&lt;type 'function'&gt;
+</font></pre><font color="black">The value of <code>print_lyrics</code> is a <b>function object</b>, which
+has type <code>'function'</code>.<br />
+<br />
+<a name="@default245"></a>
+<a name="@default246"></a><br />
+<br />
+The syntax for calling the new function is the same as
+for built-in functions:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; print_lyrics()
+I'm a lumberjack, and I'm okay.
+I sleep all night and I work all day.
+</font></pre><font color="black">Once you have defined a function, you can use it inside another
+function. For example, to repeat the previous refrain, we could write
+a function called <code>repeat_lyrics</code>:
+</font><pre><font size="4" color="blue">
+def repeat_lyrics():
+    print_lyrics()
+    print_lyrics()
+</font></pre><font color="black">And then call <code>repeat_lyrics</code>:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; repeat_lyrics()
+I'm a lumberjack, and I'm okay.
+I sleep all night and I work all day.
+I'm a lumberjack, and I'm okay.
+I sleep all night and I work all day.
+</font></pre><font color="black">But that's not really how the song goes.</font><br />
+<br />
+<a name="toc48"></a>
+<h2><font color="black"><a name="htoc51">4.7</a>&nbsp;&nbsp;Definitions and uses</font></h2>
+<a name="@default247"></a>
+<font color="black">Pulling together the code fragments from the previous section, the
+whole program looks like this:
+</font><pre><font size="4" color="blue">
+def print_lyrics():
+    print "I'm a lumberjack, and I'm okay."
+    print 'I sleep all night and I work all day.'
+
+def repeat_lyrics():
+    print_lyrics()
+    print_lyrics()
+
+repeat_lyrics()
+</font></pre><font color="black">This program contains two function definitions: <code>print_lyrics</code> and
+<code>repeat_lyrics</code>. Function definitions get executed just like other
+statements, but the effect is to create function objects. The statements
+inside the function do not get executed until the function is called, and
+the function definition generates no output.<br />
+<br />
+<a name="@default248"></a><br />
+<br />
+As you might expect, you have to create a function before you can
+execute it. In other words, the function definition has to be
+executed before the first time it is called.<br />
+</font><div align="left"><font color="black"><b>Exercise&nbsp;2</b>&nbsp;&nbsp;<em>
+Move the last line of this program
+to the top, so the function call appears before the definitions. Run 
+the program and see what error
+message you get.
+</em></font></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;3</b>&nbsp;&nbsp;<em>
+Move the function call back to the bottom
+and move the definition of <code>print_lyrics</code> after the definition of
+<code>repeat_lyrics</code>. What happens when you run this program?
+</em></font></div><br />
+<a name="toc49"></a>
+<h2><font color="black"><a name="htoc52">4.8</a>&nbsp;&nbsp;Flow of execution</font></h2>
+<a name="@default249"></a>
+<font color="black">In order to ensure that a function is defined before its first use,
+you have to know the order in which statements are executed, which is
+called the <b>flow of execution</b>.<br />
+<br />
+Execution always begins at the first statement of the program.
+Statements are executed one at a time, in order from top to bottom.<br />
+<br />
+Function <em>definitions</em> do not alter the flow of execution of the
+program, but remember that statements inside the function are not
+executed until the function is called.<br />
+<br />
+A function call is like a detour in the flow of execution. Instead of
+going to the next statement, the flow jumps to the body of
+the function, executes all the statements there, and then comes back
+to pick up where it left off.<br />
+<br />
+That sounds simple enough, until you remember that one function can
+call another. While in the middle of one function, the program might
+have to execute the statements in another function. But while
+executing that new function, the program might have to execute yet
+another function!<br />
+<br />
+Fortunately, Python is good at keeping track of where it is, so each
+time a function completes, the program picks up where it left off in
+the function that called it. When it gets to the end of the program,
+it terminates.<br />
+<br />
+What's the moral of this sordid tale? When you read a program, you
+don't always want to read from top to bottom. Sometimes it makes
+more sense if you follow the flow of execution.</font><br />
+<br />
+<a name="toc50"></a>
+<h2><font color="black"><a name="htoc53">4.9</a>&nbsp;&nbsp;Parameters and arguments</font></h2>
+<a name="parameters"></a>
+<a name="@default250"></a>
+<a name="@default251"></a>
+<a name="@default252"></a>
+<a name="@default253"></a>
+<font color="black">Some of the built-in functions we have seen require arguments. For
+example, when you call <tt>math.sin</tt> you pass a number
+as an argument. Some functions take more than one argument:
+<tt>math.pow</tt> takes two, the base and the exponent.<br />
+<br />
+Inside the function, the arguments are assigned to
+variables called <b>parameters</b>. Here is an example of a
+user-defined function that takes an argument:</font><br />
+<br />
+<a name="@default254"></a>
+<pre><font size="4" color="blue">
+def print_twice(bruce):
+    print bruce
+    print bruce
+</font></pre><font color="black">This function assigns the argument to a parameter
+named <tt>bruce</tt>. When the function is called, it prints the value of
+the parameter (whatever it is) twice.<br />
+<br />
+This function works with any value that can be printed.
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; print_twice('Spam')
+Spam
+Spam
+&gt;&gt;&gt; print_twice(17)
+17
+17
+&gt;&gt;&gt; print_twice(math.pi)
+3.14159265359
+3.14159265359
+</font></pre><font color="black">The same rules of composition that apply to built-in functions also
+apply to user-defined functions, so we can use any kind of expression
+as an argument for <code>print_twice</code>:</font><br />
+<br />
+<a name="@default255"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; print_twice('Spam '*4)
+Spam Spam Spam Spam
+Spam Spam Spam Spam
+&gt;&gt;&gt; print_twice(math.cos(math.pi))
+-1.0
+-1.0
+</font></pre><font color="black">The argument is evaluated before the function is called, so
+in the examples the expressions <code>'Spam '*4</code> and
+<tt>math.cos(math.pi)</tt> are only evaluated once.<br />
+<br />
+<a name="@default256"></a><br />
+<br />
+You can also use a variable as an argument:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; michael = 'Eric, the half a bee.'
+&gt;&gt;&gt; print_twice(michael)
+Eric, the half a bee.
+Eric, the half a bee.
+</font></pre><font color="black">The name of the variable we pass as an argument (<tt>michael</tt>) has
+nothing to do with the name of the parameter (<tt>bruce</tt>). It
+doesn't matter what the value was called back home (in the caller);
+here in <code>print_twice</code>, we call everybody <tt>bruce</tt>.</font><br />
+<br />
+<a name="toc51"></a>
+<h2><font color="black"><a name="htoc54">4.10</a>&nbsp;&nbsp;Fruitful functions and void functions</font></h2>
+<a name="@default257"></a>
+<a name="@default258"></a>
+<a name="@default259"></a>
+<a name="@default260"></a><font color="black"> 
+Some of the functions we are using, such as the math functions, yield
+results; for lack of a better name, I call them <b>fruitful
+ functions</b>. Other functions, like <code>print_twice</code>, perform an
+action but don't return a value. They are called <b>void
+ functions</b>.<br />
+<br />
+When you call a fruitful function, you almost always
+want to do something with the result; for example, you might
+assign it to a variable or use it as part of an expression:
+</font><pre><font size="4" color="blue">
+x = math.cos(radians)
+golden = (math.sqrt(5) + 1) / 2
+</font></pre><font color="black">When you call a function in interactive mode, Python displays
+the result:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; math.sqrt(5)
+2.2360679774997898
+</font></pre><font color="black">But in a script, if you call a fruitful function and do 
+not store the result of the function in a variable,
+the return value vanishes into the mist!
+</font><pre><font size="4" color="blue">
+math.sqrt(5)
+</font></pre><font color="black">This script computes the square root of 5, but since it doesn't store
+the result in a variable or display the result, it is not very useful.<br />
+<br />
+<a name="@default261"></a>
+<a name="@default262"></a><br />
+<br />
+Void functions might display something on the screen or have some
+other effect, but they don't have a return value. If you try to
+assign the result to a variable, you get a special value called
+<tt>None</tt>.</font><br />
+<br />
+<a name="@default263"></a>
+<a name="@default264"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; result = print_twice('Bing')
+Bing
+Bing
+&gt;&gt;&gt; print result
+None
+</font></pre><font color="black">The value <tt>None</tt> is not the same as the string <code>'None'</code>. 
+It is a special value that has its own type:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; print type(None)
+&lt;type 'NoneType'&gt;
+</font></pre><font color="black">To return a result from a function, we use the <tt>return</tt> statement 
+in our function. For example, we could make a very 
+simple function called <tt>addtwo</tt>
+that adds two numbers together and return a result.
+</font><pre><font size="4" color="blue">
+def addtwo(a, b):
+    added = a + b
+    return added
+
+x = addtwo(3, 5)
+print x
+</font></pre><font color="black">When this script executes, the <tt>print</tt> statement will print out "8"
+because the <tt>addtwo</tt> function was called with 3 and 5 as arguments.
+Within the function the parameters <tt>a</tt> and <tt>b</tt> were 3 and 5 
+respectively. The function computed the sum of the two numbers and placed
+it in the local function variable named <tt>added</tt> 
+and used the <tt>return</tt> statement 
+to send the computed value back to the calling code 
+as the function result which was assigned
+to the variable <tt>x</tt> and printed out.</font><br />
+<br />
+<a name="toc52"></a>
+<h2><font color="black"><a name="htoc55">4.11</a>&nbsp;&nbsp;Why functions?</font></h2>
+<a name="@default265"></a>
+<font color="black">It may not be clear why it is worth the trouble to divide
+a program into functions. There are several reasons:
+</font><ul><li><font color="black">Creating a new function gives you an opportunity to name a group
+of statements, which makes your program easier to read, understand 
+and debug.</font><br />
+<br />
+</li><li><font color="black">Functions can make a program smaller by eliminating repetitive
+code. Later, if you make a change, you only have
+to make it in one place.</font><br />
+<br />
+</li><li><font color="black">Dividing a long program into functions allows you to debug the
+parts one at a time and then assemble them into a working whole.</font><br />
+<br />
+</li><li><font color="black">Well-designed functions are often useful for many programs.
+Once you write and debug one, you can reuse it.</font></li></ul>
+<font color="black">Throughout the rest of the book, often we will use a function definition to 
+explain a concept. Part of the skill of creating and using functions is
+to have a function properly capture an idea such as "find the smallest
+value in a list of values". Later we will show you code that finds
+the smallest in a list of values and we will present it to you as a function
+named <tt>min</tt> which takes a list of values as its argument and 
+returns the smallest value in the list.</font><br />
+<br />
+<a name="toc53"></a>
+<h2><font color="black"><a name="htoc56">4.12</a>&nbsp;&nbsp;Debugging</font></h2>
+<a name="editor"></a>
+<a name="@default266"></a>
+<font color="black">If you are using a text editor to write your scripts, you might
+run into problems with spaces and tabs. The best way to avoid
+these problems is to use spaces exclusively (no tabs). Most text
+editors that know about Python do this by default, but some
+don't.<br />
+<br />
+<a name="@default267"></a><br />
+<br />
+Tabs and spaces are usually invisible, which makes them
+hard to debug, so try to find an editor that manages indentation
+for you.<br />
+<br />
+Also, don't forget to save your program before you run it. Some
+development environments do this automatically, but some don't.
+In that case the program you are looking at in the text editor
+is not the same as the program you are running.<br />
+<br />
+Debugging can take a long time if you keep running the same,
+incorrect, program over and over!<br />
+<br />
+Make sure that the code you are looking at is the code you are running.
+If you're not sure, put something like <code>print 'hello'</code> at the
+beginning of the program and run it again. If you don't see
+<code>hello</code>, you're not running the right program!</font><br />
+<br />
+<a name="toc54"></a>
+<h2><font color="black"><a name="htoc57">4.13</a>&nbsp;&nbsp;Glossary</font></h2>
+<dl compact="compact"><dt><font color="black"><b>algorithm:</b></font></dt><dd><font color="black"> A general process for solving a category of
+problems.
+</font><a name="@default268"></a><br />
+<br />
+</dd><dt><font color="black"><b>argument:</b></font></dt><dd><font color="black"> A value provided to a function when the function is called.
+This value is assigned to the corresponding parameter in the function.
+</font><a name="@default269"></a><br />
+<br />
+</dd><dt><font color="black"><b>body:</b></font></dt><dd><font color="black"> The sequence of statements inside a function definition.
+</font><a name="@default270"></a><br />
+<br />
+</dd><dt><font color="black"><b>composition:</b></font></dt><dd><font color="black"> Using an expression as part of a larger expression,
+or a statement as part of a larger statement.
+</font><a name="@default271"></a><br />
+<br />
+</dd><dt><font color="black"><b>deterministic:</b></font></dt><dd><font color="black"> Pertaining to a program that does the same
+thing each time it runs, given the same inputs.
+</font><a name="@default272"></a><br />
+<br />
+</dd><dt><font color="black"><b>dot notation:</b></font></dt><dd><font color="black"> The syntax for calling a function in another
+module by specifying the module name followed by a dot (period) and
+the function name.
+</font><a name="@default273"></a><br />
+<br />
+</dd><dt><font color="black"><b>flow of execution:</b></font></dt><dd><font color="black"> The order in which statements are executed during
+a program run.
+</font><a name="@default274"></a><br />
+<br />
+</dd><dt><font color="black"><b>fruitful function:</b></font></dt><dd><font color="black"> A function that returns a value.
+</font><a name="@default275"></a><br />
+<br />
+</dd><dt><font color="black"><b>function:</b></font></dt><dd><font color="black"> A named sequence of statements that performs some
+useful operation. Functions may or may not take arguments and may or
+may not produce a result.
+</font><a name="@default276"></a><br />
+<br />
+</dd><dt><font color="black"><b>function call:</b></font></dt><dd><font color="black"> A statement that executes a function. It
+consists of the function name followed by an argument list.
+</font><a name="@default277"></a><br />
+<br />
+</dd><dt><font color="black"><b>function definition:</b></font></dt><dd><font color="black"> A statement that creates a new function,
+specifying its name, parameters, and the statements it executes.
+</font><a name="@default278"></a><br />
+<br />
+</dd><dt><font color="black"><b>function object:</b></font></dt><dd><font color="black"> A value created by a function definition.
+The name of the function is a variable that refers to a function
+object.
+</font><a name="@default279"></a><br />
+<br />
+</dd><dt><font color="black"><b>header:</b></font></dt><dd><font color="black"> The first line of a function definition.
+</font><a name="@default280"></a><br />
+<br />
+</dd><dt><font color="black"><b>import statement:</b></font></dt><dd><font color="black"> A statement that reads a module file and creates
+a module object.
+</font><a name="@default281"></a>
+<a name="@default282"></a><br />
+<br />
+</dd><dt><font color="black"><b>module object:</b></font></dt><dd><font color="black"> A value created by an <tt>import</tt> statement
+that provides access to the data and code defined in a module.
+</font><a name="@default283"></a><br />
+<br />
+</dd><dt><font color="black"><b>parameter:</b></font></dt><dd><font color="black"> A name used inside a function to refer to the value
+passed as an argument.
+</font><a name="@default284"></a><br />
+<br />
+</dd><dt><font color="black"><b>pseudorandom:</b></font></dt><dd><font color="black"> Pertaining to a sequence of numbers that appear
+to be random, but are generated by a deterministic program.
+</font><a name="@default285"></a><br />
+<br />
+</dd><dt><font color="black"><b>return value:</b></font></dt><dd><font color="black"> The result of a function. If a function call
+is used as an expression, the return value is the value of
+the expression.
+</font><a name="@default286"></a><br />
+<br />
+</dd><dt><font color="black"><b>void function:</b></font></dt><dd><font color="black"> A function that doesn't return a value.
+</font><a name="@default287"></a></dd></dl>
+<a name="toc55"></a>
+<h2><font color="black"><a name="htoc58">4.14</a>&nbsp;&nbsp;Exercises</font></h2><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;4</b>&nbsp;&nbsp;<em>
+What is the purpose of the "def" keyword in Python?<br />
+<br />
+a) It is slang that means "the following code is really cool"<br />
+b) It indicates the start of a function<br />
+c) It indicates that the following indented section of code is to be stored for later<br />
+d) b and c are both true<br />
+e) None of the above
+</em></font></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;5</b>&nbsp;&nbsp;<em>
+What will the following Python program print out?
+</em></font><pre><font size="4" color="blue"><em>
+def fred():
+   print "Zap"
+
+def jane():
+   print "ABC"
+
+jane()
+fred()
+jane()
+</em></font></pre><font color="black"><em>a) Zap ABC jane fred jane<br />
+b) Zap ABC Zap<br />
+c) ABC Zap jane<br />
+d) ABC Zap ABC<br />
+e) Zap Zap Zap
+</em></font></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;6</b>&nbsp;&nbsp;<em>
+Rewrite your pay computation with time-and-a-half for overtime
+and create a function called <tt>computepay</tt> which takes
+two parameters (<tt>hours</tt> and <tt>rate</tt>).
+</em></font><pre><font color="black"><em>
+Enter Hours: 45
+Enter Rate: 10
+Pay: 475.0
+</em></font></pre></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;7</b>&nbsp;&nbsp;<em>
+Rewrite the grade program from the previous chapter 
+using a function called <tt>computegrade</tt> that takes
+a score as its parameter and returns a grade as a string.
+</em></font><pre><font color="black"><em>
+Score   Grade
+&gt; 0.9     A
+&gt; 0.8     B
+&gt; 0.7     C
+&gt; 0.6     D
+&lt;= 0.6    F
+
+Program Execution:
+
+Enter score: 0.95
+A
+
+Enter score: perfect
+Bad score
+
+Enter score: 10.0
+Bad score
+
+Enter score: 0.75
+C
+
+Enter score: 0.5
+F
+</em></font></pre>
+<font color="black"><em>Run the program repeatedly to test the various different values
+for input.
+</em></font></div><br />
+<hr />
+<a href="cfbook004.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook006.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

@@ -1,0 +1,1009 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="GENERATOR" content="hevea 1.07" />
+<title>
+Lists
+</title>
+</head>
+<body>
+<a href="cfbook008.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook010.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1><font color="black"><a name="htoc99">Chapter&nbsp;8</a>&nbsp;&nbsp;Lists</font></h1>
+<a name="@default450"></a>
+<a name="@default451"></a>
+<a name="toc91"></a>
+<h2><font color="black"><a name="htoc100">8.1</a>&nbsp;&nbsp;A list is a sequence</font></h2>
+<font color="black">Like a string, a <b>list</b> is a sequence of values. In a string, the
+values are characters; in a list, they can be any type. The values in
+list are called <b>elements</b> or sometimes <b>items</b>.<br />
+<br />
+<a name="@default452"></a>
+<a name="@default453"></a>
+<a name="@default454"></a><br />
+<br />
+There are several ways to create a new list; the simplest is to
+enclose the elements in square brackets (<code>[</code> and <code>]</code>):
+</font><pre><font size="4" color="blue">
+[10, 20, 30, 40]
+['crunchy frog', 'ram bladder', 'lark vomit']
+</font></pre><font color="black">The first example is a list of four integers. The second is a list of
+three strings. The elements of a list don't have to be the same type.
+The following list contains a string, a float, an integer, and
+(lo!) another list:
+</font><pre><font size="4" color="blue">
+['spam', 2.0, 5, [10, 20]]
+</font></pre><font color="black">A list within another list is <b>nested</b>.<br />
+<br />
+<a name="@default455"></a>
+<a name="@default456"></a><br />
+<br />
+A list that contains no elements is
+called an empty list; you can create one with empty
+brackets, <code>[]</code>.<br />
+<br />
+<a name="@default457"></a>
+<a name="@default458"></a><br />
+<br />
+As you might expect, you can assign list values to variables:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; cheeses = ['Cheddar', 'Edam', 'Gouda']
+&gt;&gt;&gt; numbers = [17, 123]
+&gt;&gt;&gt; empty = []
+&gt;&gt;&gt; print cheeses, numbers, empty
+['Cheddar', 'Edam', 'Gouda'] [17, 123] []
+</font></pre>
+<a name="@default459"></a>
+<a name="toc92"></a>
+<h2><font color="black"><a name="htoc101">8.2</a>&nbsp;&nbsp;Lists are mutable</font></h2>
+<a name="@default460"></a>
+<a name="@default461"></a>
+<a name="@default462"></a>
+<a name="@default463"></a>
+<a name="@default464"></a>
+<font color="black">The syntax for accessing the elements of a list is the same as for
+accessing the characters of a string---the bracket operator. The
+expression inside the brackets specifies the index. Remember that the
+indices start at 0:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; print cheeses[0]
+Cheddar
+</font></pre><font color="black">Unlike strings, lists are mutable because you can change the order 
+of items in a list or reassign an item in a list. 
+When the bracket operator appears on the left side of an assignment, 
+it identifies the element of the list that will be assigned.</font><br />
+<br />
+<a name="@default465"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; numbers = [17, 123]
+&gt;&gt;&gt; numbers[1] = 5
+&gt;&gt;&gt; print numbers
+[17, 5]
+</font></pre><font color="black">The one-eth element of <tt>numbers</tt>, which
+used to be 123, is now 5.<br />
+<br />
+<a name="@default466"></a>
+<a name="@default467"></a><br />
+<br />
+You can think of a list as a relationship between indices and
+elements. This relationship is called a <b>mapping</b>; each index
+"maps to" one of the elements. <br />
+<br />
+<a name="@default468"></a>
+<a name="@default469"></a><br />
+<br />
+List indices work the same way as string indices:
+</font><ul><li><font color="black">Any integer expression can be used as an index.</font><br />
+<br />
+</li><li><font color="black">If you try to read or write an element that does not exist, you
+get an <tt>IndexError</tt>.</font><br />
+<br />
+<a name="@default470"></a>
+<a name="@default471"></a><br />
+<br />
+</li><li><font color="black">If an index has a negative value, it counts backward from the
+end of the list.</font></li></ul>
+<a name="@default472"></a>
+<a name="@default473"></a>
+<a name="@default474"></a>
+<a name="@default475"></a>
+<a name="@default476"></a>
+<font color="black">The <tt>in</tt> operator also works on lists.
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; cheeses = ['Cheddar', 'Edam', 'Gouda']
+&gt;&gt;&gt; 'Edam' in cheeses
+True
+&gt;&gt;&gt; 'Brie' in cheeses
+False
+</font></pre>
+<a name="toc93"></a>
+<h2><font color="black"><a name="htoc102">8.3</a>&nbsp;&nbsp;Traversing a list</font></h2>
+<a name="@default477"></a>
+<a name="@default478"></a>
+<a name="@default479"></a>
+<a name="@default480"></a>
+<a name="@default481"></a>
+<font color="black">The most common way to traverse the elements of a list is
+with a <tt>for</tt> loop. The syntax is the same as for strings:
+</font><pre><font size="4" color="blue">
+for cheese in cheeses:
+    print cheese
+</font></pre><font color="black">This works well if you only need to read the elements of the
+list. But if you want to write or update the elements, you
+need the indices. A common way to do that is to combine
+the functions <tt>range</tt> and <tt>len</tt>:</font><br />
+<br />
+<a name="@default482"></a>
+<a name="@default483"></a>
+<pre><font size="4" color="blue">
+for i in range(len(numbers)):
+    numbers[i] = numbers[i] * 2
+</font></pre><font color="black">This loop traverses the list and updates each element. <tt>len</tt>
+returns the number of elements in the list. <tt>range</tt> returns
+a list of indices from 0 to <i>n</i>-1, where <i>n</i> is the length of
+the list. Each time through the loop <tt>i</tt> gets the index
+of the next element. The assignment statement in the body uses
+<tt>i</tt> to read the old value of the element and to assign the
+new value.<br />
+<br />
+<a name="@default484"></a>
+<a name="@default485"></a><br />
+<br />
+A <tt>for</tt> loop over an empty list never executes the body:
+</font><pre><font size="4" color="blue">
+for x in empty:
+    print 'This never happens.'
+</font></pre><font color="black">Although a list can contain another list, the nested
+list still counts as a single element. The length of this list is
+four:</font><br />
+<br />
+<a name="@default486"></a>
+<a name="@default487"></a>
+<pre><font size="4" color="blue">
+['spam', 1, ['Brie', 'Roquefort', 'Pol le Veq'], [1, 2, 3]]
+</font></pre>
+<a name="toc94"></a>
+<h2><font color="black"><a name="htoc103">8.4</a>&nbsp;&nbsp;List operations</font></h2>
+<a name="@default488"></a>
+<font color="black">The <tt>+</tt> operator concatenates lists:</font><br />
+<br />
+<a name="@default489"></a>
+<a name="@default490"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; a = [1, 2, 3]
+&gt;&gt;&gt; b = [4, 5, 6]
+&gt;&gt;&gt; c = a + b
+&gt;&gt;&gt; print c
+[1, 2, 3, 4, 5, 6]
+</font></pre><font color="black">Similarly, the <tt>*</tt> operator repeats a list a given number of times:</font><br />
+<br />
+<a name="@default491"></a>
+<a name="@default492"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; [0] * 4
+[0, 0, 0, 0]
+&gt;&gt;&gt; [1, 2, 3] * 3
+[1, 2, 3, 1, 2, 3, 1, 2, 3]
+</font></pre><font color="black">The first example repeats <tt>[0]</tt> four times. The second example
+repeats the list <tt>[1, 2, 3]</tt> three times.</font><br />
+<br />
+<a name="toc95"></a>
+<h2><font color="black"><a name="htoc104">8.5</a>&nbsp;&nbsp;List slices</font></h2>
+<a name="@default493"></a>
+<a name="@default494"></a>
+<a name="@default495"></a>
+<a name="@default496"></a>
+<a name="@default497"></a>
+<font color="black">The slice operator also works on lists:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; t = ['a', 'b', 'c', 'd', 'e', 'f']
+&gt;&gt;&gt; t[1:3]
+['b', 'c']
+&gt;&gt;&gt; t[:4]
+['a', 'b', 'c', 'd']
+&gt;&gt;&gt; t[3:]
+['d', 'e', 'f']
+</font></pre><font color="black">If you omit the first index, the slice starts at the beginning.
+If you omit the second, the slice goes to the end. So if you
+omit both, the slice is a copy of the whole list.</font><br />
+<br />
+<a name="@default498"></a>
+<a name="@default499"></a>
+<a name="@default500"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; t[:]
+['a', 'b', 'c', 'd', 'e', 'f']
+</font></pre><font color="black">Since lists are mutable, it is often useful to make a copy
+before performing operations that fold, spindle or mutilate
+lists.<br />
+<br />
+<a name="@default501"></a><br />
+<br />
+A slice operator on the left side of an assignment
+can update multiple elements:</font><br />
+<br />
+<a name="@default502"></a>
+<a name="@default503"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; t = ['a', 'b', 'c', 'd', 'e', 'f']
+&gt;&gt;&gt; t[1:3] = ['x', 'y']
+&gt;&gt;&gt; print t
+['a', 'x', 'y', 'd', 'e', 'f']
+</font></pre>
+<a name="toc96"></a>
+<h2><font color="black"><a name="htoc105">8.6</a>&nbsp;&nbsp;List methods</font></h2>
+<a name="@default504"></a>
+<a name="@default505"></a>
+<font color="black">Python provides methods that operate on lists. For example,
+<tt>append</tt> adds a new element to the end of a list:</font><br />
+<br />
+<a name="@default506"></a>
+<a name="@default507"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; t = ['a', 'b', 'c']
+&gt;&gt;&gt; t.append('d')
+&gt;&gt;&gt; print t
+['a', 'b', 'c', 'd']
+</font></pre><font color="black"><tt>extend</tt> takes a list as an argument and appends all of
+the elements:</font><br />
+<br />
+<a name="@default508"></a>
+<a name="@default509"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; t1 = ['a', 'b', 'c']
+&gt;&gt;&gt; t2 = ['d', 'e']
+&gt;&gt;&gt; t1.extend(t2)
+&gt;&gt;&gt; print t1
+['a', 'b', 'c', 'd', 'e']
+</font></pre><font color="black">This example leaves <tt>t2</tt> unmodified.<br />
+<br />
+<tt>sort</tt> arranges the elements of the list from low to high:</font><br />
+<br />
+<a name="@default510"></a>
+<a name="@default511"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; t = ['d', 'c', 'e', 'b', 'a']
+&gt;&gt;&gt; t.sort()
+&gt;&gt;&gt; print t
+['a', 'b', 'c', 'd', 'e']
+</font></pre><font color="black">Most list methods are void; they modify the list and return <tt>None</tt>.
+If you accidentally write <tt>t = t.sort()</tt>, you will be disappointed
+with the result.</font><br />
+<br />
+<a name="@default512"></a>
+<a name="@default513"></a>
+<a name="@default514"></a>
+<a name="@default515"></a><br />
+<br />
+<a name="toc97"></a>
+<h2><font color="black"><a name="htoc106">8.7</a>&nbsp;&nbsp;Deleting elements</font></h2>
+<a name="@default516"></a>
+<a name="@default517"></a>
+<font color="black">There are several ways to delete elements from a list. If you
+know the index of the element you want, you can use
+<tt>pop</tt>:</font><br />
+<br />
+<a name="@default518"></a>
+<a name="@default519"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; t = ['a', 'b', 'c']
+&gt;&gt;&gt; x = t.pop(1)
+&gt;&gt;&gt; print t
+['a', 'c']
+&gt;&gt;&gt; print x
+b
+</font></pre><font color="black"><tt>pop</tt> modifies the list and returns the element that was removed.
+If you don't provide an index, it deletes and returns the
+last element.<br />
+<br />
+If you don't need the removed value, you can use the <tt>del</tt>
+operator:</font><br />
+<br />
+<a name="@default520"></a>
+<a name="@default521"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; t = ['a', 'b', 'c']
+&gt;&gt;&gt; del t[1]
+&gt;&gt;&gt; print t
+['a', 'c']
+</font></pre>
+<font color="black">If you know the element you want to remove (but not the index), you
+can use <tt>remove</tt>:</font><br />
+<br />
+<a name="@default522"></a>
+<a name="@default523"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; t = ['a', 'b', 'c']
+&gt;&gt;&gt; t.remove('b')
+&gt;&gt;&gt; print t
+['a', 'c']
+</font></pre><font color="black">The return value from <tt>remove</tt> is <tt>None</tt>.<br />
+<br />
+<a name="@default524"></a>
+<a name="@default525"></a><br />
+<br />
+To remove more than one element, you can use <tt>del</tt> with
+a slice index:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; t = ['a', 'b', 'c', 'd', 'e', 'f']
+&gt;&gt;&gt; del t[1:5]
+&gt;&gt;&gt; print t
+['a', 'f']
+</font></pre><font color="black">As usual, the slice selects all the elements up to, but not
+including, the second index.</font><br />
+<br />
+<a name="toc98"></a>
+<h2><font color="black"><a name="htoc107">8.8</a>&nbsp;&nbsp;Lists and functions</font></h2>
+<font color="black">There are a number of built-in functions that can be used on lists
+that allow you to quickly look through a list without
+writing your own loops:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; nums = [3, 41, 12, 9, 74, 15]
+&gt;&gt;&gt; print len(nums)
+6
+&gt;&gt;&gt; print max(nums)
+74
+&gt;&gt;&gt; print min(nums)
+3
+&gt;&gt;&gt; print sum(nums)
+154
+&gt;&gt;&gt; print sum(nums)/len(nums)
+25
+</font></pre><font color="black">The <tt>sum()</tt> function only works when the list elements are numbers.
+The other functions (<tt>max()</tt>, <tt>len()</tt>, etc.) work with lists of
+strings and other types that can be comparable.<br />
+<br />
+We could rewrite an earlier program that computed the average of 
+a list of numbers entered by the user using a list.<br />
+<br />
+First, the program to compute an average without a list:
+</font><pre><font size="4" color="blue">
+total = 0
+count = 0
+while ( True ) :
+    inp = raw_input('Enter a number: ')
+    if inp == 'done' : break
+    value = float(inp)
+    total = total + value
+    count = count + 1
+
+average = total / count
+print 'Average:', average
+</font></pre><font color="black">In this program, we have <tt>count</tt> and <tt>sum</tt> variables to 
+keep the number and running total of the user's numbers as 
+we repeatedly prompt the user for a number.<br />
+<br />
+We could simply remember each number as the user entered it 
+and use built-in functions to compute the sum and count at
+the end.
+</font><pre><font size="4" color="blue">
+numlist = list()
+while ( True ) :
+    inp = raw_input('Enter a number: ')
+    if inp == 'done' : break
+    value = float(inp)
+    numlist.append(value)
+
+average = sum(numlist) / len(numlist)
+print 'Average:', average
+</font></pre><font color="black">We make an empty list before the loop starts, and then each time we have 
+a number, we append it to the list. At the end of
+the program, we simply compute the sum of the numbers in the 
+list and divide it by the count of the numbers in the
+list to come up with the average.</font><br />
+<br />
+<a name="toc99"></a>
+<h2><font color="black"><a name="htoc108">8.9</a>&nbsp;&nbsp;Lists and strings</font></h2>
+<a name="@default526"></a>
+<a name="@default527"></a>
+<a name="@default528"></a>
+<font color="black">A string is a sequence of characters and a list is a sequence
+of values, but a list of characters is not the same as a
+string. To convert from a string to a list of characters,
+you can use <tt>list</tt>:</font><br />
+<br />
+<a name="@default529"></a>
+<a name="@default530"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; s = 'spam'
+&gt;&gt;&gt; t = list(s)
+&gt;&gt;&gt; print t
+['s', 'p', 'a', 'm']
+</font></pre><font color="black">Because <tt>list</tt> is the name of a built-in function, you should
+avoid using it as a variable name. I also avoid <tt>l</tt> because
+it looks too much like <tt>1</tt>. So that's why I use <tt>t</tt>.<br />
+<br />
+The <tt>list</tt> function breaks a string into individual letters. If
+you want to break a string into words, you can use the <tt>split</tt>
+method:</font><br />
+<br />
+<a name="@default531"></a>
+<a name="@default532"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; s = 'pining for the fjords'
+&gt;&gt;&gt; t = s.split()
+&gt;&gt;&gt; print t
+['pining', 'for', 'the', 'fjords']
+&gt;&gt;&gt; print t[2]
+the
+</font></pre><font color="black">Once you have used <tt>split</tt> to break the string into 
+a list of tokens, you can use the index operator (square
+bracket) to look at a particular word in the list.<br />
+<br />
+You can call <tt>split</tt> with 
+an optional argument called a <b>delimiter</b> specifies which
+characters to use as word boundaries.
+The following example
+uses a hyphen as a delimiter:</font><br />
+<br />
+<a name="@default533"></a>
+<a name="@default534"></a>
+<a name="@default535"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; s = 'spam-spam-spam'
+&gt;&gt;&gt; delimiter = '-'
+&gt;&gt;&gt; s.split(delimiter)
+['spam', 'spam', 'spam']
+</font></pre><font color="black"><tt>join</tt> is the inverse of <tt>split</tt>. It
+takes a list of strings and
+concatenates the elements. <tt>join</tt> is a string method,
+so you have to invoke it on the delimiter and pass the
+list as a parameter:</font><br />
+<br />
+<a name="@default536"></a>
+<a name="@default537"></a>
+<a name="@default538"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; t = ['pining', 'for', 'the', 'fjords']
+&gt;&gt;&gt; delimiter = ' '
+&gt;&gt;&gt; delimiter.join(t)
+'pining for the fjords'
+</font></pre><font color="black">In this case the delimiter is a space character, so
+<tt>join</tt> puts a space between words. To concatenate
+strings without spaces, you can use the empty string,
+<code>"</code>, as a delimiter. </font><br />
+<br />
+<a name="@default539"></a>
+<a name="@default540"></a><br />
+<br />
+<a name="toc100"></a>
+<h2><font color="black"><a name="htoc109">8.10</a>&nbsp;&nbsp;Parsing lines</font></h2>
+<font color="black">Usually when we are reading a file 
+we want to do something to the lines other than just 
+printing the whole line. Often we want to find the "interesting
+lines" and then <b>parse</b> the line to find some interesting
+<em>part</em> of the line. What if we wanted to print out the day of the 
+week from those lines that start with "From ".
+</font><pre><font size="4" color="blue">
+From stephen.marquard@uct.ac.za <b> Sat</b> Jan  5 09:14:16 2008
+</font></pre><font size="4">
+</font><font size="3" color="black">The <tt>split</tt> method is very effective when faced with this 
+kind of problem.
+We can write a small program that looks for lines where the 
+line starts with "From " and then <tt>split</tt> those lines 
+and then print out the third word in the line:
+</font><pre><font size="4" color="blue">
+fhand = open('mbox-short.txt')
+for line in fhand:
+    line = line.rstrip()
+    if not line.startswith('From ') : continue
+    words = line.split()
+    print words[2]
+</font></pre><font color="black">We also use the contracted form of the <tt>if</tt>
+statement where we put the <tt>continue </tt> on the
+same line as the <tt>if</tt>. This contracted form
+of the <tt>if</tt> functions the same as if the
+<tt>continue</tt> were on the next line and indented.<br />
+<br />
+The program produces the following output:
+</font><pre><font size="4" color="blue">
+Sat
+Fri
+Fri
+Fri
+    ...
+</font></pre><font color="black">Later, we will learn increasingly sophisticated techniques for
+picking the lines to work on and how we pull those lines apart
+to find the exact bit of information we are looking for.</font><br />
+<br />
+<a name="toc101"></a>
+<h2><font color="black"><a name="htoc110">8.11</a>&nbsp;&nbsp;Objects and values</font></h2>
+<a name="@default541"></a>
+<a name="@default542"></a>
+<font color="black">If we execute these assignment statements:
+</font><pre><font size="4" color="blue">
+a = 'banana'
+b = 'banana'
+</font></pre><font color="black">We know that <tt>a</tt> and <tt>b</tt> both refer to a
+string, but we don't
+know whether they refer to the <em>same</em> string.
+There are two possible states:</font><br />
+<br />
+<a name="@default543"></a><br />
+<div align="center"><font color="black"><img src="cfbook012.png" /></font></div><font color="black">
+<br />
+In one case, <tt>a</tt> and <tt>b</tt> refer to two different objects that
+have the same value. In the second case, they refer to the same
+object.<br />
+<br />
+<a name="@default544"></a>
+<a name="@default545"></a><br />
+<br />
+To check whether two variables refer to the same object, you can
+use the <tt>is</tt> operator.
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; a = 'banana'
+&gt;&gt;&gt; b = 'banana'
+&gt;&gt;&gt; a is b
+True
+</font></pre><font color="black">In this example, Python only created one string object,
+and both <tt>a</tt> and <tt>b</tt> refer to it.<br />
+<br />
+But when you create two lists, you get two objects:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; a = [1, 2, 3]
+&gt;&gt;&gt; b = [1, 2, 3]
+&gt;&gt;&gt; a is b
+False
+</font></pre>
+<font color="black">In this case we would say that the two lists are <b>equivalent</b>,
+because they have the same elements, but not <b>identical</b>, because
+they are not the same object. If two objects are identical, they are
+also equivalent, but if they are equivalent, they are not necessarily
+identical.<br />
+<br />
+<a name="@default546"></a>
+<a name="@default547"></a><br />
+<br />
+Until now, we have been using "object" and "value"
+interchangeably, but it is more precise to say that an object has a
+value. If you execute <tt>a = [1,2,3]</tt>, <tt>a</tt> refers to a list
+object whose value is a particular sequence of elements. If another
+list has the same elements, we would say it has the same value.</font><br />
+<br />
+<a name="@default548"></a>
+<a name="@default549"></a><br />
+<br />
+<a name="toc102"></a>
+<h2><font color="black"><a name="htoc111">8.12</a>&nbsp;&nbsp;Aliasing</font></h2>
+<a name="@default550"></a>
+<a name="@default551"></a>
+<font color="black">If <tt>a</tt> refers to an object and you assign <tt>b = a</tt>,
+then both variables refer to the same object:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; a = [1, 2, 3]
+&gt;&gt;&gt; b = a
+&gt;&gt;&gt; b is a
+True
+</font></pre>
+<font color="black">The association of a variable with an object is called a <b>reference</b>. In this example, there are two references to the same
+object.<br />
+<br />
+<a name="@default552"></a><br />
+<br />
+An object with more than one reference has more
+than one name, so we say that the object is <b>aliased</b>.<br />
+<br />
+<a name="@default553"></a><br />
+<br />
+If the aliased object is mutable, 
+changes made with one alias affect
+the other:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; b[0] = 17
+&gt;&gt;&gt; print a
+[17, 2, 3]
+</font></pre><font color="black">Although this behavior can be useful, it is error-prone. In general,
+it is safer to avoid aliasing when you are working with mutable
+objects.<br />
+<br />
+<a name="@default554"></a><br />
+<br />
+For immutable objects like strings, aliasing is not as much of a
+problem. In this example:
+</font><pre><font size="4" color="blue">
+a = 'banana'
+b = 'banana'
+</font></pre><font color="black">It almost never makes a difference whether <tt>a</tt> and <tt>b</tt> refer
+to the same string or not.</font><br />
+<br />
+<a name="toc103"></a>
+<h2><font color="black"><a name="htoc112">8.13</a>&nbsp;&nbsp;List arguments</font></h2>
+<a name="@default555"></a>
+<a name="@default556"></a>
+<a name="@default557"></a>
+<a name="@default558"></a>
+<a name="@default559"></a>
+<font color="black">When you pass a list to a function, the function gets a reference
+to the list.
+If the function modifies a list parameter, the caller sees the change.
+For example, <code>delete_head</code> removes the first element from a list:
+</font><pre><font size="4" color="blue">
+def delete_head(t):
+    del t[0]
+</font></pre><font color="black">Here's how it is used:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; letters = ['a', 'b', 'c']
+&gt;&gt;&gt; delete_head(letters)
+&gt;&gt;&gt; print letters
+['b', 'c']
+</font></pre><font color="black">The parameter <tt>t</tt> and the variable <tt>letters</tt> are
+aliases for the same object. <br />
+<br />
+It is important to distinguish between operations that
+modify lists and operations that create new lists. For
+example, the <tt>append</tt> method modifies a list, but the
+<tt>+</tt> operator creates a new list:</font><br />
+<br />
+<a name="@default560"></a>
+<a name="@default561"></a>
+<a name="@default562"></a>
+<a name="@default563"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; t1 = [1, 2]
+&gt;&gt;&gt; t2 = t1.append(3)
+&gt;&gt;&gt; print t1
+[1, 2, 3]
+&gt;&gt;&gt; print t2
+None
+
+&gt;&gt;&gt; t3 = t1 + [3]
+&gt;&gt;&gt; print t3
+[1, 2, 3]
+&gt;&gt;&gt; t2 is t3
+False
+</font></pre>
+<font color="black">This difference is important when you write functions that
+are supposed to modify lists. For example, this function
+<em>does not</em> delete the head of a list:
+</font><pre><font size="4" color="blue">
+def bad_delete_head(t):
+    t = t[1:]              # WRONG!
+</font></pre>
+<font color="black">The slice operator creates a new list and the assignment
+makes <tt>t</tt> refer to it, but none of that has any effect
+on the list that was passed as an argument.<br />
+<br />
+<a name="@default564"></a>
+<a name="@default565"></a><br />
+<br />
+An alternative is to write a function that creates and
+returns a new list. For
+example, <tt>tail</tt> returns all but the first
+element of a list:
+</font><pre><font size="4" color="blue">
+def tail(t):
+    return t[1:]
+</font></pre><font color="black">This function leaves the original list unmodified.
+Here's how it is used:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; letters = ['a', 'b', 'c']
+&gt;&gt;&gt; rest = tail(letters)
+&gt;&gt;&gt; print rest
+['b', 'c']
+</font></pre><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;1</b>&nbsp;&nbsp;<br />
+<br />
+<em>Write a function called <tt>chop</tt> that takes a list and modifies
+it, removing the first and last elements, and returns <tt>None</tt>.<br />
+<br />
+Then write a function called <tt>middle</tt> that takes a list and
+returns a new list that contains all but the first and last
+elements.</em></font></div><br />
+<a name="toc104"></a>
+<h2><font color="black"><a name="htoc113">8.14</a>&nbsp;&nbsp;Debugging</font></h2>
+<a name="@default566"></a>
+<font color="black">Careless use of lists (and other mutable objects)
+can lead to long hours of debugging. Here are some common
+pitfalls and ways to avoid them:
+</font><ol type="1"><li><font color="black">Don't forget that most list methods modify the argument and
+ return <tt>None</tt>. This is the opposite of the string methods,
+ which return a new string and leave the original alone.<br />
+<br />
+If you are used to writing string code like this:
+</font><pre><font size="4" color="blue">
+word = word.strip()
+</font></pre>
+<font color="black">It is tempting to write list code like this:
+</font><pre><font size="4" color="blue">
+t = t.sort()           # WRONG!
+</font></pre>
+<a name="@default567"></a>
+<a name="@default568"></a>
+<font color="black">Because <tt>sort</tt> returns <tt>None</tt>, the
+next operation you perform with <tt>t</tt> is likely to fail.<br />
+<br />
+Before using list methods and operators, you should read the
+documentation carefully and then test them in interactive mode. The
+methods and operators that lists share with other sequences (like
+strings) are documented at
+<tt>docs.python.org/lib/typesseq.html</tt>. The
+methods and operators that only apply to mutable sequences
+are documented at <tt>docs.python.org/lib/typesseq-mutable.html</tt>.</font><br />
+<br />
+</li><li><font color="black">Pick an idiom and stick with it.
+<a name="@default569"></a><br />
+<br />
+Part of the problem with lists is that there are too many
+ways to do things. For example, to remove an element from
+a list, you can use <tt>pop</tt>, <tt>remove</tt>, <tt>del</tt>,
+or even a slice assignment.<br />
+<br />
+To add an element, you can use the <tt>append</tt> method or
+the <tt>+</tt> operator. But don't forget that these are right: 
+</font><pre><font size="4" color="blue">
+t.append(x)
+t = t + [x]
+</font></pre>
+<font color="black">And these are wrong:
+</font><pre><font size="4" color="blue">
+t.append([x])          # WRONG!
+t = t.append(x)        # WRONG!
+t + [x]                # WRONG!
+t = t + x              # WRONG!
+</font></pre>
+<font color="black">Try out each of these examples in interactive mode to make sure
+you understand what they do. Notice that only the last
+one causes a runtime error; the other three are legal, but they
+do the wrong thing.</font><br />
+<br />
+</li><li><font color="black">Make copies to avoid aliasing.<br />
+<br />
+<a name="@default570"></a>
+<a name="@default571"></a><br />
+<br />
+If you want to use a method like <tt>sort</tt> that modifies
+the argument, but you need to keep the original list as
+well, you can make a copy.
+</font><pre><font size="4" color="blue">
+orig = t[:]
+t.sort()
+</font></pre>
+<font color="black">In this example you could also use the built-in function <tt>sorted</tt>,
+which returns a new, sorted list and leaves the original alone.
+But in that case you should avoid using <tt>sorted</tt> as a variable
+name!</font><br />
+<br />
+</li><li><font color="black">Lists, <tt>split</tt>, and files<br />
+<br />
+When we read and parse files, there are many opportunities
+to encounter input that can crash our program so it is a good 
+idea to revisit the <b>guardian</b> pattern when it comes
+writing programs that read through a file 
+and look for a "needle in the haystack".<br />
+<br />
+Let's revisit our program that is looking for the day of the
+week on the from lines of our file:
+</font><pre><font size="4" color="blue">
+From stephen.marquard@uct.ac.za <b> Sat</b> Jan  5 09:14:16 2008
+</font></pre><font size="4">
+</font><font size="3" color="black">Since we are breaking this line into words, we could dispense
+with the use of <tt>startswith</tt> and simply look at the 
+first word of the line to determine if we are interested
+in the line at all. We can use <tt>continue</tt> to skip lines
+that don't have "From" as the first word as follows:
+</font><pre><font size="4" color="blue">
+fhand = open('mbox-short.txt')
+for line in fhand:
+    words = line.split()
+    if words[0] != 'From' : continue
+    print words[2]
+</font></pre><font color="black">This looks much simpler and we don't even need to do the 
+<tt>rstrip</tt> to remove the newline at the end of the file.
+But is it better?
+</font><pre><font size="4" color="blue">
+python search8.py 
+Sat
+Traceback (most recent call last):
+  File "search8.py", line 5, in &lt;module&gt;
+    if words[0] != 'From' : continue
+IndexError: list index out of range
+</font></pre><font color="black">It kind of works and we see the day from the first line
+(Sat) but then the program fails with a traceback error.
+What went wrong? What messed-up data caused our elegant, 
+clever and very Pythonic program to fail?<br />
+<br />
+You could stare at it for a long time and puzzle through
+it or ask someone for help, but the quicker and smarter
+approach is to add a <tt>print</tt> statement. The best place
+to add the print statement is right before the line where
+the program failed and print out the data that seems to be causing
+the failure.<br />
+<br />
+Now this approach may generate a lot of lines of output but at 
+least you will immediately have some clue as to the 
+problem at hand. So we add a print of the variable
+<tt>words</tt> right before line five. We even 
+add a prefix "Debug:" to the line so we can keep
+our regular output separate from our debug output.
+</font><pre><font size="4" color="blue">
+for line in fhand:
+    words = line.split()
+    print 'Debug:', words
+    if words[0] != 'From' : continue
+    print words[2]
+</font></pre><font color="black">When we run the program, a lot of output scrolls off the screen
+but at the end, we see our debug output and the traceback so 
+we know what happened just before the traceback.
+</font><pre><font size="4" color="blue">
+Debug: ['X-DSPAM-Confidence:', '0.8475']
+Debug: ['X-DSPAM-Probability:', '0.0000']
+Debug: []
+Traceback (most recent call last):
+  File "search9.py", line 6, in &lt;module&gt;
+    if words[0] != 'From' : continue
+IndexError: list index out of range
+</font></pre><font color="black">Each debug line is printing the list of words which we get
+when we <tt>split</tt> the line into words. When the program fails
+the list of words is empty <code>[]</code>. If we open the file in a text editor
+and look at the file, at that point it looks as follows:
+</font><pre><font size="4" color="blue">
+X-DSPAM-Result: Innocent
+X-DSPAM-Processed: Sat Jan  5 09:14:16 2008
+X-DSPAM-Confidence: 0.8475
+X-DSPAM-Probability: 0.0000
+
+Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772
+</font></pre><font color="black">The error occurs when our program encounters a blank line! Of course there
+are "zero words" on a blank line. Why didn't we think of that 
+when we were writing the code. When the code looks for the first
+word (<code>word[0]</code>) to check to see if it matches "From", 
+we get an "index out of range" error.<br />
+<br />
+This of course is the perfect place to add some <b>guardian</b> code 
+to avoid checking the first word if the first word is not there.
+There are many ways to protect this code, we will choose to 
+check the number of words we have before we look at the first word:
+</font><pre><font size="4" color="blue">
+fhand = open('mbox-short.txt')
+count = 0
+for line in fhand:
+    words = line.split()
+    # print 'Debug:', words
+    if len(words) == 0 : continue
+    if words[0] != 'From' : continue
+    print words[2]
+</font></pre><font color="black">First we commented out the debug print statement instead of removing it 
+in case our modification fails and we need to debug again. Then we added
+a guardian statement that checks to see if we have zero words, and if so, 
+we use <tt>continue</tt> to skip to the next line in the file.<br />
+<br />
+We can think of the two <tt>continue</tt> statements as helping us refine
+the set of lines which are "interesting" to us and which we want 
+to process some more. A line which has no words is "uninteresting" to 
+us so we skip to the next line. A line which does not have "From"
+as its first word is uninteresting to us so we skip it.<br />
+<br />
+The program as modified runs successfully so perhaps it is correct. Our
+guardian statement does make sure that the <tt>words[0]</tt> will never fail, 
+but perhaps it is not enough. When we are programming, we must always be 
+thinking, "What might go wrong?".<br />
+</font><div align="left"><font color="black"><b>Exercise&nbsp;2</b>&nbsp;&nbsp;<em>
+Figure out which line of the above program is still not properly guarded.
+See if you can construct a text file which causes the program to fail
+and then modify the program so that the line is properly guarded and 
+test it to make sure it handles your new text file.
+</em></font></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;3</b>&nbsp;&nbsp;<em>
+Rewrite the guardian code in the above example without two
+<tt>if</tt> statements. Instead use a compound logical expression using the
+<tt>and</tt> logical operator with a single <tt>if</tt> statement.
+</em></font></div></li></ol>
+<a name="toc105"></a>
+<h2><font color="black"><a name="htoc114">8.15</a>&nbsp;&nbsp;Glossary</font></h2>
+<dl compact="compact"><dt><font color="black"><b>aliasing:</b></font></dt><dd><font color="black"> A circumstance where two or more variables refer to the same
+object.
+</font><a name="@default572"></a><br />
+<br />
+</dd><dt><font color="black"><b>delimiter:</b></font></dt><dd><font color="black"> A character or string used to indicate where a
+string should be split.
+</font><a name="@default573"></a><br />
+<br />
+</dd><dt><font color="black"><b>element:</b></font></dt><dd><font color="black"> One of the values in a list (or other sequence),
+also called items.
+</font><a name="@default574"></a><br />
+<br />
+</dd><dt><font color="black"><b>equivalent:</b></font></dt><dd><font color="black"> Having the same value.
+</font><a name="@default575"></a><br />
+<br />
+</dd><dt><font color="black"><b>index:</b></font></dt><dd><font color="black"> An integer value that indicates an element in a list.
+</font><a name="@default576"></a><br />
+<br />
+</dd><dt><font color="black"><b>identical:</b></font></dt><dd><font color="black"> Being the same object (which implies equivalence).
+</font><a name="@default577"></a><br />
+<br />
+</dd><dt><font color="black"><b>list:</b></font></dt><dd><font color="black"> A sequence of values.
+</font><a name="@default578"></a><br />
+<br />
+</dd><dt><font color="black"><b>list traversal:</b></font></dt><dd><font color="black"> The sequential accessing of each element in a list.
+</font><a name="@default579"></a><br />
+<br />
+</dd><dt><font color="black"><b>nested list:</b></font></dt><dd><font color="black"> A list that is an element of another list.
+</font><a name="@default580"></a><br />
+<br />
+</dd><dt><font color="black"><b>object:</b></font></dt><dd><font color="black"> Something a variable can refer to. An object
+has a type and a value.
+</font><a name="@default581"></a><br />
+<br />
+</dd><dt><font color="black"><b>reference:</b></font></dt><dd><font color="black"> The association between a variable and its value.
+</font><a name="@default582"></a></dd></dl>
+<a name="toc106"></a>
+<h2><font color="black"><a name="htoc115">8.16</a>&nbsp;&nbsp;Exercises</font></h2><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;4</b>&nbsp;&nbsp;<em>
+Download a copy of the file from 
+<tt>www.py4inf.com/code/romeo.txt</tt>
+<a name="@default583"></a><br />
+<br />
+Write a program to open the file <tt>romeo.txt</tt> and read it
+line by line. For each line, split the line into a list of 
+words using the <tt>split</tt> function.<br />
+<br />
+For each word, check to see if the word is already in a list. 
+If the word is not in the list, add it to the list. <br />
+<br />
+When the program completes, sort and print the resulting words
+in alphabetical order.
+</em></font><pre><font color="black"><em>
+Enter file: romeo.txt
+['Arise', 'But', 'It', 'Juliet', 'Who', 'already', 
+'and', 'breaks', 'east', 'envious', 'fair', 'grief', 
+'is', 'kill', 'light', 'moon', 'pale', 'sick', 'soft', 
+'sun', 'the', 'through', 'what', 'window', 
+'with', 'yonder']
+</em></font></pre></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;5</b>&nbsp;&nbsp;<em>
+Write a program to read through the mail box data and when you find 
+line that starts with "From", you will split the line into 
+words using the <tt>split</tt> function. We are interested in 
+who sent the message which is the second word on the From line.<br />
+<br />
+<tt>From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008 </tt><br />
+<br />
+You will parse the From line and print out the second word for 
+each From line and then you will also count the number of 
+From (not From:) lines and print out a count at the end.<br />
+<br />
+This is a sample good output with a few lines removed:
+</em></font><pre><font size="4" color="blue"><em>
+python fromcount.py 
+Enter a file name: mbox-short.txt
+stephen.marquard@uct.ac.za
+louis@media.berkeley.edu
+zqian@umich.edu
+
+[...some output removed...]
+
+ray@media.berkeley.edu
+cwen@iupui.edu
+cwen@iupui.edu
+cwen@iupui.edu
+There were 27 lines in the file with From as the first word
+</em></font></pre></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;6</b>&nbsp;&nbsp;<em>
+Rewrite the program that prompts the user for a list of 
+numbers and prints out the maximum and minimum of the
+numbers at the end when the user enters "done". Write
+the program to store the numbers the user enters in a list
+and use the <tt>max()</tt> and <tt>min()</tt> functions to 
+compute the maximum and minimum numbers after the 
+loop completes.
+</em></font><pre><font size="4" color="blue"><em>
+Enter a number: 6
+Enter a number: 2
+Enter a number: 9
+Enter a number: 3
+Enter a number: 5
+Enter a number: done
+Maximum: 9.0
+Minimum: 2.0
+</em></font></pre></div><br />
+<hr />
+<a href="cfbook008.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook010.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

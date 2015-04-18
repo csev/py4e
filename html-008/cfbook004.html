@@ -1,0 +1,608 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="GENERATOR" content="hevea 1.07" />
+<title>
+Conditional execution
+</title>
+</head>
+<body>
+<a href="cfbook003.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook005.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1><font color="black"><a name="htoc32">Chapter&nbsp;3</a>&nbsp;&nbsp;Conditional execution</font></h1>
+<a name="toc31"></a>
+<h2><font color="black"><a name="htoc33">3.1</a>&nbsp;&nbsp;Boolean expressions</font></h2>
+<a name="@default123"></a>
+<a name="@default124"></a>
+<a name="@default125"></a>
+<a name="@default126"></a>
+<font color="black">A <b>boolean expression</b> is an expression that is either true
+or false. The following examples use the 
+operator <tt>==</tt>, which compares two operands and produces
+<tt>True</tt> if they are equal and <tt>False</tt> otherwise:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; 5 == 5
+True
+&gt;&gt;&gt; 5 == 6
+False
+</font></pre><font color="black"><tt>True</tt> and <tt>False</tt> are special
+values that belong to the type <tt>bool</tt>; they are not strings:</font><br />
+<br />
+<a name="@default127"></a>
+<a name="@default128"></a>
+<a name="@default129"></a>
+<a name="@default130"></a>
+<a name="@default131"></a>
+<a name="@default132"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; type(True)
+&lt;type 'bool'&gt;
+&gt;&gt;&gt; type(False)
+&lt;type 'bool'&gt;
+</font></pre><font color="black">The <tt>==</tt> operator is one of the <b>comparison operators</b>; the
+others are:
+</font><pre><font size="4" color="blue">
+      x != y               # x is not equal to y
+      x &gt; y                # x is greater than y
+      x &lt; y                # x is less than y
+      x &gt;= y               # x is greater than or equal to y
+      x &lt;= y               # x is less than or equal to y
+      x is y               # x is the same as y
+      x is not y           # x is not the same as y
+</font></pre><font color="black">Although these operations are probably familiar to you, the Python
+symbols are different from the mathematical symbols. A common error
+is to use a single equal sign (<tt>=</tt>) instead of a double equal sign
+(<tt>==</tt>). Remember that <tt>=</tt> is an assignment operator and
+<tt>==</tt> is a comparison operator. There is no such thing as
+<tt>=&lt;</tt> or <tt>=&gt;</tt>.</font><br />
+<br />
+<a name="@default133"></a>
+<a name="@default134"></a><br />
+<br />
+<a name="toc32"></a>
+<h2><font color="black"><a name="htoc34">3.2</a>&nbsp;&nbsp;Logical operators</font></h2>
+<a name="@default135"></a>
+<a name="@default136"></a>
+<font color="black">There are three <b>logical operators</b>: <tt>and</tt>, <tt>or</tt>, and <tt>not</tt>. The semantics (meaning) of these operators is
+similar to their meaning in English. For example,<br />
+<br />
+<tt>x &gt; 0 and x &lt; 10</tt> <br />
+<br />
+is true only if <tt>x</tt> is greater than 0
+<em>and</em> less than 10.<br />
+<br />
+<a name="@default137"></a>
+<a name="@default138"></a>
+<a name="@default139"></a>
+<a name="@default140"></a>
+<a name="@default141"></a>
+<a name="@default142"></a><br />
+<br />
+<tt>n%2 == 0 or n%3 == 0</tt> is true if <em>either</em> of the conditions
+is true, that is, if the number is divisible by 2 <em>or</em> 3.<br />
+<br />
+Finally, the <tt>not</tt> operator negates a boolean
+expression, so <tt>not (x &gt; y)</tt> is true if <tt>x &gt; y</tt> is false,
+that is, if <tt>x</tt> is less than or equal to <tt>y</tt>.<br />
+<br />
+Strictly speaking, the operands of the logical operators should be
+boolean expressions, but Python is not very strict.
+Any nonzero number is interpreted as "true."
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; 17 and True
+True
+</font></pre><font color="black">This flexibility can be useful, but there are some subtleties to
+it that might be confusing. You might want to avoid it (unless
+you know what you are doing).</font><br />
+<br />
+<a name="toc33"></a>
+<h2><font color="black"><a name="htoc35">3.3</a>&nbsp;&nbsp;Conditional execution</font></h2>
+<a name="conditional execution"></a>
+<a name="@default143"></a>
+<a name="@default144"></a>
+<a name="@default145"></a>
+<a name="@default146"></a>
+<a name="@default147"></a>
+<font color="black">In order to write useful programs, we almost always need the ability
+to check conditions and change the behavior of the program
+accordingly. <b>Conditional statements</b> give us this ability. The
+simplest form is the <tt>if</tt> statement:
+</font><pre><font size="4" color="blue">
+if x &gt; 0 :
+    print 'x is positive'
+</font></pre><font color="black">The boolean expression after the <tt>if</tt> statement is
+called the <b>condition</b>. We end the <tt>if</tt> 
+statement with a colon character (:) and the line(s) 
+after the if statement are indented. <br />
+</font><div align="center"><font color="black"><img src="cfbook005.png" /></font></div><font color="black">
+<br />
+If the logical condition is true, then the indented
+statement gets executed. If the logical condition is 
+false, the indented statement is skipped.<br />
+<br />
+<a name="@default148"></a>
+<a name="@default149"></a>
+<a name="@default150"></a><br />
+<br />
+<tt>if</tt> statements have the same structure as function definitions
+or <tt>for</tt> loops. The statement consists of a header line
+that ends with the colon character (:) 
+followed by an indented block. Statements like this are
+called <b>compound statements</b> because they stretch 
+across more than one line.<br />
+<br />
+There is no limit on the number of statements that can appear in
+the body, but there has to be at least one.
+Occasionally, it is useful to have a body with no statements (usually
+as a place keeper for code you haven't written yet). In that
+case, you can use the <tt>pass</tt> statement, which does nothing.</font><br />
+<br />
+<a name="@default151"></a>
+<a name="@default152"></a>
+<pre><font size="4" color="blue">
+if x &lt; 0 :
+    pass          # need to handle negative values!
+</font></pre><font color="black">If you enter an if statement in the Python interpreter, the prompt will change 
+from three chevrons to three dots to indicate you are in the middle of a block of
+statements as shown below:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; x = 3
+&gt;&gt;&gt; if x &lt; 10:
+...    print 'Small'
+... 
+Small
+&gt;&gt;&gt;
+</font></pre>
+<a name="toc34"></a>
+<h2><font color="black"><a name="htoc36">3.4</a>&nbsp;&nbsp;Alternative execution</font></h2>
+<a name="alternative execution"></a>
+<a name="@default153"></a>
+<a name="@default154"></a>
+<a name="@default155"></a>
+<font color="black">A second form of the <tt>if</tt> statement is <b>alternative execution</b>,
+in which there are two possibilities and the condition determines
+which one gets executed. The syntax looks like this:
+</font><pre><font size="4" color="blue">
+if x%2 == 0 :
+    print 'x is even'
+else :
+    print 'x is odd'
+</font></pre><font color="black">If the remainder when <tt>x</tt> is divided by 2 is 0, then we
+know that <tt>x</tt> is even, and the program displays a message to that
+effect. If the condition is false, the second set of statements is
+executed. <br />
+</font><div align="center"><font color="black"><img src="cfbook006.png" /></font></div><font color="black">
+<br />
+Since the condition must be true or false, exactly one of
+the alternatives will be executed. The alternatives are called
+<b>branches</b>, because they are branches in the flow of execution.</font><br />
+<br />
+<a name="@default156"></a><br />
+<br />
+<a name="toc35"></a>
+<h2><font color="black"><a name="htoc37">3.5</a>&nbsp;&nbsp;Chained conditionals</font></h2>
+<a name="@default157"></a>
+<a name="@default158"></a>
+<font color="black">Sometimes there are more than two possibilities and we need more than
+two branches. One way to express a computation like that is a <b>chained conditional</b>:
+</font><pre><font size="4" color="blue">
+if x &lt; y:
+    print 'x is less than y'
+elif x &gt; y:
+    print 'x is greater than y'
+else:
+    print 'x and y are equal'
+</font></pre><font color="black"><tt>elif</tt> is an abbreviation of "else if." Again, exactly one
+branch will be executed. <br />
+</font><div align="center"><font color="black"><img src="cfbook007.png" /></font></div><font color="black">
+<br />
+There is no limit on the number of <tt>elif</tt> statements. If there is an <tt>else</tt> clause, it has to be
+at the end, but there doesn't have to be one.</font><br />
+<br />
+<a name="@default159"></a>
+<a name="@default160"></a>
+<pre><font size="4" color="blue">
+if choice == 'a':
+    print 'Bad guess'
+elif choice == 'b':
+    print 'Good guess'
+elif choice == 'c':
+    print 'Close, but not correct'
+</font></pre><font color="black">Each condition is checked in order. If the first is false,
+the next is checked, and so on. If one of them is
+true, the corresponding branch executes, and the statement
+ends. Even if more than one condition is true, only the
+first true branch executes. </font><br />
+<br />
+<a name="toc36"></a>
+<h2><font color="black"><a name="htoc38">3.6</a>&nbsp;&nbsp;Nested conditionals</font></h2>
+<a name="@default161"></a>
+<a name="@default162"></a>
+<font color="black">One conditional can also be nested within another. We could have
+written the trichotomy example like this:
+</font><pre><font size="4" color="blue">
+if x == y:
+    print 'x and y are equal'
+else:
+    if x &lt; y:
+        print 'x is less than y'
+    else:
+        print 'x is greater than y'
+</font></pre><font color="black">The outer conditional contains two branches. The
+first branch contains a simple statement. The second branch
+contains another <tt>if</tt> statement, which has two branches of its
+own. Those two branches are both simple statements,
+although they could have been conditional statements as well.<br />
+</font><div align="center"><font color="black"><img src="cfbook008.png" /></font></div><font color="black">
+<br />
+Although the indentation of the statements makes the structure
+apparent, <b>nested conditionals</b> become difficult to read very
+quickly. In general, it is a good idea to avoid them when you can.<br />
+<br />
+Logical operators often provide a way to simplify nested conditional
+statements. For example, we can rewrite the following code using a
+single conditional:
+</font><pre><font size="4" color="blue">
+if 0 &lt; x:
+    if x &lt; 10:
+        print 'x is a positive single-digit number.'
+</font></pre><font color="black">The <tt>print</tt> statement is executed only if we make it past both
+conditionals, so we can get the same effect with the <tt>and</tt> operator:
+</font><pre><font size="4" color="blue">
+if 0 &lt; x and x &lt; 10:
+    print 'x is a positive single-digit number.'
+</font></pre>
+<a name="toc37"></a>
+<h2><font color="black"><a name="htoc39">3.7</a>&nbsp;&nbsp;Catching exceptions using try and except</font></h2>
+<a name="catch1"></a>
+<font color="black">Earlier we saw a code segment where we used the <code>raw_input</code> and
+<tt>int</tt> functions to read and parse an integer number entered by
+the user. We also saw how treacherous doing this could be:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; speed = raw_input(prompt)
+What...is the airspeed velocity of an unladen swallow?
+What do you mean, an African or a European swallow?
+&gt;&gt;&gt; int(speed)
+ValueError: invalid literal for int()
+&gt;&gt;&gt;
+</font></pre><font color="black">When we are executing these statements in the Python interpreter, 
+we get a new prompt from the interpreter, think "oops" and move 
+on to our next statement. <br />
+<br />
+However if this code is placed in a 
+Python script and this error occurs, your script immediately 
+stops in its tracks with a traceback. 
+It does not execute the following statement. 
+<a name="@default163"></a><br />
+<br />
+Here is a sample program to convert a Fahrenheit temperature 
+to a Celsius temperature:
+</font><a name="@default164"></a>
+<a name="@default165"></a>
+<a name="@default166"></a>
+<pre><font size="4" color="blue">
+inp = raw_input('Enter Fahrenheit Temperature:')
+fahr = float(inp)
+cel = (fahr - 32.0) * 5.0 / 9.0
+print cel
+</font></pre><font color="black">If we execute this code and give it invalid input, it simply fails
+with an unfriendly error message:
+</font><pre><font size="4" color="blue">
+python fahren.py 
+Enter Fahrenheit Temperature:72
+22.2222222222
+
+python fahren.py 
+Enter Fahrenheit Temperature:fred
+Traceback (most recent call last):
+  File "fahren.py", line 2, in &lt;module&gt;
+    fahr = float(inp)
+ValueError: invalid literal for float(): fred
+</font></pre><font color="black">There is a conditional execution structure built into 
+Python to handle these types of expected and unexpected
+errors called "try / except". The idea of <tt>try</tt>
+and <tt>except</tt> is that you know that some sequence
+of instruction(s) may have a problem and you want to 
+add some statements to be executed if an error occurs.
+These extra statements (the except block) are ignored
+if there is no error.<br />
+<br />
+You can think of the <tt>try</tt> and <tt>except</tt> feature
+in Python as an "insurance policy" on a sequence of
+statements.<br />
+<br />
+We can rewrite our temperature converter as follows:
+</font><pre><font size="4" color="blue">
+inp = raw_input('Enter Fahrenheit Temperature:')
+try:
+    fahr = float(inp)
+    cel = (fahr - 32.0) * 5.0 / 9.0
+    print cel
+except:
+    print 'Please enter a number'
+</font></pre>
+<font color="black">Python starts by executing the 
+sequence of statements in the 
+<tt>try</tt> block. If all goes
+well, it skips the <tt>except</tt> block and proceeds. If an
+exception occurs in the <tt>try</tt> block, 
+Python jumps out of the <tt>try</tt> block and
+executes the sequence of statements in the <tt>except</tt> block.
+</font><pre><font size="4" color="blue">
+python fahren2.py 
+Enter Fahrenheit Temperature:72
+22.2222222222
+
+python fahren2.py 
+Enter Fahrenheit Temperature:fred
+Please enter a number
+</font></pre>
+<font color="black">Handling an exception with a <tt>try</tt> statement is called <b>catching</b> an exception. In this example, the <tt>except</tt> clause
+prints an error message. In general,
+catching an exception gives you a chance to fix the problem, or try
+again, or at least end the program gracefully.</font><br />
+<br />
+<a name="toc38"></a>
+<h2><font color="black"><a name="htoc40">3.8</a>&nbsp;&nbsp;Short circuit evaluation of logical expressions</font></h2>
+<a name="@default167"></a>
+<font color="black">When Python is processing a logical expression such as 
+<tt>x &gt;= 2 and (x/y) &gt; 2</tt>, it evaluates the expression
+from left-to-right. Because of the definition of <tt>and</tt>,
+if <tt>x</tt> is less than 2, the expression <tt>x &gt;= 2</tt> is 
+<tt>False</tt> and so the whole expression is <tt>False</tt> regardless
+of whether <tt>(x/y) &gt; 2</tt> evaluates to <tt>True</tt> or <tt>False</tt>.<br />
+<br />
+When Python detects that there is nothing to be gained by evaluating
+the rest of a logical expression, it stops its evaluation and does
+not do the computations in the rest of the logical expression. 
+When the evaluation of a logical expression stops because the overall
+value is already known, it is called <b>short-circuiting</b> 
+the evaluation.<br />
+<br />
+<a name="@default168"></a>
+<a name="@default169"></a>
+While this may seem like a fine point, the short circuit behavior
+leads to a clever technique called the <b>guardian pattern</b>. 
+Consider the following code sequence in the Python interpreter:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; x = 6 
+&gt;&gt;&gt; y = 2
+&gt;&gt;&gt; x &gt;= 2 and (x/y) &gt; 2
+True
+&gt;&gt;&gt; x = 1 
+&gt;&gt;&gt; y = 0
+&gt;&gt;&gt; x &gt;= 2 and (x/y) &gt; 2
+False
+&gt;&gt;&gt; x = 6
+&gt;&gt;&gt; y = 0
+&gt;&gt;&gt; x &gt;= 2 and (x/y) &gt; 2
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ZeroDivisionError: integer division or modulo by zero
+&gt;&gt;&gt; 
+</font></pre><font color="black">The third calculation failed because Python was evaluating <tt>(x/y)</tt>
+and <tt>y</tt> was zero which causes a runtime error. But the second example
+did <em>not</em> fail because the first part of the expression <tt>x &gt;= 2</tt> 
+evaluated to <tt>False</tt> so the <tt>(x/y)</tt> was not ever executed 
+due to the <b>short circuit</b> rule and there was no error.<br />
+<br />
+We can construct the logical expression to strategically place a <b>guard</b>
+evaluation just before the evaluation that might cause an error as follows:
+</font><pre><font size="4" color="blue">
+&gt;&gt;&gt; x = 1
+&gt;&gt;&gt; y = 0
+&gt;&gt;&gt; x &gt;= 2 and y != 0 and (x/y) &gt; 2
+False
+&gt;&gt;&gt; x = 6 
+&gt;&gt;&gt; y = 0
+&gt;&gt;&gt; x &gt;= 2 and y != 0 and (x/y) &gt; 2
+False
+&gt;&gt;&gt; x &gt;= 2 and (x/y) &gt; 2 and y != 0
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ZeroDivisionError: integer division or modulo by zero
+&gt;&gt;&gt;
+</font></pre><font color="black">In the first logical expression, <tt>x &gt;= 2</tt> is <tt>False</tt> so the evaluation
+stops at the <tt>and</tt>. In the second logical expression <tt>x &gt;= 2</tt> is <tt>True</tt>
+but <tt>y != 0</tt> is <tt>False</tt> so we never reach <tt>(x/y)</tt>.<br />
+<br />
+In the third logical expression, the <tt>y != 0</tt> is <em>after</em> the 
+<tt>(x/y) </tt> calculation so the expression fails with an error.<br />
+<br />
+In the second expression, we say that <tt>y != 0</tt> acts as a <b>guard</b>
+to insure that we only execute <tt>(x/y)</tt> if <tt>y</tt> is non-zero.</font><br />
+<br />
+<a name="toc39"></a>
+<h2><font color="black"><a name="htoc41">3.9</a>&nbsp;&nbsp;Debugging</font></h2>
+<a name="whitespace"></a>
+<a name="@default170"></a>
+<a name="@default171"></a>
+<font color="black">The traceback Python displays when an error occurs contains
+a lot of information, but it can be overwhelming, especially
+when there are many frames on the stack. The most
+useful parts are usually:
+</font><ul><li><font color="black">What kind of error it was, and</font><br />
+<br />
+</li><li><font color="black">Where it occurred.</font></li></ul>
+<font color="black">Syntax errors are usually easy to find, but there are a few
+gotchas. Whitespace errors can be tricky because spaces and
+tabs are invisible and we are used to ignoring them.</font><br />
+<br />
+<a name="@default172"></a>
+<pre><font size="4" color="blue">
+&gt;&gt;&gt; x = 5
+&gt;&gt;&gt;  y = 6
+  File "&lt;stdin&gt;", line 1
+    y = 6
+    ^
+SyntaxError: invalid syntax
+</font></pre><font color="black">In this example, the problem is that the second line is indented by
+one space. But the error message points to <tt>y</tt>, which is
+misleading. In general, error messages indicate where the problem was
+discovered, but the actual error might be earlier in the code,
+sometimes on a previous line.<br />
+<br />
+<a name="@default173"></a>
+<a name="@default174"></a><br />
+<br />
+The same is true of runtime errors. Suppose you are trying
+to compute a signal-to-noise ratio in decibels. The formula
+is <i>SNR<font size="2"><sub>db</sub></font></i> = 10 log<font size="2"><sub>10</sub></font> (<i>P<font size="2"><sub>signal</sub></font></i> / <i>P<font size="2"><sub>noise</sub></font></i>). In Python,
+you might write something like this:
+</font><pre><font size="4" color="blue">
+import math
+signal_power = 9
+noise_power = 10
+ratio = signal_power / noise_power
+decibels = 10 * math.log10(ratio)
+print decibels
+</font></pre><font color="black">But when you run it, you get an error message<sup><a name="text7" href="#note7">1</a></sup>:</font><br />
+<br />
+<a name="@default175"></a>
+<a name="@default176"></a>
+<pre><font size="4" color="blue">
+Traceback (most recent call last):
+  File "snr.py", line 5, in ?
+    decibels = 10 * math.log10(ratio)
+OverflowError: math range error
+</font></pre><font color="black">The error message indicates line 5, but there is nothing
+wrong with that line. To find the real error, it might be
+useful to print the value of <tt>ratio</tt>, which turns out to
+be 0. The problem is in line 4, because dividing two integers
+does floor division. The solution is to represent signal power
+and noise power with floating-point values.<br />
+<br />
+<a name="@default177"></a>
+<a name="@default178"></a><br />
+<br />
+In general, error messages tell you where the problem was discovered, 
+but that is often not where it was caused.</font><br />
+<br />
+<a name="toc40"></a>
+<h2><font color="black"><a name="htoc42">3.10</a>&nbsp;&nbsp;Glossary</font></h2>
+<dl compact="compact"><dt><font color="black"><b>body:</b></font></dt><dd><font color="black"> The sequence of statements within a compound statement.
+</font><a name="@default179"></a><br />
+<br />
+</dd><dt><font color="black"><b>boolean expression:</b></font></dt><dd><font color="black"> An expression whose value is either 
+<tt>True</tt> or <tt>False</tt>.
+</font><a name="@default180"></a>
+<a name="@default181"></a><br />
+<br />
+</dd><dt><font color="black"><b>branch:</b></font></dt><dd><font color="black"> One of the alternative sequences of statements in
+a conditional statement.
+</font><a name="@default182"></a><br />
+<br />
+</dd><dt><font color="black"><b>chained conditional:</b></font></dt><dd><font color="black"> A conditional statement with a series
+of alternative branches.
+</font><a name="@default183"></a>
+<a name="@default184"></a><br />
+<br />
+</dd><dt><font color="black"><b>comparison operator:</b></font></dt><dd><font color="black"> One of the operators that compares
+its operands: <tt>==</tt>, <tt>!=</tt>, <tt>&gt;</tt>, <tt>&lt;</tt>, <tt>&gt;=</tt>, and <tt>&lt;=</tt>.</font><br />
+<br />
+</dd><dt><font color="black"><b>conditional statement:</b></font></dt><dd><font color="black"> A statement that controls the flow of
+execution depending on some condition.
+</font><a name="@default185"></a>
+<a name="@default186"></a><br />
+<br />
+</dd><dt><font color="black"><b>condition:</b></font></dt><dd><font color="black"> The boolean expression in a conditional statement
+that determines which branch is executed.
+</font><a name="@default187"></a><br />
+<br />
+</dd><dt><font color="black"><b>compound statement:</b></font></dt><dd><font color="black"> A statement that consists of a header
+and a body. The header ends with a colon (:). The body is indented
+relative to the header.
+</font><a name="@default188"></a><br />
+<br />
+</dd><dt><font color="black"><b>guardian pattern:</b></font></dt><dd><font color="black"> Where we construct a logical expression 
+with additional
+comparisons to take advantage of the short circuit behavior.
+</font><a name="@default189"></a>
+<a name="@default190"></a><br />
+<br />
+</dd><dt><font color="black"><b>logical operator:</b></font></dt><dd><font color="black"> One of the operators that combines boolean
+expressions: <tt>and</tt>, <tt>or</tt>, and <tt>not</tt>.</font><br />
+<br />
+</dd><dt><font color="black"><b>nested conditional:</b></font></dt><dd><font color="black"> A conditional statement that appears
+in one of the branches of another conditional statement.
+</font><a name="@default191"></a>
+<a name="@default192"></a><br />
+<br />
+</dd><dt><font color="black"><b>traceback:</b></font></dt><dd><font color="black"> A list of the functions that are executing,
+printed when an exception occurs.
+</font><a name="@default193"></a><br />
+<br />
+</dd><dt><font color="black"><b>short circuit:</b></font></dt><dd><font color="black"> When Python is part-way through evaluating a 
+logical expression and stops the evaluation because Python 
+knows the final value for the expression 
+without needing to evaluate the rest of the expression.
+</font><a name="@default194"></a></dd></dl>
+<a name="toc41"></a>
+<h2><font color="black"><a name="htoc43">3.11</a>&nbsp;&nbsp;Exercises</font></h2><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;1</b>&nbsp;&nbsp;<em>
+Rewrite your pay computation to give the employee 1.5 
+times the hourly rate for 
+hours worked above 40 hours.
+</em></font><pre><font color="black"><em>
+Enter Hours: 45
+Enter Rate: 10
+Pay: 475.0
+</em></font></pre></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;2</b>&nbsp;&nbsp;<em>
+Rewrite your pay program using <tt>try</tt> and <tt>except</tt> 
+so that your program handles non-numeric input gracefully
+by printing a message and exiting the program.
+The following shows two executions of the program:
+</em></font><pre><font color="black"><em>
+Enter Hours: 20
+Enter Rate: nine
+Error, please enter numeric input
+
+Enter Hours: forty
+Error, please enter numeric input
+</em></font></pre></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;3</b>&nbsp;&nbsp;<em>
+Write a program to prompt for a score between 0.0 and 1.0.
+If the score is out of range print an error. If the score
+is between 0.0 and 1.0, print a grade using the following 
+table:
+</em></font><pre><font color="black"><em>
+Score   Grade
+&gt;= 0.9     A
+&gt;= 0.8     B
+&gt;= 0.7     C
+&gt;= 0.6     D
+&lt; 0.6    F
+
+Enter score: 0.95
+A
+
+Enter score: perfect
+Bad score
+
+Enter score: 10.0
+Bad score
+
+Enter score: 0.75
+C
+
+Enter score: 0.5
+F
+</em></font></pre>
+<font color="black"><em>Run the program repeatedly as shown above to test the 
+various different values for input.
+</em></font></div><br />
+<hr width="50%" size="1" /><dl><dt><font size="5" color="black"><a name="note7" href="#text7">1</a></font></dt><dd><font color="black">In Python 3.0,
+ you no longer get an error message; the division operator performs
+ floating-point division even with integer operands.
+</font></dd></dl>
+<hr />
+<a href="cfbook003.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook005.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

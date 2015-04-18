@@ -1,0 +1,634 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="GENERATOR" content="hevea 1.07" />
+<title>
+Networked programs
+</title>
+</head>
+<body>
+<a href="cfbook012.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook014.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1><font color="black"><a name="htoc146">Chapter&nbsp;12</a>&nbsp;&nbsp;Networked programs</font></h1>
+<font color="black">While many of the examples in this book have focused on reading
+files and looking for data in those files, there are many different
+sources of information when one considers the Internet.<br />
+<br />
+In this chapter we will pretend to be a web browser and retrieve web
+pages using the HyperText Transport Protocol (HTTP). Then we will read
+through the web page data and parse it.</font><br />
+<br />
+<a name="toc134"></a>
+<h2><font color="black"><a name="htoc147">12.1</a>&nbsp;&nbsp;HyperText Transport Protocol - HTTP</font></h2>
+<font color="black">The network protocol that powers the web is actually quite simple and 
+there is built-in support in Python called <tt>sockets</tt> which makes it very 
+easy to make network connections and retrieve data over those
+sockets in a Python program.<br />
+<br />
+A <b>socket</b> is much like a file, except that it 
+provides a two-way connection between two 
+programs with a single socket. 
+You can both read from and write to the same socket. If you write something to 
+a socket it is sent to the application at the other end of the socket. If you 
+read from the socket, you are given the data which the other application has sent.<br />
+<br />
+But if you try to read a socket when the program on the other end of the socket
+has not sent any data - you just sit and wait. If the programs on both ends
+of the socket simply wait for some data without sending anything, they will wait for
+a very long time.<br />
+<br />
+So an important part of programs that communicate over the Internet is to have some
+sort of protocol. A protocol is a set of precise rules that determine who
+is to go first, what they are to do, and then what are the responses to that message,
+and who sends next and so on. In a sense the two applications at either end 
+of the socket are doing a dance and making sure not to step on each other's toes.<br />
+<br />
+There are many documents which describe these network protocols. The HyperText Transport 
+Protocol is described in the following document:<br />
+<br />
+<tt>http://www.w3.org/Protocols/rfc2616/rfc2616.txt</tt><br />
+<br />
+This is a long and complex 176 page document with a lot of detail. If you 
+find it interesting feel free to read it all. But if you take a look around page 36 of
+RFC2616 you will find the syntax for the GET request. If you read in detail, you will
+find that to request a document from a web server, we make a connection to 
+the <tt>www.py4inf.com</tt> server on port 80, and then send a line of the form:<br />
+<br />
+<tt>GET http://www.py4inf.com/code/romeo.txt HTTP/1.0 </tt><br />
+<br />
+Where the second parameter is the web page we are requesting and then 
+we also send a blank line. The web server will respond with some 
+header information about the document and a blank line
+followed by the document content.</font><br />
+<br />
+<a name="toc135"></a>
+<h2><font color="black"><a name="htoc148">12.2</a>&nbsp;&nbsp;The World's Simplest Web Browser</font></h2>
+<font color="black">Perhaps the easiest way to show how the HTTP protocol works is to write a very 
+simple Python program that makes a connection to a web server and following
+the rules of the HTTP protocol, requests a document 
+and displays what the server sends back.
+</font><pre><font size="4" color="blue">
+import socket
+
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('www.py4inf.com', 80))
+mysock.send('GET http://www.py4inf.com/code/romeo.txt HTTP/1.0\n\n')
+
+while True:
+    data = mysock.recv(512)
+    if ( len(data) &lt; 1 ) :
+        break
+    print data
+
+mysock.close()
+</font></pre><font color="black">First the program makes a connection to port 80 on 
+the server <tt>www.py4inf.com</tt>.
+Since our program is playing the role of the "web browser" the HTTP
+protocol says we must send the GET command followed by a blank line.<br />
+</font><div align="center"><font color="black"><img src="cfbook013.png" /></font></div><font color="black">
+<br />
+Once we send that blank line, we write a loop that receives data 
+in 512 character chunks from the socket and prints the data out 
+until there is no more data to read (i.e. the recv() returns 
+an empty string).<br />
+<br />
+The program produces the following output:
+</font><pre><font size="4" color="blue">
+HTTP/1.1 200 OK
+Date: Sun, 14 Mar 2010 23:52:41 GMT
+Server: Apache
+Last-Modified: Tue, 29 Dec 2009 01:31:22 GMT
+ETag: "143c1b33-a7-4b395bea"
+Accept-Ranges: bytes
+Content-Length: 167
+Connection: close
+Content-Type: text/plain
+
+But soft what light through yonder window breaks
+It is the east and Juliet is the sun
+Arise fair sun and kill the envious moon
+Who is already sick and pale with grief
+</font></pre><font color="black">The output starts with headers which the web server sends
+to describe the document.
+For example, the <tt>Content-Type </tt> header indicated that
+the document is a plain text document (<tt>text/plain</tt>).<br />
+<br />
+After the server sends us the headers, it adds a blank line
+to indicate the end of the headers and then sends the actual
+data of the file <tt>romeo.txt</tt>.<br />
+<br />
+This example shows how to make a low-level network connection
+with sockets. Sockets can be used to communicate with a web
+server or with a mail server or many other kinds of servers.
+All that is needed is to find the document which describes
+the protocol and write the code to send and receive the data
+according to the protocol.<br />
+<br />
+However, since the protocol that we use most commonly is
+the HTTP (i.e. the web) protocol, Python has a special 
+library specifically designed to support the HTTP protocol 
+for the retrieval of
+documents and data over the web.</font><br />
+<br />
+<a name="toc136"></a>
+<h2><font color="black"><a name="htoc149">12.3</a>&nbsp;&nbsp;Retrieving an image over HTTP</font></h2>
+<a name="@default745"></a>
+<a name="@default746"></a>
+<a name="@default747"></a><font color="black">
+In the above example, we retreived a plain text file 
+which had newlines in the file and we simply copied the
+data to the screen as the program ran. We can use a similar
+program to retrieve an image across using HTTP. Instead
+of copying the data to the screen as the program runs,
+we accumulate the data in a string, trim off the headers
+and then save the image data to a file as follows:
+</font><pre><font size="4" color="blue">
+import socket
+import time
+
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('www.py4inf.com', 80))
+mysock.send('GET http://www.py4inf.com/cover.jpg HTTP/1.0\n\n')
+
+
+count = 0
+picture = "";
+while True:
+    data = mysock.recv(5120)
+    if ( len(data) &lt; 1 ) : break
+    # time.sleep(0.25)
+    count = count + len(data)
+    print len(data),count
+    picture = picture + data
+
+mysock.close()
+
+# Look for the end of the header (2 CRLF)
+pos = picture.find("\r\n\r\n");
+print 'Header length',pos
+print picture[:pos]
+
+# Skip past the header and save the picture data
+picture = picture[pos+4:]
+fhand = open("stuff.jpg","w")
+fhand.write(picture);
+fhand.close()
+</font></pre><font color="black">When the program runs it produces the following output:
+</font><pre><font size="4" color="blue">
+$ python urljpeg.py 
+2920 2920
+1460 4380
+1460 5840
+1460 7300
+...
+1460 62780
+1460 64240
+2920 67160
+1460 68620
+1681 70301
+Header length 240
+HTTP/1.1 200 OK
+Date: Sat, 02 Nov 2013 02:15:07 GMT
+Server: Apache
+Last-Modified: Sat, 02 Nov 2013 02:01:26 GMT
+ETag: "19c141-111a9-4ea280f8354b8"
+Accept-Ranges: bytes
+Content-Length: 70057
+Connection: close
+Content-Type: image/jpeg
+</font></pre><font color="black">You can see that that for this url, the 
+<tt>Content-Type </tt> header indicates that
+body of the document is an image (<tt>image/jpeg</tt>).
+Once the program completes, you can view the image data by opening
+the file <tt>stuff.jpg</tt> in an image viewer.<br />
+<br />
+As the program runs, 
+can see that we don't get 5120 characters each time we 
+call the <tt>recv()</tt> method.
+We get as many characters that have been transfered across the network 
+to us by the web server at the moment we call <tt>recv()</tt>. 
+In this example, we either get 1460 or
+2920 characters each time we request up to 5120 characters of data.<br />
+<br />
+Your results may be different depending on your network speed. Also
+note that on the last call to <tt>recv()</tt> we get 1681 bytes which is the end
+of the stream and in the next call to <tt>recv()</tt> we get a zero length
+string that tells us that the server has called <tt>close()</tt> on its end 
+of the socket and there is no more data forthcoming.<br />
+<br />
+<a name="@default748"></a>
+<a name="@default749"></a>
+We can slow down our successive calls <tt>recv()</tt> by uncommmenting the call 
+to <tt>time.sleep()</tt>. This way, we wait a quarter of a second after each call
+so that the server can "get ahead" of us and send more data to us
+before we call <tt>recv()</tt>. With the delay in place the program 
+executes as follows:
+</font><pre><font size="4" color="blue">
+$ python urljpeg.py 
+1460 1460
+5120 6580
+5120 11700
+...
+5120 62900
+5120 68020
+2281 70301
+Header length 240
+HTTP/1.1 200 OK
+Date: Sat, 02 Nov 2013 02:22:04 GMT
+Server: Apache
+Last-Modified: Sat, 02 Nov 2013 02:01:26 GMT
+ETag: "19c141-111a9-4ea280f8354b8"
+Accept-Ranges: bytes
+Content-Length: 70057
+Connection: close
+Content-Type: image/jpeg
+</font></pre><font color="black">Now other than the first and last calls to <tt>recv()</tt>, we now get 
+5120 characters each time we ask for new data. <br />
+<br />
+There is a buffer between the server making <tt>send()</tt> requests 
+and our application making <tt>recv()</tt> requests. When we run the 
+program with the delay in place, at some point the server might 
+fill up the buffer in the socket and be forced to pause until our
+program starts to empty the buffer. The pausing of either the 
+sending application or the receiving application is called 
+"flow control".
+</font><a name="@default750"></a><br />
+<br />
+<a name="toc137"></a>
+<h2><font color="black"><a name="htoc150">12.4</a>&nbsp;&nbsp;Retrieving web pages with <tt>urllib</tt></font></h2>
+<font color="black">While we can manually send and receive data over HTTP 
+using the socket library, there is a much simpler way to 
+to perform this common task in Python by 
+using the <tt>urllib</tt> library.<br />
+<br />
+Using <tt>urllib</tt>,
+you can treat a web page much like a file. You simply
+indicate which web page you would like to retrieve and
+<tt>urllib</tt> handles all of the HTTP protocol and header 
+details.<br />
+<br />
+The equivalent code to read the <tt>romeo.txt</tt> file
+from the web using <tt>urllib</tt> is as follows:
+</font><pre><font size="4" color="blue">
+import urllib
+
+fhand = urllib.urlopen('http://www.py4inf.com/code/romeo.txt')
+for line in fhand:
+   print line.strip()
+</font></pre><font color="black">Once the web page has been opened with 
+<tt>urllib.urlopen</tt> we can treat it like 
+a file and read through it using a 
+<tt>for</tt> loop. <br />
+<br />
+When the program runs, we only see the output
+of the contents of the file. The headers
+are still sent, but the <tt>urllib</tt> code
+consumes the headers and only returns the 
+data to us.
+</font><pre><font size="4" color="blue">
+But soft what light through yonder window breaks
+It is the east and Juliet is the sun
+Arise fair sun and kill the envious moon
+Who is already sick and pale with grief
+</font></pre>
+<font color="black">As an example, we can write 
+a program to retrieve the data for
+<tt>romeo.txt</tt> and compute the frequency
+of each word in the file as follows:
+</font><pre><font size="4" color="blue">
+import urllib
+
+counts = dict()
+fhand = urllib.urlopen('http://www.py4inf.com/code/romeo.txt')
+for line in fhand:
+    words = line.split()
+    for word in words:
+        counts[word] = counts.get(word,0) + 1   
+print counts
+</font></pre><font color="black">Again, once we have opened the web page, 
+we can read it like a local file.</font><br />
+<br />
+<a name="toc138"></a>
+<h2><font color="black"><a name="htoc151">12.5</a>&nbsp;&nbsp;Parsing HTML and scraping the web</font></h2>
+<a name="@default751"></a>
+<a name="@default752"></a>
+<font color="black">One of the common uses of the <tt>urllib</tt> capability in Python is 
+to <b>scrape</b> the web. Web scraping is when we write a program
+that pretends to be a web browser and retrieves pages and then 
+examines the data in those pages looking for patterns.<br />
+<br />
+As an example, a search engine such as Google will look at the source 
+of one web page and extract the links to other pages and retrieve
+those pages, extracting links, and so on. Using this technique,
+Google <b>spiders</b> its way through nearly all of the pages on 
+the web. <br />
+<br />
+Google also uses the frequency of links from pages it finds 
+to a particular page as one measure of how "important" 
+a page is and how highly the page should appear in its search results.</font><br />
+<br />
+<a name="toc139"></a>
+<h2><font color="black"><a name="htoc152">12.6</a>&nbsp;&nbsp;Parsing HTML using Regular Expressions</font></h2>
+<font color="black">One simple way to parse HTML is to use regular expressions to repeatedly
+search and extract for substrings that match a particular pattern.<br />
+<br />
+Here is a simple web page:
+</font><pre><font size="4" color="blue">
+&lt;h1&gt;The First Page&lt;/h1&gt;
+&lt;p&gt;
+If you like, you can switch to the
+&lt;a href="http://www.dr-chuck.com/page2.htm"&gt;
+Second Page&lt;/a&gt;.
+&lt;/p&gt;
+</font></pre><font color="black">We can construct a well-formed regular expression to match
+and extract the link values from the above text as follows:
+</font><pre><font size="4" color="blue">
+href="http://.+?"
+</font></pre><font color="black">Our regular expression looks for strings that start with
+"href="http://" followed by one or more characters
+".+?" followed by another double quote. The question mark 
+added to the ".+?" indicates that the match is to be done
+in a "non-greedy" fashion instead of a "greedy" fashion. 
+A non-greedy match tries to find the <em>smallest</em> possible matching
+string and a greedy match tries to find the <em>largest</em> possible
+matching string.
+<a name="@default753"></a>
+<a name="@default754"></a><br />
+<br />
+We need to add parentheses to our regular expression to indicate
+which part of our matched string we would like to extract and
+produce the following program:
+</font><a name="@default755"></a>
+<a name="@default756"></a>
+<pre><font size="4" color="blue">
+import urllib
+import re
+
+url = raw_input('Enter - ')
+html = urllib.urlopen(url).read()
+links = re.findall('href="(http://.*?)"', html)
+for link in links:
+    print link
+</font></pre><font color="black">The <tt>findall</tt> regular expression method will give us a list of all
+of the strings that match our regular expression, returning only
+the link text between the double quotes.<br />
+<br />
+When we run the program, we get the following output:
+</font><pre><font size="4" color="blue">
+python urlregex.py 
+Enter - http://www.dr-chuck.com/page1.htm
+http://www.dr-chuck.com/page2.htm
+
+python urlregex.py 
+Enter - http://www.py4inf.com/book.htm
+http://www.greenteapress.com/thinkpython/thinkpython.html
+http://allendowney.com/
+http://www.py4inf.com/code
+http://www.lib.umich.edu/espresso-book-machine
+http://www.py4inf.com/py4inf-slides.zip
+</font></pre><font color="black">Regular expressions work very nice when your HTML is well-formatted
+and predictable. But since there is a lot of "broken" HTML pages
+out there, you might find that a solution only using 
+regular expressions might either miss some valid links or end up 
+with bad data.<br />
+<br />
+This can be solved by using a robust HTML parsing library.</font><br />
+<br />
+<a name="toc140"></a>
+<h2><font color="black"><a name="htoc153">12.7</a>&nbsp;&nbsp;Parsing HTML using BeautifulSoup</font></h2>
+<a name="@default757"></a>
+<font color="black">There are a number of Python libraries which can help you parse
+HTML and extract data from the pages. Each of the libraries
+has its strengths and weaknesses and you can pick one based on 
+your needs.<br />
+<br />
+As an example, we will simply parse some HTML input 
+and extract links using the <b>BeautifulSoup</b> library. 
+You can download and install the BeautifulSoup code
+from:<br />
+<br />
+<tt>www.crummy.com</tt><br />
+<br />
+You can download and "install" BeautifulSoup or you 
+can simply place the <tt>BeautifulSoup.py</tt> file in the
+same folder as your application.<br />
+<br />
+Even though HTML looks like XML and some pages are carefully 
+constructed to be XML, most HTML is generally broken in ways
+that cause an XML parser to reject the entire page of HTML as
+improperly formed. BeautifulSoup tolerates highly flawed 
+HTML and still lets you easily extract the data you need.<br />
+<br />
+We will use <tt>urllib</tt> to read the page and then use
+<tt>BeautifulSoup</tt> to extract the <tt>href</tt> attributes from the
+anchor (<tt>a</tt>) tags.
+</font><a name="@default758"></a>
+<a name="@default759"></a>
+<a name="@default760"></a>
+<pre><font size="4" color="blue">
+import urllib
+from BeautifulSoup import *
+
+url = raw_input('Enter - ')
+html = urllib.urlopen(url).read()
+soup = BeautifulSoup(html)
+
+# Retrieve all of the anchor tags
+tags = soup('a')
+for tag in tags:
+   print tag.get('href', None)
+</font></pre><font color="black">The program prompts for a web address, then opens the web
+page, reads the data and passes the data to the BeautifulSoup
+parser, and then retrieves all of the anchor tags and prints
+out the <tt>href</tt> attribute for each tag.<br />
+<br />
+When the program runs it looks as follows:
+</font><pre><font size="4" color="blue">
+python urllinks.py 
+Enter - http://www.dr-chuck.com/page1.htm
+http://www.dr-chuck.com/page2.htm
+
+python urllinks.py 
+Enter - http://www.py4inf.com/book.htm
+http://www.greenteapress.com/thinkpython/thinkpython.html
+http://allendowney.com/
+http://www.si502.com/
+http://www.lib.umich.edu/espresso-book-machine
+http://www.py4inf.com/code
+http://www.pythonlearn.com/
+</font></pre><font color="black">You can use BeautifulSoup to pull out various parts of each 
+tag as follows:
+</font><pre><font size="4" color="blue">
+import urllib
+from BeautifulSoup import *
+
+url = raw_input('Enter - ')
+html = urllib.urlopen(url).read()
+soup = BeautifulSoup(html)
+
+# Retrieve all of the anchor tags
+tags = soup('a')
+for tag in tags:
+   # Look at the parts of a tag
+   print 'TAG:',tag
+   print 'URL:',tag.get('href', None)
+   print 'Content:',tag.contents[0]
+   print 'Attrs:',tag.attrs
+</font></pre><font color="black">This produces the following output:
+</font><pre><font size="4" color="blue">
+python urllink2.py 
+Enter - http://www.dr-chuck.com/page1.htm
+TAG: &lt;a href="http://www.dr-chuck.com/page2.htm"&gt;
+Second Page&lt;/a&gt;
+URL: http://www.dr-chuck.com/page2.htm
+Content: [u'\nSecond Page']
+Attrs: [(u'href', u'http://www.dr-chuck.com/page2.htm')]
+</font></pre><font color="black">These examples only begin to show the power of BeautifulSoup
+when it comes to parsing HTML. See the documentation 
+and samples at
+<tt>www.crummy.com</tt>
+for more detail.</font><br />
+<br />
+<a name="toc141"></a>
+<h2><font color="black"><a name="htoc154">12.8</a>&nbsp;&nbsp;Reading binary files using urllib</font></h2>
+<font color="black">Sometimes you want to retrieve a non-text (or binary) file such as
+an image or video file. The data in these files is generally not 
+useful to print out but you can easily make a copy of a URL to a local
+file on your hard disk using <tt>urllib</tt>.
+<a name="@default761"></a><br />
+<br />
+The pattern is to open the URL and use <tt>read</tt> to download the entire
+contents of the document into a string variable (<tt>img</tt>) and then write that
+information to a local file as follows:
+</font><pre><font size="4" color="blue">
+img = urllib.urlopen('http://www.py4inf.com/cover.jpg').read()
+fhand = open('cover.jpg', 'w')
+fhand.write(img)
+fhand.close()
+</font></pre><font color="black">This program reads all of the data in at once across the network and 
+stores it in the variable <tt>img</tt> in the main memory of your computer
+and then opens the file <tt>cover.jpg</tt> and writes the data out to your 
+disk. This will work if the size of the file is less than the size
+of the memory of your computer.<br />
+<br />
+However if this is a large audio or video file, this program may crash
+or at least run extremely slowly when your computer runs out of memory.
+In order to avoid running out of memory, we retrieve the data in blocks
+(or buffers) and then write each block to your disk before retrieving
+the next block. This way the program can read any sized file without
+using up all of the memory you have in your computer.
+</font><pre><font size="4" color="blue">
+import urllib
+
+img = urllib.urlopen('http://www.py4inf.com/cover.jpg')
+fhand = open('cover.jpg', 'w')
+size = 0
+while True:
+    info = img.read(100000)
+    if len(info) &lt; 1 : break
+    size = size + len(info)
+    fhand.write(info)
+
+print size,'characters copied.'
+fhand.close()
+</font></pre><font color="black">In this example, we read only 100,000 characters at a time and then 
+write those characters to the <tt>cover.jpg</tt> file
+before retrieving the next 100,000 characters of data from the
+web.<br />
+<br />
+This program runs as follows:
+</font><pre><font size="4" color="blue">
+python curl2.py 
+568248 characters copied.
+</font></pre>
+<font color="black">If you have a Unix or Macintosh computer, you probably have a command
+built into your operating system that performs this operation
+as follows:
+</font><a name="@default762"></a>
+<pre><font size="4" color="blue">
+curl -O http://www.py4inf.com/cover.jpg
+</font></pre><font color="black">The command <tt>curl</tt> is short for "copy URL" and so these two 
+examples are cleverly named <tt>curl1.py</tt> and <tt>curl2.py</tt> on 
+<tt>www.py4inf.com/code</tt> as they implement similar functionality
+to the <tt>curl</tt> command. There is also a <tt>curl3.py</tt> sample 
+program that does this task a little more effectively in case you
+actually want to use this pattern in a program you are writing.</font><br />
+<br />
+<a name="toc142"></a>
+<h2><font color="black"><a name="htoc155">12.9</a>&nbsp;&nbsp;Glossary</font></h2>
+<dl compact="compact"><dt><font color="black"><b>BeautifulSoup:</b></font></dt><dd><font color="black"> A Python library for parsing HTML documents
+and extracting data from HTML documents
+that compensates for most of the imperfections in the HTML that browsers
+generally ignore.
+You can download the BeautifulSoup code
+from 
+<tt>www.crummy.com</tt>.
+</font><a name="@default763"></a><br />
+<br />
+</dd><dt><font color="black"><b>port:</b></font></dt><dd><font color="black"> A number that generally indicates which application 
+you are contacting when you make a socket connection to a server.
+As an example, web traffic usually uses port 80 while e-mail 
+traffic uses port 25.
+</font><a name="@default764"></a><br />
+<br />
+</dd><dt><font color="black"><b>scrape:</b></font></dt><dd><font color="black"> When a program pretends to be a web browser and
+retrieves a web page and then looks at the web page content. 
+Often programs are following the links in one page to find the next
+page so they can traverse a network of pages or a social network.
+</font><a name="@default765"></a><br />
+<br />
+</dd><dt><font color="black"><b>socket:</b></font></dt><dd><font color="black"> A network connection between two applications
+where the applications can send and receive data in either direction.
+</font><a name="@default766"></a><br />
+<br />
+</dd><dt><font color="black"><b>spider:</b></font></dt><dd><font color="black"> The act of a web search engine retrieving a page and
+then all the pages linked from a page and so on until they have 
+nearly all of the pages on the Internet which they 
+use to build their search index.
+</font><a name="@default767"></a></dd></dl>
+<a name="toc143"></a>
+<h2><font color="black"><a name="htoc156">12.10</a>&nbsp;&nbsp;Exercises</font></h2><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;1</b>&nbsp;&nbsp;<em>
+Change the socket program <tt>socket1.py</tt> to prompt the user for 
+the URL so it can read any web page. 
+You can use <tt>split('/')</tt> to break the URL into its component parts
+so you can extract the host name for the socket <tt>connect</tt> call.
+Add error checking using <tt>try</tt> and <tt>except</tt> to handle the condition where the 
+user enters an improperly formatted or non-existent URL. 
+</em></font></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;2</b>&nbsp;&nbsp;<em>
+Change your socket program so that it counts the number of characters it has received 
+and stops displaying any text after it has shown 3000 characters. The program 
+should retrieve the entire document and count the total number of characters 
+and display the count of the number of characters at the end of the document.
+</em></font></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;3</b>&nbsp;&nbsp;<em>
+Use <tt>urllib</tt> to replicate the previous exercise of (1) retrieving the document
+from a URL, (2) displaying up to 3000 characters, and (3) counting the overall number
+of characters in the document. Don't worry about the headers for this exercise, simply
+show the first 3000 characters of the document contents.
+</em></font></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;4</b>&nbsp;&nbsp;<em>
+Change the <tt>urllinks.py</tt> program to extract and count 
+paragraph (p) tags from the retrieved HTML document and 
+display the count of the paragraphs as the 
+output of your program. 
+Do not display the paragraph text - only count them.
+Test your program on several small web pages
+as well as some larger web pages.
+</em></font></div><br />
+<div align="left"><font color="black"><b>Exercise&nbsp;5</b>&nbsp;&nbsp;<em>
+(Advanced) Change the socket program so that it only shows data after the 
+headers and a blank line have been received. Remember that <tt>recv</tt> is
+receiving characters (newlines and all) - not lines.
+</em></font></div><br />
+<hr />
+<a href="cfbook012.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook014.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

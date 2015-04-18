@@ -1,0 +1,1916 @@
+% LaTeX source for ``Python for Informatics: Exploring Information''
+% Copyright (c)  2009  Charles R. Severance
+
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the 
+% 
+% Creative Commons Attribution 3.0 - Share Alike Unported
+% (or a later CC-SA) license
+
+% http://creativecommons.org/licenses/by-sa/3.0/
+
+\chapter{Case study: interface design}
+\label{turtlechap}
+
+\section{TurtleWorld}
+\index{TurtleWorld}
+\index{Swampy}
+
+To accompany this book, I have written a suite of modules called
+Swampy.  One of these modules is TurtleWorld, which provides
+a set of functions for drawing lines by steering
+turtles around the screen.
+
+You can download Swampy from \url{thinkpython.com/swampy};
+follow the instructions there to install Swampy on your system.
+
+Move into the directory that contains {\tt TurtleWorld.py},
+create a file named {\tt polygon.py} and type in the following
+code:
+
+\beforeverb
+\begin{verbatim}
+from TurtleWorld import *
+
+world = TurtleWorld()
+bob = Turtle()
+print bob
+
+wait_for_user()
+\end{verbatim}
+\afterverb
+%
+The first line is a variation of the {\tt import} statement we saw before;
+instead of creating a module object, it imports the functions
+from the module directly, so you can access them without using dot
+notation.
+
+\index{import statement}
+\index{statement!import}
+
+The next lines create a TurtleWorld assigned to {\tt world} and
+a Turtle assigned to {\tt bob}.  Printing {\tt bob} yields something
+like:
+
+\beforeverb
+\begin{verbatim}
+<TurtleWorld.Turtle instance at 0xb7bfbf4c>
+\end{verbatim}
+\afterverb
+%
+This means that {\tt bob} refers to
+an {\bf instance} of a Turtle
+as defined in module {\tt TurtleWorld}.  In this context,
+``instance'' means a member of a set;
+this Turtle is one of the set of possible Turtles.
+
+\index{instance}
+
+\verb"wait_for_user" tells TurtleWorld to wait for the user
+to do something, although in this case there's not much for
+the user to do except close the window.
+
+TurtleWorld provides several
+turtle-steering functions: {\tt fd} and {\tt bk} for
+forward and backward, and {\tt lt} and {\tt rt} for left and
+right turns.  Also, each Turtle is holding a pen, which is
+either down or up; if the pen is down, the Turtle leaves
+a trail when it moves.  The functions {\tt pu} and {\tt pd}
+stand for ``pen up'' and ``pen down.''
+
+To draw a right angle, add these lines to the program
+(after creating {\tt bob} and before calling \verb"wait_for_user"):
+
+\beforeverb
+\begin{verbatim}
+fd(bob, 100)
+rt(bob)
+fd(bob, 100)
+\end{verbatim}
+\afterverb
+%
+The first line tells {\tt bob} to take 100 steps
+forward.  The second line tells him to turn right.
+
+When you run this program, you should see {\tt bob} move east and then
+south, leaving two line segments behind.
+
+Now modify the program to draw a square.  Don't go on until
+you've got it working!
+
+%\newpage
+
+\section{Simple repetition}
+\label{repetition}
+\index{repetition}
+
+Chances are you wrote something like this (leaving out the code
+that creates TurtleWorld and waits for the user):
+
+\begin{verbatim}
+fd(bob, 100)
+lt(bob)
+
+fd(bob, 100)
+lt(bob)
+
+fd(bob, 100)
+lt(bob)
+
+fd(bob, 100)
+\end{verbatim}
+%
+We can do the same thing more concisely with a {\tt for} statement.
+Add this example to {\tt polygon.py} and run it again:
+
+\index{for loop}
+\index{loop!for}
+\index{statement!for}
+
+\beforeverb
+\begin{verbatim}
+for i in range(4):
+    print 'Hello!'
+\end{verbatim}
+\afterverb
+%
+You should see something like this:
+
+\beforeverb
+\begin{verbatim}
+Hello!
+Hello!
+Hello!
+Hello!
+\end{verbatim}
+\afterverb
+%
+This is the simplest use of the {\tt for} statement; we will see
+more later.  But that should be enough to let you rewrite your
+square-drawing program.  Don't go on until you do.
+
+%\newpage
+
+Here is a {\tt for} statement that draws a square:
+
+\beforeverb
+\begin{verbatim}
+for i in range(4):
+    fd(bob, 100)
+    lt(bob)
+\end{verbatim}
+\afterverb
+%
+The syntax of a {\tt for} statement is similar to a function
+definition.  It has a header that ends with a colon and an indented
+body.  The body can contain any number of statements.
+
+\index{loop}
+
+A {\tt for} statement is sometimes called a {\bf loop} because
+the flow of execution runs through the body and then loops back
+to the top.  In this case, it runs the body four times.
+
+This version is actually a little different from the previous
+square-drawing code because it makes another left turn after
+drawing the last side of the square.  The extra turn takes a little
+more time, but it simplifies the code if we do the same thing
+every time through the loop.  This version also has the effect
+of leaving the turtle back in the starting position, facing in
+the starting direction.
+
+\section{Exercises}
+
+The following is a series of exercises using TurtleWorld.  They
+are meant to be fun, but they have a point, too.  While you are
+working on them, think about what the point is.
+
+The following sections have solutions to the exercises, so
+don't look until you have finished (or at least tried).
+
+\begin{enumerate}
+
+\item Write a function called {\tt square} that takes a parameter
+named {\tt t}, which is a turtle.  It should use the turtle to draw
+a square.
+
+Write a function call that passes {\tt bob} as an argument to
+{\tt square}, and then run the program again.
+
+\item Add another parameter, named {\tt length}, to {\tt square}.
+Modify the body so length of the sides is {\tt length}, and then
+modify the function call to provide a second argument.  Run the
+program again.  Test your program with a range of values for {\tt
+length}.
+
+\item The functions {\tt lt} and {\tt rt} make 90-degree turns by
+default, but you can provide a second argument that specifies the
+number of degrees.  For example, {\tt lt(bob, 45)} turns {\tt bob} 45
+degrees to the left.
+
+Make a copy of {\tt square} and change the name to {\tt polygon}.  Add
+another parameter named {\tt n} and modify the body so it draws an
+n-sided regular polygon.  Hint: The exterior angles of an n-sided regular
+polygon are $360.0 / n$ degrees.
+
+\index{polygon function}
+\index{function!polygon}
+
+\item Write a function called {\tt circle} that takes a turtle, {\tt t},
+and radius, {\tt r}, as parameters and that draws an approximate circle
+by invoking {\tt polygon} with an appropriate length and number of
+sides.  Test your function with a range of values of {\tt r}.
+
+\index{circle function}
+\index{function!circle}
+
+Hint: figure out the circumference of the circle and make sure that
+{\tt length * n = circumference}.
+
+Another hint: if {\tt bob} is too slow for you, you can speed
+him up by changing {\tt bob.delay}, which is the time between moves,
+in seconds.  {\tt bob.delay = 0.01} ought to get him moving.
+
+\item Make a more general version of {\tt circle} called {\tt arc}
+that takes an additional parameter {\tt angle}, which determines
+what fraction of a circle to draw.  {\tt angle} is in units of
+degrees, so when {\tt angle=360}, {\tt arc} should draw a complete
+circle.
+
+\index{arc function}
+\index{function!arc}
+
+\end{enumerate}
+
+\section{Encapsulation}
+
+The first exercise asks you to put your square-drawing code
+into a function definition and then call the function, passing
+the turtle as a parameter.  Here is a solution:
+
+\beforeverb
+\begin{verbatim}
+def square(t):
+    for i in range(4):
+        fd(t, 100)
+        lt(t)
+
+square(bob)
+\end{verbatim}
+\afterverb
+%
+The innermost statements, {\tt fd} and {\tt lt} are
+indented twice to show that they are inside the {\tt for} loop,
+which is inside the function definition.  The next line,
+{\tt square(bob)}, is flush with the left margin, so that is the
+end of both the {\tt for} loop and the function definition.
+
+Inside the function, {\tt t} refers to the same turtle {\tt bob}
+refers to, so {\tt lt(t)} has the same effect as {\tt lt(bob)}.
+So why not call the parameter {\tt bob}?  The idea is that {\tt t}
+can be any turtle, not just {\tt bob}, so you could create
+a second turtle and pass it as an argument to {\tt square}:
+
+\beforeverb
+\begin{verbatim}
+ray = Turtle()
+square(ray)
+\end{verbatim}
+\afterverb
+%
+Wrapping a piece of code up in a function is called {\bf
+encapsulation}.  One of the benefits of encapsulation is that it
+attaches a name to the code, which serves as a kind of documentation.
+Another advantage is that if you re-use the code, it is more concise
+to call a function twice than to copy and paste the body!
+
+\index{encapsulation}
+
+
+\section{Generalization}
+
+The next step is to add a {\tt length} parameter to {\tt square}.
+Here is a solution:
+
+\beforeverb
+\begin{verbatim}
+def square(t, length):
+    for i in range(4):
+        fd(t, length)
+        lt(t)
+
+square(bob, 100)
+\end{verbatim}
+\afterverb
+%
+Adding a parameter to a function is called {\bf generalization}
+because it makes the function more general: in the previous
+version, the square is always the same size; in this version
+it can be any size.
+
+\index{generalization}
+
+The next step is also a generalization.  Instead of drawing
+squares, {\tt polygon} draws regular polygons with any number of
+sides.  Here is a solution:
+
+\beforeverb
+\begin{verbatim}
+def polygon(t, n, length):
+    angle = 360.0 / n
+    for i in range(n):
+        fd(t, length)
+        lt(t, angle)
+
+polygon(bob, 7, 70)
+\end{verbatim}
+\afterverb
+%
+This draws a 7-sided polygon with side length 70.  If you have
+more than a few numeric arguments, it is easy to forget what they
+are, or what order they should be in.  It is legal, and sometimes
+helpful, to include the names of the parameters in the argument
+list:
+
+\beforeverb
+\begin{verbatim}
+polygon(bob, n=7, length=70)
+\end{verbatim}
+\afterverb
+%
+These are called {\bf keyword arguments} because they include
+the parameter names as ``keywords'' (not to be confused with
+Python keywords like {\tt while} and {\tt def}).
+
+\index{keyword argument}
+\index{argument!keyword}
+
+This syntax makes the program more readable.  It is also a reminder
+about how arguments and parameters work: when you call a function, the
+arguments are assigned to the parameters.
+
+
+\section{Interface design}
+
+The next step is to write {\tt circle}, which takes a radius,
+{\tt r}, as a parameter.  Here is a simple solution that uses
+{\tt polygon} to draw a 50-sided polygon:
+
+\beforeverb
+\begin{verbatim}
+def circle(t, r):
+    circumference = 2 * math.pi * r
+    n = 50
+    length = circumference / n
+    polygon(t, n, length)
+\end{verbatim}
+\afterverb
+%
+The first line computes the circumference of a circle with radius
+{\tt r} using the formula $2 \pi r$.  Since we use {\tt math.pi}, we
+have to import {\tt math}.  By convention, {\tt import} statements
+are usually at the beginning of the script.
+
+{\tt n} is the number of line segments in our approximation of a circle,
+so {\tt length} is the length of each segment.  Thus, {\tt polygon}
+draws a 50-sides polygon that approximates a circle with radius {\tt r}.
+
+One limitation of this solution is that {\tt n} is a constant, which
+means that for very big circles, the line segments are too long, and
+for small circles, we waste time drawing very small segments.  One
+solution would be to generalize the function by taking {\tt n} as
+a parameter.  This would give the user (whoever calls {\tt circle})
+more control, but the interface would be less clean.
+
+\index{interface}
+
+The {\bf interface} of a function is a summary of how it is used: what
+are the parameters?  What does the function do?  And what is the return
+value?  An interface is ``clean'' if it is ``as simple as
+possible, but not simpler. (Einstein)''
+
+\index{Einstein, Albert}
+
+In this example, {\tt r} belongs in the interface because it
+specifies the circle to be drawn.  {\tt n} is less appropriate
+because it pertains to the details of {\em how} the circle should
+be rendered.
+
+Rather than clutter up the interface, it is better
+to choose an appropriate value of {\tt n}
+depending on {\tt circumference}:
+
+\beforeverb
+\begin{verbatim}
+def circle(t, r):
+    circumference = 2 * math.pi * r
+    n = int(circumference / 3) + 1
+    length = circumference / n
+    polygon(t, n, length)
+\end{verbatim}
+\afterverb
+%
+Now the number of segments is (approximately) {\tt circumference/3},
+so the length of each segment is (approximately) 3, which is small
+enough that the circles look good, but big enough to be efficient,
+and appropriate for any size circle.
+
+
+\section{Refactoring}
+\label{refactoring}
+\index{refactoring}
+
+When I wrote {\tt circle}, I was able to re-use {\tt polygon}
+because a many-sided polygon is a good approximation of a circle.
+But {\tt arc} is not as cooperative; we can't use {\tt polygon}
+or {\tt circle} to draw an arc.
+
+One alternative is to start with a copy
+of {\tt polygon} and transform it into {\tt arc}.  The result
+might look like this:
+
+\beforeverb
+\begin{verbatim}
+def arc(t, r, angle):
+    arc_length = 2 * math.pi * r * angle / 360
+    n = int(arc_length / 3) + 1
+    step_length = arc_length / n
+    step_angle = float(angle) / n
+    
+    for i in range(n):
+        fd(t, step_length)
+        lt(t, step_angle)
+\end{verbatim}
+\afterverb
+%
+The second half of this function looks like {\tt polygon}, but we
+can't re-use {\tt polygon} without changing the interface.  We could
+generalize {\tt polygon} to take an angle as a third argument,
+but then {\tt polygon} would no longer be an appropriate name!
+Instead, let's call the more general function {\tt polyline}:
+
+\beforeverb
+\begin{verbatim}
+def polyline(t, n, length, angle):
+    for i in range(n):
+        fd(t, length)
+        lt(t, angle)
+\end{verbatim}
+\afterverb
+%
+Now we can rewrite {\tt polygon} and {\tt arc} to use {\tt polyline}:
+
+\beforeverb
+\begin{verbatim}
+def polygon(t, n, length):
+    angle = 360.0 / n
+    polyline(t, n, length, angle)
+
+def arc(t, r, angle):
+    arc_length = 2 * math.pi * r * angle / 360
+    n = int(arc_length / 3) + 1
+    step_length = arc_length / n
+    step_angle = float(angle) / n
+    polyline(t, n, step_length, step_angle)
+\end{verbatim}
+\afterverb
+%
+Finally, we can rewrite {\tt circle} to use {\tt arc}:
+
+\beforeverb
+\begin{verbatim}
+def circle(t, r):
+    arc(t, r, 360)
+\end{verbatim}
+\afterverb
+%
+This process---rearranging a program to improve function
+interfaces and facilitate code re-use---is called {\bf refactoring}.
+In this case, we noticed that there was similar code in {\tt arc} and
+{\tt polygon}, so we ``factored it out'' into {\tt polyline}.
+
+\index{refactoring}
+
+If we had planned ahead, we might have written {\tt polyline} first
+and avoided refactoring, but often you don't know enough at the
+beginning of a project to design all the interfaces.  Once you start
+coding, you understand the problem better.  Sometimes refactoring is a
+sign that you have learned something.
+
+
+\section{A development plan}
+\index{development plan!encapsulation and generalization}
+
+A {\bf development plan} is a process for writing programs.
+The process we used
+in this case study is ``encapsulation and
+generalization.''  The steps of this process are:
+
+\begin{enumerate}
+
+\item Start by writing a small program with no function definitions.
+
+\item Once you get the program working, encapsulate it in a function
+and give it a name.
+
+\item Generalize the function by adding appropriate parameters.
+
+\item Repeat steps 1--3 until you have a set of working functions.
+Copy and paste working code to avoid retyping (and re-debugging).
+
+\item Look for opportunities to improve the program by refactoring.
+For example, if you have similar code in several places, consider
+factoring it into an appropriately general function.
+
+\end{enumerate}
+
+This process has some drawbacks---we will see alternatives later---but
+it can be useful if you don't know ahead of time how to divide the
+program into functions.  This approach lets you design as you go
+along.
+
+
+\section{docstring}
+\label{docstring}
+\index{docstring}
+
+A {\bf docstring} is a string at the beginning of a function that
+explains the interface (``doc'' is short for ``documentation'').  Here
+is an example:
+
+\beforeverb
+\begin{verbatim}
+def polyline(t, length, n, angle):
+    """Draw n line segments with the given length and
+    angle (in degrees) between them.  t is a turtle.
+    """    
+    for i in range(n):
+        fd(t, length)
+        lt(t, angle)
+\end{verbatim}
+\afterverb
+%
+This docstring is a triple-quoted string, also known
+as a multiline string because the triple quotes allow the string
+to span more than one line.
+
+\index{quotation mark}
+\index{triple-quoted string}
+\index{string!triple-quoted}
+\index{multiline string}
+\index{string!multiline}
+
+It is terse, but it contains the essential information
+someone would need to use this function.  It explains concisely what
+the function does (without getting into the details of how it does
+it).  It explains what effect each parameter has on the behavior of
+the function and what type each parameter should be (if it is not
+obvious).
+
+Writing this kind of documentation is an important part of interface
+design.  A well-designed interface should be simple to explain;
+if you are having a hard time explaining one of your functions,
+that might be a sign that the interface could be improved.
+
+
+\section{Debugging}
+\index{debugging}
+\index{interface}
+
+An interface is like a contract between a function and a caller.
+The caller agrees to provide certain parameters and the function
+agrees to do certain work.
+
+For example, {\tt polyline} requires four arguments.  The first
+has to be a Turtle (or some other object that works with {\tt fd}
+and {\tt lt}).  The second has to be a number, and it should
+probably be positive, although it turns out that the function
+works even if it isn't.  The third argument should be an integer;
+{\tt range} complains otherwise (depending on which version
+of Python you are running).  The fourth has to be a number,
+which is understood to be in degrees.
+
+These requirements are called {\bf preconditions} because they
+are supposed to be true before the function starts executing.
+Conversely, conditions at the end of the function are
+{\bf postconditions}.  Postconditions include the intended
+effect of the function (like drawing line segments) and any
+side effects (like moving the Turtle or making other changes
+in the World).
+
+\index{precondition}
+\index{postcondition}
+
+Preconditions are the responsibility of the caller.  If the caller
+violates a (properly documented!) precondition and the function
+doesn't work correctly, the bug is in the caller, not the function.
+However, for purposes of debugging it is often a good idea for
+functions to check their preconditions rather than assume they are
+true.  If every function checks its preconditions before starting,
+then if something goes wrong, you will know which function to blame.
+
+
+\section{Glossary}
+
+\begin{description}
+
+\item[instance:] A member of a set.  The TurtleWorld in this
+chapter is a member of the set of TurtleWorlds.
+\index{instance}
+
+\item[loop:] A part of a program that can execute repeatedly.
+\index{loop}
+
+\item[encapsulation:] The process of transforming a sequence of
+statements into a function definition.
+\index{encapsulation}
+
+\item[generalization:] The process of replacing something
+unnecessarily specific (like a number) with something appropriately
+general (like a variable or parameter).
+\index{generalization}
+
+\item[keyword argument:] An argument that includes the name of
+the parameter as a ``keyword.''
+\index{keyword argument}
+\index{argument!keyword}
+
+\item[interface:] A description of how to use a function, including
+the name and descriptions of the arguments and return value.
+\index{interface}
+
+\item[development plan:] A process for writing programs.
+\index{development plan}
+
+\item[docstring:]  A string that appears in a function definition
+to document the function's interface.
+\index{docstring}
+
+\item[precondition:] A requirement that should be satisfied by
+the caller before a function starts.
+\index{precondition}
+
+\item[postcondition:] A requirement that should be satisfied by
+the function before it ends.
+\index{precondition}
+
+\end{description}
+
+
+\section{Exercises}
+
+\begin{ex}
+
+Download the code in this chapter from
+\url{thinkpython.com/code/polygon.py}.
+
+\begin{enumerate}
+
+\item Write appropriate docstrings for {\tt polygon}, {\tt arc} and
+{\tt circle}.
+
+\index{stack diagram}
+
+\item Draw a stack diagram that shows the state of the program
+while executing {\tt circle(bob, radius)}.  You can do the
+arithmetic by hand or add {\tt print} statements to the code.
+
+
+\item The version of {\tt arc} in Section~\ref{refactoring} is not
+very accurate because the linear approximation of the
+circle is always outside the true circle.  As a result,
+the turtle ends up a few units away from the correct
+destination. My solution shows a way to reduce
+the effect of this error.  Read the code and see if it makes
+sense to you.  If you draw a diagram, you might see how it works.
+
+\end{enumerate}
+
+\end{ex}
+
+
+\begin{ex}
+\index{flower}
+
+Write an appropriately general set of functions that
+can draw flowers like this:
+
+\centerline{\includegraphics[height=1in]{figs/flowers.eps}}
+
+You can download a solution from \url{thinkpython.com/code/flower.py}.
+
+\end{ex}
+
+
+\begin{ex}
+\index{pie}
+
+Write an appropriately general set of functions that
+can draw shapes like this:
+
+\centerline{\includegraphics[height=0.9in]{figs/pies.eps}}
+
+You can download a solution from \url{thinkpython.com/code/pie.py}.
+
+\end{ex}
+
+\begin{ex}
+\index{alphabet}
+\index{turtle typewriter}
+\index{typewriter, turtle}
+
+The letters of the alphabet can be constructed from a moderate
+number of basic elements, like vertical and horizontal lines
+and a few curves.  Design a font that can be drawn with a
+minimal number of basic elements and then write functions
+that draw letters of the alphabet.
+
+You should write one function for each letter, with names
+\verb"draw_a", \verb"draw_b", etc., and put your functions
+in a file named {\tt letters.py}.  You can download a
+``turtle typewriter'' from \url{thinkpython.com/code/typewriter.py}
+to help you test your code.
+
+You can download a solution from \url{thinkpython.com/code/letters.py}.
+
+\end{ex}
+
+
+
+
+\chapter{Case study: Tkinter}
+
+\section{GUI}
+
+Most of the programs we have seen so far are text-based, but
+many programs use {\bf graphical user interfaces}, also
+known as {\bf GUIs}.
+
+\index{GUI}
+\index{graphical user interface}
+\index{Tkinter}
+
+Python provides several choices for writing GUI-based programs,
+including wxPython, Tkinter, and Qt.  Each has pros and cons, which
+is why Python has not converged on a standard.
+
+The one I will present in this chapter is Tkinter because I think
+it is the easiest to get started with.  Most of the concepts
+in this chapter apply to the other GUI modules, too.
+
+There are several books and web pages about Tkinter.  One of
+the best online resources is {\em An Introduction to Tkinter}
+by Fredrik Lundh.
+
+\index{Gui module}
+\index{module!Gui}
+\index{Swampy}
+
+I have written a module called {\tt Gui.py} that comes with
+Swampy.  It provides a simplified interface to the functions
+and classes in Tkinter.  The examples in this chapter are
+based on this module.
+
+Here is a simple example that creates and displays a Gui:
+
+To create a GUI, you have to import {\tt Gui} and instantiate
+a Gui object:
+
+\beforeverb
+\begin{verbatim}
+from Gui import *
+
+g = Gui()
+g.title('Gui')
+g.mainloop()
+\end{verbatim}
+\afterverb
+%
+When you run this code, a window should appear with an empty gray
+square and the title {\sf Gui}.  {\tt mainloop} runs the {\bf event
+  loop}, which waits for the user to do something and responds
+accordingly.  It is an infinite loop; it runs until the user closes
+the window, or presses Control-C, or does something that causes the
+program to quit.
+
+\index{event loop}
+\index{loop!event}
+\index{infinite loop}
+\index{loop!infinite}
+
+This Gui doesn't do much because it doesn't have any
+{\bf widgets}.  Widgets are the elements that make up a
+GUI; they include:
+
+\index{widget}
+
+\begin{description}
+
+\item[Button:] A widget, containing text or an image, that
+performs an action when pressed.
+
+\item[Canvas:] A region that can display lines, rectangles,
+circles and other shapes.
+
+\item[Entry:] A region where users can type text.
+
+\item[Scrollbar:] A widget that controls the visible part of another
+widget.
+
+\item[Frame:] A container, often invisible, that contains other
+widgets.
+
+\end{description}
+
+The empty gray square you see when you create a Gui is
+a Frame.  When you create a new widget, it is added to this Frame.
+
+
+
+\section{Buttons and callbacks}
+
+\index{Button widget}
+\index{widget!Button}
+
+The method {\tt bu} creates a Button widget:
+
+\beforeverb
+\begin{verbatim}
+button = g.bu(text='Press me.')
+\end{verbatim}
+\afterverb
+%
+The return value from {\tt bu} is a Button object.  The button
+that appears in the Frame is a graphical representation of this
+object; you can control the button by invoking methods on it.
+
+\index{option}
+
+{\tt bu} takes up to 32 parameters that control the appearance
+and function of the button.  These parameters are called
+{\bf options}.  Instead of providing values for all 32 options,
+you can use keyword arguments, like \verb"text='Press me.'",
+to specify only the options you need and use the default
+values for the rest.
+
+\index{keyword argument}
+\index{argument!keyword}
+
+When you add a widget to the Frame, it gets ``shrink-wrapped;''
+that is, the Frame shrinks to the size of the Button.  If you
+add more widgets, the Frame grows to accommodate them.
+
+\index{Label widget}
+\index{widget!Label}
+
+The method {\tt la} creates a Label widget:
+
+\beforeverb
+\begin{verbatim}
+label = g.la(text='Press the button.')
+\end{verbatim}
+\afterverb
+%
+By default, Tkinter stacks the widgets top-to-bottom and centers
+them.  We'll see how to override that behavior soon.
+
+If you press the button, you will see that it doesn't do much.
+That's because you haven't ``wired it up;'' that is, you haven't
+told it what to do!
+
+The option that controls the behavior of a button is {\tt command}.
+The value of {\tt command} is a function that gets executed when
+the button is pressed.  For example, here is a function that creates
+a new Label:
+
+\beforeverb
+\begin{verbatim}
+def make_label():
+    g.la(text='Thank you.')
+\end{verbatim}
+\afterverb
+%
+Now we can create a button with this function as its command:
+
+\beforeverb
+\begin{verbatim}
+button2 = g.bu(text='No, press me!', command=make_label)
+\end{verbatim}
+\afterverb
+%
+When you press this button, it should execute \verb"make_label"
+and a new label should appear.
+
+\index{callback}
+
+The value of the {\tt command} option
+is a function object, which is known as a {\bf callback} because
+after you call {\tt bu} to create the button, the flow of execution
+``calls back'' when the user presses the button.
+
+\index{event-driven programming}
+
+This kind of flow is characteristic of {\bf event-driven programming}.
+User actions, like button presses and key strokes, are called {\bf
+events}.  In event-driven programming, the flow of execution is
+determined by user actions rather than by the programmer.  
+
+The challenge of event-driven programming is to construct a set of
+widgets and callbacks that work correctly (or at least generate
+appropriate error messages) for any sequence of user actions.
+
+\begin{ex}
+Write a program that creates a GUI with a single button.  When the
+button is pressed it should create a second button.  When
+{\em that} button is pressed, it should create a label that
+says, ``Nice job!''.
+
+What happens if you press the buttons more than once?
+You can see my solution at \url{thinkpython.com/code/button_demo.py}
+
+\end{ex}
+
+
+\section{Canvas widgets}
+
+\index{Canvas widget}
+\index{widget!Canvas}
+
+One of the most versatile widgets is the Canvas, which creates
+a region for drawing lines, circles and other shapes.  If you
+did Exercise~\ref{canvas} you are already familiar with canvases.
+
+The method {\tt ca} creates a new Canvas:
+
+\beforeverb
+\begin{verbatim}
+canvas = g.ca(width=500, height=500)
+\end{verbatim}
+\afterverb
+%
+{\tt width} and {\tt height} are the dimensions of the canvas
+in pixels.  
+
+\index{config method}
+\index{method!config}
+
+After you create a widget, you can still change the values of
+the options with the
+{\tt config} method.  For example, the {\tt bg} option changes
+the background color:
+
+\beforeverb
+\begin{verbatim}
+canvas.config(bg='white')
+\end{verbatim}
+\afterverb
+%
+The value of {\tt bg} is a string
+that names a color.  The set of legal color names is different
+for different implementations of Python, but all implementations
+provide at least:
+
+\beforeverb
+\begin{verbatim}
+white   black
+red     green    blue   
+cyan    yellow   magenta
+\end{verbatim}
+\afterverb
+%
+Shapes on a Canvas are called {\bf items}.  For example,
+the Canvas method {\tt circle} draws (you guessed it) a circle:
+
+\index{Canvas item}
+\index{item!Canvas}
+
+\beforeverb
+\begin{verbatim}
+item = canvas.circle([0,0], 100, fill='red')
+\end{verbatim}
+\afterverb
+%
+The first argument is a coordinate pair that specifies the
+center of the circle; the second is the radius.
+
+\index{Canvas coordinate}
+\index{coordinate!Canvas}
+
+{\tt Gui.py} provides a standard Cartesian coordinate system with
+the origin at the center of the Canvas and the positive $y$ axis
+pointing up.  This is different from some other graphics systems
+where the the origin is in the upper left with the $y$ axis
+pointing down.
+
+The {\tt fill} option specifies that the circle should be filled
+in with red.
+
+The return value from {\tt circle} is an Item object that
+provides methods for modifying the item on the canvas.  For
+example, you can use {\tt config} to change any of the circle's
+options:
+
+\beforeverb
+\begin{verbatim}
+item.config(fill='yellow', outline='orange', width=10)
+\end{verbatim}
+\afterverb
+%
+{\tt width} is the thickness of the outline in pixels;
+{\tt outline} is the color.
+
+\begin{ex}
+\label{circle}
+Write a program that creates a Canvas and a Button.  When the
+user presses the Button, it should draw a circle on the canvas.
+\end{ex}
+
+
+\section{Coordinate sequences}
+
+\index{coordinate sequence}
+\index{sequence!coordinate}
+
+The {\tt rectangle} method takes a sequence of coordinates that
+specify opposite corners of the rectangle.  This example
+draws a green rectangle with the lower left corner at the origin
+and the upper right corner at $(200, 100)$:
+
+\beforeverb
+\begin{verbatim}
+canvas.rectangle([[0, 0], [200, 100]], 
+                 fill='blue', outline='orange', width=10)
+\end{verbatim}
+\afterverb
+%
+This way of specifying corners is called
+a {\bf bounding box} because the two points
+bound the rectangle.
+
+\index{bounding box}
+
+{\tt oval} takes a bounding box and draws an oval
+within the specified rectangle:
+
+\beforeverb
+\begin{verbatim}
+canvas.oval([[0, 0], [200, 100]], outline='orange', width=10)
+\end{verbatim}
+\afterverb
+%
+{\tt line} takes a sequence of coordinates and draws
+a line that connects the points.  This example draws two legs
+of a triangle:
+
+\beforeverb
+\begin{verbatim}
+canvas.line([[0, 100], [100, 200], [200, 100]], width=10)
+\end{verbatim}
+\afterverb
+%
+{\tt polygon} takes the same arguments, but it draws the last
+leg of the polygon (if necessary) and fills it in:
+
+\beforeverb
+\begin{verbatim}
+canvas.polygon([[0, 100], [100, 200], [200, 100]],
+               fill='red', outline='orange', width=10)
+\end{verbatim}
+\afterverb
+%
+
+
+\section{More widgets}
+
+\index{Text widget}
+\index{widget!Text}
+
+Tkinter provides two widgets that let users type text: an
+Entry, which is a single line, and a Text widget, which has
+multiple lines.
+
+\index{Entry widget}
+\index{widget!Entry}
+
+{\tt en} creates a new Entry:
+
+\beforeverb
+\begin{verbatim}
+entry = g.en(text='Default text.')
+\end{verbatim}
+\afterverb
+%
+The {\tt text} option allows you to put text into the entry
+when it is created.  The {\tt get} method returns the contents
+of the Entry (which may have been changed by the user):
+
+\beforeverb
+\begin{verbatim}
+>>> entry.get()
+'Default text.'
+\end{verbatim}
+\afterverb
+%
+{\tt te} creates a Text widget:
+
+\beforeverb
+\begin{verbatim}
+text = g.te(width=100, height=5)
+\end{verbatim}
+\afterverb
+%
+{\tt width} and {\tt height} are the dimensions of the
+widget in characters and lines.
+
+{\tt insert} puts text into the Text widget:
+
+\beforeverb
+\begin{verbatim}
+text.insert(END, 'A line of text.')
+\end{verbatim}
+\afterverb
+%
+{\tt END} is a special index that indicates the last character in the
+Text widget.
+
+You can also specify a character using a dotted index, like {\tt 1.1},
+which has the line number before the dot and the column number after.
+The following example adds the letters \verb"'nother'" after the first
+character of the first line.
+
+\beforeverb
+\begin{verbatim}
+>>> text.insert(1.1, 'nother')
+\end{verbatim}
+\afterverb
+%
+The {\tt get} method reads the text in the widget; it takes a start
+and end index as arguments.  The following example returns all the
+text in the widget, including the newline character:
+
+\beforeverb
+\begin{verbatim}
+>>> text.get(0.0, END)
+'Another line of text.\n'
+\end{verbatim}
+\afterverb
+%
+The {\tt delete} method removes text from the widget;
+the following example deletes all but the first two characters:
+
+\beforeverb
+\begin{verbatim}
+>>> text.delete(1.2, END)
+>>> text.get(0.0, END)
+'An\n'
+\end{verbatim}
+\afterverb
+%
+
+\begin{ex}
+\label{circle2}
+
+Modify your solution to Exercise~\ref{circle} by adding an
+Entry widget and a second button.  When the user presses the
+second button, it should read a color name from the Entry and
+use it to change the fill color of the circle.  Use {\tt config}
+to modify the existing circle; don't create a new one.
+
+Your program should handle the case where the user tries to
+change the color of a circle that hasn't been created, and
+the case where the color name is invalid.
+
+You can see my solution at \url{thinkpython.com/code/circle_demo.py}.
+
+\end{ex}
+
+
+\section{Packing widgets}
+
+So far we have been stacking widgets in a single column, but in most
+GUIs the layout is more complicated.  For example, here is a slightly
+simplified version of TurtleWorld (see
+Chapter~\ref{turtlechap}).
+
+\beforefig
+\centerline{
+\includegraphics[width=1.0\textwidth]{figs/TurtleWorld.eps}
+}
+\afterfig
+
+This section presents the code that creates this GUI, broken into a
+series of steps.  You can download the complete example
+from \url{thinkpython.com/code/SimpleTurtleWorld.py}.
+
+At the top level, this GUI contains two widgets---a Canvas and a
+Frame---arranged in a row.  So the first step is to create the row.
+
+\index{SimpleTurtleWorld class}
+\index{class!SimpleTurtleWorld}
+
+\beforeverb
+\begin{verbatim}
+class SimpleTurtleWorld(TurtleWorld):
+    """This class is identical to TurtleWorld, but the code that
+    lays out the GUI is simplified for explanatory purposes."""
+
+    def setup(self):
+        self.row()
+        ...
+\end{verbatim}
+\afterverb
+%
+{\tt setup} is the function that creates and arranges the widgets.
+Arranging widgets in a GUI is called {\bf packing}.
+
+\index{packing widgets}
+\index{widget, packing}
+\index{Frame widget}
+\index{widget!Frame}
+
+{\tt row} creates a row Frame and makes it the ``current Frame.''
+Until this Frame is closed or another Frame is created, all
+subsequent widgets are packed in a row.
+
+Here is the code that creates the Canvas and the column Frame
+that hold the other widgets:
+
+\beforeverb
+\begin{verbatim}
+        self.canvas = self.ca(width=400, height=400, bg='white')
+        self.col()
+\end{verbatim}
+\afterverb
+%
+The first widget in the column is a grid Frame, which contains
+four buttons arranged two-by-two:
+
+\beforeverb
+\begin{verbatim}
+        self.gr(cols=2)
+        self.bu(text='Print canvas', command=self.canvas.dump)
+        self.bu(text='Quit', command=self.quit)
+        self.bu(text='Make Turtle', command=self.make_turtle)
+        self.bu(text='Clear', command=self.clear)
+        self.endgr()
+\end{verbatim}
+\afterverb
+%
+{\tt gr} creates the grid; the argument is the number of
+columns.  Widgets in the grid are
+layed out left-to-right, top-to-bottom.
+
+\index{callback}
+\index{bound method}
+\index{method, bound}
+\index{subject}
+
+The first button uses {\tt self.canvas.dump} as a callback; the second
+uses {\tt self.quit}.  These are {\bf bound methods}, which means they
+are associated with a particular object.  When they are invoked, they
+are invoked on the object.
+
+The next widget in the column is a row Frame that contains
+a Button and an Entry:
+
+\beforeverb
+\begin{verbatim}
+        self.row([0,1], pady=30)
+        self.bu(text='Run file', command=self.run_file)
+        self.en_file = self.en(text='snowflake.py', width=5)
+        self.endrow()
+\end{verbatim}
+\afterverb
+%
+The first argument to {\tt row} is a list of weights that
+determines how extra space is allocated between widgets.  
+The list {\tt [0,1]} means that all extra space is allocated
+to the second widget, which is the Entry.  If you run this code
+and resize the window, you will see that the Entry grows and
+the Button doesn't.
+
+The option {\tt pady} ``pads'' this row in the $y$ direction,
+adding 30 pixels of space above and below.
+
+{\tt endrow} ends this row of widgets, so subsequent widgets are
+packed in the column Frame.  {\tt Gui.py} keeps a stack of Frames:
+
+\begin{itemize}
+
+\item When you use {\tt row}, {\tt col} or {\tt gr} to create a Frame,
+it goes on top of the stack and becomes the current Frame.
+
+\item When you use {\tt endrow}, {\tt endcol} or {\tt endgr} to close
+a Frame, it gets popped off the stack and the previous Frame on the
+stack becomes the current Frame.
+
+\end{itemize} 
+
+The method \verb"run_file" reads the contents of the Entry,
+uses it as a filename, reads the contents
+and passes it to \verb"run_code".  {\tt self.inter} is an
+Interpreter object that knows how to take a string and
+execute it as Python code.
+
+\beforeverb
+\begin{verbatim}
+    def run_file(self):
+        filename = self.en_file.get()
+        fp = open(filename)
+        source = fp.read()
+        self.inter.run_code(source, filename)
+\end{verbatim}
+\afterverb
+%
+The last two widgets are a Text widget and a Button:
+
+\beforeverb
+\begin{verbatim}
+        self.te_code = self.te(width=25, height=10)
+        self.te_code.insert(END, 'world.clear()\n')
+        self.te_code.insert(END, 'bob = Turtle(world)\n')
+
+        self.bu(text='Run code', command=self.run_text)
+\end{verbatim}
+\afterverb
+%
+\verb"run_text" is similar to \verb"run_file" except that it takes
+the code from the Text widget instead of from a file:
+
+\beforeverb
+\begin{verbatim}
+    def run_text(self):
+        source = self.te_code.get(1.0, END)
+        self.inter.run_code(source, '<user-provided code>')
+\end{verbatim}
+\afterverb
+%
+Unfortunately, the details of widget layout are different in
+other languages, and in different Python modules.
+Tkinter alone provides three different mechanisms for arranging
+widgets.  These mechanisms are called {\bf geometry managers}.
+The one I demonstrated in this section is the ``grid'' geometry
+manager; the others are called ``pack'' and ``place''.
+
+\index{geometry manager}
+
+Fortunately, most of the concepts in this section apply to
+other GUI modules and other languages.
+
+
+\section{Menus and Callables}
+
+\index{Menubutton widget}
+\index{widget!Menubutton}
+
+A Menubutton is a widget that looks like a button, but when pressed
+it pops up a menu.  After the user selects an item, the menu
+disappears.
+
+Here is code that creates a color selection Menubutton
+(you can download it from \url{thinkpython.com/code/menubutton_demo.py}):
+
+% mb_example.py
+
+\beforeverb
+\begin{verbatim}
+g = Gui()
+g.la('Select a color:')
+colors = ['red', 'green', 'blue']
+mb = g.mb(text=colors[0])
+\end{verbatim}
+\afterverb
+%
+{\tt mb} creates the Menubutton.  Initially, the text on the button is
+the name of the default color.  The following loop creates one menu
+item for each color:
+
+\beforeverb
+\begin{verbatim}
+for color in colors:
+    g.mi(mb, text=color, command=Callable(set_color, color))
+\end{verbatim}
+\afterverb
+%
+The first argument of {\tt mi} is the Menubutton these items are
+associated with.
+
+\index{callback}
+\index{Callable object}
+\index{object!Callable}
+
+The {\tt command} option is a Callable object, which is something new.
+So far we have seen functions and bound methods used as callbacks,
+which works fine if you don't have to pass any arguments to
+the function.  Otherwise you have to construct a Callable object
+that contains a function, like \verb"set_color", and its arguments,
+like {\tt color}.
+
+The Callable object stores a reference to the function and the
+arguments as attributes.  Later, when the user clicks on a menu
+item, the callback calls the function and passes the stored
+arguments.
+
+Here is what \verb"set_color" might look like:
+
+\beforeverb
+\begin{verbatim}
+def set_color(color):
+    mb.config(text=color)
+    print color
+\end{verbatim}
+\afterverb
+%
+When the user selects a menu item and \verb"set_color" is called,
+it configures the Menubutton to display the newly-selected color.
+It also print the color; if you try this example, you can confirm that
+\verb"set_color" is called when you select an item (and {\em not}
+called when you create the Callable object).
+
+
+\section{Binding}
+
+\index{binding}
+\index{callback}
+
+A {\bf binding} is an association between a widget, an event and a
+callback: when an event (like a button press) happens on a widget, the
+callback is invoked.
+
+Many widgets have default bindings.  For example, when you press
+a button, the default binding changes the relief of the button
+to make it look depressed.  When you release the button, the
+binding restores the appearance of the button and invokes the
+callback specified with the {\tt command} option.
+
+You can use the {\tt bind} method to override these default
+bindings or to add new ones.  For example, this code creates a
+binding for a canvas (you can download the code in this
+section from \url{thinkpython.com/code/draggable_demo.py}):
+
+\beforeverb
+\begin{verbatim}
+ca.bind('<ButtonPress-1>', make_circle)
+\end{verbatim}
+\afterverb
+%
+The first argument is an event string; this event is triggered
+when the user presses the left mouse button.  Other mouse
+events include {\tt ButtonMotion}, {\tt ButtonRelease} and
+{\tt Double-Button}.
+
+\index{event string}
+\index{event handler}
+
+The second argument is an event handler.  An event handler
+is a function or bound method, like a callback, but an important
+difference is that an event handler takes an Event object as a
+parameter.  Here is an example:
+
+\beforeverb
+\begin{verbatim}
+def make_circle(event):
+    pos = ca.canvas_coords([event.x, event.y])
+    item = ca.circle(pos, 5, fill='red')
+\end{verbatim}
+\afterverb
+%
+The Event object contains information about the type of event and
+details like the coordinates of the mouse pointer.  In this example
+the information we need is
+the location of the mouse click.  These
+values are in ``pixel coordinates,'' which are defined by the
+underlying graphical system.  The method \verb"canvas_coords"
+translates them to ``Canvas coordinates,'' which are compatible with
+Canvas methods like {\tt circle}.
+
+\index{Event object}
+\index{object!Event}
+
+For Entry widgets, it is common to bind the \verb"<Return>" event,
+which is triggered when the user presses the {\sf Return} or
+{\sf Enter} key.  For example, the following code creates a Button
+and an Entry.
+
+\beforeverb
+\begin{verbatim}
+bu = g.bu('Make text item:', make_text)
+en = g.en()
+en.bind('<Return>', make_text)
+\end{verbatim}
+\afterverb
+%
+\verb"make_text" is called when the Button is pressed or when
+the user hits {\sf Return} while typing in the Entry.  To make
+this work, we need a function that can be called as a command
+(with no arguments) or as an event handler (with an Event
+as an argument):
+
+\beforeverb
+\begin{verbatim}
+def make_text(event=None):
+    text = en.get()
+    item = ca.text([0,0], text)
+\end{verbatim}
+\afterverb
+%
+\verb"make_text" gets the contents of the Entry and displays
+it as a Text item in the Canvas.
+
+It is also possible to create bindings for Canvas items.
+The following is a class definition for {\tt Draggable},
+which is a child class of {\tt Item} that provides bindings
+that implement drag-and-drop capability.
+
+\index{drag-and-drop}
+
+\beforeverb
+\begin{verbatim}
+class Draggable(Item):
+
+    def __init__(self, item):
+        self.canvas = item.canvas
+        self.tag = item.tag
+        self.bind('<Button-3>', self.select)
+        self.bind('<B3-Motion>', self.drag)
+        self.bind('<Release-3>', self.drop)
+\end{verbatim}
+\afterverb
+%
+The init method takes an Item as a parameter.  It copies
+the attributes of the Item and then creates bindings for
+three events: a button press, button motion, and button release.
+
+The event handler {\tt select} stores the coordinates
+of the current event and the original color of the item, then
+changes the color to yellow:
+
+\beforeverb
+\begin{verbatim}
+    def select(self, event):
+        self.dragx = event.x
+        self.dragy = event.y
+
+        self.fill = self.cget('fill')
+        self.config(fill='yellow')
+\end{verbatim}
+\afterverb
+%
+{\tt cget} stands for ``get configuration;'' it takes the name of an
+option as a string and returns the current value of that option.
+
+{\tt drag} computes how far the object has moved relative to the
+starting place, updates the stored coordinates, and then moves the
+item.
+
+\index{update!coordinate}
+
+\beforeverb
+\begin{verbatim}
+    def drag(self, event):
+        dx = event.x - self.dragx
+        dy = event.y - self.dragy
+
+        self.dragx = event.x
+        self.dragy = event.y
+
+        self.move(dx, dy)
+\end{verbatim}
+\afterverb
+%
+This computation is done in pixel coordinates; there is no need to
+convert to Canvas coordinates.
+
+\index{Canvas coordinate}
+\index{coordinate!Canvas}
+\index{pixel coordinate}
+\index{coordinate!pixel}
+
+Finally, {\tt drop} restores the original color of the item:
+
+\beforeverb
+\begin{verbatim}
+    def drop(self, event):
+        self.config(fill=self.fill)
+\end{verbatim}
+\afterverb
+%
+You can use the {\tt Draggable} class to add drag-and-drop
+capability to an existing item.  For example, here is a modified
+version of \verb"make_circle" that uses {\tt circle} to create
+an Item and {\tt Draggable} to make it draggable:
+
+\beforeverb
+\begin{verbatim}
+def make_circle(event):
+    pos = ca.canvas_coords([event.x, event.y])
+    item = ca.circle(pos, 5, fill='red')
+    item = Draggable(item)
+\end{verbatim}
+\afterverb
+%
+This example demonstrates one of the benefits of inheritance: you can
+modify the capabilities of a parent class without modifying its
+definition.  This is particularly useful if you want to change
+behavior defined in a module you did not write.
+
+
+\section{Debugging}
+\index{debugging}
+
+One of the challenges of GUI programming is keeping track of
+which things happen while the GUI is being built and which
+things happen later in response to user events.
+
+\index{callback}
+
+For example, when you are setting up a callback, it is a common error
+to call the function rather than passing a reference to it:
+
+\beforeverb
+\begin{verbatim}
+def the_callback():
+    print 'Called.'
+
+g.bu(text='This is wrong!', command=the_callback())
+\end{verbatim}
+\afterverb
+%
+If you run this code, you will see that it calls \verb"the_callback"
+immediately, and {\em then} creates the button.  When you press the
+button, it does nothing because the return value from 
+\verb"the_callback" is {\tt None}.
+Usually you do not want to invoke a callback while you are
+setting up the GUI; it should only be invoked later in response to
+a user event.
+
+\index{flow of execution}
+\index{event-driven programming}
+
+Another challenge of GUI programming is that you don't have control
+of the flow of execution.  Which parts of the program execute
+and their order are determined by user actions.
+That means that you have to design your program to work correctly
+for any possible sequence of events.
+
+For example, the GUI in Exercise~\ref{circle2} has two widgets:
+one creates a Circle item and the other changes the color of the
+Circle.  If the user creates the circle and then changes its color,
+there's no problem.  But what if the user changes the color of
+a circle that doesn't exist yet?  Or creates more than one circle?
+
+As the number of widgets grows, it is increasingly difficult to
+imagine all possible sequences of events.  One way to manage this 
+complexity is to encapsulate the state of the system in an object
+and then consider:
+
+\begin{itemize}
+
+\item What are the possible states?  In the Circle example, we
+might consider two states: before and after the user creates the
+first circle.
+
+\item In each state, what events can occur?  In the example,
+the user can press either of the buttons, or quit.
+
+\item For each state-event pair, what is the desired outcome?
+Since there are two states and two buttons, there are four
+state-event pairs to consider.
+
+\item What can cause a transition from one state to another?
+In this case, there is a transition when the user creates
+the first circle.
+
+\end{itemize}
+
+You might also find it useful to define, and check, invariants that
+should hold regardless of the sequence of events.
+
+\index{invariant}
+
+This approach to GUI programming can help you write correct
+code without taking the time to test every possible sequence
+of user events!
+
+
+\section{Glossary}
+
+\begin{description}
+
+\item[GUI:] A graphical user interface.
+\index{GUI}
+
+\item[widget:] One of the elements that makes up a GUI, including
+buttons, menus, text entry fields, etc. 
+\index{widget}
+
+\item[option:] A value that controls the appearance or function of
+a widget.
+\index{option}
+
+\item[keyword argument:] An argument that indicates the parameter
+name as part of the function call.
+\index{keyword argument}
+
+\item[callback:] A function associated with a widget that is
+called when the user performs an action.
+\index{callback}
+
+\item[bound method:] A method associated with a particular instance.
+\index{bound method}
+
+\item[event-driven programming:] A style of programming in which
+the flow of execution is determined by user actions.
+\index{event-driven programming}
+
+\item[event:] A user action, like a mouse click or key press, that
+causes a GUI to respond.
+\index{event}
+
+\item[event loop:] An infinite loop that waits for user actions
+and responds.
+\index{event loop}
+
+\item[item:] A graphical element on a Canvas widget.
+\index{item!Canvas}
+
+\item[bounding box:] A rectangle that encloses a set of items,
+usually specified by two opposing corners.
+\index{bounding box}
+
+\item[pack:] To arrange and display the elements of a GUI.
+\index{packing widgets}
+
+\item[geometry manager:] A system for packing widgets.
+\index{geometry manager}
+
+\item[binding:] An association between a widget, an event, and
+an event handler.  The event handler is called when the event
+occurs in the widget.
+\index{binding}
+
+\end{description}
+
+
+\section{Exercises}
+
+\begin{ex}
+\index{image viewer}
+
+For this exercise, you will write an image viewer.  Here is
+a simple example:
+
+\beforeverb
+\begin{verbatim}
+g = Gui()
+canvas = g.ca(width=300)
+photo = PhotoImage(file='danger.gif')
+canvas.image([0,0], image=photo)
+g.mainloop()
+\end{verbatim}
+\afterverb
+%
+{\tt PhotoImage} reads a file and returns a {\tt PhotoImage} object
+that Tkinter can display.  {\tt Canvas.image} puts the image on the
+canvas, centered on the given coordinates.  You can also put images on
+labels, buttons, and some other widgets:
+
+\beforeverb
+\begin{verbatim}
+g.la(image=photo)
+g.bu(image=photo)
+\end{verbatim}
+\afterverb
+%
+PhotoImage can only handle a few image formats, like GIF and PPM, 
+but we can use the Python Imaging Library (PIL) to read other
+files.
+
+\index{Python Imaging Library (PIL)}
+\index{PIL (Python Imaging Library)}
+\index{Image module}
+\index{module!Image}
+
+The name of the PIL module is {\tt Image}, but Tkinter defines an
+object with the same name.  To avoid the conflict, you can use {\tt
+  import...as} like this:
+
+\beforeverb
+\begin{verbatim}
+import Image as PIL
+import ImageTk
+\end{verbatim}
+\afterverb
+%
+The first line imports {\tt Image} and
+gives it the local name {\tt PIL}.  The second
+line imports {\tt ImageTk}, which can translate a PIL
+image into a Tkinter PhotoImage.  Here's an example:
+
+\beforeverb
+\begin{verbatim}
+image = PIL.open('allen.png')
+photo2 = ImageTk.PhotoImage(image)
+g.la(image=photo2)
+\end{verbatim}
+\afterverb
+%
+
+\begin{enumerate}
+
+\item Download \verb"image_demo.py", \verb"danger.gif" and \verb"allen.png"
+from \url{thinkpython.com/code}.  Run \verb"image_demo.py".  You
+might have to install {\tt PIL} and {\tt ImageTk}.  
+They are probably in your software repository,  but if not
+you can get them from \url{pythonware.com/products/pil/}.
+
+\item In \verb"image_demo.py" change the name of the second
+PhotoImage from {\tt photo2} to {\tt photo} and run the program
+again.  You should see the second PhotoImage but not the first.
+
+The problem is that when you reassign {\tt photo} it overwrites
+the reference to the first PhotoImage, which then disappears.  The
+same thing happens if you assign a PhotoImage to a local
+variable; it disappears when the function ends.
+
+To avoid this problem, you have to store a reference to each
+PhotoImage you want to keep.  You can use a global variable, or
+store PhotoImages in a data structure or as an attribute of
+an object.
+
+This behavior can be frustrating, which is why I am warning
+you (and why the example image says ``Danger!'').
+
+\index{bug!worst ever}
+\index{worst bug!ever}
+
+\item Starting with this example, write a program that takes
+the name of a directory and loops through all the files, displaying
+any files that PIL recognizes as images.  You can use a {\tt try}
+statement to catch the files PIL doesn't recognize.
+
+When the user clicks on the image, the program should display the next one.
+
+\item PIL provides a variety of methods for manipulating images.
+You can read about them at \url{pythonware.com/library/pil/handbook}.
+As a challenge, choose a few of these methods and provide a
+GUI for applying them to images.
+
+\end{enumerate}
+
+You can download a simple solution from
+\url{thinkpython.com/code/ImageBrowser.py}.
+
+\end{ex}
+
+
+\begin{ex}
+
+\index{vector graphics}
+\index{SVG}
+
+A vector graphics editor is a program that allows users to draw and
+edit shapes on the screen and generate output files in vector graphics
+formats like Postscript and SVG\footnote{See
+  \url{wikipedia.org/wiki/Vector_graphics_editor}.}.
+
+Write a simple vector graphics editor using Tkinter.  At a
+minimum, it should allow users to draw lines, circles and
+rectangles, and it should use {\tt Canvas.dump} to
+generate a Postscript description of the contents of the
+Canvas.
+
+As a challenge, you could allow users to select and resize
+items on the Canvas.
+
+\end{ex}
+
+
+\begin{ex}
+
+Use Tkinter to write a basic web browser.  It
+should have a Text widget where the user can enter a URL
+and a Canvas to display the contents of the page.
+
+\index{urllib module}
+\index{module!urllib}
+\index{URL}
+\index{HTMLParser module}
+\index{module!HTMLParser}
+
+You can use the {\tt urllib} module to download files
+(see Exercise~\ref{urllib}) and
+the {\tt HTMLParser} module to parse the HTML
+tags (see \url{docs.python.org/lib/module-HTMLParser.html}).
+
+\index{plain text}
+\index{text!plain}
+\index{hyperlink}
+
+At a minimum your browser should handle plain text and hyperlinks.  As
+a challenge you could handle background colors, text
+formatting tags and images.
+
+\end{ex}
+
+

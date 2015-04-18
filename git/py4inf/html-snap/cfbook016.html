@@ -1,0 +1,470 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="GENERATOR" content="hevea 1.07" />
+<title>
+Visualizing data
+</title>
+</head>
+<body>
+<a href="cfbook015.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook017.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1><font color="black"><a name="htoc185">Chapter&nbsp;15</a>&nbsp;&nbsp;Visualizing data</font></h1>
+<font color="black">So far we have been learning the Python language and then 
+learning how to use Python, the network, and databases 
+to manipulate data.<br />
+<br />
+In this chapter, we take a look at 
+three 
+complete applications that bring all of these things together
+to manage and visualize data. You might use these applications 
+as sample code to help get you started in solving a
+real-world problem.<br />
+<br />
+Each of the applications is a ZIP file that you can download
+and extract onto your computer and execute.</font><br />
+<br />
+<a name="toc167"></a>
+<h2><font color="black"><a name="htoc186">15.1</a>&nbsp;&nbsp;Building a Google map from geocoded data</font></h2>
+<a name="@default811"></a>
+<a name="@default812"></a>
+<font color="black">In this project, we are using the Google geocoding API
+to clean up some user-entered geographic locations of 
+university names and then placing the data on a Google
+map. <br />
+</font><div align="center"><font color="black"><img src="cfbook021.png" /></font></div><font color="black">
+<br />
+To get started, download the application from:<br />
+<br />
+<tt>www.py4inf.com/code/geodata.zip</tt><br />
+<br />
+The first problem to solve is that the free Google geocoding
+API is rate limited to some number of requests per day. So if you have
+a lot of data you might need to stop and restart the lookup
+process several times. So we break the problem into two
+phases. <br />
+<br />
+<a name="@default813"></a>
+In the first phase we take our input "survey" data in the file
+<b>where.data</b> and read it one line at a time, and retrieve the
+geocoded information from Google and store it 
+in a database <b>geodata.sqlite</b>.
+Before we use the geocoding API for each user-entered location, 
+we simply check to see if we already have the data for that 
+particular line of input. The database is functioning as a 
+local "cache" of our geocoding data to make sure we never ask 
+Google for the same data twice.<br />
+<br />
+You can re-start the process at any time by removing the file
+<b>geodata.sqlite</b>.<br />
+<br />
+Run the <b>geoload.py</b> program. This program will read the input
+lines in <b>where.data</b> and for each line check to see if it is already
+in the database and if we don't have the data for the location,
+call the geocoding API to retrieve the data and store it in 
+the database.<br />
+<br />
+Here is a sample run after there is already some data in the 
+database:
+</font><pre><font size="4" color="blue">
+Found in database  Northeastern University
+Found in database  University of Hong Kong, ...
+Found in database  Technion
+Found in database  Viswakarma Institute, Pune, India
+Found in database  UMD
+Found in database  Tufts University
+
+Resolving Monash University
+Retrieving http://maps.googleapis.com/maps/api/
+    geocode/json?sensor=false&amp;address=Monash+University
+Retrieved 2063 characters {    "results" : [  
+{u'status': u'OK', u'results': ... }
+
+Resolving Kokshetau Institute of Economics and Management
+Retrieving http://maps.googleapis.com/maps/api/
+    geocode/json?sensor=false&amp;address=Kokshetau+Inst ...
+Retrieved 1749 characters {    "results" : [  
+{u'status': u'OK', u'results': ... }
+...
+</font></pre><font color="black">The first five locations are already in the database and so they 
+are skipped. The program scans to the point where it finds un-retrieved
+locations and starts retrieving them.<br />
+<br />
+The <b>geoload.py</b> can be stopped at any time, and there is a counter 
+that you can use to limit the number of calls to the geocoding
+API for each run. Given that the <b>where.data</b> only has a few hundred
+data items, you should not run into the daily rate limit, but if you 
+had more data it might take several runs over several days to 
+get your database to have all of the geocoded data for your input.<br />
+<br />
+Once you have some data loaded into <b>geodata.sqlite</b>, you can 
+visualize the data using the <b>geodump.py</b> program. This
+program reads the database and writes the file <b>where.js</b>
+with the location, latitude, and longitude in the form of
+executable JavaScript code. <br />
+<br />
+A run of the <b>geodump.py</b> program is as follows:
+</font><pre><font size="4" color="blue">
+Northeastern University, ... Boston, MA 02115, USA 42.3396998 -71.08975
+Bradley University, 1501 ... Peoria, IL 61625, USA 40.6963857 -89.6160811
+...
+Technion, Viazman 87, Kesalsaba, 32000, Israel 32.7775 35.0216667
+Monash University Clayton ... VIC 3800, Australia -37.9152113 145.134682
+Kokshetau, Kazakhstan 53.2833333 69.3833333
+...
+12 records written to where.js
+Open where.html to view the data in a browser
+</font></pre><font color="black">The file <b>where.html</b> consists of HTML and JavaScript to visualize 
+a Google map. It reads the most recent data in <b>where.js</b> to get 
+the data to be visualized. Here is the format of the <b>where.js</b> file:
+</font><pre><font size="4" color="blue">
+myData = [
+[42.3396998,-71.08975, 'Northeastern Uni ... Boston, MA 02115'],
+[40.6963857,-89.6160811, 'Bradley University, ... Peoria, IL 61625, USA'],
+[32.7775,35.0216667, 'Technion, Viazman 87, Kesalsaba, 32000, Israel'],
+   ...
+];
+</font></pre><font color="black">This is a JavaScript variable that contains a list of lists. 
+The syntax for JavaScript list constants is very similar to 
+Python so the syntax should be familiar to you.<br />
+<br />
+Simply open <b>where.html</b> in a browser to see the locations. You 
+can hover over each map pin to find the location that the 
+geocoding API returned for the user-entered input. If you 
+cannot see any data when you open the <b>where.html</b> file, you might 
+want to check the JavaScript or developer console for your browser.</font><br />
+<br />
+<a name="toc168"></a>
+<h2><font color="black"><a name="htoc187">15.2</a>&nbsp;&nbsp;Visualizing networks and interconnections</font></h2>
+<a name="@default814"></a>
+<a name="@default815"></a>
+<a name="@default816"></a>
+<font color="black">In this application, we will perform some of the functions of a search
+engine. We will first spider a small subset of the web and then run
+a simplified version of the Google page rank algorithm to
+to determine which pages are most highly connected and then visualize
+the page rank and connectivity of our small corner of the web.
+We will use the D3 JavaScript visualization library 
+<tt>http://d3js.org/</tt> to produce the visualization output.<br />
+<br />
+You can download and extract this application from:<br />
+<br />
+<tt>www.py4inf.com/code/pagerank.zip</tt></font><br />
+<div align="center"><font color="black"><img src="cfbook022.png" /></font></div><font color="black">
+<br />
+The first program (<b>spider.py</b>) program crawls a web 
+site and pulls a series of pages into the
+database (<b>spider.sqlite</b>), recording the links between pages.
+You can restart the process at any time by removing the 
+<b>spider.sqlite</b> file and re-running <b>spider.py</b>.
+</font><pre><font size="4" color="blue">
+Enter web url or enter: http://www.dr-chuck.com/
+['http://www.dr-chuck.com']
+How many pages:2
+1 http://www.dr-chuck.com/ 12
+2 http://www.dr-chuck.com/csev-blog/ 57
+How many pages:
+</font></pre><font color="black">In this sample run, we told it to crawl a website and retrieve two 
+pages. If you restart the program and tell it to crawl more
+pages, it will not re-crawl any pages already in the database. Upon 
+restart it goes to a random non-crawled page and starts there. So 
+each successive run of <b>spider.py</b> is additive.
+</font><pre><font size="4" color="blue">
+Enter web url or enter: http://www.dr-chuck.com/
+['http://www.dr-chuck.com']
+How many pages:3
+3 http://www.dr-chuck.com/csev-blog 57
+4 http://www.dr-chuck.com/dr-chuck/resume/speaking.htm 1
+5 http://www.dr-chuck.com/dr-chuck/resume/index.htm 13
+How many pages:
+</font></pre><font color="black">You can have multiple starting points in the same database - 
+within the program these are called "webs". The spider
+chooses randomly amongst all non-visited links across all
+the webs as the next page to spider.<br />
+<br />
+If you want to dump the contents of the <b>spider.sqlite</b> file, you can 
+run <b>spdump.py</b> as follows:
+</font><pre><font size="4" color="blue">
+(5, None, 1.0, 3, u'http://www.dr-chuck.com/csev-blog')
+(3, None, 1.0, 4, u'http://www.dr-chuck.com/dr-chuck/resume/speaking.htm')
+(1, None, 1.0, 2, u'http://www.dr-chuck.com/csev-blog/')
+(1, None, 1.0, 5, u'http://www.dr-chuck.com/dr-chuck/resume/index.htm')
+4 rows.
+</font></pre><font color="black">This shows the number of incoming links, the old page rank, the new page
+rank, the id of the page, and the url of the page. The <b>spdump.py</b> program
+only shows pages that have at least one incoming link to them.<br />
+<br />
+Once you have a few pages in the database, you can run page rank on the
+pages using the <b>sprank.py</b> program. You simply tell it how many page
+rank iterations to run.
+</font><pre><font size="4" color="blue">
+How many iterations:2
+1 0.546848992536
+2 0.226714939664
+[(1, 0.559), (2, 0.659), (3, 0.985), (4, 2.135), (5, 0.659)]
+</font></pre><font color="black">You can dump the database again to see that page rank has been updated:
+</font><pre><font size="4" color="blue">
+(5, 1.0, 0.985, 3, u'http://www.dr-chuck.com/csev-blog')
+(3, 1.0, 2.135, 4, u'http://www.dr-chuck.com/dr-chuck/resume/speaking.htm')
+(1, 1.0, 0.659, 2, u'http://www.dr-chuck.com/csev-blog/')
+(1, 1.0, 0.659, 5, u'http://www.dr-chuck.com/dr-chuck/resume/index.htm')
+4 rows.
+</font></pre><font color="black">You can run <b>sprank.py</b> as many times as you like and it will simply refine
+the page rank each time you run it. You can even run <b>sprank.py</b> a few times
+and then go spider a few more pages sith <b>spider.py</b> and then run <b>sprank.py</b>
+to re-converge the page rank values. A search engine usually runs both the crawling and 
+ranking programs all the time.<br />
+<br />
+If you want to restart the page rank calculations without re-spidering the 
+web pages, you can use <b>spreset.py</b> and then restart <b>sprank.py</b>.
+</font><pre><font size="4" color="blue">
+How many iterations:50
+1 0.546848992536
+2 0.226714939664
+3 0.0659516187242
+4 0.0244199333
+5 0.0102096489546
+6 0.00610244329379
+...
+42 0.000109076928206
+43 9.91987599002e-05
+44 9.02151706798e-05
+45 8.20451504471e-05
+46 7.46150183837e-05
+47 6.7857770908e-05
+48 6.17124694224e-05
+49 5.61236959327e-05
+50 5.10410499467e-05
+[(512, 0.0296), (1, 12.79), (2, 28.93), (3, 6.808), (4, 13.46)]
+</font></pre><font color="black">For each iteration of the page rank algorithm it prints the average
+change in page rank per page. The network initially is quite
+unbalanced and so the individual page rank values change wildly between
+iterations.
+But in a few short iterations, the page rank converges. You
+should run <b>prank.py</b> long enough that the page rank values converge.<br />
+<br />
+If you want to visualize the current top pages in terms of page rank,
+run <b>spjson.py</b> to read the database and write the data for the 
+most highly linked pages in JSON format to be viewed in a
+web browser.
+</font><pre><font size="4" color="blue">
+Creating JSON output on spider.json...
+How many nodes? 30
+Open force.html in a browser to view the visualization
+</font></pre><font color="black">You can view this data by opening the file <b>force.html</b> in your web browser. 
+This shows an automatic layout of the nodes and links. You can click and 
+drag any node and you can also double click on a node to find the URL
+that is represented by the node.<br />
+<br />
+If you re-run the other utilities, re-run <b>spjson.py</b> 
+press refresh in the browser to get the new data from <b>spider.json</b>.</font><br />
+<br />
+<a name="toc169"></a>
+<h2><font color="black"><a name="htoc188">15.3</a>&nbsp;&nbsp;Visualizing mail data</font></h2>
+<font color="black">Up to this point in the book, you have become quite familiar with our 
+<b>mbox-short.txt</b> and <b>mbox.txt</b> data files. Now it is time to take
+our analysis of e-mail data to the next level. <br />
+<br />
+In the real world, sometimes you have to pull down mail data from servers
+and that might take quite some time and the data might be inconsistent, 
+error filled and need a lot of cleanup or adjustment. In this section, we
+work with an application that is the most complex so far and pull down nearly a 
+gigabyte of data and visualize it.<br />
+</font><div align="center"><font color="black"><img src="cfbook023.png" /></font></div><font color="black">
+<br />
+You can download this application from:<br />
+<br />
+<tt>www.py4inf.com/code/gmane.zip</tt><br />
+<br />
+We will be using data from a free e-mail list archiving service called 
+<tt>www.gmane.org</tt>. This service is very popular with open-source
+projects because it provides a nice searchable archive of their 
+e-mail activity. They also have a very liberal policy regarding accessing 
+their data through their API. They have no rate limits, but ask that you 
+don't overload their service and take only the data you need. You can read
+gmane's terms and conditions at this page:<br />
+<br />
+<tt>http://gmane.org/export.php</tt><br />
+<br />
+<em>It is very important that you make use of the gmane.org data
+responsibly by adding delays to your access of their services and spreading
+long-running jobs over a longer period of time. Do not abuse this free service
+and ruin it for the rest of us.</em><br />
+<br />
+When the Sakai e-mail data was spidered using this software, it produced nearly 
+a Gigabyte of data and took a number of runs on several days.
+The file <b>README.txt</b> in the above ZIP may have instructions as to how
+you can download a pre-spidered copy of the <b>content.sqlite</b> file for 
+a majority of the Sakai e-mail corpus so you don't have to spider for 
+five days just to run the programs. If you download the pre-spidered
+content, you should still run the spidering process to catch up with 
+more recent messages.<br />
+<br />
+The first step is to spider the gmane repository. The base URL 
+is hard-coded in the <b>gmane.py</b> and is hard-coded to the Sakai
+developer list. You can spider another repository by changing that
+base url. Make sure to delete the <b>content.sqlite</b> file if you 
+switch the base url. <br />
+<br />
+The <b>gmane.py</b> file operates as a responsible caching spider in 
+that it runs slowly and retrieves one mail message per second so 
+as to avoid getting throttled by gmane. It stores all of
+its data in a database and can be interrupted and re-started 
+as often as needed. It may take many hours to pull all the data
+down. So you may need to restart several times.<br />
+<br />
+Here is a run of <b>gmane.py</b> retrieving the last five messages of the
+Sakai developer list:
+</font><pre><font size="4" color="blue">
+How many messages:10
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51410/51411 9460
+    nealcaidin@sakaifoundation.org 2013-04-05 re: [building ...
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51411/51412 3379
+    samuelgutierrezjimenez@gmail.com 2013-04-06 re: [building ...
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51412/51413 9903
+    da1@vt.edu 2013-04-05 [building sakai] melete 2.9 oracle ...
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51413/51414 349265
+    m.shedid@elraed-it.com 2013-04-07 [building sakai] ...
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51414/51415 3481
+    samuelgutierrezjimenez@gmail.com 2013-04-07 re: ...
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51415/51416 0
+
+Does not start with From 
+</font></pre><font color="black">The program scans <b>content.sqlite</b> from one up to the first message number not
+already spidered and starts spidering at that message. It continues spidering
+until it has spidered the desired number of messages or it reaches a page
+that does not appear to be a properly formatted message.<br />
+<br />
+Sometimes <tt>gmane.org</tt> is missing a message. Perhaps administrators can delete messages
+or perhaps they get lost. If your spider stops, and it seems it has hit
+a missing message, go into the SQLite Manager and add a row with the missing id leaving
+all the other fields blank and restart <b>gmane.py</b>. This will unstick the 
+spidering process and allow it to continue. These empty messages will be ignored in the next
+phase of the process.<br />
+<br />
+One nice thing is that once you have spidered all of the messages and have them in 
+<b>content.sqlite</b>, you can run <b>gmane.py</b> again to get new messages as 
+they get sent to the list. <br />
+<br />
+The <b>content.sqlite</b> data is pretty raw, with an inefficient data model, 
+and not compressed.
+This is intentional as it allows you to look at <b>content.sqlite</b>
+in the SQLite Manager to debug problems with the spidering process.
+It would be a bad idea to run any queries against this database as they 
+would be quite slow.<br />
+<br />
+The second process is to run the program <b>gmodel.py</b>. This program reads the rough/raw 
+data from <b>content.sqlite</b> and produces a cleaned-up and well-modeled version of the 
+data in the file <b>index.sqlite</b>. The file index.sqlite will be much smaller (often 10X
+smaller) than <b>content.sqlite</b> because it also compresses the header and body text.<br />
+<br />
+Each time <b>gmodel.py</b> runs - it deletes and re-builds <b>index.sqlite</b>, allowing
+you to adjust its parameters and edit the mapping tables in <b>content.sqlite</b> to tweak the 
+data cleaning process. This is a sample run of <b>gmodel.py</b>. It prints a line out each time
+250 mail messages are processed so you can see some progress happening as this program may
+run for a while processing nearly a Gigabyte of mail data.
+</font><pre><font size="4" color="blue">
+Loaded allsenders 1588 and mapping 28 dns mapping 1
+1 2005-12-08T23:34:30-06:00 ggolden22@mac.com
+251 2005-12-22T10:03:20-08:00 tpamsler@ucdavis.edu
+501 2006-01-12T11:17:34-05:00 lance@indiana.edu
+751 2006-01-24T11:13:28-08:00 vrajgopalan@ucmerced.edu
+...
+</font></pre>
+<font color="black">The <b>gmodel.py</b> program handles a number of data cleaning tasks.<br />
+<br />
+Domain names are truncated to two levels for .com, .org, .edu, and .net.
+Other domain names are truncated to three levels. So si.umich.edu becomes
+umich.edu and caret.cam.ac.uk becomes cam.ac.uk. Also e-mail addresses are
+forced to lower case and some of the @gmane.org address like the following
+</font><pre><font size="4" color="blue">
+   arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
+</font></pre><font color="black">are converted to the real address whenever there is a matching real e-mail
+address elsewhere in the message corpus.<br />
+<br />
+If you look in the <b>content.sqlite</b> database there are two tables that allow
+you to map both domain names and individual e-mail addresses that change over 
+the lifetime of the e-mail list. For example, Steve Githens used the following
+e-mail addresses as he changed jobs over the life of the Sakai developer list:
+</font><pre><font size="4" color="blue">
+s-githens@northwestern.edu
+sgithens@cam.ac.uk
+swgithen@mtu.edu
+</font></pre><font color="black">We can add two entries to the Mapping table in <b>content.sqlite</b> so 
+<b>gmodel.py</b> will map all three to one address:
+</font><pre><font size="4" color="blue">
+s-githens@northwestern.edu -&gt;  swgithen@mtu.edu
+sgithens@cam.ac.uk -&gt; swgithen@mtu.edu
+</font></pre><font color="black">You can also make similar entries in the DNSMapping table if there are multiple
+DNS names you want mapped to a single DNS. The following mapping was added to the the Sakai data:
+</font><pre><font size="4" color="blue">
+iupui.edu -&gt; indiana.edu
+</font></pre><font color="black">So all the accounts from the various Indiana University campuses are tracked together.<br />
+<br />
+You can re-run the <b>gmodel.py</b> over and over as you look at the data, and add mappings
+to make the data cleaner and cleaner. When you are done, you will have a nicely
+indexed version of the e-mail in <b>index.sqlite</b>. This is the file to use to do data
+analysis. With this file, data analysis will be really quick.<br />
+<br />
+The first, simplest data analysis is to determine "who sent the most mail?" and "which 
+organization sent the most mail"? This is done using <b>gbasic.py</b>:
+</font><pre><font size="4" color="blue">
+How many to dump? 5
+Loaded messages= 51330 subjects= 25033 senders= 1584
+
+Top 5 Email list participants
+steve.swinsburg@gmail.com 2657
+azeckoski@unicon.net 1742
+ieb@tfd.co.uk 1591
+csev@umich.edu 1304
+david.horwitz@uct.ac.za 1184
+
+Top 5 Email list organizations
+gmail.com 7339
+umich.edu 6243
+uct.ac.za 2451
+indiana.edu 2258
+unicon.net 2055
+</font></pre><font color="black">Note how much more quickly <b>gbasic.py</b> runs compared to <b>gmane.py</b>
+or even <b>gmodel.py</b>. They are all working on the same data, but 
+<b>gbasic.py</b> is using the compressed and normalized data in 
+<b>index.sqlite</b>. If you have a lot of data to manage, a multi-step
+process like the one in this application may take a little longer to develop,
+but will save you a lot of time when you really start to explore
+and visualize your data.<br />
+<br />
+You can produce a simple visualization of the word frequency in the subject lines
+in the file <b>gword.py</b>:
+</font><pre><font size="4" color="blue">
+Range of counts: 33229 129
+Output written to gword.jsonp
+</font></pre>
+<font color="black">This produces the file <b>gword.jsonp</b> which you can visualize using
+<b>gword.htm</b> to produce a word cloud similar to the one at the beginning 
+of this section.<br />
+<br />
+A second visualization is produced by <b>gline.py</b>. It computes e-mail 
+participation by organizations over time.
+</font><pre><font size="4" color="blue">
+Loaded messages= 51330 subjects= 25033 senders= 1584
+Top 10 Oranizations
+['gmail.com', 'umich.edu', 'uct.ac.za', 'indiana.edu', 
+'unicon.net', 'tfd.co.uk', 'berkeley.edu', 'longsight.com', 
+'stanford.edu', 'ox.ac.uk']
+Output written to gline.jsonp
+</font></pre><font color="black">Its output is written to <b>gline.jsonp</b> which is visualized using <b>gline.htm</b>.<br />
+</font><div align="center"><font color="black"><img src="cfbook024.png" /></font></div><font color="black">
+<br />
+This is a relatively complex and sophisticated application and 
+has features to do some real data retrieval, cleaning and visualization.</font><br />
+<br />
+<hr />
+<a href="cfbook015.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="cfbook017.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

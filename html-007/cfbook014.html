@@ -1,0 +1,398 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="GENERATOR" content="hevea 1.07">
+<TITLE>
+Using Web Services
+</TITLE>
+</HEAD>
+<BODY >
+<A HREF="cfbook013.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfbook015.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+<HR>
+
+<H1><FONT COLOR=black><A NAME="htoc156">Chapter&nbsp;13</A>&nbsp;&nbsp;Using Web Services</FONT></H1>
+<FONT COLOR=black>Once it became easy to retrieve documents and parse documents 
+over HTTP using programs, it did not take long to develop 
+an approach where we started producing documents that were specifically
+designed to be consumed by other 
+programs (i.e. not HTML to be displayed in a browser).<BR>
+<BR>
+The most common approach when two programs are exchanging data across 
+the web is to exchange the data in a format called the ``eXtensible Markup 
+Language'' or XML. </FONT><BR>
+<BR>
+<A NAME="toc143"></A>
+<H2><FONT COLOR=black><A NAME="htoc157">13.1</A>&nbsp;&nbsp;eXtensible Markup Language - XML</FONT></H2>
+<FONT COLOR=black>XML looks very similar to HTML, but XML is more structured 
+than HTML. Here is a sample of an XML document:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&lt;person&gt;
+  &lt;name&gt;Chuck&lt;/name&gt;
+  &lt;phone type="intl"&gt;
+     +1 734 303 4456
+   &lt;/phone&gt;
+   &lt;email hide="yes"/&gt;
+&lt;/person&gt;
+</FONT></PRE><FONT COLOR=black>Often it is helpful to think of an XML document as a tree structure
+where there is a top tag <TT>person</TT> and other tags such as <TT>phone</TT>
+are drawn as <EM>children</EM> of their parent nodes.<BR>
+</FONT><DIV ALIGN=center><FONT COLOR=black><IMG SRC="cfbook014.png"></FONT></DIV>
+<BR>
+<A NAME="toc144"></A>
+<H2><FONT COLOR=black><A NAME="htoc158">13.2</A>&nbsp;&nbsp;Parsing XML</FONT></H2>
+<A NAME="@default753"></A>
+<A NAME="@default754"></A>
+<A NAME="@default755"></A><FONT COLOR=black>
+Here is a simple application that parses some XML
+and extracts some data elements from the XML:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+import xml.etree.ElementTree as ET
+
+data = '''
+&lt;person&gt;
+  &lt;name&gt;Chuck&lt;/name&gt;
+  &lt;phone type="intl"&gt;
+     +1 734 303 4456
+   &lt;/phone&gt;
+   &lt;email hide="yes"/&gt;
+&lt;/person&gt;'''
+
+tree = ET.fromstring(data)
+print 'Name:',tree.find('name').text
+print 'Attr:',tree.find('email').get('hide')
+</FONT></PRE><FONT COLOR=black>Calling <TT>fromstring</TT> converts the string representation
+of the XML into a 'tree' of XML nodes. When the
+XML is in a tree, we have a series of methods which we can call to 
+extract portions of data from the XML. <BR>
+<BR>
+The <TT>find</TT> function searches through the 
+XML tree and retrieves a <B>node</B> that matches the specified tag.
+Each node can have some text, some attributes (i.e. like hide) and
+some ``child'' nodes. Each node can be the top of a tree of nodes.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+Name: Chuck
+Attr: yes
+</FONT></PRE><FONT COLOR=black>Using an XML parser such as <TT>ElementTree</TT> has the advantage
+that while the XML in this example is quite simple, it turns
+out there are many rules regarding valid XML and using 
+<TT>ElementTree</TT> allows us to extract data from XML without 
+worrying about the rules of XML syntax.</FONT><BR>
+<BR>
+<A NAME="toc145"></A>
+<H2><FONT COLOR=black><A NAME="htoc159">13.3</A>&nbsp;&nbsp;Looping through nodes</FONT></H2>
+<A NAME="@default756"></A>
+<A NAME="@default757"></A><FONT COLOR=black>
+Often the XML has multiple nodes and we need to write a loop
+to process all of the nodes. In the following program, 
+we loop through all of the <TT>user</TT> nodes:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+import xml.etree.ElementTree as ET
+
+input = '''
+&lt;stuff&gt;
+    &lt;users&gt;
+        &lt;user x="2"&gt;
+            &lt;id&gt;001&lt;/id&gt;
+            &lt;name&gt;Chuck&lt;/name&gt;
+        &lt;/user&gt;
+        &lt;user x="7"&gt;
+            &lt;id&gt;009&lt;/id&gt;
+            &lt;name&gt;Brent&lt;/name&gt;
+        &lt;/user&gt;
+    &lt;/users&gt;
+&lt;/stuff&gt;'''
+
+stuff = ET.fromstring(input)
+lst = stuff.findall('users/user')
+print 'User count:', len(lst)
+
+for item in lst:
+    print 'Name', item.find('name').text
+    print 'Id', item.find('id').text
+    print 'Attribute', item.get('x')
+</FONT></PRE><FONT COLOR=black>The <TT>findall</TT> method retrieves a Python list of sub-trees that
+represent the <TT>user</TT> structures in the XML tree. Then we can 
+write a <TT>for</TT> loop that looks at each of the user nodes, and 
+prints the <TT>name</TT> and <TT>id</TT> text elements as well as the 
+<TT>x</TT> attribute from the <TT>user</TT> node.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+User count: 2
+Name Chuck
+Id 001
+Attribute 2
+Name Brent
+Id 009
+Attribute 7
+</FONT></PRE>
+<A NAME="toc146"></A>
+<H2><FONT COLOR=black><A NAME="htoc160">13.4</A>&nbsp;&nbsp;Application Programming Interfaces (API)</FONT></H2>
+<FONT COLOR=black>We now have the ability to exchange data between applications using HyperText
+Transport Protocol (HTTP) and a way to represent complex data that we are 
+sending back and forth between these applications using eXtensible 
+Markup Language (XML).<BR>
+<BR>
+The next step is to begin to define and document ``contracts'' between 
+applications using these techniques. The general name for these 
+application-to-application contracts is <B>Application Program 
+Interfaces</B> or APIs. When we use an API, generally one program
+makes a set of <B>services</B> available for use by other applications
+and publishes the APIs (i.e. the ``rules'') that must be followed to 
+access the services provided by the program.<BR>
+<BR>
+When we begin to build our programs where the functionality of
+our program includes access to services provided by other programs, 
+we call the approach a <B>Service-Oriented Architecture</B> or SOA.
+A SOA approach is one where our overall application makes use of 
+the services of other applications. A non-SOA approach is where the
+application is a single stand-alone application which contains all of the
+code necessary to implement the application.<BR>
+<BR>
+We see many examples of SOA when we use the web. We can go to a single 
+web site and book air travel, hotels, and automobiles all from a 
+single site. The data for hotels is not stored on the airline computers. 
+Instead, the airline computers contact the services on the hotel computers
+and retrieve the hotel data and present it to the user. When the user
+agrees to make a hotel reservation using the airline site, the airline site uses
+another web service on the hotel systems to actually make the reservation.
+And when it comes to charge your credit card for the whole transaction, 
+still other computers become involved in the process.<BR>
+</FONT><DIV ALIGN=center><FONT COLOR=black><IMG SRC="cfbook015.png"></FONT></DIV><FONT COLOR=black>
+<BR>
+A Service-Oriented Architecture has many advantages including: (1) we 
+always maintain only one copy of data - this is particularly important
+for things like hotel reservations where we do not want to over-commit
+and (2) the owners of the data can set the rules about the use of their 
+data. With these advantages, a SOA system must be carefully designed
+to have good performance and meet the user's needs.<BR>
+<BR>
+When an application makes a set of services in its API available over the web, 
+we call these <B>web services</B>. </FONT><BR>
+<BR>
+<A NAME="toc147"></A>
+<H2><FONT COLOR=black><A NAME="htoc161">13.5</A>&nbsp;&nbsp;Twitter web services</FONT></H2>
+<FONT COLOR=black><B>Note:</B> Since this section was written, Twitter has 
+dramatically changed the format and rules for the use of its API.
+So the code that uses the Twitter API will no longer work. It 
+still shows how one would work with an XML-based API in general.<BR>
+<BR>
+You can view the Twitter API documentation at 
+<TT>http://apiwiki.twitter.com/</TT>. The Twitter API is an example
+of the REST style of web services.
+We will focus on the Twitter API
+to retrieve a list of a user's friends and their statuses. As an 
+example, you can visit the following URL:<BR>
+<BR>
+<TT>http://api.twitter.com/1/statuses/friends/drchuck.xml</TT><BR>
+<BR>
+To see a list of the friends of the twitter account <TT>drchuck</TT>.
+It may look like a mess in your browser. To see the actual XML
+returned by Twitter, you can view the source of the returned
+``web page''.<BR>
+<BR>
+We can retrieve this same XML using Python using the <TT>urllib</TT>
+utility:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+import urllib
+
+TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+
+while True:
+    print ''
+    acct = raw_input('Enter Twitter Account:')
+    if ( len(acct) &lt; 1 ) : break
+    url = TWITTER_URL.replace('ACCT', acct)
+    print 'Retrieving', url
+    document = urllib.urlopen (url).read()
+    print document[:250]
+</FONT></PRE><FONT COLOR=black>The program prompts for a Twitter account and opens the URL
+for the friends and statuses API and then retrieves the 
+text from the URL and shows us the first 250 characters of
+the text.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+python twitter1.py
+
+Enter Twitter Account:drchuck
+Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;users type="array"&gt;
+&lt;user&gt;
+  &lt;id&gt;115636613&lt;/id&gt;
+  &lt;name&gt;Steve Coppin&lt;/name&gt;
+  &lt;screen_name&gt;steve_coppin&lt;/screen_name&gt;
+  &lt;location&gt;Kent, UK&lt;/location&gt;
+  &lt;description&gt;Software developing, best practicing, agile e
+
+Enter Twitter Account:
+</FONT></PRE><FONT COLOR=black>In this application, we have retrieved the XML exactly as if it were
+an HTML web page. If we wanted to extract data from the XML, we 
+could use Python string functions but this would become pretty complex
+as we tried to really start to dig into the XML in detail.<BR>
+<BR>
+If we were to dump out some of the retrieved XML it would look roughly as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;users type="array"&gt;
+  &lt;user&gt;
+    &lt;id&gt;115636613&lt;/id&gt;
+    &lt;name&gt;Steve Coppin&lt;/name&gt;
+    &lt;screen_name&gt;steve_coppin&lt;/screen_name&gt;
+    &lt;location&gt;Kent, UK&lt;/location&gt;
+    &lt;status&gt;
+      &lt;id&gt;10174607039&lt;/id&gt;
+      &lt;source&gt;web&lt;/source&gt;
+      &lt;/status&gt;
+  &lt;/user&gt;
+  &lt;user&gt;
+    &lt;id&gt;17428929&lt;/id&gt;
+    &lt;name&gt;davidkocher&lt;/name&gt;
+    &lt;screen_name&gt;davidkocher&lt;/screen_name&gt;
+    &lt;location&gt;Bern&lt;/location&gt;
+    &lt;status&gt;
+      &lt;id&gt;10306231257&lt;/id&gt;
+      &lt;text&gt;@MikeGrace If possible please post a detailed bug report &lt;/text&gt;
+    &lt;/status&gt;
+  &lt;/user&gt;
+  ...
+</FONT></PRE><FONT COLOR=black>The top level tag is a <TT>users</TT> and there are multiple <TT>user</TT> tags
+below within the <TT>users</TT> tag. There is also a <TT>status</TT> tag below
+the <TT>user</TT> tag. </FONT><BR>
+<BR>
+<A NAME="toc148"></A>
+<H2><FONT COLOR=black><A NAME="htoc162">13.6</A>&nbsp;&nbsp;Handling XML data from an API</FONT></H2>
+<FONT COLOR=black>When we receive well-formed XML data from an API, we generally use
+an XML parser such as <TT>ElementTree</TT> to extract information from
+the XML data.<BR>
+<BR>
+In the program below, we retrieve the friends and statuses from
+the Twitter API and then parse the returned XML to show the first
+four friends and their statuses.
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+import urllib
+import xml.etree.ElementTree as ET
+
+TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+
+while True:
+    print ''
+    acct = raw_input('Enter Twitter Account:')
+    if ( len(acct) &lt; 1 ) : break
+    url = TWITTER_URL.replace('ACCT', acct)
+    print 'Retrieving', url
+    document = urllib.urlopen (url).read()
+    print 'Retrieved', len(document), 'characters.' 
+    tree = ET.fromstring(document)
+    count = 0
+    for user in tree.findall('user'):
+        count = count + 1
+        if count &gt; 4 : break
+        print user.find('screen_name').text
+        status =  user.find('status')
+        if status : 
+            txt = status.find('text').text
+            print '  ',txt[:50]
+</FONT></PRE><FONT COLOR=black>We use the <TT>findall</TT> method to get a list of the <TT>user</TT> 
+nodes and loop through the list using a <TT>for </TT> loop. 
+For each <TT>user</TT> node, we pull out the text of the <CODE>screen_name</CODE> node
+and then pull out the <TT>status</TT> node. If there is a <TT>status</TT>
+node, we pull out the text of the <TT>text</TT> node and print the first 50 
+characters of the status text.<BR>
+<BR>
+The pattern is pretty straightforward, we use <TT>findall</TT> and <TT>find</TT>
+to pull out a list of nodes or a single node and then if a node is a complex
+element with more sub-nodes we look deeper into the node until we reach the 
+text element that we are interested in.<BR>
+<BR>
+The program runs as follows:
+</FONT><PRE><FONT SIZE=4 COLOR=blue>
+python twitter2.py 
+
+Enter Twitter Account:drchuck
+Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
+Retrieved 193310 characters.
+steve_coppin
+   Looking forward to some "oh no the markets closed,
+davidkocher
+   @MikeGrace If possible please post a detailed bug 
+hrheingold
+   From today's Columbia Journalism Review, on crap d
+huge_idea
+   @drchuck  #cnx2010 misses you, too.  Thanks for co
+
+Enter Twitter Account:hrheingold
+Retrieving http://api.twitter.com/l/statuses/friends/hrheingold.xml
+Retrieved 208081 characters.
+carr2n
+   RT @tysone: Saturday's proclaimation by @carr2n pr
+tiffanyshlain
+   RT @ScottKirsner: Turning smartphones into a tool 
+soniasimone
+   @ACCompanyC Funny, smart, cute, and also nice! He 
+JenStone7617
+   Watching "Changing The Equation: High Tech Answers
+
+Enter Twitter Account:
+</FONT></PRE><FONT COLOR=black>While the code for parsing the XML and extracting the fields
+using <TT>ElementTree</TT> takes a few lines to express what 
+we are looking for in the XML, it is much simpler than trying 
+to use Python string parsing to pull apart the XML and find 
+the data elements.</FONT><BR>
+<BR>
+<A NAME="toc149"></A>
+<H2><FONT COLOR=black><A NAME="htoc163">13.7</A>&nbsp;&nbsp;Glossary</FONT></H2>
+<DL COMPACT=compact><DT><FONT COLOR=black><B>API:</B></FONT><DD><FONT COLOR=black> Application Program Interface - A contract between
+applications that defines the patterns of interaction between 
+two application components.
+</FONT><A NAME="@default758"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>ElementTree:</B></FONT><DD><FONT COLOR=black> A built-in Python library used to parse XML data.
+</FONT><A NAME="@default759"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>XML:</B></FONT><DD><FONT COLOR=black> eXtensible Markup Language - A format that allows for 
+the markup of structured data.
+</FONT><A NAME="@default760"></A>
+<A NAME="@default761"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>REST:</B></FONT><DD><FONT COLOR=black> REpresentational State Transfer - A style of Web Services 
+that provide access to resources within an application using the HTTP
+protocol.
+</FONT><A NAME="@default762"></A><BR>
+<BR>
+<DT><FONT COLOR=black><B>SOA:</B></FONT><DD><FONT COLOR=black> Service Oriented Architecture - when an application is 
+made of components connected across a network.
+</FONT><A NAME="@default763"></A>
+<A NAME="@default764"></A></DL>
+<A NAME="toc150"></A>
+<H2><FONT COLOR=black><A NAME="htoc164">13.8</A>&nbsp;&nbsp;Exercises</FONT></H2><BR>
+<DIV ALIGN=left><FONT COLOR=black><B>Exercise&nbsp;1</B>&nbsp;&nbsp;<EM>
+Change the program that retrieves twitter data 
+(<TT>twitter2.py</TT>) to also
+print out the location for each of the friends
+indented under the name by two spaces as follows:
+</EM></FONT><PRE><FONT SIZE=4 COLOR=blue><EM>
+Enter Twitter Account:drchuck
+Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
+Retrieved 194533 characters.
+steve_coppin
+   Kent, UK
+   Looking forward to some "oh no the markets closed,
+davidkocher
+   Bern
+   @MikeGrace If possible please post a detailed bug 
+hrheingold
+   San Francisco Bay Area
+   RT @barrywellman: Lovely AmBerhSci Internet &amp; Comm
+huge_idea
+   Boston, MA
+   @drchuck  #cnx2010 misses you, too.  Thanks for co
+</EM></FONT></PRE></DIV><BR>
+<HR>
+<A HREF="cfbook013.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="cfbook015.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>
