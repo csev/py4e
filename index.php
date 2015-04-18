@@ -133,7 +133,8 @@ have been converted to Google drive and are being translated into 30 languages.
 </li>
 
 <li>Chapter 11 - Regular Expressions
-(<?php media('Py4Inf-11-Regex'); ?>)
+(<?php media('Py4Inf-11-Regex'); ?>,
+<a href="lectures/Py4Inf-11-Regex-Guide.pdf" target="_new">Regex-Guide</a>)
 </li>
 
 <li>
