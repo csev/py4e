@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="hevea 2.09" />
+<link rel="stylesheet" type="text/css" href="book.css" />
+<title>Dictionaries</title>
+</head>
+<body>
+<a href="book009.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book011.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1 class="chapter" id="sec117"><span class="c006">Chapter&#XA0;9&#XA0;&#XA0;Dictionaries</span></h1>
+<p><span class="c005">
+</span><a id="hevea_default580"></a></p><p><a id="hevea_default581"></a><span class="c005">
+</span><a id="hevea_default582"></a><span class="c005">
+</span><a id="hevea_default583"></a><span class="c005">
+</span><a id="hevea_default584"></a><span class="c005">
+</span><a id="hevea_default585"></a></p><p><span class="c006">A <span class="c009">dictionary</span> is like a list, but more general. In a list,
+the index positions have to be integers; in a dictionary, 
+the indices can be (almost) any type.</span></p><p><span class="c006">You can think of a dictionary as a mapping between a set of indices
+(which are called <span class="c009">keys</span>) and a set of values. Each key maps to a
+value. The association of a key and a value is called a <span class="c009">key-value pair</span> or sometimes an <span class="c009">item</span>.</span></p><p><span class="c006">As an example, we&#X2019;ll build a dictionary that maps from English
+to Spanish words, so the keys and the values are all strings.</span></p><p><span class="c006">The function <span class="c001">dict</span> creates a new dictionary with no items.
+Because <span class="c001">dict</span> is the name of a built-in function, you
+should avoid using it as a variable name.</span></p><p><a id="hevea_default586"></a><span class="c005">
+</span><a id="hevea_default587"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; eng2sp = dict()
+&gt;&gt;&gt; print eng2sp
+{}
+</span></pre><p><span class="c006">The curly brackets, <code>{}</code>, represent an empty dictionary.
+To add items to the dictionary, you can use square brackets:</span></p><p><a id="hevea_default588"></a><span class="c005">
+</span><a id="hevea_default589"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; eng2sp['one'] = 'uno'
+</span></pre><p><span class="c006">This line creates an item that maps from the key
+<span class="c001">&#X2019;one&#X2019;</span> to the value <code>'uno'</code>. If we print the
+dictionary again, we see a key-value pair with a colon
+between the key and value:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; print eng2sp
+{'one': 'uno'}
+</span></pre><p><span class="c006">This output format is also an input format. For example,
+you can create a new dictionary with three items:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; eng2sp = {'one': 'uno', 'two': 'dos', 'three': 'tres'}
+</span></pre><p><span class="c006">But if you print <span class="c001">eng2sp</span>, you might be surprised:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; print eng2sp
+{'one': 'uno', 'three': 'tres', 'two': 'dos'}
+</span></pre><p><span class="c006">The order of the key-value pairs is not the same. In fact, if
+you type the same example on your computer, you might get a
+different result. In general, the order of items in
+a dictionary is unpredictable.</span></p><p><span class="c006">But that&#X2019;s not a problem because
+the elements of a dictionary are never indexed with integer indices.
+Instead, you use the keys to look up the corresponding values:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; print eng2sp['two']
+'dos'
+</span></pre><p><span class="c006">The key <span class="c001">&#X2019;two&#X2019;</span> always maps to the value <code>'dos'</code> so the order
+of the items doesn&#X2019;t matter.</span></p><p><span class="c006">If the key isn&#X2019;t in the dictionary, you get an exception:</span></p><p><a id="hevea_default590"></a><span class="c005">
+</span><a id="hevea_default591"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; print eng2sp['four']
+KeyError: 'four'
+</span></pre><p><span class="c006">The <span class="c001">len</span> function works on dictionaries; it returns the
+number of key-value pairs:</span></p><p><a id="hevea_default592"></a><span class="c005">
+</span><a id="hevea_default593"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; len(eng2sp)
+3
+</span></pre><p><span class="c006">The <span class="c001">in</span> operator works on dictionaries; it tells you whether
+something appears as a <em>key</em> in the dictionary (appearing
+as a value is not good enough).</span></p><p><a id="hevea_default594"></a><span class="c005">
+</span><a id="hevea_default595"></a><span class="c005">
+</span><a id="hevea_default596"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; 'one' in eng2sp
+True
+&gt;&gt;&gt; 'uno' in eng2sp
+False
+</span></pre><p><span class="c006">To see whether something appears as a value in a dictionary, you
+can use the method <span class="c001">values</span>, which returns the values as
+a list, and then use the <span class="c001">in</span> operator:</span></p><p><a id="hevea_default597"></a><span class="c005">
+</span><a id="hevea_default598"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; vals = eng2sp.values()
+&gt;&gt;&gt; 'uno' in vals
+True
+</span></pre><p><span class="c006">The <span class="c001">in</span> operator uses different algorithms for lists and
+dictionaries. For lists, it uses a linear search algorithm.
+As the list gets longer, the search time gets
+longer in direct proportion to the length of the list. 
+For dictionaries, Python uses an
+algorithm called a <span class="c009">hash table</span> that has a remarkable property&#X2014;the
+<span class="c001">in</span> operator takes about the same amount of time no matter how
+many items there are in a dictionary. I won&#X2019;t explain 
+why hash functions are so magical,
+but you can read more about it at
+<span class="c001">wikipedia.org/wiki/Hash_table</span>.</span></p><p><a id="hevea_default599"></a></p><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;1</span>&#XA0;&#XA0;
+</span><a id="wordlist2"></a><p><a id="hevea_default600"></a><span class="c005">
+</span><a id="hevea_default601"></a></p><p><span class="c006"><em>Write a program that reads the words in <span class="c001">words.txt</span> and
+stores them as keys in a dictionary. It doesn&#X2019;t matter what the
+values are. Then you can use the <span class="c001">in</span> operator
+as a fast way to check whether a string is in
+the dictionary.</em></span></p></div><span class="c005">
+</span><h2 class="section" id="sec118"><span class="c006">9.1&#XA0;&#XA0;Dictionary as a set of counters</span></h2>
+<p><span class="c005">
+</span><a id="histogram"></a></p><p><a id="hevea_default602"></a></p><p><span class="c006">Suppose you are given a string and you want to count how many
+times each letter appears. There are several ways you could do it:</span></p><ol class="enumerate" type="1"><li class="li-enumerate"><span class="c006">You could create 26 variables, one for each letter of the
+alphabet. Then you could traverse the string and, for each
+character, increment the corresponding counter, probably using
+a chained conditional.</span></li><li class="li-enumerate"><span class="c006">You could create a list with 26 elements. Then you could
+convert each character to a number (using the built-in function
+<span class="c001">ord</span>), use the number as an index into the list, and increment
+the appropriate counter.</span></li><li class="li-enumerate"><span class="c006">You could create a dictionary with characters as keys
+and counters as the corresponding values. The first time you
+see a character, you would add an item to the dictionary. After
+that you would increment the value of an existing item.</span></li></ol><p><span class="c006">Each of these options performs the same computation, but each
+of them implements that computation in a different way.</span></p><p><a id="hevea_default603"></a></p><p><span class="c006">An <span class="c009">implementation</span> is a way of performing a computation;
+some implementations are better than others. For example,
+an advantage of the dictionary implementation is that we don&#X2019;t
+have to know ahead of time which letters appear in the string
+and we only have to make room for the letters that do appear.</span></p><p><span class="c006">Here is what the code might look like:</span></p><pre class="verbatim"><span class="c004">word = 'brontosaurus'
+d = dict()
+for c in word:
+    if c not in d:
+        d[c] = 1
+    else:
+        d[c] = d[c] + 1
+print d
+</span></pre><p><span class="c006">We are effectively computing a <span class="c009">histogram</span>, which is a statistical
+term for a set of counters (or frequencies). </span></p><p><a id="hevea_default604"></a><span class="c005">
+</span><a id="hevea_default605"></a><span class="c005">
+</span><a id="hevea_default606"></a></p><p><span class="c006">The <span class="c001">for</span> loop traverses
+the string. Each time through the loop, if the character <span class="c001">c</span> is
+not in the dictionary, we create a new item with key <span class="c001">c</span> and the
+initial value 1 (since we have seen this letter once). If <span class="c001">c</span> is
+already in the dictionary we increment <span class="c001">d[c]</span>.</span></p><p><a id="hevea_default607"></a></p><p><span class="c006">Here&#X2019;s the output of the program:</span></p><pre class="verbatim"><span class="c004">{'a': 1, 'b': 1, 'o': 2, 'n': 1, 's': 2, 'r': 2, 'u': 2, 't': 1}
+</span></pre><p><span class="c006">The histogram indicates that the letters <span class="c001">&#X2019;a&#X2019;</span> and <code>'b'</code>
+appear once; <code>'o'</code> appears twice, and so on.</span></p><p><a id="hevea_default608"></a><span class="c005">
+</span><a id="hevea_default609"></a></p><p><span class="c006">Dictionaries have a method called <span class="c001">get</span> that takes a key
+and a default value. If the key appears in the dictionary,
+<span class="c001">get</span> returns the corresponding value; otherwise it returns
+the default value. For example:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+&gt;&gt;&gt; print counts.get('jan', 0)
+100
+&gt;&gt;&gt; print counts.get('tim', 0)
+0
+</span></pre><p><span class="c006">We can use <span class="c001">get</span> to write our histogram loop more concisely. 
+Because the <span class="c001">get</span> method automatically handles the case where a key
+is not in a dictionary, we can reduce four lines down to one
+and eliminate the <span class="c001">if</span> statement.</span></p><pre class="verbatim"><span class="c004">word = 'brontosaurus'
+d = dict()
+for c in word:
+    d[c] = d.get(c,0) + 1
+print d
+</span></pre><p><span class="c006">The use of the <span class="c001">get</span> method to simplify this counting loop 
+ends up being a very commonly used &#X201C;idiom&#X201D; in Python and 
+we will use it many times in the rest of the book. So you should
+take a moment and compare the loop using the <span class="c001">if</span> statement
+and <span class="c001">in</span> operator with the loop using the <span class="c001">get</span> method.
+They do exactly the same thing, but one is more succinct.
+</span><a id="hevea_default610"></a></p><span class="c005">
+</span><h2 class="section" id="sec119"><span class="c006">9.2&#XA0;&#XA0;Dictionaries and files</span></h2>
+<p><span class="c006">One of the common uses of a dictionary is to count the occurrence
+of words in a file with some written text. 
+Let&#X2019;s start with a very simple file of
+words taken from the text of <em>Romeo and Juliet</em>.</span></p><p><span class="c006">For the first set of examples, we will use a shortened and simplified version
+of the text with no punctuation. Later we will work with the text of the 
+scene with punctuation included.</span></p><pre class="verbatim"><span class="c004">But soft what light through yonder window breaks
+It is the east and Juliet is the sun
+Arise fair sun and kill the envious moon
+Who is already sick and pale with grief
+</span></pre><p><span class="c006">We will write a Python program to read through the lines of the file, 
+break each line into a list of words, and then loop through each 
+of the words in the line and count each word using a dictionary.</span></p><p><a id="hevea_default611"></a><span class="c005">
+</span><a id="hevea_default612"></a><span class="c006">
+You will see that we have two <span class="c001">for</span> loops. The outer loop is reading the
+lines of the file and the inner loop is iterating through each
+of the words on that particular line. This is an example
+of a pattern called <span class="c009">nested loops</span> because one of the loops
+is the <em>outer</em> loop and the other loop is the <em>inner</em>
+loop. </span></p><p><span class="c006">Because the inner loop executes all of its iterations each time
+the outer loop makes a single iteration, we think of the inner
+loop as iterating &#X201C;more quickly&#X201D; and the outer loop as iterating 
+more slowly.</span></p><p><a id="hevea_default613"></a><span class="c006">
+The combination of the two nested loops ensures that we will count
+every word on every line of the input file.</span></p><pre class="verbatim"><span class="c004">fname = raw_input('Enter the file name: ')
+try:
+    fhand = open(fname)
+except:
+    print 'File cannot be opened:', fname
+    exit()
+
+counts = dict()
+for line in fhand:
+    words = line.split()
+    for word in words:
+        if word not in counts:
+            counts[word] = 1
+        else:
+            counts[word] += 1
+
+print counts
+</span></pre><p><span class="c006">When we run the program, we see a raw dump of all of the counts in unsorted
+hash order.
+(the <span class="c001">romeo.txt</span> file is available at
+<span class="c001">www.py4inf.com/code/romeo.txt</span>)</span></p><pre class="verbatim"><span class="c004">python count1.py 
+Enter the file name: romeo.txt
+{'and': 3, 'envious': 1, 'already': 1, 'fair': 1, 
+'is': 3, 'through': 1, 'pale': 1, 'yonder': 1, 
+'what': 1, 'sun': 2, 'Who': 1, 'But': 1, 'moon': 1, 
+'window': 1, 'sick': 1, 'east': 1, 'breaks': 1, 
+'grief': 1, 'with': 1, 'light': 1, 'It': 1, 'Arise': 1, 
+'kill': 1, 'the': 3, 'soft': 1, 'Juliet': 1}
+</span></pre><p><span class="c006">It is a bit inconvenient to look through the dictionary to find the
+most common words and their counts, so we need to add some more 
+Python code to get us the output that will be more helpful.</span></p><span class="c005">
+</span><h2 class="section" id="sec120"><span class="c006">9.3&#XA0;&#XA0;Looping and dictionaries</span></h2>
+<p><a id="hevea_default614"></a><span class="c005">
+</span><a id="hevea_default615"></a><span class="c005">
+</span><a id="hevea_default616"></a></p><p><span class="c006">If you use a dictionary as the sequence 
+in a <span class="c001">for</span> statement, it traverses
+the keys of the dictionary. This loop
+prints each key and the corresponding value:</span></p><pre class="verbatim"><span class="c004">counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+for key in counts:
+    print key, counts[key]
+</span></pre><p><span class="c006">Here&#X2019;s what the output looks like:</span></p><pre class="verbatim"><span class="c004">jan 100
+chuck 1
+annie 42
+</span></pre><p><span class="c006">Again, the keys are in no particular order.</span></p><p><a id="hevea_default617"></a><span class="c006">
+We can use this pattern to implement the various loop idioms
+that we have described earlier. For example if we wanted 
+to find all the entries in a dictionary with a value 
+above ten, we could write the following code:</span></p><pre class="verbatim"><span class="c004">counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+for key in counts:
+    if counts[key] &gt; 10 :
+        print key, counts[key]
+</span></pre><p><span class="c006">The <span class="c001">for</span> loop iterates through the 
+<em>keys</em> of the dictionary, so we must 
+use the index operator to retrieve the 
+corresponding <em>value</em>
+for each key.
+Here&#X2019;s what the output looks like:</span></p><pre class="verbatim"><span class="c004">jan 100
+annie 42
+</span></pre><p><span class="c006">We see only the entries with a value above 10.</span></p><p><a id="hevea_default618"></a><span class="c005">
+</span><a id="hevea_default619"></a><span class="c006">
+If you want to print the keys in alphabetical order, you first 
+make a list of the keys in the dictionary using the 
+<span class="c001">keys</span> method available in dictionary objects,
+and then sort that list
+and loop through the sorted list, looking up each
+key and printing out key-value pairs in sorted order
+as follows:</span></p><pre class="verbatim"><span class="c004">counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+lst = counts.keys()
+print lst
+lst.sort()
+for key in lst:
+    print key, counts[key]
+</span></pre><p><span class="c006">Here&#X2019;s what the output looks like:</span></p><pre class="verbatim"><span class="c004">['jan', 'chuck', 'annie']
+annie 42
+chuck 1
+jan 100
+</span></pre><p><span class="c006">First you see the list of keys in unsorted order that 
+we get from the <span class="c001">keys</span> method. Then we see the key-value
+pairs in order from the <span class="c001">for</span> loop.</span></p><span class="c005">
+</span><h2 class="section" id="sec121"><span class="c006">9.4&#XA0;&#XA0;Advanced text parsing</span></h2>
+<p><a id="hevea_default620"></a><span class="c006">
+In the above example using the file <span class="c001">romeo.txt</span>,
+we made the file as simple as possible by removing 
+all punctuation by hand. The actual text 
+has lots of punctuation, as shown below.</span></p><pre class="verbatim"><span class="c004">But, soft! what light through yonder window breaks?
+It is the east, and Juliet is the sun.
+Arise, fair sun, and kill the envious moon,
+Who is already sick and pale with grief,
+</span></pre><p><span class="c006">Since the Python <span class="c001">split</span> function looks for spaces and
+treats words as tokens separated by spaces, we would treat the
+words &#X201C;soft!&#X201D; and &#X201C;soft&#X201D; as <em>different</em> words and create
+a separate dictionary entry for each word.</span></p><p><span class="c006">Also since the file has capitalization, we would treat
+&#X201C;who&#X201D; and &#X201C;Who&#X201D; as different words with different 
+counts.</span></p><p><span class="c006">We can solve both these problems by using the string
+methods <span class="c001">lower</span>, <span class="c001">punctuation</span>, and <span class="c001">translate</span>. The 
+<span class="c001">translate</span> is the most subtle of the methods. 
+Here is the documentation for <span class="c001">translate</span>:</span></p><p><span class="c006"><code>string.translate(s, table[, deletechars])</code></span></p><p><span class="c006"><em>Delete all characters from s that are in deletechars (if present), 
+and then translate the characters using table, which must 
+be a 256-character string giving the translation for each 
+character value, indexed by its ordinal. If table is None, 
+then only the character deletion step is performed.</em></span></p><p><span class="c006">We will not specify the <span class="c001">table</span> but we will use 
+the <span class="c001">deletechars</span> parameter to delete all of the punctuation.
+We will even let Python tell us the list of characters
+that it considers &#X201C;punctuation&#X201D;:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; import string
+&gt;&gt;&gt; string.punctuation
+'!"#$%&amp;\'()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~'
+</span></pre><p><span class="c006">We make the following modifications to our program:</span></p><pre class="verbatim"><span class="c004">import string                                          # New Code
+
+fname = raw_input('Enter the file name: ')
+try:
+    fhand = open(fname)
+except:
+    print 'File cannot be opened:', fname
+    exit()
+
+counts = dict()
+for line in fhand:
+    line = line.translate(None, string.punctuation)    # New Code
+    line = line.lower()                                # New Code
+    words = line.split()
+    for word in words:
+        if word not in counts:
+            counts[word] = 1
+        else:
+            counts[word] += 1
+
+print counts
+</span></pre><p><span class="c006">We use <span class="c001">translate</span> to remove all punctuation and <span class="c001">lower</span> to 
+force the line to lowercase. Otherwise the program is unchanged.
+Note that for Python 2.5 and earlier, <span class="c001">translate</span> does not 
+accept <span class="c001">None</span> as the first parameter so use this code instead
+for the translate call:</span></p><pre class="verbatim"><span class="c004">print a.translate(string.maketrans(' ',' '), string.punctuation
+</span></pre><p><span class="c006">Part of learning the &#X201C;Art of Python&#X201D; or &#X201C;Thinking Pythonically&#X201D;
+is realizing that Python
+often has built-in capabilities for many common data analysis
+problems. Over time, you will see enough example code and read
+enough of the documentation to know where to look to see if someone
+has already written something that makes your job much easier.</span></p><p><span class="c006">The following is an abbreviated version of the output:</span></p><pre class="verbatim"><span class="c004">Enter the file name: romeo-full.txt
+{'swearst': 1, 'all': 6, 'afeard': 1, 'leave': 2, 'these': 2, 
+'kinsmen': 2, 'what': 11, 'thinkst': 1, 'love': 24, 'cloak': 1, 
+a': 24, 'orchard': 2, 'light': 5, 'lovers': 2, 'romeo': 40, 
+'maiden': 1, 'whiteupturned': 1, 'juliet': 32, 'gentleman': 1, 
+'it': 22, 'leans': 1, 'canst': 1, 'having': 1, ...}
+</span></pre><p><span class="c006">Looking through this output is still unwieldy and we can use
+Python to give us exactly what we are looking for, but to do 
+so, we need to learn about Python <span class="c009">tuples</span>. We
+will pick up this example once we learn about tuples.</span></p><span class="c005">
+</span><h2 class="section" id="sec122"><span class="c006">9.5&#XA0;&#XA0;Debugging</span></h2>
+<p><span class="c005">
+</span><a id="hevea_default621"></a></p><p><span class="c006">As you work with bigger datasets it can become unwieldy to
+debug by printing and checking data by hand. Here are some
+suggestions for debugging large datasets:</span></p><dl class="description"><dt class="dt-description"><span class="c010">Scale down the input:</span></dt><dd class="dd-description"><span class="c006"> If possible, reduce the size of the
+dataset. For example if the program reads a text file, start with
+just the first 10 lines, or with the smallest example you can find.
+You can either edit the files themselves, or (better) modify the
+program so it reads only the first <span class="c001">n</span> lines.</span><p><span class="c006">If there is an error, you can reduce <span class="c001">n</span> to the smallest
+value that manifests the error, and then increase it gradually
+as you find and correct errors.</span></p></dd><dt class="dt-description"><span class="c010">Check summaries and types:</span></dt><dd class="dd-description"><span class="c006"> Instead of printing and checking the
+entire dataset, consider printing summaries of the data: for example,
+the number of items in a dictionary or the total of a list of numbers.</span><p><span class="c006">A common cause of runtime errors is a value that is not the right
+type. For debugging this kind of error, it is often enough to print
+the type of a value.</span></p></dd><dt class="dt-description"><span class="c010">Write self-checks:</span></dt><dd class="dd-description"><span class="c006"> Sometimes you can write code to check
+for errors automatically. For example, if you are computing the
+average of a list of numbers, you could check that the result is
+not greater than the largest element in the list or less than
+the smallest. This is called a &#X201C;sanity check&#X201D; because it detects
+results that are &#X201C;completely illogical&#X201D;.</span><p><a id="hevea_default622"></a><span class="c005">
+</span><a id="hevea_default623"></a></p><p><span class="c006">Another kind of check compares the results of two different
+computations to see if they are consistent. This is called a
+&#X201C;consistency check&#X201D;.</span></p></dd><dt class="dt-description"><span class="c010">Pretty print the output:</span></dt><dd class="dd-description"><span class="c006"> Formatting debugging output
+can make it easier to spot an error. </span></dd></dl><p><span class="c006">Again, time you spend building scaffolding can reduce
+the time you spend debugging.</span></p><p><a id="hevea_default624"></a></p><span class="c005">
+</span><h2 class="section" id="sec123"><span class="c006">9.6&#XA0;&#XA0;Glossary</span></h2>
+<dl class="description"><dt class="dt-description"><span class="c010">dictionary:</span></dt><dd class="dd-description"><span class="c006"> A mapping from a set of keys to their
+corresponding values.
+</span><a id="hevea_default625"></a></dd><dt class="dt-description"><span class="c010">hashtable:</span></dt><dd class="dd-description"><span class="c006"> The algorithm used to implement Python
+dictionaries.
+</span><a id="hevea_default626"></a></dd><dt class="dt-description"><span class="c010">hash function:</span></dt><dd class="dd-description"><span class="c006"> A function used by a hashtable to compute the
+location for a key.
+</span><a id="hevea_default627"></a></dd><dt class="dt-description"><span class="c010">histogram:</span></dt><dd class="dd-description"><span class="c006"> A set of counters.
+</span><a id="hevea_default628"></a></dd><dt class="dt-description"><span class="c010">implementation:</span></dt><dd class="dd-description"><span class="c006"> A way of performing a computation.
+</span><a id="hevea_default629"></a></dd><dt class="dt-description"><span class="c010">item:</span></dt><dd class="dd-description"><span class="c006"> Another name for a key-value pair.
+</span><a id="hevea_default630"></a></dd><dt class="dt-description"><span class="c010">key:</span></dt><dd class="dd-description"><span class="c006"> An object that appears in a dictionary as the
+first part of a key-value pair.
+</span><a id="hevea_default631"></a></dd><dt class="dt-description"><span class="c010">key-value pair:</span></dt><dd class="dd-description"><span class="c006"> The representation of the mapping from
+a key to a value.
+</span><a id="hevea_default632"></a></dd><dt class="dt-description"><span class="c010">lookup:</span></dt><dd class="dd-description"><span class="c006"> A dictionary operation that takes a key and finds
+the corresponding value.
+</span><a id="hevea_default633"></a></dd><dt class="dt-description"><span class="c010">nested loops:</span></dt><dd class="dd-description"><span class="c006"> When there are one or more loops &#X201C;inside&#X201D; of 
+another loop. The inner loop runs to completion each time the outer
+loop runs once.
+</span><a id="hevea_default634"></a><span class="c005">
+</span><a id="hevea_default635"></a></dd><dt class="dt-description"><span class="c010">value:</span></dt><dd class="dd-description"><span class="c006"> An object that appears in a dictionary as the
+second part of a key-value pair. This is more specific than
+our previous use of the word &#X201C;value&#X201D;.
+</span><a id="hevea_default636"></a></dd></dl><span class="c005">
+</span><h2 class="section" id="sec124"><span class="c006">9.7&#XA0;&#XA0;Exercises</span></h2>
+<div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;2</span>&#XA0;&#XA0;<em>
+Write a program that categorizes each mail message by which 
+day of the week the commit was done. To do this look for 
+lines that start with &#X201C;From&#X201D;, then look for the 
+third word and keep a running count of each of the 
+days of the week. At the end of the program print out the 
+contents of your dictionary (order does not matter).</em></span><pre class="verbatim"><span class="c004"><em>Sample Line:
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+
+Sample Execution:
+python dow.py
+Enter a file name: mbox-short.txt
+{'Fri': 20, 'Thu': 6, 'Sat': 1}
+</em></span></pre></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;3</span>&#XA0;&#XA0;<em>
+Write a program to read through a mail log, 
+build a histogram using a dictionary to count how many 
+messages have come from each email address, 
+and print the dictionary.</em></span><pre class="verbatim"><span class="c004"><em>Enter file name: mbox-short.txt
+{'gopal.ramasammycook@gmail.com': 1, 'louis@media.berkeley.edu': 3, 
+'cwen@iupui.edu': 5, 'antranig@caret.cam.ac.uk': 1, 
+'rjlowe@iupui.edu': 2, 'gsilver@umich.edu': 3, 
+'david.horwitz@uct.ac.za': 4, 'wagnermr@iupui.edu': 1, 
+'zqian@umich.edu': 4, 'stephen.marquard@uct.ac.za': 2, 
+'ray@media.berkeley.edu': 1}
+</em></span></pre></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;4</span>&#XA0;&#XA0;<em>
+Add code to the above program to figure out who has the 
+most messages in the file.</em></span><p><span class="c006"><em>After all the data has been read and the dictionary has been
+created, look through the dictionary using a maximum loop
+(see Section&#XA0;</em></span><a href="book006.html#maximumloop"><span class="c006"><em>??</em></span></a><span class="c006"><em>)
+to find who has the most 
+messages and print how many messages the person has.</em></span></p><pre class="verbatim"><span class="c004"><em>Enter a file name: mbox-short.txt
+cwen@iupui.edu 5
+
+Enter a file name: mbox.txt
+zqian@umich.edu 195
+</em></span></pre></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;5</span>&#XA0;&#XA0;<em>
+This program records the domain name (instead of the address) 
+where the message was sent from instead of who the mail 
+came from (i.e., the whole email address). At the end 
+of the program, print out the contents of your dictionary. </em></span><pre class="verbatim"><span class="c004"><em>python schoolcount.py
+Enter a file name: mbox-short.txt
+{'media.berkeley.edu': 4, 'uct.ac.za': 6, 'umich.edu': 7, 
+'gmail.com': 1, 'caret.cam.ac.uk': 1, 'iupui.edu': 8}
+</em></span></pre></div><span class="c005">
+</span><hr />
+<a href="book009.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book011.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

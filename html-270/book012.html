@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="hevea 2.09" />
+<link rel="stylesheet" type="text/css" href="book.css" />
+<title>Regular expressions</title>
+</head>
+<body>
+<a href="book011.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book013.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1 class="chapter" id="sec137"><span class="c006">Chapter&#XA0;11&#XA0;&#XA0;Regular expressions</span></h1>
+<p><span class="c006">So far we have been reading through files, looking for patterns and extracting various
+bits of lines that we find interesting. We have been using string methods like <span class="c001">split</span>
+and <span class="c001">find</span> and using lists and string slicing to extract portions of the lines.
+</span><a id="hevea_default721"></a><span class="c005">
+</span><a id="hevea_default722"></a><span class="c005">
+</span><a id="hevea_default723"></a></p><p><span class="c006">This task of searching and extracting is so common that Python has a very powerful library
+called <span class="c009">regular expressions</span> that handles many of these tasks quite elegantly. The
+reason we have not introduced regular expressions earlier in the book is because while they
+are very powerful, they are a little complicated and their syntax takes some getting used to. </span></p><p><span class="c006">Regular expressions are almost their own little programming language for searching and parsing
+strings. As a matter of fact, entire books have been written on the topic of regular expressions.
+In this chapter, we will only cover the basics of regular expressions. For more detail on regular
+expressions, see:</span></p><p><span class="c002">http://en.wikipedia.org/wiki/Regular_expression</span></p><p><span class="c002">https://docs.python.org/2/library/re.html</span></p><p><span class="c006">The regular expression library <span class="c001">re</span> must be imported into your program before you can use it.
+The simplest use of the regular expression library is the <span class="c001">search()</span> function. The following
+program demonstrates a trivial use of the search function.
+</span><a id="hevea_default724"></a></p><pre class="verbatim"><span class="c004">import re
+hand = open('mbox-short.txt')
+for line in hand:
+    line = line.rstrip()
+    if re.search('From:', line) :
+        print line
+</span></pre><p><span class="c006">We open the file, loop through each line, and use the regular expression <span class="c001">search()</span> to
+only print out lines that contain the string &#X201C;From:&#X201D;. This program does not use the real
+power of regular expressions, since we could have just as easily used <span class="c001">line.find()</span> to
+accomplish the same result.
+</span><a id="hevea_default725"></a></p><p><span class="c006">The power of the regular expressions comes when we add special characters to the search string
+that allow us to more precisely control which lines match the string. Adding these special
+characters to our regular expression allow us to do sophisticated matching and extraction while
+writing very little code.</span></p><p><span class="c006">For example, the caret character is used in regular 
+expressions to match &#X201C;the beginning&#X201D; of a line.
+We could change our program to only match 
+lines where &#X201C;From:&#X201D; was at the beginning of the line as follows:</span></p><pre class="verbatim"><span class="c004">import re
+hand = open('mbox-short.txt')
+for line in hand:
+    line = line.rstrip()
+    if re.search('^From:', line) :
+        print line
+</span></pre><p><span class="c006">Now we will only match lines that <em>start with</em> the string &#X201C;From:&#X201D;. This is still a very
+simple example that we could have done equivalently with the <span class="c001">startswith()</span> method from
+the string library. But it serves to introduce the notion that regular expressions contain
+special action characters that give us more control as to what will match the regular expression.
+</span><a id="hevea_default726"></a></p><span class="c005">
+</span><h2 class="section" id="sec138"><span class="c006">11.1&#XA0;&#XA0;Character matching in regular expressions</span></h2>
+<p><span class="c006">There are a number of other special characters that let us build even more powerful regular
+expressions. The most commonly used special character is the period or full stop, which matches
+any character.
+</span><a id="hevea_default727"></a><span class="c005">
+</span><a id="hevea_default728"></a></p><p><span class="c006">In the following example, the regular expression &#X201C;F..m:&#X201D; would match any of the strings
+&#X201C;From:&#X201D;, &#X201C;Fxxm:&#X201D;, &#X201C;F12m:&#X201D;, or &#X201C;F!@m:&#X201D; since the period characters in the regular
+expression match any character.</span></p><pre class="verbatim"><span class="c004">import re
+hand = open('mbox-short.txt')
+for line in hand:
+    line = line.rstrip()
+    if re.search('^F..m:', line) :
+        print line
+</span></pre><p><span class="c006">This is particularly powerful when combined with the ability to indicate that a character can
+be repeated any number of times using the &#X201C;*&#X201D; or &#X201C;+&#X201D; characters in your regular expression.
+These special characters mean that instead of matching a single character in the search string,
+they match zero-or-more characters (in the case of the asterisk) or one-or-more of the characters
+(in the case of the plus sign).</span></p><p><span class="c006">We can further narrow down the lines that we match using a repeated <span class="c009">wild card</span> character in
+the following example:</span></p><pre class="verbatim"><span class="c004">import re
+hand = open('mbox-short.txt')
+for line in hand:
+    line = line.rstrip()
+    if re.search('^From:.+@', line) :
+        print line
+</span></pre><p><span class="c006">The search string &#X201C;<code>^</code>From:.+@&#X201D; will successfully match lines that start with &#X201C;From:&#X201D;,
+followed by one or more characters (&#X201C;.+&#X201D;), followed by an at-sign. So this will match the
+following line:</span></p><pre><span class="c004">
+<span class="c009"> From:</span><u> stephen.marquard</u><span class="c009"> @</span>uct.ac.za
+</span></pre><p><span class="c006">You can think of the &#X201C;.+&#X201D; wildcard as expanding to match all the characters between the 
+colon character and the at-sign. </span></p><pre><span class="c004">
+<span class="c009"> From:</span><u>.+</u><span class="c009"> @</span>
+</span></pre><p><span class="c006">It is good to think of the plus and asterisk characters as &#X201C;pushy&#X201D;. For example, the following
+string would match the last at-sign in the string as the &#X201C;.+&#X201D; pushes outwards, as shown below:</span></p><pre><span class="c004">
+<span class="c009"> From:</span><u> stephen.marquard@uct.ac.za, csev@umich.edu, and cwen</u><span class="c009"> @</span>iupui.edu
+</span></pre><p><span class="c006">It is possible to tell an asterisk or plus sign not to be so &#X201C;greedy&#X201D; by adding 
+another character. See the detailed documentation for information on turning off the 
+greedy behavior.
+</span><a id="hevea_default729"></a></p><span class="c005">
+</span><h2 class="section" id="sec139"><span class="c006">11.2&#XA0;&#XA0;Extracting data using regular expressions</span></h2>
+<p><span class="c006">If we want to extract data from a string in Python we can use the <span class="c001">findall()</span> method to extract
+all of the substrings which match a regular expression. Let&#X2019;s use the example of wanting to extract
+anything that looks like an email address from any line regardless of format. For example, we want
+to pull the email addresses from each of the following lines:</span></p><pre class="verbatim"><span class="c004">From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+Return-Path: &lt;postmaster@collab.sakaiproject.org&gt;
+          for &lt;source@collab.sakaiproject.org&gt;;
+Received: (from apache@localhost)
+Author: stephen.marquard@uct.ac.za
+</span></pre><p><span class="c006">We don&#X2019;t want to write code for each of the types of lines, splitting and slicing differently for each
+line. This following program uses <span class="c001">findall()</span> to find the lines with email addresses in them and
+extract one or more addresses from each of those lines.
+</span><a id="hevea_default730"></a><span class="c005">
+</span><a id="hevea_default731"></a></p><pre class="verbatim"><span class="c004">import re
+s = 'Hello from csev@umich.edu to cwen@iupui.edu about the meeting @2PM'
+lst = re.findall('\S+@\S+', s)
+print lst
+</span></pre><p><span class="c006">The <span class="c001">findall()</span> method searches the string in the second argument and returns a list of
+all of the strings that look like email addresses. We are using a two-character sequence 
+that matches a non-whitespace character (\S). </span></p><p><span class="c006">The output of the program would be:</span></p><pre class="verbatim"><span class="c004">['csev@umich.edu', 'cwen@iupui.edu']
+</span></pre><p><span class="c006">Translating the regular expression, we are looking for substrings that have at least one
+non-whitespace character, followed by an at-sign, followed by at least one more non-whitespace
+character. The &#X201C;\S+&#X201D; matches as many non-whitespace characters as possible.</span></p><p><span class="c006">The regular expression would match twice (csev@umich.edu and cwen@iupui.edu), but it would not
+match the string &#X201C;@2PM&#X201D; because there are no non-blank characters <em>before</em> the at-sign. 
+We can use this regular expression in a program to read all the lines in a file and print out
+anything that looks like an email address as follows:</span></p><pre class="verbatim"><span class="c004">import re
+hand = open('mbox-short.txt')
+for line in hand:
+    line = line.rstrip()
+    x = re.findall('\S+@\S+', line)
+    if len(x) &gt; 0 :
+        print x
+</span></pre><p><span class="c006">We read each line and then extract all the substrings that match our regular expression.
+Since <span class="c001">findall()</span> returns a list, we simply check if the number of elements in our returned
+list is more than zero to print only lines where we found at least one substring that looks
+like an email address.</span></p><p><span class="c006">If we run the program on <span class="c001">mbox.txt</span> we get the following output:</span></p><pre class="verbatim"><span class="c004">['wagnermr@iupui.edu']
+['cwen@iupui.edu']
+['&lt;postmaster@collab.sakaiproject.org&gt;']
+['&lt;200801032122.m03LMFo4005148@nakamura.uits.iupui.edu&gt;']
+['&lt;source@collab.sakaiproject.org&gt;;']
+['&lt;source@collab.sakaiproject.org&gt;;']
+['&lt;source@collab.sakaiproject.org&gt;;']
+['apache@localhost)']
+['source@collab.sakaiproject.org;']
+</span></pre><p><span class="c006">Some of our email addresses have incorrect characters like &#X201C;<code>&lt;</code>&#X201D; or &#X201C;;&#X201D; at the beginning
+or end. Let&#X2019;s declare that we are only interested in the portion of the string that starts and
+ends with a letter or a number.</span></p><p><span class="c006">To do this, we use another feature of regular expressions. Square brackets are used to indicate a
+set of multiple acceptable characters we are willing to consider matching. In a sense, the
+&#X201C;\S&#X201D; is asking to match the set of &#X201C;non-whitespace characters&#X201D;. Now we will be
+a little more explicit in terms of the characters we will match.</span></p><p><span class="c006">Here is our new regular expression:</span></p><pre class="verbatim"><span class="c004">[a-zA-Z0-9]\S*@\S*[a-zA-Z]
+</span></pre><p><span class="c006">This is getting a little complicated and you can begin to see why regular expressions are their own
+little language unto themselves. Translating this regular expression, we are looking for substrings
+that start with a <em>single</em> lowercase letter, uppercase letter, or number &#X201C;[a-zA-Z0-9]&#X201D;, followed
+by zero or more non-blank characters (&#X201C;\S*&#X201D;), followed by an at-sign, followed by zero
+or more non-blank characters (&#X201C;\S*&#X201D;), followed by an uppercase or lowercase letter.
+Note that we switched from &#X201C;+&#X201D; to &#X201C;*&#X201D; to indicate zero or more non-blank characters since &#X201C;[a-zA-Z0-9]&#X201D;
+is already one non-blank character. Remember that the &#X201C;*&#X201D; or &#X201C;+&#X201D; applies to the single character
+immediately to the left of the plus or asterisk.
+</span><a id="hevea_default732"></a></p><p><span class="c006">If we use this expression in our program, our data is much cleaner:</span></p><pre class="verbatim"><span class="c004">import re
+hand = open('mbox-short.txt')
+for line in hand:
+    line = line.rstrip()
+    x = re.findall('[a-zA-Z0-9]\S*@\S*[a-zA-Z]', line)
+    if len(x) &gt; 0 :
+        print x
+</span></pre><pre class="verbatim"><span class="c004">...
+['wagnermr@iupui.edu']
+['cwen@iupui.edu']
+['postmaster@collab.sakaiproject.org']
+['200801032122.m03LMFo4005148@nakamura.uits.iupui.edu']
+['source@collab.sakaiproject.org']
+['source@collab.sakaiproject.org']
+['source@collab.sakaiproject.org']
+['apache@localhost']
+</span></pre><p><span class="c006">Notice that on the &#X201C;source@collab.sakaiproject.org&#X201D; lines, our regular expression
+eliminated two letters at the end of the string (&#X201C;<code>&gt;</code>;&#X201D;). This is because when we
+append &#X201C;[a-zA-Z]&#X201D; to the end of our regular expression, we are demanding that whatever
+string the regular expression parser finds must end with a letter. So when it sees the
+&#X201C;<code>&gt;</code>&#X201D; after &#X201C;sakaiproject.org<code>&gt;</code>;&#X201D; it simply stops at the last &#X201C;matching&#X201D;
+letter it found (i.e., the &#X201C;g&#X201D; was the last good match).</span></p><p><span class="c006">Also note that the output of the program is a Python list that has a string as the single
+element in the list.</span></p><span class="c005">
+</span><h2 class="section" id="sec140"><span class="c006">11.3&#XA0;&#XA0;Combining searching and extracting</span></h2>
+<p><span class="c006">If we want to find numbers on lines that start with the string &#X201C;X-&#X201D; such as:</span></p><pre class="verbatim"><span class="c004">X-DSPAM-Confidence: 0.8475
+X-DSPAM-Probability: 0.0000  
+</span></pre><p><span class="c006">we don&#X2019;t just want any floating-point numbers from any lines. We only want to extract
+numbers from lines that have the above syntax.</span></p><p><span class="c006">We can construct the following regular expression to select the lines:</span></p><pre class="verbatim"><span class="c004">^X-.*: [0-9.]+
+</span></pre><p><span class="c006">Translating this, we are saying, we want lines that start with &#X201C;X-&#X201D;, followed by zero or
+more characters (&#X201C;.*&#X201D;), followed by a colon (&#X201C;:&#X201D;) and then a space. After the space we are
+looking for one or more characters that are either a digit (0-9) or a period &#X201C;[0-9.]+&#X201D;.
+Note that inside the square brackets, the period matches an actual period (i.e., it is not a
+wildcard between the square brackets).</span></p><p><span class="c006">This is a very tight expression that will pretty much match only the lines we are interested
+in as follows:</span></p><pre class="verbatim"><span class="c004">import re
+hand = open('mbox-short.txt')
+for line in hand:
+    line = line.rstrip()
+    if re.search('^X\S*: [0-9.]+', line) :
+        print line
+</span></pre><p><span class="c006">When we run the program, we see the data nicely filtered to show 
+only the lines we are looking for.</span></p><pre class="verbatim"><span class="c004">X-DSPAM-Confidence: 0.8475
+X-DSPAM-Probability: 0.0000
+X-DSPAM-Confidence: 0.6178
+X-DSPAM-Probability: 0.0000
+</span></pre><p><span class="c006">But now we have to solve the problem of extracting the numbers. While it would be simple
+enough to use <span class="c001">split</span>, we can use another feature of regular expressions to both search
+and parse the line at the same time.
+</span><a id="hevea_default733"></a></p><p><span class="c006">Parentheses are another special character in regular expressions. When you add parentheses
+to a regular expression, they are ignored when matching the string. But when you are using
+<span class="c001">findall()</span>, parentheses indicate that while you want the whole expression to match,
+you only are interested in extracting a portion of the substring that matches the regular
+expression. 
+</span><a id="hevea_default734"></a><span class="c005">
+</span><a id="hevea_default735"></a></p><p><span class="c006">So we make the following change to our program:</span></p><pre class="verbatim"><span class="c004">import re
+hand = open('mbox-short.txt')
+for line in hand:
+    line = line.rstrip()
+    x = re.findall('^X\S*: ([0-9.]+)', line)
+    if len(x) &gt; 0 :
+        print x
+</span></pre><p><span class="c006">Instead of calling <span class="c001">search()</span>, we add parentheses around the part of the regular expression
+that represents the floating-point number to indicate we only want <span class="c001">findall()</span> to give us
+back the floating-point number portion of the matching string.</span></p><p><span class="c006">The output from this program is as follows:</span></p><pre class="verbatim"><span class="c004">['0.8475']
+['0.0000']
+['0.6178']
+['0.0000']
+['0.6961']
+['0.0000']
+..
+</span></pre><p><span class="c006">The numbers are still in a list and need to be converted from strings to floating point, but we
+have used the power of regular expressions to both search and extract the information we found
+interesting.</span></p><p><span class="c006">As another example of this technique, if you look at the file there are a number of lines
+of the form:</span></p><pre class="verbatim"><span class="c004">Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772
+</span></pre><p><span class="c006">If we wanted to extract all of the revision numbers (the integer number at the end of these lines)
+using the same technique as above, we could write the following program:</span></p><pre class="verbatim"><span class="c004">import re
+hand = open('mbox-short.txt')
+for line in hand:
+    line = line.rstrip()
+    x = re.findall('^Details:.*rev=([0-9]+)', line)
+    if len(x) &gt; 0:
+        print x
+</span></pre><p><span class="c006">Translating our regular expression, we are looking for lines that start with &#X201C;Details:&#X201D;,
+followed by any number of characters (&#X201C;.*&#X201D;), followed by &#X201C;rev=&#X201D;, and then by one or
+more digits. We want to find lines that match the entire expression but we only want to
+extract the integer number at the end of the line, so we surround &#X201C;[0-9]+&#X201D; with parentheses. </span></p><p><span class="c006">When we run the program, we get the following output:</span></p><pre class="verbatim"><span class="c004">['39772']
+['39771']
+['39770']
+['39769']
+...
+</span></pre><p><span class="c006">Remember that the &#X201C;[0-9]+&#X201D; is &#X201C;greedy&#X201D; and it tries to make as large a string of digits as
+possible before extracting those digits. This &#X201C;greedy&#X201D; behavior is why we get all five digits
+for each number. The regular expression library expands in both directions until it encounters a
+non-digit, or the beginning or the end of a line.</span></p><p><span class="c006">Now we can use regular expressions to redo an exercise from earlier in the book where we were
+interested in the time of day of each mail message. We looked for lines of the form:</span></p><pre class="verbatim"><span class="c004">From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+</span></pre><p><span class="c006">and wanted to extract the hour of the day for each line. Previously we did this with two calls
+to <span class="c001">split</span>. First the line was split into words and then we pulled out the fifth word and split
+it again on the colon character to pull out the two characters we were interested in.</span></p><p><span class="c006">While this worked, it actually results in pretty brittle code that is assuming the lines are nicely
+formatted. If you were to add enough error checking (or a big try/except block) to insure that your
+program never failed when presented with incorrectly formatted lines, the code would balloon to 
+10-15 lines of code that was pretty hard to read.</span></p><p><span class="c006">We can do this in a far simpler way with the following regular expression:</span></p><pre class="verbatim"><span class="c004">^From .* [0-9][0-9]:
+</span></pre><p><span class="c006">The translation of this regular expression is that we are looking for lines that start with &#X201C;From &#X201D;
+(note the space), followed by any number of characters (&#X201C;.*&#X201D;), followed by a space, followed by two
+digits &#X201C;[0-9][0-9]&#X201D;, followed by a colon character. This is the definition of the kinds of lines
+we are looking for. </span></p><p><span class="c006">In order to pull out only the hour using <span class="c001">findall()</span>, we add parentheses around the two digits
+as follows:</span></p><pre class="verbatim"><span class="c004">^From .* ([0-9][0-9]):
+</span></pre><p><span class="c006">This results in the following program:</span></p><pre class="verbatim"><span class="c004">import re
+hand = open('mbox-short.txt')
+for line in hand:
+    line = line.rstrip()
+    x = re.findall('^From .* ([0-9][0-9]):', line)
+    if len(x) &gt; 0 : print x
+</span></pre><p><span class="c006">When the program runs, it produces the following output:</span></p><pre class="verbatim"><span class="c004">['09']
+['18']
+['16']
+['15']
+...
+</span></pre><span class="c005">
+</span><h2 class="section" id="sec141"><span class="c006">11.4&#XA0;&#XA0;Escape character</span></h2>
+<p><span class="c006">Since we use special characters in regular expressions to match the beginning or end of 
+a line or specify wild cards, we need a way to indicate that these characters are &#X201C;normal&#X201D; 
+and we want to match the actual character such as a dollar sign or caret.</span></p><p><span class="c006">We can indicate that we want to simply match a character by prefixing that character 
+with a backslash. For example, we can find money amounts with the following regular
+expression.</span></p><pre class="verbatim"><span class="c004">import re
+x = 'We just received $10.00 for cookies.'
+y = re.findall('\$[0-9.]+',x)
+</span></pre><p><span class="c006">Since we prefix the dollar sign with a backslash, it actually matches the dollar sign
+in the input string instead of matching the &#X201C;end of line&#X201D;, and the rest of the regular
+expression matches one or more digits or the period character. <em>Note:</em> Inside 
+square brackets, characters are not &#X201C;special&#X201D;. So when we say &#X201C;[0-9.]&#X201D;, it really 
+means digits or a period. Outside of square brackets, a period is the &#X201C;wild-card&#X201D; 
+character and matches any character. Inside square brackets, the period is a period.</span></p><span class="c005">
+</span><h2 class="section" id="sec142"><span class="c006">11.5&#XA0;&#XA0;Summary</span></h2>
+<p><span class="c006">While this only scratched the surface of regular expressions, we have learned a bit about
+the language of regular expressions. They are search strings with special characters in them
+that communicate your wishes to the regular expression system as to what defines &#X201C;matching&#X201D;
+and what is extracted from the matched strings. Here are some of those special characters
+and character sequences:</span></p><p><span class="c006"><code>^</code> <br />
+Matches the beginning of the line.</span></p><p><span class="c006">$ <br />
+Matches the end of the line.</span></p><p><span class="c006">. <br />
+Matches any character (a wildcard).</span></p><p><span class="c006">\s <br />
+Matches a whitespace character.</span></p><p><span class="c006">\S <br />
+Matches a non-whitespace character (opposite of \s).</span></p><p><span class="c006">* <br />
+Applies to the immediately preceding character and indicates to match zero or more of the
+preceding character(s).</span></p><p><span class="c006">*? <br />
+Applies to the immediately preceding character and indicates to match zero or more of the
+preceding character(s) in &#X201C;non-greedy mode&#X201D;.</span></p><p><span class="c006">+ <br />
+Applies to the immediately preceding character and indicates to match one or more of the 
+preceding character(s).</span></p><p><span class="c006">+? <br />
+Applies to the immediately preceding character and indicates to match one or more of the 
+preceding character(s) in &#X201C;non-greedy mode&#X201D;.</span></p><p><span class="c006">[aeiou] <br />
+Matches a single character as long as that character is in the specified set. In this example,
+it would match &#X201C;a&#X201D;, &#X201C;e&#X201D;, &#X201C;i&#X201D;, &#X201C;o&#X201D;, or &#X201C;u&#X201D;, but no other characters.</span></p><p><span class="c006">[a-z0-9] <br />
+You can specify ranges of characters using the minus sign. This example is a single character
+that must be a lowercase letter or a digit.</span></p><p><span class="c006">[<code>^</code>A-Za-z] <br />
+When the first character in the set notation is a caret, it inverts the logic. This example
+matches a single character that is anything <em>other than</em> an uppercase or lowercase letter.</span></p><p><span class="c006">( ) <br />
+When parentheses are added to a regular expression, they are ignored for the purpose of matching,
+but allow you to extract a particular subset of the matched string rather than the whole string
+when using <span class="c001">findall()</span>.</span></p><p><span class="c006">\b <br />
+Matches the empty string, but only at the start or end of a word.</span></p><p><span class="c006">\B <br />
+Matches the empty string, but not at the start or end of a word.</span></p><p><span class="c006">\d <br />
+Matches any decimal digit; equivalent to the set [0-9].</span></p><p><span class="c006">\D <br />
+Matches any non-digit character; equivalent to the set [<code>^</code>0-9].</span></p><span class="c005">
+</span><h2 class="section" id="sec143"><span class="c006">11.6&#XA0;&#XA0;Bonus section for Unix users</span></h2>
+<p><span class="c006">Support for searching files using regular expressions was built into the Unix operating system 
+since the 1960s and it is available in nearly all programming languages in one form or another.</span></p><p><a id="hevea_default736"></a><span class="c006">
+As a matter of fact, there is a command-line program built into Unix 
+called <span class="c009">grep</span> (Generalized Regular Expression Parser) that does pretty much 
+the same as the <span class="c001">search()</span> examples in this chapter. So if you have a 
+Macintosh or Linux system, you can try the following commands in your command-line window.</span></p><pre class="verbatim"><span class="c004">$ grep '^From:' mbox-short.txt
+From: stephen.marquard@uct.ac.za
+From: louis@media.berkeley.edu
+From: zqian@umich.edu
+From: rjlowe@iupui.edu
+</span></pre><p><span class="c006">This tells <span class="c001">grep</span> to show you lines that start with the string &#X201C;From:&#X201D; in the file
+<span class="c001">mbox-short.txt</span>. If you experiment with the <span class="c001">grep</span> command a bit and read the
+documentation for <span class="c001">grep</span>, you will find some subtle differences between the regular
+expression support in Python and the regular expression support in <span class="c001">grep</span>. As an example,
+<span class="c001">grep</span> does not support the non-blank character &#X201C;\S&#X201D; so you will need to
+use the slightly more complex set notation &#X201C;[<code>^</code> ]&#X201D;, which simply means match a 
+character that is anything other than a space.</span></p><span class="c005">
+</span><h2 class="section" id="sec144"><span class="c006">11.7&#XA0;&#XA0;Debugging</span></h2>
+<p><span class="c006">Python has some simple and rudimentary built-in documentation that can be quite helpful if
+you need a quick refresher to trigger your memory about the exact name of a particular method.
+This documentation can be viewed in the Python interpreter in interactive mode.</span></p><p><span class="c006">You can bring up an interactive help system using <span class="c001">help()</span>.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; help()
+
+Welcome to Python 2.6!  This is the online help utility.
+
+If this is your first time using Python, you should definitely check out
+the tutorial on the Internet at http://docs.python.org/tutorial/.
+
+Enter the name of any module, keyword, or topic to get help on writing
+Python programs and using Python modules.  To quit this help utility and
+return to the interpreter, just type "quit".
+
+To get a list of available modules, keywords, or topics, type "modules",
+"keywords", or "topics".  Each module also comes with a one-line summary
+of what it does; to list the modules whose summaries contain a given word
+such as "spam", type "modules spam".
+
+help&gt; modules
+</span></pre><p><span class="c006">If you know what module you want to use, you can use the <span class="c001">dir()</span> command to find the methods in the module as follows:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; import re
+&gt;&gt;&gt; dir(re)
+[.. 'compile', 'copy_reg', 'error', 'escape', 'findall', 
+'finditer', 'match', 'purge', 'search', 'split', 'sre_compile', 
+'sre_parse', 'sub', 'subn', 'sys', 'template']
+</span></pre><p><span class="c006">You can also get a small amount of documentation on a particular method using the dir command.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; help (re.search)
+Help on function search in module re:
+
+search(pattern, string, flags=0)
+    Scan through string looking for a match to the pattern, returning
+    a match object, or None if no match was found.
+&gt;&gt;&gt; 
+</span></pre><p><span class="c006">The built-in documentation is not very extensive, but it can be helpful when you are in a hurry
+or don&#X2019;t have access to a web browser or search engine.</span></p><span class="c005">
+</span><h2 class="section" id="sec145"><span class="c006">11.8&#XA0;&#XA0;Glossary</span></h2>
+<dl class="description"><dt class="dt-description"><span class="c010">brittle code:</span></dt><dd class="dd-description"><span class="c006">
+Code that works when the input data is in a particular format but is prone to breakage
+if there is some deviation from the correct format. We call this &#X201C;brittle code&#X201D; 
+because it is easily broken.</span></dd><dt class="dt-description"><span class="c010">greedy matching:</span></dt><dd class="dd-description"><span class="c006">
+The notion that the &#X201C;+&#X201D; and &#X201C;*&#X201D; characters in a regular expression expand outward to
+match the largest possible string.
+</span><a id="hevea_default737"></a><span class="c005">
+</span><a id="hevea_default738"></a></dd><dt class="dt-description"><span class="c010">grep:</span></dt><dd class="dd-description"><span class="c006">
+A command available in most Unix systems that searches through text files looking for lines
+that match regular expressions. The command name stands for "Generalized Regular Expression Parser".
+</span><a id="hevea_default739"></a></dd><dt class="dt-description"><span class="c010">regular expression:</span></dt><dd class="dd-description"><span class="c006">
+A language for expressing more complex search strings. A regular expression may contain
+special characters that indicate that a search only matches at the beginning or end of a line
+or many other similar capabilities.</span></dd><dt class="dt-description"><span class="c010">wild card:</span></dt><dd class="dd-description"><span class="c006">
+A special character that matches any character. In regular expressions the wild-card
+character is the period.
+</span><a id="hevea_default740"></a></dd></dl><span class="c005">
+</span><h2 class="section" id="sec146"><span class="c006">11.9&#XA0;&#XA0;Exercises</span></h2>
+<div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;1</span>&#XA0;&#XA0;<em>
+Write a simple program to simulate the operation of the <span class="c001">grep</span> command 
+on Unix. Ask the user to enter a regular expression and count the number
+of lines that matched the regular expression:</em></span><pre class="verbatim"><span class="c004"><em>$ python grep.py
+Enter a regular expression: ^Author
+mbox.txt had 1798 lines that matched ^Author
+
+$ python grep.py
+Enter a regular expression: ^X-
+mbox.txt had 14368 lines that matched ^X-
+
+$ python grep.py
+Enter a regular expression: java$
+mbox.txt had 4218 lines that matched java$
+</em></span></pre></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;2</span>&#XA0;&#XA0;<em>
+Write a program to look for lines of the form</em></span><p><span class="c006"><em><code>New Revision: 39772</code></em></span></p><p><span class="c006"><em>and extract the number from each of the lines using a regular expression
+and the <span class="c001">findall()</span> method. Compute the average of the numbers and 
+print out the average.</em></span></p><pre class="verbatim"><span class="c004"><em>Enter file:mbox.txt 
+38549.7949721
+
+Enter file:mbox-short.txt
+39756.9259259
+</em></span></pre></div><span class="c005">
+</span><hr />
+<a href="book011.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book013.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

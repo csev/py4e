@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="hevea 2.09" />
+<link rel="stylesheet" type="text/css" href="book.css" />
+<title>Tuples</title>
+</head>
+<body>
+<a href="book010.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book012.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1 class="chapter" id="sec125"><span class="c006">Chapter&#XA0;10&#XA0;&#XA0;Tuples</span></h1>
+<p><span class="c005">
+</span><a id="tuplechap"></a></p><span class="c005">
+</span><h2 class="section" id="sec126"><span class="c006">10.1&#XA0;&#XA0;Tuples are immutable</span></h2>
+<p><a id="hevea_default637"></a><span class="c005">
+</span><a id="hevea_default638"></a><span class="c005">
+</span><a id="hevea_default639"></a></p><p><span class="c006">A tuple</span><sup><a id="text11" href="#note11"><span class="c006">1</span></a></sup><span class="c006">
+is a sequence of values much like a list. 
+The values stored in a tuple can be any type, and
+they are indexed by integers.
+The important difference is that tuples are <span class="c009">immutable</span>.
+Tuples are also <span class="c009">comparable</span> and <span class="c009">hashable</span> so we can 
+sort lists of them and use tuples as key values in Python
+dictionaries.</span></p><p><a id="hevea_default640"></a><span class="c005">
+</span><a id="hevea_default641"></a><span class="c005">
+</span><a id="hevea_default642"></a><span class="c005">
+</span><a id="hevea_default643"></a></p><p><span class="c006">Syntactically, a tuple is a comma-separated list of values:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; t = 'a', 'b', 'c', 'd', 'e'
+</span></pre><p><span class="c006">Although it is not necessary, it is common to enclose tuples in
+parentheses to help us quickly identify tuples when we look at
+Python code:</span></p><p><a id="hevea_default644"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; t = ('a', 'b', 'c', 'd', 'e')
+</span></pre><p><span class="c006">To create a tuple with a single element, you have to include the final
+comma:</span></p><p><a id="hevea_default645"></a><span class="c005">
+</span><a id="hevea_default646"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; t1 = ('a',)
+&gt;&gt;&gt; type(t1)
+&lt;type 'tuple'&gt;
+</span></pre><p><span class="c006">Without the comma Python treats <code>('a')</code> as an expression 
+with a string in parentheses that evaluates to a string:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; t2 = ('a')
+&gt;&gt;&gt; type(t2)
+&lt;type 'str'&gt;
+</span></pre><p><span class="c006">Another way to construct a tuple is the built-in function <span class="c001">tuple</span>.
+With no argument, it creates an empty tuple:</span></p><p><a id="hevea_default647"></a><span class="c005">
+</span><a id="hevea_default648"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; t = tuple()
+&gt;&gt;&gt; print t
+()
+</span></pre><p><span class="c006">If the argument is a sequence (string, list, or tuple), the result
+of the call to <span class="c001">tuple</span> is a tuple with the elements of the sequence:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; t = tuple('lupins')
+&gt;&gt;&gt; print t
+('l', 'u', 'p', 'i', 'n', 's')
+</span></pre><p><span class="c006">Because <span class="c001">tuple</span> is the name of a constructor, you should
+avoid using it as a variable name.</span></p><p><span class="c006">Most list operators also work on tuples. The bracket operator
+indexes an element:</span></p><p><a id="hevea_default649"></a><span class="c005">
+</span><a id="hevea_default650"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; t = ('a', 'b', 'c', 'd', 'e')
+&gt;&gt;&gt; print t[0]
+'a'
+</span></pre><p><span class="c006">And the slice operator selects a range of elements.</span></p><p><a id="hevea_default651"></a><span class="c005">
+</span><a id="hevea_default652"></a><span class="c005">
+</span><a id="hevea_default653"></a><span class="c005">
+</span><a id="hevea_default654"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; print t[1:3]
+('b', 'c')
+</span></pre><p><span class="c006">But if you try to modify one of the elements of the tuple, you get
+an error:</span></p><p><a id="hevea_default655"></a><span class="c005">
+</span><a id="hevea_default656"></a><span class="c005">
+</span><a id="hevea_default657"></a><span class="c005">
+</span><a id="hevea_default658"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; t[0] = 'A'
+TypeError: object doesn't support item assignment
+</span></pre><p><span class="c006">You can&#X2019;t modify the elements of a tuple, but you can replace
+one tuple with another:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; t = ('A',) + t[1:]
+&gt;&gt;&gt; print t
+('A', 'b', 'c', 'd', 'e')
+</span></pre><span class="c005">
+</span><h2 class="section" id="sec127"><span class="c006">10.2&#XA0;&#XA0;Comparing tuples</span></h2>
+<p><a id="hevea_default659"></a><span class="c005">
+</span><a id="hevea_default660"></a><span class="c005">
+</span><a id="hevea_default661"></a><span class="c005">
+</span><a id="hevea_default662"></a></p><p><span class="c006">The comparison operators work with tuples and other sequences.
+Python starts by comparing the first element from each
+sequence. If they are equal, it goes on to the next element,
+and so on, until it finds elements that differ. Subsequent
+elements are not considered (even if they are really big).</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; (0, 1, 2) &lt; (0, 3, 4)
+True
+&gt;&gt;&gt; (0, 1, 2000000) &lt; (0, 3, 4)
+True
+</span></pre><p><span class="c006">The <span class="c001">sort</span> function works the same way. It sorts 
+primarily by first element, but in the case of a tie, it sorts
+by second element, and so on. </span></p><p><span class="c006">This feature lends itself to a pattern called <span class="c009">DSU</span> for </span></p><dl class="description"><dt class="dt-description"><span class="c010">Decorate</span></dt><dd class="dd-description"><span class="c006"> a sequence by building a list of tuples
+with one or more sort keys preceding the elements from the sequence,</span></dd><dt class="dt-description"><span class="c010">Sort</span></dt><dd class="dd-description"><span class="c006"> the list of tuples using the Python built-in <span class="c001">sort</span>, and</span></dd><dt class="dt-description"><span class="c010">Undecorate</span></dt><dd class="dd-description"><span class="c006"> by extracting the sorted elements of the sequence.</span></dd></dl><p><a id="DSU"></a><span class="c005">
+</span><a id="hevea_default663"></a><span class="c005">
+</span><a id="hevea_default664"></a><span class="c005">
+</span><a id="hevea_default665"></a><span class="c005">
+</span><a id="hevea_default666"></a><span class="c005">
+</span><a id="hevea_default667"></a></p><p><span class="c006">For example, suppose you have a list of words and you want to
+sort them from longest to shortest:</span></p><pre class="verbatim"><span class="c004">txt = 'but soft what light in yonder window breaks'
+words = txt.split()
+t = list()
+for word in words:
+   t.append((len(word), word))
+
+t.sort(reverse=True)
+
+res = list()
+for length, word in t:
+    res.append(word)
+
+print res
+</span></pre><p><span class="c006">The first loop builds a list of tuples, where each
+tuple is a word preceded by its length.</span></p><p><span class="c006"><span class="c001">sort</span> compares the first element, length, first, and
+only considers the second element to break ties. The keyword argument
+<span class="c001">reverse=True</span> tells <span class="c001">sort</span> to go in decreasing order.</span></p><p><a id="hevea_default668"></a><span class="c005">
+</span><a id="hevea_default669"></a><span class="c005">
+</span><a id="hevea_default670"></a></p><p><span class="c006">The second loop traverses the list of tuples and builds a list of
+words in descending order of length. The four-character words
+are sorted in <em>reverse</em> alphabetical order, so &#X201C;what&#X201D; appears
+before &#X201C;soft&#X201D; in the following list.</span></p><p><span class="c006">The output of the program is as follows:
+</span></p><pre class="verbatim"><span class="c004">['yonder', 'window', 'breaks', 'light', 'what', 
+'soft', 'but', 'in']
+</span></pre><p><span class="c006">Of course the line loses much of its poetic impact 
+when turned into a Python list and sorted in 
+descending word length order.</span></p><span class="c005">
+</span><h2 class="section" id="sec128"><span class="c006">10.3&#XA0;&#XA0;Tuple assignment</span></h2>
+<p><span class="c005">
+</span><a id="tuple assignment"></a></p><p><a id="hevea_default671"></a><span class="c005">
+</span><a id="hevea_default672"></a><span class="c005">
+</span><a id="hevea_default673"></a><span class="c005">
+</span><a id="hevea_default674"></a></p><p><span class="c006">One of the unique syntactic features of the Python language
+is the ability to have a tuple on the left
+side of an assignment statement. This allows you to assign
+more than one variable at a time when the left side is a 
+sequence.</span></p><p><span class="c006">In this example we have a two-element list (which is a sequence) and
+assign the first and second elements of the sequence
+to the variables <span class="c001">x</span> and <span class="c001">y</span> in a single statement.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; m = [ 'have', 'fun' ]
+&gt;&gt;&gt; x, y = m
+&gt;&gt;&gt; x
+'have'
+&gt;&gt;&gt; y
+'fun'
+&gt;&gt;&gt; 
+</span></pre><p><span class="c006">It is not magic, Python <em>roughly</em> translates the 
+tuple assignment syntax
+to be the following:</span><sup><a id="text12" href="#note12"><span class="c006">2</span></a></sup></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; m = [ 'have', 'fun' ]
+&gt;&gt;&gt; x = m[0]
+&gt;&gt;&gt; y = m[1]
+&gt;&gt;&gt; x
+'have'
+&gt;&gt;&gt; y
+'fun'
+&gt;&gt;&gt; 
+</span></pre><p><span class="c006">Stylistically when we use a tuple on the left side of the assignment
+statement, we omit the parentheses, but the following is an equally 
+valid syntax:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; m = [ 'have', 'fun' ]
+&gt;&gt;&gt; (x, y) = m
+&gt;&gt;&gt; x
+'have'
+&gt;&gt;&gt; y
+'fun'
+&gt;&gt;&gt; 
+</span></pre><p><span class="c006">A particularly clever application of tuple assignment allows
+us to <span class="c009">swap</span> the values of two variables in a single statement:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; a, b = b, a
+</span></pre><p><span class="c006">Both sides of this statement are tuples, but
+the left side is a tuple of variables; the right side is a tuple of
+expressions. Each value on the right side 
+is assigned to its respective variable on the left side. 
+All the expressions on the right side are evaluated before any
+of the assignments.</span></p><p><span class="c006">The number of variables on the left and the number of
+values on the right must be the same:</span></p><p><a id="hevea_default675"></a><span class="c005">
+</span><a id="hevea_default676"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; a, b = 1, 2, 3
+ValueError: too many values to unpack
+</span></pre><p><span class="c006">More generally, the right side can be any kind of sequence
+(string, list, or tuple). For example, to split an email address
+into a user name and a domain, you could write:</span></p><p><a id="hevea_default677"></a><span class="c005">
+</span><a id="hevea_default678"></a><span class="c005">
+</span><a id="hevea_default679"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; addr = 'monty@python.org'
+&gt;&gt;&gt; uname, domain = addr.split('@')
+</span></pre><p><span class="c006">The return value from <span class="c001">split</span> is a list with two elements;
+the first element is assigned to <span class="c001">uname</span>, the second to
+<span class="c001">domain</span>.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; print uname
+monty
+&gt;&gt;&gt; print domain
+python.org
+</span></pre><span class="c005">
+</span><h2 class="section" id="sec129"><span class="c006">10.4&#XA0;&#XA0;Dictionaries and tuples</span></h2>
+<p><a id="hevea_default680"></a><span class="c005">
+</span><a id="hevea_default681"></a><span class="c005">
+</span><a id="hevea_default682"></a><span class="c005">
+</span><a id="hevea_default683"></a></p><p><span class="c006">Dictionaries have a method called <span class="c001">items</span> that returns a list of
+tuples, where each tuple is a key-value 
+pair</span><sup><a id="text13" href="#note13"><span class="c006">3</span></a></sup><span class="c006">.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; d = {'a':10, 'b':1, 'c':22}
+&gt;&gt;&gt; t = d.items()
+&gt;&gt;&gt; print t
+[('a', 10), ('c', 22), ('b', 1)]
+</span></pre><p><span class="c006">As you should expect from a dictionary, the items are in no
+particular order.</span></p><p><span class="c006">However, since the list of tuples is a list, and tuples are comparable,
+we can now sort the list of tuples. Converting a dictionary
+to a list of tuples is a way for us to output the contents of a 
+dictionary sorted by key:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; d = {'a':10, 'b':1, 'c':22}
+&gt;&gt;&gt; t = d.items()
+&gt;&gt;&gt; t
+[('a', 10), ('c', 22), ('b', 1)]
+&gt;&gt;&gt; t.sort()
+&gt;&gt;&gt; t
+[('a', 10), ('b', 1), ('c', 22)]
+</span></pre><p><span class="c006">The new list is sorted in ascending alphabetical order by the key value.</span></p><span class="c005">
+</span><h2 class="section" id="sec130"><span class="c006">10.5&#XA0;&#XA0;Multiple assignment with dictionaries</span></h2>
+<p><a id="hevea_default684"></a><span class="c005">
+</span><a id="hevea_default685"></a></p><p><span class="c006">Combining <span class="c001">items</span>, tuple assignment, and <span class="c001">for</span>, you
+can see a nice code pattern for traversing the keys and values of a dictionary
+in a single loop:</span></p><pre class="verbatim"><span class="c004">for key, val in d.items():
+    print val, key
+</span></pre><p><span class="c006">This loop has two <span class="c009">iteration variables</span> because <span class="c001">items</span> returns
+a list of tuples and <span class="c001">key, val</span> is a tuple assignment
+that successively iterates through each of the key-value pairs in the
+dictionary. </span></p><p><span class="c006">For each iteration
+through the loop, both <span class="c001">key</span> and <span class="c001">value</span> are advanced to the
+next key-value pair in the dictionary (still in hash order).</span></p><p><span class="c006">The output of this loop is:</span></p><pre class="verbatim"><span class="c004">10 a
+22 c
+1 b
+</span></pre><p><span class="c006">Again, it is in hash key order (i.e., no particular order).</span></p><p><span class="c006">If we combine these two techniques, we can print out the contents
+of a dictionary sorted by the <em>value</em> stored in each key-value
+pair.</span></p><p><span class="c006">To do this, we first make a list of tuples where each tuple is 
+<span class="c001">(value, key)</span>. The <span class="c001">items</span> method would give us a list of 
+<span class="c001">(key, value)</span> tuples&#X2014;but this time we want to sort by value, not key.
+Once we have constructed the list with the value-key tuples, it is a simple
+matter to sort the list in reverse order and print out the new, sorted list.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; d = {'a':10, 'b':1, 'c':22}
+&gt;&gt;&gt; l = list()
+&gt;&gt;&gt; for key, val in d.items() :
+...     l.append( (val, key) )
+... 
+&gt;&gt;&gt; l
+[(10, 'a'), (22, 'c'), (1, 'b')]
+&gt;&gt;&gt; l.sort(reverse=True)
+&gt;&gt;&gt; l
+[(22, 'c'), (10, 'a'), (1, 'b')]
+&gt;&gt;&gt; 
+</span></pre><p><span class="c006">By carefully constructing the list of tuples to have the value as the first
+element of each tuple, we can sort the list of tuples and get our dictionary
+contents sorted by value.</span></p><span class="c005">
+</span><h2 class="section" id="sec131"><span class="c006">10.6&#XA0;&#XA0;The most common words</span></h2>
+<p><a id="hevea_default686"></a><span class="c006">
+Coming back to our running example of the text from <em>Romeo and Juliet</em> 
+Act 2, Scene 2, we can augment our program to use this technique to 
+print the ten most common words in the text as follows:</span></p><pre class="verbatim"><span class="c004">import string
+fhand = open('romeo-full.txt')
+counts = dict()
+for line in fhand:
+    line = line.translate(None, string.punctuation)
+    line = line.lower()
+    words = line.split()
+    for word in words:
+        if word not in counts:
+            counts[word] = 1
+        else:
+            counts[word] += 1
+
+# Sort the dictionary by value
+lst = list()
+for key, val in counts.items():
+    lst.append( (val, key) )
+
+lst.sort(reverse=True)
+
+for key, val in lst[:10] :
+    print key, val
+</span></pre><p><span class="c006">The first part of the program which reads the file and computes 
+the dictionary that maps each word to the count of words in the 
+document is unchanged. But instead of simply printing out 
+<span class="c001">counts</span> and ending the program, we construct a list 
+of <span class="c001">(val, key)</span> tuples and then sort the list in reverse order.</span></p><p><span class="c006">Since the value is first, it will be used for the comparisons. 
+If there is more than one tuple with the same value, it will look
+at the second element (the key), so tuples where the value is the
+same will be further sorted by the alphabetical order of the key.</span></p><p><span class="c006">At the end we write a nice <span class="c001">for</span> loop which does a multiple
+assignment iteration and prints out the ten most common words
+by iterating through a slice of the list (<span class="c001">lst[:10]</span>).</span></p><p><span class="c006">So now the output finally looks like what we want for our word 
+frequency analysis.</span></p><pre class="verbatim"><span class="c004">61 i
+42 and
+40 romeo
+34 to
+34 the
+32 thou
+32 juliet
+30 that
+29 my
+24 thee
+</span></pre><p><span class="c006">The fact that this complex data parsing and analysis 
+can be done with an easy-to-understand 19-line Python
+program is one reason why Python is a good choice as a language 
+for exploring information.</span></p><span class="c005">
+</span><h2 class="section" id="sec132"><span class="c006">10.7&#XA0;&#XA0;Using tuples as keys in dictionaries</span></h2>
+<p><a id="hevea_default687"></a><span class="c005">
+</span><a id="hevea_default688"></a></p><p><span class="c006">Because tuples are <span class="c009">hashable</span> and lists are not, if we want to 
+create a <span class="c009">composite</span> key to use in a dictionary we must use a tuple as
+the key.</span></p><p><span class="c006">We would encounter a composite key if we wanted to create a 
+telephone directory that maps
+from last-name, first-name pairs to telephone numbers. Assuming
+that we have defined the variables 
+<span class="c001">last</span>, <span class="c001">first</span>, and <span class="c001">number</span>, we could write
+a dictionary assignment statement as follows:</span></p><pre class="verbatim"><span class="c004">directory[last,first] = number
+</span></pre><p><span class="c006">The expression in brackets is a tuple. We could use tuple
+assignment in a <span class="c001">for</span> loop to traverse this dictionary.</span></p><p><a id="hevea_default689"></a></p><pre class="verbatim"><span class="c004">for last, first in directory:
+    print first, last, directory[last,first]
+</span></pre><p><span class="c006">This loop traverses the keys in <span class="c001">directory</span>, which are tuples. It
+assigns the elements of each tuple to <span class="c001">last</span> and <span class="c001">first</span>, then
+prints the name and corresponding telephone number.</span></p><span class="c005">
+</span><h2 class="section" id="sec133"><span class="c006">10.8&#XA0;&#XA0;Sequences: strings, lists, and tuples&#X2014;Oh My!</span></h2>
+<p><span class="c005">
+</span><a id="hevea_default690"></a></p><p><span class="c006">I have focused on lists of tuples, but almost all of the examples in
+this chapter also work with lists of lists, tuples of tuples, and
+tuples of lists. To avoid enumerating the possible combinations, it
+is sometimes easier to talk about sequences of sequences.</span></p><p><span class="c006">In many contexts, the different kinds of sequences (strings, lists, and
+tuples) can be used interchangeably. So how and why do you choose one
+over the others?</span></p><p><a id="hevea_default691"></a><span class="c005">
+</span><a id="hevea_default692"></a><span class="c005">
+</span><a id="hevea_default693"></a><span class="c005">
+</span><a id="hevea_default694"></a><span class="c005">
+</span><a id="hevea_default695"></a></p><p><span class="c006">To start with the obvious, strings are more limited than other
+sequences because the elements have to be characters. They are
+also immutable. If you need the ability to change the characters
+in a string (as opposed to creating a new string), you might
+want to use a list of characters instead.</span></p><p><span class="c006">Lists are more common than tuples, mostly because they are mutable.
+But there are a few cases where you might prefer tuples:</span></p><ol class="enumerate" type="1"><li class="li-enumerate"><span class="c006">In some contexts, like a <span class="c001">return</span> statement, it is
+syntactically simpler to create a tuple than a list. In other
+contexts, you might prefer a list.</span></li><li class="li-enumerate"><span class="c006">If you want to use a sequence as a dictionary key, you
+have to use an immutable type like a tuple or string.</span></li><li class="li-enumerate"><span class="c006">If you are passing a sequence as an argument to a function,
+using tuples reduces the potential for unexpected behavior
+due to aliasing.</span></li></ol><p><span class="c006">Because tuples are immutable, they don&#X2019;t provide methods
+like <span class="c001">sort</span> and <span class="c001">reverse</span>, which modify existing lists.
+However Python provides the built-in functions <span class="c001">sorted</span>
+and <span class="c001">reversed</span>, which take any sequence as a parameter
+and return a new sequence with the same elements in a different
+order.</span></p><p><a id="hevea_default696"></a><span class="c005">
+</span><a id="hevea_default697"></a><span class="c005">
+</span><a id="hevea_default698"></a><span class="c005">
+</span><a id="hevea_default699"></a></p><span class="c005">
+</span><h2 class="section" id="sec134"><span class="c006">10.9&#XA0;&#XA0;Debugging</span></h2>
+<p><a id="hevea_default700"></a><span class="c005">
+</span><a id="hevea_default701"></a><span class="c005">
+</span><a id="hevea_default702"></a><span class="c005">
+</span><a id="hevea_default703"></a></p><p><span class="c006">Lists, dictionaries and tuples are known generically as <span class="c009">data
+structures</span>; in this chapter we are starting to see compound data
+structures, like lists of tuples, and dictionaries that contain tuples
+as keys and lists as values. Compound data structures are useful, but
+they are prone to what I call <span class="c009">shape errors</span>; that is, errors
+caused when a data structure has the wrong type, size, or composition,
+or perhaps you write some code and forget the shape of your data
+and introduce an error.</span></p><p><span class="c006">For example, if you are expecting a list with one integer and I
+give you a plain old integer (not in a list), it won&#X2019;t work.</span></p><p><span class="c006">When you are debugging a program, and especially if you are
+working on a hard bug, there are four things to try:</span></p><dl class="description"><dt class="dt-description"><span class="c010">reading:</span></dt><dd class="dd-description"><span class="c006"> Examine your code, read it back to yourself, and
+check that it says what you meant to say.</span></dd><dt class="dt-description"><span class="c010">running:</span></dt><dd class="dd-description"><span class="c006"> Experiment by making changes and running different
+versions. Often if you display the right thing at the right place
+in the program, the problem becomes obvious, but sometimes you have to
+spend some time to build scaffolding.</span></dd><dt class="dt-description"><span class="c010">ruminating:</span></dt><dd class="dd-description"><span class="c006"> Take some time to think! What kind of error
+is it: syntax, runtime, semantic? What information can you get from
+the error messages, or from the output of the program? What kind of
+error could cause the problem you&#X2019;re seeing? What did you change
+last, before the problem appeared?</span></dd><dt class="dt-description"><span class="c010">retreating:</span></dt><dd class="dd-description"><span class="c006"> At some point, the best thing to do is back
+off, undoing recent changes, until you get back to a program that
+works and that you understand. Then you can start rebuilding.</span></dd></dl><p><span class="c006">Beginning programmers sometimes get stuck on one of these activities
+and forget the others. Each activity comes with its own failure
+mode.</span></p><p><a id="hevea_default704"></a></p><p><span class="c006">For example, reading your code might help if the problem is a
+typographical error, but not if the problem is a conceptual
+misunderstanding. If you don&#X2019;t understand what your program does, you
+can read it 100 times and never see the error, because the error is in
+your head.</span></p><p><a id="hevea_default705"></a></p><p><span class="c006">Running experiments can help, especially if you run small, simple
+tests. But if you run experiments without thinking or reading your
+code, you might fall into a pattern I call &#X201C;random walk programming&#X201D;,
+which is the process of making random changes until the program
+does the right thing. Needless to say, random walk programming
+can take a long time.</span></p><p><a id="hevea_default706"></a><span class="c005">
+</span><a id="hevea_default707"></a></p><p><span class="c006">You have to take time to think. Debugging is like an
+experimental science. You should have at least one hypothesis about
+what the problem is. If there are two or more possibilities, try to
+think of a test that would eliminate one of them.</span></p><p><span class="c006">Taking a break helps with the thinking. So does talking.
+If you explain the problem to someone else (or even to yourself), you
+will sometimes find the answer before you finish asking the question.</span></p><p><span class="c006">But even the best debugging techniques will fail if there are too many
+errors, or if the code you are trying to fix is too big and
+complicated. Sometimes the best option is to retreat, simplifying the
+program until you get to something that works and that you
+understand.</span></p><p><span class="c006">Beginning programmers are often reluctant to retreat because
+they can&#X2019;t stand to delete a line of code (even if it&#X2019;s wrong).
+If it makes you feel better, copy your program into another file
+before you start stripping it down. Then you can paste the pieces
+back in a little bit at a time.</span></p><p><span class="c006">Finding a hard bug requires reading, running, ruminating, and
+sometimes retreating. If you get stuck on one of these activities,
+try the others.</span></p><span class="c005">
+</span><h2 class="section" id="sec135"><span class="c006">10.10&#XA0;&#XA0;Glossary</span></h2>
+<dl class="description"><dt class="dt-description"><span class="c010">comparable:</span></dt><dd class="dd-description"><span class="c006"> A type where one value can be checked to see if it is
+greater than, less than, or equal to another value of the same type.
+Types which are comparable can be put in a list and sorted.
+</span><a id="hevea_default708"></a></dd><dt class="dt-description"><span class="c010">data structure:</span></dt><dd class="dd-description"><span class="c006"> A collection of related values, often
+organized in lists, dictionaries, tuples, etc.
+</span><a id="hevea_default709"></a></dd><dt class="dt-description"><span class="c010">DSU:</span></dt><dd class="dd-description"><span class="c006"> Abbreviation of &#X201C;decorate-sort-undecorate&#X201D;, a
+pattern that involves building a list of tuples, sorting, and
+extracting part of the result.
+</span><a id="hevea_default710"></a></dd><dt class="dt-description"><span class="c010">gather:</span></dt><dd class="dd-description"><span class="c006"> The operation of assembling a variable-length
+argument tuple.
+</span><a id="hevea_default711"></a></dd><dt class="dt-description"><span class="c010">hashable:</span></dt><dd class="dd-description"><span class="c006"> A type that has a hash function. Immutable
+types like integers,
+floats, and strings are hashable; mutable types like lists and
+dictionaries are not.
+</span><a id="hevea_default712"></a></dd><dt class="dt-description"><span class="c010">scatter:</span></dt><dd class="dd-description"><span class="c006"> The operation of treating a sequence as a list of
+arguments.
+</span><a id="hevea_default713"></a></dd><dt class="dt-description"><span class="c010">shape (of a data structure):</span></dt><dd class="dd-description"><span class="c006"> A summary of the type,
+size, and composition of a data structure.
+</span><a id="hevea_default714"></a></dd><dt class="dt-description"><span class="c010">singleton:</span></dt><dd class="dd-description"><span class="c006"> A list (or other sequence) with a single element.
+</span><a id="hevea_default715"></a></dd><dt class="dt-description"><span class="c010">tuple:</span></dt><dd class="dd-description"><span class="c006"> An immutable sequence of elements.
+</span><a id="hevea_default716"></a></dd><dt class="dt-description"><span class="c010">tuple assignment:</span></dt><dd class="dd-description"><span class="c006"> An assignment with a sequence on the
+right side and a tuple of variables on the left. The right
+side is evaluated and then its elements are assigned to the
+variables on the left.
+</span><a id="hevea_default717"></a><span class="c005">
+</span><a id="hevea_default718"></a></dd></dl><span class="c005">
+</span><h2 class="section" id="sec136"><span class="c006">10.11&#XA0;&#XA0;Exercises</span></h2>
+<div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;1</span>&#XA0;&#XA0;<em>
+Revise a previous program as follows: Read and 
+parse the &#X201C;From&#X201D; lines and pull out the 
+addresses from the line. Count the number of
+messages from each person using a dictionary.</em></span><p><span class="c006"><em>After all the data has been read, print 
+the person with the most commits by creating
+a list of (count, email) tuples from the 
+dictionary. Then sort the list in reverse
+order and print out the person who has the most
+commits.</em></span></p><pre class="verbatim"><span class="c004"><em>Sample Line:
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+
+Enter a file name: mbox-short.txt
+cwen@iupui.edu 5
+
+Enter a file name: mbox.txt
+zqian@umich.edu 195
+</em></span></pre></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;2</span>&#XA0;&#XA0;<em>
+This program counts the distribution of the hour of the day for 
+each of the messages. You can pull the hour from the &#X201C;From&#X201D; 
+line by finding the time string and then splitting that string 
+into parts using the colon character. Once you have accumulated 
+the counts for each hour, print out the counts, one per line, 
+sorted by hour as shown below. 
+</em></span><pre class="verbatim"><span class="c004"><em>Sample Execution:
+python timeofday.py
+Enter a file name: mbox-short.txt
+04 3
+06 1
+07 1
+09 2
+10 3
+11 6
+14 1
+15 2
+16 4
+17 2
+18 1
+19 1
+</em></span></pre></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;3</span>&#XA0;&#XA0;<em>
+Write a program that reads a file and 
+prints the </em>letters<em> in decreasing order of frequency. Your program
+should convert all the input to lower case and only count the letters a-z.
+Your program should not count spaces, digits, punctuation, or anything 
+other than the letters a-z.
+Find text samples from several different languages and see how letter frequency
+varies between languages. Compare your results with the tables at
+<span class="c001">wikipedia.org/wiki/Letter_frequencies</span>.</em></span><p><a id="hevea_default719"></a><span class="c005">
+</span><a id="hevea_default720"></a></p></div><span class="c005">
+</span><hr class="footnoterule" /><dl class="thefootnotes"><dt class="dt-thefootnotes"><span class="c005">
+</span><a id="note11" href="#text11"><span class="c006">1</span></a></dt><dd class="dd-thefootnotes"><span class="c006"><div class="footnotetext">Fun fact: The word &#X201C;tuple&#X201D; comes from the names
+given to sequences of numbers of varying lengths: single, 
+double, triple, quadruple, quituple, sextuple, septuple, etc.</div>
+</span></dd><dt class="dt-thefootnotes"><a id="note12" href="#text12"><span class="c006">2</span></a></dt><dd class="dd-thefootnotes"><span class="c006"><div class="footnotetext">Python does not translate the 
+syntax literally. For example, if you try this with a dictionary,
+it will not work as might expect.</div>
+</span></dd><dt class="dt-thefootnotes"><a id="note13" href="#text13"><span class="c006">3</span></a></dt><dd class="dd-thefootnotes"><span class="c006"><div class="footnotetext">This behavior is slightly different in Python 3.0.</div>
+</span></dd></dl>
+<hr />
+<a href="book010.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book012.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

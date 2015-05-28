@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="hevea 2.09" />
+<link rel="stylesheet" type="text/css" href="book.css" />
+<title>Conditional execution</title>
+</head>
+<body>
+<a href="book003.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book005.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1 class="chapter" id="sec33"><span class="c006">Chapter&#XA0;3&#XA0;&#XA0;Conditional execution</span></h1>
+<span class="c005">
+</span><h2 class="section" id="sec34"><span class="c006">3.1&#XA0;&#XA0;Boolean expressions</span></h2>
+<p><span class="c005">
+</span><a id="hevea_default119"></a><span class="c005">
+</span><a id="hevea_default120"></a><span class="c005">
+</span><a id="hevea_default121"></a><span class="c005">
+</span><a id="hevea_default122"></a></p><p><span class="c006">A <span class="c009">boolean expression</span> is an expression that is either true
+or false. The following examples use the 
+operator <span class="c001">==</span>, which compares two operands and produces
+<span class="c001">True</span> if they are equal and <span class="c001">False</span> otherwise:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; 5 == 5
+True
+&gt;&gt;&gt; 5 == 6
+False
+</span></pre><p><span class="c006"><span class="c001">True</span> and <span class="c001">False</span> are special
+values that belong to the type <span class="c001">bool</span>; they are not strings:</span></p><p><a id="hevea_default123"></a><span class="c005">
+</span><a id="hevea_default124"></a><span class="c005">
+</span><a id="hevea_default125"></a><span class="c005">
+</span><a id="hevea_default126"></a><span class="c005">
+</span><a id="hevea_default127"></a><span class="c005">
+</span><a id="hevea_default128"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; type(True)
+&lt;type 'bool'&gt;
+&gt;&gt;&gt; type(False)
+&lt;type 'bool'&gt;
+</span></pre><p><span class="c006">The <span class="c001">==</span> operator is one of the <span class="c009">comparison operators</span>; the
+others are:</span></p><pre class="verbatim"><span class="c004">      x != y               # x is not equal to y
+      x &gt; y                # x is greater than y
+      x &lt; y                # x is less than y
+      x &gt;= y               # x is greater than or equal to y
+      x &lt;= y               # x is less than or equal to y
+      x is y               # x is the same as y
+      x is not y           # x is not the same as y
+</span></pre><p><span class="c006">Although these operations are probably familiar to you, the Python
+symbols are different from the mathematical symbols for the same
+operations. A common error
+is to use a single equal sign (<span class="c001">=</span>) instead of a double equal sign
+(<span class="c001">==</span>). Remember that <span class="c001">=</span> is an assignment operator and
+<span class="c001">==</span> is a comparison operator. There is no such thing as
+<span class="c001">=&lt;</span> or <span class="c001">=&gt;</span>.</span></p><p><a id="hevea_default129"></a><span class="c005">
+</span><a id="hevea_default130"></a></p><span class="c005">
+</span><h2 class="section" id="sec35"><span class="c006">3.2&#XA0;&#XA0;Logical operators</span></h2>
+<p><span class="c005">
+</span><a id="hevea_default131"></a><span class="c005">
+</span><a id="hevea_default132"></a></p><p><span class="c006">There are three <span class="c009">logical operators</span>: <span class="c001">and</span>, <span class="c001">or</span>, and <span class="c001">not</span>. The semantics (meaning) of these operators is
+similar to their meaning in English. For example,</span></p><p><span class="c006"><span class="c001">x &gt; 0 and x &lt; 10</span> </span></p><p><span class="c006">is true only if <span class="c001">x</span> is greater than 0
+<em>and</em> less than 10.</span></p><p><a id="hevea_default133"></a><span class="c005">
+</span><a id="hevea_default134"></a><span class="c005">
+</span><a id="hevea_default135"></a><span class="c005">
+</span><a id="hevea_default136"></a><span class="c005">
+</span><a id="hevea_default137"></a><span class="c005">
+</span><a id="hevea_default138"></a></p><p><span class="c006"><span class="c001">n%2 == 0 or n%3 == 0</span> is true if <em>either</em> of the conditions
+is true, that is, if the number is divisible by 2 <em>or</em> 3.</span></p><p><span class="c006">Finally, the <span class="c001">not</span> operator negates a boolean
+expression, so <span class="c001">not (x &gt; y)</span> is true if <span class="c001">x &gt; y</span> is false;
+that is, if <span class="c001">x</span> is less than or equal to <span class="c001">y</span>.</span></p><p><span class="c006">Strictly speaking, the operands of the logical operators should be
+boolean expressions, but Python is not very strict.
+Any nonzero number is interpreted as &#X201C;true.&#X201D;</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; 17 and True
+True
+</span></pre><p><span class="c006">This flexibility can be useful, but there are some subtleties to
+it that might be confusing. You might want to avoid it until
+you are sure you know what you are doing.</span></p><span class="c005">
+</span><h2 class="section" id="sec36"><span class="c006">3.3&#XA0;&#XA0;Conditional execution</span></h2>
+<p><span class="c005">
+</span><a id="conditional execution"></a></p><p><a id="hevea_default139"></a><span class="c005">
+</span><a id="hevea_default140"></a><span class="c005">
+</span><a id="hevea_default141"></a><span class="c005">
+</span><a id="hevea_default142"></a><span class="c005">
+</span><a id="hevea_default143"></a></p><p><span class="c006">In order to write useful programs, we almost always need the ability
+to check conditions and change the behavior of the program
+accordingly. <span class="c009">Conditional statements</span> give us this ability. The
+simplest form is the <span class="c001">if</span> statement:</span></p><pre class="verbatim"><span class="c004">if x &gt; 0 :
+    print 'x is positive'
+</span></pre><p><span class="c006">The boolean expression after the <span class="c001">if</span> statement is
+called the <span class="c009">condition</span>. We end the <span class="c001">if</span> 
+statement with a colon character (:) and the line(s) 
+after the if statement are indented. </span></p><div class="center"><span class="c006"><img src="book005.png" /></span></div><p><span class="c006">If the logical condition is true, then the indented
+statement gets executed. If the logical condition is 
+false, the indented statement is skipped.</span></p><p><a id="hevea_default144"></a><span class="c005">
+</span><a id="hevea_default145"></a><span class="c005">
+</span><a id="hevea_default146"></a></p><p><span class="c006"><span class="c001">if</span> statements have the same structure as function definitions
+or <span class="c001">for</span> loops</span><sup><a id="text7" href="#note7"><span class="c006">1</span></a></sup><span class="c006">.The statement consists of a header line
+that ends with the colon character (:) 
+followed by an indented block. Statements like this are
+called <span class="c009">compound statements</span> because they stretch 
+across more than one line.</span></p><p><span class="c006">There is no limit on the number of statements that can appear in
+the body, but there must be at least one.
+Occasionally, it is useful to have a body with no statements (usually
+as a placekeeper for code you haven&#X2019;t written yet). In that
+case, you can use the <span class="c001">pass</span> statement, which does nothing.</span></p><p><a id="hevea_default147"></a><span class="c005">
+</span><a id="hevea_default148"></a></p><pre class="verbatim"><span class="c004">if x &lt; 0 :
+    pass          # need to handle negative values!
+</span></pre><p><span class="c006">If you enter an <span class="c001">if</span> statement in the Python interpreter, the prompt will change 
+from three chevrons to three dots to indicate you are in the middle of a block of
+statements, as shown below:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; x = 3
+&gt;&gt;&gt; if x &lt; 10:
+...    print 'Small'
+... 
+Small
+&gt;&gt;&gt;
+</span></pre><span class="c005">
+</span><h2 class="section" id="sec37"><span class="c006">3.4&#XA0;&#XA0;Alternative execution</span></h2>
+<p><span class="c005">
+</span><a id="alternative execution"></a></p><p><a id="hevea_default149"></a><span class="c005">
+</span><a id="hevea_default150"></a><span class="c005">
+</span><a id="hevea_default151"></a></p><p><span class="c006">A second form of the <span class="c001">if</span> statement is <span class="c009">alternative execution</span>,
+in which there are two possibilities and the condition determines
+which one gets executed. The syntax looks like this:</span></p><pre class="verbatim"><span class="c004">if x%2 == 0 :
+    print 'x is even'
+else :
+    print 'x is odd'
+</span></pre><p><span class="c006">If the remainder when <span class="c001">x</span> is divided by 2 is 0, then we
+know that <span class="c001">x</span> is even, and the program displays a message to that
+effect. If the condition is false, the second set of statements is
+executed. </span></p><div class="center"><span class="c006"><img src="book006.png" /></span></div><p><span class="c006">Since the condition must either be true or false, exactly one of
+the alternatives will be executed. The alternatives are called
+<span class="c009">branches</span>, because they are branches in the flow of execution.</span></p><p><a id="hevea_default152"></a></p><span class="c005">
+</span><h2 class="section" id="sec38"><span class="c006">3.5&#XA0;&#XA0;Chained conditionals</span></h2>
+<p><span class="c005">
+</span><a id="hevea_default153"></a><span class="c005">
+</span><a id="hevea_default154"></a></p><p><span class="c006">Sometimes there are more than two possibilities and we need more than
+two branches. One way to express a computation like that is a <span class="c009">chained conditional</span>:</span></p><pre class="verbatim"><span class="c004">if x &lt; y:
+    print 'x is less than y'
+elif x &gt; y:
+    print 'x is greater than y'
+else:
+    print 'x and y are equal'
+</span></pre><p><span class="c006"><span class="c001">elif</span> is an abbreviation of &#X201C;else if.&#X201D; Again, exactly one
+branch will be executed. </span></p><div class="center"><span class="c006"><img src="book007.png" /></span></div><p><span class="c006">There is no limit on the number of <span class="c001">elif</span> statements. If there is an <span class="c001">else</span> clause, it has to be
+at the end, but there doesn&#X2019;t have to be one.</span></p><p><a id="hevea_default155"></a><span class="c005">
+</span><a id="hevea_default156"></a></p><pre class="verbatim"><span class="c004">if choice == 'a':
+    print 'Bad guess'
+elif choice == 'b':
+    print 'Good guess'
+elif choice == 'c':
+    print 'Close, but not correct'
+</span></pre><p><span class="c006">Each condition is checked in order. If the first is false,
+the next is checked, and so on. If one of them is
+true, the corresponding branch executes, and the statement
+ends. Even if more than one condition is true, only the
+first true branch executes. </span></p><span class="c005">
+</span><h2 class="section" id="sec39"><span class="c006">3.6&#XA0;&#XA0;Nested conditionals</span></h2>
+<p><span class="c005">
+</span><a id="hevea_default157"></a><span class="c005">
+</span><a id="hevea_default158"></a></p><p><span class="c006">One conditional can also be nested within another. We could have
+written the three-branch example like this:</span></p><pre class="verbatim"><span class="c004">if x == y:
+    print 'x and y are equal'
+else:
+    if x &lt; y:
+        print 'x is less than y'
+    else:
+        print 'x is greater than y'
+</span></pre><p><span class="c006">The outer conditional contains two branches. The
+first branch contains a simple statement. The second branch
+contains another <span class="c001">if</span> statement, which has two branches of its
+own. Those two branches are both simple statements,
+although they could have been conditional statements as well.</span></p><div class="center"><span class="c006"><img src="book008.png" /></span></div><p><span class="c006">Although the indentation of the statements makes the structure
+apparent, <span class="c009">nested conditionals</span> become difficult to read very
+quickly. In general, it is a good idea to avoid them when you can.</span></p><p><span class="c006">Logical operators often provide a way to simplify nested conditional
+statements. For example, we can rewrite the following code using a
+single conditional:</span></p><pre class="verbatim"><span class="c004">if 0 &lt; x:
+    if x &lt; 10:
+        print 'x is a positive single-digit number.'
+</span></pre><p><span class="c006">The <span class="c001">print</span> statement is executed only if we make it past both
+conditionals, so we can get the same effect with the <span class="c001">and</span> operator:</span></p><pre class="verbatim"><span class="c004">if 0 &lt; x and x &lt; 10:
+    print 'x is a positive single-digit number.'
+</span></pre><span class="c005">
+</span><h2 class="section" id="sec40"><span class="c006">3.7&#XA0;&#XA0;Catching exceptions using try and except</span></h2>
+<p><span class="c005">
+</span><a id="catch1"></a></p><p><span class="c006">Earlier we saw a code segment where we used the <code>raw_input</code> and
+<span class="c001">int</span> functions to read and parse an integer number entered by
+the user. We also saw how treacherous doing this could be:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; speed = raw_input(prompt)
+What...is the airspeed velocity of an unladen swallow?
+What do you mean, an African or a European swallow?
+&gt;&gt;&gt; int(speed)
+ValueError: invalid literal for int()
+&gt;&gt;&gt;
+</span></pre><p><span class="c006">When we are executing these statements in the Python interpreter, 
+we get a new prompt from the interpreter, think &#X201C;oops&#X201D;, and move 
+on to our next statement. </span></p><p><span class="c006">However if you place this code in a 
+Python script and this error occurs, your script immediately 
+stops in its tracks with a traceback. 
+It does not execute the following statement. 
+</span><a id="hevea_default159"></a></p><p><span class="c006">Here is a sample program to convert a Fahrenheit temperature 
+to a Celsius temperature:
+</span><a id="hevea_default160"></a><span class="c005">
+</span><a id="hevea_default161"></a><span class="c005">
+</span><a id="hevea_default162"></a></p><pre class="verbatim"><span class="c004">inp = raw_input('Enter Fahrenheit Temperature:')
+fahr = float(inp)
+cel = (fahr - 32.0) * 5.0 / 9.0
+print cel
+</span></pre><p><span class="c006">If we execute this code and give it invalid input, it simply fails
+with an unfriendly error message:</span></p><pre class="verbatim"><span class="c004">python fahren.py 
+Enter Fahrenheit Temperature:72
+22.2222222222
+
+python fahren.py 
+Enter Fahrenheit Temperature:fred
+Traceback (most recent call last):
+  File "fahren.py", line 2, in &lt;module&gt;
+    fahr = float(inp)
+ValueError: invalid literal for float(): fred
+</span></pre><p><span class="c006">There is a conditional execution structure built into 
+Python to handle these types of expected and unexpected
+errors called &#X201C;try / except&#X201D;. The idea of <span class="c001">try</span>
+and <span class="c001">except</span> is that you know that some sequence
+of instruction(s) may have a problem and you want to 
+add some statements to be executed if an error occurs.
+These extra statements (the except block) are ignored
+if there is no error.</span></p><p><span class="c006">You can think of the <span class="c001">try</span> and <span class="c001">except</span> feature
+in Python as an &#X201C;insurance policy&#X201D; on a sequence of
+statements.</span></p><p><span class="c006">We can rewrite our temperature converter as follows:</span></p><pre class="verbatim"><span class="c004">inp = raw_input('Enter Fahrenheit Temperature:')
+try:
+    fahr = float(inp)
+    cel = (fahr - 32.0) * 5.0 / 9.0
+    print cel
+except:
+    print 'Please enter a number'
+</span></pre><p><span class="c006">Python starts by executing the 
+sequence of statements in the 
+<span class="c001">try</span> block. If all goes
+well, it skips the <span class="c001">except</span> block and proceeds. If an
+exception occurs in the <span class="c001">try</span> block, 
+Python jumps out of the <span class="c001">try</span> block and
+executes the sequence of statements in the <span class="c001">except</span> block.</span></p><pre class="verbatim"><span class="c004">python fahren2.py 
+Enter Fahrenheit Temperature:72
+22.2222222222
+
+python fahren2.py 
+Enter Fahrenheit Temperature:fred
+Please enter a number
+</span></pre><p><span class="c006">Handling an exception with a <span class="c001">try</span> statement is called <span class="c009">catching</span> an exception. In this example, the <span class="c001">except</span> clause
+prints an error message. In general,
+catching an exception gives you a chance to fix the problem, or try
+again, or at least end the program gracefully.</span></p><span class="c005">
+</span><h2 class="section" id="sec41"><span class="c006">3.8&#XA0;&#XA0;Short-circuit evaluation of logical expressions</span></h2>
+<p><span class="c005">
+</span><a id="hevea_default163"></a></p><p><span class="c006">When Python is processing a logical expression such as 
+<span class="c001">x &gt;= 2 and (x/y) &gt; 2</span>, it evaluates the expression
+from left to right. Because of the definition of <span class="c001">and</span>,
+if <span class="c001">x</span> is less than 2, the expression <span class="c001">x &gt;= 2</span> is 
+<span class="c001">False</span> and so the whole expression is <span class="c001">False</span> regardless
+of whether <span class="c001">(x/y) &gt; 2</span> evaluates to <span class="c001">True</span> or <span class="c001">False</span>.</span></p><p><span class="c006">When Python detects that there is nothing to be gained by evaluating
+the rest of a logical expression, it stops its evaluation and does
+not do the computations in the rest of the logical expression. 
+When the evaluation of a logical expression stops because the overall
+value is already known, it is called <span class="c009">short-circuiting</span> 
+the evaluation.</span></p><p><a id="hevea_default164"></a><span class="c005">
+</span><a id="hevea_default165"></a><span class="c006">
+While this may seem like a fine point, the short-circuit behavior
+leads to a clever technique called the <span class="c009">guardian pattern</span>. 
+Consider the following code sequence in the Python interpreter:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; x = 6 
+&gt;&gt;&gt; y = 2
+&gt;&gt;&gt; x &gt;= 2 and (x/y) &gt; 2
+True
+&gt;&gt;&gt; x = 1 
+&gt;&gt;&gt; y = 0
+&gt;&gt;&gt; x &gt;= 2 and (x/y) &gt; 2
+False
+&gt;&gt;&gt; x = 6
+&gt;&gt;&gt; y = 0
+&gt;&gt;&gt; x &gt;= 2 and (x/y) &gt; 2
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ZeroDivisionError: integer division or modulo by zero
+&gt;&gt;&gt; 
+</span></pre><p><span class="c006">The third calculation failed because Python was evaluating <span class="c001">(x/y)</span>
+and <span class="c001">y</span> was zero, which causes a runtime error. But the second example
+did <em>not</em> fail because the first part of the expression <span class="c001">x &gt;= 2</span> 
+evaluated to <span class="c001">False</span> so the <span class="c001">(x/y)</span> was not ever executed 
+due to the <span class="c009">short-circuit</span> rule and there was no error.</span></p><p><span class="c006">We can construct the logical expression to strategically place a <span class="c009">guard</span>
+evaluation just before the evaluation that might cause an error as follows:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; x = 1
+&gt;&gt;&gt; y = 0
+&gt;&gt;&gt; x &gt;= 2 and y != 0 and (x/y) &gt; 2
+False
+&gt;&gt;&gt; x = 6 
+&gt;&gt;&gt; y = 0
+&gt;&gt;&gt; x &gt;= 2 and y != 0 and (x/y) &gt; 2
+False
+&gt;&gt;&gt; x &gt;= 2 and (x/y) &gt; 2 and y != 0
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ZeroDivisionError: integer division or modulo by zero
+&gt;&gt;&gt;
+</span></pre><p><span class="c006">In the first logical expression, <span class="c001">x &gt;= 2</span> is <span class="c001">False</span> so the evaluation
+stops at the <span class="c001">and</span>. In the second logical expression, <span class="c001">x &gt;= 2</span> is <span class="c001">True</span>
+but <span class="c001">y != 0</span> is <span class="c001">False</span> so we never reach <span class="c001">(x/y)</span>.</span></p><p><span class="c006">In the third logical expression, the <span class="c001">y != 0</span> is <em>after</em> the 
+<span class="c001">(x/y) </span> calculation so the expression fails with an error.</span></p><p><span class="c006">In the second expression, we say that <span class="c001">y != 0</span> acts as a <span class="c009">guard</span>
+to insure that we only execute <span class="c001">(x/y)</span> if <span class="c001">y</span> is non-zero.</span></p><span class="c005">
+</span><h2 class="section" id="sec42"><span class="c006">3.9&#XA0;&#XA0;Debugging</span></h2>
+<p><span class="c005">
+</span><a id="whitespace"></a><span class="c005">
+</span><a id="hevea_default166"></a><span class="c005">
+</span><a id="hevea_default167"></a></p><p><span class="c006">The traceback Python displays when an error occurs contains
+a lot of information, but it can be overwhelming. The most
+useful parts are usually:</span></p><ul class="itemize"><li class="li-itemize"><span class="c006">What kind of error it was, and</span></li><li class="li-itemize"><span class="c006">Where it occurred.</span></li></ul><p><span class="c006">Syntax errors are usually easy to find, but there are a few
+gotchas. Whitespace errors can be tricky because spaces and
+tabs are invisible and we are used to ignoring them.</span></p><p><a id="hevea_default168"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; x = 5
+&gt;&gt;&gt;  y = 6
+  File "&lt;stdin&gt;", line 1
+    y = 6
+    ^
+SyntaxError: invalid syntax
+</span></pre><p><span class="c006">In this example, the problem is that the second line is indented by
+one space. But the error message points to <span class="c001">y</span>, which is
+misleading. In general, error messages indicate where the problem was
+discovered, but the actual error might be earlier in the code,
+sometimes on a previous line.</span></p><p><a id="hevea_default169"></a><span class="c005">
+</span><a id="hevea_default170"></a></p><p><span class="c006">The same is true of runtime errors. Suppose you are trying
+to compute a signal-to-noise ratio in decibels. The formula
+is <span class="c007">SNR</span></span><sub><span class="c008">db</span></sub><span class="c006"> = 10 log</span><sub><span class="c006">10</span></sub><span class="c006"> (<span class="c007">P</span></span><sub><span class="c008">signal</span></sub><span class="c006"> / <span class="c007">P</span></span><sub><span class="c008">noise</span></sub><span class="c006">). In Python,
+you might write something like this:</span></p><pre class="verbatim"><span class="c004">import math
+signal_power = 9
+noise_power = 10
+ratio = signal_power / noise_power
+decibels = 10 * math.log10(ratio)
+print decibels
+</span></pre><p><span class="c006">But when you run it, you get an error message</span><sup><a id="text8" href="#note8"><span class="c006">2</span></a></sup><span class="c006">:</span></p><p><a id="hevea_default171"></a><span class="c005">
+</span><a id="hevea_default172"></a></p><pre class="verbatim"><span class="c004">Traceback (most recent call last):
+  File "snr.py", line 5, in ?
+    decibels = 10 * math.log10(ratio)
+OverflowError: math range error
+</span></pre><p><span class="c006">The error message indicates line 5, but there is nothing
+wrong with that line. To find the real error, it might be
+useful to print the value of <span class="c001">ratio</span>, which turns out to
+be 0. The problem is in line 4, because dividing two integers
+does floor division. The solution is to represent signal power
+and noise power with floating-point values.</span></p><p><a id="hevea_default173"></a><span class="c005">
+</span><a id="hevea_default174"></a></p><p><span class="c006">In general, error messages tell you where the problem was discovered, 
+but that is often not where it was caused.</span></p><span class="c005">
+</span><h2 class="section" id="sec43"><span class="c006">3.10&#XA0;&#XA0;Glossary</span></h2>
+<dl class="description"><dt class="dt-description"><span class="c010">body:</span></dt><dd class="dd-description"><span class="c006"> The sequence of statements within a compound statement.
+</span><a id="hevea_default175"></a></dd><dt class="dt-description"><span class="c010">boolean expression:</span></dt><dd class="dd-description"><span class="c006"> An expression whose value is either 
+<span class="c001">True</span> or <span class="c001">False</span>.
+</span><a id="hevea_default176"></a><span class="c005">
+</span><a id="hevea_default177"></a></dd><dt class="dt-description"><span class="c010">branch:</span></dt><dd class="dd-description"><span class="c006"> One of the alternative sequences of statements in
+a conditional statement.
+</span><a id="hevea_default178"></a></dd><dt class="dt-description"><span class="c010">chained conditional:</span></dt><dd class="dd-description"><span class="c006"> A conditional statement with a series
+of alternative branches.
+</span><a id="hevea_default179"></a><span class="c005">
+</span><a id="hevea_default180"></a></dd><dt class="dt-description"><span class="c010">comparison operator:</span></dt><dd class="dd-description"><span class="c006"> One of the operators that compares
+its operands: <span class="c001">==</span>, <span class="c001">!=</span>, <span class="c001">&gt;</span>, <span class="c001">&lt;</span>, <span class="c001">&gt;=</span>, and <span class="c001">&lt;=</span>.</span></dd><dt class="dt-description"><span class="c010">conditional statement:</span></dt><dd class="dd-description"><span class="c006"> A statement that controls the flow of
+execution depending on some condition.
+</span><a id="hevea_default181"></a><span class="c005">
+</span><a id="hevea_default182"></a></dd><dt class="dt-description"><span class="c010">condition:</span></dt><dd class="dd-description"><span class="c006"> The boolean expression in a conditional statement
+that determines which branch is executed.
+</span><a id="hevea_default183"></a></dd><dt class="dt-description"><span class="c010">compound statement:</span></dt><dd class="dd-description"><span class="c006"> A statement that consists of a header
+and a body. The header ends with a colon (:). The body is indented
+relative to the header.
+</span><a id="hevea_default184"></a></dd><dt class="dt-description"><span class="c010">guardian pattern:</span></dt><dd class="dd-description"><span class="c006"> Where we construct a logical expression 
+with additional
+comparisons to take advantage of the short-circuit behavior.
+</span><a id="hevea_default185"></a><span class="c005">
+</span><a id="hevea_default186"></a></dd><dt class="dt-description"><span class="c010">logical operator:</span></dt><dd class="dd-description"><span class="c006"> One of the operators that combines boolean
+expressions: <span class="c001">and</span>, <span class="c001">or</span>, and <span class="c001">not</span>.</span></dd><dt class="dt-description"><span class="c010">nested conditional:</span></dt><dd class="dd-description"><span class="c006"> A conditional statement that appears
+in one of the branches of another conditional statement.
+</span><a id="hevea_default187"></a><span class="c005">
+</span><a id="hevea_default188"></a></dd><dt class="dt-description"><span class="c010">traceback:</span></dt><dd class="dd-description"><span class="c006"> A list of the functions that are executing,
+printed when an exception occurs.
+</span><a id="hevea_default189"></a></dd><dt class="dt-description"><span class="c010">short circuit:</span></dt><dd class="dd-description"><span class="c006"> When Python is part-way through evaluating a 
+logical expression and stops the evaluation because Python 
+knows the final value for the expression 
+without needing to evaluate the rest of the expression.
+</span><a id="hevea_default190"></a></dd></dl><span class="c005">
+</span><h2 class="section" id="sec44"><span class="c006">3.11&#XA0;&#XA0;Exercises</span></h2>
+<div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;1</span>&#XA0;&#XA0;<em>
+Rewrite your pay computation to give the employee 1.5 
+times the hourly rate for 
+hours worked above 40 hours.</em></span><pre class="verbatim"><span class="c006"><em>Enter Hours: 45
+Enter Rate: 10
+Pay: 475.0
+</em></span></pre></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;2</span>&#XA0;&#XA0;<em>
+Rewrite your pay program using <span class="c001">try</span> and <span class="c001">except</span> 
+so that your program handles non-numeric input gracefully
+by printing a message and exiting the program.
+The following shows two executions of the program:</em></span><pre class="verbatim"><span class="c006"><em>Enter Hours: 20
+Enter Rate: nine
+Error, please enter numeric input
+
+Enter Hours: forty
+Error, please enter numeric input
+</em></span></pre></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;3</span>&#XA0;&#XA0;<em>
+Write a program to prompt for a score between 0.0 and 1.0.
+If the score is out of range, print an error message. If the score
+is between 0.0 and 1.0, print a grade using the following 
+table:</em></span><pre class="verbatim"><span class="c006"><em>Score   Grade
+&gt;= 0.9     A
+&gt;= 0.8     B
+&gt;= 0.7     C
+&gt;= 0.6     D
+&lt; 0.6    F
+
+Enter score: 0.95
+A
+
+Enter score: perfect
+Bad score
+
+Enter score: 10.0
+Bad score
+
+Enter score: 0.75
+C
+
+Enter score: 0.5
+F
+</em></span></pre><p><span class="c006"><em>Run the program repeatedly as shown above to test the 
+various different values for input.
+</em></span></p></div><span class="c005">
+</span><hr class="footnoterule" /><dl class="thefootnotes"><dt class="dt-thefootnotes"><span class="c005">
+</span><a id="note7" href="#text7"><span class="c006">1</span></a></dt><dd class="dd-thefootnotes"><span class="c006"><div class="footnotetext">We will learn about functions in Chapter 4
+and loops in Chapter 5.</div>
+</span></dd><dt class="dt-thefootnotes"><a id="note8" href="#text8"><span class="c006">2</span></a></dt><dd class="dd-thefootnotes"><span class="c006"><div class="footnotetext">In Python 3.0,
+you no longer get an error message; the division operator performs
+floating-point division even with integer operands.</div>
+</span></dd></dl>
+<hr />
+<a href="book003.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book005.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

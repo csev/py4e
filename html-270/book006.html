@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="hevea 2.09" />
+<link rel="stylesheet" type="text/css" href="book.css" />
+<title>Iteration</title>
+</head>
+<body>
+<a href="book005.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book007.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1 class="chapter" id="sec60"><span class="c006">Chapter&#XA0;5&#XA0;&#XA0;Iteration</span></h1>
+<p><span class="c005">
+</span><a id="hevea_default284"></a></p><span class="c005">
+</span><h2 class="section" id="sec61"><span class="c006">5.1&#XA0;&#XA0;Updating variables</span></h2>
+<p><span class="c005">
+</span><a id="update"></a></p><p><a id="hevea_default285"></a><span class="c005">
+</span><a id="hevea_default286"></a></p><p><span class="c006">A common pattern in assignment statements is an assignment statement
+that updates a variable &#X2013; 
+where the new value of the variable depends on the old.</span></p><pre class="verbatim"><span class="c004">x = x+1
+</span></pre><p><span class="c006">This means &#X201C;get the current value of <span class="c001">x</span>, add 1, and then
+update <span class="c001">x</span> with the new value.&#X201D;</span></p><p><span class="c006">If you try to update a variable that doesn&#X2019;t exist, you get an
+error, because Python evaluates the right side before it assigns
+a value to <span class="c001">x</span>:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; x = x+1
+NameError: name 'x' is not defined
+</span></pre><p><span class="c006">Before you can update a variable, you have to <span class="c009">initialize</span>
+it, usually with a simple assignment:</span></p><p><a id="hevea_default287"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; x = 0
+&gt;&gt;&gt; x = x+1
+</span></pre><p><span class="c006">Updating a variable by adding 1 is called an <span class="c009">increment</span>;
+subtracting 1 is called a <span class="c009">decrement</span>.</span></p><p><a id="hevea_default288"></a><span class="c005">
+</span><a id="hevea_default289"></a></p><span class="c005">
+</span><h2 class="section" id="sec62"><span class="c006">5.2&#XA0;&#XA0;The <span class="c001">while</span> statement</span></h2>
+<p><a id="hevea_default290"></a><span class="c005">
+</span><a id="hevea_default291"></a><span class="c005">
+</span><a id="hevea_default292"></a><span class="c005">
+</span><a id="hevea_default293"></a></p><p><span class="c006">Computers are often used to automate repetitive tasks. Repeating
+identical or similar tasks without making errors is something that
+computers do well and people do poorly.
+Because iteration is so common, Python provides several
+language features to make it easier. </span></p><p><span class="c006">One form of iteration in Python is the <span class="c001">while</span> statement. Here is 
+a simple program that counts down from five and then says &#X201C;Blastoff!&#X201D;.</span></p><pre class="verbatim"><span class="c004">n = 5
+while n &gt; 0:
+    print n
+    n = n-1
+print 'Blastoff!'
+</span></pre><p><span class="c006">You can almost read the <span class="c001">while</span> statement as if it were English.
+It means, &#X201C;While <span class="c001">n</span> is greater than 0,
+display the value of <span class="c001">n</span> and then reduce the value of
+<span class="c001">n</span> by 1. When you get to 0, exit the <span class="c001">while</span> statement and
+display the word <span class="c001">Blastoff!</span>&#X201D;</span></p><p><a id="hevea_default294"></a></p><p><span class="c006">More formally, here is the flow of execution for a <span class="c001">while</span> statement:</span></p><ol class="enumerate" type="1"><li class="li-enumerate"><span class="c006">Evaluate the condition, yielding <span class="c001">True</span> or <span class="c001">False</span>.</span></li><li class="li-enumerate"><span class="c006">If the condition is false, exit the <span class="c001">while</span> statement
+and continue execution at the next statement.</span></li><li class="li-enumerate"><span class="c006">If the condition is true, execute the
+body and then go back to step 1.</span></li></ol><p><span class="c006">This type of flow is called a <span class="c009">loop</span> because the third step
+loops back around to the top. We call each time we execute the body of 
+the loop an <span class="c009">iteration</span>. For the above loop, we 
+would say, &#X201C;It had five iterations&#X201D;, which means that the body of
+the loop was executed five times.</span></p><p><a id="hevea_default295"></a><span class="c005">
+</span><a id="hevea_default296"></a><span class="c005">
+</span><a id="hevea_default297"></a></p><p><span class="c006">The body of the loop should change the value of one or more variables
+so that eventually the condition becomes false and the loop
+terminates. 
+We call the variable that changes each time the loop
+executes and controls when the loop finishes the 
+<span class="c009">iteration variable</span>.
+If there is no iteration variable, the loop will repeat forever, 
+resulting in an <span class="c009">infinite loop</span>. </span></p><span class="c005">
+</span><h2 class="section" id="sec63"><span class="c006">5.3&#XA0;&#XA0;Infinite loops</span></h2>
+<p><span class="c006">An endless source of amusement for 
+programmers is the observation that the directions on shampoo,
+&#X201C;Lather, rinse, repeat,&#X201D; are an infinite loop because 
+there is no <span class="c009">iteration variable</span> telling you how many times
+to execute the loop.</span></p><p><a id="hevea_default298"></a><span class="c005">
+</span><a id="hevea_default299"></a></p><p><span class="c006">In the case of <span class="c001">countdown</span>, we can prove that the loop
+terminates because we know that the value of <span class="c001">n</span> is finite, and we
+can see that the value of <span class="c001">n</span> gets smaller each time through the
+loop, so eventually we have to get to 0. Other times a loop is obviously
+infinite because it has no iteration variable at all.</span></p><span class="c005">
+</span><h2 class="section" id="sec64"><span class="c006">5.4&#XA0;&#XA0;&#X201C;Infinite loops&#X201D; and <span class="c001">break</span></span></h2>
+<p><span class="c005">
+</span><a id="hevea_default300"></a><span class="c005">
+</span><a id="hevea_default301"></a></p><p><span class="c006">Sometimes you don&#X2019;t know it&#X2019;s time to end a loop until you get half
+way through the body. In that case you can write an infinite loop on purpose
+and then use the <span class="c001">break</span> statement to jump out of the loop.</span></p><p><span class="c006">This loop is obviously an <span class="c009">infinite loop</span> because the logical 
+expression on the
+<span class="c001">while</span> statement is simply the logical constant <span class="c001">True</span>:</span></p><pre class="verbatim"><span class="c004">n = 10
+while True:
+    print n, 
+    n = n - 1
+print 'Done!'
+</span></pre><p><span class="c006">If you make the mistake and run this code, you will learn quickly how
+to stop a runaway Python process on your system or find where the power-off
+button is on your computer. 
+This program will 
+run forever or until your battery runs out 
+because the logical expression at the top of the loop 
+is always true by virtue of the fact that the expression is the 
+constant value <span class="c001">True</span>.</span></p><p><span class="c006">While this is a dysfunctional infinite loop, we can still use this pattern
+to build useful loops as long as we carefully add code to the 
+body of the loop to explicitly exit the loop using <span class="c001">break</span> 
+when we have reached 
+the exit condition.</span></p><p><span class="c006">For example, suppose you want to take input from the user until they
+type <span class="c001">done</span>. You could write:</span></p><pre class="verbatim"><span class="c004">while True:
+    line = raw_input('&gt; ')
+    if line == 'done':
+        break
+    print line
+print 'Done!'
+</span></pre><p><span class="c006">The loop condition is <span class="c001">True</span>, which is always true, so the
+loop runs repeatedly until it hits the break statement.</span></p><p><span class="c006">Each time through, it prompts the user with an angle bracket.
+If the user types <span class="c001">done</span>, the <span class="c001">break</span> statement exits
+the loop. Otherwise the program echoes whatever the user types
+and goes back to the top of the loop. Here&#X2019;s a sample run:</span></p><pre class="verbatim"><span class="c004">&gt; hello there
+hello there
+&gt; finished
+finished
+&gt; done
+Done!
+</span></pre><p><span class="c006">This way of writing <span class="c001">while</span> loops is common because you
+can check the condition anywhere in the loop (not just at the
+top) and you can express the stop condition affirmatively
+(&#X201C;stop when this happens&#X201D;) rather than negatively (&#X201C;keep going
+until that happens.&#X201D;).</span></p><span class="c005">
+</span><h2 class="section" id="sec65"><span class="c006">5.5&#XA0;&#XA0;Finishing iterations with <span class="c001">continue</span></span></h2>
+<p><span class="c005">
+</span><a id="hevea_default302"></a><span class="c005">
+</span><a id="hevea_default303"></a></p><p><span class="c006">Sometimes you are in an iteration of a loop and want to finish the
+current iteration and immediately jump to the next iteration.
+In that case you can use the <span class="c001">continue</span>
+statement to skip to the next iteration without finishing the
+body of the loop for the current iteration.</span></p><p><span class="c006">Here is an example of a loop that copies its input until the user
+types &#X201C;done&#X201D;, but treats lines that start with the hash character
+as lines not to be printed (kind of like Python comments).</span></p><pre class="verbatim"><span class="c004">while True:
+    line = raw_input('&gt; ')
+    if line[0] == '#' :
+        continue
+    if line == 'done':
+        break
+    print line
+print 'Done!'
+</span></pre><p><span class="c006">Here is a sample run of this new program with <span class="c001">continue</span> added.</span></p><pre class="verbatim"><span class="c004">&gt; hello there
+hello there
+&gt; # don't print this
+&gt; print this!
+print this!
+&gt; done
+Done!
+</span></pre><p><span class="c006">All the lines are printed except the one that starts with the hash
+sign because when the <span class="c001">continue</span> is executed, it ends 
+the current iteration and jumps
+back to the <span class="c001">while</span> statement to start the next iteration, thus 
+skipping the <span class="c001">print</span> statement.</span></p><span class="c005">
+</span><h2 class="section" id="sec66"><span class="c006">5.6&#XA0;&#XA0;Definite loops using <span class="c001">for</span> </span></h2>
+<p><span class="c005">
+</span><a id="hevea_default304"></a><span class="c005">
+</span><a id="hevea_default305"></a></p><p><span class="c006">Sometimes we want to loop through a <span class="c009">set</span> of things such 
+as a list of words, the lines in a file, or a list of numbers.
+When we have a list of things to loop through, we can
+construct a <em>definite</em> loop using a <span class="c001">for</span> statement.
+We call the <span class="c001">while</span> statement an <em>indefinite</em> loop
+because it simply loops until some condition becomes <span class="c001">False</span>, 
+whereas the <span class="c001">for</span> loop is looping through a known
+set of items so it runs through as many iterations as there
+are items in the set.</span></p><p><span class="c006">The syntax of a <span class="c001">for</span> loop is similar to the <span class="c001">while</span> loop
+in that there is a <span class="c001">for</span> statement and a loop body:</span></p><pre class="verbatim"><span class="c004">friends = ['Joseph', 'Glenn', 'Sally']
+for friend in friends:
+    print 'Happy New Year:', friend
+print 'Done!'
+</span></pre><p><span class="c006">In Python terms, 
+the variable <span class="c001">friends</span> is a list</span><sup><a id="text9" href="#note9"><span class="c006">1</span></a></sup><span class="c006"> 
+of three strings and the <span class="c001">for</span>
+loop goes through the list and executes the body once
+for each of the three strings in the list resulting in this output:</span></p><pre class="verbatim"><span class="c004">Happy New Year: Joseph
+Happy New Year: Glenn
+Happy New Year: Sally
+Done!
+</span></pre><p><span class="c006">Translating this <span class="c001">for</span> loop to English is not as direct as the 
+<span class="c001">while</span>, but if you think of friends as a <span class="c009">set</span>,
+it goes like this: &#X201C;Run the statements in the body of the 
+for loop once for each friend <em>in</em> the set named friends.&#X201D;</span></p><p><span class="c006">Looking at the <span class="c001">for</span> loop, <span class="c009">for</span> and <span class="c009">in</span> are reserved
+Python keywords, and <span class="c001">friend</span> and <span class="c001">friends</span> are variables.</span></p><p><span class="c002"><span class="c009">for</span> friend <span class="c009">in</span> friends<span class="c009">:<br />
+<code> </code>print</span> &#X2019;Happy New Year&#X2019;, friend </span></p><p><span class="c006">In particular, <span class="c001">friend</span> is the <span class="c009">iteration variable</span> for 
+the for loop. The variable <span class="c001">friend</span> changes for each iteration of
+the loop and controls when the <span class="c001">for</span> loop completes. The 
+<span class="c009">iteration variable</span> steps successively through the 
+three strings stored in the <span class="c001">friends</span> variable.</span></p><span class="c005">
+</span><h2 class="section" id="sec67"><span class="c006">5.7&#XA0;&#XA0;Loop patterns</span></h2>
+<p><span class="c006">Often we use a <span class="c001">for</span> or <span class="c001">while</span> loop to go through a list of items
+or the contents of a file and we are looking for something such as
+the largest or smallest value of the data we scan through.</span></p><p><span class="c006">These loops are generally constructed by:</span></p><ul class="itemize"><li class="li-itemize"><span class="c006">Initializing one or more variables before the loop starts</span></li><li class="li-itemize"><span class="c006">Performing some computation on each item in the loop body, 
+possibly changing the variables in the body of the loop</span></li><li class="li-itemize"><span class="c006">Looking at the resulting variables when the loop completes</span></li></ul><p><span class="c006">We will use a list of numbers to demonstrate the concepts and construction
+of these loop patterns. </span></p><span class="c005">
+</span><h3 class="subsection" id="sec68"><span class="c006">5.7.1&#XA0;&#XA0;Counting and summing loops</span></h3>
+<p><span class="c006">For example, to count the number of items
+in a list, we would write the following <span class="c001">for</span> loop:</span></p><pre class="verbatim"><span class="c004">count = 0
+for itervar in [3, 41, 12, 9, 74, 15]:
+    count = count + 1
+print 'Count: ', count
+</span></pre><p><span class="c006">We set the variable <span class="c001">count</span> to zero before the loop starts,
+then we write a <span class="c001">for</span> loop to run through the list of numbers.
+Our <span class="c009">iteration</span> variable is named <span class="c001">itervar</span> and while we do
+not use <span class="c001">itervar</span> in the loop, it does control the loop and cause
+the loop body to be executed once for each of the values in the list.</span></p><p><span class="c006">In the body of the loop, we add 1 to the current value of <span class="c001">count</span>
+for each of the values in the list. While the loop is executing, the 
+value of <span class="c001">count</span> is the number of values we have seen &#X201C;so far&#X201D;.</span></p><p><span class="c006">Once the loop completes, the value of <span class="c001">count</span> is the total number
+of items. The total number &#X201C;falls in our lap&#X201D; at the end of the 
+loop. We construct the loop so that we have what we want when the loop
+finishes.</span></p><p><span class="c006">Another similar loop that computes the total of a set of numbers
+is as follows:</span></p><pre class="verbatim"><span class="c004">total = 0
+for itervar in [3, 41, 12, 9, 74, 15]:
+    total = total + itervar
+print 'Total: ', total
+</span></pre><p><span class="c006">In this loop we <em>do</em> use the <span class="c009">iteration variable</span>.
+Instead of simply adding one to the <span class="c001">count</span> as in the previous loop, 
+we add the actual number (3, 41, 12, etc.) to the running 
+total during each loop iteration.
+If you think about the variable <span class="c001">total</span>, it contains the 
+&#X201C;running total of the values so far&#X201D;. So before the loop
+starts <span class="c001">total</span> is zero because we have not yet seen any values,
+during the loop <span class="c001">total</span> is the running total, and at the end of 
+the loop <span class="c001">total</span> is the overall total of all the values 
+in the list.</span></p><p><span class="c006">As the loop executes, <span class="c001">total</span> accumulates the sum of the
+elements; a variable used this way is sometimes called an
+<span class="c009">accumulator</span>.
+</span><a id="hevea_default306"></a></p><p><span class="c006">Neither the counting loop nor the summing loop are particularly 
+useful in practice because there are built-in functions 
+<span class="c001">len()</span> and <span class="c001">sum()</span> that compute the number of 
+items in a list and the total of the items in the list
+respectively.</span></p><span class="c005">
+</span><h3 class="subsection" id="sec69"><span class="c006">5.7.2&#XA0;&#XA0;Maximum and minimum loops</span></h3>
+<p><a id="hevea_default307"></a><span class="c005">
+</span><a id="hevea_default308"></a><span class="c005">
+</span><a id="hevea_default309"></a><span class="c005">
+</span><a id="hevea_default310"></a><span class="c005">
+</span><a id="maximumloop"></a><span class="c006">
+To find the largest value in a list or sequence, we construct the
+following loop:</span></p><pre class="verbatim"><span class="c004">largest = None
+print 'Before:', largest
+for itervar in [3, 41, 12, 9, 74, 15]:
+    if largest is None or itervar &gt; largest :
+        largest = itervar
+    print 'Loop:', itervar, largest
+print 'Largest:', largest
+</span></pre><p><span class="c006">When the program executes, the output is as follows:</span></p><pre class="verbatim"><span class="c004">Before: None
+Loop: 3 3
+Loop: 41 41
+Loop: 12 41
+Loop: 9 41
+Loop: 74 74
+Loop: 15 74
+Largest: 74
+</span></pre><p><span class="c006">The variable <span class="c001">largest</span> is best thought of as 
+the &#X201C;largest value we have seen so far&#X201D;.
+Before the loop, we set <span class="c001">largest</span> to the constant <span class="c001">None</span>. 
+<span class="c001">None</span> is a special constant value which we can 
+store in a variable to mark 
+the variable as &#X201C;empty&#X201D;. </span></p><p><span class="c006">Before the loop starts, the largest value we have seen so far 
+is <span class="c001">None</span> since we have not yet seen any values. While the 
+loop is executing, if <span class="c001">largest</span> is <span class="c001">None</span> then we take
+the first value we see as the largest so far. You can see in 
+the first iteration when the value of <span class="c001">itervar</span> is 3,
+since <span class="c001">largest</span> is <span class="c001">None</span>, we immediately set 
+<span class="c001">largest</span> to be 3.</span></p><p><span class="c006">After the first iteration, <span class="c001">largest</span> is no longer <span class="c001">None</span>,
+so the second part of the compound logical expression that checks
+<span class="c001">itervar &gt; largest</span> triggers only when we see a value that is
+larger than the &#X201C;largest so far&#X201D;. When we see a new &#X201C;even larger&#X201D;
+value we take that new value for <span class="c001">largest</span>. You can see in the 
+program output that <span class="c001">largest</span> progresses from 3 to 41 to 74.</span></p><p><span class="c006">At the end of the loop, we have scanned all of the values and
+the variable <span class="c001">largest</span> now does contain the largest value
+in the list.</span></p><p><span class="c006">To compute the smallest number, the code is very similar with one
+small change:</span></p><pre class="verbatim"><span class="c004">smallest = None
+print 'Before:', smallest
+for itervar in [3, 41, 12, 9, 74, 15]:
+    if smallest is None or itervar &lt; smallest:
+        smallest = itervar
+    print 'Loop:', itervar, smallest
+print 'Smallest:', smallest
+</span></pre><p><span class="c006">Again, <span class="c001">smallest</span> is the &#X201C;smallest so far&#X201D; before, during, and after the 
+loop executes. When the loop has completed, <span class="c001">smallest</span> contains the
+minimum value in the list.</span></p><p><span class="c006">Again as in counting and summing, the built-in functions 
+<span class="c001">max()</span> and <span class="c001">min()</span> make writing these exact loops
+unnecessary.</span></p><p><span class="c006">The following is a simple version of the Python built-in
+<span class="c001">min()</span> function:</span></p><pre class="verbatim"><span class="c004">def min(values):
+    smallest = None
+    for value in values:
+        if smallest is None or value &lt; smallest:
+            smallest = value
+    return smallest
+</span></pre><p><span class="c006">In the function version of the smallest code, we removed all of the 
+<span class="c001">print</span> statements so as to be equivalent to the <span class="c001">min</span> 
+function which is already built in to Python.</span></p><span class="c005">
+</span><h2 class="section" id="sec70"><span class="c006">5.8&#XA0;&#XA0;Debugging</span></h2>
+<p><span class="c006">As you start writing bigger programs, you might find yourself
+spending more time debugging. More code means more chances to
+make an error and more places for bugs to hide.</span></p><p><a id="hevea_default311"></a><span class="c005">
+</span><a id="hevea_default312"></a></p><p><span class="c006">One way to cut your debugging time is &#X201C;debugging by bisection.&#X201D;
+For example, if there are 100 lines in your program and you
+check them one at a time, it would take 100 steps.</span></p><p><span class="c006">Instead, try to break the problem in half. Look at the middle
+of the program, or near it, for an intermediate value you
+can check. Add a <span class="c001">print</span> statement (or something else
+that has a verifiable effect) and run the program.</span></p><p><span class="c006">If the mid-point check is incorrect, the problem must be in the
+first half of the program. If it is correct, the problem is
+in the second half.</span></p><p><span class="c006">Every time you perform a check like this, you halve the number
+of lines you have to search. After six steps (which is much
+less than 100), you would be down to one or two lines of code,
+at least in theory.</span></p><p><span class="c006">In practice it is not always clear what
+the &#X201C;middle of the program&#X201D; is and not always possible to
+check it. It doesn&#X2019;t make sense to count lines and find the
+exact midpoint. Instead, think about places
+in the program where there might be errors and places where it
+is easy to put a check. Then choose a spot where you
+think the chances are about the same that the bug is before
+or after the check.</span></p><span class="c005">
+</span><h2 class="section" id="sec71"><span class="c006">5.9&#XA0;&#XA0;Glossary</span></h2>
+<dl class="description"><dt class="dt-description"><span class="c010">accumulator:</span></dt><dd class="dd-description"><span class="c006"> A variable used in a loop to add up or
+accumulate a result.
+</span><a id="hevea_default313"></a></dd><dt class="dt-description"><span class="c010">counter:</span></dt><dd class="dd-description"><span class="c006"> A variable used in a loop to count the number
+of times something happened. We initialize a counter to 
+zero and then increment the counter each time we want to
+&#X201C;count&#X201D; something.
+</span><a id="hevea_default314"></a></dd><dt class="dt-description"><span class="c010">decrement:</span></dt><dd class="dd-description"><span class="c006"> An update that decreases the value of a variable.
+</span><a id="hevea_default315"></a></dd><dt class="dt-description"><span class="c010">initialize:</span></dt><dd class="dd-description"><span class="c006"> An assignment that gives an initial value to
+a variable that will be updated.</span></dd><dt class="dt-description"><span class="c010">increment:</span></dt><dd class="dd-description"><span class="c006"> An update that increases the value of a variable
+(often by one).
+</span><a id="hevea_default316"></a></dd><dt class="dt-description"><span class="c010">infinite loop:</span></dt><dd class="dd-description"><span class="c006"> A loop in which the terminating condition is
+never satisfied or for which there is no terminating condition.
+</span><a id="hevea_default317"></a></dd><dt class="dt-description"><span class="c010">iteration:</span></dt><dd class="dd-description"><span class="c006"> Repeated execution of a set of statements using
+either a function that calls itself or a loop.
+</span><a id="hevea_default318"></a></dd></dl><span class="c005">
+</span><h2 class="section" id="sec72"><span class="c006">5.10&#XA0;&#XA0;Exercises</span></h2>
+<div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;1</span>&#XA0;&#XA0;<em>
+Write a program which repeatedly reads numbers until the user
+enters &#X201C;done&#X201D;.
+Once &#X201C;done&#X201D; is entered, print out the total, count, and average
+of the numbers. If the user enters anything other than a number, 
+detect their mistake using <span class="c001">try</span> and <span class="c001">except</span> and 
+print an error message and skip to the next number.</em></span><pre class="verbatim"><span class="c006"><em>Enter a number: 4
+Enter a number: 5
+Enter a number: bad data
+Invalid input
+Enter a number: 7
+Enter a number: done
+16 3 5.33333333333
+</em></span></pre></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;2</span>&#XA0;&#XA0;<em>
+Write another program that prompts for a list of numbers as above
+and at the end prints out both the maximum and minimum of the numbers instead of the average.
+</em></span></div><span class="c005">
+</span><hr class="footnoterule" /><dl class="thefootnotes"><dt class="dt-thefootnotes"><span class="c005">
+</span><a id="note9" href="#text9"><span class="c006">1</span></a></dt><dd class="dd-thefootnotes"><span class="c006"><div class="footnotetext">We will 
+examine lists in more detail in a later chapter.</div>
+</span></dd></dl>
+<hr />
+<a href="book005.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book007.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

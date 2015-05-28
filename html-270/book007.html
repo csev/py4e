@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="hevea 2.09" />
+<link rel="stylesheet" type="text/css" href="book.css" />
+<title>Strings</title>
+</head>
+<body>
+<a href="book006.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book008.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1 class="chapter" id="sec73"><span class="c006">Chapter&#XA0;6&#XA0;&#XA0;Strings</span></h1>
+<p><span class="c005">
+</span><a id="strings"></a></p><span class="c005">
+</span><h2 class="section" id="sec74"><span class="c006">6.1&#XA0;&#XA0;A string is a sequence</span></h2>
+<p><span class="c005">
+</span><a id="hevea_default319"></a><span class="c005">
+</span><a id="hevea_default320"></a><span class="c005">
+</span><a id="hevea_default321"></a><span class="c005">
+</span><a id="hevea_default322"></a></p><p><span class="c006">A string is a <span class="c009">sequence</span> of characters. 
+You can access the characters one at a time with the
+bracket operator:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; fruit = 'banana'
+&gt;&gt;&gt; letter = fruit[1]
+</span></pre><p><a id="hevea_default323"></a><span class="c006">
+The second statement extracts the character at index position 1 from the 
+<span class="c001">fruit</span> variable and assigns it to the <span class="c001">letter</span> variable. </span></p><p><span class="c006">The expression in brackets is called an <span class="c009">index</span>. 
+The index indicates which character in the sequence you
+want (hence the name).</span></p><p><span class="c006">But you might not get what you expect:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; print letter
+a
+</span></pre><p><span class="c006">For most people, the first letter of <code>'banana'</code> is <span class="c001">b</span>, not
+<span class="c001">a</span>. But in Python, the index is an offset from the
+beginning of the string, and the offset of the first letter is zero.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; letter = fruit[0]
+&gt;&gt;&gt; print letter
+b
+</span></pre><p><span class="c006">So <span class="c001">b</span> is the 0th letter (&#X201C;zero-eth&#X201D;) of <code>'banana'</code>, <span class="c001">a</span>
+is the 1th letter (&#X201C;one-eth&#X201D;), and <span class="c001">n</span> is the 2th (&#X201C;two-eth&#X201D;)
+letter.</span></p><div class="center"><span class="c006"><img src="book009.png" /></span></div><p><a id="hevea_default324"></a><span class="c005">
+</span><a id="hevea_default325"></a></p><p><span class="c006">You can use any expression, including variables and operators, as an
+index, but the value of the index has to be an integer. Otherwise you
+get:</span></p><p><a id="hevea_default326"></a><span class="c005">
+</span><a id="hevea_default327"></a><span class="c005">
+</span><a id="hevea_default328"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; letter = fruit[1.5]
+TypeError: string indices must be integers
+</span></pre><span class="c005">
+</span><h2 class="section" id="sec75"><span class="c006">6.2&#XA0;&#XA0;Getting the length of a string using <span class="c001">len</span></span></h2>
+<p><a id="hevea_default329"></a><span class="c005">
+</span><a id="hevea_default330"></a></p><p><span class="c006"><span class="c001">len</span> is a built-in function that returns the number of characters
+in a string:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; fruit = 'banana'
+&gt;&gt;&gt; len(fruit)
+6
+</span></pre><p><span class="c006">To get the last letter of a string, you might be tempted to try something
+like this:</span></p><p><a id="hevea_default331"></a><span class="c005">
+</span><a id="hevea_default332"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; length = len(fruit)
+&gt;&gt;&gt; last = fruit[length]
+IndexError: string index out of range
+</span></pre><p><span class="c006">The reason for the <span class="c001">IndexError</span> is that there is no letter in <span class="c001">&#X2019;banana&#X2019;</span> with the index 6. Since we started counting at zero, the
+six letters are numbered 0 to 5. To get the last character, you have
+to subtract 1 from <span class="c001">length</span>:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; last = fruit[length-1]
+&gt;&gt;&gt; print last
+a
+</span></pre><p><span class="c006">Alternatively, you can use negative indices, which count backward from
+the end of the string. The expression <span class="c001">fruit[-1]</span> yields the last
+letter, <span class="c001">fruit[-2]</span> yields the second to last, and so on.</span></p><p><a id="hevea_default333"></a><span class="c005">
+</span><a id="hevea_default334"></a></p><span class="c005">
+</span><h2 class="section" id="sec76"><span class="c006">6.3&#XA0;&#XA0;Traversal through a string with a loop</span></h2>
+<p><span class="c005">
+</span><a id="for"></a></p><p><a id="hevea_default335"></a><span class="c005">
+</span><a id="hevea_default336"></a><span class="c005">
+</span><a id="hevea_default337"></a><span class="c005">
+</span><a id="hevea_default338"></a><span class="c005">
+</span><a id="hevea_default339"></a><span class="c005">
+</span><a id="hevea_default340"></a></p><p><span class="c006">A lot of computations involve processing a string one character at a
+time. Often they start at the beginning, select each character in
+turn, do something to it, and continue until the end. This pattern of
+processing is called a <span class="c009">traversal</span>. One way to write a traversal
+is with a <span class="c001">while</span> loop:</span></p><pre class="verbatim"><span class="c004">index = 0
+while index &lt; len(fruit):
+    letter = fruit[index]
+    print letter
+    index = index + 1
+</span></pre><p><span class="c006">This loop traverses the string and displays each letter on a line by
+itself. The loop condition is <span class="c001">index &lt; len(fruit)</span>, so
+when <span class="c001">index</span> is equal to the length of the string, the
+condition is false, and the body of the loop is not executed. The
+last character accessed is the one with the index <span class="c001">len(fruit)-1</span>,
+which is the last character in the string.</span></p><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;1</span>&#XA0;&#XA0;<em>
+Write a <span class="c001">while</span> loop that starts at the last character in the string
+and works its way backwards to the first character in the string, 
+printing each letter on a separate line, except backwards.
+</em></span></div><p><span class="c006">Another way to write a traversal is with a <span class="c001">for</span> loop:</span></p><pre class="verbatim"><span class="c004">for char in fruit:
+    print char
+</span></pre><p><span class="c006">Each time through the loop, the next character in the string is assigned
+to the variable <span class="c001">char</span>. The loop continues until no characters are
+left.</span></p><span class="c005">
+</span><h2 class="section" id="sec77"><span class="c006">6.4&#XA0;&#XA0;String slices</span></h2>
+<p><span class="c005">
+</span><a id="slice"></a></p><p><a id="hevea_default341"></a><span class="c005">
+</span><a id="hevea_default342"></a><span class="c005">
+</span><a id="hevea_default343"></a><span class="c005">
+</span><a id="hevea_default344"></a><span class="c005">
+</span><a id="hevea_default345"></a></p><p><span class="c006">A segment of a string is called a <span class="c009">slice</span>. Selecting a slice is
+similar to selecting a character:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; s = 'Monty Python'
+&gt;&gt;&gt; print s[0:5]
+Monty
+&gt;&gt;&gt; print s[6:12]
+Python
+</span></pre><p><span class="c006">The operator <span class="c001">[n:m]</span> returns the part of the string from the 
+&#X201C;n-eth&#X201D; character to the &#X201C;m-eth&#X201D; character, including the first but
+excluding the last. </span></p><p><span class="c006">If you omit the first index (before the colon), the slice starts at
+the beginning of the string. If you omit the second index, the slice
+goes to the end of the string:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; fruit = 'banana'
+&gt;&gt;&gt; fruit[:3]
+'ban'
+&gt;&gt;&gt; fruit[3:]
+'ana'
+</span></pre><p><span class="c006">If the first index is greater than or equal to the second the result
+is an <span class="c009">empty string</span>, represented by two quotation marks:</span></p><p><a id="hevea_default346"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; fruit = 'banana'
+&gt;&gt;&gt; fruit[3:3]
+"
+</span></pre><p><span class="c006">An empty string contains no characters and has length 0, but other
+than that, it is the same as any other string.</span></p><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;2</span>&#XA0;&#XA0;<em>
+Given that <span class="c001">fruit</span> is a string, what does
+<span class="c001">fruit[:]</span> mean?</em></span><p><a id="hevea_default347"></a><span class="c005">
+</span><a id="hevea_default348"></a></p></div><span class="c005">
+</span><h2 class="section" id="sec78"><span class="c006">6.5&#XA0;&#XA0;Strings are immutable</span></h2>
+<p><span class="c005">
+</span><a id="hevea_default349"></a><span class="c005">
+</span><a id="hevea_default350"></a><span class="c005">
+</span><a id="hevea_default351"></a></p><p><span class="c006">It is tempting to use the <span class="c001">[]</span> operator on the left side of an
+assignment, with the intention of changing a character in a string.
+For example:</span></p><p><a id="hevea_default352"></a><span class="c005">
+</span><a id="hevea_default353"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; greeting = 'Hello, world!'
+&gt;&gt;&gt; greeting[0] = 'J'
+TypeError: object does not support item assignment
+</span></pre><p><span class="c006">The &#X201C;object&#X201D; in this case is the string and the &#X201C;item&#X201D; is
+the character you tried to assign. For now, an <span class="c009">object</span> is
+the same thing as a value, but we will refine that definition
+later. An <span class="c009">item</span> is one of the values in a sequence.</span></p><p><a id="hevea_default354"></a><span class="c005">
+</span><a id="hevea_default355"></a><span class="c005">
+</span><a id="hevea_default356"></a><span class="c005">
+</span><a id="hevea_default357"></a></p><p><span class="c006">The reason for the error is that
+strings are <span class="c009">immutable</span>, which means you can&#X2019;t change an
+existing string. The best you can do is create a new string
+that is a variation on the original:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; greeting = 'Hello, world!'
+&gt;&gt;&gt; new_greeting = 'J' + greeting[1:]
+&gt;&gt;&gt; print new_greeting
+Jello, world!
+</span></pre><p><span class="c006">This example concatenates a new first letter onto
+a slice of <span class="c001">greeting</span>. It has no effect on
+the original string.</span></p><p><a id="hevea_default358"></a></p><span class="c005">
+</span><h2 class="section" id="sec79"><span class="c006">6.6&#XA0;&#XA0;Looping and counting</span></h2>
+<p><span class="c005">
+</span><a id="counter"></a></p><p><a id="hevea_default359"></a><span class="c005">
+</span><a id="hevea_default360"></a><span class="c005">
+</span><a id="hevea_default361"></a><span class="c005">
+</span><a id="hevea_default362"></a></p><p><span class="c006">The following program counts the number of times the letter <span class="c001">a</span>
+appears in a string:</span></p><pre class="verbatim"><span class="c004">word = 'banana'
+count = 0
+for letter in word:
+    if letter == 'a':
+        count = count + 1
+print count
+</span></pre><p><span class="c006">This program demonstrates another pattern of computation called a <span class="c009">counter</span>. The variable <span class="c001">count</span> is initialized to 0 and then
+incremented each time an <span class="c001">a</span> is found.
+When the loop exits, <span class="c001">count</span>
+contains the result&#X2014;the total number of <span class="c001">a</span>&#X2019;s.</span></p><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;3</span>&#XA0;&#XA0;
+</span><a id="hevea_default363"></a><p><span class="c006"><em>Encapsulate this code in a function named <span class="c001">count</span>, and generalize it so that it accepts the string and the
+letter as arguments.
+</em></span></p></div><span class="c005">
+</span><h2 class="section" id="sec80"><span class="c006">6.7&#XA0;&#XA0;The <span class="c001">in</span> operator</span></h2>
+<p><span class="c005">
+</span><a id="inboth"></a></p><p><a id="hevea_default364"></a><span class="c005">
+</span><a id="hevea_default365"></a><span class="c005">
+</span><a id="hevea_default366"></a><span class="c005">
+</span><a id="hevea_default367"></a></p><p><span class="c006">The word <span class="c001">in</span> is a boolean operator that takes two strings and
+returns <span class="c001">True</span> if the first appears as a substring in the second:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; 'a' in 'banana'
+True
+&gt;&gt;&gt; 'seed' in 'banana'
+False
+</span></pre><span class="c005">
+</span><h2 class="section" id="sec81"><span class="c006">6.8&#XA0;&#XA0;String comparison</span></h2>
+<p><a id="hevea_default368"></a><span class="c005">
+</span><a id="hevea_default369"></a></p><p><span class="c006">The comparison operators work on strings. To see if two strings are equal:</span></p><pre class="verbatim"><span class="c004">if word == 'banana':
+    print  'All right, bananas.'
+</span></pre><p><span class="c006">Other comparison operations are useful for putting words in alphabetical
+order:</span></p><pre class="verbatim"><span class="c004">if word &lt; 'banana':
+    print 'Your word,' + word + ', comes before banana.'
+elif word &gt; 'banana':
+    print 'Your word,' + word + ', comes after banana.'
+else:
+    print 'All right, bananas.'
+</span></pre><p><span class="c006">Python does not handle uppercase and lowercase letters the same way
+that people do. All the uppercase letters come before all the
+lowercase letters, so:</span></p><pre class="verbatim"><span class="c004">Your word, Pineapple, comes before banana.
+</span></pre><p><span class="c006">A common way to address this problem is to convert strings to a
+standard format, such as all lowercase, before performing the
+comparison. Keep that in mind in case you have to defend yourself
+against a man armed with a Pineapple.</span></p><span class="c005">
+</span><h2 class="section" id="sec82"><span class="c006">6.9&#XA0;&#XA0;<span class="c001">string</span> methods</span></h2>
+<p><span class="c006">Strings are an example of Python <span class="c009">objects</span>. An object contains
+both data (the actual string itself) and <span class="c009">methods</span>, which
+are effectively functions that are built into the object and 
+are available to any <span class="c009">instance</span> of the object.</span></p><p><span class="c006">Python has a function called <span class="c001">dir</span> which lists the methods available
+for an object. The <span class="c001">type</span> function shows the type of an object 
+and the <span class="c001">dir</span> function shows the available methods.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; stuff = 'Hello world'
+&gt;&gt;&gt; type(stuff)
+&lt;type 'str'&gt;
+&gt;&gt;&gt; dir(stuff)
+['capitalize', 'center', 'count', 'decode', 'encode', 
+'endswith', 'expandtabs', 'find', 'format', 'index', 
+'isalnum', 'isalpha', 'isdigit', 'islower', 'isspace', 
+'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 
+'partition', 'replace', 'rfind', 'rindex', 'rjust', 
+'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 
+'startswith', 'strip', 'swapcase', 'title', 'translate', 
+'upper', 'zfill']
+&gt;&gt;&gt; help(str.capitalize)
+Help on method_descriptor:
+
+capitalize(...)
+    S.capitalize() -&gt; string
+    
+    Return a copy of the string S with only its first character
+    capitalized.
+&gt;&gt;&gt;
+</span></pre><p><span class="c006">While the <span class="c001">dir</span> function lists the methods, and you 
+can use <span class="c001">help</span> to get some simple documentation on a method, 
+a better source of documentation for string methods would be
+<span class="c001">https://docs.python.org/2/library/stdtypes.html#string-methods</span>.</span></p><p><span class="c006">Calling a <span class="c009">method</span> is similar to calling a function&#X2014;it 
+takes arguments and returns a value&#X2014;but the syntax is different.
+We call a method by appending the method name to the variable name
+using the period as a delimiter.</span></p><p><span class="c006">For example, the
+method <span class="c001">upper</span> takes a string and returns a new string with
+all uppercase letters:</span></p><p><a id="hevea_default370"></a><span class="c005">
+</span><a id="hevea_default371"></a></p><p><span class="c006">Instead of the function syntax <span class="c001">upper(word)</span>, it uses
+the method syntax <span class="c001">word.upper()</span>.</span></p><p><a id="hevea_default372"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; word = 'banana'
+&gt;&gt;&gt; new_word = word.upper()
+&gt;&gt;&gt; print new_word
+BANANA
+</span></pre><p><span class="c006">This form of dot notation specifies the name of the method, <span class="c001">upper</span>, and the name of the string to apply the method to, <span class="c001">word</span>. The empty parentheses indicate that this method takes no
+argument.</span></p><p><a id="hevea_default373"></a></p><p><span class="c006">A method call is called an <span class="c009">invocation</span>; in this case, we would
+say that we are invoking <span class="c001">upper</span> on the <span class="c001">word</span>.</span></p><p><a id="hevea_default374"></a></p><p><span class="c006">For example, there is a string method named <span class="c001">find</span> that
+searches for the position of one string within another:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; word = 'banana'
+&gt;&gt;&gt; index = word.find('a')
+&gt;&gt;&gt; print index
+1
+</span></pre><p><span class="c006">In this example, we invoke <span class="c001">find</span> on <span class="c001">word</span> and pass
+the letter we are looking for as a parameter.</span></p><p><span class="c006">The <span class="c001">find</span> method can find substrings as well as characters:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; word.find('na')
+2
+</span></pre><p><span class="c006">It can take as a second argument the index where it should start:</span></p><p><a id="hevea_default375"></a><span class="c005">
+</span><a id="hevea_default376"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; word.find('na', 3)
+4
+</span></pre><p><span class="c006">One common task is to remove white space (spaces, tabs, or newlines) from
+the beginning and end of a string using the <span class="c001">strip</span> method:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; line = '  Here we go  '
+&gt;&gt;&gt; line.strip()
+'Here we go'
+</span></pre><p><span class="c006">Some methods such as <span class="c009">startswith</span> return boolean values.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; line = 'Please have a nice day'
+&gt;&gt;&gt; line.startswith('Please')
+True
+&gt;&gt;&gt; line.startswith('p')
+False
+</span></pre><p><span class="c006">You will note that <span class="c001">startswith</span> requires case to match, so sometimes
+we take a line and map it all to lowercase before we do any checking
+using the <span class="c001">lower</span> method.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; line = 'Please have a nice day'
+&gt;&gt;&gt; line.startswith('p')
+False
+&gt;&gt;&gt; line.lower()
+'please have a nice day'
+&gt;&gt;&gt; line.lower().startswith('p')
+True
+</span></pre><p><span class="c006">In the last example, the method <span class="c001">lower</span> is called
+and then we use <span class="c001">startswith</span>
+to see if the resulting lowercase string
+starts with the letter &#X201C;p&#X201D;. As long as we are careful
+with the order, we can make multiple method calls in a
+single expression.</span></p><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;4</span>&#XA0;&#XA0;
+</span><a id="hevea_default377"></a><span class="c005">
+</span><a id="hevea_default378"></a><p><span class="c006"><em>There is a string method called <span class="c001">count</span> that is similar
+to the function in the previous exercise. Read the documentation
+of this method at
+<span class="c001">https://docs.python.org/2/library/stdtypes.html#string-methods</span>
+and write an invocation that counts the number of times the 
+letter a occurs
+in <code>'banana'</code>.
+</em></span></p></div><span class="c005">
+</span><h2 class="section" id="sec83"><span class="c006">6.10&#XA0;&#XA0;Parsing strings</span></h2>
+<p><span class="c006">Often, we want to look into a string and find a substring. For example
+if we were presented a series of lines formatted as follows:</span></p><pre><span class="c004">
+From stephen.marquard@<span class="c009"> uct.ac.za</span> Sat Jan  5 09:14:16 2008
+</span></pre><p><span class="c006">and we wanted to pull out only the second half of the address (i.e.,
+<span class="c001">uct.ac.za</span>) from each line, we can do this by using the <span class="c001">find</span>
+method and string slicing. </span></p><p><span class="c006">First, we will find the position of the at-sign in the string. Then we will
+find the position of the first space <em>after</em> the at-sign. And then we
+will use string slicing to extract the portion of the string which we 
+are looking for.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; data = 'From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008'
+&gt;&gt;&gt; atpos = data.find('@')
+&gt;&gt;&gt; print atpos
+21
+&gt;&gt;&gt; sppos = data.find(' ',atpos)
+&gt;&gt;&gt; print sppos
+31
+&gt;&gt;&gt; host = data[atpos+1:sppos]
+&gt;&gt;&gt; print host
+uct.ac.za
+&gt;&gt;&gt; 
+</span></pre><p><span class="c006">We use a version of the <span class="c001">find</span> method which allows us to specify
+a position in the string where we want <span class="c001">find</span> to start looking.
+When we slice, we extract the characters 
+from &#X201C;one beyond the at-sign through up to <em>but not including</em> the 
+space character&#X201D;. </span></p><p><span class="c006">The documentation for the <span class="c001">find</span> method is available at
+<span class="c001">https://docs.python.org/2/library/stdtypes.html#string-methods</span>.</span></p><span class="c005">
+</span><h2 class="section" id="sec84"><span class="c006">6.11&#XA0;&#XA0;Format operator</span></h2>
+<p><a id="hevea_default379"></a><span class="c005">
+</span><a id="hevea_default380"></a></p><p><span class="c006">The <span class="c009">format operator</span>, <span class="c001">%</span>
+allows us to construct strings, replacing parts of the strings
+with the data stored in variables.
+When applied to integers, <span class="c001">%</span> is the modulus operator. But
+when the first operand is a string, <span class="c001">%</span> is the format operator.</span></p><p><a id="hevea_default381"></a></p><p><span class="c006">The first operand is the <span class="c009">format string</span>, which contains
+one or more <span class="c009">format sequences</span> that specify how
+the second operand is formatted. The result is a string.</span></p><p><a id="hevea_default382"></a></p><p><span class="c006">For example, the format sequence <code>'%d'</code> means that
+the second operand should be formatted as an
+integer (<span class="c001">d</span> stands for &#X201C;decimal&#X201D;):</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; camels = 42
+&gt;&gt;&gt; '%d' % camels
+'42'
+</span></pre><p><span class="c006">The result is the string <code>'42'</code>, which is not to be confused
+with the integer value <span class="c001">42</span>.</span></p><p><span class="c006">A format sequence can appear anywhere in the string,
+so you can embed a value in a sentence:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; camels = 42
+&gt;&gt;&gt; 'I have spotted %d camels.' % camels
+'I have spotted 42 camels.'
+</span></pre><p><span class="c006">If there is more than one format sequence in the string,
+the second argument has to be a tuple</span><sup><a id="text10" href="#note10"><span class="c006">1</span></a></sup><span class="c006">. Each format sequence is
+matched with an element of the tuple, in order.</span></p><p><span class="c006">The following example uses <code>'%d'</code> to format an integer,
+<code>'%g'</code> to format
+a floating-point number (don&#X2019;t ask why), and <code>'%s'</code> to format
+a string:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; 'In %d years I have spotted %g %s.' % (3, 0.1, 'camels')
+'In 3 years I have spotted 0.1 camels.'
+</span></pre><p><span class="c006">The number of elements in the tuple must match the number
+of format sequences in the string. The types of the
+elements also must match the format sequences:</span></p><p><a id="hevea_default383"></a><span class="c005">
+</span><a id="hevea_default384"></a></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; '%d %d %d' % (1, 2)
+TypeError: not enough arguments for format string
+&gt;&gt;&gt; '%d' % 'dollars'
+TypeError: illegal argument type for built-in operation
+</span></pre><p><span class="c006">In the first example, there aren&#X2019;t enough elements; in the
+second, the element is the wrong type.</span></p><p><span class="c006">The format operator is powerful, but it can be difficult to use. You
+can read more about it at
+<span class="c001">https://docs.python.org/2/library/stdtypes.html#string-formatting</span>.</span></p><span class="c005">
+</span><h2 class="section" id="sec85"><span class="c006">6.12&#XA0;&#XA0;Debugging</span></h2>
+<p><span class="c005">
+</span><a id="hevea_default385"></a></p><p><span class="c006">A skill that you should cultivate as you program is always
+asking yourself, &#X201C;What could go wrong here?&#X201D; or alternatively,
+&#X201C;What crazy thing might our user do to crash our (seemingly) 
+perfect program?&#X201D;</span></p><p><span class="c006">For example, look at the program which we used to demonstrate
+the <span class="c001">while</span> loop in the chapter on iteration:</span></p><pre class="verbatim"><span class="c004">while True:
+    line = raw_input('&gt; ')
+    if line[0] == '#' :
+        continue
+    if line == 'done':
+        break
+    print line
+
+print 'Done!'
+</span></pre><p><span class="c006">Look what happens when the user enters an empty line of input:</span></p><pre class="verbatim"><span class="c004">&gt; hello there
+hello there
+&gt; # don't print this
+&gt; print this!
+print this!
+&gt; 
+Traceback (most recent call last):
+  File "copytildone.py", line 3, in &lt;module&gt;
+    if line[0] == '#' :
+</span></pre><p><span class="c006">The code works fine until it is presented an empty line. Then
+there is no zero-th character, so we get a traceback. There are two
+solutions to this to make line three &#X201C;safe&#X201D; even if the line is 
+empty.</span></p><p><span class="c006">One possibility is to simply use the <span class="c001">startswith</span> method
+which returns <span class="c001">False</span> if the string is empty.</span></p><pre class="verbatim"><span class="c004">    if line.startswith('#') :
+</span></pre><p><a id="hevea_default386"></a><span class="c005">
+</span><a id="hevea_default387"></a><span class="c006">
+Another way is to safely write the <span class="c001">if</span> statement using the <span class="c009">guardian</span>
+pattern and make sure the second logical expression is evaluated 
+only where there is at least one character in the string.:</span></p><pre class="verbatim"><span class="c004">    if len(line) &gt; 0 and line[0] == '#' :
+</span></pre><span class="c005">
+</span><h2 class="section" id="sec86"><span class="c006">6.13&#XA0;&#XA0;Glossary</span></h2>
+<dl class="description"><dt class="dt-description"><span class="c010">counter:</span></dt><dd class="dd-description"><span class="c006"> A variable used to count something, usually initialized
+to zero and then incremented.
+</span><a id="hevea_default388"></a></dd><dt class="dt-description"><span class="c010">empty string:</span></dt><dd class="dd-description"><span class="c006"> A string with no characters and length 0, represented
+by two quotation marks.
+</span><a id="hevea_default389"></a></dd><dt class="dt-description"><span class="c010">format operator:</span></dt><dd class="dd-description"><span class="c006"> An operator, <span class="c001">%</span>, that takes a format
+string and a tuple and generates a string that includes
+the elements of the tuple formatted as specified by the format string.
+</span><a id="hevea_default390"></a><span class="c005">
+</span><a id="hevea_default391"></a></dd><dt class="dt-description"><span class="c010">format sequence:</span></dt><dd class="dd-description"><span class="c006"> A sequence of characters in a format string,
+like <span class="c001">%d</span>, that specifies how a value should be formatted.
+</span><a id="hevea_default392"></a></dd><dt class="dt-description"><span class="c010">format string:</span></dt><dd class="dd-description"><span class="c006"> A string, used with the format operator, that
+contains format sequences.
+</span><a id="hevea_default393"></a></dd><dt class="dt-description"><span class="c010">flag:</span></dt><dd class="dd-description"><span class="c006"> A boolean variable used to indicate whether a condition
+is true.
+</span><a id="hevea_default394"></a></dd><dt class="dt-description"><span class="c010">invocation:</span></dt><dd class="dd-description"><span class="c006"> A statement that calls a method.
+</span><a id="hevea_default395"></a></dd><dt class="dt-description"><span class="c010">immutable:</span></dt><dd class="dd-description"><span class="c006"> The property of a sequence whose items cannot
+be assigned.
+</span><a id="hevea_default396"></a></dd><dt class="dt-description"><span class="c010">index:</span></dt><dd class="dd-description"><span class="c006"> An integer value used to select an item in
+a sequence, such as a character in a string.
+</span><a id="hevea_default397"></a></dd><dt class="dt-description"><span class="c010">item:</span></dt><dd class="dd-description"><span class="c006"> One of the values in a sequence.
+</span><a id="hevea_default398"></a></dd><dt class="dt-description"><span class="c010">method:</span></dt><dd class="dd-description"><span class="c006"> A function that is associated with an object and called
+using dot notation.
+</span><a id="hevea_default399"></a></dd><dt class="dt-description"><span class="c010">object:</span></dt><dd class="dd-description"><span class="c006"> Something a variable can refer to. For now,
+you can use &#X201C;object&#X201D; and &#X201C;value&#X201D; interchangeably.
+</span><a id="hevea_default400"></a></dd><dt class="dt-description"><span class="c010">search:</span></dt><dd class="dd-description"><span class="c006"> A pattern of traversal that stops
+when it finds what it is looking for.
+</span><a id="hevea_default401"></a><span class="c005">
+</span><a id="hevea_default402"></a></dd><dt class="dt-description"><span class="c010">sequence:</span></dt><dd class="dd-description"><span class="c006"> An ordered set; that is, a set of
+values where each value is identified by an integer index.
+</span><a id="hevea_default403"></a></dd><dt class="dt-description"><span class="c010">slice:</span></dt><dd class="dd-description"><span class="c006"> A part of a string specified by a range of indices.
+</span><a id="hevea_default404"></a></dd><dt class="dt-description"><span class="c010">traverse:</span></dt><dd class="dd-description"><span class="c006"> To iterate through the items in a sequence,
+performing a similar operation on each.
+</span><a id="hevea_default405"></a></dd></dl><span class="c005">
+</span><h2 class="section" id="sec87"><span class="c006">6.14&#XA0;&#XA0;Exercises</span></h2>
+<div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;5</span>&#XA0;&#XA0;<em>
+Take the following Python code that stores a string:&#X2018;</em></span><pre><span class="c004"><em>
+str = &#X2019;X-DSPAM-Confidence: <span class="c009"> 0.8475</span>&#X2019;
+</em></span></pre><p><span class="c006"><em>Use <span class="c001">find</span> and string slicing to extract the portion
+of the string after the colon character and then use the 
+<span class="c001">float</span> function to convert the extracted string 
+into a floating point number.</em></span></p></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;6</span>&#XA0;&#XA0;
+</span><a id="hevea_default406"></a><span class="c005">
+</span><a id="hevea_default407"></a><p><span class="c006"><em>Read the documentation of the string methods at
+<span class="c001">https://docs.python.org/2/library/stdtypes.html#string-methods</span>.
+You might want to experiment with some of them to make sure
+you understand how they work. <span class="c001">strip</span> and
+<span class="c001">replace</span> are particularly useful.</em></span></p><p><span class="c006"><em>The documentation uses a syntax that might be confusing.
+For example, in <code>find(sub[, start[, end]])</code>, the brackets
+indicate optional arguments. So <span class="c001">sub</span> is required, but
+<span class="c001">start</span> is optional, and if you include <span class="c001">start</span>,
+then <span class="c001">end</span> is optional.
+</em></span></p></div><span class="c005">
+</span><hr class="footnoterule" /><dl class="thefootnotes"><dt class="dt-thefootnotes"><span class="c005">
+</span><a id="note10" href="#text10"><span class="c006">1</span></a></dt><dd class="dd-thefootnotes"><span class="c006"><div class="footnotetext">A tuple is a
+sequence of comma-separated values inside a pair of brackets.
+We will cover tuples in Chapter 10</div>
+</span></dd></dl>
+<hr />
+<a href="book006.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book008.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>

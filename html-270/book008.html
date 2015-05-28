@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="hevea 2.09" />
+<link rel="stylesheet" type="text/css" href="book.css" />
+<title>Files</title>
+</head>
+<body>
+<a href="book007.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book009.html"><img src="next_motif.gif" alt="Next" /></a>
+<hr />
+<h1 class="chapter" id="sec88"><span class="c006">Chapter&#XA0;7&#XA0;&#XA0;Files</span></h1>
+<p><a id="hevea_default408"></a><span class="c005">
+</span><a id="hevea_default409"></a></p><span class="c005">
+</span><h2 class="section" id="sec89"><span class="c006">7.1&#XA0;&#XA0;Persistence</span></h2>
+<p><a id="hevea_default410"></a><span class="c005">
+</span><a id="hevea_default411"></a></p><p><span class="c006">So far, we have learned how to write programs and communicate 
+our intentions to the <span class="c009">Central Processing Unit</span> using conditional
+execution, functions, and iterations. We have learned how to 
+create and use data structures in the <span class="c009">Main Memory</span>. The CPU 
+and memory are where our software works and runs. It is where 
+all of the &#X201C;thinking&#X201D; happens. </span></p><p><span class="c006">But if you recall from our hardware architecture discussions,
+once the power is turned off, anything stored in either
+the CPU or main memory is erased. So up to now, our
+programs have just been transient fun exercises to learn Python.</span></p><div class="center"><span class="c006"><img src="book010.png" /></span></div><p><span class="c006">In this chapter, we start to work with <span class="c009">Secondary Memory</span> 
+(or files).
+Secondary memory is not erased even when the power is turned off. 
+Or in the case of a USB flash drive, the
+data we write from our programs can be removed from the 
+system and transported to another system.</span></p><p><span class="c006">We will primarily focus on reading and writing text files such as 
+those we create in a text editor. Later we will see how to work
+with database files which are binary files, specifically designed to be read
+and written through database software.</span></p><span class="c005">
+</span><h2 class="section" id="sec90"><span class="c006">7.2&#XA0;&#XA0;Opening files</span></h2>
+<p><span class="c005">
+</span><a id="hevea_default412"></a><span class="c005">
+</span><a id="hevea_default413"></a><span class="c005">
+</span><a id="hevea_default414"></a></p><p><span class="c006">When we want to read or write a file (say on your hard drive), we first
+must <span class="c009">open</span> the file. Opening the file communicates with your operating
+system, which knows where the data for each file is stored. When you open
+a file, you are asking the operating system to find the file by name
+and make sure the file exists. In this example, we open the file 
+<span class="c001">mbox.txt</span>, which should be stored in the same folder that you
+are in when you start Python.
+You can download this file from 
+<span class="c001">www.py4inf.com/code/mbox.txt</span></span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; fhand = open('mbox.txt')
+&gt;&gt;&gt; print fhand
+&lt;open file 'mbox.txt', mode 'r' at 0x1005088b0&gt;
+</span></pre><p><a id="hevea_default415"></a><span class="c006">
+If the <span class="c001">open</span> is successful, the operating system returns us a 
+<span class="c009">file handle</span>. The file handle is not the actual data contained
+in the file, but instead it is a &#X201C;handle&#X201D; that we can use to 
+read the data. You are given a handle if the requested file
+exists and you have the proper permissions to read the file.</span></p><div class="center"><span class="c006"><img src="book011.png" /></span></div><p><span class="c006">If the file does not exist, <span class="c001">open</span> will fail with a traceback and you 
+will not get a handle to access the contents of the file:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; fhand = open('stuff.txt')
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+IOError: [Errno 2] No such file or directory: 'stuff.txt'
+</span></pre><p><span class="c006">Later we will use <span class="c001">try</span> and <span class="c001">except</span> to deal more gracefully
+with the situation where we attempt to open a file that does 
+not exist.</span></p><span class="c005">
+</span><h2 class="section" id="sec91"><span class="c006">7.3&#XA0;&#XA0;Text files and lines</span></h2>
+<p><span class="c006">A text file can be thought of as a sequence of lines, much like a Python
+string can be thought of as a sequence of characters. For example, this
+is a sample of a text file which records mail activity from various
+individuals in an open source project development team:</span></p><pre><span class="c004">
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+Return-Path: &lt;postmaster@collab.sakaiproject.org&gt;
+Date: Sat, 5 Jan 2008 09:12:18 -0500
+To: source@collab.sakaiproject.org
+From: stephen.marquard@uct.ac.za
+Subject: [sakai] svn commit: r39772 - content/branches/
+Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772
+...
+</span></pre><p><span class="c006">The entire file of mail interactions is available from 
+<span class="c001">www.py4inf.com/code/mbox.txt</span> 
+and a shortened version of the file is available from
+<span class="c001">www.py4inf.com/code/mbox-short.txt</span>.
+These files are in a standard format for a file containing 
+multiple mail messages. The lines which start with 
+&#X201C;From &#X201D; separate the messages and the lines which start 
+with &#X201C;From:&#X201D; are part of the messages. 
+For more information about the mbox format, see 
+<span class="c001">en.wikipedia.org/wiki/Mbox</span>. </span></p><p><span class="c006">To break the file into lines, there is a special character that 
+represents the &#X201C;end of the line&#X201D; called the <span class="c009">newline</span> character.</span></p><p><a id="hevea_default416"></a><span class="c006">
+In Python, we represent the <span class="c009">newline</span> character as a backslash-n in 
+string constants. Even though this looks like two characters, it
+is actually a single character. When we look at the variable by entering
+&#X201C;stuff&#X201D; in the interpreter, it shows us the <code>\n</code> in the string, 
+but when we use <span class="c001">print</span> to show the string, we see the string broken
+into two lines by the newline character.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; stuff = 'Hello\nWorld!'
+&gt;&gt;&gt; stuff
+'Hello\nWorld!'
+&gt;&gt;&gt; print stuff
+Hello
+World!
+&gt;&gt;&gt; stuff = 'X\nY'
+&gt;&gt;&gt; print stuff
+X
+Y
+&gt;&gt;&gt; len(stuff)
+3
+</span></pre><p><span class="c006">You can also see that the length of the string <code>'X\nY'</code> is <em>three</em>
+characters because the newline character is a single character.</span></p><p><span class="c006">So when we look at the lines in a file, we need to <em>imagine</em>
+that there is a special invisible character called the newline at
+the end of each line that marks the end of the line. </span></p><p><span class="c006">So the newline character separates the characters 
+in the file into lines.</span></p><span class="c005">
+</span><h2 class="section" id="sec92"><span class="c006">7.4&#XA0;&#XA0;Reading files</span></h2>
+<p><a id="hevea_default417"></a><span class="c005">
+</span><a id="hevea_default418"></a><span class="c006">
+While the <span class="c009">file handle</span> does not contain the data for the file,
+it is quite easy to construct a <span class="c001">for</span> loop to read through 
+and count each of the lines in a file:</span></p><pre class="verbatim"><span class="c004">fhand = open('mbox.txt')
+count = 0
+for line in fhand:
+    count = count + 1
+print 'Line Count:', count
+
+python open.py 
+Line Count: 132045
+</span></pre><p><span class="c006">We can use the file handle as the sequence in our <span class="c001">for</span> loop. 
+Our <span class="c001">for</span> loop simply counts the number of lines in the 
+file and prints them out. The rough translation of the <span class="c001">for</span>
+loop into English is, &#X201C;for each line in the file represented by the file
+handle, add one to the <span class="c001">count</span> variable.&#X201D;</span></p><p><span class="c006">The reason that the <span class="c001">open</span> function does not read the entire file
+is that the file might be quite large with many gigabytes of data.
+The <span class="c001">open</span> statement takes the same amount of time regardless of the
+size of the file. The <span class="c001">for</span> loop actually causes the data to be 
+read from the file.</span></p><p><span class="c006">When the file is read using a <span class="c001">for</span> loop in this manner, Python
+takes care of splitting the data in the file into separate lines using
+the newline character. Python reads each line through 
+the newline and includes
+the newline as the last character in the <span class="c001">line</span> variable for each 
+iteration of the <span class="c001">for</span> loop.</span></p><p><span class="c006">Because the <span class="c001">for</span> loop reads the data one line at a time, it can efficiently
+read and count the lines in very large files without running 
+out of main memory to store the data. The above program can 
+count the lines in any size file using very little memory since 
+each line is read, counted, and then discarded.</span></p><p><span class="c006">If you know the file is relatively small compared to the size of 
+your main memory, you can read the whole file into one string
+using the <span class="c001">read</span> method on the file handle.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; fhand = open('mbox-short.txt')
+&gt;&gt;&gt; inp = fhand.read()
+&gt;&gt;&gt; print len(inp)
+94626
+&gt;&gt;&gt; print inp[:20]
+From stephen.marquar
+</span></pre><p><span class="c006">In this example, the entire contents (all 94,626 characters) 
+of the file <span class="c001">mbox-short.txt</span> are read directly into the 
+variable <span class="c001">inp</span>. We use string slicing to print out the first
+20 characters of the string data stored in <span class="c001">inp</span>.</span></p><p><span class="c006">When the file is read in this manner, all the characters including 
+all of the lines and newline characters are one big string 
+in the variable <span class="c009">inp</span>. 
+Remember that this form of the <span class="c001">open</span> function should only be used
+if the file data will fit comfortably in the main memory 
+of your computer.</span></p><p><span class="c006">If the file is too large to fit in main memory, you should write
+your program to read the file in chunks using a <span class="c001">for</span> or <span class="c001">while</span>
+loop.</span></p><span class="c005">
+</span><h2 class="section" id="sec93"><span class="c006">7.5&#XA0;&#XA0;Searching through a file</span></h2>
+<p><span class="c006">When you are searching through data in a file, it
+is a very common pattern to read through a file, ignoring most
+of the lines and only processing lines which meet a particular condition.
+We can combine the pattern for reading a file with string methods
+to build simple search mechanisms.</span></p><p><a id="hevea_default419"></a><span class="c005">
+</span><a id="hevea_default420"></a><span class="c006">
+For example, if we wanted to read a file and only print out lines
+which started with the prefix &#X201C;From:&#X201D;, we could use the 
+string method <span class="c009">startswith</span> to select only those lines with
+the desired prefix:</span></p><pre class="verbatim"><span class="c004">fhand = open('mbox-short.txt')
+for line in fhand:
+    if line.startswith('From:') :
+        print line
+</span></pre><p><span class="c006">When this program runs, we get the following output:</span></p><pre class="verbatim"><span class="c004">From: stephen.marquard@uct.ac.za
+
+From: louis@media.berkeley.edu
+
+From: zqian@umich.edu
+
+From: rjlowe@iupui.edu
+...
+</span></pre><p><span class="c006">The output looks great since the only lines we are seeing are those 
+which start with &#X201C;From:&#X201D;, but why are we seeing the extra blank
+lines? This is due to that invisible <span class="c009">newline</span> character.
+Each of the lines ends with a newline, so the <span class="c001">print</span> 
+statement prints the string in the variable <span class="c009">line</span> which includes
+a newline and then <span class="c001">print</span> adds <em>another</em> newline, resulting
+in the double spacing effect we see.</span></p><p><span class="c006">We could use line slicing to print all but the last character, but 
+a simpler approach is to use the <span class="c009">rstrip</span> method which strips
+whitespace from the right side of a string as follows:</span></p><pre class="verbatim"><span class="c004">fhand = open('mbox-short.txt')
+for line in fhand:
+    line = line.rstrip()
+    if line.startswith('From:') :
+        print line
+</span></pre><p><span class="c006">When this program runs, we get the following output:</span></p><pre class="verbatim"><span class="c004">From: stephen.marquard@uct.ac.za
+From: louis@media.berkeley.edu
+From: zqian@umich.edu
+From: rjlowe@iupui.edu
+From: zqian@umich.edu
+From: rjlowe@iupui.edu
+From: cwen@iupui.edu
+...
+</span></pre><p><span class="c006">As your file processing programs get more complicated, you may want 
+to structure your search loops using <span class="c001">continue</span>. The basic idea 
+of the search loop is that you are looking for &#X201C;interesting&#X201D; lines
+and effectively skipping &#X201C;uninteresting&#X201D; lines. And then when we
+find an interesting line, we do something with that line.</span></p><p><span class="c006">We can structure the loop to follow the
+pattern of skipping uninteresting lines as follows:</span></p><pre class="verbatim"><span class="c004">fhand = open('mbox-short.txt')
+for line in fhand:
+    line = line.rstrip()
+    # Skip 'uninteresting lines'
+    if not line.startswith('From:') :
+        continue
+    # Process our 'interesting' line
+    print line
+</span></pre><p><span class="c006">The output of the program is the same. In English, the 
+uninteresting lines are those which do not start 
+with &#X201C;From:&#X201D;, which we skip using <span class="c001">continue</span>.
+For the &#X201C;interesting&#X201D; lines (i.e., those that start with &#X201C;From:&#X201D;)
+we perform the processing on those lines.</span></p><p><span class="c006">We can use the <span class="c001">find</span> string method to simulate a text editor
+search that finds lines where the search string is anywhere in the line. 
+Since <span class="c001">find</span> looks for an occurrence of a string within another
+string and either returns the position of the string or -1 if the string
+was not found, we can write the following loop to show lines which
+contain the string &#X201C;@uct.ac.za&#X201D; (i.e., they come from the University 
+of Cape Town in South Africa):</span></p><pre class="verbatim"><span class="c004">fhand = open('mbox-short.txt')
+for line in fhand:
+    line = line.rstrip()
+    if line.find('@uct.ac.za') == -1 : 
+        continue
+    print line
+</span></pre><p><span class="c006">Which produces the following output:</span></p><pre class="verbatim"><span class="c004">From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+X-Authentication-Warning: set sender to stephen.marquard@uct.ac.za using -f
+From: stephen.marquard@uct.ac.za
+Author: stephen.marquard@uct.ac.za
+From david.horwitz@uct.ac.za Fri Jan  4 07:02:32 2008
+X-Authentication-Warning: set sender to david.horwitz@uct.ac.za using -f
+From: david.horwitz@uct.ac.za
+Author: david.horwitz@uct.ac.za
+...
+</span></pre><span class="c005">
+</span><h2 class="section" id="sec94"><span class="c006">7.6&#XA0;&#XA0;Letting the user choose the file name</span></h2>
+<p><span class="c006">We really do not want to have to edit our Python code
+every time we want to process a different file. It would 
+be more usable to ask the user to enter the file name string 
+each time the program runs so they can use our 
+program on different files without changing the Python code.</span></p><p><span class="c006">This is quite simple to do by reading the file name from
+the user using <code>raw_input</code> as follows:</span></p><pre class="verbatim"><span class="c004">fname = raw_input('Enter the file name: ')
+fhand = open(fname)
+count = 0
+for line in fhand:
+    if line.startswith('Subject:') :
+        count = count + 1
+print 'There were', count, 'subject lines in', fname
+</span></pre><p><span class="c006">We read the file name from the user and place it in a variable
+named <span class="c001">fname</span> and open that file. Now we can run the program 
+repeatedly on different files.</span></p><pre class="verbatim"><span class="c004">python search6.py 
+Enter the file name: mbox.txt
+There were 1797 subject lines in mbox.txt
+
+python search6.py 
+Enter the file name: mbox-short.txt
+There were 27 subject lines in mbox-short.txt
+</span></pre><p><span class="c006">Before peeking at the next section, take a look at the above program
+and ask yourself, &#X201C;What could go possibly wrong here?&#X201D; or &#X201C;What might our
+friendly user do that would cause our nice little program to 
+ungracefully exit with a traceback, making us look not-so-cool 
+in the eyes of our users?&#X201D;</span></p><span class="c005">
+</span><h2 class="section" id="sec95"><span class="c006">7.7&#XA0;&#XA0;Using <span class="c001">try, except,</span> and <span class="c001">open</span></span></h2>
+<p><span class="c006">I told you not to peek. This is your last chance.</span></p><p><span class="c006">What if our user types something that is not a file name?</span></p><pre class="verbatim"><span class="c004">python search6.py 
+Enter the file name: missing.txt
+Traceback (most recent call last):
+  File "search6.py", line 2, in &lt;module&gt;
+    fhand = open(fname)
+IOError: [Errno 2] No such file or directory: 'missing.txt'
+
+python search6.py 
+Enter the file name: na na boo boo
+Traceback (most recent call last):
+  File "search6.py", line 2, in &lt;module&gt;
+    fhand = open(fname)
+IOError: [Errno 2] No such file or directory: 'na na boo boo'
+</span></pre><p><span class="c006">Do not laugh, users will eventually do every possible thing they can do 
+to break your programs&#X2014;either on purpose or with malicious intent.
+As a matter of fact, an important part of any software development
+team is a person or group called <span class="c009">Quality Assurance</span> (or QA for short)
+whose very job it is to do the craziest things possible in an attempt
+to break the software that the programmer has created.</span></p><p><a id="hevea_default421"></a><span class="c005">
+</span><a id="hevea_default422"></a><span class="c006">
+The QA team is responsible for finding the flaws in programs before 
+we have delivered the program to the end users who may be purchasing the
+software or paying our salary to write the software. So the QA team
+is the programmer&#X2019;s best friend.</span></p><p><a id="hevea_default423"></a><span class="c005">
+</span><a id="hevea_default424"></a><span class="c005">
+</span><a id="hevea_default425"></a><span class="c005">
+</span><a id="hevea_default426"></a><span class="c005">
+</span><a id="hevea_default427"></a><span class="c005">
+</span><a id="hevea_default428"></a><span class="c006">
+So now that we see the flaw in the program, we can elegantly fix it using
+the <span class="c001">try</span>/<span class="c001">except</span> structure. We need to assume that the <span class="c001">open</span>
+call might fail and add recovery code when the <span class="c001">open</span> fails
+as follows:</span></p><pre class="verbatim"><span class="c004">fname = raw_input('Enter the file name: ')
+try:
+    fhand = open(fname)
+except:
+    print 'File cannot be opened:', fname
+    exit()
+
+count = 0
+for line in fhand:
+    if line.startswith('Subject:') : 
+        count = count + 1
+print 'There were', count, 'subject lines in', fname
+</span></pre><p><span class="c006">The <span class="c001">exit</span> function terminates the program. It is a function
+that we call that never returns. Now when our user (or 
+QA team) types in silliness or bad file names, 
+we &#X201C;catch&#X201D; them and recover gracefully:</span></p><pre class="verbatim"><span class="c004">python search7.py
+Enter the file name: mbox.txt
+There were 1797 subject lines in mbox.txt
+
+python search7.py
+Enter the file name: na na boo boo
+File cannot be opened: na na boo boo
+</span></pre><p><a id="hevea_default429"></a><span class="c006">
+Protecting the <span class="c001">open</span> call is a good example 
+of the proper use of <span class="c001">try</span>
+and <span class="c001">except</span> in a Python program. We use the term
+&#X201C;Pythonic&#X201D; when we are doing something the &#X201C;Python
+way&#X201D;. We might say that the above example is 
+the Pythonic way to open a file.</span></p><p><span class="c006">Once you become more skilled in Python, you can engage
+in repartee with other Python programmers to decide
+which of two equivalent solutions to a problem is 
+&#X201C;more Pythonic&#X201D;. The goal to be &#X201C;more Pythonic&#X201D; 
+captures the notion that programming is part engineering
+and part art. We are not always interested
+in just making something work, we also want
+our solution to be elegant and to be appreciated as 
+elegant by our peers.</span></p><span class="c005">
+</span><h2 class="section" id="sec96"><span class="c006">7.8&#XA0;&#XA0;Writing files</span></h2>
+<p><a id="hevea_default430"></a></p><p><span class="c006">To write a file, you have to open it with mode
+<code>'w'</code> as a second parameter:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; fout = open('output.txt', 'w')
+&gt;&gt;&gt; print fout
+&lt;open file 'output.txt', mode 'w' at 0xb7eb2410&gt;
+</span></pre><p><span class="c006">If the file already exists, opening it in write mode clears out
+the old data and starts fresh, so be careful!
+If the file doesn&#X2019;t exist, a new one is created.</span></p><p><span class="c006">The <span class="c001">write</span> method of the file handle object 
+puts data into the file.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; line1 = "This here's the wattle,\n"
+&gt;&gt;&gt; fout.write(line1)
+</span></pre><p><a id="hevea_default431"></a><span class="c006">
+Again, the file object keeps track of where it is, so if
+you call <span class="c001">write</span> again, it adds the new data to the end.</span></p><p><span class="c006">We must make sure to manage the ends of lines as we write
+to the file by explicitly inserting the newline character
+when we want to end a line. The <span class="c001">print</span> statement 
+automatically appends a newline, but the <span class="c001">write</span> 
+method does not add the newline automatically.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; line2 = 'the emblem of our land.\n'
+&gt;&gt;&gt; fout.write(line2)
+</span></pre><p><span class="c006">When you are done writing, you have to close the file
+to make sure that the last bit of data is physically written
+to the disk so it will not be lost if the power goes off.</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; fout.close()
+</span></pre><p><span class="c006">We could close the files which we open for read as well, 
+but we can be a little sloppy if we are only opening a few
+files since Python makes sure that all open files are 
+closed when the program ends. When we are writing files, 
+we want to explicitly close the files so as to leave nothing
+to chance.</span></p><p><a id="hevea_default432"></a><span class="c005">
+</span><a id="hevea_default433"></a></p><span class="c005">
+</span><h2 class="section" id="sec97"><span class="c006">7.9&#XA0;&#XA0;Debugging</span></h2>
+<p><a id="hevea_default434"></a><span class="c005">
+</span><a id="hevea_default435"></a></p><p><span class="c006">When you are reading and writing files, you might run into problems
+with whitespace. These errors can be hard to debug because spaces,
+tabs, and newlines are normally invisible:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; s = '1 2\t 3\n 4'
+&gt;&gt;&gt; print s
+1 2  3
+ 4
+</span></pre><p><a id="hevea_default436"></a><span class="c005">
+</span><a id="hevea_default437"></a><span class="c005">
+</span><a id="hevea_default438"></a></p><p><span class="c006">The built-in function <span class="c001">repr</span> can help. It takes any object as an
+argument and returns a string representation of the object. For
+strings, it represents whitespace
+characters with backslash sequences:</span></p><pre class="verbatim"><span class="c004">&gt;&gt;&gt; print repr(s)
+'1 2\t 3\n 4'
+</span></pre><p><span class="c006">This can be helpful for debugging.</span></p><p><span class="c006">One other problem you might run into is that different systems
+use different characters to indicate the end of a line. Some
+systems use a newline, represented <code>\n</code>. Others use
+a return character, represented <code>\r</code>. Some use both.
+If you move files between different systems, these inconsistencies
+might cause problems.</span></p><p><a id="hevea_default439"></a></p><p><span class="c006">For most systems, there are applications to convert from one
+format to another. You can find them (and read more about this
+issue) at <span class="c001">wikipedia.org/wiki/Newline</span>. Or, of course, you
+could write one yourself.</span></p><span class="c005">
+</span><h2 class="section" id="sec98"><span class="c006">7.10&#XA0;&#XA0;Glossary</span></h2>
+<dl class="description"><dt class="dt-description"><span class="c010">catch:</span></dt><dd class="dd-description"><span class="c006"> To prevent an exception from terminating
+a program using the <span class="c001">try</span> and <span class="c001">except</span> statements.
+</span><a id="hevea_default440"></a></dd><dt class="dt-description"><span class="c010">newline:</span></dt><dd class="dd-description"><span class="c006"> A special character used in files and strings to indicate
+the end of a line.
+</span><a id="hevea_default441"></a></dd><dt class="dt-description"><span class="c010">Pythonic:</span></dt><dd class="dd-description"><span class="c006"> A technique that works elegantly in Python.
+&#X201C;Using try and except is the <em>Pythonic</em> way to recover from 
+missing files&#X201D;.
+</span><a id="hevea_default442"></a></dd><dt class="dt-description"><span class="c010">Quality Assurance:</span></dt><dd class="dd-description"><span class="c006"> A person or team focused on insuring the 
+overall quality of a software product. QA is often involved 
+in testing a product and identifying problems before the product 
+is released.
+</span><a id="hevea_default443"></a><span class="c005">
+</span><a id="hevea_default444"></a></dd><dt class="dt-description"><span class="c010">text file:</span></dt><dd class="dd-description"><span class="c006"> A sequence of characters stored in permanent
+storage like a hard drive.
+</span><a id="hevea_default445"></a></dd></dl><span class="c005">
+</span><h2 class="section" id="sec99"><span class="c006">7.11&#XA0;&#XA0;Exercises</span></h2>
+<div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;1</span>&#XA0;&#XA0;<em>
+Write a program to read through a file and print the contents 
+of the file (line by line) all in upper case. Executing the program 
+will look as follows:</em></span><pre class="verbatim"><span class="c004"><em>python shout.py
+Enter a file name: mbox-short.txt
+FROM STEPHEN.MARQUARD@UCT.AC.ZA SAT JAN  5 09:14:16 2008
+RETURN-PATH: &lt;POSTMASTER@COLLAB.SAKAIPROJECT.ORG&gt;
+RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
+  BY FRANKENSTEIN.MAIL.UMICH.EDU (CYRUS V2.3.8) WITH LMTPA;
+  SAT, 05 JAN 2008 09:14:16 -0500
+</em></span></pre><p><span class="c006"><em>You can download the file from
+<span class="c001">www.py4inf.com/code/mbox-short.txt</span>
+</em></span></p></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;2</span>&#XA0;&#XA0;<em>
+Write a program 
+to prompt for a file name, and then read through the file 
+and look for lines of the form:</em></span><pre><span class="c004"><em>
+X-DSPAM-Confidence: <span class="c009"> 0.8475</span>
+</em></span></pre><p><span class="c006"><em>When you encounter a line that starts with 
+&#X201C;X-DSPAM-Confidence:&#X201D; pull apart the line to extract the
+floating-point number on the line. Count these lines and
+then compute the total of the spam confidence values from
+these lines. When you reach the end of the file, print out
+the average spam confidence.</em></span></p><pre class="verbatim"><span class="c004"><em>Enter the file name: mbox.txt
+Average spam confidence: 0.894128046745
+
+Enter the file name: mbox-short.txt
+Average spam confidence: 0.750718518519
+</em></span></pre><p><span class="c006"><em>Test your file on the <span class="c001">mbox.txt</span> and <span class="c001">mbox-short.txt</span> files.
+</em></span></p></div><div class="theorem"><span class="c006"><span class="c009">Exercise&#XA0;3</span>&#XA0;&#XA0;<em>
+Sometimes when programmers get bored or want to have a bit of fun,
+they add a harmless <span class="c009">Easter Egg</span> to their program 
+(<span class="c001">en.wikipedia.org/wiki/Easter_egg_(media)</span>). Modify the program
+that prompts the user for the file name so that it prints a funny
+message when the user types in the exact file name &#X201C;na na boo boo&#X201D;. 
+The program should behave normally for all other files which exist
+and don&#X2019;t exist. Here is a sample execution of the program:</em></span><pre class="verbatim"><span class="c004"><em>python egg.py 
+Enter the file name: mbox.txt
+There were 1797 subject lines in mbox.txt
+
+python egg.py 
+Enter the file name: missing.tyxt
+File cannot be opened: missing.tyxt
+
+python egg.py 
+Enter the file name: na na boo boo
+NA NA BOO BOO TO YOU - You have been punk'd!
+</em></span></pre><p><span class="c006"><em>We are not encouraging you to put Easter Eggs in your 
+programs&#X2014;this is just an exercise.</em></span></p></div><span class="c005">
+</span><hr />
+<a href="book007.html"><img src="previous_motif.gif" alt="Previous" /></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
+<a href="book009.html"><img src="next_motif.gif" alt="Next" /></a>
+</body>
+</html>
