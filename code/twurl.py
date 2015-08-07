@@ -23,3 +23,5 @@ def test_me() :
     print data
     headers = connection.info().dict
     print headers
+
+test_me()
