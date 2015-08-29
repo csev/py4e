@@ -1,0 +1,2708 @@
+1
+00:00:00,000 --> 00:00:01,120
+
+2
+00:00:01,120 --> 00:00:04,930
+Hello, and welcome back
+to our continuing episodes
+
+3
+00:00:04,930 --> 00:00:09,590
+of worked exercises for the
+book Python for Informatics
+
+4
+00:00:09,590 --> 00:00:11,450
+Exploring Information.
+
+5
+00:00:11,450 --> 00:00:15,440
+I'm your author and tour
+guide, Dr. Charles Severance.
+
+6
+00:00:15,440 --> 00:00:18,960
+As always, these materials
+are Copyright Creative Commons
+
+7
+00:00:18,960 --> 00:00:19,720
+Attribution.
+
+8
+00:00:19,720 --> 00:00:23,530
+I look forward to ways that
+you can improve on this work.
+
+9
+00:00:23,530 --> 00:00:27,450
+This material is a supplement
+to my www.pythonlearn.com,
+
+10
+00:00:27,450 --> 00:00:33,330
+which is my supporting website
+for Python for Informatics.
+
+11
+00:00:33,330 --> 00:00:36,180
+It has installation and
+other kinds of support
+
+12
+00:00:36,180 --> 00:00:37,860
+that can help you get started.
+
+13
+00:00:37,860 --> 00:00:40,000
+So for this particular
+exercise, it really
+
+14
+00:00:40,000 --> 00:00:42,360
+comes from our
+dictionaries example,
+
+15
+00:00:42,360 --> 00:00:47,800
+and we're going to try to
+figure out the most common word.
+
+16
+00:00:47,800 --> 00:00:49,550
+And in this one
+we're going to deal
+
+17
+00:00:49,550 --> 00:00:53,790
+with some really simple text
+files, where the words are just
+
+18
+00:00:53,790 --> 00:00:55,790
+words, and we're not going
+to worry about lines,
+
+19
+00:00:55,790 --> 00:00:57,380
+or skipping lines, or anything.
+
+20
+00:00:57,380 --> 00:01:03,090
+So we're just going to do words,
+and so we'll do this thing.
+
+21
+00:01:03,090 --> 00:01:07,210
+So if we look at
+this program, there's
+
+22
+00:01:07,210 --> 00:01:10,190
+really four basic
+parts to the program.
+
+23
+00:01:10,190 --> 00:01:13,610
+One is-- the first part-- is
+actually reading the program,
+
+24
+00:01:13,610 --> 00:01:16,540
+and this is a little different
+pattern than other things
+
+25
+00:01:16,540 --> 00:01:18,730
+that we've done.
+
+26
+00:01:18,730 --> 00:01:20,860
+And we're going to
+read the whole file.
+
+27
+00:01:20,860 --> 00:01:23,950
+And so this is-- instead
+of doing a for loop here,
+
+28
+00:01:23,950 --> 00:01:26,690
+we are going to read
+the entire file.
+
+29
+00:01:26,690 --> 00:01:30,270
+So we're going to ask the
+user for the file name,
+
+30
+00:01:30,270 --> 00:01:32,350
+and then open the
+file name to type in.
+
+31
+00:01:32,350 --> 00:01:35,420
+So here, we're asking
+the user for a file name.
+
+32
+00:01:35,420 --> 00:01:36,090
+Open the file.
+
+33
+00:01:36,090 --> 00:01:37,840
+But then we're going
+to do a handle.read.
+
+34
+00:01:37,840 --> 00:01:39,696
+Now if you recall,
+handle.read, normally we
+
+35
+00:01:39,696 --> 00:01:41,070
+would write a for
+loop that would
+
+36
+00:01:41,070 --> 00:01:44,872
+loop through each line, and
+strip, and split, and whatever.
+
+37
+00:01:44,872 --> 00:01:46,330
+What we're going
+to do here is say,
+
+38
+00:01:46,330 --> 00:01:47,470
+you don't read this whole thing.
+
+39
+00:01:47,470 --> 00:01:49,230
+We know that these
+files are pretty small.
+
+40
+00:01:49,230 --> 00:01:52,530
+Read the whole thing
+in into a string.
+
+41
+00:01:52,530 --> 00:01:54,330
+Now the key thing
+is that will read
+
+42
+00:01:54,330 --> 00:01:57,466
+all the lines in, and
+the new lines at end
+
+43
+00:01:57,466 --> 00:02:00,370
+of the-- at the line,
+there's a new line.
+
+44
+00:02:00,370 --> 00:02:03,420
+But all this will be
+read in, all the lines
+
+45
+00:02:03,420 --> 00:02:05,460
+and the new lines.
+
+46
+00:02:05,460 --> 00:02:08,590
+And the nice thing about this is
+the new lines form white space,
+
+47
+00:02:08,590 --> 00:02:10,860
+and so they will give
+a word break before
+
+48
+00:02:10,860 --> 00:02:13,501
+the-- between the last
+word on the one line,
+
+49
+00:02:13,501 --> 00:02:15,000
+and the first wore
+on the next line.
+
+50
+00:02:15,000 --> 00:02:17,125
+I'll talk about that a bit
+more When we're actually
+
+51
+00:02:17,125 --> 00:02:18,412
+looking at some stuff.
+
+52
+00:02:18,412 --> 00:02:19,870
+We're going to
+split it into words,
+
+53
+00:02:19,870 --> 00:02:22,220
+which means we're going to
+make a very long list, which
+
+54
+00:02:22,220 --> 00:02:25,170
+is all the words
+in the entire file,
+
+55
+00:02:25,170 --> 00:02:26,810
+not just the words
+on a line, which
+
+56
+00:02:26,810 --> 00:02:30,530
+is some of the other
+examples that we've used.
+
+57
+00:02:30,530 --> 00:02:32,460
+But again, we know
+these files that we're
+
+58
+00:02:32,460 --> 00:02:34,280
+playing with are
+relatively small,
+
+59
+00:02:34,280 --> 00:02:35,980
+and they fit in the
+memory of Python.
+
+60
+00:02:35,980 --> 00:02:37,450
+So we're just going
+to do a simple,
+
+61
+00:02:37,450 --> 00:02:40,900
+crude-- read the whole thing
+in as a string, split it
+
+62
+00:02:40,900 --> 00:02:43,670
+on white space,
+new lines included.
+
+63
+00:02:43,670 --> 00:02:46,250
+And now we're going to write
+a very simple dictionary
+
+64
+00:02:46,250 --> 00:02:48,705
+loop, that we're going
+to create dictionary,
+
+65
+00:02:48,705 --> 00:02:50,330
+and we're going to
+go through the word.
+
+66
+00:02:50,330 --> 00:02:53,650
+Now this word is our
+iteration variable, of course,
+
+67
+00:02:53,650 --> 00:02:57,620
+and words is all the words
+in all the lines of text.
+
+68
+00:02:57,620 --> 00:02:59,130
+We're going to use
+the get pattern.
+
+69
+00:02:59,130 --> 00:03:04,210
+So if the word exists,
+whatever word we're looking at,
+
+70
+00:03:04,210 --> 00:03:05,956
+we will get it and add 1 to it.
+
+71
+00:03:05,956 --> 00:03:08,080
+And if it doesn't, we'll
+just use the default value
+
+72
+00:03:08,080 --> 00:03:08,680
+and add 1.
+
+73
+00:03:08,680 --> 00:03:11,530
+So this is effectively the
+same as setting it to one
+
+74
+00:03:11,530 --> 00:03:14,160
+the first time we see a word.
+
+75
+00:03:14,160 --> 00:03:17,087
+Then I'm going to write
+a simple maximum list.
+
+76
+00:03:17,087 --> 00:03:18,670
+And so what we're
+going to do is we're
+
+77
+00:03:18,670 --> 00:03:21,470
+going to create a big
+word variable that we're
+
+78
+00:03:21,470 --> 00:03:24,240
+going to start as none, which
+is the word that is the largest,
+
+79
+00:03:24,240 --> 00:03:26,260
+and how many there are.
+
+80
+00:03:26,260 --> 00:03:28,570
+And then we're going to do
+a loop with two iteration
+
+81
+00:03:28,570 --> 00:03:29,130
+variables.
+
+82
+00:03:29,130 --> 00:03:31,740
+We're going to go through
+our-- our dictionary
+
+83
+00:03:31,740 --> 00:03:34,130
+will be word, comma, count.
+
+84
+00:03:34,130 --> 00:03:36,010
+The word will map to the count.
+
+85
+00:03:36,010 --> 00:03:38,370
+The word will be the key,
+count will be the value.
+
+86
+00:03:38,370 --> 00:03:43,290
+So we use counts.items to
+get that list of tuples back.
+
+87
+00:03:43,290 --> 00:03:45,940
+And basically, if we're on
+the first one, big count
+
+88
+00:03:45,940 --> 00:03:49,280
+being none, or if the count
+is greater than big count,
+
+89
+00:03:49,280 --> 00:03:51,257
+then we're going to
+remember the word
+
+90
+00:03:51,257 --> 00:03:52,840
+and we're going to
+remember the count.
+
+91
+00:03:52,840 --> 00:03:55,150
+And then this loop will
+go through all the words,
+
+92
+00:03:55,150 --> 00:03:57,920
+and at the end, we just print
+out big work and big out.
+
+93
+00:03:57,920 --> 00:04:04,706
+So that basically is the outline
+of what we're going to do.
+
+94
+00:04:04,706 --> 00:04:07,330
+And when we run it, we'll run it
+with a couple different files,
+
+95
+00:04:07,330 --> 00:04:08,329
+words.txt and clown.txt.
+
+96
+00:04:08,329 --> 00:04:10,690
+
+97
+00:04:10,690 --> 00:04:15,480
+OK, so I'm going to
+clear this and get out.
+
+98
+00:04:15,480 --> 00:04:19,480
+And so I'm just going to cheat
+and put a few of the lines in.
+
+99
+00:04:19,480 --> 00:04:23,120
+We'll actually write
+the whole thing.
+
+100
+00:04:23,120 --> 00:04:24,950
+So we can say
+goodbye to that now.
+
+101
+00:04:24,950 --> 00:04:27,520
+
+102
+00:04:27,520 --> 00:04:30,210
+So I'm going to
+get my data files,
+
+103
+00:04:30,210 --> 00:04:37,994
+and I will go to
+pythonlearn.com,
+
+104
+00:04:37,994 --> 00:04:39,300
+go under the book.
+
+105
+00:04:39,300 --> 00:04:43,413
+
+106
+00:04:43,413 --> 00:04:46,470
+The code samples, actually
+is just files, mostly.
+
+107
+00:04:46,470 --> 00:04:48,500
+Maybe I shouldn't call it code.
+
+108
+00:04:48,500 --> 00:04:50,460
+And I'm going to
+grab the clown file.
+
+109
+00:04:50,460 --> 00:04:53,830
+So the clown file is going
+to be from the lecture,
+
+110
+00:04:53,830 --> 00:04:55,475
+the cloud ran after a car.
+
+111
+00:04:55,475 --> 00:04:58,530
+I'm going to save this file.
+
+112
+00:04:58,530 --> 00:05:02,080
+I'm going to put it in my
+folder called dictionaries.
+
+113
+00:05:02,080 --> 00:05:04,070
+And then I'll hit
+back, and I'll go down
+
+114
+00:05:04,070 --> 00:05:08,160
+to the file called words.txt.
+
+115
+00:05:08,160 --> 00:05:16,080
+And this is the first three
+paragraphs of the book.
+
+116
+00:05:16,080 --> 00:05:18,440
+And we're going to count
+the most common word there,
+
+117
+00:05:18,440 --> 00:05:23,440
+and I'll do a File, Save As,
+and put words there right
+
+118
+00:05:23,440 --> 00:05:25,412
+in the dictionaries folder.
+
+119
+00:05:25,412 --> 00:05:27,720
+So now I've got my data.
+
+120
+00:05:27,720 --> 00:05:29,630
+And I can get rid of this.
+
+121
+00:05:29,630 --> 00:05:34,290
+And so if I take a look
+at my dictionaries folder,
+
+122
+00:05:34,290 --> 00:05:36,950
+I see that I've got
+clown.txt and words.txt.
+
+123
+00:05:36,950 --> 00:05:40,280
+And so now I'm going
+to say, I'll save this.
+
+124
+00:05:40,280 --> 00:05:43,460
+
+125
+00:05:43,460 --> 00:05:55,602
+And I'll call this
+thing common word.
+
+126
+00:05:55,602 --> 00:05:57,367
+I'll call it common.py.
+
+127
+00:05:57,367 --> 00:05:57,950
+What the heck?
+
+128
+00:05:57,950 --> 00:06:00,580
+Keep these things short.
+
+129
+00:06:00,580 --> 00:06:03,720
+So if I take a look in
+here now, I've got-- oops,
+
+130
+00:06:03,720 --> 00:06:06,100
+I saved it to the wrong place.
+
+131
+00:06:06,100 --> 00:06:08,670
+File, come back.
+
+132
+00:06:08,670 --> 00:06:09,647
+File, Save As.
+
+133
+00:06:09,647 --> 00:06:10,480
+Where did I save it?
+
+134
+00:06:10,480 --> 00:06:12,470
+I have no idea where I saved it.
+
+135
+00:06:12,470 --> 00:06:15,350
+But I will save where
+it's supposed to be.
+
+136
+00:06:15,350 --> 00:06:17,260
+It's supposed to
+be in dictionaries,
+
+137
+00:06:17,260 --> 00:06:19,530
+and we'll call it common.py.
+
+138
+00:06:19,530 --> 00:06:21,620
+That's why I always
+check, right?
+
+139
+00:06:21,620 --> 00:06:23,970
+There it is, common.py.
+
+140
+00:06:23,970 --> 00:06:25,930
+And now I'm going
+to go into that,
+
+141
+00:06:25,930 --> 00:06:30,500
+go into my Desktop,
+dictionaries,
+
+142
+00:06:30,500 --> 00:06:34,240
+and there I've got
+common.py and words.txt,
+
+143
+00:06:34,240 --> 00:06:35,586
+and we'll just run it.
+
+144
+00:06:35,586 --> 00:06:38,330
+
+145
+00:06:38,330 --> 00:06:40,145
+And I'll tell it
+to do clown.txt.
+
+146
+00:06:40,145 --> 00:06:43,270
+
+147
+00:06:43,270 --> 00:06:44,770
+Now it didn't do
+anything, because I
+
+148
+00:06:44,770 --> 00:06:45,978
+haven't printed anything out.
+
+149
+00:06:45,978 --> 00:06:47,580
+It actually did read it.
+
+150
+00:06:47,580 --> 00:06:54,140
+So let's take a look here.
+
+151
+00:06:54,140 --> 00:06:57,175
+I'm going to print len of text.
+
+152
+00:06:57,175 --> 00:06:59,760
+
+153
+00:06:59,760 --> 00:07:05,740
+And I'm going to print
+the first 40 characters.
+
+154
+00:07:05,740 --> 00:07:07,720
+text up to but not including 40.
+
+155
+00:07:07,720 --> 00:07:10,130
+So that's what I'm going to
+do here, just to see this.
+
+156
+00:07:10,130 --> 00:07:13,910
+
+157
+00:07:13,910 --> 00:07:17,380
+And I'll do clown again.
+
+158
+00:07:17,380 --> 00:07:22,230
+So the length of text
+is 106 characters,
+
+159
+00:07:22,230 --> 00:07:25,082
+and that is exactly
+the size of the file.
+
+160
+00:07:25,082 --> 00:07:26,040
+It read the whole file.
+
+161
+00:07:26,040 --> 00:07:30,270
+If I do ls minus l,
+it shows clown.txt
+
+162
+00:07:30,270 --> 00:07:32,430
+having 106 characters.
+
+163
+00:07:32,430 --> 00:07:40,730
+So it read into-- handle.read
+read into the variable text 106
+
+164
+00:07:40,730 --> 00:07:44,130
+characters, and the first
+40 are just those things,
+
+165
+00:07:44,130 --> 00:07:46,560
+the clown ran after the
+car, blah, blah, blah.
+
+166
+00:07:46,560 --> 00:07:47,530
+OK?
+
+167
+00:07:47,530 --> 00:07:54,790
+So now this entire file,
+clown.txt, has been split.
+
+168
+00:07:54,790 --> 00:07:56,890
+So I'm going to
+print len of words.
+
+169
+00:07:56,890 --> 00:07:59,067
+So how many words did
+I get in that split?
+
+170
+00:07:59,067 --> 00:08:00,775
+And then I'll print
+the words themselves.
+
+171
+00:08:00,775 --> 00:08:06,350
+
+172
+00:08:06,350 --> 00:08:06,850
+Oops.
+
+173
+00:08:06,850 --> 00:08:10,040
+
+174
+00:08:10,040 --> 00:08:12,890
+clown.txt.
+
+175
+00:08:12,890 --> 00:08:17,980
+So I a read in 106 characters,
+but then I broke it into words,
+
+176
+00:08:17,980 --> 00:08:19,560
+and there's 24 words.
+
+177
+00:08:19,560 --> 00:08:22,620
+And then here is
+my list of words.
+
+178
+00:08:22,620 --> 00:08:23,400
+OK?
+
+179
+00:08:23,400 --> 00:08:27,480
+So I split the entire file
+into words at this point,
+
+180
+00:08:27,480 --> 00:08:29,630
+and now I have a big list.
+
+181
+00:08:29,630 --> 00:08:39,789
+Now if I do the same
+thing with words.txt,
+
+182
+00:08:39,789 --> 00:08:43,750
+it read 1,170 characters, and
+here's the first characters,
+
+183
+00:08:43,750 --> 00:08:46,170
+and then it broke it into
+words, and it was 210 words.
+
+184
+00:08:46,170 --> 00:08:51,520
+Now let me change
+this ever so slightly,
+
+185
+00:08:51,520 --> 00:08:55,430
+so it prints the
+first 100 characters.
+
+186
+00:08:55,430 --> 00:08:56,596
+And I'll show you something.
+
+187
+00:08:56,596 --> 00:09:00,166
+
+188
+00:09:00,166 --> 00:09:00,665
+words.txt.
+
+189
+00:09:00,665 --> 00:09:04,840
+
+190
+00:09:04,840 --> 00:09:08,300
+So it printed the
+first 100 characters.
+
+191
+00:09:08,300 --> 00:09:10,250
+Let me split this
+into print statements
+
+192
+00:09:10,250 --> 00:09:13,380
+to make it even clearer.
+
+193
+00:09:13,380 --> 00:09:23,025
+We run again, words.txt.
+
+194
+00:09:23,025 --> 00:09:26,460
+
+195
+00:09:26,460 --> 00:09:28,450
+I clear my screen.
+
+196
+00:09:28,450 --> 00:09:34,580
+So the first print, this
+print right here, is 1,170.
+
+197
+00:09:34,580 --> 00:09:36,880
+And then I print the
+first 100 characters.
+
+198
+00:09:36,880 --> 00:09:39,220
+This is that first
+100 characters.
+
+199
+00:09:39,220 --> 00:09:41,130
+What you're sort
+of not seeing here
+
+200
+00:09:41,130 --> 00:09:43,220
+is there's a new line here.
+
+201
+00:09:43,220 --> 00:09:44,180
+OK?
+
+202
+00:09:44,180 --> 00:09:46,240
+And that's why it
+prints on two lines.
+
+203
+00:09:46,240 --> 00:09:47,990
+So blah, blah, blah,
+blah, blah, new line.
+
+204
+00:09:47,990 --> 00:09:48,920
+It read new lines in all.
+
+205
+00:09:48,920 --> 00:09:50,795
+Now it didn't do the
+second one, because that
+
+206
+00:09:50,795 --> 00:09:52,640
+was where my print stopped.
+
+207
+00:09:52,640 --> 00:09:56,610
+The key thing is, it knows
+that when split works,
+
+208
+00:09:56,610 --> 00:09:59,380
+this is white space, that
+space is white space,
+
+209
+00:09:59,380 --> 00:10:01,530
+and the /n is white space.
+
+210
+00:10:01,530 --> 00:10:05,660
+So it knows that creative and
+and are two separate words,
+
+211
+00:10:05,660 --> 00:10:07,660
+and it doesn't somehow
+put them together.
+
+212
+00:10:07,660 --> 00:10:09,480
+So that's the nice
+thing about the split
+
+213
+00:10:09,480 --> 00:10:13,160
+with no parameter doing what
+it knows to be white space.
+
+214
+00:10:13,160 --> 00:10:15,800
+It will use new lines
+as white space, as well.
+
+215
+00:10:15,800 --> 00:10:17,210
+And that's quite nice.
+
+216
+00:10:17,210 --> 00:10:20,650
+And if there's extra spaces,
+it just throws those away.
+
+217
+00:10:20,650 --> 00:10:22,930
+All of the features of sort
+of split with no parameter
+
+218
+00:10:22,930 --> 00:10:25,180
+are very intelligent
+and very clever.
+
+219
+00:10:25,180 --> 00:10:28,120
+And so it works very
+nicely in this situation,
+
+220
+00:10:28,120 --> 00:10:30,132
+because new lines are
+thought of as white space,
+
+221
+00:10:30,132 --> 00:10:31,840
+and blanks are thought
+of as white space.
+
+222
+00:10:31,840 --> 00:10:34,560
+And it really is exactly
+what you would want.
+
+223
+00:10:34,560 --> 00:10:36,250
+I mean it's exactly
+what you want.
+
+224
+00:10:36,250 --> 00:10:38,200
+I mean that's because
+humans wrote this stuff,
+
+225
+00:10:38,200 --> 00:10:39,820
+and they thought,
+what would I want?
+
+226
+00:10:39,820 --> 00:10:42,890
+So they wrote something
+that's what you want.
+
+227
+00:10:42,890 --> 00:10:48,950
+So now we have, in effect,
+a whole file and a list
+
+228
+00:10:48,950 --> 00:10:51,330
+of all the words in that file.
+
+229
+00:10:51,330 --> 00:10:52,300
+OK?
+
+230
+00:10:52,300 --> 00:10:56,260
+So I'm going to take
+all this stuff out.
+
+231
+00:10:56,260 --> 00:10:59,530
+I'm going to take
+all this stuff out.
+
+232
+00:10:59,530 --> 00:11:02,020
+So now words is a list.
+
+233
+00:11:02,020 --> 00:11:09,932
+And I'm going to say
+for wrd in words.
+
+234
+00:11:09,932 --> 00:11:12,390
+I'm using word on purpose.
+
+235
+00:11:12,390 --> 00:11:15,630
+Print wrd, right?
+
+236
+00:11:15,630 --> 00:11:18,750
+So that's a slightly
+less mnemonic word.
+
+237
+00:11:18,750 --> 00:11:22,180
+So I'll go back
+to the clown.txt.
+
+238
+00:11:22,180 --> 00:11:24,320
+And now I'm going to
+print out the words.
+
+239
+00:11:24,320 --> 00:11:27,740
+So now my loop is going
+through the list one at a time
+
+240
+00:11:27,740 --> 00:11:30,190
+and printing them out.
+
+241
+00:11:30,190 --> 00:11:31,410
+OK?
+
+242
+00:11:31,410 --> 00:11:34,265
+So I am now going to
+make a dictionary.
+
+243
+00:11:34,265 --> 00:11:36,780
+
+244
+00:11:36,780 --> 00:11:47,590
+I'm going to call this cou=dict
+to make an empty dictionary.
+
+245
+00:11:47,590 --> 00:11:51,360
+So cou is a really
+un-mnemonic version of counts.
+
+246
+00:11:51,360 --> 00:11:53,240
+So we'll call him cou.
+
+247
+00:11:53,240 --> 00:11:54,340
+OK?
+
+248
+00:11:54,340 --> 00:11:56,060
+So cou is our dictionary.
+
+249
+00:11:56,060 --> 00:11:58,450
+And I'm going to do
+this the hard way first.
+
+250
+00:11:58,450 --> 00:12:09,930
+I'm going to say if wrd-- word
+up-- in cou, then cou sub wrd
+
+251
+00:12:09,930 --> 00:12:15,570
+is equal to cou sub wrd plus 1.
+
+252
+00:12:15,570 --> 00:12:17,580
+So if it's already
+there, we're going
+
+253
+00:12:17,580 --> 00:12:21,640
+to add 1 to whatever is stored
+in the thing marked with wrd.
+
+254
+00:12:21,640 --> 00:12:26,730
+Now wrd is not wrd, it's the
+and on and down, and whatever.
+
+255
+00:12:26,730 --> 00:12:30,660
+wrd is a variable that
+contains these strings.
+
+256
+00:12:30,660 --> 00:12:32,890
+OK?
+
+257
+00:12:32,890 --> 00:12:40,205
+But if it's not in there, else
+cou sub wrd is equal to 1.
+
+258
+00:12:40,205 --> 00:12:42,540
+So that's like when
+we've seen the new person
+
+259
+00:12:42,540 --> 00:12:45,870
+for the first time, we say,
+oh, we haven't seen you before,
+
+260
+00:12:45,870 --> 00:12:49,200
+so we're going to set you to 1.
+
+261
+00:12:49,200 --> 00:12:51,020
+OK?
+
+262
+00:12:51,020 --> 00:12:52,810
+And then I'm going
+to-- just for yucks,
+
+263
+00:12:52,810 --> 00:13:00,050
+I'm going to print
+wrd, comma, cou of wrd.
+
+264
+00:13:00,050 --> 00:13:02,230
+So I'm going to-- as
+we go through the loop,
+
+265
+00:13:02,230 --> 00:13:06,380
+for each word we're going
+to do this add or set to 1.
+
+266
+00:13:06,380 --> 00:13:08,760
+And then we'll just print
+it at the end of the loop,
+
+267
+00:13:08,760 --> 00:13:10,820
+how many we've got so far.
+
+268
+00:13:10,820 --> 00:13:12,611
+So let's run this now.
+
+269
+00:13:12,611 --> 00:13:13,110
+clown.txt.
+
+270
+00:13:13,110 --> 00:13:17,990
+
+271
+00:13:17,990 --> 00:13:21,340
+That didn't work so well,
+because I didn't save it.
+
+272
+00:13:21,340 --> 00:13:24,810
+So let's try that again.
+
+273
+00:13:24,810 --> 00:13:27,290
+Let me clear my
+screen I like Macs
+
+274
+00:13:27,290 --> 00:13:29,660
+because I can clear
+my screen so nicely.
+
+275
+00:13:29,660 --> 00:13:33,920
+It keeps my brain organized.
+
+276
+00:13:33,920 --> 00:13:38,600
+So what we see here is we saw
+the word the, and we put it
+
+277
+00:13:38,600 --> 00:13:43,260
+in the dictionary with 1.
+clown 1, ran 1, after 1.
+
+278
+00:13:43,260 --> 00:13:47,447
+Now we've seen the-- Ooh,
+ooh, let's make another thing
+
+279
+00:13:47,447 --> 00:13:48,530
+to make this even clearer.
+
+280
+00:13:48,530 --> 00:13:49,030
+Hang on.
+
+281
+00:13:49,030 --> 00:13:52,410
+
+282
+00:13:52,410 --> 00:13:59,550
+print, adding, print, New Word.
+
+283
+00:13:59,550 --> 00:14:06,040
+
+284
+00:14:06,040 --> 00:14:10,280
+Good thing I-- actually, I'm
+going to call this Word up.
+
+285
+00:14:10,280 --> 00:14:13,490
+So when I'm incrementing,
+I'm going to say Word up,
+
+286
+00:14:13,490 --> 00:14:16,170
+and then I'm going to say new
+word when I'm creating it.
+
+287
+00:14:16,170 --> 00:14:17,950
+So I just added a
+print in each of these,
+
+288
+00:14:17,950 --> 00:14:20,420
+just to really clarify
+what's going on, right?
+
+289
+00:14:20,420 --> 00:14:23,410
+Word up, that means
+I'm incrementing it.
+
+290
+00:14:23,410 --> 00:14:25,365
+I'm adding 1 to it,
+that's what Word up means.
+
+291
+00:14:25,365 --> 00:14:29,300
+
+292
+00:14:29,300 --> 00:14:31,970
+clown.txt.
+
+293
+00:14:31,970 --> 00:14:33,730
+So here we go.
+
+294
+00:14:33,730 --> 00:14:39,330
+So let's make this even cooler.
+
+295
+00:14:39,330 --> 00:14:44,260
+Word up, comma, wrd.
+
+296
+00:14:44,260 --> 00:14:46,095
+And now I can say, comma, wrd.
+
+297
+00:14:46,095 --> 00:14:56,870
+
+298
+00:14:56,870 --> 00:15:01,590
+So it saw the, did a new
+word, its count is 1.
+
+299
+00:15:01,590 --> 00:15:09,240
+It saw clown and it's
+new, so it got a 1.
+
+300
+00:15:09,240 --> 00:15:09,910
+It saw ran.
+
+301
+00:15:09,910 --> 00:15:10,890
+Ran's a 1.
+
+302
+00:15:10,890 --> 00:15:12,150
+After's a 1.
+
+303
+00:15:12,150 --> 00:15:14,050
+Ooh, now the.
+
+304
+00:15:14,050 --> 00:15:15,880
+The is a Word up.
+
+305
+00:15:15,880 --> 00:15:16,970
+So we add 1 to it.
+
+306
+00:15:16,970 --> 00:15:19,700
+So it's now a 2, right?
+
+307
+00:15:19,700 --> 00:15:20,760
+Car's brand new.
+
+308
+00:15:20,760 --> 00:15:21,960
+And is new.
+
+309
+00:15:21,960 --> 00:15:25,060
+We see the again, so
+now the goes to 3.
+
+310
+00:15:25,060 --> 00:15:27,440
+So you're incrementing
+when I say Word up,
+
+311
+00:15:27,440 --> 00:15:29,575
+and you're setting to
+one when I say New Word.
+
+312
+00:15:29,575 --> 00:15:33,420
+
+313
+00:15:33,420 --> 00:15:34,562
+Yeah.
+
+314
+00:15:34,562 --> 00:15:35,520
+So you get the picture.
+
+315
+00:15:35,520 --> 00:15:37,700
+So by now we've seen
+the a bunch of times.
+
+316
+00:15:37,700 --> 00:15:41,380
+We're adding 1 to
+the, and it's now 5.
+
+317
+00:15:41,380 --> 00:15:47,020
+So at the end of this
+we're going to present cou.
+
+318
+00:15:47,020 --> 00:15:50,494
+
+319
+00:15:50,494 --> 00:15:51,660
+I'm going to do this cooler.
+
+320
+00:15:51,660 --> 00:15:59,670
+
+321
+00:15:59,670 --> 00:16:01,700
+Watch this.
+
+322
+00:16:01,700 --> 00:16:07,550
+wrd, comma-- now I'm actually
+going to put the count on here,
+
+323
+00:16:07,550 --> 00:16:08,840
+cou wrd.
+
+324
+00:16:08,840 --> 00:16:11,370
+
+325
+00:16:11,370 --> 00:16:13,850
+And I'm going to put it
+after I set the count, so it
+
+326
+00:16:13,850 --> 00:16:15,320
+looks a little prettier.
+
+327
+00:16:15,320 --> 00:16:16,190
+Check this out.
+
+328
+00:16:16,190 --> 00:16:18,610
+It's going to be awesome.
+
+329
+00:16:18,610 --> 00:16:19,334
+Word up.
+
+330
+00:16:19,334 --> 00:16:23,396
+
+331
+00:16:23,396 --> 00:16:25,520
+And then I'm going to change
+this to just see Word.
+
+332
+00:16:25,520 --> 00:16:28,984
+
+333
+00:16:28,984 --> 00:16:31,400
+And now I've got the print
+inside [? my ?] if, then, else.
+
+334
+00:16:31,400 --> 00:16:34,760
+
+335
+00:16:34,760 --> 00:16:37,080
+I'm going to say cou, sub word.
+
+336
+00:16:37,080 --> 00:16:39,610
+
+337
+00:16:39,610 --> 00:16:42,260
+It's OK to make your debug
+output a little bit fun.
+
+338
+00:16:42,260 --> 00:16:43,810
+So now, here we go.
+
+339
+00:16:43,810 --> 00:16:45,730
+So I moved my print
+into the if, then, else,
+
+340
+00:16:45,730 --> 00:16:48,390
+and I print the word,
+whether I'm increasing it
+
+341
+00:16:48,390 --> 00:16:50,860
+or not, and then
+how many it's after.
+
+342
+00:16:50,860 --> 00:16:55,531
+And I do this after this line,
+so it's the word afterwards.
+
+343
+00:16:55,531 --> 00:16:57,280
+And then I print the
+whole dictionary out.
+
+344
+00:16:57,280 --> 00:16:58,821
+So this is going to
+be even awesomer.
+
+345
+00:16:58,821 --> 00:17:05,069
+
+346
+00:17:05,069 --> 00:17:07,579
+The, Word.
+
+347
+00:17:07,579 --> 00:17:08,849
+The count is 1.
+
+348
+00:17:08,849 --> 00:17:11,794
+Clown, first word.
+
+349
+00:17:11,794 --> 00:17:13,240
+Word, Word, Word.
+
+350
+00:17:13,240 --> 00:17:16,720
+Now, here we saw the,
+and we did Word up.
+
+351
+00:17:16,720 --> 00:17:18,000
+So now it's 2.
+
+352
+00:17:18,000 --> 00:17:19,810
+Car, word is 1.
+
+353
+00:17:19,810 --> 00:17:22,450
+The, Word up, now 3.
+
+354
+00:17:22,450 --> 00:17:23,460
+You get the picture?
+
+355
+00:17:23,460 --> 00:17:27,790
+So every time we hit this
+if part, we do Word up.
+
+356
+00:17:27,790 --> 00:17:30,560
+If we hit the else
+part, we do Word.
+
+357
+00:17:30,560 --> 00:17:32,860
+OK?
+
+358
+00:17:32,860 --> 00:17:36,220
+And at the end we have all
+the words that have been upped
+
+359
+00:17:36,220 --> 00:17:38,110
+and added, et cetera.
+
+360
+00:17:38,110 --> 00:17:39,500
+OK?
+
+361
+00:17:39,500 --> 00:17:42,230
+So enough of this
+debugging print.
+
+362
+00:17:42,230 --> 00:17:43,560
+We don't need that.
+
+363
+00:17:43,560 --> 00:17:44,780
+We don't need that.
+
+364
+00:17:44,780 --> 00:17:47,450
+It was just fun.
+
+365
+00:17:47,450 --> 00:17:49,635
+But just let's make sure
+that it still works.
+
+366
+00:17:49,635 --> 00:17:52,610
+
+367
+00:17:52,610 --> 00:17:54,270
+It does.
+
+368
+00:17:54,270 --> 00:18:00,480
+Now, after all that, we are
+going to say, you know what?
+
+369
+00:18:00,480 --> 00:18:02,530
+We don't actually
+need any of this crap.
+
+370
+00:18:02,530 --> 00:18:05,940
+Because there is an
+idiom that basically
+
+371
+00:18:05,940 --> 00:18:11,280
+deals with the fact that,
+instead of a lookup-- so let's
+
+372
+00:18:11,280 --> 00:18:12,500
+run this one real quick.
+
+373
+00:18:12,500 --> 00:18:13,000
+Right?
+
+374
+00:18:13,000 --> 00:18:15,320
+It's like, hey, I want
+to just add 1 to it.
+
+375
+00:18:15,320 --> 00:18:20,710
+And we will watch just
+how fast this blows up.
+
+376
+00:18:20,710 --> 00:18:22,790
+And that's because
+the-- see, we're
+
+377
+00:18:22,790 --> 00:18:25,650
+doing count word equal
+count word plus 1.
+
+378
+00:18:25,650 --> 00:18:27,800
+It's this count
+on the left side.
+
+379
+00:18:27,800 --> 00:18:29,250
+It's blowing up.
+
+380
+00:18:29,250 --> 00:18:29,930
+Right?
+
+381
+00:18:29,930 --> 00:18:33,440
+It's blowing up right here,
+because the is not yet there.
+
+382
+00:18:33,440 --> 00:18:37,070
+Well, that is why they
+made the get function.
+
+383
+00:18:37,070 --> 00:18:39,140
+So it has this cool get.
+
+384
+00:18:39,140 --> 00:18:42,150
+Now that's a method, so we're
+going to use parentheses.
+
+385
+00:18:42,150 --> 00:18:44,200
+And we have to give
+it a default value.
+
+386
+00:18:44,200 --> 00:18:47,260
+Get says look up word--
+whatever's in word,
+
+387
+00:18:47,260 --> 00:18:50,140
+the, clown, whatever--
+and if it's not there,
+
+388
+00:18:50,140 --> 00:18:51,090
+give me back a number.
+
+389
+00:18:51,090 --> 00:18:53,470
+Well, we want to set
+it to 1 the first time.
+
+390
+00:18:53,470 --> 00:18:56,680
+So if I return the number
+0, then adding 1 to it
+
+391
+00:18:56,680 --> 00:18:58,030
+will make it be 1.
+
+392
+00:18:58,030 --> 00:18:59,890
+And so I can capture
+all of that if,
+
+393
+00:18:59,890 --> 00:19:03,056
+then, else in one statement now.
+
+394
+00:19:03,056 --> 00:19:03,556
+Clown.txt.
+
+395
+00:19:03,556 --> 00:19:07,830
+
+396
+00:19:07,830 --> 00:19:09,070
+Word up.
+
+397
+00:19:09,070 --> 00:19:09,990
+OK?
+
+398
+00:19:09,990 --> 00:19:13,380
+So we use the get
+to do the lookup.
+
+399
+00:19:13,380 --> 00:19:15,880
+It encapsulates that if,
+then, else that we just
+
+400
+00:19:15,880 --> 00:19:17,340
+got done rewriting.
+
+401
+00:19:17,340 --> 00:19:21,560
+It is the, if this exists,
+else, give me back a 0.
+
+402
+00:19:21,560 --> 00:19:22,340
+OK?
+
+403
+00:19:22,340 --> 00:19:22,930
+So here we go.
+
+404
+00:19:22,930 --> 00:19:25,370
+We've got ourselves a
+nice little happy guy.
+
+405
+00:19:25,370 --> 00:19:26,540
+Right?
+
+406
+00:19:26,540 --> 00:19:28,760
+So now we want to
+find the biggest one.
+
+407
+00:19:28,760 --> 00:19:32,000
+Well, we're going to
+do a maximum loop.
+
+408
+00:19:32,000 --> 00:19:37,470
+And so let's start by
+this, in saying lrg=None.
+
+409
+00:19:37,470 --> 00:19:40,210
+
+410
+00:19:40,210 --> 00:19:41,940
+We're going to use
+the None pattern.
+
+411
+00:19:41,940 --> 00:19:43,770
+And so now what
+I'm going to do is
+
+412
+00:19:43,770 --> 00:19:47,706
+I'm going to write a for
+loop that goes through.
+
+413
+00:19:47,706 --> 00:19:49,330
+Well let's not--
+let's get rid of that.
+
+414
+00:19:49,330 --> 00:19:50,690
+We'll come back to that.
+
+415
+00:19:50,690 --> 00:19:55,030
+We're going to do kyy.
+
+416
+00:19:55,030 --> 00:19:56,380
+Maybe not.
+
+417
+00:19:56,380 --> 00:20:05,820
+We might do kee and
+val in cou.items.
+
+418
+00:20:05,820 --> 00:20:09,489
+
+419
+00:20:09,489 --> 00:20:11,030
+So I'm going to go
+through the items.
+
+420
+00:20:11,030 --> 00:20:14,820
+Remember that-- OK let's just
+do cou-- let's print cou.items
+
+421
+00:20:14,820 --> 00:20:16,870
+here for [? yuckomatic. ?]
+
+422
+00:20:16,870 --> 00:20:20,170
+
+423
+00:20:20,170 --> 00:20:22,810
+Let me comment this
+out for a second.
+
+424
+00:20:22,810 --> 00:20:24,380
+Ah, don't do that.
+
+425
+00:20:24,380 --> 00:20:25,010
+There we go.
+
+426
+00:20:25,010 --> 00:20:26,990
+So let's run this one now.
+
+427
+00:20:26,990 --> 00:20:27,490
+clown.txt.
+
+428
+00:20:27,490 --> 00:20:30,830
+
+429
+00:20:30,830 --> 00:20:33,410
+So now we're printing
+a list of tuples.
+
+430
+00:20:33,410 --> 00:20:35,530
+So each one is a tuple.
+
+431
+00:20:35,530 --> 00:20:40,900
+And the way-- we can
+then write this for loop
+
+432
+00:20:40,900 --> 00:20:42,390
+to get this cou item.
+
+433
+00:20:42,390 --> 00:20:44,320
+So this whole thing
+here is cou items.
+
+434
+00:20:44,320 --> 00:20:46,370
+It's a list of tuples.
+
+435
+00:20:46,370 --> 00:20:52,410
+And we can basically make it
+so that the kee and the val
+
+436
+00:20:52,410 --> 00:20:55,240
+move through the list
+of items, where kee is
+
+437
+00:20:55,240 --> 00:20:59,580
+and, val is 3, then next
+iteration, kee is on, val is 1.
+
+438
+00:20:59,580 --> 00:21:02,400
+Next iteration, kee
+is ran, val is 2.
+
+439
+00:21:02,400 --> 00:21:04,020
+Dot, dot, dot, dot.
+
+440
+00:21:04,020 --> 00:21:04,890
+OK?
+
+441
+00:21:04,890 --> 00:21:05,840
+And so that's cool.
+
+442
+00:21:05,840 --> 00:21:09,640
+I mean it says,
+this cou items is
+
+443
+00:21:09,640 --> 00:21:13,770
+a list of two tuples,
+tuples with two items in it,
+
+444
+00:21:13,770 --> 00:21:14,890
+two things in it.
+
+445
+00:21:14,890 --> 00:21:19,470
+And we're going to give
+ourselves two iteration values.
+
+446
+00:21:19,470 --> 00:21:22,150
+So just for [? yuckomatic, ?]
+we're just going to first,
+
+447
+00:21:22,150 --> 00:21:27,760
+as we would, print out kee
+and val, and then run that.
+
+448
+00:21:27,760 --> 00:21:32,410
+
+449
+00:21:32,410 --> 00:21:33,950
+So here we go.
+
+450
+00:21:33,950 --> 00:21:38,960
+We've got kee and val,
+kee and val, kee and val.
+
+451
+00:21:38,960 --> 00:21:40,470
+And it's in whatever
+order it feels
+
+452
+00:21:40,470 --> 00:21:42,790
+like having this come out in.
+
+453
+00:21:42,790 --> 00:21:43,740
+OK?
+
+454
+00:21:43,740 --> 00:21:46,106
+So then what I'm
+going to do is I'm
+
+455
+00:21:46,106 --> 00:21:49,240
+going to create a
+variable called maxval.
+
+456
+00:21:49,240 --> 00:21:53,230
+
+457
+00:21:53,230 --> 00:21:55,510
+I'm going to set it to None.
+
+458
+00:21:55,510 --> 00:22:06,690
+And I will say, if
+maxval is equal to None,
+
+459
+00:22:06,690 --> 00:22:12,930
+maxval maxval=val.
+
+460
+00:22:12,930 --> 00:22:15,850
+Now, I'm using this--
+don't get too crazy.
+
+461
+00:22:15,850 --> 00:22:20,160
+I am using the contraction
+form of if here.
+
+462
+00:22:20,160 --> 00:22:21,200
+So I'm not indenting.
+
+463
+00:22:21,200 --> 00:22:22,450
+I'm just putting the one line.
+
+464
+00:22:22,450 --> 00:22:25,770
+Because if maxval is None,
+maxval is the current value.
+
+465
+00:22:25,770 --> 00:22:32,050
+And then I'm going to say
+if maxval is less than val--
+
+466
+00:22:32,050 --> 00:22:34,770
+and again, I'm
+doing this in order.
+
+467
+00:22:34,770 --> 00:22:36,780
+I'm doing the check
+for None first.
+
+468
+00:22:36,780 --> 00:22:38,740
+But once I've got
+it, maxval=val.
+
+469
+00:22:38,740 --> 00:22:42,970
+
+470
+00:22:42,970 --> 00:22:43,710
+OK?
+
+471
+00:22:43,710 --> 00:22:46,220
+So this is, in a
+sense, my priming.
+
+472
+00:22:46,220 --> 00:22:47,790
+We call the sort
+of a priming thing.
+
+473
+00:22:47,790 --> 00:22:49,331
+So first time through
+the loop, we're
+
+474
+00:22:49,331 --> 00:22:51,710
+going to grab the first
+value that we see.
+
+475
+00:22:51,710 --> 00:22:56,107
+And then we're going
+to print maxval.
+
+476
+00:22:56,107 --> 00:22:58,440
+We're going to check to see
+if we're going up basically.
+
+477
+00:22:58,440 --> 00:23:00,856
+If the current maximum is less
+than what we're looking at,
+
+478
+00:23:00,856 --> 00:23:01,660
+let's grab it.
+
+479
+00:23:01,660 --> 00:23:06,335
+And I'll just print out
+maxval here, just for yucks.
+
+480
+00:23:06,335 --> 00:23:06,835
+OK?
+
+481
+00:23:06,835 --> 00:23:10,020
+
+482
+00:23:10,020 --> 00:23:10,520
+clown.txt.
+
+483
+00:23:10,520 --> 00:23:13,240
+
+484
+00:23:13,240 --> 00:23:15,450
+So we see and.
+
+485
+00:23:15,450 --> 00:23:21,050
+And the first maxval is 3, which
+kind of makes the thing boring.
+
+486
+00:23:21,050 --> 00:23:24,110
+On is only 1, which
+is not-- so ran is 2.
+
+487
+00:23:24,110 --> 00:23:25,660
+Nobody seems to
+be better than 3.
+
+488
+00:23:25,660 --> 00:23:26,930
+Down is 1.
+
+489
+00:23:26,930 --> 00:23:27,930
+Fell is 1.
+
+490
+00:23:27,930 --> 00:23:31,290
+The, ooh, the is
+7, so we grab it.
+
+491
+00:23:31,290 --> 00:23:32,250
+Tent is 2.
+
+492
+00:23:32,250 --> 00:23:33,890
+So then we're all done.
+
+493
+00:23:33,890 --> 00:23:35,340
+OK?
+
+494
+00:23:35,340 --> 00:23:38,520
+So then I'll just print out
+at the end, print out maxval.
+
+495
+00:23:38,520 --> 00:23:41,790
+
+496
+00:23:41,790 --> 00:23:47,740
+So if I do this and
+type clown.txt cou,
+
+497
+00:23:47,740 --> 00:23:50,400
+we know that the
+best number is 7.
+
+498
+00:23:50,400 --> 00:23:54,720
+But now what we want is we
+want to know what word it was.
+
+499
+00:23:54,720 --> 00:23:58,500
+What is our best word?
+
+500
+00:23:58,500 --> 00:24:04,100
+So I'm just going to make
+another variable called maxwrd.
+
+501
+00:24:04,100 --> 00:24:06,870
+And I'm going to make it None
+at the beginning of the loop.
+
+502
+00:24:06,870 --> 00:24:10,400
+And I'm going to make
+that be an indent.
+
+503
+00:24:10,400 --> 00:24:13,520
+And at this moment where I'm
+capturing the maximum value,
+
+504
+00:24:13,520 --> 00:24:15,840
+I'm just going to capture
+the maximum word, as well.
+
+505
+00:24:15,840 --> 00:24:16,340
+maxwrd=kee.
+
+506
+00:24:16,340 --> 00:24:23,470
+
+507
+00:24:23,470 --> 00:24:24,320
+Oh, wait a sec.
+
+508
+00:24:24,320 --> 00:24:25,510
+I want to call this maxkee.
+
+509
+00:24:25,510 --> 00:24:28,190
+
+510
+00:24:28,190 --> 00:24:33,590
+So we have a really
+stupid, funny maxkee.
+
+511
+00:24:33,590 --> 00:24:39,700
+So we've got kee, which is
+the key, and then maxkee.
+
+512
+00:24:39,700 --> 00:24:43,770
+And I'm going to print out
+maxval and maxkee as well.
+
+513
+00:24:43,770 --> 00:24:50,280
+And then I'm going to print
+out maxkee, comma, maxval.
+
+514
+00:24:50,280 --> 00:24:53,690
+I'll put maxkee over here.
+
+515
+00:24:53,690 --> 00:24:56,020
+And you'll see-- maxval.
+
+516
+00:24:56,020 --> 00:25:04,810
+
+517
+00:25:04,810 --> 00:25:08,092
+Ooh, that's not
+going to quite work.
+
+518
+00:25:08,092 --> 00:25:09,300
+It's not going to quite work.
+
+519
+00:25:09,300 --> 00:25:14,780
+But let's let it not
+work, and then we'll
+
+520
+00:25:14,780 --> 00:25:17,960
+see what we did wrong.
+
+521
+00:25:17,960 --> 00:25:22,990
+It'll ultimately work, but
+it'll kind of be flawed.
+
+522
+00:25:22,990 --> 00:25:25,140
+clown.txt.
+
+523
+00:25:25,140 --> 00:25:30,195
+So let me get rid of
+this count items line.
+
+524
+00:25:30,195 --> 00:25:31,860
+Get rid of that, make it clear.
+
+525
+00:25:31,860 --> 00:25:38,470
+
+526
+00:25:38,470 --> 00:25:40,140
+So here we go.
+
+527
+00:25:40,140 --> 00:25:48,880
+We've got-- first time through
+the word we're looking at
+
+528
+00:25:48,880 --> 00:25:56,995
+is and, and the value for
+and is 3, and maxkee is None.
+
+529
+00:25:56,995 --> 00:25:59,514
+
+530
+00:25:59,514 --> 00:26:00,930
+That's the maximum
+kee we've seen.
+
+531
+00:26:00,930 --> 00:26:02,721
+But we do have a maximum
+value, which means
+
+532
+00:26:02,721 --> 00:26:04,910
+we've seen the largest is 3.
+
+533
+00:26:04,910 --> 00:26:05,600
+Now why is that?
+
+534
+00:26:05,600 --> 00:26:06,100
+Wait a sec.
+
+535
+00:26:06,100 --> 00:26:08,210
+If the 3 is the largest,
+and we just saw 3,
+
+536
+00:26:08,210 --> 00:26:12,050
+shouldn't this be
+and instead of None?
+
+537
+00:26:12,050 --> 00:26:16,290
+And the problem is, when
+we came through here
+
+538
+00:26:16,290 --> 00:26:20,660
+and we hit this maxval None,
+we set maxval equal to val.
+
+539
+00:26:20,660 --> 00:26:22,750
+And then we checked if
+maxval was less than value
+
+540
+00:26:22,750 --> 00:26:23,820
+to capture the kee.
+
+541
+00:26:23,820 --> 00:26:25,880
+So we weren't capturing the kee.
+
+542
+00:26:25,880 --> 00:26:28,170
+So quick hack on this.
+
+543
+00:26:28,170 --> 00:26:28,920
+And what the heck?
+
+544
+00:26:28,920 --> 00:26:30,540
+We're not above quick hacks.
+
+545
+00:26:30,540 --> 00:26:32,720
+So if I change this to
+less than or equal to,
+
+546
+00:26:32,720 --> 00:26:34,870
+that when I set
+maxval to val, it'll
+
+547
+00:26:34,870 --> 00:26:37,820
+at least run this bit of code,
+and then capture the key.
+
+548
+00:26:37,820 --> 00:26:39,280
+So that's a quick way to do it.
+
+549
+00:26:39,280 --> 00:26:40,888
+Close enough for
+government work.
+
+550
+00:26:40,888 --> 00:26:46,510
+
+551
+00:26:46,510 --> 00:26:48,861
+So now we've fixed the bug.
+
+552
+00:26:48,861 --> 00:26:49,360
+Right?
+
+553
+00:26:49,360 --> 00:26:52,340
+The bug is that we were
+capturing the max number,
+
+554
+00:26:52,340 --> 00:26:54,800
+but we weren't
+capturing the maxkee.
+
+555
+00:26:54,800 --> 00:26:57,840
+But now we're also
+capturing the maxkee.
+
+556
+00:26:57,840 --> 00:27:02,670
+Now in general a slightly
+more elegant way to do this
+
+557
+00:27:02,670 --> 00:27:06,200
+is actually to just make
+this a guardian pattern
+
+558
+00:27:06,200 --> 00:27:07,260
+with an or clause.
+
+559
+00:27:07,260 --> 00:27:14,120
+If maxval is equal to
+None, or-- and I'll
+
+560
+00:27:14,120 --> 00:27:19,550
+put this back to a less than,
+maxval is less than val,
+
+561
+00:27:19,550 --> 00:27:20,950
+then capture them.
+
+562
+00:27:20,950 --> 00:27:21,450
+Right?
+
+563
+00:27:21,450 --> 00:27:24,481
+So if we're in the-- get
+rid of the equal sign.
+
+564
+00:27:24,481 --> 00:27:24,980
+Right?
+
+565
+00:27:24,980 --> 00:27:29,120
+If maxval is equal to None,
+or maxval is less than value,
+
+566
+00:27:29,120 --> 00:27:29,850
+capture them.
+
+567
+00:27:29,850 --> 00:27:30,560
+Grab them.
+
+568
+00:27:30,560 --> 00:27:33,150
+Now the output's going to be
+the same, but it will be pretty.
+
+569
+00:27:33,150 --> 00:27:36,386
+It's more elegant code,
+partly because we did it
+
+570
+00:27:36,386 --> 00:27:38,760
+all in one if, and
+partly because we just
+
+571
+00:27:38,760 --> 00:27:40,855
+don't have to look at
+our code to decide, oh,
+
+572
+00:27:40,855 --> 00:27:42,230
+when that first
+thing runs, we've
+
+573
+00:27:42,230 --> 00:27:43,646
+got to get the
+second thing right.
+
+574
+00:27:43,646 --> 00:27:49,070
+
+575
+00:27:49,070 --> 00:27:52,080
+And so now at the
+end, we see the and 7,
+
+576
+00:27:52,080 --> 00:27:55,690
+and we are as good
+to go as you can be.
+
+577
+00:27:55,690 --> 00:27:58,450
+And all we have to do before
+we turn in our assignment
+
+578
+00:27:58,450 --> 00:28:01,590
+is comment on that a little
+bit a debug, and away we go.
+
+579
+00:28:01,590 --> 00:28:02,090
+Clown.txt.
+
+580
+00:28:02,090 --> 00:28:05,080
+
+581
+00:28:05,080 --> 00:28:06,850
+The, 7.
+
+582
+00:28:06,850 --> 00:28:08,290
+And what's my other file?
+
+583
+00:28:08,290 --> 00:28:09,650
+words.txt.
+
+584
+00:28:09,650 --> 00:28:12,200
+We just try to run it
+on a bigger file now.
+
+585
+00:28:12,200 --> 00:28:14,660
+words.txt, it's always safe.
+
+586
+00:28:14,660 --> 00:28:18,360
+And it shows us 216.
+
+587
+00:28:18,360 --> 00:28:23,530
+So here's our happy
+little program at the end.
+
+588
+00:28:23,530 --> 00:28:26,630
+Let's take a look at this.
+
+589
+00:28:26,630 --> 00:28:30,840
+We read the file--
+we open the file.
+
+590
+00:28:30,840 --> 00:28:33,500
+We read the entire
+file, line after line,
+
+591
+00:28:33,500 --> 00:28:35,270
+all the lines,
+including new lines.
+
+592
+00:28:35,270 --> 00:28:36,630
+We split it into words.
+
+593
+00:28:36,630 --> 00:28:39,280
+Conveniently, the new
+line counts as a space,
+
+594
+00:28:39,280 --> 00:28:40,770
+because it's white space.
+
+595
+00:28:40,770 --> 00:28:43,690
+Then we make a simple
+dictionary counting loop to loop
+
+596
+00:28:43,690 --> 00:28:46,017
+through the words we just split.
+
+597
+00:28:46,017 --> 00:28:47,600
+And then we have a
+real simple maximum
+
+598
+00:28:47,600 --> 00:28:50,590
+loop, where we capture
+both the maximum value
+
+599
+00:28:50,590 --> 00:28:51,900
+and the maximum kee.
+
+600
+00:28:51,900 --> 00:28:56,320
+And then we simply print
+the maximum kee out
+
+601
+00:28:56,320 --> 00:28:57,480
+at the very end.
+
+602
+00:28:57,480 --> 00:28:58,020
+OK?
+
+603
+00:28:58,020 --> 00:29:03,273
+So I hope you found this useful,
+and see you in the next exer--
+
+604
+00:29:03,273 --> 00:29:03,772

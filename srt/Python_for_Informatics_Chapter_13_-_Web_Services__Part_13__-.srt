@@ -1,0 +1,2583 @@
+1
+00:00:00,000 --> 00:00:00,730
+Hello.
+
+2
+00:00:00,730 --> 00:00:05,060
+Welcome to our lecture
+on web services.
+
+3
+00:00:05,060 --> 00:00:08,235
+These slides are copyright
+Creative Commons Attribution.
+
+4
+00:00:08,235 --> 00:00:10,770
+
+5
+00:00:10,770 --> 00:00:13,160
+What we've been playing
+with in chapter 12
+
+6
+00:00:13,160 --> 00:00:18,260
+was the basic idea of using HTTP
+or the request response cycle
+
+7
+00:00:18,260 --> 00:00:22,780
+to send a request to a server
+and get something back.
+
+8
+00:00:22,780 --> 00:00:24,910
+When we looked at
+HTML, we parsed,
+
+9
+00:00:24,910 --> 00:00:29,910
+it we took out tags, so we
+started to treat this as data.
+
+10
+00:00:29,910 --> 00:00:32,960
+In web services, we
+really are switching
+
+11
+00:00:32,960 --> 00:00:37,310
+to let's produce this data
+as data with the intent
+
+12
+00:00:37,310 --> 00:00:41,769
+to have consumed by an
+application as data.
+
+13
+00:00:41,769 --> 00:00:43,310
+Basically you're
+doing this-- we have
+
+14
+00:00:43,310 --> 00:00:47,070
+to come up with format for
+the document that comes back
+
+15
+00:00:47,070 --> 00:00:51,550
+when we ask for the data so that
+we can parse it and make sense
+
+16
+00:00:51,550 --> 00:00:52,940
+of that data.
+
+17
+00:00:52,940 --> 00:00:55,800
+There are two commonly
+used formats for that data
+
+18
+00:00:55,800 --> 00:00:58,720
+that we'll take a
+look at both of them.
+
+19
+00:00:58,720 --> 00:01:04,090
+If you imagine the problem of
+exchanging data between two
+
+20
+00:01:04,090 --> 00:01:06,030
+applications, we have
+to deal with the fact
+
+21
+00:01:06,030 --> 00:01:09,390
+that these applications may
+not be the same language.
+
+22
+00:01:09,390 --> 00:01:11,122
+One might be Python.
+
+23
+00:01:11,122 --> 00:01:13,080
+You might have some data
+in a Python dictionary
+
+24
+00:01:13,080 --> 00:01:15,710
+and we might want to
+send it into Java.
+
+25
+00:01:15,710 --> 00:01:19,600
+Java doesn't have Python
+dictionaries, it has HashMaps.
+
+26
+00:01:19,600 --> 00:01:22,160
+We have to agree on a format.
+
+27
+00:01:22,160 --> 00:01:26,520
+That is the format that
+we convert the data
+
+28
+00:01:26,520 --> 00:01:27,770
+from the Python dictionary.
+
+29
+00:01:27,770 --> 00:01:29,440
+We do some kind of conversion.
+
+30
+00:01:29,440 --> 00:01:31,150
+We send across the
+network and then
+
+31
+00:01:31,150 --> 00:01:34,780
+we parse it and
+interpret it and then you
+
+32
+00:01:34,780 --> 00:01:37,530
+come up with an
+internal structure
+
+33
+00:01:37,530 --> 00:01:39,735
+within the other system.
+
+34
+00:01:39,735 --> 00:01:42,590
+
+35
+00:01:42,590 --> 00:01:46,720
+We call a wire format, a
+format that is on the wire.
+
+36
+00:01:46,720 --> 00:01:50,710
+It's not always a wire, but
+we call the wire format.
+
+37
+00:01:50,710 --> 00:01:51,697
+We can agree.
+
+38
+00:01:51,697 --> 00:01:53,780
+One of the formats that's
+commonly used that we'll
+
+39
+00:01:53,780 --> 00:01:55,810
+talk about is called XML.
+
+40
+00:01:55,810 --> 00:01:58,260
+XML consists of less
+thans and greater thans.
+
+41
+00:01:58,260 --> 00:02:02,015
+It looks a lot like HTML, that's
+because they both were inspired
+
+42
+00:02:02,015 --> 00:02:06,340
+by an earlier thing called SGML.
+
+43
+00:02:06,340 --> 00:02:09,389
+We call that act
+of taking something
+
+44
+00:02:09,389 --> 00:02:12,980
+from an internal format
+and making into a wire
+
+45
+00:02:12,980 --> 00:02:15,100
+format, the active
+serialization,
+
+46
+00:02:15,100 --> 00:02:18,100
+and then reading a wire
+format and getting it back
+
+47
+00:02:18,100 --> 00:02:21,310
+into some internal format
+at some destination system
+
+48
+00:02:21,310 --> 00:02:23,260
+and some destination language.
+
+49
+00:02:23,260 --> 00:02:26,280
+We call that deserialization.
+
+50
+00:02:26,280 --> 00:02:29,050
+XML is one of the two
+formats that we're
+
+51
+00:02:29,050 --> 00:02:30,590
+going to talk about today.
+
+52
+00:02:30,590 --> 00:02:34,290
+The other is JSON,
+JavaScript Object Notation.
+
+53
+00:02:34,290 --> 00:02:37,580
+The difference with
+JSON is it its choice
+
+54
+00:02:37,580 --> 00:02:40,200
+of how to represent
+the data on the wire,
+
+55
+00:02:40,200 --> 00:02:45,520
+it uses curly braces, colons,
+and square brackets, which are
+
+56
+00:02:45,520 --> 00:02:48,830
+not in this particular example.
+
+57
+00:02:48,830 --> 00:02:52,530
+These are just two
+techniques for serializing
+
+58
+00:02:52,530 --> 00:02:54,910
+and deserializing data.
+
+59
+00:02:54,910 --> 00:02:56,250
+Two techniques.
+
+60
+00:02:56,250 --> 00:02:57,990
+There the two ones
+that are most common
+
+61
+00:02:57,990 --> 00:03:01,970
+and we will talk about
+both of them in class.
+
+62
+00:03:01,970 --> 00:03:05,620
+I'll start talking about XML.
+
+63
+00:03:05,620 --> 00:03:07,560
+The first thing to
+observe about XML
+
+64
+00:03:07,560 --> 00:03:11,470
+is that these tags,
+much like in HTML,
+
+65
+00:03:11,470 --> 00:03:15,500
+they have start tags and end
+tags so people slash people.
+
+66
+00:03:15,500 --> 00:03:18,480
+This is called an element.
+
+67
+00:03:18,480 --> 00:03:20,968
+We might also call it a note.
+
+68
+00:03:20,968 --> 00:03:23,670
+Within a note there
+are other notes.
+
+69
+00:03:23,670 --> 00:03:26,460
+Within the people note,
+here's one person,
+
+70
+00:03:26,460 --> 00:03:29,795
+and here's another person,
+This one starts with person
+
+71
+00:03:29,795 --> 00:03:32,450
+and ends with slash person.
+
+72
+00:03:32,450 --> 00:03:35,610
+Within the person
+element there's
+
+73
+00:03:35,610 --> 00:03:38,020
+a name element and a
+phone number element;
+
+74
+00:03:38,020 --> 00:03:41,690
+so elements within
+elements within elements.
+
+75
+00:03:41,690 --> 00:03:44,240
+The term that we'll use
+for this is simple element
+
+76
+00:03:44,240 --> 00:03:45,876
+and complex element.
+
+77
+00:03:45,876 --> 00:03:47,250
+The basic difference
+between them
+
+78
+00:03:47,250 --> 00:03:51,235
+is a simple element is one
+that has no sub elements.
+
+79
+00:03:51,235 --> 00:03:55,770
+It is just like the N;
+it's just the name Chuck.
+
+80
+00:03:55,770 --> 00:03:57,550
+There's no other
+elements inside of it.
+
+81
+00:03:57,550 --> 00:04:01,890
+A complex element is like
+people or like person that
+
+82
+00:04:01,890 --> 00:04:03,350
+has more elements within it.
+
+83
+00:04:03,350 --> 00:04:11,080
+A complex element has elements
+within it, as well as data.
+
+84
+00:04:11,080 --> 00:04:14,370
+Let's talk a little
+bit about XML.
+
+85
+00:04:14,370 --> 00:04:19,820
+There's a debate as to which
+is better, XML or JSON.
+
+86
+00:04:19,820 --> 00:04:21,529
+The answer is they're
+probably better
+
+87
+00:04:21,529 --> 00:04:23,080
+for different applications.
+
+88
+00:04:23,080 --> 00:04:25,780
+XML is really good
+at representing
+
+89
+00:04:25,780 --> 00:04:27,620
+hierarchical,
+structured data that
+
+90
+00:04:27,620 --> 00:04:30,350
+needs a lot of description.
+
+91
+00:04:30,350 --> 00:04:32,260
+It started from
+this thing called
+
+92
+00:04:32,260 --> 00:04:34,671
+SGML, which was a Generalized
+Markup Language using
+
+93
+00:04:34,671 --> 00:04:36,170
+less thans and
+greater thans, but it
+
+94
+00:04:36,170 --> 00:04:40,190
+was intended to be a
+little more easily legible.
+
+95
+00:04:40,190 --> 00:04:43,200
+It's commonly used to do
+things like word processing
+
+96
+00:04:43,200 --> 00:04:47,130
+documents or whatever.
+
+97
+00:04:47,130 --> 00:04:53,580
+As I mentioned, XML has
+start tags and end tags.
+
+98
+00:04:53,580 --> 00:04:56,430
+Name ans slash name is also
+a start and an end tag.
+
+99
+00:04:56,430 --> 00:04:58,290
+Then it has some text content.
+
+100
+00:04:58,290 --> 00:05:01,537
+The text is that which is
+between the start and end
+
+101
+00:05:01,537 --> 00:05:05,040
+tag that's not, itself,
+another element.
+
+102
+00:05:05,040 --> 00:05:08,900
+If this phone number
+is a text element.
+
+103
+00:05:08,900 --> 00:05:10,520
+In addition to the
+text element, which
+
+104
+00:05:10,520 --> 00:05:12,910
+is between the
+start and end tags,
+
+105
+00:05:12,910 --> 00:05:15,320
+there is also the
+notion of an attribute.
+
+106
+00:05:15,320 --> 00:05:19,440
+An attribute is
+on the start tag.
+
+107
+00:05:19,440 --> 00:05:22,970
+If, in the case of email
+here, it's a self closing tag.
+
+108
+00:05:22,970 --> 00:05:25,750
+Type is-- there's a
+set of key value pairs,
+
+109
+00:05:25,750 --> 00:05:29,080
+type equals, and then the
+value in double quotes.
+
+110
+00:05:29,080 --> 00:05:32,200
+If hide equals yes, then
+type is international,
+
+111
+00:05:32,200 --> 00:05:34,260
+those are called attributes.
+
+112
+00:05:34,260 --> 00:05:37,820
+You have start tags, end
+tags, content, attributes,
+
+113
+00:05:37,820 --> 00:05:40,300
+and self-closing
+tags are the ones
+
+114
+00:05:40,300 --> 00:05:46,350
+that don't have slash email.
+
+115
+00:05:46,350 --> 00:05:49,470
+They just end in slash and
+they're totally self-contained,
+
+116
+00:05:49,470 --> 00:05:51,340
+but they can have
+attributes on them.
+
+117
+00:05:51,340 --> 00:05:56,750
+
+118
+00:05:56,750 --> 00:05:58,770
+White space doesn't matter.
+
+119
+00:05:58,770 --> 00:06:01,830
+In general, we tend
+to format the use
+
+120
+00:06:01,830 --> 00:06:05,120
+with little bits of indentation
+to make our lives easier.
+
+121
+00:06:05,120 --> 00:06:10,940
+These two representations I
+have here are roughly the same.
+
+122
+00:06:10,940 --> 00:06:14,010
+The fact that I've got
+these nicely indented
+
+123
+00:06:14,010 --> 00:06:14,930
+makes no difference.
+
+124
+00:06:14,930 --> 00:06:17,110
+Line ends don't matter,
+and it's generally
+
+125
+00:06:17,110 --> 00:06:18,600
+discarded on text elements.
+
+126
+00:06:18,600 --> 00:06:21,160
+We indent only to be
+readable, and it's very common
+
+127
+00:06:21,160 --> 00:06:23,370
+to indent to be readable.
+
+128
+00:06:23,370 --> 00:06:25,845
+Here's just a bit of
+XML from an example.
+
+129
+00:06:25,845 --> 00:06:29,510
+
+130
+00:06:29,510 --> 00:06:31,439
+We have a recipe
+tag and everything's
+
+131
+00:06:31,439 --> 00:06:32,230
+going to be closed.
+
+132
+00:06:32,230 --> 00:06:37,040
+The recipe tag has a
+number of attributes on it.
+
+133
+00:06:37,040 --> 00:06:39,970
+Again, they're key value pairs.
+
+134
+00:06:39,970 --> 00:06:40,720
+Name equals bread.
+
+135
+00:06:40,720 --> 00:06:42,120
+Prep time equals 5 minutes.
+
+136
+00:06:42,120 --> 00:06:44,210
+Cook time three
+hours, et cetera.
+
+137
+00:06:44,210 --> 00:06:47,945
+A title tag, an
+ingredient tag flour
+
+138
+00:06:47,945 --> 00:06:50,280
+is the text bit of
+this ingredient tag
+
+139
+00:06:50,280 --> 00:06:55,080
+and then it has some attributes,
+some more ingredients,
+
+140
+00:06:55,080 --> 00:06:59,010
+some instructions, a step
+tag and an end step tag.
+
+141
+00:06:59,010 --> 00:07:01,160
+You get the picture.
+
+142
+00:07:01,160 --> 00:07:02,880
+We can represent lots of things.
+
+143
+00:07:02,880 --> 00:07:06,880
+In XML one of its advantages--
+and disadvantages--
+
+144
+00:07:06,880 --> 00:07:08,540
+the disadvantage
+is common wording.
+
+145
+00:07:08,540 --> 00:07:11,370
+The advantage is it's
+a little more self
+
+146
+00:07:11,370 --> 00:07:12,840
+describing the JSON is.
+
+147
+00:07:12,840 --> 00:07:18,290
+JSON is simpler and
+more direct, but XML
+
+148
+00:07:18,290 --> 00:07:20,770
+is in some ways more self
+described because we look
+
+149
+00:07:20,770 --> 00:07:24,400
+at this, and based on the names,
+ingredients, instructions, step
+
+150
+00:07:24,400 --> 00:07:27,460
+they can make some sense to us.
+
+151
+00:07:27,460 --> 00:07:30,030
+Tags are the basic
+less than greater
+
+152
+00:07:30,030 --> 00:07:32,220
+than bits that
+indicate the beginning
+
+153
+00:07:32,220 --> 00:07:33,800
+and ending of elements.
+
+154
+00:07:33,800 --> 00:07:37,610
+Attributes are key value
+pairs on open tags.
+
+155
+00:07:37,610 --> 00:07:40,150
+Serializing
+deserializing is this act
+
+156
+00:07:40,150 --> 00:07:44,580
+of taking an internal structure
+inside of a Python program
+
+157
+00:07:44,580 --> 00:07:47,470
+and producing the less
+thans and greater thans
+
+158
+00:07:47,470 --> 00:07:49,570
+in the right proper
+format so they
+
+159
+00:07:49,570 --> 00:07:54,440
+can be sent across the
+internet to the destination.
+
+160
+00:07:54,440 --> 00:07:58,810
+One of the ways we
+can think of XML, we
+
+161
+00:07:58,810 --> 00:08:00,440
+have these complex
+elements that have
+
+162
+00:08:00,440 --> 00:08:02,670
+more complex or
+simple elements is
+
+163
+00:08:02,670 --> 00:08:05,520
+we can't think of them
+as nodes in a tree.
+
+164
+00:08:05,520 --> 00:08:12,230
+Another name for this little
+B guy, B slash B is as a tree,
+
+165
+00:08:12,230 --> 00:08:13,250
+as a node in a tree.
+
+166
+00:08:13,250 --> 00:08:15,400
+We can think the B as
+this node in the tree.
+
+167
+00:08:15,400 --> 00:08:18,850
+Its parent node is
+A, it's part of A.
+
+168
+00:08:18,850 --> 00:08:24,840
+It's immediate containing
+element is A. C,
+
+169
+00:08:24,840 --> 00:08:28,700
+it's immediate containing
+element is also A. It's a node,
+
+170
+00:08:28,700 --> 00:08:31,470
+and C has two child nodes.
+
+171
+00:08:31,470 --> 00:08:33,590
+When we think about
+a node like C,
+
+172
+00:08:33,590 --> 00:08:36,570
+think of A as the
+parent node, and then
+
+173
+00:08:36,570 --> 00:08:40,299
+the child node and
+the child node.
+
+174
+00:08:40,299 --> 00:08:41,470
+This is like a tree.
+
+175
+00:08:41,470 --> 00:08:43,350
+These are more moving
+down toward leaves
+
+176
+00:08:43,350 --> 00:08:46,550
+and these are the trunk-- it's
+a bit of an upside down tree.
+
+177
+00:08:46,550 --> 00:08:49,670
+If you think about how
+trees actually grow.
+
+178
+00:08:49,670 --> 00:08:52,640
+We often think of
+the text bits that
+
+179
+00:08:52,640 --> 00:08:57,790
+are sitting in here as
+the children of a node.
+
+180
+00:08:57,790 --> 00:09:00,320
+Clear that.
+
+181
+00:09:00,320 --> 00:09:04,290
+D is part of C. It's
+immediate parent
+
+182
+00:09:04,290 --> 00:09:10,870
+is C. It's child is that text
+bit Y. That's one way to think
+
+183
+00:09:10,870 --> 00:09:13,500
+about XML is as a tree.
+
+184
+00:09:13,500 --> 00:09:17,590
+As we start pulling stuff out
+of XML, we'll go grab a node,
+
+185
+00:09:17,590 --> 00:09:20,950
+and then we'll say oh let's go
+through the immediate children
+
+186
+00:09:20,950 --> 00:09:22,360
+of that particular node.
+
+187
+00:09:22,360 --> 00:09:24,530
+Or I'll grab a
+node and I'll find
+
+188
+00:09:24,530 --> 00:09:27,310
+the text child of that node.
+
+189
+00:09:27,310 --> 00:09:30,220
+We tend to sort of pull
+way through these things
+
+190
+00:09:30,220 --> 00:09:33,580
+in trees thinking
+about I'm at a node.
+
+191
+00:09:33,580 --> 00:09:36,960
+And I'm looking
+down from that node.
+
+192
+00:09:36,960 --> 00:09:40,580
+That's the tree terminology,
+the node terminology.
+
+193
+00:09:40,580 --> 00:09:44,400
+Another way to think
+about this-- I'm sorry.
+
+194
+00:09:44,400 --> 00:09:46,515
+The attributes are
+also best thought
+
+195
+00:09:46,515 --> 00:09:49,440
+of as associated with
+the node is children.
+
+196
+00:09:49,440 --> 00:09:52,540
+This W attribute is like
+a child of the B node.
+
+197
+00:09:52,540 --> 00:09:54,490
+The B node is this whole thing.
+
+198
+00:09:54,490 --> 00:09:58,060
+It has a child of the
+text bits and a child
+
+199
+00:09:58,060 --> 00:10:01,550
+that is the attribute.
+
+200
+00:10:01,550 --> 00:10:05,010
+Another way to think
+about this is as paths.
+
+201
+00:10:05,010 --> 00:10:06,860
+The way the paths
+work is you just
+
+202
+00:10:06,860 --> 00:10:12,010
+take a how to find this text
+X. It's really the child of B,
+
+203
+00:10:12,010 --> 00:10:16,010
+which is the child A. Then
+we use a slash notation,
+
+204
+00:10:16,010 --> 00:10:20,150
+like we might use for
+folders on a file system,
+
+205
+00:10:20,150 --> 00:10:24,040
+slash A slash B is
+where in this tree?
+
+206
+00:10:24,040 --> 00:10:29,830
+Slash A slash B is where we
+would find X. Slash A slash
+
+207
+00:10:29,830 --> 00:10:36,010
+C slash D is where we would
+find Y. Slash A slash C slash
+
+208
+00:10:36,010 --> 00:10:40,260
+E is where we find E. These
+are the paths to pieces
+
+209
+00:10:40,260 --> 00:10:41,240
+of the document.
+
+210
+00:10:41,240 --> 00:10:43,310
+That's another way that
+we think about them
+
+211
+00:10:43,310 --> 00:10:48,700
+starting with this outer node
+A and then working in as far
+
+212
+00:10:48,700 --> 00:10:49,530
+as we have to go.
+
+213
+00:10:49,530 --> 00:10:55,150
+
+214
+00:10:55,150 --> 00:10:57,330
+That's basic XML.
+
+215
+00:10:57,330 --> 00:11:00,740
+Another thing that we often
+use an XML is a technology
+
+216
+00:11:00,740 --> 00:11:02,880
+called XML Schema.
+
+217
+00:11:02,880 --> 00:11:05,800
+XML Schema defines a
+contract that tells us
+
+218
+00:11:05,800 --> 00:11:09,770
+what legal XML really is.
+
+219
+00:11:09,770 --> 00:11:12,470
+It itself turns out to
+be XML, but it's purpose
+
+220
+00:11:12,470 --> 00:11:15,990
+is to describe a
+set of XML documents
+
+221
+00:11:15,990 --> 00:11:19,710
+that can pass the schema.
+
+222
+00:11:19,710 --> 00:11:22,360
+It's a set of constraints
+on the structure.
+
+223
+00:11:22,360 --> 00:11:23,760
+What the name of the tags are.
+
+224
+00:11:23,760 --> 00:11:25,670
+How many of the
+tags you can have.
+
+225
+00:11:25,670 --> 00:11:29,400
+What tag lives inside of
+what other tag, et cetera.
+
+226
+00:11:29,400 --> 00:11:34,560
+The goal of a schema is to
+use a schema to validate,
+
+227
+00:11:34,560 --> 00:11:38,960
+to look at some XML and
+say that is legal XML
+
+228
+00:11:38,960 --> 00:11:44,320
+or that is not legal XML, based
+on the schema that we've got.
+
+229
+00:11:44,320 --> 00:11:47,910
+The validation step is
+it takes an XML document
+
+230
+00:11:47,910 --> 00:11:50,500
+that we're wondering if it
+complies with the schema.
+
+231
+00:11:50,500 --> 00:11:53,200
+We take a schema and we
+hand it to this piece
+
+232
+00:11:53,200 --> 00:11:55,030
+of software called a validator.
+
+233
+00:11:55,030 --> 00:11:58,130
+And the validator either
+says yes, it's validated,
+
+234
+00:11:58,130 --> 00:11:59,910
+or no, it's not validated.
+
+235
+00:11:59,910 --> 00:12:03,986
+The real value in this is if
+we have two applications they
+
+236
+00:12:03,986 --> 00:12:05,610
+are going to exchange
+data, they should
+
+237
+00:12:05,610 --> 00:12:07,860
+be able to come up with
+a contract as to what
+
+238
+00:12:07,860 --> 00:12:09,580
+is valid and invalid.
+
+239
+00:12:09,580 --> 00:12:15,970
+An XML schema is a good way to
+describe valid and invalid XML.
+
+240
+00:12:15,970 --> 00:12:21,000
+Here is a very simple example
+of XML schema in action.
+
+241
+00:12:21,000 --> 00:12:22,005
+Here's an XML document.
+
+242
+00:12:22,005 --> 00:12:27,300
+It's got a person, the last name
+and the age and the date born.
+
+243
+00:12:27,300 --> 00:12:30,792
+Here's an XML schema contract,
+and I mentioned it was XML,
+
+244
+00:12:30,792 --> 00:12:32,500
+so it's got less thans
+and greater thans,
+
+245
+00:12:32,500 --> 00:12:33,780
+and it's got tags.
+
+246
+00:12:33,780 --> 00:12:35,970
+It's got attributes.
+
+247
+00:12:35,970 --> 00:12:41,050
+What it's really saying here
+is that outer part of the XML
+
+248
+00:12:41,050 --> 00:12:45,702
+is supposed to be a tag
+by the name of person,
+
+249
+00:12:45,702 --> 00:12:47,160
+so that's the outer
+thing, and then
+
+250
+00:12:47,160 --> 00:12:50,830
+within that there
+is a sequence--
+
+251
+00:12:50,830 --> 00:12:52,820
+and there's supposed
+to be an element that's
+
+252
+00:12:52,820 --> 00:12:56,280
+last name with a type of
+string, and I want age, that's
+
+253
+00:12:56,280 --> 00:12:58,990
+a type of integer, an
+element called date born,
+
+254
+00:12:58,990 --> 00:13:00,430
+which is a type date.
+
+255
+00:13:00,430 --> 00:13:05,064
+We can know that these are the
+proper names for these things.
+
+256
+00:13:05,064 --> 00:13:06,605
+This is supposed to
+be a string, this
+
+257
+00:13:06,605 --> 00:13:09,610
+is supposed to be a number, and
+that's supposed to be a date.
+
+258
+00:13:09,610 --> 00:13:13,830
+We can look at that, look
+at the two documents,
+
+259
+00:13:13,830 --> 00:13:17,270
+a possible bit of XML that
+either complies or doesn't
+
+260
+00:13:17,270 --> 00:13:24,190
+comply, A contract that
+tells us whether or not
+
+261
+00:13:24,190 --> 00:13:25,880
+or what the contract
+is, and then
+
+262
+00:13:25,880 --> 00:13:31,510
+a validator that mechanically
+checks to see if the XML meets
+
+263
+00:13:31,510 --> 00:13:33,790
+the contract or not.
+
+264
+00:13:33,790 --> 00:13:36,070
+There's a number of
+different XML languages,
+
+265
+00:13:36,070 --> 00:13:38,140
+schema definition languages.
+
+266
+00:13:38,140 --> 00:13:42,160
+We're talking about one
+called the W3C XML Schema,
+
+267
+00:13:42,160 --> 00:13:47,260
+often ends up with a file
+suffix on your file system XSD.
+
+268
+00:13:47,260 --> 00:13:48,950
+I won't talk about
+the other ones.
+
+269
+00:13:48,950 --> 00:13:51,640
+I'm talking about A the
+most common one and probably
+
+270
+00:13:51,640 --> 00:13:54,390
+the easiest one to
+understand, and that probably
+
+271
+00:13:54,390 --> 00:13:57,430
+is the reason why it's
+probably the most common one.
+
+272
+00:13:57,430 --> 00:13:59,800
+We're going to focus
+on the schema that
+
+273
+00:13:59,800 --> 00:14:01,480
+came from the Worldwide
+Web Consortium.
+
+274
+00:14:01,480 --> 00:14:04,320
+
+275
+00:14:04,320 --> 00:14:09,477
+Like I said filenames
+tend to end in XSD.
+
+276
+00:14:09,477 --> 00:14:10,810
+This one we went through before.
+
+277
+00:14:10,810 --> 00:14:13,820
+
+278
+00:14:13,820 --> 00:14:16,270
+Person is a complex
+type, so we say
+
+279
+00:14:16,270 --> 00:14:19,650
+it's a complex type
+with tag name of person.
+
+280
+00:14:19,650 --> 00:14:21,920
+Then within that there's
+a sequence of tags
+
+281
+00:14:21,920 --> 00:14:26,840
+that XS sequence says you
+can expect a series of tags.
+
+282
+00:14:26,840 --> 00:14:32,350
+A simple element, a non complex
+element, is just an XS element.
+
+283
+00:14:32,350 --> 00:14:34,830
+Then we have the name
+and the expected type
+
+284
+00:14:34,830 --> 00:14:36,970
+for the three elements.
+
+285
+00:14:36,970 --> 00:14:39,080
+This particular one
+validates nicely.
+
+286
+00:14:39,080 --> 00:14:41,749
+
+287
+00:14:41,749 --> 00:14:43,290
+There's a couple
+other things that we
+
+288
+00:14:43,290 --> 00:14:48,530
+can put on as the XSD
+starts to become richer.
+
+289
+00:14:48,530 --> 00:14:51,010
+There are more things
+that you could describe.
+
+290
+00:14:51,010 --> 00:14:54,110
+In this example, we are
+seeing the use of min
+
+291
+00:14:54,110 --> 00:14:56,170
+occurs and max occurs.
+
+292
+00:14:56,170 --> 00:14:59,910
+That basically is a
+constraint on the cardinality
+
+293
+00:14:59,910 --> 00:15:01,210
+of these things.
+
+294
+00:15:01,210 --> 00:15:05,320
+What this is saying is that
+we have a tag called fullname.
+
+295
+00:15:05,320 --> 00:15:08,620
+It is a string
+and it's required,
+
+296
+00:15:08,620 --> 00:15:12,040
+meaning that the minimum
+number a topic occurs is one
+
+297
+00:15:12,040 --> 00:15:15,660
+and the maximum number of
+times it has to occur is one.
+
+298
+00:15:15,660 --> 00:15:17,460
+That means it's exactly one.
+
+299
+00:15:17,460 --> 00:15:19,690
+We have that.
+
+300
+00:15:19,690 --> 00:15:21,760
+If we look at this
+child name tag,
+
+301
+00:15:21,760 --> 00:15:24,460
+like this one here,
+we have four of them,
+
+302
+00:15:24,460 --> 00:15:27,240
+it says it's a string
+and the minimum number
+
+303
+00:15:27,240 --> 00:15:30,920
+times we should have it is zero,
+and the maximum number of times
+
+304
+00:15:30,920 --> 00:15:32,340
+we're allowed to have is 10.
+
+305
+00:15:32,340 --> 00:15:35,620
+We're allowed to have this
+tag repeated between 0 and 10
+
+306
+00:15:35,620 --> 00:15:36,120
+times.
+
+307
+00:15:36,120 --> 00:15:41,290
+In this particular example, it
+is repeated exactly four times.
+
+308
+00:15:41,290 --> 00:15:42,400
+That validates.
+
+309
+00:15:42,400 --> 00:15:46,450
+That is a happy validation.
+
+310
+00:15:46,450 --> 00:15:49,460
+It looks like a mean
+validation, so let's change
+
+311
+00:15:49,460 --> 00:15:53,380
+it to be a happy validation.
+
+312
+00:15:53,380 --> 00:15:54,780
+It reads this.
+
+313
+00:15:54,780 --> 00:15:58,020
+It reads this.
+
+314
+00:15:58,020 --> 00:16:00,170
+It reads those two
+things, and its
+
+315
+00:16:00,170 --> 00:16:02,562
+happy because it
+meets the validation.
+
+316
+00:16:02,562 --> 00:16:06,130
+I'm having trouble
+drawing happy faces.
+
+317
+00:16:06,130 --> 00:16:09,570
+Just a few more data types to
+talk about in this XML Schema.
+
+318
+00:16:09,570 --> 00:16:12,069
+My goal is not to have you be
+able to write XML Schema I'm
+
+319
+00:16:12,069 --> 00:16:13,860
+just kind of showing
+you a little bit of it
+
+320
+00:16:13,860 --> 00:16:17,180
+so that you can
+understand how it works.
+
+321
+00:16:17,180 --> 00:16:21,370
+We can look at a simple one
+and understand it makes sense,
+
+322
+00:16:21,370 --> 00:16:23,670
+and ask your questions
+does this mean.
+
+323
+00:16:23,670 --> 00:16:24,970
+It or not.
+
+324
+00:16:24,970 --> 00:16:27,080
+We've talked about string.
+
+325
+00:16:27,080 --> 00:16:29,650
+I will talk about it in
+a second date format.
+
+326
+00:16:29,650 --> 00:16:33,170
+Date format is generally
+year, month, day.
+
+327
+00:16:33,170 --> 00:16:40,380
+There is a date time, which is
+year, month, day, the letter T
+
+328
+00:16:40,380 --> 00:16:45,540
+hour, minute, second,
+and then optional times.
+
+329
+00:16:45,540 --> 00:16:50,830
+You can have decimal numbers,
+which means they have points
+
+330
+00:16:50,830 --> 00:16:52,380
+after the decimal place.
+
+331
+00:16:52,380 --> 00:16:53,880
+You can even say integers.
+
+332
+00:16:53,880 --> 00:16:56,990
+You can have some
+types of things
+
+333
+00:16:56,990 --> 00:17:03,410
+that we could put in a schema
+to constrain the data that we've
+
+334
+00:17:03,410 --> 00:17:05,400
+seen XML.
+
+335
+00:17:05,400 --> 00:17:06,819
+I mentioned the
+date time format.
+
+336
+00:17:06,819 --> 00:17:08,390
+There's a special
+standard called
+
+337
+00:17:08,390 --> 00:17:13,170
+ISO 8601 that talks about
+this date time format.
+
+338
+00:17:13,170 --> 00:17:18,430
+I like this format because
+it is easily sortable.
+
+339
+00:17:18,430 --> 00:17:21,390
+The top part is the year, and
+it's always the same number,
+
+340
+00:17:21,390 --> 00:17:22,619
+you put zeros in.
+
+341
+00:17:22,619 --> 00:17:29,250
+Year, month, day then the letter
+T then hour, minute, second,
+
+342
+00:17:29,250 --> 00:17:30,870
+and then times zone.
+
+343
+00:17:30,870 --> 00:17:33,080
+The most common time
+zone that we tend to use
+
+344
+00:17:33,080 --> 00:17:35,640
+is the time zone
+called Z. Normally
+
+345
+00:17:35,640 --> 00:17:40,430
+this would be like GMT or
+EDT for Eastern Daylight
+
+346
+00:17:40,430 --> 00:17:43,230
+Time or EST.
+
+347
+00:17:43,230 --> 00:17:44,930
+Most computers don't
+like using that.
+
+348
+00:17:44,930 --> 00:17:48,210
+Most computers want
+to use a time that
+
+349
+00:17:48,210 --> 00:17:50,370
+is the same around the world.
+
+350
+00:17:50,370 --> 00:17:53,780
+They tend to use Greenwich
+Mean Time, otherwise known
+
+351
+00:17:53,780 --> 00:17:55,350
+as Zulu time.
+
+352
+00:17:55,350 --> 00:17:59,220
+You might have a local time on
+the east coast-- I don't even
+
+353
+00:17:59,220 --> 00:18:04,400
+know what these numbers are, but
+let's say it's 10:00 at night.
+
+354
+00:18:04,400 --> 00:18:06,830
+That's a bad time.
+
+355
+00:18:06,830 --> 00:18:15,100
+Let's pick like 2:00 PM
+in the US East coast.
+
+356
+00:18:15,100 --> 00:18:17,620
+In England I think
+it's six hours later.
+
+357
+00:18:17,620 --> 00:18:22,020
+It's actually 8:00 PM in the UK.
+
+358
+00:18:22,020 --> 00:18:23,860
+This is Zulu time.
+
+359
+00:18:23,860 --> 00:18:26,880
+Greenwich Mean Time,
+universal time,
+
+360
+00:18:26,880 --> 00:18:29,140
+Zulu time are all
+the same thing.
+
+361
+00:18:29,140 --> 00:18:33,620
+They are the time in the UK.
+
+362
+00:18:33,620 --> 00:18:36,775
+Again, if you want
+to see something
+
+363
+00:18:36,775 --> 00:18:39,307
+that happened an hour
+ago or two hours ago,
+
+364
+00:18:39,307 --> 00:18:41,390
+you don't want to have to
+calculate back and forth
+
+365
+00:18:41,390 --> 00:18:44,280
+between lots of time
+zones, so we really prefer
+
+366
+00:18:44,280 --> 00:18:47,460
+to use this Zulu time
+and map the stuff
+
+367
+00:18:47,460 --> 00:18:51,080
+that we store as we send
+data from servers which might
+
+368
+00:18:51,080 --> 00:18:53,310
+be in different time zones.
+
+369
+00:18:53,310 --> 00:18:56,450
+We tend to use Zulu
+time, otherwise known
+
+370
+00:18:56,450 --> 00:18:58,550
+as Greenwich Mean Time.
+
+371
+00:18:58,550 --> 00:19:01,135
+Here's another example
+of some XML Schema.
+
+372
+00:19:01,135 --> 00:19:08,280
+
+373
+00:19:08,280 --> 00:19:11,110
+Most of this is
+pretty much the same.
+
+374
+00:19:11,110 --> 00:19:11,780
+Yada, yada.
+
+375
+00:19:11,780 --> 00:19:14,422
+We got some min occurs here.
+
+376
+00:19:14,422 --> 00:19:16,280
+We've got strings.
+
+377
+00:19:16,280 --> 00:19:21,170
+String, string, and now we
+have this thing called country.
+
+378
+00:19:21,170 --> 00:19:26,080
+It is a simple type,
+and it's a string,
+
+379
+00:19:26,080 --> 00:19:30,490
+but this XS [? enumeration ?]
+gives us the legal values.
+
+380
+00:19:30,490 --> 00:19:32,210
+It's not just any string.
+
+381
+00:19:32,210 --> 00:19:37,340
+It's gotta be FR,
+DE, ES, UK or US.
+
+382
+00:19:37,340 --> 00:19:42,160
+If you're validating
+this XML for country,
+
+383
+00:19:42,160 --> 00:19:44,490
+you look at the string
+and check to see
+
+384
+00:19:44,490 --> 00:19:46,750
+if it's a member of that set.
+
+385
+00:19:46,750 --> 00:19:49,000
+Again, that's
+another kind of thing
+
+386
+00:19:49,000 --> 00:19:51,485
+that you can do with XML schema.
+
+387
+00:19:51,485 --> 00:19:56,600
+
+388
+00:19:56,600 --> 00:19:59,930
+Here's another example
+of some XML Schema.
+
+389
+00:19:59,930 --> 00:20:03,740
+Let's see we've seen most
+of this XML complex type, XS
+
+390
+00:20:03,740 --> 00:20:08,987
+sequence, string, complex
+type sequence, string, string,
+
+391
+00:20:08,987 --> 00:20:09,945
+string, string, string.
+
+392
+00:20:09,945 --> 00:20:12,610
+
+393
+00:20:12,610 --> 00:20:14,540
+This one, max occurs unbounded.
+
+394
+00:20:14,540 --> 00:20:16,350
+That means you can
+have an infinite number
+
+395
+00:20:16,350 --> 00:20:18,700
+of these things.
+
+396
+00:20:18,700 --> 00:20:21,950
+String min occurs zero.
+
+397
+00:20:21,950 --> 00:20:23,600
+XS positive integers.
+
+398
+00:20:23,600 --> 00:20:28,420
+This means that negative
+14 would not be allowed.
+
+399
+00:20:28,420 --> 00:20:31,430
+That's what we've talked
+about-- oh, use equals required.
+
+400
+00:20:31,430 --> 00:20:33,310
+That means it must be there.
+
+401
+00:20:33,310 --> 00:20:36,087
+This just gives you
+a sense-- I'm not
+
+402
+00:20:36,087 --> 00:20:37,670
+going to expect you
+to know all these,
+
+403
+00:20:37,670 --> 00:20:39,880
+but jusf-- I'll give you
+a couple of questions
+
+404
+00:20:39,880 --> 00:20:42,380
+that are relatively
+straightforward on these.
+
+405
+00:20:42,380 --> 00:20:45,480
+Just a sense of-- take
+a look at some XML
+
+406
+00:20:45,480 --> 00:20:48,020
+and see if that XML
+meets it or not.
+
+407
+00:20:48,020 --> 00:20:51,870
+
+408
+00:20:51,870 --> 00:20:54,055
+We're not going to spend
+a lot of time in Python.
+
+409
+00:20:54,055 --> 00:20:58,160
+
+410
+00:20:58,160 --> 00:20:59,260
+Doing too much with XML.
+
+411
+00:20:59,260 --> 00:21:01,426
+We're going to do most the
+stuff in Python and JSON,
+
+412
+00:21:01,426 --> 00:21:03,350
+but this is just a
+little bit of XML code
+
+413
+00:21:03,350 --> 00:21:05,340
+that you can download
+from the website
+
+414
+00:21:05,340 --> 00:21:09,190
+that there is an XML
+parser built into Python.
+
+415
+00:21:09,190 --> 00:21:10,460
+It's called ElementTree.
+
+416
+00:21:10,460 --> 00:21:12,584
+There are actually several
+ones that you could use,
+
+417
+00:21:12,584 --> 00:21:15,250
+and I'm just going to use
+the one called ElementTree.
+
+418
+00:21:15,250 --> 00:21:17,510
+I'm making the data
+triple coded string,
+
+419
+00:21:17,510 --> 00:21:19,730
+so here's my little XML bit.
+
+420
+00:21:19,730 --> 00:21:22,150
+It's just some well
+formed XML, the stuff
+
+421
+00:21:22,150 --> 00:21:25,040
+we've been playing with before.
+
+422
+00:21:25,040 --> 00:21:29,020
+This import statement gives
+us the ElementTree library
+
+423
+00:21:29,020 --> 00:21:34,010
+and to parse this data
+we do ET from string
+
+424
+00:21:34,010 --> 00:21:35,070
+and pass in the string.
+
+425
+00:21:35,070 --> 00:21:36,766
+This is string.
+
+426
+00:21:36,766 --> 00:21:39,510
+Now let's talk about
+what tree looks like.
+
+427
+00:21:39,510 --> 00:21:42,850
+
+428
+00:21:42,850 --> 00:21:45,730
+Tree is-- again we
+could think of this
+
+429
+00:21:45,730 --> 00:21:50,430
+as either nodes or paths.
+
+430
+00:21:50,430 --> 00:21:52,200
+There's a person node.
+
+431
+00:21:52,200 --> 00:21:55,170
+Then there is a name.
+
+432
+00:21:55,170 --> 00:21:57,960
+Then there's a phone.
+
+433
+00:21:57,960 --> 00:22:01,230
+Then there's an email.
+
+434
+00:22:01,230 --> 00:22:03,890
+Name has Chuck underneath it.
+
+435
+00:22:03,890 --> 00:22:06,700
+
+436
+00:22:06,700 --> 00:22:11,570
+Phone has the number and
+an attribute underneath it.
+
+437
+00:22:11,570 --> 00:22:15,400
+Email has an attribute under it.
+
+438
+00:22:15,400 --> 00:22:17,230
+These are nodes.
+
+439
+00:22:17,230 --> 00:22:20,700
+I probably should have made
+a better slide for this.
+
+440
+00:22:20,700 --> 00:22:25,910
+What we do is we find
+our way to a node.
+
+441
+00:22:25,910 --> 00:22:29,300
+Tree is all of this.
+
+442
+00:22:29,300 --> 00:22:32,750
+Tree is person on down.
+
+443
+00:22:32,750 --> 00:22:38,390
+I can say tree dot
+find the name thing.
+
+444
+00:22:38,390 --> 00:22:42,900
+What that does is that
+goes and finds this guy.
+
+445
+00:22:42,900 --> 00:22:44,770
+Tree dot find, so
+go in the whole tree
+
+446
+00:22:44,770 --> 00:22:50,500
+and find the thing
+called name and give me
+
+447
+00:22:50,500 --> 00:22:52,810
+the text element in it.
+
+448
+00:22:52,810 --> 00:22:54,210
+That is going to
+print out Chuck.
+
+449
+00:22:54,210 --> 00:22:56,750
+
+450
+00:22:56,750 --> 00:23:02,310
+Tree dot find email
+finds this little guy.
+
+451
+00:23:02,310 --> 00:23:05,360
+Another way to say it is
+it defines this little guy.
+
+452
+00:23:05,360 --> 00:23:09,090
+Then it says get
+the attribute hide.
+
+453
+00:23:09,090 --> 00:23:12,970
+This is going to print
+out the string yes.
+
+454
+00:23:12,970 --> 00:23:14,770
+That prints out the string yes.
+
+455
+00:23:14,770 --> 00:23:19,680
+
+456
+00:23:19,680 --> 00:23:24,010
+Tree is all of that.
+
+457
+00:23:24,010 --> 00:23:28,010
+Find the name thing,
+so that's the name guy.
+
+458
+00:23:28,010 --> 00:23:29,400
+Find the name.
+
+459
+00:23:29,400 --> 00:23:33,350
+Find name dot text.
+
+460
+00:23:33,350 --> 00:23:37,040
+That is this text right here.
+
+461
+00:23:37,040 --> 00:23:48,800
+Then tree dot find dot email,
+that's this whole thing.
+
+462
+00:23:48,800 --> 00:23:51,410
+
+463
+00:23:51,410 --> 00:23:54,030
+Then within that, to
+get the attributes use
+
+464
+00:23:54,030 --> 00:23:56,900
+dot get and then the
+name of the attribute.
+
+465
+00:23:56,900 --> 00:24:00,280
+That's going to give
+you back the string yes.
+
+466
+00:24:00,280 --> 00:24:04,920
+This will print
+out Chuck and yes.
+
+467
+00:24:04,920 --> 00:24:08,170
+You basically go down
+this tree, go find pieces,
+
+468
+00:24:08,170 --> 00:24:10,370
+and then you pull pieces
+out of those pieces
+
+469
+00:24:10,370 --> 00:24:12,955
+so you can parse
+this from a tree.
+
+470
+00:24:12,955 --> 00:24:16,860
+
+471
+00:24:16,860 --> 00:24:22,540
+Here's another example
+of a little bit of XML.
+
+472
+00:24:22,540 --> 00:24:25,490
+The difference between this
+XML and the previous XML
+
+473
+00:24:25,490 --> 00:24:28,080
+is we have another
+tag called stuff,
+
+474
+00:24:28,080 --> 00:24:31,190
+and then there is a tag
+called-- this is not
+
+475
+00:24:31,190 --> 00:24:32,840
+indented all so well.
+
+476
+00:24:32,840 --> 00:24:36,755
+There is user's tag and then
+within that are two users.
+
+477
+00:24:36,755 --> 00:24:38,380
+The difference between
+the previous one
+
+478
+00:24:38,380 --> 00:24:40,630
+is we just went
+down a set of nodes.
+
+479
+00:24:40,630 --> 00:24:48,240
+Now what we have is we have
+a stuff, users, and then
+
+480
+00:24:48,240 --> 00:24:50,085
+we have a series of users.
+
+481
+00:24:50,085 --> 00:24:53,700
+
+482
+00:24:53,700 --> 00:24:56,020
+There could be several of these.
+
+483
+00:24:56,020 --> 00:24:59,620
+You could think of this as in
+here there's dot dot dot dot.
+
+484
+00:24:59,620 --> 00:25:02,052
+There could be
+hundreds of users.
+
+485
+00:25:02,052 --> 00:25:03,510
+Now what we're
+going to do is we're
+
+486
+00:25:03,510 --> 00:25:09,810
+going to say I would like to do
+find all, find all these users,
+
+487
+00:25:09,810 --> 00:25:13,010
+not just find one, but
+find all the users.
+
+488
+00:25:13,010 --> 00:25:15,530
+Stuff is we parse it.
+
+489
+00:25:15,530 --> 00:25:18,750
+Then when we do a find
+all of user slash user.
+
+490
+00:25:18,750 --> 00:25:20,280
+Users slash user.
+
+491
+00:25:20,280 --> 00:25:23,285
+That's find me all
+the user nodes.
+
+492
+00:25:23,285 --> 00:25:27,240
+Let me change color here.
+
+493
+00:25:27,240 --> 00:25:31,090
+Find me all the user
+nodes underneath users.
+
+494
+00:25:31,090 --> 00:25:33,890
+That gets me all of these.
+
+495
+00:25:33,890 --> 00:25:38,080
+I get this back as a list.
+
+496
+00:25:38,080 --> 00:25:40,340
+In the list is
+each of the nodes.
+
+497
+00:25:40,340 --> 00:25:42,840
+In my example, I'm only going
+to get a list of two nodes,
+
+498
+00:25:42,840 --> 00:25:48,360
+but I'm going to see if there's
+hundreds I would get hundreds.
+
+499
+00:25:48,360 --> 00:25:50,530
+The thing I get
+back from stuff dot
+
+500
+00:25:50,530 --> 00:25:53,330
+find all is a list of nodes.
+
+501
+00:25:53,330 --> 00:25:55,970
+There's stuff
+under here as well.
+
+502
+00:25:55,970 --> 00:25:59,360
+Each of these nodes has
+things underneath of it.
+
+503
+00:25:59,360 --> 00:26:01,540
+Stuff, find all,
+user slash users
+
+504
+00:26:01,540 --> 00:26:06,390
+gets me a list of all
+of the user objects.
+
+505
+00:26:06,390 --> 00:26:10,380
+Because list is
+a-- LST is a list,
+
+506
+00:26:10,380 --> 00:26:12,775
+I can see how many
+things that I've got
+
+507
+00:26:12,775 --> 00:26:17,560
+and then I write a little
+loop for item in list.
+
+508
+00:26:17,560 --> 00:26:26,150
+That's going make an iteration
+variable, item, is going
+
+509
+00:26:26,150 --> 00:26:28,440
+to go through successive
+elements of this list,
+
+510
+00:26:28,440 --> 00:26:32,680
+and then item is a node.
+
+511
+00:26:32,680 --> 00:26:36,830
+Each item-- getting a
+little complex here,
+
+512
+00:26:36,830 --> 00:26:41,160
+each item-- let me
+switch over here.
+
+513
+00:26:41,160 --> 00:26:44,950
+Another way to say
+this is list, find all,
+
+514
+00:26:44,950 --> 00:26:48,200
+gets a list of all
+of the user objects.
+
+515
+00:26:48,200 --> 00:26:50,640
+There turns out
+to be two of them.
+
+516
+00:26:50,640 --> 00:26:56,760
+Here's the sub zero, and
+here's the sub one in the list.
+
+517
+00:26:56,760 --> 00:26:59,603
+We get a list of user objects.
+
+518
+00:26:59,603 --> 00:27:03,870
+Then we're going to have
+this iteration very well item
+
+519
+00:27:03,870 --> 00:27:07,250
+iterate through each
+of those things.
+
+520
+00:27:07,250 --> 00:27:13,630
+It can pull out item dot
+find, item dot find , name,
+
+521
+00:27:13,630 --> 00:27:16,800
+get me the thing, and then
+find the text within that.
+
+522
+00:27:16,800 --> 00:27:18,045
+That's going to be Chuck.
+
+523
+00:27:18,045 --> 00:27:21,855
+We can say item dot
+find ID dot text,
+
+524
+00:27:21,855 --> 00:27:24,875
+and that will be the
+zero zero one bit.
+
+525
+00:27:24,875 --> 00:27:31,020
+Them item dot get X,
+which will pull out-- item
+
+526
+00:27:31,020 --> 00:27:33,767
+dot get X. We'll pull out
+that value right there.
+
+527
+00:27:33,767 --> 00:27:34,725
+Let me draw that again.
+
+528
+00:27:34,725 --> 00:27:38,960
+
+529
+00:27:38,960 --> 00:27:47,118
+Item dot find dot name
+will get [INAUDIBLE].
+
+530
+00:27:47,118 --> 00:27:49,390
+That's giving me
+a better picture.
+
+531
+00:27:49,390 --> 00:27:54,840
+Item is that.
+
+532
+00:27:54,840 --> 00:27:59,290
+Item dot find dot name
+dot text is Chuck.
+
+533
+00:27:59,290 --> 00:28:03,970
+
+534
+00:28:03,970 --> 00:28:08,370
+Item dot find dot ID dot
+text is zero zero one.
+
+535
+00:28:08,370 --> 00:28:13,315
+
+536
+00:28:13,315 --> 00:28:16,220
+Item dot get X, that's
+find the attribute
+
+537
+00:28:16,220 --> 00:28:19,650
+X on the item, the tag
+of what we're looking at,
+
+538
+00:28:19,650 --> 00:28:22,340
+and that's going to get the two.
+
+539
+00:28:22,340 --> 00:28:25,420
+You're looking at these things
+and pulling the bits out.
+
+540
+00:28:25,420 --> 00:28:27,170
+You can, if there's
+more than one of them,
+
+541
+00:28:27,170 --> 00:28:31,860
+you can write a for
+loop to go through them.
+
+542
+00:28:31,860 --> 00:28:33,410
+That's XML.
+
+543
+00:28:33,410 --> 00:28:34,971
+We're not going to
+do much with XML.
+
+544
+00:28:34,971 --> 00:28:36,345
+We're going to do
+more with JSON.
+
+545
+00:28:36,345 --> 00:28:40,510
+
+546
+00:28:40,510 --> 00:28:46,680
+That's one form of serializing
+data to move back and forth.
+
+547
+00:28:46,680 --> 00:28:51,040
+Another is JavaScript
+Object Notation.
+
+548
+00:28:51,040 --> 00:28:56,660
+JavaScript Object
+Notation is a notation
+
+549
+00:28:56,660 --> 00:29:00,090
+that's really the constant
+syntax, the syntax
+
+550
+00:29:00,090 --> 00:29:04,160
+to make JavaScript constants,
+is what turns out to be.
+
+551
+00:29:04,160 --> 00:29:09,570
+It was named JSON by this
+fellow Douglas Crockford.
+
+552
+00:29:09,570 --> 00:29:13,786
+It is really exactly how
+you represent objects.
+
+553
+00:29:13,786 --> 00:29:15,160
+What I'm going to
+do is I'm going
+
+554
+00:29:15,160 --> 00:29:20,150
+to stop now and have you take a
+look at the video from Douglas
+
+555
+00:29:20,150 --> 00:29:21,453
+Crockford.
+
+556
+00:29:21,453 --> 00:29:21,953
