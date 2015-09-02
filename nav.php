@@ -12,7 +12,6 @@
 <li><a <?php navto("book.php") ?> >Book</a></li>
 <li><a <?php navto("install.php") ?> >Install</a></li>
 <li><a href=http://www.pr4e.org/ target="_blank">MOOC</a></li>
-<li><a href="http://python.xwmooc.net/" target="_blank">(Korean)</a></li>
 <li><a href="http://www.dr-chuck.com/" target="_blank">Instructor</a></li>
 <li><a href="http://www.python.org/" target="_blank">Python</a></li>
 <li><a <?php navto("about.php") ?> >About</a></li>
