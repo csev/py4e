@@ -6,10 +6,10 @@ to clean up some user-entered geographic locations of
 university names and then placing the data on a Google
 Map.
 
-You should install the SQLite browser in your FireFox to view
-and modify the databases from:
+You should install the SQLite browser to view and modify 
+the databases from:
 
-https://addons.mozilla.org/en-us/firefox/addon/sqlite-manager/
+http://sqlitebrowser.org/
 
 The first problem to solve is that the Google geocoding
 API is rate limited to 2500 requests per day.  So if you have

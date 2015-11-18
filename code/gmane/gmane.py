@@ -59,7 +59,7 @@ conn = sqlite3.connect('content.sqlite')
 cur = conn.cursor()
 conn.text_factory = str
 
-baseurl = "http://download.gmane.org/gmane.comp.cms.sakai.devel/"
+baseurl = "http://gmane.dr-chuck.net/gmane.comp.cms.sakai.devel/"
 
 cur.execute('''CREATE TABLE IF NOT EXISTS Messages 
     (id INTEGER UNIQUE, email TEXT, sent_at TEXT, 

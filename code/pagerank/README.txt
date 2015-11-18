@@ -5,11 +5,10 @@ search engine.  They store their data in a SQLITE3 database named
 'spider.sqlite'.  This file can be removed at any time to restart the
 process.   
 
-You can view the database interactively using a Firefox plugin:
+You should install the SQLite browser to view and modify 
+the databases from:
 
-https://addons.mozilla.org/en-us/firefox/addon/sqlite-manager/
-
-The plugin works more reliably than the desktop SQLiteBrowser.
+http://sqlitebrowser.org/
 
 This program crawls a web site and pulls a series of pages into the
 database, recording the links between pages.
@@ -136,7 +135,7 @@ web browser.
 Mac: python spjson.py 
 Win: spjson.py 
 
-Creating JSON output on spider.json...
+Creating JSON output on spider.js...
 How many nodes? 30
 Open force.html in a browser to view the visualization
 
@@ -150,5 +149,5 @@ This visualization is provided using the force layout from:
 http://mbostock.github.com/d3/
 
 If you rerun the other utilities and then re-run spjson.py - you merely
-have to press refresh in the browser to get the new data from spider.json.
+have to press refresh in the browser to get the new data from spider.js.
 

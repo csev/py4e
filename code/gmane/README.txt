@@ -6,10 +6,17 @@ of a gmane repository using the instructions at:
 
 http://gmane.org/export.php
 
-You should install the SQLite browser in your FireFox to view
-and modify the databases from:
+In order not to overwhelm the gmane.org server, I have put up 
+my own copy of the messages at: 
 
-https://addons.mozilla.org/en-us/firefox/addon/sqlite-manager/
+http://gmane.dr-chuck.net/
+
+This server will be faster and take a lot of load off the 
+gmane.org server.
+
+You should install the SQLite browser to view and modify the databases from:
+
+http://sqlitebrowser.org/
 
 The first step is to spider the gmane repository.  The base URL 
 is hard-coded in the gmane.py and is hard-coded to the Sakai
