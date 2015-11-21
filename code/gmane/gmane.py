@@ -1,5 +1,6 @@
 import sqlite3
 import time
+import ssl
 import urllib
 from urlparse import urljoin
 from urlparse import urlparse
@@ -55,6 +56,9 @@ def parsemaildate(md) :
 
     return iso+tz
 
+# Deal with SSL certificate anomalies
+scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+
 conn = sqlite3.connect('content.sqlite')
 cur = conn.cursor()
 conn.text_factory = str
@@ -93,7 +97,7 @@ while True:
     url = baseurl + str(start) + '/' + str(start + 1)
 
     try:
-        document = urllib.urlopen(url)
+        document = urllib.urlopen(url, context=scontext)
         text = document.read()
         if document.getcode() != 200 :
             print "Error code=",document.getcode(), url

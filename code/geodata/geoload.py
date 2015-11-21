@@ -2,8 +2,12 @@ import urllib
 import sqlite3
 import json
 import time
+import ssl
 
 serviceurl = "http://maps.googleapis.com/maps/api/geocode/json?"
+
+# Deal with SSL certificate anomalies
+scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
 
 conn = sqlite3.connect('geodata.sqlite')
 cur = conn.cursor()
@@ -29,13 +33,13 @@ for line in fh:
     print 'Resolving', address
     url = serviceurl + urllib.urlencode({"sensor":"false", "address": address})
     print 'Retrieving', url
-    uh = urllib.urlopen(url)
+    uh = urllib.urlopen(url, context=scontext)
     data = uh.read()
     print 'Retrieved',len(data),'characters',data[:20].replace('\n',' ')
     count = count + 1
     try: 
         js = json.loads(str(data))
-        print js  # We print in case unicode causes an error
+        # print js  # We print in case unicode causes an error
     except: 
         continue
 

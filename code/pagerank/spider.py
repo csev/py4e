@@ -1,8 +1,12 @@
 import sqlite3
 import urllib
+import ssl
 from urlparse import urljoin
 from urlparse import urlparse
 from BeautifulSoup import *
+
+# Deal with SSL certificate anomalies
+scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
 
 conn = sqlite3.connect('spider.sqlite')
 cur = conn.cursor()
@@ -16,14 +20,24 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Links
 
 cur.execute('''CREATE TABLE IF NOT EXISTS Webs (url TEXT UNIQUE)''')
 
-starturl = raw_input('Enter web url or enter: ')
-if ( len(starturl) < 1 ) : starturl = 'http://www.dr-chuck.com/'
-if ( starturl.endswith('/') ) : starturl = starturl[:-1]
+# Check to see if we are already in progress...
+cur.execute('SELECT id,url FROM Pages WHERE html is NULL and error is NULL ORDER BY RANDOM() LIMIT 1')
+row = cur.fetchone()
+if row is not None:
+    print "Restarting existing crawl.  Remove spider.sqlite to start a fresh crawl."
+else :
+    starturl = raw_input('Enter web url or enter: ')
+    if ( len(starturl) < 1 ) : starturl = 'http://www.dr-chuck.com/'
+    if ( starturl.endswith('/') ) : starturl = starturl[:-1]
+    web = starturl
+    if ( starturl.endswith('.htm') or starturl.endswith('.html') ) :
+        pos = starturl.rfind('/')
+        web = starturl[:pos]
 
-if ( len(starturl) > 1 ) :
-    cur.execute('INSERT OR IGNORE INTO Webs (url) VALUES ( ? )', ( starturl, ) )
-    cur.execute('INSERT OR IGNORE INTO Pages (url, html, new_rank) VALUES ( ?, NULL, 1.0 )', ( starturl, ) ) 
-    conn.commit()
+    if ( len(web) > 1 ) :
+        cur.execute('INSERT OR IGNORE INTO Webs (url) VALUES ( ? )', ( web, ) )
+        cur.execute('INSERT OR IGNORE INTO Pages (url, html, new_rank) VALUES ( ?, NULL, 1.0 )', ( starturl, ) ) 
+        conn.commit()
 
 # Get the current webs
 cur.execute('''SELECT url FROM Webs''')
@@ -57,7 +71,7 @@ while True:
     # If we are retrieving this page, there should be no links from it
     cur.execute('DELETE from Links WHERE from_id=?', (fromid, ) )
     try:
-        document = urllib.urlopen(url)
+        document = urllib.urlopen(url, context=scontext)
         html = document.read()
         if document.getcode() != 200 :
             cur.execute('UPDATE Pages SET error=? WHERE url=?', (document.getcode(), url) )
