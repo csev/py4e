@@ -1,12 +1,13 @@
 import sqlite3
 import urllib
-import ssl
+import ssl 
 from urlparse import urljoin
 from urlparse import urlparse
 from BeautifulSoup import *
 
-# Deal with SSL certificate anomalies
-scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+# Deal with SSL certificate anomalies Python > 2.7
+# scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+scontext = None
 
 conn = sqlite3.connect('spider.sqlite')
 cur = conn.cursor()
@@ -72,15 +73,20 @@ while True:
     cur.execute('DELETE from Links WHERE from_id=?', (fromid, ) )
     try:
         document = urllib.urlopen(url, context=scontext)
+
         html = document.read()
         if document.getcode() != 200 :
+            print "Error on page: ",document.getcode()
             cur.execute('UPDATE Pages SET error=? WHERE url=?', (document.getcode(), url) )
+
         if 'text/html' != document.info().gettype() :
             print "Ignore non text/html page"
             cur.execute('DELETE FROM Pages WHERE url=?', ( url, ) ) 
             cur.execute('UPDATE Pages SET error=0 WHERE url=?', (url, ) )
             conn.commit()
             continue
+
+        print '('+str(len(html))+')',
 
         soup = BeautifulSoup(html)
     except KeyboardInterrupt:

@@ -6,8 +6,9 @@ import ssl
 
 serviceurl = "http://maps.googleapis.com/maps/api/geocode/json?"
 
-# Deal with SSL certificate anomalies
-scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+# Deal with SSL certificate anomalies Python > 2.7
+# scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+scontext = None
 
 conn = sqlite3.connect('geodata.sqlite')
 cur = conn.cursor()

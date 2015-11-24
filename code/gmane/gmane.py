@@ -6,7 +6,12 @@ from urlparse import urljoin
 from urlparse import urlparse
 import re
 from datetime import datetime, timedelta
-# Not all systems have this
+
+# Deal with SSL certificate anomalies Python > 2.7
+# scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+scontext = None
+
+# Not all systems have this so conditionally define parser
 try:
     import dateutil.parser as parser
 except:
@@ -55,9 +60,6 @@ def parsemaildate(md) :
         pass
 
     return iso+tz
-
-# Deal with SSL certificate anomalies
-scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
 
 conn = sqlite3.connect('content.sqlite')
 cur = conn.cursor()
