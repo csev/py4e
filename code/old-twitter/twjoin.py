@@ -7,16 +7,16 @@ cur.execute('SELECT * FROM People')
 count = 0
 print 'People:'
 for row in cur :
-   if count < 5: print row
-   count = count + 1
+    if count < 5: print row
+    count = count + 1
 print count, 'rows.'
 
 cur.execute('SELECT * FROM Follows')
 count = 0
 print 'Follows:'
 for row in cur :
-   if count < 5: print row
-   count = count + 1
+    if count < 5: print row
+    count = count + 1
 print count, 'rows.'
 
 cur.execute('''SELECT * FROM Follows JOIN People 
@@ -24,8 +24,8 @@ cur.execute('''SELECT * FROM Follows JOIN People
 count = 0
 print 'Connections for id=2:'
 for row in cur :
-   if count < 5: print row
-   count = count + 1
+    if count < 5: print row
+    count = count + 1
 print count, 'rows.'
 
 cur.close()

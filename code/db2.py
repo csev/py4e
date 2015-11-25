@@ -12,7 +12,7 @@ conn.commit()
 print 'Tracks:'
 cur.execute('SELECT title, plays FROM Tracks')
 for row in cur :
-   print row
+     print row
 
 cur.execute('DELETE FROM Tracks WHERE plays < 100')
 

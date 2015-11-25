@@ -72,9 +72,9 @@ while len(urls) > 0 :
 
 print 'EDITS:'
 for (key,val) in editcounts.sortvalues():
-   print key, val
+    print key, val
 
 for (key,val) in sorted(postcounts.items()):
-   print key, val
+    print key, val
 
 conn.close()

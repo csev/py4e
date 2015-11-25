@@ -11,10 +11,10 @@ fname = words[-1]
 
 # Don't overwrite the file
 if os.path.exists(fname) :
-   if raw_input('Replace '+fname+' (Y/n)?') != 'Y' :
-      print 'Data not copied'
-      exit()
-   print 'Replacing',fname
+    if raw_input('Replace '+fname+' (Y/n)?') != 'Y' :
+        print 'Data not copied'
+        exit()
+    print 'Replacing',fname
 
 fhand = open(fname, 'w')
 size = 0
