@@ -1,0 +1,787 @@
+% LaTeX source for ``Python for Informatics: Exploring Information''
+% Copyright (c)  2010-  Charles R. Severance, All Rights Reserved
+
+\chapter{Dictionaries}
+\index{dictionary}
+
+\index{dictionary}
+\index{type!dict}
+\index{key}
+\index{key-value pair}
+\index{index}
+
+A {\bf dictionary} is like a list, but more general.  In a list,
+the index positions have to be integers; in a dictionary, 
+the indices can be (almost) any type.
+
+You can think of a dictionary as a mapping between a set of indices
+(which are called {\bf keys}) and a set of values.  Each key maps to a
+value.  The association of a key and a value is called a {\bf
+  key-value pair} or sometimes an {\bf item}.
+
+As an example, we'll build a dictionary that maps from English
+to Spanish words, so the keys and the values are all strings.
+
+The function {\tt dict} creates a new dictionary with no items.
+Because {\tt dict} is the name of a built-in function, you
+should avoid using it as a variable name.
+
+\index{dict function}
+\index{function!dict}
+
+\beforeverb
+\begin{verbatim}
+>>> eng2sp = dict()
+>>> print eng2sp
+{}
+\end{verbatim}
+\afterverb
+
+The curly brackets, \verb"{}", represent an empty dictionary.
+To add items to the dictionary, you can use square brackets:
+
+\index{squiggly bracket}
+\index{bracket!squiggly}
+
+\beforeverb
+\begin{verbatim}
+>>> eng2sp['one'] = 'uno'
+\end{verbatim}
+\afterverb
+%
+This line creates an item that maps from the key
+{\tt 'one'} to the value \verb"'uno'".  If we print the
+dictionary again, we see a key-value pair with a colon
+between the key and value:
+
+\beforeverb
+\begin{verbatim}
+>>> print eng2sp
+{'one': 'uno'}
+\end{verbatim}
+\afterverb
+%
+This output format is also an input format.  For example,
+you can create a new dictionary with three items:
+
+\beforeverb
+\begin{verbatim}
+>>> eng2sp = {'one': 'uno', 'two': 'dos', 'three': 'tres'}
+\end{verbatim}
+\afterverb
+%
+But if you print {\tt eng2sp}, you might be surprised:
+
+\beforeverb
+\begin{verbatim}
+>>> print eng2sp
+{'one': 'uno', 'three': 'tres', 'two': 'dos'}
+\end{verbatim}
+\afterverb
+%
+The order of the key-value pairs is not the same.  In fact, if
+you type the same example on your computer, you might get a
+different result.  In general, the order of items in
+a dictionary is unpredictable.
+
+But that's not a problem because
+the elements of a dictionary are never indexed with integer indices.
+Instead, you use the keys to look up the corresponding values:
+
+\beforeverb
+\begin{verbatim}
+>>> print eng2sp['two']
+'dos'
+\end{verbatim}
+\afterverb
+%
+The key {\tt 'two'} always maps to the value \verb"'dos'" so the order
+of the items doesn't matter.
+
+If the key isn't in the dictionary, you get an exception:
+
+\index{exception!KeyError}
+\index{KeyError}
+
+\beforeverb
+\begin{verbatim}
+>>> print eng2sp['four']
+KeyError: 'four'
+\end{verbatim}
+\afterverb
+%
+The {\tt len} function works on dictionaries; it returns the
+number of key-value pairs:
+
+\index{len function}
+\index{function!len}
+
+\beforeverb
+\begin{verbatim}
+>>> len(eng2sp)
+3
+\end{verbatim}
+\afterverb
+%
+The {\tt in} operator works on dictionaries; it tells you whether
+something appears as a \emph{key} in the dictionary (appearing
+as a value is not good enough).
+
+\index{membership!dictionary}
+\index{in operator}
+\index{operator!in}
+
+\beforeverb
+\begin{verbatim}
+>>> 'one' in eng2sp
+True
+>>> 'uno' in eng2sp
+False
+\end{verbatim}
+\afterverb
+%
+To see whether something appears as a value in a dictionary, you
+can use the method {\tt values}, which returns the values as
+a list, and then use the {\tt in} operator:
+
+\index{values method}
+\index{method!values}
+
+\beforeverb
+\begin{verbatim}
+>>> vals = eng2sp.values()
+>>> 'uno' in vals
+True
+\end{verbatim}
+\afterverb
+%
+The {\tt in} operator uses different algorithms for lists and
+dictionaries.  For lists, it uses a linear search algorithm.
+As the list gets longer, the search time gets
+longer in direct proportion to the length of the list.  
+For dictionaries, Python uses an
+algorithm called a {\bf hash table} that has a remarkable property---the
+{\tt in} operator takes about the same amount of time no matter how
+many items there are in a dictionary.  I won't explain 
+why hash functions are so magical,
+but you can read more about it at
+\url{wikipedia.org/wiki/Hash_table}.
+
+\index{hash table}
+
+\begin{ex}
+\label{wordlist2}
+
+\index{set membership}
+\index{membership!set}
+
+Write a program that reads the words in {\tt words.txt} and
+stores them as keys in a dictionary.  It doesn't matter what the
+values are.  Then you can use the {\tt in} operator
+as a fast way to check whether a string is in
+the dictionary.
+
+\end{ex}
+
+
+\section{Dictionary as a set of counters}
+\label{histogram}
+
+\index{counter}
+
+Suppose you are given a string and you want to count how many
+times each letter appears.  There are several ways you could do it:
+
+\begin{enumerate}
+
+\item You could create 26 variables, one for each letter of the
+alphabet.  Then you could traverse the string and, for each
+character, increment the corresponding counter, probably using
+a chained conditional.
+
+\item You could create a list with 26 elements.  Then you could
+convert each character to a number (using the built-in function
+{\tt ord}), use the number as an index into the list, and increment
+the appropriate counter.
+
+\item You could create a dictionary with characters as keys
+and counters as the corresponding values.  The first time you
+see a character, you would add an item to the dictionary.  After
+that you would increment the value of an existing item.
+
+\end{enumerate}
+
+Each of these options performs the same computation, but each
+of them implements that computation in a different way.
+
+\index{implementation}
+
+An {\bf implementation} is a way of performing a computation;
+some implementations are better than others.  For example,
+an advantage of the dictionary implementation is that we don't
+have to know ahead of time which letters appear in the string
+and we only have to make room for the letters that do appear.
+
+Here is what the code might look like:
+
+\beforeverb
+\begin{verbatim}
+word = 'brontosaurus'
+d = dict()
+for c in word:
+    if c not in d:
+        d[c] = 1
+    else:
+        d[c] = d[c] + 1
+print d
+\end{verbatim}
+\afterverb
+%
+We are effectively computing a {\bf histogram}, which is a statistical
+term for a set of counters (or frequencies).  
+
+\index{histogram}
+\index{frequency}
+\index{traversal}
+
+The {\tt for} loop traverses
+the string.  Each time through the loop, if the character {\tt c} is
+not in the dictionary, we create a new item with key {\tt c} and the
+initial value 1 (since we have seen this letter once).  If {\tt c} is
+already in the dictionary we increment {\tt d[c]}.
+
+\index{histogram}
+
+Here's the output of the program:
+
+\beforeverb
+\begin{verbatim}
+{'a': 1, 'b': 1, 'o': 2, 'n': 1, 's': 2, 'r': 2, 'u': 2, 't': 1}
+\end{verbatim}
+\afterverb
+%
+The histogram indicates that the letters {\tt 'a'} and \verb"'b'"
+appear once; \verb"'o'" appears twice, and so on.
+
+\index{get method}
+\index{method!get}
+
+Dictionaries have a method called {\tt get} that takes a key
+and a default value.  If the key appears in the dictionary,
+{\tt get} returns the corresponding value; otherwise it returns
+the default value.  For example:
+
+\beforeverb
+\begin{verbatim}
+>>> counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+>>> print counts.get('jan', 0)
+100
+>>> print counts.get('tim', 0)
+0
+\end{verbatim}
+\afterverb
+%
+We can use {\tt get} to write our histogram loop more concisely.  
+Because the {\tt get} method automatically handles the case where a key
+is not in a dictionary, we can reduce four lines down to one
+and eliminate the {\tt if} statement.
+
+\beforeverb
+\begin{verbatim}
+word = 'brontosaurus'
+d = dict()
+for c in word:
+    d[c] = d.get(c,0) + 1
+print d
+\end{verbatim}
+\afterverb
+%
+The use of the {\tt get} method to simplify this counting loop 
+ends up being a very commonly used ``idiom'' in Python and 
+we will use it many times in the rest of the book.   So you should
+take a moment and compare the loop using the {\tt if} statement
+and {\tt in} operator with the loop using the {\tt get} method.
+They do exactly the same thing, but one is more succinct.
+\index{idiom}
+
+\section{Dictionaries and files}
+
+One of the common uses of a dictionary is to count the occurrence
+of words in a file with some written text.  
+Let's start with a very simple file of
+words taken from the text of \emph{Romeo and Juliet}.
+
+For the first set of examples, we will use a shortened and simplified version
+of the text with no punctuation.  Later we will work with the text of the 
+scene with punctuation included.
+
+\beforeverb
+\begin{verbatim}
+But soft what light through yonder window breaks
+It is the east and Juliet is the sun
+Arise fair sun and kill the envious moon
+Who is already sick and pale with grief
+\end{verbatim}
+\afterverb
+%
+We will write a Python program to read through the lines of the file, 
+break each line into a list of words, and then loop through each 
+of the words in the line and count each word using a dictionary.
+
+\index{nested loops}
+\index{loop!nested}
+You will see that we have two {\tt for} loops.  The outer loop is reading the
+lines of the file and the inner loop is iterating through each
+of the words on that particular line.  This is an example
+of a pattern called {\bf nested loops} because one of the loops
+is the \emph{outer} loop and the other loop is the \emph{inner}
+loop.  
+
+Because the inner loop executes all of its iterations each time
+the outer loop makes a single iteration, we think of the inner
+loop as iterating ``more quickly'' and the outer loop as iterating 
+more slowly.
+
+\index{Romeo and Juliet}
+The combination of the two nested loops ensures that we will count
+every word on every line of the input file.
+
+\beforeverb
+\begin{verbatim}
+fname = raw_input('Enter the file name: ')
+try:
+    fhand = open(fname)
+except:
+    print 'File cannot be opened:', fname
+    exit()
+
+counts = dict()
+for line in fhand:
+    words = line.split()
+    for word in words:
+        if word not in counts:
+            counts[word] = 1
+        else:
+            counts[word] += 1
+
+print counts
+\end{verbatim}
+\afterverb
+%
+When we run the program, we see a raw dump of all of the counts in unsorted
+hash order.
+(the {\tt romeo.txt} file is available at
+\url{www.py4inf.com/code/romeo.txt})
+
+\beforeverb
+\begin{verbatim}
+python count1.py 
+Enter the file name: romeo.txt
+{'and': 3, 'envious': 1, 'already': 1, 'fair': 1, 
+'is': 3, 'through': 1, 'pale': 1, 'yonder': 1, 
+'what': 1, 'sun': 2, 'Who': 1, 'But': 1, 'moon': 1, 
+'window': 1, 'sick': 1, 'east': 1, 'breaks': 1, 
+'grief': 1, 'with': 1, 'light': 1, 'It': 1, 'Arise': 1, 
+'kill': 1, 'the': 3, 'soft': 1, 'Juliet': 1}
+\end{verbatim}
+\afterverb
+%
+It is a bit inconvenient to look through the dictionary to find the
+most common words and their counts, so we need to add some more 
+Python code to get us the output that will be more helpful.
+
+\section{Looping and dictionaries}
+
+\index{dictionary!looping with}
+\index{looping!with dictionaries}
+\index{traversal}
+
+If you use a dictionary as the sequence 
+in a {\tt for} statement, it traverses
+the keys of the dictionary.  This loop
+prints each key and the corresponding value:
+
+\beforeverb
+\begin{verbatim}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+for key in counts:
+    print key, counts[key]
+\end{verbatim}
+\afterverb
+%
+Here's what the output looks like:
+
+\beforeverb
+\begin{verbatim}
+jan 100
+chuck 1
+annie 42
+\end{verbatim}
+\afterverb
+%
+Again, the keys are in no particular order.
+
+\index{idiom}
+We can use this pattern to implement the various loop idioms
+that we have described earlier.  For example if we wanted 
+to find all the entries in a dictionary with a value 
+above ten, we could write the following code:
+
+\beforeverb
+\begin{verbatim}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+for key in counts:
+    if counts[key] > 10 :
+        print key, counts[key]
+\end{verbatim}
+\afterverb
+%
+The {\tt for} loop iterates through the 
+{\em keys} of the dictionary, so we must 
+use the index operator to retrieve the 
+corresponding {\em value}
+for each key.
+Here's what the output looks like:
+
+\beforeverb
+\begin{verbatim}
+jan 100
+annie 42
+\end{verbatim}
+\afterverb
+%
+We see only the entries with a value above 10.
+
+\index{keys method}
+\index{method!keys}
+If you want to print the keys in alphabetical order, you first 
+make a list of the keys in the dictionary using the 
+{\tt keys} method available in dictionary objects,
+and then sort that list
+and loop through the sorted list, looking up each
+key and printing out key-value pairs in sorted order
+as follows:
+
+\beforeverb
+\begin{verbatim}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+lst = counts.keys()
+print lst
+lst.sort()
+for key in lst:
+    print key, counts[key]
+\end{verbatim}
+\afterverb
+%
+Here's what the output looks like:
+
+\beforeverb
+\begin{verbatim}
+['jan', 'chuck', 'annie']
+annie 42
+chuck 1
+jan 100
+\end{verbatim}
+\afterverb
+%
+First you see the list of keys in unsorted order that 
+we get from the {\tt keys} method.  Then we see the key-value
+pairs in order from the {\tt for} loop.
+
+\section{Advanced text parsing}
+
+\index{Romeo and Juliet}
+In the above example using the file {\tt romeo.txt},
+we made the file as simple as possible by removing 
+all punctuation by hand.  The actual text 
+has lots of punctuation, as shown below.
+
+\beforeverb
+\begin{verbatim}
+But, soft! what light through yonder window breaks?
+It is the east, and Juliet is the sun.
+Arise, fair sun, and kill the envious moon,
+Who is already sick and pale with grief,
+\end{verbatim}
+\afterverb
+%
+Since the Python {\tt split} function looks for spaces and
+treats words as tokens separated by spaces, we would treat the
+words ``soft!'' and ``soft'' as \emph{different} words and create
+a separate dictionary entry for each word.
+
+Also since the file has capitalization, we would treat
+``who'' and ``Who'' as different words with different 
+counts.
+
+We can solve both these problems by using the string
+methods {\tt lower}, {\tt punctuation}, and {\tt translate}.  The 
+{\tt translate} is the most subtle of the methods.  
+Here is the documentation for {\tt translate}:
+
+\verb"string.translate(s, table[, deletechars])"
+
+\emph{Delete all characters from s that are in deletechars (if present), 
+and then translate the characters using table, which must 
+be a 256-character string giving the translation for each 
+character value, indexed by its ordinal. If table is None, 
+then only the character deletion step is performed.}
+
+We will not specify the {\tt table} but we will use 
+the {\tt deletechars} parameter to delete all of the punctuation.
+We will even let Python tell us the list of characters
+that it considers ``punctuation'':
+
+\beforeverb
+\begin{verbatim}
+>>> import string
+>>> string.punctuation
+'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+\end{verbatim}
+\afterverb
+%
+We make the following modifications to our program:
+
+\beforeverb
+\begin{verbatim}
+import string                                          # New Code
+
+fname = raw_input('Enter the file name: ')
+try:
+    fhand = open(fname)
+except:
+    print 'File cannot be opened:', fname
+    exit()
+
+counts = dict()
+for line in fhand:
+    line = line.translate(None, string.punctuation)    # New Code
+    line = line.lower()                                # New Code
+    words = line.split()
+    for word in words:
+        if word not in counts:
+            counts[word] = 1
+        else:
+            counts[word] += 1
+
+print counts
+\end{verbatim}
+\afterverb
+%
+We use {\tt translate} to remove all punctuation and {\tt lower} to 
+force the line to lowercase.  Otherwise the program is unchanged.
+Note that for Python 2.5 and earlier, {\tt translate} does not 
+accept {\tt None} as the first parameter so use this code instead
+for the translate call:
+
+\beforeverb
+\begin{verbatim}
+print a.translate(string.maketrans(' ',' '), string.punctuation
+\end{verbatim}
+\afterverb
+%
+Part of learning the ``Art of Python'' or ``Thinking Pythonically''
+is realizing that Python
+often has built-in capabilities for many common data analysis
+problems.  Over time, you will see enough example code and read
+enough of the documentation to know where to look to see if someone
+has already written something that makes your job much easier.
+
+The following is an abbreviated version of the output:
+
+\beforeverb
+\begin{verbatim}
+Enter the file name: romeo-full.txt
+{'swearst': 1, 'all': 6, 'afeard': 1, 'leave': 2, 'these': 2, 
+'kinsmen': 2, 'what': 11, 'thinkst': 1, 'love': 24, 'cloak': 1, 
+a': 24, 'orchard': 2, 'light': 5, 'lovers': 2, 'romeo': 40, 
+'maiden': 1, 'whiteupturned': 1, 'juliet': 32, 'gentleman': 1, 
+'it': 22, 'leans': 1, 'canst': 1, 'having': 1, ...}
+\end{verbatim}
+\afterverb
+%
+Looking through this output is still unwieldy and we can use
+Python to give us exactly what we are looking for, but to do 
+so, we need to learn about Python {\bf tuples}.  We
+will pick up this example once we learn about tuples.
+
+\section{Debugging}
+\index{debugging}
+
+As you work with bigger datasets it can become unwieldy to
+debug by printing and checking data by hand.  Here are some
+suggestions for debugging large datasets:
+
+\begin{description}
+
+\item[Scale down the input:] If possible, reduce the size of the
+dataset.  For example if the program reads a text file, start with
+just the first 10 lines, or with the smallest example you can find.
+You can either edit the files themselves, or (better) modify the
+program so it reads only the first {\tt n} lines.
+
+If there is an error, you can reduce {\tt n} to the smallest
+value that manifests the error, and then increase it gradually
+as you find and correct errors.
+
+\item[Check summaries and types:] Instead of printing and checking the
+entire dataset, consider printing summaries of the data: for example,
+the number of items in a dictionary or the total of a list of numbers.
+
+A common cause of runtime errors is a value that is not the right
+type.  For debugging this kind of error, it is often enough to print
+the type of a value.
+
+\item[Write self-checks:]  Sometimes you can write code to check
+for errors automatically.  For example, if you are computing the
+average of a list of numbers, you could check that the result is
+not greater than the largest element in the list or less than
+the smallest.  This is called a ``sanity check'' because it detects
+results that are ``completely illogical''.
+
+\index{sanity check}
+\index{consistency check}
+
+Another kind of check compares the results of two different
+computations to see if they are consistent.  This is called a
+``consistency check''.
+
+\item[Pretty print the output:] Formatting debugging output
+can make it easier to spot an error.  
+
+\end{description}
+
+Again, time you spend building scaffolding can reduce
+the time you spend debugging.
+
+\index{scaffolding}
+
+\section{Glossary}
+
+\begin{description}
+
+\item[dictionary:] A mapping from a set of keys to their
+corresponding values.
+\index{dictionary}
+
+\item[hashtable:] The algorithm used to implement Python
+dictionaries.
+\index{hashtable}
+
+\item[hash function:] A function used by a hashtable to compute the
+location for a key.
+\index{hash function}
+
+\item[histogram:] A set of counters.
+\index{histogram}
+
+\item[implementation:] A way of performing a computation.
+\index{implementation}
+
+\item[item:] Another name for a key-value pair.
+\index{item!dictionary}
+
+\item[key:] An object that appears in a dictionary as the
+first part of a key-value pair.
+\index{key}
+
+\item[key-value pair:] The representation of the mapping from
+a key to a value.
+\index{key-value pair}
+
+\item[lookup:] A dictionary operation that takes a key and finds
+the corresponding value.
+\index{lookup}
+
+\item[nested loops:] When there are one or more loops ``inside'' of 
+another loop.  The inner loop runs to completion each time the outer
+loop runs once.
+\index{nested loops}
+\index{loop!nested}
+
+\item[value:] An object that appears in a dictionary as the
+second part of a key-value pair.  This is more specific than
+our previous use of the word ``value''.
+\index{value}
+
+\end{description}
+
+\section{Exercises}
+
+\begin{ex}
+Write a program that categorizes each mail message by which 
+day of the week the commit was done. To do this look for 
+lines that start with ``From'', then look for the 
+third word and keep a running count of each of the 
+days of the week. At the end of the program print out the 
+contents of your dictionary (order does not matter).
+
+\beforeverb
+\begin{verbatim}
+Sample Line:
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+
+Sample Execution:
+python dow.py
+Enter a file name: mbox-short.txt
+{'Fri': 20, 'Thu': 6, 'Sat': 1}
+\end{verbatim}
+\afterverb
+\end{ex}
+
+\begin{ex}
+Write a program to read through a mail log,  
+build a histogram using a dictionary to count how many 
+messages have come from each email address, 
+and print the dictionary.
+
+\beforeverb
+\begin{verbatim}
+Enter file name: mbox-short.txt
+{'gopal.ramasammycook@gmail.com': 1, 'louis@media.berkeley.edu': 3, 
+'cwen@iupui.edu': 5, 'antranig@caret.cam.ac.uk': 1, 
+'rjlowe@iupui.edu': 2, 'gsilver@umich.edu': 3, 
+'david.horwitz@uct.ac.za': 4, 'wagnermr@iupui.edu': 1, 
+'zqian@umich.edu': 4, 'stephen.marquard@uct.ac.za': 2, 
+'ray@media.berkeley.edu': 1}
+\end{verbatim}
+\afterverb
+\end{ex}
+
+\begin{ex}
+Add code to the above program to figure out who has the 
+most messages in the file.
+
+After all the data has been read and the dictionary has been
+created, look through the dictionary using a maximum loop
+ (see Section~\ref{maximumloop})
+to find who has the most 
+messages and print how many messages the person has.
+
+\beforeverb
+\begin{verbatim}
+Enter a file name: mbox-short.txt
+cwen@iupui.edu 5
+
+Enter a file name: mbox.txt
+zqian@umich.edu 195
+\end{verbatim}
+\afterverb
+\end{ex}
+
+\begin{ex}
+This program records the domain name (instead of the address) 
+where the message was sent from instead of who the mail 
+came from (i.e., the whole email address). At the end 
+of the program, print out the contents of your dictionary. 
+
+\beforeverb
+\begin{verbatim}
+python schoolcount.py
+Enter a file name: mbox-short.txt
+{'media.berkeley.edu': 4, 'uct.ac.za': 6, 'umich.edu': 7, 
+'gmail.com': 1, 'caret.cam.ac.uk': 1, 'iupui.edu': 8}
+\end{verbatim}
+\afterverb
+\end{ex}
+

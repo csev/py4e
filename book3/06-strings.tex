@@ -1,0 +1,900 @@
+% LaTeX source for ``Python for Informatics: Exploring Information''
+% Copyright (c)  2010-  Charles R. Severance, All Rights Reserved
+
+\chapter{Strings}
+\label{strings}
+
+
+\section{A string is a sequence}
+\index{sequence}
+\index{character}
+\index{bracket operator}
+\index{operator!bracket}
+
+A string is a {\bf sequence} of characters.  
+You can access the characters one at a time with the
+bracket operator:
+
+\beforeverb
+\begin{verbatim}
+>>> fruit = 'banana'
+>>> letter = fruit[1]
+\end{verbatim}
+\afterverb
+%
+\index{index}
+The second statement extracts the character at index position 1 from the 
+{\tt fruit} variable and assigns it to the {\tt letter} variable.  
+
+The expression in brackets is called an {\bf index}.  
+The index indicates which character in the sequence you
+want (hence the name).
+
+But you might not get what you expect:
+
+\beforeverb
+\begin{verbatim}
+>>> print letter
+a
+\end{verbatim}
+\afterverb
+%
+For most people, the first letter of \verb"'banana'" is {\tt b}, not
+{\tt a}.  But in Python, the index is an offset from the
+beginning of the string, and the offset of the first letter is zero.
+
+\beforeverb
+\begin{verbatim}
+>>> letter = fruit[0]
+>>> print letter
+b
+\end{verbatim}
+\afterverb
+%
+So {\tt b} is the 0th letter (``zero-eth'') of \verb"'banana'", {\tt a}
+is the 1th letter (``one-eth''), and {\tt n} is the 2th (``two-eth'')
+letter.
+
+\beforefig
+\centerline{\includegraphics[height=0.50in]{figs2/string.eps}}
+\afterfig
+
+\index{index!starting at zero}
+\index{zero, index starting at}
+
+You can use any expression, including variables and operators, as an
+index, but the value of the index has to be an integer.  Otherwise you
+get:
+
+\index{index}
+\index{exception!TypeError}
+\index{TypeError}
+
+\beforeverb
+\begin{verbatim}
+>>> letter = fruit[1.5]
+TypeError: string indices must be integers
+\end{verbatim}
+\afterverb
+%
+
+\section{Getting the length of a string using {\tt len}}
+
+\index{len function}
+\index{function!len}
+
+{\tt len} is a built-in function that returns the number of characters
+in a string:
+
+\beforeverb
+\begin{verbatim}
+>>> fruit = 'banana'
+>>> len(fruit)
+6
+\end{verbatim}
+\afterverb
+%
+To get the last letter of a string, you might be tempted to try something
+like this:
+
+\index{exception!IndexError}
+\index{IndexError}
+
+\beforeverb
+\begin{verbatim}
+>>> length = len(fruit)
+>>> last = fruit[length]
+IndexError: string index out of range
+\end{verbatim}
+\afterverb
+%
+The reason for the {\tt IndexError} is that there is no letter in {\tt
+'banana'} with the index 6.  Since we started counting at zero, the
+six letters are numbered 0 to 5.  To get the last character, you have
+to subtract 1 from {\tt length}:
+
+\beforeverb
+\begin{verbatim}
+>>> last = fruit[length-1]
+>>> print last
+a
+\end{verbatim}
+\afterverb
+%
+Alternatively, you can use negative indices, which count backward from
+the end of the string.  The expression {\tt fruit[-1]} yields the last
+letter, {\tt fruit[-2]} yields the second to last, and so on.
+
+\index{index!negative}
+\index{negative index}
+
+
+\section{Traversal through a string with a loop}
+\label{for}
+
+\index{traversal}
+\index{loop!traversal}
+\index{for loop}
+\index{loop!for}
+\index{statement!for}
+\index{traversal}
+
+A lot of computations involve processing a string one character at a
+time.  Often they start at the beginning, select each character in
+turn, do something to it, and continue until the end.  This pattern of
+processing is called a {\bf traversal}.  One way to write a traversal
+is with a {\tt while} loop:
+
+\beforeverb
+\begin{verbatim}
+index = 0
+while index < len(fruit):
+    letter = fruit[index]
+    print letter
+    index = index + 1
+\end{verbatim}
+\afterverb
+%
+This loop traverses the string and displays each letter on a line by
+itself.  The loop condition is {\tt index < len(fruit)}, so
+when {\tt index} is equal to the length of the string, the
+condition is false, and the body of the loop is not executed.  The
+last character accessed is the one with the index {\tt len(fruit)-1},
+which is the last character in the string.
+
+\begin{ex}
+Write a {\tt while} loop that starts at the last character in the string
+and works its way backwards to the first character in the string, 
+printing each letter on a separate line, except backwards.
+\end{ex}
+
+Another way to write a traversal is with a {\tt for} loop:
+
+\beforeverb
+\begin{verbatim}
+for char in fruit:
+    print char
+\end{verbatim}
+\afterverb
+%
+Each time through the loop, the next character in the string is assigned
+to the variable {\tt char}.  The loop continues until no characters are
+left.
+
+
+\section{String slices}
+\label{slice}
+
+\index{slice operator}
+\index{operator!slice}
+\index{index!slice}
+\index{string!slice}
+\index{slice!string}
+
+A segment of a string is called a {\bf slice}.  Selecting a slice is
+similar to selecting a character:
+
+\beforeverb
+\begin{verbatim}
+>>> s = 'Monty Python'
+>>> print s[0:5]
+Monty
+>>> print s[6:12]
+Python
+\end{verbatim}
+\afterverb
+%
+The operator {\tt [n:m]} returns the part of the string from the 
+``n-eth'' character to the ``m-eth'' character, including the first but
+excluding the last.  
+
+If you omit the first index (before the colon), the slice starts at
+the beginning of the string.  If you omit the second index, the slice
+goes to the end of the string:
+
+\beforeverb
+\begin{verbatim}
+>>> fruit = 'banana'
+>>> fruit[:3]
+'ban'
+>>> fruit[3:]
+'ana'
+\end{verbatim}
+\afterverb
+%
+If the first index is greater than or equal to the second the result
+is an {\bf empty string}, represented by two quotation marks:
+
+\index{quotation mark}
+
+\beforeverb
+\begin{verbatim}
+>>> fruit = 'banana'
+>>> fruit[3:3]
+''
+\end{verbatim}
+\afterverb
+%
+An empty string contains no characters and has length 0, but other
+than that, it is the same as any other string.
+
+\begin{ex}
+Given that {\tt fruit} is a string, what does
+{\tt fruit[:]} mean?
+
+\index{copy!slice}
+\index{slice!copy}
+
+
+\end{ex}
+
+
+\section{Strings are immutable}
+\index{mutability}
+\index{immutability}
+\index{string!immutable}
+
+It is tempting to use the {\tt []} operator on the left side of an
+assignment, with the intention of changing a character in a string.
+For example:
+
+\index{TypeError}
+\index{exception!TypeError}
+
+\beforeverb
+\begin{verbatim}
+>>> greeting = 'Hello, world!'
+>>> greeting[0] = 'J'
+TypeError: object does not support item assignment
+\end{verbatim}
+\afterverb
+%
+The ``object'' in this case is the string and the ``item'' is
+the character you tried to assign.  For now, an {\bf object} is
+the same thing as a value, but we will refine that definition
+later.  An {\bf item} is one of the values in a sequence.
+
+\index{object}
+\index{item assignment}
+\index{assignment!item}
+\index{immutability}
+
+The reason for the error is that
+strings are {\bf immutable}, which means you can't change an
+existing string.  The best you can do is create a new string
+that is a variation on the original:
+
+\beforeverb
+\begin{verbatim}
+>>> greeting = 'Hello, world!'
+>>> new_greeting = 'J' + greeting[1:]
+>>> print new_greeting
+Jello, world!
+\end{verbatim}
+\afterverb
+%
+This example concatenates a new first letter onto
+a slice of {\tt greeting}.  It has no effect on
+the original string.
+
+\index{concatenation}
+
+\section{Looping and counting}
+\label{counter}
+
+\index{counter}
+\index{counting and looping}
+\index{looping and counting}
+\index{looping!with strings}
+
+The following program counts the number of times the letter {\tt a}
+appears in a string:
+
+\beforeverb
+\begin{verbatim}
+word = 'banana'
+count = 0
+for letter in word:
+    if letter == 'a':
+        count = count + 1
+print count
+\end{verbatim}
+\afterverb
+%
+This program demonstrates another pattern of computation called a {\bf
+counter}.  The variable {\tt count} is initialized to 0 and then
+incremented each time an {\tt a} is found.
+When the loop exits, {\tt count}
+contains the result---the total number of {\tt a}'s.
+
+\begin{ex}
+\index{encapsulation}
+
+Encapsulate this code in a function named {\tt
+count}, and generalize it so that it accepts the string and the
+letter as arguments.
+\end{ex}
+
+\section{The {\tt in} operator}
+\label{inboth}
+
+\index{in operator}
+\index{operator!in}
+\index{boolean operator}
+\index{operator!boolean}
+
+The word {\tt in} is a boolean operator that takes two strings and
+returns {\tt True} if the first appears as a substring in the second:
+
+\beforeverb
+\begin{verbatim}
+>>> 'a' in 'banana'
+True
+>>> 'seed' in 'banana'
+False
+\end{verbatim}
+\afterverb
+%
+
+\section{String comparison}
+
+\index{string!comparison}
+\index{comparison!string}
+
+The comparison operators work on strings.  To see if two strings are equal:
+
+\beforeverb
+\begin{verbatim}
+if word == 'banana':
+    print  'All right, bananas.'
+\end{verbatim}
+\afterverb
+%
+Other comparison operations are useful for putting words in alphabetical
+order:
+
+\beforeverb
+\begin{verbatim}
+if word < 'banana':
+    print 'Your word,' + word + ', comes before banana.'
+elif word > 'banana':
+    print 'Your word,' + word + ', comes after banana.'
+else:
+    print 'All right, bananas.'
+\end{verbatim}
+\afterverb
+%
+Python does not handle uppercase and lowercase letters the same way
+that people do.  All the uppercase letters come before all the
+lowercase letters, so:
+
+\beforeverb
+\begin{verbatim}
+Your word, Pineapple, comes before banana.
+\end{verbatim}
+\afterverb
+%
+A common way to address this problem is to convert strings to a
+standard format, such as all lowercase, before performing the
+comparison.  Keep that in mind in case you have to defend yourself
+against a man armed with a Pineapple.
+
+
+\section{{\tt string} methods}
+
+Strings are an example of Python {\bf objects}.  An object contains
+both data (the actual string itself) and {\bf methods}, which
+are effectively functions that are built into the object and 
+are available to any {\bf instance} of the object.
+
+Python has a function called {\tt dir} which lists the methods available
+for an object.  The {\tt type} function shows the type of an object 
+and the {\tt dir} function shows the available methods.
+
+\beforeverb
+\begin{verbatim}
+>>> stuff = 'Hello world'
+>>> type(stuff)
+<type 'str'>
+>>> dir(stuff)
+['capitalize', 'center', 'count', 'decode', 'encode', 
+'endswith', 'expandtabs', 'find', 'format', 'index', 
+'isalnum', 'isalpha', 'isdigit', 'islower', 'isspace', 
+'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 
+'partition', 'replace', 'rfind', 'rindex', 'rjust', 
+'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 
+'startswith', 'strip', 'swapcase', 'title', 'translate', 
+'upper', 'zfill']
+>>> help(str.capitalize)
+Help on method_descriptor:
+
+capitalize(...)
+    S.capitalize() -> string
+    
+    Return a copy of the string S with only its first character
+    capitalized.
+>>>
+\end{verbatim}
+\afterverb
+%
+
+While the {\tt dir} function lists the methods, and you 
+can use {\tt help} to get some simple documentation on a method, 
+a better source of documentation for string methods would be
+\url{https://docs.python.org/2/library/stdtypes.html#string-methods}.
+
+Calling a {\bf method} is similar to calling a function---it 
+takes arguments and returns a value---but the syntax is different.
+We call a method by appending the method name to the variable name
+using the period as a delimiter.
+
+For example, the
+method {\tt upper} takes a string and returns a new string with
+all uppercase letters:
+
+\index{method}
+\index{string!method}
+
+Instead of the function syntax {\tt upper(word)}, it uses
+the method syntax {\tt word.upper()}.
+
+\index{dot notation}
+
+\beforeverb
+\begin{verbatim}
+>>> word = 'banana'
+>>> new_word = word.upper()
+>>> print new_word
+BANANA
+\end{verbatim}
+\afterverb
+%
+This form of dot notation specifies the name of the method, {\tt
+upper}, and the name of the string to apply the method to, {\tt
+word}.  The empty parentheses indicate that this method takes no
+argument.
+
+\index{parentheses!empty}
+
+A method call is called an {\bf invocation}; in this case, we would
+say that we are invoking {\tt upper} on the {\tt word}.
+
+\index{invocation}
+
+For example, there is a string method named {\tt find} that
+searches for the position of one string within another:
+
+\beforeverb
+\begin{verbatim}
+>>> word = 'banana'
+>>> index = word.find('a')
+>>> print index
+1
+\end{verbatim}
+\afterverb
+%
+In this example, we invoke {\tt find} on {\tt word} and pass
+the letter we are looking for as a parameter.
+
+The {\tt find} method can find substrings as well as characters:
+
+\beforeverb
+\begin{verbatim}
+>>> word.find('na')
+2
+\end{verbatim}
+\afterverb
+%
+It can take as a second argument the index where it should start:
+
+\index{optional argument}
+\index{argument!optional}
+
+\beforeverb
+\begin{verbatim}
+>>> word.find('na', 3)
+4
+\end{verbatim}
+\afterverb
+%
+One common task is to remove white space (spaces, tabs, or newlines) from
+the beginning and end of a string using the {\tt strip} method:
+
+\beforeverb
+\begin{verbatim}
+>>> line = '  Here we go  '
+>>> line.strip()
+'Here we go'
+\end{verbatim}
+\afterverb
+%
+Some methods such as {\bf startswith} return boolean values.
+
+\beforeverb
+\begin{verbatim}
+>>> line = 'Please have a nice day'
+>>> line.startswith('Please')
+True
+>>> line.startswith('p')
+False
+\end{verbatim}
+\afterverb
+%
+You will note that {\tt startswith} requires case to match, so sometimes
+we take a line and map it all to lowercase before we do any checking
+using the {\tt lower} method.
+
+\beforeverb
+\begin{verbatim}
+>>> line = 'Please have a nice day'
+>>> line.startswith('p')
+False
+>>> line.lower()
+'please have a nice day'
+>>> line.lower().startswith('p')
+True
+\end{verbatim}
+\afterverb
+%
+In the last example, the method {\tt lower} is called
+and then we use {\tt startswith}
+to see if the resulting lowercase string
+starts with the letter ``p''.  As long as we are careful
+with the order, we can make multiple method calls in a
+single expression.
+
+\begin{ex}
+\index{count method}
+\index{method!count}
+
+There is a string method called {\tt count} that is similar
+to the function in the previous exercise.  Read the documentation
+of this method at
+\url{https://docs.python.org/2/library/stdtypes.html#string-methods}
+and write an invocation that counts the number of times the 
+letter a  occurs
+in \verb"'banana'".
+\end{ex}
+
+\section{Parsing strings}
+
+Often, we want to look into a string and find a substring.  For example
+if we were presented a series of lines formatted as follows:
+
+\beforeverb
+\begin{alltt}
+From stephen.marquard@{\bf uct.ac.za} Sat Jan  5 09:14:16 2008
+\end{alltt}
+\afterverb
+
+and we wanted to pull out only the second half of the address (i.e.,
+{\tt uct.ac.za}) from each line, we can do this by using the {\tt find}
+method and string slicing.   
+
+First, we will find the position of the at-sign in the string.  Then we will
+find the position of the first space \emph{after} the at-sign.  And then we
+will use string slicing to extract the portion of the string which we 
+are looking for.
+
+\beforeverb
+\begin{verbatim}
+>>> data = 'From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008'
+>>> atpos = data.find('@')
+>>> print atpos
+21
+>>> sppos = data.find(' ',atpos)
+>>> print sppos
+31
+>>> host = data[atpos+1:sppos]
+>>> print host
+uct.ac.za
+>>> 
+\end{verbatim}
+\afterverb
+%
+We use a version of the {\tt find} method which allows us to specify
+a position in the string where we want {\tt find} to start looking.
+When we slice, we extract the characters 
+from ``one beyond the at-sign through up to \emph{but not including} the 
+space character''.  
+
+The documentation for the {\tt find} method is available at
+\url{https://docs.python.org/2/library/stdtypes.html#string-methods}.
+
+\section{Format operator}
+
+\index{format operator}
+\index{operator!format}
+
+The {\bf format operator}, {\tt \%}
+allows us to construct strings, replacing parts of the strings
+with the data stored in variables.
+When applied to integers, {\tt \%} is the modulus operator.  But
+when the first operand is a string, {\tt \%} is the format operator.
+
+\index{format string}
+
+The first operand is the {\bf format string}, which contains
+one or more {\bf format sequences} that specify how
+the second operand is formatted.  The result is a string.
+
+\index{format sequence}
+
+For example, the format sequence \verb"'%d'" means that
+the second operand should be formatted as an
+integer ({\tt d} stands for ``decimal''):
+
+\beforeverb
+\begin{verbatim}
+>>> camels = 42
+>>> '%d' % camels
+'42'
+\end{verbatim}
+\afterverb
+%
+The result is the string \verb"'42'", which is not to be confused
+with the integer value {\tt 42}.
+
+A format sequence can appear anywhere in the string,
+so you can embed a value in a sentence:
+
+\beforeverb
+\begin{verbatim}
+>>> camels = 42
+>>> 'I have spotted %d camels.' % camels
+'I have spotted 42 camels.'
+\end{verbatim}
+\afterverb
+%
+If there is more than one format sequence in the string,
+the second argument has to be a tuple\footnote{A tuple is a
+sequence of comma-separated values inside a pair of brackets.
+We will cover tuples in Chapter 10}.  Each format sequence is
+matched with an element of the tuple, in order.
+
+The following example uses \verb"'%d'" to format an integer,
+\verb"'%g'" to format
+a floating-point number (don't ask why), and \verb"'%s'" to format
+a string:
+
+\beforeverb
+\begin{verbatim}
+>>> 'In %d years I have spotted %g %s.' % (3, 0.1, 'camels')
+'In 3 years I have spotted 0.1 camels.'
+\end{verbatim}
+\afterverb
+%
+The number of elements in the tuple must match the number
+of format sequences in the string.  The types of the
+elements also must match the format sequences:
+
+\index{exception!TypeError}
+\index{TypeError}
+
+\beforeverb
+\begin{verbatim}
+>>> '%d %d %d' % (1, 2)
+TypeError: not enough arguments for format string
+>>> '%d' % 'dollars'
+TypeError: illegal argument type for built-in operation
+\end{verbatim}
+\afterverb
+%
+In the first example, there aren't enough elements; in the
+second, the element is the wrong type.
+
+The format operator is powerful, but it can be difficult to use.  You
+can read more about it at
+\url{https://docs.python.org/2/library/stdtypes.html#string-formatting}.
+
+% You can specify the number of digits as part of the format sequence.
+% For example, the sequence \verb"'%8.2f'"
+% formats a floating-point number to be 8 characters long, with
+% 2 digits after the decimal point:
+
+% \beforeverb
+% \begin{verbatim}
+% >>> '%8.2f' % 3.14159
+% '    3.14'
+% \end{verbatim}
+% \afterverb
+% %
+% The result takes up eight spaces with two
+% digits after the decimal point.  
+
+
+\section{Debugging}
+\index{debugging}
+
+A skill that you should cultivate as you program is always
+asking yourself, ``What could go wrong here?'' or alternatively,
+``What crazy thing might our user do to crash our (seemingly) 
+perfect program?''
+
+For example, look at the program which we used to demonstrate
+the {\tt while} loop in the chapter on iteration:
+
+\beforeverb
+\begin{verbatim}
+while True:
+    line = raw_input('> ')
+    if line[0] == '#' :
+        continue
+    if line == 'done':
+        break
+    print line
+
+print 'Done!'
+\end{verbatim}
+\afterverb
+%
+Look what happens when the user enters an empty line of input:
+
+\beforeverb
+\begin{verbatim}
+> hello there
+hello there
+> # don't print this
+> print this!
+print this!
+> 
+Traceback (most recent call last):
+  File "copytildone.py", line 3, in <module>
+    if line[0] == '#' :
+\end{verbatim}
+\afterverb
+%
+The code works fine until it is presented an empty line.  Then
+there is no zero-th character, so we get a traceback.  There are two
+solutions to this to make line three ``safe'' even if the line is 
+empty.
+
+One possibility is to simply use the {\tt startswith} method
+which returns {\tt False} if the string is empty.
+
+\beforeverb
+\begin{verbatim}
+    if line.startswith('#') :
+\end{verbatim}
+\afterverb
+%
+\index{guardian pattern}
+\index{pattern!guardian}
+Another way is to safely write the {\tt if} statement using the {\bf guardian}
+pattern and make sure the second logical expression is evaluated 
+only where there is at least one character in the string.:
+
+\beforeverb
+\begin{verbatim}
+    if len(line) > 0 and line[0] == '#' :
+\end{verbatim}
+\afterverb
+%
+
+\section{Glossary}
+
+\begin{description}
+
+\item[counter:] A variable used to count something, usually initialized
+to zero and then incremented.
+\index{counter}
+
+\item[empty string:] A string with no characters and length 0, represented
+by two quotation marks.
+\index{empty string}
+
+\item[format operator:] An operator, {\tt \%}, that takes a format
+string and a tuple and generates a string that includes
+the elements of the tuple formatted as specified by the format string.
+\index{format operator}
+\index{operator!format}
+
+\item[format sequence:] A sequence of characters in a format string,
+like {\tt \%d}, that specifies how a value should be formatted.
+\index{format sequence}
+
+\item[format string:] A string, used with the format operator, that
+contains format sequences.
+\index{format string}
+
+\item[flag:] A boolean variable used to indicate whether a condition
+is true.
+\index{flag}
+
+\item[invocation:] A statement that calls a method.
+\index{invocation}
+
+\item[immutable:] The property of a sequence whose items cannot
+be assigned.
+\index{immutability}
+
+\item[index:] An integer value used to select an item in
+a sequence, such as a character in a string.
+\index{index}
+
+\item[item:] One of the values in a sequence.
+\index{item}
+
+\item[method:] A function that is associated with an object and called
+using dot notation.
+\index{method}
+
+\item[object:] Something a variable can refer to.  For now,
+you can use ``object'' and ``value'' interchangeably.
+\index{object}
+
+\item[search:] A pattern of traversal that stops
+when it finds what it is looking for.
+\index{search pattern}
+\index{pattern!search}
+
+\item[sequence:] An ordered set; that is, a set of
+values where each value is identified by an integer index.
+\index{sequence}
+
+\item[slice:] A part of a string specified by a range of indices.
+\index{slice}
+
+\item[traverse:] To iterate through the items in a sequence,
+performing a similar operation on each.
+\index{traversal}
+
+\end{description}
+
+
+\section{Exercises}
+
+\begin{ex}
+Take the following Python code that stores a string:`
+
+\beforeverb
+\begin{alltt}
+str = 'X-DSPAM-Confidence: {\bf 0.8475}'
+\end{alltt}
+\afterverb
+
+Use {\tt find} and string slicing to extract the portion
+of the string after the colon character and then use the 
+{\tt float} function to convert the extracted string 
+into a floating point number.
+
+\end{ex}
+
+
+\begin{ex}
+\index{string method}
+\index{method!string}
+
+Read the documentation of the string methods at
+\url{https://docs.python.org/2/library/stdtypes.html#string-methods}.
+You might want to experiment with some of them to make sure
+you understand how they work.  {\tt strip} and
+{\tt replace} are particularly useful.
+
+The documentation uses a syntax that might be confusing.
+For example, in \verb"find(sub[, start[, end]])", the brackets
+indicate optional arguments.  So {\tt sub} is required, but
+{\tt start} is optional, and if you include {\tt start},
+then {\tt end} is optional.
+\end{ex}
+

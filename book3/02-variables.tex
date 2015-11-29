@@ -1,0 +1,916 @@
+% LaTeX source for ``Python for Informatics: Exploring Information''
+% Copyright (c)  2010-  Charles R. Severance, All Rights Reserved
+
+\chapter{Variables, expressions, and statements}
+
+\section{Values and types}
+\index{value}
+\index{type}
+\index{string}
+
+A {\bf value} is one of the basic things a program works with,
+like a letter or a
+number.  The values we have seen so far
+are {\tt 1}, {\tt 2}, and
+\verb"'Hello, World!'"
+
+These values belong to different {\bf types}:
+{\tt 2} is an integer, and \verb"'Hello, World!'" is a {\bf string},
+so called because it contains a ``string'' of letters.
+You (and the interpreter) can identify
+strings because they are enclosed in quotation marks.
+
+\index{quotation mark}
+
+The {\tt print} statement also works for integers.  We use the 
+{\tt python} command to start the interpreter.
+
+\beforeverb
+\begin{verbatim}
+python
+>>> print 4
+4
+\end{verbatim}
+\afterverb
+%
+If you are not sure what type a value has, the interpreter can tell you.
+
+\beforeverb
+\begin{verbatim}
+>>> type('Hello, World!')
+<type 'str'>
+>>> type(17)
+<type 'int'>
+\end{verbatim}
+\afterverb
+%
+Not surprisingly, strings belong to the type {\tt str} and
+integers belong to the type {\tt int}.  Less obviously, numbers
+with a decimal point belong to a type called {\tt float},
+because these numbers are represented in a
+format called {\bf floating point}.
+
+\index{type}
+\index{string type}
+\index{type!str}
+\index{int type}
+\index{type!int}
+\index{float type}
+\index{type!float}
+
+\beforeverb
+\begin{verbatim}
+>>> type(3.2)
+<type 'float'>
+\end{verbatim}
+\afterverb
+%
+What about values like \verb"'17'" and \verb"'3.2'"?
+They look like numbers, but they are in quotation marks like
+strings.
+
+\index{quotation mark}
+
+\beforeverb
+\begin{verbatim}
+>>> type('17')
+<type 'str'>
+>>> type('3.2')
+<type 'str'>
+\end{verbatim}
+\afterverb
+%
+They're strings.
+
+When you type a large integer, you might be tempted to use commas
+between groups of three digits, as in {\tt 1,000,000}.  This is not a
+legal integer in Python, but it is legal:
+
+\beforeverb
+\begin{verbatim}
+>>> print 1,000,000
+1 0 0
+\end{verbatim}
+\afterverb
+%
+Well, that's not what we expected at all!  Python interprets {\tt
+  1,000,000} as a comma-separated sequence of integers, which it
+prints with spaces between.
+
+\index{semantic error}
+\index{error!semantic}
+\index{error message}
+
+This is the first example we have seen of a semantic error: the code
+runs without producing an error message, but it doesn't do the
+``right'' thing.
+
+
+\section{Variables}
+\index{variable}
+\index{assignment statement}
+\index{statement!assignment}
+
+One of the most powerful features of a programming language is the
+ability to manipulate {\bf variables}.  A variable is a name that
+refers to a value.
+
+An {\bf assignment statement} creates new variables and gives
+them values:
+
+\beforeverb
+\begin{verbatim}
+>>> message = 'And now for something completely different'
+>>> n = 17
+>>> pi = 3.1415926535897931
+\end{verbatim}
+\afterverb
+%
+This example makes three assignments.  The first assigns a string
+to a new variable named {\tt message};
+the second assigns the integer {\tt 17} to {\tt n}; the third
+assigns the (approximate) value of $\pi$ to {\tt pi}.
+
+To display the value of a variable, you can use a print statement:
+
+\beforeverb
+\begin{verbatim}
+>>> print n
+17
+>>> print pi
+3.14159265359
+\end{verbatim}
+\afterverb
+%
+The type of a variable is the type of the value it refers to.
+
+\beforeverb
+\begin{verbatim}
+>>> type(message)
+<type 'str'>
+>>> type(n)
+<type 'int'>
+>>> type(pi)
+<type 'float'>
+\end{verbatim}
+\afterverb
+%
+
+\section{Variable names and keywords}
+\index{keyword}
+
+Programmers generally choose names for their variables that
+are meaningful and document what the variable is used for.
+
+Variable names can be arbitrarily long.  They can contain
+both letters and numbers, but they cannot start with a number.
+It is legal to use uppercase letters, but it is a good idea
+to begin variable names with a lowercase letter (you'll
+see why later).
+
+The underscore character (\verb"_") can appear in a name.
+It is often used in names with multiple words, such as
+\verb"my_name" or \verb"airspeed_of_unladen_swallow".
+Variable names can start with an underscore character, but
+we generally avoid doing this unless we are writing library 
+code for others to use.
+
+\index{underscore character}
+
+If you give a variable an illegal name, you get a syntax error:
+
+\beforeverb
+\begin{verbatim}
+>>> 76trombones = 'big parade'
+SyntaxError: invalid syntax
+>>> more@ = 1000000
+SyntaxError: invalid syntax
+>>> class = 'Advanced Theoretical Zymurgy'
+SyntaxError: invalid syntax
+\end{verbatim}
+\afterverb
+%
+{\tt 76trombones} is illegal because it begins with a number.
+{\tt more@} is illegal because it contains an illegal character, {\tt
+@}.  But what's wrong with {\tt class}?
+
+It turns out that {\tt class} is one of Python's {\bf keywords}.  The
+interpreter uses keywords to recognize the structure of the program,
+and they cannot be used as variable names.
+
+\index{keyword}
+
+Python reserves 31 keywords\footnote{In Python 3.0, {\tt exec} is no
+longer a keyword, but {\tt nonlocal} is.} for its use:
+
+\beforeverb
+\begin{verbatim}
+and       del       from      not       while    
+as        elif      global    or        with     
+assert    else      if        pass      yield    
+break     except    import    print              
+class     exec      in        raise              
+continue  finally   is        return             
+def       for       lambda    try
+\end{verbatim}
+\afterverb
+%
+You might want to keep this list handy.  If the interpreter complains
+about one of your variable names and you don't know why, see if it
+is on this list.
+
+\section{Statements}
+
+A {\bf statement} is a unit of code that the Python interpreter can
+execute.  We have seen two kinds of statements: print
+and assignment.
+
+\index{statement}
+\index{interactive mode}
+\index{script mode}
+
+When you type a statement in interactive mode, the interpreter
+executes it and displays the result, if there is one.
+
+A script usually contains a sequence of statements.  If there
+is more than one statement, the results appear one at a time
+as the statements execute.
+
+For example, the script
+
+\beforeverb
+\begin{verbatim}
+print 1
+x = 2
+print x
+\end{verbatim}
+\afterverb
+%
+produces the output
+
+\beforeverb
+\begin{verbatim}
+1
+2
+\end{verbatim}
+\afterverb
+%
+The assignment statement produces no output.
+
+
+\section{Operators and operands}
+\index{operator, arithmetic}
+\index{arithmetic operator}
+\index{operand}
+\index{expression}
+
+{\bf Operators} are special symbols that represent computations like
+addition and multiplication.  The values the operator is applied to
+are called {\bf operands}.
+
+The operators {\tt +}, {\tt -}, {\tt *}, {\tt /}, and {\tt **}
+perform addition, subtraction, multiplication, division, and
+exponentiation, as in the following examples:
+
+\beforeverb
+\begin{verbatim}
+20+32   hour-1   hour*60+minute   minute/60   5**2   (5+9)*(15-7)
+\end{verbatim}
+\afterverb
+%
+The division operator might not do what you expect:
+
+\beforeverb
+\begin{verbatim}
+>>> minute = 59
+>>> minute/60
+0
+\end{verbatim}
+\afterverb
+%
+The value of {\tt minute} is 59, and in conventional arithmetic 59
+divided by 60 is 0.98333, not 0.  The reason for the discrepancy is
+that Python is performing {\bf floor division}\footnote{In Python 3.0,
+the result of this division is a {\tt float}.  
+In Python 3.0, the new operator
+{\tt //} performs integer division.}.
+
+\index{Python 3.0}
+\index{floor division}
+\index{floating-point division}
+\index{division!floor}
+\index{division!floating-point}
+
+When both of the operands are integers, the result is also an
+integer; floor division chops off the fractional
+part, so in this example it truncates the answer to zero.
+
+If either of the operands is a floating-point number, Python performs
+floating-point division, and the result is a {\tt float}:
+
+\beforeverb
+\begin{verbatim}
+>>> minute/60.0
+0.98333333333333328
+\end{verbatim}
+\afterverb
+
+
+\section{Expressions}
+
+An {\bf expression} is a combination of values, variables, and operators.
+A value all by itself is considered an expression, and so is
+a variable, so the following are all legal expressions
+(assuming that the variable {\tt x} has been assigned a value):
+
+\index{expression}
+\index{evaluate}
+
+\beforeverb
+\begin{verbatim}
+17
+x
+x + 17
+\end{verbatim}
+\afterverb
+%
+If you type an expression in interactive mode, the interpreter
+{\bf evaluates} it and displays the result:
+
+\beforeverb
+\begin{verbatim}
+>>> 1 + 1
+2
+\end{verbatim}
+\afterverb
+%
+But in a script, an expression all by itself doesn't
+do anything!  This is a common
+source of confusion for beginners.
+
+\begin{ex}
+Type the following statements in the Python interpreter to see
+what they do:
+
+\beforeverb
+\begin{verbatim}
+5
+x = 5
+x + 1
+\end{verbatim}
+\afterverb
+%
+\end{ex}
+
+
+\section{Order of operations}
+\index{order of operations}
+\index{rules of precedence}
+\index{PEMDAS}
+
+When more than one operator appears in an expression, the order of
+evaluation depends on the {\bf rules of precedence}.  For
+mathematical operators, Python follows mathematical convention.
+The acronym {\bf PEMDAS} is a useful way to
+remember the rules:
+
+\index{parentheses!overriding precedence}
+
+\begin{itemize}
+
+\item {\bf P}arentheses have the highest precedence and can be used 
+to force an expression to evaluate in the order you want. Since
+expressions in parentheses are evaluated first, {\tt 2 * (3-1)} is 4,
+and {\tt (1+1)**(5-2)} is 8. You can also use parentheses to make an
+expression easier to read, as in {\tt (minute * 100) / 60}, even
+if it doesn't change the result.
+
+\item {\bf E}xponentiation has the next highest precedence, so
+{\tt 2**1+1} is 3, not 4, and {\tt 3*1**3} is 3, not 27.
+
+\item {\bf M}ultiplication and {\bf D}ivision have the same precedence,
+which is higher than {\bf A}ddition and {\bf S}ubtraction, which also
+have the same precedence.  So {\tt 2*3-1} is 5, not 4, and
+{\tt 6+4/2} is 8, not 5.
+
+\item Operators with the same precedence are evaluated from left to 
+right.  So the expression {\tt 5-3-1} is 1, not 3, because the
+{\tt 5-3} happens first and then {\tt 1} is subtracted from {\tt 2}.
+
+\end{itemize}
+
+When in doubt, always put parentheses in your expressions to make sure
+the computations are performed in the order you intend.
+
+\section{Modulus operator}
+
+\index{modulus operator}
+\index{operator!modulus}
+
+The {\bf modulus operator} works on integers and yields the remainder
+when the first operand is divided by the second.  In Python, the
+modulus operator is a percent sign (\verb"%").  The syntax is the same
+as for other operators:
+
+\beforeverb
+\begin{verbatim}
+>>> quotient = 7 / 3
+>>> print quotient
+2
+>>> remainder = 7 % 3
+>>> print remainder
+1
+\end{verbatim}
+\afterverb
+%
+So 7 divided by 3 is 2 with 1 left over.
+
+The modulus operator turns out to be surprisingly useful.  For
+example, you can check whether one number is divisible by another---if
+{\tt x \% y} is zero, then {\tt x} is divisible by {\tt y}.
+
+\index{divisibility}
+
+You can also extract the right-most digit
+or digits from a number.  For example, {\tt x \% 10} yields the
+right-most digit of {\tt x} (in base 10).  Similarly, {\tt x \% 100}
+yields the last two digits.
+
+
+
+\section{String operations}
+\index{string!operation}
+\index{operator!string}
+
+The {\tt +} operator works with strings, but it
+is not addition in the mathematical sense. Instead it performs
+{\bf concatenation}, which means joining the strings by
+linking them end to end.  For example:
+
+\index{concatenation}
+
+\beforeverb
+\begin{verbatim}
+>>> first = 10
+>>> second = 15
+>>> print first+second
+25
+>>> first = '100'
+>>> second = '150'
+>>> print first + second
+100150
+\end{verbatim}
+\afterverb
+%
+The output of this program is {\tt 100150}.
+
+\section{Asking the user for input}
+\index{keyboard input}
+
+Sometimes we would like to take the value for a variable from the user
+via their keyboard.
+Python provides a built-in function called \verb"raw_input" that gets
+input from the keyboard\footnote{In Python 3.0, this function is named
+  {\tt input}.}.  When this function is called, the program stops and
+waits for the user to type something.  When the user presses {\sf
+  Return} or {\sf Enter}, the program resumes and \verb"raw_input"
+returns what the user typed as a string.
+
+\index{Python 3.0}
+\index{raw\_input function}
+\index{function!raw\_input}
+
+\beforeverb
+\begin{verbatim}
+>>> input = raw_input()
+Some silly stuff
+>>> print input
+Some silly stuff
+\end{verbatim}
+\afterverb
+%
+Before getting input from the user, it is a good idea to print a
+prompt telling the user what to input.  You can pass a string
+to \verb"raw_input" to be displayed to the user before pausing
+for input:
+
+\index{prompt}
+
+\beforeverb
+\begin{verbatim}
+>>> name = raw_input('What is your name?\n')
+What is your name?
+Chuck
+>>> print name
+Chuck
+\end{verbatim}
+\afterverb
+%
+The sequence \verb"\n" at the end of the prompt represents a {\bf newline},
+which is a special character that causes a line break.
+That's why the user's input appears below the prompt.
+
+\index{newline}
+
+If you expect the user to type an integer, you can try to convert
+the return value to {\tt int} using the {\tt int()} function:
+
+\beforeverb
+\begin{verbatim}
+>>> prompt = 'What...is the airspeed velocity of an unladen swallow?\n'
+>>> speed = raw_input(prompt)
+What...is the airspeed velocity of an unladen swallow?
+17
+>>> int(speed)
+17
+>>> int(speed) + 5
+22
+\end{verbatim}
+\afterverb
+%
+But if the user types something other than a string of digits,
+you get an error:
+
+\beforeverb
+\begin{verbatim}
+>>> speed = raw_input(prompt)
+What...is the airspeed velocity of an unladen swallow?
+What do you mean, an African or a European swallow?
+>>> int(speed)
+ValueError: invalid literal for int()
+\end{verbatim}
+\afterverb
+%
+We will see how to handle this kind of error later.
+
+\index{ValueError}
+\index{exception!ValueError}
+
+
+\section{Comments}
+\index{comment}
+
+As programs get bigger and more complicated, they get more difficult
+to read.  Formal languages are dense, and it is often difficult to
+look at a piece of code and figure out what it is doing, or why.
+
+For this reason, it is a good idea to add notes to your programs to explain
+in natural language what the program is doing.  These notes are called
+{\bf comments}, and in Python they start with the \verb"#" symbol:
+
+\beforeverb
+\begin{verbatim}
+# compute the percentage of the hour that has elapsed
+percentage = (minute * 100) / 60
+\end{verbatim}
+\afterverb
+%
+In this case, the comment appears on a line by itself.  You can also put
+comments at the end of a line:
+
+\beforeverb
+\begin{verbatim}
+percentage = (minute * 100) / 60     # percentage of an hour
+\end{verbatim}
+\afterverb
+%
+Everything from the {\tt \#} to the end of the line is ignored---it
+has no effect on the program.
+
+Comments are most useful when they document non-obvious features of
+the code.  It is reasonable to assume that the reader can figure out
+\emph{what} the code does; it is much more useful to explain \emph{why}.
+
+This comment is redundant with the code and useless:
+
+\beforeverb
+\begin{verbatim}
+v = 5     # assign 5 to v
+\end{verbatim}
+\afterverb
+%
+This comment contains useful information that is not in the code:
+
+\beforeverb
+\begin{verbatim}
+v = 5     # velocity in meters/second. 
+\end{verbatim}
+\afterverb
+%
+Good variable names can reduce the need for comments, but
+long names can make complex expressions hard to read, so there is
+a trade-off.
+
+\section{Choosing mnemonic variable names}
+
+\index{mnemonic}
+
+As long as you follow the simple rules of variable naming, and avoid
+reserved words, you have a lot of choice when you name your variables.
+In the beginning, this choice can be confusing both when you read a 
+program and when you write your own programs.  For example, the
+following three programs are identical in terms of what they accomplish,
+but very different when you read them and try to understand them.
+
+\beforeverb
+\begin{verbatim}
+a = 35.0
+b = 12.50
+c = a * b
+print c
+
+hours = 35.0
+rate = 12.50
+pay = hours * rate
+print pay
+
+x1q3z9ahd = 35.0
+x1q3z9afd = 12.50
+x1q3p9afd = x1q3z9ahd * x1q3z9afd
+print x1q3p9afd
+\end{verbatim}
+\afterverb
+%
+The Python interpreter sees all three of these programs as \emph{exactly the 
+same} but humans see and understand these programs quite differently.  
+Humans will most quickly understand the {\bf intent} 
+of the second program because the 
+programmer has chosen variable names that reflect their intent
+regarding what data will be stored in each variable.
+
+We call these wisely chosen variable names ``mnemonic variable names''.  The
+word \emph{mnemonic}\footnote{See 
+\url{http://en.wikipedia.org/wiki/Mnemonic}
+for an extended description of the word ``mnemonic''.} 
+means ``memory aid''.
+We choose mnemonic variable names to help us remember why we created the variable
+in the first place.
+
+While this all sounds great, and it is a very good idea to use mnemonic variable
+names, mnemonic variable names can get in the way of a beginning programmer's 
+ability to parse and understand code.  This is because beginning programmers 
+have not yet memorized the reserved words (there are only 31 of them) and sometimes
+variables with names that are too descriptive start to look like 
+part of the language and not just well-chosen variable names.
+
+Take a quick look at the following Python sample code which loops through some data. 
+We will cover loops soon, but for now try to just puzzle through what this means:
+
+\beforeverb
+\begin{verbatim}
+for word in words:
+    print word
+\end{verbatim}
+\afterverb
+%
+What is happening here?  Which of the tokens (for, word, in, etc.) are reserved words
+and which are just variable names?  Does Python understand at a fundamental level 
+the notion of words?  Beginning programmers have 
+trouble separating what parts of the
+code \emph{must} be the same as this example and what parts of the code are simply
+choices made by the programmer.
+
+The following code is equivalent to the above code:
+
+\beforeverb
+\begin{verbatim}
+for slice in pizza:
+    print slice
+\end{verbatim}
+\afterverb
+%
+It is easier for the beginning programmer to look at this code and know which 
+parts are reserved words defined by Python and which parts are simply variable
+names chosen by the programmer.  It is pretty clear that Python has no fundamental
+understanding of pizza and slices and the fact that a pizza consists of a set
+of one or more slices.
+
+But if our program is truly about reading data and looking for words in the data,
+{\tt pizza} and {\tt slice} are very un-mnemonic variable names.  Choosing them 
+as variable names distracts from the meaning of the program.
+
+After a pretty short period of time, you will know the most common reserved words
+and you will start to see the reserved words jumping out at you:
+
+{\tt {\bf for} word {\bf in} words{\bf :}\\
+\verb"    "{\bf print} word }
+
+The parts of the code that are defined by 
+Python ({\tt for}, {\tt in}, {\tt print}, and {\tt :}) are in bold
+and the programmer-chosen variables ({\tt word} and {\tt words}) are not in bold.  
+Many text editors are aware of Python
+syntax and will color reserved words differently to give you clues to keep 
+your variables and reserved words separate.
+After a while you will begin to read Python and quickly determine what
+is a variable and what is a reserved word.
+
+\section{Debugging}
+\index{debugging}
+
+At this point, the syntax error you are most likely to make is
+an illegal variable name, like {\tt class} and {\tt yield}, which
+are keywords, or \verb"odd~job" and \verb"US$", which contain
+illegal characters.
+
+\index{syntax error}
+\index{error!syntax}
+
+If you put a space in a variable name, Python thinks it is two
+operands without an operator:
+
+\beforeverb
+\begin{verbatim}
+>>> bad name = 5
+SyntaxError: invalid syntax
+\end{verbatim}
+\afterverb
+%
+For syntax errors, the error messages don't help much.
+The most common messages are {\tt SyntaxError: invalid syntax} and
+{\tt SyntaxError: invalid token}, neither of which is very informative.
+
+\index{error message}
+\index{use before def}
+\index{exception}
+\index{runtime error}
+\index{error!runtime}
+
+The runtime error you are most likely to make is a ``use before
+def;'' that is, trying to use a variable before you have assigned
+a value.  This can happen if you spell a variable name wrong:
+
+\beforeverb
+\begin{verbatim}
+>>> principal = 327.68
+>>> interest = principle * rate
+NameError: name 'principle' is not defined
+\end{verbatim}
+\afterverb
+%
+Variables names are case sensitive, so {\tt LaTeX} is not the
+same as {\tt latex}.
+
+\index{case-sensitivity, variable names}
+\index{semantic error}
+\index{error!semantic}
+
+At this point, the most likely cause of a semantic error is
+the order of operations.  For example, to evaluate $\frac{1}{2 \pi}$,
+you might be tempted to write
+
+\beforeverb
+\begin{verbatim}
+>>> 1.0 / 2.0 * pi
+\end{verbatim}
+\afterverb
+%
+But the division happens first, so you would get $\pi / 2$, which
+is not the same thing!  There is no way for Python
+to know what you meant to write, so in this case you don't
+get an error message; you just get the wrong answer.
+
+\index{order of operations}
+
+
+\section{Glossary}
+
+\begin{description}
+
+\item[assignment:]  A statement that assigns a value to a variable.
+\index{assignment}
+
+\item[concatenate:]  To join two operands end to end.
+\index{concatenation}
+
+\item[comment:]  Information in a program that is meant for other
+programmers (or anyone reading the source code) and has no effect on the
+execution of the program.
+\index{comment}
+
+\item[evaluate:]  To simplify an expression by performing the operations
+in order to yield a single value.
+
+\item[expression:]  A combination of variables, operators, and values that
+represents a single result value.
+\index{expression}
+
+\item[floating point:] A type that represents numbers with fractional
+parts.
+\index{floating-point}
+
+\item[floor division:] The operation that divides two numbers and chops off
+the fractional part.
+\index{floor division}
+
+\item[integer:] A type that represents whole numbers.
+\index{integer}
+
+\item[keyword:]  A reserved word that is used by the compiler to parse a
+program; you cannot use keywords like {\tt if}, {\tt  def}, and {\tt while} as
+variable names.
+\index{keyword}
+
+\item[mnemonic:] A memory aid. We often give variables mnemonic names
+to help us remember what is stored in the variable.
+\index{mnemonic}
+
+\item[modulus operator:]  An operator, denoted with a percent sign
+({\tt \%}), that works on integers and yields the remainder when one
+number is divided by another.
+\index{modulus operator}
+\index{operator!modulus}
+
+\item[operand:]  One of the values on which an operator operates.
+\index{operand}
+
+\item[operator:]  A special symbol that represents a simple computation like
+addition, multiplication, or string concatenation.
+\index{operator}
+
+\item[rules of precedence:]  The set of rules governing the order in which
+expressions involving multiple operators and operands are evaluated.
+\index{rules of precedence}
+\index{precedence}
+
+\item[statement:]  A section of code that represents a command or action.  So
+far, the statements we have seen are assignments and print statements.
+\index{statement}
+
+\item[string:] A type that represents sequences of characters.
+\index{string}
+
+\item[type:] A category of values.  The types we have seen so far
+are integers (type {\tt int}), floating-point numbers (type {\tt
+float}), and strings (type {\tt str}).
+\index{type}
+
+\item[value:]  One of the basic units of data, like a number or string, 
+that a program manipulates.
+\index{value}
+
+\item[variable:]  A name that refers to a value.
+\index{variable}
+
+\end{description}
+
+\section{Exercises}
+
+\begin{ex}
+Write a program that uses  \verb"raw_input" to prompt a user for their name 
+and then welcomes them.
+
+\begin{verbatim}
+Enter your name: Chuck
+Hello Chuck
+\end{verbatim}
+
+\end{ex}
+
+\begin{ex}
+Write a program to prompt the user for hours and rate per hour to compute
+gross pay.
+\begin{verbatim}
+Enter Hours: 35
+Enter Rate: 2.75
+Pay: 96.25
+\end{verbatim}
+\end{ex}
+%
+We won't worry about making sure our pay has exactly two digits after
+the decimal place for now.  If you want, you can play with the 
+built-in Python {\tt round} function to properly round the resulting pay
+to two decimal places.
+
+\begin{ex}
+Assume that we execute the following assignment statements:
+
+\begin{verbatim}
+width = 17
+height = 12.0
+\end{verbatim}
+
+For each of the following expressions, write the value of the
+expression and the type (of the value of the expression).
+
+\begin{enumerate}
+
+\item {\tt width/2}
+
+\item {\tt width/2.0}
+
+\item {\tt height/3}
+
+\item {\tt 1 + 2 * 5}
+
+\end{enumerate}
+
+Use the Python interpreter to check your answers.
+\end{ex}
+
+\begin{ex}
+Write a program which prompts the user for a Celsius temperature,
+convert the temperature to Fahrenheit, and print out the converted
+temperature.
+\end{ex}
+
+
