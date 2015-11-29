@@ -183,7 +183,7 @@ Lecture Audio
     target="_blank">Part 1</a> and
 <a href="<?= $afs ?>/books/py4inf/media/Py4Inf-14-Databases-B.mp3"
     target="_blank">Part 2</a>)
-<br/>&nbsp;&nbsp;&bull;&nbsp;SQLite3 Browser: <a href="sqlite/index.htm" target="_blank">details</a>
+<br/>&nbsp;&nbsp;&bull;&nbsp;SQLite3 Browser: <a href="http://sqlitebrowser.org/" target="_blank">http://sqlitebrowser.org/</a>
 </li>
 </ul>
 <p>
