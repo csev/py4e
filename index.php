@@ -51,6 +51,8 @@ for your system following
 <li>
 Download <a href="code.zip" target="_blank">Sample code from the book</a>.</li>
 
+<li>Play with the <a href="pythonauto/index.php">Auto-grader</a> and write a "hello world" program.
+
 <li>
 The 
 <a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyWXg2MVhTbEZFT28&usp=sharing" target="_blank">course slides</a> 
