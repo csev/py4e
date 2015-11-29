@@ -60,9 +60,6 @@ have been converted to Google drive and are being translated into 30 languages.
 <li>Chapter 1 - Why program?
 (<?php media('Py4Inf-01-Intro'); ?>)
 
-<li>Play with the <a href="pythonauto/index.php">Auto-grader</a> and write a "hello world" program.
-
-
 <li>Chapter 2 - Variables, expressions, and statements
 (<?php media('Py4Inf-02-Expressions'); ?>)
 
