@@ -178,9 +178,9 @@ Download Video
 (<a href="<?= $afs ?>/books/py4inf/media/Py4Inf-14-Database.ppt" 
     target="_blank">Slides</a>, 
 Lecture Audio
-<a href="<?= $afs ?>/books/py4inf/media/Py4Inf-14-Databases-A.mp3"
+<a href="<?= $afs ?>/books/py4inf/media/Py4Inf-14-Database-A.mp3"
     target="_blank">Part 1</a> and
-<a href="<?= $afs ?>/books/py4inf/media/Py4Inf-14-Databases-B.mp3"
+<a href="<?= $afs ?>/books/py4inf/media/Py4Inf-14-Database-B.mp3"
     target="_blank">Part 2</a>)
 <br/>&nbsp;&nbsp;&bull;&nbsp;SQLite3 Browser: <a href="http://sqlitebrowser.org/" target="_blank">http://sqlitebrowser.org/</a>
 </li>
