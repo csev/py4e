@@ -16,6 +16,11 @@ while True:
         didindex = True
         continue
 
+    if line.startswith('![image](') :
+        line =line.replace('.eps)',')')
+        print line
+        continue
+
     line = line.replace("`'",'"').replace("'`",'"')
     line = line.replace("“",'"').replace("”",'"')
     line = line.replace("’","'")
