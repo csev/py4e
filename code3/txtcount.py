@@ -5,4 +5,4 @@ for dirname, dirs, files in os.walk('.'):
         if filename.endswith('.txt') :
             count = count + 1
 
-print 'Files:', count
+print('Files:', count)

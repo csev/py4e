@@ -1,4 +1,4 @@
-fname = raw_input('Enter file name: ')
+fname = input('Enter file name: ')
 fhand = open(fname)
 c = dict()
 for line in fhand:
@@ -7,4 +7,4 @@ for line in fhand:
     email = pieces[1]
     c[email] = c.get(email,0) + 1
 
-print c
+print(c)

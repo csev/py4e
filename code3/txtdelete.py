@@ -6,7 +6,7 @@ for (dirname, dirs, files) in os.walk('.'):
             thefile = os.path.join(dirname,filename)
             size = os.path.getsize(thefile)
             if size == 2578 or size == 2565:
-                print 'T-Mobile:',thefile
+                print('T-Mobile:',thefile)
                 os.remove(thefile)
                 continue
             fhand = open(thefile,'r')
@@ -15,6 +15,6 @@ for (dirname, dirs, files) in os.walk('.'):
                 lines.append(line)
             fhand.close()
             if len(lines) == 3 and lines[2].startswith('Sent from my iPhone') :
-                print 'iPhone:', thefile
+                print('iPhone:', thefile)
                 os.remove(thefile)
                 continue

@@ -1,6 +1,6 @@
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
-img = urllib.urlopen('http://www.py4inf.com/cover.jpg')
+img = urllib.request.urlopen('http://www.py4inf.com/cover.jpg')
 fhand = open('cover.jpg', 'w')
 size = 0
 while True:
@@ -9,5 +9,5 @@ while True:
     size = size + len(info)
     fhand.write(info)
 
-print size,'characters copied.'
+print(size,'characters copied.')
 fhand.close()

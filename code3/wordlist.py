@@ -1,4 +1,4 @@
-name = raw_input('Enter file: ')
+name = input('Enter file: ')
 handle = open(name, 'r')
 wordlist = list()
 for line in handle:
@@ -8,4 +8,4 @@ for line in handle:
         wordlist.append(word)
 
 wordlist.sort()
-print wordlist
+print(wordlist)

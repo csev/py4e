@@ -1,9 +1,9 @@
 import sqlite3
 import time
 import ssl
-import urllib
-from urlparse import urljoin
-from urlparse import urlparse
+import urllib.request, urllib.parse, urllib.error
+from urllib.parse import urljoin
+from urllib.parse import urlparse
 import re
 from datetime import datetime, timedelta
 
@@ -83,7 +83,7 @@ start = 0
 many = 0
 while True:
     if ( many < 1 ) :
-        sval = raw_input('How many messages:')
+        sval = input('How many messages:')
         if ( len(sval) < 1 ) : break
         many = int(sval)
 
@@ -99,24 +99,24 @@ while True:
     url = baseurl + str(start) + '/' + str(start + 1)
 
     try:
-        document = urllib.urlopen(url, context=scontext)
+        document = urllib.request.urlopen(url, context=scontext)
         text = document.read()
         if document.getcode() != 200 :
-            print "Error code=",document.getcode(), url
+            print("Error code=",document.getcode(), url)
             break
     except KeyboardInterrupt:
-        print ''
-        print 'Program interrupted by user...'
+        print('')
+        print('Program interrupted by user...')
         break
     except:
-        print "Unable to retrieve or parse page",url
+        print("Unable to retrieve or parse page",url)
         break
 
-    print url,len(text)
+    print(url,len(text))
 
     if not text.startswith("From "):
-        print text
-        print "End of mail stream reached..."
+        print(text)
+        print("End of mail stream reached...")
         quit ()
 
     pos = text.find("\n\n")
@@ -124,8 +124,8 @@ while True:
         hdr = text[:pos]
         body = text[pos+2:]
     else:
-        print text
-        print "Could not find break between headers and body"
+        print(text)
+        print("Could not find break between headers and body")
         break
 
     email = None
@@ -149,15 +149,15 @@ while True:
         try:
             sent_at = parsemaildate(tdate)
         except:
-            print text
-            print "Parse fail",tdate
+            print(text)
+            print("Parse fail",tdate)
             break
 
     subject = None
     z = re.findall('\Subject: (.*)\n', hdr)
     if len(z) == 1 : subject = z[0].strip().lower();
 
-    print "   ",email,sent_at,subject
+    print("   ",email,sent_at,subject)
     cur.execute('''INSERT OR IGNORE INTO Messages (id, email, sent_at, subject, headers, body) 
         VALUES ( ?, ?, ?, ?, ?, ? )''', ( start, email, sent_at, subject, hdr, body))
     conn.commit()

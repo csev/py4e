@@ -13,10 +13,10 @@ for line in fhand:
 
 # Sort the dictionary by value
 lst = list()
-for key, val in counts.items():
+for key, val in list(counts.items()):
     lst.append( (val, key) )
 
 lst.sort(reverse=True)
 
 for key, val in lst[:10] :
-    print key, val
+    print(key, val)

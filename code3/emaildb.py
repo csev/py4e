@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS Counts''')
 cur.execute('''
 CREATE TABLE Counts (email TEXT, count INTEGER)''')
 
-fname = raw_input('Enter file name: ')
+fname = input('Enter file name: ')
 if ( len(fname) < 1 ) : fname = 'mbox-short.txt'
 fh = open(fname)
 for line in fh:
@@ -30,7 +30,7 @@ for line in fh:
 sqlstr = 'SELECT email, count FROM Counts ORDER BY count DESC LIMIT 10'
 
 for row in cur.execute(sqlstr) :
-    print str(row[0]), row[1]
+    print(str(row[0]), row[1])
 
 cur.close()
 

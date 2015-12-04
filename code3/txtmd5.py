@@ -13,6 +13,6 @@ for (dirname, dirs, files) in os.walk('.'):
             hash = hashlib.md5(data).hexdigest()
             # print thefile, hash
             if hash in hashes:
-                print hashes[hash], thefile
+                print(hashes[hash], thefile)
             else:
                 hashes[hash] = thefile

@@ -1,4 +1,4 @@
-fname = raw_input('Enter file name: ')
+fname = input('Enter file name: ')
 fhand = open(fname)
 c = dict()
 for line in fhand:
@@ -15,7 +15,7 @@ for word in c:
         bigw = word
         bigc = value
 
-print bigw, bigc
+print(bigw, bigc)
 
 
   

@@ -1,4 +1,4 @@
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import twurl
 import json
 import sqlite3
@@ -12,22 +12,22 @@ cur.execute('''
 CREATE TABLE IF NOT EXISTS Twitter (name TEXT, retrieved INTEGER, friends INTEGER)''')
 
 while True:
-    acct = raw_input('Enter a Twitter account, or quit: ')
+    acct = input('Enter a Twitter account, or quit: ')
     if ( acct == 'quit' ) : break
     if ( len(acct) < 1 ) :
         cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
         try:
             acct = cur.fetchone()[0]
         except:
-            print 'No unretrieved Twitter accounts found'
+            print('No unretrieved Twitter accounts found')
             continue
 
     url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '5'} )
-    print 'Retrieving', url
-    connection = urllib.urlopen(url)
+    print('Retrieving', url)
+    connection = urllib.request.urlopen(url)
     data = connection.read()
     headers = connection.info().dict
-    print 'Remaining', headers['x-rate-limit-remaining']
+    print('Remaining', headers['x-rate-limit-remaining'])
     js = json.loads(data)
     # print json.dumps(js, indent=4)
 
@@ -37,7 +37,7 @@ while True:
     countold = 0
     for u in js['users'] :
         friend = u['screen_name']
-        print friend
+        print(friend)
         cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1', 
             (friend, ) )
         try:
@@ -49,7 +49,7 @@ while True:
             cur.execute('''INSERT INTO Twitter (name, retrieved, friends) 
                 VALUES ( ?, 0, 1 )''', ( friend, ) )
             countnew = countnew + 1
-    print 'New accounts=',countnew,' revisited=',countold
+    print('New accounts=',countnew,' revisited=',countold)
     conn.commit()
 
 cur.close()

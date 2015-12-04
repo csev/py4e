@@ -5,4 +5,4 @@ for line in fhand:
     if not line.startswith('From:') :
         continue
     # Process our 'interesting' line
-    print line
+    print(line)

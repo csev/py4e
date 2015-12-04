@@ -3,8 +3,8 @@ import sqlite3
 conn = sqlite3.connect('spider.sqlite')
 cur = conn.cursor()
 
-print "Creating JSON output on spider.js..."
-howmany = int(raw_input("How many nodes? "))
+print("Creating JSON output on spider.js...")
+howmany = int(input("How many nodes? "))
 
 cur.execute('''SELECT COUNT(from_id) AS inbound, old_rank, new_rank, id, url 
     FROM Pages JOIN Links ON Pages.id = Links.to_id
@@ -23,7 +23,7 @@ for row in cur :
     if len(nodes) > howmany : break
 
 if maxrank == minrank or maxrank is None or minrank is None:
-    print "Error - please run sprank.py to compute page rank"
+    print("Error - please run sprank.py to compute page rank")
     quit()
 
 fhand.write('spiderJson = {"nodes":[\n')
@@ -58,4 +58,4 @@ fhand.write(']};')
 fhand.close()
 cur.close()
 
-print "Open force.html in a browser to view the visualization"
+print("Open force.html in a browser to view the visualization")

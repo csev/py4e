@@ -1,4 +1,4 @@
-name = raw_input('Enter file:')
+name = input('Enter file:')
 handle = open(name, 'r')
 text = handle.read()
 words = text.split()
@@ -8,9 +8,9 @@ for word in words:
 
 bigcount = None
 bigword = None
-for word,count in counts.items():
+for word,count in list(counts.items()):
     if bigcount == None or count > bigcount:
         bigword = word 
         bigcount = count 
 
-print bigword, bigcount
+print(bigword, bigcount)

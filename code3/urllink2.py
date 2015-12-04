@@ -2,11 +2,11 @@
 # http://www.pythonlearn.com/code/BeautifulSoup.py
 # Into the same folder as this program
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from BeautifulSoup import *
 
-url = raw_input('Enter - ')
-html = urllib.urlopen(url).read()
+url = input('Enter - ')
+html = urllib.request.urlopen(url).read()
 
 soup = BeautifulSoup(html)
 
@@ -14,7 +14,7 @@ soup = BeautifulSoup(html)
 tags = soup('a')
 for tag in tags:
     # Look at the parts of a tag
-    print 'TAG:',tag
-    print 'URL:',tag.get('href', None)
-    print 'Contents:',tag.contents[0]
-    print 'Attrs:',tag.attrs
+    print('TAG:',tag)
+    print('URL:',tag.get('href', None))
+    print('Contents:',tag.contents[0])
+    print('Attrs:',tag.attrs)

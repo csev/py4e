@@ -13,10 +13,10 @@ input = '''
 ]'''
 
 info = json.loads(input)
-print 'User count:', len(info)
+print('User count:', len(info))
 
 for item in info:
-    print 'Name', item['name']
-    print 'Id', item['id']
-    print 'Attribute', item['x']
+    print('Name', item['name'])
+    print('Id', item['id'])
+    print('Attribute', item['x'])
 

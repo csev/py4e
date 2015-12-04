@@ -1,6 +1,6 @@
 import sqlite3
 import time
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import zlib
 
 conn = sqlite3.connect('index.sqlite')
@@ -17,10 +17,10 @@ messages = dict()
 for message_row in cur :
     messages[message_row[0]] = (message_row[1],message_row[2],message_row[3],message_row[4])
 
-print "Loaded messages=",len(messages),"senders=",len(senders)
+print("Loaded messages=",len(messages),"senders=",len(senders))
 
 sendorgs = dict()
-for (message_id, message) in messages.items():
+for (message_id, message) in list(messages.items()):
     sender = message[1]
     pieces = senders[sender].split("@")
     if len(pieces) != 2 : continue
@@ -30,13 +30,13 @@ for (message_id, message) in messages.items():
 # pick the top schools
 orgs = sorted(sendorgs, key=sendorgs.get, reverse=True)
 orgs = orgs[:10]
-print "Top 10 Oranizations"
-print orgs
+print("Top 10 Oranizations")
+print(orgs)
 
 counts = dict()
 months = list()
 # cur.execute('SELECT id, guid,sender_id,subject_id,sent_at FROM Messages')
-for (message_id, message) in messages.items():
+for (message_id, message) in list(messages.items()):
     sender = message[1]
     pieces = senders[sender].split("@")
     if len(pieces) != 2 : continue
@@ -67,4 +67,4 @@ for month in months:
 
 fhand.write("\n];\n")
 
-print "Output written to gline.js"
+print("Output written to gline.js")

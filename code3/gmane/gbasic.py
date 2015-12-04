@@ -1,9 +1,9 @@
 import sqlite3
 import time
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import zlib
 
-howmany = int(raw_input("How many to dump? "))
+howmany = int(input("How many to dump? "))
 
 conn = sqlite3.connect('index.sqlite')
 conn.text_factory = str
@@ -25,11 +25,11 @@ messages = dict()
 for message_row in cur :
     messages[message_row[0]] = (message_row[1],message_row[2],message_row[3],message_row[4])
 
-print "Loaded messages=",len(messages),"subjects=",len(subjects),"senders=",len(senders)
+print("Loaded messages=",len(messages),"subjects=",len(subjects),"senders=",len(senders))
 
 sendcounts = dict()
 sendorgs = dict()
-for (message_id, message) in messages.items():
+for (message_id, message) in list(messages.items()):
     sender = message[1]
     sendcounts[sender] = sendcounts.get(sender,0) + 1
     pieces = senders[sender].split("@")
@@ -37,19 +37,19 @@ for (message_id, message) in messages.items():
     dns = pieces[1]
     sendorgs[dns] = sendorgs.get(dns,0) + 1
 
-print ''
-print 'Top',howmany,'Email list participants'
+print('')
+print('Top',howmany,'Email list participants')
 
 x = sorted(sendcounts, key=sendcounts.get, reverse=True)
 for k in x[:howmany]:
-    print senders[k], sendcounts[k]
+    print(senders[k], sendcounts[k])
     if sendcounts[k] < 10 : break
 
-print ''
-print 'Top',howmany,'Email list organizations'
+print('')
+print('Top',howmany,'Email list organizations')
 
 x = sorted(sendorgs, key=sendorgs.get, reverse=True)
 for k in x[:howmany]:
-    print k, sendorgs[k]
+    print(k, sendorgs[k])
     if sendorgs[k] < 10 : break
 

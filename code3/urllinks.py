@@ -2,14 +2,14 @@
 # http://www.pythonlearn.com/code/BeautifulSoup.py
 # Into the same folder as this program
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from BeautifulSoup import *
 
-url = raw_input('Enter - ')
-html = urllib.urlopen(url).read()
+url = input('Enter - ')
+html = urllib.request.urlopen(url).read()
 soup = BeautifulSoup(html)
 
 # Retrieve all of the anchor tags
 tags = soup('a')
 for tag in tags:
-    print tag.get('href', None)
+    print(tag.get('href', None))

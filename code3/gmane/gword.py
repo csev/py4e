@@ -1,6 +1,6 @@
 import sqlite3
 import time
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import zlib
 import string
 
@@ -35,7 +35,7 @@ for k in x[:100]:
         highest = counts[k]
     if lowest is None or lowest > counts[k] :
         lowest = counts[k]
-print 'Range of counts:',highest,lowest
+print('Range of counts:',highest,lowest)
 
 # Spread the font sizes across 20-100 based on the count
 bigsize = 80
@@ -53,4 +53,4 @@ for k in x[:100]:
     fhand.write("{text: '"+k+"', size: "+str(size)+"}")
 fhand.write( "\n];\n")
 
-print "Output written to gword.js"
+print("Output written to gword.js")

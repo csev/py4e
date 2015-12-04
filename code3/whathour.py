@@ -1,4 +1,4 @@
-fname = raw_input('Enter file name: ')
+fname = input('Enter file name: ')
 fhand = open(fname)
 c = dict()
 for line in fhand:
@@ -17,6 +17,6 @@ for key in c:
 lst.sort()
 
 for value, key in lst:
-  print key, value
+  print(key, value)
 
   

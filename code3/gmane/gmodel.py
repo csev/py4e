@@ -1,6 +1,6 @@
 import sqlite3
 import time
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import re
 import zlib
 from datetime import datetime, timedelta
@@ -120,7 +120,7 @@ def parseheader(hdr, allsenders=None):
         tdate = tdate[:26]
         try:
             sent_at = parsemaildate(tdate)
-        except Exception, e:
+        except Exception as e:
             # print 'Date ignored ',tdate, e
             return None
 
@@ -180,7 +180,7 @@ for message_row in cur_1 :
     if sender in allsenders: continue
     allsenders.append(sender)
 
-print "Loaded allsenders",len(allsenders),"and mapping",len(mapping),"dns mapping",len(dnsmapping)
+print("Loaded allsenders",len(allsenders),"and mapping",len(mapping),"dns mapping",len(dnsmapping))
 
 cur_1.execute('''SELECT headers, body, sent_at 
     FROM Messages ORDER BY sent_at''')
@@ -201,11 +201,11 @@ for message_row in cur_1 :
     sender = mapping.get(sender,sender)
 
     count = count + 1
-    if count % 250 == 1 : print count,sent_at, sender
+    if count % 250 == 1 : print(count,sent_at, sender)
     # print guid, sender, subject, sent_at
 
     if 'gmane.org' in sender:
-        print "Error in sender ===", sender
+        print("Error in sender ===", sender)
 
     sender_id = senders.get(sender,None)
     subject_id = subjects.get(subject,None)
@@ -220,7 +220,7 @@ for message_row in cur_1 :
             sender_id = row[0]
             senders[sender] = sender_id
         except:
-            print 'Could not retrieve sender id',sender
+            print('Could not retrieve sender id',sender)
             break
     if subject_id is None : 
         cur.execute('INSERT OR IGNORE INTO Subjects (subject) VALUES ( ? )', ( subject, ) )
@@ -231,7 +231,7 @@ for message_row in cur_1 :
             subject_id = row[0]
             subjects[subject] = subject_id
         except:
-            print 'Could not retrieve subject id',subject
+            print('Could not retrieve subject id',subject)
             break
     # print sender_id, subject_id
     cur.execute('INSERT OR IGNORE INTO Messages (guid,sender_id,subject_id,sent_at,headers,body) VALUES ( ?,?,?,datetime(?),?,? )', 
@@ -243,7 +243,7 @@ for message_row in cur_1 :
         message_id = row[0]
         guids[guid] = message_id
     except:
-        print 'Could not retrieve guid id',guid
+        print('Could not retrieve guid id',guid)
         break
 
 cur.close()

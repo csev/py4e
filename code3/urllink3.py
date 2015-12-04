@@ -2,32 +2,32 @@
 # http://www.pythonlearn.com/code/BeautifulSoup.py
 # Into the same folder as this program
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from BeautifulSoup import *
 
 todo = list()
 visited = list()
-url = raw_input('Enter - ')
+url = input('Enter - ')
 todo.append(url)
 
 while len(todo) > 0 :
-    print "====== Todo list count is ",len(todo)
+    print("====== Todo list count is ",len(todo))
     url = todo.pop()
 
     if ( not url.startswith('http') ) : 
-        print "Skipping", url
+        print("Skipping", url)
         continue
 
     if ( url.find('facebook') > 0 ) :
         continue
 
     if ( url in visited ) :
-        print "Visited", url
+        print("Visited", url)
         continue
 
-    print "===== Retrieving ", url
+    print("===== Retrieving ", url)
 
-    html = urllib.urlopen(url).read()
+    html = urllib.request.urlopen(url).read()
     soup = BeautifulSoup(html)
     visited.append(url)
 

@@ -1,41 +1,41 @@
 import string 
 from graphics import *
 
-fname = raw_input("Enter file name:")
+fname = input("Enter file name:")
 if len(fname) == 0 :
-  print "Assuming mbox-short.txt"
+  print("Assuming mbox-short.txt")
   fname = "mbox-short.txt"
 infile = open(fname, "r")
 
 # Set up a 24 element list of zeros
 totals = [0] * 24;
-print totals;
+print(totals);
 
 # Accumulate the times
 for line in infile:
     if line[0:5] == "From " :
 	words = line.split()
         time = words[5]
-	print "Time", time
+	print("Time", time)
 
 	# Split time
 	tsplit = time.split(':')
 	try : 
             hour = int(tsplit[0])
-	    print "Hour", hour
+	    print("Hour", hour)
 	except:
-            print "Hour not found"
+            print("Hour not found")
             continue
 
 	totals[hour] = totals[hour] + 1
-	print totals
+	print(totals)
 
 bmax = max(totals)
-print "Maximum value", bmax
+print("Maximum value", bmax)
 
 ymax = ( int(bmax / 10) + 1 ) * 10
 
-print "Y-Axis Maximum", ymax
+print("Y-Axis Maximum", ymax)
 
 win = GraphWin("Distribution of Commits "+fname, 600,400)
 win.setCoords(0,0,1,1)
