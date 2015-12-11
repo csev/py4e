@@ -2,6 +2,8 @@
 
 Web site for www.pythonlearn.com
 
+The Python3 versions of the code is all in code3
+
 If you are interested in the Python for Everybody book
 see the folders
 
