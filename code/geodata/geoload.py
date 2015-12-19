@@ -54,4 +54,4 @@ for line in fh:
     conn.commit() 
     time.sleep(1)
 
-print "Run geodump.py to read the data from the database so you can vizualize it on a map."
+print "Run geodump.py to read the data from the database so you can visualize it on a map."

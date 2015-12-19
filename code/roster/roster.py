@@ -56,7 +56,7 @@ for entry in json_data:
     course_id = cur.fetchone()[0]
 
     cur.execute('''INSERT OR REPLACE INTO Member
-        (user_id, course_id) VALUES ( ?, ?, ? )''', 
+        (user_id, course_id) VALUES ( ?, ? )''', 
         ( user_id, course_id ) )
 
     conn.commit()
