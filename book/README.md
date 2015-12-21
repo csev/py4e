@@ -23,10 +23,10 @@ https://github.com/csev/pythonlearn
 
 We can also use the issue tracker to coordinate if that helps.
 
-This is a very roughT conversion.  I write several Python programs
-(see the convert folder) to go theough the LaTeX, hack it, extract 
+This is a very rough conversion.  I wrote several Python programs
+(see the convert folder) to go through the LaTeX, hack it, extract 
 anything that looked like code, run it through 2to3 and put in the 
-converted code.  So some miraculously is perfectly converted but 
+converted book.  So some of the code is converted perfectly but 
 other bits are still broken or Python 2.0 because my auto-process
 missed something.   We will fix those by hand.
 
@@ -40,6 +40,8 @@ run the code to verify the output
 * Make a new cover
 
 * Redraw all figures in OmniGraffle
+
+* also fix all the sample code in the code3 folder.
 
 And many other things...
 
