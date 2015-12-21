@@ -3,6 +3,9 @@ Python for Everybody TODO List
 
 Welcome to the under-construction book "Python 3.0 for Everybody".
 
+Feel free to add things to this TODO list and/or file GitHub
+Issues to track activity.
+
 Tasks to do:
 
 * Go through and fix all the code sequences - fix any Python 2.0 and then 
