@@ -161,16 +161,15 @@ the structure of the program, and they cannot be used as variable names.
 
 \index{keyword}
 
-Python reserves 31 keywords[^In Python 3.0, `exec` is no longer a keyword, but
-`nonlocal` is.] for its use:
+Python reserves 31 keywords:
 
-    and       del       from      not       while
-    as        elif      global    or        with
-    assert    else      if        pass      yield
-    break     except    import    print
-    class     exec      in        raise
-    continue  finally   is        return
-    def       for       lambda    try
+    and       del       global    not       while
+    as        elif      if        or        with
+    assert    else      import    pass      yield
+    break     except    in        print
+    class     finally   is        raise
+    continue  for       lambda    return
+    def       from      nonlocal  try
 
 You might want to keep this list handy. If the interpreter complains
 about one of your variable names and you don't know why, see if it is on
@@ -225,33 +224,30 @@ and exponentiation, as in the following examples:
 
     20+32   hour-1   hour*60+minute   minute/60   5**2   (5+9)*(15-7)
 
-The division operator might not do what you expect:
+There has been a change in the division operator between Python 2.x
+and Python 3.x.  In Python 3.x, the result of this division is a
+floating point result:
+
+    >>> minute = 59
+    >>> minute/60
+    0.9833333333333333
+
+The division operator in Python 2.0 would divide two integers and 
+truncate the result to an integer:
 
     >>> minute = 59
     >>> minute/60
     0
 
-The value of `minute` is 59, and in conventional arithmetic
-59 divided by 60 is 0.98333, not 0. The reason for the discrepancy is
-that Python is performing *floor division*[^In Python 3.0, the result of this division is a
-`float`. In Python 3.0, the new operator `//`
-performs integer division.].
+In Python 3.0 integer division functions much more as you would expect
+if you entered the expression on a calculator.
 
 \index{Python 3.0}
+\index{Python 2.0}
 \index{floor division}
 \index{floating-point division}
 \index{division!floor}
 \index{division!floating-point}
-
-When both of the operands are integers, the result is also an integer;
-floor division chops off the fractional part, so in this example it
-truncates the answer to zero.
-
-If either of the operands is a floating-point number, Python performs
-floating-point division, and the result is a `float`:
-
-    >>> minute/60.0
-    0.98333333333333328
 
 Expressions
 -----------
@@ -386,15 +382,13 @@ Asking the user for input
 
 Sometimes we would like to take the value for a variable from the user
 via their keyboard. Python provides a built-in function called
-`raw_input` that gets input from the keyboard[^In Python 3.0, this function is named `input`.]. 
+`input` that gets input from the keyboard[^In Python 2.0, this function was named `input`.]. 
 When this function is
 called, the program stops and waits for the user to type something. When
 the user presses `Return` or `Enter`, the program
-resumes and `raw_input` returns what the user typed as a string.
+resumes and `input` returns what the user typed as a string.
 
-\index{Python 3.0}
-\index{raw}
-\index{function!raw}
+\index{Python 2.0}
 
     >>> input = input()
     Some silly stuff
@@ -402,7 +396,7 @@ resumes and `raw_input` returns what the user typed as a string.
     Some silly stuff
 
 Before getting input from the user, it is a good idea to print a prompt
-telling the user what to input. You can pass a string to `raw_input` to
+telling the user what to input. You can pass a string to `input` to
 be displayed to the user before pausing for input:
 
 \index{prompt}
@@ -773,7 +767,7 @@ variable
 Exercises
 ---------
 
-Exercise 2: Write a program that uses `raw_input` to prompt a user for
+Exercise 2: Write a program that uses `input` to prompt a user for
 their name and then welcomes them.
 
     Enter your name: Chuck
