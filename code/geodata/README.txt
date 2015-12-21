@@ -29,7 +29,7 @@ geodata.sqlite
 Run the geoload.py program.   This program will read the input
 lines in where.data and for each line check to see if it is already
 in the database and if we don't have the data for the location,
-call the geocoding API to retrieve the data and stre it in 
+call the geocoding API to retrieve the data and store it in 
 the database.
 
 Here is a sample run after there is already some data in the 

@@ -477,43 +477,6 @@ misleading. In general, error messages indicate where the problem was
 discovered, but the actual error might be earlier in the code, sometimes
 on a previous line.
 
-\index{error!runtime}
-\index{runtime error}
-
-The same is true of runtime errors. Suppose you are trying to compute a
-signal-to-noise ratio in decibels. The formula is
-$SNR_{db} = 10 \log_{10} (P_{signal} / P_{noise})$. In Python, you might
-write something like this:
-
-    import math
-    signal_power = 9
-    noise_power = 10
-    ratio = signal_power / noise_power
-    decibels = 10 * math.log10(ratio)
-    print(decibels)
-
-But when you run it, you get an error message[^In Python 3.0, you no 
-longer get an error message; the division
-operator performs floating-point division even with integer
-operands.]:
-
-\index{exception!OverflowError}
-\index{OverflowError}
-
-    Traceback (most recent call last):
-      File "snr.py", line 5, in ?
-        decibels = 10 * math.log10(ratio)
-    OverflowError: math range error
-
-The error message indicates line 5, but there is nothing wrong with that
-line. To find the real error, it might be useful to print the value of
-`ratio`, which turns out to be 0. The problem is in line 4,
-because dividing two integers does floor division. The solution is to
-represent signal power and noise power with floating-point values.
-
-\index{floor division}
-\index{division!floor}
-
 In general, error messages tell you where the problem was discovered,
 but that is often not where it was caused.
 
@@ -521,95 +484,68 @@ Glossary
 --------
 
 body
-
 :   The sequence of statements within a compound statement.
-
 \index{body}
 
 boolean expression
-
-:   An expression whose value is either `True` or
-    `False`.
-
+:   An expression whose value is either `True` or `False`.
 \index{boolean expression}
 \index{expression!boolean}
 
 branch
-
-:   One of the alternative sequences of statements in a conditional
-    statement.
-
+:   One of the alternative sequences of statements in a conditional statement.
 \index{branch}
 
 chained conditional
-
 :   A conditional statement with a series of alternative branches.
-
 \index{chained conditional}
 \index{conditional!chained}
 
 comparison operator
-
 :   One of the operators that compares its operands: `==`,
-    `!=`, `\>`, `\<`, `\>=`,
-    and `\<=`.
+    `!=`, `\>`, `\<`, `\>=`, and `\<=`.
 
 conditional statement
-
 :   A statement that controls the flow of execution depending on some
     condition.
-
 \index{conditional statement}
 \index{statement!conditional}
 
 condition
-
 :   The boolean expression in a conditional statement that determines
     which branch is executed.
-
 \index{condition}
 
 compound statement
-
 :   A statement that consists of a header and a body. The header ends
     with a colon (:). The body is indented relative to the header.
-
 \index{compound statement}
 
 guardian pattern
-
 :   Where we construct a logical expression with additional comparisons
     to take advantage of the short-circuit behavior.
-
 \index{guardian pattern}
 \index{pattern!guardian}
 
 logical operator
-
 :   One of the operators that combines boolean expressions:
     `and`, `or`, and `not`.
 
 nested conditional
-
 :   A conditional statement that appears in one of the branches of
     another conditional statement.
-
 \index{nested conditional}
 \index{conditional!nested}
 
 traceback
-
 :   A list of the functions that are executing, printed when an
     exception occurs.
-
 \index{traceback}
 
 short circuit
-
 :   When Python is part-way through evaluating a logical expression and
     stops the evaluation because Python knows the final value for the
     expression without needing to evaluate the rest of the expression.
-
 \index{short circuit}
 
 Exercises

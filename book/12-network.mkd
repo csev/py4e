@@ -3,6 +3,7 @@ Networked programs
 
 While many of the examples in this book have focused on reading files
 and looking for data in those files, there are many different sources of
+
 information when one considers the Internet.
 
 In this chapter we will pretend to be a web browser and retrieve web
@@ -48,7 +49,7 @@ request. To request a document from a web server, we make a connection
 to the `www.pythonlearn.com` server on port 80, and then send a
 line of the form
 
-`GET http://www.pythonlearn.com/code/romeo.txt HTTP/1.0 `
+`GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0 `
 
 where the second parameter is the web page we are requesting, and then
 we also send a blank line. The web server will respond with some header
@@ -67,7 +68,7 @@ display what the server sends back.
 
     mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     mysock.connect(('www.pythonlearn.com', 80))
-    mysock.send('GET http://www.pythonlearn.com/code/romeo.txt HTTP/1.0\n\n')
+    mysock.send('GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0\n\n')
 
     while True:
         data = mysock.recv(512)
@@ -268,7 +269,7 @@ using `urllib` is as follows:
 
     import urllib.request, urllib.parse, urllib.error
 
-    fhand = urllib.request.urlopen('http://www.pythonlearn.com/code/romeo.txt')
+    fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
     for line in fhand:
        print(line.strip())
 
@@ -292,7 +293,7 @@ file as follows:
     import urllib.request, urllib.parse, urllib.error
 
     counts = dict()
-    fhand = urllib.request.urlopen('http://www.pythonlearn.com/code/romeo.txt')
+    fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
     for line in fhand:
         words = line.split()
         for word in words:
@@ -570,45 +571,35 @@ Glossary
 --------
 
 BeautifulSoup
-
 :   A Python library for parsing HTML documents and extracting data from
     HTML documents that compensates for most of the imperfections in the
     HTML that browsers generally ignore. You can download the
     BeautifulSoup code from [www.crummy.com](www.crummy.com).
-
 \index{BeautifulSoup}
 
 port
-
 :   A number that generally indicates which application you are
     contacting when you make a socket connection to a server. As an
     example, web traffic usually uses port 80 while email traffic uses
     port 25.
-
 \index{port}
 
 scrape
-
 :   When a program pretends to be a web browser and retrieves a web
     page, then looks at the web page content. Often programs are
     following the links in one page to find the next page so they can
     traverse a network of pages or a social network.
-
 \index{socket}
 
 socket
-
 :   A network connection between two applications where the applications
     can send and receive data in either direction.
-
 \index{socket}
 
 spider
-
 :   The act of a web search engine retrieving a page and then all the
     pages linked from a page and so on until they have nearly all of the
     pages on the Internet which they use to build their search index.
-
 \index{spider}
 
 Exercises
