@@ -30,23 +30,5 @@ converted book.  So some of the code is converted perfectly but
 other bits are still broken or Python 2.0 because my auto-process
 missed something.   We will fix those by hand.
 
-Tasks to do:
-
-* Go through and fix all the code sequences - fix any Python 2.0 and then 
-run the code to verify the output
-
-* Find, fix and remove all the Python 3.0 does this differend footnotes
-
-* Make a new cover
-
-* Redraw all figures in OmniGraffle
-
-* also fix all the sample code in the code3 folder.
-
-* Fix the Appendices (now rendering as chapters)
-
-
-And many other things...
-
 /Chuck
 
