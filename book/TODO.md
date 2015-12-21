@@ -12,7 +12,7 @@ Tasks to do:
 missed or messed up - fix any Python 2.0 and then run the 
 code to verify the output
 
-* Fix the Appendices (now rendering as chapters)
+* Fix the preface rendering in chapters
 
 * Double check the output of the interactive sequences
 
