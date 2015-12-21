@@ -43,7 +43,8 @@ run the code to verify the output
 
 * also fix all the sample code in the code3 folder.
 
-* Fix spacing on all the glossary entries
+* Fix the Appendices (now rendering as chapters)
+
 
 And many other things...
 
