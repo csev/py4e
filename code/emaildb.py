@@ -26,8 +26,8 @@ for line in fh:
         cur.execute('UPDATE Counts SET count=count+1 WHERE email = ?', 
             (email, ))
     # This statement commits outstanding changes to disk each 
-    # time through # the loop - the program can be made faster 
-    # by moving the commit so it runs after the loop completes
+    # time through the loop - the program can be made faster 
+    # by moving the commit so it runs only after the loop completes
     conn.commit()
 
 # https://www.sqlite.org/lang_select.html
