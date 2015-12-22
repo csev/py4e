@@ -20,7 +20,7 @@ equal and `False` otherwise:
     False
 
 `True` and `False` are special values that belong
-to the type `bool`; they are not strings:
+to the class `bool`; they are not strings:
 
 \index{True special value}
 \index{False special value}
@@ -30,9 +30,9 @@ to the type `bool`; they are not strings:
 \index{type!bool}
 
     >>> type(True)
-    <type 'bool'>
+    <class 'bool'>
     >>> type(False)
-    <type 'bool'>
+    <class 'bool'>
 
 The `==` operator is one of the *comparison
 operators*; the others are:
@@ -151,7 +151,7 @@ in the middle of a block of statements, as shown below:
 
     >>> x = 3
     >>> if x < 10:
-    ...    print 'Small'
+    ...    print('Small')
     ...
     Small
     >>>
@@ -279,11 +279,12 @@ Earlier we saw a code segment where we used the `raw_input` and
 `int` functions to read and parse an integer number entered
 by the user. We also saw how treacherous doing this could be:
 
+    >>> prompt = "What...is the airspeed velocity of an unladen swallow?\n"
     >>> speed = input(prompt)
     What...is the airspeed velocity of an unladen swallow?
     What do you mean, an African or a European swallow?
     >>> int(speed)
-    ValueError: invalid literal for int()
+    ValueError: invalid literal for int() with base 10:
     >>>
 
 When we are executing these statements in the Python interpreter, we get
@@ -313,14 +314,14 @@ an unfriendly error message:
 
     python fahren.py
     Enter Fahrenheit Temperature:72
-    22.2222222222
+    22.22222222222222
 
     python fahren.py
     Enter Fahrenheit Temperature:fred
     Traceback (most recent call last):
       File "fahren.py", line 2, in <module>
         fahr = float(inp)
-    ValueError: invalid literal for float(): fred
+    ValueError: could not convert string to float: 'fred'
 
 There is a conditional execution structure built into Python to handle
 these types of expected and unexpected errors called "try / except". The
@@ -351,7 +352,7 @@ block.
 
     python fahren2.py
     Enter Fahrenheit Temperature:72
-    22.2222222222
+    22.22222222222222
 
     python fahren2.py
     Enter Fahrenheit Temperature:fred
@@ -403,7 +404,7 @@ Consider the following code sequence in the Python interpreter:
     >>> x >= 2 and (x/y) > 2
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
-    ZeroDivisionError: integer division or modulo by zero
+    ZeroDivisionError: division by zero
     >>>
 
 The third calculation failed because Python was evaluating
@@ -428,7 +429,7 @@ cause an error as follows:
     >>> x >= 2 and (x/y) > 2 and y != 0
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
-    ZeroDivisionError: integer division or modulo by zero
+    ZeroDivisionError: division by zero
     >>>
 
 In the first logical expression, `x \>= 2` is
@@ -469,7 +470,7 @@ and we are used to ignoring them.
       File "<stdin>", line 1
         y = 6
         ^
-    SyntaxError: invalid syntax
+    IndentationError: unexpected indent
 
 In this example, the problem is that the second line is indented by one
 space. But the error message points to `y`, which is
