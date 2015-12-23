@@ -9,7 +9,7 @@ except:
 
 counts = dict()
 for line in fhand:
-    line = line.translate(None, string.punctuation)
+    line = line.translate(string.punctuation)
     line = line.lower()
     words = line.split()
     for word in words:
