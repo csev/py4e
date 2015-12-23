@@ -6,7 +6,7 @@ import string
 import sqlite3
 import urllib.request, urllib.parse, urllib.error
 import xml.etree.ElementTree as ET
-from BeautifulSoup import *
+from bs4 import BeautifulSoup
 
 conn = sqlite3.connect('wikidata.db')
 cur = conn.cursor()
