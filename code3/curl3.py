@@ -16,7 +16,7 @@ if os.path.exists(fname) :
         exit()
     print('Replacing',fname)
 
-fhand = open(fname, 'w')
+fhand = open(fname, 'wb')
 size = 0
 while True:
     info = img.read(100000)
