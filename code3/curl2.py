@@ -1,7 +1,7 @@
 import urllib.request, urllib.parse, urllib.error
 
 img = urllib.request.urlopen('http://www.py4inf.com/cover.jpg')
-fhand = open('cover.jpg', 'w')
+fhand = open('cover.jpg', 'wb')
 size = 0
 while True:
     info = img.read(100000)
