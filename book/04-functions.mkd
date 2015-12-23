@@ -13,7 +13,7 @@ you can "call" the function by name. We have already seen one example of
 a *function call*:
 
     >>> type(32)
-    <type 'int'>
+    <class 'int'>
 
 The name of the function is `type`. The expression in
 parentheses is called the *argument* of the function. The
@@ -82,7 +82,7 @@ converts it to an integer, if it can, or complains otherwise:
     >>> int('32')
     32
     >>> int('Hello')
-    ValueError: invalid literal for int(): Hello
+    ValueError: invalid literal for int() with base 10: 'Hello'
 
 `int` can convert floating-point values to integers, but it
 doesn't round off; it chops off the fraction part:
@@ -159,16 +159,16 @@ loop:
 This program produces the following list of 10 random numbers between
 0.0 and up to but not including 1.0.
 
-    0.301927091705
-    0.513787075867
-    0.319470430881
-    0.285145917252
-    0.839069045123
-    0.322027080731
-    0.550722110248
-    0.366591677812
-    0.396981483964
-    0.838116437404
+    0.11132867921152356
+    0.5950949227890241
+    0.04820265884996877
+    0.841003109276478
+    0.997914947094958
+    0.04842330803368111
+    0.7416295948208405
+    0.510535245390327
+    0.27447040171978143
+    0.028511805472785867
 
 Exercise 1: Run the program on your system and see what numbers you get.
 Run the program more than once and see what numbers you get.
@@ -220,7 +220,7 @@ This statement creates a *module object* named math. If
 you print the module object, you get some information about it:
 
     >>> print(math)
-    <module 'math' from '/usr/lib/python2.5/lib-dynload/math.so'>
+    <module 'math' (built-in)>
 
 The module object contains the functions and variables defined in the
 module. To access one of the functions, you have to specify the name of
@@ -256,7 +256,7 @@ by $2
     >>> degrees = 45
     >>> radians = degrees / 360.0 * 2 * math.pi
     >>> math.sin(radians)
-    0.707106781187
+    0.7071067811865476
 
 The expression `math.pi` gets the variable `pi`
 from the math module. The value of this variable is an approximation of
@@ -271,7 +271,7 @@ comparing it to the square root of two divided by two:
 \index{function!sqrt}
 
     >>> math.sqrt(2) / 2.0
-    0.707106781187
+    0.7071067811865476
 
 Adding new functions
 --------------------
@@ -332,8 +332,8 @@ prints ellipses (*...*) to let you know that the definition isn't
 complete:
 
     >>> def print_lyrics():
-    ...     print "I'm a lumberjack, and I'm okay."
-    ...     print 'I sleep all night and I work all day.'
+    ...     print("I'm a lumberjack, and I'm okay.")
+    ...     print('I sleep all night and I work all day.')
     ...
 
 To end the function, you have to enter an empty line (this is not
@@ -344,7 +344,7 @@ Defining a function creates a variable with the same name.
     >>> print(print_lyrics)
     <function print_lyrics at 0xb7e99e9c>
     >>> print(type(print_lyrics))
-    <type 'function'>
+    <class 'function'>
 
 The value of `print_lyrics` is a *function object*, which
 has type "function".
@@ -485,9 +485,10 @@ This function works with any value that can be printed.
     >>> print_twice(17)
     17
     17
+    >>> import math
     >>> print_twice(math.pi)
-    3.14159265359
-    3.14159265359
+    3.141592653589793
+    3.141592653589793
 
 The same rules of composition that apply to built-in functions also
 apply to user-defined functions, so we can use any kind of expression as
@@ -545,7 +546,7 @@ When you call a function in interactive mode, Python displays the
 result:
 
     >>> math.sqrt(5)
-    2.2360679774997898
+    2.23606797749979
 
 But in a script, if you call a fruitful function and do not store the
 result of the function in a variable, the return value vanishes into the
@@ -576,7 +577,7 @@ The value `None` is not the same as the string "None". It
 is a special value that has its own type:
 
     >>> print(type(None))
-    <type 'NoneType'>
+    <class 'NoneType'>
 
 To return a result from a function, we use the `return`
 statement in our function. For example, we could make a very simple
