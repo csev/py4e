@@ -14,6 +14,6 @@ for (dirname, dirs, files) in os.walk('.'):
             fhand.close()
             if len(lines) == 3 and lines[2].startswith('Sent from my iPhone') :
                 continue
-           if len(lines) > 1:
-                print len(lines), thefile
-                print lines[:4]
+            if len(lines) > 1:
+                print(len(lines), thefile)
+                print(lines[:4])
