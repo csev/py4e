@@ -455,17 +455,19 @@ parameter:
 
     >>> fout = open('output.txt', 'w')
     >>> print(fout)
-    <open file 'output.txt', mode 'w' at 0xb7eb2410>
+    <_io.TextIOWrapper name='output.txt' mode='w' encoding='cp1252'>
 
 If the file already exists, opening it in write mode clears out the old
 data and starts fresh, so be careful! If the file doesn't exist, a new
 one is created.
 
 The `write` method of the file handle object puts data into
-the file.
+the file, returning the number of characters written. The default write
+mode is text for writing (and reading) strings.
 
     >>> line1 = "This here's the wattle,\n"
     >>> fout.write(line1)
+    24
 
 \index{newline}
 
@@ -479,6 +481,7 @@ the `write` method does not add the newline automatically.
 
     >>> line2 = 'the emblem of our land.\n'
     >>> fout.write(line2)
+    24
 
 When you are done writing, you have to close the file to make sure that
 the last bit of data is physically written to the disk so it will not be
