@@ -3,7 +3,7 @@
 # Into the same folder as this program
 
 import urllib.request, urllib.parse, urllib.error
-from BeautifulSoup import *
+from bs4 import BeautifulSoup
 
 todo = list()
 visited = list()
