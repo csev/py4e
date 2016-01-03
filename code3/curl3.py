@@ -10,8 +10,8 @@ words = urlstr.split('/')
 fname = words[-1]
 
 # Don't overwrite the file
-if os.path.exists(fname) :
-    if input('Replace '+fname+' (Y/n)?') != 'Y' :
+if os.path.exists(fname):
+    if input('Replace '+fname+' (Y/n)?') != 'Y':
         print('Data not copied')
         exit()
     print('Replacing',fname)
@@ -20,7 +20,7 @@ fhand = open(fname, 'wb')
 size = 0
 while True:
     info = img.read(100000)
-    if len(info) < 1 : break
+    if len(info) < 1: break
     size = size + len(info)
     fhand.write(info)
 

@@ -207,7 +207,7 @@ with the intention of changing a character in a string. For example:
 
     >>> greeting = 'Hello, world!'
     >>> greeting[0] = 'J'
-    TypeError: object does not support item assignment
+    TypeError: 'str' object does not support item assignment
 
 The "object" in this case is the string and the "item" is the character
 you tried to assign. For now, an *object* is the same
@@ -330,30 +330,31 @@ methods.
 
     >>> stuff = 'Hello world'
     >>> type(stuff)
-    <type 'str'>
+    <class 'str'>
     >>> dir(stuff)
-    ['capitalize', 'center', 'count', 'decode', 'encode',
-    'endswith', 'expandtabs', 'find', 'format', 'index',
-    'isalnum', 'isalpha', 'isdigit', 'islower', 'isspace',
-    'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip',
-    'partition', 'replace', 'rfind', 'rindex', 'rjust',
-    'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines',
-    'startswith', 'strip', 'swapcase', 'title', 'translate',
-    'upper', 'zfill']
+    ['capitalize', 'casefold', 'center', 'count', 'encode',
+    'endswith', 'expandtabs', 'find', 'format', 'format_map',
+    'index', 'isalnum', 'isalpha', 'isdecimal', 'isdigit',
+    'isidentifier', 'islower', 'isnumeric', 'isprintable',
+    'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower',
+    'lstrip', 'maketrans', 'partition', 'replace', 'rfind',
+    'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip',
+    'split', 'splitlines', 'startswith', 'strip', 'swapcase',
+    'title', 'translate', 'upper', 'zfill']
     >>> help(str.capitalize)
     Help on method_descriptor:
 
     capitalize(...)
-        S.capitalize() -> string
+        S.capitalize() -> str
 
-        Return a copy of the string S with only its first character
-        capitalized.
+        Return a capitalized version of S, i.e. make the first character
+        have upper case and the rest lower case.
     >>>
 
 While the `dir` function lists the methods, and you can use
 `help` to get some simple documentation on a method, a better
 source of documentation for string methods would be
-<https://docs.python.org/2/library/stdtypes.html#string-methods>.
+<https://docs.python.org/3.5/library/stdtypes.html#string-methods>.
 
 Calling a *method* is similar to calling a function—it
 takes arguments and returns a value—but the syntax is different. We call
@@ -423,27 +424,27 @@ method:
 
 Some methods such as *startswith* return boolean values.
 
-    >>> line = 'Please have a nice day'
-    >>> line.startswith('Please')
+    >>> line = 'Have a nice day'
+    >>> line.startswith('Have')
     True
-    >>> line.startswith('p')
+    >>> line.startswith('h')
     False
 
 You will note that `startswith` requires case to match, so
 sometimes we take a line and map it all to lowercase before we do any
 checking using the `lower` method.
 
-    >>> line = 'Please have a nice day'
-    >>> line.startswith('p')
+    >>> line = 'Have a nice day'
+    >>> line.startswith('h')
     False
     >>> line.lower()
-    'please have a nice day'
-    >>> line.lower().startswith('p')
+    'have a nice day'
+    >>> line.lower().startswith('h')
     True
 
 In the last example, the method `lower` is called and then we
 use `startswith` to see if the resulting lowercase string
-starts with the letter "p". As long as we are careful with the order, we
+starts with the letter "h". As long as we are careful with the order, we
 can make multiple method calls in a single expression.
 
 Exercise 4:
@@ -454,7 +455,7 @@ Exercise 4:
 There is a string method called `count` that is similar to
 the function in the previous exercise. Read the documentation of this
 method at
-<https://docs.python.org/2/library/stdtypes.html#string-methods> and
+<https://docs.python.org/3.5/library/stdtypes.html#string-methods> and
 write an invocation that counts the number of times the letter a occurs
 in "banana".
 
@@ -493,7 +494,7 @@ start looking. When we slice, we extract the characters from "one beyond
 the at-sign through up to *but not including* the space character".
 
 The documentation for the `find` method is available at
-<https://docs.python.org/2/library/stdtypes.html#string-methods>.
+<https://docs.python.org/3.5/library/stdtypes.html#string-methods>.
 
 Format operator
 ---------------
@@ -554,14 +555,14 @@ format sequences:
     >>> '%d %d %d' % (1, 2)
     TypeError: not enough arguments for format string
     >>> '%d' % 'dollars'
-    TypeError: illegal argument type for built-in operation
+    TypeError: %d format: a number is required, not str
 
 In the first example, there aren't enough elements; in the second, the
 element is the wrong type.
 
 The format operator is powerful, but it can be difficult to use. You can
 read more about it at
-<https://docs.python.org/2/library/stdtypes.html#string-formatting>.
+<https://docs.python.org/3.5/library/stdtypes.html#printf-style-string-formatting>.
 
 Debugging
 ---------
@@ -577,12 +578,11 @@ For example, look at the program which we used to demonstrate the
 
     while True:
         line = input('> ')
-        if line[0] == '#' :
+        if line[0] == '#':
             continue
         if line == 'done':
             break
         print(line)
-
     print('Done!')
 
 Look what happens when the user enters an empty line of input:
@@ -595,7 +595,8 @@ Look what happens when the user enters an empty line of input:
     >
     Traceback (most recent call last):
       File "copytildone.py", line 3, in <module>
-        if line[0] == '#' :
+        if line[0] == '#':
+    IndexError: string index out of range
 
 The code works fine until it is presented an empty line. Then there is
 no zero-th character, so we get a traceback. There are two solutions to
@@ -604,7 +605,7 @@ this to make line three "safe" even if the line is empty.
 One possibility is to simply use the `startswith` method
 which returns `False` if the string is empty.
 
-        if line.startswith('#') :
+        if line.startswith('#'):
 
 \index{guardian pattern}
 \index{pattern!guardian}
@@ -614,7 +615,7 @@ Another way is to safely write the `if` statement using the
 expression is evaluated only where there is at least one character in
 the string.:
 
-        if len(line) > 0 and line[0] == '#' :
+        if len(line) > 0 and line[0] == '#':
 
 Glossary
 --------
@@ -647,7 +648,7 @@ format string
 \index{format string}
 
 flag
-:   A boolean variable used to indicate whether a condition is true.
+:   A boolean variable used to indicate whether a condition is true or false.
 \index{flag}
 
 invocation
@@ -715,7 +716,7 @@ Exercise 6:
 \index{method!string}
 
 Read the documentation of the string methods at
-<https://docs.python.org/2/library/stdtypes.html#string-methods>. You
+<https://docs.python.org/3.5/library/stdtypes.html#string-methods>. You
 might want to experiment with some of them to make sure you understand
 how they work. `strip` and `replace` are
 particularly useful.

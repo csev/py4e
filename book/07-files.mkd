@@ -53,7 +53,7 @@ from [www.pythonlearn.com/code3/mbox.txt](www.pythonlearn.com/code3/mbox.txt)
 
     >>> fhand = open('mbox.txt')
     >>> print(fhand)
-    <open file 'mbox.txt', mode 'r' at 0x1005088b0>
+    <_io.TextIOWrapper name='mbox.txt' mode='r' encoding='cp1252'>
 
 \index{file handle}
 
@@ -71,7 +71,7 @@ and you will not get a handle to access the contents of the file:
     >>> fhand = open('stuff.txt')
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
-    IOError: [Errno 2] No such file or directory: 'stuff.txt'
+    FileNotFoundError: [Errno 2] No such file or directory: 'stuff.txt'
 
 Later we will use `try` and `except` to deal more
 gracefully with the situation where we attempt to open a file that does
@@ -228,7 +228,7 @@ prefix:
 
     fhand = open('mbox-short.txt')
     for line in fhand:
-        if line.startswith('From:') :
+        if line.startswith('From:'):
             print(line)
 
 When this program runs, we get the following output:
@@ -256,8 +256,8 @@ strips whitespace from the right side of a string as follows:
 
     fhand = open('mbox-short.txt')
     for line in fhand:
-        line = line.rstrip()
-        if line.startswith('From:') :
+        if line.startswith('From:'):
+            line = line.rstrip()
             print(line)
 
 When this program runs, we get the following output:
@@ -282,11 +282,11 @@ uninteresting lines as follows:
 
     fhand = open('mbox-short.txt')
     for line in fhand:
-        line = line.rstrip()
         # Skip 'uninteresting lines'
-        if not line.startswith('From:') :
+        if not line.startswith('From:'):
             continue
         # Process our 'interesting' line
+        line = line.rstrip()
         print(line)
 
 The output of the program is the same. In English, the uninteresting
@@ -305,7 +305,7 @@ University of Cape Town in South Africa):
     fhand = open('mbox-short.txt')
     for line in fhand:
         line = line.rstrip()
-        if line.find('@uct.ac.za') == -1 :
+        if line.find('@uct.ac.za') == -1:
             continue
         print(line)
 
@@ -336,7 +336,7 @@ This is quite simple to do by reading the file name from the user using
     fhand = open(fname)
     count = 0
     for line in fhand:
-        if line.startswith('Subject:') :
+        if line.startswith('Subject:'):
             count = count + 1
     print('There were', count, 'subject lines in', fname)
 
@@ -370,14 +370,14 @@ What if our user types something that is not a file name?
     Traceback (most recent call last):
       File "search6.py", line 2, in <module>
         fhand = open(fname)
-    IOError: [Errno 2] No such file or directory: 'missing.txt'
+    FileNotFoundError: [Errno 2] No such file or directory: 'missing.txt'
 
     python search6.py
     Enter the file name: na na boo boo
     Traceback (most recent call last):
       File "search6.py", line 2, in <module>
         fhand = open(fname)
-    IOError: [Errno 2] No such file or directory: 'na na boo boo'
+    FileNotFoundError: [Errno 2] No such file or directory: 'na na boo boo'
 
 Do not laugh, users will eventually do every possible thing they can do
 to break your programs—either on purpose or with malicious intent. As a
@@ -415,7 +415,7 @@ when the `open` fails as follows:
 
     count = 0
     for line in fhand:
-        if line.startswith('Subject:') :
+        if line.startswith('Subject:'):
             count = count + 1
     print('There were', count, 'subject lines in', fname)
 
@@ -455,17 +455,19 @@ parameter:
 
     >>> fout = open('output.txt', 'w')
     >>> print(fout)
-    <open file 'output.txt', mode 'w' at 0xb7eb2410>
+    <_io.TextIOWrapper name='output.txt' mode='w' encoding='cp1252'>
 
 If the file already exists, opening it in write mode clears out the old
 data and starts fresh, so be careful! If the file doesn't exist, a new
 one is created.
 
 The `write` method of the file handle object puts data into
-the file.
+the file, returning the number of characters written. The default write
+mode is text for writing (and reading) strings.
 
     >>> line1 = "This here's the wattle,\n"
     >>> fout.write(line1)
+    24
 
 \index{newline}
 
@@ -479,6 +481,7 @@ the `write` method does not add the newline automatically.
 
     >>> line2 = 'the emblem of our land.\n'
     >>> fout.write(line2)
+    24
 
 When you are done writing, you have to close the file to make sure that
 the last bit of data is physically written to the disk so it will not be
