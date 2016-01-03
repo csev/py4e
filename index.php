@@ -17,6 +17,10 @@ to allow
 you to learn Python on your own.  This page serves as an outline
 of the materials to support the textbook.
 </p>
+<p>
+<b>New:</b> The book is being converted into Python 3 and here is how
+you could <a href="book/index.htm">help us with the conversion</a>.
+</p>
 You can download the exercises, audio, 
 and video lectures to your local computer so you can play them locally.  This
 can be done with either a Right-Click or a Control-Click in most browsers.
