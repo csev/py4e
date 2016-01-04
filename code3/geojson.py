@@ -10,12 +10,15 @@ while True:
     url = serviceurl + urllib.parse.urlencode({'sensor':'false', 'address': address})
     print('Retrieving', url)
     uh = urllib.request.urlopen(url)
-    data = uh.read()
+    data = uh.read().decode()
     print('Retrieved',len(data),'characters')
 
-    try: js = json.loads(str(data))
-    except: js = None
-    if 'status' not in js or js['status'] != 'OK':
+    try:
+        js = json.loads(data)
+    except:
+        js = None
+
+    if not js or 'status' not in js or js['status'] != 'OK':
         print('==== Failure To Retrieve ====')
         print(data)
         continue
