@@ -1,4 +1,6 @@
-# Search for lines that start with From and have an at sign
+# Search for lines that contain 'New Revision: ' followed by a number
+# Then turn the number into a float and append it to nums
+# Finally print the length and the average of nums
 import re
 fname = input('Enter file:')
 hand = open(fname)
