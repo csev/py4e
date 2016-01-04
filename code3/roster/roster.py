@@ -28,8 +28,9 @@ CREATE TABLE Member (
 )
 ''')
 
-fname = eval(input('Enter file name: '))
-if ( len(fname) < 1 ) : fname = 'roster_data.json'
+fname = input('Enter file name: ')
+if len(fname) < 1:
+    fname = 'roster_data.json'
 
 # [
 #   [ "Charley", "si110", 1 ],

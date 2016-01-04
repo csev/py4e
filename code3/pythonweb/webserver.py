@@ -43,7 +43,7 @@ class MyHandler(BaseHTTPRequestHandler):
             
             self.end_headers()
             upfilecontent = query.get('upfile')
-            print "filecontent", upfilecontent[0]
+            print("filecontent", upfilecontent[0])
             self.wfile.write("<HTML>POST OK.<BR><BR>");
             self.wfile.write(upfilecontent[0]);
             
@@ -53,10 +53,10 @@ class MyHandler(BaseHTTPRequestHandler):
 def main():
     try:
         server = HTTPServer(('', 8084), MyHandler)
-        print 'started httpserver...'
+        print('started httpserver...')
         server.serve_forever()
     except KeyboardInterrupt:
-        print '^C received, shutting down server'
+        print('^C received, shutting down server')
         server.socket.close()
 
 if __name__ == '__main__':
