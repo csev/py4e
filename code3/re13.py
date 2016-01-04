@@ -1,10 +1,9 @@
-# Search for lines that contain 'Author:' followed by any characters, an at sign, and any non whitespace character
-# Then print the character group that follows the at sign
+# Search for lines that start with From and a character followed by a two digit number between 00 and 99 followed by ':'
+# Then print the number if it is greater than zero
 import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    x = re.findall('Author:.*@(\S+)', line)
-    if not x : continue
-    print(x)
+    x = re.findall('^From .* ([0-9][0-9]):', line)
+    if len(x) > 0 : print(x)
 
