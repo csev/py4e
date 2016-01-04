@@ -1,4 +1,5 @@
-# Search for lines that start with From and have an at sign
+# Search for lines that start with 'X' followed by any non whitespace characters and ':'
+# followed by a space and any number. The number can include a decimal.
 import re
 hand = open('mbox-short.txt')
 for line in hand:
