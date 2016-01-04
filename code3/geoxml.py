@@ -12,7 +12,7 @@ while True:
     uh = urllib.request.urlopen(url)
     data = uh.read()
     print('Retrieved',len(data),'characters')
-    print(data)
+    print(data.decode())
     tree = ET.fromstring(data)
 
 
