@@ -3,7 +3,7 @@
 # Into the same folder as this program
 
 import urllib.request, urllib.parse, urllib.error
-from BeautifulSoup import *
+from bs4 import BeautifulSoup
 
 url = input('Enter - ')
 html = urllib.request.urlopen(url).read()
