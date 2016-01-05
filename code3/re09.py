@@ -1,8 +1,10 @@
-# Search for lines that start with From and have an at sign
+# Search for lines that start 'X' followed by any non whitespace characters and ':'
+# then output the first group of non whitespace characters that follows
 import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    if re.search('^X\S*: [0-9.]+', line) :
-        print(line)
+    x = re.findall('^X\S*: (\S+)', line)
+    if not x : continue
+    print(x)
 

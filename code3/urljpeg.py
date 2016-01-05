@@ -1,13 +1,14 @@
 import socket
 import time
 
+HOST = 'www.py4inf.com'  
+PORT = 80              
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mysock.connect(('www.py4inf.com', 80))
-mysock.send('GET http://www.py4inf.com/cover.jpg HTTP/1.0\n\n')
-
-
+mysock.connect((HOST, PORT))
+mysock.sendall(b'GET http://www.py4inf.com/cover.jpg HTTP/1.0\n\n')
 count = 0
-picture = "";
+picture = b""
+
 while True:
     data = mysock.recv(5120)
     if ( len(data) < 1 ) : break
@@ -19,7 +20,7 @@ while True:
 mysock.close()
 
 # Look for the end of the header (2 CRLF)
-pos = picture.find("\r\n\r\n");
+pos = picture.find(b"\r\n\r\n");
 print('Header length',pos)
 print(picture[:pos])
 

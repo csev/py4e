@@ -3,7 +3,7 @@ import urllib.request, urllib.parse, urllib.error
 import ssl 
 from urllib.parse import urljoin
 from urllib.parse import urlparse
-from BeautifulSoup import *
+from bs4 import BeautifulSoup
 
 # Deal with SSL certificate anomalies Python > 2.7
 # scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)

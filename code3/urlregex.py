@@ -4,7 +4,7 @@ import re
 
 url = input('Enter - ')
 html = urllib.request.urlopen(url).read()
-links = re.findall('href="(http://.*?)"', html)
+links = re.findall(b'href="(http://.*?)"', html)
 for link in links:
     print(link)
 
