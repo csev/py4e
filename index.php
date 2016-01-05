@@ -190,6 +190,11 @@ Lecture Audio
 </li>
 </ul>
 <p>
+Here is an archive of the 
+<a href="https://archive.org/details/201509UMSI502Podcasts_201601" target="_blank">live lecture recordings</a>
+from SI502 at the UM School of Information Fall 2015.
+</p>
+<p>
 Here are <a href="videos/" target="_blank">archive copies</a> of the various audio, video, PowerPoints, PDFs and 
 closed caption files if you want to reuse these materials in your own courses.
 All this material (including audio and video) is Copyright Creative Commons Attribution 3.0 
