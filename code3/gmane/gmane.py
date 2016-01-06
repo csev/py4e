@@ -100,7 +100,7 @@ while True:
 
     try:
         document = urllib.request.urlopen(url, context=scontext)
-        text = document.read()
+        text = document.read().decode()
         if document.getcode() != 200 :
             print("Error code=",document.getcode(), url)
             break
