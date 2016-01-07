@@ -1,12 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 <?php include("header.php"); ?>
 </head>
 <body>
 <?php include("nav.php"); ?>
-<div id="main">
+<div id="first-row" class="row">
+<div class="small-12 columns">
 <iframe	
 height="2400" width="100%" frameborder="0" marginwidth="0"
 marginheight="0" scrolling="auto"

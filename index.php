@@ -1,30 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html">
+<html>
 <head>
 <?php include("header.php"); ?>
 </head>
 <body>
 <?php include("nav.php"); ?>
-<div id="main">
-<div style="float: right; width:300px; padding: 5px;">
-<iframe width="300" height="169" src="//www.youtube.com/embed/UQVK-dsU7-Y" frameborder="0" allowfullscreen></iframe>
+<div id="first-row" class="row">
+  <div class="small-12 medium-12 large-6 columns">
+    <p>The goal of this site is to provide a set of materials in support of my <a href="book.php">Python for Informatics: Exploring Information</a> book to allow you to learn Python on your own. This page serves as an outline of the materials to support the textbook.
+    </p>
+    <p><b>New:</b> The book is being converted into Python 3 and here is how you could <a href="book/index.htm">help us with the conversion</a>.
+    </p>
+    <p>You can download the exercises, audio, and video lectures to your local computer so you can play them locally. This can be done with either a Right-Click or a Control-Click in most browsers.
+    </p>
+  </div>
+  <div class="small-12 medium-12 large-6 columns">
+     <div class="flex-video">
+       <iframe width="100%" height="auto" src="//www.youtube.com/embed/UQVK-dsU7-Y" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
 </div>
-<p>
-The goal of this site is to provide a set of materials in support of my
-<a href="book.php">Python for Informatics: Exploring Information</a> book
-to allow
-you to learn Python on your own.  This page serves as an outline
-of the materials to support the textbook.
-</p>
-<p>
-<b>New:</b> The book is being converted into Python 3 and here is how
-you could <a href="book/index.htm">help us with the conversion</a>.
-</p>
-You can download the exercises, audio, 
-and video lectures to your local computer so you can play them locally.  This
-can be done with either a Right-Click or a Control-Click in most browsers.
-</p>
+<hr>
 <?php
 function media($name) {
     echo('<a href="youtube/'.$name.'.php" target="_blank">YouTube</a>,'."\n");
@@ -35,7 +31,8 @@ function media($name) {
 }
 $afs = "http://www-personal.umich.edu/~csev";
 ?>
-<p>
+<div class="row">
+<div class="small-12 columns">
 <ul>
 <li>
 Welcome Lecture - 
@@ -203,18 +200,19 @@ unless otherwise indicated.
 Here are the materials for the 
 <a href="workshop/materials.zip">Big Data Workshop</a>.
 </div>
+</div>
 <div id="disqus_thread"></div>
 <script>
 /**
 * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
 * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
 */
-/*
+
 var disqus_config = function () {
 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
-*/
+
 (function() { // DON'T EDIT BELOW THIS LINE
 var d = document, s = d.createElement('script');
 
@@ -223,6 +221,7 @@ s.src = '//pythonlearn.disqus.com/embed.js';
 s.setAttribute('data-timestamp', +new Date());
 (d.head || d.body).appendChild(s);
 })();
+
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 <?php include("footer.php"); ?>
