@@ -14,4 +14,4 @@ while True:
 
     fh = open(x[0])
     for ln in fh:
-        print '   ',ln.strip()
+        print '   ',ln.rstrip()
