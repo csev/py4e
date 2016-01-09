@@ -1,10 +1,5 @@
-<!DOCTYPE html">
-<html>
-<head>
-<?php include("header.php"); ?>
-</head>
-<body>
-<?php include("nav.php"); ?>
+<?php include("header.php");?>
+
 <div id="first-row" class="row">
   <div class="small-12 medium-12 large-6 columns">
     <p>The goal of this site is to provide a set of materials in support of my <a href="book.php">Python for Informatics: Exploring Information</a> book to allow you to learn Python on your own. This page serves as an outline of the materials to support the textbook.
@@ -201,7 +196,10 @@ Here are the materials for the
 <a href="workshop/materials.zip">Big Data Workshop</a>.
 </div>
 </div>
-<div id="disqus_thread"></div>
+
+<div class="row">
+    <div class="small-12 columns" id="disqus_thread"></div>
+</div>
 <script>
 /**
 * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
@@ -225,5 +223,4 @@ s.setAttribute('data-timestamp', +new Date());
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 <?php include("footer.php"); ?>
-</body>
-</html>
+
