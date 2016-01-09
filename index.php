@@ -1,5 +1,5 @@
 <?php include("header.php");?>
-
+<div class="hide-for-large" id="mobile-support"></div>
 <div id="first-row" class="row">
   <div class="small-12 medium-12 large-6 columns">
     <p>The goal of this site is to provide a set of materials in support of my <a href="book.php">Python for Informatics: Exploring Information</a> book to allow you to learn Python on your own. This page serves as an outline of the materials to support the textbook.

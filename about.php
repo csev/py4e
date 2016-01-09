@@ -1,5 +1,5 @@
 <?php include("header.php"); ?>
-
+<div class="hide-for-large" id="mobile-support"></div>
 <div id="first-row" class="row">
     <div class="small-12 columns">
     <p>

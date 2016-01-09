@@ -9,6 +9,21 @@
         <link rel="alternate" type="application/rss+xml" title="PythonLearn Podcast" href="http://www.pythonlearn.com/audiofeed.xml" />
         <script src="assets/foundation/js/vendor/jquery.min.js"></script>
         <script src="assets/foundation/js/foundation.js"></script>
+        <script>
+            var lastScroll = 0;
+            jQuery(window).scroll(function(){
+                var w = jQuery(window);
+
+                if (w.scrollTop() < lastScroll) {
+                    jQuery(".title-bar").show();
+                    lastScroll = w.scrollTop()+20;
+                }
+                if (w.scrollTop() > lastScroll){
+                    jQuery(".title-bar").hide();
+                    lastScroll = w.scrollTop()-20;	
+                }
+            });
+        </script>
     </head>
     <body>
     <?php include("nav.php"); ?>
