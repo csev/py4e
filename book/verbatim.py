@@ -13,5 +13,7 @@ while True:
         continue
 
     fh = open(x[0])
+    print '~~~~ {.python}'
     for ln in fh:
         print '   ',ln.rstrip()
+    print '~~~~'
