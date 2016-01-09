@@ -11,7 +11,8 @@
         <script src="assets/foundation/js/foundation.js"></script>
         <script>
             jQuery(document).ready(function(){
-                var elem = new Foundation.Tabs(jQuery('#vert-tabs'));
+                var elem1 = new Foundation.Accordion(jQuery('.accordion'));
+                var elem2 = new Foundation.Tabs(jQuery('#vert-tabs'));
             });
             var lastScroll = 0;
             jQuery(window).scroll(function(){
