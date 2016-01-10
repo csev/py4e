@@ -28,5 +28,3 @@
         </script>
     </head>
     <body>
-    <?php include("nav.php"); ?>
-
