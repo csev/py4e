@@ -8,6 +8,8 @@ import sys
 # buffer is replaced by memoryview in Python 3
 buffer = memoryview
 
+# If you are in China use this URL:
+# serviceurl = "http://maps.google.cn/maps/api/geocode/json?"
 serviceurl = "http://maps.googleapis.com/maps/api/geocode/json?"
 
 # Deal with SSL certificate anomalies Python > 2.7
@@ -38,7 +40,7 @@ for line in fh:
     print('Resolving', address)
     url = serviceurl + urllib.parse.urlencode({"sensor":"false", "address": address})
     print('Retrieving', url)
-    uh = urllib.request.urlopen(url, context=scontext)
+    uh = urllib.request.urlopen(url)
     data = uh.read().decode()
     print('Retrieved',len(data),'characters',data[:20].replace('\n',' '))
     count = count + 1
