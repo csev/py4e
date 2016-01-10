@@ -10,7 +10,7 @@
     </div>
 
     <div class="small-12 medium-12 large-9 large-pull-3 columns">
-        <h1>Python for Informatics: Exploring Information</h1>
+        <h2>Python for Informatics: Exploring Information</h2>
         <p>
             The goal of this book is to provide an Informatics-oriented introduction to programming. The primary difference between a computer science approach and the Informatics approach taken in this book is a greater focus on using Python to solve data analysis problems common in the world of Informatics.
         </p>
@@ -21,70 +21,37 @@
 </div>
 <div class="row">
     <div class="small-12 medium-12 large-6 columns">
-        <p>
-            Copies of the book are available from
-        </p>
+       <p>Copies of the book are available from the links below</p>
+       <p>English</p>
         <ul>
-            <li>
-                English: <a href="http://amzn.to/1KkULF3" target="_blank">Amazon</a> or <a href="http://amzn.to/1hLcoBy" target="_blank">Kindle Store</a> (Python for Informatics: Exploring Information)
-            </li>
-            <li>
-                Spanish: <a href="http://amzn.to/1KkV42z" target="_blank">Amazon</a> or <a href="http://amzn.to/1fNOnbd" target="_blank">Kindle Store</a> (Python para Informáticos: Explorando la información)
-            </li>
-            <li>
-                Korean: <a href="http://amzn.to/1N74xLt" target="_blank">Amazon</a> ( 정보교육을 위한 파이썬: 정보탐색을 통한 데이터 과학자로의 여정)
-            </li>
+            <li><a href="http://amzn.to/1KkULF3" target="_blank">Amazon</a> or <a href="http://amzn.to/1hLcoBy" target="_blank">Kindle Store</a> (Python for Informatics: Exploring Information)</li>
+            <li><a href="http://do1.dr-chuck.com/py4inf/EN-us/book.pdf" target="_blank">PDF</a></li>
+            <li><a href="book_270.epub" target="_blank">EPUB</a></li>
+            <li><a href="html-270/" target="_blank">HTML</a></li>
+            <li><a href="html_270.zip" target="_blank">Download HTML in a ZIP</a></li>
+            <li><a href="http://itunes.apple.com/us/book/python-for-informatics/id554638579?mt=13" target="_blank">Apple iBooks at iBookstore</a> (1.3GB)</li>
+            <li><a href="http://www-personal.umich.edu/~csev/books/py4inf/ibooks//python_for_informatics.ibooks" target="_blank">Apple iBooks direct Download</a> (1.3GB)</li>
         </ul>
-        <p>
-            Here are free copies of the book in various formats:
-        </p>
+        <p>Spanish</p>
         <ul>
-            <li>
-                PDF
-                <ul>
-                    <li>
-                        <a href="http://do1.dr-chuck.com/py4inf/EN-us/book.pdf" target="_blank">English</a>
-                    </li>
-                    <li>
-                        <a href="http://do1.dr-chuck.com/py4inf/ES-es/book.pdf" target="_blank">Spanish</a> from <a href="https://twitter.com/fertardio" target="_blank">Fernando Tardío.</a>
-                    </li>
-                    <li>
-                        <a href="translations/KO/book_009_ko.pdf" target="_blank">Korean</a> from <a href="http://www.xwmooc.net/python/" target="_new">Victor KC. Lee</a>
-                    </li>
-                    <li>
-                        <a href="http://fanwscu.gitbooks.io/py4inf-zh-cn/" target="_blank">Chinese (Simplified)</a> from Wei Fan
-                    </li>
-                </ul>
-            </li>
-            <li>
-                EPUB
-                <ul>
-                    <li>
-                        <a href="book_270.epub" target="_blank">English</a>
-                    </li>
-                    <li>
-                        <a href="translations/ES/book_272_es4.epub" target="_blank">Spanish</a>
-                    </li>
-                    <li>
-                        <a href="https://www.gitbook.com/download/epub/book/fanwscu/py4inf-zh-cn" target="_blank">Chinese</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="html-270/" target="_blank">HTML</a>
-            </li>
-            <li>
-                <a href="html_270.zip" target="_blank">Download HTML in a ZIP</a>
-            </li>
-            <li>
-                <a href="http://itunes.apple.com/us/book/python-for-informatics/id554638579?mt=13" target="_blank">Apple iBooks at iBookstore</a> (1.3GB)
-            </li>
-            <li>
-                <a href="http://www-personal.umich.edu/~csev/books/py4inf/ibooks//python_for_informatics.ibooks" target="_blank">Apple iBooks direct Download</a> (1.3GB)
-            </li>
+            <li><a href="http://amzn.to/1KkV42z" target="_blank">Amazon</a> or <a href="http://amzn.to/1fNOnbd" target="_blank">Kindle Store</a> (Python para Informáticos: Explorando la información)</li>
+            <li><a href="http://do1.dr-chuck.com/py4inf/ES-es/book.pdf" target="_blank">PDF</a> from <a href="https://twitter.com/fertardio" target="_blank">Fernando Tardío</a></li>
+            <li><a href="translations/ES/book_272_es4.epub" target="_blank">EPUB</a></li>
         </ul>
-</div>
-<div class="small-12 medium-12 large-6 columns">
+        <p>Korean</p>
+        <ul>
+            <li><a href="http://amzn.to/1N74xLt" target="_blank">Amazon</a> ( 정보교육을 위한 파이썬: 정보탐색을 통한 데이터 과학자로의 여정)</li>
+            <li><a href="translations/KO/book_009_ko.pdf" target="_blank">PDF</a> from <a href="http://www.xwmooc.net/python/" target="_new">Victor KC. Lee</a></li>
+        </ul>
+        <p>Chinese (Simplified)</p>
+        <ul>
+            <li><a href="http://fanwscu.gitbooks.io/py4inf-zh-cn/" target="_blank">PDF</a> from Wei Fan</li>
+            <li><a href="https://www.gitbook.com/download/epub/book/fanwscu/py4inf-zh-cn" target="_blank">EPUB</a></li>
+        </ul>  
+    </div>
+
+    <div class="small-12 medium-12 large-6 columns">
+        <br>
         <p>
             The sample code and data files for the book is here: <a href="http://www.py4inf.com/code" target="_blank">Code Samples</a>.
         </p>
