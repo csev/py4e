@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <?php include("header.php"); ?>
 </head>
 <body>
 <?php include("nav.php"); ?>
-<div id="first-row" class="row">
-<div class="small-12 columns">
+<div id="main">
 <p>
 PythonLearn is intended to collect a set of generic Python Learning Resources
 to allow self-paced learning of the Python Language. 
@@ -73,7 +73,6 @@ Copyright Creattive Commons Attribution 2.5.  You are welcome to use these
 in your courses any way you like.  You can make copies and host them yourselves if you like.  Let me know if you need written permission - it will
 be freely given - Charles Severance (www.dr-chuck.com).
 </p>
-</div>
 </div>
 <?php include("footer.php"); ?>
 </body>
