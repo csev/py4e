@@ -1,5 +1,5 @@
-Using databases and Structured Query Language (SQL)
-===================================================
+Using databases and SQL
+=======================
 
 What is a database?
 -------------------
@@ -52,20 +52,19 @@ row, and column are more formally referred to as
 *attribute*, respectively. We will use the less formal
 terms in this chapter.
 
-SQLite manager Firefox add-on
------------------------------
+Database Browser for SQLite
+---------------------------
 
 While this chapter will focus on using Python to work with data in
 SQLite database files, many operations can be done more conveniently
-using a Firefox add-on called the *SQLite Database
-Manager* which is freely available from:
+using software called the *Database Browser for SQLite* which is freely available from:
 
-<https://addons.mozilla.org/en-us/firefox/addon/sqlite-manager/>
+<http://sqlitebrowser.org/>
 
 Using the browser you can easily create tables, insert data, edit data,
 or run simple SQL queries on the data in the database.
 
-In a sense, the database manager is similar to a text editor when
+In a sense, the database browser is similar to a text editor when
 working with text files. When you want to do one or very few operations
 on a text file, you can just open it in a text editor and make the
 changes you want. When you have many changes that you need to do to a
@@ -105,15 +104,7 @@ with two columns in the database is as follows:
 \index{sqlite3 module}
 \index{module!sqlite3}
 
-    import sqlite3
-
-    conn = sqlite3.connect('music.sqlite3')
-    cur = conn.cursor()
-
-    cur.execute('DROP TABLE IF EXISTS Tracks ')
-    cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
-
-    conn.close()
+\VerbatimInput{../code3/db1.py}
 
 \index{connect function}
 \index{function!connect}
@@ -179,26 +170,7 @@ placed in the new row. We specify the values as question marks `(?,
 `( 'My Way', 15 ) ` as the second parameter to the
 `execute()` call.
 
-    import sqlite3
-
-    conn = sqlite3.connect('music.sqlite3')
-    cur = conn.cursor()
-
-    cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )',
-        ( 'Thunderstruck', 20 ) )
-    cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )',
-        ( 'My Way', 15 ) )
-    conn.commit()
-
-    print('Tracks:')
-    cur.execute('SELECT title, plays FROM Tracks')
-    for row in cur :
-       print(row)
-
-    cur.execute('DELETE FROM Tracks WHERE plays < 100')
-    conn.commit()
-
-    cur.close()
+\VerbatimInput{../code3/db2.py}
 
 First we `INSERT` two rows into our table and use
 `commit()` to force the data to be written to the database
@@ -353,63 +325,7 @@ earlier in the book that uses the Twitter API.
 
 Here is the source code for our Twitter spidering application:
 
-    import urllib.request, urllib.parse, urllib.error
-    import twurl
-    import json
-    import sqlite3
-
-    TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
-
-    conn = sqlite3.connect('spider.sqlite3')
-    cur = conn.cursor()
-
-    cur.execute('''
-    CREATE TABLE IF NOT EXISTS Twitter
-    (name TEXT, retrieved INTEGER, friends INTEGER)''')
-
-    while True:
-        acct = input('Enter a Twitter account, or quit: ')
-        if ( acct == 'quit' ) : break
-        if ( len(acct) < 1 ) :
-            cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
-            try:
-                acct = cur.fetchone()[0]
-            except:
-                print('No unretrieved Twitter accounts found')
-                continue
-
-        url = twurl.augment(TWITTER_URL,
-                   {'screen_name': acct, 'count': '20'} )
-        print('Retrieving', url)
-        connection = urllib.request.urlopen(url)
-        data = connection.read()
-        headers = connection.info().dict
-        # print 'Remaining', headers['x-rate-limit-remaining']
-        js = json.loads(data)
-        # print json.dumps(js, indent=4)
-
-        cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
-
-        countnew = 0
-        countold = 0
-        for u in js['users'] :
-            friend = u['screen_name']
-            print(friend)
-            cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1',
-                (friend, ) )
-            try:
-                count = cur.fetchone()[0]
-                cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?',
-                    (count+1, friend) )
-                countold = countold + 1
-            except:
-                cur.execute('''INSERT INTO Twitter (name, retrieved, friends)
-                    VALUES ( ?, 0, 1 )''', ( friend, ) )
-                countnew = countnew + 1
-        print('New accounts=',countnew,' revisited=',countold)
-        conn.commit()
-
-    cur.close()
+\VerbatimInput{../code3/twspider.py}
 
 Our database is stored in the file `spider.sqlite3` and it
 has one table named `Twitter`. Each row in the
@@ -497,17 +413,7 @@ database is empty.
 At this point, we might want to write a simple database dumper to take a
 look at what is in our `spider.sqlite3` file:
 
-    import sqlite3
-
-    conn = sqlite3.connect('spider.sqlite3')
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM Twitter')
-    count = 0
-    for row in cur :
-       print(row)
-       count = count + 1
-    print(count, 'rows.')
-    cur.close()
+\VerbatimInput{../code3/twdump.py}
 
 This program simply opens the database and selects all of the columns of
 all of the rows in the table `Twitter`, then loops through
@@ -713,84 +619,7 @@ We will now redo the Twitter spider program using two tables, the
 primary keys, and the key references as described above. Here is the
 code for the new version of the program:
 
-    import urllib.request, urllib.parse, urllib.error
-    import twurl
-    import json
-    import sqlite3
-
-    TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
-
-    conn = sqlite3.connect('friends.sqlitesqlite3')
-    cur = conn.cursor()
-
-    cur.execute('''CREATE TABLE IF NOT EXISTS People
-        (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
-    cur.execute('''CREATE TABLE IF NOT EXISTS Follows
-        (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
-
-    while True:
-        acct = input('Enter a Twitter account, or quit: ')
-        if ( acct == 'quit' ) : break
-        if ( len(acct) < 1 ) :
-            cur.execute('''SELECT id, name FROM People
-                WHERE retrieved = 0 LIMIT 1''')
-            try:
-                (id, acct) = cur.fetchone()
-            except:
-                print('No unretrieved Twitter accounts found')
-                continue
-        else:
-            cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
-                (acct, ) )
-            try:
-                id = cur.fetchone()[0]
-            except:
-                cur.execute('''INSERT OR IGNORE INTO People (name, retrieved)
-                    VALUES ( ?, 0)''', ( acct, ) )
-                conn.commit()
-                if cur.rowcount != 1 :
-                    print('Error inserting account:',acct)
-                    continue
-                id = cur.lastrowid
-
-        url = twurl.augment(TWITTER_URL,
-           {'screen_name': acct, 'count': '20'} )
-        print('Retrieving account', acct)
-        connection = urllib.request.urlopen(url)
-        data = connection.read()
-        headers = connection.info().dict
-        print('Remaining', headers['x-rate-limit-remaining'])
-
-        js = json.loads(data)
-        # print json.dumps(js, indent=4)
-
-        cur.execute('UPDATE People SET retrieved=1 WHERE name = ?', (acct, ) )
-
-        countnew = 0
-        countold = 0
-        for u in js['users'] :
-            friend = u['screen_name']
-            print(friend)
-            cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
-                (friend, ) )
-            try:
-                friend_id = cur.fetchone()[0]
-                countold = countold + 1
-            except:
-                cur.execute('''INSERT OR IGNORE INTO People (name, retrieved)
-                    VALUES ( ?, 0)''', ( friend, ) )
-                conn.commit()
-                if cur.rowcount != 1 :
-                    print('Error inserting account:',friend)
-                    continue
-                friend_id = cur.lastrowid
-                countnew = countnew + 1
-            cur.execute('''INSERT OR IGNORE INTO Follows (from_id, to_id)
-                VALUES (?, ?)''', (id, friend_id) )
-        print('New accounts=',countnew,' revisited=',countold)
-        conn.commit()
-
-    cur.close()
+\VerbatimInput{../code3/twfriends.py}
 
 This program is starting to get a bit complicated, but it illustrates
 the patterns that we need to use when we are using integer keys to link
@@ -1041,37 +870,7 @@ The following code demonstrates the data that we will have in the
 database after the multi-table Twitter spider program (above) has been
 run several times.
 
-    import sqlite3
-
-    conn = sqlite3.connect('spider.sqlite3')
-    cur = conn.cursor()
-
-    cur.execute('SELECT * FROM People')
-    count = 0
-    print('People:')
-    for row in cur :
-       if count < 5: print(row)
-       count = count + 1
-    print(count, 'rows.')
-
-    cur.execute('SELECT * FROM Follows')
-    count = 0
-    print('Follows:')
-    for row in cur :
-       if count < 5: print(row)
-       count = count + 1
-    print(count, 'rows.')
-
-    cur.execute('''SELECT * FROM Follows JOIN People
-        ON Follows.to_id = People.id WHERE Follows.from_id = 2''')
-    count = 0
-    print('Connections for id=2:')
-    for row in cur :
-       if count < 5: print(row)
-       count = count + 1
-    print(count, 'rows.')
-
-    cur.close()
+\VerbatimInput{../code3/twjoin.py}
 
 In this program, we first dump out the `People` and
 `Follows` and then dump out a subset of the data in the
@@ -1145,7 +944,7 @@ Debugging
 
 One common pattern when you are developing a Python program to connect
 to an SQLite database will be to run a Python program and check the
-results using the SQLite Database Browser. The browser allows you to
+results using the Database Browser for SQLite. The browser allows you to
 quickly check to see if your program is working properly.
 
 You must be careful because SQLite takes care to keep two programs from

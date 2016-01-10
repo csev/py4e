@@ -79,7 +79,7 @@ while True:
             print("Error on page: ",document.getcode())
             cur.execute('UPDATE Pages SET error=? WHERE url=?', (document.getcode(), url) )
 
-        if 'text/html' != document.info().gettype() :
+        if 'text/html' != document.info().get_content_type() :
             print("Ignore non text/html page")
             cur.execute('DELETE FROM Pages WHERE url=?', ( url, ) ) 
             cur.execute('UPDATE Pages SET error=0 WHERE url=?', (url, ) )
@@ -88,7 +88,7 @@ while True:
 
         print('('+str(len(html))+')', end=' ')
 
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, "html5lib")
     except KeyboardInterrupt:
         print('')
         print('Program interrupted by user...')
@@ -100,7 +100,7 @@ while True:
         continue
 
     cur.execute('INSERT OR IGNORE INTO Pages (url, html, new_rank) VALUES ( ?, NULL, 1.0 )', ( url, ) ) 
-    cur.execute('UPDATE Pages SET html=? WHERE url=?', (buffer(html), url ) )
+    cur.execute('UPDATE Pages SET html=? WHERE url=?', (memoryview(html), url ) )
     conn.commit()
 
     # Retrieve all of the anchor tags
