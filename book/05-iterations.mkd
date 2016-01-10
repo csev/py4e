@@ -14,7 +14,9 @@ A common pattern in assignment statements is an assignment statement
 that updates a variable – where the new value of the variable depends on
 the old.
 
-    x = x + 1
+~~~~ {.python}
+x = x + 1
+~~~~
 
 This means "get the current value of `x`, add 1, and then
 update `x` with the new value."
@@ -23,16 +25,20 @@ If you try to update a variable that doesn't exist, you get an error,
 because Python evaluates the right side before it assigns a value to
 `x`:
 
-    >>> x = x + 1
-    NameError: name 'x' is not defined
+~~~~ {.python}
+>>> x = x + 1
+NameError: name 'x' is not defined
+~~~~
 
 Before you can update a variable, you have to
 *initialize* it, usually with a simple assignment:
 
 \index{initialization (before update)}
 
-    >>> x = 0
-    >>> x = x + 1
+~~~~ {.python}
+>>> x = 0
+>>> x = x + 1
+~~~~
 
 Updating a variable by adding 1 is called an *increment*;
 subtracting 1 is called a *decrement*.
@@ -57,11 +63,13 @@ One form of iteration in Python is the `while` statement.
 Here is a simple program that counts down from five and then says
 "Blastoff!".
 
-    n = 5
-    while n > 0:
-        print(n)
-        n = n - 1
-    print('Blastoff!')
+~~~~ {.python}
+n = 5
+while n > 0:
+    print(n)
+    n = n - 1
+print('Blastoff!')
+~~~~
 
 You can almost read the `while` statement as if it were
 English. It means, "While `n` is greater than 0, display the
@@ -131,11 +139,13 @@ This loop is obviously an *infinite loop* because the
 logical expression on the `while` statement is simply the
 logical constant `True`:
 
-    n = 10
-    while True:
-        print(n, end=' ')
-        n = n - 1
-    print('Done!')
+~~~~ {.python}
+n = 10
+while True:
+    print(n, end=' ')
+    n = n - 1
+print('Done!')
+~~~~
 
 If you make the mistake and run this code, you will learn quickly how to
 stop a runaway Python process on your system or find where the power-off
@@ -152,12 +162,14 @@ when we have reached the exit condition.
 For example, suppose you want to take input from the user until they
 type `done`. You could write:
 
-    while True:
-        line = input('> ')
-        if line == 'done':
-            break
-        print(line)
-    print('Done!')
+~~~~ {.python}
+while True:
+    line = input('> ')
+    if line == 'done':
+        break
+    print(line)
+print('Done!')
+~~~~
 
 The loop condition is `True`, which is always true, so the
 loop runs repeatedly until it hits the break statement.
@@ -167,12 +179,14 @@ user types `done`, the `break` statement exits the
 loop. Otherwise the program echoes whatever the user types and goes back
 to the top of the loop. Here's a sample run:
 
-    > hello there
-    hello there
-    > finished
-    finished
-    > done
-    Done!
+~~~~
+> hello there
+hello there
+> finished
+finished
+> done
+Done!
+~~~~
 
 This way of writing `while` loops is common because you can
 check the condition anywhere in the loop (not just at the top) and you
@@ -195,25 +209,29 @@ Here is an example of a loop that copies its input until the user types
 "done", but treats lines that start with the hash character as lines not
 to be printed (kind of like Python comments).
 
-    while True:
-        line = input('> ')
-        if line[0] == '#':
-            continue
-        if line == 'done':
-            break
-        print(line)
-    print('Done!')
+~~~~ {.python}
+while True:
+    line = input('> ')
+    if line[0] == '#':
+        continue
+    if line == 'done':
+        break
+    print(line)
+print('Done!')
+~~~~
 
 Here is a sample run of this new program with `continue`
 added.
 
-    > hello there
-    hello there
-    > # don't print this
-    > print this!
-    print this!
-    > done
-    Done!
+~~~~ 
+> hello there
+hello there
+> # don't print this
+> print this!
+print this!
+> done
+Done!
+~~~~
 
 All the lines are printed except the one that starts with the hash sign
 because when the `continue` is executed, it ends the current
@@ -239,10 +257,12 @@ The syntax of a `for` loop is similar to the
 `while` loop in that there is a `for` statement
 and a loop body:
 
-    friends = ['Joseph', 'Glenn', 'Sally']
-    for friend in friends:
-        print('Happy New Year:', friend)
-    print('Done!')
+~~~~ {.python}
+friends = ['Joseph', 'Glenn', 'Sally']
+for friend in friends:
+    print('Happy New Year:', friend)
+print('Done!')
+~~~~
 
 In Python terms, the variable `friends` is a list[^We will examine lists 
 in more detail in a later chapter.] of
@@ -250,10 +270,12 @@ three strings and the `for` loop goes through the list and
 executes the body once for each of the three strings in the list
 resulting in this output:
 
-    Happy New Year: Joseph
-    Happy New Year: Glenn
-    Happy New Year: Sally
-    Done!
+~~~~ {.python}
+Happy New Year: Joseph
+Happy New Year: Glenn
+Happy New Year: Sally
+Done!
+~~~~
 
 Translating this `for` loop to English is not as direct as
 the `while`, but if you think of friends as a
@@ -264,8 +286,10 @@ Looking at the `for` loop, *for* and
 *in* are reserved Python keywords, and
 `friend` and `friends` are variables.
 
-` friend *in* friends*:*\
-`    `*print* 'Happy New Year', friend `
+~~~~ {.python}
+for friend in friends:
+    print('Happy New Year:', friend)
+~~~~
 
 In particular, `friend` is the *iteration
 variable* for the for loop. The variable `friend`
@@ -299,10 +323,12 @@ construction of these loop patterns.
 For example, to count the number of items in a list, we would write the
 following `for` loop:
 
-    count = 0
-    for itervar in [3, 41, 12, 9, 74, 15]:
-        count = count + 1
-    print('Count: ', count)
+~~~~ {.python}
+count = 0
+for itervar in [3, 41, 12, 9, 74, 15]:
+    count = count + 1
+print('Count: ', count)
+~~~~
 
 We set the variable `count` to zero before the loop starts,
 then we write a `for` loop to run through the list of
@@ -324,10 +350,12 @@ finishes.
 Another similar loop that computes the total of a set of numbers is as
 follows:
 
-    total = 0
-    for itervar in [3, 41, 12, 9, 74, 15]:
-        total = total + itervar
-    print('Total: ', total)
+~~~~ {.python}
+total = 0
+for itervar in [3, 41, 12, 9, 74, 15]:
+    total = total + itervar
+print('Total: ', total)
+~~~~
 
 In this loop we *do* use the *iteration variable*.
 Instead of simply adding one to the `count` as in the
@@ -360,24 +388,28 @@ total of the items in the list respectively.
 [maximumloop] To find the largest value in a list or sequence, we
 construct the following loop:
 
-    largest = None
-    print('Before:', largest)
-    for itervar in [3, 41, 12, 9, 74, 15]:
-        if largest is None or itervar > largest :
-            largest = itervar
-        print('Loop:', itervar, largest)
-    print('Largest:', largest)
+~~~~ {.python}
+largest = None
+print('Before:', largest)
+for itervar in [3, 41, 12, 9, 74, 15]:
+    if largest is None or itervar > largest :
+        largest = itervar
+    print('Loop:', itervar, largest)
+print('Largest:', largest)
+~~~~
 
 When the program executes, the output is as follows:
 
-    Before: None
-    Loop: 3 3
-    Loop: 41 41
-    Loop: 12 41
-    Loop: 9 41
-    Loop: 74 74
-    Loop: 15 74
-    Largest: 74
+~~~~
+Before: None
+Loop: 3 3
+Loop: 41 41
+Loop: 12 41
+Loop: 9 41
+Loop: 74 74
+Loop: 15 74
+Largest: 74
+~~~~
 
 The variable `largest` is best thought of as the "largest
 value we have seen so far". Before the loop, we set `largest`
@@ -408,13 +440,15 @@ list.
 To compute the smallest number, the code is very similar with one small
 change:
 
-    smallest = None
-    print('Before:', smallest)
-    for itervar in [3, 41, 12, 9, 74, 15]:
-        if smallest is None or itervar < smallest:
-            smallest = itervar
-        print('Loop:', itervar, smallest)
-    print('Smallest:', smallest)
+~~~~ {.python}
+smallest = None
+print('Before:', smallest)
+for itervar in [3, 41, 12, 9, 74, 15]:
+    if smallest is None or itervar < smallest:
+        smallest = itervar
+    print('Loop:', itervar, smallest)
+print('Smallest:', smallest)
+~~~~
 
 Again, `smallest` is the "smallest so far" before, during,
 and after the loop executes. When the loop has completed,
@@ -427,12 +461,14 @@ unnecessary.
 The following is a simple version of the Python built-in
 `min()` function:
 
-    def min(values):
-        smallest = None
-        for value in values:
-            if smallest is None or value < smallest:
-                smallest = value
-        return smallest
+~~~~ {.python}
+def min(values):
+    smallest = None
+    for value in values:
+        if smallest is None or value < smallest:
+            smallest = value
+    return smallest
+~~~~
 
 In the function version of the smallest code, we removed all of the
 `print` statements so as to be equivalent to the
@@ -517,13 +553,15 @@ number, detect their mistake using `try` and
 `except` and print an error message and skip to the next
 number.
 
-    Enter a number: 4
-    Enter a number: 5
-    Enter a number: bad data
-    Invalid input
-    Enter a number: 7
-    Enter a number: done
-    16 3 5.333333333333333
+~~~~
+Enter a number: 4
+Enter a number: 5
+Enter a number: bad data
+Invalid input
+Enter a number: 7
+Enter a number: done
+16 3 5.333333333333333
+~~~~
 
 Exercise 2: Write another program that prompts for a list of numbers as
 above and at the end prints out both the maximum and minimum of the
