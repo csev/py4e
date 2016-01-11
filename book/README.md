@@ -10,6 +10,16 @@ to Creative Commons.
 These \*.mkd files are now the master files for the book (i.e. 
 I will not run the conversion any more).
 
+To produce the PDF of the book, you will need to install LaTeX on your 
+system.  For Linux:
+
+    apt-get install texlive-full
+
+For Macintosh,
+
+    https://www.tug.org/mactex/
+    https://www.tug.org/mactex/mactextras.html
+
 To produce the book run
 
     bash book.sh
