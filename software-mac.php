@@ -1,11 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
 <?php include("header.php"); ?>
-</head>
-<body>
-<div id="main">
+<div class="hide-for-large" id="mobile-support"></div>
+<div id="first-row" class="row">
+<div class="small-12 columns">
 <h3>
 Setting up the PythonLearn Environment on a Macintosh
 </h3>
@@ -150,15 +146,5 @@ commands using the enter key.  This can save a lot of typing.
 If you like keeping your screen uncluttered, you can clear the scroll 
 back buffer by pressing the Command key and the K key at the same time.
 </div>
-<!-- Don't use footer because we don't want chat -->
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-423997-6");
-pageTracker._initData();
-pageTracker._trackPageview();
-</script>
-</body>
-</html>
+</div>
+<?php include('footer.php');?>

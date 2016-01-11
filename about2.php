@@ -1,25 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
 <?php include("header.php"); ?>
-</head>
-<body>
-<?php include("nav.php"); ?>
-<div id="main">
-<p>
+<?php include("nav.php");?>
+<div class="hide-for-large" id="mobile-support"></div>
+<div id="first-row" class="row">
+    <div class="small-12 columns">
+    <p>
 PythonLearn is intended to collect a set of generic Python Learning Resources
 to allow self-paced learning of the Python Language. 
 The materials from the site are collected from several courses at
-the Univrsity of Michigan that use Python:
+the University of Michigan that use Python:
 <ul>
-<li> <a href=http://www.si182.com target=_new>
+<li> <a href="https://wiki.eecs.umich.edu/eecs182/index.php/Main_Page" target=_new>
 EECS/SI 182 - Building Applications for Information Environments
 </a>
-<li><a href=http://www.si502.com >
+<li><a href="https://www.si.umich.edu/programs/courses/502" >
 SI 502 - Networked Computing: Storage, Communication, and Processing
 </a>
-<li><a href=http://www.si539.com >
+<li><a href="https://www.si.umich.edu/programs/courses/539">
 SI 539 - Design of Complex Web Sites</a>.
 </p>
 </ul>
@@ -74,6 +70,5 @@ in your courses any way you like.  You can make copies and host them yourselves 
 be freely given - Charles Severance (www.dr-chuck.com).
 </p>
 </div>
+</div>
 <?php include("footer.php"); ?>
-</body>
-</html>
