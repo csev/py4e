@@ -10,7 +10,7 @@ fhand = codecs.open('where.js','w', "utf-8")
 fhand.write("myData = [\n")
 count = 0
 for row in cur :
-    data = str(row[1])
+    data = str(row[1].decode())
     try: js = json.loads(str(data))
     except: continue
 
