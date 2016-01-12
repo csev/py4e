@@ -13,4 +13,10 @@ see the folders
 
 For the work in progress.
 
+To host this
+
+    cp config-dist.php config.php 
+
+And edit the variables as necessary
+
 See the file `book/README.md` for more details.
