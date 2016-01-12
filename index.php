@@ -63,7 +63,7 @@
         <a href="#">Course Slides</a>
         <ul class="menu vertical nested">
           <li>
-               <p>Take a look at the <a href="slides.php" target="_blank">course slides</a> that have been 
+               <p>Take a look at the <a href="slides.php">course slides</a> that have been 
 translated into 30 languages and are available in Google Drive.
                </p>
           </li>

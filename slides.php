@@ -57,7 +57,7 @@ foreach($folders as $folder ) {
 }
 ?>
           <li>
-             <a href="#">Translations on Goodle Drive</a>
+             <a href="#">Over 30 Translations on Google Drive</a>
              <ul class="menu vertical nested">
                 <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyWXg2MVhTbEZFT28&usp=sharing" target="_blank">Go to Course Slides</a></li>
              </ul>
