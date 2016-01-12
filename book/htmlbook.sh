@@ -12,5 +12,5 @@ for fn in *.mkd; do
     echo "the next file is $fn"
     x=`basename $fn .mkd`
     echo $x
-    cat $fn | python verbatim.py --trinket | pandoc -s -f markdown -t html --template=trinket/template --toc --default-image-extension=svg --css=../trinket/simplegrid.css -o html/$x.html
+    cat $fn | python verbatim.py --trinket | pandoc -s --self-contained -f markdown -t html --template=trinket/template --toc --default-image-extension=svg --css=http://thisisdallas.github.io/Simple-Grid/simpleGrid.css -o html/$x.html
 done
