@@ -1,3 +1,4 @@
+#!/bin/bash
 # Testfile
 #cat trinket/test | python verbatim.py --trinket | pandoc -s -f markdown -t html --template=trinket/template --toc --default-image-extension=svg --css=../trinket/simplegrid.css -o html/test.html 
 
