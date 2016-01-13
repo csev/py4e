@@ -63,7 +63,8 @@
         <a href="#">Course Slides</a>
         <ul class="menu vertical nested">
           <li>
-               <p>The <a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyWXg2MVhTbEZFT28&usp=sharing" target="_blank">course slides</a> have been converted to Google drive and are being translated into 30 languages.
+               <p>Take a look at the <a href="slides.php">course slides</a> that have been 
+translated into 30 languages and are available in Google Drive.
                </p>
           </li>
         </ul>
