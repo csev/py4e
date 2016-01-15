@@ -35,14 +35,14 @@ foreach($folders as $folder ) {
     echo(" </ul></li>\n");
 }
 ?>
-                <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyWXg2MVhTbEZFT28&usp=sharing" target="_blank">Translations on Goodle Drive</a></li>
+                <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyWXg2MVhTbEZFT28&usp=sharing" target="_blank">Translations on Google Drive</a></li>
           </li>
         </ul>
 </p>
 <p>
 If you are interested in helping with the translations of the slides, please read
 <a href="https://docs.google.com/document/d/1cwXpPxEAWZNNmR2NjS5onAExPBJMb03B_DFFIHXFMqA/edit"
-target="_blank">the isntructions</a> for editing the files.  We also have a 
+target="_blank">the instructions</a> for editing the files.  We also have a 
 <a href="https://groups.google.com/forum/#!forum/py4inf" target="_blank">Google Group</a>
 to coordinate among the folks doing the translations.
 </p>
