@@ -15,11 +15,7 @@ code folder alone - it will remain Python 2.0 forever
 that autoconversion missed or messed up - fix any Python 2.0 
 and then run the code to verify the output
 
-* Fix the preface rendering in chapters
-
 * Double check the output of the interactive sequences
-
-* Redraw all figures in OmniGraffle
 
 * Make a new awesome cover
 
@@ -28,7 +24,6 @@ and then run the code to verify the output
 * Add HTML Server chapter if time permits
 
 * Add Graphical UI QT chapter if time permits
-
 
 And many other things...
 
