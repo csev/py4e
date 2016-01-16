@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # For yucks make the epub
-cat *.mkd | python verbatim.py | pandoc --default-image-extension=svg --epub-stylesheet=epub.css -o x.epub
+cat *.mkd | python pre-html.py | python verbatim.py | pandoc --default-image-extension=svg --epub-stylesheet=epub.css -o x.epub
 
 rm tmp.* *.tmp *.aux
 pandoc A0-preface.mkd -o tmp.prefacex.tex
