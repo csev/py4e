@@ -11,12 +11,22 @@ while True:
     # ![Where Programs Live](height=1.5in@../images/arch2)
     # ![Where Programs Live](../images/arch2)
     if line.find('!') == 0 : 
-        paren = line.find('(')
+        oparen = line.find('(')
+        cparen = line.find(')')
         atsign = line.find('@')
-        if paren < 1 or atsign < 1 :
+
+        if atsign < 0 : atsign=oparen
+
+        if cparen < atsign or cparen < 1 or oparen < 1 or atsign < 1 :
             print line
             continue
-        print line[:paren+1]+line[atsign+1:]
+        fname = line[atsign+1:cparen]
+        try:
+            fh = open(fname+'.svg')
+        except:
+            fname = fname+'.png'
+
+        print line[:oparen+1]+fname+')'
         continue
 
     print line
