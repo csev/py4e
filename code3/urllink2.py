@@ -1,13 +1,13 @@
 # install beautifulsoup4 
 # https://pypi.python.org/pypi/beautifulsoup4
 
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
 from bs4 import BeautifulSoup
 
 url = input('Enter - ')
 html = urllib.request.urlopen(url).read()
 
-soup = BeautifulSoup(html, "lxml")
+soup = BeautifulSoup(html, "html.parser")
 
 # Retrieve all of the anchor tags
 tags = soup('a')
