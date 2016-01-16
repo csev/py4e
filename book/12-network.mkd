@@ -64,19 +64,7 @@ a very simple Python program that makes a connection to a web server and
 follows the rules of the HTTP protocol to requests a document and
 display what the server sends back.
 
-    import socket
-
-    mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    mysock.connect(('www.pythonlearn.com', 80))
-    mysock.send('GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0\n\n')
-
-    while True:
-        data = mysock.recv(512)
-        if ( len(data) < 1 ) :
-            break
-        print(data)
-
-    mysock.close()
+\VerbatimInput{../code3/socket1.py} 
 
 First the program makes a connection to port 80 on the server
 [www.pythonlearn.com](www.pythonlearn.com). Since our program is playing the role
@@ -139,35 +127,7 @@ HTTP. Instead of copying the data to the screen as the program runs, we
 accumulate the data in a string, trim off the headers, and then save the
 image data to a file as follows:
 
-    import socket
-    import time
-
-    mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    mysock.connect(('www.pythonlearn.com', 80))
-    mysock.send('GET http://www.pythonlearn.com/cover.jpg HTTP/1.0\n\n')
-
-    count = 0
-    picture = "";
-    while True:
-        data = mysock.recv(5120)
-        if ( len(data) < 1 ) : break
-        # time.sleep(0.25)
-        count = count + len(data)
-        print(len(data),count)
-        picture = picture + data
-
-    mysock.close()
-
-    # Look for the end of the header (2 CRLF)
-    pos = picture.find("\r\n\r\n");
-    print('Header length',pos)
-    print(picture[:pos])
-
-    # Skip past the header and save the picture data
-    picture = picture[pos+4:]
-    fhand = open("stuff.jpg","wb")
-    fhand.write(picture);
-    fhand.close()
+\VerbatimInput{../code3/urljpeg.py} 
 
 When the program runs it produces the following output:
 
@@ -267,11 +227,7 @@ You simply indicate which web page you would like to retrieve and
 The equivalent code to read the `romeo.txt` file from the web
 using `urllib` is as follows:
 
-    import urllib.request, urllib.parse, urllib.error
-
-    fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
-    for line in fhand:
-       print(line.strip())
+\VerbatimInput{../code3/urllib1.py} 
 
 Once the web page has been opened with `urllib.urlopen`, we
 can treat it like a file and read through it using a `for`
@@ -290,15 +246,7 @@ As an example, we can write a program to retrieve the data for
 `romeo.txt` and compute the frequency of each word in the
 file as follows:
 
-    import urllib.request, urllib.parse, urllib.error
-
-    counts = dict()
-    fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
-    for line in fhand:
-        words = line.split()
-        for word in words:
-            counts[word] = counts.get(word,0) + 1
-    print(counts)
+\VerbatimInput{../code3/urlwords.py} 
 
 Again, once we have opened the web page, we can read it like a local
 file.
@@ -362,14 +310,7 @@ program:
 \index{regex!parentheses}
 \index{parentheses!regular expression}
 
-    import urllib.request, urllib.parse, urllib.error
-    import re
-
-    url = input('Enter - ')
-    html = urllib.request.urlopen(url).read()
-    links = re.findall('href="(http://.*?)"', html)
-    for link in links:
-        print(link)
+\VerbatimInput{../code3/urlregex.py} 
 
 The `findall` regular expression method will give us a list
 of all of the strings that match our regular expression, returning only
@@ -430,17 +371,7 @@ from the anchor (`a`) tags.
 \index{HTML}
 \index{parsing!HTML}
 
-    import urllib.request, urllib.parse, urllib.error
-    from BeautifulSoup import *
-
-    url = input('Enter - ')
-    html = urllib.request.urlopen(url).read()
-    soup = BeautifulSoup(html)
-
-    # Retrieve all of the anchor tags
-    tags = soup('a')
-    for tag in tags:
-       print(tag.get('href', None))
+\VerbatimInput{../code3/urllinks.py} 
 
 The program prompts for a web address, then opens the web page, reads
 the data and passes the data to the BeautifulSoup parser, and then
@@ -465,23 +396,7 @@ When the program runs it looks as follows:
 You can use BeautifulSoup to pull out various parts of each tag as
 follows:
 
-    import urllib.request, urllib.parse, urllib.error
-    from BeautifulSoup import *
-
-    url = input('Enter - ')
-    html = urllib.request.urlopen(url).read()
-    soup = BeautifulSoup(html)
-
-    # Retrieve all of the anchor tags
-    tags = soup('a')
-    for tag in tags:
-       # Look at the parts of a tag
-       print('TAG:',tag)
-       print('URL:',tag.get('href', None))
-       print('Content:',tag.contents[0])
-       print('Attrs:',tag.attrs)
-
-This produces the following output:
+\VerbatimInput{../code3/urllink2.py} 
 
     python urllink2.py
     Enter - http://www.dr-chuck.com/page1.htm
@@ -510,10 +425,7 @@ entire contents of the document into a string variable
 (`img`) then write that information to a local file as
 follows:
 
-    img = urllib.request.urlopen('http://www.pythonlearn.com/cover.jpg').read()
-    fhand = open('cover.jpg', 'w')
-    fhand.write(img)
-    fhand.close()
+\VerbatimInput{../code3/curl1.py} 
 
 This program reads all of the data in at once across the network and
 stores it in the variable `img` in the main memory of your
@@ -528,19 +440,7 @@ In order to avoid running out of memory, we retrieve the data in blocks
 the next block. This way the program can read any size file without
 using up all of the memory you have in your computer.
 
-    import urllib.request, urllib.parse, urllib.error
-
-    img = urllib.request.urlopen('http://www.pythonlearn.com/cover.jpg')
-    fhand = open('cover.jpg', 'w')
-    size = 0
-    while True:
-        info = img.read(100000)
-        if len(info) < 1 : break
-        size = size + len(info)
-        fhand.write(info)
-
-    print(size,'characters copied.')
-    fhand.close()
+\VerbatimInput{../code3/curl2.py} 
 
 In this example, we read only 100,000 characters at a time and then
 write those characters to the `cover.jpg` file before

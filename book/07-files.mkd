@@ -22,10 +22,10 @@ power is turned off, anything stored in either the CPU or main memory is
 erased. So up to now, our programs have just been transient fun
 exercises to learn Python.
 
-![Secondary Memory](height=1.0in@../images/arch)
+![Secondary Memory](height=2.5in@../images/arch)
 
 In this chapter, we start to work with *Secondary Memory*
-(or files). Secondary memory is not erased even when the power is turned
+(or files). Secondary memory is not erased when the power is turned
 off. Or in the case of a USB flash drive, the data we write from our
 programs can be removed from the system and transported to another
 system.
@@ -222,10 +222,10 @@ started with the prefix "From:", we could use the string method
 *startswith* to select only those lines with the desired
 prefix:
 
-    fhand = open('mbox-short.txt')
-    for line in fhand:
-        if line.startswith('From:'):
-            print(line)
+\VerbatimInput{../code3/search1.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 When this program runs, we get the following output:
 
@@ -250,11 +250,10 @@ We could use line slicing to print all but the last character, but a
 simpler approach is to use the *rstrip* method which
 strips whitespace from the right side of a string as follows:
 
-    fhand = open('mbox-short.txt')
-    for line in fhand:
-        if line.startswith('From:'):
-            line = line.rstrip()
-            print(line)
+\VerbatimInput{../code3/search2.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 When this program runs, we get the following output:
 
@@ -276,14 +275,10 @@ interesting line, we do something with that line.
 We can structure the loop to follow the pattern of skipping
 uninteresting lines as follows:
 
-    fhand = open('mbox-short.txt')
-    for line in fhand:
-        # Skip 'uninteresting lines'
-        if not line.startswith('From:'):
-            continue
-        # Process our 'interesting' line
-        line = line.rstrip()
-        print(line)
+\VerbatimInput{../code3/search3.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 The output of the program is the same. In English, the uninteresting
 lines are those which do not start with "From:", which we skip using
@@ -298,12 +293,10 @@ the string was not found, we can write the following loop to show lines
 which contain the string "@uct.ac.za" (i.e., they come from the
 University of Cape Town in South Africa):
 
-    fhand = open('mbox-short.txt')
-    for line in fhand:
-        line = line.rstrip()
-        if line.find('@uct.ac.za') == -1:
-            continue
-        print(line)
+\VerbatimInput{../code3/search4.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 Which produces the following output:
 
@@ -328,13 +321,10 @@ our program on different files without changing the Python code.
 This is quite simple to do by reading the file name from the user using
 `raw_input` as follows:
 
-    fname = input('Enter the file name: ')
-    fhand = open(fname)
-    count = 0
-    for line in fhand:
-        if line.startswith('Subject:'):
-            count = count + 1
-    print('There were', count, 'subject lines in', fname)
+\VerbatimInput{../code3/search6.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 We read the file name from the user and place it in a variable named
 `fname` and open that file. Now we can run the program
@@ -402,18 +392,10 @@ using the `try`/`except` structure. We need to
 assume that the `open` call might fail and add recovery code
 when the `open` fails as follows:
 
-    fname = input('Enter the file name: ')
-    try:
-        fhand = open(fname)
-    except:
-        print('File cannot be opened:', fname)
-        exit()
-
-    count = 0
-    for line in fhand:
-        if line.startswith('Subject:'):
-            count = count + 1
-    print('There were', count, 'subject lines in', fname)
+\VerbatimInput{../code3/search7.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 The `exit` function terminates the program. It is a function
 that we call that never returns. Now when our user (or QA team) types in

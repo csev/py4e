@@ -35,12 +35,10 @@ program demonstrates a trivial use of the search function.
 
 \index{regex!search}
 
-    import re
-    hand = open('mbox-short.txt')
-    for line in hand:
-        line = line.rstrip()
-        if re.search('From:', line) :
-            print(line)
+\VerbatimInput{../code3/re01.py} 
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 We open the file, loop through each line, and use the regular expression
 `search()` to only print out lines that contain the string
@@ -60,12 +58,10 @@ For example, the caret character is used in regular expressions to match
 "the beginning" of a line. We could change our program to only match
 lines where "From:" was at the beginning of the line as follows:
 
-    import re
-    hand = open('mbox-short.txt')
-    for line in hand:
-        line = line.rstrip()
-        if re.search('^From:', line) :
-            print(line)
+\VerbatimInput{../code3/re02.py} 
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 Now we will only match lines that *start with* the string
 "From:". This is still a very simple example that we could have done
@@ -90,12 +86,10 @@ In the following example, the regular expression "F..m:" would match any
 of the strings "From:", "Fxxm:", "F12m:", or "F!@m:" since the period
 characters in the regular expression match any character.
 
-    import re
-    hand = open('mbox-short.txt')
-    for line in hand:
-        line = line.rstrip()
-        if re.search('^F..m:', line) :
-            print(line)
+\VerbatimInput{../code3/re03.py} 
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 This is particularly powerful when combined with the ability to indicate
 that a character can be repeated any number of times using the "\*" or
@@ -107,12 +101,10 @@ one-or-more of the characters (in the case of the plus sign).
 We can further narrow down the lines that we match using a repeated
 *wild card* character in the following example:
 
-    import re
-    hand = open('mbox-short.txt')
-    for line in hand:
-        line = line.rstrip()
-        if re.search('^From:.+@', line) :
-            print(line)
+\VerbatimInput{../code3/re04.py} 
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 The search string "`^`From:.+@" will successfully match lines that start
 with "From:", followed by one or more characters (".+"), followed by an
@@ -161,10 +153,10 @@ and extract one or more addresses from each of those lines.
 \index{findall}
 \index{regex!findall}
 
-    import re
-    s = 'Hello from csev@umich.edu to cwen@iupui.edu about the meeting @2PM'
-    lst = re.findall('\S+@\S+', s)
-    print(lst)
+\VerbatimInput{../code3/re05.py} 
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 The `findall()` method searches the string in the second
 argument and returns a list of all of the strings that look like email
@@ -187,13 +179,10 @@ are no non-blank characters *before* the at-sign. We can
 use this regular expression in a program to read all the lines in a file
 and print out anything that looks like an email address as follows:
 
-    import re
-    hand = open('mbox-short.txt')
-    for line in hand:
-        line = line.rstrip()
-        x = re.findall('\S+@\S+', line)
-        if len(x) > 0 :
-            print(x)
+\VerbatimInput{../code3/re06.py} 
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 We read each line and then extract all the substrings that match our
 regular expression. Since `findall()` returns a list, we
@@ -245,13 +234,10 @@ character immediately to the left of the plus or asterisk.
 
 If we use this expression in our program, our data is much cleaner:
 
-    import re
-    hand = open('mbox-short.txt')
-    for line in hand:
-        line = line.rstrip()
-        x = re.findall('[a-zA-Z0-9]\S*@\S*[a-zA-Z]', line)
-        if len(x) > 0 :
-            print(x)
+\VerbatimInput{../code3/re07.py} 
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
     ...
     ['wagnermr@iupui.edu']
@@ -300,12 +286,10 @@ that inside the square brackets, the period matches an actual period
 This is a very tight expression that will pretty much match only the
 lines we are interested in as follows:
 
-    import re
-    hand = open('mbox-short.txt')
-    for line in hand:
-        line = line.rstrip()
-        if re.search('^X\S*: [0-9.]+', line) :
-            print(line)
+\VerbatimInput{../code3/re10.py} 
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 When we run the program, we see the data nicely filtered to show only
 the lines we are looking for.
@@ -334,13 +318,10 @@ matches the regular expression.
 
 So we make the following change to our program:
 
-    import re
-    hand = open('mbox-short.txt')
-    for line in hand:
-        line = line.rstrip()
-        x = re.findall('^X\S*: ([0-9.]+)', line)
-        if len(x) > 0 :
-            print(x)
+\VerbatimInput{../code3/re11.py} 
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 Instead of calling `search()`, we add parentheses around the
 part of the regular expression that represents the floating-point number
@@ -370,13 +351,10 @@ If we wanted to extract all of the revision numbers (the integer number
 at the end of these lines) using the same technique as above, we could
 write the following program:
 
-    import re
-    hand = open('mbox-short.txt')
-    for line in hand:
-        line = line.rstrip()
-        x = re.findall('^Details:.*rev=([0-9]+)', line)
-        if len(x) > 0:
-            print(x)
+\VerbatimInput{../code3/re12.py} 
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 Translating our regular expression, we are looking for lines that start
 with "Details:", followed by any number of characters (".\*"), followed
@@ -434,12 +412,10 @@ parentheses around the two digits as follows:
 
 This results in the following program:
 
-    import re
-    hand = open('mbox-short.txt')
-    for line in hand:
-        line = line.rstrip()
-        x = re.findall('^From .* ([0-9][0-9]):', line)
-        if len(x) > 0 : print(x)
+\VerbatimInput{../code3/re13.py} 
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
 
 When the program runs, it produces the following output:
 

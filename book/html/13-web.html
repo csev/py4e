@@ -53,20 +53,27 @@
 <h2 id="parsing-xml">Parsing XML</h2>
 <p>  </p>
 <p>Here is a simple application that parses some XML and extracts some data elements from the XML:</p>
-<pre><code>import xml.etree.ElementTree as ET
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import xml.etree.ElementTree as ET
 
 data = '''
-&lt;person&gt;
-  &lt;name&gt;Chuck&lt;/name&gt;
-  &lt;phone type=&quot;intl&quot;&gt;
+<person>
+  <name>Chuck</name>
+  <phone type="intl">
      +1 734 303 4456
-   &lt;/phone&gt;
-   &lt;email hide=&quot;yes&quot;/&gt;
-&lt;/person&gt;'''
+   </phone>
+   <email hide="yes"/>
+</person>'''
 
 tree = ET.fromstring(data)
 print('Name:',tree.find('name').text)
-print('Attr:',tree.find('email').get('hide'))</code></pre>
+print('Attr:',tree.find('email').get('hide'))
+
+# Code: http://www.pythonlearn.com/code3/xml1.py
+-->
 <p>Calling <code>fromstring</code> converts the string representation of the XML into a &quot;tree&quot; of XML nodes. When the XML is in a tree, we have a series of methods we can call to extract portions of data from the XML.</p>
 <p>The <code>find</code> function searches through the XML tree and retrieves a <em>node</em> that matches the specified tag. Each node can have some text, some attributes (like hide), and some &quot;child&quot; nodes. Each node can be the top of a tree of nodes.</p>
 <pre><code>Name: Chuck
@@ -75,21 +82,25 @@ Attr: yes</code></pre>
 <h2 id="looping-through-nodes">Looping through nodes</h2>
 <p> </p>
 <p>Often the XML has multiple nodes and we need to write a loop to process all of the nodes. In the following program, we loop through all of the <code>user</code> nodes:</p>
-<pre><code>import xml.etree.ElementTree as ET
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import xml.etree.ElementTree as ET
 
 input = '''
-&lt;stuff&gt;
-    &lt;users&gt;
-        &lt;user x=&quot;2&quot;&gt;
-            &lt;id&gt;001&lt;/id&gt;
-            &lt;name&gt;Chuck&lt;/name&gt;
-        &lt;/user&gt;
-        &lt;user x=&quot;7&quot;&gt;
-            &lt;id&gt;009&lt;/id&gt;
-            &lt;name&gt;Brent&lt;/name&gt;
-        &lt;/user&gt;
-    &lt;/users&gt;
-&lt;/stuff&gt;'''
+<stuff>
+    <users>
+        <user x="2">
+            <id>001</id>
+            <name>Chuck</name>
+        </user>
+        <user x="7">
+            <id>009</id>
+            <name>Brent</name>
+            </user>
+        </users>
+</stuff>'''
 
 stuff = ET.fromstring(input)
 lst = stuff.findall('users/user')
@@ -98,7 +109,10 @@ print('User count:', len(lst))
 for item in lst:
     print('Name', item.find('name').text)
     print('Id', item.find('id').text)
-    print('Attribute', item.get('x'))</code></pre>
+    print('Attribute', item.get("x"))
+
+# Code: http://www.pythonlearn.com/code3/xml2.py
+-->
 <p>The <code>findall</code> method retrieves a Python list of subtrees that represent the <code>user</code> structures in the XML tree. Then we can write a <code>for</code> loop that looks at each of the user nodes, and prints the <code>name</code> and <code>id</code> text elements as well as the <code>x</code> attribute from the <code>user</code> node.</p>
 <pre><code>User count: 2
 Name Chuck
@@ -127,17 +141,21 @@ Attribute 7</code></pre>
 <h2 id="parsing-json">Parsing JSON</h2>
 <p>We construct our JSON by nesting dictionaries (objects) and lists as needed. In this example, we represent a list of users where each user is a set of key-value pairs (i.e., a dictionary). So we have a list of dictionaries.</p>
 <p>In the following program, we use the built-in <em>json</em> library to parse the JSON and read through the data. Compare this closely to the equivalent XML data and code above. The JSON has less detail, so we must know in advance that we are getting a list and that the list is of users and each user is a set of key-value pairs. The JSON is more succinct (an advantage) but also is less self-describing (a disadvantage).</p>
-<pre><code>import json
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import json
 
 input = '''
 [
-  { &quot;id&quot; : &quot;001&quot;,
-    &quot;x&quot; : &quot;2&quot;,
-    &quot;name&quot; : &quot;Chuck&quot;
+  { "id" : "001",
+    "x" : "2",
+    "name" : "Chuck"
   } ,
-  { &quot;id&quot; : &quot;009&quot;,
-    &quot;x&quot; : &quot;7&quot;,
-    &quot;name&quot; : &quot;Brent&quot;
+  { "id" : "009",
+    "x" : "7",
+    "name" : "Chuck"
   }
 ]'''
 
@@ -147,7 +165,10 @@ print('User count:', len(info))
 for item in info:
     print('Name', item['name'])
     print('Id', item['id'])
-    print('Attribute', item['x'])</code></pre>
+    print('Attribute', item['x'])
+
+# Code: http://www.pythonlearn.com/code3/json2.py
+-->
 <p>If you compare the code to extract data from the parsed JSON and XML you will see that what we get from <em>json.loads()</em> is a Python list which we traverse with a <code>for</code> loop, and each item within that list is a Python dictionary. Once the JSON has been parsed, we can use the Python index operator to extract the various bits of data for each user. We don't have to use the JSON library to dig through the parsed JSON, since the returned data is simply native Python structures.</p>
 <p>The output of this program is exactly the same as the XML version above.</p>
 <pre><code>User count: 2
@@ -179,36 +200,45 @@ Attribute 7</code></pre>
 <p><a href="http://maps.googleapis.com/maps/api/geocode/json?sensor=false%20&amp;address=Ann+Arbor%2C+MI">http://maps.googleapis.com/maps/api/geocode/json?sensor=false &amp;address=Ann+Arbor%2C+MI</a></p>
 <p>Make sure to unwrap the URL and remove any spaces from the URL before pasting it into your browser.</p>
 <p>The following is a simple application to prompt the user for a search string, call the Google geocoding API, and extract information from the returned JSON.</p>
-<pre><code>import urllib.request, urllib.parse, urllib.error
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import urllib.request, urllib.parse, urllib.error
 import json
 
 serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
 
 while True:
     address = input('Enter location: ')
-    if len(address) &lt; 1 : break
+    if len(address) < 1 : break
 
-    url = serviceurl + urllib.parse.urlencode({'sensor':'false',
-          'address': address})
+    url = serviceurl + urllib.parse.urlencode({'sensor':'false', 'address': address})
     print('Retrieving', url)
     uh = urllib.request.urlopen(url)
-    data = uh.read()
+    data = uh.read().decode()
     print('Retrieved',len(data),'characters')
 
-    try: js = json.loads(str(data))
-    except: js = None
-    if 'status' not in js or js['status'] != 'OK':
+    try:
+        js = json.loads(data)
+    except:
+        js = None
+
+    if not js or 'status' not in js or js['status'] != 'OK':
         print('==== Failure To Retrieve ====')
         print(data)
         continue
 
     print(json.dumps(js, indent=4))
 
-    lat = js[&quot;results&quot;][0][&quot;geometry&quot;][&quot;location&quot;][&quot;lat&quot;]
-    lng = js[&quot;results&quot;][0][&quot;geometry&quot;][&quot;location&quot;][&quot;lng&quot;]
+    lat = js["results"][0]["geometry"]["location"]["lat"]
+    lng = js["results"][0]["geometry"]["location"]["lng"]
     print('lat',lat,'lng',lng)
     location = js['results'][0]['formatted_address']
-    print(location)</code></pre>
+    print(location)
+
+# Code: http://www.pythonlearn.com/code3/geojson.py
+-->
 <p>The program takes the search string and constructs a URL with the search string as a properly encoded parameter and then uses <em>urllib</em> to retrieve the text from the Google geocoding API. Unlike a fixed web page, the data we get depends on the parameters we send and the geographical data stored in Google's servers.</p>
 <p>Once we retrieve the JSON data, we parse it with the <em>json</em> library and do a few checks to make sure that we received good data, then extract the information that we are looking for.</p>
 <p>The output of the program is as follows (some of the returned JSON has been removed):</p>
@@ -249,7 +279,7 @@ Retrieved 1669 characters
 lat 42.2808256 lng -83.7430378
 Ann Arbor, MI, USA
 Enter location:</code></pre>
-<p>You can download <a href="www.pythonlearn.com/code3/geojson.py" class="uri">www.pythonlearn.com/code3/geojson.py</a> and <a href="www.pythonlearn.com/code3/geoxml.py" class="uri">www.pythonlearn.com/code3/geoxml.py</a> to explore the JSON and XML variants of the Google geocoding API.</p>
+<p>You can download <a href="www.pythonlearn.com/code3/geoxml.py" class="uri">www.pythonlearn.com/code3/geoxml.py</a> to explore the XML variant of the Google geocoding API.</p>
 <h2 id="security-and-api-usage">Security and API usage</h2>
 <p> </p>
 <p>It is quite common that you need some kind of &quot;API key&quot; to make use of a vendor's API. The general idea is that they want to know who is using their services and how much each user is using. Perhaps they have free and pay tiers of their services or have a policy that limits the number of requests that a single individual can make during a particular time period.</p>
@@ -258,11 +288,20 @@ Enter location:</code></pre>
 <p>As the Twitter API became increasingly valuable, Twitter went from an open and public API to an API that required the use of OAuth signatures on each API request. Thankfully there are still a number of convenient and free OAuth libraries so you can avoid writing an OAuth implementation from scratch by reading the specification. These libraries are of varying complexity and have varying degrees of richness. The OAuth web site has information about various OAuth libraries.</p>
 <p>For this next sample program we will download the files <em>twurl.py</em>, <em>hidden.py</em>, <em>oauth.py</em>, and <em>twitter1.py</em> from <a href="www.pythonlearn.com/code" class="uri">www.pythonlearn.com/code</a> and put them all in a folder on your computer.</p>
 <p>To make use of these programs you will need to have a Twitter account, and authorize your Python code as an application, set up a key, secret, token and token secret. You will edit the file <em>hidden.py</em> and put these four strings into the appropriate variables in the file:</p>
-<pre><code>    def auth() :
-        return { &quot;consumer_key&quot; : &quot;h7L...GNg&quot;,
-            &quot;consumer_secret&quot; : &quot;dNK...7Q&quot;,
-            &quot;token_key&quot; : &quot;101...GI&quot;,
-            &quot;token_secret&quot; : &quot;H0yM...Bo&quot; }</code></pre>
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+# Keep this file separate
+
+def oauth() :
+    return { "consumer_key" : "h7Lu...Ng",
+        "consumer_secret" : "dNKenAC3New...mmn7Q",
+        "token_key" : "10185562-eibxCp9n2...P4GEQQOSGI",
+        "token_secret" : "H0ycCFemmC4wyf1...qoIpBo" }
+
+# Code: http://www.pythonlearn.com/code3/hidden.py
+-->
 <p>The Twitter web service are accessed using a URL like this:</p>
 <p><a href="https://api.twitter.com/1.1/statuses/user_timeline.json" class="uri">https://api.twitter.com/1.1/statuses/user_timeline.json</a></p>
 <p>But once all of the security information has been added, the URL will look more like:</p>
@@ -273,16 +312,20 @@ Enter location:</code></pre>
 &amp;oauth_signature_method=HMAC-SHA1</code></pre>
 <p>You can read the OAuth specification if you want to know more about the meaning of the various parameters that are added to meet the security requirements of OAuth.</p>
 <p>For the programs we run with Twitter, we hide all the complexity in the files <em>oauth.py</em> and <em>twurl.py</em>. We simply set the secrets in <em>hidden.py</em> and then send the desired URL to the <em>twurl.augment()</em> function and the library code adds all the necessary parameters to the URL for us.</p>
-<p>This program (<em>twitter1.py</em>) retrieves the timeline for a particular Twitter user and returns it to us in JSON format in a string. We simply print the first 250 characters of the string:</p>
-<pre><code>import urllib.request, urllib.parse, urllib.error
+<p>This program retrieves the timeline for a particular Twitter user and returns it to us in JSON format in a string. We simply print the first 250 characters of the string:</p>
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import urllib.request, urllib.parse, urllib.error
 import twurl
 
-TWITTER_URL='https://api.twitter.com/1.1/statuses/user_timeline.json'
+TWITTER_URL = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 
 while True:
     print('')
     acct = input('Enter Twitter Account:')
-    if ( len(acct) &lt; 1 ) : break
+    if ( len(acct) < 1 ) : break
     url = twurl.augment(TWITTER_URL,
         {'screen_name': acct, 'count': '2'} )
     print('Retrieving', url)
@@ -291,7 +334,10 @@ while True:
     print(data[:250])
     headers = connection.info().dict
     # print headers
-    print('Remaining', headers['x-rate-limit-remaining'])</code></pre>
+    print('Remaining', headers['x-rate-limit-remaining'])
+
+# Code: http://www.pythonlearn.com/code3/twitter1.py
+-->
 <p>When the program runs it produces the following output:</p>
 <pre><code>Enter Twitter Account:drchuck
 Retrieving https://api.twitter.com/1.1/ ...
@@ -314,7 +360,11 @@ Remaining 177
 Enter Twitter Account:</code></pre>
 <p>Along with the returned timeline data, Twitter also returns metadata about the request in the HTTP response headers. One header in particular, <em>x-rate-limit-remaining</em>, informs us how many more requests we can make before we will be shut off for a short time period. You can see that our remaining retrievals drop by one each time we make a request to the API.</p>
 <p>In the following example, we retrieve a user's Twitter friends, parse the returned JSON, and extract some of the information about the friends. We also dump the JSON after parsing and &quot;pretty-print&quot; it with an indent of four characters to allow us to pore through the data when we want to extract more fields.</p>
-<pre><code>import urllib.request, urllib.parse, urllib.error
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import urllib.request, urllib.parse, urllib.error
 import twurl
 import json
 
@@ -323,7 +373,7 @@ TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 while True:
     print('')
     acct = input('Enter Twitter Account:')
-    if ( len(acct) &lt; 1 ) : break
+    if ( len(acct) < 1 ) : break
     url = twurl.augment(TWITTER_URL,
         {'screen_name': acct, 'count': '5'} )
     print('Retrieving', url)
@@ -337,7 +387,10 @@ while True:
     for u in js['users'] :
         print(u['screen_name'])
         s = u['status']['text']
-        print('  ',s[:50])</code></pre>
+        print('  ',s[:50])
+
+# Code: http://www.pythonlearn.com/code3/twitter2.py
+-->
 <p>Since the JSON becomes a set of nested Python lists and dictionaries, we can use a combination of the index operation and <code>for</code> loops to wander through the returned data structures with very little Python code.</p>
 <p>The output of the program looks as follows (some of the data items are shortened to fit on the page):</p>
 <pre><code>Enter Twitter Account:drchuck

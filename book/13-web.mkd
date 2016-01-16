@@ -45,20 +45,7 @@ Parsing XML
 Here is a simple application that parses some XML and extracts some data
 elements from the XML:
 
-    import xml.etree.ElementTree as ET
-
-    data = '''
-    <person>
-      <name>Chuck</name>
-      <phone type="intl">
-         +1 734 303 4456
-       </phone>
-       <email hide="yes"/>
-    </person>'''
-
-    tree = ET.fromstring(data)
-    print('Name:',tree.find('name').text)
-    print('Attr:',tree.find('email').get('hide'))
+\VerbatimInput{../code3/xml1.py} 
 
 Calling `fromstring` converts the string representation of
 the XML into a "tree" of XML nodes. When the XML is in a tree, we have a
@@ -88,30 +75,7 @@ Often the XML has multiple nodes and we need to write a loop to process
 all of the nodes. In the following program, we loop through all of the
 `user` nodes:
 
-    import xml.etree.ElementTree as ET
-
-    input = '''
-    <stuff>
-        <users>
-            <user x="2">
-                <id>001</id>
-                <name>Chuck</name>
-            </user>
-            <user x="7">
-                <id>009</id>
-                <name>Brent</name>
-            </user>
-        </users>
-    </stuff>'''
-
-    stuff = ET.fromstring(input)
-    lst = stuff.findall('users/user')
-    print('User count:', len(lst))
-
-    for item in lst:
-        print('Name', item.find('name').text)
-        print('Id', item.find('id').text)
-        print('Attribute', item.get('x'))
+\VerbatimInput{../code3/xml2.py} 
 
 The `findall` method retrieves a Python list of subtrees that
 represent the `user` structures in the XML tree. Then we can
@@ -185,27 +149,7 @@ the list is of users and each user is a set of key-value pairs. The JSON
 is more succinct (an advantage) but also is less self-describing (a
 disadvantage).
 
-    import json
-
-    input = '''
-    [
-      { "id" : "001",
-        "x" : "2",
-        "name" : "Chuck"
-      } ,
-      { "id" : "009",
-        "x" : "7",
-        "name" : "Brent"
-      }
-    ]'''
-
-    info = json.loads(input)
-    print('User count:', len(info))
-
-    for item in info:
-        print('Name', item['name'])
-        print('Id', item['id'])
-        print('Attribute', item['x'])
+\VerbatimInput{../code3/json2.py}
 
 If you compare the code to extract data from the parsed JSON and XML you
 will see that what we get from *json.loads()* is a Python
@@ -319,36 +263,7 @@ The following is a simple application to prompt the user for a search
 string, call the Google geocoding API, and extract information from the
 returned JSON.
 
-    import urllib.request, urllib.parse, urllib.error
-    import json
-
-    serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
-
-    while True:
-        address = input('Enter location: ')
-        if len(address) < 1 : break
-
-        url = serviceurl + urllib.parse.urlencode({'sensor':'false',
-              'address': address})
-        print('Retrieving', url)
-        uh = urllib.request.urlopen(url)
-        data = uh.read()
-        print('Retrieved',len(data),'characters')
-
-        try: js = json.loads(str(data))
-        except: js = None
-        if 'status' not in js or js['status'] != 'OK':
-            print('==== Failure To Retrieve ====')
-            print(data)
-            continue
-
-        print(json.dumps(js, indent=4))
-
-        lat = js["results"][0]["geometry"]["location"]["lat"]
-        lng = js["results"][0]["geometry"]["location"]["lng"]
-        print('lat',lat,'lng',lng)
-        location = js['results'][0]['formatted_address']
-        print(location)
+\VerbatimInput{../code3/geojson.py} 
 
 The program takes the search string and constructs a URL with the search
 string as a properly encoded parameter and then uses
@@ -403,9 +318,8 @@ been removed):
     Enter location:
 
 You can download
-[www.pythonlearn.com/code3/geojson.py](www.pythonlearn.com/code3/geojson.py) and
 [www.pythonlearn.com/code3/geoxml.py](www.pythonlearn.com/code3/geoxml.py) to
-explore the JSON and XML variants of the Google geocoding API.
+explore the XML variant of the Google geocoding API.
 
 Security and API usage
 ----------------------
@@ -451,11 +365,7 @@ token and token secret. You will edit the file
 *hidden.py* and put these four strings into the
 appropriate variables in the file:
 
-        def auth() :
-            return { "consumer_key" : "h7L...GNg",
-                "consumer_secret" : "dNK...7Q",
-                "token_key" : "101...GI",
-                "token_secret" : "H0yM...Bo" }
+\VerbatimInput{../code3/hidden.py} 
 
 The Twitter web service are accessed using a URL like this:
 
@@ -480,28 +390,11 @@ set the secrets in *hidden.py* and then send the desired
 URL to the *twurl.augment()* function and the library
 code adds all the necessary parameters to the URL for us.
 
-This program (*twitter1.py*) retrieves the timeline for a
+This program retrieves the timeline for a
 particular Twitter user and returns it to us in JSON format in a string.
 We simply print the first 250 characters of the string:
 
-    import urllib.request, urllib.parse, urllib.error
-    import twurl
-
-    TWITTER_URL='https://api.twitter.com/1.1/statuses/user_timeline.json'
-
-    while True:
-        print('')
-        acct = input('Enter Twitter Account:')
-        if ( len(acct) < 1 ) : break
-        url = twurl.augment(TWITTER_URL,
-            {'screen_name': acct, 'count': '2'} )
-        print('Retrieving', url)
-        connection = urllib.request.urlopen(url)
-        data = connection.read()
-        print(data[:250])
-        headers = connection.info().dict
-        # print headers
-        print('Remaining', headers['x-rate-limit-remaining'])
+\VerbatimInput{../code3/twitter1.py} 
 
 When the program runs it produces the following output:
 
@@ -538,30 +431,7 @@ friends. We also dump the JSON after parsing and "pretty-print" it with
 an indent of four characters to allow us to pore through the data when
 we want to extract more fields.
 
-    import urllib.request, urllib.parse, urllib.error
-    import twurl
-    import json
-
-    TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
-
-    while True:
-        print('')
-        acct = input('Enter Twitter Account:')
-        if ( len(acct) < 1 ) : break
-        url = twurl.augment(TWITTER_URL,
-            {'screen_name': acct, 'count': '5'} )
-        print('Retrieving', url)
-        connection = urllib.request.urlopen(url)
-        data = connection.read()
-        headers = connection.info().dict
-        print('Remaining', headers['x-rate-limit-remaining'])
-        js = json.loads(data)
-        print(json.dumps(js, indent=4))
-
-        for u in js['users'] :
-            print(u['screen_name'])
-            s = u['status']['text']
-            print('  ',s[:50])
+\VerbatimInput{../code3/twitter2.py} 
 
 Since the JSON becomes a set of nested Python lists and dictionaries, we
 can use a combination of the index operation and `for` loops

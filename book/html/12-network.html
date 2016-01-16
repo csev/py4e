@@ -48,19 +48,26 @@
 <p>where the second parameter is the web page we are requesting, and then we also send a blank line. The web server will respond with some header information about the document and a blank line followed by the document content.</p>
 <h2 id="the-worlds-simplest-web-browser">The World's Simplest Web Browser</h2>
 <p>Perhaps the easiest way to show how the HTTP protocol works is to write a very simple Python program that makes a connection to a web server and follows the rules of the HTTP protocol to requests a document and display what the server sends back.</p>
-<pre><code>import socket
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import socket
 
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mysock.connect(('www.pythonlearn.com', 80))
-mysock.send('GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0\n\n')
+mysock.send('GET http://www.pythonlearn.com/code/romeo.txt HTTP/1.0\n\n'.encode())
 
 while True:
     data = mysock.recv(512)
-    if ( len(data) &lt; 1 ) :
+    if ( len(data) < 1 ) :
         break
-    print(data)
+    print(data);
 
-mysock.close()</code></pre>
+mysock.close()
+
+# Code: http://www.pythonlearn.com/code3/socket1.py
+-->
 <p>First the program makes a connection to port 80 on the server <a href="www.pythonlearn.com" class="uri">www.pythonlearn.com</a>. Since our program is playing the role of the &quot;web browser&quot;, the HTTP protocol says we must send the GET command followed by a blank line.</p>
 <div class="figure">
 <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bD0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIxNiAxNiAzOTEgMjAyIiB3aWR0aD0iMzkxcHQiIGhlaWdodD0iMjAycHQiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+PG1ldGFkYXRhPiBQcm9kdWNlZCBieSBPbW5pR3JhZmZsZSA2LjQuMSA8ZGM6ZGF0ZT4yMDE2LTAxLTE2IDIwOjI1OjAyICswMDAwPC9kYzpkYXRlPjwvbWV0YWRhdGE+PGRlZnM+PGZvbnQtZmFjZSBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIHBhbm9zZS0xPSIyIDAgNSAzIDAgMCAwIDIgMCA0IiB1bml0cy1wZXItZW09IjEwMDAiIHVuZGVybGluZS1wb3NpdGlvbj0iLTEwMCIgdW5kZXJsaW5lLXRoaWNrbmVzcz0iNTAiIHNsb3BlPSIwIiB4LWhlaWdodD0iNTE3IiBjYXAtaGVpZ2h0PSI3MTQiIGFzY2VudD0iOTUxLjk5NTg1IiBkZXNjZW50PSItMjEyLjk5NzQ0IiBmb250LXdlaWdodD0iNTAwIj48Zm9udC1mYWNlLXNyYz48Zm9udC1mYWNlLW5hbWUgbmFtZT0iSGVsdmV0aWNhTmV1ZSIvPjwvZm9udC1mYWNlLXNyYz48L2ZvbnQtZmFjZT48Zm9udC1mYWNlIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNCIgcGFub3NlLTE9IjIgMCA1IDMgMCAwIDAgMiAwIDQiIHVuaXRzLXBlci1lbT0iMTAwMCIgdW5kZXJsaW5lLXBvc2l0aW9uPSItMTAwIiB1bmRlcmxpbmUtdGhpY2tuZXNzPSI1MCIgc2xvcGU9IjAiIHgtaGVpZ2h0PSI1MTciIGNhcC1oZWlnaHQ9IjcxNCIgYXNjZW50PSI5NTEuOTk1ODUiIGRlc2NlbnQ9Ii0yMTIuOTk3NDQiIGZvbnQtd2VpZ2h0PSI1MDAiPjxmb250LWZhY2Utc3JjPjxmb250LWZhY2UtbmFtZSBuYW1lPSJIZWx2ZXRpY2FOZXVlIi8+PC9mb250LWZhY2Utc3JjPjwvZm9udC1mYWNlPjwvZGVmcz48ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIxIiBzdHJva2UtZGFzaGFycmF5PSJub25lIiBmaWxsPSJub25lIiBmaWxsLW9wYWNpdHk9IjEiPjx0aXRsZT5DYW52YXMgMTwvdGl0bGU+PHJlY3QgZmlsbD0id2hpdGUiIHdpZHRoPSI1NDUiIGhlaWdodD0iNDk1Ii8+PGc+PHRpdGxlPkxheWVyIDE8L3RpdGxlPjxyZWN0IHg9IjE4IiB5PSIxOCIgd2lkdGg9IjEzNSIgaGVpZ2h0PSIxODAiIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iMTgiIHk9IjE4IiB3aWR0aD0iMTM1IiBoZWlnaHQ9IjE4MCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMyAyMykiIGZpbGw9ImJsYWNrIj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI0Ni41IiB5PSIxNSIgdGV4dExlbmd0aD0iMTAuMzY4Ij5ZPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI1NS4wOTIiIHk9IjE1IiB0ZXh0TGVuZ3RoPSIyMy40MDgiPm91cjwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMzEuODI4IiB5PSIzMyIgdGV4dExlbmd0aD0iMTUuNjk2Ij5QcjwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iNDcuMjM2IiB5PSIzMyIgdGV4dExlbmd0aD0iNDUuOTM2Ij5vZ3JhbTwvdHNwYW4+PC90ZXh0PjxyZWN0IHg9IjEzNSIgeT0iNzIiIHdpZHRoPSIyNyIgaGVpZ2h0PSIxMDgiIGZpbGw9IiMwMGJmYzAiLz48cmVjdCB4PSIxMzUiIHk9IjcyIiB3aWR0aD0iMjciIGhlaWdodD0iMTA4IiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0MCA3OCkiIGZpbGw9ImJsYWNrIj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNTAwIiB4PSIzLjk2NCIgeT0iMTMiIHRleHRMZW5ndGg9IjkuMDcyIj5TPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNTAwIiB4PSIzLjE4IiB5PSIyOSIgdGV4dExlbmd0aD0iMTAuNjQiPk88L3RzcGFuPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjMuNDQ2IiB5PSI0NSIgdGV4dExlbmd0aD0iMTAuMTA4Ij5DPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNTAwIiB4PSIzLjgzMSIgeT0iNjEiIHRleHRMZW5ndGg9IjkuMzM4Ij5LPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNTAwIiB4PSI0LjIyMyIgeT0iNzciIHRleHRMZW5ndGg9IjguNTU0Ij5FPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNTAwIiB4PSI0LjQ4MiIgeT0iOTMiIHRleHRMZW5ndGg9IjguMDM2Ij5UPC90c3Bhbj48L3RleHQ+PHJlY3QgeD0iNjMiIHk9IjcyIiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iNjMiIHk9IjcyIiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjggNzYuNSkiIGZpbGw9ImJsYWNrIj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI3LjE0NCIgeT0iMTUiIHRleHRMZW5ndGg9IjQ3LjcxMiI+c29ja2V0PC90c3Bhbj48L3RleHQ+PHJlY3QgeD0iNjMiIHk9Ijk5IiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iNjMiIHk9Ijk5IiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjggMTAzLjUpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMi4xMDQiIHk9IjE1IiB0ZXh0TGVuZ3RoPSI1Ny43OTIiPmNvbm5lY3Q8L3RzcGFuPjwvdGV4dD48cmVjdCB4PSI2MyIgeT0iMTI2IiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iNjMiIHk9IjEyNiIgd2lkdGg9IjcyIiBoZWlnaHQ9IjI3IiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHRyYW5zZm9ybT0idHJhbnNsYXRlKDY4IDEzMC41KSIgZmlsbD0iYmxhY2siPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjEzLjUxMiIgeT0iMTUiIHRleHRMZW5ndGg9IjM0Ljk3NiI+c2VuZDwvdHNwYW4+PC90ZXh0PjxyZWN0IHg9IjYzIiB5PSIxNTMiIHdpZHRoPSI3MiIgaGVpZ2h0PSIyNyIgZmlsbD0id2hpdGUiLz48cmVjdCB4PSI2MyIgeT0iMTUzIiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjggMTU3LjUpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMTUuODg4IiB5PSIxNSIgdGV4dExlbmd0aD0iNS4zMjgiPnI8L3RzcGFuPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjIwLjkyOCIgeT0iMTUiIHRleHRMZW5ndGg9IjI1LjE4NCI+ZWN2PC90c3Bhbj48L3RleHQ+PHBhdGggZD0iTSAyMjQuOTg2NTkgMTI3LjYzNDU4IEMgMTkxLjUzMTI1IDExNyAyMDQuODcyNCAyNy40NzQzIDI1OC4yNDExNCA0Mi43NSBDIDI2My4xOTI1OCAxMi45NzI3OCAzMjUuMjUzMjUgMTcuODA1OTYgMzI0Ljg0NzUzIDQyLjc1IEMgMzYzLjc2MTQ2IDEwLjg0NjI2IDQxMy40OTExNCA3NC40NjE2OCAzODAuMTM1MTYgMTA2LjM2NTQyIEMgNDIwLjE2MDY4IDEyMS44MzMxOCAzNzkuNjMwMDggMjA1LjE3MTM4IDM0Ni43ODEyNSAxOTEuMjUgQyAzNDQuMTUyMzUgMjE0LjQ1MzYyIDI4NS40Mjg1MiAyMjIuNTczNiAyODAuMjc0MjIgMTkxLjI1IEMgMjQ3LjAyMTc0IDIyNC43MDIxIDE3Ny42ODUwMiAxNzMuMjY3NjQgMjI0Ljk4NjU5IDEyNy42MzQ1OCBaIiBmaWxsPSJ3aGl0ZSIvPjxwYXRoIGQ9Ik0gMjI0Ljk4NjU5IDEyNy42MzQ1OCBDIDE5MS41MzEyNSAxMTcgMjA0Ljg3MjQgMjcuNDc0MyAyNTguMjQxMTQgNDIuNzUgQyAyNjMuMTkyNTggMTIuOTcyNzggMzI1LjI1MzI1IDE3LjgwNTk2IDMyNC44NDc1MyA0Mi43NSBDIDM2My43NjE0NiAxMC44NDYyNiA0MTMuNDkxMTQgNzQuNDYxNjggMzgwLjEzNTE2IDEwNi4zNjU0MiBDIDQyMC4xNjA2OCAxMjEuODMzMTggMzc5LjYzMDA4IDIwNS4xNzEzOCAzNDYuNzgxMjUgMTkxLjI1IEMgMzQ0LjE1MjM1IDIxNC40NTM2MiAyODUuNDI4NTIgMjIyLjU3MzYgMjgwLjI3NDIyIDE5MS4yNSBDIDI0Ny4wMjE3NCAyMjQuNzAyMSAxNzcuNjg1MDIgMTczLjI2NzY0IDIyNC45ODY1OSAxMjcuNjM0NTggWiIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMTIgNTgpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iOS4yMTIiIHk9IjE1IiB0ZXh0TGVuZ3RoPSIzNi4zODQiPnd3dzwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iNDQuNzE2IiB5PSIxNSIgdGV4dExlbmd0aD0iODAuMDE2Ij4ucHl0aG9ubGVhcjwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMTI1LjAyIiB5PSIxNSIgdGV4dExlbmd0aD0iNDQuNzY4Ij5uLmNvbTwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iNDguOTE2IiB5PSI1MSIgdGV4dExlbmd0aD0iMTQuODE2Ij5XPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI2Mi44MiIgeT0iNTEiIHRleHRMZW5ndGg9IjY3LjI2NCI+ZWIgUGFnZXM8L3RzcGFuPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9Ijg3LjI3NiIgeT0iNjkiIHRleHRMZW5ndGg9IjQuNDQ4Ij4uPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI4Ny4yNzYiIHk9Ijg3IiB0ZXh0TGVuZ3RoPSI0LjQ0OCI+LjwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iODcuMjc2IiB5PSIxMDUiIHRleHRMZW5ndGg9IjQuNDQ4Ij4uPC90c3Bhbj48L3RleHQ+PHJlY3QgeD0iMTYyIiB5PSIxMDgiIHdpZHRoPSI4MSIgaGVpZ2h0PSIyNyIgZmlsbD0iIzAwYmZjMCIvPjxyZWN0IHg9IjE2MiIgeT0iMTA4IiB3aWR0aD0iODEiIGhlaWdodD0iMjciIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTY3IDExMi41KSIgZmlsbD0iYmxhY2siPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9ImJsYWNrIiB4PSIxOC44NCIgeT0iMTUiIHRleHRMZW5ndGg9IjUyLjE2Ij5Qb3J0IDgwPC90c3Bhbj48L3RleHQ+PC9nPjwvZz48L3N2Zz4K" alt="A Socket Connection" />
@@ -89,19 +96,25 @@ Who is already sick and pale with grief</code></pre>
 <h2 id="retrieving-an-image-over-http">Retrieving an image over HTTP</h2>
 <p>  </p>
 <p>In the above example, we retrieved a plain text file which had newlines in the file and we simply copied the data to the screen as the program ran. We can use a similar program to retrieve an image across using HTTP. Instead of copying the data to the screen as the program runs, we accumulate the data in a string, trim off the headers, and then save the image data to a file as follows:</p>
-<pre><code>import socket
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import socket
 import time
 
+HOST = 'www.pythonlearn.com'
+PORT = 80
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mysock.connect(('www.pythonlearn.com', 80))
-mysock.send('GET http://www.pythonlearn.com/cover.jpg HTTP/1.0\n\n')
-
+mysock.connect((HOST, PORT))
+mysock.sendall(b'GET http://www.pythonlearn.com/cover.jpg HTTP/1.0\n\n')
 count = 0
-picture = &quot;&quot;;
+picture = b""
+
 while True:
     data = mysock.recv(5120)
-    if ( len(data) &lt; 1 ) : break
-    # time.sleep(0.25)
+    if ( len(data) < 1 ) : break
+    time.sleep(0.25)
     count = count + len(data)
     print(len(data),count)
     picture = picture + data
@@ -109,15 +122,18 @@ while True:
 mysock.close()
 
 # Look for the end of the header (2 CRLF)
-pos = picture.find(&quot;\r\n\r\n&quot;);
+pos = picture.find(b"\r\n\r\n");
 print('Header length',pos)
 print(picture[:pos])
 
 # Skip past the header and save the picture data
 picture = picture[pos+4:]
-fhand = open(&quot;stuff.jpg&quot;,&quot;wb&quot;)
+fhand = open("stuff.jpg","wb")
 fhand.write(picture);
-fhand.close()</code></pre>
+fhand.close()
+
+# Code: http://www.pythonlearn.com/code3/urljpeg.py
+-->
 <p>When the program runs it produces the following output:</p>
 <pre><code>$ python urljpeg.py
 2920 2920
@@ -170,11 +186,18 @@ Content-Type: image/jpeg</code></pre>
 <p>While we can manually send and receive data over HTTP using the socket library, there is a much simpler way to perform this common task in Python by using the <code>urllib</code> library.</p>
 <p>Using <code>urllib</code>, you can treat a web page much like a file. You simply indicate which web page you would like to retrieve and <code>urllib</code> handles all of the HTTP protocol and header details.</p>
 <p>The equivalent code to read the <code>romeo.txt</code> file from the web using <code>urllib</code> is as follows:</p>
-<pre><code>import urllib.request, urllib.parse, urllib.error
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import urllib.request, urllib.parse, urllib.error
 
-fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
+fhand = urllib.request.urlopen('http://www.py4inf.com/code/romeo.txt')
 for line in fhand:
-   print(line.strip())</code></pre>
+    print(line.strip())
+
+# Code: http://www.pythonlearn.com/code3/urllib1.py
+-->
 <p>Once the web page has been opened with <code>urllib.urlopen</code>, we can treat it like a file and read through it using a <code>for</code> loop.</p>
 <p>When the program runs, we only see the output of the contents of the file. The headers are still sent, but the <code>urllib</code> code consumes the headers and only returns the data to us.</p>
 <pre><code>But soft what light through yonder window breaks
@@ -182,15 +205,22 @@ It is the east and Juliet is the sun
 Arise fair sun and kill the envious moon
 Who is already sick and pale with grief</code></pre>
 <p>As an example, we can write a program to retrieve the data for <code>romeo.txt</code> and compute the frequency of each word in the file as follows:</p>
-<pre><code>import urllib.request, urllib.parse, urllib.error
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import urllib.request, urllib.parse, urllib.error
 
 counts = dict()
-fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
+fhand = urllib.request.urlopen('http://www.pythonlearn.com/code/romeo.txt')
 for line in fhand:
     words = line.split()
     for word in words:
         counts[word] = counts.get(word,0) + 1
-print(counts)</code></pre>
+print(counts)
+
+# Code: http://www.pythonlearn.com/code3/urlwords.py
+-->
 <p>Again, once we have opened the web page, we can read it like a local file.</p>
 <h2 id="parsing-html-and-scraping-the-web">Parsing HTML and scraping the web</h2>
 <p> </p>
@@ -212,14 +242,22 @@ Second Page&lt;/a&gt;.
 <p> </p>
 <p>We add parentheses to our regular expression to indicate which part of our matched string we would like to extract, and produce the following program:</p>
 <p> </p>
-<pre><code>import urllib.request, urllib.parse, urllib.error
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+# Search for lines that start with From and have an at sign
+import urllib.request, urllib.parse, urllib.error
 import re
 
 url = input('Enter - ')
 html = urllib.request.urlopen(url).read()
-links = re.findall('href=&quot;(http://.*?)&quot;', html)
+links = re.findall(b'href="(http://.*?)"', html)
 for link in links:
-    print(link)</code></pre>
+    print(link)
+
+# Code: http://www.pythonlearn.com/code3/urlregex.py
+-->
 <p>The <code>findall</code> regular expression method will give us a list of all of the strings that match our regular expression, returning only the link text between the double quotes.</p>
 <p>When we run the program, we get the following output:</p>
 <pre><code>python urlregex.py
@@ -244,8 +282,16 @@ http://www.pythonlearn.com/py4inf-slides.zip</code></pre>
 <p>Even though HTML looks like XML[^The XML format is described in the next chapter.]i and some pages are carefully constructed to be XML, most HTML is generally broken in ways that cause an XML parser to reject the entire page of HTML as improperly formed. BeautifulSoup tolerates highly flawed HTML and still lets you easily extract the data you need.</p>
 <p>We will use <code>urllib</code> to read the page and then use <code>BeautifulSoup</code> to extract the <code>href</code> attributes from the anchor (<code>a</code>) tags.</p>
 <p>  </p>
-<pre><code>import urllib.request, urllib.parse, urllib.error
-from BeautifulSoup import *
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+# Note - this code must run in Python 2.x and you must download
+# http://www.pythonlearn.com/code/BeautifulSoup.py
+# Into the same folder as this program
+
+import urllib.request, urllib.parse, urllib.error
+from bs4 import BeautifulSoup
 
 url = input('Enter - ')
 html = urllib.request.urlopen(url).read()
@@ -254,7 +300,10 @@ soup = BeautifulSoup(html)
 # Retrieve all of the anchor tags
 tags = soup('a')
 for tag in tags:
-   print(tag.get('href', None))</code></pre>
+    print(tag.get('href', None))
+
+# Code: http://www.pythonlearn.com/code3/urllinks.py
+-->
 <p>The program prompts for a web address, then opens the web page, reads the data and passes the data to the BeautifulSoup parser, and then retrieves all of the anchor tags and prints out the <code>href</code> attribute for each tag.</p>
 <p>When the program runs it looks as follows:</p>
 <pre><code>python urllinks.py
@@ -270,22 +319,32 @@ http://www.lib.umich.edu/espresso-book-machine
 http://www.pythonlearn.com/code
 http://www.pythonlearn.com/</code></pre>
 <p>You can use BeautifulSoup to pull out various parts of each tag as follows:</p>
-<pre><code>import urllib.request, urllib.parse, urllib.error
-from BeautifulSoup import *
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+# install beautifulsoup4
+# https://pypi.python.org/pypi/beautifulsoup4
+
+import urllib.request
+from bs4 import BeautifulSoup
 
 url = input('Enter - ')
 html = urllib.request.urlopen(url).read()
-soup = BeautifulSoup(html)
+
+soup = BeautifulSoup(html, "html.parser")
 
 # Retrieve all of the anchor tags
 tags = soup('a')
 for tag in tags:
-   # Look at the parts of a tag
-   print('TAG:',tag)
-   print('URL:',tag.get('href', None))
-   print('Content:',tag.contents[0])
-   print('Attrs:',tag.attrs)</code></pre>
-<p>This produces the following output:</p>
+    # Look at the parts of a tag
+    print('TAG:',tag)
+    print('URL:',tag.get('href', None))
+    print('Contents:',tag.contents[0])
+    print('Attrs:',tag.attrs)
+
+# Code: http://www.pythonlearn.com/code3/urllink2.py
+-->
 <pre><code>python urllink2.py
 Enter - http://www.dr-chuck.com/page1.htm
 TAG: &lt;a href=&quot;http://www.dr-chuck.com/page2.htm&quot;&gt;
@@ -298,25 +357,41 @@ Attrs: [(u'href', u'http://www.dr-chuck.com/page2.htm')]</code></pre>
 <p>Sometimes you want to retrieve a non-text (or binary) file such as an image or video file. The data in these files is generally not useful to print out, but you can easily make a copy of a URL to a local file on your hard disk using <code>urllib</code>.</p>
 <p></p>
 <p>The pattern is to open the URL and use <code>read</code> to download the entire contents of the document into a string variable (<code>img</code>) then write that information to a local file as follows:</p>
-<pre><code>img = urllib.request.urlopen('http://www.pythonlearn.com/cover.jpg').read()
-fhand = open('cover.jpg', 'w')
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import urllib.request, urllib.parse, urllib.error
+
+img = urllib.request.urlopen('http://www.pythonlearn.com/cover.jpg').read()
+fhand = open('cover.jpg', 'wb')
 fhand.write(img)
-fhand.close()</code></pre>
+fhand.close()
+
+# Code: http://www.pythonlearn.com/code3/curl1.py
+-->
 <p>This program reads all of the data in at once across the network and stores it in the variable <code>img</code> in the main memory of your computer, then opens the file <code>cover.jpg</code> and writes the data out to your disk. This will work if the size of the file is less than the size of the memory of your computer.</p>
 <p>However if this is a large audio or video file, this program may crash or at least run extremely slowly when your computer runs out of memory. In order to avoid running out of memory, we retrieve the data in blocks (or buffers) and then write each block to your disk before retrieving the next block. This way the program can read any size file without using up all of the memory you have in your computer.</p>
-<pre><code>import urllib.request, urllib.parse, urllib.error
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.src='https://trinket.io/tools/1.0/jekyll/embed/python#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,''));});})(document)</script>
+<iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+</iframe>
+<!--
+import urllib.request, urllib.parse, urllib.error
 
-img = urllib.request.urlopen('http://www.pythonlearn.com/cover.jpg')
-fhand = open('cover.jpg', 'w')
+img = urllib.request.urlopen('http://www.py4inf.com/cover.jpg')
+fhand = open('cover.jpg', 'wb')
 size = 0
 while True:
     info = img.read(100000)
-    if len(info) &lt; 1 : break
+    if len(info) < 1 : break
     size = size + len(info)
     fhand.write(info)
 
 print(size,'characters copied.')
-fhand.close()</code></pre>
+fhand.close()
+
+# Code: http://www.pythonlearn.com/code3/curl2.py
+-->
 <p>In this example, we read only 100,000 characters at a time and then write those characters to the <code>cover.jpg</code> file before retrieving the next 100,000 characters of data from the web.</p>
 <p>This program runs as follows:</p>
 <pre><code>python curl2.py

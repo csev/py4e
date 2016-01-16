@@ -155,19 +155,7 @@ Undecorate
 For example, suppose you have a list of words and you want to sort them
 from longest to shortest:
 
-    txt = 'but soft what light in yonder window breaks'
-    words = txt.split()
-    t = list()
-    for word in words:
-       t.append((len(word), word))
-
-    t.sort(reverse=True)
-
-    res = list()
-    for length, word in t:
-        res.append(word)
-
-    print(res)
+\VerbatimInput{../code3/soft.py} 
 
 The first loop builds a list of tuples, where each tuple is a word
 preceded by its length.
@@ -383,28 +371,10 @@ Coming back to our running example of the text from *Romeo and Juliet*
 Act 2, Scene 2, we can augment our program to use this technique to
 print the ten most common words in the text as follows:
 
-    import string
-    fhand = open('romeo-full.txt')
-    counts = dict()
-    for line in fhand:
-        line = line.translate(None, string.punctuation)
-        line = line.lower()
-        words = line.split()
-        for word in words:
-            if word not in counts:
-                counts[word] = 1
-            else:
-                counts[word] += 1
-
-    # Sort the dictionary by value
-    lst = list()
-    for key, val in list(counts.items()):
-        lst.append( (val, key) )
-
-    lst.sort(reverse=True)
-
-    for key, val in lst[:10] :
-        print(key, val)
+\VerbatimInput{../code3/count3.py} 
+\begin{trinketfiles}
+../code3/romeo-full.txt
+\end{trinketfiles}
 
 The first part of the program which reads the file and computes the
 dictionary that maps each word to the count of words in the document is
