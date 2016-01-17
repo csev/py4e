@@ -2,6 +2,7 @@
 import os
 import sys
 import re
+import subprocess
 
 # Note - someone familiar with Windows might be able to make
 # this work on Windows
@@ -27,6 +28,7 @@ toskip = [
 ]
 
 success = 0
+fail = 0
 codefolder = '../code3'
 
 for i in os.listdir(codefolder):
@@ -66,13 +68,27 @@ for i in os.listdir(codefolder):
         success = success + 1
         continue
 
+    fail = fail + 1
     print (cmd)
 
 print('Tests passed:',success)
+print('Tests failed:',fail)
 if ( len(failures) > 0 ) : print('Unit Test TODO:',failures)
 os.system("rm *.sqlite")
 os.system("rm cover.jpg")
 os.system("rm stuff.jpg")
 
 print("Comparing outputs...")
-os.system("diff -r testout testtmp | grep -v '^Only in testtmp: '")
+
+# code = os.system("diff -r testout testtmp | grep -v '^Only in testtmp: '")
+p = os.popen("diff -r testout testtmp")
+data = p.read()
+lines = data.rstrip().split('\n')
+diff = False
+for line in lines:
+    if line.startswith('Only in testtmp: ') :
+        continue
+    print (line)
+    diff = True
+if diff or fail >= 1 :
+    sys.exit(1)
