@@ -73,3 +73,6 @@ if ( len(failures) > 0 ) : print('Unit Test TODO:',failures)
 os.system("rm *.sqlite")
 os.system("rm cover.jpg")
 os.system("rm stuff.jpg")
+
+print("Comparing outputs...")
+os.system("diff -r testout testtmp | grep -v '^Only in testtmp: '")
