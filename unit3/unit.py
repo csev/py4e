@@ -14,8 +14,8 @@ os.system("mkdir -p testtmp")
 
 # Known Failures
 failures = [
-    'urllink2.py',  
-    'urllinks.py',  
+    # 'urllink2.py',  -- Fixed
+    # 'urllinks.py',  -- Fixed
 ]
 
 toskip = [

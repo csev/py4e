@@ -9,4 +9,5 @@ zip -r gmane.zip gmane
 zip -r pagerank.zip pagerank
 zip -r tracks.zip tracks
 zip -r roster.zip roster
+zip -r bs4.zip bs4
 

@@ -1,13 +1,16 @@
-# Note - this code must run in Python 2.x and you must download
-# http://www.pythonlearn.com/code/BeautifulSoup.py
-# Into the same folder as this program
+# To run this, you can install BeautifulSoup 
+# https://pypi.python.org/pypi/beautifulsoup4
+
+# Or download the file
+# http://www.pythonlearn.com/code3/bs4.zip
+# and unzip it in the same directory as this file
 
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
 
 url = input('Enter - ')
 html = urllib.request.urlopen(url).read()
-soup = BeautifulSoup(html)
+soup = BeautifulSoup(html, 'html.parser')
 
 # Retrieve all of the anchor tags
 tags = soup('a')

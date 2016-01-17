@@ -1,5 +1,9 @@
-# install beautifulsoup4 
+# To run this, you can install BeautifulSoup 
 # https://pypi.python.org/pypi/beautifulsoup4
+
+# Or download the file
+# http://www.pythonlearn.com/code3/bs4.zip
+# and unzip it in the same directory as this file
 
 import urllib.request
 from bs4 import BeautifulSoup
