@@ -1,6 +1,6 @@
 import urllib.request, urllib.parse, urllib.error
 
-img = urllib.request.urlopen('http://www.py4inf.com/cover.jpg')
+img = urllib.request.urlopen('http://www.pythonlearn.com/cover.jpg')
 fhand = open('cover.jpg', 'wb')
 size = 0
 while True:
