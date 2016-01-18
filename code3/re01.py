@@ -1,5 +1,5 @@
 # Search for lines that contain 'From'
-import re
+smport re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
