@@ -8,5 +8,6 @@ print(url)
 connection = urllib.request.urlopen(url)
 data = connection.read()
 print(data)
-headers = connection.info().dict
+
+headers = dict(connection.getheaders())
 print(headers)

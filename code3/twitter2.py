@@ -13,7 +13,7 @@ while True:
     print('Retrieving', url)
     connection = urllib.request.urlopen(url)
     data = connection.read()
-    headers = connection.info().dict
+    headers = dict(connection.getheaders())
     print('Remaining', headers['x-rate-limit-remaining'])
     js = json.loads(data)
     print(json.dumps(js, indent=4))

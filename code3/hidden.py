@@ -1,5 +1,8 @@
 # Keep this file separate
 
+# https://apps.twitter.com/
+# Create new App
+
 def oauth() :
     return { "consumer_key" : "h7Lu...Ng",
         "consumer_secret" : "dNKenAC3New...mmn7Q",

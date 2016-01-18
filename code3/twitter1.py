@@ -13,6 +13,6 @@ while True:
     connection = urllib.request.urlopen(url)
     data = connection.read()
     print(data[:250])
-    headers = connection.info().dict
+    headers = dict(connection.getheaders())
     # print headers
     print('Remaining', headers['x-rate-limit-remaining'])

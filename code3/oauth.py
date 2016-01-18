@@ -27,7 +27,6 @@ import urllib.request, urllib.parse, urllib.error
 import time
 import random
 import urllib.parse
-import hmac
 import binascii
 
 
@@ -566,16 +565,17 @@ class OAuthSignatureMethod_HMAC_SHA1(OAuthSignatureMethod):
         key, raw = self.build_signature_base_string(oauth_request, consumer,
             token)
 
-        # HMAC object.
-        try:
-            import hashlib # 2.5
-            hashed = hmac.new(key, raw, hashlib.sha1)
-        except:
-            import sha # Deprecated
-            hashed = hmac.new(key, raw, sha)
+        # Compute the oauth hmac Python 3.0 style
+        # http://stackoverflow.com/questions/1306550/calculating-a-sha-hash-with-a-string-secret-key-in-python
+        import hashlib 
+        import base64
+        import hmac
+        hashed = hmac.new(bytearray(key, 'latin1'), bytearray(raw, 'latin1'), hashlib.sha1)
 
         # Calculate the digest base 64.
-        return binascii.b2a_base64(hashed.digest())[:-1]
+        digest = hashed.digest()
+        enc = base64.b64encode(digest).decode()      # py3k-mode
+        return enc
 
 
 class OAuthSignatureMethod_PLAINTEXT(OAuthSignatureMethod):
