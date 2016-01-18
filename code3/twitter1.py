@@ -11,7 +11,7 @@ while True:
         {'screen_name': acct, 'count': '2'} )
     print('Retrieving', url)
     connection = urllib.request.urlopen(url)
-    data = connection.read()
+    data = connection.read().decode()
     print(data[:250])
     headers = dict(connection.getheaders())
     # print headers

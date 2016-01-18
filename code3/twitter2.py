@@ -12,7 +12,7 @@ while True:
         {'screen_name': acct, 'count': '5'} )
     print('Retrieving', url)
     connection = urllib.request.urlopen(url)
-    data = connection.read()
+    data = connection.read().decode()
     headers = dict(connection.getheaders())
     print('Remaining', headers['x-rate-limit-remaining'])
     js = json.loads(data)
