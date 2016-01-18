@@ -1,4 +1,5 @@
 # Keep this file separate
+# https://apps.twitter.com/
 
 def oauth() :
     return { "consumer_key" : "h7Lu...Ng",
