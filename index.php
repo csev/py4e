@@ -273,9 +273,10 @@ translated into 30 languages and are available in Google Drive.
 </div>
 <?php
 function media($name) {
-    global $afs;
+    global $afs, $arch_podcast;
     echo('<span>Watch the video on <a href="youtube/'.$name.'.php" target="_blank">YouTube</a>, </span><br>');
-    echo('<span>Listen or download the <a href="'.$afs.'/books/py4inf/podcasts/'.$name.'.mp3" target="_blank">Audio</a>, </span><br>');
+    // echo('<span>Listen or download the <a href="'.$afs.'/books/py4inf/podcasts/'.$name.'.mp3" target="_blank">Audio</a>, </span><br>');
+    echo('<span>Listen or download the <a href="'.$arch_podcast.'/'.$name.'.mp3" target="_blank">Audio</a>, </span><br>');
     // echo('<span>Watch or download the <a href="videos/'.$name.'.mp4" target="_blank">Video</a></span>');
     echo('<span>Watch or download the <a href="'.$afs.'/books/py4inf/media/'.$name.'.mp4" target="_blank">Video</a></span>');
 }
