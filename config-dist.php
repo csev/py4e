@@ -13,3 +13,5 @@ $CFG->wwwroot = "http://localhost:8888/pythonlearn";
 $CFG->cdnroot = $CFG->wwwroot;
 
 $CFG->dirroot = realpath(dirname(__FILE__));
+
+$afs = "http://www-personal.umich.edu/~csev";

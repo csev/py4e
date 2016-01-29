@@ -181,7 +181,7 @@ translated into 30 languages and are available in Google Drive.
           <li>
              <p>
                <?php media('Py4Inf-11-Regex'); ?>,
-               <br><a href="lectures/Py4Inf-11-Regex-Guide.pdf" target="_new">Regex-Guide</a>
+               <br><a href="<?= $CFG->cdnroot ?>/lectures/Py4Inf-11-Regex-Guide.pdf" target="_new">Regex-Guide</a>
              </p>
           </li>
          </ul>
@@ -197,7 +197,7 @@ translated into 30 languages and are available in Google Drive.
       <li><a href="#">Chapter 12: Network Programming (HTTP)</a>
         <ul class="menu vertical nested">
           <li>
-            <p>Get the <a href="lectures/Py4Inf-12-HTTP.ppt" target="_blank">Slides</a>,
+            <p>Get the <a href="<?= $CFG->cdnroot ?>/lectures/Py4Inf-12-HTTP.ppt" target="_blank">Slides</a>,
             <br>Watch on <a href="https://www.youtube.com/watch?v=Zr8BQiPNaFI&index=30&list=PLlRFEj9H3Oj4JXIwMwN1_ss1Tk8wZShEJ" target="_blank">YouTube</a>,
             <br>Watch or Download the <a href="<?php $afs ?>/books/py4inf/media/Py4Inf-12-HTTP.mov" target="_blank">Video</a>,
             </p>
@@ -214,7 +214,7 @@ translated into 30 languages and are available in Google Drive.
       <li><a href="#">Chapter 13: Using Web Services</a>
         <ul class="menu vertical nested">
           <li>
-             <p>Get the <a href="lectures/Py4Inf-13-WebServices.ppt" target="_blank">Slides</a>,
+             <p>Get the <a href="<?= $CFG->cdnroot ?>/lectures/Py4Inf-13-WebServices.ppt" target="_blank">Slides</a>,
              <br>Watch on <a href="https://www.youtube.com/watch?v=6cwi1NcL0Zc&index=31&list=PLlRFEj9H3Oj4JXIwMwN1_ss1Tk8wZShEJ" target="_blank">YouTube</a>,
              <br>Watch or Download the Videos <a href="<?= $afs ?>/books/py4inf/media/Py4Inf-13-Webservices-01.mp4" target="_blank">Part 1</a>, <a href="<?= $afs ?>/books/py4inf/media/Py4Inf-13-Webservices-02.mp4" target="_blank">Part 2</a>, and <a href="<?= $afs ?>/books/py4inf/media/Py4Inf-13-Webservices-03.mp4" target="_blank">Part 3</a>
             </p>
@@ -225,7 +225,7 @@ translated into 30 languages and are available in Google Drive.
         <ul class="menu vertical nested">
           <li>
              <p>
-              Get the <a href="lectures/Py4Inf-14-Database.ppt" target="_blank">Slides</a>,
+              Get the <a href="<?= $CFG->cdnroot ?>/lectures/Py4Inf-14-Database.ppt" target="_blank">Slides</a>,
               <br>Listen or Download the Lecture Audio <a href="<?= $afs ?>/books/py4inf/media/Py4Inf-14-Database-A.mp3" target="_blank">Part 1</a> and <a href="<?= $afs ?>/books/py4inf/media/Py4Inf-14-Database-B.mp3" target="_blank">Part 2</a>
              <br>SQLite3 Browser: <a href="http://sqlitebrowser.org/" target="_blank">http://sqlitebrowser.org/</a>
             </p>
@@ -273,9 +273,11 @@ translated into 30 languages and are available in Google Drive.
 </div>
 <?php
 function media($name) {
+    global $afs;
     echo('<span>Watch the video on <a href="youtube/'.$name.'.php" target="_blank">YouTube</a>, </span><br>');
-    echo('<span>Listen or download the <a href="podcasts/'.$name.'.mp3" target="_blank">Audio</a>, </span><br>');
-    echo('<span>Watch or download the <a href="videos/'.$name.'.mp4" target="_blank">Video</a></span>');
+    echo('<span>Listen or download the <a href="'.$afs.'/books/py4inf/podcasts/'.$name.'.mp3" target="_blank">Audio</a>, </span><br>');
+    // echo('<span>Watch or download the <a href="videos/'.$name.'.mp4" target="_blank">Video</a></span>');
+    echo('<span>Watch or download the <a href="'.$afs.'/books/py4inf/media/'.$name.'.mp4" target="_blank">Video</a></span>');
 }
 $afs = "http://www-personal.umich.edu/~csev";
 ?>
@@ -433,7 +435,7 @@ $afs = "http://www-personal.umich.edu/~csev";
       <h4>Chapter 11: Regular Expressions</h4></a>
     <div id="panel17d" class="accordion-content" role="tabpanel" data-tab-content aria-labelledby="panel17d-heading">
       <?php media('Py4Inf-11-Regex'); ?>,
-      <br><a href="lectures/Py4Inf-11-Regex-Guide.pdf" target="_new">Regex-Guide</a>
+      <br><a href="<?= $CFG->cdnroot ?>/lectures/Py4Inf-11-Regex-Guide.pdf" target="_new">Regex-Guide</a>
         </p>
     </div>
   </li>
@@ -449,7 +451,7 @@ $afs = "http://www-personal.umich.edu/~csev";
     <a href="#panel19d" role="tab" class="accordion-title" id="panel1d-heading" aria-controls="panel19d">
       <h4>Chapter 12: Network Programming (HTTP)</h4></a>
     <div id="panel19d" class="accordion-content" role="tabpanel" data-tab-content aria-labelledby="panel19d-heading">
-      <p>Get the <a href="lectures/Py4Inf-12-HTTP.ppt" target="_blank">Slides</a>,
+      <p>Get the <a href="<?= $CFG->cdnroot ?>/lectures/Py4Inf-12-HTTP.ppt" target="_blank">Slides</a>,
       <br>Watch on <a href="https://www.youtube.com/watch?v=Zr8BQiPNaFI&index=30&list=PLlRFEj9H3Oj4JXIwMwN1_ss1Tk8wZShEJ" target="_blank">YouTube</a>,
       <br>Watch or Download the <a href="<?php $afs ?>/books/py4inf/media/Py4Inf-12-HTTP.mov" target="_blank">Video</a>,
       </p>
@@ -466,7 +468,7 @@ $afs = "http://www-personal.umich.edu/~csev";
     <a href="#panel20d" role="tab" class="accordion-title" id="panel1d-heading" aria-controls="panel20d">
       <h4>Chapter 13: Using Web Services</h4></a>
     <div id="panel20d" class="accordion-content" role="tabpanel" data-tab-content aria-labelledby="panel20d-heading">
-      <p>Get the <a href="lectures/Py4Inf-13-WebServices.ppt" target="_blank">Slides</a>,
+      <p>Get the <a href="<?= $CFG->cdnroot ?>/lectures/Py4Inf-13-WebServices.ppt" target="_blank">Slides</a>,
        <br>Watch on <a href="https://www.youtube.com/watch?v=6cwi1NcL0Zc&index=31&list=PLlRFEj9H3Oj4JXIwMwN1_ss1Tk8wZShEJ" target="_blank">YouTube</a>,
        <br>Watch or Download the Videos <a href="<?= $afs ?>/books/py4inf/media/Py4Inf-13-Webservices-01.mp4" target="_blank">Part 1</a>, <a href="<?= $afs ?>/books/py4inf/media/Py4Inf-13-Webservices-02.mp4" target="_blank">Part 2</a>, and <a href="<?= $afs ?>/books/py4inf/media/Py4Inf-13-Webservices-03.mp4" target="_blank">Part 3</a>
         </p>
@@ -476,7 +478,7 @@ $afs = "http://www-personal.umich.edu/~csev";
     <a href="#panel21d" role="tab" class="accordion-title" id="panel1d-heading" aria-controls="panel21d">
       <h4>Chapter 14: Databases</h4></a>
     <div id="panel21d" class="accordion-content" role="tabpanel" data-tab-content aria-labelledby="panel21d-heading">
-       <p>Get the <a href="lectures/Py4Inf-14-Database.ppt" target="_blank">Slides</a>,
+       <p>Get the <a href="<?= $CFG->cdnroot ?>/lectures/Py4Inf-14-Database.ppt" target="_blank">Slides</a>,
           <br>Listen or Download the Lecture Audio <a href="<?= $afs ?>/books/py4inf/media/Py4Inf-14-Database-A.mp3" target="_blank">Part 1</a> and <a href="<?= $afs ?>/books/py4inf/media/Py4Inf-14-Database-B.mp3" target="_blank">Part 2</a>
          <br>SQLite3 Browser: <a href="http://sqlitebrowser.org/" target="_blank">http://sqlitebrowser.org/</a>
       </p>
