@@ -2,7 +2,7 @@ import socket
 
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mysock.connect(('www.pythonlearn.com', 80))
-mysock.send('GET http://www.pythonlearn.com/code/romeo.txt HTTP/1.0\n\n'.encode())
+mysock.send('GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0\n\n'.encode())
 
 while True:
     data = mysock.recv(512)
