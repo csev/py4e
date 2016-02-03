@@ -72,7 +72,12 @@ while True:
     # If we are retrieving this page, there should be no links from it
     cur.execute('DELETE from Links WHERE from_id=?', (fromid, ) )
     try:
-        document = urllib.urlopen(url, context=scontext)
+	# Deal with SSL certificate anomalies Python > 2.7
+	# scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+        # document = urllib.urlopen(url, context=scontext)
+	
+	# Normal Unless you encounter certificate problems
+        document = urllib.urlopen(url)
 
         html = document.read()
         if document.getcode() != 200 :

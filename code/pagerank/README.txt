@@ -48,6 +48,10 @@ within the program these are called "webs".   The spider
 chooses randomly amongst all non-visited links across all
 the webs.
 
+If your code fails complainin about certificate probems, 
+there is some code (SSL) that can be un-commented to work
+around certificate problems.
+
 If you want to dump the contents of the spider.sqlite file, you can 
 run spdump.py as follows:
 
