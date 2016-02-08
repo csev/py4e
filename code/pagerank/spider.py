@@ -28,7 +28,7 @@ if row is not None:
     print "Restarting existing crawl.  Remove spider.sqlite to start a fresh crawl."
 else :
     starturl = raw_input('Enter web url or enter: ')
-    if ( len(starturl) < 1 ) : starturl = 'http://www.dr-chuck.com/'
+    if ( len(starturl) < 1 ) : starturl = 'http://python-data.dr-chuck.net/'
     if ( starturl.endswith('/') ) : starturl = starturl[:-1]
     web = starturl
     if ( starturl.endswith('.htm') or starturl.endswith('.html') ) :
