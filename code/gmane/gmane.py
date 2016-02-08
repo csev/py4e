@@ -161,7 +161,7 @@ while True:
     cur.execute('''INSERT OR IGNORE INTO Messages (id, email, sent_at, subject, headers, body) 
         VALUES ( ?, ?, ?, ?, ?, ? )''', ( start, email, sent_at, subject, hdr, body))
     conn.commit()
-    # time.sleep(1)
+    time.sleep(1)
 
 cur.close()
 
