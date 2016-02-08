@@ -54,7 +54,7 @@ months.sort()
 # print counts
 # print months
 
-fhand = open('gline.jsonp','w')
+fhand = open('gline.js','w')
 fhand.write("gline = [ ['Year'")
 for org in orgs:
     fhand.write(",'"+org+"'")
@@ -70,4 +70,4 @@ for month in months[1:-1]:
 
 fhand.write("\n];\n")
 
-print "Output written to gline.jsonp"
+print "Output written to gline.js"

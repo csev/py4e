@@ -136,6 +136,7 @@ def parseheader(hdr, allsenders=None):
         return None
     return (guid, sender, subject, sent_at)
 
+# Open the output database and create empty tables
 conn = sqlite3.connect('index.sqlite')
 conn.text_factory = str
 cur = conn.cursor()
@@ -156,10 +157,12 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Subjects
 cur.execute('''CREATE TABLE IF NOT EXISTS Replies 
     (from_id INTEGER, to_id INTEGER)''')
 
-conn_1 = sqlite3.connect('content.sqlite')
+# Open the mapping information
+conn_1 = sqlite3.connect('mapping.sqlite')
 conn_1.text_factory = str
 cur_1 = conn_1.cursor()
 
+# Load up the mapping information into memory structures
 cur_1.execute('''SELECT old,new FROM DNSMapping''')
 for message_row in cur_1 :
     dnsmapping[message_row[0].strip().lower()] = message_row[1].strip().lower()
@@ -171,9 +174,16 @@ for message_row in cur_1 :
     new = fixsender(message_row[1])
     mapping[old] = fixsender(new)
 
+cur_1.close()
+
+# Open the raw data retrieved from the network
+conn_2 = sqlite3.connect('content.sqlite')
+conn_2.text_factory = str
+cur_2 = conn_2.cursor()
+
 allsenders = list()
-cur_1.execute('''SELECT email FROM Messages''')
-for message_row in cur_1 :
+cur_2.execute('''SELECT email FROM Messages''')
+for message_row in cur_2 :
     sender = fixsender(message_row[0])
     if sender is None : continue
     if 'gmane.org' in sender : continue
@@ -182,7 +192,7 @@ for message_row in cur_1 :
 
 print "Loaded allsenders",len(allsenders),"and mapping",len(mapping),"dns mapping",len(dnsmapping)
 
-cur_1.execute('''SELECT headers, body, sent_at 
+cur_2.execute('''SELECT headers, body, sent_at 
     FROM Messages ORDER BY sent_at''')
 
 senders = dict()
@@ -191,7 +201,7 @@ guids = dict()
 
 count = 0
 
-for message_row in cur_1 :
+for message_row in cur_2 :
     hdr = message_row[0]
     parsed = parseheader(hdr, allsenders)
     if parsed is None: continue
@@ -246,6 +256,7 @@ for message_row in cur_1 :
         print 'Could not retrieve guid id',guid
         break
 
+# Close the connections
 cur.close()
-cur_1.close()
+cur_2.close()
 
