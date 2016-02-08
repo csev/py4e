@@ -65,7 +65,7 @@ conn = sqlite3.connect('content.sqlite')
 cur = conn.cursor()
 conn.text_factory = str
 
-baseurl = "http://gmane.dr-chuck.net/gmane.comp.cms.sakai.devel/"
+baseurl = "http://mbox.dr-chuck.net/sakai.devel/"
 
 cur.execute('''CREATE TABLE IF NOT EXISTS Messages 
     (id INTEGER UNIQUE, email TEXT, sent_at TEXT, 
@@ -160,8 +160,8 @@ while True:
     print "   ",email,sent_at,subject
     cur.execute('''INSERT OR IGNORE INTO Messages (id, email, sent_at, subject, headers, body) 
         VALUES ( ?, ?, ?, ?, ?, ? )''', ( start, email, sent_at, subject, hdr, body))
-    # time.sleep(1)
+    conn.commit()
+    time.sleep(1)
 
-conn.commit()
 cur.close()
 
