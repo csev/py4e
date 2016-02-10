@@ -13,7 +13,7 @@ web. The "eXtensible Markup Language" or XML has been in use for a very
 long time and is best suited for exchanging document-style data. When
 programs just want to exchange dictionaries, lists, or other internal
 information with each other, they use JavaScript Object Notation or JSON
-(see [www.json.org](www.json.org)). We will look at both formats.
+(see [www.json.org](http://www.json.org)). We will look at both formats.
 
 eXtensible Markup Language - XML
 --------------------------------
@@ -21,13 +21,15 @@ eXtensible Markup Language - XML
 XML looks very similar to HTML, but XML is more structured than HTML.
 Here is a sample of an XML document:
 
-    <person>
-      <name>Chuck</name>
-      <phone type="intl">
-         +1 734 303 4456
-       </phone>
-       <email hide="yes"/>
-    </person>
+~~~~ {.xml}
+<person>
+  <name>Chuck</name>
+  <phone type="intl">
+     +1 734 303 4456
+   </phone>
+   <email hide="yes"/>
+</person>
+~~~~
 
 Often it is helpful to think of an XML document as a tree structure
 where there is a top tag `person` and other tags such as
@@ -56,8 +58,10 @@ retrieves a *node* that matches the specified tag. Each
 node can have some text, some attributes (like hide), and some "child"
 nodes. Each node can be the top of a tree of nodes.
 
-    Name: Chuck
-    Attr: yes
+~~~~
+Name: Chuck
+Attr: yes
+~~~~
 
 Using an XML parser such as `ElementTree` has the advantage
 that while the XML in this example is quite simple, it turns out there
@@ -83,13 +87,15 @@ write a `for` loop that looks at each of the user nodes, and
 prints the `name` and `id` text elements as well
 as the `x` attribute from the `user` node.
 
-    User count: 2
-    Name Chuck
-    Id 001
-    Attribute 2
-    Name Brent
-    Id 009
-    Attribute 7
+~~~~
+User count: 2
+Name Chuck
+Id 001
+Attribute 2
+Name Brent
+Id 009
+Attribute 7
+~~~~
 
 JavaScript Object Notation - JSON
 ---------------------------------
@@ -106,16 +112,18 @@ Python lists and dictionaries.
 Here is a JSON encoding that is roughly equivalent to the simple XML
 from above:
 
-    {
-      "name" : "Chuck",
-      "phone" : {
-        "type" : "intl",
-        "number" : "+1 734 303 4456"
-       },
-       "email" : {
-         "hide" : "yes"
-       }
-    }
+~~~~ {.json}
+{
+  "name" : "Chuck",
+  "phone" : {
+    "type" : "intl",
+    "number" : "+1 734 303 4456"
+   },
+   "email" : {
+     "hide" : "yes"
+   }
+}
+~~~~
 
 You will notice some differences. First, in XML, we can add attributes
 like "intl" to the "phone" tag. In JSON, we simply have key-value pairs.
@@ -161,13 +169,15 @@ parsed JSON, since the returned data is simply native Python structures.
 
 The output of this program is exactly the same as the XML version above.
 
-    User count: 2
-    Name Chuck
-    Id 001
-    Attribute 2
-    Name Brent
-    Id 009
-    Attribute 7
+~~~~
+User count: 2
+Name Chuck
+Id 001
+Attribute 2
+Name Brent
+Id 009
+Attribute 7
+~~~~
 
 In general, there is an industry trend away from XML and towards JSON
 for web services. Because the JSON is simpler and more directly maps to
@@ -279,46 +289,54 @@ for.
 The output of the program is as follows (some of the returned JSON has
 been removed):
 
-    $ python geojson.py
-    Enter location: Ann Arbor, MI
-    Retrieving http://maps.googleapis.com/maps/api/
-      geocode/json?sensor=false&address=Ann+Arbor%2C+MI
-    Retrieved 1669 characters
-    {
-        "status": "OK",
-        "results": [
-            {
-                "geometry": {
-                    "location_type": "APPROXIMATE",
-                    "location": {
-                        "lat": 42.2808256,
-                        "lng": -83.7430378
-                    }
-                },
-                "address_components": [
-                    {
-                        "long_name": "Ann Arbor",
-                        "types": [
-                            "locality",
-                            "political"
-                        ],
-                        "short_name": "Ann Arbor"
-                    }
-                ],
-                "formatted_address": "Ann Arbor, MI, USA",
-                "types": [
-                    "locality",
-                    "political"
-                ]
-            }
-        ]
-    }
-    lat 42.2808256 lng -83.7430378
-    Ann Arbor, MI, USA
-    Enter location:
+~~~~
+$ python geojson.py
+Enter location: Ann Arbor, MI
+Retrieving http://maps.googleapis.com/maps/api/
+  geocode/json?sensor=false&address=Ann+Arbor%2C+MI
+Retrieved 1669 characters
+~~~~
+
+~~~~ {.json}
+{
+    "status": "OK",
+    "results": [
+        {
+            "geometry": {
+                "location_type": "APPROXIMATE",
+                "location": {
+                    "lat": 42.2808256,
+                    "lng": -83.7430378
+                }
+            },
+            "address_components": [
+                {
+                    "long_name": "Ann Arbor",
+                    "types": [
+                        "locality",
+                        "political"
+                    ],
+                    "short_name": "Ann Arbor"
+                }
+            ],
+            "formatted_address": "Ann Arbor, MI, USA",
+            "types": [
+                "locality",
+                "political"
+            ]
+        }
+    ]
+}
+lat 42.2808256 lng -83.7430378
+Ann Arbor, MI, USA
+~~~~
+
+~~~~
+Enter location:
+~~~~
 
 You can download
-[www.pythonlearn.com/code3/geoxml.py](www.pythonlearn.com/code3/geoxml.py) to
+[www.pythonlearn.com/code3/geoxml.py](http://www.pythonlearn.com/code3/geoxml.py) to
 explore the XML variant of the Google geocoding API.
 
 Security and API usage
@@ -342,7 +360,7 @@ requests and so they add expect you to send cryptographically signed
 messages using shared keys and secrets. A very common technology that is
 used to sign requests over the Internet is called
 *OAuth*. You can read more about the OAuth protocol at
-<http://www.oauth.net>.
+[www.oauth.net](http://www.oauth.net).
 
 As the Twitter API became increasingly valuable, Twitter went from an
 open and public API to an API that required the use of OAuth signatures
@@ -356,7 +374,7 @@ libraries.
 For this next sample program we will download the files
 *twurl.py*, *hidden.py*,
 *oauth.py*, and *twitter1.py* from
-[www.pythonlearn.com/code](www.pythonlearn.com/code) and put them all in a folder
+[www.pythonlearn.com/code](http://www.pythonlearn.com/code) and put them all in a folder
 on your computer.
 
 To make use of these programs you will need to have a Twitter account,
@@ -374,11 +392,13 @@ The Twitter web service are accessed using a URL like this:
 But once all of the security information has been added, the URL will
 look more like:
 
-    https://api.twitter.com/1.1/statuses/user_timeline.json?count=2
-    &oauth_version=1.0&oauth_token=101...SGI&screen_name=drchuck
-    &oauth_nonce=09239679&oauth_timestamp=1380395644
-    &oauth_signature=rLK...BoD&oauth_consumer_key=h7Lu...GNg
-    &oauth_signature_method=HMAC-SHA1
+~~~~
+https://api.twitter.com/1.1/statuses/user_timeline.json?count=2
+&oauth_version=1.0&oauth_token=101...SGI&screen_name=drchuck
+&oauth_nonce=09239679&oauth_timestamp=1380395644
+&oauth_signature=rLK...BoD&oauth_consumer_key=h7Lu...GNg
+&oauth_signature_method=HMAC-SHA1
+~~~~
 
 You can read the OAuth specification if you want to know more about the
 meaning of the various parameters that are added to meet the security
@@ -398,25 +418,27 @@ We simply print the first 250 characters of the string:
 
 When the program runs it produces the following output:
 
-    Enter Twitter Account:drchuck
-    Retrieving https://api.twitter.com/1.1/ ...
-    [{"created_at":"Sat Sep 28 17:30:25 +0000 2013","
-    id":384007200990982144,"id_str":"384007200990982144",
-    "text":"RT @fixpert: See how the Dutch handle traffic
-    intersections: http:\/\/t.co\/tIiVWtEhj4\n#brilliant",
-    "source":"web","truncated":false,"in_rep
-    Remaining 178
+~~~~
+Enter Twitter Account:drchuck
+Retrieving https://api.twitter.com/1.1/ ...
+[{"created_at":"Sat Sep 28 17:30:25 +0000 2013","
+id":384007200990982144,"id_str":"384007200990982144",
+"text":"RT @fixpert: See how the Dutch handle traffic
+intersections: http:\/\/t.co\/tIiVWtEhj4\n#brilliant",
+"source":"web","truncated":false,"in_rep
+Remaining 178
 
-    Enter Twitter Account:fixpert
-    Retrieving https://api.twitter.com/1.1/ ...
-    [{"created_at":"Sat Sep 28 18:03:56 +0000 2013",
-    "id":384015634108919808,"id_str":"384015634108919808",
-    "text":"3 months after my freak bocce ball accident,
-    my wedding ring fits again! :)\n\nhttps:\/\/t.co\/2XmHPx7kgX",
-    "source":"web","truncated":false,
-    Remaining 177
+Enter Twitter Account:fixpert
+Retrieving https://api.twitter.com/1.1/ ...
+[{"created_at":"Sat Sep 28 18:03:56 +0000 2013",
+"id":384015634108919808,"id_str":"384015634108919808",
+"text":"3 months after my freak bocce ball accident,
+my wedding ring fits again! :)\n\nhttps:\/\/t.co\/2XmHPx7kgX",
+"source":"web","truncated":false,
+Remaining 177
 
-    Enter Twitter Account:
+Enter Twitter Account:
+~~~~
 
 Along with the returned timeline data, Twitter also returns metadata
 about the request in the HTTP response headers. One header in
@@ -441,49 +463,57 @@ code.
 The output of the program looks as follows (some of the data items are
 shortened to fit on the page):
 
-    Enter Twitter Account:drchuck
-    Retrieving https://api.twitter.com/1.1/friends ...
-    Remaining 14
-    {
-        "next_cursor": 1444171224491980205,
-        "users": [
-            {
-                "id": 662433,
-                "followers_count": 28725,
-                "status": {
-                    "text": "@jazzychad I just bought one .__.",
-                    "created_at": "Fri Sep 20 08:36:34 +0000 2013",
-                    "retweeted": false,
-                },
-                "location": "San Francisco, California",
-                "screen_name": "leahculver",
-                "name": "Leah Culver",
-            },
-            {
-                "id": 40426722,
-                "followers_count": 2635,
-                "status": {
-                    "text": "RT @WSJ: Big employers like Google ...",
-                    "created_at": "Sat Sep 28 19:36:37 +0000 2013",
-                },
-                "location": "Victoria Canada",
-                "screen_name": "_valeriei",
-                "name": "Valerie Irvine",
-        ],
-        "next_cursor_str": "1444171224491980205"
-    }
-    leahculver
-       @jazzychad I just bought one .__.
-    _valeriei
-       RT @WSJ: Big employers like Google, AT&amp;T are h
-    ericbollens
-       RT @lukew: sneak peek: my LONG take on the good &a
-    halherzog
-       Learning Objects is 10. We had a cake with the LO,
-    scweeker
-       @DeviceLabDC love it! Now where so I get that "etc
+~~~~
+Enter Twitter Account:drchuck
+Retrieving https://api.twitter.com/1.1/friends ...
+Remaining 14
+~~~~
 
-    Enter Twitter Account:
+~~~~ {.json}
+{
+    "next_cursor": 1444171224491980205,
+    "users": [
+        {
+            "id": 662433,
+            "followers_count": 28725,
+            "status": {
+                "text": "@jazzychad I just bought one .__.",
+                "created_at": "Fri Sep 20 08:36:34 +0000 2013",
+                "retweeted": false,
+            },
+            "location": "San Francisco, California",
+            "screen_name": "leahculver",
+            "name": "Leah Culver",
+        },
+        {
+            "id": 40426722,
+            "followers_count": 2635,
+            "status": {
+                "text": "RT @WSJ: Big employers like Google ...",
+                "created_at": "Sat Sep 28 19:36:37 +0000 2013",
+            },
+            "location": "Victoria Canada",
+            "screen_name": "_valeriei",
+            "name": "Valerie Irvine",
+    ],
+    "next_cursor_str": "1444171224491980205"
+}
+~~~~
+
+~~~~
+leahculver
+   @jazzychad I just bought one .__.
+_valeriei
+   RT @WSJ: Big employers like Google, AT&amp;T are h
+ericbollens
+   RT @lukew: sneak peek: my LONG take on the good &a
+halherzog
+   Learning Objects is 10. We had a cake with the LO,
+scweeker
+   @DeviceLabDC love it! Now where so I get that "etc
+
+Enter Twitter Account:
+~~~~
 
 The last bit of the output is where we see the for loop reading the five
 most recent "friends" of the *drchuck* Twitter account
@@ -533,9 +563,9 @@ XML
 Exercises
 ---------
 
-Exercise 1: Change either the
-[www.pythonlearn.com/code3/geojson.py](www.pythonlearn.com/code3/geojson.py) or
-[www.pythonlearn.com/code3/geoxml.py](www.pythonlearn.com/code3/geoxml.py) to print
+**Exercise 1:** Change either the
+[www.pythonlearn.com/code3/geojson.py](http://www.pythonlearn.com/code3/geojson.py) or
+[www.pythonlearn.com/code3/geoxml.py](http://www.pythonlearn.com/code3/geoxml.py) to print
 out the two-character country code from the retrieved data. Add error
 checking so your program does not traceback if the country code is not
 there. Once you have it working, search for "Atlantic Ocean" and make
