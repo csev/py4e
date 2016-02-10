@@ -46,7 +46,7 @@ for line in fh:
     count = count + 1
     try: 
         js = json.loads(str(data))
-        # print js  # We print in case unicode causes an error
+        print(js)  # We print in case unicode causes an error
     except: 
         continue
 
