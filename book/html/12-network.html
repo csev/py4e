@@ -99,7 +99,7 @@ while True:
     data = mysock.recv(512)
     if ( len(data) < 1 ) :
         break
-    print(data);
+    print(data.decode());
 
 mysock.close()
 
@@ -161,7 +161,7 @@ mysock.close()
 # Look for the end of the header (2 CRLF)
 pos = picture.find(b"\r\n\r\n");
 print('Header length',pos)
-print(picture[:pos])
+print(picture[:pos].decode())
 
 # Skip past the header and save the picture data
 picture = picture[pos+4:]
@@ -231,7 +231,7 @@ import urllib.request, urllib.parse, urllib.error
 
 fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
 for line in fhand:
-    print(line.strip())
+    print(line.decode().strip())
 
 # Code: http://www.pythonlearn.com/code3/urllib1.py
 -->
@@ -251,7 +251,7 @@ import urllib.request, urllib.parse, urllib.error
 counts = dict()
 fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
 for line in fhand:
-    words = line.split()
+    words = line.decode().split()
     for word in words:
         counts[word] = counts.get(word,0) + 1
 print(counts)
@@ -291,7 +291,7 @@ url = input('Enter - ')
 html = urllib.request.urlopen(url).read()
 links = re.findall(b'href="(http://.*?)"', html)
 for link in links:
-    print(link)
+    print(link.decode())
 
 # Code: http://www.pythonlearn.com/code3/urlregex.py
 -->
