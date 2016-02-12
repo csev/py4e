@@ -79,8 +79,18 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Mapping
 cur.execute('''CREATE TABLE IF NOT EXISTS DNSMapping 
     (old TEXT, new TEXT)''')
 
+cur.execute('SELECT max(id) FROM Messages')
+try:
+    row = cur.fetchone()
+except:
+    row = None
 start = 0
+if row is not None : start = row[0]
+
 many = 0
+
+# Skip up to five messages
+skip = 5
 while True:
     if ( many < 1 ) :
         sval = raw_input('How many messages:')
@@ -115,9 +125,13 @@ while True:
     print url,len(text)
 
     if not text.startswith("From "):
-        print text
-        print "End of mail stream reached..."
-        quit ()
+        if skip < 1 :
+            print text
+            print "End of mail stream reached..."
+            quit ()
+        print "    Skipping badly formed message"
+        skip = skip-1
+        continue
 
     pos = text.find("\n\n")
     if pos > 0 : 
@@ -127,6 +141,8 @@ while True:
         print text
         print "Could not find break between headers and body"
         break
+
+    skip = 5 # reset skip count
 
     email = None
     x = re.findall('\nFrom: .* <(\S+@\S+)>\n', hdr)
@@ -160,8 +176,11 @@ while True:
     print "   ",email,sent_at,subject
     cur.execute('''INSERT OR IGNORE INTO Messages (id, email, sent_at, subject, headers, body) 
         VALUES ( ?, ?, ?, ?, ?, ? )''', ( start, email, sent_at, subject, hdr, body))
-    conn.commit()
+
+    # Only commit every 50th record
+    if (many % 50) == 0 : conn.commit() 
     time.sleep(1)
 
+conn.commit()
 cur.close()
 

@@ -14,6 +14,7 @@ To produce the PDF of the book, you will need to install LaTeX on your
 system.  For Linux:
 
     apt-get install texlive-full
+    apt-get install pandoc
 
 For Macintosh,
 
