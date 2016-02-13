@@ -281,16 +281,18 @@ word on every line of the input file.
 
 When we run the program, we see a raw dump of all of the counts in
 unsorted hash order. (the `romeo.txt` file is available at
-[www.pythonlearn.com/code3/romeo.txt](www.pythonlearn.com/code3/romeo.txt))
+[www.pythonlearn.com/code3/romeo.txt](http://www.pythonlearn.com/code3/romeo.txt))
 
-    python count1.py
-    Enter the file name: romeo.txt
-    {'and': 3, 'envious': 1, 'already': 1, 'fair': 1,
-    'is': 3, 'through': 1, 'pale': 1, 'yonder': 1,
-    'what': 1, 'sun': 2, 'Who': 1, 'But': 1, 'moon': 1,
-    'window': 1, 'sick': 1, 'east': 1, 'breaks': 1,
-    'grief': 1, 'with': 1, 'light': 1, 'It': 1, 'Arise': 1,
-    'kill': 1, 'the': 3, 'soft': 1, 'Juliet': 1}
+~~~~
+python count1.py
+Enter the file name: romeo.txt
+{'and': 3, 'envious': 1, 'already': 1, 'fair': 1,
+'is': 3, 'through': 1, 'pale': 1, 'yonder': 1,
+'what': 1, 'sun': 2, 'Who': 1, 'But': 1, 'moon': 1,
+'window': 1, 'sick': 1, 'east': 1, 'breaks': 1,
+'grief': 1, 'with': 1, 'light': 1, 'It': 1, 'Arise': 1,
+'kill': 1, 'the': 3, 'soft': 1, 'Juliet': 1}
+~~~~
 
 It is a bit inconvenient to look through the dictionary to find the most
 common words and their counts, so we need to add some more Python code
@@ -307,15 +309,19 @@ If you use a dictionary as the sequence in a `for` statement,
 it traverses the keys of the dictionary. This loop prints each key and
 the corresponding value:
 
-    counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
-    for key in counts:
-        print(key, counts[key])
+~~~~ {.python}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+for key in counts:
+    print(key, counts[key])
+~~~~
 
 Here's what the output looks like:
 
-    jan 100
-    chuck 1
-    annie 42
+~~~~
+jan 100
+chuck 1
+annie 42
+~~~~
 
 Again, the keys are in no particular order.
 
@@ -326,18 +332,22 @@ have described earlier. For example if we wanted to find all the entries
 in a dictionary with a value above ten, we could write the following
 code:
 
-    counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
-    for key in counts:
-        if counts[key] > 10 :
-            print(key, counts[key])
+~~~~ {.python}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+for key in counts:
+    if counts[key] > 10 :
+        print(key, counts[key])
+~~~~
 
 The `for` loop iterates through the *keys* of
 the dictionary, so we must use the index operator to retrieve the
 corresponding *value* for each key. Here's what the output
 looks like:
 
-    jan 100
-    annie 42
+~~~~
+jan 100
+annie 42
+~~~~
 
 We see only the entries with a value above 10.
 
@@ -350,19 +360,23 @@ available in dictionary objects, and then sort that list and loop
 through the sorted list, looking up each key and printing out key-value
 pairs in sorted order as follows:
 
-    counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
-    lst = list(counts.keys())
-    print(lst)
-    lst.sort()
-    for key in lst:
-        print(key, counts[key])
+~~~~ {.python}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+lst = list(counts.keys())
+print(lst)
+lst.sort()
+for key in lst:
+    print(key, counts[key])
+~~~~
 
 Here's what the output looks like:
 
-    ['jan', 'chuck', 'annie']
-    annie 42
-    chuck 1
-    jan 100
+~~~~
+['jan', 'chuck', 'annie']
+annie 42
+chuck 1
+jan 100
+~~~~
 
 First you see the list of keys in unsorted order that we get from the
 `keys` method. Then we see the key-value pairs in order from
@@ -377,10 +391,12 @@ In the above example using the file `romeo.txt`, we made the
 file as simple as possible by removing all punctuation by hand. The
 actual text has lots of punctuation, as shown below.
 
-    But, soft! what light through yonder window breaks?
-    It is the east, and Juliet is the sun.
-    Arise, fair sun, and kill the envious moon,
-    Who is already sick and pale with grief,
+~~~~
+But, soft! what light through yonder window breaks?
+It is the east, and Juliet is the sun.
+Arise, fair sun, and kill the envious moon,
+Who is already sick and pale with grief,
+~~~~
 
 Since the Python `split` function looks for spaces and treats
 words as tokens separated by spaces, we would treat the words "soft!"
@@ -408,9 +424,11 @@ We will not specify the `table` but we will use the
 will even let Python tell us the list of characters that it considers
 "punctuation":
 
-    >>> import string
-    >>> string.punctuation
-    '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+~~~~ {.python trinket}
+>>> import string
+>>> string.punctuation
+'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+~~~~
 
 We make the following modifications to our program:
 
@@ -425,7 +443,9 @@ is unchanged. Note that for Python 2.5 and earlier,
 `translate` does not accept `None` as the first
 parameter so use this code instead for the translate call:
 
-    print a.translate(string.maketrans(' ',' '), string.punctuation
+~~~~ {.python}
+print a.translate(string.maketrans(' ',' '), string.punctuation
+~~~~
 
 Part of learning the "Art of Python" or "Thinking Pythonically" is
 realizing that Python often has built-in capabilities for many common
@@ -435,12 +455,14 @@ has already written something that makes your job much easier.
 
 The following is an abbreviated version of the output:
 
-    Enter the file name: romeo-full.txt
-    {'swearst': 1, 'all': 6, 'afeard': 1, 'leave': 2, 'these': 2,
-    'kinsmen': 2, 'what': 11, 'thinkst': 1, 'love': 24, 'cloak': 1,
-    a': 24, 'orchard': 2, 'light': 5, 'lovers': 2, 'romeo': 40,
-    'maiden': 1, 'whiteupturned': 1, 'juliet': 32, 'gentleman': 1,
-    'it': 22, 'leans': 1, 'canst': 1, 'having': 1, ...}
+~~~~
+Enter the file name: romeo-full.txt
+{'swearst': 1, 'all': 6, 'afeard': 1, 'leave': 2, 'these': 2,
+'kinsmen': 2, 'what': 11, 'thinkst': 1, 'love': 24, 'cloak': 1,
+a': 24, 'orchard': 2, 'light': 5, 'lovers': 2, 'romeo': 40,
+'maiden': 1, 'whiteupturned': 1, 'juliet': 32, 'gentleman': 1,
+'it': 22, 'leans': 1, 'canst': 1, 'having': 1, ...}
+~~~~
 
 Looking through this output is still unwieldy and we can use Python to
 give us exactly what we are looking for, but to do so, we need to learn
@@ -552,33 +574,41 @@ value
 Exercises
 ---------
 
-Exercise 2: Write a program that categorizes each mail message by which
+**Exercise 2:** Write a program that categorizes each mail message by which
 day of the week the commit was done. To do this look for lines that
 start with "From", then look for the third word and keep a running count
 of each of the days of the week. At the end of the program print out the
 contents of your dictionary (order does not matter).
 
-    Sample Line:
+Sample Line:
+
+~~~~
     From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+~~~~
 
-    Sample Execution:
-    python dow.py
-    Enter a file name: mbox-short.txt
-    {'Fri': 20, 'Thu': 6, 'Sat': 1}
+Sample Execution:
 
-Exercise 3: Write a program to read through a mail log, build a
+~~~~
+python dow.py
+Enter a file name: mbox-short.txt
+{'Fri': 20, 'Thu': 6, 'Sat': 1}
+~~~~
+
+**Exercise 3:** Write a program to read through a mail log, build a
 histogram using a dictionary to count how many messages have come from
 each email address, and print the dictionary.
 
-    Enter file name: mbox-short.txt
-    {'gopal.ramasammycook@gmail.com': 1, 'louis@media.berkeley.edu': 3,
-    'cwen@iupui.edu': 5, 'antranig@caret.cam.ac.uk': 1,
-    'rjlowe@iupui.edu': 2, 'gsilver@umich.edu': 3,
-    'david.horwitz@uct.ac.za': 4, 'wagnermr@iupui.edu': 1,
-    'zqian@umich.edu': 4, 'stephen.marquard@uct.ac.za': 2,
-    'ray@media.berkeley.edu': 1}
+~~~~
+Enter file name: mbox-short.txt
+{'gopal.ramasammycook@gmail.com': 1, 'louis@media.berkeley.edu': 3,
+'cwen@iupui.edu': 5, 'antranig@caret.cam.ac.uk': 1,
+'rjlowe@iupui.edu': 2, 'gsilver@umich.edu': 3,
+'david.horwitz@uct.ac.za': 4, 'wagnermr@iupui.edu': 1,
+'zqian@umich.edu': 4, 'stephen.marquard@uct.ac.za': 2,
+'ray@media.berkeley.edu': 1}
+~~~~
 
-Exercise 4: Add code to the above program to figure out who has the most
+**Exercise 4:** Add code to the above program to figure out who has the most
 messages in the file.
 
 After all the data has been read and the dictionary has been created,
@@ -586,18 +616,22 @@ look through the dictionary using a maximum loop (see
 Section [maximumloop]) to find who has the most messages and print how
 many messages the person has.
 
-    Enter a file name: mbox-short.txt
-    cwen@iupui.edu 5
+~~~~
+Enter a file name: mbox-short.txt
+cwen@iupui.edu 5
 
-    Enter a file name: mbox.txt
-    zqian@umich.edu 195
+Enter a file name: mbox.txt
+zqian@umich.edu 195
+~~~~
 
-Exercise 5: This program records the domain name (instead of the
+**Exercise 5:** This program records the domain name (instead of the
 address) where the message was sent from instead of who the mail came
 from (i.e., the whole email address). At the end of the program, print
 out the contents of your dictionary.
-    python schoolcount.py
-    Enter a file name: mbox-short.txt
-    {'media.berkeley.edu': 4, 'uct.ac.za': 6, 'umich.edu': 7,
-    'gmail.com': 1, 'caret.cam.ac.uk': 1, 'iupui.edu': 8}
 
+~~~~
+python schoolcount.py
+Enter a file name: mbox-short.txt
+{'media.berkeley.edu': 4, 'uct.ac.za': 6, 'umich.edu': 7,
+'gmail.com': 1, 'caret.cam.ac.uk': 1, 'iupui.edu': 8}
+~~~~

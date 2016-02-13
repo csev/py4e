@@ -139,11 +139,13 @@ anything that looks like an email address from any line regardless of
 format. For example, we want to pull the email addresses from each of
 the following lines:
 
-    From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
-    Return-Path: <postmaster@collab.sakaiproject.org>
-              for <source@collab.sakaiproject.org>;
-    Received: (from apache@localhost)
-    Author: stephen.marquard@uct.ac.za
+~~~~
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+Return-Path: <postmaster@collab.sakaiproject.org>
+          for <source@collab.sakaiproject.org>;
+Received: (from apache@localhost)
+Author: stephen.marquard@uct.ac.za
+~~~~
 
 We don't want to write code for each of the types of lines, splitting
 and slicing differently for each line. This following program uses
@@ -165,7 +167,9 @@ non-whitespace character (`\\`S).
 
 The output of the program would be:
 
-    ['csev@umich.edu', 'cwen@iupui.edu']
+~~~~
+['csev@umich.edu', 'cwen@iupui.edu']
+~~~~
 
 Translating the regular expression, we are looking for substrings that
 have at least one non-whitespace character, followed by an at-sign,
@@ -193,15 +197,17 @@ looks like an email address.
 If we run the program on `mbox.txt` we get the following
 output:
 
-    ['wagnermr@iupui.edu']
-    ['cwen@iupui.edu']
-    ['<postmaster@collab.sakaiproject.org>']
-    ['<200801032122.m03LMFo4005148@nakamura.uits.iupui.edu>']
-    ['<source@collab.sakaiproject.org>;']
-    ['<source@collab.sakaiproject.org>;']
-    ['<source@collab.sakaiproject.org>;']
-    ['apache@localhost)']
-    ['source@collab.sakaiproject.org;']
+~~~~
+['wagnermr@iupui.edu']
+['cwen@iupui.edu']
+['<postmaster@collab.sakaiproject.org>']
+['<200801032122.m03LMFo4005148@nakamura.uits.iupui.edu>']
+['<source@collab.sakaiproject.org>;']
+['<source@collab.sakaiproject.org>;']
+['<source@collab.sakaiproject.org>;']
+['apache@localhost)']
+['source@collab.sakaiproject.org;']
+~~~~
 
 Some of our email addresses have incorrect characters like "`<`" or ";"
 at the beginning or end. Let's declare that we are only interested in
@@ -216,7 +222,9 @@ little more explicit in terms of the characters we will match.
 
 Here is our new regular expression:
 
-    [a-zA-Z0-9]\S*@\S*[a-zA-Z]
+~~~~
+[a-zA-Z0-9]\S*@\S*[a-zA-Z]
+~~~~
 
 This is getting a little complicated and you can begin to see why
 regular expressions are their own little language unto themselves.
@@ -239,15 +247,17 @@ If we use this expression in our program, our data is much cleaner:
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-    ...
-    ['wagnermr@iupui.edu']
-    ['cwen@iupui.edu']
-    ['postmaster@collab.sakaiproject.org']
-    ['200801032122.m03LMFo4005148@nakamura.uits.iupui.edu']
-    ['source@collab.sakaiproject.org']
-    ['source@collab.sakaiproject.org']
-    ['source@collab.sakaiproject.org']
-    ['apache@localhost']
+~~~~
+...
+['wagnermr@iupui.edu']
+['cwen@iupui.edu']
+['postmaster@collab.sakaiproject.org']
+['200801032122.m03LMFo4005148@nakamura.uits.iupui.edu']
+['source@collab.sakaiproject.org']
+['source@collab.sakaiproject.org']
+['source@collab.sakaiproject.org']
+['apache@localhost']
+~~~~
 
 Notice that on the "source@collab.sakaiproject.org" lines, our regular
 expression eliminated two letters at the end of the string ("`>`;").
@@ -266,15 +276,19 @@ Combining searching and extracting
 If we want to find numbers on lines that start with the string "X-" such
 as:
 
-    X-DSPAM-Confidence: 0.8475
-    X-DSPAM-Probability: 0.0000
+~~~~
+X-DSPAM-Confidence: 0.8475
+X-DSPAM-Probability: 0.0000
+~~~~
 
 we don't just want any floating-point numbers from any lines. We only
 want to extract numbers from lines that have the above syntax.
 
 We can construct the following regular expression to select the lines:
 
-    ^X-.*: [0-9.]+
+~~~~
+^X-.*: [0-9.]+
+~~~~
 
 Translating this, we are saying, we want lines that start with "X-",
 followed by zero or more characters (".\*"), followed by a colon (":")
@@ -294,10 +308,12 @@ lines we are interested in as follows:
 When we run the program, we see the data nicely filtered to show only
 the lines we are looking for.
 
-    X-DSPAM-Confidence: 0.8475
-    X-DSPAM-Probability: 0.0000
-    X-DSPAM-Confidence: 0.6178
-    X-DSPAM-Probability: 0.0000
+~~~~
+X-DSPAM-Confidence: 0.8475
+X-DSPAM-Probability: 0.0000
+X-DSPAM-Confidence: 0.6178
+X-DSPAM-Probability: 0.0000
+~~~~
 
 But now we have to solve the problem of extracting the numbers. While it
 would be simple enough to use `split`, we can use another
@@ -330,13 +346,15 @@ floating-point number portion of the matching string.
 
 The output from this program is as follows:
 
-    ['0.8475']
-    ['0.0000']
-    ['0.6178']
-    ['0.0000']
-    ['0.6961']
-    ['0.0000']
-    ..
+~~~~
+['0.8475']
+['0.0000']
+['0.6178']
+['0.0000']
+['0.6961']
+['0.0000']
+..
+~~~~
 
 The numbers are still in a list and need to be converted from strings to
 floating point, but we have used the power of regular expressions to
@@ -364,11 +382,13 @@ number at the end of the line, so we surround "[0-9]+" with parentheses.
 
 When we run the program, we get the following output:
 
-    ['39772']
-    ['39771']
-    ['39770']
-    ['39769']
-    ...
+~~~~
+['39772']
+['39771']
+['39770']
+['39769']
+...
+~~~~
 
 Remember that the "[0-9]+" is "greedy" and it tries to make as large a
 string of digits as possible before extracting those digits. This
@@ -380,7 +400,9 @@ Now we can use regular expressions to redo an exercise from earlier in
 the book where we were interested in the time of day of each mail
 message. We looked for lines of the form:
 
-    From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+~~~~
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+~~~~
 
 and wanted to extract the hour of the day for each line. Previously we
 did this with two calls to `split`. First the line was split
@@ -397,7 +419,9 @@ balloon to 10-15 lines of code that was pretty hard to read.
 We can do this in a far simpler way with the following regular
 expression:
 
-    ^From .* [0-9][0-9]:
+~~~~
+^From .* [0-9][0-9]:
+~~~~
 
 The translation of this regular expression is that we are looking for
 lines that start with "From " (note the space), followed by any number
@@ -408,7 +432,9 @@ the kinds of lines we are looking for.
 In order to pull out only the hour using `findall()`, we add
 parentheses around the two digits as follows:
 
-    ^From .* ([0-9][0-9]):
+~~~~
+^From .* ([0-9][0-9]):
+~~~~
 
 This results in the following program:
 
@@ -419,11 +445,13 @@ This results in the following program:
 
 When the program runs, it produces the following output:
 
-    ['09']
-    ['18']
-    ['16']
-    ['15']
-    ...
+~~~~
+['09']
+['18']
+['16']
+['15']
+...
+~~~~
 
 Escape character
 ----------------
@@ -437,9 +465,11 @@ We can indicate that we want to simply match a character by prefixing
 that character with a backslash. For example, we can find money amounts
 with the following regular expression.
 
-    import re
-    x = 'We just received $10.00 for cookies.'
-    y = re.findall('\$[0-9.]+',x)
+~~~~ {.python}
+import re
+x = 'We just received $10.00 for cookies.'
+y = re.findall('\$[0-9.]+',x)
+~~~~
 
 Since we prefix the dollar sign with a backslash, it actually matches
 the dollar sign in the input string instead of matching the "end of
@@ -526,11 +556,13 @@ that does pretty much the same as the `search()` examples in
 this chapter. So if you have a Macintosh or Linux system, you can try
 the following commands in your command-line window.
 
-    $ grep '^From:' mbox-short.txt
-    From: stephen.marquard@uct.ac.za
-    From: louis@media.berkeley.edu
-    From: zqian@umich.edu
-    From: rjlowe@iupui.edu
+~~~~ {.shell}
+$ grep '^From:' mbox-short.txt
+From: stephen.marquard@uct.ac.za
+From: louis@media.berkeley.edu
+From: zqian@umich.edu
+From: rjlowe@iupui.edu
+~~~~
 
 This tells `grep` to show you lines that start with the
 string "From:" in the file `mbox-short.txt`. If you
@@ -553,43 +585,49 @@ viewed in the Python interpreter in interactive mode.
 
 You can bring up an interactive help system using `help()`.
 
-    >>> help()
+~~~~
+>>> help()
 
-    Welcome to Python 2.6!  This is the online help utility.
+Welcome to Python 2.6!  This is the online help utility.
 
-    If this is your first time using Python, you should definitely check out
-    the tutorial on the Internet at http://docs.python.org/tutorial/.
+If this is your first time using Python, you should definitely check out
+the tutorial on the Internet at http://docs.python.org/tutorial/.
 
-    Enter the name of any module, keyword, or topic to get help on writing
-    Python programs and using Python modules.  To quit this help utility and
-    return to the interpreter, just type "quit".
+Enter the name of any module, keyword, or topic to get help on writing
+Python programs and using Python modules.  To quit this help utility and
+return to the interpreter, just type "quit".
 
-    To get a list of available modules, keywords, or topics, type "modules",
-    "keywords", or "topics".  Each module also comes with a one-line summary
-    of what it does; to list the modules whose summaries contain a given word
-    such as "spam", type "modules spam".
+To get a list of available modules, keywords, or topics, type "modules",
+"keywords", or "topics".  Each module also comes with a one-line summary
+of what it does; to list the modules whose summaries contain a given word
+such as "spam", type "modules spam".
 
-    help> modules
+help> modules
+~~~~
 
 If you know what module you want to use, you can use the
 `dir()` command to find the methods in the module as follows:
 
-    >>> import re
-    >>> dir(re)
-    [.. 'compile', 'copy_reg', 'error', 'escape', 'findall',
-    'finditer', 'match', 'purge', 'search', 'split', 'sre_compile',
-    'sre_parse', 'sub', 'subn', 'sys', 'template']
+~~~~ {.python .trinket}
+>>> import re
+>>> dir(re)
+[.. 'compile', 'copy_reg', 'error', 'escape', 'findall',
+'finditer', 'match', 'purge', 'search', 'split', 'sre_compile',
+'sre_parse', 'sub', 'subn', 'sys', 'template']
+~~~~
 
 You can also get a small amount of documentation on a particular method
 using the dir command.
 
-    >>> help (re.search)
-    Help on function search in module re:
+~~~~ {.python .trinket}
+>>> help (re.search)
+Help on function search in module re:
 
-    search(pattern, string, flags=0)
-        Scan through string looking for a match to the pattern, returning
-        a match object, or None if no match was found.
-    >>>
+search(pattern, string, flags=0)
+    Scan through string looking for a match to the pattern, returning
+    a match object, or None if no match was found.
+>>>
+~~~~
 
 The built-in documentation is not very extensive, but it can be helpful
 when you are in a hurry or don't have access to a web browser or search
@@ -629,34 +667,39 @@ wild card
 Exercises
 ---------
 
-Exercise 1: Write a simple program to simulate the operation of the
+**Exercise 1:** Write a simple program to simulate the operation of the
 `grep` command on Unix. Ask the user to enter a regular
 expression and count the number of lines that matched the regular
 expression:
 
-    $ python grep.py
-    Enter a regular expression: ^Author
-    mbox.txt had 1798 lines that matched ^Author
+~~~~
+$ python grep.py
+Enter a regular expression: ^Author
+mbox.txt had 1798 lines that matched ^Author
 
-    $ python grep.py
-    Enter a regular expression: ^X-
-    mbox.txt had 14368 lines that matched ^X-
+$ python grep.py
+Enter a regular expression: ^X-
+mbox.txt had 14368 lines that matched ^X-
 
-    $ python grep.py
-    Enter a regular expression: java$
-    mbox.txt had 4218 lines that matched java$
+$ python grep.py
+Enter a regular expression: java$
+mbox.txt had 4218 lines that matched java$
+~~~~
 
-Exercise 2: Write a program to look for lines of the form
+**Exercise 2:** Write a program to look for lines of the form
 
+~~~~
 `New Revision: 39772`
+~~~~
 
 and extract the number from each of the lines using a regular expression
 and the `findall()` method. Compute the average of the
 numbers and print out the average.
 
-    Enter file:mbox.txt
-    38549.7949721
+~~~~
+Enter file:mbox.txt
+38549.7949721
 
-    Enter file:mbox-short.txt
-    39756.9259259
-
+Enter file:mbox-short.txt
+39756.9259259
+~~~~

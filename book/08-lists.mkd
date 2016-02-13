@@ -20,15 +20,19 @@ values in list are called *elements* or sometimes
 There are several ways to create a new list; the simplest is to enclose
 the elements in square brackets (`[` and `]`):
 
-    [10, 20, 30, 40]
-    ['crunchy frog', 'ram bladder', 'lark vomit']
+~~~~ {.python}
+[10, 20, 30, 40]
+['crunchy frog', 'ram bladder', 'lark vomit']
+~~~~ {.python}
 
 The first example is a list of four integers. The second is a list of
 three strings. The elements of a list don't have to be the same type.
 The following list contains a string, a float, an integer, and (lo!)
 another list:
 
-    ['spam', 2.0, 5, [10, 20]]
+~~~~ {.python}
+['spam', 2.0, 5, [10, 20]]
+~~~~ 
 
 A list within another list is *nested*.
 
@@ -43,11 +47,13 @@ one with empty brackets, `[]`.
 
 As you might expect, you can assign list values to variables:
 
-    >>> cheeses = ['Cheddar', 'Edam', 'Gouda']
-    >>> numbers = [17, 123]
-    >>> empty = []
-    >>> print(cheeses, numbers, empty)
-    ['Cheddar', 'Edam', 'Gouda'] [17, 123] []
+~~~~ {.python .trinket}
+>>> cheeses = ['Cheddar', 'Edam', 'Gouda']
+>>> numbers = [17, 123]
+>>> empty = []
+>>> print(cheeses, numbers, empty)
+['Cheddar', 'Edam', 'Gouda'] [17, 123] []
+~~~~
 
 \index{assignment}
 
@@ -66,8 +72,10 @@ accessing the characters of a string—the bracket operator. The
 expression inside the brackets specifies the index. Remember that the
 indices start at 0:
 
-    >>> print(cheeses[0])
-    Cheddar
+~~~~ {.python}
+>>> print(cheeses[0])
+Cheddar
+~~~~
 
 Unlike strings, lists are mutable because you can change the order of
 items in a list or reassign an item in a list. When the bracket operator
@@ -76,10 +84,12 @@ the list that will be assigned.
 
 \index{mutability}
 
-    >>> numbers = [17, 123]
-    >>> numbers[1] = 5
-    >>> print(numbers)
-    [17, 5]
+~~~~ {.python .trinket}
+>>> numbers = [17, 123]
+>>> numbers[1] = 5
+>>> print(numbers)
+[17, 5]
+~~~~
 
 The one-eth element of `numbers`, which used to be 123, is
 now 5.
@@ -115,11 +125,13 @@ List indices work the same way as string indices:
 
 The `in` operator also works on lists.
 
-    >>> cheeses = ['Cheddar', 'Edam', 'Gouda']
-    >>> 'Edam' in cheeses
-    True
-    >>> 'Brie' in cheeses
-    False
+~~~~ {.python .trinket}
+>>> cheeses = ['Cheddar', 'Edam', 'Gouda']
+>>> 'Edam' in cheeses
+True
+>>> 'Brie' in cheeses
+False
+~~~~
 
 Traversing a list
 -----------------
@@ -133,8 +145,10 @@ Traversing a list
 The most common way to traverse the elements of a list is with a
 `for` loop. The syntax is the same as for strings:
 
-    for cheese in cheeses:
-        print(cheese)
+~~~~ {.python}
+for cheese in cheeses:
+    print(cheese)
+~~~~
 
 This works well if you only need to read the elements of the list. But
 if you want to write or update the elements, you need the indices. A
@@ -144,8 +158,10 @@ common way to do that is to combine the functions `range` and
 \index{looping!with indices}
 \index{index!looping with}
 
-    for i in range(len(numbers)):
-        numbers[i] = numbers[i] * 2
+~~~~ {.python}
+for i in range(len(numbers)):
+    numbers[i] = numbers[i] * 2
+~~~~
 
 This loop traverses the list and updates each element. `len`
 returns the number of elements in the list. `range` returns a
@@ -159,8 +175,10 @@ read the old value of the element and to assign the new value.
 
 A `for` loop over an empty list never executes the body:
 
-    for x in empty:
-        print('This never happens.')
+~~~~ {.python}
+for x in empty:
+    print('This never happens.')
+~~~~
 
 Although a list can contain another list, the nested list still counts
 as a single element. The length of this list is four:
@@ -168,7 +186,9 @@ as a single element. The length of this list is four:
 \index{nested list}
 \index{list!nested}
 
-    ['spam', 1, ['Brie', 'Roquefort', 'Pol le Veq'], [1, 2, 3]]
+~~~~ {.python}
+['spam', 1, ['Brie', 'Roquefort', 'Pol le Veq'], [1, 2, 3]]
+~~~~
 
 List operations
 ---------------
@@ -180,21 +200,25 @@ The `+` operator concatenates lists:
 \index{concatenation!list}
 \index{list!concatenation}
 
-    >>> a = [1, 2, 3]
-    >>> b = [4, 5, 6]
-    >>> c = a + b
-    >>> print(c)
-    [1, 2, 3, 4, 5, 6]
+~~~~ {.python .trinket}
+>>> a = [1, 2, 3]
+>>> b = [4, 5, 6]
+>>> c = a + b
+>>> print(c)
+[1, 2, 3, 4, 5, 6]
+~~~~
 
 Similarly, the operator repeats a list a given number of times:
 
 \index{repetition!list}
 \index{list!repetition}
 
-    >>> [0] * 4
-    [0, 0, 0, 0]
-    >>> [1, 2, 3] * 3
-    [1, 2, 3, 1, 2, 3, 1, 2, 3]
+~~~~ {.python .trinket}
+>>> [0] * 4
+[0, 0, 0, 0]
+>>> [1, 2, 3] * 3
+[1, 2, 3, 1, 2, 3, 1, 2, 3]
+~~~~
 
 The first example repeats four times. The second example repeats the
 list three times.
@@ -210,13 +234,15 @@ List slices
 
 The slice operator also works on lists:
 
-    >>> t = ['a', 'b', 'c', 'd', 'e', 'f']
-    >>> t[1:3]
-    ['b', 'c']
-    >>> t[:4]
-    ['a', 'b', 'c', 'd']
-    >>> t[3:]
-    ['d', 'e', 'f']
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c', 'd', 'e', 'f']
+>>> t[1:3]
+['b', 'c']
+>>> t[:4]
+['a', 'b', 'c', 'd']
+>>> t[3:]
+['d', 'e', 'f']
+~~~~
 
 If you omit the first index, the slice starts at the beginning. If you
 omit the second, the slice goes to the end. So if you omit both, the
@@ -226,8 +252,10 @@ slice is a copy of the whole list.
 \index{slice!copy}
 \index{copy!slice}
 
-    >>> t[:]
-    ['a', 'b', 'c', 'd', 'e', 'f']
+~~~~ {.python}
+>>> t[:]
+['a', 'b', 'c', 'd', 'e', 'f']
+~~~~
 
 Since lists are mutable, it is often useful to make a copy before
 performing operations that fold, spindle, or mutilate lists.
@@ -240,10 +268,12 @@ elements:
 \index{slice!update}
 \index{update!slice}
 
-    >>> t = ['a', 'b', 'c', 'd', 'e', 'f']
-    >>> t[1:3] = ['x', 'y']
-    >>> print(t)
-    ['a', 'x', 'y', 'd', 'e', 'f']
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c', 'd', 'e', 'f']
+>>> t[1:3] = ['x', 'y']
+>>> print(t)
+['a', 'x', 'y', 'd', 'e', 'f']
+~~~~
 
 List methods
 ------------
@@ -257,10 +287,12 @@ Python provides methods that operate on lists. For example,
 \index{append method}
 \index{method!append}
 
-    >>> t = ['a', 'b', 'c']
-    >>> t.append('d')
-    >>> print(t)
-    ['a', 'b', 'c', 'd']
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c']
+>>> t.append('d')
+>>> print(t)
+['a', 'b', 'c', 'd']
+~~~~
 
 `extend` takes a list as an argument and appends all of the
 elements:
@@ -268,11 +300,13 @@ elements:
 \index{extend method}
 \index{method!extend}
 
-    >>> t1 = ['a', 'b', 'c']
-    >>> t2 = ['d', 'e']
-    >>> t1.extend(t2)
-    >>> print(t1)
-    ['a', 'b', 'c', 'd', 'e']
+~~~~ {.python .trinket}
+>>> t1 = ['a', 'b', 'c']
+>>> t2 = ['d', 'e']
+>>> t1.extend(t2)
+>>> print(t1)
+['a', 'b', 'c', 'd', 'e']
+~~~~
 
 This example leaves `t2` unmodified.
 
@@ -281,10 +315,12 @@ This example leaves `t2` unmodified.
 \index{sort method}
 \index{method!sort}
 
-    >>> t = ['d', 'c', 'e', 'b', 'a']
-    >>> t.sort()
-    >>> print(t)
-    ['a', 'b', 'c', 'd', 'e']
+~~~~ {.python .trinket}
+>>> t = ['d', 'c', 'e', 'b', 'a']
+>>> t.sort()
+>>> print(t)
+['a', 'b', 'c', 'd', 'e']
+~~~~
 
 Most list methods are void; they modify the list and return
 `None`. If you accidentally write `t = t.sort()`,
@@ -307,12 +343,14 @@ index of the element you want, you can use `pop`:
 \index{pop method}
 \index{method!pop}
 
-    >>> t = ['a', 'b', 'c']
-    >>> x = t.pop(1)
-    >>> print(t)
-    ['a', 'c']
-    >>> print(x)
-    b
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c']
+>>> x = t.pop(1)
+>>> print(t)
+['a', 'c']
+>>> print(x)
+b
+~~~~
 
 `pop` modifies the list and returns the element that was
 removed. If you don't provide an index, it deletes and returns the last
@@ -324,10 +362,12 @@ operator:
 \index{del operator}
 \index{operator!del}
 
-    >>> t = ['a', 'b', 'c']
-    >>> del t[1]
-    >>> print(t)
-    ['a', 'c']
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c']
+>>> del t[1]
+>>> print(t)
+['a', 'c']
+~~~~
 
 If you know the element you want to remove (but not the index), you can
 use `remove`:
@@ -335,10 +375,12 @@ use `remove`:
 \index{remove method}
 \index{method!remove}
 
-    >>> t = ['a', 'b', 'c']
-    >>> t.remove('b')
-    >>> print(t)
-    ['a', 'c']
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c']
+>>> t.remove('b')
+>>> print(t)
+['a', 'c']
+~~~~
 
 The return value from `remove` is `None`.
 
@@ -348,10 +390,12 @@ The return value from `remove` is `None`.
 To remove more than one element, you can use `del` with a
 slice index:
 
-    >>> t = ['a', 'b', 'c', 'd', 'e', 'f']
-    >>> del t[1:5]
-    >>> print(t)
-    ['a', 'f']
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c', 'd', 'e', 'f']
+>>> del t[1:5]
+>>> print(t)
+['a', 'f']
+~~~~
 
 As usual, the slice selects all the elements up to, but not including,
 the second index.
@@ -362,17 +406,19 @@ Lists and functions
 There are a number of built-in functions that can be used on lists that
 allow you to quickly look through a list without writing your own loops:
 
-    >>> nums = [3, 41, 12, 9, 74, 15]
-    >>> print(len(nums))
-    6
-    >>> print(max(nums))
-    74
-    >>> print(min(nums))
-    3
-    >>> print(sum(nums))
-    154
-    >>> print(sum(nums)/len(nums))
-    25
+~~~~ {.python .trinket}
+>>> nums = [3, 41, 12, 9, 74, 15]
+>>> print(len(nums))
+6
+>>> print(max(nums))
+74
+>>> print(min(nums))
+3
+>>> print(sum(nums))
+154
+>>> print(sum(nums)/len(nums))
+25
+~~~~
 
 The `sum()` function only works when the list elements are
 numbers. The other functions (`max()`, `len()`,
@@ -413,10 +459,12 @@ string to a list of characters, you can use `list`:
 \index{list!function}
 \index{function!list}
 
-    >>> s = 'spam'
-    >>> t = list(s)
-    >>> print(t)
-    ['s', 'p', 'a', 'm']
+~~~~ {.python .trinket}
+>>> s = 'spam'
+>>> t = list(s)
+>>> print(t)
+['s', 'p', 'a', 'm']
+~~~~
 
 Because `list` is the name of a built-in function, you should
 avoid using it as a variable name. I also avoid the letter
@@ -430,12 +478,14 @@ If you want to break a string into words, you can use the
 \index{split method}
 \index{method!split}
 
-    >>> s = 'pining for the fjords'
-    >>> t = s.split()
-    >>> print(t)
-    ['pining', 'for', 'the', 'fjords']
-    >>> print(t[2])
-    the
+~~~~ {.python .trinket}
+>>> s = 'pining for the fjords'
+>>> t = s.split()
+>>> print(t)
+['pining', 'for', 'the', 'fjords']
+>>> print(t[2])
+the
+~~~~
 
 Once you have used `split` to break the string into a list of
 words, you can use the index operator (square bracket) to look at a
@@ -449,10 +499,12 @@ word boundaries. The following example uses a hyphen as a delimiter:
 \index{argument!optional}
 \index{delimiter}
 
-    >>> s = 'spam-spam-spam'
-    >>> delimiter = '-'
-    >>> s.split(delimiter)
-    ['spam', 'spam', 'spam']
+~~~~ {.python .trinket}
+>>> s = 'spam-spam-spam'
+>>> delimiter = '-'
+>>> s.split(delimiter)
+['spam', 'spam', 'spam']
+~~~~
 
 `join` is the inverse of `split`. It takes a list
 of strings and concatenates the elements. `join` is a string
@@ -463,10 +515,12 @@ parameter:
 \index{method!join}
 \index{concatenation}
 
-    >>> t = ['pining', 'for', 'the', 'fjords']
-    >>> delimiter = ' '
-    >>> delimiter.join(t)
-    'pining for the fjords'
+~~~~ {.python .trinket}
+>>> t = ['pining', 'for', 'the', 'fjords']
+>>> delimiter = ' '
+>>> delimiter.join(t)
+'pining for the fjords'
+~~~~
 
 In this case the delimiter is a space character, so `join`
 puts a space between words. To concatenate strings without spaces, you
@@ -522,8 +576,10 @@ Objects and values
 
 If we execute these assignment statements:
 
-    a = 'banana'
-    b = 'banana'
+~~~~ {.python}
+a = 'banana'
+b = 'banana'
+~~~~
 
 we know that `a` and `b` both refer to a string,
 but we don't know whether they refer to the *same* string. There are two
@@ -543,20 +599,24 @@ same object.
 To check whether two variables refer to the same object, you can use the
 `is` operator.
 
-    >>> a = 'banana'
-    >>> b = 'banana'
-    >>> a is b
-    True
+~~~~ {.python .trinket}
+>>> a = 'banana'
+>>> b = 'banana'
+>>> a is b
+True
+~~~~
 
 In this example, Python only created one string object, and both
 `a` and `b` refer to it.
 
 But when you create two lists, you get two objects:
 
-    >>> a = [1, 2, 3]
-    >>> b = [1, 2, 3]
-    >>> a is b
-    False
+~~~~ {.python .trinket}
+>>> a = [1, 2, 3]
+>>> b = [1, 2, 3]
+>>> a is b
+False
+~~~~
 
 In this case we would say that the two lists are
 *equivalent*, because they have the same elements, but
@@ -585,10 +645,12 @@ Aliasing
 If `a` refers to an object and you assign `b = a`,
 then both variables refer to the same object:
 
-    >>> a = [1, 2, 3]
-    >>> b = a
-    >>> b is a
-    True
+~~~~ {.python .trinket}
+>>> a = [1, 2, 3]
+>>> b = a
+>>> b is a
+True
+~~~~
 
 The association of a variable with an object is called a
 *reference*. In this example, there are two references to
@@ -604,9 +666,11 @@ that the object is *aliased*.
 If the aliased object is mutable, changes made with one alias affect the
 other:
 
-    >>> b[0] = 17
-    >>> print(a)
-    [17, 2, 3]
+~~~~ {.python}
+>>> b[0] = 17
+>>> print(a)
+[17, 2, 3]
+~~~~
 
 Although this behavior can be useful, it is error-prone. In general, it
 is safer to avoid aliasing when you are working with mutable objects.
@@ -616,8 +680,10 @@ is safer to avoid aliasing when you are working with mutable objects.
 For immutable objects like strings, aliasing is not as much of a
 problem. In this example:
 
-    a = 'banana'
-    b = 'banana'
+~~~~ {.python}
+a = 'banana'
+b = 'banana'
+~~~~
 
 it almost never makes a difference whether `a` and
 `b` refer to the same string or not.
@@ -636,15 +702,19 @@ list. If the function modifies a list parameter, the caller sees the
 change. For example, `delete_head` removes the first element from a
 list:
 
-    def delete_head(t):
-        del t[0]
+~~~~ {.python}
+def delete_head(t):
+    del t[0]
+~~~~
 
 Here's how it is used:
 
-    >>> letters = ['a', 'b', 'c']
-    >>> delete_head(letters)
-    >>> print(letters)
-    ['b', 'c']
+~~~~ {.python .trinket}
+>>> letters = ['a', 'b', 'c']
+>>> delete_head(letters)
+>>> print(letters)
+['b', 'c']
+~~~~
 
 The parameter `t` and the variable `letters` are
 aliases for the same object.
@@ -659,25 +729,29 @@ list:
 \index{list!concatenation}
 \index{concatenation!list}
 
-    >>> t1 = [1, 2]
-    >>> t2 = t1.append(3)
-    >>> print(t1)
-    [1, 2, 3]
-    >>> print(t2)
-    None
+~~~~ {.python .trinket}
+>>> t1 = [1, 2]
+>>> t2 = t1.append(3)
+>>> print(t1)
+[1, 2, 3]
+>>> print(t2)
+None
 
-    >>> t3 = t1 + [3]
-    >>> print(t3)
-    [1, 2, 3]
-    >>> t2 is t3
-    False
+>>> t3 = t1 + [3]
+>>> print(t3)
+[1, 2, 3]
+>>> t2 is t3
+False
+~~~~
 
 This difference is important when you write functions that are supposed
 to modify lists. For example, this function *does not* delete the head
 of a list:
 
-    def bad_delete_head(t):
-        t = t[1:]              # WRONG!
+~~~~ {.python}
+def bad_delete_head(t):
+    t = t[1:]              # WRONG!
+~~~~
 
 The slice operator creates a new list and the assignment makes
 `t` refer to it, but none of that has any effect on the list
@@ -690,16 +764,20 @@ An alternative is to write a function that creates and returns a new
 list. For example, `tail` returns all but the first element
 of a list:
 
-    def tail(t):
-        return t[1:]
+~~~~ {.python}
+def tail(t):
+    return t[1:]
+~~~~
 
 This function leaves the original list unmodified. Here's how it is
 used:
 
-    >>> letters = ['a', 'b', 'c']
-    >>> rest = tail(letters)
-    >>> print(rest)
-    ['b', 'c']
+~~~~ {.python .trinket}
+>>> letters = ['a', 'b', 'c']
+>>> rest = tail(letters)
+>>> print(rest)
+['b', 'c']
+~~~~
 
 Exercise 1:
 
@@ -723,11 +801,14 @@ of debugging. Here are some common pitfalls and ways to avoid them:
 
     If you are used to writing string code like this:
 
-        word = word.strip()
-
+~~~~ {.python}
+    word = word.strip()
+~~~~
     It is tempting to write list code like this:
 
-        t = t.sort()           # WRONG!
+~~~~ {.python}
+    t = t.sort()           # WRONG!
+~~~~
 
 \index{sort method}
 \index{method!sort}
@@ -756,15 +837,19 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     To add an element, you can use the `append` method or the
     `+` operator. But don't forget that these are right:
 
-        t.append(x)
-        t = t + [x]
+~~~~ {.python}
+    t.append(x)
+    t = t + [x]
+~~~~
 
     And these are wrong:
 
-        t.append([x])          # WRONG!
-        t = t.append(x)        # WRONG!
-        t + [x]                # WRONG!
-        t = t + x              # WRONG!
+~~~~ {.python}
+    t.append([x])          # WRONG!
+    t = t.append(x)        # WRONG!
+    t + [x]                # WRONG!
+    t = t + x              # WRONG!
+~~~~
 
     Try out each of these examples in interactive mode to make sure you
     understand what they do. Notice that only the last one causes a
@@ -780,8 +865,10 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     argument, but you need to keep the original list as well, you can
     make a copy.
 
-        orig = t[:]
-        t.sort()
+~~~~ {.python}
+    orig = t[:]
+    t.sort()
+~~~~
 
     In this example you could also use the built-in function
     `sorted`, which returns a new, sorted list and leaves the
@@ -807,22 +894,26 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     can use `continue` to skip lines that don't have "From"
     as the first word as follows:
 
-        fhand = open('mbox-short.txt')
-        for line in fhand:
-            words = line.split()
-            if words[0] != 'From' : continue
-            print(words[2])
+~~~~ {.python}
+fhand = open('mbox-short.txt')
+for line in fhand:
+    words = line.split()
+    if words[0] != 'From' : continue
+    print(words[2])
+~~~~
 
     This looks much simpler and we don't even need to do the
     `rstrip` to remove the newline at the end of the file.
     But is it better?
 
+~~~~
         python search8.py
         Sat
         Traceback (most recent call last):
           File "search8.py", line 5, in <module>
             if words[0] != 'From' : continue
         IndexError: list index out of range
+~~~~
 
     It kind of works and we see the day from the first line (Sat), but
     then the program fails with a traceback error. What went wrong? What
@@ -841,16 +932,19 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     line five. We even add a prefix "Debug:" to the line so we can keep
     our regular output separate from our debug output.
 
-        for line in fhand:
-            words = line.split()
-            print('Debug:', words)
-            if words[0] != 'From' : continue
-            print(words[2])
+~~~~ {.python}
+    for line in fhand:
+        words = line.split()
+        print('Debug:', words)
+        if words[0] != 'From' : continue
+        print(words[2])
+~~~~
 
     When we run the program, a lot of output scrolls off the screen but
     at the end, we see our debug output and the traceback so we know
     what happened just before the traceback.
 
+~~~~
         Debug: ['X-DSPAM-Confidence:', '0.8475']
         Debug: ['X-DSPAM-Probability:', '0.0000']
         Debug: []
@@ -858,18 +952,21 @@ of debugging. Here are some common pitfalls and ways to avoid them:
           File "search9.py", line 6, in <module>
             if words[0] != 'From' : continue
         IndexError: list index out of range
+~~~~
 
     Each debug line is printing the list of words which we get when we
     `split` the line into words. When the program fails, the
     list of words is empty `[]`. If we open the file in a text editor
     and look at the file, at that point it looks as follows:
 
+~~~~
         X-DSPAM-Result: Innocent
         X-DSPAM-Processed: Sat Jan  5 09:14:16 2008
         X-DSPAM-Confidence: 0.8475
         X-DSPAM-Probability: 0.0000
 
         Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
+~~~~
 
     The error occurs when our program encounters a blank line! Of course
     there are "zero words" on a blank line. Why didn't we think of that
@@ -883,14 +980,16 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     code; we will choose to check the number of words we have before we
     look at the first word:
 
-        fhand = open('mbox-short.txt')
-        count = 0
-        for line in fhand:
-            words = line.split()
-            # print 'Debug:', words
-            if len(words) == 0 : continue
-            if words[0] != 'From' : continue
-            print(words[2])
+~~~~ {.python}
+fhand = open('mbox-short.txt')
+count = 0
+for line in fhand:
+    words = line.split()
+    # print 'Debug:', words
+    if len(words) == 0 : continue
+    if words[0] != 'From' : continue
+    print(words[2])
+~~~~ 
 
     First we commented out the debug print statement instead of removing
     it, in case our modification fails and we need to debug again. Then
@@ -910,16 +1009,16 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     will never fail, but perhaps it is not enough. When we are
     programming, we must always be thinking, "What might go wrong?"
 
-    Exercise 2: Figure out which line of the above program is still not
-    properly guarded. See if you can construct a text file which causes
-    the program to fail and then modify the program so that the line is
-    properly guarded and test it to make sure it handles your new text
-    file.
+Exercise 2: Figure out which line of the above program is still not
+properly guarded. See if you can construct a text file which causes
+the program to fail and then modify the program so that the line is
+properly guarded and test it to make sure it handles your new text
+file.
 
-    Exercise 3: Rewrite the guardian code in the above example without
-    two `if` statements. Instead, use a compound logical
-    expression using the `and` logical operator with a single
-    `if` statement.
+Exercise 3: Rewrite the guardian code in the above example without
+two `if` statements. Instead, use a compound logical
+expression using the `and` logical operator with a single
+`if` statement.
 
 Glossary
 --------
@@ -974,7 +1073,7 @@ Exercises
 ---------
 
 Exercise 4: Download a copy of the file from
-[www.pythonlearn.com/code3/romeo.txt](www.pythonlearn.com/code3/romeo.txt)
+[www.pythonlearn.com/code3/romeo.txt](http://www.pythonlearn.com/code3/romeo.txt)
 
 \index{Romeo and Juliet}
 
@@ -988,14 +1087,16 @@ word is not in the list, add it to the list.
 When the program completes, sort and print the resulting words in
 alphabetical order.
 
-    Enter file: romeo.txt
-    ['Arise', 'But', 'It', 'Juliet', 'Who', 'already',
-    'and', 'breaks', 'east', 'envious', 'fair', 'grief',
-    'is', 'kill', 'light', 'moon', 'pale', 'sick', 'soft',
-    'sun', 'the', 'through', 'what', 'window',
-    'with', 'yonder']
+~~~~
+Enter file: romeo.txt
+['Arise', 'But', 'It', 'Juliet', 'Who', 'already',
+'and', 'breaks', 'east', 'envious', 'fair', 'grief',
+'is', 'kill', 'light', 'moon', 'pale', 'sick', 'soft',
+'sun', 'the', 'through', 'what', 'window',
+'with', 'yonder']
+~~~~
 
-Exercise 5: Write a program to read through the mail box data and when
+**Exercise 5:** Write a program to read through the mail box data and when
 you find line that starts with "From", you will split the line into
 words using the `split` function. We are interested in who
 sent the message, which is the second word on the From line.
@@ -1008,32 +1109,36 @@ print out a count at the end.
 
 This is a good sample output with a few lines removed:
 
-    python fromcount.py
-    Enter a file name: mbox-short.txt
-    stephen.marquard@uct.ac.za
-    louis@media.berkeley.edu
-    zqian@umich.edu
+~~~~
+python fromcount.py
+Enter a file name: mbox-short.txt
+stephen.marquard@uct.ac.za
+louis@media.berkeley.edu
+zqian@umich.edu
 
-    [...some output removed...]
+[...some output removed...]
 
-    ray@media.berkeley.edu
-    cwen@iupui.edu
-    cwen@iupui.edu
-    cwen@iupui.edu
-    There were 27 lines in the file with From as the first word
+ray@media.berkeley.edu
+cwen@iupui.edu
+cwen@iupui.edu
+cwen@iupui.edu
+There were 27 lines in the file with From as the first word
+~~~~
 
-Exercise 6: Rewrite the program that prompts the user for a list of
+**Exercise 6:** Rewrite the program that prompts the user for a list of
 numbers and prints out the maximum and minimum of the numbers at the end
 when the user enters "done". Write the program to store the numbers the
 user enters in a list and use the `max()` and
 `min()` functions to compute the maximum and minimum numbers
 after the loop completes.
 
-    Enter a number: 6
-    Enter a number: 2
-    Enter a number: 9
-    Enter a number: 3
-    Enter a number: 5
-    Enter a number: done
-    Maximum: 9.0
-    Minimum: 2.0
+~~~~
+Enter a number: 6
+Enter a number: 2
+Enter a number: 9
+Enter a number: 3
+Enter a number: 5
+Enter a number: done
+Maximum: 9.0
+Minimum: 2.0
+~~~~

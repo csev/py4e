@@ -67,7 +67,7 @@ display what the server sends back.
 \VerbatimInput{../code3/socket1.py} 
 
 First the program makes a connection to port 80 on the server
-[www.pythonlearn.com](www.pythonlearn.com). Since our program is playing the role
+[www.pythonlearn.com](http://www.pythonlearn.com). Since our program is playing the role
 of the "web browser", the HTTP protocol says we must send the GET
 command followed by a blank line.
 
@@ -79,20 +79,22 @@ is no more data to read (i.e., the recv() returns an empty string).
 
 The program produces the following output:
 
-    HTTP/1.1 200 OK
-    Date: Sun, 14 Mar 2010 23:52:41 GMT
-    Server: Apache
-    Last-Modified: Tue, 29 Dec 2009 01:31:22 GMT
-    ETag: "143c1b33-a7-4b395bea"
-    Accept-Ranges: bytes
-    Content-Length: 167
-    Connection: close
-    Content-Type: text/plain
+~~~~
+HTTP/1.1 200 OK
+Date: Sun, 14 Mar 2010 23:52:41 GMT
+Server: Apache
+Last-Modified: Tue, 29 Dec 2009 01:31:22 GMT
+ETag: "143c1b33-a7-4b395bea"
+Accept-Ranges: bytes
+Content-Length: 167
+Connection: close
+Content-Type: text/plain
 
-    But soft what light through yonder window breaks
-    It is the east and Juliet is the sun
-    Arise fair sun and kill the envious moon
-    Who is already sick and pale with grief
+But soft what light through yonder window breaks
+It is the east and Juliet is the sun
+Arise fair sun and kill the envious moon
+Who is already sick and pale with grief
+~~~~
 
 The output starts with headers which the web server sends to describe
 the document. For example, the `Content-Type` header
@@ -131,27 +133,29 @@ image data to a file as follows:
 
 When the program runs it produces the following output:
 
-    $ python urljpeg.py
-    2920 2920
-    1460 4380
-    1460 5840
-    1460 7300
-    ...
-    1460 62780
-    1460 64240
-    2920 67160
-    1460 68620
-    1681 70301
-    Header length 240
-    HTTP/1.1 200 OK
-    Date: Sat, 02 Nov 2013 02:15:07 GMT
-    Server: Apache
-    Last-Modified: Sat, 02 Nov 2013 02:01:26 GMT
-    ETag: "19c141-111a9-4ea280f8354b8"
-    Accept-Ranges: bytes
-    Content-Length: 70057
-    Connection: close
-    Content-Type: image/jpeg
+~~~~
+$ python urljpeg.py
+2920 2920
+1460 4380
+1460 5840
+1460 7300
+...
+1460 62780
+1460 64240
+2920 67160
+1460 68620
+1681 70301
+Header length 240
+HTTP/1.1 200 OK
+Date: Sat, 02 Nov 2013 02:15:07 GMT
+Server: Apache
+Last-Modified: Sat, 02 Nov 2013 02:01:26 GMT
+ETag: "19c141-111a9-4ea280f8354b8"
+Accept-Ranges: bytes
+Content-Length: 70057
+Connection: close
+Content-Type: image/jpeg
+~~~~
 
 You can see that for this url, the `Content-Type` header
 indicates that body of the document is an image
@@ -182,24 +186,26 @@ quarter of a second after each call so that the server can "get ahead"
 of us and send more data to us before we call `recv()` again.
 With the delay, in place the program executes as follows:
 
-    $ python urljpeg.py
-    1460 1460
-    5120 6580
-    5120 11700
-    ...
-    5120 62900
-    5120 68020
-    2281 70301
-    Header length 240
-    HTTP/1.1 200 OK
-    Date: Sat, 02 Nov 2013 02:22:04 GMT
-    Server: Apache
-    Last-Modified: Sat, 02 Nov 2013 02:01:26 GMT
-    ETag: "19c141-111a9-4ea280f8354b8"
-    Accept-Ranges: bytes
-    Content-Length: 70057
-    Connection: close
-    Content-Type: image/jpeg
+~~~~
+$ python urljpeg.py
+1460 1460
+5120 6580
+5120 11700
+...
+5120 62900
+5120 68020
+2281 70301
+Header length 240
+HTTP/1.1 200 OK
+Date: Sat, 02 Nov 2013 02:22:04 GMT
+Server: Apache
+Last-Modified: Sat, 02 Nov 2013 02:01:26 GMT
+ETag: "19c141-111a9-4ea280f8354b8"
+Accept-Ranges: bytes
+Content-Length: 70057
+Connection: close
+Content-Type: image/jpeg
+~~~~
 
 Now other than the first and last calls to `recv()`, we now
 get 5120 characters each time we ask for new data.
@@ -237,10 +243,12 @@ When the program runs, we only see the output of the contents of the
 file. The headers are still sent, but the `urllib` code
 consumes the headers and only returns the data to us.
 
-    But soft what light through yonder window breaks
-    It is the east and Juliet is the sun
-    Arise fair sun and kill the envious moon
-    Who is already sick and pale with grief
+~~~~
+But soft what light through yonder window breaks
+It is the east and Juliet is the sun
+Arise fair sun and kill the envious moon
+Who is already sick and pale with grief
+~~~~
 
 As an example, we can write a program to retrieve the data for
 `romeo.txt` and compute the frequency of each word in the
@@ -280,17 +288,21 @@ search for and extract substrings that match a particular pattern.
 
 Here is a simple web page:
 
-    <h1>The First Page</h1>
-    <p>
-    If you like, you can switch to the
-    <a href="http://www.dr-chuck.com/page2.htm">
-    Second Page</a>.
-    </p>
+~~~~ {.html}
+<h1>The First Page</h1>
+<p>
+If you like, you can switch to the
+<a href="http://www.dr-chuck.com/page2.htm">
+Second Page</a>.
+</p>
+~~~~
 
 We can construct a well-formed regular expression to match and extract
 the link values from the above text as follows:
 
-    href="http://.+?"
+~~~~
+href="http://.+?"
+~~~~
 
 Our regular expression looks for strings that start with
 "href="http://", followed by one or more characters (".+?"), followed by
@@ -318,17 +330,21 @@ the link text between the double quotes.
 
 When we run the program, we get the following output:
 
-    python urlregex.py
-    Enter - http://www.dr-chuck.com/page1.htm
-    http://www.dr-chuck.com/page2.htm
+~~~~
+python urlregex.py
+Enter - http://www.dr-chuck.com/page1.htm
+http://www.dr-chuck.com/page2.htm
+~~~~
 
-    python urlregex.py
-    Enter - http://www.pythonlearn.com/book.htm
-    http://www.greenteapress.com/thinkpython/thinkpython.html
-    http://allendowney.com/
-    http://www.pythonlearn.com/code
-    http://www.lib.umich.edu/espresso-book-machine
-    http://www.pythonlearn.com/py4inf-slides.zip
+~~~~
+python urlregex.py
+Enter - http://www.pythonlearn.com/book.htm
+http://www.greenteapress.com/thinkpython/thinkpython.html
+http://allendowney.com/
+http://www.pythonlearn.com/code
+http://www.lib.umich.edu/espresso-book-machine
+http://www.pythonlearn.com/py4inf-slides.zip
+~~~~
 
 Regular expressions work very nicely when your HTML is well formatted
 and predictable. But since there are a lot of "broken" HTML pages out
@@ -380,31 +396,37 @@ attribute for each tag.
 
 When the program runs it looks as follows:
 
-    python urllinks.py
-    Enter - http://www.dr-chuck.com/page1.htm
-    http://www.dr-chuck.com/page2.htm
+~~~~
+python urllinks.py
+Enter - http://www.dr-chuck.com/page1.htm
+http://www.dr-chuck.com/page2.htm
+~~~~
 
-    python urllinks.py
-    Enter - http://www.pythonlearn.com/book.htm
-    http://www.greenteapress.com/thinkpython/thinkpython.html
-    http://allendowney.com/
-    http://www.si502.com/
-    http://www.lib.umich.edu/espresso-book-machine
-    http://www.pythonlearn.com/code
-    http://www.pythonlearn.com/
+~~~~
+python urllinks.py
+Enter - http://www.pythonlearn.com/book.htm
+http://www.greenteapress.com/thinkpython/thinkpython.html
+http://allendowney.com/
+http://www.si502.com/
+http://www.lib.umich.edu/espresso-book-machine
+http://www.pythonlearn.com/code
+http://www.pythonlearn.com/
+~~~~
 
 You can use BeautifulSoup to pull out various parts of each tag as
 follows:
 
 \VerbatimInput{../code3/urllink2.py} 
 
-    python urllink2.py
-    Enter - http://www.dr-chuck.com/page1.htm
-    TAG: <a href="http://www.dr-chuck.com/page2.htm">
-    Second Page</a>
-    URL: http://www.dr-chuck.com/page2.htm
-    Content: [u'\nSecond Page']
-    Attrs: [(u'href', u'http://www.dr-chuck.com/page2.htm')]
+~~~~
+python urllink2.py
+Enter - http://www.dr-chuck.com/page1.htm
+TAG: <a href="http://www.dr-chuck.com/page2.htm">
+Second Page</a>
+URL: http://www.dr-chuck.com/page2.htm
+Content: ['\nSecond Page']
+Attrs: [('href', 'http://www.dr-chuck.com/page2.htm')]
+~~~~
 
 These examples only begin to show the power of BeautifulSoup when it
 comes to parsing HTML. See the documentation and samples at
@@ -448,8 +470,10 @@ retrieving the next 100,000 characters of data from the web.
 
 This program runs as follows:
 
-    python curl2.py
-    568248 characters copied.
+~~~~
+python curl2.py
+568248 characters copied.
+~~~~
 
 If you have a Unix or Macintosh computer, you probably have a command
 built in to your operating system that performs this operation as
@@ -457,11 +481,13 @@ follows:
 
 \index{curl}
 
-    curl -O http://www.pythonlearn.com/cover.jpg
+~~~~
+curl -O http://www.pythonlearn.com/cover.jpg
+~~~~
 
 The command `curl` is short for "copy URL" and so these two
 examples are cleverly named `curl1.py` and
-`curl2.py` on [www.pythonlearn.com/code](www.pythonlearn.com/code) as
+`curl2.py` on [www.pythonlearn.com/code](http://www.pythonlearn.com/code) as
 they implement similar functionality to the `curl` command.
 There is also a `curl3.py` sample program that does this task
 a little more effectively, in case you actually want to use this pattern
@@ -474,7 +500,7 @@ BeautifulSoup
 :   A Python library for parsing HTML documents and extracting data from
     HTML documents that compensates for most of the imperfections in the
     HTML that browsers generally ignore. You can download the
-    BeautifulSoup code from [www.crummy.com](www.crummy.com).
+    BeautifulSoup code from [www.crummy.com](http://www.crummy.com).
 \index{BeautifulSoup}
 
 port
@@ -505,7 +531,7 @@ spider
 Exercises
 ---------
 
-Exercise 1: Change the socket program `socket1.py` to prompt
+**Exercise 1:** Change the socket program `socket1.py` to prompt
 the user for the URL so it can read any web page. You can use
 `split('/')` to break the URL into its component parts so you
 can extract the host name for the socket `connect` call. Add
@@ -513,25 +539,25 @@ error checking using `try` and `except` to handle
 the condition where the user enters an improperly formatted or
 non-existent URL.
 
-Exercise 2: Change your socket program so that it counts the number of
+**Exercise 2:** Change your socket program so that it counts the number of
 characters it has received and stops displaying any text after it has
 shown 3000 characters. The program should retrieve the entire document
 and count the total number of characters and display the count of the
 number of characters at the end of the document.
 
-Exercise 3: Use `urllib` to replicate the previous exercise
+**Exercise 3:** Use `urllib` to replicate the previous exercise
 of (1) retrieving the document from a URL, (2) displaying up to 3000
 characters, and (3) counting the overall number of characters in the
 document. Don't worry about the headers for this exercise, simply show
 the first 3000 characters of the document contents.
 
-Exercise 4: Change the `urllinks.py` program to extract and
+**Exercise 4:** Change the `urllinks.py` program to extract and
 count paragraph (p) tags from the retrieved HTML document and display
 the count of the paragraphs as the output of your program. Do not
 display the paragraph text, only count them. Test your program on
 several small web pages as well as some larger web pages.
 
-Exercise 5: (Advanced) Change the socket program so that it only shows
+**Exercise 5:** (Advanced) Change the socket program so that it only shows
 data after the headers and a blank line have been received. Remember
 that `recv` is receiving characters (newlines and all), not
 lines.

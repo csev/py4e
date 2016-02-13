@@ -13,7 +13,13 @@ for fn in *.mkd; do
     echo "the next file is $fn"
     x=`basename $fn .mkd`
     echo $x
-    cat $fn | python pre-html.py | tee tmp.html.pre.$x | python verbatim.py --trinket --files | tee tmp.html.verbatim.$x | pandoc -s --self-contained -f markdown -t html --template=trinket/template --toc --default-image-extension=svg --css=http://thisisdallas.github.io/Simple-Grid/simpleGrid.css -o html/$x.html
+    cat $fn | \
+    python pre-html.py | \
+    tee tmp.html.pre.$x | \
+    python verbatim.py --trinket --files | \
+    tee tmp.html.verbatim.$x | \
+    python consoles.py | \
+    pandoc -s --self-contained -f markdown -t html --template=trinket/template --toc --default-image-extension=svg --css=http://thisisdallas.github.io/Simple-Grid/simpleGrid.css -o html/$x.html
 done
 
 rm tmp.*
