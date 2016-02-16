@@ -9,7 +9,9 @@ conn = sqlite3.connect('index.sqlite')
 conn.text_factory = str
 cur = conn.cursor()
 
-cur.execute('SELECT Messages.id, sender FROM Messages JOIN Senders ON Messages.sender_id = Senders.id')
+cur.execute('''SELECT Messages.id, sender FROM Messages
+    JOIN Senders ON Messages.sender_id = Senders.id''')
+    
 sendcounts = dict()
 sendorgs = dict()
 for message in cur :
@@ -35,4 +37,3 @@ x = sorted(sendorgs, key=sendorgs.get, reverse=True)
 for k in x[:howmany]:
     print k, sendorgs[k]
     if sendorgs[k] < 10 : break
-

@@ -67,4 +67,6 @@ for month in months:
 
 fhand.write("\n];\n")
 
-print "Output written to gline.js"
+print "Data written to gline.js"
+print "Open gline.htm in a browser to view"
+
