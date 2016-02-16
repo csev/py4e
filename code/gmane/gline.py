@@ -7,22 +7,14 @@ conn = sqlite3.connect('index.sqlite')
 conn.text_factory = str
 cur = conn.cursor()
 
-cur.execute('SELECT id, sender FROM Senders')
-senders = dict()
-for message_row in cur :
-    senders[message_row[0]] = message_row[1]
-
-cur.execute('SELECT id, guid,sender_id,subject_id,sent_at FROM Messages')
-messages = dict()
-for message_row in cur :
-    messages[message_row[0]] = (message_row[1],message_row[2],message_row[3],message_row[4])
-
-print "Loaded messages=",len(messages),"senders=",len(senders)
+# Determine the top ten organizations
+cur.execute('''SELECT Messages.id, sender FROM Messages 
+    JOIN Senders ON Messages.sender_id = Senders.id''')
 
 sendorgs = dict()
-for (message_id, message) in messages.items():
-    sender = message[1]
-    pieces = senders[sender].split("@")
+for message_row in cur :
+    sender = message_row[1]
+    pieces = sender.split("@")
     if len(pieces) != 2 : continue
     dns = pieces[1]
     sendorgs[dns] = sendorgs.get(dns,0) + 1
@@ -30,33 +22,41 @@ for (message_id, message) in messages.items():
 # pick the top schools
 orgs = sorted(sendorgs, key=sendorgs.get, reverse=True)
 orgs = orgs[:10]
-print "Top 10 Oranizations"
+print "Top 10 Organizations"
 print orgs
+# orgs = ['total'] + orgs
 
+# Read through the messages
 counts = dict()
 months = list()
-# cur.execute('SELECT id, guid,sender_id,subject_id,sent_at FROM Messages')
-for (message_id, message) in messages.items():
-    sender = message[1]
-    pieces = senders[sender].split("@")
+
+cur.execute('''SELECT Messages.id, sender, sent_at FROM Messages 
+    JOIN Senders ON Messages.sender_id = Senders.id''')
+
+for message_row in cur :
+    sender = message_row[1]
+    pieces = sender.split("@")
     if len(pieces) != 2 : continue
     dns = pieces[1]
     if dns not in orgs : continue
-    month = message[3][:7]
+    month = message_row[2][:7]
     if month not in months : months.append(month)
     key = (month, dns)
     counts[key] = counts.get(key,0) + 1
+    tkey = (month, 'total')
+    counts[tkey] = counts.get(tkey,0) + 1
     
 months.sort()
-# print counts
-# print months
+print counts
+print months
 
 fhand = open('gline.js','w')
-fhand.write("gline = [ ['Year'")
+fhand.write("gline = [ ['Month'")
 for org in orgs:
     fhand.write(",'"+org+"'")
 fhand.write("]")
 
+# for month in months[1:-1]:
 for month in months:
     fhand.write(",\n['"+month+"'")
     for org in orgs:

@@ -8,16 +8,12 @@ conn = sqlite3.connect('index.sqlite')
 conn.text_factory = str
 cur = conn.cursor()
 
-cur.execute('SELECT id, subject FROM Subjects')
-subjects = dict()
-for message_row in cur :
-    subjects[message_row[0]] = message_row[1]
+cur.execute('''SELECT subject_id,subject FROM Messages 
+    JOIN Subjects ON Messages.subject_id = Subjects.id''')
 
-# cur.execute('SELECT id, guid,sender_id,subject_id,headers,body FROM Messages')
-cur.execute('SELECT subject_id FROM Messages')
 counts = dict()
 for message_row in cur :
-    text = subjects[message_row[0]]
+    text = message_row[1]
     text = text.translate(None, string.punctuation)
     text = text.translate(None, '1234567890')
     text = text.strip()
