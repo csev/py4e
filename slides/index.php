@@ -35,8 +35,10 @@ foreach($folders as $folder ) {
     echo(" </ul></li>\n");
 }
 ?>
+<!--
                 <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyWXg2MVhTbEZFT28&usp=sharing" target="_blank">Translations on Google Drive</a></li>
           </li>
+-->
         </ul>
 </p>
 <p>
