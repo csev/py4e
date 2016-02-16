@@ -9,11 +9,10 @@ You should install the SQLite browser to view and modify the databases from:
 
 http://sqlitebrowser.org/
 
-The base URL is hard-coded in the gmane.py.
-Make sure to delete the content.sqlite file if you 
-switch the base url.  The gmane.py file operates as a spider in 
-that it runs slowly and retrieves one mail message per second so 
-as to avoid getting throttled by gmane.org.   It stores all of
+The base URL is hard-coded in the gmane.py.  Make sure to delete the 
+content.sqlite file if you switch the base url.  The gmane.py file 
+operates as a spider in that it runs slowly and retrieves one mail 
+message per second so as to avoid getting throttled.   It stores all of
 its data in a database and can be interrupted and re-started 
 as often as needed.   It may take many hours to pull all the data
 down.  So you may need to restart several times.
@@ -21,10 +20,10 @@ down.  So you may need to restart several times.
 To give you a head-start, I have put up 600MB of pre-spidered Sakai 
 email here:
 
-https://online.dr-chuck.com/files/sakai/email/content.sqlite
+https://online.dr-chuck.com/files/sakai/email/content.sqlite.zip
 
-If you download this, you can "catch up with the latest" by
-running gmane.py.
+If you download and unzip this, you can "catch up with the 
+latest" by running gmane.py.
 
 Navigate to the folder where you extracted the gmane.zip
 
@@ -42,14 +41,12 @@ http://mbox.dr-chuck.net/sakai.devel/6/7 3586
 http://mbox.dr-chuck.net/sakai.devel/7/8 10600
     john@caret.cam.ac.uk 2005-12-09T13:42:24+00:00 re: lms/vle rants/comments
 
-Does not start with From 
-
 The program scans content.sqlite from 1 up to the first message number not
 already spidered and starts spidering at that message.  It continues spidering
 until it has spidered the desired number of messages or it reaches a page
 that does not appear to be a properly formatted message.
 
-Sometimes gmane.org is missing a message.  Perhaps administrators can delete messages
+Sometimes there is missing a message.  Perhaps administrators can delete messages
 or perhaps they get lost - I don't know.   If your spider stops, and it seems it has hit
 a missing message, go into the SQLite Manager and add a row with the missing id - leave
 all the other fields blank - and then restart gmane.py.   This will unstick the 
