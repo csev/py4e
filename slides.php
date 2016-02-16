@@ -63,11 +63,13 @@ foreach($folders as $folder ) {
                 <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyTExOeS12UmVmc1U&usp=sharing&tid=0B7X1ycQalUnyWXg2MVhTbEZFT28" target="_blank">ES_la</a></li>
              </ul>
           </li>
-          <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnySzk5UUl6WkxBSTQ&usp=sharing&tid=0B7X1ycQalUnyWXg2MVhTbEZFT28" target="_blank">Chinese (ZH)</a></li>
-          <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyalpidWR0ZkZxSVE&usp=sharing&tid=0B7X1ycQalUnyWXg2MVhTbEZFT28" target="_blank">French (FR)</a></li>
-          <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyRU84bjlYYTdWTXc&usp=sharing&tid=0B7X1ycQalUnyWXg2MVhTbEZFT28" target="_blank">German (DE)</a></li>
-          <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnya0hPTGs0elVjNzQ&usp=sharing&tid=0B7X1ycQalUnyWXg2MVhTbEZFT28" target="_blank">Russian (RU)</a></li>
-          <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyWXg2MVhTbEZFT28&usp=sharing" target="_blank">All Translations on Google Drive</a></li>
+          <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyalpidWR0ZkZxSVE&usp=sharing&tid=0B7X1ycQalUnyWXg2MVhTbEZFT28" target="_blank">French (FR) (11 lectures translated)</a></li>
+          <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnya0hPTGs0elVjNzQ&usp=sharing&tid=0B7X1ycQalUnyWXg2MVhTbEZFT28" target="_blank">Russian (RU) (11 lectures translated)</a></li>
+          <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyVU04eFl2bkp1U1E&usp=sharing&tid=0B7X1ycQalUnyWXg2MVhTbEZFT28" target="_blank">Italian (IT) (10 lectures translated)</a></li>
+          <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyRU84bjlYYTdWTXc&usp=sharing&tid=0B7X1ycQalUnyWXg2MVhTbEZFT28" target="_blank">German (DE) (8 lectures translated)</a></li>
+          <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnySzk5UUl6WkxBSTQ&usp=sharing&tid=0B7X1ycQalUnyWXg2MVhTbEZFT28" target="_blank">Chinese (ZH) (6 lectures translated)</a></li>
+          <li><a href="https://drive.google.com/folderview?id=0B7X1ycQalUnyWXg2MVhTbEZFT28&usp=sharing" target="_blank">View All Languages on Google Drive</a></li>
+<li><a href="https://groups.google.com/forum/#!forum/py4inf" target="_blank">Helping with the Slide Translations</a></li>
         </ul>
       </li>
     </ul>
