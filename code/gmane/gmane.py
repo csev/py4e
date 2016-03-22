@@ -178,7 +178,7 @@ while True:
 
     # Only commit every 50th record
     if (many % 50) == 0 : conn.commit() 
-    # time.sleep(1)
+    time.sleep(1)
 
 conn.commit()
 cur.close()
