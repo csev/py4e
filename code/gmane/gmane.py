@@ -177,7 +177,7 @@ while True:
         VALUES ( ?, ?, ?, ?, ?, ? )''', ( start, email, sent_at, subject, hdr, body))
 
     # Only commit every 50th record
-    if (many % 50) == 0 : conn.commit() 
+    # if (many % 50) == 0 : conn.commit() 
     time.sleep(1)
 
 conn.commit()
