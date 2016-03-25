@@ -5,12 +5,15 @@
 # http://www.pythonlearn.com/code3/bs4.zip
 # and unzip it in the same directory as this file
 
-import urllib.request
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 url = input('Enter - ')
-html = urllib.request.urlopen(url).read()
+html = urlopen(url).read()
 
+# html.parser is the HTML parser included in the standard Python 3 library.
+# information on other HTML parsers is here: 
+#http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser
 soup = BeautifulSoup(html, "html.parser")
 
 # Retrieve all of the anchor tags
