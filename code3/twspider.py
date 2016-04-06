@@ -9,7 +9,8 @@ conn = sqlite3.connect('spider.sqlite')
 cur = conn.cursor()
 
 cur.execute('''
-CREATE TABLE IF NOT EXISTS Twitter (name TEXT, retrieved INTEGER, friends INTEGER)''')
+CREATE TABLE IF NOT EXISTS Twitter 
+    (name TEXT, retrieved INTEGER, friends INTEGER)''')
 
 while True:
     acct = input('Enter a Twitter account, or quit: ')
