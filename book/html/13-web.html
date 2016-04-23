@@ -378,6 +378,33 @@ while True:
     print('Remaining', headers['x-rate-limit-remaining'])
 
 # Code: http://www.pythonlearn.com/code3/twitter1.py
+----{twurl.py}----
+import urllib.request, urllib.parse, urllib.error
+import oauth
+import hidden
+
+def augment(url, parameters) :
+    secrets = hidden.oauth()
+    consumer = oauth.OAuthConsumer(secrets['consumer_key'], secrets['consumer_secret'])
+    token = oauth.OAuthToken(secrets['token_key'],secrets['token_secret'])
+
+    oauth_request = oauth.OAuthRequest.from_consumer_and_token(consumer, 
+        token=token, http_method='GET', http_url=url, parameters=parameters)
+    oauth_request.sign_request(oauth.OAuthSignatureMethod_HMAC_SHA1(), consumer, token)
+    return oauth_request.to_url()
+
+
+def test_me() :
+    print('* Calling Twitter...')
+    url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json',
+        {'screen_name': 'drchuck', 'count': '2'} )
+    print(url)
+    connection = urllib.request.urlopen(url)
+    data = connection.read()
+    print(data)
+    headers = dict(connection.getheaders())
+    print(headers)
+
 -->
 <p>When the program runs it produces the following output:</p>
 <pre><code>Enter Twitter Account:drchuck
@@ -431,6 +458,33 @@ while True:
         print('  ',s[:50])
 
 # Code: http://www.pythonlearn.com/code3/twitter2.py
+----{twurl.py}----
+import urllib.request, urllib.parse, urllib.error
+import oauth
+import hidden
+
+def augment(url, parameters) :
+    secrets = hidden.oauth()
+    consumer = oauth.OAuthConsumer(secrets['consumer_key'], secrets['consumer_secret'])
+    token = oauth.OAuthToken(secrets['token_key'],secrets['token_secret'])
+
+    oauth_request = oauth.OAuthRequest.from_consumer_and_token(consumer, 
+        token=token, http_method='GET', http_url=url, parameters=parameters)
+    oauth_request.sign_request(oauth.OAuthSignatureMethod_HMAC_SHA1(), consumer, token)
+    return oauth_request.to_url()
+
+
+def test_me() :
+    print('* Calling Twitter...')
+    url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json',
+        {'screen_name': 'drchuck', 'count': '2'} )
+    print(url)
+    connection = urllib.request.urlopen(url)
+    data = connection.read()
+    print(data)
+    headers = dict(connection.getheaders())
+    print(headers)
+
 -->
 <p>Since the JSON becomes a set of nested Python lists and dictionaries, we can use a combination of the index operation and <code>for</code> loops to wander through the returned data structures with very little Python code.</p>
 <p>The output of the program looks as follows (some of the data items are shortened to fit on the page):</p>
