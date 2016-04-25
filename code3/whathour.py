@@ -7,16 +7,15 @@ for line in fhand:
     time = pieces[5]
     parts = time.split(':')
     hour = parts[0]
-    c[hour] = c.get(hour,0) + 1
+    c[hour] = c.get(hour, 0) + 1
 
 lst = list()
 for key in c:
-  value = c[key]
-  lst.append( (value, key) ) 
+    value = c[key]
+    lst.append((value, key)) 
 
 lst.sort()
 
 for value, key in lst:
-  print(key, value)
+    print(key, value)
 
-  
