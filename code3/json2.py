@@ -9,7 +9,7 @@ input = '''
   { "id" : "009",
     "x" : "7",
     "name" : "Chuck"
-  } 
+  }
 ]'''
 
 info = json.loads(input)
