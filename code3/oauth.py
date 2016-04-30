@@ -30,7 +30,7 @@ import urllib.parse
 import binascii
 
 
-VERSION = '1.0' # Hi Blaine!
+VERSION = '1.0'  # Hi Blaine!
 HTTP_METHOD = 'GET'
 SIGNATURE_METHOD = 'PLAINTEXT'
 
@@ -40,13 +40,16 @@ class OAuthError(RuntimeError):
     def __init__(self, message='OAuth error occured.'):
         self.mymessage = message
 
+
 def build_authenticate_header(realm=''):
     """Optional WWW-Authenticate header (401 error)"""
     return {'WWW-Authenticate': 'OAuth realm="%s"' % realm}
 
+
 def escape(s):
     """Escape a URL including any /."""
     return urllib.parse.quote(s, safe='~')
+
 
 def _utf8_str(s):
     """Convert unicode to utf-8."""
@@ -55,9 +58,11 @@ def _utf8_str(s):
     else:
         return str(s)
 
+
 def generate_timestamp():
     """Get seconds since epoch (UTC)."""
     return int(time.time())
+
 
 def generate_nonce(length=8):
     """Generate pseudorandom number."""
@@ -78,11 +83,11 @@ class OAuthConsumer(object):
         self.key = key
         self.secret = secret
 
-   
+
 class OAuthToken(object):
     """OAuthToken is a data type that represents an End User via either an access
     or request token.
-    
+
     key -- the token
     secret -- the token secret
 
@@ -96,8 +101,8 @@ class OAuthToken(object):
 
     def to_string(self):
         return urllib.parse.urlencode({'oauth_token': self.key,
-            'oauth_token_secret': self.secret})
- 
+                                      'oauth_token_secret': self.secret})
+
     def from_string(s):
         """ Returns a token from something like:
         oauth_token_secret=xxx&oauth_token=xxx
@@ -116,16 +121,16 @@ class OAuthRequest(object):
     """OAuthRequest represents the request and can be serialized.
 
     OAuth parameters:
-        - oauth_consumer_key 
+        - oauth_consumer_key
         - oauth_token
         - oauth_signature_method
-        - oauth_signature 
-        - oauth_timestamp 
+        - oauth_signature
+        - oauth_timestamp
         - oauth_nonce
         - oauth_version
         ... any additional parameters, as defined by the Service Provider.
     """
-    parameters = None # OAuth parameters.
+    parameters = None  # OAuth parameters.
     http_method = HTTP_METHOD
     http_url = None
     version = VERSION
@@ -142,7 +147,7 @@ class OAuthRequest(object):
         try:
             return self.parameters[parameter]
         except:
-            if parameter == "oauth_token" : return None
+            if parameter == "oauth_token": return None
             raise OAuthError('Parameter not found: %s' % parameter)
 
     def _get_timestamp_nonce(self):
@@ -170,8 +175,8 @@ class OAuthRequest(object):
 
     def to_postdata(self):
         """Serialize as post data for a POST request."""
-        return '&'.join(['%s=%s' % (escape(str(k)), escape(str(v))) \
-            for k, v in self.parameters.items()])
+        return '&'.join(['%s=%s' % (escape(str(k)), escape(str(v)))
+                        for k, v in self.parameters.items()])
 
     def to_url(self):
         """Serialize as a URL for a GET request."""
@@ -179,7 +184,7 @@ class OAuthRequest(object):
 
     def get_normalized_parameters(self):
         """Return a string that contains the parameters that must be signed."""
-	# Chuck - Make a copy of the parameters so we can modify them
+        # Chuck - Make a copy of the parameters so we can modify them
         params = dict(self.parameters)
         try:
             # Exclude the signature if it exists.
@@ -187,8 +192,8 @@ class OAuthRequest(object):
         except:
             pass
         # Escape key values before sorting.
-        key_values = [(escape(_utf8_str(k)), escape(_utf8_str(v))) \
-            for k,v in list(params.items())]
+        key_values = [(escape(_utf8_str(k)), escape(_utf8_str(v)))
+                      for k, v in list(params.items())]
         # Sort lexicographically, first after key, then after value.
         key_values.sort()
         # Combine key value pairs into a string.
@@ -213,17 +218,18 @@ class OAuthRequest(object):
         """Set the signature parameter to the result of build_signature."""
         # Set the signature method.
         self.set_parameter('oauth_signature_method',
-            signature_method.get_name())
+                           signature_method.get_name())
         # Set the signature.
         self.set_parameter('oauth_signature',
-            self.build_signature(signature_method, consumer, token))
+                           self.build_signature(signature_method,
+                                                consumer, token))
 
     def build_signature(self, signature_method, consumer, token):
         """Calls the build signature method within the signature method."""
         return signature_method.build_signature(self, consumer, token)
 
     def from_request(http_method, http_url, headers=None, parameters=None,
-            query_string=None):
+                     query_string=None):
         """Combines multiple parameter sources."""
         if parameters is None:
             parameters = {}
@@ -240,7 +246,7 @@ class OAuthRequest(object):
                     parameters.update(header_params)
                 except:
                     raise OAuthError('Unable to parse OAuth parameters from '
-                        'Authorization header.')
+                                     'Authorization header.')
 
         # GET or POST query string.
         if query_string:
@@ -248,7 +254,7 @@ class OAuthRequest(object):
             parameters.update(query_params)
 
         # URL parameters.
-        param_str = urllib.parse.urlparse(http_url)[4] # query
+        param_str = urllib.parse.urlparse(http_url)[4]  # query
         url_params = OAuthRequest._split_url_string(param_str)
         parameters.update(url_params)
 
@@ -259,7 +265,8 @@ class OAuthRequest(object):
     from_request = staticmethod(from_request)
 
     def from_consumer_and_token(oauth_consumer, token=None,
-            http_method=HTTP_METHOD, http_url=None, parameters=None):
+                                http_method=HTTP_METHOD, http_url=None,
+                                parameters=None):
         if not parameters:
             parameters = {}
 
@@ -279,8 +286,9 @@ class OAuthRequest(object):
         return OAuthRequest(http_method, http_url, parameters)
     from_consumer_and_token = staticmethod(from_consumer_and_token)
 
-    def from_token_and_callback(token, callback=None, http_method=HTTP_METHOD,
-            http_url=None, parameters=None):
+    def from_token_and_callback(token, callback=None,
+                                http_method=HTTP_METHOD, http_url=None,
+                                parameters=None):
         if not parameters:
             parameters = {}
 
@@ -317,9 +325,10 @@ class OAuthRequest(object):
         return parameters
     _split_url_string = staticmethod(_split_url_string)
 
+
 class OAuthServer(object):
     """A worker to check the validity of a request against a data store."""
-    timestamp_threshold = 300 # In seconds, five minutes.
+    timestamp_threshold = 300  # In seconds, five minutes.
     version = VERSION
     signature_methods = None
     data_store = None
@@ -384,7 +393,7 @@ class OAuthServer(object):
     def get_callback(self, oauth_request):
         """Get the callback URL."""
         return oauth_request.get_parameter('oauth_callback')
- 
+
     def build_authenticate_header(self, realm=''):
         """Optional support for the authenticate header."""
         return {'WWW-Authenticate': 'OAuth realm="%s"' % realm}
@@ -412,7 +421,8 @@ class OAuthServer(object):
         except:
             signature_method_names = ', '.join(list(self.signature_methods.keys()))
             raise OAuthError('Signature method %s not supported try one of the '
-                'following: %s' % (signature_method, signature_method_names))
+                             'following: %s' % 
+                             (signature_method, signature_method_names))
 
         return signature_method
 
@@ -442,12 +452,12 @@ class OAuthServer(object):
             raise OAuthError('Missing signature.')
         # Validate the signature.
         valid_sig = signature_method.check_signature(oauth_request, consumer,
-            token, signature)
+                                                     token, signature)
         if not valid_sig:
             key, base = signature_method.build_signature_base_string(
                 oauth_request, consumer, token)
             raise OAuthError('Invalid signature. Expected signature base '
-                'string: %s' % base)
+                             'string: %s' % base)
         built = signature_method.build_signature(oauth_request, consumer, token)
 
     def _check_timestamp(self, timestamp):
@@ -457,8 +467,8 @@ class OAuthServer(object):
         lapsed = now - timestamp
         if lapsed > self.timestamp_threshold:
             raise OAuthError('Expired timestamp: given %d and now %s has a '
-                'greater difference than threshold %d' %
-                (timestamp, now, self.timestamp_threshold))
+                             'greater difference than threshold %d' %
+                             (timestamp, now, self.timestamp_threshold))
 
     def _check_nonce(self, consumer, token, nonce):
         """Verify that the nonce is uniqueish."""
@@ -546,7 +556,7 @@ class OAuthSignatureMethod_HMAC_SHA1(OAuthSignatureMethod):
 
     def get_name(self):
         return 'HMAC-SHA1'
-        
+
     def build_signature_base_string(self, oauth_request, consumer, token):
         sig = (
             escape(oauth_request.get_normalized_http_method()),
@@ -563,11 +573,11 @@ class OAuthSignatureMethod_HMAC_SHA1(OAuthSignatureMethod):
     def build_signature(self, oauth_request, consumer, token):
         """Builds the base signature string."""
         key, raw = self.build_signature_base_string(oauth_request, consumer,
-            token)
+                                                    token)
 
         # Compute the oauth hmac Python 3.0 style
         # http://stackoverflow.com/questions/1306550/calculating-a-sha-hash-with-a-string-secret-key-in-python
-        import hashlib 
+        import hashlib
         import base64
         import hmac
         hashed = hmac.new(bytearray(key, 'latin1'), bytearray(raw, 'latin1'), hashlib.sha1)
@@ -592,5 +602,5 @@ class OAuthSignatureMethod_PLAINTEXT(OAuthSignatureMethod):
 
     def build_signature(self, oauth_request, consumer, token):
         key, raw = self.build_signature_base_string(oauth_request, consumer,
-            token)
+                                                    token)
         return key

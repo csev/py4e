@@ -14,7 +14,7 @@ if os.path.exists(fname):
     if input('Replace '+fname+' (Y/n)?') != 'Y':
         print('Data not copied')
         exit()
-    print('Replacing',fname)
+    print('Replacing', fname)
 
 fhand = open(fname, 'wb')
 size = 0
@@ -24,5 +24,5 @@ while True:
     size = size + len(info)
     fhand.write(info)
 
-print(size,'characters copied to',fname)
+print(size, 'characters copied to', fname)
 fhand.close()
