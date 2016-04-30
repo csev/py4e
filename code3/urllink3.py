@@ -1,4 +1,4 @@
-# To run this, you can install BeautifulSoup 
+# To run this, you can install BeautifulSoup
 # https://pypi.python.org/pypi/beautifulsoup4
 
 # Or download the file
@@ -13,18 +13,18 @@ visited = list()
 url = input('Enter - ')
 todo.append(url)
 
-while len(todo) > 0 :
-    print("====== Todo list count is ",len(todo))
+while len(todo) > 0:
+    print("====== Todo list count is ", len(todo))
     url = todo.pop()
 
-    if ( not url.startswith('http') ) : 
+    if (not url.startswith('http')):
         print("Skipping", url)
         continue
 
-    if ( url.find('facebook') > 0 ) :
+    if (url.find('facebook') > 0):
         continue
 
-    if ( url in visited ) :
+    if (url in visited):
         print("Visited", url)
         continue
 
@@ -38,6 +38,5 @@ while len(todo) > 0 :
     tags = soup('a')
     for tag in tags:
         newurl = tag.get('href', None)
-        if ( newurl != None ) : 
+        if (newurl is not None):
             todo.append(newurl)
-
