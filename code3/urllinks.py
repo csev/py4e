@@ -1,4 +1,4 @@
-# To run this, you can install BeautifulSoup 
+# To run this, you can install BeautifulSoup
 # https://pypi.python.org/pypi/beautifulsoup4
 
 # Or download the file

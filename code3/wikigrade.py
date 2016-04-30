@@ -12,30 +12,38 @@ conn = sqlite3.connect('wikidata.db')
 cur = conn.cursor()
 
 cur.execute('''
-    CREATE TABLE IF NOT EXISTS TinyTable (id INTEGER PRIMARY KEY, 
+    CREATE TABLE IF NOT EXISTS TinyTable (id INTEGER PRIMARY KEY,
                    url TEXT, page BLOB, retrieved_at timestamp)''')
+
 
 # A slightly extended dictionary
 class sash(dict):
-    def sortvalues(self,reverse=True):
-        return sorted(list(self.items()),key=lambda x: (x[1], x[0]), reverse=reverse)
+    def sortvalues(self, reverse=True):
+        return sorted(list(self.items()),
+                      key=lambda x: (x[1], x[0]), reverse=reverse)
+
 
 def tinyTable(url):
-    global cur,conn
-    cur.execute('SELECT id,page,retrieved_at FROM TinyTable WHERE URL = ?', (url, ))
+    global cur, conn
+    cur.execute('''SELECT id, page, retrieved_at
+                   FROM TinyTable WHERE URL = ?''', (url, ))
     try:
         row = cur.fetchone()
-        print('DATE',row[2])
+        print('DATE', row[2])
         return row[1]
     except:
         row = None
     print('Retrieving', url)
 
-    data = urllib.request.urlopen (url).read()
-    if row != None:
-        cur.execute("UPDATE TinyTable SET page=?,retrieved_at=datetime('now') WHERE id=?", (str(data, 'utf-8'), row[0]))
+    data = urllib.request.urlopen(url).read()
+    if row is not None:
+        cur.execute('''UPDATE TinyTable SET page=?,
+                    retrieved_at=datetime('now')
+                    WHERE id=?''', (str(data, 'utf-8'), row[0]))
     else:
-        cur.execute("INSERT INTO TinyTable (url, page, retrieved_at) VALUES (?, ?, datetime('now'))",(url, str(data, 'utf-8')))
+        cur.execute('''INSERT INTO TinyTable (url, page, retrieved_at)
+                    VALUES (?, ?, datetime('now'))''',
+                    (url, str(data, 'utf-8')))
     conn.commit()
     return data
 
@@ -48,11 +56,11 @@ visited = list()
 editcounts = sash()
 postcounts = sash()
 
-while len(urls) > 0 : 
-    print('=== URLS Yet To Retrieve:',len(urls))
+while len(urls) > 0:
+    print('=== URLS Yet To Retrieve:', len(urls))
     cururl = urls.pop()
     if cururl in visited: continue
-    print('RETRIEVING',cururl)
+    print('RETRIEVING', cururl)
     data = tinyTable(cururl)
     visited.append(cururl)
     soup = BeautifulSoup(data)
@@ -60,21 +68,21 @@ while len(urls) > 0 :
     # print 'Tags'
     for tag in tags:
         print(tag)
-        url = tag.get('href',None)
-        if url == None : continue
+        url = tag.get('href', None)
+        if url is None: continue
         # Don't follow absolute urls
-        if not url.startswith(prefix) : continue
-        newurl = urllib.basejoin(cururl,url)
-        if newurl in visited : continue
-        # print 'APPENDING',newurl
-        if newurl.find('action=view') > 0 or newurl.find('action=history') > 0 :
+        if not url.startswith(prefix): continue
+        newurl = urllib.basejoin(cururl, url)
+        if newurl in visited: continue
+        # print 'APPENDING', newurl
+        if newurl.find('action=view') > 0 or newurl.find('action=history') > 0:
             urls.append(newurl)
 
 print('EDITS:')
-for (key,val) in editcounts.sortvalues():
+for (key, val) in editcounts.sortvalues():
     print(key, val)
 
-for (key,val) in sorted(postcounts.items()):
+for (key, val) in sorted(postcounts.items()):
     print(key, val)
 
 conn.close()
