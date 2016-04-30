@@ -20,11 +20,12 @@ failures = [
 ]
 
 toskip = [
-    'unit.py', # avoid infinite loops
+    'unit.py',  # avoid infinite loops
     'wikigrade.py',  # talks to ctools - too complex
-    'argfile.py', # argument passing - no need to test
-    'argtest.py', # argument passing - no need to test
-    'urllink3.py' # might run forever
+    'argfile.py',  # argument passing - no need to test
+    'argtest.py',  # argument passing - no need to test
+    'urllink3.py', # might run forever
+    'db2.py',  # requires that db1.py be excuted first to create database
 ]
 
 success = 0
