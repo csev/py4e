@@ -1,4 +1,4 @@
-# Search for lines that contain 'Author:' followed by any characters, 
+# Search for lines that contain 'Author:' followed by any characters,
 # an at sign, and any non whitespace character
 # Then print the character group that follows the at sign
 import re
