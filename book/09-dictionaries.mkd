@@ -29,9 +29,11 @@ avoid using it as a variable name.
 \index{dict function}
 \index{function!dict}
 
-    >>> eng2sp = dict()
-    >>> print(eng2sp)
-    {}
+~~~~ {.python trinket}
+>>> eng2sp = dict()
+>>> print(eng2sp)
+{}
+~~~~
 
 The curly brackets, `{}`, represent an empty dictionary. To add items to
 the dictionary, you can use square brackets:
@@ -39,24 +41,27 @@ the dictionary, you can use square brackets:
 \index{squiggly bracket}
 \index{bracket!squiggly}
 
-    >>> eng2sp['one'] = 'uno'
+~~~~ {.python}
+>>> eng2sp['one'] = 'uno'
+~~~~
 
 This line creates an item that maps from the key `'one'` to
 the value "uno". If we print the dictionary again, we see a key-value
 pair with a colon between the key and value:
 
-    >>> print(eng2sp)
-    {'one': 'uno'}
+~~~~ {.python}
+>>> print(eng2sp)
+{'one': 'uno'}
+~~~~
 
 This output format is also an input format. For example, you can create
-a new dictionary with three items:
+a new dictionary with three items.  But if you print `eng2sp`, you might be surprised:
 
-    >>> eng2sp = {'one': 'uno', 'two': 'dos', 'three': 'tres'}
-
-But if you print `eng2sp`, you might be surprised:
-
-    >>> print(eng2sp)
-    {'one': 'uno', 'three': 'tres', 'two': 'dos'}
+~~~~ {.python}
+>>> eng2sp = {'one': 'uno', 'two': 'dos', 'three': 'tres'}
+>>> print(eng2sp)
+{'one': 'uno', 'three': 'tres', 'two': 'dos'}
+~~~~
 
 The order of the key-value pairs is not the same. In fact, if you type
 the same example on your computer, you might get a different result. In
@@ -66,8 +71,10 @@ But that's not a problem because the elements of a dictionary are never
 indexed with integer indices. Instead, you use the keys to look up the
 corresponding values:
 
-    >>> print(eng2sp['two'])
-    'dos'
+~~~~ {.python}
+>>> print(eng2sp['two'])
+'dos'
+~~~~
 
 The key `'two'` always maps to the value "dos" so the order
 of the items doesn't matter.
@@ -77,8 +84,10 @@ If the key isn't in the dictionary, you get an exception:
 \index{exception!KeyError}
 \index{KeyError}
 
-    >>> print(eng2sp['four'])
-    KeyError: 'four'
+~~~~ {.python}
+>>> print(eng2sp['four'])
+KeyError: 'four'
+~~~~
 
 The `len` function works on dictionaries; it returns the
 number of key-value pairs:
@@ -86,8 +95,10 @@ number of key-value pairs:
 \index{len function}
 \index{function!len}
 
-    >>> len(eng2sp)
-    3
+~~~~ {.python}
+>>> len(eng2sp)
+3
+~~~~
 
 The `in` operator works on dictionaries; it tells you whether
 something appears as a *key* in the dictionary (appearing as a value is
@@ -97,10 +108,12 @@ not good enough).
 \index{in operator}
 \index{operator!in}
 
-    >>> 'one' in eng2sp
-    True
-    >>> 'uno' in eng2sp
-    False
+~~~~ {.python}
+>>> 'one' in eng2sp
+True
+>>> 'uno' in eng2sp
+False
+~~~~
 
 To see whether something appears as a value in a dictionary, you can use
 the method `values`, which returns the values as a list, and
@@ -109,9 +122,11 @@ then use the `in` operator:
 \index{values method}
 \index{method!values}
 
-    >>> vals = list(eng2sp.values())
-    >>> 'uno' in vals
-    True
+~~~~ {.python}
+>>> vals = list(eng2sp.values())
+>>> 'uno' in vals
+True
+~~~~
 
 The `in` operator uses different algorithms for lists and
 dictionaries. For lists, it uses a linear search algorithm. As the list
@@ -171,14 +186,16 @@ for the letters that do appear.
 
 Here is what the code might look like:
 
-    word = 'brontosaurus'
-    d = dict()
-    for c in word:
-        if c not in d:
-            d[c] = 1
-        else:
-            d[c] = d[c] + 1
-    print(d)
+~~~~ {.python trinket}
+word = 'brontosaurus'
+d = dict()
+for c in word:
+    if c not in d:
+        d[c] = 1
+    else:
+        d[c] = d[c] + 1
+print(d)
+~~~~
 
 We are effectively computing a *histogram*, which is a
 statistical term for a set of counters (or frequencies).
@@ -197,7 +214,9 @@ dictionary we increment `d[c]`.
 
 Here's the output of the program:
 
-    {'a': 1, 'b': 1, 'o': 2, 'n': 1, 's': 2, 'r': 2, 'u': 2, 't': 1}
+~~~~ {.python}
+{'a': 1, 'b': 1, 'o': 2, 'n': 1, 's': 2, 'r': 2, 'u': 2, 't': 1}
+~~~~
 
 The histogram indicates that the letters `'a'` and "b"
 appear once; "o" appears twice, and so on.
@@ -210,22 +229,26 @@ a default value. If the key appears in the dictionary, `get`
 returns the corresponding value; otherwise it returns the default value.
 For example:
 
-    >>> counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
-    >>> print(counts.get('jan', 0))
-    100
-    >>> print(counts.get('tim', 0))
-    0
+~~~~ {.python trinket}
+>>> counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+>>> print(counts.get('jan', 0))
+100
+>>> print(counts.get('tim', 0))
+0
+~~~~
 
 We can use `get` to write our histogram loop more concisely.
 Because the `get` method automatically handles the case where
 a key is not in a dictionary, we can reduce four lines down to one and
 eliminate the `if` statement.
 
-    word = 'brontosaurus'
-    d = dict()
-    for c in word:
-        d[c] = d.get(c,0) + 1
-    print(d)
+~~~~ {.python}
+word = 'brontosaurus'
+d = dict()
+for c in word:
+    d[c] = d.get(c,0) + 1
+print(d)
+~~~~
 
 The use of the `get` method to simplify this counting loop
 ends up being a very commonly used "idiom" in Python and we will use it
