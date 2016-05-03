@@ -22,6 +22,6 @@ with open(filename, 'w') as f:
     # second ul is dropdown
     d('ul').eq(1).addClass('dropdown')
 
-    toc = "{% block toc %}\n" + str(d.html()) + "\n{% endblock %}"
+    toc = "{% block toc %}\n" + str(d) + "\n{% endblock %}"
     newtext = re.sub(pattern, toc, text)
     f.write(newtext)
