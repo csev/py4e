@@ -8,6 +8,8 @@ find trinket/pfe/. -type f -not -name 'figs2' | xargs rm
 # Make a symlink to figs
 #(cd html && ln -s ../figs2/)
 
+OUTPUTDIR='trinket/pfe'
+
 # Convert all mkd into html
 for fn in *.mkd; do
     echo "the next file is $fn"
@@ -24,7 +26,9 @@ for fn in *.mkd; do
     --template=trinket/nunjucks \
     --toc \
     --default-image-extension=svg \
-    -o trinket/pfe/$x.html
+    -o $OUTPUTDIR/$x.html
+    # Post-process the TOC
+    python trinket/buildtoc.py $OUTPUTDIR/$x.html
 done
 
 rm tmp.*
