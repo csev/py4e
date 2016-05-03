@@ -33,7 +33,7 @@
              <a href="#">English</a>
              <ul class="menu vertical nested">
                <li><a href="http://amzn.to/1KkULF3" target="_blank">Amazon</a> or <a href="http://amzn.to/1hLcoBy" target="_blank">Kindle Store</a> (Python for Informatics: Exploring Information)</li>
-               <li><a href="http://do1.dr-chuck.com/py4inf/EN-us/book.pdf" target="_blank">PDF</a></li>
+               <li><a href="http://do1.dr-chuck.net/py4inf/EN-us/book.pdf" target="_blank">PDF</a></li>
                <li><a href="book_270.epub" target="_blank">EPUB</a></li>
                <li><a href="html-270/" target="_blank">HTML</a></li>
                <li><a href="html_270.zip" target="_blank">Download HTML in a ZIP</a></li>
@@ -45,7 +45,7 @@
              <a href="#">Spanish</a>
              <ul class="menu vertical nested">
                 <li><a href="http://amzn.to/1KkV42z" target="_blank">Amazon</a> or <a href="http://amzn.to/1fNOnbd" target="_blank">Kindle Store</a> (Python para Informáticos: Explorando la información)</li>
-                <li><a href="http://do1.dr-chuck.com/py4inf/ES-es/book.pdf" target="_blank">PDF</a> from <a href="https://twitter.com/fertardio" target="_blank">Fernando Tardío</a></li>
+                <li><a href="http://do1.dr-chuck.net/py4inf/ES-es/book.pdf" target="_blank">PDF</a> from <a href="https://twitter.com/fertardio" target="_blank">Fernando Tardío</a></li>
                 <li><a href="translations/ES/book_272_es4.epub" target="_blank">EPUB</a></li>
              </ul>
           </li>

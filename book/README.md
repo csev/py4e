@@ -11,9 +11,10 @@ These \*.mkd files are now the master files for the book (i.e.
 I will not run the conversion any more).
 
 To produce the PDF of the book, you will need to install LaTeX on your 
-system.  For Linux:
+system.  For Debian-derived (Ubuntu, Mint, etc.) Linux:
 
-    apt-get install texlive-full
+    sudo apt-get install texlive-full
+    sudo apt-get install pandoc
 
 For Macintosh,
 
@@ -25,6 +26,8 @@ To produce the book run
     bash book.sh
 
 The output `bash book.sh` is in the file `x.pdf` and `x.epub`.
+
+*Note that the build scripts require Python 2*
 
 If you want to contribute, feel free to fork the pythonlearn
 repository and send me pull requests.   

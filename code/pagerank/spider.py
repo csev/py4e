@@ -72,11 +72,11 @@ while True:
     # If we are retrieving this page, there should be no links from it
     cur.execute('DELETE from Links WHERE from_id=?', (fromid, ) )
     try:
-	# Deal with SSL certificate anomalies Python > 2.7
-	# scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+        # Deal with SSL certificate anomalies Python > 2.7
+        # scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
         # document = urllib.urlopen(url, context=scontext)
-	
-	# Normal Unless you encounter certificate problems
+
+        # Normal Unless you encounter certificate problems
         document = urllib.urlopen(url)
 
         html = document.read()
@@ -86,8 +86,7 @@ while True:
 
         if 'text/html' != document.info().gettype() :
             print "Ignore non text/html page"
-            cur.execute('DELETE FROM Pages WHERE url=?', ( url, ) ) 
-            cur.execute('UPDATE Pages SET error=0 WHERE url=?', (url, ) )
+            cur.execute('UPDATE Pages SET error=-1 WHERE url=?', (url, ) )
             conn.commit()
             continue
 
@@ -125,7 +124,7 @@ while True:
         # print href
         if ( len(href) < 1 ) : continue
 
-		# Check if the URL is in any of the webs
+        # Check if the URL is in any of the webs
         found = False
         for web in webs:
             if ( href.startswith(web) ) :

@@ -1,8 +1,9 @@
 import sqlite3
-import urllib.request, urllib.parse, urllib.error
+import urllib.error
 import ssl 
 from urllib.parse import urljoin
 from urllib.parse import urlparse
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 # Deal with SSL certificate anomalies Python > 2.7
@@ -72,7 +73,7 @@ while True:
     # If we are retrieving this page, there should be no links from it
     cur.execute('DELETE from Links WHERE from_id=?', (fromid, ) )
     try:
-        document = urllib.request.urlopen(url, context=scontext)
+        document = urlopen(url, context=scontext)
 
         html = document.read()
         if document.getcode() != 200 :
@@ -88,6 +89,8 @@ while True:
 
         print('('+str(len(html))+')', end=' ')
 
+# html5lib is a 3rd party HTML parser.  Install with 'pip install html5lib'
+# or change the line below by replaceing 'html5lib' with 'html.parser'
         soup = BeautifulSoup(html, "html5lib")
     except KeyboardInterrupt:
         print('')

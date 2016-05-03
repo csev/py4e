@@ -1,7 +1,7 @@
 #! /bin/sh
 
 rm *.pyc */*.pyc
-rm *.sqlite */*.sqlite
+rm *.sqlite 
 rm *.zip
 
 zip -r geodata.zip geodata

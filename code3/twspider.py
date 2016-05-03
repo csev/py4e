@@ -1,4 +1,5 @@
-import urllib.request, urllib.parse, urllib.error
+from urllib.request import urlopen
+import urllib.error
 import twurl
 import json
 import sqlite3
@@ -9,7 +10,8 @@ conn = sqlite3.connect('spider.sqlite')
 cur = conn.cursor()
 
 cur.execute('''
-CREATE TABLE IF NOT EXISTS Twitter (name TEXT, retrieved INTEGER, friends INTEGER)''')
+CREATE TABLE IF NOT EXISTS Twitter 
+    (name TEXT, retrieved INTEGER, friends INTEGER)''')
 
 while True:
     acct = input('Enter a Twitter account, or quit: ')
@@ -24,7 +26,7 @@ while True:
 
     url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '5'} )
     print('Retrieving', url)
-    connection = urllib.request.urlopen(url)
+    connection = urlopen(url)
     data = connection.read().decode()
     headers = dict(connection.getheaders())
 

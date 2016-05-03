@@ -18,8 +18,8 @@ minrank = None
 for row in cur :
     nodes.append(row)
     rank = row[2]
-    if maxrank < rank or maxrank is None : maxrank = rank
-    if minrank > rank or minrank is None : minrank = rank
+    if maxrank is None or maxrank < rank: maxrank = rank
+    if minrank is None or minrank > rank : minrank = rank
     if len(nodes) > howmany : break
 
 if maxrank == minrank or maxrank is None or minrank is None:
