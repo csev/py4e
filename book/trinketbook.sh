@@ -29,6 +29,8 @@ for fn in *.mkd; do
     -o $OUTPUTDIR/$x.html
     # Post-process the TOC
     python trinket/buildtoc.py $OUTPUTDIR/$x.html
+    # Add in extra CSS for syntax highlighting
+    cat highlight.html >> $OUTPUTDIR/$x.html
 done
 
 rm tmp.*
