@@ -19,7 +19,9 @@ while True:
         whole_string = x.group(1)
         arguments = x.group(1).split()
     
-    # print x
+    # Check for errors
+    if x and ('trinket' in arguments):
+        raise Exception("Error: found 'trinket'; should be '.trinket' in " + line)
     # If open, include script
     if x and ('.trinket' in arguments) and ('.python' in arguments) : 
         with open('trinket/console-trinket-script') as ts:
