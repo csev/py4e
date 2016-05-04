@@ -53,7 +53,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="content">            
      <ul>
      <li><a href="#dictionaries">Dictionaries</a><ul>
-     <li><a href="#histogram">Dictionary as a set of counters</a></li>
+     <li><a href="#dictionary-as-a-set-of-counters">Dictionary as a set of counters</a></li>
      <li><a href="#dictionaries-and-files">Dictionaries and files</a></li>
      <li><a href="#looping-and-dictionaries">Looping and dictionaries</a></li>
      <li><a href="#advanced-text-parsing">Advanced text parsing</a></li>
@@ -75,50 +75,54 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>As an example, we'll build a dictionary that maps from English to Spanish words, so the keys and the values are all strings.</p>
 <p>The function <code>dict</code> creates a new dictionary with no items. Because <code>dict</code> is the name of a built-in function, you should avoid using it as a variable name.</p>
 <p> </p>
-<pre><code>&gt;&gt;&gt; eng2sp = dict()
-&gt;&gt;&gt; print(eng2sp)
-{}</code></pre>
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3?runMode=console&outputOnly=true#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
+<iframe width="100%" height="200" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen class="lazy lazyload">
+</iframe>
+<!--
+>>> eng2sp = dict()
+>>> print(eng2sp)
+{}
+-->
 <p>The curly brackets, <code>{}</code>, represent an empty dictionary. To add items to the dictionary, you can use square brackets:</p>
 <p> </p>
-<pre><code>&gt;&gt;&gt; eng2sp['one'] = 'uno'</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> eng2sp[<span class="st">'one'</span>] <span class="op">=</span> <span class="st">'uno'</span></code></pre></div>
 <p>This line creates an item that maps from the key <code>'one'</code> to the value &quot;uno&quot;. If we print the dictionary again, we see a key-value pair with a colon between the key and value:</p>
-<pre><code>&gt;&gt;&gt; print(eng2sp)
-{'one': 'uno'}</code></pre>
-<p>This output format is also an input format. For example, you can create a new dictionary with three items:</p>
-<pre><code>&gt;&gt;&gt; eng2sp = {'one': 'uno', 'two': 'dos', 'three': 'tres'}</code></pre>
-<p>But if you print <code>eng2sp</code>, you might be surprised:</p>
-<pre><code>&gt;&gt;&gt; print(eng2sp)
-{'one': 'uno', 'three': 'tres', 'two': 'dos'}</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(eng2sp)
+{<span class="st">'one'</span>: <span class="st">'uno'</span>}</code></pre></div>
+<p>This output format is also an input format. For example, you can create a new dictionary with three items. But if you print <code>eng2sp</code>, you might be surprised:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> eng2sp <span class="op">=</span> {<span class="st">'one'</span>: <span class="st">'uno'</span>, <span class="st">'two'</span>: <span class="st">'dos'</span>, <span class="st">'three'</span>: <span class="st">'tres'</span>}
+<span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(eng2sp)
+{<span class="st">'one'</span>: <span class="st">'uno'</span>, <span class="st">'three'</span>: <span class="st">'tres'</span>, <span class="st">'two'</span>: <span class="st">'dos'</span>}</code></pre></div>
 <p>The order of the key-value pairs is not the same. In fact, if you type the same example on your computer, you might get a different result. In general, the order of items in a dictionary is unpredictable.</p>
 <p>But that's not a problem because the elements of a dictionary are never indexed with integer indices. Instead, you use the keys to look up the corresponding values:</p>
-<pre><code>&gt;&gt;&gt; print(eng2sp['two'])
-'dos'</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(eng2sp[<span class="st">'two'</span>])
+<span class="co">'dos'</span></code></pre></div>
 <p>The key <code>'two'</code> always maps to the value &quot;dos&quot; so the order of the items doesn't matter.</p>
 <p>If the key isn't in the dictionary, you get an exception:</p>
 <p> </p>
-<pre><code>&gt;&gt;&gt; print(eng2sp['four'])
-KeyError: 'four'</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(eng2sp[<span class="st">'four'</span>])
+<span class="pp">KeyError</span>: <span class="st">'four'</span></code></pre></div>
 <p>The <code>len</code> function works on dictionaries; it returns the number of key-value pairs:</p>
 <p> </p>
-<pre><code>&gt;&gt;&gt; len(eng2sp)
-3</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(eng2sp)
+<span class="dv">3</span></code></pre></div>
 <p>The <code>in</code> operator works on dictionaries; it tells you whether something appears as a <em>key</em> in the dictionary (appearing as a value is not good enough).</p>
 <p>  </p>
-<pre><code>&gt;&gt;&gt; 'one' in eng2sp
-True
-&gt;&gt;&gt; 'uno' in eng2sp
-False</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="st">'one'</span> <span class="op">in</span> eng2sp
+<span class="va">True</span>
+<span class="op">&gt;&gt;&gt;</span> <span class="st">'uno'</span> <span class="op">in</span> eng2sp
+<span class="va">False</span></code></pre></div>
 <p>To see whether something appears as a value in a dictionary, you can use the method <code>values</code>, which returns the values as a list, and then use the <code>in</code> operator:</p>
 <p> </p>
-<pre><code>&gt;&gt;&gt; vals = list(eng2sp.values())
-&gt;&gt;&gt; 'uno' in vals
-True</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> vals <span class="op">=</span> <span class="bu">list</span>(eng2sp.values())
+<span class="op">&gt;&gt;&gt;</span> <span class="st">'uno'</span> <span class="op">in</span> vals
+<span class="va">True</span></code></pre></div>
 <p>The <code>in</code> operator uses different algorithms for lists and dictionaries. For lists, it uses a linear search algorithm. As the list gets longer, the search time gets longer in direct proportion to the length of the list. For dictionaries, Python uses an algorithm called a <em>hash table</em> that has a remarkable property—the <code>in</code> operator takes about the same amount of time no matter how many items there are in a dictionary. I won't explain why hash functions are so magical, but you can read more about it at <a href="wikipedia.org/wiki/Hash_table" class="uri">wikipedia.org/wiki/Hash_table</a>.</p>
 <p></p>
 <p>Exercise 1: [wordlist2]</p>
 <p> </p>
 <p>Write a program that reads the words in <code>words.txt</code> and stores them as keys in a dictionary. It doesn't matter what the values are. Then you can use the <code>in</code> operator as a fast way to check whether a string is in the dictionary.</p>
-<h2 id="histogram">Dictionary as a set of counters</h2>
+<h2 id="dictionary-as-a-set-of-counters">Dictionary as a set of counters</h2>
 <p></p>
 <p>Suppose you are given a string and you want to count how many times each letter appears. There are several ways you could do it:</p>
 <ol style="list-style-type: decimal">
@@ -130,34 +134,44 @@ True</code></pre>
 <p></p>
 <p>An <em>implementation</em> is a way of performing a computation; some implementations are better than others. For example, an advantage of the dictionary implementation is that we don't have to know ahead of time which letters appear in the string and we only have to make room for the letters that do appear.</p>
 <p>Here is what the code might look like:</p>
-<pre><code>word = 'brontosaurus'
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3?runMode=console&outputOnly=true#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
+<iframe width="100%" height="200" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen class="lazy lazyload">
+</iframe>
+<!--
+word = 'brontosaurus'
 d = dict()
 for c in word:
     if c not in d:
         d[c] = 1
     else:
         d[c] = d[c] + 1
-print(d)</code></pre>
+print(d)
+-->
 <p>We are effectively computing a <em>histogram</em>, which is a statistical term for a set of counters (or frequencies).</p>
 <p>  </p>
 <p>The <code>for</code> loop traverses the string. Each time through the loop, if the character <code>c</code> is not in the dictionary, we create a new item with key <code>c</code> and the initial value 1 (since we have seen this letter once). If <code>c</code> is already in the dictionary we increment <code>d[c]</code>.</p>
 <p></p>
 <p>Here's the output of the program:</p>
-<pre><code>{'a': 1, 'b': 1, 'o': 2, 'n': 1, 's': 2, 'r': 2, 'u': 2, 't': 1}</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">{<span class="st">'a'</span>: <span class="dv">1</span>, <span class="st">'b'</span>: <span class="dv">1</span>, <span class="st">'o'</span>: <span class="dv">2</span>, <span class="st">'n'</span>: <span class="dv">1</span>, <span class="st">'s'</span>: <span class="dv">2</span>, <span class="st">'r'</span>: <span class="dv">2</span>, <span class="st">'u'</span>: <span class="dv">2</span>, <span class="st">'t'</span>: <span class="dv">1</span>}</code></pre></div>
 <p>The histogram indicates that the letters <code>'a'</code> and &quot;b&quot; appear once; &quot;o&quot; appears twice, and so on.</p>
 <p> </p>
 <p>Dictionaries have a method called <code>get</code> that takes a key and a default value. If the key appears in the dictionary, <code>get</code> returns the corresponding value; otherwise it returns the default value. For example:</p>
-<pre><code>&gt;&gt;&gt; counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
-&gt;&gt;&gt; print(counts.get('jan', 0))
+<script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3?runMode=console&outputOnly=true#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
+<iframe width="100%" height="200" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen class="lazy lazyload">
+</iframe>
+<!--
+>>> counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+>>> print(counts.get('jan', 0))
 100
-&gt;&gt;&gt; print(counts.get('tim', 0))
-0</code></pre>
+>>> print(counts.get('tim', 0))
+0
+-->
 <p>We can use <code>get</code> to write our histogram loop more concisely. Because the <code>get</code> method automatically handles the case where a key is not in a dictionary, we can reduce four lines down to one and eliminate the <code>if</code> statement.</p>
-<pre><code>word = 'brontosaurus'
-d = dict()
-for c in word:
-    d[c] = d.get(c,0) + 1
-print(d)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">word <span class="op">=</span> <span class="st">'brontosaurus'</span>
+d <span class="op">=</span> <span class="bu">dict</span>()
+<span class="cf">for</span> c <span class="op">in</span> word:
+    d[c] <span class="op">=</span> d.get(c,<span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span>
+<span class="bu">print</span>(d)</code></pre></div>
 <p>The use of the <code>get</code> method to simplify this counting loop ends up being a very commonly used &quot;idiom&quot; in Python and we will use it many times in the rest of the book. So you should take a moment and compare the loop using the <code>if</code> statement and <code>in</code> operator with the loop using the <code>get</code> method. They do exactly the same thing, but one is more succinct.</p>
 <p></p>
 <h2 id="dictionaries-and-files">Dictionaries and files</h2>

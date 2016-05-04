@@ -77,6 +77,8 @@ while True:
             if blank : print 
             fu = fn.replace('../','http://www.pythonlearn.com/')
             print '# Code:', fu
+            if trinket:
+                print "# Or select Download from this trinket's left-hand menu"
         
         # Close wrapper
         if trinket:

@@ -235,7 +235,7 @@ Attribute 7</code></pre>
 <p><em>When you are using a free API like Google's geocoding API, you need to be respectful in your use of these resources. If too many people abuse the service, Google might drop or significantly curtail its free service.</em></p>
 <p></p>
 <p>You can read the online documentation for this service, but it is quite simple and you can even test it using a browser by typing the following URL into your browser:</p>
-<p><a href="http://maps.googleapis.com/maps/api/geocode/json?sensor=false%20&amp;address=Ann+Arbor%2C+MI">http://maps.googleapis.com/maps/api/geocode/json?sensor=false &amp;address=Ann+Arbor%2C+MI</a></p>
+<p><a href="http://maps.googleapis.com/maps/api/geocode/json?address=Ann+Arbor%2C+MI">http://maps.googleapis.com/maps/api/geocode/json?address=Ann+Arbor%2C+MI</a></p>
 <p>Make sure to unwrap the URL and remove any spaces from the URL before pasting it into your browser.</p>
 <p>The following is a simple application to prompt the user for a search string, call the Google geocoding API, and extract information from the returned JSON.</p>
 <script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
@@ -251,7 +251,9 @@ while True:
     address = input('Enter location: ')
     if len(address) < 1 : break
 
-    url = serviceurl + urllib.parse.urlencode({'sensor':'false', 'address': address})
+    url = serviceurl + urllib.parse.urlencode(
+        {'sensor':'false', 'address': address})
+
     print('Retrieving', url)
     uh = urllib.request.urlopen(url)
     data = uh.read().decode()
