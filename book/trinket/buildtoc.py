@@ -11,7 +11,7 @@ with open(filename, 'r+') as f:
     text = f.read()
 
 with open(filename, 'w') as f:   
-    f.write('{% extends "books/pfi/base.html" %}\n\n')
+    f.write('{% extends "books/pfe/base.html" %}\n\n')
     pattern = re.compile(r"{% block toc %}(.*){% endblock %}", re.DOTALL)
     matches = re.findall(pattern, text)
     d = PyQuery(matches[0])
