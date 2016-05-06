@@ -11,10 +11,11 @@ find trinket/pfe/. -type f -not -name 'figs2' | xargs rm
 OUTPUTDIR='trinket/pfe'
 
 # Convert all mkd into html
+CHAPTER=1
 for fn in *.mkd; do
     echo "the next file is $fn"
     x=`basename $fn .mkd`
-    echo $x
+    
     cat $fn | \
     python pre-html.py | \
     tee tmp.html.pre.$x | \
@@ -32,6 +33,11 @@ for fn in *.mkd; do
     
     # Add in extra CSS for syntax highlighting
     cat trinket/highlight.html >> $OUTPUTDIR/$x.html
+    
+    # Add chapter title
+    echo -e "\n\n{% block title %}Chapter $CHAPTER | Python For Everyone | Trinket{% endblock %}" >> $OUTPUTDIR/$x.html
+    
+    CHAPTER=$((CHAPTER+1))
 done
 
 rm tmp.*
