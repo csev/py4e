@@ -10,9 +10,8 @@ mysock.send(('GET '+url+' HTTP/1.0\n\n').encode())
 
 while True:
     data = mysock.recv(512)
-    if ( len(data) < 1 ) :
+    if (len(data) < 1):
         break
     print(data, end=' ')
 
 mysock.close()
-

@@ -13,5 +13,5 @@ data = '''
 }'''
 
 info = json.loads(data)
-print('Name:',info["name"])
-print('Hide:',info["email"]["hide"])
+print('Name:', info["name"])
+print('Hide:', info["email"]["hide"])
