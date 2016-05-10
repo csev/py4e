@@ -3,11 +3,14 @@
 #cat trinket/test | python verbatim.py --trinket | pandoc -s -f markdown -t html --template=trinket/template --toc --default-image-extension=svg --css=../trinket/simplegrid.css -o html/test.html 
 
 # Clean directory
-find zip/. -type f -not -name 'figs2' | xargs rm
+find zipbook/. -type f -not -path '*/images/*' -not -path '*/fonts/*' | xargs rm
 
 # Add in css file
-mkdir zip/trinket
-cp trinket/base.css trinket/lazysizes.min.js trinket/trinket.css trinket/go.js zip/trinket
+dirnames=("embeds" "offline")
+for dir in "${dirnames[@]}"; do
+    cp trinket/base.css trinket/*.js trinket/trinket.css trinket/font-awesome.min.css trinket/fontawesome-webfont.woff2 zipbook/$dir/trinket
+    cp trinket/index.html trinket/README.md zipbook/$dir
+done
 
 # Make a symlink to figs
 #(cd html && ln -s ../figs2/)
@@ -22,15 +25,31 @@ for fn in *.mkd; do
     tee tmp.html.pre.$x | \
     python verbatim.py --trinket --files | \
     tee tmp.html.verbatim.$x | \
+    pandoc -s  \
+    -f markdown -t html \
+    --template=trinket/zip \
+    --toc \
+    --default-image-extension=svg \
+    -o zipbook/offline/$x.html \
+    && echo "Wrote zipbook/offline/$x.html"
+    
+    cat $fn | \
+    python pre-html.py | \
+    tee tmp.html.pre.$x | \
+    python verbatim.py --trinket --files | \
+    tee tmp.html.verbatim.$x | \
     python consoles.py | \
     pandoc -s  \
     -f markdown -t html \
     --template=trinket/zip \
     --toc \
     --default-image-extension=svg \
-    --css=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css \
-    -o zip/$x.html
-    echo "Wrote zip/$x.html"
+    -o zipbook/embeds/$x.html \
+    && echo "Wrote zipbook/embeds/$x.html"
 done
+
+# Make the zip
+rm zips/pfe.zip
+zip -r9 zips/pfe.zip zipbook && echo "Wrote zips/pfe.zip"
 
 rm tmp.*

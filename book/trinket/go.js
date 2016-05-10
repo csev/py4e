@@ -1,5 +1,8 @@
 anchors.options = {
-  placement: 'left',
+  placement: 'right',
   visible: 'always',
+  icon: '#'
 };
-anchors.add('h1, h2, h3');
+anchors.add('h2, h3, .anchor');
+anchors.remove('.no-anchor');
+$(document).foundation();
