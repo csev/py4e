@@ -94,7 +94,8 @@ import socket
 
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mysock.connect(('www.pythonlearn.com', 80))
-mysock.send('GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0\n\n'.encode())
+cmd = 'GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0\n\n'.encode()
+mysock.send(cmd);
 
 while True:
     data = mysock.recv(512)
@@ -369,12 +370,15 @@ http://www.pythonlearn.com/</code></pre>
 # http://www.pythonlearn.com/code3/bs4.zip
 # and unzip it in the same directory as this file
 
-import urllib.request
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 url = input('Enter - ')
-html = urllib.request.urlopen(url).read()
+html = urlopen(url).read()
 
+# html.parser is the HTML parser included in the standard Python 3 library.
+# information on other HTML parsers is here:
+#http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser
 soup = BeautifulSoup(html, "html.parser")
 
 # Retrieve all of the anchor tags
@@ -395,7 +399,7 @@ Second Page&lt;/a&gt;
 URL: http://www.dr-chuck.com/page2.htm
 Content: ['\nSecond Page']
 Attrs: [('href', 'http://www.dr-chuck.com/page2.htm')]</code></pre>
-<p>These examples only begin to show the power of BeautifulSoup when it comes to parsing HTML. See the documentation and samples at <a href="http://www.crummy.com/software/BeautifulSoup/" class="uri">http://www.crummy.com/software/BeautifulSoup/</a> for more detail.</p>
+<p>These examples only begin to show the power of BeautifulSoup when it comes to parsing HTML.</p>
 <h2 id="reading-binary-files-using-urllib">Reading binary files using urllib</h2>
 <p>Sometimes you want to retrieve a non-text (or binary) file such as an image or video file. The data in these files is generally not useful to print out, but you can easily make a copy of a URL to a local file on your hard disk using <code>urllib</code>.</p>
 <p></p>
