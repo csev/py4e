@@ -7,4 +7,3 @@ html = urllib.request.urlopen(url).read()
 links = re.findall(b'href="(http://.*?)"', html)
 for link in links:
     print(link.decode())
-

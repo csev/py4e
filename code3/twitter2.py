@@ -7,9 +7,9 @@ TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 while True:
     print('')
     acct = input('Enter Twitter Account:')
-    if ( len(acct) < 1 ) : break
+    if (len(acct) < 1): break
     url = twurl.augment(TWITTER_URL,
-        {'screen_name': acct, 'count': '5'} )
+                        {'screen_name': acct, 'count': '5'})
     print('Retrieving', url)
     connection = urllib.request.urlopen(url)
     data = connection.read().decode()
@@ -18,7 +18,7 @@ while True:
     js = json.loads(data)
     print(json.dumps(js, indent=4))
 
-    for u in js['users'] :
+    for u in js['users']:
         print(u['screen_name'])
         s = u['status']['text']
-        print('  ',s[:50])
+        print('  ', s[:50])

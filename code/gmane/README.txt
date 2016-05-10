@@ -173,11 +173,13 @@ Mac: python gline.py
 Win: gline.py 
 
 Loaded messages= 51330 subjects= 25033 senders= 1584
-Top 10 Oranizations
+Top 10 Organizations
 ['gmail.com', 'umich.edu', 'uct.ac.za', 'indiana.edu', 'unicon.net', 'tfd.co.uk', 'berkeley.edu', 'longsight.com', 'stanford.edu', 'ox.ac.uk']
 Output written to gline.js
 
 Its output is written to gline.js which is visualized using gline.htm.
+If you have a problem with gline.htm, you can try gline2.htm or gline3.htm
+to vizualize your data.
 
 Some URLs for visualization ideas:
 

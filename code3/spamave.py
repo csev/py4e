@@ -8,8 +8,8 @@ count = 0
 total = 0
 for line in fhand:
     words = line.split()
-    if len(words) != 2 : continue
-    if words[0] != 'X-DSPAM-Confidence:' : continue
+    if len(words) != 2: continue
+    if words[0] != 'X-DSPAM-Confidence:': continue
     try:
         conf = float(words[1])
     except:

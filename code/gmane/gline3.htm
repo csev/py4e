@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Line Chart</title>
+    <script src="Chart.bundle.js"></script>
+    <script src="gline.js"></script>
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="width:75%;">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script>
+        // Inspired from https://github.com/chartjs/Chart.js/blob/master/samples/line-legend.html
+        var randomColorFactor = function() {
+            return Math.round(Math.random() * 255);
+        };
+        var randomColor = function(opacity) {
+            return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+        };
+
+        // Transform the gline data into Chart.js code
+        console.log(gline);
+        info = gline[0];
+        xaxis_label = info[0];
+        xaxis = Array();
+        dsets = Array();
+        legend = Array();
+        for(i=1;i<gline.length;i++) {
+            dset = {};
+            dset.label = info[i];
+            console.log(gline[i]);
+            xaxis[i-1] = gline[i][0];
+            dset.fill = false;
+            dset.lineTension = 0;
+            var background = randomColor(0.5);
+            dset.borderColor = background;
+            dset.backgroundColor = background;
+            dset.pointBorderColor = background;
+            dset.pointBackgroundColor = background;
+            dset.pointBorderWidth = 1;
+            ddata = Array();
+            for(j=1; j<gline.length; j++ ) {
+                ddata[j-1] = gline[j][i];
+            }
+            dset.data = ddata;
+            dsets[i-1] = dset;
+        }
+
+        console.log(xaxis);
+        console.log(dsets);
+
+        var config = {
+            type: 'line',
+            data: {
+                labels: xaxis,
+                datasets: dsets,
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+                hover: {
+                    mode: 'label'
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: 'Sakai Developer Email Participation by Organization'
+                }
+            }
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myLine = new Chart(ctx, config);
+        };
+
+    </script>
+</body>
+
+</html>
