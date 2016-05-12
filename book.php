@@ -22,7 +22,7 @@
         </p>
 
 
-<!-- book accordion menu -->
+<!-- new book accordion menu -->
 <div class="acc-menu">
 <ul class="vertical menu" data-accordion-menu>
   <li>
@@ -43,6 +43,7 @@
   </li>
 </ul>
 </div>
+<!-- end new book accordion menu -->
 </div>
 </div>
 <div class="row">
@@ -133,6 +134,7 @@
 
 </ul>
 </div>
+<!-- end book accordion menu -->
 </div>
 </div>
 <div class="row">
