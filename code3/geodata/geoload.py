@@ -5,9 +5,6 @@ import time
 import ssl
 import sys
 
-# buffer is replaced by memoryview in Python 3
-buffer = memoryview
-
 # If you are in China use this URL:
 # serviceurl = "http://maps.google.cn/maps/api/geocode/json?"
 serviceurl = "http://maps.googleapis.com/maps/api/geocode/json?"
@@ -28,7 +25,7 @@ for line in fh:
     if count > 200 : break
     address = line.strip()
     print('')
-    cur.execute("SELECT geodata FROM Locations WHERE address= ?", (buffer(address.encode()), ))
+    cur.execute("SELECT geodata FROM Locations WHERE address= ?", (memoryview(address.encode()), ))
 
     try:
         data = cur.fetchone()[0]
@@ -56,7 +53,7 @@ for line in fh:
         break
 
     cur.execute('''INSERT INTO Locations (address, geodata) 
-            VALUES ( ?, ? )''', ( buffer(address.encode()),buffer(data.encode()) ) )
+            VALUES ( ?, ? )''', (memoryview(address.encode()), memoryview(data.encode()) ) )
     conn.commit() 
     time.sleep(1)
 
