@@ -39,12 +39,12 @@ for line in fh:
     print('Retrieving', url)
     uh = urllib.request.urlopen(url)
     data = uh.read().decode()
-    print('Retrieved',len(data),'characters',data[:20].replace('\n',' '))
+    print('Retrieved', len(data), 'characters', data[:20].replace('\n', ' '))
     count = count + 1
-    try: 
+    try:
         js = json.loads(str(data))
         print(js)  # We print in case unicode causes an error
-    except: 
+    except:
         continue
 
     if 'status' not in js or (js['status'] != 'OK' and js['status'] != 'ZERO_RESULTS') : 
