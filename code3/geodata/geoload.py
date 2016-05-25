@@ -29,32 +29,32 @@ for line in fh:
 
     try:
         data = cur.fetchone()[0]
-        print("Found in database ", address)
+        print("Found in database ",address)
         continue
     except:
         pass
 
     print('Resolving', address)
-    url = serviceurl + urllib.parse.urlencode({"sensor": "false", "address": address})
+    url = serviceurl + urllib.parse.urlencode({"sensor":"false", "address": address})
     print('Retrieving', url)
     uh = urllib.request.urlopen(url)
     data = uh.read().decode()
-    print('Retrieved', len(data), 'characters', data[:20].replace('\n', ' '))
+    print('Retrieved',len(data),'characters',data[:20].replace('\n',' '))
     count = count + 1
-    try:
+    try: 
         js = json.loads(str(data))
         print(js)  # We print in case unicode causes an error
-    except:
+    except: 
         continue
 
-    if 'status' not in js or (js['status'] != 'OK' and js['status'] != 'ZERO_RESULTS') :
+    if 'status' not in js or (js['status'] != 'OK' and js['status'] != 'ZERO_RESULTS') : 
         print('==== Failure To Retrieve ====')
         print(data)
         break
 
-    cur.execute('''INSERT INTO Locations (address, geodata)
+    cur.execute('''INSERT INTO Locations (address, geodata) 
             VALUES ( ?, ? )''', (memoryview(address.encode()), memoryview(data.encode()) ) )
-    conn.commit()
+    conn.commit() 
     time.sleep(1)
 
 print("Run geodump.py to read the data from the database so you can vizualize it on a map.")
