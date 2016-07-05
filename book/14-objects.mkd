@@ -56,7 +56,7 @@ It turns our we have been using objects all along in this class.  Python
 provides us with many built-in objects. Here is some simple code where the first few lines
 should feel very simple and natural to you.
 
-\index{dictionary object}
+\index{list object}
 
 \VerbatimInput{../code3/party1.py}
 
@@ -69,8 +69,8 @@ The first line is *constructing* an object of type *list*, the second and third
 lines are calling the `append()` *method*, the fourth line is calling
 the `sort()` *method*, and the fifth line is retrieving the item at position 0.
 
-The sixth line is calling the `__getitem__()` method in the `stuff` list 
-with a parameter of zero.  
+The sixth line is calling the `__getitem__()` method in the `stuff` list
+with a parameter of zero.
 
 ~~~~ {.python}
 print (stuff.__getitem__(0))
@@ -206,7 +206,7 @@ smaller than a whole program.  Defining a function allows us to store
 a bit of code and give it a name and then later invoke that code using the
 name of the function.
 
-An object can contain a number of functions (which we call "methods") as 
+An object can contain a number of functions (which we call "methods") as
 well as data that is used by those functions.  We call data items that are
 part of the object "attributes".
 
@@ -215,20 +215,20 @@ part of the object "attributes".
 We use the `class` keyword to define the data and code that will make up each
 of the objects. The class keyword includes the name of the class and begins
 an indented block of code where we include the attributes (data)
-and methods (code).  
+and methods (code).
 
 \VerbatimInput{../code3/party2.py}
 
 Each method looks like a function, starting with the `def` keyword and
 consisting of an indended block of code.  This example has one attribute (x)
-and one method (party).   The methods have a special first parameter that 
+and one method (party).   The methods have a special first parameter that
 we name by convention `self`.
 
-Much like the `def` keyword does not cause function code to be executed, the 
-`class` keyword does not create an object.  Instead, the `class` 
-keyword defines a template indicating what data and code will be contained 
+Much like the `def` keyword does not cause function code to be executed, the
+`class` keyword does not create an object.  Instead, the `class`
+keyword defines a template indicating what data and code will be contained
 in each object of type `PartyAnimal`.  The class is like a cookie cutter and the objects
-created using the class are the cookies^[Cookie image copyright 
+created using the class are the cookies^[Cookie image copyright
 CC-BY https://www.flickr.com/photos/dinnerseries/23570475099].
 You don't put frosting on the cookie cutter,
 you put frosting on the cookies - and you can put different frosting
@@ -247,7 +247,7 @@ an = PartyAnimal()
 \index{object}
 \index{instance}
 \index{class}
- 
+
 This is where we instruct Python to construct (e.g. create) an *object* or "instance of the class named
 PartyAnimal".  It looks like a function call to the class itself and Python constructs
 the object with the right data and methods and returns the object which is then assigned
@@ -302,7 +302,7 @@ When the program executes, it produces the following output:
     So far 3
     So far 4
 
-The object is constructed, and the `party` method is called four times, both 
+The object is constructed, and the `party` method is called four times, both
 incrementing and printing the value for `x` within the `an` object.
 
 Classes as Types
@@ -373,7 +373,7 @@ stop our variable from being destroyed, but we can do any necessary
 cleanup right before our object no longer exists.
 
 When developing objects, it is quite common to add a constructor to an object
-to set in intial values in the object, it is relatively rare to need to 
+to set in intial values in the object, it is relatively rare to need to
 need a destructor for an object.
 
 Many Instances
@@ -384,7 +384,7 @@ that object, and then throwing the object away.   But the real power
 in object oriented happens when we make many instances of our class.
 
 When we are making multiple objects from our class, we might want to set
-up different initial values for each of the objects.   We can 
+up different initial values for each of the objects.   We can
 pass data into the constructors to give each object a different initial
 value:
 
@@ -448,7 +448,7 @@ the `s` object.
     Jim party count 1
     Jim party count 2
     Jim points 6
-    ['__class__', '__delattr__', ... '__weakref__', 
+    ['__class__', '__delattr__', ... '__weakref__',
     'name', 'party', 'points', 'six', 'x']
 
 In the `dir` output for the `j` object (instance of the `CricketFan` class) you can see
@@ -460,7 +460,40 @@ Summary
 -------
 
 This is a very quick introduction to object-oriented programming that focuses mainly
-on the syntax of defining and using objects.   There are many additional details
+on terminology and the syntax of defining and using objects.  Lets quickly review
+the code that we looked at in the beginning of the chapter.
+At this point you should fully understand what is going on.
+
+\VerbatimInput{../code3/party1.py}
+
+The first line constructs a `list` *object*.  When Python creates the `list` object,
+it calls the *constructor* method (named `__init__`) to set up the internal
+data attributes that will be used to store the list data.  Due to *encapsulation* we
+neither need to know, nor need to care about these in internal data attributes
+are arranged.
+
+We are not passing any parameters to the *constructor* and when the constructor returns,
+we use the variable `stuff` to point to the returned instance
+of the `list` class.
+
+The second and third lines are calling the `append` method
+with one parameter to add a new item at the end of the list by updating the
+attributes within `stuff`.  Then in the fourth line,
+we call the `sort` method with no parameters to sort the data within the `stuff`
+object.
+
+Then we print out the first item in the list using the square brackets which are
+a shortcut to calling the `__getitem__` method within the `stuff` *object*.  And this
+is equivalent to calling the `__getitem__` method in the `list` *class* passing the
+`stuff` object in as the first parameter and the position we are looking for as
+the second paramster.
+
+At the end of the program the `stuff` object is discarded but not before
+calling the *destructor* (named `__del__`) so the object can clean up any
+loose ends as necessary.
+
+Those are the basics and terminology of object oriented programming.
+There are many additional details
 as to how to bese use object oriented approaches when developing large applications
 and libraries that are beyond the scope of this chapter.
 
@@ -494,7 +527,7 @@ destructor
 \index{destructor}
 
 inheritance
-:   When we create a new class (child) by extending an 
+:   When we create a new class (child) by extending an
     existing class (parent).  The child class has all the attributes
     and methods of the parent class plus additional asttributes and
     methods defined by the child class.
