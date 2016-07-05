@@ -62,7 +62,7 @@ should feel very simple and natural to you.
 
 \index{dictionary object}
 
-\VerbatimInput{../code3/oo01.py}
+\VerbatimInput{../code3/party1.py}
 
 But instead of focusing on what these lines accomplish, lets look at what is
 really happening from the point of view of object-oriented programming.
@@ -202,7 +202,7 @@ of the objects. The class keyword includes the name of the class and begins
 an indented block of code where we include the attributes (data)
 and methods (code).  
 
-\VerbatimInput{../code3/oo02.py}
+\VerbatimInput{../code3/party2.py}
 
 Each method looks like a function, starting with the `def` keyword and
 consisting of an indended block of code.  This example has one attribute (x)
@@ -224,7 +224,7 @@ on each cookie.
 If you continue through the example code, we see the first executable line of
 code:
 
-~~~~
+~~~~ {.python}
 an = PartyAnimal()
 ~~~~
 
@@ -239,12 +239,274 @@ the object with the right data and methods and returns the object which is then 
 to the variable `an`.  In a way this is quite similar to the following line which we have
 been using all along:
 
-~~~~
+~~~~ {.python}
 counts = dict()
 ~~~~
 
-Here we are instructing Python to construct an object using the `dict` template (built in to
-Python), return the instance of dictionary and assign it into the variable `counts`.
+Here we are instructing Python to construct an object using the `dict` template (already present
+in Python), return the instance of dictionary and assign it into the variable `counts`.
+
+When the PartyAnimal class is used to construct an object, the variable `an`
+is used to point to that object.  We use `an` to access the code and data for that
+particular instance of a PartyAnimal object.
+
+Each Partyanimal object/ionstance constains within it a variable `x` and a method/function named
+`party`.  We call that `party` method in this line:
+
+~~~~ {.python}
+an.party()
+~~~~
+
+When the `party` method is called, the first parameter (which we call by convention `self`)
+points to the particular instance of the PartyAnimal object that `party` is called from
+within.  Within the `party` method, we see the line:
+
+~~~~ {.python}
+self.x = self.x + 1
+~~~~
+
+This syntax using the 'dot' operator is saying 'the x within self'. So each time `party()` is
+called, the internal `x` value is incremented by 1 and the value is printed out.
+
+To help make sense of the difference between a global function and a method within a
+class/object, the following line is another way to call the `party` method within the `an`
+object:
+
+~~~~ {.python}
+PartyAnimal.party(an)
+~~~~
+
+In this variation, we are accessing the code from within the *class* and explicitly
+passing the object pointer `an` in as the first parameter (i.e. `self` within the method).
+You can think of `an.party()` as shorthand for the above line.
+
+When the program executes, it produces the following output:
+
+    So far 1
+    So far 2
+    So far 3
+    So far 4
+
+The object is constructed, and the `party` method is called four times, both 
+incrementing and printing the value for `x` within the `an` object.
+
+Classes as Types
+----------------
+
+\index{dir}
+\index{type}
+
+As we have seen, in Python, all variables have a type.  And we can use the built-in
+`dir` function to examine the capabilities of a variable.   We can use `type` and
+`dir` with the classes that we create.
+
+\VerbatimInput{../code3/party3.py}
+
+When this program executes, it produces the following output:
+
+    Type <class '__main__.PartyAnimal'>
+    Dir  ['__class__', '__delattr__', ...
+    '__sizeof__', '__str__', '__subclasshook__',
+    '__weakref__', 'party', 'x']
+    Type <class 'int'>
+    Type <class 'method'>
+
+First you can see that using the `class` keyword, we have created a new type.
+And from the `dir` output, you can see both the `x` integer attribute and the `party`
+method are available in the object.
+
+Object Lifecycle
+----------------
+
+\index{constructor}
+\index{destructor}
+\index{object lifecycle}
+
+In the previous examples, we are defining a class (template) and using that class
+to create an instance of that class (object) and then using the instance.  When
+the program finishes, all the varaibles are discarded.  Usually we don't think
+much about the creation and destruction of variables, but often as our objects
+become more complex, we need to take some action within the object to set things
+up as the object is being constructed and possibly clean things up as the object is
+being discarded.
+
+If we want our object to be aware of these moments of construction and destruction,
+we add specially named methods to our object:
+
+\VerbatimInput{../code3/party4.py}
+
+When this program executes, it produces the following output:
+
+    I am constructed
+    So far 1
+    So far 2
+    So far 3
+    I am destructed 2
+    an contains 42
+
+As Python is constructing our object, it calls our `__init__` method to
+give us a chance to set up some default or initial values for the object.
+When Python encounters the line:
+
+~~~~
+an = 42
+~~~~
+
+It actually 'thows our object away' so it can reuse the `an` variable
+to store the value `42`.  Just at the moment where our `an` object is
+being 'destroyed' our desctructor code (`__del__`) is called.  We cannot
+stop our variable from being destroyed, but we can do any necessary
+cleanup right before our object no longer exists.
+
+When developing objects, it is quite common to add a constructor to an object
+to set in intial values in the object, it is relatively rare to need to 
+need a destructor in an object.
+
+Many Instances
+--------------
+
+So far, we have been defining a class, making a single object, using
+that object, and then throwing the object away.   But the real power
+in object oriented happens when we make many instances of our class.
+
+When we are making multiple objects from our class, we might want to set
+up different initial values for each of the objects.   We can 
+pass data into the constructors to give each object a different initial
+value:
+
+\VerbatimInput{../code3/party5.py}
+
+The constructor has both a `self` parameter that points to the object instance
+and then additional parameters that are passed into the constructor as the
+object is being constructed:
+
+    s = PartyAnimal('Sally')
+
+Within the constructor, the line:
+
+    self.name = nam
+
+Copies the parameter that is passed in (`nam`) into the `name` attribute within
+the object instance.
+
+The output of the program shows that each of the objects (`s` and `j`) contain their own
+independent copies of `x` and `nam`:
+
+    Sally constructed
+    Sally party count 1
+    Jim constructed
+    Jim party count 1
+    Sally party count 2
+
+
+Inheritance
+-----------
+
+Another powerful feature of object oriented programming is the ability to
+create a new class by extending an existing class.  When extending a class,
+we call the original class the 'parent class' and the new class as the
+'child class'.
+
+For this example, we will move our `PartyAnimal` class into its own file:
+
+\VerbatimInput{../code3/party.py}
+
+Then, we can 'import' the `PartyAnimal` class in a new file and extend it as follows:
+
+\VerbatimInput{../code3/party6.py}
+
+When we are defining the `CricketFan` object, we indicate that we are extending
+the `PartyAnimal` class.  This means that all of the variables (`x`) and methods
+(`party`) from the `PartyAnimal` class are inherited by the `CricketFan` class.
+
+You can see that within the `six` method in the `CricketFan` class, we can access
+the `x` variable from the `PartyAnimal` class and call the `party` method from
+the `PartyAnimal` class.  The variables and methods from the parent class
+are *merged* into the child class.
+
+As the program executes, we can see that the `s` and `j` are independent instances
+of `PartyAnimal` and `CricketFan`.  The `j` object has additional capabilities beyond
+the `s` object.
+
+    Sally constructed
+    Sally party count 1
+    Jim constructed
+    Jim party count 1
+    Jim party count 2
+    Jim points 6
+    ['__class__', '__delattr__', ... '__weakref__', 
+    'name', 'party', 'points', 'six', 'x']
+
+In the `dir` output for the `j` object (instance of the `CricketFan` class) you can see
+that it both has the attributes and methods of the parent class as well as the attributes
+and methods that were added when the class was extended to create the `CricketFan` class.
+
+
+Summary
+-------
+
+This is a very quick introduction to object-oriented programming that focuses mainly
+on the syntax of defining and using objects.   There are many additional details
+as to how to bese use object oriented approaches when developing your applications
+that are beyond the scope of this chapter.
+
+Glossary
+--------
+
+attribute
+:   A variable that is part of a class.
+\index{attribute}
+
+class
+:   A template that can be used to construct an object.  Defines
+    the attrbutes and methods that will make up the object.
+\index{class}
+
+child class
+:   A new class created when a parent class is extended.  The child class
+    inherits all of the attributes and methods of the parent class.
+\index{child class}
+
+constructor
+:   An optional specially named method (`__init__`) that is called at the
+    moment when a class is being used to construct an object.
+    Usually this is used to set up initial values for the object.
+\index{constructor}
+
+destructor
+:   An optional specially named method (`__del__`) that is called at the
+    moment just before an object is destroyed.  Destructors are rarely
+    used.
+\index{destructor}
+
+inheritance
+:   When we create a new class (child class) by extending an 
+    existing class (parent).  The child class has all the attributes
+    and methods of the parent class plus additional asttributes and
+    methods defined by the child class.
+\index{inheritance}
+
+method
+:   A function that is contained within a class and the objects
+    that are constructed from the class.  Some object-oriented
+    patterns use 'message' instead of 'method' to describe this concept.
+\index{method}
+\index{message}
+
+object
+:   A constructed instance of a class.  An object contains all of
+    the attributes and methods that were defined by the class.
+    Some object-oriented documentation uses the term 'instance'
+    interchangably with 'object'.
+\index{method}
+
+parent class
+:   The class which is being extended to create a new chld class.
+    The parent class contributes all of its methods and attributes
+    to the new chaild class.
+\index {parent class}
+
+
 
 
 
