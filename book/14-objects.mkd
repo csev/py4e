@@ -17,7 +17,7 @@ patterns which we use to construct programs:
 In later chapters, we explored simple variables as well as collection
 data structures like lists, tuples, and dictionaries.
 
-As we build programs, we use design data structures and write code
+As we build programs, we design data structures and write code
 to manipulate those data structures.   There are many ways to write programs
 and by now, you probably have written some programs that are "not so elegant"
 and other programs that are "more elegant".   Even though your programs
@@ -38,15 +38,11 @@ Getting Started
 ---------------
 
 Like many aspects of programming it is necessary to learn the concepts of
-object oriented programming before you can use them effectively and in a way
-you can understand in the programs that you produce.  The purpose of this
-chapter is to give you a starting point for understanding object oriented
-programming.
-
+object oriented programming before you can use them effectively.
 So approach this chapter as a way to learn some terms and concepts and work
 through a few simple examples to lay a foundation for future learning.
 Throughout the rest of the book we will be using objects in many of
-the programs but we won't be writing programs using object-oriented approaches.
+the programs but we won't be building our own new objects in the programs.
 
 The key outcome of this chapter is to have a basic understanding of how
 objects are constructed and how they function and most importantly how
@@ -57,7 +53,7 @@ Using Objects
 -------------
 
 It turns our we have been using objects all along in this class.  Python
-provides us built-in objects. Here is some simple code that at this point
+provides us with many built-in objects. Here is some simple code where the first few lines
 should feel very simple and natural to you.
 
 \index{dictionary object}
@@ -66,18 +62,37 @@ should feel very simple and natural to you.
 
 But instead of focusing on what these lines accomplish, lets look at what is
 really happening from the point of view of object-oriented programming.
-Don't worry if the following paragraphs don't make any sense the first time you read them because we have not yet defined all these terms.
+Don't worry if the following paragraphs don't make any sense the
+first time you read them because we have not yet defined all these terms.
 
 The first line is *constructing* an object of type *list*, the second and third
 lines are calling the `append()` *method*, the fourth line is calling
-the `sort()` *method*, and the fifth line is looking up the item at position 0.
+the `sort()` *method*, and the fifth line is retrieving the item at position 0.
 
-It turns out that the fifth line is calling the `__getitem__()` method in the
-list object with a parameter of zero.  When Python sees the square bracket
-syntax after a variable name it calls the `__getitem__()` method
-to allow the object to perform the lookup.
+The sixth line is calling the `__getitem__()` method in the `stuff` list 
+with a parameter of zero.  
 
-And we have been looking at the output of the `dir()` function all along:
+~~~~ {.python}
+print (stuff.__getitem__(0))
+~~~~
+
+The seventh line is an even more verbose way of retrieving the 0th item
+in the list.
+
+~~~~ {.python}
+print (list.__getitem__(stuff,0))
+~~~~
+
+In this code, we care calling the `__getitem__` method in the `list` class
+and passing in the list (`stuff`) and the item we want retrieved from the list
+as parameters.
+
+The last three lines of the program are completely equivalent, but it is more
+convienent to simply use the square bracket syntax to look up an item at
+a particular position in a list.
+
+We can take a look into the capbilities of an object by
+looking at the output of the `dir()` function:
 
     >>> stuff = list()
     >>> dir(stuff)
@@ -93,7 +108,7 @@ And we have been looking at the output of the `dir()` function all along:
     'insert', 'pop', 'remove', 'reverse', 'sort']
     >>>
 
-The precise definition of `dir()` is that it prints a list of the *methods* of
+The precise definition of `dir()` is that it gives us a list of the *methods* of
 a Python object.
 
 The rest of this chapter will define all of the above terms so make sure to
@@ -162,7 +177,7 @@ Subdividing a Problem - Encapsulation
 
 One of the advantages of the object oriented approach is that it can
 hide complexity.  For example, while we need to know how to use the
-`urllib` and BeaautifulSoup code, we do not need to know how those libraries
+`urllib` and BeautifulSoup code, we do not need to know how those libraries
 work internally.  It allows us to focus on the part of the problem we need to
 solve and ignore the other parts of the program.
 
@@ -215,7 +230,7 @@ keyword defines a template indicating what data and code will be contained
 in each object of type `PartyAnimal`.  The class is like a cookie cutter and the objects
 created using the class are the cookies^[Cookie image copyright 
 CC-BY https://www.flickr.com/photos/dinnerseries/23570475099].
-You don't put frosting on the cookie
+You don't put frosting on the cookie cutter,
 you put frosting on the cookies - and you can put different frosting
 on each cookie.
 
@@ -244,13 +259,13 @@ counts = dict()
 ~~~~
 
 Here we are instructing Python to construct an object using the `dict` template (already present
-in Python), return the instance of dictionary and assign it into the variable `counts`.
+in Python), return the instance of dictionary and assign it to the variable `counts`.
 
 When the PartyAnimal class is used to construct an object, the variable `an`
 is used to point to that object.  We use `an` to access the code and data for that
 particular instance of a PartyAnimal object.
 
-Each Partyanimal object/ionstance constains within it a variable `x` and a method/function named
+Each Partyanimal object/instance constains within it a variable `x` and a method/function named
 `party`.  We call that `party` method in this line:
 
 ~~~~ {.python}
@@ -311,8 +326,8 @@ When this program executes, it produces the following output:
     Type <class 'int'>
     Type <class 'method'>
 
-First you can see that using the `class` keyword, we have created a new type.
-And from the `dir` output, you can see both the `x` integer attribute and the `party`
+You can see that using the `class` keyword, we have created a new type.
+From the `dir` output, you can see both the `x` integer attribute and the `party`
 method are available in the object.
 
 Object Lifecycle
@@ -340,7 +355,6 @@ When this program executes, it produces the following output:
     I am constructed
     So far 1
     So far 2
-    So far 3
     I am destructed 2
     an contains 42
 
@@ -353,14 +367,14 @@ an = 42
 ~~~~
 
 It actually 'thows our object away' so it can reuse the `an` variable
-to store the value `42`.  Just at the moment where our `an` object is
-being 'destroyed' our desctructor code (`__del__`) is called.  We cannot
+to store the value `42`.  Just at the moment when our `an` object is
+being 'destroyed' our destructor code (`__del__`) is called.  We cannot
 stop our variable from being destroyed, but we can do any necessary
 cleanup right before our object no longer exists.
 
 When developing objects, it is quite common to add a constructor to an object
 to set in intial values in the object, it is relatively rare to need to 
-need a destructor in an object.
+need a destructor for an object.
 
 Many Instances
 --------------
@@ -419,8 +433,8 @@ When we are defining the `CricketFan` object, we indicate that we are extending
 the `PartyAnimal` class.  This means that all of the variables (`x`) and methods
 (`party`) from the `PartyAnimal` class are inherited by the `CricketFan` class.
 
-You can see that within the `six` method in the `CricketFan` class, we can access
-the `x` variable from the `PartyAnimal` class and call the `party` method from
+You can see that within the `six` method in the `CricketFan` class, we can
+call the `party` method from
 the `PartyAnimal` class.  The variables and methods from the parent class
 are *merged* into the child class.
 
@@ -447,8 +461,8 @@ Summary
 
 This is a very quick introduction to object-oriented programming that focuses mainly
 on the syntax of defining and using objects.   There are many additional details
-as to how to bese use object oriented approaches when developing your applications
-that are beyond the scope of this chapter.
+as to how to bese use object oriented approaches when developing large applications
+and libraries that are beyond the scope of this chapter.
 
 Glossary
 --------
@@ -480,7 +494,7 @@ destructor
 \index{destructor}
 
 inheritance
-:   When we create a new class (child class) by extending an 
+:   When we create a new class (child) by extending an 
     existing class (parent).  The child class has all the attributes
     and methods of the parent class plus additional asttributes and
     methods defined by the child class.
