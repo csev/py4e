@@ -1,8 +1,8 @@
 import socket
 
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mysock.connect(('www.pythonlearn.com', 80))
-cmd = 'GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0\n\n'.encode()
+mysock.connect(('data.pr4e.org', 80))
+cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\n\n'.encode()
 mysock.send(cmd)
 
 while True:

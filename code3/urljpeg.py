@@ -1,11 +1,11 @@
 import socket
 import time
 
-HOST = 'www.pythonlearn.com'
+HOST = 'data.pr4e.org'
 PORT = 80
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mysock.connect((HOST, PORT))
-mysock.sendall(b'GET http://www.pythonlearn.com/cover.jpg HTTP/1.0\n\n')
+mysock.sendall(b'GET http://data.pr4e.org/cover.jpg HTTP/1.0\n\n')
 count = 0
 picture = b""
 
