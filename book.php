@@ -12,10 +12,13 @@
     </div>
 
     <div class="small-12 medium-12 large-9 large-pull-3 columns">
-        <h2>Python for Everbody</h2>
+        <h2>Python for Everybody</h2>
         <h3>Exploring Data In Python 3</h3>
         <p>
             New Edition! The goal of this book is to provide an Informatics-oriented introduction to programming. The primary difference between a computer science approach and the Informatics approach taken in this book is a greater focus on using Python to solve data analysis problems common in the world of Informatics.
+The <a href="#python-for-informatics">Python 2 version</a> of the book is still available.
+There are multiple translations of the Python 2 book - the Python 3 version
+of the book has not been translated.
         </p>
         <p>
             Updated to use Python 3, the book is now available in a variety of formats:
@@ -28,7 +31,7 @@
   <li>
      <a href="#">English</a>
      <ul class="menu vertical nested is-active">
-       <li class="menu-text">Pre-print Book on <a href="https://www.createspace.com/6071911" target="_blank">Createspace</a></li>
+       <li class="menu-text">Printed Book on <a href="http://amzn.to/29w0lsX" target="_blank">Amazon</a></li>
        <li class="menu-text"><a href="https://books.trinket.io/pfe/index.html" target="_blank">Interactive HTML on Trinket.io</a></li>
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.pdf" target="_blank">Download PDF</a></li>
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.epub" target="_blank">Download EPUB</a></li>
@@ -38,7 +41,14 @@
   <li>
      <a href="#">Other Languages</a>
      <ul class="menu vertical nested">
-        <li class="menu-text">Coming Soon</li>
+        <li class="menu-text">
+There are multiple translations of the 
+<a href="#python-for-informatics">Python 2 version</a> 
+of this book - the Python 3 version
+of the book has not been translated.
+If you are interested in translating the Python 3 book, please contact
+the author.
+</li>
      </ul>
   </li>
 </ul>
