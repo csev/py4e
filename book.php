@@ -6,7 +6,7 @@
      <div class="small-12 medium-12 large-3 large-push-9 columns">
         <div class="text-center">
             <a href="https://www.createspace.com/6071911" target="_blank">
-                <img width="auto" height="100%" src="cover3.jpg" alt="A picture of the book cover art"/>
+                <img width="auto" height="100%" src="cover3-final.jpg" alt="A picture of the book cover art"/>
             </a>
         </div>
     </div>
