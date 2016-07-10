@@ -3,6 +3,14 @@
 # For yucks make the epub
 cat epub-metadata.txt *.mkd | grep -v '^%' | python pre-html.py | python verbatim.py | pandoc --default-image-extension=svg --epub-stylesheet=epub.css -o x.epub
 
+# make the mobi if it works (add verbose for debugging)
+if hash kindlegen 2>/dev/null; then
+    kindlegen x.epub 
+    echo "mobi generated"
+else
+    echo "mobi not generated - please install kindlegen"
+fi
+
 rm tmp.* *.tmp *.aux
 pandoc A0-preface.mkd -o tmp.prefacex.tex
 sed < tmp.prefacex.tex 's/section{/section*{/' > tmp.preface.tex

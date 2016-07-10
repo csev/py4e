@@ -47,6 +47,18 @@ Note that each build script plays nicely with the others and the represent paral
 workflows.  Please don't alter any of the python scripts that are used by another
 script if you intend on contributing a new script. 
 
+## KindleGen
+
+The `book.sh` script will generate the `x.mobi` file is KindleGen is in the path:
+
+    https://www.amazon.com/gp/feature.html?docId=1000765211
+
+For Linux:
+
+    curl -O http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz
+    tar xfv kindlegen_linux_2.6_i386_v2_9.tar.gz 
+    cp kindlegen /usr/local/bin
+
 ## Contributing
 
 If you want to contribute, feel free to fork the pythonlearn
