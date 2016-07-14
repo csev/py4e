@@ -32,6 +32,7 @@ of the book has not been translated.
      <a href="#">English</a>
      <ul class="menu vertical nested is-active">
        <li class="menu-text">Printed Book on <a href="http://amzn.to/29w0lsX" target="_blank">Amazon</a></li>
+       <li class="menu-text"><a href="http://amzn.to/29LrtC0" target="_blank">Kindle edition</a> of the book</li>
        <li class="menu-text"><a href="https://books.trinket.io/pfe/index.html" target="_blank">Interactive HTML on Trinket.io</a></li>
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.pdf" target="_blank">Download PDF</a></li>
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.epub" target="_blank">Download EPUB</a></li>
@@ -45,7 +46,7 @@ of the book has not been translated.
 There are multiple translations of the 
 <a href="#python-for-informatics">Python 2 version</a> 
 of this book - the Python 3 version
-of the book has not been translated.
+of the book has not yet been translated.
 If you are interested in translating the Python 3 book, please contact
 the author.
 </li>
