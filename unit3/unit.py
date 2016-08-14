@@ -20,6 +20,7 @@ failures = [
 ]
 
 toskip = [
+    'notry.py', # will always exception
     'unit.py', # avoid infinite loops
     'wikigrade.py',  # talks to ctools - too complex
     'argfile.py', # argument passing - no need to test
@@ -92,3 +93,4 @@ for line in lines:
     diff = True
 if diff or fail >= 1 :
     sys.exit(1)
+
