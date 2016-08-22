@@ -1,5 +1,5 @@
 <?php
-$url = $_SERVER['SCRIPT_URL'];
+$url = $_SERVER['PHP_SELF'];
 $pieces = explode('/',$url);
 if ( count($pieces) == 3 && $pieces[1] == 'videos' && strlen($pieces[2]) > 1 ) {
   $file = str_replace("PY4INF", "Py4Inf", $pieces[2]);
