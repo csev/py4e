@@ -9,6 +9,10 @@ require_once "nav.php";
 
 <h1>Python for Everybody</h1>
 
+<p>
+<b>Under Construction Note:</b>
+The slides, videos, and autograders are being updated from Python 2.0 to Python 3.0.
+</p>
 <p>The goal of this site is to provide a set of materials in support of my <a href="book.php">Python for Everybody</a> book to allow you to learn Python on your own. This page serves as an outline of the materials to support the textbook.  
 You may also be interested in the 
 older version of this book: <a href="http://www.py4inf.com" target="_blank">Python for Informatics: Exploring Information in Python 2.0</a>.
