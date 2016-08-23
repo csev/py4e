@@ -129,14 +129,14 @@ if ( (! isset($oldsettings['exercise'])) || $oldsettings['exercise'] != $ex ) {
 body { font-family: sans-serif; }
 .inputarea { width: 100%; height: 250px; }
 </style>
-<link href="<?php echo($OUTPUT::getLocalStatic(__FILE__)); ?>/static/splitter/jquery.splitter.css" rel="stylesheet"/>
+<link href="static/splitter/jquery.splitter.css" rel="stylesheet"/>
 <?php if ( $codemirror ) { ?>
-<link href="<?php echo($OUTPUT::getLocalStatic(__FILE__)); ?>/static/codemirror/codemirror.css" rel="stylesheet"/>
-<script type="text/javascript" src="<?php echo($OUTPUT::getLocalStatic(__FILE__)); ?>/static/codemirror/codemirror.js"></script>
-<script type="text/javascript" src="<?php echo($OUTPUT::getLocalStatic(__FILE__)); ?>/static/codemirror/python.js"></script>
+<link href="static/codemirror/codemirror.css" rel="stylesheet"/>
+<script type="text/javascript" src="static/codemirror/codemirror.js"></script>
+<script type="text/javascript" src="static/codemirror/python.js"></script>
 <?php } ?>
-<script src="<?php echo($OUTPUT::getLocalStatic(__FILE__)); ?>/static/skulpt-004/skulpt.min.js?v=1" type="text/javascript"></script>
-<script src="<?php echo($OUTPUT::getLocalStatic(__FILE__)); ?>/static/skulpt-004/skulpt-stdlib.js?v=1" type="text/javascript"></script>
+<script src="static/skulpt-004/skulpt.min.js?v=1" type="text/javascript"></script>
+<script src="static/skulpt-004/skulpt-stdlib.js?v=1" type="text/javascript"></script>
 <script type="text/javascript">
 
 function builtinRead(x)
@@ -476,6 +476,7 @@ word-wrap: break-word; /* IE 5.5+ */
 </style>
 <?php
 $OUTPUT->bodyStart();
+$OUTPUT->topNav();
 
 if ( $USER->instructor ) {
     SettingsForm::start();
@@ -659,7 +660,7 @@ The source code for this auto-grader is available on
 <?php
 $OUTPUT->footerStart();
 ?>
-<script type="text/javascript" src="<?php echo($OUTPUT::getLocalStatic(__FILE__)); ?>/static/splitter/jquery.splitter-0.14.0.js"></script>
+<script type="text/javascript" src="static/splitter/jquery.splitter-0.14.0.js"></script>
 <script type="text/javascript">
 // $(document).ready(function() { doc_ready(); } );
 function compute_divs() {
