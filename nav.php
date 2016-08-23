@@ -1,6 +1,7 @@
 <?php
 $OUTPUT->bodyStart();
 $R = $CFG->apphome . '/';
+$adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
 $set = new \Tsugi\UI\MenuSet();
 $set->setHome($CFG->servicename, $CFG->apphome);
 $set->addLeft('Get Started', $R.'install.php');
@@ -14,7 +15,7 @@ $T = $CFG->wwwroot . '/';
 if ( isset($_SESSION['id']) ) {
     $submenu = new \Tsugi\UI\Menu();
     $submenu->addLink('Profile', $T.'profile.php');
-    if ( isset($CFG->google_map_api_key) ) {
+    if ( isset($CFG->google_map_api_key) && $adminmenu ) {
         $submenu->addLink('Map', $T.'map.php');
     }
     $submenu->addLink('Badges (TBD)', $T.'badges.php');
