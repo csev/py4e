@@ -30,6 +30,13 @@ $assignments = array(
 $oldsettings = Settings::linkGetAll();
 
 $assn = Settings::linkGet('exercise');
+$custom = LTIX::customGet('exercise');
+if ( $assn && isset($assignments[$assn]) ) {
+    // Configured
+} else if ( strlen($custom) > 0 && isset($assignments[$custom]) ) {
+    Settings::linkSet('exercise', $custom);
+    $assn = $custom;
+}
 
 // Get any due date information
 $dueDate = SettingsForm::getDueDate();
@@ -43,6 +50,7 @@ if ( count($_POST) > 0 && $assn && isset($assignments[$assn]) ) {
 // View
 $OUTPUT->header();
 $OUTPUT->bodyStart();
+$OUTPUT->topNav();
 
 // Settings button and dialog
 
