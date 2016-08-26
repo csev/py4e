@@ -1,17 +1,17 @@
 <?php
 $OUTPUT->bodyStart();
 $R = $CFG->apphome . '/';
+$T = $CFG->wwwroot . '/';
 $adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
 $set = new \Tsugi\UI\MenuSet();
 $set->setHome($CFG->servicename, $CFG->apphome);
 $set->addLeft('Get Started', $R.'install.php');
-$set->addLeft('Lessons', $R.'lessons.php');
+$set->addLeft('Lessons', $T.'lessons.php');
 if ( isset($_SESSION['id']) ) {
-	if ( isset($CFG->disqushost) ) $set->addLeft('Discuss', $R.'discuss.php');
-	$set->addLeft('Tools', $R.'lessons.php?anchor=tools');
+	$set->addLeft('Assignments', $T.'assignments.php');
+	if ( isset($CFG->disqushost) ) $set->addLeft('Discuss', $T.'discuss.php');
 }
 
-$T = $CFG->wwwroot . '/';
 if ( isset($_SESSION['id']) ) {
     $submenu = new \Tsugi\UI\Menu();
     $submenu->addLink('Profile', $T.'profile.php');
