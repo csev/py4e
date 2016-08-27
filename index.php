@@ -7,7 +7,7 @@ require_once "nav.php";
 ?>
 <div id="container">
 
-<h1>Python for Everybody</h1>
+<h1>Python for Everybody (PY4E)</h1>
 
 <p>The goal of this site is to provide a set of materials in support of my <a href="book.php">Python for Everybody</a> book to allow you to learn Python on your own. This page serves as an outline of the materials to support the textbook.  
 </p>
