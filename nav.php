@@ -18,7 +18,7 @@ if ( isset($_SESSION['id']) ) {
     if ( isset($CFG->google_map_api_key) && $adminmenu ) {
         $submenu->addLink('Map', $T.'map.php');
     }
-    $submenu->addLink('Badges (TBD)', $T.'badges.php');
+    $submenu->addLink('Badges', $T.'badges.php');
     if ( $CFG->DEVELOPER ) {
         $submenu->addLink('Test LTI Tools', $T . 'dev.php');
     }
