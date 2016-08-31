@@ -22,7 +22,7 @@ $row = GradeUtil::gradeLoad();
 $OLDCODE = false;
 $json = array();
 $editor = 1;
-$python3 = 0;
+$python3 = 1;
 if ( $row !== false && isset($row['json'])) {
     $json = json_decode($row['json'], true);
     if ( isset($json["code"]) ) $OLDCODE = $json["code"];
@@ -567,9 +567,9 @@ if ( $dueDate->message ) {
 <?php
     if ( $EX !== false ) {
         if ( $python3 ) {
-            echo('<button onclick="runit()" class="btn btn-warning" type="button">Check Code (Python 3)</button>'."\n");
-        } else {
             echo('<button onclick="runit()" class="btn btn-primary" type="button">Check Code</button>'."\n");
+        } else {
+            echo('<button onclick="runit()" class="btn btn-warning" type="button">Check Code (Python 2)</button>'."\n");
         }
     } else {
         if ( $python3 ) {
@@ -646,7 +646,7 @@ Setting:
         $textval = "Use Python 2";
     } else {
         $editurl = reconstruct_query('index.php',array("python3" => 1));
-        $textval = "Use Python 3 (experimental)";
+        $textval = "Use Python 3";
     }
     echo(' | <a href="'.$editurl.'">'.$textval.'</a>. ');
 ?>
