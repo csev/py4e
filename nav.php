@@ -39,7 +39,7 @@ if ( isset($_SESSION['id']) ) {
     $set->addRight('Login', $T.'login.php');
 }
 
-$set->addRight('Book', 'book.php');
+$set->addRight('Book', $R . 'book.php');
 $set->addRight('Instructor', 'http://www.dr-chuck.com');
 
 // Set the topNav for the session
