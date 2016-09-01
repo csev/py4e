@@ -24,12 +24,13 @@ There is an
 <a href="https://disqus.com/home/channel/pythonforeverybody/" target="_blank">online disucssion forum</a>
 hosted by Disqus.</li>
 <li class="list-group-item">
-If you want to use these Creative Commons Licensed materials in your own classes you can download
-or link to the artifacts,
+If you want to use these Creative Commons Licensed materials 
+in your own classes you can download or link to the artifacts on this site,
 <a href="tsugi/cc/export.php">export the course material</a> as an
-<a href="https://www.imsglobal.org/cc/index.html" target="_blank">
-IMS Common Cartridge®</a>, or apply for
-an <a href="tsugi/admin/key/index.php">IMS LTI key and secret</a> to launch the autograders from your LMS.
+IMS Common Cartridge®, or apply for
+an IMS Learning Tools Interoperability® (LTI®)
+<a href="tsugi/admin/key/index.php">key and secret</a>
+ to launch the autograders from your LMS.
 </li>
 </ul>
 <?php } else { ?>
