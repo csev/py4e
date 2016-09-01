@@ -37,7 +37,6 @@ an IMS Learning Tools Interoperability® (LTI®)
 <p>
 Hello and welcome to my site where you can work through my course materials related to
 my free <a href="book.php">Python for Everybody</a> text book.
-<p>
 You can use this web site many different ways:
 <ul class="list-group">
 <li class="list-group-item">
@@ -46,13 +45,12 @@ I have developed
 for this class are all provided with a Creative Commons license so you can download or link to
 them to incorporate them into your own teaching if you like.</li>
 <li class="list-group-item">
-This site uses <a href="http://www.tsugi.org" target="_blank">Tsugi</a> framework to embed a learning
-management system into this site.  So if you <a href="tsugi/login.php">log in</a> to this site
+If you <a href="tsugi/login.php">log in</a> to this site
 it is as if you have joined a free, global
 open and online course.  You have a grade book, autograded assignments, a discussion forum, and can earn
 badges for your efforts.</li>
 <li class="list-group-item">
-If you want to use these Creative Commons Licensed materials 
+If you want to use these materials 
 in your own classes you can download or link to the artifacts on this site,
 <a href="tsugi/cc/export.php">export the course material</a> as an
 IMS Common Cartridge®, or apply for
@@ -67,7 +65,10 @@ copy of the course site, publish it and remix it any way you like.  Even more ex
 the entire site (course) into your own language and publish it.</li>
 </ul>
 <?php } ?>
-I think that this is an exciting way to provide online materials.  If you are interested in collaborating
+This site uses <a href="http://www.tsugi.org" target="_blank">Tsugi</a> 
+framework to embed a learning management system into this site and
+provide the autograders.  
+If you are interested in collaborating
 to build these kinds of sites for yourself, please see the
 <a href="http://www.tsugi.org" target="_blank">tsugi.org</a> website.
 </p>
