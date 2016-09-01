@@ -52,12 +52,13 @@ it is as if you have joined a free, global
 open and online course.  You have a grade book, autograded assignments, a discussion forum, and can earn
 badges for your efforts.</li>
 <li class="list-group-item">
-This site supports the <a href="https://www.imsglobal.org/cc/index.html" target="_blank">
-IMS Common Cartridge® Specification</a> that allows you to extract all of the material from the course
-and import it into a Learning Management system like
-<a href="http://www.sakaiproject.org" target="_blank">Sakai</a>, Moodle, Canvas, Blackboard, BrightSpace, or others.
-You can download a cartridge using the <a href="tsugi/cc/export.php">export feature</a>.  You will also need
-an <a href="tsugi/admin/key/index.php">IMS LTI key and secret</a> to launch the autograders from your LMS.
+If you want to use these Creative Commons Licensed materials 
+in your own classes you can download or link to the artifacts on this site,
+<a href="tsugi/cc/export.php">export the course material</a> as an
+IMS Common Cartridge®, or apply for
+an IMS Learning Tools Interoperability® (LTI®)
+<a href="tsugi/admin/key/index.php">key and secret</a>
+ to launch the autograders from your LMS.
 </li>
 <li class="list-group-item">
 The code for this site including the autograders, slides, and course content is all available on
