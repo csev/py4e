@@ -55,7 +55,7 @@ badges for your efforts.</li>
 This site supports the <a href="https://www.imsglobal.org/cc/index.html" target="_blank">
 IMS Common Cartridge® Specification</a> that allows you to extract all of the material from the course
 and import it into a Learning Management system like
-<a href="http://www.sakaiproject.org" target="_blank">Sakai</a>, Moodle, Canvas, Blackboaard, BrightSpace, or others.
+<a href="http://www.sakaiproject.org" target="_blank">Sakai</a>, Moodle, Canvas, Blackboard, BrightSpace, or others.
 You can download a cartridge using the <a href="tsugi/cc/export.php">export feature</a>.  You will also need
 an <a href="tsugi/admin/key/index.php">IMS LTI key and secret</a> to launch the autograders from your LMS.
 </li>
