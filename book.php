@@ -1,5 +1,6 @@
 <?php include("top.php"); ?>
 <?php include("nav.php");?>
+<img src="cover3.jpg" style="float: right; width:20em" class="hidden-xs"/>
         <h2>Python for Everybody</h2>
         <h3>Exploring Data In Python 3</h3>
         <p>
@@ -45,6 +46,7 @@ of the book has not been translated.
 </div>
 <img alt=""src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
 </form>
+<img src="cover3.jpg" style="width:90%" class="visible-xs visible-xs-inline-block"/>
 </center>
 </div>
 </div>
