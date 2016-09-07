@@ -9,13 +9,13 @@
         </p>
         <ul>
             <li>
-                <a href="/software-win.php">Setting up the PythonLearn Environment in Microsoft Windows</a>
+                <a href="software-win.php">Setting up the PythonLearn Environment in Microsoft Windows</a>
             </li>
             <li>
-                <a href="/software-mac.php">Setting up the PythonLearn Environment on a Macintosh</a>
+                <a href="software-mac.php">Setting up the PythonLearn Environment on a Macintosh</a>
             </li>
             <li>
-                <a href="/software-pi.php">Setting up the PythonLearn Environment on a Raspberry Pi</a> (New)
+                <a href="software-pi.php">Setting up the PythonLearn Environment on a Raspberry Pi</a> (New)
             </li>
             <li>
                 Can't or don't want to install software on your computer?  Check out <a href="http://trinket.io">Trinket</a>, 

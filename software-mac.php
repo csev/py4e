@@ -1,4 +1,5 @@
-<?php include("header.php"); ?>
+<?php include("top.php"); ?>
+<?php include("nav.php"); ?>
 <div class="hide-for-large" id="mobile-support"></div>
 <div id="first-row" class="row">
 <div class="small-12 columns">
