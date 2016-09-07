@@ -1,23 +1,62 @@
 <?php include("top.php"); ?>
 <?php include("nav.php"); ?>
-<h1>
-Getting started with Python on a Macintosh
-</h1>
-<p>Python 2 and Python 3 are already installed on Macintosh OS/X operating system so all you need to add
+<div class="hide-for-large" id="mobile-support"></div>
+<div id="first-row" class="row">
+<div class="small-12 columns">
+<h3>
+Setting up the PythonLearn Environment on a Macintosh
+</h3>
+<p>Python is already installed on Macintosh OS/X operating system so all you need to add
 is a programmer text editor.
 </p>
-<b>Installing the Atom Text Editor</b>
-<p>Please download and install Atom from this site:
+<h3>Pre-Requisite: TextWrangler</h3>
+<p>Please download and install TextWrangler from this site.  
 </p>
-<p><a href="http://atom.io" target="_blank">http://atom.io</a>
+<p><a href="http://www.barebones.com/products/TextWrangler/download.html" target="_new">http://www.barebones.com/products/TextWrangler/download.html</a>
 
-<h1>Writing a Python 3 program with Atom on Macintosh</h1>
 <p>
-We have a short
-<a href="https://www.youtube.com/watch?v=M-Dd4ifRlCs&index=2&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
-step-by-step video</a> showing how to use Atom and write your first Python 3 program.
+<b>Important:</b> Before you create your first program, you need to make one small change in the 
+Preferences for TextWrangler.  This will save you lots of "Python indent errors" anguish later.
+Under <b> TextWrangler -> Preferences -> Editor Defaults</b> tick the check box
+for "Expand Tabs" and close the dialog box 
+(<a href="textwrangler_tabs_prefs.png" target="_new">Screenshot</a>).
+
+<h3>Editing With TextWrangler</h3>
 <p>
-<h1>Starting Terminal on Macintosh OS/X</h1>
+<b>Note:</b> We have a screen cast for the use of TextWrangler.  You can either view this on
+<!-- Note to self - Vimeo cannot handle these files - so YouTube is what we get -->
+<a href="http://www.youtube.com/watch?v=et2vjUAz9-k" target="_new">YouTube</a> or you can 
+download the high-quality 
+<a href="http://www-personal.umich.edu/~csev/courses/shared/podcasts/mac-python-textwrangler.mov"
+target="_new">QuickTime version</a> of the screen cast.  
+You will need Apple QuickTime installed to view this video.
+</p>
+<p>
+Go into the upper-right of your screen and click on the Spotlight search button and type <b>textwrangler</b>. 
+
+<p>
+Then create your first Python program.
+<pre>
+    print "Hello World"
+</pre>
+<p>Save your program as firstprog.py onto your Desktop.
+You will notice that after you save the file, TextWrangler will color your code based on the Python syntax rules.
+Syntax coloring is a very helpful feature as it gives you visual feedback about your program and can help you track down syntax errors more easily.  TextWrangler only knows that your file is a Python file after you save it with a ".py" suffix.  
+</p>
+
+<h3>Running Python Using the Built-In TextWrangler Shortcut</h3>
+<p>
+TextWrangler has a built-in way to run a Python program directly from 
+the TextWrangler user interface.  In TextWrangler go to the menu item <b>#! -> Run in Terminal </b>
+<p>
+TextWrangler will bring up a terminal window and automatically execute Python on your program.
+You will have to look closely to pick out the output from your program amongst the rest of the output in the terminal window.
+<p>
+In general, you can use the TextWrangler shortcut for very simple programs but once you start 
+reading and writing files in your Python programs you should open and use the terminal program 
+so you know what directory your program is running in - so you can open and read files.
+
+<h3>Starting Terminal on Macintosh OS/X</h3>
 <p>
 The Terminal program on Macintosh is kind of buried under <b>Macintosh HD -> Applications -> Utilities -> Terminal</b>
 <p>
@@ -27,10 +66,10 @@ your screen and click on the Spotlight search button and type
 list of items.
 <p>
 You can get Terminal to stay in your dock once terminal is launched by clicking and 
-holding on the Terminal icon in the dock and then selecting "Keep in Dock".  
+holding on the Terminal icon in the dock and then selecting Keep in Dock.  
 Then you can quickly launch Terminal by clicking on the icon in the dock.
 
-<h1>Where Are You?</h1>
+<h3>Where Are You?</h3>
 <p>
 When the command line starts up, you are in your "home" directory.   
 In each of these examples, your logged in account should be used instead of csev.
@@ -46,7 +85,7 @@ where you are, on Macintosh use the <b>pwd</b> command.
     udhcp-macvpn-624:~ csev$ 
 </pre>
 
-<h1>Where can you go?</h1>
+<h3>Where can you go?</h3>
 <p>
 Generally the first thing you want to do when you open a command line 
 interface is to navigate to the right folder.  Say you wanted to run a file from your desktop.   The command is 
@@ -96,10 +135,10 @@ Running Your Python Program in the Terminal
 <p>
 Start the Terminal program, navigate to the proper directory and type the following command:
 <pre>
-    python3 firstprog.py
+    python firstprog.py
 </pre>
-This loads the Python 3 interpreter and runs <b>firstprog.py</b>, showing the program output 
-and/or errors in the Terminal window.
+This loads the Python interpreter and runs <b>firstprog.py</b>, showing the program output and/or errors 
+in the Terminal window.
 <p>
 Some Cool Hints on The Macintosh Terminal Program
 <p>
@@ -107,4 +146,6 @@ You can scroll back through previous commands by pressing the up and down arrows
 commands using the enter key.  This can save a lot of typing.
 If you like keeping your screen uncluttered, you can clear the scroll 
 back buffer by pressing the Command key and the K key at the same time.
+</div>
+</div>
 <?php include('footer.php');?>

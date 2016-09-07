@@ -9,13 +9,10 @@
         </p>
         <ul>
             <li>
-                <a href="software-win.php">Setting up the PythonLearn Environment in Microsoft Windows</a>
+                <a href="software-win.php">Setting up the Python Environment in Microsoft Windows</a>
             </li>
             <li>
-                <a href="software-mac.php">Setting up the PythonLearn Environment on a Macintosh</a>
-            </li>
-            <li>
-                <a href="software-pi.php">Setting up the PythonLearn Environment on a Raspberry Pi</a> (New)
+                <a href="software-mac.php">Setting up the Python Environment on a Macintosh</a>
             </li>
             <li>
                 Can't or don't want to install software on your computer?  Check out <a href="http://trinket.io">Trinket</a>, 
@@ -23,11 +20,6 @@
                 <a href="http://codeanywhere.com">CodeAnywhere</a>.
             </li>
         </ul>
-       <p>
-           <b>Note:</b> Make sure that you have Python 2.6.1 or later but do not install Python 3.x.  There are signficant differences between Python 2 and Python 3 and this book and class is still Python 2.
-       </p>
-       <p>
-           You will need <a href="http://www.apple.com/quicktime" target=_new>Quicktime</a> (or iTunes) installed on your computer to view any video materials or screencasts. You should probably download the high quality copies of these files or screencasts to your computer and view/play them locally. They are rather large files and you will want to move back and forth as well as start and stop the podcasts so you can perform the steps as indicated.
        </p>
 
     </div>
