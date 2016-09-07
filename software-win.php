@@ -1,6 +1,6 @@
 <?php include("top.php"); ?>
 <?php include("nav.php"); ?>
-<h1>Installing Python 3</h1>
+<h1>Installing Python 3 On Windows 10</h1>
 <p><b>Note:</b> Any reasonably recent version of Python is acceptible for this course.
 If you have a verison of Python 3.x on your computer already you should be able to use it for this class.
 </p>
