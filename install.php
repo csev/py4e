@@ -14,13 +14,12 @@
             <li>
                 <a href="software-mac.php">Setting up the Python Environment on a Macintosh</a>
             </li>
-            <li>
-                Can't or don't want to install software on your computer?  Check out <a href="http://trinket.io">Trinket</a>, 
-                <a href="https://www.pythonanywhere.com/">PythonAnywhere</a>, <a href="http://c9.io">Cloud9</a>, or 
-                <a href="http://codeanywhere.com">CodeAnywhere</a>.
-            </li>
         </ul>
-       </p>
+        <p>
+            Can't or don't want to install software on your computer?  Check out <a href="http://trinket.io">Trinket</a>, 
+            <a href="https://www.pythonanywhere.com/">PythonAnywhere</a>, <a href="http://c9.io">Cloud9</a>, or 
+            <a href="http://codeanywhere.com">CodeAnywhere</a>.
+        </p>
 
     </div>
 </div>
