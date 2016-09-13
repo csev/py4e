@@ -50,8 +50,8 @@ to compute gross pay.  Use 35 hours and a rate of 2.75 per hour to test the
 program (the pay should be 96.25).  You should use <b>raw_input</b> to
 read a string and <b>float()</b> to convert the string to a number.
 Do not worry about error checking or bad user data.",
-"desired" => "96.25",
-"desired2" => "Pay: 96.25",
+"desired" => "Pay: 96.25",
+"desired2" => "96.25",
 "code" => '# This first line is provided for you
 
 hrs = raw_input("Enter Hours:")',
