@@ -72,7 +72,8 @@ framework to embed a learning management system into this site and
 provide the autograders.  
 If you are interested in collaborating
 to build these kinds of sites for yourself, please see the
-<a href="http://www.tsugi.org" target="_blank">tsugi.org</a> website.
+<a href="http://www.tsugi.org" target="_blank">tsugi.org</a> website and/or 
+contact me.
 </p>
 <h2>Under Construction</h2>
 <p>
