@@ -27,7 +27,7 @@
         </ul>
         <p>
         If you are interested in translating the book or other online materials into another 
-        language, please contact me so we can cordinate out sctivities.
+        language, please contact me so we can coordinate out sctivities.
         </p>
 
 <?php include("footer.php"); ?>
