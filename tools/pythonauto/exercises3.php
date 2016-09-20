@@ -134,6 +134,8 @@ print("Pay",p)',
 "checks" => Array(
 "input" => "You must prompt the pay and rate using the input() function.",
 "print" => "You must use the print statement to print the output.",
+"!45" => "You must prompt for the data.",
+"!10.5" => "You must prompt for the data.",
 "if" => "You should use an if statement to decide to to the overtime computation or not.",
 "float" => "You should use the built-in float() function to convert from a string to a float.",
 "def" => "You must use a function called computepay to do the computation.",
