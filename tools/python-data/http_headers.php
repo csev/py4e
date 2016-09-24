@@ -9,7 +9,7 @@ function mapdown($input) {
 }
 
 // Compute the stuff for the output
-$getUrl = 'http://www.pythonlearn.com/code/intro-short.txt';
+$getUrl = 'http://data.pr4e.org/intro-short.txt';
 
 $data = Net::doGet($getUrl);
 $response = Net::getLastHttpResponse();
@@ -76,8 +76,11 @@ that you can examine the HTTP Response headers.
 <p>
 There are three ways that you might retrieve this web page and look at the response headers:
 <ul>
-<li><b>Preferred:</b> Modify the <a href="http://www.pythonlearn.com/code/socket1.py" target="_blank">socket1.py</a>
-program to retrieve the above URL and print out the headers and data.</li>
+<li><b>Preferred:</b> Modify the <a href="http://www.py4e.com/code3/socket1.py" target="_blank">socket1.py</a>
+program to retrieve the above URL and print out the headers and data.  
+Make sure to <b>change</b> the code to retrieve the above URL - the values are
+different for each URL.
+</li>
 <li>Open the URL in a web browser with a developer console or FireBug and manually examine the headers that
 are returned.</li>
 <li>Use the <b>telnet</b> program as shown in lecture to retrieve the headers and content.</li>
