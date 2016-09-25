@@ -76,7 +76,7 @@ that you can examine the HTTP Response headers.
 <p>
 There are three ways that you might retrieve this web page and look at the response headers:
 <ul>
-<li><b>Preferred:</b> Modify the <a href="http://www.py4e.com/code3/socket1.py" target="_blank">socket1.py</a>
+<li><b>Preferred:</b> Modify the <a href="<?= $CFG->apphome ?>/code3/socket1.py" target="_blank">socket1.py</a>
 program to retrieve the above URL and print out the headers and data.  
 Make sure to <b>change</b> the code to retrieve the above URL - the values are
 different for each URL.
