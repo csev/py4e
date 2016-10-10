@@ -5,6 +5,7 @@ use \Tsugi\Core\LTIX;
 use \Tsugi\Core\Settings;
 use \Tsugi\UI\SettingsForm;
 use \Tsugi\Grades\GradeUtil;
+use \Tsugi\UI\Lessons;
 
 // Sanity checks
 $LAUNCH = LTIX::requireData();
@@ -91,15 +92,29 @@ $CHECKS = false;
 $EX = false;
 
 // Check which exercise we are supposed to do - settings, then custom, then 
-// GET
+// inherit, then GET
 if ( isset($oldsettings['exercise']) && $oldsettings['exercise'] != '0' ) {
     $ex = $oldsettings['exercise'];
 } else {
     $ex = LTIX::customGet('exercise');
 }
+if ( $ex === false && isset($_GET["inherit"]) && isset($CFG->lessons) ) {
+    $l = new Lessons($CFG->lessons);
+    if ( $l ) {
+        $lti = $l->getLtiByRlid($_GET['inherit']);
+        if ( isset($lti->custom) ) foreach($lti->custom as $custom ) {
+            if (isset($custom->key) && isset($custom->value) && $custom->key == 'exercise' ) {
+                $ex = $custom->value;
+                Settings::linkSet('exercise', $ex);
+            }
+        }
+    }
+}
 if ( $ex === false && isset($_REQUEST["exercise"]) ) {
     $ex = $_REQUEST["exercise"];
+    Settings::linkSet('exercise', $ex);
 }
+
 if ( $ex !== false && $ex != "code" ) {
     if ( isset($EXERCISES[$ex]) ) $EX = $EXERCISES[$ex];
     if ( $EX !== false ) {
