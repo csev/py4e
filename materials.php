@@ -7,7 +7,10 @@
         </p>
         <ul>
             <li>
-                <a href="lectures/" target="_new">Lecture Slides and Handouts</a>
+                <a href="lectures3/" target="_blank">Lecture Slides and Handouts</a>
+            </li>
+            <li>
+                <a href="code3/" target="_blank">Sample Code</a>
             </li>
             <li>
                 <a href="https://www.youtube.com/playlist?list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
