@@ -31,6 +31,10 @@ of the book has not been translated.
             The sample code and data files for the book is here: <a href="http://www.py4e.com/code3/" target="_blank">Code Samples</a>.
         </p>
         <p>
+        A Spanish translation has been started by Fernando Tardio - you can view the translation in progress at:
+        <a href="http://do1.dr-chuck.com/pythonlearn/" target="_blank">Build Server</a>.
+        </p>
+        <p>
             Chapters 2-10 are heavily adapted from the open book titled: "<a href="http://www.greenteapress.com/thinkpython/thinkCSpy/" target="_blank">Think Python: How to Think like a Computer Scientist</a>" by <a href="http://allendowney.com/" target="_blank">Allen B. Downey</a>.
         </p>
         <p>
