@@ -26,13 +26,18 @@ of the book has not been translated.
        <li class="menu-text"><a href="https://github.com/csev/pythonlearn/raw/master/book3/zips/pfe.zip" target="_blank">Download HTML in a ZIP (~6MB)</a></li>
      </ul>
   </li>
+  <li>
+     A Spanish translation has been started by <a href="https://github.com/ftardio/pythonlearn" target="_blank">Fernando Tardio</a>.
+     <ul class="menu vertical nested is-active">
+       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf" target="_blank">Download PDF</a> (Partially translated)</li>
+       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.epub" target="_blank">Download EPUB</a> (Partially translated)</li>
+     </ul>
+  </li>
+
+  
 </ul>
         <p>
             The sample code and data files for the book is here: <a href="http://www.py4e.com/code3/" target="_blank">Code Samples</a>.
-        </p>
-        <p>
-        A Spanish translation has been started by Fernando Tardio - you can view the translation in progress at:
-        <a href="http://do1.dr-chuck.com/pythonlearn/" target="_blank">Build Server</a>.
         </p>
         <p>
             Chapters 2-10 are heavily adapted from the open book titled: "<a href="http://www.greenteapress.com/thinkpython/thinkCSpy/" target="_blank">Think Python: How to Think like a Computer Scientist</a>" by <a href="http://allendowney.com/" target="_blank">Allen B. Downey</a>.
