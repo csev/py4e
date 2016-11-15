@@ -40,7 +40,8 @@ of the book has not been translated.
             The sample code and data files for the book is here: <a href="http://www.py4e.com/code3/" target="_blank">Code Samples</a>.
         </p>
         <p>
-            Chapters 2-10 are heavily adapted from the open book titled: "<a href="http://www.greenteapress.com/thinkpython/thinkCSpy/" target="_blank">Think Python: How to Think like a Computer Scientist</a>" by <a href="http://allendowney.com/" target="_blank">Allen B. Downey</a>.
+            Chapters 2-10 are heavily adapted from the open book titled: "<a href="http://www.greenteapress.com/thinkpython/thinkCSpy/" target="_blank">Think Python: How to Think like a Computer Scientist</a>" by <a href="http://allendowney.com/" target="_blank">Allen B. Downey</a>
+and <a href="http://www.elkner.net/" target="_blank">Jeff Elkner</a>.
         </p>
         <p>
             All of these materials are free and I want you to take them, use them and reuse them. If you would like to leave a tip, feel free to do so using the PayPal Donate button below.
