@@ -62,7 +62,7 @@ an IMS Learning Tools Interoperability® (LTI®)
 </li>
 <li class="list-group-item">
 The code for this site including the autograders, slides, and course content is all available on
-<a href="https://github.com/csev/pythonlearn" target="_blank">GitHub</a>.  That means you could make your own
+<a href="https://github.com/csev/py4e" target="_blank">GitHub</a>.  That means you could make your own
 copy of the course site, publish it and remix it any way you like.  Even more exciting, you could translate
 the entire site (course) into your own language and publish it.</li>
 </ul>

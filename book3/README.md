@@ -64,7 +64,7 @@ For Linux:
 If you want to contribute, feel free to fork the pythonlearn
 repository and send me pull requests.   
 
-https://github.com/csev/pythonlearn
+https://github.com/csev/py4e
 
 We can also use the issue tracker to coordinate if that helps.
 

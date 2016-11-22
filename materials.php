@@ -24,7 +24,7 @@
             </li>
             <li>
                 All the course content and sotware is available on 
-                <a href="https://github.com/csev/pythonlearn" target="_blank">
+                <a href="https://github.com/csev/py4e" target="_blank">
                 Github</a> - you could literally make a copy of this site and host it as your own.
                 Also you could make a copy of the site and translate everything into another language.
         </ul>
