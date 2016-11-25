@@ -30,7 +30,7 @@ $assignments = array(
 $oldsettings = Settings::linkGetAll();
 
 $assn = Settings::linkGet('exercise');
-$custom = LTIX::customGet('exercise');
+$custom = LTIX::ltiCustomGet('exercise');
 if ( $assn && isset($assignments[$assn]) ) {
     // Configured
 } else if ( strlen($custom) > 0 && isset($assignments[$custom]) ) {

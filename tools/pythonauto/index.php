@@ -96,7 +96,7 @@ $EX = false;
 if ( isset($oldsettings['exercise']) && $oldsettings['exercise'] != '0' ) {
     $ex = $oldsettings['exercise'];
 } else {
-    $ex = LTIX::customGet('exercise');
+    $ex = LTIX::ltiCustomGet('exercise');
 }
 if ( $ex === false && isset($_GET["inherit"]) && isset($CFG->lessons) ) {
     $l = new Lessons($CFG->lessons);
