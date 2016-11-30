@@ -35,7 +35,7 @@ the database.
 Here is a sample run after there is already some data in the 
 database:
 
-Mac: python geoload.py
+Mac: python3 geoload.py
 Win: geoload.py
 
 Found in database  Northeastern University
@@ -76,7 +76,7 @@ executable JavaScript code.
 
 A run of the geodump.py program is as follows:
 
-Mac: python geodump.py
+Mac: python3 geodump.py
 Win: geodump.py
 
 Northeastern University, 360 Huntington Avenue, Boston, MA 02115, USA 42.3396998 -71.08975
