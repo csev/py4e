@@ -35,16 +35,16 @@ for line in fh:
         pass
 
     print('Resolving', address)
-    url = serviceurl + urllib.parse.urlencode({"sensor":"false", "address": address})
+    url = serviceurl + urllib.parse.urlencode({"address": address})
     print('Retrieving', url)
     uh = urllib.request.urlopen(url)
     data = uh.read().decode()
     print('Retrieved', len(data), 'characters', data[:20].replace('\n', ' '))
     count = count + 1
     try:
-        js = json.loads(str(data))
-        print(js)  # We print in case unicode causes an error
+        js = json.loads(data)
     except:
+        print(data)  # We print in case unicode causes an error
         continue
 
     if 'status' not in js or (js['status'] != 'OK' and js['status'] != 'ZERO_RESULTS') : 
