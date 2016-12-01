@@ -434,13 +434,12 @@ We can solve both these problems by using the string methods
 `translate`. The `translate` is the most subtle of
 the methods. Here is the documentation for `translate`:
 
-`string.translate(s, table[, deletechars])`
+`line.translate(str.maketrans(fromstr, tostr, deletestr))`
 
-*Delete all characters from s that are in deletechars (if present), and
-then translate the characters using table, which must be a 256-character
-string giving the translation for each character value, indexed by its
-ordinal. If table is None, then only the character deletion step is
-performed.*
+*Replace the characters in `fromstr` with the character in the same position in `tostr`
+and delete all characters that are in `deletestr`.
+The `fromstr` and `tostr` can be empty strings and the `deletestr`
+parameter can be omitted.*
 
 We will not specify the `table` but we will use the
 `deletechars` parameter to delete all of the punctuation. We
@@ -453,22 +452,14 @@ will even let Python tell us the list of characters that it considers
 '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
 ~~~~
 
+The parameters used by `translate` were different in Python 2.0.
+
 We make the following modifications to our program:
 
 \VerbatimInput{../code3/count2.py}
 \begin{trinketfiles}
 ../code3/romeo-full.txt
 \end{trinketfiles}
-
-We use `translate` to remove all punctuation and
-`lower` to force the line to lowercase. Otherwise the program
-is unchanged. Note that for Python 2.5 and earlier,
-`translate` does not accept `None` as the first
-parameter so use this code instead for the translate call:
-
-~~~~ {.python}
-print a.translate(string.maketrans(' ',' '), string.punctuation
-~~~~
 
 Part of learning the "Art of Python" or "Thinking Pythonically" is
 realizing that Python often has built-in capabilities for many common
