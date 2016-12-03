@@ -20,6 +20,12 @@
                 <a href="book.php">Free Textbook</a>
             </li>
             <li>
+Download all
+<a href="tsugi/cc/export.php"> the course material</a> as an
+IMS Common Cartridge®, to import into an LMS like Sakai, Moodle, Canvas, 
+Desire2Learn, Blackboard, or similar.
+</li>
+            <li>
                 Free cloud hosted autograder software for non-commercial use. (Login and "Use This Service")
             </li>
             <li>
@@ -27,6 +33,8 @@
                 <a href="https://github.com/csev/py4e" target="_blank">
                 Github</a> - you could literally make a copy of this site and host it as your own.
                 Also you could make a copy of the site and translate everything into another language.
+            </li>
+
         </ul>
         <p>
         If you are interested in translating the book or other online materials into another 
