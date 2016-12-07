@@ -13,6 +13,14 @@ http://sqlitebrowser.org/
 This program crawls a web site and pulls a series of pages into the
 database, recording the links between pages.
 
+Note: Windows has difficulty in displaying UTF-8 characters
+in the console so for each console window you open, you may need
+to type the following command before running this code:
+
+    chcp 65001
+
+http://stackoverflow.com/questions/388490/unicode-characters-in-windows-command-line-how
+
 Mac: rm spider.sqlite
 Mac: python3 spider.py
 

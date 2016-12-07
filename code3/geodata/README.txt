@@ -17,6 +17,14 @@ a lot of data you might need to stop and restart the lookup
 process several times.  So we break the problem into two
 phases.  
 
+Note: Windows has difficulty in displaying UTF-8 characters
+in the console so for each console window you open, you may need
+to type the following command before running this code:
+
+    chcp 65001
+
+http://stackoverflow.com/questions/388490/unicode-characters-in-windows-command-line-how
+
 In the first phase we take our input data in the file
 (where.data) and read it one line at a time, and retrieve the
 geocoded response and store it in a database (geodata.sqlite).

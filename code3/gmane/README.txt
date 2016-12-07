@@ -39,6 +39,14 @@ running gmane.py.
 
 Navigate to the folder where you extracted the gmane.zip
 
+Note: Windows has difficulty in displaying UTF-8 characters
+in the console so for each console window you open, you may need
+to type the following command before running this code:
+
+    chcp 65001
+
+http://stackoverflow.com/questions/388490/unicode-characters-in-windows-command-line-how
+
 Here is a run of gmane.py getting the last five messages of the
 sakai developer list:
 
