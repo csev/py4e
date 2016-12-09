@@ -66,15 +66,8 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Messages
     (id INTEGER UNIQUE, email TEXT, sent_at TEXT, 
      subject TEXT, headers TEXT, body TEXT)''')
 
-# This will be manually filled in
-cur.execute('''CREATE TABLE IF NOT EXISTS Mapping 
-    (old TEXT, new TEXT)''')
-
-# This will be manually filled in
-cur.execute('''CREATE TABLE IF NOT EXISTS DNSMapping 
-    (old TEXT, new TEXT)''')
-
 # Pick up where we left off
+start = None
 cur.execute('SELECT max(id) FROM Messages' )
 try:
     row = cur.fetchone()
@@ -84,6 +77,8 @@ try:
         start = row[0]
 except:
     start = 0
+
+if start is None : start = 0
 
 many = 0
 count = 0
@@ -181,8 +176,8 @@ while True:
     print("   ",email,sent_at,subject)
     cur.execute('''INSERT OR IGNORE INTO Messages (id, email, sent_at, subject, headers, body) 
         VALUES ( ?, ?, ?, ?, ?, ? )''', ( start, email, sent_at, subject, hdr, body))
-    if count % 100 == 0 : conn.commit()
-    # time.sleep(1)
+    if count % 50 == 0 : conn.commit()
+    if count % 100 == 0 : time.sleep(1)
 
 cur.close()
 
