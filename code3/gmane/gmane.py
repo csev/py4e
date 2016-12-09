@@ -7,10 +7,6 @@ from urllib.parse import urlparse
 import re
 from datetime import datetime, timedelta
 
-# Deal with SSL certificate anomalies Python > 2.7
-# scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-scontext = None
-
 # Not all systems have this so conditionally define parser
 try:
     import dateutil.parser as parser
@@ -63,7 +59,6 @@ def parsemaildate(md) :
 
 conn = sqlite3.connect('content.sqlite')
 cur = conn.cursor()
-conn.text_factory = str
 
 baseurl = "http://gmane.dr-chuck.net/gmane.comp.cms.sakai.devel/"
 
@@ -79,8 +74,20 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Mapping
 cur.execute('''CREATE TABLE IF NOT EXISTS DNSMapping 
     (old TEXT, new TEXT)''')
 
-start = 0
+# Pick up where we left off
+cur.execute('SELECT max(id) FROM Messages' )
+try:
+    row = cur.fetchone()
+    if row is None : 
+        start = 0
+    else:
+        start = row[0]
+except:
+    start = 0
+
 many = 0
+count = 0
+fail = 0
 while True:
     if ( many < 1 ) :
         sval = input('How many messages:')
@@ -94,12 +101,14 @@ while True:
         if row is not None : continue
     except:
         row = None
-        
+
     many = many - 1
     url = baseurl + str(start) + '/' + str(start + 1)
 
+    text = "None"
     try:
-        document = urllib.request.urlopen(url, context=scontext)
+        # Open with a timeout of 30 seconds
+        document = urllib.request.urlopen(url, None, 30)
         text = document.read().decode()
         if document.getcode() != 200 :
             print("Error code=",document.getcode(), url)
@@ -108,16 +117,22 @@ while True:
         print('')
         print('Program interrupted by user...')
         break
-    except:
+    except Exception as e:
         print("Unable to retrieve or parse page",url)
-        break
+        print("Error",e)
+        fail = fail + 1
+        if fail > 5 : break
+        continue
 
     print(url,len(text))
+    count = count + 1
 
     if not text.startswith("From "):
         print(text)
-        print("End of mail stream reached...")
-        quit ()
+        print("Did not find From ")
+        fail = fail + 1
+        if fail > 5 : break
+        continue
 
     pos = text.find("\n\n")
     if pos > 0 : 
@@ -126,8 +141,10 @@ while True:
     else:
         print(text)
         print("Could not find break between headers and body")
-        break
-
+        fail = fail + 1
+        if fail > 5 : break
+        continue
+    
     email = None
     x = re.findall('\nFrom: .* <(\S+@\S+)>\n', hdr)
     if len(x) == 1 : 
@@ -151,17 +168,21 @@ while True:
         except:
             print(text)
             print("Parse fail",tdate)
-            break
+            fail = fail + 1
+            if fail > 5 : break
+            continue
 
     subject = None
     z = re.findall('\Subject: (.*)\n', hdr)
     if len(z) == 1 : subject = z[0].strip().lower();
 
+    # Reset the fail counter
+    fail = 0
     print("   ",email,sent_at,subject)
     cur.execute('''INSERT OR IGNORE INTO Messages (id, email, sent_at, subject, headers, body) 
         VALUES ( ?, ?, ?, ?, ?, ? )''', ( start, email, sent_at, subject, hdr, body))
-    conn.commit()
-    time.sleep(1)
+    if count % 100 == 0 : conn.commit()
+    # time.sleep(1)
 
 cur.close()
 

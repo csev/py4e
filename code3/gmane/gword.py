@@ -5,7 +5,6 @@ import zlib
 import string
 
 conn = sqlite3.connect('index.sqlite')
-conn.text_factory = str
 cur = conn.cursor()
 
 cur.execute('SELECT id, subject FROM Subjects')

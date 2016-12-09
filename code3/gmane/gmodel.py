@@ -137,7 +137,6 @@ def parseheader(hdr, allsenders=None):
     return (guid, sender, subject, sent_at)
 
 conn = sqlite3.connect('index.sqlite')
-conn.text_factory = str
 cur = conn.cursor()
 
 cur.execute('''DROP TABLE IF EXISTS Messages ''')
@@ -156,8 +155,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Subjects
 cur.execute('''CREATE TABLE IF NOT EXISTS Replies 
     (from_id INTEGER, to_id INTEGER)''')
 
-conn_1 = sqlite3.connect('content.sqlite')
-conn_1.text_factory = str
+conn_1 = sqlite3.connect('mapping.sqlite')
 cur_1 = conn_1.cursor()
 
 cur_1.execute('''SELECT old,new FROM DNSMapping''')
@@ -170,6 +168,13 @@ for message_row in cur_1 :
     old = fixsender(message_row[0])
     new = fixsender(message_row[1])
     mapping[old] = fixsender(new)
+
+# Done with mapping.sqlite
+conn_1.close()
+
+# Open the main content (Read only)
+conn_1 = sqlite3.connect('file:content.sqlite?mode=ro', uri=True)
+cur_1 = conn_1.cursor()
 
 allsenders = list()
 cur_1.execute('''SELECT email FROM Messages''')
