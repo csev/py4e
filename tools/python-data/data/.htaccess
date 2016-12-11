@@ -1,14 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule ^ - [E=protossl]
+    RewriteCond %{HTTPS} on
+    RewriteRule ^ - [E=protossl:s]
+    RewriteRule "(^|/)\." - [F]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !=/favicon.ico
+    RewriteRule ^ index.php [L]
+</IfModule>
 
-# FallbackResource index.php
-
-# Turn rewriting on
-Options +FollowSymLinks
-
-# Redirect requests to index.php
-# RewriteBase /
-RewriteEngine On
-RewriteRule .* index.php
-
-Header set Cache-Control "max-age=604800, public"
-
-
+<IfModule !mod_rewrite.c>
+    FallbackResource index.php
+</IfModule>
