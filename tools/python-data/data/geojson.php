@@ -6,7 +6,14 @@ if ( file_exists('../config.php') ) {
 }
 require_once("locations.php");
 
-$address = isset($_GET['address']) ? $_GET['address'] : false;
+$address = false;
+if ( isset($_GET['address']) ) {
+    $address = $_GET['address'];
+}
+if ( isset($_GET['query']) ) {
+    $address = $_GET['query'];
+}
+
 header('Content-Type: application/json; charset=utf-8');
 
 if ( $address === false ) {

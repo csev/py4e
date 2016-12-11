@@ -1,4 +1,4 @@
-Using the Google Geocoding API with a Database and 
+Using the Google Places  API with a Database and 
 Visualizing data on Google Map
 
 In this project, we are using the Google geocoding API
@@ -40,22 +40,18 @@ in the database and if we don't have the data for the location,
 call the geocoding API to retrieve the data and store it in 
 the database.
 
-As of December 2016, the Google Geocoding API requires an API
-key.   To complete this assignment, you can use a subset of that data 
+As of December 2016, the Google Geocoding APIs require an API
+key.   To complete this assignment without a Google account,
+without an API key, or from a country that blocks 
+access to Google, you can use a subset of that data 
 which is available at:
 
 http://python-data.dr-chuck.net/geojson
 
+To use this, simply leave the api_key set to False.
+
 This URL only has a subset of the data but it has no rate limit so 
 it is good for testing.
-
-For example:
-
-http://python-data.dr-chuck.net/geojson?address=Northeastern+University
-
-If you get an API from Google, you can use the original URL:
-
-http://maps.googleapis.com/maps/api/geocode/json?address=Monash+University
 
 Here is a sample run after there is already some data in the 
 database:
