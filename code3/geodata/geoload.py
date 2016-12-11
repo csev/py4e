@@ -10,7 +10,7 @@ api_key = False
 # api_key = 'AIzaSy___IDByT70'
 
 if api_key is False:
-    serviceurl = "http://py4e-data.dr-chuck.net/geojson?"
+    serviceurl = "http://python-data.dr-chuck.net/geojson?"
 else :
     serviceurl = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 
@@ -38,9 +38,12 @@ for line in fh:
     except:
         pass
 
-    print('Resolving', address)
-    parms = {"query": address}
-    if api_key is not False: parms['key'] = api_key
+    parms = dict()
+    if api_key is not False: 
+        parms['key'] = api_key
+        parms["query"] = address
+    else:
+        parms["address"] = address
     url = serviceurl + urllib.parse.urlencode(parms)
 
     print('Retrieving', url)
