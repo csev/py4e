@@ -17,9 +17,12 @@ if ( $address === false ) {
 
 $where = array_search($address, $LOCATIONS);
 if ( $where === false ) {
-    http_response_code(400);
-    $retval = array('error' => 'Address not found in the list of available locations',
-    'locations' => $LOCATIONS);
+    $retval = array(
+        'error' => 'Address not found in the list of available locations',
+        'results' => array(),
+        'status' => 'ZERO_RESULTS',
+        'locations' => $LOCATIONS
+    );
     echo(\Tsugi\Util\LTI::jsonIndent(json_encode($retval)));
     return;
 }
