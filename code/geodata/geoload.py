@@ -25,7 +25,9 @@ CREATE TABLE IF NOT EXISTS Locations (address TEXT, geodata TEXT)''')
 fh = open("where.data")
 count = 0
 for line in fh:
-    if count > 200 : break
+    if count > 200 : 
+        print 'Retrieved 200 locations, restart to retrieve more'
+        break
     address = line.strip()
     print ''
     cur.execute("SELECT geodata FROM Locations WHERE address= ?", (buffer(address), ))
@@ -58,6 +60,8 @@ for line in fh:
     cur.execute('''INSERT INTO Locations (address, geodata) 
             VALUES ( ?, ? )''', ( buffer(address),buffer(data) ) )
     conn.commit() 
-    time.sleep(1)
+    if count % 10 == 0 :
+        print('Pausing for a bit...')
+        time.sleep(5)
 
 print "Run geodump.py to read the data from the database so you can visualize it on a map."
