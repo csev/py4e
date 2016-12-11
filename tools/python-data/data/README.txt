@@ -1,7 +1,7 @@
 In terms of the data for these assignments, they can either be served
 from the same server as the assignments, or I have a global copy at 
 
-http://python-data.dr-chuck.net/
+http://py4e-data.dr-chuck.net/
 
 This server is hosted and updated, and sits behind a Content-Data-Network
 so it should scale and be fast with a lage number of uses and be responsive
@@ -12,7 +12,7 @@ change the file data/data_util.php and change the global variables:
 
     // Global Configuration Options
     // $GLOBAL_PYTHON_DATA_URL = false; // To serve locally
-    $GLOBAL_PYTHON_DATA_URL = 'http://python-data.dr-chuck.net/';
+    $GLOBAL_PYTHON_DATA_URL = 'http://py4e-data.dr-chuck.net/';
     // $GLOBAL_PYTHON_DATA_REMOVE_HTTPS = true;  // To map data urls to http:
     $GLOBAL_PYTHON_DATA_REMOVE_HTTPS = false;
 

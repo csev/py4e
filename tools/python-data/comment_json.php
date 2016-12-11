@@ -107,8 +107,8 @@ to see how to prompt for a URL and retrieve data from a URL.
 <p><b>Sample Execution</b></p>
 <pre>
 $ python solution.py 
-Enter location: http://python-data.dr-chuck.net/comments_42.json
-Retrieving http://python-data.dr-chuck.net/comments_42.json
+Enter location: http://py4e-data.dr-chuck.net/comments_42.json
+Retrieving http://py4e-data.dr-chuck.net/comments_42.json
 Retrieved 2733 characters
 Count: 50
 Sum: 2...

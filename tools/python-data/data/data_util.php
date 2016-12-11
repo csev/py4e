@@ -7,7 +7,7 @@ use \Tsugi\Core\LTIX;
 // Global Configuration Options
 
 // $GLOBAL_PYTHON_DATA_URL = false; // To serve locally
-$GLOBAL_PYTHON_DATA_URL = 'http://python-data.dr-chuck.net/';
+$GLOBAL_PYTHON_DATA_URL = 'http://py4e-data.dr-chuck.net/';
 
 // $GLOBAL_PYTHON_DATA_REMOVE_HTTPS = true;  // To map data urls to http:
 $GLOBAL_PYTHON_DATA_REMOVE_HTTPS = false;

@@ -144,7 +144,7 @@ add them up to complete the assignment.
 <p>
 <pre>
 $ python solution.py 
-Enter - http://python-data.dr-chuck.net/comments_42.html
+Enter - http://py4e-data.dr-chuck.net/comments_42.html
 Count 50
 Sum 2...
 </pre>

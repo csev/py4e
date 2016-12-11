@@ -109,8 +109,8 @@ node and then loop through the child nodes of the comments node.
 <p>
 <pre>
 $ python solution.py 
-Enter location: http://python-data.dr-chuck.net/comments_42.xml
-Retrieving http://python-data.dr-chuck.net/comments_42.xml
+Enter location: http://py4e-data.dr-chuck.net/comments_42.xml
+Retrieving http://py4e-data.dr-chuck.net/comments_42.xml
 Retrieved 4204 characters
 Count: 50
 Sum: 2...

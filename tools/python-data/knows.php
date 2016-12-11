@@ -7,10 +7,10 @@ use \Tsugi\Util\LTI;
 use \Tsugi\Util\Mersenne_Twister;
 
 
-// python-data.dr-chuck.net is 64 bit
+// py4e-data.dr-chuck.net is 64 bit
 
 if ( PHP_INT_SIZE == 8 ) {
-    $GLOBAL_PYTHON_DATA_URL = "http://python-data.dr-chuck.net/";
+    $GLOBAL_PYTHON_DATA_URL = "http://py4e-data.dr-chuck.net/";
 } else {
     $GLOBAL_PYTHON_DATA_URL = false; // To serve locally
 }
