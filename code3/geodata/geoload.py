@@ -5,9 +5,12 @@ import time
 import ssl
 import sys
 
+# Google API (requires API key)
+# serviceurl = "http://maps.googleapis.com/maps/api/geocode/json?"
 # If you are in China use this URL:
 # serviceurl = "http://maps.google.cn/maps/api/geocode/json?"
-serviceurl = "http://maps.googleapis.com/maps/api/geocode/json?"
+
+serviceurl = "http://python-data.dr-chuck.net/geojson?"
 
 # Deal with SSL certificate anomalies Python > 2.7
 # scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)

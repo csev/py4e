@@ -4,9 +4,13 @@ import json
 import time
 import ssl
 
-# If you are in China use this URL:
+# Google API (requires API key)
+# serviceurl = "http://maps.googleapis.com/maps/api/geocode/json?"
+# If you are in China this URL might work (with key):
 # serviceurl = "http://maps.google.cn/maps/api/geocode/json?"
-serviceurl = "http://maps.googleapis.com/maps/api/geocode/json?"
+
+serviceurl = "http://python-data.dr-chuck.net/geojson?"
+
 
 # Deal with SSL certificate anomalies Python > 2.7
 # scontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
@@ -49,7 +53,7 @@ for line in fh:
     if 'status' not in js or (js['status'] != 'OK' and js['status'] != 'ZERO_RESULTS') : 
         print '==== Failure To Retrieve ===='
         print data
-        break
+        continue
 
     cur.execute('''INSERT INTO Locations (address, geodata) 
             VALUES ( ?, ? )''', ( buffer(address),buffer(data) ) )
