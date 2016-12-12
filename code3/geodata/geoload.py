@@ -1,4 +1,5 @@
 import urllib.request, urllib.parse, urllib.error
+import http
 import sqlite3
 import json
 import time
@@ -10,9 +11,12 @@ api_key = False
 # api_key = 'AIzaSy___IDByT70'
 
 if api_key is False:
-    serviceurl = "http://python-data.dr-chuck.net/geojson?"
+    serviceurl = "http://py4e-data.dr-chuck.net/geojson?"
 else :
     serviceurl = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+
+# Additional detail for urllib
+# http.client.HTTPConnection.debuglevel = 1
 
 conn = sqlite3.connect('geodata.sqlite')
 cur = conn.cursor()
@@ -39,14 +43,13 @@ for line in fh:
         pass
 
     parms = dict()
-    if api_key is not False: 
-        parms['key'] = api_key
-        parms["query"] = address
-    else:
-        parms["address"] = address
+    parms["query"] = address
+    if api_key is not False: parms['key'] = api_key
     url = serviceurl + urllib.parse.urlencode(parms)
 
     print('Retrieving', url)
+    # req = urllib.request.Request(url, headers={'User-Agent' : "Magic Browser"}) 
+    # uh = urllib.request.urlopen( req )
     uh = urllib.request.urlopen(url)
     data = uh.read().decode()
     print('Retrieved', len(data), 'characters', data[:20].replace('\n', ' '))
