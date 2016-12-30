@@ -10,7 +10,8 @@
                 <a href="lectures3/" target="_blank">Lecture Slides and Handouts</a>
             </li>
             <li>
-                <a href="code3/" target="_blank">Sample Code</a>
+                <a href="code3.zip" target="_blank">Sample Code ZIP</a>
+                (<a href="code3/" target="_blank">Individual Files</a>)
             </li>
             <li>
                 <a href="https://www.youtube.com/playlist?list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
