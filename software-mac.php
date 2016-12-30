@@ -14,7 +14,7 @@ is a programmer text editor.
 <h1>Writing a Python 3 program with Atom on Macintosh</h1>
 <p>
 We have a short
-<a href="https://www.youtube.com/watch?v=M-Dd4ifRlCs&index=2&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
+<a href="https://www.youtube.com/watch?v=aIcLCww_kQM" target="_blank">
 step-by-step video</a> showing how to use Atom and write your first Python 3 program.
 <p>
 <h1>Starting Terminal on Macintosh OS/X</h1>
