@@ -25,7 +25,8 @@ There is an
 hosted by Disqus.</li>
 <li class="list-group-item">
 If you want to use these Creative Commons Licensed materials 
-in your own classes you can download or link to the artifacts on this site,
+in your own classes you can 
+<a href="materials.php">download or link</a> to the artifacts on this site,
 <a href="tsugi/cc/export.php">export the course material</a> as an
 IMS Common Cartridge®, or apply for
 an IMS Learning Tools Interoperability® (LTI®)
