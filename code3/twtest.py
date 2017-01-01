@@ -1,6 +1,9 @@
 import urllib.request, urllib.parse, urllib.error
 from twurl import augment
 
+# https://apps.twitter.com/
+# Create App and get the four strings, put them in hidden.py
+
 print('* Calling Twitter...')
 url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json',
               {'screen_name': 'drchuck', 'count': '2'})

@@ -1,6 +1,9 @@
 import urllib.request, urllib.parse, urllib.error
 import twurl
 
+# https://apps.twitter.com/
+# Create App and get the four strings, put them in hidden.py
+
 TWITTER_URL = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 
 while True:
