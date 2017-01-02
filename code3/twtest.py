@@ -19,5 +19,6 @@ connection = urllib.request.urlopen(url, context=ctx)
 data = connection.read()
 print(data)
 
+print ('======================================')
 headers = dict(connection.getheaders())
 print(headers)
