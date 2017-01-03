@@ -38,7 +38,8 @@ for line in fh:
 
     address = line.strip()
     print('')
-    cur.execute("SELECT geodata FROM Locations WHERE address= ?", (memoryview(address.encode()), ))
+    cur.execute("SELECT geodata FROM Locations WHERE address= ?",
+        (memoryview(address.encode()), ))
 
     try:
         data = cur.fetchone()[0]
