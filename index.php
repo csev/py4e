@@ -76,12 +76,6 @@ to build these kinds of sites for yourself, please see the
 <a href="http://www.tsugi.org" target="_blank">tsugi.org</a> website and/or 
 contact me.
 </p>
-<h2>Audio Archive</h2>
-<p>
-Here is an archive of the 
-<a href="https://archive.org/details/201509UMSI502Podcasts_201601" target="_blank">live lecture recordings</a> 
-from SI502 at the UM School of Information Fall 2015.
-</p>
 <!--
 <?php
 echo(Output::safe_var_dump($_SESSION));

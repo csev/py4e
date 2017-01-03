@@ -35,12 +35,18 @@ Desire2Learn, Blackboard, or similar.
                 Github</a> - you could literally make a copy of this site and host it as your own.
                 Also you could make a copy of the site and translate everything into another language.
             </li>
-
         </ul>
         <p>
         If you are interested in translating the book or other online materials into another 
         language, please contact me so we can coordinate out sctivities.
         </p>
+<h2>Audio Archive</h2>
+<p>
+Here is an archive of the
+<a href="https://archive.org/details/201509UMSI502Podcasts_201601" target="_blank">live lecture recordings</a>
+from SI502 as taught on campus at the UM School of Information Fall 2015.
+</p>
+
 
 <?php include("footer.php"); ?>
 
