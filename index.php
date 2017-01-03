@@ -76,12 +76,6 @@ to build these kinds of sites for yourself, please see the
 <a href="http://www.tsugi.org" target="_blank">tsugi.org</a> website and/or 
 contact me.
 </p>
-<h2>Under Construction</h2>
-<p>
-<b>Note:</b>
-The slides, videos, and autograders are in the process of being updated from Python 2.0 to Python 3.0 during Fall 2016 as I teach SI502 on campus using my new book.  You may also be interested in the 
-older version of this book: <a href="http://www.py4inf.com" target="_blank">Python for Informatics: Exploring Information in Python 2.0</a>.
-</p>
 <h2>Audio Archive</h2>
 <p>
 Here is an archive of the 
