@@ -1,13 +1,12 @@
 import sqlite3
 import time
-import urllib.request, urllib.parse, urllib.error
 import re
 import zlib
 from datetime import datetime, timedelta
 
 # Not all systems have this
 try:
-    import dateutil.parser as parser 
+    import dateutil.parser as parser
 except:
     pass
 

@@ -90,6 +90,7 @@ count = 0
 fail = 0
 while True:
     if ( many < 1 ) :
+        conn.commit()
         sval = input('How many messages:')
         if ( len(sval) < 1 ) : break
         many = int(sval)
@@ -184,4 +185,5 @@ while True:
     if count % 50 == 0 : conn.commit()
     if count % 100 == 0 : time.sleep(1)
 
+conn.commit()
 cur.close()
