@@ -13,6 +13,7 @@ repos = [
 pulls = dict()
 
 for repo in repos:
+    print('Checking repo:', repo)
     url = api_url + '/' + repo + '/repos' 
 
     # print('Retrieving', url)
