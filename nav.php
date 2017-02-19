@@ -6,7 +6,8 @@ $adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
 $set = new \Tsugi\UI\MenuSet();
 $set->setHome($CFG->servicename, $CFG->apphome);
 $set->addLeft('Get Started', $R.'install.php');
-$set->addLeft('Lessons', $T.'lessons.php');
+// $set->addLeft('Lessons', $T.'lessons.php');
+$set->addLeft('Lessons', $T.'lessons');
 if ( isset($_SESSION['id']) ) {
 	$set->addLeft('Assignments', $T.'assignments.php');
     // If both are set we go to discuss.php
