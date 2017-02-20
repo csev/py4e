@@ -91,8 +91,8 @@ and populate the tables from the data file.
 </p>
 <p>
 You can base your solution on this code:
-<a href="http://www.pythonlearn.com/code/roster.py" target="_blank">
-http://www.pythonlearn.com/code/roster.py</a> - this code is incomplete
+<a href="http://www.py4e.com/code3/roster.py" target="_blank">
+http://www.py4e.com/code3/roster.py</a> - this code is incomplete
 as you need to modify the program to store the <b>role</b> column 
 in the <b>Member</b> table to complete the assignment.
 </p>

@@ -209,8 +209,8 @@ and reads through the file, and print the contents of the file in upper case.  U
 the file <b>words.txt</b> to produce the output below.".
 '<p>
 You can download the sample data at
-<a href="http://www.pythonlearn.com/code/words.txt" target="_blank">
-http://www.pythonlearn.com/code/words.txt</a>',
+<a href="http://www.py4e.com/code3/words.txt" target="_blank">
+http://www.py4e.com/code3/words.txt</a>',
 "desired" => "WRITING PROGRAMS OR PROGRAMMING IS A VERY CREATIVE
 AND REWARDING ACTIVITY  YOU CAN WRITE PROGRAMS FOR
 MANY REASONS RANGING FROM MAKING YOUR LIVING TO SOLVING
@@ -264,8 +264,8 @@ of the lines and compute the average of those values and produce an output
 as shown below.  Do not use the sum() function or a variable named sum in your solution.
 <p>
 You can download the sample data at
-<a href="http://www.pythonlearn.com/code/mbox-short.txt" target="_blank">
-http://www.pythonlearn.com/code/mbox-short.txt</a> when you are testing
+<a href="http://www.py4e.com/code3/mbox-short.txt" target="_blank">
+http://www.py4e.com/code3/mbox-short.txt</a> when you are testing
 below enter <b>mbox-short.txt</b> as the file name.',
 "desired" => "Average spam confidence: 0.750718518519",
 "code" => '# Use the file name mbox-short.txt as the file name
@@ -305,8 +305,8 @@ check to see if the word is already in the list and if not append it to the list
 When the program completes, sort and print the resulting words in alphabetical order.
 <p>
 You can download the sample data at
-<a href="http://www.pythonlearn.com/code/romeo.txt" target="_blank">
-http://www.pythonlearn.com/code/romeo.txt</a>',
+<a href="http://www.py4e.com/code3/romeo.txt" target="_blank">
+http://www.py4e.com/code3/romeo.txt</a>',
 "desired" => "['Arise', 'But', 'It', 'Juliet', 'Who', 'already', 'and', 'breaks', 'east', 'envious', 'fair', 'grief', 'is', 'kill', 'light', 'moon', 'pale', 'sick', 'soft', 'sun', 'the', 'through', 'what', 'window', 'with', 'yonder']",
 "code" => 'fname = input("Enter file name: ")
 fh = open(fname)
@@ -347,8 +347,8 @@ a count at the end.
 <b>Hint:</b> make sure not to include the lines that start with 'From:'.".
 '<p>
 You can download the sample data at
-<a href="http://www.pythonlearn.com/code/mbox-short.txt" target="_blank">
-http://www.pythonlearn.com/code/mbox-short.txt</a>',
+<a href="http://www.py4e.com/code3/mbox-short.txt" target="_blank">
+http://www.py4e.com/code3/mbox-short.txt</a>',
 "desired" => "stephen.marquard@uct.ac.za
 louis@media.berkeley.edu
 zqian@umich.edu

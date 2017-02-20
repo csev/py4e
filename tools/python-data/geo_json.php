@@ -87,7 +87,7 @@ if ( $dueDate->message ) {
 <b>Calling a JSON API</b>
 </p>
 In this assignment you will write a Python program somewhat similar to 
-<a href="http://www.pythonlearn.com/code/geojson.py" target="_blank">http://www.pythonlearn.com/code/geojson.py</a>.  
+<a href="http://www.py4e.com/code3/geojson.py" target="_blank">http://www.py4e.com/code3/geojson.py</a>.  
 The program will prompt for a location, contact a web service and retrieve
 JSON for the web service and parse that data, and retrieve the first
 <b>place_id</b> from the JSON.
@@ -112,8 +112,8 @@ address values which can be used with this API.
 To call the API, you need to provide a <b>sensor=false</b> parameter and
 the address that you are requesting as the <b>address=</b> parameter that is 
 properly URL encoded using the <b>urllib.urlencode()</b> fuction as shown in 
-<a href="http://www.pythonlearn.com/code/geojson.py" 
-target="_blank">http://www.pythonlearn.com/code/geojson.py</a>
+<a href="http://www.py4e.com/code3/geojson.py" 
+target="_blank">http://www.py4e.com/code3/geojson.py</a>
 </p>
 <!--
 <p>

@@ -89,7 +89,7 @@ if ( strpos($local_path,"geojson") === 0 ) {
     header('Content-Type: text/html');
 ?><html>
 <head>
-<title>Welcome to the comments assignment from www.pythonlearn.com</title>
+<title>Welcome to the comments assignment from www.py4e.com</title>
 </head>
 <body>
 <?php
@@ -285,7 +285,7 @@ if ( strlen($local_path) > 0 ) {
 <h1>Test data sources</h1>
 <p>
 This application has a number of test data sources for
-<a href="http://www.pythonlearn.com/" target="_blank">
+<a href="http://www.py4e.com/" target="_blank">
 Python for Informatics: Exploring Information</a> written by
 <a href="http://www.twitter.com/drchuck" target="_blank">@DrChuck</a> / 
 <a href="http://www.dr-chuck.com/" target="_blank">www.dr-chuck.com</a>.

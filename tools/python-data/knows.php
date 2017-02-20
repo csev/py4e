@@ -106,7 +106,7 @@ $actual_url = dataUrl('known_by_'.$actual_names[0].'.html');
 <b>Following Links in Python</b>
 <p>
 In this assignment you will write a Python program that expands on
-<a href="http://www.pythonlearn.com/code/urllinks.py" target="_blank">http://www.pythonlearn.com/code/urllinks.py</a>.
+<a href="http://www.py4e.com/code3/urllinks.py" target="_blank">http://www.py4e.com/code3/urllinks.py</a>.
 The program will use <b>urllib</b> to read the HTML from the data files below, 
 extract the href= vaues from the anchor tags, scan for a tag that is in 
 a particular position relative to the first name in the list,

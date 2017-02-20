@@ -60,7 +60,7 @@ if ( $dueDate->message ) {
 <b>Extracting Data from JSON</b>
 <p>
 In this assignment you will write a Python program somewhat similar to 
-<a href="http://www.pythonlearn.com/code/json2.py" target="_blank">http://www.pythonlearn.com/code/json2.py</a>.  
+<a href="http://www.py4e.com/code3/json2.py" target="_blank">http://www.py4e.com/code3/json2.py</a>.  
 The program will prompt for a URL, read the JSON data from that URL using 
 <b>urllib</b> and then parse and extract the comment counts from the JSON data, 
 compute the sum of the numbers in the file and enter the sum below:<br/>
@@ -99,9 +99,9 @@ The data consists of a number of names and comment counts in JSON as follows:
 </pre>
 <p>
 The closest sample code that shows how to parse JSON and extract a list is 
-<a href="http://www.pythonlearn.com/code/json2.py" target="_blank">json2.py</a>.  You might also want 
+<a href="http://www.py4e.com/code3/json2.py" target="_blank">json2.py</a>.  You might also want 
 to look at
-<a href="http://www.pythonlearn.com/code/geoxml.py" target="_blank">geoxml.py</a>
+<a href="http://www.py4e.com/code3/geoxml.py" target="_blank">geoxml.py</a>
 to see how to prompt for a URL and retrieve data from a URL.
 </p>
 <p><b>Sample Execution</b></p>

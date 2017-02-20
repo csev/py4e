@@ -85,7 +85,7 @@ instructor:  <?= $code ?>
 -->
 <b>Scraping Numbers from HTML using BeautifulSoup</b>
 In this assignment you will write a Python program similar to 
-<a href="http://www.pythonlearn.com/code/urllink2.py" target="_blank">http://www.pythonlearn.com/code/urllink2.py</a>.  
+<a href="http://www.py4e.com/code3/urllink2.py" target="_blank">http://www.py4e.com/code3/urllink2.py</a>.  
 The program will use <b>urllib</b> to read the HTML from the data files below, and parse the data, 
 extracting numbers and compute the sum of the numbers in the file.
 </p>
@@ -122,7 +122,7 @@ You are to find all the &lt;span&gt; tags in the file and pull out the numbers f
 tag and sum the numbers.
 <p>
 Look at the 
-<a href="http://www.pythonlearn.com/code/urllink2.py" target="_blank">sample code</a>
+<a href="http://www.py4e.com/code3/urllink2.py" target="_blank">sample code</a>
 provided.  It shows how to find all of a certain kind of tag, loop through the tags and
 extract the various aspects of the tags.
 <pre>

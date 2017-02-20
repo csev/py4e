@@ -59,7 +59,7 @@ if ( $dueDate->message ) {
 <b>Extracting Data from XML</b>
 <p>
 In this assignment you will write a Python program somewhat similar to 
-<a href="http://www.pythonlearn.com/code/geoxml.py" target="_blank">http://www.pythonlearn.com/code/geoxml.py</a>.  
+<a href="http://www.py4e.com/code3/geoxml.py" target="_blank">http://www.py4e.com/code3/geoxml.py</a>.  
 The program will prompt for a URL, read the XML data from that URL using 
 <b>urllib</b> and then parse and extract the comment counts from the XML data, 
 compute the sum of the numbers in the file.
@@ -90,7 +90,7 @@ The data consists of a number of names and comment counts in XML as follows:
 You are to look through all the &lt;comment&gt; tags and find the &lt;count&gt; values
 sum the numbers.  
 The closest sample code that shows how to parse XML is 
-<a href="http://www.pythonlearn.com/code/geoxml.py" target="_blank">geoxml.py</a>.
+<a href="http://www.py4e.com/code3/geoxml.py" target="_blank">geoxml.py</a>.
 But since the nesting of the elements in our data is different than the data 
 we are parsing in that sample code you will have to make real changes to the code.
 </p>

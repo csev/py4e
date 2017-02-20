@@ -193,8 +193,8 @@ If you run the program multiple times in testing or with different files,
 make sure to empty out the data before each run.
 <p>
 You can use this code as a starting point for your application:
-<a href="http://www.pythonlearn.com/code/tracks.zip" target="_blank">
-http://www.pythonlearn.com/code/tracks.zip</a>.  
+<a href="http://www.py4e.com/code3/tracks.zip" target="_blank">
+http://www.py4e.com/code3/tracks.zip</a>.  
 The ZIP file contains the <b>Library.xml</b> file to be used for this assignment.
 You can export your own tracks from iTunes and create a database, but
 for the database that you turn in for this assignment, only use the 

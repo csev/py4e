@@ -537,7 +537,7 @@ if ( isset($LINK->title) ) {
         are learning to program.
         </p> <p>
         There are three files loaded into this environment from the
-        <a href="http://www.pythonlearn.com/" target="_blank">Python for Informatics</a>
+        <a href="http://www.py4e.com/" target="_blank">Python for Everybody</a>
         web site and ready for you to open if you want to
         do file processing: "mbox-short.txt", "romeo.txt", and "words.txt".
         </p>
