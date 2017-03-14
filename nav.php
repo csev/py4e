@@ -15,7 +15,6 @@ if ( isset($_SESSION['id']) ) {
     else if ( isset($CFG->disquschannel) ) $set->addLeft('Discuss', $CFG->disquschannel);
 } else {
     $set->addLeft('Materials', $R.'materials.php');
-    $set->addLeft('YouTube', 'https://www.youtube.com/playlist?list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p');
 }
 
 if ( isset($_SESSION['id']) ) {
