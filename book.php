@@ -1,6 +1,6 @@
 <?php include("top.php"); ?>
 <?php include("nav.php");?>
-<img src="cover3.jpg" style="float: right; width:20em" class="hidden-xs"/>
+<a href="http://amzn.to/29w0lsX" target="_blank">Amazon<img src="cover3.jpg" style="float: right; width:20em" class="hidden-xs"/></a>
         <h2>Python for Everybody</h2>
         <h3>Exploring Data In Python 3</h3>
         <p>
