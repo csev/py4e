@@ -17,7 +17,7 @@
             <li>Audio Lectures
             <ul>
             <li><a href="https://itunes.apple.com/us/podcast/python-for-everybody-audio-py4e/id1214665693" target="_blank">iTunes Audio</a></li>
-            <li>Google Play (Coming soon)</li>
+            <li><a href="https://play.google.com/music/listen?u=0#/ps/Ijgj3aofh6m73rps4wtdk6djhv4" target="_blank">Google Play Audio</a></li>
             </ul>
             </li>
             <li>
