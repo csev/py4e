@@ -18,7 +18,6 @@
             <ul>
             <li><a href="https://www.youtube.com/playlist?list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">YouTube</a></li>
             <li><a href="https://itunes.apple.com/us/podcast/python-for-everybody-video/id1214664324" target="_blank">iTunes Video</a></li>
-            <li>Google Play (Coming soon)</li>
             <!-- <li>Amazon Prime Video (Coming soon)</li> -->
             </ul>
             </li>
