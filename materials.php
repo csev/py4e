@@ -1,11 +1,19 @@
 <?php include("top.php");?>
 <?php include("nav.php");?>
-        <h2>Free / Open Educational Resources (OER)</h2>
+<div style="float: right;"/><iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=drchu02-20&marketplace=amazon&region=US&placement=1530051126&asins=1530051126&linkId=2ea6c883c6cf11f29568856139bad34b&show_border=true&link_opens_in_new_window=true"></iframe></div>
+        <h2>Course Materials</h2>
         <p>
             You are welcome to use/reuse/remix/retain the materials from this site in your own courses.
-            Nearly all the material in this web site is Copyright Creative Commons Attribution.
+            Nearly all the material in this web site is Copyright Creative Commons Attribution.  These are 
+            links to downlaodable content as well as links to other sources of this course material.
         </p>
         <ul>
+            </li>
+            <li><p><b>Earn a Coursera Certificate for This Course</b>
+            <ul>
+            <li><a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody</a> (Coursera Specialization)</li>
+            </ul>
+            </p></li>
             <li>Video Lectures
             <ul>
             <li><a href="https://www.youtube.com/playlist?list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">YouTube</a></li>
@@ -37,23 +45,17 @@ IMS Common Cartridge®, to import into an LMS like Sakai, Moodle, Canvas,
 Desire2Learn, Blackboard, or similar.
 </li>
             <li>
-                Free cloud hosted autograder software for non-commercial use. (Login and "Use This Service")
-            </li>
-            <li>Certified Python Class
-            <ul>
-            <li><a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody</a> (Coursera Specialization)</li>
-            </ul>
+                Free cloud hosted autograder software for educational use. (Select Login and then "Use This Service").
             </li>
             <li>
-                All the course content and sotware is available on 
+                All the course content and autograder software is available on 
                 <a href="https://github.com/csev/py4e" target="_blank">
-                Github</a> - you could literally make a copy of this site and host it as your own.
-                Also you could make a copy of the site and translate everything into another language.
+                Github</a> under a Creative Commons or Apache 2.0 license.  
             </li>
         </ul>
         <p>
         If you are interested in translating the book or other online materials into another 
-        language, please contact me so we can coordinate out sctivities.
+        language, please contact me so we can coordinate our activities.
         </p>
 <h2>Audio Archive</h2>
 <p>
