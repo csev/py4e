@@ -5,7 +5,7 @@
         <p>
             You are welcome to use/reuse/remix/retain the materials from this site in your own courses.
             Nearly all the material in this web site is Copyright Creative Commons Attribution.  These are 
-            links to downlaodable content as well as links to other sources of this course material.
+            links to downloadable content as well as links to other sources of this course material.
         </p>
         <ul>
             </li>
