@@ -1,19 +1,13 @@
 <?php include("top.php");?>
 <?php include("nav.php");?>
 <div style="float: right;"/><iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=drchu02-20&marketplace=amazon&region=US&placement=1530051126&asins=1530051126&linkId=2ea6c883c6cf11f29568856139bad34b&show_border=true&link_opens_in_new_window=true"></iframe></div>
-        <h2>Course Materials</h2>
+        <h2>Free/Open Course Materials</h2>
         <p>
             You are welcome to use/reuse/remix/retain the materials from this site in your own courses.
             Nearly all the material in this web site is Copyright Creative Commons Attribution.  These are 
             links to downloadable content as well as links to other sources of this course material.
         </p>
         <ul>
-            </li>
-            <li><p><b>Earn a Coursera Certificate for This Course</b>
-            <ul>
-            <li><a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody</a> (Coursera Specialization)</li>
-            </ul>
-            </p></li>
             <li>Video Lectures
             <ul>
             <li><a href="https://www.youtube.com/playlist?list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">YouTube</a></li>
@@ -38,24 +32,58 @@
                 <a href="book.php">Free Textbook</a>
             </li>
             <li>
-Download all
-<a href="tsugi/cc/export.php"> the course material</a> as an
-IMS Common Cartridge®, to import into an LMS like Sakai, Moodle, Canvas, 
-Desire2Learn, Blackboard, or similar.
-</li>
-            <li>
-                Free cloud hosted autograder software for educational use. (Select Login and then "Use This Service").
-            </li>
-            <li>
                 All the course content and autograder software is available on 
                 <a href="https://github.com/csev/py4e" target="_blank">
                 Github</a> under a Creative Commons or Apache 2.0 license.  
             </li>
-        </ul>
+</ul>
         <p>
         If you are interested in translating the book or other online materials into another 
         language, please contact me so we can coordinate our activities.
         </p>
+<h2>Using this Course in Your Local LMS</h2>
+<p>This web site uses the <a href="http://www.tsugi.org/" target="_blank">Tsugi</a> software
+to both host the software-based autograders and provide this material so it can easily be
+integrated into a Learning Management System like 
+<a href="http://www.sakaiproject.org/" target=_blank">Sakai</a>, Moodle, Canvas, Desire2Learn, Blackboard
+or similar.
+</p>
+<ul>
+<li>
+<p>
+If your LMS supports
+<a href="https://www.imsglobal.org/activity/learning-tools-interoperability" target="_blank">
+IMS Learning Tools Interoperabilty®</a> version 1.x or 2.x, you can login, and request access
+to the tools on this site.  Make sure you indicate whether you need an LTI 1.x
+key (most common) or LTI 2.x key.   You will be given instructions on how to use
+your credentials once you get your key.
+</p>
+</li>
+<li>
+<p>
+If your LMS supports the 
+<a href="https://www.imsglobal.org/cc/index.html" target="_blank">
+IMS Common Cartridge®</a> specification, we provide a single file 
+<a href="tsugi/cc/export.php">export</a>
+of all of the course tools and materials that can be loaded into your LMS.
+After loading the Cartridge, you will need an LTI key and secret to provision the
+LTI-based tools provided in that cartridge.
+</p>
+</li>
+<li>
+<p>
+If your LMS supports 
+<a href="https://www.imsglobal.org/specs/lticiv1p0" target="_blank">
+Learning Tools Interoperability® Content-Item Message</a> you can
+login and apply for an LTI 1.x key and secret and install this web site
+into your LMS as an App Store / Learning Object Repository that allows
+you to author you class in your LMS while selecting tools and content
+from this site one item at a time.  You will be given instructions
+on how to set up the "app store" in your LMS when you receive 
+your key and secret.
+</p>
+</li>
+        </ul>
 <h2>Audio Archive</h2>
 <p>
 Here is an archive of the

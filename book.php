@@ -9,14 +9,15 @@ The <a href="http://www.py4inf.com/">Python 2 version</a> of the book is still a
 There are multiple translations of the Python 2 book - the Python 3 version
 of the book has not been translated.
         </p>
-        <p>
-            Updated to use Python 3, the book is now available in a variety of formats:
-        </p>
-
 
 <ul>
+            <li><p><b>Earn a Coursera Certificate for This Course</b>
+            <ul>
+            <li><a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody</a> (Coursera Specialization)</li>
+            </ul>
+            </p></li>
   <li>
-     <a href="#">English</a>
+     English
      <ul class="menu vertical nested is-active">
        <li class="menu-text">Printed Book on <a href="http://amzn.to/29w0lsX" target="_blank">Amazon</a></li>
        <li class="menu-text"><a href="http://amzn.to/29LrtC0" target="_blank">Kindle edition</a> of the book</li>
