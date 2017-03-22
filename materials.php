@@ -12,7 +12,7 @@
             <ul>
             <li><a href="https://www.youtube.com/playlist?list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">YouTube Playlist</a></li>
             <li><a href="https://itunes.apple.com/us/podcast/python-for-everybody-video/id1214664324" target="_blank">iTunes Video</a></li>
-            <li><a href="http://amzn.to/2mFrCuh" target="_blank">Amazon Prime Video</a> (Coming Soon)</li>
+            <li><a href="http://amzn.to/2mFrCuh" target="_blank">Amazon Prime Video</a></li>
             </ul>
             </li>
             <li>Audio Lectures
