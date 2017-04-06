@@ -41,13 +41,17 @@ if ( isset($_GET['editor']) && ( $_GET['editor'] == '1' || $_GET['editor'] == '0
 }
 $codemirror = $editor == 1;
 
+$newpython3 = $python3;
 if ( isset($_GET['python3']) && ( $_GET['python3'] == '1' || $_GET['python3'] == '0' ) ) {
     $newpython3 = $_GET['python3']+0;
-    if ( $python3 != $newpython3 ) {
-        GradeUtil::gradeUpdateJson(array("python3" => $newpython3));
-        $json['python3'] = $newpython3;
-        $python3 = $newpython3;
-    }
+    setcookie("py4e_python_version",($newpython3+2)."", time()+3600*24*120, '/');
+} else if ( isset($_COOKIE["py4e_python_version"]) ) {
+    $newpython3 = $_COOKIE["py4e_python_version"] - 2;
+}
+if ( $python3 != $newpython3 ) {
+    GradeUtil::gradeUpdateJson(array("python3" => $newpython3));
+    $json['python3'] = $newpython3;
+    $python3 = $newpython3;
 }
 
 // Switch to boolean
