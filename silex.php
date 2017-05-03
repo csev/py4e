@@ -32,7 +32,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
 \Tsugi\Controllers\Login::routes($app);
 \Tsugi\Controllers\Logout::routes($app);
 \Tsugi\Controllers\Profile::routes($app);
-\Koseu\Controllers\Map::routes($app);
+\Tsugi\Controllers\Map::routes($app);
 \Koseu\Controllers\Badges::routes($app);
 \Koseu\Controllers\Assignments::routes($app);
 \Koseu\Controllers\Lessons::routes($app);
