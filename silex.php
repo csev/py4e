@@ -17,7 +17,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
     include("nav.php");
 ?>
 <div>
-<p>You have accessed a page which does not exist.
+<p>Something went wrong</p>
 <pre>
 <?php var_dump($code); ?>
 </pre>
@@ -31,6 +31,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
 // Hook up the Koseu and Tsugi tools
 \Tsugi\Controllers\Login::routes($app);
 \Tsugi\Controllers\Logout::routes($app);
+\Tsugi\Controllers\Profile::routes($app);
 \Koseu\Controllers\Map::routes($app);
 \Koseu\Controllers\Badges::routes($app);
 \Koseu\Controllers\Assignments::routes($app);

@@ -29,7 +29,11 @@ if ( isset($_SESSION['id']) ) {
 
 if ( isset($_SESSION['id']) ) {
     $submenu = new \Tsugi\UI\Menu();
-    $submenu->addLink('Profile', $T.'profile.php');
+    if ( $P7 ) {
+        $submenu->addLink('Profile', $R.'profile');
+    } else {
+        $submenu->addLink('Profile', $T.'profile.php');
+    }
     if ( isset($CFG->google_map_api_key) ) {
         if ( $P7 ) {
             $submenu->addLink('Map', $R.'map');
