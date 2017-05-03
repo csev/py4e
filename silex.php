@@ -17,12 +17,10 @@ $app->error(function (\Exception $e, $code) use ($app) {
 ?>
 <div>
 <p>You have accessed a page which does not exist.
-</p>
 <pre>
-<?php var_dump($e); ?>
 <?php var_dump($code); ?>
-<?php var_dump($LAUNCH); ?>
 </pre>
+</p>
 </div>
 <?php
     include("footer.php");
@@ -31,6 +29,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
 
 // Hook up the map tool
 \Koseu\Views\Map::routes($app);
+\Koseu\Views\Badges::routes($app, '/badge');
 \Tsugi\Views\Logout::routes($app);
 
 $app->get('/dump', function() use ($app) {

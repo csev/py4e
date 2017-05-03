@@ -22,7 +22,7 @@ if ( isset($_SESSION['id']) ) {
     if ( isset($CFG->google_map_api_key) ) {
         $submenu->addLink('Map', $R.'map');
     }
-    $submenu->addLink('Badges', $T.'badges.php');
+    $submenu->addLink('Badges', $R.'badge');
     $submenu->addLink('Materials', $R.'materials');
     if ( $CFG->DEVELOPER ) {
         $submenu->addLink('Test LTI Tools', $T . 'dev.php');
