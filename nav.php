@@ -66,7 +66,11 @@ if ( isset($_SESSION['id']) ) {
         $set->addRight(htmlentities($_SESSION['displayname']), $submenu);
     }
 } else {
-    $set->addRight('Login', $T.'login.php');
+    if ( $P7 ) {
+        $set->addRight('Login', $R.'login');
+    } else {
+        $set->addRight('Login', $T.'login.php');
+    }
 }
 
 $set->addRight('Book', $R . 'book');

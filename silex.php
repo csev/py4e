@@ -10,6 +10,7 @@ $app = new \Tsugi\Silex\Application($launch);
 $app['tsugi']->output->buffer = false;
 $app['debug'] = true;
 
+// TODO: Deal with Twig Errors
 $app->error(function (\Exception $e, $code) use ($app) {
     global $CFG, $LAUNCH, $OUTPUT, $USER, $CONTEXT, $LINK, $RESULT;
     include("top.php");
@@ -28,11 +29,12 @@ $app->error(function (\Exception $e, $code) use ($app) {
 });
 
 // Hook up the Koseu and Tsugi tools
-\Tsugi\Views\Logout::routes($app);
-\Koseu\Views\Map::routes($app);
-\Koseu\Views\Badges::routes($app);
-\Koseu\Views\Assignments::routes($app);
-\Koseu\Views\Lessons::routes($app);
+\Tsugi\Controllers\Login::routes($app);
+\Tsugi\Controllers\Logout::routes($app);
+\Koseu\Controllers\Map::routes($app);
+\Koseu\Controllers\Badges::routes($app);
+\Koseu\Controllers\Assignments::routes($app);
+\Koseu\Controllers\Lessons::routes($app);
 
 $app->get('/dump', function() use ($app) {
     global $OUTPUT;
