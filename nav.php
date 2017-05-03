@@ -9,7 +9,11 @@ $adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
 $set = new \Tsugi\UI\MenuSet();
 $set->setHome($CFG->servicename, $CFG->apphome);
 $set->addLeft('Get Started', $R.'install');
-$set->addLeft('Lessons', $T.'lessons');
+if ( $P7 ) {
+    $set->addLeft('Lessons', $R.'lessons');
+} else {
+    $set->addLeft('Lessons', $T.'lessons');
+}
 if ( isset($_SESSION['id']) ) {
     if ( $P7 ) {
         $set->addLeft('Assignments', $R.'assignments');
