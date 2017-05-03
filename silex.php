@@ -31,6 +31,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
 
 // Hook up the map tool
 \Koseu\Views\Map::routes($app);
+\Tsugi\Views\Logout::routes($app);
 
 $app->get('/dump', function() use ($app) {
     global $OUTPUT;

@@ -34,7 +34,7 @@ if ( isset($_SESSION['id']) ) {
         $submenu->addLink('Administer', $T . 'admin/');
     }
     $submenu->addLink('Rate this course', 'https://www.class-central.com/mooc/7363/python-for-everybody');
-    $submenu->addLink('Logout', $T.'logout.php');
+    $submenu->addLink('Logout', $R.'logout');
     if ( isset($_SESSION['avatar']) ) {
         $set->addRight('<img src="'.$_SESSION['avatar'].'" style="height: 2em;"/>', $submenu);
         // htmlentities($_SESSION['displayname']), $submenu);
