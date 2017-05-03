@@ -1,4 +1,7 @@
 <?php
+$P7 = strpos(phpversion(), '7') === 0;
+// $P7 = true;
+// $P7 = false;
 $OUTPUT->bodyStart();
 $R = $CFG->apphome . '/';
 $T = $CFG->wwwroot . '/';
@@ -8,9 +11,13 @@ $set->setHome($CFG->servicename, $CFG->apphome);
 $set->addLeft('Get Started', $R.'install');
 $set->addLeft('Lessons', $T.'lessons');
 if ( isset($_SESSION['id']) ) {
-	$set->addLeft('Assignments', $T.'assignments.php');
+    if ( $P7 ) {
+        $set->addLeft('Assignments', $R.'assignments');
+    } else {
+        $set->addLeft('Assignments', $T.'assignments.php');
+    }
     // If both are set we go to discuss.php
-	if ( isset($CFG->disqushost) ) $set->addLeft('Discuss', $T.'discuss.php');
+    if ( isset($CFG->disqushost) ) $set->addLeft('Discuss', $T.'discuss.php');
     else if ( isset($CFG->disquschannel) ) $set->addLeft('Discuss', $CFG->disquschannel);
 } else {
     $set->addLeft('Materials', $R.'materials');
@@ -20,9 +27,18 @@ if ( isset($_SESSION['id']) ) {
     $submenu = new \Tsugi\UI\Menu();
     $submenu->addLink('Profile', $T.'profile.php');
     if ( isset($CFG->google_map_api_key) ) {
-        $submenu->addLink('Map', $T.'map.php');
+        if ( $P7 ) {
+            $submenu->addLink('Map', $R.'map');
+        } else {
+            $submenu->addLink('Map', $T.'map.php');
+        }
     }
-    $submenu->addLink('Badges', $T.'badges.php');
+
+    if ( $P7 ) {
+        $submenu->addLink('Badges', $R.'badges');
+    } else {
+        $submenu->addLink('Badges', $T.'badges.php');
+    }
     $submenu->addLink('Materials', $R.'materials');
     if ( $CFG->DEVELOPER ) {
         $submenu->addLink('Test LTI Tools', $T . 'dev.php');
@@ -34,7 +50,11 @@ if ( isset($_SESSION['id']) ) {
         $submenu->addLink('Administer', $T . 'admin/');
     }
     $submenu->addLink('Rate this course', 'https://www.class-central.com/mooc/7363/python-for-everybody');
-    $submenu->addLink('Logout', $T.'logout.php');
+    if ( $P7 ) {
+        $submenu->addLink('Logout', $R.'logout');
+    } else {
+        $submenu->addLink('Logout', $T.'logout.php');
+    }
     if ( isset($_SESSION['avatar']) ) {
         $set->addRight('<img src="'.$_SESSION['avatar'].'" style="height: 2em;"/>', $submenu);
         // htmlentities($_SESSION['displayname']), $submenu);

@@ -27,9 +27,10 @@ $app->error(function (\Exception $e, $code) use ($app) {
     return "";
 });
 
-// Hook up the map tool
+// Hook up the Koseu and Tsugi tools
 \Koseu\Views\Map::routes($app);
-\Koseu\Views\Badges::routes($app, '/badge');
+\Koseu\Views\Badges::routes($app);
+\Koseu\Views\Assignments::routes($app);
 \Tsugi\Views\Logout::routes($app);
 
 $app->get('/dump', function() use ($app) {
