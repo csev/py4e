@@ -9,6 +9,8 @@ use \Tsugi\Core\LTIX;
 define('COOKIE_SESSION', true);
 require_once "tsugi/config.php";
 
+$launch = LTIX::session_start();
+
 // Handle .../lessons => lessons.php
 $router = new Tsugi\Util\FileRouter();
 $file = $router->fileCheck();
@@ -17,7 +19,6 @@ if ( $file ) {
     return;
 }
 
-$launch = LTIX::session_start();
 $app = new \Tsugi\Silex\Application($launch);
 $app['tsugi']->output->buffer = false;
 $app['debug'] = true;
