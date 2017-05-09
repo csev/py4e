@@ -1,13 +1,21 @@
 <?php
 
-define('COOKIE_SESSION', true);
-require_once "tsugi/config.php";
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use \Tsugi\Core\LTIX;
+
+define('COOKIE_SESSION', true);
+require_once "tsugi/config.php";
+
+// Handle .../lessons => lessons.php
+$router = new Tsugi\Util\FileRouter();
+$file = $router->fileCheck();
+if ( $file ) {
+    require_once($file);
+    return;
+}
 
 $launch = LTIX::session_start();
 $app = new \Tsugi\Silex\Application($launch);
@@ -51,23 +59,5 @@ if ( $P7 ) {
         );
     });
 }
-
-$app->get('/materials', function () {
-    global $CFG, $LAUNCH, $OUTPUT, $USER, $CONTEXT, $LINK, $RESULT;
-    require_once('materials.php');
-    return "";
-});
-
-$app->get('/book', function () {
-    global $CFG, $LAUNCH, $OUTPUT, $USER, $CONTEXT, $LINK, $RESULT;
-    require_once('book.php');
-    return "";
-});
-
-$app->get('/install', function () {
-    global $CFG, $LAUNCH, $OUTPUT, $USER, $CONTEXT, $LINK, $RESULT;
-    require_once('install.php');
-    return "";
-});
 
 $app->run();
