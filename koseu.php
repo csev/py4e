@@ -7,7 +7,7 @@ require_once "tsugi/config.php";
 
 $launch = LTIX::session_start();
 
-// Make PHP paths pretty .../lessons => lessons.php
+// Make PHP paths pretty .../install => install.php
 $router = new Tsugi\Util\FileRouter();
 $file = $router->fileCheck();
 if ( $file ) {
