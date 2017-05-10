@@ -7,7 +7,7 @@ require_once "tsugi/config.php";
 
 $launch = LTIX::session_start();
 
-// Handle rest style paths .../lessons => lessons.php
+// Make PHP paths pretty .../lessons => lessons.php
 $router = new Tsugi\Util\FileRouter();
 $file = $router->fileCheck();
 if ( $file ) {
@@ -15,7 +15,7 @@ if ( $file ) {
     return;
 }
 
-// Pull in the Koseu LMS
+// Pull in the Koseu LMS (/lessons, /map, /badges ...)
 $app = new \Koseu\Core\Application($launch);
 $app['debug'] = true;
 
