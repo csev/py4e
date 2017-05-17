@@ -52,7 +52,7 @@ if ( isset($_SESSION['id']) ) {
         $submenu->addLink('Test LTI Tools', $T . 'dev');
     }
     if ( $CFG->providekeys ) {
-        $submenu->addLink('LMS Integration', $T . 'admin/key/indexp');
+        $submenu->addLink('LMS Integration', $T . 'admin/key/index');
     }
     if ( isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true" ) {
         $submenu->addLink('Administer', $T . 'admin/');
