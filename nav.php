@@ -1,6 +1,6 @@
 <?php
 $P7 = strpos(phpversion(), '7') === 0;
-// $P7 = true;
+$P7 = true;  // After backleveled to Twig 1.27
 // $P7 = false;
 $OUTPUT->bodyStart();
 $R = $CFG->apphome . '/';
