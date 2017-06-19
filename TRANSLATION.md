@@ -22,12 +22,12 @@ as OER repositories for Python materials in those languages.  Of course you do n
 need to use my urls, but I do want to promote the translations of this material.
 
 I have set this up so you can fork my github repository and begin the translation
-work. I will ba happy to help you get your translated work up and available.  I 
+work. I will be happy to help you get your translated work up and available.  I 
 have an automatic build server for the text book that takes your latest book in 
 github and produces the PDF and EPUB and hosts it online at 
 http://do1.dr-chuck.com/pythonlearn/.
 
-Do not keep the need to translate everything - many translations simply translate
+Do not feel the need to translate everything - many translations simply translate
 the book.  Everything is helpful.
 
 Thanks in advance
