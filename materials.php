@@ -39,7 +39,10 @@
 </ul>
         <p>
         If you are interested in translating the book or other online materials into another 
-        language, please contact me so we can coordinate our activities.
+        language, I have provided
+some <a href="https://github.com/csev/py4e/blob/master/TRANSLATION.md" target="_new">
+instructions on how to translate this course</a> in my GitHub repository.
+If you are starting a translation, please contact me so we can coordinate our activities.
         </p>
 <h2>Using this Course in Your Local LMS</h2>
 <p>This web site uses the <a href="http://www.tsugi.org/" target="_blank">Tsugi</a> software

@@ -65,7 +65,10 @@ an IMS Learning Tools Interoperability® (LTI®)
 The code for this site including the autograders, slides, and course content is all available on
 <a href="https://github.com/csev/py4e" target="_blank">GitHub</a>.  That means you could make your own
 copy of the course site, publish it and remix it any way you like.  Even more exciting, you could translate
-the entire site (course) into your own language and publish it.</li>
+the entire site (course) into your own language and publish it.  I have provided
+some <a href="https://github.com/csev/py4e/blob/master/TRANSLATION.md" target="_new">
+instructions on how to translate this course</a> in my GitHub repository.
+</li>
 </ul>
 <?php } ?>
 This site uses <a href="http://www.tsugi.org" target="_blank">Tsugi</a> 
