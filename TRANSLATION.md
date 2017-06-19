@@ -19,7 +19,9 @@ https://www.youtube.com/playlist?list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p
 My ultimate goal would a series of complete web sites at urls like es.py4e.com, 
 cn.py4e.com, ir.pye4.com with completely translated user experiences that also function
 as OER repositories for Python materials in those languages.  Of course you do not
-need to use my urls, but I do want to promote the translations of this material.
+need to use my urls, but I do want to promote the translations of this material
+and am happy to point my subdomains at your servers or forward requests at those
+subdomains to your servers.
 
 I have set this up so you can fork my github repository and begin the translation
 work. I will be happy to help you get your translated work up and available.  I 
