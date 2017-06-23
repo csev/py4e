@@ -78,7 +78,7 @@ You should get a file like `adobe-ming-std-l-594d6aed70209.otf`
 
     [ -d /usr/share/fonts/opentype ] || sudo mkdir /usr/share/fonts/opentype
     [ -d /usr/share/fonts/opentype/adobe-ming ] || sudo mkdir /usr/share/fonts/opentype/adobe-ming
-    mv adobe-ming-std-l-594d6aed70209.otf /usr/share/fonts/opentype/adobe-ming
+    sudo mv adobe-ming-std-l-594d6aed70209.otf /usr/share/fonts/opentype/adobe-ming
     sudo fc-cache -f -v
 
 Strange Note:  If you are running on a small memory linux system, you 
