@@ -23,6 +23,12 @@ The output `bash book.sh` is in the file `x.pdf` and `x.epub`.
 
 *Note that the build scripts require Python 2*
 
+*Note* If you are building the file for Chinese, touch the file
+
+    touch .chinese
+
+So it runs LaTeX in a way to produce chinese documents.
+
 ## Alternate Build Scripts
 
 In addition to the official `book.sh1`, there are other build scripts that make
