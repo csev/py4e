@@ -21,8 +21,8 @@ sed < tmp.prefacex.tex 's/section{/section*{/' > tmp.preface.tex
 # pandoc -s -N -f markdown+definition_lists -t latex --toc --default-image-extension=eps -V fontfamily:arev -V fontsize:10pt -V documentclass:book --template=template.latex [0-9]*.mkd [A][A-Z]*.mkd -o tmp.tex
 if [ -f .chinese ] ; then
     # pandoc -o c.pdf --latex-engine=xelatex -V mainfont='Adobe Ming Std' 01-intro.mkd
-    cat [0-9]*.mkd | python verbatim.py | tee tmp.verbatim | pandoc -s -N -f markdown+definition_lists -t latex --toc --default-image-extension=eps -V fontsize:10pt -V documentclass:book -V mainfont='Adobe Ming Std' --template=template.latex -o tmp.tex
-    pandoc -V mainfont='Adobe Ming Std' [A-Z][A-Z]*.mkd -o tmp.app.tex
+    cat [0-9]*.mkd | python verbatim.py | tee tmp.verbatim | pandoc -s -N -f markdown+definition_lists -t latex --toc --default-image-extension=eps -V fontsize:10pt -V documentclass:book -V mainfont='Noto Serif CJK SC' --template=template.latex -o tmp.tex
+    pandoc -V mainfont='Noto Serif CJK SC' [A-Z][A-Z]*.mkd -o tmp.app.tex
 else
     cat [0-9]*.mkd | python verbatim.py | tee tmp.verbatim | pandoc -s -N -f markdown+definition_lists -t latex --toc --default-image-extension=eps -V fontsize:10pt -V documentclass:book --template=template.latex -o tmp.tex
     pandoc [A-Z][A-Z]*.mkd -o tmp.app.tex

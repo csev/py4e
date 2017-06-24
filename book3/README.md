@@ -68,17 +68,21 @@ If you are building the file for Chinese, touch the file
 
 So it runs LaTeX in a way to produce chinese documents.
 
-Install the Adobe Ming Font (Linux):
+Install the 'Noto Serif CJK SC' Font.  Download from here and unzip:
 
-Download from here:
+    https://noto-website.storage.googleapis.com/pkgs/NotoSerifCJK.ttc.zip
 
-    https://www.download-free-fonts.com/details/88177/adobe-ming-std-l
+You should get a file like `NotoSerifCJK.ttc`.
 
-You should get a file like `adobe-ming-std-l-594d6aed70209.otf`
+On Mac copy the file to `/Library/Fonts` and rebuild font cache:
+
+    sudo atsutil databases -remove
+
+On Linux put them in `/usr/share/fonts`:
 
     [ -d /usr/share/fonts/opentype ] || sudo mkdir /usr/share/fonts/opentype
-    [ -d /usr/share/fonts/opentype/adobe-ming ] || sudo mkdir /usr/share/fonts/opentype/adobe-ming
-    sudo mv adobe-ming-std-l-594d6aed70209.otf /usr/share/fonts/opentype/adobe-ming
+    [ -d /usr/share/fonts/opentype/noto ] || sudo mkdir /usr/share/fonts/opentype/noto
+    sudo mv NotoSerifCJK.ttc /usr/share/fonts/opentype/noto
     sudo fc-cache -f -v
 
 Strange Note:  If you are running on a small memory linux system, you 
