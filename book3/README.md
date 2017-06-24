@@ -74,7 +74,7 @@ Install the 'Noto Serif CJK SC' Font.  Download from here and unzip:
 
 You should get a file like `NotoSerifCJK.ttc`.
 
-On Mac copy the file to `/Library/Fonts` and rebuild font cache:
+On Mac copy the file to `~/Library/Fonts` and rebuild font cache:
 
     sudo atsutil databases -remove
 
