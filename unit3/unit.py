@@ -77,7 +77,7 @@ print('Tests passed:',success)
 print('Tests failed:',fail)
 if ( len(failures) > 0 ) : print('Unit Test TODO:',failures)
 os.system("rm *.sqlite")
-os.system("rm cover.jpg")
+os.system("rm cover3.jpg")
 os.system("rm stuff.jpg")
 
 print("Comparing outputs...")
