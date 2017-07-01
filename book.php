@@ -24,7 +24,9 @@ of the book has not been translated.
        <li class="menu-text"><a href="https://books.trinket.io/pfe/index.html" target="_blank">Interactive HTML on Trinket.io</a></li>
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.pdf" target="_blank">Download PDF</a></li>
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.epub" target="_blank">Download EPUB</a></li>
+<!--
        <li class="menu-text"><a href="https://github.com/csev/py4e/raw/master/book3/zips/pfe.zip" target="_blank">Download HTML in a ZIP (~6MB)</a></li>
+-->
      </ul>
   </li>
   <li>
