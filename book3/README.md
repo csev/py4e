@@ -31,10 +31,12 @@ alternate versions of the book.
 * `htmlbook.sh` will make an html verion of the book, with interactive examples
 embedded in trinkets. These files are in `books/html` if you want to download
 or view them.
+
 * `zipbook.sh` will make two html versions of the book with Trinket branding,
 one with interactive examples (that require an internet connection to work) and one with 
 syntax highlighted code blocks for completely offline viewing.  A zip containing 
 these is at `/book/zips/pfe.zip` if you'd just like to download it.
+
 * `trinketbook.sh` will make the nunjucks template that we use to host the book
 at [books.trinket.io](https://books.trinket.io).  This is likely not of use to you
 unless you're looking for an example of how to get the book source into your own

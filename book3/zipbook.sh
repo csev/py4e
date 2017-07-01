@@ -27,7 +27,7 @@ for fn in *.mkd; do
     tee tmp.html.verbatim.$x | \
     pandoc -s  \
     -f markdown -t html \
-    --template=trinket/zip \
+    --template=trinket/offline \
     --toc \
     --default-image-extension=svg \
     -o zipbook/offline/$x.html \
