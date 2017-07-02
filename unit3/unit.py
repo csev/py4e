@@ -21,7 +21,7 @@ failures = [
     'mailcount.py',    # different on Linux and Mac
     'party3.py',    # different on Linux and Mac
     'party6.py',    # different on Linux and Mac
-    'uriwords.py',    # different on Linux and Mac
+    'urlwords.py',    # different on Linux and Mac
     # 'urllink2.py',  -- Fixed
     # 'urllinks.py',  -- Fixed
 ]
