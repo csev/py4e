@@ -15,6 +15,13 @@ os.system("mkdir -p testtmp")
 
 # Known Failures
 failures = [
+    'count1.py',    # different on Linux and Mac
+    'count2.py',    # different on Linux and Mac
+    'geojson.py',    # different on Linux and Mac
+    'mailcount.py',    # different on Linux and Mac
+    'party3.py',    # different on Linux and Mac
+    'party6.py',    # different on Linux and Mac
+    'uriwords.py',    # different on Linux and Mac
     # 'urllink2.py',  -- Fixed
     # 'urllinks.py',  -- Fixed
 ]
@@ -40,7 +47,6 @@ for i in os.listdir(codefolder):
     if not i.endswith(".py"): 
         continue
     if i in toskip : continue
-    if i in failures : continue
     if i.startswith('tw') : continue
     if i.startswith('txt') : continue
     base = i.replace(".py","")
@@ -68,6 +74,12 @@ for i in os.listdir(codefolder):
     else :
         cmd = "python3 "+codefolder+'/'+i+" > testtmp/"+base+".txt"
         code = os.system(cmd)
+
+    # For known failures, we compile and run, but ignore output
+    if i in failures : 
+        os.system("rm testtmp/"+base+".txt")
+        # print("Removing testtmp/"+base+".txt")
+        continue
 
     if code == 0 :
         success = success + 1
