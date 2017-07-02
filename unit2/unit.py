@@ -36,6 +36,8 @@ toskip = [
     'urllink3.py' # might run forever
 ]
 
+print('======== Starting Python 2 Tests ==============')
+
 success = 0
 fail = 0
 codefolder = '../code'
