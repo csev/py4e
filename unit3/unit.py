@@ -33,6 +33,9 @@ success = 0
 fail = 0
 codefolder = '../code3'
 
+print('======== Starting Python 3 Tests ==============')
+
+
 for i in os.listdir(codefolder):
     if not i.endswith(".py"): 
         continue
@@ -71,10 +74,10 @@ for i in os.listdir(codefolder):
         continue
 
     fail = fail + 1
-    print (cmd)
+    print ('*** FAIL3 ***',cmd)
 
-print('Tests passed:',success)
-print('Tests failed:',fail)
+print('Tests 3 passed:',success)
+print('Tests 3 failed:',fail)
 if ( len(failures) > 0 ) : print('Unit Test TODO:',failures)
 os.system("rm *.sqlite")
 os.system("rm cover3.jpg")
