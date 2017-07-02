@@ -1,7 +1,5 @@
 import json
 
-djffjdkhfhjdk
-
 data = '''
 {
   "name" : "Chuck",
