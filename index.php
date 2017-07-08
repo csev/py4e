@@ -37,8 +37,9 @@ an IMS Learning Tools Interoperability® (LTI®)
 <?php } else { ?>
 <p>
 Hello and welcome to my site where you can work through my course materials related to
-my free <a href="book.php">Python for Everybody</a> text book.  These materials
-are available as the <a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody Specialization</a> on Coursera.</p>
+my free <a href="book.php">Python for Everybody</a> text book.  You can take this course for a certificate
+as the 
+<a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody Specialization</a> on Coursera.</p>
 <p>
 You can use this web site many different ways:
 <ul class="list-group">
