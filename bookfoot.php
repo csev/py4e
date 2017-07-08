@@ -16,7 +16,7 @@ require_once "nav.php";
 function x_sel($file) {
     global $HTML_FILE;
     $retval = 'value="'.$file.'"';
-    if ( $file == $HTML_FILE ) {
+    if ( strpos($HTML_FILE, $file) === 0 ) {
         $retval .= " selected";
     }
     return $retval;
