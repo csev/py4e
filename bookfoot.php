@@ -44,7 +44,9 @@ function onSelect() {
   <option <?= x_sel("11-regex.php") ?>>Chapter 11: Regex</option>
   <option <?= x_sel("12-network.php") ?>>Chapter 12: Networked Programs</option>
   <option <?= x_sel("13-web.php") ?>>Chapter 13: Python and Web Services</option>
-  <option <?= x_sel("14-database.php") ?>>Chapter 14: Python and Databases</option>
+  <option <?= x_sel("14-objects.php") ?>>Chapter 14: Python Objects</option>
+  <option <?= x_sel("15-database.php") ?>>Chapter 15: Python and Databases</option>
+  <option <?= x_sel("16-viz.php") ?>>Chapter 16: Data Vizualization</option>
 </select>
 </div>
 

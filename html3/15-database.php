@@ -12,7 +12,7 @@
   <style type="text/css">code{white-space: pre;}</style>
 </head>
 <body>
-<h1 id="using-databases-and-sql">Using databases and SQL</h1>
+<h1 id="using-databases-and-sql">Using Databases and SQL</h1>
 <h2 id="what-is-a-database">What is a database?</h2>
 <p></p>
 <p>A <em>database</em> is a file that is organized for storing data. Most databases are organized like a dictionary in the sense that they map from keys to values. The biggest difference is that the database is on disk (or other permanent storage), so it persists after the program ends. Because a database is stored on permanent storage, it can store far more data than a dictionary, which is limited to the size of the memory in the computer.</p>
