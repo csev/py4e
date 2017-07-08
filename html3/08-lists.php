@@ -18,7 +18,8 @@
 <p>Like a string, a <em>list</em> is a sequence of values. In a string, the values are characters; in a list, they can be any type. The values in list are called <em>elements</em> or sometimes <em>items</em>.</p>
 <p>  </p>
 <p>There are several ways to create a new list; the simplest is to enclose the elements in square brackets (<code>[</code> and <code>]</code>):</p>
-<p>~<sub>~</sub> {.python} [10, 20, 30, 40]['crunchy frog', 'ram bladder', 'lark vomit'] ~<sub>~</sub> {.python}</p>
+<pre class="python"><code>[10, 20, 30, 40]
+[&#39;crunchy frog&#39;, &#39;ram bladder&#39;, &#39;lark vomit&#39;]</code></pre>
 <p>The first example is a list of four integers. The second is a list of three strings. The elements of a list don't have to be the same type. The following list contains a string, a float, an integer, and (lo!) another list:</p>
 <pre class="python"><code>[&#39;spam&#39;, 2.0, 5, [10, 20]]</code></pre>
 <p>A list within another list is <em>nested</em>.</p>
