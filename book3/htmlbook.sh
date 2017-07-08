@@ -16,13 +16,10 @@ for fn in *.mkd; do
     cat $fn | \
     python pre-html.py | \
     tee tmp.html.pre.$x | \
-    python verbatim.py --trinket --files | \
-    tee tmp.html.verbatim.$x | \
-    python consoles.py | \
-    pandoc -s --self-contained \
+    python verbatim.py --files | \
+    pandoc -s \
+    --no-highlight \
     -f markdown -t html \
-    --template=trinket/template \
-    --toc \
     --default-image-extension=svg \
     --css=http://thisisdallas.github.io/Simple-Grid/simpleGrid.css \
     -o html/$x.html
