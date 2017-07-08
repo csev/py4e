@@ -54,4 +54,11 @@ done
 rm zips/pfe.zip
 zip -r9 zips/pfe.zip zipbook && echo "Wrote zips/pfe.zip"
 
+# Updating ../trinket3
+
+[[ -d ../trinket3 ]] || mkdir ../trinket3
+rm ../trinket3/[0-9]*.html
+cp -r zipbook/embeds/* ../trinket3
+
+
 rm tmp.*
