@@ -66,9 +66,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </ul>
         <section class="top-bar-section">
           <ul class="right">
-            <li><a href="http://pythonlearn.com"><i class="fa fa-star"></i> PythonLearn</a></li>
-            <li><a href="https://trinket.io"><i class="fa fa-star"></i> Trinket</a></li>
-            <li><a href="https://hourofpython.com"><i class="fa fa-graduation-cap"></i> Hour of Python</a></li>
+            <li><a href="https://www.py4e.com"><i class="fa fa-star"></i> Python for Everyone</a></li>
           </ul>
         </section>
       </nav>
@@ -103,7 +101,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                 <li><a href="11-regex.html">Chapter 11: Regex</a></li>
                 <li><a href="12-network.html">Chapter 12: Networked Programs</a></li>
                 <li><a href="13-web.html">Chapter 13: Python and Web Services</a></li>
-                <li><a href="14-database.html">Chapter 14: Python and Databases</a></li>
+                <li><a href="14-objects.html">Chapter 14: Object Orientation</a></li>
+                <li><a href="15-database.html">Chapter 15: Python and Databases</a></li>
+                <li><a href="16-viz.html">Chapter 16: Data Vizualization</a></li>
               </ul>
             </li>
           </ul>
@@ -125,7 +125,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> t <span class="op">=</span> (<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>, <span class="st">&#39;e&#39;</span>)</code></pre></div>
 <p>To create a tuple with a single element, you have to include the final comma:</p>
 <p> </p>
-<p>~<sub>~</sub> {.python .trinket} &gt;&gt;&gt; t1 = ('a',) &gt;&gt;&gt; type(t1) &lt;type 'tuple'&gt;</p>
+<div class="sourceCode"><pre class="sourceCode python trinket"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> t1 <span class="op">=</span> (<span class="st">&#39;a&#39;</span>,)
+<span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(t1)
+<span class="op">&lt;</span><span class="bu">type</span> <span class="st">&#39;tuple&#39;</span><span class="op">&gt;</span></code></pre></div>
 <p>Without the comma Python treats <code>('a')</code> as an expression with a string in parentheses that evaluates to a string:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> t2 <span class="op">=</span> (<span class="st">&#39;a&#39;</span>)
 <span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(t2)
@@ -197,7 +199,7 @@ for length, word in t:
 
 print(res)
 
-# Code: http://www.pythonlearn.com/code3/soft.py
+# Code: http://www.py4e.com/code3/soft.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>The first loop builds a list of tuples, where each tuple is a word preceded by its length.</p>
@@ -272,7 +274,7 @@ python.org</code></pre></div>
 <h2 id="multiple-assignment-with-dictionaries">Multiple assignment with dictionaries</h2>
 <p> </p>
 <p>Combining <code>items</code>, tuple assignment, and <code>for</code>, you can see a nice code pattern for traversing the keys and values of a dictionary in a single loop:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> key, val <span class="op">in</span> <span class="bu">list</span>(d.items()):
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> key, val <span class="kw">in</span> <span class="bu">list</span>(d.items()):
     <span class="bu">print</span>(val, key)</code></pre></div>
 <p>This loop has two <em>iteration variables</em> because <code>items</code> returns a list of tuples and <code>key, val</code> is a tuple assignment that successively iterates through each of the key-value pairs in the dictionary.</p>
 <p>For each iteration through the loop, both <code>key</code> and <code>value</code> are advanced to the next key-value pair in the dictionary (still in hash order).</p>
@@ -282,10 +284,10 @@ python.org</code></pre></div>
 1 b</code></pre>
 <p>Again, it is in hash key order (i.e., no particular order).</p>
 <p>If we combine these two techniques, we can print out the contents of a dictionary sorted by the <em>value</em> stored in each key-value pair.</p>
-<p>To do this, we first make a list of tuples where each tuple is <code>(value, key)</code>. The <code>items</code> method would give us a list of <code>(key, value)</code> tuples-but this time we want to sort by value, not key. Once we have constructed the list with the value-key tuples, it is a simple matter to sort the list in reverse order and print out the new, sorted list.</p>
+<p>To do this, we first make a list of tuples where each tuple is <code>(value, key)</code>. The <code>items</code> method would give us a list of <code>(key, value)</code> tuples, but this time we want to sort by value, not key. Once we have constructed the list with the value-key tuples, it is a simple matter to sort the list in reverse order and print out the new, sorted list.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> {<span class="st">&#39;a&#39;</span>:<span class="dv">10</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;c&#39;</span>:<span class="dv">22</span>}
 <span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> <span class="bu">list</span>()
-<span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> key, val <span class="op">in</span> d.items() :
+<span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> key, val <span class="kw">in</span> d.items() :
 ...     l.append( (val, key) )
 ...
 <span class="op">&gt;&gt;&gt;</span> l
@@ -306,7 +308,7 @@ import string
 fhand = open('romeo-full.txt')
 counts = dict()
 for line in fhand:
-    line = line.translate(string.punctuation)
+    line = line.translate(str.maketrans('', '', string.punctuation))
     line = line.lower()
     words = line.split()
     for word in words:
@@ -318,14 +320,14 @@ for line in fhand:
 # Sort the dictionary by value
 lst = list()
 for key, val in list(counts.items()):
-    lst.append( (val, key) )
+    lst.append((val, key))
 
 lst.sort(reverse=True)
 
-for key, val in lst[:10] :
+for key, val in lst[:10]:
     print(key, val)
 
-# Code: http://www.pythonlearn.com/code3/count3.py
+# Code: http://www.py4e.com/code3/count3.py
 # Or select Download from this trinket's left-hand menu
 ----{romeo-full.txt}----
 Romeo and Juliet
@@ -742,10 +744,10 @@ Exit
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">directory[last,first] <span class="op">=</span> number</code></pre></div>
 <p>The expression in brackets is a tuple. We could use tuple assignment in a <code>for</code> loop to traverse this dictionary.</p>
 <p></p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> last, first <span class="op">in</span> directory:
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> last, first <span class="kw">in</span> directory:
     <span class="bu">print</span>(first, last, directory[last,first])</code></pre></div>
 <p>This loop traverses the keys in <code>directory</code>, which are tuples. It assigns the elements of each tuple to <code>last</code> and <code>first</code>, then prints the name and corresponding telephone number.</p>
-<h2 id="sequences-strings-lists-and-tuples-oh-my">Sequences: strings, lists, and tuples-Oh My!</h2>
+<h2 id="sequences-strings-lists-and-tuples---oh-my">Sequences: strings, lists, and tuples - Oh My!</h2>
 <p></p>
 <p>I have focused on lists of tuples, but almost all of the examples in this chapter also work with lists of lists, tuples of tuples, and tuples of lists. To avoid enumerating the possible combinations, it is sometimes easier to talk about sequences of sequences.</p>
 <p>In many contexts, the different kinds of sequences (strings, lists, and tuples) can be used interchangeably. So how and why do you choose one over the others?</p>

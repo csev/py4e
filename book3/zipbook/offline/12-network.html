@@ -66,9 +66,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </ul>
         <section class="top-bar-section">
           <ul class="right">
-            <li><a href="http://pythonlearn.com"><i class="fa fa-star"></i> PythonLearn</a></li>
-            <li><a href="https://trinket.io"><i class="fa fa-star"></i> Trinket</a></li>
-            <li><a href="https://hourofpython.com"><i class="fa fa-graduation-cap"></i> Hour of Python</a></li>
+            <li><a href="https://www.py4e.com"><i class="fa fa-star"></i> Python for Everyone</a></li>
           </ul>
         </section>
       </nav>
@@ -103,7 +101,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                 <li><a href="11-regex.html">Chapter 11: Regex</a></li>
                 <li><a href="12-network.html">Chapter 12: Networked Programs</a></li>
                 <li><a href="13-web.html">Chapter 13: Python and Web Services</a></li>
-                <li><a href="14-database.html">Chapter 14: Python and Databases</a></li>
+                <li><a href="14-objects.html">Chapter 14: Object Orientation</a></li>
+                <li><a href="15-database.html">Chapter 15: Python and Databases</a></li>
+                <li><a href="16-viz.html">Chapter 16: Data Vizualization</a></li>
               </ul>
             </li>
           </ul>
@@ -120,12 +120,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2 id="hypertext-transport-protocol---http">HyperText Transport Protocol - HTTP</h2>
 <p>The network protocol that powers the web is actually quite simple and there is built-in support in Python called <code>sockets</code> which makes it very easy to make network connections and retrieve data over those sockets in a Python program.</p>
 <p>A <em>socket</em> is much like a file, except that a single socket provides a two-way connection between two programs. You can both read from and write to the same socket. If you write something to a socket, it is sent to the application at the other end of the socket. If you read from the socket, you are given the data which the other application has sent.</p>
-<p>But if you try to read a socket when the program on the other end of the socket has not sent any data—you just sit and wait. If the programs on both ends of the socket simply wait for some data without sending anything, they will wait for a very long time.</p>
+<p>But if you try to read a socket when the program on the other end of the socket has not sent any data, you just sit and wait. If the programs on both ends of the socket simply wait for some data without sending anything, they will wait for a very long time.</p>
 <p>So an important part of programs that communicate over the Internet is to have some sort of protocol. A protocol is a set of precise rules that determine who is to go first, what they are to do, and then what the responses are to that message, and who sends next, and so on. In a sense the two applications at either end of the socket are doing a dance and making sure not to step on each other's toes.</p>
 <p>There are many documents which describe these network protocols. The HyperText Transport Protocol is described in the following document:</p>
 <p><a href="http://www.w3.org/Protocols/rfc2616/rfc2616.txt" class="uri">http://www.w3.org/Protocols/rfc2616/rfc2616.txt</a></p>
-<p>This is a long and complex 176-page document with a lot of detail. If you find it interesting, feel free to read it all. But if you take a look around page 36 of RFC2616 you will find the syntax for the GET request. To request a document from a web server, we make a connection to the <code>www.pythonlearn.com</code> server on port 80, and then send a line of the form</p>
-<p><code>GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0</code></p>
+<p>This is a long and complex 176-page document with a lot of detail. If you find it interesting, feel free to read it all. But if you take a look around page 36 of RFC2616 you will find the syntax for the GET request. To request a document from a web server, we make a connection to the <code>www.pr4e.org</code> server on port 80, and then send a line of the form</p>
+<p><code>GET http://data.pr4e.org/romeo.txt HTTP/1.0</code></p>
 <p>where the second parameter is the web page we are requesting, and then we also send a blank line. The web server will respond with some header information about the document and a blank line followed by the document content.</p>
 <h2 id="the-worlds-simplest-web-browser">The World's Simplest Web Browser</h2>
 <p>Perhaps the easiest way to show how the HTTP protocol works is to write a very simple Python program that makes a connection to a web server and follows the rules of the HTTP protocol to requests a document and display what the server sends back.</p>
@@ -136,22 +136,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 import socket
 
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mysock.connect(('www.pythonlearn.com', 80))
-cmd = 'GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0\n\n'.encode()
-mysock.send(cmd);
+mysock.connect(('data.pr4e.org', 80))
+cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\r\n\r\n'.encode()
+mysock.send(cmd)
 
 while True:
     data = mysock.recv(512)
-    if ( len(data) < 1 ) :
+    if (len(data) < 1):
         break
-    print(data.decode());
-
+    print(data.decode())
 mysock.close()
 
-# Code: http://www.pythonlearn.com/code3/socket1.py
+# Code: http://www.py4e.com/code3/socket1.py
 # Or select Download from this trinket's left-hand menu
 -->
-<p>First the program makes a connection to port 80 on the server <a href="http://www.pythonlearn.com">www.pythonlearn.com</a>. Since our program is playing the role of the &quot;web browser&quot;, the HTTP protocol says we must send the GET command followed by a blank line.</p>
+<p>First the program makes a connection to port 80 on the server <a href="http://www.py4e.com">www.py4e.com</a>. Since our program is playing the role of the &quot;web browser&quot;, the HTTP protocol says we must send the GET command followed by a blank line.</p>
 <div class="figure">
 <img src="../images/socket.svg" alt="A Socket Connection" />
 <p class="caption">A Socket Connection</p>
@@ -186,36 +185,36 @@ Who is already sick and pale with grief</code></pre>
 import socket
 import time
 
-HOST = 'www.pythonlearn.com'
+HOST = 'data.pr4e.org'
 PORT = 80
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mysock.connect((HOST, PORT))
-mysock.sendall(b'GET http://www.pythonlearn.com/cover.jpg HTTP/1.0\n\n')
+mysock.sendall(b'GET http://data.pr4e.org/cover3.jpg HTTP/1.0\r\n\r\n')
 count = 0
 picture = b""
 
 while True:
     data = mysock.recv(5120)
-    if ( len(data) < 1 ) : break
+    if (len(data) < 1): break
     time.sleep(0.25)
     count = count + len(data)
-    print(len(data),count)
+    print(len(data), count)
     picture = picture + data
 
 mysock.close()
 
 # Look for the end of the header (2 CRLF)
-pos = picture.find(b"\r\n\r\n");
-print('Header length',pos)
+pos = picture.find(b"\r\n\r\n")
+print('Header length', pos)
 print(picture[:pos].decode())
 
 # Skip past the header and save the picture data
 picture = picture[pos+4:]
-fhand = open("stuff.jpg","wb")
-fhand.write(picture);
+fhand = open("stuff.jpg", "wb")
+fhand.write(picture)
 fhand.close()
 
-# Code: http://www.pythonlearn.com/code3/urljpeg.py
+# Code: http://www.py4e.com/code3/urljpeg.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>When the program runs it produces the following output:</p>
@@ -274,13 +273,13 @@ Content-Type: image/jpeg</code></pre>
 <iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" class="lazyload" allowfullscreen>
 </iframe>
 <!--
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
 
-fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
+fhand = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
 for line in fhand:
     print(line.decode().strip())
 
-# Code: http://www.pythonlearn.com/code3/urllib1.py
+# Code: http://www.py4e.com/code3/urllib1.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>Once the web page has been opened with <code>urllib.urlopen</code>, we can treat it like a file and read through it using a <code>for</code> loop.</p>
@@ -296,15 +295,16 @@ Who is already sick and pale with grief</code></pre>
 <!--
 import urllib.request, urllib.parse, urllib.error
 
+fhand = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+
 counts = dict()
-fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
 for line in fhand:
     words = line.decode().split()
     for word in words:
-        counts[word] = counts.get(word,0) + 1
+        counts[word] = counts.get(word, 0) + 1
 print(counts)
 
-# Code: http://www.pythonlearn.com/code3/urlwords.py
+# Code: http://www.py4e.com/code3/urlwords.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>Again, once we have opened the web page, we can read it like a local file.</p>
@@ -342,7 +342,7 @@ links = re.findall(b'href="(http://.*?)"', html)
 for link in links:
     print(link.decode())
 
-# Code: http://www.pythonlearn.com/code3/urlregex.py
+# Code: http://www.py4e.com/code3/urlregex.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>The <code>findall</code> regular expression method will give us a list of all of the strings that match our regular expression, returning only the link text between the double quotes.</p>
@@ -351,12 +351,12 @@ for link in links:
 Enter - http://www.dr-chuck.com/page1.htm
 http://www.dr-chuck.com/page2.htm</code></pre>
 <pre><code>python urlregex.py
-Enter - http://www.pythonlearn.com/book.htm
+Enter - http://www.py4e.com/book.htm
 http://www.greenteapress.com/thinkpython/thinkpython.html
 http://allendowney.com/
-http://www.pythonlearn.com/code
+http://www.py4e.com/code
 http://www.lib.umich.edu/espresso-book-machine
-http://www.pythonlearn.com/py4inf-slides.zip</code></pre>
+http://www.py4e.com/py4inf-slides.zip</code></pre>
 <p>Regular expressions work very nicely when your HTML is well formatted and predictable. But since there are a lot of &quot;broken&quot; HTML pages out there, a solution only using regular expressions might either miss some valid links or end up with bad data.</p>
 <p>This can be solved by using a robust HTML parsing library.</p>
 <h2 id="parsing-html-using-beautifulsoup">Parsing HTML using BeautifulSoup</h2>
@@ -376,14 +376,20 @@ http://www.pythonlearn.com/py4inf-slides.zip</code></pre>
 # https://pypi.python.org/pypi/beautifulsoup4
 
 # Or download the file
-# http://www.pythonlearn.com/code3/bs4.zip
+# http://www.py4e.com/code3/bs4.zip
 # and unzip it in the same directory as this file
 
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
+import ssl
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
 url = input('Enter - ')
-html = urllib.request.urlopen(url).read()
+html = urllib.request.urlopen(url, context=ctx).read()
 soup = BeautifulSoup(html, 'html.parser')
 
 # Retrieve all of the anchor tags
@@ -391,7 +397,7 @@ tags = soup('a')
 for tag in tags:
     print(tag.get('href', None))
 
-# Code: http://www.pythonlearn.com/code3/urllinks.py
+# Code: http://www.py4e.com/code3/urllinks.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>The program prompts for a web address, then opens the web page, reads the data and passes the data to the BeautifulSoup parser, and then retrieves all of the anchor tags and prints out the <code>href</code> attribute for each tag.</p>
@@ -400,13 +406,13 @@ for tag in tags:
 Enter - http://www.dr-chuck.com/page1.htm
 http://www.dr-chuck.com/page2.htm</code></pre>
 <pre><code>python urllinks.py
-Enter - http://www.pythonlearn.com/book.htm
+Enter - http://www.py4e.com/book.htm
 http://www.greenteapress.com/thinkpython/thinkpython.html
 http://allendowney.com/
 http://www.si502.com/
 http://www.lib.umich.edu/espresso-book-machine
-http://www.pythonlearn.com/code
-http://www.pythonlearn.com/</code></pre>
+http://www.py4e.com/code
+http://www.py4e.com/</code></pre>
 <p>You can use BeautifulSoup to pull out various parts of each tag as follows:</p>
 <script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
 <iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" class="lazyload" allowfullscreen>
@@ -416,30 +422,37 @@ http://www.pythonlearn.com/</code></pre>
 # https://pypi.python.org/pypi/beautifulsoup4
 
 # Or download the file
-# http://www.pythonlearn.com/code3/bs4.zip
+# http://www.py4e.com/code3/bs4.zip
 # and unzip it in the same directory as this file
+
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+import ssl
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
 url = input('Enter - ')
-html = urlopen(url).read()
+html = urlopen(url, context=ctx).read()
 
 # html.parser is the HTML parser included in the standard Python 3 library.
 # information on other HTML parsers is here:
-#http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser
+# http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser
 soup = BeautifulSoup(html, "html.parser")
 
 # Retrieve all of the anchor tags
 tags = soup('a')
 for tag in tags:
     # Look at the parts of a tag
-    print('TAG:',tag)
-    print('URL:',tag.get('href', None))
-    print('Contents:',tag.contents[0])
-    print('Attrs:',tag.attrs)
+    print('TAG:', tag)
+    print('URL:', tag.get('href', None))
+    print('Contents:', tag.contents[0])
+    print('Attrs:', tag.attrs)
 
-# Code: http://www.pythonlearn.com/code3/urllink2.py
+# Code: http://www.py4e.com/code3/urllink2.py
 # Or select Download from this trinket's left-hand menu
 -->
 <pre><code>python urllink2.py
@@ -460,12 +473,12 @@ Attrs: [(&#39;href&#39;, &#39;http://www.dr-chuck.com/page2.htm&#39;)]</code></p
 <!--
 import urllib.request, urllib.parse, urllib.error
 
-img = urllib.request.urlopen('http://www.pythonlearn.com/cover.jpg').read()
-fhand = open('cover.jpg', 'wb')
+img = urllib.request.urlopen('http://data.pr4e.org/cover3.jpg').read()
+fhand = open('cover3.jpg', 'wb')
 fhand.write(img)
 fhand.close()
 
-# Code: http://www.pythonlearn.com/code3/curl1.py
+# Code: http://www.py4e.com/code3/curl1.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>This program reads all of the data in at once across the network and stores it in the variable <code>img</code> in the main memory of your computer, then opens the file <code>cover.jpg</code> and writes the data out to your disk. This will work if the size of the file is less than the size of the memory of your computer.</p>
@@ -476,19 +489,19 @@ fhand.close()
 <!--
 import urllib.request, urllib.parse, urllib.error
 
-img = urllib.request.urlopen('http://www.pythonlearn.com/cover.jpg')
-fhand = open('cover.jpg', 'wb')
+img = urllib.request.urlopen('http://data.pr4e.org/cover3.jpg')
+fhand = open('cover3.jpg', 'wb')
 size = 0
 while True:
     info = img.read(100000)
-    if len(info) < 1 : break
+    if len(info) < 1: break
     size = size + len(info)
     fhand.write(info)
 
-print(size,'characters copied.')
+print(size, 'characters copied.')
 fhand.close()
 
-# Code: http://www.pythonlearn.com/code3/curl2.py
+# Code: http://www.py4e.com/code3/curl2.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>In this example, we read only 100,000 characters at a time and then write those characters to the <code>cover.jpg</code> file before retrieving the next 100,000 characters of data from the web.</p>
@@ -497,8 +510,8 @@ fhand.close()
 568248 characters copied.</code></pre>
 <p>If you have a Unix or Macintosh computer, you probably have a command built in to your operating system that performs this operation as follows:</p>
 <p></p>
-<pre><code>curl -O http://www.pythonlearn.com/cover.jpg</code></pre>
-<p>The command <code>curl</code> is short for &quot;copy URL&quot; and so these two examples are cleverly named <code>curl1.py</code> and <code>curl2.py</code> on <a href="http://www.pythonlearn.com/code">www.pythonlearn.com/code</a> as they implement similar functionality to the <code>curl</code> command. There is also a <code>curl3.py</code> sample program that does this task a little more effectively, in case you actually want to use this pattern in a program you are writing.</p>
+<pre><code>curl -O http://www.py4e.com/cover.jpg</code></pre>
+<p>The command <code>curl</code> is short for &quot;copy URL&quot; and so these two examples are cleverly named <code>curl1.py</code> and <code>curl2.py</code> on <a href="http://www.py4e.com/code3">www.py4e.com/code3</a> as they implement similar functionality to the <code>curl</code> command. There is also a <code>curl3.py</code> sample program that does this task a little more effectively, in case you actually want to use this pattern in a program you are writing.</p>
 <h2 id="glossary">Glossary</h2>
 <dl>
 <dt>BeautifulSoup</dt>

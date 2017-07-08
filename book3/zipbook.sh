@@ -8,6 +8,7 @@ find zipbook/. -type f -not -path '*/images/*' -not -path '*/fonts/*' | xargs rm
 # Add in css file
 dirnames=("embeds" "offline")
 for dir in "${dirnames[@]}"; do
+    echo $dir
     cp trinket/base.css trinket/*.js trinket/trinket.css trinket/font-awesome.min.css trinket/fontawesome-webfont.woff2 zipbook/$dir/trinket
     cp trinket/index.html trinket/README.md zipbook/$dir
 done
@@ -20,6 +21,7 @@ for fn in *.mkd; do
     echo "the next file is $fn"
     x=`basename $fn .mkd`
     echo $x
+
     cat $fn | \
     python pre-html.py | \
     tee tmp.html.pre.$x | \
@@ -32,7 +34,7 @@ for fn in *.mkd; do
     --default-image-extension=svg \
     -o zipbook/offline/$x.html \
     && echo "Wrote zipbook/offline/$x.html"
-    
+
     cat $fn | \
     python pre-html.py | \
     tee tmp.html.pre.$x | \

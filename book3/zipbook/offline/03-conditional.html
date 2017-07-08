@@ -66,9 +66,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </ul>
         <section class="top-bar-section">
           <ul class="right">
-            <li><a href="http://pythonlearn.com"><i class="fa fa-star"></i> PythonLearn</a></li>
-            <li><a href="https://trinket.io"><i class="fa fa-star"></i> Trinket</a></li>
-            <li><a href="https://hourofpython.com"><i class="fa fa-graduation-cap"></i> Hour of Python</a></li>
+            <li><a href="https://www.py4e.com"><i class="fa fa-star"></i> Python for Everyone</a></li>
           </ul>
         </section>
       </nav>
@@ -103,7 +101,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                 <li><a href="11-regex.html">Chapter 11: Regex</a></li>
                 <li><a href="12-network.html">Chapter 12: Networked Programs</a></li>
                 <li><a href="13-web.html">Chapter 13: Python and Web Services</a></li>
-                <li><a href="14-database.html">Chapter 14: Python and Databases</a></li>
+                <li><a href="14-objects.html">Chapter 14: Object Orientation</a></li>
+                <li><a href="15-database.html">Chapter 15: Python and Databases</a></li>
+                <li><a href="16-viz.html">Chapter 16: Data Vizualization</a></li>
               </ul>
             </li>
           </ul>
@@ -134,8 +134,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       x <span class="op">&lt;</span> y                <span class="co"># x is less than y</span>
       x <span class="op">&gt;=</span> y               <span class="co"># x is greater than or equal to y</span>
       x <span class="op">&lt;=</span> y               <span class="co"># x is less than or equal to y</span>
-      x <span class="op">is</span> y               <span class="co"># x is the same as y</span>
-      x <span class="op">is</span> <span class="op">not</span> y           <span class="co"># x is not the same as y</span></code></pre></div>
+      x <span class="kw">is</span> y               <span class="co"># x is the same as y</span>
+      x <span class="kw">is</span> <span class="kw">not</span> y           <span class="co"># x is not the same as y</span></code></pre></div>
 <p>Although these operations are probably familiar to you, the Python symbols are different from the mathematical symbols for the same operations. A common error is to use a single equal sign (<code>=</code>) instead of a double equal sign (<code>==</code>). Remember that <code>=</code> is an assignment operator and <code>==</code> is a comparison operator. There is no such thing as <code>=&lt;</code> or <code>=&gt;</code>.</p>
 <p> </p>
 <h2 id="logical-operators">Logical operators</h2>
@@ -147,7 +147,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><code>n%2 == 0 or n%3 == 0</code> is true if <em>either</em> of the conditions is true, that is, if the number is divisible by 2 <em>or</em> 3.</p>
 <p>Finally, the <code>not</code> operator negates a boolean expression, so <code>not (x &gt; y)</code> is true if <code>x &gt; y</code> is false; that is, if <code>x</code> is less than or equal to <code>y</code>.</p>
 <p>Strictly speaking, the operands of the logical operators should be boolean expressions, but Python is not very strict. Any nonzero number is interpreted as &quot;true.&quot;</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="dv">17</span> <span class="op">and</span> <span class="va">True</span>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="dv">17</span> <span class="kw">and</span> <span class="va">True</span>
 <span class="va">True</span></code></pre></div>
 <p>This flexibility can be useful, but there are some subtleties to it that might be confusing. You might want to avoid it until you are sure you know what you are doing.</p>
 <h2 id="conditional-execution-1">Conditional execution</h2>
@@ -163,7 +163,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>If the logical condition is true, then the indented statement gets executed. If the logical condition is false, the indented statement is skipped.</p>
 <p>  </p>
 <p><code>if</code> statements have the same structure as function definitions or <code>for</code> loops<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. The statement consists of a header line that ends with the colon character (:) followed by an indented block. Statements like this are called <em>compound statements</em> because they stretch across more than one line.</p>
-<p>There is no limit on the number of statements that can appear in the body, but there must be at least one. Occasionally, it is useful to have a body with no statements (usually as a placekeeper for code you haven't written yet). In that case, you can use the <code>pass</code> statement, which does nothing.</p>
+<p>There is no limit on the number of statements that can appear in the body, but there must be at least one. Occasionally, it is useful to have a body with no statements (usually as a place holder for code you haven't written yet). In that case, you can use the <code>pass</code> statement, which does nothing.</p>
 <p> </p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span> :
     <span class="cf">pass</span>          <span class="co"># need to handle negative values!</span></code></pre></div>
@@ -232,14 +232,14 @@ Small
     <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">10</span>:
         <span class="bu">print</span>(<span class="st">&#39;x is a positive single-digit number.&#39;</span>)</code></pre></div>
 <p>The <code>print</code> statement is executed only if we make it past both conditionals, so we can get the same effect with the <code>and</code> operator:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> <span class="dv">0</span> <span class="op">&lt;</span> x <span class="op">and</span> x <span class="op">&lt;</span> <span class="dv">10</span>:
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> <span class="dv">0</span> <span class="op">&lt;</span> x <span class="kw">and</span> x <span class="op">&lt;</span> <span class="dv">10</span>:
     <span class="bu">print</span>(<span class="st">&#39;x is a positive single-digit number.&#39;</span>)</code></pre></div>
 <h2 id="catching-exceptions-using-try-and-except">Catching exceptions using try and except</h2>
-<p>Earlier we saw a code segment where we used the <code>raw_input</code> and <code>int</code> functions to read and parse an integer number entered by the user. We also saw how treacherous doing this could be:</p>
+<p>Earlier we saw a code segment where we used the <code>input</code> and <code>int</code> functions to read and parse an integer number entered by the user. We also saw how treacherous doing this could be:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> prompt <span class="op">=</span> <span class="st">&quot;What...is the airspeed velocity of an unladen swallow?</span><span class="ch">\n</span><span class="st">&quot;</span>
 <span class="op">&gt;&gt;&gt;</span> speed <span class="op">=</span> <span class="bu">input</span>(prompt)
-What...<span class="op">is</span> the airspeed velocity of an unladen swallow?
-What do you mean, an African <span class="op">or</span> a European swallow?
+What...<span class="kw">is</span> the airspeed velocity of an unladen swallow?
+What do you mean, an African <span class="kw">or</span> a European swallow?
 <span class="op">&gt;&gt;&gt;</span> <span class="bu">int</span>(speed)
 <span class="pp">ValueError</span>: invalid literal <span class="cf">for</span> <span class="bu">int</span>() <span class="cf">with</span> base <span class="dv">10</span>:
 <span class="op">&gt;&gt;&gt;</span></code></pre></div>
@@ -257,7 +257,7 @@ fahr = float(inp)
 cel = (fahr - 32.0) * 5.0 / 9.0
 print(cel)
 
-# Code: http://www.pythonlearn.com/code3/fahren.py
+# Code: http://www.py4e.com/code3/fahren.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>If we execute this code and give it invalid input, it simply fails with an unfriendly error message:</p>
@@ -285,7 +285,7 @@ try:
 except:
     print('Please enter a number')
 
-# Code: http://www.pythonlearn.com/code3/fahren2.py
+# Code: http://www.py4e.com/code3/fahren2.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>Python starts by executing the sequence of statements in the <code>try</code> block. If all goes well, it skips the <code>except</code> block and proceeds. If an exception occurs in the <code>try</code> block, Python jumps out of the <code>try</code> block and executes the sequence of statements in the <code>except</code> block.</p>
@@ -304,32 +304,32 @@ Please enter a number</code></pre>
 <p>While this may seem like a fine point, the short-circuit behavior leads to a clever technique called the <em>guardian pattern</em>. Consider the following code sequence in the Python interpreter:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">6</span>
 <span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">2</span>
-<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="op">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span>
+<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="kw">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span>
 <span class="va">True</span>
 <span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">1</span>
 <span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">0</span>
-<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="op">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span>
+<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="kw">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span>
 <span class="va">False</span>
 <span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">6</span>
 <span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">0</span>
-<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="op">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span>
+<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="kw">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span>
 Traceback (most recent call last):
-  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="op">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span>
+  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span>
 <span class="pp">ZeroDivisionError</span>: division by zero
 <span class="op">&gt;&gt;&gt;</span></code></pre></div>
 <p>The third calculation failed because Python was evaluating <code>(x/y)</code> and <code>y</code> was zero, which causes a runtime error. But the second example did <em>not</em> fail because the first part of the expression <code>x &gt;= 2</code> evaluated to <code>False</code> so the <code>(x/y)</code> was not ever executed due to the <em>short-circuit</em> rule and there was no error.</p>
 <p>We can construct the logical expression to strategically place a <em>guard</em> evaluation just before the evaluation that might cause an error as follows:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">1</span>
 <span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">0</span>
-<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="op">and</span> y <span class="op">!=</span> <span class="dv">0</span> <span class="op">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span>
+<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="kw">and</span> y <span class="op">!=</span> <span class="dv">0</span> <span class="kw">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span>
 <span class="va">False</span>
 <span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">6</span>
 <span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">0</span>
-<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="op">and</span> y <span class="op">!=</span> <span class="dv">0</span> <span class="op">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span>
+<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="kw">and</span> y <span class="op">!=</span> <span class="dv">0</span> <span class="kw">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span>
 <span class="va">False</span>
-<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="op">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span> <span class="op">and</span> y <span class="op">!=</span> <span class="dv">0</span>
+<span class="op">&gt;&gt;&gt;</span> x <span class="op">&gt;=</span> <span class="dv">2</span> <span class="kw">and</span> (x<span class="op">/</span>y) <span class="op">&gt;</span> <span class="dv">2</span> <span class="kw">and</span> y <span class="op">!=</span> <span class="dv">0</span>
 Traceback (most recent call last):
-  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="op">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span>
+  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span>
 <span class="pp">ZeroDivisionError</span>: division by zero
 <span class="op">&gt;&gt;&gt;</span></code></pre></div>
 <p>In the first logical expression, <code>x &gt;= 2</code> is <code>False</code> so the evaluation stops at the <code>and</code>. In the second logical expression, <code>x &gt;= 2</code> is <code>True</code> but <code>y != 0</code> is <code>False</code> so we never reach <code>(x/y)</code>.</p>

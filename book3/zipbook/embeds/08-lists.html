@@ -103,7 +103,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                 <li><a href="11-regex.html">Chapter 11: Regex</a></li>
                 <li><a href="12-network.html">Chapter 12: Networked Programs</a></li>
                 <li><a href="13-web.html">Chapter 13: Python and Web Services</a></li>
-                <li><a href="14-database.html">Chapter 14: Python and Databases</a></li>
+                <li><a href="14-objects.html">Chapter 14: Object Orientation</a></li>
+                <li><a href="15-database.html">Chapter 15: Python and Databases</a></li>
+                <li><a href="16-viz.html">Chapter 16: Data Vizualization</a></li>
               </ul>
             </li>
           </ul>
@@ -140,7 +142,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p></p>
 <h2 id="lists-are-mutable">Lists are mutable</h2>
 <p>     </p>
-<p>The syntax for accessing the elements of a list is the same as for accessing the characters of a string—the bracket operator. The expression inside the brackets specifies the index. Remember that the indices start at 0:</p>
+<p>The syntax for accessing the elements of a list is the same as for accessing the characters of a string: the bracket operator. The expression inside the brackets specifies the index. Remember that the indices start at 0:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(cheeses[<span class="dv">0</span>])
 Cheddar</code></pre></div>
 <p>Unlike strings, lists are mutable because you can change the order of items in a list or reassign an item in a list. When the bracket operator appears on the left side of an assignment, it identifies the element of the list that will be assigned.</p>
@@ -182,16 +184,16 @@ False
 <h2 id="traversing-a-list">Traversing a list</h2>
 <p>    </p>
 <p>The most common way to traverse the elements of a list is with a <code>for</code> loop. The syntax is the same as for strings:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> cheese <span class="op">in</span> cheeses:
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> cheese <span class="kw">in</span> cheeses:
     <span class="bu">print</span>(cheese)</code></pre></div>
 <p>This works well if you only need to read the elements of the list. But if you want to write or update the elements, you need the indices. A common way to do that is to combine the functions <code>range</code> and <code>len</code>:</p>
 <p> </p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> i <span class="op">in</span> <span class="bu">range</span>(<span class="bu">len</span>(numbers)):
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(numbers)):
     numbers[i] <span class="op">=</span> numbers[i] <span class="op">*</span> <span class="dv">2</span></code></pre></div>
 <p>This loop traverses the list and updates each element. <code>len</code> returns the number of elements in the list. <code>range</code> returns a list of indices from 0 to <span class="math inline"><em>n</em> − 1</span>, where <span class="math inline"><em>n</em></span> is the length of the list. Each time through the loop, <code>i</code> gets the index of the next element. The assignment statement in the body uses <code>i</code> to read the old value of the element and to assign the new value.</p>
 <p> </p>
 <p>A <code>for</code> loop over an empty list never executes the body:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> x <span class="op">in</span> empty:
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> x <span class="kw">in</span> empty:
     <span class="bu">print</span>(<span class="st">&#39;This never happens.&#39;</span>)</code></pre></div>
 <p>Although a list can contain another list, the nested list still counts as a single element. The length of this list is four:</p>
 <p> </p>
@@ -381,7 +383,7 @@ while (True):
 average = total / count
 print('Average:', average)
 
-# Code: http://www.pythonlearn.com/code3/avenum.py
+# Code: http://www.py4e.com/code3/avenum.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>In this program, we have <code>count</code> and <code>total</code> variables to keep the number and running total of the user's numbers as we repeatedly prompt the user for a number.</p>
@@ -400,7 +402,7 @@ while (True):
 average = sum(numlist) / len(numlist)
 print('Average:', average)
 
-# Code: http://www.pythonlearn.com/code3/avelist.py
+# Code: http://www.py4e.com/code3/avelist.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>We make an empty list before the loop starts, and then each time we have a number, we append it to the list. At the end of the program, we simply compute the sum of the numbers in the list and divide it by the count of the numbers in the list to come up with the average.</p>
@@ -467,11 +469,11 @@ the
 fhand = open('mbox-short.txt')
 for line in fhand:
     line = line.rstrip()
-    if not line.startswith('From ') : continue
+    if not line.startswith('From '): continue
     words = line.split()
     print(words[2])
 
-# Code: http://www.pythonlearn.com/code3/search5.py
+# Code: http://www.py4e.com/code3/search5.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -2549,7 +2551,7 @@ False
 <p><code>From stephen.marquard@uct.ac.za</code><strong><code>Sat</code></strong><code>Jan  5 09:14:16 2008</code></p>
 <p>Since we are breaking this line into words, we could dispense with the use of <code>startswith</code> and simply look at the first word of the line to determine if we are interested in the line at all. We can use <code>continue</code> to skip lines that don't have &quot;From&quot; as the first word as follows:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">fhand <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;mbox-short.txt&#39;</span>)
-<span class="cf">for</span> line <span class="op">in</span> fhand:
+<span class="cf">for</span> line <span class="kw">in</span> fhand:
     words <span class="op">=</span> line.split()
     <span class="cf">if</span> words[<span class="dv">0</span>] <span class="op">!=</span> <span class="st">&#39;From&#39;</span> : <span class="cf">continue</span>
     <span class="bu">print</span>(words[<span class="dv">2</span>])</code></pre></div>
@@ -2563,7 +2565,7 @@ False
 <p>It kind of works and we see the day from the first line (Sat), but then the program fails with a traceback error. What went wrong? What messed-up data caused our elegant, clever, and very Pythonic program to fail?</p>
 <p>You could stare at it for a long time and puzzle through it or ask someone for help, but the quicker and smarter approach is to add a <code>print</code> statement. The best place to add the print statement is right before the line where the program failed and print out the data that seems to be causing the failure.</p>
 <p>Now this approach may generate a lot of lines of output, but at least you will immediately have some clue as to the problem at hand. So we add a print of the variable <code>words</code> right before line five. We even add a prefix &quot;Debug:&quot; to the line so we can keep our regular output separate from our debug output.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">    <span class="cf">for</span> line <span class="op">in</span> fhand:
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">    <span class="cf">for</span> line <span class="kw">in</span> fhand:
         words <span class="op">=</span> line.split()
         <span class="bu">print</span>(<span class="st">&#39;Debug:&#39;</span>, words)
         <span class="cf">if</span> words[<span class="dv">0</span>] <span class="op">!=</span> <span class="st">&#39;From&#39;</span> : <span class="cf">continue</span>
@@ -2587,7 +2589,7 @@ False
 <p>This of course is the perfect place to add some <em>guardian</em> code to avoid checking the first word if the first word is not there. There are many ways to protect this code; we will choose to check the number of words we have before we look at the first word:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">fhand <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;mbox-short.txt&#39;</span>)
 count <span class="op">=</span> <span class="dv">0</span>
-<span class="cf">for</span> line <span class="op">in</span> fhand:
+<span class="cf">for</span> line <span class="kw">in</span> fhand:
     words <span class="op">=</span> line.split()
     <span class="co"># print &#39;Debug:&#39;, words</span>
     <span class="cf">if</span> <span class="bu">len</span>(words) <span class="op">==</span> <span class="dv">0</span> : <span class="cf">continue</span>
@@ -2636,7 +2638,7 @@ count <span class="op">=</span> <span class="dv">0</span>
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p>Exercise 4: Download a copy of the file from <a href="http://www.pythonlearn.com/code3/romeo.txt">www.pythonlearn.com/code3/romeo.txt</a></p>
+<p>Exercise 4: Download a copy of the file from <a href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a></p>
 <p></p>
 <p>Write a program to open the file <code>romeo.txt</code> and read it line by line. For each line, split the line into a list of words using the <code>split</code> function.</p>
 <p>For each word, check to see if the word is already in a list. If the word is not in the list, add it to the list.</p>

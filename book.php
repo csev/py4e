@@ -19,6 +19,7 @@ of the book has not been translated.
   <li>
      English
      <ul class="menu vertical nested is-active">
+       <li class="menu-text"><a href="html3">Online Book</a></li>
        <li class="menu-text">Printed Book on <a href="http://amzn.to/29w0lsX" target="_blank">Amazon</a></li>
        <li class="menu-text"><a href="http://amzn.to/29LrtC0" target="_blank">Kindle edition</a> of the book</li>
        <li class="menu-text"><a href="https://books.trinket.io/pfe/index.html" target="_blank">Interactive HTML on Trinket.io</a></li>

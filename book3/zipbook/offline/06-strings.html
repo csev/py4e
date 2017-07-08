@@ -66,9 +66,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </ul>
         <section class="top-bar-section">
           <ul class="right">
-            <li><a href="http://pythonlearn.com"><i class="fa fa-star"></i> PythonLearn</a></li>
-            <li><a href="https://trinket.io"><i class="fa fa-star"></i> Trinket</a></li>
-            <li><a href="https://hourofpython.com"><i class="fa fa-graduation-cap"></i> Hour of Python</a></li>
+            <li><a href="https://www.py4e.com"><i class="fa fa-star"></i> Python for Everyone</a></li>
           </ul>
         </section>
       </nav>
@@ -103,7 +101,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                 <li><a href="11-regex.html">Chapter 11: Regex</a></li>
                 <li><a href="12-network.html">Chapter 12: Networked Programs</a></li>
                 <li><a href="13-web.html">Chapter 13: Python and Web Services</a></li>
-                <li><a href="14-database.html">Chapter 14: Python and Databases</a></li>
+                <li><a href="14-objects.html">Chapter 14: Object Orientation</a></li>
+                <li><a href="15-database.html">Chapter 15: Python and Databases</a></li>
+                <li><a href="16-viz.html">Chapter 16: Data Vizualization</a></li>
               </ul>
             </li>
           </ul>
@@ -167,7 +167,7 @@ a</code></pre></div>
 <p>This loop traverses the string and displays each letter on a line by itself. The loop condition is <code>index \&lt; len(fruit)</code>, so when <code>index</code> is equal to the length of the string, the condition is false, and the body of the loop is not executed. The last character accessed is the one with the index <code>len(fruit)-1</code>, which is the last character in the string.</p>
 <p>Exercise 1: Write a <code>while</code> loop that starts at the last character in the string and works its way backwards to the first character in the string, printing each letter on a separate line, except backwards.</p>
 <p>Another way to write a traversal is with a <code>for</code> loop:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> char <span class="op">in</span> fruit:
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> char <span class="kw">in</span> fruit:
     <span class="bu">print</span>(char)</code></pre></div>
 <p>Each time through the loop, the next character in the string is assigned to the variable <code>char</code>. The loop continues until no characters are left.</p>
 <h2 id="string-slices">String slices</h2>
@@ -199,7 +199,7 @@ Python</code></pre></div>
 <p> </p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> greeting <span class="op">=</span> <span class="st">&#39;Hello, world!&#39;</span>
 <span class="op">&gt;&gt;&gt;</span> greeting[<span class="dv">0</span>] <span class="op">=</span> <span class="st">&#39;J&#39;</span>
-<span class="pp">TypeError</span>: <span class="st">&#39;str&#39;</span> <span class="bu">object</span> does <span class="op">not</span> support item assignment</code></pre></div>
+<span class="pp">TypeError</span>: <span class="st">&#39;str&#39;</span> <span class="bu">object</span> does <span class="kw">not</span> support item assignment</code></pre></div>
 <p>The &quot;object&quot; in this case is the string and the &quot;item&quot; is the character you tried to assign. For now, an <em>object</em> is the same thing as a value, but we will refine that definition later. An <em>item</em> is one of the values in a sequence.</p>
 <p>   </p>
 <p>The reason for the error is that strings are <em>immutable</em>, which means you can't change an existing string. The best you can do is create a new string that is a variation on the original:</p>
@@ -214,20 +214,20 @@ Jello, world<span class="op">!</span></code></pre></div>
 <p>The following program counts the number of times the letter <code>a</code> appears in a string:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">word <span class="op">=</span> <span class="st">&#39;banana&#39;</span>
 count <span class="op">=</span> <span class="dv">0</span>
-<span class="cf">for</span> letter <span class="op">in</span> word:
+<span class="cf">for</span> letter <span class="kw">in</span> word:
     <span class="cf">if</span> letter <span class="op">==</span> <span class="st">&#39;a&#39;</span>:
         count <span class="op">=</span> count <span class="op">+</span> <span class="dv">1</span>
 <span class="bu">print</span>(count)</code></pre></div>
-<p>This program demonstrates another pattern of computation called a <em>counter</em>. The variable <code>count</code> is initialized to 0 and then incremented each time an <code>a</code> is found. When the loop exits, <code>count</code> contains the result—the total number of <code>a</code>'s.</p>
+<p>This program demonstrates another pattern of computation called a <em>counter</em>. The variable <code>count</code> is initialized to 0 and then incremented each time an <code>a</code> is found. When the loop exits, <code>count</code> contains the result: the total number of <code>a</code>'s.</p>
 <p>Exercise 3:</p>
 <p></p>
 <p>Encapsulate this code in a function named <code>count</code>, and generalize it so that it accepts the string and the letter as arguments.</p>
 <h2 id="the-in-operator">The <code>in</code> operator</h2>
 <p>   </p>
 <p>The word <code>in</code> is a boolean operator that takes two strings and returns <code>True</code> if the first appears as a substring in the second:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;a&#39;</span> <span class="op">in</span> <span class="st">&#39;banana&#39;</span>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;a&#39;</span> <span class="kw">in</span> <span class="st">&#39;banana&#39;</span>
 <span class="va">True</span>
-<span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;seed&#39;</span> <span class="op">in</span> <span class="st">&#39;banana&#39;</span>
+<span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;seed&#39;</span> <span class="kw">in</span> <span class="st">&#39;banana&#39;</span>
 <span class="va">False</span></code></pre></div>
 <h2 id="string-comparison">String comparison</h2>
 <p> </p>
@@ -267,10 +267,10 @@ capitalize(...)
     S.capitalize() <span class="op">-&gt;</span> <span class="bu">str</span>
 
     Return a capitalized version of S, i.e. make the first character
-    have upper case <span class="op">and</span> the rest lower case.
+    have upper case <span class="kw">and</span> the rest lower case.
 <span class="op">&gt;&gt;&gt;</span></code></pre></div>
 <p>While the <code>dir</code> function lists the methods, and you can use <code>help</code> to get some simple documentation on a method, a better source of documentation for string methods would be <a href="https://docs.python.org/3.5/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/3.5/library/stdtypes.html#string-methods</a>.</p>
-<p>Calling a <em>method</em> is similar to calling a function—it takes arguments and returns a value—but the syntax is different. We call a method by appending the method name to the variable name using the period as a delimiter.</p>
+<p>Calling a <em>method</em> is similar to calling a function (it takes arguments and returns a value) but the syntax is different. We call a method by appending the method name to the variable name using the period as a delimiter.</p>
 <p>For example, the method <code>upper</code> takes a string and returns a new string with all uppercase letters:</p>
 <p> </p>
 <p>Instead of the function syntax <code>upper(word)</code>, it uses the method syntax <code>word.upper()</code>.</p>
@@ -359,9 +359,9 @@ uct.ac.za
 <p>The number of elements in the tuple must match the number of format sequences in the string. The types of the elements also must match the format sequences:</p>
 <p> </p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;</span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st">&#39;</span> <span class="op">%</span> (<span class="dv">1</span>, <span class="dv">2</span>)
-<span class="pp">TypeError</span>: <span class="op">not</span> enough arguments <span class="cf">for</span> <span class="bu">format</span> string
+<span class="pp">TypeError</span>: <span class="kw">not</span> enough arguments <span class="cf">for</span> <span class="bu">format</span> string
 <span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;</span><span class="sc">%d</span><span class="st">&#39;</span> <span class="op">%</span> <span class="st">&#39;dollars&#39;</span>
-<span class="pp">TypeError</span>: <span class="op">%</span>d <span class="bu">format</span>: a number <span class="op">is</span> required, <span class="op">not</span> <span class="bu">str</span></code></pre></div>
+<span class="pp">TypeError</span>: <span class="op">%</span>d <span class="bu">format</span>: a number <span class="kw">is</span> required, <span class="kw">not</span> <span class="bu">str</span></code></pre></div>
 <p>In the first example, there aren't enough elements; in the second, the element is the wrong type.</p>
 <p>The format operator is powerful, but it can be difficult to use. You can read more about it at</p>
 <p><a href="https://docs.python.org/3.5/library/stdtypes.html#printf-style-string-formatting" class="uri">https://docs.python.org/3.5/library/stdtypes.html#printf-style-string-formatting</a>.</p>
@@ -382,7 +382,7 @@ while True:
     print(line)
 print('Done!')
 
-# Code: http://www.pythonlearn.com/code3/copytildone2.py
+# Code: http://www.py4e.com/code3/copytildone2.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>Look what happens when the user enters an empty line of input:</p>
@@ -393,7 +393,7 @@ hello there
 <span class="bu">print</span> this<span class="op">!</span>
 <span class="op">&gt;</span>
 Traceback (most recent call last):
-  File <span class="st">&quot;copytildone.py&quot;</span>, line <span class="dv">3</span>, <span class="op">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span>
+  File <span class="st">&quot;copytildone.py&quot;</span>, line <span class="dv">3</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span>
     <span class="cf">if</span> line[<span class="dv">0</span>] <span class="op">==</span> <span class="st">&#39;#&#39;</span>:
 <span class="pp">IndexError</span>: string index out of <span class="bu">range</span></code></pre></div>
 <p>The code works fine until it is presented an empty line. Then there is no zero-th character, so we get a traceback. There are two solutions to this to make line three &quot;safe&quot; even if the line is empty.</p>
@@ -466,7 +466,7 @@ Traceback (most recent call last):
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>A tuple is a sequence of comma-separated values inside a pair of brackets. We will cover tuples in Chapter 10<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>A tuple is a sequence of comma-separated values inside a pair of parenthesis. We will cover tuples in Chapter 10<a href="#fnref1">↩</a></p></li>
 </ol>
 </div>
         </div>

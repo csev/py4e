@@ -66,9 +66,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </ul>
         <section class="top-bar-section">
           <ul class="right">
-            <li><a href="http://pythonlearn.com"><i class="fa fa-star"></i> PythonLearn</a></li>
-            <li><a href="https://trinket.io"><i class="fa fa-star"></i> Trinket</a></li>
-            <li><a href="https://hourofpython.com"><i class="fa fa-graduation-cap"></i> Hour of Python</a></li>
+            <li><a href="https://www.py4e.com"><i class="fa fa-star"></i> Python for Everyone</a></li>
           </ul>
         </section>
       </nav>
@@ -103,7 +101,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                 <li><a href="11-regex.html">Chapter 11: Regex</a></li>
                 <li><a href="12-network.html">Chapter 12: Networked Programs</a></li>
                 <li><a href="13-web.html">Chapter 13: Python and Web Services</a></li>
-                <li><a href="14-database.html">Chapter 14: Python and Databases</a></li>
+                <li><a href="14-objects.html">Chapter 14: Object Orientation</a></li>
+                <li><a href="15-database.html">Chapter 15: Python and Databases</a></li>
+                <li><a href="16-viz.html">Chapter 16: Data Vizualization</a></li>
               </ul>
             </li>
           </ul>
@@ -149,16 +149,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="dv">3</span></code></pre></div>
 <p>The <code>in</code> operator works on dictionaries; it tells you whether something appears as a <em>key</em> in the dictionary (appearing as a value is not good enough).</p>
 <p>  </p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;one&#39;</span> <span class="op">in</span> eng2sp
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;one&#39;</span> <span class="kw">in</span> eng2sp
 <span class="va">True</span>
-<span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;uno&#39;</span> <span class="op">in</span> eng2sp
+<span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;uno&#39;</span> <span class="kw">in</span> eng2sp
 <span class="va">False</span></code></pre></div>
 <p>To see whether something appears as a value in a dictionary, you can use the method <code>values</code>, which returns the values as a list, and then use the <code>in</code> operator:</p>
 <p> </p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> vals <span class="op">=</span> <span class="bu">list</span>(eng2sp.values())
-<span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;uno&#39;</span> <span class="op">in</span> vals
+<span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;uno&#39;</span> <span class="kw">in</span> vals
 <span class="va">True</span></code></pre></div>
-<p>The <code>in</code> operator uses different algorithms for lists and dictionaries. For lists, it uses a linear search algorithm. As the list gets longer, the search time gets longer in direct proportion to the length of the list. For dictionaries, Python uses an algorithm called a <em>hash table</em> that has a remarkable property—the <code>in</code> operator takes about the same amount of time no matter how many items there are in a dictionary. I won't explain why hash functions are so magical, but you can read more about it at <a href="wikipedia.org/wiki/Hash_table" class="uri">wikipedia.org/wiki/Hash_table</a>.</p>
+<p>The <code>in</code> operator uses different algorithms for lists and dictionaries. For lists, it uses a linear search algorithm. As the list gets longer, the search time gets longer in direct proportion to the length of the list. For dictionaries, Python uses an algorithm called a <em>hash table</em> that has a remarkable property: the <code>in</code> operator takes about the same amount of time no matter how many items there are in a dictionary. I won't explain why hash functions are so magical, but you can read more about it at <a href="wikipedia.org/wiki/Hash_table" class="uri">wikipedia.org/wiki/Hash_table</a>.</p>
 <p></p>
 <p>Exercise 1: [wordlist2]</p>
 <p> </p>
@@ -177,8 +177,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Here is what the code might look like:</p>
 <div class="sourceCode"><pre class="sourceCode python trinket"><code class="sourceCode python">word <span class="op">=</span> <span class="st">&#39;brontosaurus&#39;</span>
 d <span class="op">=</span> <span class="bu">dict</span>()
-<span class="cf">for</span> c <span class="op">in</span> word:
-    <span class="cf">if</span> c <span class="op">not</span> <span class="op">in</span> d:
+<span class="cf">for</span> c <span class="kw">in</span> word:
+    <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> d:
         d[c] <span class="op">=</span> <span class="dv">1</span>
     <span class="cf">else</span>:
         d[c] <span class="op">=</span> d[c] <span class="op">+</span> <span class="dv">1</span>
@@ -200,7 +200,7 @@ d <span class="op">=</span> <span class="bu">dict</span>()
 <p>We can use <code>get</code> to write our histogram loop more concisely. Because the <code>get</code> method automatically handles the case where a key is not in a dictionary, we can reduce four lines down to one and eliminate the <code>if</code> statement.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">word <span class="op">=</span> <span class="st">&#39;brontosaurus&#39;</span>
 d <span class="op">=</span> <span class="bu">dict</span>()
-<span class="cf">for</span> c <span class="op">in</span> word:
+<span class="cf">for</span> c <span class="kw">in</span> word:
     d[c] <span class="op">=</span> d.get(c,<span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span>
 <span class="bu">print</span>(d)</code></pre></div>
 <p>The use of the <code>get</code> method to simplify this counting loop ends up being a very commonly used &quot;idiom&quot; in Python and we will use it many times in the rest of the book. So you should take a moment and compare the loop using the <code>if</code> statement and <code>in</code> operator with the loop using the <code>get</code> method. They do exactly the same thing, but one is more succinct.</p>
@@ -240,7 +240,7 @@ for line in fhand:
 
 print(counts)
 
-# Code: http://www.pythonlearn.com/code3/count1.py
+# Code: http://www.py4e.com/code3/count1.py
 # Or select Download from this trinket's left-hand menu
 ----{romeo.txt}----
 But soft what light through yonder window breaks
@@ -249,7 +249,7 @@ Arise fair sun and kill the envious moon
 Who is already sick and pale with grief
 
 -->
-<p>When we run the program, we see a raw dump of all of the counts in unsorted hash order. (the <code>romeo.txt</code> file is available at <a href="http://www.pythonlearn.com/code3/romeo.txt">www.pythonlearn.com/code3/romeo.txt</a>)</p>
+<p>When we run the program, we see a raw dump of all of the counts in unsorted hash order. (the <code>romeo.txt</code> file is available at <a href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a>)</p>
 <pre><code>python count1.py
 Enter the file name: romeo.txt
 {&#39;and&#39;: 3, &#39;envious&#39;: 1, &#39;already&#39;: 1, &#39;fair&#39;: 1,
@@ -263,7 +263,7 @@ Enter the file name: romeo.txt
 <p>  </p>
 <p>If you use a dictionary as the sequence in a <code>for</code> statement, it traverses the keys of the dictionary. This loop prints each key and the corresponding value:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">counts <span class="op">=</span> { <span class="st">&#39;chuck&#39;</span> : <span class="dv">1</span> , <span class="st">&#39;annie&#39;</span> : <span class="dv">42</span>, <span class="st">&#39;jan&#39;</span>: <span class="dv">100</span>}
-<span class="cf">for</span> key <span class="op">in</span> counts:
+<span class="cf">for</span> key <span class="kw">in</span> counts:
     <span class="bu">print</span>(key, counts[key])</code></pre></div>
 <p>Here's what the output looks like:</p>
 <pre><code>jan 100
@@ -273,7 +273,7 @@ annie 42</code></pre>
 <p></p>
 <p>We can use this pattern to implement the various loop idioms that we have described earlier. For example if we wanted to find all the entries in a dictionary with a value above ten, we could write the following code:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">counts <span class="op">=</span> { <span class="st">&#39;chuck&#39;</span> : <span class="dv">1</span> , <span class="st">&#39;annie&#39;</span> : <span class="dv">42</span>, <span class="st">&#39;jan&#39;</span>: <span class="dv">100</span>}
-<span class="cf">for</span> key <span class="op">in</span> counts:
+<span class="cf">for</span> key <span class="kw">in</span> counts:
     <span class="cf">if</span> counts[key] <span class="op">&gt;</span> <span class="dv">10</span> :
         <span class="bu">print</span>(key, counts[key])</code></pre></div>
 <p>The <code>for</code> loop iterates through the <em>keys</em> of the dictionary, so we must use the index operator to retrieve the corresponding <em>value</em> for each key. Here's what the output looks like:</p>
@@ -286,7 +286,7 @@ annie 42</code></pre>
 lst <span class="op">=</span> <span class="bu">list</span>(counts.keys())
 <span class="bu">print</span>(lst)
 lst.sort()
-<span class="cf">for</span> key <span class="op">in</span> lst:
+<span class="cf">for</span> key <span class="kw">in</span> lst:
     <span class="bu">print</span>(key, counts[key])</code></pre></div>
 <p>Here's what the output looks like:</p>
 <pre><code>[&#39;jan&#39;, &#39;chuck&#39;, &#39;annie&#39;]
@@ -304,12 +304,13 @@ Who is already sick and pale with grief,</code></pre>
 <p>Since the Python <code>split</code> function looks for spaces and treats words as tokens separated by spaces, we would treat the words &quot;soft!&quot; and &quot;soft&quot; as <em>different</em> words and create a separate dictionary entry for each word.</p>
 <p>Also since the file has capitalization, we would treat &quot;who&quot; and &quot;Who&quot; as different words with different counts.</p>
 <p>We can solve both these problems by using the string methods <code>lower</code>, <code>punctuation</code>, and <code>translate</code>. The <code>translate</code> is the most subtle of the methods. Here is the documentation for <code>translate</code>:</p>
-<p><code>string.translate(s, table[, deletechars])</code></p>
-<p><em>Delete all characters from s that are in deletechars (if present), and then translate the characters using table, which must be a 256-character string giving the translation for each character value, indexed by its ordinal. If table is None, then only the character deletion step is performed.</em></p>
+<p><code>line.translate(str.maketrans(fromstr, tostr, deletestr))</code></p>
+<p><em>Replace the characters in <code>fromstr</code> with the character in the same position in <code>tostr</code> and delete all characters that are in <code>deletestr</code>. The <code>fromstr</code> and <code>tostr</code> can be empty strings and the <code>deletestr</code> parameter can be omitted.</em></p>
 <p>We will not specify the <code>table</code> but we will use the <code>deletechars</code> parameter to delete all of the punctuation. We will even let Python tell us the list of characters that it considers &quot;punctuation&quot;:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> string
 <span class="op">&gt;&gt;&gt;</span> string.punctuation
 <span class="co">&#39;!&quot;#$%&amp;\&#39;()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~&#39;</span></code></pre></div>
+<p>The parameters used by <code>translate</code> were different in Python 2.0.</p>
 <p>We make the following modifications to our program:</p>
 <script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
 <iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" class="lazyload" allowfullscreen>
@@ -327,7 +328,7 @@ except:
 counts = dict()
 for line in fhand:
     line = line.rstrip()
-    line = line.translate(line.maketrans('','',string.punctuation))
+    line = line.translate(line.maketrans('', '', string.punctuation))
     line = line.lower()
     words = line.split()
     for word in words:
@@ -338,7 +339,7 @@ for line in fhand:
 
 print(counts)
 
-# Code: http://www.pythonlearn.com/code3/count2.py
+# Code: http://www.py4e.com/code3/count2.py
 # Or select Download from this trinket's left-hand menu
 ----{romeo-full.txt}----
 Romeo and Juliet
@@ -733,8 +734,6 @@ His help to crave, and my dear hap to tell.
 Exit
 
 -->
-<p>We use <code>translate</code> to remove all punctuation and <code>lower</code> to force the line to lowercase. Otherwise the program is unchanged. Note that for Python 2.5 and earlier, <code>translate</code> does not accept <code>None</code> as the first parameter so use this code instead for the translate call:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span> a.translate(string.maketrans(<span class="st">&#39; &#39;</span>,<span class="st">&#39; &#39;</span>), string.punctuation</code></pre></div>
 <p>Part of learning the &quot;Art of Python&quot; or &quot;Thinking Pythonically&quot; is realizing that Python often has built-in capabilities for many common data analysis problems. Over time, you will see enough example code and read enough of the documentation to know where to look to see if someone has already written something that makes your job much easier.</p>
 <p>The following is an abbreviated version of the output:</p>
 <pre><code>Enter the file name: romeo-full.txt

@@ -66,9 +66,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </ul>
         <section class="top-bar-section">
           <ul class="right">
-            <li><a href="http://pythonlearn.com"><i class="fa fa-star"></i> PythonLearn</a></li>
-            <li><a href="https://trinket.io"><i class="fa fa-star"></i> Trinket</a></li>
-            <li><a href="https://hourofpython.com"><i class="fa fa-graduation-cap"></i> Hour of Python</a></li>
+            <li><a href="https://www.py4e.com"><i class="fa fa-star"></i> Python for Everyone</a></li>
           </ul>
         </section>
       </nav>
@@ -103,7 +101,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                 <li><a href="11-regex.html">Chapter 11: Regex</a></li>
                 <li><a href="12-network.html">Chapter 12: Networked Programs</a></li>
                 <li><a href="13-web.html">Chapter 13: Python and Web Services</a></li>
-                <li><a href="14-database.html">Chapter 14: Python and Databases</a></li>
+                <li><a href="14-objects.html">Chapter 14: Object Orientation</a></li>
+                <li><a href="15-database.html">Chapter 15: Python and Databases</a></li>
+                <li><a href="16-viz.html">Chapter 16: Data Vizualization</a></li>
               </ul>
             </li>
           </ul>
@@ -150,10 +150,10 @@ data = '''
 </person>'''
 
 tree = ET.fromstring(data)
-print('Name:',tree.find('name').text)
-print('Attr:',tree.find('email').get('hide'))
+print('Name:', tree.find('name').text)
+print('Attr:', tree.find('email').get('hide'))
 
-# Code: http://www.pythonlearn.com/code3/xml1.py
+# Code: http://www.py4e.com/code3/xml1.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>Calling <code>fromstring</code> converts the string representation of the XML into a &quot;tree&quot; of XML nodes. When the XML is in a tree, we have a series of methods we can call to extract portions of data from the XML.</p>
@@ -180,8 +180,8 @@ input = '''
         <user x="7">
             <id>009</id>
             <name>Brent</name>
-            </user>
-        </users>
+        </user>
+    </users>
 </stuff>'''
 
 stuff = ET.fromstring(input)
@@ -193,7 +193,7 @@ for item in lst:
     print('Id', item.find('id').text)
     print('Attribute', item.get("x"))
 
-# Code: http://www.pythonlearn.com/code3/xml2.py
+# Code: http://www.py4e.com/code3/xml2.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>The <code>findall</code> method retrieves a Python list of subtrees that represent the <code>user</code> structures in the XML tree. Then we can write a <code>for</code> loop that looks at each of the user nodes, and prints the <code>name</code> and <code>id</code> text elements as well as the <code>x</code> attribute from the <code>user</code> node.</p>
@@ -230,7 +230,7 @@ Attribute 7</code></pre>
 <!--
 import json
 
-input = '''
+data = '''
 [
   { "id" : "001",
     "x" : "2",
@@ -242,7 +242,7 @@ input = '''
   }
 ]'''
 
-info = json.loads(input)
+info = json.loads(data)
 print('User count:', len(info))
 
 for item in info:
@@ -250,7 +250,7 @@ for item in info:
     print('Id', item['id'])
     print('Attribute', item['x'])
 
-# Code: http://www.pythonlearn.com/code3/json2.py
+# Code: http://www.py4e.com/code3/json2.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>If you compare the code to extract data from the parsed JSON and XML you will see that what we get from <em>json.loads()</em> is a Python list which we traverse with a <code>for</code> loop, and each item within that list is a Python dictionary. Once the JSON has been parsed, we can use the Python index operator to extract the various bits of data for each user. We don't have to use the JSON library to dig through the parsed JSON, since the returned data is simply native Python structures.</p>
@@ -291,19 +291,21 @@ Attribute 7</code></pre>
 import urllib.request, urllib.parse, urllib.error
 import json
 
+# Note that Google is increasingly requiring keys
+# for this API
 serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
 
 while True:
     address = input('Enter location: ')
-    if len(address) < 1 : break
+    if len(address) < 1: break
 
     url = serviceurl + urllib.parse.urlencode(
-        {'sensor':'false', 'address': address})
+        {'address': address})
 
     print('Retrieving', url)
     uh = urllib.request.urlopen(url)
     data = uh.read().decode()
-    print('Retrieved',len(data),'characters')
+    print('Retrieved', len(data), 'characters')
 
     try:
         js = json.loads(data)
@@ -319,11 +321,11 @@ while True:
 
     lat = js["results"][0]["geometry"]["location"]["lat"]
     lng = js["results"][0]["geometry"]["location"]["lng"]
-    print('lat',lat,'lng',lng)
+    print('lat', lat, 'lng', lng)
     location = js['results'][0]['formatted_address']
     print(location)
 
-# Code: http://www.pythonlearn.com/code3/geojson.py
+# Code: http://www.py4e.com/code3/geojson.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>The program takes the search string and constructs a URL with the search string as a properly encoded parameter and then uses <em>urllib</em> to retrieve the text from the Google geocoding API. Unlike a fixed web page, the data we get depends on the parameters we send and the geographical data stored in Google's servers.</p>
@@ -366,14 +368,14 @@ Retrieved 1669 characters</code></pre>
 <span class="er">lat</span> <span class="er">42.2808256</span> <span class="er">lng</span> <span class="er">-83.7430378</span>
 <span class="er">Ann</span> <span class="er">Arbor,</span> <span class="er">MI,</span> <span class="er">USA</span></code></pre></div>
 <pre><code>Enter location:</code></pre>
-<p>You can download <a href="http://www.pythonlearn.com/code3/geoxml.py">www.pythonlearn.com/code3/geoxml.py</a> to explore the XML variant of the Google geocoding API.</p>
+<p>You can download <a href="http://www.py4e.com/code3/geoxml.py">www.py4e.com/code3/geoxml.py</a> to explore the XML variant of the Google geocoding API.</p>
 <h2 id="security-and-api-usage">Security and API usage</h2>
 <p> </p>
 <p>It is quite common that you need some kind of &quot;API key&quot; to make use of a vendor's API. The general idea is that they want to know who is using their services and how much each user is using. Perhaps they have free and pay tiers of their services or have a policy that limits the number of requests that a single individual can make during a particular time period.</p>
 <p>Sometimes once you get your API key, you simply include the key as part of POST data or perhaps as a parameter on the URL when calling the API.</p>
 <p>Other times, the vendor wants increased assurance of the source of the requests and so they add expect you to send cryptographically signed messages using shared keys and secrets. A very common technology that is used to sign requests over the Internet is called <em>OAuth</em>. You can read more about the OAuth protocol at <a href="http://www.oauth.net">www.oauth.net</a>.</p>
 <p>As the Twitter API became increasingly valuable, Twitter went from an open and public API to an API that required the use of OAuth signatures on each API request. Thankfully there are still a number of convenient and free OAuth libraries so you can avoid writing an OAuth implementation from scratch by reading the specification. These libraries are of varying complexity and have varying degrees of richness. The OAuth web site has information about various OAuth libraries.</p>
-<p>For this next sample program we will download the files <em>twurl.py</em>, <em>hidden.py</em>, <em>oauth.py</em>, and <em>twitter1.py</em> from <a href="http://www.pythonlearn.com/code">www.pythonlearn.com/code</a> and put them all in a folder on your computer.</p>
+<p>For this next sample program we will download the files <em>twurl.py</em>, <em>hidden.py</em>, <em>oauth.py</em>, and <em>twitter1.py</em> from <a href="http://www.py4e.com/code3">www.py4e.com/code</a> and put them all in a folder on your computer.</p>
 <p>To make use of these programs you will need to have a Twitter account, and authorize your Python code as an application, set up a key, secret, token and token secret. You will edit the file <em>hidden.py</em> and put these four strings into the appropriate variables in the file:</p>
 <script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
 <iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" class="lazyload" allowfullscreen>
@@ -382,15 +384,15 @@ Retrieved 1669 characters</code></pre>
 # Keep this file separate
 
 # https://apps.twitter.com/
-# Create new App
+# Create new App and get the four strings
 
-def oauth() :
-    return { "consumer_key" : "h7Lu...Ng",
-        "consumer_secret" : "dNKenAC3New...mmn7Q",
-        "token_key" : "10185562-eibxCp9n2...P4GEQQOSGI",
-        "token_secret" : "H0ycCFemmC4wyf1...qoIpBo" }
+def oauth():
+    return {"consumer_key": "h7Lu...Ng",
+            "consumer_secret": "dNKenAC3New...mmn7Q",
+            "token_key": "10185562-eibxCp9n2...P4GEQQOSGI",
+            "token_secret": "H0ycCFemmC4wyf1...qoIpBo"}
 
-# Code: http://www.pythonlearn.com/code3/hidden.py
+# Code: http://www.py4e.com/code3/hidden.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>The Twitter web service are accessed using a URL like this:</p>
@@ -410,45 +412,60 @@ def oauth() :
 <!--
 import urllib.request, urllib.parse, urllib.error
 import twurl
+import ssl
+
+# https://apps.twitter.com/
+# Create App and get the four strings, put them in hidden.py
 
 TWITTER_URL = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
 while True:
     print('')
     acct = input('Enter Twitter Account:')
-    if ( len(acct) < 1 ) : break
+    if (len(acct) < 1): break
     url = twurl.augment(TWITTER_URL,
-        {'screen_name': acct, 'count': '2'} )
+                        {'screen_name': acct, 'count': '2'})
     print('Retrieving', url)
-    connection = urllib.request.urlopen(url)
+    connection = urllib.request.urlopen(url, context=ctx)
     data = connection.read().decode()
     print(data[:250])
     headers = dict(connection.getheaders())
     # print headers
     print('Remaining', headers['x-rate-limit-remaining'])
 
-# Code: http://www.pythonlearn.com/code3/twitter1.py
+# Code: http://www.py4e.com/code3/twitter1.py
 # Or select Download from this trinket's left-hand menu
 ----{twurl.py}----
 import urllib.request, urllib.parse, urllib.error
 import oauth
 import hidden
 
-def augment(url, parameters) :
-    secrets = hidden.oauth()
-    consumer = oauth.OAuthConsumer(secrets['consumer_key'], secrets['consumer_secret'])
-    token = oauth.OAuthToken(secrets['token_key'],secrets['token_secret'])
+# https://apps.twitter.com/
+# Create App and get the four strings, put them in hidden.py
 
-    oauth_request = oauth.OAuthRequest.from_consumer_and_token(consumer, 
-        token=token, http_method='GET', http_url=url, parameters=parameters)
-    oauth_request.sign_request(oauth.OAuthSignatureMethod_HMAC_SHA1(), consumer, token)
+def augment(url, parameters):
+    secrets = hidden.oauth()
+    consumer = oauth.OAuthConsumer(secrets['consumer_key'],
+                                   secrets['consumer_secret'])
+    token = oauth.OAuthToken(secrets['token_key'], secrets['token_secret'])
+
+    oauth_request = oauth.OAuthRequest.from_consumer_and_token(consumer,
+                    token=token, http_method='GET', http_url=url,
+                    parameters=parameters)
+    oauth_request.sign_request(oauth.OAuthSignatureMethod_HMAC_SHA1(),
+                               consumer, token)
     return oauth_request.to_url()
 
 
-def test_me() :
+def test_me():
     print('* Calling Twitter...')
     url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json',
-        {'screen_name': 'drchuck', 'count': '2'} )
+                  {'screen_name': 'drchuck', 'count': '2'})
     print(url)
     connection = urllib.request.urlopen(url)
     data = connection.read()
@@ -486,50 +503,70 @@ Enter Twitter Account:</code></pre>
 import urllib.request, urllib.parse, urllib.error
 import twurl
 import json
+import ssl
+
+# https://apps.twitter.com/
+# Create App and get the four strings, put them in hidden.py
 
 TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
 while True:
     print('')
     acct = input('Enter Twitter Account:')
-    if ( len(acct) < 1 ) : break
+    if (len(acct) < 1): break
     url = twurl.augment(TWITTER_URL,
-        {'screen_name': acct, 'count': '5'} )
+                        {'screen_name': acct, 'count': '5'})
     print('Retrieving', url)
-    connection = urllib.request.urlopen(url)
+    connection = urllib.request.urlopen(url, context=ctx)
     data = connection.read().decode()
+
+    js = json.loads(data)
+    print(json.dumps(js, indent=2))
+
     headers = dict(connection.getheaders())
     print('Remaining', headers['x-rate-limit-remaining'])
-    js = json.loads(data)
-    print(json.dumps(js, indent=4))
 
-    for u in js['users'] :
+    for u in js['users']:
         print(u['screen_name'])
+        if 'status' not in u:
+            print('   * No status found')
+            continue
         s = u['status']['text']
-        print('  ',s[:50])
+        print('  ', s[:50])
 
-# Code: http://www.pythonlearn.com/code3/twitter2.py
+# Code: http://www.py4e.com/code3/twitter2.py
 # Or select Download from this trinket's left-hand menu
 ----{twurl.py}----
 import urllib.request, urllib.parse, urllib.error
 import oauth
 import hidden
 
-def augment(url, parameters) :
-    secrets = hidden.oauth()
-    consumer = oauth.OAuthConsumer(secrets['consumer_key'], secrets['consumer_secret'])
-    token = oauth.OAuthToken(secrets['token_key'],secrets['token_secret'])
+# https://apps.twitter.com/
+# Create App and get the four strings, put them in hidden.py
 
-    oauth_request = oauth.OAuthRequest.from_consumer_and_token(consumer, 
-        token=token, http_method='GET', http_url=url, parameters=parameters)
-    oauth_request.sign_request(oauth.OAuthSignatureMethod_HMAC_SHA1(), consumer, token)
+def augment(url, parameters):
+    secrets = hidden.oauth()
+    consumer = oauth.OAuthConsumer(secrets['consumer_key'],
+                                   secrets['consumer_secret'])
+    token = oauth.OAuthToken(secrets['token_key'], secrets['token_secret'])
+
+    oauth_request = oauth.OAuthRequest.from_consumer_and_token(consumer,
+                    token=token, http_method='GET', http_url=url,
+                    parameters=parameters)
+    oauth_request.sign_request(oauth.OAuthSignatureMethod_HMAC_SHA1(),
+                               consumer, token)
     return oauth_request.to_url()
 
 
-def test_me() :
+def test_me():
     print('* Calling Twitter...')
     url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json',
-        {'screen_name': 'drchuck', 'count': '2'} )
+                  {'screen_name': 'drchuck', 'count': '2'})
     print(url)
     connection = urllib.request.urlopen(url)
     data = connection.read()
@@ -604,7 +641,7 @@ Enter Twitter Account:</code></pre>
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1:</strong> Change either the <a href="http://www.pythonlearn.com/code3/geojson.py">www.pythonlearn.com/code3/geojson.py</a> or <a href="http://www.pythonlearn.com/code3/geoxml.py">www.pythonlearn.com/code3/geoxml.py</a> to print out the two-character country code from the retrieved data. Add error checking so your program does not traceback if the country code is not there. Once you have it working, search for &quot;Atlantic Ocean&quot; and make sure it can handle locations that are not in any country.</p>
+<p><strong>Exercise 1:</strong> Change either the <a href="http://www.py4e.com/code3/geojson.py">www.py4e.com/code3/geojson.py</a> or <a href="http://www.py4e.com/code3/geoxml.py">www.py4e.com/code3/geoxml.py</a> to print out the two-character country code from the retrieved data. Add error checking so your program does not traceback if the country code is not there. Once you have it working, search for &quot;Atlantic Ocean&quot; and make sure it can handle locations that are not in any country.</p>
         </div>
       </div>
     </div>

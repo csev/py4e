@@ -66,9 +66,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </ul>
         <section class="top-bar-section">
           <ul class="right">
-            <li><a href="http://pythonlearn.com"><i class="fa fa-star"></i> PythonLearn</a></li>
-            <li><a href="https://trinket.io"><i class="fa fa-star"></i> Trinket</a></li>
-            <li><a href="https://hourofpython.com"><i class="fa fa-graduation-cap"></i> Hour of Python</a></li>
+            <li><a href="https://www.py4e.com"><i class="fa fa-star"></i> Python for Everyone</a></li>
           </ul>
         </section>
       </nav>
@@ -103,7 +101,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                 <li><a href="11-regex.html">Chapter 11: Regex</a></li>
                 <li><a href="12-network.html">Chapter 12: Networked Programs</a></li>
                 <li><a href="13-web.html">Chapter 13: Python and Web Services</a></li>
-                <li><a href="14-database.html">Chapter 14: Python and Databases</a></li>
+                <li><a href="14-objects.html">Chapter 14: Object Orientation</a></li>
+                <li><a href="15-database.html">Chapter 15: Python and Databases</a></li>
+                <li><a href="16-viz.html">Chapter 16: Data Vizualization</a></li>
               </ul>
             </li>
           </ul>
@@ -132,10 +132,10 @@ import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    if re.search('From:', line) :
+    if re.search('From:', line):
         print(line)
 
-# Code: http://www.pythonlearn.com/code3/re01.py
+# Code: http://www.py4e.com/code3/re01.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -2063,10 +2063,10 @@ import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    if re.search('^From:', line) :
+    if re.search('^From:', line):
         print(line)
 
-# Code: http://www.pythonlearn.com/code3/re02.py
+# Code: http://www.py4e.com/code3/re02.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -3997,10 +3997,10 @@ import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    if re.search('^F..m:', line) :
+    if re.search('^F..m:', line):
         print(line)
 
-# Code: http://www.pythonlearn.com/code3/re03.py
+# Code: http://www.py4e.com/code3/re03.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -5926,10 +5926,10 @@ import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    if re.search('^From:.+@', line) :
+    if re.search('^From:.+@', line):
         print(line)
 
-# Code: http://www.pythonlearn.com/code3/re04.py
+# Code: http://www.py4e.com/code3/re04.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -7870,7 +7870,7 @@ s = 'A message from csev@umich.edu to cwen@iupui.edu about meeting @2PM'
 lst = re.findall('\S+@\S+', s)
 print(lst)
 
-# Code: http://www.pythonlearn.com/code3/re05.py
+# Code: http://www.py4e.com/code3/re05.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -9785,10 +9785,10 @@ You can modify how you receive notifications at My Workspace > Preferences.
 
 
 -->
-<p>The <code>findall()</code> method searches the string in the second argument and returns a list of all of the strings that look like email addresses. We are using a two-character sequence that matches a non-whitespace character (<code>\\</code>S).</p>
+<p>The <code>findall()</code> method searches the string in the second argument and returns a list of all of the strings that look like email addresses. We are using a two-character sequence that matches a non-whitespace character (<code>\</code>S).</p>
 <p>The output of the program would be:</p>
 <pre><code>[&#39;csev@umich.edu&#39;, &#39;cwen@iupui.edu&#39;]</code></pre>
-<p>Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-whitespace character. The &quot;<code>\\</code>S+&quot; matches as many non-whitespace characters as possible.</p>
+<p>Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-whitespace character. The &quot;<code>\</code>S+&quot; matches as many non-whitespace characters as possible.</p>
 <p>The regular expression would match twice (csev@umich.edu and cwen@iupui.edu), but it would not match the string &quot;<span class="citation">@2PM</span>&quot; because there are no non-blank characters <em>before</em> the at-sign. We can use this regular expression in a program to read all the lines in a file and print out anything that looks like an email address as follows:</p>
 <script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
 <iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" class="lazyload" allowfullscreen>
@@ -9800,10 +9800,10 @@ hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
     x = re.findall('\S+@\S+', line)
-    if len(x) > 0 :
+    if len(x) > 0:
         print(x)
 
-# Code: http://www.pythonlearn.com/code3/re06.py
+# Code: http://www.py4e.com/code3/re06.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -11730,10 +11730,10 @@ You can modify how you receive notifications at My Workspace > Preferences.
 [&#39;apache@localhost)&#39;]
 [&#39;source@collab.sakaiproject.org;&#39;]</code></pre>
 <p>Some of our email addresses have incorrect characters like &quot;<code>&lt;</code>&quot; or &quot;;&quot; at the beginning or end. Let's declare that we are only interested in the portion of the string that starts and ends with a letter or a number.</p>
-<p>To do this, we use another feature of regular expressions. Square brackets are used to indicate a set of multiple acceptable characters we are willing to consider matching. In a sense, the &quot;<code>\\</code>S&quot; is asking to match the set of &quot;non-whitespace characters&quot;. Now we will be a little more explicit in terms of the characters we will match.</p>
+<p>To do this, we use another feature of regular expressions. Square brackets are used to indicate a set of multiple acceptable characters we are willing to consider matching. In a sense, the &quot;<code>\</code>S&quot; is asking to match the set of &quot;non-whitespace characters&quot;. Now we will be a little more explicit in terms of the characters we will match.</p>
 <p>Here is our new regular expression:</p>
 <pre><code>[a-zA-Z0-9]\S*@\S*[a-zA-Z]</code></pre>
-<p>This is getting a little complicated and you can begin to see why regular expressions are their own little language unto themselves. Translating this regular expression, we are looking for substrings that start with a <em>single</em> lowercase letter, uppercase letter, or number &quot;[a-zA-Z0-9]&quot;, followed by zero or more non-blank characters (&quot;<code>\\</code>S*&quot;), followed by an at-sign, followed by zero or more non-blank characters (&quot;<code>\\</code>S*&quot;), followed by an uppercase or lowercase letter. Note that we switched from &quot;+&quot; to &quot;*&quot; to indicate zero or more non-blank characters since &quot;[a-zA-Z0-9]&quot; is already one non-blank character. Remember that the &quot;*&quot; or &quot;+&quot; applies to the single character immediately to the left of the plus or asterisk.</p>
+<p>This is getting a little complicated and you can begin to see why regular expressions are their own little language unto themselves. Translating this regular expression, we are looking for substrings that start with a <em>single</em> lowercase letter, uppercase letter, or number &quot;[a-zA-Z0-9]&quot;, followed by zero or more non-blank characters (&quot;<code>\</code>S*&quot;), followed by an at-sign, followed by zero or more non-blank characters (&quot;<code>\</code>S*&quot;), followed by an uppercase or lowercase letter. Note that we switched from &quot;+&quot; to &quot;*&quot; to indicate zero or more non-blank characters since &quot;[a-zA-Z0-9]&quot; is already one non-blank character. Remember that the &quot;*&quot; or &quot;+&quot; applies to the single character immediately to the left of the plus or asterisk.</p>
 <p></p>
 <p>If we use this expression in our program, our data is much cleaner:</p>
 <script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
@@ -11747,10 +11747,10 @@ hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
     x = re.findall('[a-zA-Z0-9]\S+@\S+[a-zA-Z]', line)
-    if len(x) > 0 :
+    if len(x) > 0:
         print(x)
 
-# Code: http://www.pythonlearn.com/code3/re07.py
+# Code: http://www.py4e.com/code3/re07.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -13697,10 +13697,10 @@ import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    if re.search('^X\S*: [0-9.]+', line) :
+    if re.search('^X\S*: [0-9.]+', line):
         print(line)
 
-# Code: http://www.pythonlearn.com/code3/re10.py
+# Code: http://www.py4e.com/code3/re10.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -15638,10 +15638,10 @@ hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
     x = re.findall('^X\S*: ([0-9.]+)', line)
-    if len(x) > 0 :
+    if len(x) > 0:
         print(x)
 
-# Code: http://www.pythonlearn.com/code3/re11.py
+# Code: http://www.py4e.com/code3/re11.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -17584,7 +17584,7 @@ for line in hand:
     if len(x) > 0:
         print(x)
 
-# Code: http://www.pythonlearn.com/code3/re12.py
+# Code: http://www.py4e.com/code3/re12.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -19529,9 +19529,9 @@ hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
     x = re.findall('^From .* ([0-9][0-9]):', line)
-    if len(x) > 0 : print(x)
+    if len(x) > 0: print(x)
 
-# Code: http://www.pythonlearn.com/code3/re13.py
+# Code: http://www.py4e.com/code3/re13.py
 # Or select Download from this trinket's left-hand menu
 ----{mbox-short.txt}----
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -21462,24 +21462,22 @@ y <span class="op">=</span> re.findall(<span class="st">&#39;\$[0-9.]+&#39;</spa
 <h2 id="summary">Summary</h2>
 <p>While this only scratched the surface of regular expressions, we have learned a bit about the language of regular expressions. They are search strings with special characters in them that communicate your wishes to the regular expression system as to what defines &quot;matching&quot; and what is extracted from the matched strings. Here are some of those special characters and character sequences:</p>
 <p><code>^</code> Matches the beginning of the line.</p>
-<p>$ Matches the end of the line.</p>
+<p><code>$</code> Matches the end of the line.</p>
 <p>. Matches any character (a wildcard).</p>
-<p><code>\\</code>s Matches a whitespace character.</p>
-<p><code>\\</code>S Matches a non-whitespace character (opposite of <code>\\</code>s).</p>
-<p>* Applies to the immediately preceding character and indicates to match zero or more of the preceding character(s).</p>
-<p>*? Applies to the immediately preceding character and indicates to match zero or more of the preceding character(s) in &quot;non-greedy mode&quot;.</p>
-<ul>
-<li>Applies to the immediately preceding character and indicates to match one or more of the preceding character(s).</li>
-</ul>
-<p>+? Applies to the immediately preceding character and indicates to match one or more of the preceding character(s) in &quot;non-greedy mode&quot;.</p>
+<p><code>\</code>s Matches a whitespace character.</p>
+<p><code>\</code>S Matches a non-whitespace character (opposite of <code>\</code>s).</p>
+<p><code>*</code> Applies to the immediately preceding character and indicates to match zero or more of the preceding character(s).</p>
+<p><code>*?</code> Applies to the immediately preceding character and indicates to match zero or more of the preceding character(s) in &quot;non-greedy mode&quot;.</p>
+<p><code>+</code> Applies to the immediately preceding character and indicates to match one or more of the preceding character(s).</p>
+<p><code>+?</code> Applies to the immediately preceding character and indicates to match one or more of the preceding character(s) in &quot;non-greedy mode&quot;.</p>
 <p>[aeiou] Matches a single character as long as that character is in the specified set. In this example, it would match &quot;a&quot;, &quot;e&quot;, &quot;i&quot;, &quot;o&quot;, or &quot;u&quot;, but no other characters.</p>
 <p>[a-z0-9] You can specify ranges of characters using the minus sign. This example is a single character that must be a lowercase letter or a digit.</p>
 <p>[<code>^</code>A-Za-z] When the first character in the set notation is a caret, it inverts the logic. This example matches a single character that is anything <em>other than</em> an uppercase or lowercase letter.</p>
 <p>( ) When parentheses are added to a regular expression, they are ignored for the purpose of matching, but allow you to extract a particular subset of the matched string rather than the whole string when using <code>findall()</code>.</p>
-<p><code>\\</code>b Matches the empty string, but only at the start or end of a word.</p>
-<p><code>\\</code>B Matches the empty string, but not at the start or end of a word.</p>
-<p><code>\\</code>d Matches any decimal digit; equivalent to the set [0-9].</p>
-<p><code>\\</code>D Matches any non-digit character; equivalent to the set [<code>^</code>0-9].</p>
+<p><code>\</code>b Matches the empty string, but only at the start or end of a word.</p>
+<p><code>\</code>B Matches the empty string, but not at the start or end of a word.</p>
+<p><code>\</code>d Matches any decimal digit; equivalent to the set [0-9].</p>
+<p><code>\</code>D Matches any non-digit character; equivalent to the set [<code>^</code>0-9].</p>
 <h2 id="bonus-section-for-unix-linux-users">Bonus section for Unix / Linux users</h2>
 <p>Support for searching files using regular expressions was built into the Unix operating system since the 1960s and it is available in nearly all programming languages in one form or another.</p>
 <p></p>
@@ -21489,25 +21487,11 @@ From: stephen.marquard@uct.ac.za
 From: louis@media.berkeley.edu
 From: zqian@umich.edu
 From: rjlowe@iupui.edu</code></pre>
-<p>This tells <code>grep</code> to show you lines that start with the string &quot;From:&quot; in the file <code>mbox-short.txt</code>. If you experiment with the <code>grep</code> command a bit and read the documentation for <code>grep</code>, you will find some subtle differences between the regular expression support in Python and the regular expression support in <code>grep</code>. As an example, <code>grep</code> does not support the non-blank character &quot;<code>\\</code>S&quot; so you will need to use the slightly more complex set notation &quot;[<code>^</code> ]&quot;, which simply means match a character that is anything other than a space.</p>
+<p>This tells <code>grep</code> to show you lines that start with the string &quot;From:&quot; in the file <code>mbox-short.txt</code>. If you experiment with the <code>grep</code> command a bit and read the documentation for <code>grep</code>, you will find some subtle differences between the regular expression support in Python and the regular expression support in <code>grep</code>. As an example, <code>grep</code> does not support the non-blank character &quot;<code>\</code>S&quot; so you will need to use the slightly more complex set notation &quot;[<code>^</code> ]&quot;, which simply means match a character that is anything other than a space.</p>
 <h2 id="debugging">Debugging</h2>
 <p>Python has some simple and rudimentary built-in documentation that can be quite helpful if you need a quick refresher to trigger your memory about the exact name of a particular method. This documentation can be viewed in the Python interpreter in interactive mode.</p>
 <p>You can bring up an interactive help system using <code>help()</code>.</p>
 <pre><code>&gt;&gt;&gt; help()
-
-Welcome to Python 2.6!  This is the online help utility.
-
-If this is your first time using Python, you should definitely check out
-the tutorial on the Internet at http://docs.python.org/tutorial/.
-
-Enter the name of any module, keyword, or topic to get help on writing
-Python programs and using Python modules.  To quit this help utility and
-return to the interpreter, just type &quot;quit&quot;.
-
-To get a list of available modules, keywords, or topics, type &quot;modules&quot;,
-&quot;keywords&quot;, or &quot;topics&quot;.  Each module also comes with a one-line summary
-of what it does; to list the modules whose summaries contain a given word
-such as &quot;spam&quot;, type &quot;modules spam&quot;.
 
 help&gt; modules</code></pre>
 <p>If you know what module you want to use, you can use the <code>dir()</code> command to find the methods in the module as follows:</p>
@@ -21518,11 +21502,11 @@ help&gt; modules</code></pre>
 <span class="co">&#39;sre_parse&#39;</span>, <span class="st">&#39;sub&#39;</span>, <span class="st">&#39;subn&#39;</span>, <span class="st">&#39;sys&#39;</span>, <span class="st">&#39;template&#39;</span>]</code></pre></div>
 <p>You can also get a small amount of documentation on a particular method using the dir command.</p>
 <div class="sourceCode"><pre class="sourceCode python trinket"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span> (re.search)
-Help on function search <span class="op">in</span> module re:
+Help on function search <span class="kw">in</span> module re:
 
 search(pattern, string, flags<span class="op">=</span><span class="dv">0</span>)
     Scan through string looking <span class="cf">for</span> a match to the pattern, returning
-    a match <span class="bu">object</span>, <span class="op">or</span> <span class="va">None</span> <span class="cf">if</span> no match was found.
+    a match <span class="bu">object</span>, <span class="kw">or</span> <span class="va">None</span> <span class="cf">if</span> no match was found.
 <span class="op">&gt;&gt;&gt;</span></code></pre></div>
 <p>The built-in documentation is not very extensive, but it can be helpful when you are in a hurry or don't have access to a web browser or search engine.</p>
 <h2 id="glossary">Glossary</h2>
