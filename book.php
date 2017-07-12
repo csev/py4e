@@ -49,7 +49,7 @@ and <a href="http://www.elkner.net/" target="_blank">Jeff Elkner</a>.
         </p>
 </div>
 </div>
-
+<script src="https://widget.battleforthenet.com/widget.js" async></script>
 <?php 
 include("footer.php"); 
 ?>

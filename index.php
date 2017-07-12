@@ -87,5 +87,4 @@ var_dump($USER);
 ?>
 -->
 </div>
-<script src="https://widget.battleforthenet.com/widget.js" async></script>
 <?php $OUTPUT->footer();
