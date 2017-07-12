@@ -29,7 +29,24 @@ have an automatic build server for the text book that takes your latest book in
 github and produces the PDF and EPUB and hosts it online at 
 http://do1.dr-chuck.com/pythonlearn/.
 
-Do not feel the need to translate everything - many translations simply translate
-the book.  Everything is helpful.
+In terms of licensing, since the book is CC-NC-SA, you do not need
+my permission to translate, produce, and distributed electronic copies 
+of the book.  You do need permission to sell printed copies of the
+translated book - which I am happy to give as long as the translation
+is complete and of high quality.
+
+I have detailed instructions as to the copyright of the book at:
+
+https://github.com/csev/py4e/blob/master/book3/AB-copyright.mkd
+
+Do not feel the need to translate everything in the web site.  Many translations
+simply translate the book.  Everything is helpful.
+
+If you are translating the book or web site please let me know so I
+can coordinate efforts and/or promote your work.
 
 Thanks in advance
+
+-- Chuck
+
+Wed Jul 12 07:31:40 EDT 2017
