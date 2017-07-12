@@ -101,7 +101,7 @@ within Google Maps.
 To complete this assignment, you should use this API endpoint that has a static subset
 of the Google Data:
 <pre>
-<a href="<?= deHttps($api_url) ?>" target="_blank"><?= deHttps($api_url) ?></a>
+<a href="<?= deHttps($api_url) ?>" target="_blank"><?= deHttps($api_url) ?>?</a>
 </pre>
 This API uses the same parameters (sensor and address) as the Google API.  
 This API also has no rate limit so you can test as often as you like.
