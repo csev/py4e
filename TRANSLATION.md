@@ -39,6 +39,13 @@ I have detailed instructions as to the copyright of the book at:
 
 https://github.com/csev/py4e/blob/master/book3/AB-copyright.mkd
 
+So far (and this is not required) those who have translated my book have given
+me permission to publish their work on Amazon and give the profits to charity.
+This works well because it makes these translations widely available.  Sometimes
+it is important to separately publish the printed book in a country that is not
+well served by Amazon - and I very much encourage this - you need my permission
+and I do not ask for any fee as long as the pricing is reasonable.
+
 Do not feel the need to translate everything in the web site.  Many translations
 simply translate the book.  Everything is helpful.
 
