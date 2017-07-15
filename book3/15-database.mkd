@@ -377,7 +377,7 @@ countnew = 0
 countold = 0
 for u in js['users'] :
     friend = u['screen_name']
-    print friend
+    print(friend)
     cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1',
         (friend, ) )
     try:
@@ -389,7 +389,7 @@ for u in js['users'] :
         cur.execute('''INSERT INTO Twitter (name, retrieved, friends)
             VALUES ( ?, 0, 1 )''', ( friend, ) )
         countnew = countnew + 1
-print 'New accounts=',countnew,' revisited=',countold
+print('New accounts=',countnew,' revisited=',countold)
 conn.commit()
 ~~~~
 
@@ -484,7 +484,7 @@ if ( len(acct) < 1 ) :
     try:
         acct = cur.fetchone()[0]
     except:
-        print 'No unretrieved twitter accounts found'
+        print('No unretrieved twitter accounts found')
         continue
 ~~~~
 
@@ -497,14 +497,14 @@ the retrieved data or put out an error message and loop back up.
 If we successfully retrieved an unprocessed `screen_name`, we retrieve
 their data as follows:
 
-~~~~ {.python{
-url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '20'} )
-print 'Retrieving', url
+~~~~ {.python}
+url=twurl.augment(TWITTER_URL,{'screen_name': acct,'count': '20'})
+print('Retrieving', url)
 connection = urllib.urlopen(url)
 data = connection.read()
 js = json.loads(data)
 
-cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
+cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?',(acct, ))
 ~~~~
 
 Once we retrieve the data successfully, we use the `UPDATE`
@@ -765,7 +765,7 @@ section.
             VALUES ( ?, 0)''', ( friend, ) )
         conn.commit()
         if cur.rowcount != 1 :
-            print 'Error inserting account:',friend
+            print('Error inserting account:',friend)
             continue
         friend_id = cur.lastrowid
         countnew = countnew + 1
