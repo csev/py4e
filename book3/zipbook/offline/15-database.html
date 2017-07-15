@@ -326,7 +326,7 @@ cur.close()
 countold <span class="op">=</span> <span class="dv">0</span>
 <span class="cf">for</span> u <span class="kw">in</span> js[<span class="st">&#39;users&#39;</span>] :
     friend <span class="op">=</span> u[<span class="st">&#39;screen_name&#39;</span>]
-    <span class="bu">print</span> friend
+    <span class="bu">print</span>(friend)
     cur.execute(<span class="st">&#39;SELECT friends FROM Twitter WHERE name = ? LIMIT 1&#39;</span>,
         (friend, ) )
     <span class="cf">try</span>:
@@ -338,7 +338,7 @@ countold <span class="op">=</span> <span class="dv">0</span>
         cur.execute(<span class="st">&#39;&#39;&#39;INSERT INTO Twitter (name, retrieved, friends)</span>
 <span class="st">            VALUES ( ?, 0, 1 )&#39;&#39;&#39;</span>, ( friend, ) )
         countnew <span class="op">=</span> countnew <span class="op">+</span> <span class="dv">1</span>
-<span class="bu">print</span> <span class="st">&#39;New accounts=&#39;</span>,countnew,<span class="st">&#39; revisited=&#39;</span>,countold
+<span class="bu">print</span>(<span class="st">&#39;New accounts=&#39;</span>,countnew,<span class="st">&#39; revisited=&#39;</span>,countold)
 conn.commit()</code></pre></div>
 <p>Once the cursor executes the <code>SELECT</code> statement, we must retrieve the rows. We could do this with a <code>for</code> statement, but since we are only retrieving one row (<code>LIMIT 1</code>), we can use the <code>fetchone()</code> method to fetch the first (and only) row that is the result of the <code>SELECT</code> operation. Since <code>fetchone()</code> returns the row as a <em>tuple</em> (even though there is only one field), we take the first value from the tuple using to get the current friend count into the variable <code>count</code>.</p>
 <p>If this retrieval is successful, we use the SQL <code>UPDATE</code> statement with a <code>WHERE</code> clause to add 1 to the <code>friends</code> column for the row that matches the friend's account. Notice that there are two placeholders (i.e., question marks) in the SQL, and the second parameter to the <code>execute()</code> is a two-element tuple that holds the values to be substituted into the SQL in place of the question marks.</p>
@@ -393,17 +393,17 @@ Enter a Twitter account, or quit: quit</code></pre>
     <span class="cf">try</span>:
         acct <span class="op">=</span> cur.fetchone()[<span class="dv">0</span>]
     <span class="cf">except</span>:
-        <span class="bu">print</span> <span class="st">&#39;No unretrieved twitter accounts found&#39;</span>
+        <span class="bu">print</span>(<span class="st">&#39;No unretrieved twitter accounts found&#39;</span>)
         <span class="cf">continue</span></code></pre></div>
 <p>We use the SQL <code>SELECT</code> statement to retrieve the name of the first (<code>LIMIT 1</code>) user who still has their &quot;have we retrieved this user&quot; value set to zero. We also use the <code>fetchone()[0]</code> pattern within a try/except block to either extract a <code>screen_name</code> from the retrieved data or put out an error message and loop back up.</p>
 <p>If we successfully retrieved an unprocessed <code>screen_name</code>, we retrieve their data as follows:</p>
-<pre class="{.python{"><code>url = twurl.augment(TWITTER_URL, {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;20&#39;} )
-print &#39;Retrieving&#39;, url
-connection = urllib.urlopen(url)
-data = connection.read()
-js = json.loads(data)
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">url<span class="op">=</span>twurl.augment(TWITTER_URL,{<span class="st">&#39;screen_name&#39;</span>: acct,<span class="st">&#39;count&#39;</span>: <span class="st">&#39;20&#39;</span>})
+<span class="bu">print</span>(<span class="st">&#39;Retrieving&#39;</span>, url)
+connection <span class="op">=</span> urllib.urlopen(url)
+data <span class="op">=</span> connection.read()
+js <span class="op">=</span> json.loads(data)
 
-cur.execute(&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;, (acct, ) )</code></pre>
+cur.execute(<span class="st">&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;</span>,(acct, ))</code></pre></div>
 <p>Once we retrieve the data successfully, we use the <code>UPDATE</code> statement to set the <code>retrieved</code> column to 1 to indicate that we have completed the retrieval of the friends of this account. This keeps us from retrieving the same data over and over and keeps us progressing forward through the network of Twitter friends.</p>
 <p>If we run the friend program and press enter twice to retrieve the next unvisited friend's friends, then run the dumping program, it will give us the following output:</p>
 <pre><code>(&#39;opencontent&#39;, 1, 1)
@@ -596,7 +596,7 @@ cur.execute(<span class="st">&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS Follows</
 <span class="st">            VALUES ( ?, 0)&#39;&#39;&#39;</span>, ( friend, ) )
         conn.commit()
         <span class="cf">if</span> cur.rowcount <span class="op">!=</span> <span class="dv">1</span> :
-            <span class="bu">print</span> <span class="st">&#39;Error inserting account:&#39;</span>,friend
+            <span class="bu">print</span>(<span class="st">&#39;Error inserting account:&#39;</span>,friend)
             <span class="cf">continue</span>
         friend_id <span class="op">=</span> cur.lastrowid
         countnew <span class="op">=</span> countnew <span class="op">+</span> <span class="dv">1</span></code></pre></div>
