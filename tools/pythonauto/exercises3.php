@@ -441,6 +441,7 @@ print(bigname, bigcount)
 "checks" => Array(
 "for" => "You need a for loop to read the lines in the file.",
 "split" => "You should use split() to break each line into words.",
+"!cwen@iupui.edu" => "You need a for loop to read the data in the file.",
 "if" => "You need to use one or more if statements to skip the lines that do not start with 'From '.",
 "open" => "You need to use open() to open the file.")
 ),
