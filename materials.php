@@ -86,6 +86,12 @@ on how to set up the "app store" in your LMS when you receive
 your key and secret.
 </p>
 </li>
+<li>
+If your LMS supports neither Content Item, nor Common Cartridge, but does support LTI, 
+you can hand-copy the links from this course material into your LMS one-by-one.  We have
+a <a href="<?= $CFG->apphome ?>/lessons/intro?nostyle=yes">special low-style view of the lessons</a>
+to make this hand-copying as easy as it can be.
+</li>
         </ul>
 <h2>Audio Archive</h2>
 <p>
