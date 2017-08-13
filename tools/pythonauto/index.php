@@ -376,7 +376,7 @@ function outf(text) {
         }
         $("#spinner").show();
 
-<?php if ( $RESULT->id !== false ) { ?>
+<?php if ( $RESULT->id ) { ?>
         var toSend = { code : prog };
         $.ajax({
             type: "POST",
