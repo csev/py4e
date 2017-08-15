@@ -601,8 +601,10 @@ if ( $dueDate->message ) {
         echo('<button onclick="resetcode()" class="btn btn-default" type="button">Reset Code</button> ');
     }
     echo('<button onclick="$(\'#info\').modal();return false;" class="btn btn-default" type="button"><span class="glyphicon glyphicon-info-sign"></span></button>'."\n");
-    if ( $USER->instructor ) SettingsForm::button();
-    $OUTPUT->exitButton();
+    if ( $USER->instructor ) {
+        echo('<a href="analytics.php" class="btn btn-default">Analytics</a> ');
+        SettingsForm::button();
+    }
     if ( $USER->instructor ) {
         if ( $EX === false ) {
             echo(' <a href="grades.php" class="btn btn-default" target="_blank">View Student Code</a>'."\n");
