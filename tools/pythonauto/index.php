@@ -602,7 +602,9 @@ if ( $dueDate->message ) {
     }
     echo('<button onclick="$(\'#info\').modal();return false;" class="btn btn-default" type="button"><span class="glyphicon glyphicon-info-sign"></span></button>'."\n");
     if ( $USER->instructor ) {
-        echo('<a href="analytics.php" class="btn btn-default">Analytics</a> ');
+        if ( $CFG->launchactivity ) {
+            echo('<a href="analytics" class="btn btn-default">Analytics</a> ');
+        }
         SettingsForm::button();
     }
     if ( $USER->instructor ) {
