@@ -54,4 +54,12 @@ function onSelect() {
 
 echo($body);
 
+?>
+<hr/>
+<p>
+If you find a mistake in this book, feel free to send me a fix using
+<a href="https://github.com/csev/py4e/tree/master/book3" target="_blank">Github</a>.
+</p>
+<?
+
 $OUTPUT->footer();
