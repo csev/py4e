@@ -209,7 +209,7 @@ while True:
 <pre><code>$ python geojson.py
 Enter location: Ann Arbor, MI
 Retrieving http://maps.googleapis.com/maps/api/
-  geocode/json?sensor=false&amp;address=Ann+Arbor%2C+MI
+  geocode/json?address=Ann+Arbor%2C+MI
 Retrieved 1669 characters</code></pre>
 <pre class="json"><code>{
     &quot;status&quot;: &quot;OK&quot;,
