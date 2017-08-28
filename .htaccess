@@ -1,0 +1,31 @@
+#
+# Depending on your Apache web server, you may some tweaks
+#
+# If you go to a /lessons url and see the /lessons.json data
+# Turn off MultiView in your Apache Configuration or add this line:
+#
+# Options -MultiView
+#
+# Some web servers need a RewriteBase after "RewriteEngine on" below
+# It will need to be the path on this web server for this 
+# folder.  So far I only needed this on 1and1.  Here are two examples:
+#
+# RewriteBase /
+# RewriteBase /py4e
+#
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule ^ - [E=protossl]
+    RewriteCond %{HTTPS} on
+    RewriteRule ^ - [E=protossl:s]
+    RewriteRule "(^|/)\." - [F]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !=/favicon.ico
+    RewriteRule ^ koseu.php [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    FallbackResource koseu.php
+</IfModule>

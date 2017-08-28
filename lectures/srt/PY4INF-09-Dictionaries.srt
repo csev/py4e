@@ -1,0 +1,3052 @@
+1
+00:00:00,140 --> 00:00:05,070
+Hello again, and welcome to Chapter Nine
+of Python, Dictionaries.
+
+2
+00:00:05,070 --> 00:00:09,210
+As always, this lecture is copyright
+Creative Commons Attribution.
+
+3
+00:00:09,210 --> 00:00:14,070
+That means the audio, the video, the
+slides, and even my scribbles.
+
+4
+00:00:14,070 --> 00:00:17,860
+You can use them any way you like, as long
+as you attribute them.
+
+5
+00:00:17,860 --> 00:00:20,150
+Okay, so this is the second chapter
+
+6
+00:00:20,150 --> 00:00:22,060
+where we're talking about collections, and
+the collections
+
+7
+00:00:22,060 --> 00:00:25,730
+are like a piece of luggage in that you
+can put multiple things in them.
+
+8
+00:00:27,910 --> 00:00:30,340
+Variables that we've talked about sort of
+starting in
+
+9
+00:00:30,340 --> 00:00:35,070
+Chapter Two and Chapter Three were simple
+variables, scalar.
+
+10
+00:00:35,070 --> 00:00:37,260
+They're just kind of one thing, and as
+soon as you,
+
+11
+00:00:37,260 --> 00:00:40,610
+like, put another thing in there, it
+overwrites the first thing.
+
+12
+00:00:40,610 --> 00:00:46,035
+And so if you look at the code, you know,
+x = 2 and x = 4, 
+
+13
+00:00:46,035 --> 00:00:50,870
+the question is, you know, where did
+the 2 go?
+
+14
+00:00:50,870 --> 00:00:53,180
+Right? The 2 was there, x was there,
+
+15
+00:00:53,180 --> 00:00:56,710
+there was a 2 in there, and then we cross
+it out and put 4 in there.
+
+16
+00:00:56,710 --> 00:01:01,140
+This is sort of the basic operation, the
+assignment statement, it's a replacement.
+
+17
+00:01:01,140 --> 00:01:03,770
+But a dictionary allows us to put more
+than one thing.
+
+18
+00:01:03,770 --> 00:01:06,220
+Not using this syntax, but it allows us to
+
+19
+00:01:06,220 --> 00:01:09,390
+have a variable that's really an aggregate
+of many values.
+
+20
+00:01:09,390 --> 00:01:12,430
+And the difference between a list and a
+dictionary
+
+21
+00:01:12,430 --> 00:01:15,510
+is how the values are structured within
+that single variable.
+
+22
+00:01:15,510 --> 00:01:17,820
+The list is a linear collection,
+
+23
+00:01:17,820 --> 00:01:21,010
+indexed by integers 0, 1, 2, 3.
+
+24
+00:01:21,010 --> 00:01:24,390
+If there's five of them, it's 0 through 4,
+very much like a
+
+25
+00:01:24,390 --> 00:01:28,080
+Pringle's can here, where they're just
+stacked nicely on top of each other.
+
+26
+00:01:28,080 --> 00:01:32,690
+Everything's kind of organized. We talked
+about it in the last, in the last lecture.
+
+27
+00:01:32,690 --> 00:01:35,640
+This lecture we're talking about dictionaries.
+
+28
+00:01:35,640 --> 00:01:37,640
+A dictionary's very powerful.
+
+29
+00:01:37,640 --> 00:01:42,170
+It's, and its power comes from a different
+way of organizing itself internally.
+
+30
+00:01:42,170 --> 00:01:43,850
+It's a bag of values,
+
+31
+00:01:43,850 --> 00:01:47,670
+like a just sort of, just stuff's
+in it, it's not in any order.
+
+32
+00:01:47,670 --> 00:01:49,190
+Big stuff, little stuff.
+
+33
+00:01:49,190 --> 00:01:50,650
+Things have labels.
+
+34
+00:01:50,650 --> 00:01:52,440
+You can also think of it like a purse with
+
+35
+00:01:52,440 --> 00:01:55,480
+just things in it that's like, it's not
+like stacked.
+
+36
+00:01:55,480 --> 00:01:57,590
+It's just, stuff moves around as you're going
+
+37
+00:01:57,590 --> 00:02:00,580
+and that's, that's a very good model for
+dictionaries.
+
+38
+00:02:01,590 --> 00:02:03,080
+And so dictionaries
+
+39
+00:02:03,080 --> 00:02:05,890
+have to have a label because the stuff is
+not in order.
+
+40
+00:02:05,890 --> 00:02:07,890
+There's no such thing as the third thing.
+
+41
+00:02:07,890 --> 00:02:09,590
+There is the thing with the label perfume.
+
+42
+00:02:09,590 --> 00:02:11,110
+There's the thing with the label candy.
+
+43
+00:02:11,110 --> 00:02:14,180
+There's the thing with the label money.
+
+44
+00:02:14,180 --> 00:02:17,100
+And so there's the value, the thing, the money.
+
+45
+00:02:17,100 --> 00:02:19,290
+And then there's always also the label.
+
+46
+00:02:19,290 --> 00:02:22,810
+We also call these key/value.
+
+47
+00:02:24,820 --> 00:02:28,970
+The key is the label and the value is
+whatever.
+
+48
+00:02:28,970 --> 00:02:31,220
+And so these pink things are all labels for
+
+49
+00:02:31,220 --> 00:02:33,240
+various things you could put in your purse.
+
+50
+00:02:33,240 --> 00:02:36,053
+So you could say to your purse, "hey purse,
+give me my tissues."
+
+51
+00:02:36,053 --> 00:02:38,500
+"Hey purse, give me my money."
+
+52
+00:02:38,500 --> 00:02:40,430
+And it, it's in there somewhere and the
+purse sort of
+
+53
+00:02:40,430 --> 00:02:43,428
+gives you back the tissues or the money.
+
+54
+00:02:43,428 --> 00:02:48,980
+And it's, Python's most powerful data
+collection is the dictionaries.
+
+55
+00:02:48,980 --> 00:02:50,190
+And it's when
+
+56
+00:02:50,190 --> 00:02:52,280
+you get used to wielding them you'll say,
+like,
+
+57
+00:02:52,280 --> 00:02:54,130
+whoa, I can do so much with these things.
+
+58
+00:02:54,130 --> 00:02:55,980
+And at the beginning you just sort of
+
+59
+00:02:55,980 --> 00:02:59,600
+learning sort of how to use them without
+hurting yourself.
+
+60
+00:02:59,600 --> 00:03:00,780
+But they're very powerful.
+
+61
+00:03:00,780 --> 00:03:01,840
+It's like a database.
+
+62
+00:03:01,840 --> 00:03:06,940
+It's, it allows you to store very arbitrary
+data organized in however you feel like
+
+63
+00:03:06,940 --> 00:03:11,010
+organizing it, in a way that advances the
+cause of the program that you're writing.
+
+64
+00:03:11,010 --> 00:03:15,940
+And we're still kind of at the very
+beginning, but as you learn more,
+
+65
+00:03:15,940 --> 00:03:17,880
+these will become a very powerful
+tool for you.
+
+66
+00:03:19,920 --> 00:03:23,130
+They, dictionaries have different names in
+different languages.
+
+67
+00:03:24,680 --> 00:03:27,340
+PERL or PHP would call them associative
+arrays.
+
+68
+00:03:28,900 --> 00:03:32,000
+Java would call them a PropertyMap or a
+HashMap.
+
+69
+00:03:32,000 --> 00:03:35,390
+And C# might call them a property bag or
+an attribute bag.
+
+70
+00:03:35,390 --> 00:03:38,030
+And so they're, they're just the same
+concept.
+
+71
+00:03:38,030 --> 00:03:42,300
+It's keys and values is the concept that's
+across all these languages.
+
+72
+00:03:42,300 --> 00:03:43,560
+Just are very powerful.
+
+73
+00:03:43,560 --> 00:03:44,950
+And if you look at the Wikipedia entry
+
+74
+00:03:44,950 --> 00:03:45,960
+that I have here
+
+75
+00:03:45,960 --> 00:03:48,620
+you can see that it's just, it's a concept
+
+76
+00:03:48,620 --> 00:03:52,670
+that we give different names in different
+languages. Same concept, different names.
+
+77
+00:03:53,900 --> 00:03:58,196
+So like I said, the difference between a
+list and a dictionary, they both can store
+
+78
+00:03:58,196 --> 00:04:00,910
+multiple values. The question is how we
+label them,
+
+79
+00:04:00,910 --> 00:04:03,280
+how we store them, and how we retrieve
+them.
+
+80
+00:04:03,280 --> 00:04:07,430
+So here's an example use of a dictionary.
+I'm going to make a thing called purse.
+
+81
+00:04:07,430 --> 00:04:10,750
+And I'm going to store in purse, this is
+an assignment statement,
+
+82
+00:04:10,750 --> 00:04:14,000
+purse sub money.
+So this isn't like sub zero.
+
+83
+00:04:14,000 --> 00:04:14,960
+This is sub money.
+
+84
+00:04:14,960 --> 00:04:18,220
+So I'm actually using a string as the
+place.
+
+85
+00:04:18,220 --> 00:04:21,050
+And, so I'm going to say stick 12
+in my purse
+
+86
+00:04:21,050 --> 00:04:24,100
+and stick a Post-it note that says
+that's my money.
+
+87
+00:04:24,100 --> 00:04:26,310
+Candy is 3. Tissues is 75.
+
+88
+00:04:26,310 --> 00:04:31,590
+And if I look at that, it's not just the
+numbers 12, 3, and 75 as it
+
+89
+00:04:31,590 --> 00:04:36,650
+would be in a list. It is the connection
+between money and 12,
+
+90
+00:04:36,650 --> 00:04:41,550
+tissues is 75, candy is 3.
+And in the key/value, that's the
+
+91
+00:04:41,550 --> 00:04:47,470
+key and that's the value.
+So candy is the key and 3 is the value.
+
+92
+00:04:47,470 --> 00:04:51,840
+Now I can look things up by their name,
+print purse sub candy.
+
+93
+00:04:51,840 --> 00:04:56,770
+Well it goes and finds it, asking hey purse,
+give me back candy, and it
+
+94
+00:04:56,770 --> 00:05:00,220
+goes and finds the value, which is 3, and
+so out comes a 3.
+
+95
+00:05:00,220 --> 00:05:02,810
+We can also put it
+
+96
+00:05:02,810 --> 00:05:05,560
+on the right-hand side of an
+assignment statement, 
+
+97
+00:05:05,560 --> 00:05:07,270
+so purse sub candy says give me
+the old version of candy, 
+
+98
+00:05:07,270 --> 00:05:10,040
+and then add 2 to it, which
+
+99
+00:05:10,040 --> 00:05:14,180
+gives me 5, and then store it back
+in that purse 
+
+100
+00:05:14,180 --> 00:05:15,930
+under the label candy.
+
+101
+00:05:15,930 --> 00:05:19,260
+So we see candy changing to 5.
+
+102
+00:05:19,260 --> 00:05:21,410
+And so, this is a place, and you could
+
+103
+00:05:21,410 --> 00:05:23,280
+do this with a list except these would be
+numbers.
+
+104
+00:05:23,280 --> 00:05:27,970
+You could say purse sub two is equal to
+purse sub two plus two, or whatever.
+
+105
+00:05:27,970 --> 00:05:31,500
+But in dictionaries, there are labels.
+
+106
+00:05:31,500 --> 00:05:32,940
+Now, they're not strings.
+
+107
+00:05:32,940 --> 00:05:35,280
+Strings is a very common label in
+dictionaries, but
+
+108
+00:05:35,280 --> 00:05:37,530
+it's not always strings, you can use other
+things.
+
+109
+00:05:37,530 --> 00:05:39,950
+In this chapter we'll pretty much focus on
+strings.
+
+110
+00:05:39,950 --> 00:05:43,910
+You can even use numbers and then you
+would get a little confused.
+
+111
+00:05:43,910 --> 00:05:44,940
+But you can.
+
+112
+00:05:44,940 --> 00:05:48,130
+So here's sort of a picture of how this
+works.
+
+113
+00:05:48,130 --> 00:05:52,570
+So, if we take a look at this line purse
+sub money equals 12,
+
+114
+00:05:52,570 --> 00:05:57,670
+it's like we were putting a key/value
+connection, money is the label for 12.
+
+115
+00:05:57,670 --> 00:06:00,730
+And then we sort of move that in.
+
+116
+00:06:00,730 --> 00:06:04,340
+And it's up to the purse to decide
+where things live.
+
+117
+00:06:04,340 --> 00:06:09,910
+If we look at the next line, we're going to
+put the value in with a
+
+118
+00:06:09,910 --> 00:06:11,790
+3 in with the label candy, and we're
+going to put
+
+119
+00:06:11,790 --> 00:06:14,530
+the value 75 in with the label of tissues.
+
+120
+00:06:14,530 --> 00:06:17,610
+And when we say hey purse, print yourself
+out, it just
+
+121
+00:06:17,610 --> 00:06:21,060
+goes and pulls these things back out and
+hands them to us.
+
+122
+00:06:21,060 --> 00:06:24,690
+And what it's really, it's giving us both the
+label and the value and it's necessary
+
+123
+00:06:24,690 --> 00:06:26,320
+to do that cause they're just like 12,
+
+124
+00:06:26,320 --> 00:06:28,990
+75, and 3. What exactly is that?
+
+125
+00:06:28,990 --> 00:06:31,440
+And so this syntax with the curly braces
+
+126
+00:06:31,440 --> 00:06:34,860
+is what happens when you print a
+dictionary out.
+
+127
+00:06:34,860 --> 00:06:39,360
+The same thing happens when we're sort of
+printing purse sub candy, right?
+
+128
+00:06:39,360 --> 00:06:40,300
+Purse sub candy,
+
+129
+00:06:42,380 --> 00:06:45,240
+it's like dear purse, go and find the candy
+thing.
+
+130
+00:06:45,240 --> 00:06:46,320
+Look at that one, look at that one.
+
+131
+00:06:46,320 --> 00:06:48,330
+Oh, yep, yep, this is candy.
+
+132
+00:06:48,330 --> 00:06:50,190
+But what we're looking for is the value,
+
+133
+00:06:50,190 --> 00:06:52,620
+and so that's why 3 is coming out here.
+
+134
+00:06:52,620 --> 00:06:57,250
+So go look up under candy, and tell me
+what's stored under candy.
+
+135
+00:06:57,250 --> 00:06:58,930
+These can be actually more complex things,
+
+136
+00:06:58,930 --> 00:07:00,560
+I'm just keeping it simple for this
+lecture.
+
+137
+00:07:02,900 --> 00:07:07,570
+And then, when we say purse sub candy
+equals purse sub candy plus 2, well it
+
+138
+00:07:07,570 --> 00:07:14,220
+pulls the 3 out, looking at the label
+candy, then adds 3 plus 2 and makes 5,
+
+139
+00:07:14,220 --> 00:07:20,030
+and then it assigns it back in, and then
+that says, oh, go, go place this number 5
+
+140
+00:07:20,030 --> 00:07:26,035
+in the purse with the label of candy,
+which then replaces the 3 with a 5.
+
+141
+00:07:26,035 --> 00:07:26,630
+Okay?
+
+142
+00:07:28,280 --> 00:07:30,080
+And if we print it out, we see that the
+
+143
+00:07:30,080 --> 00:07:34,990
+new variable, or the new candy entry,
+is now 5.
+
+144
+00:07:34,990 --> 00:07:35,590
+Okay?
+
+145
+00:07:36,880 --> 00:07:40,930
+So if we just sort of put these things
+side by side, we create
+
+146
+00:07:40,930 --> 00:07:43,860
+them sort of both the same way and we make
+an empty list, and an empty
+
+147
+00:07:43,860 --> 00:07:46,880
+dictionary, we call the append method
+because
+
+148
+00:07:46,880 --> 00:07:48,660
+we're sort of just putting these things in
+
+149
+00:07:48,660 --> 00:07:52,142
+order. You gotta put the first one in
+first. So it's not telling you where.
+
+150
+00:07:52,142 --> 00:07:53,467
+You kind of know that this
+
+151
+00:07:53,467 --> 00:07:55,117
+will be the first one, cause we're
+starting with an empty one, 
+
+152
+00:07:55,117 --> 00:07:56,552
+and this will be the second one.
+
+153
+00:07:56,552 --> 00:08:02,002
+We put in the values 21 and 183, and then
+we print it out, and it's like okay, you gave
+
+154
+00:08:02,002 --> 00:08:04,437
+me the values 21 and 183, I will maintain
+the order for you, 
+
+155
+00:08:04,437 --> 00:08:07,617
+there's no keys other than their position.
+
+156
+00:08:07,617 --> 00:08:12,437
+The position is the key, as it were, so if
+I want to to change the first one to 23,
+
+157
+00:08:12,437 --> 00:08:17,415
+well, I say list sub zero, which is this,
+and then change that to 23.
+
+158
+00:08:17,415 --> 00:08:19,546
+So this is sort of used as a lookup to
+
+159
+00:08:19,546 --> 00:08:22,573
+find something. It can be used on either the
+right-hand side or the
+
+160
+00:08:22,573 --> 00:08:24,728
+left-hand side of an assignment statement.
+
+161
+00:08:24,728 --> 00:08:27,691
+Comparing that to dictionaries, I want to
+put a 21 in there
+
+162
+00:08:27,691 --> 00:08:30,078
+and I want to put it with the label age.
+
+163
+00:08:30,078 --> 00:08:33,002
+I'm  going to put 182, put that in with the
+label course.
+
+164
+00:08:33,002 --> 00:08:36,787
+So we don't have to like, make an entry.
+
+165
+00:08:36,787 --> 00:08:38,317
+The fact that the entry doesn't exist,
+
+166
+00:08:38,317 --> 00:08:41,712
+it creates the age entry and sticks 21 into it,
+
+167
+00:08:41,712 --> 00:08:44,152
+creates the course entry, sticks 182 into it.
+
+168
+00:08:44,152 --> 00:08:48,572
+We print it out and it says, oh,  course
+is 182 and age is 21.
+
+169
+00:08:48,572 --> 00:08:55,062
+This emphasizes that order is not
+preserved in dictionaries.
+
+170
+00:08:56,062 --> 00:08:58,478
+I won't go into like great detail as to
+why that is.
+
+171
+00:08:58,478 --> 00:09:01,233
+It turns out that that's a compromise that
+
+172
+00:09:01,233 --> 00:09:04,524
+makes them fast using a technique called
+hashing.
+
+173
+00:09:04,524 --> 00:09:08,887
+It's how it actually works internally,
+go Wikipedia hashing and
+
+174
+00:09:08,887 --> 00:09:09,717
+take a look.
+
+175
+00:09:09,717 --> 00:09:13,740
+But, the thing that matters to us as
+programmers primarily
+
+176
+00:09:13,740 --> 00:09:19,537
+is that lists maintain order and
+dictionaries do not maintain order.
+
+177
+00:09:19,537 --> 00:09:23,992
+They, dictionaries give us power
+that we don't have in lists.
+
+178
+00:09:23,992 --> 00:09:25,792
+I mean they're very complimentary.
+
+179
+00:09:25,792 --> 00:09:27,622
+Now there's not this one that's better
+than the other.
+
+180
+00:09:27,622 --> 00:09:29,097
+They've very complimentary.
+
+181
+00:09:29,097 --> 00:09:31,987
+Different kinds of data is either better
+represented as a list
+
+182
+00:09:31,987 --> 00:09:33,202
+or as a dictionary, depending on the
+
+183
+00:09:33,202 --> 00:09:34,717
+problem you're trying to solve.
+
+184
+00:09:34,717 --> 00:09:38,997
+And in a moment we'll, we'll be writing
+programs that are using both.
+
+185
+00:09:38,997 --> 00:09:40,998
+So if we come down here and I say,
+
+186
+00:09:40,998 --> 00:09:46,963
+okay, stick 23 into, assignment statement,
+into ddd sub age,
+
+187
+00:09:46,963 --> 00:09:50,958
+well that will change this 21 to 23,
+so when we print it out.
+
+188
+00:09:50,958 --> 00:09:53,311
+So you can, this part, where you look
+something up and
+
+189
+00:09:53,311 --> 00:09:55,689
+change the value, you can do either way.
+
+190
+00:09:55,689 --> 00:09:57,922
+It's just how you do it here
+
+191
+00:09:57,922 --> 00:10:00,066
+is a little bit different, okay?
+
+192
+00:10:00,066 --> 00:10:03,570
+So let's look through this code again.
+
+193
+00:10:03,570 --> 00:10:06,825
+And so I like, I like to use the word key
+and value.
+
+194
+00:10:06,825 --> 00:10:09,404
+Key is the way we look the thing up,
+and in  lists 
+
+195
+00:10:09,404 --> 00:10:13,016
+keys are numbers starting at
+zero and with no gaps.
+
+196
+00:10:13,016 --> 00:10:15,024
+In dictionaries keys are whatever we want
+them to be,
+
+197
+00:10:15,024 --> 00:10:17,662
+in this case I'm using strings.
+
+198
+00:10:17,662 --> 00:10:21,187
+And then the value is the number we're
+storing in it.
+
+199
+00:10:21,187 --> 00:10:25,137
+So we create this kind of a list with that
+kind, those
+
+200
+00:10:25,137 --> 00:10:26,187
+kinds of statements.
+
+201
+00:10:26,187 --> 00:10:29,187
+This statement creates this kind of a thing.
+
+202
+00:10:29,187 --> 00:10:33,687
+Now, if we, if we think of this assignment
+statement as moving data
+
+203
+00:10:33,687 --> 00:10:37,475
+into a new, into a place, a new item of
+data into a place.
+
+204
+00:10:41,440 --> 00:10:43,280
+It's looking at this thing right here.
+
+205
+00:10:43,280 --> 00:10:45,330
+Right? It's like, that's where I want to
+move it.
+
+206
+00:10:45,330 --> 00:10:48,370
+And so it hunts, and says, look the key up.
+
+207
+00:10:48,370 --> 00:10:49,710
+And that's the one that I'm going to change.
+
+208
+00:10:49,710 --> 00:10:52,300
+And then once it knows which it's going to
+change,
+
+209
+00:10:52,300 --> 00:10:57,230
+then it's going to take the 23, and it's
+going to put the 23 into that location.
+
+210
+00:10:57,230 --> 00:11:01,300
+And so that's how this changes from that
+to that.
+
+211
+00:11:01,300 --> 00:11:06,550
+Similarly when we get down to here, we're
+going to stick 23 somewhere and
+
+212
+00:11:06,550 --> 00:11:10,120
+this is, this expression, this lookup
+expression, the index
+
+213
+00:11:10,120 --> 00:11:13,410
+expression ddd sub age, is where we're
+going to put it.
+
+214
+00:11:13,410 --> 00:11:16,340
+So, we're looking here, where is that thing?
+
+215
+00:11:16,340 --> 00:11:19,900
+Well, that thing is this entry
+
+216
+00:11:19,900 --> 00:11:23,120
+in the dictionary. And so now when we're
+going to store the 23,
+
+217
+00:11:23,120 --> 00:11:24,380
+we know where the 23 is going to go.
+
+218
+00:11:24,380 --> 00:11:27,240
+It's going to overwrite the 21 and so the
+21 is
+
+219
+00:11:27,240 --> 00:11:31,440
+going to change to 23, okay? So they're
+kind of similar.
+
+220
+00:11:31,440 --> 00:11:34,340
+There are things that work similar in them
+
+221
+00:11:34,340 --> 00:11:36,170
+and then there are things that work
+differently in them.
+
+222
+00:11:37,550 --> 00:11:41,000
+We can make literals, constants, with
+
+223
+00:11:41,000 --> 00:11:43,400
+curly braces. And they look just like the print.
+
+224
+00:11:43,400 --> 00:11:44,760
+That's one nice thing about Python.
+
+225
+00:11:44,760 --> 00:11:48,880
+When you print something out it's showing
+you how you can make a literal, and
+
+226
+00:11:48,880 --> 00:11:56,120
+basically you just open with a curly brace
+and say chuck colon 1, fred 42, jan 100.
+
+227
+00:11:56,120 --> 00:11:57,580
+And we're making connections.
+
+228
+00:11:58,200 --> 00:12:02,000
+key/value pair, key/value pair.
+We print it out and
+
+229
+00:12:04,560 --> 00:12:06,270
+No order. They don't maintain order.
+
+230
+00:12:06,270 --> 00:12:08,760
+Now they might come out in the same order,
+but that's just lucky.
+
+231
+00:12:08,760 --> 00:12:09,180
+Right?
+
+232
+00:12:09,180 --> 00:12:10,550
+All the ones I've shown you so far don't
+
+233
+00:12:10,550 --> 00:12:12,650
+come out in the same order, which is good
+to demonstrate it.
+
+234
+00:12:12,650 --> 00:12:16,000
+If it one time came out in the same order
+that wouldn't be broken.
+
+235
+00:12:16,000 --> 00:12:18,500
+It's not like it doesn't want to come out
+in the same order.
+
+236
+00:12:18,500 --> 00:12:22,090
+It's just, you don't, it's not internally
+stored, and you
+
+237
+00:12:22,090 --> 00:12:23,859
+add an element and it may reorder them.
+
+238
+00:12:25,110 --> 00:12:28,030
+You can do an empty dictionary with just a
+curly brace, curly brace.
+
+239
+00:12:33,330 --> 00:12:37,400
+So, I'm going give you another example.
+
+240
+00:12:37,400 --> 00:12:40,120
+And I'm going to show you a series of
+names.
+
+241
+00:12:40,120 --> 00:12:45,810
+And I want you to figure out what the most
+common name is
+
+242
+00:12:45,810 --> 00:12:48,240
+and how many times each name appears.
+
+243
+00:12:48,240 --> 00:12:51,726
+Now these are real people.
+They actually work on the Sakai project.
+
+244
+00:12:51,726 --> 00:12:58,540
+Steven, Zhen, and Chen, and me.
+So these are people that are actually
+
+245
+00:12:58,540 --> 00:13:00,710
+in the data that we use in this course.
+
+246
+00:13:00,710 --> 00:13:04,450
+Okay? And so I think I'll show you about
+fifteen names
+
+247
+00:13:04,450 --> 00:13:06,925
+and you're to come up with a way, I'm
+going to
+
+248
+00:13:06,925 --> 00:13:11,270
+show them to you one at a time, you need to
+come up with a way to keep track of these.
+
+249
+00:13:11,270 --> 00:13:12,390
+Okay?
+
+250
+00:13:12,390 --> 00:13:15,611
+So I'll just, with no further ado I will show
+you the names.
+
+251
+00:13:15,611 --> 00:13:25,611
+[BLANK_AUDIO]
+
+252
+00:13:53,752 --> 00:13:57,510
+Okay, so that's all the names.
+Did you get it?
+
+253
+00:13:57,510 --> 00:14:00,160
+You might have to go back and do it again.
+
+254
+00:14:01,000 --> 00:14:03,520
+How did you solve the problem?
+
+255
+00:14:03,520 --> 00:14:08,300
+What kind of a data structure did you
+build to solve the problem?
+
+256
+00:14:08,300 --> 00:14:10,630
+Or did you just say wow that's painful, I
+
+257
+00:14:10,630 --> 00:14:14,890
+think I will learn Python instead, in
+solving that problem.
+
+258
+00:14:14,890 --> 00:14:15,524
+Okay?
+
+259
+00:14:15,524 --> 00:14:19,880
+So pause the, pause the video if you want and
+
+260
+00:14:19,880 --> 00:14:23,250
+write down or go back, write down what you
+think the
+
+261
+00:14:23,250 --> 00:14:28,070
+number of the most common name is and how
+many times.
+
+262
+00:14:30,200 --> 00:14:32,080
+Okay. Now I'll show you.
+
+263
+00:14:32,080 --> 00:14:35,180
+So here is the whole list.
+It's all of them.
+
+264
+00:14:35,180 --> 00:14:38,730
+And now that we see all of them, we
+use our amazing human
+
+265
+00:14:38,730 --> 00:14:42,720
+mind and we scan around, and look at
+purpleness and, and all that stuff.
+
+266
+00:14:42,720 --> 00:14:44,320
+And then we go like, oh, this is a so
+
+267
+00:14:44,320 --> 00:14:46,190
+much easier problem when I'm looking
+at the whole thing.
+
+268
+00:14:47,990 --> 00:14:51,590
+And I think that the most common person is
+Zhen, and
+
+269
+00:14:54,310 --> 00:14:58,770
+I think we see Zhen, I think we see Zhen
+five times.
+
+270
+00:15:00,760 --> 00:15:06,550
+And I think csev is one, two, three and
+Chen Wen is one, two.
+
+271
+00:15:06,550 --> 00:15:08,980
+And Steve Marquard is one, two, three.
+
+272
+00:15:08,980 --> 00:15:12,530
+So the question is, what is an effective
+data structure if you going to see
+
+273
+00:15:12,530 --> 00:15:15,510
+a million of these, what kind of data
+structure would you have to produce?
+
+274
+00:15:15,510 --> 00:15:16,720
+Because you can't keep it in you head
+
+275
+00:15:16,720 --> 00:15:19,510
+even, even this number of people, you can't
+
+276
+00:15:19,510 --> 00:15:22,400
+even this amount of data, no way you can
+keep it in your head. You have to come
+
+277
+00:15:22,400 --> 00:15:24,970
+up with some kind of a variable, as it were,
+
+278
+00:15:24,970 --> 00:15:28,230
+just like largest so far was the variable.
+
+279
+00:15:28,230 --> 00:15:29,800
+Some kind of variable that gets you to
+
+280
+00:15:29,800 --> 00:15:31,450
+the point where you understand what's
+going on.
+
+281
+00:15:31,450 --> 00:15:35,080
+And so this is the most common technique
+to solve this
+
+282
+00:15:35,080 --> 00:15:39,040
+problem where you keep a running total of
+each of the names.
+
+283
+00:15:39,040 --> 00:15:42,500
+And if you see a new name, you add them to
+the list.
+
+284
+00:15:42,500 --> 00:15:45,090
+So csev and then you give him a one,
+
+285
+00:15:45,090 --> 00:15:47,410
+and then you see Zhen and you give her a
+one,
+
+286
+00:15:47,410 --> 00:15:49,620
+and then you see Chen and you give her a
+one.
+
+287
+00:15:49,620 --> 00:15:51,670
+And then you see csev again and you give
+him a two.
+
+288
+00:15:51,670 --> 00:15:54,825
+And you see a two, and a two, and a one
+right?
+
+289
+00:15:54,825 --> 00:15:57,050
+[COUGH]
+
+290
+00:15:57,050 --> 00:16:02,760
+And so then when you're all done you have
+the mapping, right, of these things
+
+291
+00:16:02,760 --> 00:16:06,100
+and you go oh, okay, let me look through
+here and find the largest one.
+
+292
+00:16:06,100 --> 00:16:09,960
+That's the largest one and so that must be
+the person who is the most.
+
+293
+00:16:09,960 --> 00:16:12,170
+So you need a scratch area,
+
+294
+00:16:12,170 --> 00:16:14,710
+a data structure or a piece of paper as
+it were,
+
+295
+00:16:14,710 --> 00:16:19,030
+and so that's what, exactly what
+dictionaries are really good at.
+
+296
+00:16:19,030 --> 00:16:23,910
+You could think of this as like a
+histogram. You know, it's,
+
+297
+00:16:23,910 --> 00:16:27,840
+it's a bunch of counters, but counters
+that are indexed by a string.
+
+298
+00:16:27,840 --> 00:16:29,450
+So we use a lot of this.
+
+299
+00:16:29,450 --> 00:16:34,130
+And so this is a pattern of many counters
+with a dictionary, simultaneous counters.
+
+300
+00:16:34,130 --> 00:16:35,390
+We're counting a bunch of, we're looking
+
+301
+00:16:35,390 --> 00:16:39,430
+at a series of things, and we're going to
+simultaneously keep track
+
+302
+00:16:39,430 --> 00:16:42,530
+of a large number of counters, rather than
+just one counter.
+
+303
+00:16:42,530 --> 00:16:46,950
+How many names did you see total? Whatever,
+12. But how many of each name
+
+304
+00:16:46,950 --> 00:16:50,480
+did you see is a bunch of counters, so
+it's a bunch of simultaneous counters.
+
+305
+00:16:51,850 --> 00:16:56,890
+So a dictionary is, is great for this,
+a dictionary is great for this.
+
+306
+00:16:56,890 --> 00:16:58,520
+We, when we see somebody for the first
+
+307
+00:16:58,520 --> 00:17:00,440
+time, we can add an entry to the
+dictionary,
+
+308
+00:17:00,440 --> 00:17:03,940
+which is kind of like going oh,
+csev one,
+
+309
+00:17:03,940 --> 00:17:07,970
+and then Chen Wen one. Now these don't
+exist yet.
+
+310
+00:17:07,970 --> 00:17:10,480
+Right? So we've got csev one and Chen
+Wen one, so
+
+311
+00:17:10,480 --> 00:17:13,360
+that creates an entry and sticks a one in
+it and the
+
+312
+00:17:13,360 --> 00:17:17,120
+mapping between the key csev and the value
+one, the key Chen Wen
+
+313
+00:17:17,120 --> 00:17:19,740
+and the value one and then we say, hey
+what's in there?
+
+314
+00:17:19,740 --> 00:17:22,740
+Oh, we've got a csev is one and
+Chen Wen is one.
+
+315
+00:17:22,740 --> 00:17:25,550
+And then we see Chen Wen a second time,
+
+316
+00:17:25,550 --> 00:17:27,450
+so we'd add another number right there.
+
+317
+00:17:27,450 --> 00:17:30,690
+So this old number is one, we add one to
+it and we get
+
+318
+00:17:30,690 --> 00:17:35,370
+two and then we stick that back in and
+then we do the calculations.
+
+319
+00:17:35,370 --> 00:17:39,100
+We do a dump and say oh there's two in
+Chen Wen and one in csev.
+
+320
+00:17:40,130 --> 00:17:40,630
+Okay?
+
+321
+00:17:41,630 --> 00:17:46,300
+So this is a great data structure for the
+simutaneous counters like what's
+
+322
+00:17:46,300 --> 00:17:49,940
+the most common word, who had the most
+commits, da, da, da, da, da.
+
+323
+00:17:51,090 --> 00:17:54,220
+Now, everything we do we have to figure
+out
+
+324
+00:17:54,220 --> 00:17:55,990
+like, when you're going to get in trouble
+with Python.
+
+325
+00:17:55,990 --> 00:18:00,250
+When Python's going to give you the old
+thumbs down and say oh, you went too far.
+
+326
+00:18:00,250 --> 00:18:06,360
+So one thing Python does not like is if
+you reference a key before it exists.
+
+327
+00:18:06,360 --> 00:18:09,900
+We'll, we'll talk in a second how to
+work around this. But if you simply
+
+328
+00:18:09,900 --> 00:18:11,600
+create a dictionary and say, oh, print out
+
+329
+00:18:11,600 --> 00:18:15,090
+what's under csev, it gives you a
+traceback.
+
+330
+00:18:15,090 --> 00:18:15,710
+It's like,
+
+331
+00:18:15,710 --> 00:18:17,940
+I'm going to inform you that that's not
+there.
+
+332
+00:18:17,940 --> 00:18:20,490
+And it says key error, csev.
+
+333
+00:18:20,490 --> 00:18:24,810
+Now, the thing that allows us to solve
+this is the in operator.
+
+334
+00:18:24,810 --> 00:18:28,140
+We've used the in operator to see if a
+substring was in a string.
+
+335
+00:18:28,140 --> 00:18:30,120
+Or if a number was in a list.
+
+336
+00:18:30,120 --> 00:18:37,090
+So, so this in operator says, in operator
+says, hey, ask a question.
+
+337
+00:18:37,090 --> 00:18:42,140
+Is the string csev a current key in the
+dictionary ccc?
+
+338
+00:18:43,210 --> 00:18:46,460
+Is the string csev a current key in the
+dictionary ccc?
+
+339
+00:18:46,460 --> 00:18:47,750
+And it says, False.
+
+340
+00:18:49,090 --> 00:18:52,240
+So now we have something that doesn't give
+a traceback
+
+341
+00:18:52,240 --> 00:18:55,290
+that can tell us whether or not the key is
+there.
+
+342
+00:18:55,290 --> 00:18:57,480
+So if you remember the algorithm, the
+first time you see it, you
+
+343
+00:18:57,480 --> 00:19:01,270
+set them to one, and every other time, you
+add one to them.
+
+344
+00:19:02,520 --> 00:19:04,030
+So this is how we do that in Python.
+
+345
+00:19:05,150 --> 00:19:08,220
+So here's how we implement that program
+that I just gave you
+
+346
+00:19:08,220 --> 00:19:12,080
+in Python. So, here's our names.
+
+347
+00:19:12,080 --> 00:19:14,760
+It's shorter so my slide works better.
+
+348
+00:19:14,760 --> 00:19:17,470
+Here's a variable, our iteration variable,
+it's going to, you know,
+
+349
+00:19:17,470 --> 00:19:20,570
+go through all five of these one at a time. 
+
+350
+00:19:20,570 --> 00:19:24,553
+And within the body of the
+loop we have an if statement.
+
+351
+00:19:24,553 --> 00:19:26,793
+If the name is not currently in the
+
+352
+00:19:26,793 --> 00:19:30,929
+counts dictionary, counts is the name of
+my dictionary.
+
+353
+00:19:30,929 --> 00:19:33,617
+If the name is not currently in the
+counts dictionary,
+
+354
+00:19:33,617 --> 00:19:35,210
+I say counts sub name equals one.
+
+355
+00:19:36,440 --> 00:19:39,680
+else, that must mean it's already there
+which means
+
+356
+00:19:39,680 --> 00:19:42,886
+it's okay to retrieve it, counts sub name
+plus 1.
+
+357
+00:19:42,886 --> 00:19:46,590
+We're going to add a 1 to it and stick it
+back in, okay?
+
+358
+00:19:46,590 --> 00:19:49,350
+And so when this finishes it's going to
+add
+
+359
+00:19:49,350 --> 00:19:52,730
+entries and then add one to entries that
+already exist.
+
+360
+00:19:52,730 --> 00:19:57,370
+And not traceback at all. And when we
+print it out we're going to see the counts.
+
+361
+00:19:57,370 --> 00:19:58,720
+And literally this could have gone
+
+362
+00:19:58,720 --> 00:20:02,400
+a million times and it would just be fine
+and it would just keep expanding.
+
+363
+00:20:02,400 --> 00:20:02,900
+Okay?
+
+364
+00:20:05,260 --> 00:20:07,270
+So this pattern of checking to see if a key
+
+365
+00:20:07,270 --> 00:20:10,690
+is in a dictionary, setting it to some
+number, or
+
+366
+00:20:11,750 --> 00:20:14,770
+adding one to it is a really, really common
+pattern.
+
+367
+00:20:16,030 --> 00:20:19,550
+It's so common, as a matter of fact, that
+there is a
+
+368
+00:20:19,550 --> 00:20:24,580
+a special thing built into dictionaries
+that does this for us, okay?
+
+369
+00:20:24,580 --> 00:20:26,700
+And there is this method called get.
+
+370
+00:20:27,960 --> 00:20:30,490
+And so, counts is the name of the
+dictionary,
+
+371
+00:20:30,490 --> 00:20:34,120
+get is a built-in capability of
+dictionaries.
+
+372
+00:20:34,120 --> 00:20:35,630
+And it takes two parameters.
+
+373
+00:20:35,630 --> 00:20:43,110
+The first parameter is a key name, like a
+string, like csev or chen wen or marquard.
+
+374
+00:20:43,110 --> 00:20:50,880
+And then the second parameter is a value
+to give back if this doesn't exist.
+
+375
+00:20:50,880 --> 00:20:54,300
+It's a default value if the key does not
+exist.
+
+376
+00:20:54,300 --> 00:20:55,850
+And there's no traceback.
+
+377
+00:20:55,850 --> 00:21:00,710
+So this way you can encapsulate, in effect,
+an if-then-else.
+
+378
+00:21:00,710 --> 00:21:06,160
+If the name parameter is in the counts,
+print the thing out, otherwise print zero.
+
+379
+00:21:06,160 --> 00:21:11,490
+So this expression will either get the
+number
+
+380
+00:21:11,490 --> 00:21:16,810
+if it exists or it will give me back a
+zero if it doesn't exist.
+
+381
+00:21:16,810 --> 00:21:18,770
+So this is really valuable.
+
+382
+00:21:18,770 --> 00:21:21,080
+Right? This is really valuable.
+
+383
+00:21:21,080 --> 00:21:22,630
+That's a really bad smiley face.
+
+384
+00:21:22,630 --> 00:21:28,590
+So this is really valuable because it,
+once, once we understand the idiom,
+
+385
+00:21:28,590 --> 00:21:32,520
+it really takes four lines of code and
+turns it into one line of code.
+
+386
+00:21:32,520 --> 00:21:34,620
+Because we're going to be doing this
+if-then-else all the time.
+
+387
+00:21:35,800 --> 00:21:39,060
+Now, and so we can reconstruct that loop
+
+388
+00:21:39,060 --> 00:21:44,010
+a lot easier and a lot more cleanly using this
+idiom, right?
+
+389
+00:21:44,010 --> 00:21:46,160
+It's something that looks kind of complex
+but you'll
+
+390
+00:21:46,160 --> 00:21:49,140
+get used to it really fast, okay?
+
+391
+00:21:49,140 --> 00:21:51,530
+So we have, everything here is the same,
+
+392
+00:21:51,530 --> 00:21:53,780
+we create an empty dictionary, we have five
+names to
+
+393
+00:21:53,780 --> 00:21:55,760
+go through, we're going to write a
+for loop
+
+394
+00:21:55,760 --> 00:21:58,320
+and it's going to go through each of
+those.
+
+395
+00:21:58,320 --> 00:22:04,550
+And then we're going to say counts sub name
+equals counts dot get the value stored
+
+396
+00:22:04,550 --> 00:22:08,120
+at name, and if you don't find it, give me
+back a zero.
+
+397
+00:22:08,120 --> 00:22:11,550
+And then whatever comes back, either the
+old value or
+
+398
+00:22:11,550 --> 00:22:16,760
+the zero, add 1 to that and then take that
+sum and stick it in counts name.
+
+399
+00:22:17,870 --> 00:22:19,530
+Okay? So this is either
+
+400
+00:22:21,650 --> 00:22:22,790
+going to create,
+
+401
+00:22:26,170 --> 00:22:29,740
+or it's going to update.
+
+402
+00:22:30,070 --> 00:22:32,990
+If there is no entry, it's going to create
+it and set it to one.
+
+403
+00:22:32,990 --> 00:22:36,520
+If there is an entry it's going to add one to
+the current entry.
+
+404
+00:22:37,530 --> 00:22:39,240
+Okay? So this is,
+
+405
+00:22:42,770 --> 00:22:44,660
+this line is kind of an idiom.
+
+406
+00:22:46,510 --> 00:22:48,420
+Read about it in the book, figure it out,
+
+407
+00:22:48,420 --> 00:22:50,340
+get used to the notion of what this is doing.
+
+408
+00:22:50,340 --> 00:22:53,370
+Understand what that is doing, okay?
+
+409
+00:22:54,430 --> 00:22:57,320
+Because I'm going to start using it as if
+you understand it.
+
+410
+00:22:58,490 --> 00:23:05,300
+So, the next problem is a problem of
+finding the most common word.
+
+411
+00:23:05,300 --> 00:23:07,910
+So, finding the most common, the top
+
+412
+00:23:07,910 --> 00:23:12,330
+five, is often a, a trigger that says, use
+
+413
+00:23:12,330 --> 00:23:14,390
+dictionaries because if you're going to
+have to count things up,
+
+414
+00:23:14,390 --> 00:23:15,990
+you're going to, you know, you don't
+
+415
+00:23:15,990 --> 00:23:18,000
+know what the most common thing is at the
+beginning.
+
+416
+00:23:18,000 --> 00:23:22,220
+First you have to count everything up, and
+dictionaries are a great way to count.
+
+417
+00:23:22,220 --> 00:23:25,220
+So here's a little problem and I would
+like you to read
+
+418
+00:23:25,220 --> 00:23:29,490
+this text and find me the most common word
+in the text.
+
+419
+00:23:29,490 --> 00:23:32,960
+And tell me what the most common word is
+and how many times
+
+420
+00:23:34,550 --> 00:23:36,520
+it occurs. Ready?
+
+421
+00:23:36,520 --> 00:23:39,800
+I'm going to give you a thousandth of a
+second, just like I would give a computer.
+
+422
+00:23:39,800 --> 00:23:41,975
+I would expect it'd be able to do this in
+a thousandth of a second.
+
+423
+00:23:41,975 --> 00:23:43,149
+[SOUND] There you go.
+
+424
+00:23:43,149 --> 00:23:45,978
+[BLANK_AUDIO]
+
+425
+00:23:45,978 --> 00:23:48,040
+Okay, I gave you five seconds.
+Time's up.
+
+426
+00:23:48,040 --> 00:23:48,580
+Did you get it?
+
+427
+00:23:49,580 --> 00:23:52,620
+Or did you say to yourself, you know what,
+I hate
+
+428
+00:23:52,620 --> 00:23:55,840
+that, it's no good, I think I'll write a
+Python program instead.
+
+429
+00:23:55,840 --> 00:23:59,200
+And he'll probably show me a Python
+program if I wait long enough.
+
+430
+00:23:59,200 --> 00:24:02,800
+So here's a slightly easier problem from
+the first lecture.
+
+431
+00:24:02,800 --> 00:24:04,030
+Ready?
+
+432
+00:24:04,030 --> 00:24:04,936
+It's the same problem.
+
+433
+00:24:04,936 --> 00:24:07,915
+Find the most common word and how many
+times the word occurs.
+
+434
+00:24:07,915 --> 00:24:12,171
+[BLANK AUDIO]
+
+435
+00:24:12,171 --> 00:24:34,171
+[MUSIC]
+
+436
+00:24:35,437 --> 00:24:40,190
+Did you get it?
+I believe the answer is, and I could look
+
+437
+00:24:40,190 --> 00:24:45,900
+really dumb here, oops, the answer is the,
+and I think it's seven times.
+
+438
+00:24:45,900 --> 00:24:48,310
+So, that's the right answer. Okay?
+
+439
+00:24:48,310 --> 00:24:50,160
+Again, things humans are not so good at.
+
+440
+00:24:51,430 --> 00:24:54,760
+So, here's a piece of code that's starting
+to combine some
+
+441
+00:24:54,760 --> 00:24:57,690
+of the things we've been doing in the past
+few chapters all together.
+
+442
+00:24:57,690 --> 00:25:01,110
+We are going to read a line of text,
+
+443
+00:25:01,110 --> 00:25:05,940
+split it into words, count the occurrence, 
+how many times
+
+444
+00:25:05,940 --> 00:25:10,070
+each word occurs, and then print out a map.
+
+445
+00:25:10,070 --> 00:25:14,580
+So, so here's what we're going to do,
+we're going to say okay, start
+
+446
+00:25:14,580 --> 00:25:18,998
+a dictionary, an empty dictionary, read
+the line of input.
+
+447
+00:25:20,460 --> 00:25:27,160
+Then split it, remember, the split takes a
+string and produces a list.
+
+448
+00:25:27,160 --> 00:25:31,900
+So words is a list, line is a string, and
+then we'll print that out.
+
+449
+00:25:31,900 --> 00:25:34,260
+Then we're going to write a for loop
+that's going to go
+
+450
+00:25:34,260 --> 00:25:37,520
+through each of the words, and
+then create, use this idiom
+
+451
+00:25:37,520 --> 00:25:42,180
+counts sub word equals counts.get word, 0 + 1.
+
+452
+00:25:42,180 --> 00:25:45,270
+So this is going to do exactly what we talked
+about in the previous
+
+453
+00:25:45,270 --> 00:25:51,210
+couple slides back, either create the
+entries or add to those entries, okay?
+
+454
+00:25:51,210 --> 00:25:52,383
+And then we're going to print
+
+455
+00:25:52,383 --> 00:25:52,860
+them out.
+
+456
+00:25:52,860 --> 00:25:55,620
+So here's what that program does when it
+prints out.
+
+457
+00:25:56,630 --> 00:25:58,860
+Now this is actually one long line I'm
+
+458
+00:25:58,860 --> 00:26:00,820
+just cutting it so you can see it.
+
+459
+00:26:00,820 --> 00:26:05,390
+Here's this line we enter, and the words
+the, there's seven of them.
+
+460
+00:26:05,390 --> 00:26:08,390
+Then it takes this line and splits it into a
+
+461
+00:26:08,390 --> 00:26:11,240
+list, and there is the beginning and end
+of the list.
+
+462
+00:26:11,240 --> 00:26:13,680
+The list maintains the order, so the
+
+463
+00:26:13,680 --> 00:26:17,690
+list simply breaks all these words into
+separate
+
+464
+00:26:17,690 --> 00:26:21,620
+words in a list of strings.
+From one string
+
+465
+00:26:22,770 --> 00:26:29,120
+to many strings. This is many strings.
+And so the, and the spaces are gone.
+
+466
+00:26:29,120 --> 00:26:31,040
+And so now here's this list.
+
+467
+00:26:31,040 --> 00:26:33,820
+And then what we're going to do is we're
+going to run through the list.
+
+468
+00:26:35,470 --> 00:26:39,030
+And we're going to keep running totals of
+each of the words in the list.
+
+469
+00:26:39,030 --> 00:26:40,180
+And then when we're done with the list,
+
+470
+00:26:40,180 --> 00:26:43,890
+we're going to print out the contents of
+that dictionary.
+
+471
+00:26:43,890 --> 00:26:45,050
+And we can inspect it and
+
+472
+00:26:45,050 --> 00:26:47,480
+go like, let's look for the biggest one,
+na, na, na, na, na.
+
+473
+00:26:47,480 --> 00:26:47,990
+It's kind of like
+
+474
+00:26:47,990 --> 00:26:50,510
+looking for the largest, like, oh,
+seven.
+
+475
+00:26:50,510 --> 00:26:54,010
+That's the largest and the largest word is
+the.
+
+476
+00:26:54,010 --> 00:26:54,730
+Okay?
+
+477
+00:26:54,730 --> 00:26:59,210
+So that's how the program runs, it
+reads a line,
+
+478
+00:26:59,210 --> 00:27:01,640
+splits it into a list of words, and then
+
+479
+00:27:01,640 --> 00:27:05,090
+accumulates a running total for each word,
+and then we
+
+480
+00:27:05,090 --> 00:27:08,930
+hand inspect to see what the most common
+word is.
+
+481
+00:27:08,930 --> 00:27:09,430
+Okay?
+
+482
+00:27:10,870 --> 00:27:13,220
+Oh no, no, I don't want that song again.
+
+483
+00:27:13,220 --> 00:27:14,190
+There we go.
+
+484
+00:27:14,190 --> 00:27:18,280
+And so and so here we have the, in it's
+kind of a smaller fashion.
+
+485
+00:27:19,350 --> 00:27:23,660
+We make a dictionary.
+This entering a line of text is here.
+
+486
+00:27:23,660 --> 00:27:25,150
+It's all one line.
+
+487
+00:27:25,150 --> 00:27:27,170
+We do the split and then we print the
+words out.
+
+488
+00:27:29,160 --> 00:27:32,500
+And so that split creates a list of
+strings from a single
+
+489
+00:27:32,500 --> 00:27:37,100
+string based on where the blanks are at,
+chop, chop, chop, chop.
+
+490
+00:27:37,100 --> 00:27:38,450
+And then here
+
+491
+00:27:38,450 --> 00:27:39,150
+at counting,
+
+492
+00:27:41,180 --> 00:27:45,510
+we're going to loop through each of the
+words one at a time and use this idiom,
+
+493
+00:27:45,510 --> 00:27:52,710
+counts sub word equals counts.get word, 0 + 1,
+which is going to create and/or update.
+
+494
+00:27:52,710 --> 00:27:54,960
+And then we print the counts out and that
+comes out there.
+
+495
+00:27:56,110 --> 00:27:56,610
+Okay?
+
+496
+00:27:57,710 --> 00:27:59,610
+So, again, this is the new thing that
+we've done.
+
+497
+00:27:59,610 --> 00:28:01,710
+Everything else we've kind of seen before.
+
+498
+00:28:04,750 --> 00:28:08,429
+Now we can also loop through dictionaries
+with for loops.
+
+499
+00:28:12,550 --> 00:28:15,320
+The for loop, we've been, put all kinds of
+things over here.
+
+500
+00:28:15,320 --> 00:28:18,890
+We've put strings over here, we've put
+lists of numbers over here.
+
+501
+00:28:18,890 --> 00:28:21,110
+We've put files over here.
+
+502
+00:28:21,110 --> 00:28:23,470
+And basically what it really says is you
+
+503
+00:28:23,470 --> 00:28:26,360
+know, if this is a collection of things,
+
+504
+00:28:26,360 --> 00:28:28,340
+run this little indent code once for
+each item in
+
+505
+00:28:28,340 --> 00:28:32,850
+the collection, and key then becomes our
+iteration variable.
+
+506
+00:28:32,850 --> 00:28:35,150
+And key is very mnemonic here.
+
+507
+00:28:35,150 --> 00:28:37,200
+It doesn't know that they are keys.
+
+508
+00:28:37,200 --> 00:28:39,480
+And so, keys.
+
+509
+00:28:39,480 --> 00:28:44,680
+The key here is that, there's a bit, the
+important
+
+510
+00:28:44,680 --> 00:28:50,180
+concept here is that dictionaries are 
+key/value pairs and so this is
+
+511
+00:28:50,180 --> 00:28:52,900
+only one variable and so it actually
+decides that, they've decided that
+
+512
+00:28:52,900 --> 00:28:56,140
+it goes through the keys, which is
+actually quite useful.
+
+513
+00:28:56,140 --> 00:29:00,700
+So key is going to take on the successive
+values of the labels.
+
+514
+00:29:00,700 --> 00:29:02,400
+Not the successive values of
+
+515
+00:29:02,400 --> 00:29:04,060
+the values stored at the labels.
+
+516
+00:29:04,060 --> 00:29:10,250
+But it's really easy for us to retrieve
+the contents at that label counts sub key.
+
+517
+00:29:10,250 --> 00:29:15,080
+So we're going to use the key 'chuck',
+'fred', 'jan', to look up the 1, 42, 100.
+
+518
+00:29:15,080 --> 00:29:17,900
+And so it prints out the key,
+
+519
+00:29:17,900 --> 00:29:22,180
+and then the value at it, the key, and the
+value at it, and the key, and the value.
+
+520
+00:29:22,180 --> 00:29:25,050
+And so we're able to sort of go through
+
+521
+00:29:25,050 --> 00:29:27,330
+the dictionary and look at all the
+key/value pairs,
+
+522
+00:29:27,330 --> 00:29:29,900
+which is the common thing that you really
+want to do.
+
+523
+00:29:31,000 --> 00:29:31,500
+Okay?
+
+524
+00:29:35,240 --> 00:29:38,400
+Now there's some methods inside of
+dictionaries that allow
+
+525
+00:29:38,400 --> 00:29:42,620
+us to convert dictionaries into lists
+of things.
+
+526
+00:29:42,620 --> 00:29:47,140
+And so if you simply take a dictionary, so
+here's a little dictionary with
+
+527
+00:29:47,140 --> 00:29:51,750
+three items in it, and we can say list sub
+and then give a dictionary name
+
+528
+00:29:51,750 --> 00:29:54,060
+right there, and then that converts it
+into a
+
+529
+00:29:54,060 --> 00:29:56,640
+list. But it's just a list of the keys.
+
+530
+00:29:57,680 --> 00:30:01,320
+We can also say jjj dot keys, kind of do
+the same thing.
+
+531
+00:30:01,320 --> 00:30:05,170
+Say give me a list consisting of the keys.
+
+532
+00:30:05,170 --> 00:30:10,150
+And then jjj dot values gives you a list
+of the values, 1, 42, and 100.
+
+533
+00:30:10,150 --> 00:30:12,810
+Of course they're not in the same order.
+
+534
+00:30:12,810 --> 00:30:16,060
+Now interestingly, as long as you don't
+modify the dictionary,
+
+535
+00:30:16,060 --> 00:30:19,510
+the order of these two things corresponds
+as long as
+
+536
+00:30:19,510 --> 00:30:23,050
+in between here you're not changing it.
+So the first jan maps to 100,
+
+537
+00:30:23,050 --> 00:30:25,420
+chuck maps to 1,
+
+538
+00:30:25,420 --> 00:30:27,680
+and fred maps to 42.
+
+539
+00:30:27,680 --> 00:30:30,200
+So the order, you can't predict the order
+they're
+
+540
+00:30:30,200 --> 00:30:32,170
+going to come out but these two things
+will
+
+541
+00:30:32,170 --> 00:30:34,550
+come out in the same order, whatever that
+order
+
+542
+00:30:34,550 --> 00:30:38,110
+happens to be. Okay, and so there's one
+more thing.
+
+543
+00:30:39,220 --> 00:30:44,190
+So we've got the keys, we've got the
+values, and we've got a thing called items.
+
+544
+00:30:44,190 --> 00:30:50,460
+items also returns a list, it's a list.
+But it's a list of
+
+545
+00:30:50,460 --> 00:30:54,920
+what Python calls tuples.
+That's what the next chapter is about.
+
+546
+00:30:54,920 --> 00:30:56,700
+We'll talk more about tuples in the next
+chapter.
+
+547
+00:30:57,910 --> 00:31:01,160
+A tuple is a key/value pair.
+
+548
+00:31:01,160 --> 00:31:05,970
+So this list has three things in it.
+One, two, three.
+
+549
+00:31:05,970 --> 00:31:10,240
+The first one jan maps to 100, the
+second is chuck maps to 1, the
+
+550
+00:31:10,240 --> 00:31:15,570
+third one is fred maps to 42. So,
+just kind of bear with me for a second.
+
+551
+00:31:15,570 --> 00:31:17,520
+We'll hit this a little harder in the next
+chapter.
+
+552
+00:31:18,920 --> 00:31:20,850
+But the place that this, the idiom where
+
+553
+00:31:20,850 --> 00:31:23,930
+this works very beautifully is on a for
+loop.
+
+554
+00:31:23,930 --> 00:31:26,720
+Now, for those of you who have programmed
+in other languages, this will be
+
+555
+00:31:26,720 --> 00:31:29,700
+kind of weird because other languages have
+
+556
+00:31:29,700 --> 00:31:33,680
+iterations but they don't have two
+iteration variables.
+
+557
+00:31:33,680 --> 00:31:35,770
+Python has two iteration variables.
+
+558
+00:31:35,770 --> 00:31:37,480
+It can be used for many things but one of the
+
+559
+00:31:37,480 --> 00:31:41,090
+things that it's used for that's really
+quite nice is
+
+560
+00:31:41,090 --> 00:31:46,110
+we can have two iteration variables.
+This jj items returns pairs of
+
+561
+00:31:46,110 --> 00:31:51,200
+things and then aaa and bbb are iteration
+variables that sort of
+
+562
+00:31:51,200 --> 00:31:56,580
+move in synchronized, move, are
+synchronized as they move through.
+
+563
+00:31:56,580 --> 00:32:01,250
+So aaa takes on the value of the key.
+
+564
+00:32:01,250 --> 00:32:05,670
+bbb takes on the value of the, the
+value.
+
+565
+00:32:05,670 --> 00:32:09,110
+And then the loop runs once.
+
+566
+00:32:09,110 --> 00:32:13,090
+Then aaa is advanced to the next key.
+
+567
+00:32:13,090 --> 00:32:17,410
+And bbb is advanced to the next value
+simultaneously, synchronized.
+
+568
+00:32:17,410 --> 00:32:19,910
+Then they print that out, then it advances
+to the
+
+569
+00:32:19,910 --> 00:32:22,700
+next one, and the next one, and they print
+that out.
+
+570
+00:32:22,700 --> 00:32:27,210
+So they are moving in a synchronized way.
+
+571
+00:32:27,210 --> 00:32:31,050
+Now again, the order jan, chuck, fred is not
+the same.
+
+572
+00:32:31,050 --> 00:32:33,360
+But the correspondence between jan 100,
+
+573
+00:32:33,360 --> 00:32:37,090
+chuck 1, and fred,
+that's going to, that's going to work.
+
+574
+00:32:37,090 --> 00:32:40,680
+And so basically, as these things go, they
+work
+
+575
+00:32:40,680 --> 00:32:43,960
+their way through whatever order they're
+stored in the dictionary.
+
+576
+00:32:43,960 --> 00:32:45,440
+So this is quite nice.
+
+577
+00:32:45,440 --> 00:32:48,870
+Two iteration variables going through
+key/value.
+
+578
+00:32:48,870 --> 00:32:53,850
+Now if I was making these names mnemonic,
+and they made more sense,
+
+579
+00:32:53,850 --> 00:32:57,200
+I would call this the key variable and
+that would be the value variable.
+
+580
+00:32:58,440 --> 00:33:00,590
+But for now I'm just using kind of silly
+names
+
+581
+00:33:00,590 --> 00:33:02,910
+to show you that key and value are not
+special.
+
+582
+00:33:02,910 --> 00:33:05,580
+They're not Python reserved words in any
+way.
+
+583
+00:33:05,580 --> 00:33:09,215
+They're just a good way to name these
+things, key/value pairs.
+
+584
+00:33:09,215 --> 00:33:09,715
+Okay?
+
+585
+00:33:12,020 --> 00:33:13,360
+Okay.
+
+586
+00:33:13,360 --> 00:33:16,920
+Now we're going to circle all the way
+back to the beginning.
+
+587
+00:33:16,920 --> 00:33:18,500
+All the way back to the first lecture.
+
+588
+00:33:18,500 --> 00:33:24,050
+And I gave you this program, and I said
+don't worry about it.
+
+589
+00:33:24,050 --> 00:33:27,660
+We'll learn about it later.
+Well, now later.
+
+590
+00:33:27,660 --> 00:33:32,030
+At this point you should be able to
+understand every line of this program.
+
+591
+00:33:33,490 --> 00:33:38,280
+This is the program that's going to count
+the most common word in a file.
+
+592
+00:33:38,280 --> 00:33:39,000
+Okay?
+
+593
+00:33:39,000 --> 00:33:41,190
+So let's walk through what it does and
+hopefully
+
+594
+00:33:41,190 --> 00:33:44,550
+by now this will make a lot of sense.
+
+595
+00:33:45,610 --> 00:33:47,910
+Okay? So we're going to start out, we're
+going to ask
+
+596
+00:33:47,910 --> 00:33:51,070
+for a file name, we're going to open that
+file for read.
+
+597
+00:33:52,140 --> 00:33:54,710
+Then, because we know it's not a very large
+
+598
+00:33:54,710 --> 00:33:56,760
+file, we're going to read it all in one go.
+
+599
+00:33:56,760 --> 00:34:00,480
+So handle dot read says read the whole
+file, newlines and all, 
+
+600
+00:34:00,480 --> 00:34:03,580
+blanks, newlines, whatever,
+and put it in
+
+601
+00:34:03,580 --> 00:34:07,530
+the variable called text, it's just
+mnemonic. Remember I'm, in this one
+
+602
+00:34:07,530 --> 00:34:12,650
+I'm using the mnemonic variable names.
+Then go through that whole
+
+603
+00:34:12,650 --> 00:34:16,630
+string, which was the whole file, go
+through and split it all.
+
+604
+00:34:16,630 --> 00:34:19,840
+Newlines don't hurt it.
+Newlines are treated like blanks.
+
+605
+00:34:19,840 --> 00:34:21,540
+And it understands all that.
+
+606
+00:34:21,540 --> 00:34:23,420
+It throws the newlines away and the
+blanks away
+
+607
+00:34:23,420 --> 00:34:27,040
+and splits it into a beautiful list of
+just words with no blanks.
+
+608
+00:34:28,540 --> 00:34:33,070
+And the list of the words in that file
+ends up in the variable words.
+
+609
+00:34:33,070 --> 00:34:36,009
+words is a list, text is a string, words
+is a list.
+
+610
+00:34:37,090 --> 00:34:41,600
+Then what I do is the pattern of
+accumulating counters in a dictionary.
+
+611
+00:34:41,600 --> 00:34:43,790
+I make an empty dictionary.
+
+612
+00:34:43,790 --> 00:34:47,500
+I have the word variable that goes through
+all the words
+
+613
+00:34:47,500 --> 00:34:52,830
+and then I just say, counts sub word equals
+counts dot get(word,0) + 1, 
+
+614
+00:34:53,920 --> 00:34:56,660
+and that, like we just got done saying,
+it both creates
+
+615
+00:34:56,660 --> 00:35:02,020
+and/or increments the value in the
+dictionary as needed.
+
+616
+00:35:02,020 --> 00:35:03,610
+So now at the end of the, at the, at this
+
+617
+00:35:03,610 --> 00:35:11,650
+point in the program, we have a full
+dictionary with the word:count.
+
+618
+00:35:11,650 --> 00:35:12,460
+Okay?
+
+619
+00:35:12,460 --> 00:35:15,040
+And there's many of them.
+You know, all the words, all the counts.
+
+620
+00:35:15,040 --> 00:35:17,280
+They're not in any particular order. So now what
+
+621
+00:35:17,280 --> 00:35:21,800
+we're going to do is we're going to write
+a largest loop, find the largest.
+
+622
+00:35:21,800 --> 00:35:23,680
+Which is another thing that we've done.
+
+623
+00:35:23,800 --> 00:35:27,010
+So not only do I need to now know what
+largest count I've seen so far, 
+
+624
+00:35:27,010 --> 00:35:29,640
+I need to know what word that is.
+
+625
+00:35:29,640 --> 00:35:32,870
+So I'm going to set the largest count
+we've seen so far to None, set
+
+626
+00:35:32,870 --> 00:35:36,780
+the largest word we've seen so far
+to None, and then I'm going to use this
+
+627
+00:35:36,780 --> 00:35:38,740
+two-iteration variable pattern to say
+
+628
+00:35:38,740 --> 00:35:44,230
+go through the key/value pairs word and
+count in counts.items.
+
+629
+00:35:44,230 --> 00:35:44,920
+So it's just going to
+
+630
+00:35:44,920 --> 00:35:47,120
+go through [SOUND] all of them.
+
+631
+00:35:47,120 --> 00:35:52,930
+And then I'm going to ask if the largest
+number I've seen so far is None or
+
+632
+00:35:52,930 --> 00:35:56,410
+the current count that I'm looking at is
+greater then the largest I've seen so far,
+
+633
+00:35:59,280 --> 00:36:03,260
+keep them. Take the current word, stick it
+in biggest word so far,
+
+634
+00:36:03,260 --> 00:36:07,180
+take the current count, stick it in
+the biggest count so far.
+
+635
+00:36:07,180 --> 00:36:09,670
+So this is going run through all of the
+
+636
+00:36:09,670 --> 00:36:14,290
+word.count pairs, word.count key/value pairs.
+
+637
+00:36:14,290 --> 00:36:16,640
+And then when it comes out, it's going to
+print out
+
+638
+00:36:16,640 --> 00:36:19,430
+the word that's the most common and how
+many times.
+
+639
+00:36:20,680 --> 00:36:24,290
+So if we feed in that clown text, it will
+run all this stuff, and print out
+
+640
+00:36:24,290 --> 00:36:29,170
+oh, the is the most common word, and it
+appeared seven times.
+
+641
+00:36:29,170 --> 00:36:33,540
+Or if I print the stuff that was two
+slides back, words.txt, from the actual
+
+642
+00:36:33,540 --> 00:36:37,790
+textbook, then it says the word to is the
+most common and it happened 16 times.
+
+643
+00:36:37,790 --> 00:36:43,380
+So I could easily, you know, throw 10
+million, 10 million
+
+644
+00:36:43,380 --> 00:36:46,380
+words through this thing, and it would
+just be totally happy.
+
+645
+00:36:46,380 --> 00:36:49,370
+Right? And so, this is not that complex
+
+646
+00:36:49,370 --> 00:36:52,700
+of a problem, but it's using a whole bunch
+of idioms that we've been using.
+
+647
+00:36:52,700 --> 00:36:57,380
+The splitting of words, the accumulation
+of multiple counters in a dictionary.
+
+648
+00:36:57,380 --> 00:37:02,110
+And so, it sort of is the beginning of
+doing some kind of data
+
+649
+00:37:02,110 --> 00:37:06,040
+analysis that's hard for humans to do, and
+error-prone for humans to do.
+
+650
+00:37:06,040 --> 00:37:08,500
+And so this is, we're reviewing collections.
+
+651
+00:37:08,500 --> 00:37:10,510
+We've introduced dictionaries.
+
+652
+00:37:10,510 --> 00:37:13,310
+We've done the most common word pattern,
+talked about that.
+
+653
+00:37:13,310 --> 00:37:14,300
+The lack of order, and
+
+654
+00:37:14,310 --> 00:37:16,270
+I did that a bunch of times.
+
+655
+00:37:16,270 --> 00:37:19,750
+And we've looked ahead at tuples,
+which is the next,
+
+656
+00:37:19,750 --> 00:37:22,210
+the third kind of collection that we're
+going to talk about.
+
+657
+00:37:22,210 --> 00:37:25,890
+And they're actually in some ways a little
+simpler than dictionaries.
+
+658
+00:37:25,890 --> 00:37:27,150
+And simpler than lists.
+
+659
+00:37:27,150 --> 00:37:33,000
+So, see you in the next lecture, Chapter
+10, tuples.
+
