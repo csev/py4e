@@ -206,7 +206,7 @@ while True:
 <p>The program takes the search string and constructs a URL with the search string as a properly encoded parameter and then uses <em>urllib</em> to retrieve the text from the Google geocoding API. Unlike a fixed web page, the data we get depends on the parameters we send and the geographical data stored in Google's servers.</p>
 <p>Once we retrieve the JSON data, we parse it with the <em>json</em> library and do a few checks to make sure that we received good data, then extract the information that we are looking for.</p>
 <p>The output of the program is as follows (some of the returned JSON has been removed):</p>
-<pre><code>$ python geojson.py
+<pre><code>$ python3 geojson.py
 Enter location: Ann Arbor, MI
 Retrieving http://maps.googleapis.com/maps/api/
   geocode/json?address=Ann+Arbor%2C+MI
