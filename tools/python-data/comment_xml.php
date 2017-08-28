@@ -58,19 +58,19 @@ if ( $dueDate->message ) {
 <p>
 <b>Extracting Data from XML</b>
 <p>
-In this assignment you will write a Python program somewhat similar to 
-<a href="http://www.py4e.com/code3/geoxml.py" target="_blank">http://www.py4e.com/code3/geoxml.py</a>.  
-The program will prompt for a URL, read the XML data from that URL using 
-<b>urllib</b> and then parse and extract the comment counts from the XML data, 
+In this assignment you will write a Python program somewhat similar to
+<a href="http://www.py4e.com/code3/geoxml.py" target="_blank">http://www.py4e.com/code3/geoxml.py</a>.
+The program will prompt for a URL, read the XML data from that URL using
+<b>urllib</b> and then parse and extract the comment counts from the XML data,
 compute the sum of the numbers in the file.
 </p>
 <p>
 We provide two files for this assignment.  One is a sample file where we give you the sum for your
-testing and the other is the actual data you need to process for the assignment.  
+testing and the other is the actual data you need to process for the assignment.
 <ul>
-<li> Sample data: <a href="<?= deHttps($sample_url) ?>" target="_blank"><?= deHttps($sample_url) ?></a> 
+<li> Sample data: <a href="<?= deHttps($sample_url) ?>" target="_blank"><?= deHttps($sample_url) ?></a>
 (Sum=<?= $sum_sample ?>) </li>
-<li> Actual data: <a href="<?= deHttps($actual_url) ?>" target="_blank"><?= deHttps($actual_url) ?></a> 
+<li> Actual data: <a href="<?= deHttps($actual_url) ?>" target="_blank"><?= deHttps($actual_url) ?></a>
 (Sum ends with <?= $sum%100 ?>)<br/> </li>
 </ul>
 You do not need to save these files to your folder since your
@@ -88,27 +88,27 @@ The data consists of a number of names and comment counts in XML as follows:
 &lt;/comment&gt;
 </pre>
 You are to look through all the &lt;comment&gt; tags and find the &lt;count&gt; values
-sum the numbers.  
-The closest sample code that shows how to parse XML is 
+sum the numbers.
+The closest sample code that shows how to parse XML is
 <a href="http://www.py4e.com/code3/geoxml.py" target="_blank">geoxml.py</a>.
-But since the nesting of the elements in our data is different than the data 
+But since the nesting of the elements in our data is different than the data
 we are parsing in that sample code you will have to make real changes to the code.
 </p>
 <p>
-To make the code a little simpler, you can use an XPath selector string to 
-look through the entire tree of XML for any tag named 'count' with the following 
+To make the code a little simpler, you can use an XPath selector string to
+look through the entire tree of XML for any tag named 'count' with the following
 line of code:
 <pre>
 counts = tree.findall('.//count')
 </pre>
 Take a look at the Python ElementTree documentation and look for the supported XPath
-syntax for details.  You could also work from the top of the XML down to the comments 
+syntax for details.  You could also work from the top of the XML down to the comments
 node and then loop through the child nodes of the comments node.
 </p>
 <p><b>Sample Execution</b></p>
 <p>
 <pre>
-$ python solution.py 
+$ python3 solution.py
 Enter location: http://py4e-data.dr-chuck.net/comments_42.xml
 Retrieving http://py4e-data.dr-chuck.net/comments_42.xml
 Retrieved 4189 characters

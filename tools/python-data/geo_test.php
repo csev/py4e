@@ -29,7 +29,7 @@ $i = 500;
 foreach ($LOCATIONS as $key => $location) {
     // echo(htmlentities($location)."\n");
     $api_url = str_replace('geo_test.php','data/geojson',$url);
-    $sample_url = $api_url . '?sensor=false&address=' . urlencode($location);
+    $sample_url = $api_url . '?address=' . urlencode($location);
     $sample_data = Net::doGet($sample_url);
     $sample_count = strlen($sample_data);
     $response = Net::getLastHttpResponse();

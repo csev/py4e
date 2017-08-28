@@ -59,19 +59,19 @@ if ( $dueDate->message ) {
 <p>
 <b>Extracting Data from JSON</b>
 <p>
-In this assignment you will write a Python program somewhat similar to 
-<a href="http://www.py4e.com/code3/json2.py" target="_blank">http://www.py4e.com/code3/json2.py</a>.  
-The program will prompt for a URL, read the JSON data from that URL using 
-<b>urllib</b> and then parse and extract the comment counts from the JSON data, 
+In this assignment you will write a Python program somewhat similar to
+<a href="http://www.py4e.com/code3/json2.py" target="_blank">http://www.py4e.com/code3/json2.py</a>.
+The program will prompt for a URL, read the JSON data from that URL using
+<b>urllib</b> and then parse and extract the comment counts from the JSON data,
 compute the sum of the numbers in the file and enter the sum below:<br/>
 </p>
 <p>
 We provide two files for this assignment.  One is a sample file where we give you the sum for your
-testing and the other is the actual data you need to process for the assignment.  
+testing and the other is the actual data you need to process for the assignment.
 <ul>
-<li> Sample data: <a href="<?= deHttps($sample_url) ?>" target="_blank"><?= deHttps($sample_url) ?></a> 
+<li> Sample data: <a href="<?= deHttps($sample_url) ?>" target="_blank"><?= deHttps($sample_url) ?></a>
 (Sum=<?= $sum_sample ?>) </li>
-<li> Actual data: <a href="<?= deHttps($actual_url) ?>" target="_blank"><?= deHttps($actual_url) ?></a> 
+<li> Actual data: <a href="<?= deHttps($actual_url) ?>" target="_blank"><?= deHttps($actual_url) ?></a>
 (Sum ends with <?= $sum%100 ?>)<br/> </li>
 </ul>
 You do not need to save these files to your folder since your
@@ -98,15 +98,15 @@ The data consists of a number of names and comment counts in JSON as follows:
 }
 </pre>
 <p>
-The closest sample code that shows how to parse JSON and extract a list is 
-<a href="http://www.py4e.com/code3/json2.py" target="_blank">json2.py</a>.  You might also want 
+The closest sample code that shows how to parse JSON and extract a list is
+<a href="http://www.py4e.com/code3/json2.py" target="_blank">json2.py</a>.  You might also want
 to look at
 <a href="http://www.py4e.com/code3/geoxml.py" target="_blank">geoxml.py</a>
 to see how to prompt for a URL and retrieve data from a URL.
 </p>
 <p><b>Sample Execution</b></p>
 <pre>
-$ python solution.py 
+$ python3 solution.py
 Enter location: http://py4e-data.dr-chuck.net/comments_42.json
 Retrieving http://py4e-data.dr-chuck.net/comments_42.json
 Retrieved 2733 characters

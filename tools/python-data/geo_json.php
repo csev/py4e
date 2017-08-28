@@ -24,9 +24,9 @@ $actual_location = $actual[0];
 
 // Retrieve the data
 $api_url = dataUrl('geojson');
-$google_api = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=University+of+Michigan';
-$sample_url = $api_url . '?sensor=false&address=' . urlencode($sample_location);
-$actual_url = $api_url . '?sensor=false&address=' . urlencode($actual_location);
+$google_api = 'http://maps.googleapis.com/maps/api/geocode/json?address=University+of+Michigan';
+$sample_url = $api_url . '?address=' . urlencode($sample_location);
+$actual_url = $api_url . '?address=' . urlencode($actual_location);
 
 $sample_data = Net::doGet($sample_url);
 $sample_count = strlen($sample_data);
@@ -86,8 +86,8 @@ if ( $dueDate->message ) {
 <p>
 <b>Calling a JSON API</b>
 </p>
-In this assignment you will write a Python program somewhat similar to 
-<a href="http://www.py4e.com/code3/geojson.py" target="_blank">http://www.py4e.com/code3/geojson.py</a>.  
+In this assignment you will write a Python program somewhat similar to
+<a href="http://www.py4e.com/code3/geojson.py" target="_blank">http://www.py4e.com/code3/geojson.py</a>.
 The program will prompt for a location, contact a web service and retrieve
 JSON for the web service and parse that data, and retrieve the first
 <b>place_id</b> from the JSON.
@@ -103,16 +103,16 @@ of the Google Data:
 <pre>
 <a href="<?= deHttps($api_url) ?>" target="_blank"><?= deHttps($api_url) ?>?</a>
 </pre>
-This API uses the same parameters (sensor and address) as the Google API.  
+This API uses the same parameters (sensor and address) as the Google API.
 This API also has no rate limit so you can test as often as you like.
-If you visit the URL with no parameters, you get a list of all of the 
+If you visit the URL with no parameters, you get a list of all of the
 address values which can be used with this API.
 </p>
 <p>
-To call the API, you need to provide a <b>sensor=false</b> parameter and
-the address that you are requesting as the <b>address=</b> parameter that is 
-properly URL encoded using the <b>urllib.urlencode()</b> fuction as shown in 
-<a href="http://www.py4e.com/code3/geojson.py" 
+To call the API, you need to provide
+address that you are requesting as the <b>address=</b> parameter that is
+properly URL encoded using the <b>urllib.urlencode()</b> fuction as shown in
+<a href="http://www.py4e.com/code3/geojson.py"
 target="_blank">http://www.py4e.com/code3/geojson.py</a>
 </p>
 <!--
@@ -123,22 +123,22 @@ Just for fun, you can also test your program with the real Google API:
 </pre>
 Since Google's data is always changing, the data returned from the Google API
 could easily be different than from my local copy API.  And the Google
-API has rate limits.  But your code should work with the Google API 
+API has rate limits.  But your code should work with the Google API
 with no modifications other than the base URL.
 </p>
 -->
 <?php httpsWarning($api_url); ?>
 <p><b>Test Data / Sample Execution</b></p>
 <p>
-You can test to see if your program is working with a 
-location of "<?= $sample_location ?>" which will have a 
+You can test to see if your program is working with a
+location of "<?= $sample_location ?>" which will have a
 <b>place_id</b> of "<?= $sample_place ?>".
 <pre>
-$ python solution.py
-Enter location: <?= $sample_location ?> 
+$ python3 solution.py
+Enter location: <?= $sample_location ?>
 Retrieving http://...
 Retrieved <?= $sample_count ?> characters
-Place id <?= $sample_place ?> 
+Place id <?= $sample_place ?>
 </pre>
 </p>
 <p><b>Turn In</b></p>
@@ -153,7 +153,7 @@ Hint: The first seven characters of the <b>place_id</b>
 are "<?= substr($actual_place,0,7) ?> ..."<br/>
 </p>
 <p>
-Make sure to retreive the data from the URL specified above and <b>not</b> the 
+Make sure to retreive the data from the URL specified above and <b>not</b> the
 normal Google API.  Your program should work with the Google API - but the
 <b>place_id</b> may not match for this assignment.
 </p>

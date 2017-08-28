@@ -20,7 +20,7 @@ $url = 'http://maps.googleapis.com/maps/api/geocode/json?';
 $i = 400;
 while (($address = fgets($file)) !== false) {
     $address = trim($address);
-    $actual_url = $url . '?sensor=false&address=' . urlencode($address);
+    $actual_url = $url . '?address=' . urlencode($address);
     $actual_data = Net::doGet($actual_url);
     $actual_count = strlen($actual_data);
     $response = Net::getLastHttpResponse();
