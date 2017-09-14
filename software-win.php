@@ -6,6 +6,9 @@ If you have a verison of Python 3.x on your computer already you should be able 
 </p>
 <p>Please download and install Python 3.x from:</p>
 <p><a href="http://www.python.org/download/" target="_blank">http://www.python.org/download/</a></p>
+<p>As you install Python, make sure to check the "Add Python 3.5 to PATH" so that you can 
+type <b>python</b> at the command line prompt to run Python.
+</p>
 <b>Installing the Atom Text Editor</b>
 <p>Please download and install Atom from this site:
 </p>
