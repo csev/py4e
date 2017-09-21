@@ -1,5 +1,9 @@
 <?php include("top.php");?>
 <?php include("nav.php");?>
+<div id="iframe-dialog" title="Read Only Dialog" style="display: none;">
+   <iframe name="iframe-frame" style="height:600px" id="iframe-frame" 
+    src="<?= $OUTPUT->getSpinnerUrl() ?>"></iframe>
+</div>
 <div style="float: right;"/><iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=drchu02-20&marketplace=amazon&region=US&placement=1530051126&asins=1530051126&linkId=2ea6c883c6cf11f29568856139bad34b&show_border=true&link_opens_in_new_window=true"></iframe></div>
         <h2>Free/Open Course Materials</h2>
         <p>
@@ -64,11 +68,13 @@ your credentials once you get your key.
 </li>
 <li>
 <p>
-If your LMS supports the 
+<a href="tsugi/cc/select" title="Download course material" target="iframe-frame"
+  onclick="showModalIframe(this.title, 'iframe-dialog', 'iframe-frame', _TSUGI.spinnerUrl, true);" >
+  Download course material
+  </a> as an 
 <a href="https://www.imsglobal.org/cc/index.html" target="_blank">
-IMS Common Cartridge®</a> specification, we provide a single file 
-<a href="tsugi/cc/export.php">export</a>
-of all of the course tools and materials that can be loaded into your LMS.
+IMS Common Cartridge®</a>, to import into an LMS like Sakai, Moodle, Canvas,
+Desire2Learn, Blackboard, or similar.
 After loading the Cartridge, you will need an LTI key and secret to provision the
 LTI-based tools provided in that cartridge.
 </p>
