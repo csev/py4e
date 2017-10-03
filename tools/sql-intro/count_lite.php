@@ -140,8 +140,8 @@ the use of the <b>connect()</b> statement.
 </p>
 <h1>Counting Organizations</h1>
 <p>
-This application will read the mailbox data (mbox.txt) count up the
-number email messages per organization (i.e. domain name of the email
+This application will read the mailbox data (mbox.txt) and count the
+number of email messages per organization (i.e. domain name of the email
 address) using a database with the following schema to maintain the counts.
 <pre>
 CREATE TABLE Counts (org TEXT, count INTEGER)
