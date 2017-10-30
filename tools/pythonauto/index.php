@@ -751,7 +751,7 @@ function load_cm() {
         }
     })
     $('#info').modal();
-<? } ?>
+<?php } ?>
     load_files();
     if ( MOBILE === false ) {
 <?php if ( $codemirror ) { ?>
