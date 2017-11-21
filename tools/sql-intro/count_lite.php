@@ -72,6 +72,7 @@ if ( isset($_FILES['database']) ) {
     $good = 0;
 
     while ($row = $results->fetchArray()) {
+        $row[0] = trim($row[0]);
         if ( !isset($answer[$row[0]]) ) continue;
         if ( $answer[$row[0]] != $row[1] ) continue;
         $good++;
