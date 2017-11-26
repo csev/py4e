@@ -31,6 +31,9 @@ if ( isset($_SESSION['id']) ) {
     if ( $CFG->providekeys ) {
         $submenu->addLink('LMS Integration', $T . 'admin/key/index');
     }
+    if ( isset($CFG->google_classroom_secret) ) {
+        $submenu->addLink('Google Classroom', $T.'gclass/login');
+    }
     if ( isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true" ) {
         $submenu->addLink('Administer', $T . 'admin/');
     }
