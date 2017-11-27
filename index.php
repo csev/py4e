@@ -54,6 +54,10 @@ it is as if you have joined a free, global
 open and online course.  You have a grade book, autograded assignments, a discussion forum, and can earn
 badges for your efforts.</li>
 <li class="list-group-item">
+We take your privacy seriously on this site, you can review our
+<a href="privacy">Privacy Policy</a> for more details.
+</li>
+<li class="list-group-item">
 If you want to use these materials 
 in your own classes you can download or link to the artifacts on this site,
 <a href="tsugi/cc/export.php">export the course material</a> as an

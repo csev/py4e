@@ -25,19 +25,20 @@ if ( isset($_SESSION['id']) ) {
 
     $submenu->addLink('Badges', $R.'badges');
     $submenu->addLink('Materials', $R.'materials');
-    if ( $CFG->DEVELOPER ) {
-        $submenu->addLink('Test LTI Tools', $T . 'dev');
-    }
     if ( $CFG->providekeys ) {
         $submenu->addLink('LMS Integration', $T . 'admin/key/index');
     }
     if ( isset($CFG->google_classroom_secret) ) {
         $submenu->addLink('Google Classroom', $T.'gclass/login');
     }
+    $submenu->addLink('Privacy', $R.'privacy');
+    $submenu->addLink('Rate this course', 'https://www.class-central.com/mooc/7363/python-for-everybody');
     if ( isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true" ) {
         $submenu->addLink('Administer', $T . 'admin/');
     }
-    $submenu->addLink('Rate this course', 'https://www.class-central.com/mooc/7363/python-for-everybody');
+    if ( $CFG->DEVELOPER ) {
+        $submenu->addLink('Test LTI Tools', $T . 'dev');
+    }
     $submenu->addLink('Logout', $R.'logout');
     if ( isset($_SESSION['avatar']) ) {
         $set->addRight('<img src="'.$_SESSION['avatar'].'" style="height: 2em;"/>', $submenu);
