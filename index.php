@@ -16,7 +16,7 @@ Now that you have logged in, you have access to course-style features of this we
 As you go through the <a href="lessons">Lessons</a> in the course you now will see additional
 links to the autograders in the class.  You can attempt the autograders and get a score.</li>
 <li class="list-group-item">
-You can track your progress through the course using the <a href="assignment">Assignments</a>
+You can track your progress through the course using the <a href="assignments">Assignments</a>
 tool and when you complete a group of assignments, you can earn a <a href="tsugi/badges.php">Badge</a>.
 You can download these badges and host them on your web site or refer the badge URLs on this site.</li>
 <li class="list-group-item">
