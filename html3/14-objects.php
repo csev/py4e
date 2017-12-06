@@ -232,7 +232,7 @@ an contains 42</code></pre>
 <p>As Python is constructing our object, it calls our <code>__init__</code> method to give us a chance to set up some default or initial values for the object. When Python encounters the line:</p>
 <pre><code>an = 42</code></pre>
 <p>It actually 'thows our object away' so it can reuse the <code>an</code> variable to store the value <code>42</code>. Just at the moment when our <code>an</code> object is being 'destroyed' our destructor code (<code>__del__</code>) is called. We cannot stop our variable from being destroyed, but we can do any necessary cleanup right before our object no longer exists.</p>
-<p>When developing objects, it is quite common to add a constructor to an object to set in initial values in the object, it is relatively rare to need to need a destructor for an object.</p>
+<p>When developing objects, it is quite common to add a constructor to an object to set in initial values in the object, it is relatively rare to need a destructor for an object.</p>
 <h2 id="many-instances">Many Instances</h2>
 <p>So far, we have been defining a class, making a single object, using that object, and then throwing the object away. But the real power in object oriented happens when we make many instances of our class.</p>
 <p>When we are making multiple objects from our class, we might want to set up different initial values for each of the objects. We can pass data into the constructors to give each object a different initial value:</p>
@@ -248,8 +248,9 @@ an contains 42</code></pre>
      print(self.name,&#39;party count&#39;,self.x)
 
 s = PartyAnimal(&#39;Sally&#39;)
-s.party()
 j = PartyAnimal(&#39;Jim&#39;)
+
+s.party()
 j.party()
 s.party()
 
@@ -322,7 +323,7 @@ print (stuff.__getitem__(0))
 print (list.__getitem__(stuff,0))
 
 # Code: http://www.py4e.com/code3/party1.py</code></pre>
-<p>The first line constructs a <code>list</code> <em>object</em>. When Python creates the <code>list</code> object, it calls the <em>constructor</em> method (named <code>__init__</code>) to set up the internal data attributes that will be used to store the list data. Due to <em>encapsulation</em> we neither need to know, nor need to care about these in internal data attributes are arranged.</p>
+<p>The first line constructs a <code>list</code> <em>object</em>. When Python creates the <code>list</code> object, it calls the <em>constructor</em> method (named <code>__init__</code>) to set up the internal data attributes that will be used to store the list data. Due to <em>encapsulation</em> we neither need to know, nor need to care about how these internal data attributes are arranged.</p>
 <p>We are not passing any parameters to the <em>constructor</em> and when the constructor returns, we use the variable <code>stuff</code> to point to the returned instance of the <code>list</code> class.</p>
 <p>The second and third lines are calling the <code>append</code> method with one parameter to add a new item at the end of the list by updating the attributes within <code>stuff</code>. Then in the fourth line, we call the <code>sort</code> method with no parameters to sort the data within the <code>stuff</code> object.</p>
 <p>Then we print out the first item in the list using the square brackets which are a shortcut to calling the <code>__getitem__</code> method within the <code>stuff</code> <em>object</em>. And this is equivalent to calling the <code>__getitem__</code> method in the <code>list</code> <em>class</em> passing the <code>stuff</code> object in as the first parameter and the position we are looking for as the second parameter.</p>

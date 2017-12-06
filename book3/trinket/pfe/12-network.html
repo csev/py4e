@@ -1,5 +1,3 @@
-{% extends "books/pfe/base.html" %}
-
 {% block chaptercontent %}
 <div class="row">
 <div class="columns small-12">
@@ -7,19 +5,19 @@
 <h1 id="networked-programs">Networked programs</h1>
 <p>While many of the examples in this book have focused on reading files and looking for data in those files, there are many different sources of</p>
 <p>information when one considers the Internet.</p>
-<p>In this chapter we will pretend to be a web browser and retrieve web pages using the HyperText Transport Protocol (HTTP). Then we will read through the web page data and parse it.</p>
-<h2 id="hypertext-transport-protocol---http">HyperText Transport Protocol - HTTP</h2>
+<p>In this chapter we will pretend to be a web browser and retrieve web pages using the HyperText Transfer Protocol (HTTP). Then we will read through the web page data and parse it.</p>
+<h2 id="hypertext-transfer-protocol---http">HyperText Transfer Protocol - HTTP</h2>
 <p>The network protocol that powers the web is actually quite simple and there is built-in support in Python called <code>sockets</code> which makes it very easy to make network connections and retrieve data over those sockets in a Python program.</p>
 <p>A <em>socket</em> is much like a file, except that a single socket provides a two-way connection between two programs. You can both read from and write to the same socket. If you write something to a socket, it is sent to the application at the other end of the socket. If you read from the socket, you are given the data which the other application has sent.</p>
-<p>But if you try to read a socket when the program on the other end of the socket has not sent any data—you just sit and wait. If the programs on both ends of the socket simply wait for some data without sending anything, they will wait for a very long time.</p>
+<p>But if you try to read a socket when the program on the other end of the socket has not sent any data, you just sit and wait. If the programs on both ends of the socket simply wait for some data without sending anything, they will wait for a very long time.</p>
 <p>So an important part of programs that communicate over the Internet is to have some sort of protocol. A protocol is a set of precise rules that determine who is to go first, what they are to do, and then what the responses are to that message, and who sends next, and so on. In a sense the two applications at either end of the socket are doing a dance and making sure not to step on each other's toes.</p>
-<p>There are many documents which describe these network protocols. The HyperText Transport Protocol is described in the following document:</p>
+<p>There are many documents which describe these network protocols. The HyperText Transfer Protocol is described in the following document:</p>
 <p><a href="http://www.w3.org/Protocols/rfc2616/rfc2616.txt" class="uri">http://www.w3.org/Protocols/rfc2616/rfc2616.txt</a></p>
-<p>This is a long and complex 176-page document with a lot of detail. If you find it interesting, feel free to read it all. But if you take a look around page 36 of RFC2616 you will find the syntax for the GET request. To request a document from a web server, we make a connection to the <code>www.pythonlearn.com</code> server on port 80, and then send a line of the form</p>
-<p><code>GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0</code></p>
+<p>This is a long and complex 176-page document with a lot of detail. If you find it interesting, feel free to read it all. But if you take a look around page 36 of RFC2616 you will find the syntax for the GET request. To request a document from a web server, we make a connection to the <code>www.pr4e.org</code> server on port 80, and then send a line of the form</p>
+<p><code>GET http://data.pr4e.org/romeo.txt HTTP/1.0</code></p>
 <p>where the second parameter is the web page we are requesting, and then we also send a blank line. The web server will respond with some header information about the document and a blank line followed by the document content.</p>
 <h2 id="the-worlds-simplest-web-browser">The World's Simplest Web Browser</h2>
-<p>Perhaps the easiest way to show how the HTTP protocol works is to write a very simple Python program that makes a connection to a web server and follows the rules of the HTTP protocol to requests a document and display what the server sends back.</p>
+<p>Perhaps the easiest way to show how the HTTP protocol works is to write a very simple Python program that makes a connection to a web server and follows the rules of the HTTP protocol to request a document and display what the server sends back.</p>
 <script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
 <iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" class="lazyload" allowfullscreen>
 </iframe>
@@ -27,24 +25,24 @@
 import socket
 
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mysock.connect(('www.pythonlearn.com', 80))
-cmd = 'GET http://www.pythonlearn.com/code3/romeo.txt HTTP/1.0\n\n'.encode()
-mysock.send(cmd);
+mysock.connect(('data.pr4e.org', 80))
+cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\r\n\r\n'.encode()
+mysock.send(cmd)
 
 while True:
-    data = mysock.recv(512)
-    if ( len(data) < 1 ) :
+    data = mysock.recv(20)
+    if (len(data) < 1):
         break
-    print(data.decode());
+    print(data.decode(),end='')
 
 mysock.close()
 
-# Code: http://www.pythonlearn.com/code3/socket1.py
+# Code: http://www.py4e.com/code3/socket1.py
 # Or select Download from this trinket's left-hand menu
 -->
-<p>First the program makes a connection to port 80 on the server <a href="http://www.pythonlearn.com">www.pythonlearn.com</a>. Since our program is playing the role of the &quot;web browser&quot;, the HTTP protocol says we must send the GET command followed by a blank line.</p>
+<p>First the program makes a connection to port 80 on the server <a href="http://www.py4e.com">www.py4e.com</a>. Since our program is playing the role of the &quot;web browser&quot;, the HTTP protocol says we must send the GET command followed by a blank line.</p>
 <div class="figure">
-<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bD0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIxNiAxNiAzOTEgMjAyIiB3aWR0aD0iMzkxcHQiIGhlaWdodD0iMjAycHQiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+PG1ldGFkYXRhPiBQcm9kdWNlZCBieSBPbW5pR3JhZmZsZSA2LjQuMSA8ZGM6ZGF0ZT4yMDE2LTAxLTE2IDIwOjI1OjAyICswMDAwPC9kYzpkYXRlPjwvbWV0YWRhdGE+PGRlZnM+PGZvbnQtZmFjZSBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIHBhbm9zZS0xPSIyIDAgNSAzIDAgMCAwIDIgMCA0IiB1bml0cy1wZXItZW09IjEwMDAiIHVuZGVybGluZS1wb3NpdGlvbj0iLTEwMCIgdW5kZXJsaW5lLXRoaWNrbmVzcz0iNTAiIHNsb3BlPSIwIiB4LWhlaWdodD0iNTE3IiBjYXAtaGVpZ2h0PSI3MTQiIGFzY2VudD0iOTUxLjk5NTg1IiBkZXNjZW50PSItMjEyLjk5NzQ0IiBmb250LXdlaWdodD0iNTAwIj48Zm9udC1mYWNlLXNyYz48Zm9udC1mYWNlLW5hbWUgbmFtZT0iSGVsdmV0aWNhTmV1ZSIvPjwvZm9udC1mYWNlLXNyYz48L2ZvbnQtZmFjZT48Zm9udC1mYWNlIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNCIgcGFub3NlLTE9IjIgMCA1IDMgMCAwIDAgMiAwIDQiIHVuaXRzLXBlci1lbT0iMTAwMCIgdW5kZXJsaW5lLXBvc2l0aW9uPSItMTAwIiB1bmRlcmxpbmUtdGhpY2tuZXNzPSI1MCIgc2xvcGU9IjAiIHgtaGVpZ2h0PSI1MTciIGNhcC1oZWlnaHQ9IjcxNCIgYXNjZW50PSI5NTEuOTk1ODUiIGRlc2NlbnQ9Ii0yMTIuOTk3NDQiIGZvbnQtd2VpZ2h0PSI1MDAiPjxmb250LWZhY2Utc3JjPjxmb250LWZhY2UtbmFtZSBuYW1lPSJIZWx2ZXRpY2FOZXVlIi8+PC9mb250LWZhY2Utc3JjPjwvZm9udC1mYWNlPjwvZGVmcz48ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIxIiBzdHJva2UtZGFzaGFycmF5PSJub25lIiBmaWxsPSJub25lIiBmaWxsLW9wYWNpdHk9IjEiPjx0aXRsZT5DYW52YXMgMTwvdGl0bGU+PHJlY3QgZmlsbD0id2hpdGUiIHdpZHRoPSI1NDUiIGhlaWdodD0iNDk1Ii8+PGc+PHRpdGxlPkxheWVyIDE8L3RpdGxlPjxyZWN0IHg9IjE4IiB5PSIxOCIgd2lkdGg9IjEzNSIgaGVpZ2h0PSIxODAiIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iMTgiIHk9IjE4IiB3aWR0aD0iMTM1IiBoZWlnaHQ9IjE4MCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMyAyMykiIGZpbGw9ImJsYWNrIj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI0Ni41IiB5PSIxNSIgdGV4dExlbmd0aD0iMTAuMzY4Ij5ZPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI1NS4wOTIiIHk9IjE1IiB0ZXh0TGVuZ3RoPSIyMy40MDgiPm91cjwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMzEuODI4IiB5PSIzMyIgdGV4dExlbmd0aD0iMTUuNjk2Ij5QcjwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iNDcuMjM2IiB5PSIzMyIgdGV4dExlbmd0aD0iNDUuOTM2Ij5vZ3JhbTwvdHNwYW4+PC90ZXh0PjxyZWN0IHg9IjEzNSIgeT0iNzIiIHdpZHRoPSIyNyIgaGVpZ2h0PSIxMDgiIGZpbGw9IiMwMGJmYzAiLz48cmVjdCB4PSIxMzUiIHk9IjcyIiB3aWR0aD0iMjciIGhlaWdodD0iMTA4IiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0MCA3OCkiIGZpbGw9ImJsYWNrIj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNTAwIiB4PSIzLjk2NCIgeT0iMTMiIHRleHRMZW5ndGg9IjkuMDcyIj5TPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNTAwIiB4PSIzLjE4IiB5PSIyOSIgdGV4dExlbmd0aD0iMTAuNjQiPk88L3RzcGFuPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjMuNDQ2IiB5PSI0NSIgdGV4dExlbmd0aD0iMTAuMTA4Ij5DPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNTAwIiB4PSIzLjgzMSIgeT0iNjEiIHRleHRMZW5ndGg9IjkuMzM4Ij5LPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNTAwIiB4PSI0LjIyMyIgeT0iNzciIHRleHRMZW5ndGg9IjguNTU0Ij5FPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNTAwIiB4PSI0LjQ4MiIgeT0iOTMiIHRleHRMZW5ndGg9IjguMDM2Ij5UPC90c3Bhbj48L3RleHQ+PHJlY3QgeD0iNjMiIHk9IjcyIiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iNjMiIHk9IjcyIiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjggNzYuNSkiIGZpbGw9ImJsYWNrIj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI3LjE0NCIgeT0iMTUiIHRleHRMZW5ndGg9IjQ3LjcxMiI+c29ja2V0PC90c3Bhbj48L3RleHQ+PHJlY3QgeD0iNjMiIHk9Ijk5IiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iNjMiIHk9Ijk5IiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjggMTAzLjUpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMi4xMDQiIHk9IjE1IiB0ZXh0TGVuZ3RoPSI1Ny43OTIiPmNvbm5lY3Q8L3RzcGFuPjwvdGV4dD48cmVjdCB4PSI2MyIgeT0iMTI2IiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iNjMiIHk9IjEyNiIgd2lkdGg9IjcyIiBoZWlnaHQ9IjI3IiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHRyYW5zZm9ybT0idHJhbnNsYXRlKDY4IDEzMC41KSIgZmlsbD0iYmxhY2siPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjEzLjUxMiIgeT0iMTUiIHRleHRMZW5ndGg9IjM0Ljk3NiI+c2VuZDwvdHNwYW4+PC90ZXh0PjxyZWN0IHg9IjYzIiB5PSIxNTMiIHdpZHRoPSI3MiIgaGVpZ2h0PSIyNyIgZmlsbD0id2hpdGUiLz48cmVjdCB4PSI2MyIgeT0iMTUzIiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjggMTU3LjUpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMTUuODg4IiB5PSIxNSIgdGV4dExlbmd0aD0iNS4zMjgiPnI8L3RzcGFuPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjIwLjkyOCIgeT0iMTUiIHRleHRMZW5ndGg9IjI1LjE4NCI+ZWN2PC90c3Bhbj48L3RleHQ+PHBhdGggZD0iTSAyMjQuOTg2NTkgMTI3LjYzNDU4IEMgMTkxLjUzMTI1IDExNyAyMDQuODcyNCAyNy40NzQzIDI1OC4yNDExNCA0Mi43NSBDIDI2My4xOTI1OCAxMi45NzI3OCAzMjUuMjUzMjUgMTcuODA1OTYgMzI0Ljg0NzUzIDQyLjc1IEMgMzYzLjc2MTQ2IDEwLjg0NjI2IDQxMy40OTExNCA3NC40NjE2OCAzODAuMTM1MTYgMTA2LjM2NTQyIEMgNDIwLjE2MDY4IDEyMS44MzMxOCAzNzkuNjMwMDggMjA1LjE3MTM4IDM0Ni43ODEyNSAxOTEuMjUgQyAzNDQuMTUyMzUgMjE0LjQ1MzYyIDI4NS40Mjg1MiAyMjIuNTczNiAyODAuMjc0MjIgMTkxLjI1IEMgMjQ3LjAyMTc0IDIyNC43MDIxIDE3Ny42ODUwMiAxNzMuMjY3NjQgMjI0Ljk4NjU5IDEyNy42MzQ1OCBaIiBmaWxsPSJ3aGl0ZSIvPjxwYXRoIGQ9Ik0gMjI0Ljk4NjU5IDEyNy42MzQ1OCBDIDE5MS41MzEyNSAxMTcgMjA0Ljg3MjQgMjcuNDc0MyAyNTguMjQxMTQgNDIuNzUgQyAyNjMuMTkyNTggMTIuOTcyNzggMzI1LjI1MzI1IDE3LjgwNTk2IDMyNC44NDc1MyA0Mi43NSBDIDM2My43NjE0NiAxMC44NDYyNiA0MTMuNDkxMTQgNzQuNDYxNjggMzgwLjEzNTE2IDEwNi4zNjU0MiBDIDQyMC4xNjA2OCAxMjEuODMzMTggMzc5LjYzMDA4IDIwNS4xNzEzOCAzNDYuNzgxMjUgMTkxLjI1IEMgMzQ0LjE1MjM1IDIxNC40NTM2MiAyODUuNDI4NTIgMjIyLjU3MzYgMjgwLjI3NDIyIDE5MS4yNSBDIDI0Ny4wMjE3NCAyMjQuNzAyMSAxNzcuNjg1MDIgMTczLjI2NzY0IDIyNC45ODY1OSAxMjcuNjM0NTggWiIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMTIgNTgpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iOS4yMTIiIHk9IjE1IiB0ZXh0TGVuZ3RoPSIzNi4zODQiPnd3dzwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iNDQuNzE2IiB5PSIxNSIgdGV4dExlbmd0aD0iODAuMDE2Ij4ucHl0aG9ubGVhcjwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMTI1LjAyIiB5PSIxNSIgdGV4dExlbmd0aD0iNDQuNzY4Ij5uLmNvbTwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iNDguOTE2IiB5PSI1MSIgdGV4dExlbmd0aD0iMTQuODE2Ij5XPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI2Mi44MiIgeT0iNTEiIHRleHRMZW5ndGg9IjY3LjI2NCI+ZWIgUGFnZXM8L3RzcGFuPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9Ijg3LjI3NiIgeT0iNjkiIHRleHRMZW5ndGg9IjQuNDQ4Ij4uPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI4Ny4yNzYiIHk9Ijg3IiB0ZXh0TGVuZ3RoPSI0LjQ0OCI+LjwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iODcuMjc2IiB5PSIxMDUiIHRleHRMZW5ndGg9IjQuNDQ4Ij4uPC90c3Bhbj48L3RleHQ+PHJlY3QgeD0iMTYyIiB5PSIxMDgiIHdpZHRoPSI4MSIgaGVpZ2h0PSIyNyIgZmlsbD0iIzAwYmZjMCIvPjxyZWN0IHg9IjE2MiIgeT0iMTA4IiB3aWR0aD0iODEiIGhlaWdodD0iMjciIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTY3IDExMi41KSIgZmlsbD0iYmxhY2siPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9ImJsYWNrIiB4PSIxOC44NCIgeT0iMTUiIHRleHRMZW5ndGg9IjUyLjE2Ij5Qb3J0IDgwPC90c3Bhbj48L3RleHQ+PC9nPjwvZz48L3N2Zz4K" alt="A Socket Connection" />
+<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bD0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIxNiAxNiAzOTEgMjAyIiB3aWR0aD0iMzkxcHQiIGhlaWdodD0iMjAycHQiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+PG1ldGFkYXRhPiBQcm9kdWNlZCBieSBPbW5pR3JhZmZsZSA2LjYgPGRjOmRhdGU+MjAxNi0wOS0yMyAxOTo0ODo1OCArMDAwMDwvZGM6ZGF0ZT48L21ldGFkYXRhPjxkZWZzPjxmb250LWZhY2UgZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBwYW5vc2UtMT0iMiAwIDUgMyAwIDAgMCAyIDAgNCIgdW5pdHMtcGVyLWVtPSIxMDAwIiB1bmRlcmxpbmUtcG9zaXRpb249Ii0xMDAiIHVuZGVybGluZS10aGlja25lc3M9IjUwIiBzbG9wZT0iMCIgeC1oZWlnaHQ9IjUxNyIgY2FwLWhlaWdodD0iNzE0IiBhc2NlbnQ9Ijk1MS45OTU4NSIgZGVzY2VudD0iLTIxMi45OTc0NCIgZm9udC13ZWlnaHQ9IjUwMCI+PGZvbnQtZmFjZS1zcmM+PGZvbnQtZmFjZS1uYW1lIG5hbWU9IkhlbHZldGljYU5ldWUiLz48L2ZvbnQtZmFjZS1zcmM+PC9mb250LWZhY2U+PGZvbnQtZmFjZSBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTQiIHBhbm9zZS0xPSIyIDAgNSAzIDAgMCAwIDIgMCA0IiB1bml0cy1wZXItZW09IjEwMDAiIHVuZGVybGluZS1wb3NpdGlvbj0iLTEwMCIgdW5kZXJsaW5lLXRoaWNrbmVzcz0iNTAiIHNsb3BlPSIwIiB4LWhlaWdodD0iNTE3IiBjYXAtaGVpZ2h0PSI3MTQiIGFzY2VudD0iOTUxLjk5NTg1IiBkZXNjZW50PSItMjEyLjk5NzQ0IiBmb250LXdlaWdodD0iNTAwIj48Zm9udC1mYWNlLXNyYz48Zm9udC1mYWNlLW5hbWUgbmFtZT0iSGVsdmV0aWNhTmV1ZSIvPjwvZm9udC1mYWNlLXNyYz48L2ZvbnQtZmFjZT48L2RlZnM+PGcgc3Ryb2tlPSJub25lIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLWRhc2hhcnJheT0ibm9uZSIgZmlsbD0ibm9uZSIgZmlsbC1vcGFjaXR5PSIxIj48dGl0bGU+Q2FudmFzIDE8L3RpdGxlPjxyZWN0IGZpbGw9IndoaXRlIiB3aWR0aD0iNTQ1IiBoZWlnaHQ9IjQ5NSIvPjxnPjx0aXRsZT5MYXllciAxPC90aXRsZT48cmVjdCB4PSIxOCIgeT0iMTgiIHdpZHRoPSIxMzUiIGhlaWdodD0iMTgwIiBmaWxsPSJ3aGl0ZSIvPjxyZWN0IHg9IjE4IiB5PSIxOCIgd2lkdGg9IjEzNSIgaGVpZ2h0PSIxODAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjMgMjMpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iNDYuNSIgeT0iMTUiIHRleHRMZW5ndGg9IjEwLjM2OCI+WTwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iNTUuMDkyIiB5PSIxNSIgdGV4dExlbmd0aD0iMjMuNDA4Ij5vdXI8L3RzcGFuPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjMxLjgyOCIgeT0iMzMuNDQ3OTk4IiB0ZXh0TGVuZ3RoPSIxNS42OTYiPlByPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI0Ny4yMzYiIHk9IjMzLjQ0Nzk5OCIgdGV4dExlbmd0aD0iNDUuOTM2Ij5vZ3JhbTwvdHNwYW4+PC90ZXh0PjxyZWN0IHg9IjEzNSIgeT0iNzIiIHdpZHRoPSIyNyIgaGVpZ2h0PSIxMDgiIGZpbGw9IiMwMGJmYzAiLz48cmVjdCB4PSIxMzUiIHk9IjcyIiB3aWR0aD0iMjciIGhlaWdodD0iMTA4IiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0MCA3Ni44MjQwMDUpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMy45NjQiIHk9IjEzIiB0ZXh0TGVuZ3RoPSI5LjA3MiI+UzwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMy4xOCIgeT0iMjkuMzkxOTk4IiB0ZXh0TGVuZ3RoPSIxMC42NCI+TzwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMy40NDYiIHk9IjQ1Ljc4Mzk5NyIgdGV4dExlbmd0aD0iMTAuMTA4Ij5DPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNTAwIiB4PSIzLjgzMSIgeT0iNjIuMTc1OTk1IiB0ZXh0TGVuZ3RoPSI5LjMzOCI+SzwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iNC4yMjMiIHk9Ijc4LjU2Nzk5MyIgdGV4dExlbmd0aD0iOC41NTQiPkU8L3RzcGFuPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjQuNDgyIiB5PSI5NC45NTk5OSIgdGV4dExlbmd0aD0iOC4wMzYiPlQ8L3RzcGFuPjwvdGV4dD48cmVjdCB4PSI2MyIgeT0iNzIiIHdpZHRoPSI3MiIgaGVpZ2h0PSIyNyIgZmlsbD0id2hpdGUiLz48cmVjdCB4PSI2MyIgeT0iNzIiIHdpZHRoPSI3MiIgaGVpZ2h0PSIyNyIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2OCA3Ni4yNzYpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iNy4xNDQiIHk9IjE1IiB0ZXh0TGVuZ3RoPSI0Ny43MTIiPnNvY2tldDwvdHNwYW4+PC90ZXh0PjxyZWN0IHg9IjYzIiB5PSI5OSIgd2lkdGg9IjcyIiBoZWlnaHQ9IjI3IiBmaWxsPSJ3aGl0ZSIvPjxyZWN0IHg9IjYzIiB5PSI5OSIgd2lkdGg9IjcyIiBoZWlnaHQ9IjI3IiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHRyYW5zZm9ybT0idHJhbnNsYXRlKDY4IDEwMy4yNzYpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMi4xMDQiIHk9IjE1IiB0ZXh0TGVuZ3RoPSI1Ny43OTIiPmNvbm5lY3Q8L3RzcGFuPjwvdGV4dD48cmVjdCB4PSI2MyIgeT0iMTI2IiB3aWR0aD0iNzIiIGhlaWdodD0iMjciIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iNjMiIHk9IjEyNiIgd2lkdGg9IjcyIiBoZWlnaHQ9IjI3IiBzdHJva2U9ImJsYWNrIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHRyYW5zZm9ybT0idHJhbnNsYXRlKDY4IDEzMC4yNzYpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMTMuNTEyIiB5PSIxNSIgdGV4dExlbmd0aD0iMzQuOTc2Ij5zZW5kPC90c3Bhbj48L3RleHQ+PHJlY3QgeD0iNjMiIHk9IjE1MyIgd2lkdGg9IjcyIiBoZWlnaHQ9IjI3IiBmaWxsPSJ3aGl0ZSIvPjxyZWN0IHg9IjYzIiB5PSIxNTMiIHdpZHRoPSI3MiIgaGVpZ2h0PSIyNyIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2OCAxNTcuMjc2KSIgZmlsbD0iYmxhY2siPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjE1Ljg4OCIgeT0iMTUiIHRleHRMZW5ndGg9IjUuMzI4Ij5yPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSIyMC45MjgiIHk9IjE1IiB0ZXh0TGVuZ3RoPSIyNS4xODQiPmVjdjwvdHNwYW4+PC90ZXh0PjxwYXRoIGQ9Ik0gMjI0Ljk4NjU5IDEyNy42MzQ1OCBDIDE5MS41MzEyNSAxMTcgMjA0Ljg3MjQgMjcuNDc0MyAyNTguMjQxMTQgNDIuNzUgQyAyNjMuMTkyNTggMTIuOTcyNzggMzI1LjI1MzI1IDE3LjgwNTk2IDMyNC44NDc1MyA0Mi43NSBDIDM2My43NjE0NiAxMC44NDYyNiA0MTMuNDkxMTQgNzQuNDYxNjggMzgwLjEzNTE2IDEwNi4zNjU0MiBDIDQyMC4xNjA2OCAxMjEuODMzMTggMzc5LjYzMDA4IDIwNS4xNzEzOCAzNDYuNzgxMjUgMTkxLjI1IEMgMzQ0LjE1MjM1IDIxNC40NTM2MiAyODUuNDI4NTIgMjIyLjU3MzYgMjgwLjI3NDIyIDE5MS4yNSBDIDI0Ny4wMjE3NCAyMjQuNzAyMSAxNzcuNjg1MDIgMTczLjI2NzY0IDIyNC45ODY1OSAxMjcuNjM0NTggWiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNIDIyNC45ODY1OSAxMjcuNjM0NTggQyAxOTEuNTMxMjUgMTE3IDIwNC44NzI0IDI3LjQ3NDMgMjU4LjI0MTE0IDQyLjc1IEMgMjYzLjE5MjU4IDEyLjk3Mjc4IDMyNS4yNTMyNSAxNy44MDU5NiAzMjQuODQ3NTMgNDIuNzUgQyAzNjMuNzYxNDYgMTAuODQ2MjYgNDEzLjQ5MTE0IDc0LjQ2MTY4IDM4MC4xMzUxNiAxMDYuMzY1NDIgQyA0MjAuMTYwNjggMTIxLjgzMzE4IDM3OS42MzAwOCAyMDUuMTcxMzggMzQ2Ljc4MTI1IDE5MS4yNSBDIDM0NC4xNTIzNSAyMTQuNDUzNjIgMjg1LjQyODUyIDIyMi41NzM2IDI4MC4yNzQyMiAxOTEuMjUgQyAyNDcuMDIxNzQgMjI0LjcwMjEgMTc3LjY4NTAyIDE3My4yNjc2NCAyMjQuOTg2NTkgMTI3LjYzNDU4IFoiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjEyIDU4LjM4MDAwNSkiIGZpbGw9ImJsYWNrIj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSIzNC4xIiB5PSIxNSIgdGV4dExlbmd0aD0iMzYuMzg0Ij53d3c8L3RzcGFuPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9IjY5LjYwNCIgeT0iMTUiIHRleHRMZW5ndGg9Ijc1LjI5NiI+LnB5NGUuY29tPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI0OC45MTYiIHk9IjUxLjQ0Nzk5OCIgdGV4dExlbmd0aD0iMTQuODE2Ij5XPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI2Mi44MiIgeT0iNTEuNDQ3OTk4IiB0ZXh0TGVuZ3RoPSI2Ny4yNjQiPmViIFBhZ2VzPC90c3Bhbj48dHNwYW4gZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNTAwIiB4PSI4Ny4yNzYiIHk9IjY5Ljg5NTk5NiIgdGV4dExlbmd0aD0iNC40NDgiPi48L3RzcGFuPjx0c3BhbiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI1MDAiIHg9Ijg3LjI3NiIgeT0iODguMzQzOTk0IiB0ZXh0TGVuZ3RoPSI0LjQ0OCI+LjwvdHNwYW4+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iODcuMjc2IiB5PSIxMDYuNzkxOTkiIHRleHRMZW5ndGg9IjQuNDQ4Ij4uPC90c3Bhbj48L3RleHQ+PHJlY3QgeD0iMTYyIiB5PSIxMDgiIHdpZHRoPSI4MSIgaGVpZ2h0PSIyNyIgZmlsbD0iIzAwYmZjMCIvPjxyZWN0IHg9IjE2MiIgeT0iMTA4IiB3aWR0aD0iODEiIGhlaWdodD0iMjciIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTY3IDExMi4yNzYpIiBmaWxsPSJibGFjayI+PHRzcGFuIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9IjUwMCIgeD0iMTguODQiIHk9IjE1IiB0ZXh0TGVuZ3RoPSI1Mi4xNiI+UG9ydCA4MDwvdHNwYW4+PC90ZXh0PjwvZz48L2c+PC9zdmc+Cg==" alt="A Socket Connection" />
 <p class="caption">A Socket Connection</p>
 </div>
 <p>Once we send that blank line, we write a loop that receives data in 512-character chunks from the socket and prints the data out until there is no more data to read (i.e., the recv() returns an empty string).</p>
@@ -77,36 +75,36 @@ Who is already sick and pale with grief</code></pre>
 import socket
 import time
 
-HOST = 'www.pythonlearn.com'
+HOST = 'data.pr4e.org'
 PORT = 80
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mysock.connect((HOST, PORT))
-mysock.sendall(b'GET http://www.pythonlearn.com/cover.jpg HTTP/1.0\n\n')
+mysock.sendall(b'GET http://data.pr4e.org/cover3.jpg HTTP/1.0\r\n\r\n')
 count = 0
 picture = b""
 
 while True:
     data = mysock.recv(5120)
-    if ( len(data) < 1 ) : break
+    if (len(data) < 1): break
     time.sleep(0.25)
     count = count + len(data)
-    print(len(data),count)
+    print(len(data), count)
     picture = picture + data
 
 mysock.close()
 
 # Look for the end of the header (2 CRLF)
-pos = picture.find(b"\r\n\r\n");
-print('Header length',pos)
+pos = picture.find(b"\r\n\r\n")
+print('Header length', pos)
 print(picture[:pos].decode())
 
 # Skip past the header and save the picture data
 picture = picture[pos+4:]
-fhand = open("stuff.jpg","wb")
-fhand.write(picture);
+fhand = open("stuff.jpg", "wb")
+fhand.write(picture)
 fhand.close()
 
-# Code: http://www.pythonlearn.com/code3/urljpeg.py
+# Code: http://www.py4e.com/code3/urljpeg.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>When the program runs it produces the following output:</p>
@@ -165,13 +163,13 @@ Content-Type: image/jpeg</code></pre>
 <iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" class="lazyload" allowfullscreen>
 </iframe>
 <!--
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
 
-fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
+fhand = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
 for line in fhand:
     print(line.decode().strip())
 
-# Code: http://www.pythonlearn.com/code3/urllib1.py
+# Code: http://www.py4e.com/code3/urllib1.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>Once the web page has been opened with <code>urllib.urlopen</code>, we can treat it like a file and read through it using a <code>for</code> loop.</p>
@@ -187,15 +185,16 @@ Who is already sick and pale with grief</code></pre>
 <!--
 import urllib.request, urllib.parse, urllib.error
 
+fhand = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+
 counts = dict()
-fhand = urllib.request.urlopen('http://www.pythonlearn.com/code3/romeo.txt')
 for line in fhand:
     words = line.decode().split()
     for word in words:
-        counts[word] = counts.get(word,0) + 1
+        counts[word] = counts.get(word, 0) + 1
 print(counts)
 
-# Code: http://www.pythonlearn.com/code3/urlwords.py
+# Code: http://www.py4e.com/code3/urlwords.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>Again, once we have opened the web page, we can read it like a local file.</p>
@@ -233,7 +232,7 @@ links = re.findall(b'href="(http://.*?)"', html)
 for link in links:
     print(link.decode())
 
-# Code: http://www.pythonlearn.com/code3/urlregex.py
+# Code: http://www.py4e.com/code3/urlregex.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>The <code>findall</code> regular expression method will give us a list of all of the strings that match our regular expression, returning only the link text between the double quotes.</p>
@@ -242,12 +241,12 @@ for link in links:
 Enter - http://www.dr-chuck.com/page1.htm
 http://www.dr-chuck.com/page2.htm</code></pre>
 <pre><code>python urlregex.py
-Enter - http://www.pythonlearn.com/book.htm
+Enter - http://www.py4e.com/book.htm
 http://www.greenteapress.com/thinkpython/thinkpython.html
 http://allendowney.com/
-http://www.pythonlearn.com/code
+http://www.py4e.com/code
 http://www.lib.umich.edu/espresso-book-machine
-http://www.pythonlearn.com/py4inf-slides.zip</code></pre>
+http://www.py4e.com/py4inf-slides.zip</code></pre>
 <p>Regular expressions work very nicely when your HTML is well formatted and predictable. But since there are a lot of &quot;broken&quot; HTML pages out there, a solution only using regular expressions might either miss some valid links or end up with bad data.</p>
 <p>This can be solved by using a robust HTML parsing library.</p>
 <h2 id="parsing-html-using-beautifulsoup">Parsing HTML using BeautifulSoup</h2>
@@ -267,14 +266,20 @@ http://www.pythonlearn.com/py4inf-slides.zip</code></pre>
 # https://pypi.python.org/pypi/beautifulsoup4
 
 # Or download the file
-# http://www.pythonlearn.com/code3/bs4.zip
+# http://www.py4e.com/code3/bs4.zip
 # and unzip it in the same directory as this file
 
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
+import ssl
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
 url = input('Enter - ')
-html = urllib.request.urlopen(url).read()
+html = urllib.request.urlopen(url, context=ctx).read()
 soup = BeautifulSoup(html, 'html.parser')
 
 # Retrieve all of the anchor tags
@@ -282,7 +287,7 @@ tags = soup('a')
 for tag in tags:
     print(tag.get('href', None))
 
-# Code: http://www.pythonlearn.com/code3/urllinks.py
+# Code: http://www.py4e.com/code3/urllinks.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>The program prompts for a web address, then opens the web page, reads the data and passes the data to the BeautifulSoup parser, and then retrieves all of the anchor tags and prints out the <code>href</code> attribute for each tag.</p>
@@ -291,13 +296,13 @@ for tag in tags:
 Enter - http://www.dr-chuck.com/page1.htm
 http://www.dr-chuck.com/page2.htm</code></pre>
 <pre><code>python urllinks.py
-Enter - http://www.pythonlearn.com/book.htm
+Enter - http://www.py4e.com/book.htm
 http://www.greenteapress.com/thinkpython/thinkpython.html
 http://allendowney.com/
 http://www.si502.com/
 http://www.lib.umich.edu/espresso-book-machine
-http://www.pythonlearn.com/code
-http://www.pythonlearn.com/</code></pre>
+http://www.py4e.com/code
+http://www.py4e.com/</code></pre>
 <p>You can use BeautifulSoup to pull out various parts of each tag as follows:</p>
 <script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
 <iframe width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" class="lazyload" allowfullscreen>
@@ -307,30 +312,37 @@ http://www.pythonlearn.com/</code></pre>
 # https://pypi.python.org/pypi/beautifulsoup4
 
 # Or download the file
-# http://www.pythonlearn.com/code3/bs4.zip
+# http://www.py4e.com/code3/bs4.zip
 # and unzip it in the same directory as this file
+
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+import ssl
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
 url = input('Enter - ')
-html = urlopen(url).read()
+html = urlopen(url, context=ctx).read()
 
 # html.parser is the HTML parser included in the standard Python 3 library.
 # information on other HTML parsers is here:
-#http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser
+# http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser
 soup = BeautifulSoup(html, "html.parser")
 
 # Retrieve all of the anchor tags
 tags = soup('a')
 for tag in tags:
     # Look at the parts of a tag
-    print('TAG:',tag)
-    print('URL:',tag.get('href', None))
-    print('Contents:',tag.contents[0])
-    print('Attrs:',tag.attrs)
+    print('TAG:', tag)
+    print('URL:', tag.get('href', None))
+    print('Contents:', tag.contents[0])
+    print('Attrs:', tag.attrs)
 
-# Code: http://www.pythonlearn.com/code3/urllink2.py
+# Code: http://www.py4e.com/code3/urllink2.py
 # Or select Download from this trinket's left-hand menu
 -->
 <pre><code>python urllink2.py
@@ -351,12 +363,12 @@ Attrs: [('href', 'http://www.dr-chuck.com/page2.htm')]</code></pre>
 <!--
 import urllib.request, urllib.parse, urllib.error
 
-img = urllib.request.urlopen('http://www.pythonlearn.com/cover.jpg').read()
-fhand = open('cover.jpg', 'wb')
+img = urllib.request.urlopen('http://data.pr4e.org/cover3.jpg').read()
+fhand = open('cover3.jpg', 'wb')
 fhand.write(img)
 fhand.close()
 
-# Code: http://www.pythonlearn.com/code3/curl1.py
+# Code: http://www.py4e.com/code3/curl1.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>This program reads all of the data in at once across the network and stores it in the variable <code>img</code> in the main memory of your computer, then opens the file <code>cover.jpg</code> and writes the data out to your disk. This will work if the size of the file is less than the size of the memory of your computer.</p>
@@ -367,19 +379,19 @@ fhand.close()
 <!--
 import urllib.request, urllib.parse, urllib.error
 
-img = urllib.request.urlopen('http://www.pythonlearn.com/cover.jpg')
-fhand = open('cover.jpg', 'wb')
+img = urllib.request.urlopen('http://data.pr4e.org/cover3.jpg')
+fhand = open('cover3.jpg', 'wb')
 size = 0
 while True:
     info = img.read(100000)
-    if len(info) < 1 : break
+    if len(info) < 1: break
     size = size + len(info)
     fhand.write(info)
 
-print(size,'characters copied.')
+print(size, 'characters copied.')
 fhand.close()
 
-# Code: http://www.pythonlearn.com/code3/curl2.py
+# Code: http://www.py4e.com/code3/curl2.py
 # Or select Download from this trinket's left-hand menu
 -->
 <p>In this example, we read only 100,000 characters at a time and then write those characters to the <code>cover.jpg</code> file before retrieving the next 100,000 characters of data from the web.</p>
@@ -388,8 +400,8 @@ fhand.close()
 568248 characters copied.</code></pre>
 <p>If you have a Unix or Macintosh computer, you probably have a command built in to your operating system that performs this operation as follows:</p>
 <p></p>
-<pre><code>curl -O http://www.pythonlearn.com/cover.jpg</code></pre>
-<p>The command <code>curl</code> is short for &quot;copy URL&quot; and so these two examples are cleverly named <code>curl1.py</code> and <code>curl2.py</code> on <a href="http://www.pythonlearn.com/code">www.pythonlearn.com/code</a> as they implement similar functionality to the <code>curl</code> command. There is also a <code>curl3.py</code> sample program that does this task a little more effectively, in case you actually want to use this pattern in a program you are writing.</p>
+<pre><code>curl -O http://www.py4e.com/cover.jpg</code></pre>
+<p>The command <code>curl</code> is short for &quot;copy URL&quot; and so these two examples are cleverly named <code>curl1.py</code> and <code>curl2.py</code> on <a href="http://www.py4e.com/code3">www.py4e.com/code3</a> as they implement similar functionality to the <code>curl</code> command. There is also a <code>curl3.py</code> sample program that does this task a little more effectively, in case you actually want to use this pattern in a program you are writing.</p>
 <h2 id="glossary">Glossary</h2>
 <dl>
 <dt>BeautifulSoup</dt>
@@ -426,9 +438,9 @@ fhand.close()
 {% endblock %}
 
 {% block toc %}
-<ul class="right">
-<li class="has-dropdown"><a href="#networked-programs">Networked programs</a><ul class="dropdown">
-<li><a href="#hypertext-transport-protocol---http">HyperText Transport Protocol - HTTP</a></li>
+<ul>
+<li><a href="#networked-programs">Networked programs</a><ul>
+<li><a href="#hypertext-transfer-protocol---http">HyperText Transfer Protocol - HTTP</a></li>
 <li><a href="#the-worlds-simplest-web-browser">The World's Simplest Web Browser</a></li>
 <li><a href="#retrieving-an-image-over-http">Retrieving an image over HTTP</a></li>
 <li><a href="#retrieving-web-pages-with-urllib">Retrieving web pages with <code>urllib</code></a></li>

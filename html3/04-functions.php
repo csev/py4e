@@ -227,7 +227,7 @@ Spam Spam Spam Spam
 &gt;&gt;&gt; print_twice(math.cos(math.pi))
 -1.0
 -1.0</code></pre>
-<p>The argument is evaluated before the function is called, so in the examples the expressions &quot;Spam '*4<code>and</code>math.cos(math.pi)` are only evaluated once.</p>
+<p>The argument is evaluated before the function is called, so in the examples the expressions <code>Spam '*4</code> and <code>math.cos(math.pi)</code> are only evaluated once.</p>
 <p></p>
 <p>You can also use a variable as an argument:</p>
 <pre class="python"><code>&gt;&gt;&gt; michael = &#39;Eric, the half a bee.&#39;

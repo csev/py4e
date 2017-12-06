@@ -45,8 +45,8 @@
 <p> </p>
 <p>Before we start learning the language we speak to give instructions to computers to develop software, we need to learn a small amount about how computers are built. If you were to take apart your computer or cell phone and look deep inside, you would find the following parts:</p>
 <div class="figure">
-<img src="../images/arch.svg" alt="Hardware Archicture" />
-<p class="caption">Hardware Archicture</p>
+<img src="../images/arch.svg" alt="Hardware Architecture" />
+<p class="caption">Hardware Architecture</p>
 </div>
 <p>The high-level definitions of these parts are as follows:</p>
 <ul>

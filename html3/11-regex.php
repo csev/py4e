@@ -19,7 +19,7 @@
 <p>This task of searching and extracting is so common that Python has a very powerful library called <em>regular expressions</em> that handles many of these tasks quite elegantly. The reason we have not introduced regular expressions earlier in the book is because while they are very powerful, they are a little complicated and their syntax takes some getting used to.</p>
 <p>Regular expressions are almost their own little programming language for searching and parsing strings. As a matter of fact, entire books have been written on the topic of regular expressions. In this chapter, we will only cover the basics of regular expressions. For more detail on regular expressions, see:</p>
 <p><a href="http://en.wikipedia.org/wiki/Regular_expression" class="uri">http://en.wikipedia.org/wiki/Regular_expression</a></p>
-<p><a href="https://docs.python.org/2/library/re.html" class="uri">https://docs.python.org/2/library/re.html</a></p>
+<p><a href="https://docs.python.org/3.5/library/re.html" class="uri">https://docs.python.org/3.5/library/re.html</a></p>
 <p>The regular expression library <code>re</code> must be imported into your program before you can use it. The simplest use of the regular expression library is the <code>search()</code> function. The following program demonstrates a trivial use of the search function.</p>
 <p></p>
 <pre class="python"><code># Search for lines that contain &#39;From&#39;
@@ -76,11 +76,11 @@ for line in hand:
 # Code: http://www.py4e.com/code3/re04.py</code></pre>
 
 <p>The search string &quot;<code>^</code>From:.+@&quot; will successfully match lines that start with &quot;From:&quot;, followed by one or more characters (&quot;.+&quot;), followed by an at-sign. So this will match the following line:</p>
-<p><em><code>From:</code></em><code>uct.ac.za</code></p>
+<p><em><code>From: stephen.marquard@</code></em><code>uct.ac.za</code></p>
 <p>You can think of the &quot;.+&quot; wildcard as expanding to match all the characters between the colon character and the at-sign.</p>
-<p><em><code>From:</code></em></p>
+<p><em><code>From:.+@</code></em></p>
 <p>It is good to think of the plus and asterisk characters as &quot;pushy&quot;. For example, the following string would match the last at-sign in the string as the &quot;.+&quot; pushes outwards, as shown below:</p>
-<p><em><code>From:</code></em><code>iupui.edu</code></p>
+<p><em><code>From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen @</code></em><code>iupui.edu</code></p>
 <p>It is possible to tell an asterisk or plus sign not to be so &quot;greedy&quot; by adding another character. See the detailed documentation for information on turning off the greedy behavior.</p>
 <p></p>
 <h2 id="extracting-data-using-regular-expressions">Extracting data using regular expressions</h2>
