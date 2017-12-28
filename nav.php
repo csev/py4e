@@ -26,13 +26,14 @@ if ( isset($_SESSION['id']) ) {
     $submenu->addLink('Badges', $R.'badges');
     $submenu->addLink('Materials', $R.'materials');
     if ( $CFG->providekeys ) {
-        $submenu->addLink('LMS Integration', $T . 'admin/key/index');
+        $submenu->addLink('LMS Integration', $T . 'settings');
     }
     if ( isset($CFG->google_classroom_secret) ) {
         $submenu->addLink('Google Classroom', $T.'gclass/login');
     }
-    $submenu->addLink('Privacy', $R.'privacy');
+    $submenu->addLink('Free App Store', 'https://www.tsugicloud.org');
     $submenu->addLink('Rate this course', 'https://www.class-central.com/mooc/7363/python-for-everybody');
+    $submenu->addLink('Privacy', $R.'privacy');
     if ( isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true" ) {
         $submenu->addLink('Administer', $T . 'admin/');
     }
