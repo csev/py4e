@@ -16,7 +16,8 @@ use \Tsugi\Util\Mersenne_Twister;
 // header("Cache-Control: post-check=0, pre-check=0", false);
 // header("Pragma: no-cache");
 
-header("Cache-Control: max-age=2592000");
+// https://support.cloudflare.com/hc/en-us/articles/200168396-What-will-Cloudflare-compress-
+header("Cache-Control: no-transform, max-age=2592000");
 
 
 $local_path = get_request_document();
