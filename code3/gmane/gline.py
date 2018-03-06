@@ -50,7 +50,7 @@ months.sort()
 # print months
 
 fhand = open('gline.js','w')
-fhand.write("gline = [ ['Year'")
+fhand.write("gline = [ ['Month'")
 for org in orgs:
     fhand.write(",'"+org+"'")
 fhand.write("]")
