@@ -19,14 +19,14 @@ of the book has not been translated.
   <li>
      English
      <ul class="menu vertical nested is-active">
-       <li class="menu-text">Printed Book on <a href="http://amzn.to/29w0lsX" target="_blank">Amazon</a></li>
-       <li class="menu-text"><a href="http://amzn.to/29LrtC0" target="_blank">Kindle edition</a> of the book</li>
-       <li class="menu-text">Printed Book on 
+       <li class="menu-text">Printed book on <a href="http://amzn.to/29w0lsX" target="_blank">Amazon</a></li>
+       <li class="menu-text">Printed book on 
 <a href="https://www.amazon.in/dp/9352136276" target="_blank">Amazon India</a> 
 (low-cost shipping within India thanks to 
 <a href="http://www.shroffpublishers.com/books/9789352136278/"
    target="_blank">Shroff Publishing</a>)
 </li>
+       <li class="menu-text"><a href="http://amzn.to/29LrtC0" target="_blank">Kindle edition</a> of the book</li>
        <li class="menu-text"><a href="html3">Online HTML Book</a></li>
 <!--
        <li class="menu-text"><a href="trinket3" target="_blank">Interactive HTML from Trinket.io</a></li>
