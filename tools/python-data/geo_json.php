@@ -135,7 +135,7 @@ location of "<?= $sample_location ?>" which will have a
 <b>place_id</b> of "<?= $sample_place ?>".
 <pre>
 $ python3 solution.py
-Enter location: <?= $sample_location ?>
+Enter location: <?= $sample_location . "\n" ?>
 Retrieving http://...
 Retrieved <?= $sample_count ?> characters
 Place id <?= $sample_place ?>
