@@ -46,6 +46,13 @@ of the book has not been translated.
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.epub" target="_blank">Download EPUB</a> (Partially translated)</li>
      </ul>
   </li>
+  <li>
+     An Italian translation has been started by <a href="https://github.com/vittore/py4e" target="_blank">Vittore Zen</a>.
+     <ul class="menu vertical nested is-active">
+       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.pdf" target="_blank">Download PDF</a> (Partially translated)</li>
+       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.epub" target="_blank">Download EPUB</a> (Partially translated)</li>
+     </ul>
+  </li>
 
   
 </ul>
