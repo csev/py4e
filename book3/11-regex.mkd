@@ -106,7 +106,7 @@ We can further narrow down the lines that we match using a repeated
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-The search string "`^`From:.+@" will successfully match lines that start
+The search string "^From:.+@" will successfully match lines that start
 with "From:", followed by one or more characters (".+"), followed by an
 at-sign. So this will match the following line:
 
@@ -163,7 +163,7 @@ and extract one or more addresses from each of those lines.
 The `findall()` method searches the string in the second
 argument and returns a list of all of the strings that look like email
 addresses. We are using a two-character sequence that matches a
-non-whitespace character (`\`S).
+non-whitespace character ("\\S").
 
 The output of the program would be:
 
@@ -174,7 +174,7 @@ The output of the program would be:
 Translating the regular expression, we are looking for substrings that
 have at least one non-whitespace character, followed by an at-sign,
 followed by at least one more non-whitespace character. The
-"`\`S+" matches as many non-whitespace characters as
+"\\S+" matches as many non-whitespace characters as
 possible.
 
 The regular expression would match twice (csev@umich.edu and
@@ -209,14 +209,14 @@ output:
 ['source@collab.sakaiproject.org;']
 ~~~~
 
-Some of our email addresses have incorrect characters like "`<`" or ";"
+Some of our email addresses have incorrect characters like "<" or ";"
 at the beginning or end. Let's declare that we are only interested in
 the portion of the string that starts and ends with a letter or a
 number.
 
 To do this, we use another feature of regular expressions. Square
 brackets are used to indicate a set of multiple acceptable characters we
-are willing to consider matching. In a sense, the "`\`S" is
+are willing to consider matching. In a sense, the "\\S" is
 asking to match the set of "non-whitespace characters". Now we will be a
 little more explicit in terms of the characters we will match.
 
@@ -231,8 +231,8 @@ regular expressions are their own little language unto themselves.
 Translating this regular expression, we are looking for substrings that
 start with a *single* lowercase letter, uppercase letter,
 or number "[a-zA-Z0-9]", followed by zero or more non-blank characters
-("`\`S\*"), followed by an at-sign, followed by zero or more
-non-blank characters ("`\`S\*"), followed by an uppercase or
+("\\S\*"), followed by an at-sign, followed by zero or more
+non-blank characters ("\\S\*"), followed by an uppercase or
 lowercase letter. Note that we switched from "+" to "\*" to indicate
 zero or more non-blank characters since "[a-zA-Z0-9]" is already one
 non-blank character. Remember that the "\*" or "+" applies to the single
@@ -260,11 +260,11 @@ If we use this expression in our program, our data is much cleaner:
 ~~~~
 
 Notice that on the "source@collab.sakaiproject.org" lines, our regular
-expression eliminated two letters at the end of the string ("`>`;").
+expression eliminated two letters at the end of the string (">;").
 This is because when we append "[a-zA-Z]" to the end of our regular
 expression, we are demanding that whatever string the regular expression
-parser finds must end with a letter. So when it sees the "`>`" after
-"sakaiproject.org`>`;" it simply stops at the last "matching" letter it
+parser finds must end with a letter. So when it sees the ">" after
+"sakaiproject.org>;" it simply stops at the last "matching" letter it
 found (i.e., the "g" was the last good match).
 
 Also note that the output of the program is a Python list that has a
@@ -490,26 +490,26 @@ the regular expression system as to what defines "matching" and what is
 extracted from the matched strings. Here are some of those special
 characters and character sequences:
 
-`^` Matches the beginning of the line.
+^ Matches the beginning of the line.
 
-`$` Matches the end of the line.
+$ Matches the end of the line.
 
 . Matches any character (a wildcard).
 
-`\`s Matches a whitespace character.
+\\s Matches a whitespace character.
 
-`\`S Matches a non-whitespace character (opposite of `\`s).
+\\S Matches a non-whitespace character (opposite of \\s).
 
-`*` Applies to the immediately preceding character and indicates to match
+\* Applies to the immediately preceding character and indicates to match
 zero or more of the preceding character(s).
 
-`*?` Applies to the immediately preceding character and indicates to
+\*? Applies to the immediately preceding character and indicates to
 match zero or more of the preceding character(s) in "non-greedy mode".
 
-`+` Applies to the immediately preceding character and indicates to match
+\+ Applies to the immediately preceding character and indicates to match
 one or more of the preceding character(s).
 
-`+?` Applies to the immediately preceding character and indicates to match
+\+? Applies to the immediately preceding character and indicates to match
 one or more of the preceding character(s) in "non-greedy mode".
 
 [aeiou] Matches a single character as long as that character is in the
@@ -520,7 +520,7 @@ specified set. In this example, it would match "a", "e", "i", "o", or
 example is a single character that must be a lowercase letter or a
 digit.
 
-[`^`A-Za-z] When the first character in the set notation is a caret, it
+[^A-Za-z] When the first character in the set notation is a caret, it
 inverts the logic. This example matches a single character that is
 anything *other than* an uppercase or lowercase letter.
 
@@ -529,13 +529,13 @@ for the purpose of matching, but allow you to extract a particular
 subset of the matched string rather than the whole string when using
 `findall()`.
 
-`\`b Matches the empty string, but only at the start or end of a word.
+\\b Matches the empty string, but only at the start or end of a word.
 
-`\`B Matches the empty string, but not at the start or end of a word.
+\\B Matches the empty string, but not at the start or end of a word.
 
-`\`d Matches any decimal digit; equivalent to the set [0-9].
+\\d Matches any decimal digit; equivalent to the set [0-9].
 
-`\`D Matches any non-digit character; equivalent to the set [`^`0-9].
+\\D Matches any non-digit character; equivalent to the set [^0-9].
 
 Bonus section for Unix / Linux users
 ------------------------------------
@@ -567,8 +567,8 @@ documentation for `grep`, you will find some subtle
 differences between the regular expression support in Python and the
 regular expression support in `grep`. As an example,
 `grep` does not support the non-blank character
-"`\`S" so you will need to use the slightly more complex set
-notation "[`^` ]", which simply means match a character that is anything
+"\S" so you will need to use the slightly more complex set
+notation "[^ ]", which simply means match a character that is anything
 other than a space.
 
 Debugging
