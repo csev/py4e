@@ -51,9 +51,11 @@ open the file `mbox.txt`, which should be stored in the same
 folder that you are in when you start Python. You can download this file
 from [www.py4e.com/code3/mbox.txt](http://www.py4e.com/code3/mbox.txt)
 
-    >>> fhand = open('mbox.txt')
-    >>> print(fhand)
-    <_io.TextIOWrapper name='mbox.txt' mode='r' encoding='cp1252'>
+~~~~ {.python}
+>>> fhand = open('mbox.txt')
+>>> print(fhand)
+<_io.TextIOWrapper name='mbox.txt' mode='r' encoding='cp1252'>
+~~~~
 
 \index{file handle}
 
@@ -68,10 +70,12 @@ you have the proper permissions to read the file.
 If the file does not exist, `open` will fail with a traceback
 and you will not get a handle to access the contents of the file:
 
-    >>> fhand = open('stuff.txt')
-    Traceback (most recent call last):
-      File "<stdin>", line 1, in <module>
-    FileNotFoundError: [Errno 2] No such file or directory: 'stuff.txt'
+~~~~ {.python}
+>>> fhand = open('stuff.txt')
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'stuff.txt'
+~~~~
 
 Later we will use `try` and `except` to deal more
 gracefully with the situation where we attempt to open a file that does
@@ -85,15 +89,16 @@ string can be thought of as a sequence of characters. For example, this
 is a sample of a text file which records mail activity from various
 individuals in an open source project development team:
 
-`From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008`\
-`Return-Path: <postmaster@collab.sakaiproject.org>`\
-`Date: Sat, 5 Jan 2008 09:12:18 -0500`\
-`To: source@collab.sakaiproject.org`\
-`From: stephen.marquard@uct.ac.za`\
-`Subject: [sakai] svn commit: r39772 - content/branches/`\
-`Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772`\
-`...`
-
+~~~~
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+Return-Path: <postmaster@collab.sakaiproject.org>
+Date: Sat, 5 Jan 2008 09:12:18 -0500
+To: source@collab.sakaiproject.org
+From: stephen.marquard@uct.ac.za
+Subject: [sakai] svn commit: r39772 - content/branches/
+Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
+...
+~~~~
 The entire file of mail interactions is available from
 
 [www.py4e.com/code3/mbox.txt](http://www.py4e.com/code3/mbox.txt)
@@ -121,18 +126,20 @@ variable by entering "stuff" in the interpreter, it shows us the `\n` in
 the string, but when we use `print` to show the string, we
 see the string broken into two lines by the newline character.
 
-    >>> stuff = 'Hello\nWorld!'
-    >>> stuff
-    'Hello\nWorld!'
-    >>> print(stuff)
-    Hello
-    World!
-    >>> stuff = 'X\nY'
-    >>> print(stuff)
-    X
-    Y
-    >>> len(stuff)
-    3
+~~~~ {.python}
+>>> stuff = 'Hello\nWorld!'
+>>> stuff
+'Hello\nWorld!'
+>>> print(stuff)
+Hello
+World!
+>>> stuff = 'X\nY'
+>>> print(stuff)
+X
+Y
+>>> len(stuff)
+3
+~~~~
 
 You can also see that the length of the string `X\nY` is *three*
 characters because the newline character is a single character.
@@ -187,12 +194,14 @@ If you know the file is relatively small compared to the size of your
 main memory, you can read the whole file into one string using the
 `read` method on the file handle.
 
-    >>> fhand = open('mbox-short.txt')
-    >>> inp = fhand.read()
-    >>> print(len(inp))
-    94626
-    >>> print(inp[:20])
-    From stephen.marquar
+~~~~ {.python}
+>>> fhand = open('mbox-short.txt')
+>>> inp = fhand.read()
+>>> print(len(inp))
+94626
+>>> print(inp[:20])
+From stephen.marquar
+~~~~
 
 In this example, the entire contents (all 94,626 characters) of the file
 `mbox-short.txt` are read directly into the variable
@@ -233,14 +242,16 @@ prefix:
 
 When this program runs, we get the following output:
 
-    From: stephen.marquard@uct.ac.za
+~~~~
+From: stephen.marquard@uct.ac.za
 
-    From: louis@media.berkeley.edu
+From: louis@media.berkeley.edu
 
-    From: zqian@umich.edu
+From: zqian@umich.edu
 
-    From: rjlowe@iupui.edu
-    ...
+From: rjlowe@iupui.edu
+...
+~~~~
 
 The output looks great since the only lines we are seeing are those
 which start with "From:", but why are we seeing the extra blank lines?
@@ -261,14 +272,16 @@ strips whitespace from the right side of a string as follows:
 
 When this program runs, we get the following output:
 
-    From: stephen.marquard@uct.ac.za
-    From: louis@media.berkeley.edu
-    From: zqian@umich.edu
-    From: rjlowe@iupui.edu
-    From: zqian@umich.edu
-    From: rjlowe@iupui.edu
-    From: cwen@iupui.edu
-    ...
+~~~~
+From: stephen.marquard@uct.ac.za
+From: louis@media.berkeley.edu
+From: zqian@umich.edu
+From: rjlowe@iupui.edu
+From: zqian@umich.edu
+From: rjlowe@iupui.edu
+From: cwen@iupui.edu
+...
+~~~~
 
 As your file processing programs get more complicated, you may want to
 structure your search loops using `continue`. The basic idea
@@ -304,15 +317,17 @@ University of Cape Town in South Africa):
 
 Which produces the following output:
 
-    From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
-    X-Authentication-Warning: set sender to stephen.marquard@uct.ac.za using -f
-    From: stephen.marquard@uct.ac.za
-    Author: stephen.marquard@uct.ac.za
-    From david.horwitz@uct.ac.za Fri Jan  4 07:02:32 2008
-    X-Authentication-Warning: set sender to david.horwitz@uct.ac.za using -f
-    From: david.horwitz@uct.ac.za
-    Author: david.horwitz@uct.ac.za
-    ...
+~~~~
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+X-Authentication-Warning: set sender to stephen.marquard@uct.ac.za using -f
+From: stephen.marquard@uct.ac.za
+Author: stephen.marquard@uct.ac.za
+From david.horwitz@uct.ac.za Fri Jan  4 07:02:32 2008
+X-Authentication-Warning: set sender to david.horwitz@uct.ac.za using -f
+From: david.horwitz@uct.ac.za
+Author: david.horwitz@uct.ac.za
+...
+~~~~
 
 Here we also use the contracted form of the `if` statement
 where we put the `continue ` on the same line as the
@@ -340,13 +355,15 @@ We read the file name from the user and place it in a variable named
 `fname` and open that file. Now we can run the program
 repeatedly on different files.
 
-    python search6.py
-    Enter the file name: mbox.txt
-    There were 1797 subject lines in mbox.txt
+~~~~
+python search6.py
+Enter the file name: mbox.txt
+There were 1797 subject lines in mbox.txt
 
-    python search6.py
-    Enter the file name: mbox-short.txt
-    There were 27 subject lines in mbox-short.txt
+python search6.py
+Enter the file name: mbox-short.txt
+There were 27 subject lines in mbox-short.txt
+~~~~
 
 Before peeking at the next section, take a look at the above program and
 ask yourself, "What could go possibly wrong here?" or "What might our
@@ -361,19 +378,21 @@ I told you not to peek. This is your last chance.
 
 What if our user types something that is not a file name?
 
-    python search6.py
-    Enter the file name: missing.txt
-    Traceback (most recent call last):
-      File "search6.py", line 2, in <module>
-        fhand = open(fname)
-    FileNotFoundError: [Errno 2] No such file or directory: 'missing.txt'
+~~~~
+python search6.py
+Enter the file name: missing.txt
+Traceback (most recent call last):
+  File "search6.py", line 2, in <module>
+    fhand = open(fname)
+FileNotFoundError: [Errno 2] No such file or directory: 'missing.txt'
 
-    python search6.py
-    Enter the file name: na na boo boo
-    Traceback (most recent call last):
-      File "search6.py", line 2, in <module>
-        fhand = open(fname)
-    FileNotFoundError: [Errno 2] No such file or directory: 'na na boo boo'
+python search6.py
+Enter the file name: na na boo boo
+Traceback (most recent call last):
+  File "search6.py", line 2, in <module>
+    fhand = open(fname)
+FileNotFoundError: [Errno 2] No such file or directory: 'na na boo boo'
+~~~~
 
 Do not laugh. Users will eventually do every possible thing they can do
 to break your programs, either on purpose or with malicious intent. As a
@@ -411,13 +430,15 @@ The `exit` function terminates the program. It is a function
 that we call that never returns. Now when our user (or QA team) types in
 silliness or bad file names, we "catch" them and recover gracefully:
 
-    python search7.py
-    Enter the file name: mbox.txt
-    There were 1797 subject lines in mbox.txt
+~~~~
+python search7.py
+Enter the file name: mbox.txt
+There were 1797 subject lines in mbox.txt
 
-    python search7.py
-    Enter the file name: na na boo boo
-    File cannot be opened: na na boo boo
+python search7.py
+Enter the file name: na na boo boo
+File cannot be opened: na na boo boo
+~~~~
 
 \index{Pythonic}
 
@@ -441,9 +462,11 @@ Writing files
 To write a file, you have to open it with mode "w" as a second
 parameter:
 
-    >>> fout = open('output.txt', 'w')
-    >>> print(fout)
-    <_io.TextIOWrapper name='output.txt' mode='w' encoding='cp1252'>
+~~~~ {.python}
+>>> fout = open('output.txt', 'w')
+>>> print(fout)
+<_io.TextIOWrapper name='output.txt' mode='w' encoding='cp1252'>
+~~~~
 
 If the file already exists, opening it in write mode clears out the old
 data and starts fresh, so be careful! If the file doesn't exist, a new
@@ -453,9 +476,11 @@ The `write` method of the file handle object puts data into
 the file, returning the number of characters written. The default write
 mode is text for writing (and reading) strings.
 
-    >>> line1 = "This here's the wattle,\n"
-    >>> fout.write(line1)
-    24
+~~~~ {.python}
+>>> line1 = "This here's the wattle,\n"
+>>> fout.write(line1)
+24
+~~~~
 
 \index{newline}
 
@@ -467,15 +492,19 @@ explicitly inserting the newline character when we want to end a line.
 The `print` statement automatically appends a newline, but
 the `write` method does not add the newline automatically.
 
-    >>> line2 = 'the emblem of our land.\n'
-    >>> fout.write(line2)
-    24
+~~~~ {.python}
+>>> line2 = 'the emblem of our land.\n'
+>>> fout.write(line2)
+24
+~~~~
 
 When you are done writing, you have to close the file to make sure that
 the last bit of data is physically written to the disk so it will not be
 lost if the power goes off.
 
-    >>> fout.close()
+~~~~ {.python}
+>>> fout.close()
+~~~~
 
 We could close the files which we open for read as well, but we can be a
 little sloppy if we are only opening a few files since Python makes sure
@@ -496,10 +525,12 @@ When you are reading and writing files, you might run into problems with
 whitespace. These errors can be hard to debug because spaces, tabs, and
 newlines are normally invisible:
 
-    >>> s = '1 2\t 3\n 4'
-    >>> print(s)
-    1 2  3
-     4
+~~~~ {.python}
+>>> s = '1 2\t 3\n 4'
+>>> print(s)
+1 2  3
+ 4
+~~~~
 
 \index{repr function}
 \index{function!repr}
@@ -509,8 +540,10 @@ The built-in function `repr` can help. It takes any object as
 an argument and returns a string representation of the object. For
 strings, it represents whitespace characters with backslash sequences:
 
-    >>> print(repr(s))
-    '1 2\t 3\n 4'
+~~~~ {.python}
+>>> print(repr(s))
+'1 2\t 3\n 4'
+~~~~
 
 This can be helpful for debugging.
 
@@ -564,20 +597,24 @@ Exercises
 contents of the file (line by line) all in upper case. Executing the
 program will look as follows:**
 
-    python shout.py
-    Enter a file name: mbox-short.txt
-    FROM STEPHEN.MARQUARD@UCT.AC.ZA SAT JAN  5 09:14:16 2008
-    RETURN-PATH: <POSTMASTER@COLLAB.SAKAIPROJECT.ORG>
-    RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
-         BY FRANKENSTEIN.MAIL.UMICH.EDU (CYRUS V2.3.8) WITH LMTPA;
-         SAT, 05 JAN 2008 09:14:16 -0500
+~~~~
+python shout.py
+Enter a file name: mbox-short.txt
+FROM STEPHEN.MARQUARD@UCT.AC.ZA SAT JAN  5 09:14:16 2008
+RETURN-PATH: <POSTMASTER@COLLAB.SAKAIPROJECT.ORG>
+RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
+     BY FRANKENSTEIN.MAIL.UMICH.EDU (CYRUS V2.3.8) WITH LMTPA;
+     SAT, 05 JAN 2008 09:14:16 -0500
+~~~~
 
 **You can download the file from** [www.py4e.com/code3/mbox-short.txt](http://www.py4e.com/code3/mbox-short.txt)
 
 **Exercise 2: Write a program to prompt for a file name, and then read
 through the file and look for lines of the form:**
 
-`X-DSPAM-Confidence: `**` 0.8475`**
+~~~~
+X-DSPAM-Confidence: 0.8475
+~~~~
 
 **When you encounter a line that starts with "X-DSPAM-Confidence:" pull
 apart the line to extract the floating-point number on the line. Count
@@ -585,11 +622,13 @@ these lines and then compute the total of the spam confidence values
 from these lines. When you reach the end of the file, print out the
 average spam confidence.**
 
-    Enter the file name: mbox.txt
-    Average spam confidence: 0.894128046745
+~~~~
+Enter the file name: mbox.txt
+Average spam confidence: 0.894128046745
 
-    Enter the file name: mbox-short.txt
-    Average spam confidence: 0.750718518519
+Enter the file name: mbox-short.txt
+Average spam confidence: 0.750718518519
+~~~~
 
 **Test your file on the `mbox.txt` and `mbox-short.txt` files.**
 
@@ -600,17 +639,19 @@ prints a funny message when the user types in the exact file name "na na
 boo boo". The program should behave normally for all other files which
 exist and don't exist. Here is a sample execution of the program:**
 
-    python egg.py
-    Enter the file name: mbox.txt
-    There were 1797 subject lines in mbox.txt
+~~~~
+python egg.py
+Enter the file name: mbox.txt
+There were 1797 subject lines in mbox.txt
 
-    python egg.py
-    Enter the file name: missing.tyxt
-    File cannot be opened: missing.tyxt
+python egg.py
+Enter the file name: missing.tyxt
+File cannot be opened: missing.tyxt
 
-    python egg.py
-    Enter the file name: na na boo boo
-    NA NA BOO BOO TO YOU - You have been punk'd!
+python egg.py
+Enter the file name: na na boo boo
+NA NA BOO BOO TO YOU - You have been punk'd!
+~~~~
 
 **We are not encouraging you to put Easter Eggs in your programs; this is
 just an exercise.**
