@@ -82,7 +82,7 @@ character is the period or full stop, which matches any character.
 \index{wild card}
 \index{regex!wild card}
 
-In the following example, the regular expression "F..m:" would match any
+In the following example, the regular expression `F..m:` would match any
 of the strings "From:", "Fxxm:", "F12m:", or "F!@m:" since the period
 characters in the regular expression match any character.
 
@@ -92,8 +92,8 @@ characters in the regular expression match any character.
 \end{trinketfiles}
 
 This is particularly powerful when combined with the ability to indicate
-that a character can be repeated any number of times using the "\*" or
-"+" characters in your regular expression. These special characters mean
+that a character can be repeated any number of times using the `*` or
+`+` characters in your regular expression. These special characters mean
 that instead of matching a single character in the search string, they
 match zero-or-more characters (in the case of the asterisk) or
 one-or-more of the characters (in the case of the plus sign).
@@ -106,20 +106,20 @@ We can further narrow down the lines that we match using a repeated
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-The search string "^From:.+@" will successfully match lines that start
-with "From:", followed by one or more characters (".+"), followed by an
+The search string `^From:.+@` will successfully match lines that start
+with "From:", followed by one or more characters (`.+`), followed by an
 at-sign. So this will match the following line:
 
 *` From: stephen.marquard@`*`uct.ac.za`
 
-You can think of the ".+" wildcard as expanding to match all the
+You can think of the `.+` wildcard as expanding to match all the
 characters between the colon character and the at-sign.
 
 *` From:.+@`*
 
 It is good to think of the plus and asterisk characters as "pushy". For
 example, the following string would match the last at-sign in the string
-as the ".+" pushes outwards, as shown below:
+as the `.+` pushes outwards, as shown below:
 
 *` From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen @`*`iupui.edu`
 
@@ -163,7 +163,7 @@ and extract one or more addresses from each of those lines.
 The `findall()` method searches the string in the second
 argument and returns a list of all of the strings that look like email
 addresses. We are using a two-character sequence that matches a
-non-whitespace character ("\\S").
+non-whitespace character (`\S`).
 
 The output of the program would be:
 
@@ -174,7 +174,7 @@ The output of the program would be:
 Translating the regular expression, we are looking for substrings that
 have at least one non-whitespace character, followed by an at-sign,
 followed by at least one more non-whitespace character. The
-"\\S+" matches as many non-whitespace characters as
+`\S+` matches as many non-whitespace characters as
 possible.
 
 The regular expression would match twice (csev@umich.edu and
@@ -216,7 +216,7 @@ number.
 
 To do this, we use another feature of regular expressions. Square
 brackets are used to indicate a set of multiple acceptable characters we
-are willing to consider matching. In a sense, the "\\S" is
+are willing to consider matching. In a sense, the `\S` is
 asking to match the set of "non-whitespace characters". Now we will be a
 little more explicit in terms of the characters we will match.
 
@@ -231,11 +231,11 @@ regular expressions are their own little language unto themselves.
 Translating this regular expression, we are looking for substrings that
 start with a *single* lowercase letter, uppercase letter,
 or number "[a-zA-Z0-9]", followed by zero or more non-blank characters
-("\\S\*"), followed by an at-sign, followed by zero or more
-non-blank characters ("\\S\*"), followed by an uppercase or
-lowercase letter. Note that we switched from "+" to "\*" to indicate
-zero or more non-blank characters since "[a-zA-Z0-9]" is already one
-non-blank character. Remember that the "\*" or "+" applies to the single
+(`\S*`), followed by an at-sign, followed by zero or more
+non-blank characters (`\S*`), followed by an uppercase or
+lowercase letter. Note that we switched from `+` to `*` to indicate
+zero or more non-blank characters since `[a-zA-Z0-9]` is already one
+non-blank character. Remember that the `*` or `+` applies to the single
 character immediately to the left of the plus or asterisk.
 
 \index{regex!character sets(brackets)}
@@ -259,9 +259,9 @@ If we use this expression in our program, our data is much cleaner:
 ['apache@localhost']
 ~~~~
 
-Notice that on the "source@collab.sakaiproject.org" lines, our regular
+Notice that on the `source@collab.sakaiproject.org` lines, our regular
 expression eliminated two letters at the end of the string (">;").
-This is because when we append "[a-zA-Z]" to the end of our regular
+This is because when we append `[a-zA-Z]` to the end of our regular
 expression, we are demanding that whatever string the regular expression
 parser finds must end with a letter. So when it sees the ">" at the end of
 "sakaiproject.org>;" it simply stops at the last "matching" letter it
@@ -290,10 +290,10 @@ We can construct the following regular expression to select the lines:
 ^X-.*: [0-9.]+
 ~~~~
 
-Translating this, we are saying, we want lines that start with "X-",
-followed by zero or more characters (".\*"), followed by a colon (":")
+Translating this, we are saying, we want lines that start with `X-`,
+followed by zero or more characters (`.*`), followed by a colon (`:`)
 and then a space. After the space we are looking for one or more
-characters that are either a digit (0-9) or a period "[0-9.]+". Note
+characters that are either a digit (0-9) or a period `[0-9.]+`. Note
 that inside the square brackets, the period matches an actual period
 (i.e., it is not a wildcard between the square brackets).
 
@@ -363,7 +363,7 @@ both search and extract the information we found interesting.
 As another example of this technique, if you look at the file there are
 a number of lines of the form:
 
-    Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
+`Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772`
 
 If we wanted to extract all of the revision numbers (the integer number
 at the end of these lines) using the same technique as above, we could
@@ -375,10 +375,10 @@ write the following program:
 \end{trinketfiles}
 
 Translating our regular expression, we are looking for lines that start
-with "Details:", followed by any number of characters (".\*"), followed
-by "rev=", and then by one or more digits. We want to find lines that
+with `Details:`, followed by any number of characters (`.*`), followed
+by `rev=`, and then by one or more digits. We want to find lines that
 match the entire expression but we only want to extract the integer
-number at the end of the line, so we surround "[0-9]+" with parentheses.
+number at the end of the line, so we surround `[0-9]+` with parentheses.
 
 When we run the program, we get the following output:
 
@@ -390,7 +390,7 @@ When we run the program, we get the following output:
 ...
 ~~~~
 
-Remember that the "[0-9]+" is "greedy" and it tries to make as large a
+Remember that the `[0-9]+` is "greedy" and it tries to make as large a
 string of digits as possible before extracting those digits. This
 "greedy" behavior is why we get all five digits for each number. The
 regular expression library expands in both directions until it
@@ -400,9 +400,7 @@ Now we can use regular expressions to redo an exercise from earlier in
 the book where we were interested in the time of day of each mail
 message. We looked for lines of the form:
 
-~~~~
-From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
-~~~~
+`From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008`
 
 and wanted to extract the hour of the day for each line. Previously we
 did this with two calls to `split`. First the line was split
@@ -424,9 +422,9 @@ expression:
 ~~~~
 
 The translation of this regular expression is that we are looking for
-lines that start with "From " (note the space), followed by any number
-of characters (".\*"), followed by a space, followed by two digits
-"[0-9][0-9]", followed by a colon character. This is the definition of
+lines that start with `From ` (note the space), followed by any number
+of characters (`.*`), followed by a space, followed by two digits
+`[0-9][0-9]`, followed by a colon character. This is the definition of
 the kinds of lines we are looking for.
 
 In order to pull out only the hour using `findall()`, we add
@@ -475,7 +473,7 @@ Since we prefix the dollar sign with a backslash, it actually matches
 the dollar sign in the input string instead of matching the "end of
 line", and the rest of the regular expression matches one or more digits
 or the period character. *Note:* Inside square brackets,
-characters are not "special". So when we say "[0-9.]", it really means
+characters are not "special". So when we say `[0-9.]`, it really means
 digits or a period. Outside of square brackets, a period is the
 "wild-card" character and matches any character. Inside square brackets,
 the period is a period.
@@ -490,52 +488,52 @@ the regular expression system as to what defines "matching" and what is
 extracted from the matched strings. Here are some of those special
 characters and character sequences:
 
-^ Matches the beginning of the line.
+`^` Matches the beginning of the line.
 
-$ Matches the end of the line.
+`$` Matches the end of the line.
 
-. Matches any character (a wildcard).
+`.` Matches any character (a wildcard).
 
-\\s Matches a whitespace character.
+`\s` Matches a whitespace character.
 
-\\S Matches a non-whitespace character (opposite of \\s).
+`\S` Matches a non-whitespace character (opposite of \\s).
 
-\* Applies to the immediately preceding character and indicates to match
+`*` Applies to the immediately preceding character and indicates to match
 zero or more of the preceding character(s).
 
-\*? Applies to the immediately preceding character and indicates to
+`*?` Applies to the immediately preceding character and indicates to
 match zero or more of the preceding character(s) in "non-greedy mode".
 
-\+ Applies to the immediately preceding character and indicates to match
+`+` Applies to the immediately preceding character and indicates to match
 one or more of the preceding character(s).
 
-\+? Applies to the immediately preceding character and indicates to match
+`+?` Applies to the immediately preceding character and indicates to match
 one or more of the preceding character(s) in "non-greedy mode".
 
-[aeiou] Matches a single character as long as that character is in the
+`[aeiou]` Matches a single character as long as that character is in the
 specified set. In this example, it would match "a", "e", "i", "o", or
 "u", but no other characters.
 
-[a-z0-9] You can specify ranges of characters using the minus sign. This
+`[a-z0-9]` You can specify ranges of characters using the minus sign. This
 example is a single character that must be a lowercase letter or a
 digit.
 
-[^A-Za-z] When the first character in the set notation is a caret, it
+`[^A-Za-z]` When the first character in the set notation is a caret, it
 inverts the logic. This example matches a single character that is
 anything *other than* an uppercase or lowercase letter.
 
-( ) When parentheses are added to a regular expression, they are ignored
+`( )` When parentheses are added to a regular expression, they are ignored
 for the purpose of matching, but allow you to extract a particular
 subset of the matched string rather than the whole string when using
 `findall()`.
 
-\\b Matches the empty string, but only at the start or end of a word.
+`\b` Matches the empty string, but only at the start or end of a word.
 
-\\B Matches the empty string, but not at the start or end of a word.
+`\B` Matches the empty string, but not at the start or end of a word.
 
-\\d Matches any decimal digit; equivalent to the set [0-9].
+`\d` Matches any decimal digit; equivalent to the set [0-9].
 
-\\D Matches any non-digit character; equivalent to the set [^0-9].
+`\D` Matches any non-digit character; equivalent to the set [^0-9].
 
 Bonus section for Unix / Linux users
 ------------------------------------
@@ -567,8 +565,8 @@ documentation for `grep`, you will find some subtle
 differences between the regular expression support in Python and the
 regular expression support in `grep`. As an example,
 `grep` does not support the non-blank character
-"\S" so you will need to use the slightly more complex set
-notation "[^ ]", which simply means match a character that is anything
+`\S` so you will need to use the slightly more complex set
+notation `[^ ]`, which simply means match a character that is anything
 other than a space.
 
 Debugging
@@ -624,7 +622,7 @@ brittle code
     format. We call this "brittle code" because it is easily broken.
 
 greedy matching
-:   The notion that the "+" and "\*" characters in a regular expression
+:   The notion that the `+` and `*` characters in a regular expression
     expand outward to match the largest possible string.
 \index{greedy}
 \index{greedy matching}
