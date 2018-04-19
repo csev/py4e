@@ -2,8 +2,7 @@ Networked programs
 ==================
 
 While many of the examples in this book have focused on reading files
-and looking for data in those files, there are many different sources of
-
+and looking for data in those files, there are many different sources of 
 information when one considers the Internet.
 
 In this chapter we will pretend to be a web browser and retrieve web
@@ -28,19 +27,19 @@ application has sent.
 But if you try to read a socket when the program on the other end of the
 socket has not sent any data, you just sit and wait. If the programs on
 both ends of the socket simply wait for some data without sending
-anything, they will wait for a very long time.
+anything, they will wait for a very long time, so an important part of programs
+that communicate over the Internet is to have some sort of protocol.
 
-So an important part of programs that communicate over the Internet is
-to have some sort of protocol. A protocol is a set of precise rules that
+A protocol is a set of precise rules that
 determine who is to go first, what they are to do, and then what the
 responses are to that message, and who sends next, and so on. In a sense
 the two applications at either end of the socket are doing a dance and
 making sure not to step on each other's toes.
 
-There are many documents which describe these network protocols. The
+There are many documents that describe these network protocols. The
 HyperText Transfer Protocol is described in the following document:
 
-<http://www.w3.org/Protocols/rfc2616/rfc2616.txt>
+<https://www.w3.org/Protocols/rfc2616/rfc2616.txt>
 
 This is a long and complex 176-page document with a lot of detail. If
 you find it interesting, feel free to read it all. But if you take a
@@ -69,7 +68,9 @@ display what the server sends back.
 First the program makes a connection to port 80 on the server
 [www.py4e.com](http://www.py4e.com). Since our program is playing the role
 of the "web browser", the HTTP protocol says we must send the GET
-command followed by a blank line.
+command followed by a blank line. `\r\n` signifies an EOL (end of line),
+so `\r\n\r\n` signifies nothing between two EOL sequences. That is the
+equivalent of a blank line.
 
 ![A Socket Connection](height=2.0in@../images/socket)
 
@@ -81,12 +82,15 @@ The program produces the following output:
 
 ~~~~
 HTTP/1.1 200 OK
-Date: Sun, 14 Mar 2010 23:52:41 GMT
-Server: Apache
-Last-Modified: Tue, 29 Dec 2009 01:31:22 GMT
-ETag: "143c1b33-a7-4b395bea"
+Date: Wed, 11 Apr 2018 18:52:55 GMT
+Server: Apache/2.4.7 (Ubuntu)
+Last-Modified: Sat, 13 May 2017 11:22:22 GMT
+ETag: "a7-54f6609245537"
 Accept-Ranges: bytes
 Content-Length: 167
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: Wed, 11 Jan 1984 05:00:00 GMT
 Connection: close
 Content-Type: text/plain
 
@@ -115,6 +119,21 @@ However, since the protocol that we use most commonly is the HTTP web
 protocol, Python has a special library specifically designed to support
 the HTTP protocol for the retrieval of documents and data over the web.
 
+One of the requirements for using the HTTP protocol is the need to send
+and receive data as bytes objects, instead of strings. In the preceding
+example, the `encode()` and `decode()` methods convert strings into bytes
+objects and back again.
+
+The next example uses `b''` notation to specify that a variable should
+be stored as a bytes object. `encode()` and `b''` are equivalent.
+
+~~~~
+>>> b'Hello world'
+b'Hello world'
+>>> 'Hello world'.encode()
+b'Hello world'
+~~~~
+
 Retrieving an image over HTTP
 -----------------------------
 
@@ -131,28 +150,32 @@ image data to a file as follows:
 
 \VerbatimInput{../code3/urljpeg.py}
 
-When the program runs it produces the following output:
+When the program runs, it produces the following output:
 
 ~~~~
 $ python urljpeg.py
-2920 2920
-1460 4380
-1460 5840
-1460 7300
+5120 5120
+5120 10240
+4240 14480
+5120 19600
 ...
-1460 62780
-1460 64240
-2920 67160
-1460 68620
-1681 70301
-Header length 240
+5120 214000
+3200 217200
+5120 222320
+5120 227440
+3167 230607
+Header length 393
 HTTP/1.1 200 OK
-Date: Sat, 02 Nov 2013 02:15:07 GMT
-Server: Apache
-Last-Modified: Sat, 02 Nov 2013 02:01:26 GMT
-ETag: "19c141-111a9-4ea280f8354b8"
+Date: Wed, 11 Apr 2018 18:54:09 GMT
+Server: Apache/2.4.7 (Ubuntu)
+Last-Modified: Mon, 15 May 2017 12:27:40 GMT
+ETag: "38342-54f8f2e5b6277"
 Accept-Ranges: bytes
-Content-Length: 70057
+Content-Length: 230210
+Vary: Accept-Encoding
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: Wed, 11 Jan 1984 05:00:00 GMT
 Connection: close
 Content-Type: image/jpeg
 ~~~~
@@ -167,11 +190,11 @@ As the program runs, you can see that we don't get 5120 characters each
 time we call the `recv()` method. We get as many characters
 as have been transferred across the network to us by the web server at
 the moment we call `recv()`. In this example, we either get
-1460 or 2920 characters each time we request up to 5120 characters of
+as few as 3200 characters each time we request up to 5120 characters of
 data.
 
 Your results may be different depending on your network speed. Also note
-that on the last call to `recv()` we get 1681 bytes, which is
+that on the last call to `recv()` we get 3167 bytes, which is
 the end of the stream, and in the next call to `recv()` we
 get a zero-length string that tells us that the server has called
 `close()` on its end of the socket and there is no more data
@@ -188,21 +211,25 @@ With the delay, in place the program executes as follows:
 
 ~~~~
 $ python urljpeg.py
-1460 1460
-5120 6580
-5120 11700
+5120 5120
+5120 10240
+5120 15360
 ...
-5120 62900
-5120 68020
-2281 70301
-Header length 240
+5120 225280
+5120 230400
+207 230607
+Header length 393
 HTTP/1.1 200 OK
-Date: Sat, 02 Nov 2013 02:22:04 GMT
-Server: Apache
-Last-Modified: Sat, 02 Nov 2013 02:01:26 GMT
-ETag: "19c141-111a9-4ea280f8354b8"
+Date: Wed, 11 Apr 2018 21:42:08 GMT
+Server: Apache/2.4.7 (Ubuntu)
+Last-Modified: Mon, 15 May 2017 12:27:40 GMT
+ETag: "38342-54f8f2e5b6277"
 Accept-Ranges: bytes
-Content-Length: 70057
+Content-Length: 230210
+Vary: Accept-Encoding
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: Wed, 11 Jan 1984 05:00:00 GMT
 Connection: close
 Content-Type: image/jpeg
 ~~~~
@@ -215,7 +242,7 @@ and our application making `recv()` requests. When we run the
 program with the delay in place, at some point the server might fill up
 the buffer in the socket and be forced to pause until our program starts
 to empty the buffer. The pausing of either the sending application or
-the receiving application is called "flow control".
+the receiving application is called "flow control."
 
 \index{flow control}
 
@@ -259,6 +286,50 @@ file as follows:
 Again, once we have opened the web page, we can read it like a local
 file.
 
+Reading binary files using `urllib`
+-----------------------------------
+
+Sometimes you want to retrieve a non-text (or binary) file such as an
+image or video file. The data in these files is generally not useful to
+print out, but you can easily make a copy of a URL to a local file on
+your hard disk using `urllib`.
+
+\index{binary file}
+
+The pattern is to open the URL and use `read` to download the
+entire contents of the document into a string variable
+(`img`) then write that information to a local file as
+follows:
+
+\VerbatimInput{../code3/curl1.py}
+
+This program reads all of the data in at once across the network and
+stores it in the variable `img` in the main memory of your
+computer, then opens the file `cover.jpg` and writes the data
+out to your disk. The `wb` argument for `open()` opens a binary file
+for writing only. This program will work if the size of the file is less than
+the size of the memory of your computer.
+
+However if this is a large audio or video file, this program may crash
+or at least run extremely slowly when your computer runs out of memory.
+In order to avoid running out of memory, we retrieve the data in blocks
+(or buffers) and then write each block to your disk before retrieving
+the next block. This way the program can read any size file without
+using up all of the memory you have in your computer.
+
+\VerbatimInput{../code3/curl2.py}
+
+In this example, we read only 100,000 characters at a time and then
+write those characters to the `cover.jpg` file before
+retrieving the next 100,000 characters of data from the web.
+
+This program runs as follows:
+
+~~~~
+python curl2.py
+230210 characters copied.
+~~~~
+
 Parsing HTML and scraping the web
 ---------------------------------
 
@@ -273,7 +344,7 @@ examines the data in those pages looking for patterns.
 As an example, a search engine such as Google will look at the source of
 one web page and extract the links to other pages and retrieve those
 pages, extracting links, and so on. Using this technique, Google
-*spiders* its way through nearly all of the pages on the
+"spiders" its way through nearly all of the pages on the
 web.
 
 Google also uses the frequency of links from pages it finds to a
@@ -301,12 +372,15 @@ We can construct a well-formed regular expression to match and extract
 the link values from the above text as follows:
 
 ~~~~
-href="http://.+?"
+href="http[s]?://.+?"
 ~~~~
 
 Our regular expression looks for strings that start with
-"href="http://", followed by one or more characters (".+?"), followed by
-another double quote. The question mark added to the ".+?" indicates
+"href=\"http://" or "href=\"https://", followed by one or more characters (`.+?`),
+followed by another double quote. The question mark behind the `[s]?` indicates
+to search for the string "http" followed by zero or one "s". 
+
+The question mark added to the `.+?` indicates
 that the match is to be done in a "non-greedy" fashion instead of a
 "greedy" fashion. A non-greedy match tries to find the
 *smallest* possible matching string and a greedy match
@@ -324,26 +398,30 @@ program:
 
 \VerbatimInput{../code3/urlregex.py}
 
-The `findall` regular expression method will give us a list
-of all of the strings that match our regular expression, returning only
-the link text between the double quotes.
+The `ssl` library allows this program to access web sites that strictly
+enforce HTTPS. The `read` method returns HTML source code as a bytes object 
+instead of returning an HTTPResponse object. The `findall` regular expression
+method will give us a list of all of the strings that match our
+regular expression, returning only the link text between the double quotes.
 
-When we run the program, we get the following output:
-
-~~~~
-python urlregex.py
-Enter - http://www.dr-chuck.com/page1.htm
-http://www.dr-chuck.com/page2.htm
-~~~~
+When we run the program and input a URL, we get the following output:
 
 ~~~~
-python urlregex.py
-Enter - http://www.py4e.com/book.htm
-http://www.greenteapress.com/thinkpython/thinkpython.html
-http://allendowney.com/
-http://www.py4e.com/code
-http://www.lib.umich.edu/espresso-book-machine
-http://www.py4e.com/py4inf-slides.zip
+Enter - https://docs.python.org
+https://docs.python.org/3/index.html
+https://www.python.org/
+https://docs.python.org/3.8/
+https://docs.python.org/3.7/
+https://docs.python.org/3.5/
+https://docs.python.org/2.7/
+https://www.python.org/doc/versions/
+https://www.python.org/dev/peps/
+https://wiki.python.org/moin/BeginnersGuide
+https://wiki.python.org/moin/PythonBooks
+https://www.python.org/doc/av/
+https://www.python.org/
+https://www.python.org/psf/donations/
+http://sphinx.pocoo.org/
 ~~~~
 
 Regular expressions work very nicely when your HTML is well formatted
@@ -358,26 +436,26 @@ Parsing HTML using BeautifulSoup
 
 \index{BeautifulSoup}
 
+Even though HTML looks like XML^[The XML format is described in the next chapter.]
+and some pages are carefully
+constructed to be XML, most HTML is generally broken in ways that cause
+an XML parser to reject the entire page of HTML as improperly formed.
+
 There are a number of Python libraries which can help you parse HTML and
 extract data from the pages. Each of the libraries has its strengths and
 weaknesses and you can pick one based on your needs.
 
 As an example, we will simply parse some HTML input and extract links
-using the *BeautifulSoup* library. You can download and
+using the *BeautifulSoup* library. BeautifulSoup tolerates highly flawed
+HTML and still lets you easily extract the data you need. You can download and
 install the BeautifulSoup code from:
 
-<http://www.crummy.com/software/>
+<https://pypi.python.org/pypi/beautifulsoup4>
 
-You can download and "install" BeautifulSoup or you can simply place the
-`BeautifulSoup.py` file in the same folder as your
-application.
+Information on installing BeautifulSoup with the Python Package Index tool `pip`
+is available at:
 
-Even though HTML looks like XML^[The XML format is described in the next chapter.]i
-and some pages are carefully
-constructed to be XML, most HTML is generally broken in ways that cause
-an XML parser to reject the entire page of HTML as improperly formed.
-BeautifulSoup tolerates highly flawed HTML and still lets you easily
-extract the data you need.
+<https://packaging.python.org/tutorials/installing-packages/>
 
 We will use `urllib` to read the page and then use
 `BeautifulSoup` to extract the `href` attributes
@@ -394,27 +472,61 @@ the data and passes the data to the BeautifulSoup parser, and then
 retrieves all of the anchor tags and prints out the `href`
 attribute for each tag.
 
-When the program runs it looks as follows:
+When the program runs, it produces the following output:
 
 ~~~~
-python urllinks.py
-Enter - http://www.dr-chuck.com/page1.htm
-http://www.dr-chuck.com/page2.htm
+Enter - https://docs.python.org
+genindex.html
+py-modindex.html
+https://www.python.org/
+#
+whatsnew/3.6.html
+whatsnew/index.html
+tutorial/index.html
+library/index.html
+reference/index.html
+using/index.html
+howto/index.html
+installing/index.html
+distributing/index.html
+extending/index.html
+c-api/index.html
+faq/index.html
+py-modindex.html
+genindex.html
+glossary.html
+search.html
+contents.html
+bugs.html
+about.html
+license.html
+copyright.html
+download.html
+https://docs.python.org/3.8/
+https://docs.python.org/3.7/
+https://docs.python.org/3.5/
+https://docs.python.org/2.7/
+https://www.python.org/doc/versions/
+https://www.python.org/dev/peps/
+https://wiki.python.org/moin/BeginnersGuide
+https://wiki.python.org/moin/PythonBooks
+https://www.python.org/doc/av/
+genindex.html
+py-modindex.html
+https://www.python.org/
+#
+copyright.html
+https://www.python.org/psf/donations/
+bugs.html
+http://sphinx.pocoo.org/
 ~~~~
 
-~~~~
-python urllinks.py
-Enter - http://www.py4e.com/book.htm
-http://www.greenteapress.com/thinkpython/thinkpython.html
-http://allendowney.com/
-http://www.si502.com/
-http://www.lib.umich.edu/espresso-book-machine
-http://www.py4e.com/code
-http://www.py4e.com/
-~~~~
+This list is much longer because some HTML anchor tags are relative
+paths (e.g., tutorial/index.html) or in-page references (e.g., '#')
+that do not include "http://" or "https://", which was a
+requirement in our regular expression.
 
-You can use BeautifulSoup to pull out various parts of each tag as
-follows:
+You can use also BeautifulSoup to pull out various parts of each tag:
 
 \VerbatimInput{../code3/urllink2.py}
 
@@ -428,69 +540,47 @@ Content: ['\nSecond Page']
 Attrs: [('href', 'http://www.dr-chuck.com/page2.htm')]
 ~~~~
 
+`html.parser` is the HTML parser included in the standard Python 3 library.
+Information on other HTML parsers is available at:
+
+<http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser>
+
 These examples only begin to show the power of BeautifulSoup when it
 comes to parsing HTML.
 
-Reading binary files using urllib
----------------------------------
+Bonus section for Unix / Linux users
+------------------------------------
 
-Sometimes you want to retrieve a non-text (or binary) file such as an
-image or video file. The data in these files is generally not useful to
-print out, but you can easily make a copy of a URL to a local file on
-your hard disk using `urllib`.
-
-\index{binary file}
-
-The pattern is to open the URL and use `read` to download the
-entire contents of the document into a string variable
-(`img`) then write that information to a local file as
-follows:
-
-\VerbatimInput{../code3/curl1.py}
-
-This program reads all of the data in at once across the network and
-stores it in the variable `img` in the main memory of your
-computer, then opens the file `cover.jpg` and writes the data
-out to your disk. This will work if the size of the file is less than
-the size of the memory of your computer.
-
-However if this is a large audio or video file, this program may crash
-or at least run extremely slowly when your computer runs out of memory.
-In order to avoid running out of memory, we retrieve the data in blocks
-(or buffers) and then write each block to your disk before retrieving
-the next block. This way the program can read any size file without
-using up all of the memory you have in your computer.
-
-\VerbatimInput{../code3/curl2.py}
-
-In this example, we read only 100,000 characters at a time and then
-write those characters to the `cover.jpg` file before
-retrieving the next 100,000 characters of data from the web.
-
-This program runs as follows:
-
-~~~~
-python curl2.py
-568248 characters copied.
-~~~~
-
-If you have a Unix or Macintosh computer, you probably have a command
-built in to your operating system that performs this operation as
-follows:
+If you have a Linux, Unix, or Macintosh computer, you probably have
+commands built in to your operating system that retrieves both plain
+text and binary files using the HTTP or File Transfer (FTP) protocols.
+One of these commands is `curl`:
 
 \index{curl}
 
-~~~~
-curl -O http://www.py4e.com/cover.jpg
+~~~~ {.bash}
+$ curl -O http://www.py4e.com/cover.jpg
 ~~~~
 
-The command `curl` is short for "copy URL" and so these two
-examples are cleverly named `curl1.py` and
-`curl2.py` on [www.py4e.com/code3](http://www.py4e.com/code3) as
+The command `curl` is short for "copy URL" and so the two
+examples listed earlier to retrieve binary files with `urllib`
+are cleverly named `curl1.py` and `curl2.py` on
+[www.py4e.com/code3](http://www.py4e.com/code3) as
 they implement similar functionality to the `curl` command.
 There is also a `curl3.py` sample program that does this task
 a little more effectively, in case you actually want to use this pattern
 in a program you are writing.
+
+A second command that functions very similarly is `wget`:
+
+\index{wget}
+
+~~~~ {.bash}
+$ wget http://www.py4e.com/cover.jpg
+~~~~
+
+Both of these commands make retrieving webpages and remote files a
+simple task.
 
 Glossary
 --------
