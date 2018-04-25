@@ -208,15 +208,24 @@ In this example, the entire contents (all 94,626 characters) of the file
 `inp`. We use string slicing to print out the first 20
 characters of the string data stored in `inp`.
 
+
 When the file is read in this manner, all the characters including all
 of the lines and newline characters are one big string in the variable
-*inp*. Remember that this form of the `open`
-function should only be used if the file data will fit comfortably in
-the main memory of your computer.
+`inp`. It is a good idea to store the output of `read` as a variable
+because each call to `read` exhausts the resource:
 
+~~~~ {.python}
+>>> fhand = open('mbox-short.txt')
+>>> print(len(fhand.read()))
+94626
+>>> print(len(fhand.read()))
+0
+~~~~
+
+Remember that this form of the `open` function should only be used
+if the file data will fit comfortably in the main memory of your computer.
 If the file is too large to fit in main memory, you should write your
-program to read the file in chunks using a `for` or
-`while` loop.
+program to read the file in chunks using a `for` or `while` loop.
 
 Searching through a file
 ------------------------
