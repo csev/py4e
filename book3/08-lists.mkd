@@ -18,7 +18,7 @@ values in list are called *elements* or sometimes
 \index{item}
 
 There are several ways to create a new list; the simplest is to enclose
-the elements in square brackets (`[` and `]`):
+the elements in square brackets ("[" and "]"):
 
 ~~~~ {.python}
 [10, 20, 30, 40]
@@ -91,7 +91,7 @@ the list that will be assigned.
 [17, 5]
 ~~~~
 
-The one-eth element of `numbers`, which used to be 123, is
+The one-th element of `numbers`, which used to be 123, is
 now 5.
 
 \index{index!starting at zero}
@@ -468,8 +468,8 @@ string to a list of characters, you can use `list`:
 
 Because `list` is the name of a built-in function, you should
 avoid using it as a variable name. I also avoid the letter
-`l` because it looks too much like the number `1`.
-So that's why I use `t`.
+"l" because it looks too much like the number "1".
+So that's why I use "t".
 
 The `list` function breaks a string into individual letters.
 If you want to break a string into words, you can use the
@@ -538,7 +538,9 @@ other than just printing the whole line. Often we want to find the
 some interesting *part* of the line. What if we wanted to print out the
 day of the week from those lines that start with "From "?
 
-`From stephen.marquard@uct.ac.za `*` Sat`*` Jan  5 09:14:16 2008`
+~~~~
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+~~~~
 
 The `split` method is very effective when faced with this
 kind of problem. We can write a small program that looks for lines where
@@ -550,19 +552,13 @@ print out the third word in the line:
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Here we also use the contracted form of the `if` statement
-where we put the `continue ` on the same line as the
-`if`. This contracted form of the `if` functions
-the same as if the `continue` were on the next line and
-indented.
-
 The program produces the following output:
 
     Sat
     Fri
     Fri
     Fri
-        ...
+    ...
 
 Later, we will learn increasingly sophisticated techniques for picking
 the lines to work on and how we pull those lines apart to find the exact
@@ -779,13 +775,8 @@ used:
 ['b', 'c']
 ~~~~
 
-Exercise 1:
-
-Write a function called `chop` that takes a list and modifies
-it, removing the first and last elements, and returns `None`.
-
-Then write a function called `middle` that takes a list and
-returns a new list that contains all but the first and last elements.
+**Exercise 1: Write a function called `chop` that takes a list and modifies
+it, removing the first and last elements, and returns `None`. Then write a function called `middle` that takes a list and returns a new list that contains all but the first and last elements.**
 
 Debugging
 ---------
@@ -801,13 +792,14 @@ of debugging. Here are some common pitfalls and ways to avoid them:
 
     If you are used to writing string code like this:
 
+    ~~~~ {.python}
+    word = word.strip()
+    ~~~~
+
+    It is tempting to write list code like this:
 
     ~~~~ {.python}
-        word = word.strip()
-    ~~~~
-    It is tempting to write list code like this:
-    ~~~~ {.python}
-        t = t.sort()           # WRONG!
+    t = t.sort()           # WRONG!
     ~~~~
 
     \index{sort method}
@@ -838,17 +830,17 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     `+` operator. But don't forget that these are right:
 
     ~~~~ {.python}
-        t.append(x)
-        t = t + [x]
+    t.append(x)
+    t = t + [x]
     ~~~~
 
     And these are wrong:
 
     ~~~~ {.python}
-        t.append([x])          # WRONG!
-        t = t.append(x)        # WRONG!
-        t + [x]                # WRONG!
-        t = t + x              # WRONG!
+    t.append([x])          # WRONG!
+    t = t.append(x)        # WRONG!
+    t + [x]                # WRONG!
+    t = t + x              # WRONG!
     ~~~~
 
     Try out each of these examples in interactive mode to make sure you
@@ -866,8 +858,8 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     make a copy.
 
     ~~~~ {.python}
-        orig = t[:]
-        t.sort()
+    orig = t[:]
+    t.sort()
     ~~~~
 
     In this example you could also use the built-in function
@@ -886,7 +878,9 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     Let's revisit our program that is looking for the day of the week on
     the from lines of our file:
 
-    `From stephen.marquard@uct.ac.za `**` Sat`**` Jan  5 09:14:16 2008`
+    ~~~~
+    From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+    ~~~~
 
     Since we are breaking this line into words, we could dispense with
     the use of `startswith` and simply look at the first word
@@ -907,12 +901,12 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     But is it better?
 
     ~~~~
-            python search8.py
-            Sat
-            Traceback (most recent call last):
-              File "search8.py", line 5, in <module>
-                if words[0] != 'From' : continue
-            IndexError: list index out of range
+    python search8.py
+    Sat
+    Traceback (most recent call last):
+      File "search8.py", line 5, in <module>
+        if words[0] != 'From' : continue
+    IndexError: list index out of range
     ~~~~
 
     It kind of works and we see the day from the first line (Sat), but
@@ -933,11 +927,11 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     our regular output separate from our debug output.
 
     ~~~~ {.python}
-        for line in fhand:
-            words = line.split()
-            print('Debug:', words)
-            if words[0] != 'From' : continue
-            print(words[2])
+    for line in fhand:
+        words = line.split()
+        print('Debug:', words)
+        if words[0] != 'From' : continue
+        print(words[2])
     ~~~~
 
     When we run the program, a lot of output scrolls off the screen but
@@ -945,13 +939,13 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     what happened just before the traceback.
 
     ~~~~
-            Debug: ['X-DSPAM-Confidence:', '0.8475']
-            Debug: ['X-DSPAM-Probability:', '0.0000']
-            Debug: []
-            Traceback (most recent call last):
-              File "search9.py", line 6, in <module>
-                if words[0] != 'From' : continue
-            IndexError: list index out of range
+    Debug: ['X-DSPAM-Confidence:', '0.8475']
+    Debug: ['X-DSPAM-Probability:', '0.0000']
+    Debug: []
+    Traceback (most recent call last):
+      File "search9.py", line 6, in <module>
+        if words[0] != 'From' : continue
+    IndexError: list index out of range
     ~~~~
 
     Each debug line is printing the list of words which we get when we
@@ -960,12 +954,12 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     and look at the file, at that point it looks as follows:
 
     ~~~~
-            X-DSPAM-Result: Innocent
-            X-DSPAM-Processed: Sat Jan  5 09:14:16 2008
-            X-DSPAM-Confidence: 0.8475
-            X-DSPAM-Probability: 0.0000
-    
-            Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
+    X-DSPAM-Result: Innocent
+    X-DSPAM-Processed: Sat Jan  5 09:14:16 2008
+    X-DSPAM-Confidence: 0.8475
+    X-DSPAM-Probability: 0.0000
+
+    Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
     ~~~~
 
     The error occurs when our program encounters a blank line! Of course
@@ -1009,16 +1003,16 @@ of debugging. Here are some common pitfalls and ways to avoid them:
     will never fail, but perhaps it is not enough. When we are
     programming, we must always be thinking, "What might go wrong?"
 
-Exercise 2: Figure out which line of the above program is still not
+**Exercise 2: Figure out which line of the above program is still not
 properly guarded. See if you can construct a text file which causes
 the program to fail and then modify the program so that the line is
 properly guarded and test it to make sure it handles your new text
-file.
+file.**
 
-Exercise 3: Rewrite the guardian code in the above example without
+**Exercise 3: Rewrite the guardian code in the above example without
 two `if` statements. Instead, use a compound logical
 expression using the `and` logical operator with a single
-`if` statement.
+`if` statement.**
 
 Glossary
 --------
@@ -1072,20 +1066,16 @@ reference
 Exercises
 ---------
 
-Exercise 4: Download a copy of the file from
-[www.py4e.com/code3/romeo.txt](http://www.py4e.com/code3/romeo.txt)
-
 \index{Romeo and Juliet}
 
-Write a program to open the file `romeo.txt` and read it line
+**Exercise 4: Download a copy of the file from**
+[www.py4e.com/code3/romeo.txt](http://www.py4e.com/code3/romeo.txt)
+
+**Write a program to open the file `romeo.txt` and read it line
 by line. For each line, split the line into a list of words using the
-`split` function.
-
-For each word, check to see if the word is already in a list. If the
-word is not in the list, add it to the list.
-
+`split` function. For each word, check to see if the word is already in a list. If the word is not in the list, add it to the list.
 When the program completes, sort and print the resulting words in
-alphabetical order.
+alphabetical order.**
 
 ~~~~
 Enter file: romeo.txt
@@ -1096,18 +1086,18 @@ Enter file: romeo.txt
 'with', 'yonder']
 ~~~~
 
-**Exercise 5:** Write a program to read through the mail box data and when
+**Exercise 5: Write a program to read through the mail box data and when
 you find line that starts with "From", you will split the line into
 words using the `split` function. We are interested in who
-sent the message, which is the second word on the From line.
+sent the message, which is the second word on the From line.**
 
-`From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008 `
+~~~~
+From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008
+~~~~
 
-You will parse the From line and print out the second word for each From
+**You will parse the From line and print out the second word for each From
 line, then you will also count the number of From (not From:) lines and
-print out a count at the end.
-
-This is a good sample output with a few lines removed:
+print out a count at the end. This is a good sample output with a few lines removed:**
 
 ~~~~
 python fromcount.py
@@ -1125,12 +1115,12 @@ cwen@iupui.edu
 There were 27 lines in the file with From as the first word
 ~~~~
 
-**Exercise 6:** Rewrite the program that prompts the user for a list of
+**Exercise 6: Rewrite the program that prompts the user for a list of
 numbers and prints out the maximum and minimum of the numbers at the end
 when the user enters "done". Write the program to store the numbers the
 user enters in a list and use the `max()` and
 `min()` functions to compute the maximum and minimum numbers
-after the loop completes.
+after the loop completes.**
 
 ~~~~
 Enter a number: 6
