@@ -14,7 +14,7 @@
 <h2 id="a-list-is-a-sequence">A list is a sequence</h2>
 <p>Like a string, a <em>list</em> is a sequence of values. In a string, the values are characters; in a list, they can be any type. The values in list are called <em>elements</em> or sometimes <em>items</em>.</p>
 <p>  </p>
-<p>There are several ways to create a new list; the simplest is to enclose the elements in square brackets (<code>[</code> and <code>]</code>):</p>
+<p>There are several ways to create a new list; the simplest is to enclose the elements in square brackets (&quot;[&quot; and &quot;]&quot;):</p>
 <pre class="python"><code>[10, 20, 30, 40]
 [&#39;crunchy frog&#39;, &#39;ram bladder&#39;, &#39;lark vomit&#39;]</code></pre>
 <p>The first example is a list of four integers. The second is a list of three strings. The elements of a list don't have to be the same type. The following list contains a string, a float, an integer, and (lo!) another list:</p>
@@ -41,7 +41,7 @@ Cheddar</code></pre>
 &gt;&gt;&gt; numbers[1] = 5
 &gt;&gt;&gt; print(numbers)
 [17, 5]</code></pre>
-<p>The one-eth element of <code>numbers</code>, which used to be 123, is now 5.</p>
+<p>The one-th element of <code>numbers</code>, which used to be 123, is now 5.</p>
 <p> </p>
 <p>You can think of a list as a relationship between indices and elements. This relationship is called a <em>mapping</em>; each index &quot;maps to&quot; one of the elements.</p>
 <p> </p>
@@ -222,7 +222,7 @@ print(&#39;Average:&#39;, average)
 &gt;&gt;&gt; t = list(s)
 &gt;&gt;&gt; print(t)
 [&#39;s&#39;, &#39;p&#39;, &#39;a&#39;, &#39;m&#39;]</code></pre>
-<p>Because <code>list</code> is the name of a built-in function, you should avoid using it as a variable name. I also avoid the letter <code>l</code> because it looks too much like the number <code>1</code>. So that's why I use <code>t</code>.</p>
+<p>Because <code>list</code> is the name of a built-in function, you should avoid using it as a variable name. I also avoid the letter &quot;l&quot; because it looks too much like the number &quot;1&quot;. So that's why I use &quot;t&quot;.</p>
 <p>The <code>list</code> function breaks a string into individual letters. If you want to break a string into words, you can use the <code>split</code> method:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; s = &#39;pining for the fjords&#39;
@@ -248,7 +248,7 @@ the</code></pre>
 <p> </p>
 <h2 id="parsing-lines">Parsing lines</h2>
 <p>Usually when we are reading a file we want to do something to the lines other than just printing the whole line. Often we want to find the &quot;interesting lines&quot; and then <em>parse</em> the line to find some interesting <em>part</em> of the line. What if we wanted to print out the day of the week from those lines that start with &quot;From &quot;?</p>
-<p><code>From stephen.marquard@uct.ac.za</code><em><code>Sat</code></em><code>Jan  5 09:14:16 2008</code></p>
+<pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
 <p>The <code>split</code> method is very effective when faced with this kind of problem. We can write a small program that looks for lines where the line starts with &quot;From &quot;, <code>split</code> those lines, and then print out the third word in the line:</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
 for line in fhand:
@@ -259,13 +259,12 @@ for line in fhand:
 
 # Code: http://www.py4e.com/code3/search5.py</code></pre>
 
-<p>Here we also use the contracted form of the <code>if</code> statement where we put the <code>continue</code> on the same line as the <code>if</code>. This contracted form of the <code>if</code> functions the same as if the <code>continue</code> were on the next line and indented.</p>
 <p>The program produces the following output:</p>
 <pre><code>Sat
 Fri
 Fri
 Fri
-    ...</code></pre>
+...</code></pre>
 <p>Later, we will learn increasingly sophisticated techniques for picking the lines to work on and how we pull those lines apart to find the exact bit of information we are looking for.</p>
 <h2 id="objects-and-values">Objects and values</h2>
 <p> </p>
@@ -354,17 +353,16 @@ False</code></pre>
 &gt;&gt;&gt; rest = tail(letters)
 &gt;&gt;&gt; print(rest)
 [&#39;b&#39;, &#39;c&#39;]</code></pre>
-<p>Exercise 1:</p>
-<p>Write a function called <code>chop</code> that takes a list and modifies it, removing the first and last elements, and returns <code>None</code>.</p>
-<p>Then write a function called <code>middle</code> that takes a list and returns a new list that contains all but the first and last elements.</p>
+<p><strong>Exercise 1: Write a function called <code>chop</code> that takes a list and modifies it, removing the first and last elements, and returns <code>None</code>. Then write a function called <code>middle</code> that takes a list and returns a new list that contains all but the first and last elements.</strong></p>
 <h2 id="debugging">Debugging</h2>
 <p></p>
 <p>Careless use of lists (and other mutable objects) can lead to long hours of debugging. Here are some common pitfalls and ways to avoid them:</p>
 <ol style="list-style-type: decimal">
 <li><p>Don't forget that most list methods modify the argument and return <code>None</code>. This is the opposite of the string methods, which return a new string and leave the original alone.</p>
 <p>If you are used to writing string code like this:</p>
-<pre class="python"><code>    word = word.strip()</code></pre>
-<p>It is tempting to write list code like this: ~<sub>~</sub> {.python} t = t.sort() # WRONG! ~<sub>~</sub></p>
+<pre class="python"><code>word = word.strip()</code></pre>
+<p>It is tempting to write list code like this:</p>
+<pre class="python"><code>t = t.sort()           # WRONG!</code></pre>
 <p> </p>
 <p>Because <code>sort</code> returns <code>None</code>, the next operation you perform with <code>t</code> is likely to fail.</p>
 <p>Before using list methods and operators, you should read the documentation carefully and then test them in interactive mode. The methods and operators that lists share with other sequences (like strings) are documented at <a href="https://docs.python.org/3.5/library/stdtypes.html#common-sequence-operations" class="uri">https://docs.python.org/3.5/library/stdtypes.html#common-sequence-operations</a>. The methods and operators that only apply to mutable sequences are documented at <a href="https://docs.python.org/3.5/library/stdtypes.html#mutable-sequence-types" class="uri">https://docs.python.org/3.5/library/stdtypes.html#mutable-sequence-types</a>.</p></li>
@@ -372,24 +370,24 @@ False</code></pre>
 <p></p>
 <p>Part of the problem with lists is that there are too many ways to do things. For example, to remove an element from a list, you can use <code>pop</code>, <code>remove</code>, <code>del</code>, or even a slice assignment.</p>
 <p>To add an element, you can use the <code>append</code> method or the <code>+</code> operator. But don't forget that these are right:</p>
-<pre class="python"><code>    t.append(x)
-    t = t + [x]</code></pre>
+<pre class="python"><code>t.append(x)
+t = t + [x]</code></pre>
 <p>And these are wrong:</p>
-<pre class="python"><code>    t.append([x])          # WRONG!
-    t = t.append(x)        # WRONG!
-    t + [x]                # WRONG!
-    t = t + x              # WRONG!</code></pre>
+<pre class="python"><code>t.append([x])          # WRONG!
+t = t.append(x)        # WRONG!
+t + [x]                # WRONG!
+t = t + x              # WRONG!</code></pre>
 <p>Try out each of these examples in interactive mode to make sure you understand what they do. Notice that only the last one causes a runtime error; the other three are legal, but they do the wrong thing.</p></li>
 <li><p>Make copies to avoid aliasing.</p>
 <p> </p>
 <p>If you want to use a method like <code>sort</code> that modifies the argument, but you need to keep the original list as well, you can make a copy.</p>
-<pre class="python"><code>    orig = t[:]
-    t.sort()</code></pre>
+<pre class="python"><code>orig = t[:]
+t.sort()</code></pre>
 <p>In this example you could also use the built-in function <code>sorted</code>, which returns a new, sorted list and leaves the original alone. But in that case you should avoid using <code>sorted</code> as a variable name!</p></li>
 <li><p>Lists, <code>split</code>, and files</p>
 <p>When we read and parse files, there are many opportunities to encounter input that can crash our program so it is a good idea to revisit the <em>guardian</em> pattern when it comes writing programs that read through a file and look for a &quot;needle in the haystack&quot;.</p>
 <p>Let's revisit our program that is looking for the day of the week on the from lines of our file:</p>
-<p><code>From stephen.marquard@uct.ac.za</code><strong><code>Sat</code></strong><code>Jan  5 09:14:16 2008</code></p>
+<pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
 <p>Since we are breaking this line into words, we could dispense with the use of <code>startswith</code> and simply look at the first word of the line to determine if we are interested in the line at all. We can use <code>continue</code> to skip lines that don't have &quot;From&quot; as the first word as follows:</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
 for line in fhand:
@@ -397,35 +395,35 @@ for line in fhand:
     if words[0] != &#39;From&#39; : continue
     print(words[2])</code></pre>
 <p>This looks much simpler and we don't even need to do the <code>rstrip</code> to remove the newline at the end of the file. But is it better?</p>
-<pre><code>        python search8.py
-        Sat
-        Traceback (most recent call last):
-          File &quot;search8.py&quot;, line 5, in &lt;module&gt;
-            if words[0] != &#39;From&#39; : continue
-        IndexError: list index out of range</code></pre>
+<pre><code>python search8.py
+Sat
+Traceback (most recent call last):
+  File &quot;search8.py&quot;, line 5, in &lt;module&gt;
+    if words[0] != &#39;From&#39; : continue
+IndexError: list index out of range</code></pre>
 <p>It kind of works and we see the day from the first line (Sat), but then the program fails with a traceback error. What went wrong? What messed-up data caused our elegant, clever, and very Pythonic program to fail?</p>
 <p>You could stare at it for a long time and puzzle through it or ask someone for help, but the quicker and smarter approach is to add a <code>print</code> statement. The best place to add the print statement is right before the line where the program failed and print out the data that seems to be causing the failure.</p>
 <p>Now this approach may generate a lot of lines of output, but at least you will immediately have some clue as to the problem at hand. So we add a print of the variable <code>words</code> right before line five. We even add a prefix &quot;Debug:&quot; to the line so we can keep our regular output separate from our debug output.</p>
-<pre class="python"><code>    for line in fhand:
-        words = line.split()
-        print(&#39;Debug:&#39;, words)
-        if words[0] != &#39;From&#39; : continue
-        print(words[2])</code></pre>
+<pre class="python"><code>for line in fhand:
+    words = line.split()
+    print(&#39;Debug:&#39;, words)
+    if words[0] != &#39;From&#39; : continue
+    print(words[2])</code></pre>
 <p>When we run the program, a lot of output scrolls off the screen but at the end, we see our debug output and the traceback so we know what happened just before the traceback.</p>
-<pre><code>        Debug: [&#39;X-DSPAM-Confidence:&#39;, &#39;0.8475&#39;]
-        Debug: [&#39;X-DSPAM-Probability:&#39;, &#39;0.0000&#39;]
-        Debug: []
-        Traceback (most recent call last):
-          File &quot;search9.py&quot;, line 6, in &lt;module&gt;
-            if words[0] != &#39;From&#39; : continue
-        IndexError: list index out of range</code></pre>
+<pre><code>Debug: [&#39;X-DSPAM-Confidence:&#39;, &#39;0.8475&#39;]
+Debug: [&#39;X-DSPAM-Probability:&#39;, &#39;0.0000&#39;]
+Debug: []
+Traceback (most recent call last):
+  File &quot;search9.py&quot;, line 6, in &lt;module&gt;
+    if words[0] != &#39;From&#39; : continue
+IndexError: list index out of range</code></pre>
 <p>Each debug line is printing the list of words which we get when we <code>split</code> the line into words. When the program fails, the list of words is empty <code>[]</code>. If we open the file in a text editor and look at the file, at that point it looks as follows:</p>
-<pre><code>        X-DSPAM-Result: Innocent
-        X-DSPAM-Processed: Sat Jan  5 09:14:16 2008
-        X-DSPAM-Confidence: 0.8475
-        X-DSPAM-Probability: 0.0000
+<pre><code>X-DSPAM-Result: Innocent
+X-DSPAM-Processed: Sat Jan  5 09:14:16 2008
+X-DSPAM-Confidence: 0.8475
+X-DSPAM-Probability: 0.0000
 
-        Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772</code></pre>
+Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772</code></pre>
 <p>The error occurs when our program encounters a blank line! Of course there are &quot;zero words&quot; on a blank line. Why didn't we think of that when we were writing the code? When the code looks for the first word (<code>word[0]</code>) to check to see if it matches &quot;From&quot;, we get an &quot;index out of range&quot; error.</p>
 <p>This of course is the perfect place to add some <em>guardian</em> code to avoid checking the first word if the first word is not there. There are many ways to protect this code; we will choose to check the number of words we have before we look at the first word:</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
@@ -440,8 +438,8 @@ for line in fhand:
 <p>We can think of the two <code>continue</code> statements as helping us refine the set of lines which are &quot;interesting&quot; to us and which we want to process some more. A line which has no words is &quot;uninteresting&quot; to us so we skip to the next line. A line which does not have &quot;From&quot; as its first word is uninteresting to us so we skip it.</p>
 <p>The program as modified runs successfully, so perhaps it is correct. Our guardian statement does make sure that the <code>words[0]</code> will never fail, but perhaps it is not enough. When we are programming, we must always be thinking, &quot;What might go wrong?&quot;</p></li>
 </ol>
-<p>Exercise 2: Figure out which line of the above program is still not properly guarded. See if you can construct a text file which causes the program to fail and then modify the program so that the line is properly guarded and test it to make sure it handles your new text file.</p>
-<p>Exercise 3: Rewrite the guardian code in the above example without two <code>if</code> statements. Instead, use a compound logical expression using the <code>and</code> logical operator with a single <code>if</code> statement.</p>
+<p><strong>Exercise 2: Figure out which line of the above program is still not properly guarded. See if you can construct a text file which causes the program to fail and then modify the program so that the line is properly guarded and test it to make sure it handles your new text file.</strong></p>
+<p><strong>Exercise 3: Rewrite the guardian code in the above example without two <code>if</code> statements. Instead, use a compound logical expression using the <code>and</code> logical operator with a single <code>if</code> statement.</strong></p>
 <h2 id="glossary">Glossary</h2>
 <dl>
 <dt>aliasing</dt>
@@ -479,21 +477,18 @@ for line in fhand:
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p>Exercise 4: Download a copy of the file from <a href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a></p>
 <p></p>
-<p>Write a program to open the file <code>romeo.txt</code> and read it line by line. For each line, split the line into a list of words using the <code>split</code> function.</p>
-<p>For each word, check to see if the word is already in a list. If the word is not in the list, add it to the list.</p>
-<p>When the program completes, sort and print the resulting words in alphabetical order.</p>
+<p><strong>Exercise 4: Download a copy of the file from</strong> <a href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a></p>
+<p><strong>Write a program to open the file <code>romeo.txt</code> and read it line by line. For each line, split the line into a list of words using the <code>split</code> function. For each word, check to see if the word is already in a list. If the word is not in the list, add it to the list. When the program completes, sort and print the resulting words in alphabetical order.</strong></p>
 <pre><code>Enter file: romeo.txt
 [&#39;Arise&#39;, &#39;But&#39;, &#39;It&#39;, &#39;Juliet&#39;, &#39;Who&#39;, &#39;already&#39;,
 &#39;and&#39;, &#39;breaks&#39;, &#39;east&#39;, &#39;envious&#39;, &#39;fair&#39;, &#39;grief&#39;,
 &#39;is&#39;, &#39;kill&#39;, &#39;light&#39;, &#39;moon&#39;, &#39;pale&#39;, &#39;sick&#39;, &#39;soft&#39;,
 &#39;sun&#39;, &#39;the&#39;, &#39;through&#39;, &#39;what&#39;, &#39;window&#39;,
 &#39;with&#39;, &#39;yonder&#39;]</code></pre>
-<p><strong>Exercise 5:</strong> Write a program to read through the mail box data and when you find line that starts with &quot;From&quot;, you will split the line into words using the <code>split</code> function. We are interested in who sent the message, which is the second word on the From line.</p>
-<p><code>From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008</code></p>
-<p>You will parse the From line and print out the second word for each From line, then you will also count the number of From (not From:) lines and print out a count at the end.</p>
-<p>This is a good sample output with a few lines removed:</p>
+<p><strong>Exercise 5: Write a program to read through the mail box data and when you find line that starts with &quot;From&quot;, you will split the line into words using the <code>split</code> function. We are interested in who sent the message, which is the second word on the From line.</strong></p>
+<pre><code>From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008</code></pre>
+<p><strong>You will parse the From line and print out the second word for each From line, then you will also count the number of From (not From:) lines and print out a count at the end. This is a good sample output with a few lines removed:</strong></p>
 <pre><code>python fromcount.py
 Enter a file name: mbox-short.txt
 stephen.marquard@uct.ac.za
@@ -507,7 +502,7 @@ cwen@iupui.edu
 cwen@iupui.edu
 cwen@iupui.edu
 There were 27 lines in the file with From as the first word</code></pre>
-<p><strong>Exercise 6:</strong> Rewrite the program that prompts the user for a list of numbers and prints out the maximum and minimum of the numbers at the end when the user enters &quot;done&quot;. Write the program to store the numbers the user enters in a list and use the <code>max()</code> and <code>min()</code> functions to compute the maximum and minimum numbers after the loop completes.</p>
+<p><strong>Exercise 6: Rewrite the program that prompts the user for a list of numbers and prints out the maximum and minimum of the numbers at the end when the user enters &quot;done&quot;. Write the program to store the numbers the user enters in a list and use the <code>max()</code> and <code>min()</code> functions to compute the maximum and minimum numbers after the loop completes.</strong></p>
 <pre><code>Enter a number: 6
 Enter a number: 2
 Enter a number: 9
