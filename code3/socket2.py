@@ -1,7 +1,7 @@
 import socket
 
-# This is using HTML 1.0 - not all servers support the oldest protocol
-# Try http://data.pr4e.org/romeo.txt is your server fails.
+# This is using HTTP 1.0 - not all servers support the oldest protocol
+# Try http://data.pr4e.org/romeo.txt if your server fails.
 
 url = input('Enter: ')
 words = url.split('/')
@@ -15,6 +15,6 @@ while True:
     data = mysock.recv(512)
     if (len(data) < 1):
         break
-    print(data.decode(), end=' ')
+    print(data.decode(), end='')
 
 mysock.close()
