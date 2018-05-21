@@ -3,16 +3,15 @@ Using Web Services
 
 Once it became easy to retrieve documents and parse documents over HTTP
 using programs, it did not take long to develop an approach where we
-
 started producing documents that were specifically designed to be
 consumed by other programs (i.e., not HTML to be displayed in a
 browser).
 
 There are two common formats that we use when exchanging data across the
-web. The "eXtensible Markup Language" or XML has been in use for a very
+web. eXtensible Markup Language (XML) has been in use for a very
 long time and is best suited for exchanging document-style data. When
 programs just want to exchange dictionaries, lists, or other internal
-information with each other, they use JavaScript Object Notation or JSON
+information with each other, they use JavaScript Object Notation (JSON)
 (see [www.json.org](http://www.json.org)). We will look at both formats.
 
 eXtensible Markup Language - XML
@@ -25,15 +24,22 @@ Here is a sample of an XML document:
 <person>
   <name>Chuck</name>
   <phone type="intl">
-     +1 734 303 4456
-   </phone>
-   <email hide="yes"/>
+    +1 734 303 4456
+  </phone>
+  <email hide="yes" />
 </person>
 ~~~~
 
+Each pair of opening (e.g., `<person>`) and closing tags
+(e.g., `<\person>`) represents a *element* or *node* with the same
+name as the tag (e.g., `person`). Each element can have some text,
+some attributes (e.g., `hide`), and other nested elements. If an XML
+element is empty (i.e., has no content), then it may be depicted by
+a self-closing tag (e.g., `<email />`).
+
 Often it is helpful to think of an XML document as a tree structure
-where there is a top tag `person` and other tags such as
-`phone` are drawn as *children* of their parent nodes.
+where there is a top element (here: `person`), and other tags (e.g.,
+`phone`) are drawn as *children* of their *parent* elements.
 
 ![A Tree Representation of XML](height=2.0in@../images/xml-tree)
 
@@ -49,14 +55,14 @@ elements from the XML:
 
 \VerbatimInput{../code3/xml1.py} 
 
-Calling `fromstring` converts the string representation of
-the XML into a "tree" of XML nodes. When the XML is in a tree, we have a
-series of methods we can call to extract portions of data from the XML.
+The triple single quote (`'''`), as well as the triple double quote (`"""`), allow for the creation of strings that span multiple lines.
 
-The `find` function searches through the XML tree and
-retrieves a *node* that matches the specified tag. Each
-node can have some text, some attributes (like hide), and some "child"
-nodes. Each node can be the top of a tree of nodes.
+Calling `fromstring` converts the string representation of
+the XML into a "tree" of XML elements. When the XML is in a tree,
+we have a series of methods we can call to extract portions
+of data from the XML string.  The `find` function searches
+through the XML tree and retrieves the element that matches
+the specified tag.
 
 ~~~~
 Name: Chuck
@@ -65,7 +71,7 @@ Attr: yes
 
 Using an XML parser such as `ElementTree` has the advantage
 that while the XML in this example is quite simple, it turns out there
-are many rules regarding valid XML and using `ElementTree`
+are many rules regarding valid XML, and using `ElementTree`
 allows us to extract data from XML without worrying about the rules of
 XML syntax.
 
@@ -95,6 +101,45 @@ Attribute 2
 Name Brent
 Id 009
 Attribute 7
+~~~~
+
+It is important to include all parent level elements in the `findall`
+statement expect for the top level element (e.g., `users/user`).
+Otherwise, Python will not find any desired nodes.
+
+~~~~ {.python}
+import xml.etree.ElementTree as ET
+
+input = '''
+<stuff>
+  <users>
+    <user x="2">
+      <id>001</id>
+      <name>Chuck</name>
+    </user>
+    <user x="7">
+      <id>009</id>
+      <name>Brent</name>
+    </user>
+  </users>
+</stuff>'''
+
+stuff = ET.fromstring(input)
+
+lst = stuff.findall('users/user')
+print('User count:', len(lst))
+
+lst2 = stuff.findall('user')
+print('User count:', len(lst2))
+~~~~
+
+`lst` stores all `user` elements that are nested within their `users`
+parent. `lst2` looks for `user` elements that are not nested within
+the top level `stuff` element where there are none.
+
+~~~~
+User count: 2
+User count: 0
 ~~~~
 
 JavaScript Object Notation - JSON
