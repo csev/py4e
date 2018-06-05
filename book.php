@@ -11,11 +11,8 @@ of the book has not been translated.
         </p>
 
 <ul>
-            <li><p><b>Earn a Coursera Certificate for This Course</b>
-            <ul>
-            <li><a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody</a> (Coursera Specialization)</li>
-            </ul>
-            </p></li>
+<li><p><b><a href="courses">Other Courses Using this Book</a></b>
+</p></li>
   <li>
      English
      <ul class="menu vertical nested is-active">
