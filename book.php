@@ -17,9 +17,9 @@ of the book has not been translated.
      English
      <ul class="menu vertical nested is-active">
        <li class="menu-text">Printed book on <a href="http://amzn.to/29w0lsX" target="_blank">Amazon</a></li>
-       <li class="menu-text">Printed book on 
-<a href="https://www.amazon.in/dp/9352136276" target="_blank">Amazon India</a> 
-(low-cost shipping within India thanks to 
+       <li class="menu-text">Printed book on
+<a href="https://www.amazon.in/dp/9352136276" target="_blank">Amazon India</a>
+(low-cost shipping within India thanks to
 <a href="http://www.shroffpublishers.com/books/9789352136278/"
    target="_blank">Shroff Publishing</a>)
 </li>
@@ -37,7 +37,11 @@ of the book has not been translated.
      </ul>
   </li>
   <li>
-     An Italian translation by <a href="https://github.com/vittore/py4e" target="_blank">Vittore Zen</a>.
+An Italian translation by
+Alessandro Rossetti
+and
+<a href="https://github.com/vittore/py4e" target="_blank">Vittore Zen</a>.
+</li>
      <ul class="menu vertical nested is-active">
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.pdf" target="_blank">Download PDF</a></li>
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.epub" target="_blank">Download EPUB</a></li>
@@ -51,7 +55,6 @@ of the book has not been translated.
      </ul>
   </li>
 
-  
 </ul>
         <p>
             The sample code and data files for the book is here: <a href="http://www.py4e.com/code3/" target="_blank">Code Samples</a>.
@@ -62,6 +65,6 @@ and <a href="http://www.elkner.net/" target="_blank">Jeff Elkner</a>.
         </p>
 </div>
 </div>
-<?php 
-include("footer.php"); 
+<?php
+include("footer.php");
 ?>
