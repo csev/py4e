@@ -321,7 +321,12 @@ function outf(text) {
         window.GLOBAL_TIMER = setTimeout("finalcheck();",1500);
 
         var desired = document.getElementById("desired");
-        if ( desired == null ) return;
+
+        // If desired is empty, alloutputs pass (i.e. Playground)
+        if ( desired == null ) {
+            window.GLOBAL_ERROR = false;
+            return;
+        }
         var desired = desired.innerHTML;
         var desired2 = document.getElementById("desired2").innerHTML;
 
@@ -407,11 +412,13 @@ function outf(text) {
         try {
             var module = Sk.importMainWithBody("<stdin>", false, prog);
         } catch (e) {
+            $("#spinner").hide();
+            var f = e + ''; // Convert to a string.
+            if ( f.startsWith('SystemExit') ) return true;
             if ( window.GLOBAL_TIMER != false ) window.clearInterval(window.GLOBAL_TIMER);
             window.GLOBAL_TIMER = false;
             window.GLOBAL_ERROR = true;
             hideall();
-            $("#spinner").hide();
             $("#redo").show();
             alert(e);
         }
