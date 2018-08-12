@@ -322,11 +322,8 @@ function outf(text) {
 
         var desired = document.getElementById("desired");
 
-        // If desired is empty, alloutputs pass (i.e. Playground)
-        if ( desired == null ) {
-            window.GLOBAL_ERROR = false;
-            return;
-        }
+        if ( desired == null ) return;
+
         var desired = desired.innerHTML;
         var desired2 = document.getElementById("desired2").innerHTML;
 
