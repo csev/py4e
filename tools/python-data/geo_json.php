@@ -53,7 +53,12 @@ $actual_place =  $actual_json->results[0]->place_id;
 
 $oldgrade = $RESULT->grade;
 if ( isset($_POST['place_id']) && isset($_POST['code']) ) {
-    $RESULT->setJsonKey('code', $_POST['code']);
+    $RESULT->setJsonKeys( array(
+        'code' => $_POST['code'],
+        'place_id' => $_POST['place_id'],
+        'actual_url' => $actual_url,
+        'actual_place' => $actual_place
+    ));
 
     if ( $_POST['place_id'] != $actual_place ) {
         $_SESSION['error'] = "Your place_id did not match";
