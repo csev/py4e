@@ -210,7 +210,7 @@ SELECT Track.title, Artist.name, Album.title, Genre.name
         AND Album.artist_id = Artist.id
     ORDER BY Artist.name LIMIT 3
 </pre>
-The expected result of the modified query on your database is:
+The expected result of the modified query on your database is: (shown here as a simple HTML table with titles)
 <table border="2">
 <tr>
 <th>Track</th><th>Artist</th><th>Album</th><th>Genre</th>
