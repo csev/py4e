@@ -6,8 +6,6 @@
         <p>
             New Edition! The goal of this book is to provide an Informatics-oriented introduction to programming. The primary difference between a computer science approach and the Informatics approach taken in this book is a greater focus on using Python to solve data analysis problems common in the world of Informatics.
 The <a href="http://www.py4inf.com/">Python 2 version</a> of the book is still available.
-There are multiple translations of the Python 2 book - the Python 3 version
-of the book has not been translated.
         </p>
 
 <ul>
@@ -25,15 +23,16 @@ of the book has not been translated.
 </li>
        <li class="menu-text"><a href="http://amzn.to/29LrtC0" target="_blank">Kindle edition</a> of the book</li>
        <li class="menu-text"><a href="html3">Online HTML Book</a></li>
+       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.pdf" target="_blank">Download PDF</a></li>
+       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.epub" target="_blank">Download EPUB</a></li>
+       <li class="menu-text"><a href="https://eng.libretexts.org/Textbook_Maps/Computer_Science/Map%3A_Python_for_Everybody_(Severance)" target="_blank">HTML with examples in Jupyter Notebooks from LibreTexts.org</a></li>
+<!--
+       <li class="menu-text"><a href="https://github.com/csev/py4e/raw/master/book3/zips/pfe.zip" target="_blank">Download HTML in a ZIP (~6MB)</a></li>
+-->
 <!--
        <li class="menu-text"><a href="trinket3" target="_blank">Interactive HTML from Trinket.io</a></li>
 -->
        <li class="menu-text"><a href="https://books.trinket.io/pfe/index.html" target="_blank">Interactive HTML from Trinket.io</a></li>
-       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.pdf" target="_blank">Download PDF</a></li>
-       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.epub" target="_blank">Download EPUB</a></li>
-<!--
-       <li class="menu-text"><a href="https://github.com/csev/py4e/raw/master/book3/zips/pfe.zip" target="_blank">Download HTML in a ZIP (~6MB)</a></li>
--->
      </ul>
   </li>
   <li>
