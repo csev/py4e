@@ -40,8 +40,20 @@ if ( isset($_FILES['database']) ) {
         header( 'Location: '.addSession('index.php') ) ;
         return;
     }
-    $file = $fdes['tmp_name'];
 
+    if ( ! isset($fdes['tmp_name']) ) {
+        $_SESSION['error'] = "Could not find file on server: ".$fdes['name'];
+        header( 'Location: '.addSession('index.php') ) ;
+        return;
+    }
+
+    if ( strlen($fdes['tmp_name']) < 1 ) {
+        $_SESSION['error'] = "Temporary name not found: ".$fdes['name'];
+        header( 'Location: '.addSession('index.php') ) ;
+        return;
+    }
+
+    $file = $fdes['tmp_name'];
 
     $fh = fopen($file,'r');
     $prefix = fread($fh, 100);
