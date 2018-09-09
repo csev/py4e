@@ -43,10 +43,7 @@ print(&#39;Blastoff!&#39;)</code></pre>
 <ol style="list-style-type: decimal">
 <li><p>Evaluate the condition, yielding <code>True</code> or <code>False</code>.</p></li>
 <li><p>If the condition is false, exit the <code>while</code> statement and continue execution at the next statement.</p></li>
-<li>If the condition is true, execute the body and then go back to step
-<ol style="list-style-type: decimal">
-<li></li>
-</ol></li>
+<li><p>If the condition is true, execute the body and then go back to step 1.</p></li>
 </ol>
 <p>This type of flow is called a <em>loop</em> because the third step loops back around to the top. We call each time we execute the body of the loop an <em>iteration</em>. For the above loop, we would say, &quot;It had five iterations&quot;, which means that the body of the loop was executed five times.</p>
 <p>  </p>
@@ -55,7 +52,6 @@ print(&#39;Blastoff!&#39;)</code></pre>
 <p>An endless source of amusement for programmers is the observation that the directions on shampoo, &quot;Lather, rinse, repeat,&quot; are an infinite loop because there is no <em>iteration variable</em> telling you how many times to execute the loop.</p>
 <p> </p>
 <p>In the case of <code>countdown</code>, we can prove that the loop terminates because we know that the value of <code>n</code> is finite, and we can see that the value of <code>n</code> gets smaller each time through the loop, so eventually we have to get to 0. Other times a loop is obviously infinite because it has no iteration variable at all.</p>
-<h2 id="infinite-loops-and-break">&quot;Infinite loops&quot; and <code>break</code></h2>
 <p> </p>
 <p>Sometimes you don't know it's time to end a loop until you get half way through the body. In that case you can write an infinite loop on purpose and then use the <code>break</code> statement to jump out of the loop.</p>
 <p>This loop is obviously an <em>infinite loop</em> because the logical expression on the <code>while</code> statement is simply the logical constant <code>True</code>:</p>
@@ -226,7 +222,7 @@ print(&#39;Smallest:&#39;, smallest)</code></pre>
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p>Exercise 1: Write a program which repeatedly reads numbers until the user enters &quot;done&quot;. Once &quot;done&quot; is entered, print out the total, count, and average of the numbers. If the user enters anything other than a number, detect their mistake using <code>try</code> and <code>except</code> and print an error message and skip to the next number.</p>
+<p><strong>Exercise 1: Write a program which repeatedly reads numbers until the user enters &quot;done&quot;. Once &quot;done&quot; is entered, print out the total, count, and average of the numbers. If the user enters anything other than a number, detect their mistake using <code>try</code> and <code>except</code> and print an error message and skip to the next number.</strong></p>
 <pre><code>Enter a number: 4
 Enter a number: 5
 Enter a number: bad data
@@ -234,7 +230,7 @@ Invalid input
 Enter a number: 7
 Enter a number: done
 16 3 5.333333333333333</code></pre>
-<p>Exercise 2: Write another program that prompts for a list of numbers as above and at the end prints out both the maximum and minimum of the numbers instead of the average.</p>
+<p><strong>Exercise 2: Write another program that prompts for a list of numbers as above and at the end prints out both the maximum and minimum of the numbers instead of the average.</strong></p>
 <div class="footnotes">
 <hr />
 <ol>

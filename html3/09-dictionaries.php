@@ -57,11 +57,10 @@ False</code></pre>
 <pre class="python"><code>&gt;&gt;&gt; vals = list(eng2sp.values())
 &gt;&gt;&gt; &#39;uno&#39; in vals
 True</code></pre>
-<p>The <code>in</code> operator uses different algorithms for lists and dictionaries. For lists, it uses a linear search algorithm. As the list gets longer, the search time gets longer in direct proportion to the length of the list. For dictionaries, Python uses an algorithm called a <em>hash table</em> that has a remarkable property: the <code>in</code> operator takes about the same amount of time no matter how many items there are in a dictionary. I won't explain why hash functions are so magical, but you can read more about it at <a href="wikipedia.org/wiki/Hash_table" class="uri">wikipedia.org/wiki/Hash_table</a>.</p>
-<p></p>
-<p>Exercise 1: [wordlist2]</p>
-<p> </p>
-<p>Write a program that reads the words in <code>words.txt</code> and stores them as keys in a dictionary. It doesn't matter what the values are. Then you can use the <code>in</code> operator as a fast way to check whether a string is in the dictionary.</p>
+<p>The <code>in</code> operator uses different algorithms for lists and dictionaries. For lists, it uses a linear search algorithm. As the list gets longer, the search time gets longer in direct proportion to the length of the list. For dictionaries, Python uses an algorithm called a <em>hash table</em> that has a remarkable property: the <code>in</code> operator takes about the same amount of time no matter how many items there are in a dictionary. I won't explain why hash functions are so magical, but you can read more about it at <a href="https://wikipedia.org/wiki/Hash_table">wikipedia.org/wiki/Hash_table</a>.</p>
+<p>  </p>
+<p><strong>Exercise 1: Download a copy of the file</strong> <a href="http://www.py4e.com/code3/words.txt">www.py4e.com/code3/words.txt</a></p>
+<p><strong>Write a program that reads the words in <em>words.txt</em> and stores them as keys in a dictionary. It doesn't matter what the values are. Then you can use the <code>in</code> operator as a fast way to check whether a string is in the dictionary.</strong></p>
 <h2 id="dictionary-as-a-set-of-counters">Dictionary as a set of counters</h2>
 <p></p>
 <p>Suppose you are given a string and you want to count how many times each letter appears. There are several ways you could do it:</p>
@@ -87,8 +86,8 @@ print(d)</code></pre>
 <p>The <code>for</code> loop traverses the string. Each time through the loop, if the character <code>c</code> is not in the dictionary, we create a new item with key <code>c</code> and the initial value 1 (since we have seen this letter once). If <code>c</code> is already in the dictionary we increment <code>d[c]</code>.</p>
 <p></p>
 <p>Here's the output of the program:</p>
-<pre class="python"><code>{&#39;a&#39;: 1, &#39;b&#39;: 1, &#39;o&#39;: 2, &#39;n&#39;: 1, &#39;s&#39;: 2, &#39;r&#39;: 2, &#39;u&#39;: 2, &#39;t&#39;: 1}</code></pre>
-<p>The histogram indicates that the letters <code>'a'</code> and &quot;b&quot; appear once; &quot;o&quot; appears twice, and so on.</p>
+<pre><code>{&#39;a&#39;: 1, &#39;b&#39;: 1, &#39;o&#39;: 2, &#39;n&#39;: 1, &#39;s&#39;: 2, &#39;r&#39;: 2, &#39;u&#39;: 2, &#39;t&#39;: 1}</code></pre>
+<p>The histogram indicates that the letters &quot;a&quot; and &quot;b&quot; appear once; &quot;o&quot; appears twice, and so on.</p>
 <p> </p>
 <p>Dictionaries have a method called <code>get</code> that takes a key and a default value. If the key appears in the dictionary, <code>get</code> returns the corresponding value; otherwise it returns the default value. For example:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; counts = { &#39;chuck&#39; : 1 , &#39;annie&#39; : 42, &#39;jan&#39;: 100}
@@ -137,7 +136,8 @@ print(counts)
 
 # Code: http://www.py4e.com/code3/count1.py</code></pre>
 
-<p>When we run the program, we see a raw dump of all of the counts in unsorted hash order. (the <code>romeo.txt</code> file is available at <a href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a>)</p>
+<p>In our <code>else</code> statement, we use the more compact alternative for incrementing a variable. <code>counts[word] += 1</code> is equivalent to <code>counts[word] = counts[word] + 1</code>. Either method can be used to change the value of a variable by any desired amount. Similar alternatives exist for <code>-=</code>, <code>*=</code>, and <code>/=</code>.</p>
+<p>When we run the program, we see a raw dump of all of the counts in unsorted hash order. (the <em>romeo.txt</em> file is available at <a href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a>)</p>
 <pre><code>python count1.py
 Enter the file name: romeo.txt
 {&#39;and&#39;: 3, &#39;envious&#39;: 1, &#39;already&#39;: 1, &#39;fair&#39;: 1,
@@ -184,7 +184,7 @@ jan 100</code></pre>
 <p>First you see the list of keys in unsorted order that we get from the <code>keys</code> method. Then we see the key-value pairs in order from the <code>for</code> loop.</p>
 <h2 id="advanced-text-parsing">Advanced text parsing</h2>
 <p></p>
-<p>In the above example using the file <code>romeo.txt</code>, we made the file as simple as possible by removing all punctuation by hand. The actual text has lots of punctuation, as shown below.</p>
+<p>In the above example using the file <em>romeo.txt</em>, we made the file as simple as possible by removing all punctuation by hand. The actual text has lots of punctuation, as shown below.</p>
 <pre><code>But, soft! what light through yonder window breaks?
 It is the east, and Juliet is the sun.
 Arise, fair sun, and kill the envious moon,
@@ -194,7 +194,7 @@ Who is already sick and pale with grief,</code></pre>
 <p>We can solve both these problems by using the string methods <code>lower</code>, <code>punctuation</code>, and <code>translate</code>. The <code>translate</code> is the most subtle of the methods. Here is the documentation for <code>translate</code>:</p>
 <p><code>line.translate(str.maketrans(fromstr, tostr, deletestr))</code></p>
 <p><em>Replace the characters in <code>fromstr</code> with the character in the same position in <code>tostr</code> and delete all characters that are in <code>deletestr</code>. The <code>fromstr</code> and <code>tostr</code> can be empty strings and the <code>deletestr</code> parameter can be omitted.</em></p>
-<p>We will not specify the <code>table</code> but we will use the <code>deletechars</code> parameter to delete all of the punctuation. We will even let Python tell us the list of characters that it considers &quot;punctuation&quot;:</p>
+<p>We will not specify the <code>tostr</code> but we will use the <code>deletestr</code> parameter to delete all of the punctuation. We will even let Python tell us the list of characters that it considers &quot;punctuation&quot;:</p>
 <pre class="python"><code>&gt;&gt;&gt; import string
 &gt;&gt;&gt; string.punctuation
 &#39;!&quot;#$%&amp;\&#39;()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~&#39;</code></pre>
@@ -292,14 +292,14 @@ a&#39;: 24, &#39;orchard&#39;: 2, &#39;light&#39;: 5, &#39;lovers&#39;: 2, &#39;
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 2:</strong> Write a program that categorizes each mail message by which day of the week the commit was done. To do this look for lines that start with &quot;From&quot;, then look for the third word and keep a running count of each of the days of the week. At the end of the program print out the contents of your dictionary (order does not matter).</p>
-<p>Sample Line:</p>
-<pre><code>    From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
-<p>Sample Execution:</p>
+<p><strong>Exercise 2: Write a program that categorizes each mail message by which day of the week the commit was done. To do this look for lines that start with &quot;From&quot;, then look for the third word and keep a running count of each of the days of the week. At the end of the program print out the contents of your dictionary (order does not matter).</strong></p>
+<p><strong>Sample Line:</strong></p>
+<pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
+<p><strong>Sample Execution:</strong></p>
 <pre><code>python dow.py
 Enter a file name: mbox-short.txt
 {&#39;Fri&#39;: 20, &#39;Thu&#39;: 6, &#39;Sat&#39;: 1}</code></pre>
-<p><strong>Exercise 3:</strong> Write a program to read through a mail log, build a histogram using a dictionary to count how many messages have come from each email address, and print the dictionary.</p>
+<p><strong>Exercise 3: Write a program to read through a mail log, build a histogram using a dictionary to count how many messages have come from each email address, and print the dictionary.</strong></p>
 <pre><code>Enter file name: mbox-short.txt
 {&#39;gopal.ramasammycook@gmail.com&#39;: 1, &#39;louis@media.berkeley.edu&#39;: 3,
 &#39;cwen@iupui.edu&#39;: 5, &#39;antranig@caret.cam.ac.uk&#39;: 1,
@@ -307,14 +307,13 @@ Enter a file name: mbox-short.txt
 &#39;david.horwitz@uct.ac.za&#39;: 4, &#39;wagnermr@iupui.edu&#39;: 1,
 &#39;zqian@umich.edu&#39;: 4, &#39;stephen.marquard@uct.ac.za&#39;: 2,
 &#39;ray@media.berkeley.edu&#39;: 1}</code></pre>
-<p><strong>Exercise 4:</strong> Add code to the above program to figure out who has the most messages in the file.</p>
-<p>After all the data has been read and the dictionary has been created, look through the dictionary using a maximum loop (see Section [maximumloop]) to find who has the most messages and print how many messages the person has.</p>
+<p><strong>Exercise 4: Add code to the above program to figure out who has the most messages in the file. After all the data has been read and the dictionary has been created, look through the dictionary using a maximum loop (see Chapter 5: Maximum and minimum loops) to find who has the most messages and print how many messages the person has.</strong></p>
 <pre><code>Enter a file name: mbox-short.txt
 cwen@iupui.edu 5
 
 Enter a file name: mbox.txt
 zqian@umich.edu 195</code></pre>
-<p><strong>Exercise 5:</strong> This program records the domain name (instead of the address) where the message was sent from instead of who the mail came from (i.e., the whole email address). At the end of the program, print out the contents of your dictionary.</p>
+<p><strong>Exercise 5: This program records the domain name (instead of the address) where the message was sent from instead of who the mail came from (i.e., the whole email address). At the end of the program, print out the contents of your dictionary.</strong></p>
 <pre><code>python schoolcount.py
 Enter a file name: mbox-short.txt
 {&#39;media.berkeley.edu&#39;: 4, &#39;uct.ac.za&#39;: 6, &#39;umich.edu&#39;: 7,

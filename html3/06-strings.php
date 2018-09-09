@@ -24,11 +24,11 @@
 <p>But you might not get what you expect:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(letter)
 a</code></pre>
-<p>For most people, the first letter of &quot;banana&quot; is <code>b</code>, not <code>a</code>. But in Python, the index is an offset from the beginning of the string, and the offset of the first letter is zero.</p>
+<p>For most people, the first letter of &quot;banana&quot; is &quot;b&quot;, not &quot;a&quot;. But in Python, the index is an offset from the beginning of the string, and the offset of the first letter is zero.</p>
 <pre class="python"><code>&gt;&gt;&gt; letter = fruit[0]
 &gt;&gt;&gt; print(letter)
 b</code></pre>
-<p>So <code>b</code> is the 0th letter (&quot;zero-eth&quot;) of &quot;banana&quot;, <code>a</code> is the 1th letter (&quot;one-eth&quot;), and <code>n</code> is the 2th (&quot;two-eth&quot;) letter.</p>
+<p>So &quot;b&quot; is the 0th letter (&quot;zero-th&quot;) of &quot;banana&quot;, &quot;a&quot; is the 1th letter (&quot;one-th&quot;), and &quot;n&quot; is the 2th (&quot;two-th&quot;) letter.</p>
 <div class="figure">
 <img src="../images/string.svg" alt="String Indexes" />
 <p class="caption">String Indexes</p>
@@ -49,7 +49,7 @@ TypeError: string indices must be integers</code></pre>
 <pre class="python"><code>&gt;&gt;&gt; length = len(fruit)
 &gt;&gt;&gt; last = fruit[length]
 IndexError: string index out of range</code></pre>
-<p>The reason for the <code>IndexError</code> is that there is no letter in <code>'banana'</code> with the index 6. Since we started counting at zero, the six letters are numbered 0 to 5. To get the last character, you have to subtract 1 from <code>length</code>:</p>
+<p>The reason for the <code>IndexError</code> is that there is no letter in &quot;banana&quot; with the index 6. Since we started counting at zero, the six letters are numbered 0 to 5. To get the last character, you have to subtract 1 from <code>length</code>:</p>
 <pre class="python"><code>&gt;&gt;&gt; last = fruit[length-1]
 &gt;&gt;&gt; print(last)
 a</code></pre>
@@ -63,8 +63,8 @@ while index &lt; len(fruit):
     letter = fruit[index]
     print(letter)
     index = index + 1</code></pre>
-<p>This loop traverses the string and displays each letter on a line by itself. The loop condition is <code>index \&lt; len(fruit)</code>, so when <code>index</code> is equal to the length of the string, the condition is false, and the body of the loop is not executed. The last character accessed is the one with the index <code>len(fruit)-1</code>, which is the last character in the string.</p>
-<p>Exercise 1: Write a <code>while</code> loop that starts at the last character in the string and works its way backwards to the first character in the string, printing each letter on a separate line, except backwards.</p>
+<p>This loop traverses the string and displays each letter on a line by itself. The loop condition is <code>index &lt; len(fruit)</code>, so when <code>index</code> is equal to the length of the string, the condition is false, and the body of the loop is not executed. The last character accessed is the one with the index <code>len(fruit)-1</code>, which is the last character in the string.</p>
+<p><strong>Exercise 1: Write a <code>while</code> loop that starts at the last character in the string and works its way backwards to the first character in the string, printing each letter on a separate line, except backwards.</strong></p>
 <p>Another way to write a traversal is with a <code>for</code> loop:</p>
 <pre class="python"><code>for char in fruit:
     print(char)</code></pre>
@@ -77,7 +77,7 @@ while index &lt; len(fruit):
 Monty
 &gt;&gt;&gt; print(s[6:12])
 Python</code></pre>
-<p>The operator returns the part of the string from the &quot;n-eth&quot; character to the &quot;m-eth&quot; character, including the first but excluding the last.</p>
+<p>The operator returns the part of the string from the &quot;n-th&quot; character to the &quot;m-th&quot; character, including the first but excluding the last.</p>
 <p>If you omit the first index (before the colon), the slice starts at the beginning of the string. If you omit the second index, the slice goes to the end of the string:</p>
 <pre class="python"><code>&gt;&gt;&gt; fruit = &#39;banana&#39;
 &gt;&gt;&gt; fruit[:3]
@@ -90,7 +90,7 @@ Python</code></pre>
 &gt;&gt;&gt; fruit[3:3]
 &#39;&#39;</code></pre>
 <p>An empty string contains no characters and has length 0, but other than that, it is the same as any other string.</p>
-<p>Exercise 2: Given that <code>fruit</code> is a string, what does <code>fruit[:]</code> mean?</p>
+<p><strong>Exercise 2: Given that <code>fruit</code> is a string, what does <code>fruit[:]</code> mean?</strong></p>
 <p> </p>
 <h2 id="strings-are-immutable">Strings are immutable</h2>
 <p>  </p>
@@ -110,17 +110,16 @@ Jello, world!</code></pre>
 <p></p>
 <h2 id="looping-and-counting">Looping and counting</h2>
 <p>   </p>
-<p>The following program counts the number of times the letter <code>a</code> appears in a string:</p>
+<p>The following program counts the number of times the letter &quot;a&quot; appears in a string:</p>
 <pre class="python"><code>word = &#39;banana&#39;
 count = 0
 for letter in word:
     if letter == &#39;a&#39;:
         count = count + 1
 print(count)</code></pre>
-<p>This program demonstrates another pattern of computation called a <em>counter</em>. The variable <code>count</code> is initialized to 0 and then incremented each time an <code>a</code> is found. When the loop exits, <code>count</code> contains the result: the total number of <code>a</code>'s.</p>
-<p>Exercise 3:</p>
+<p>This program demonstrates another pattern of computation called a <em>counter</em>. The variable <code>count</code> is initialized to 0 and then incremented each time an &quot;a&quot; is found. When the loop exits, <code>count</code> contains the result: the total number of a's.</p>
 <p></p>
-<p>Encapsulate this code in a function named <code>count</code>, and generalize it so that it accepts the string and the letter as arguments.</p>
+<p><strong>Exercise 3: Encapsulate this code in a function named <code>count</code>, and generalize it so that it accepts the string and the letter as arguments.</strong></p>
 <h2 id="the-in-operator">The <code>in</code> operator</h2>
 <p>   </p>
 <p>The word <code>in</code> is a boolean operator that takes two strings and returns <code>True</code> if the first appears as a substring in the second:</p>
@@ -143,7 +142,7 @@ else:
 <p>Python does not handle uppercase and lowercase letters the same way that people do. All the uppercase letters come before all the lowercase letters, so:</p>
 <pre><code>Your word, Pineapple, comes before banana.</code></pre>
 <p>A common way to address this problem is to convert strings to a standard format, such as all lowercase, before performing the comparison. Keep that in mind in case you have to defend yourself against a man armed with a Pineapple.</p>
-<h2 id="string-methods"><code>string</code> methods</h2>
+<h2 id="string-methods">String methods</h2>
 <p>Strings are an example of Python <em>objects</em>. An object contains both data (the actual string itself) and <em>methods</em>, which are effectively functions that are built into the object and are available to any <em>instance</em> of the object.</p>
 <p>Python has a function called <code>dir</code> which lists the methods available for an object. The <code>type</code> function shows the type of an object and the <code>dir</code> function shows the available methods.</p>
 <pre class="python"><code>&gt;&gt;&gt; stuff = &#39;Hello world&#39;
@@ -168,7 +167,7 @@ capitalize(...)
     Return a capitalized version of S, i.e. make the first character
     have upper case and the rest lower case.
 &gt;&gt;&gt;</code></pre>
-<p>While the <code>dir</code> function lists the methods, and you can use <code>help</code> to get some simple documentation on a method, a better source of documentation for string methods would be <a href="https://docs.python.org/3.5/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/3.5/library/stdtypes.html#string-methods</a>.</p>
+<p>While the <code>dir</code> function lists the methods, and you can use <code>help</code> to get some simple documentation on a method, a better source of documentation for string methods would be <a href="https://docs.python.org/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a>.</p>
 <p>Calling a <em>method</em> is similar to calling a function (it takes arguments and returns a value) but the syntax is different. We call a method by appending the method name to the variable name using the period as a delimiter.</p>
 <p>For example, the method <code>upper</code> takes a string and returns a new string with all uppercase letters:</p>
 <p> </p>
@@ -214,9 +213,10 @@ False
 &gt;&gt;&gt; line.lower().startswith(&#39;h&#39;)
 True</code></pre>
 <p>In the last example, the method <code>lower</code> is called and then we use <code>startswith</code> to see if the resulting lowercase string starts with the letter &quot;h&quot;. As long as we are careful with the order, we can make multiple method calls in a single expression.</p>
-<p>Exercise 4:</p>
 <p> </p>
-<p>There is a string method called <code>count</code> that is similar to the function in the previous exercise. Read the documentation of this method at <a href="https://docs.python.org/3.5/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/3.5/library/stdtypes.html#string-methods</a> and write an invocation that counts the number of times the letter a occurs in &quot;banana&quot;.</p>
+<p>**Exercise 4: There is a string method called <code>count</code> that is similar to the function in the previous exercise. Read the documentation of this method at:</p>
+<p><a href="https://docs.python.org/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a></p>
+<p>Write an invocation that counts the number of times the letter a occurs in &quot;banana&quot;.**</p>
 <h2 id="parsing-strings">Parsing strings</h2>
 <p>Often, we want to look into a string and find a substring. For example if we were presented a series of lines formatted as follows:</p>
 <p><code>From stephen.marquard@</code><em><code> uct.ac.za</code></em><code> Sat Jan  5 09:14:16 2008</code></p>
@@ -235,24 +235,24 @@ uct.ac.za
 &gt;&gt;&gt;</code></pre>
 <p>We use a version of the <code>find</code> method which allows us to specify a position in the string where we want <code>find</code> to start looking. When we slice, we extract the characters from &quot;one beyond the at-sign through up to <em>but not including</em> the space character&quot;.</p>
 <p>The documentation for the <code>find</code> method is available at</p>
-<p><a href="https://docs.python.org/3.5/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/3.5/library/stdtypes.html#string-methods</a>.</p>
+<p><a href="https://docs.python.org/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a>.</p>
 <h2 id="format-operator">Format operator</h2>
 <p> </p>
 <p>The <em>format operator</em>, <code>%</code> allows us to construct strings, replacing parts of the strings with the data stored in variables. When applied to integers, <code>%</code> is the modulus operator. But when the first operand is a string, <code>%</code> is the format operator.</p>
 <p></p>
 <p>The first operand is the <em>format string</em>, which contains one or more <em>format sequences</em> that specify how the second operand is formatted. The result is a string.</p>
 <p></p>
-<p>For example, the format sequence &quot;%d&quot; means that the second operand should be formatted as an integer (<code>d</code> stands for &quot;decimal&quot;):</p>
+<p>For example, the format sequence <code>%d</code> means that the second operand should be formatted as an integer (&quot;d&quot; stands for &quot;decimal&quot;):</p>
 <pre class="python"><code>&gt;&gt;&gt; camels = 42
 &gt;&gt;&gt; &#39;%d&#39; % camels
 &#39;42&#39;</code></pre>
-<p>The result is the string &quot;42&quot;, which is not to be confused with the integer value <code>42</code>.</p>
+<p>The result is the string '42', which is not to be confused with the integer value 42.</p>
 <p>A format sequence can appear anywhere in the string, so you can embed a value in a sentence:</p>
 <pre class="python"><code>&gt;&gt;&gt; camels = 42
 &gt;&gt;&gt; &#39;I have spotted %d camels.&#39; % camels
 &#39;I have spotted 42 camels.&#39;</code></pre>
 <p>If there is more than one format sequence in the string, the second argument has to be a tuple<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. Each format sequence is matched with an element of the tuple, in order.</p>
-<p>The following example uses &quot;%d&quot; to format an integer, &quot;%g&quot; to format a floating-point number (don't ask why), and &quot;%s&quot; to format a string:</p>
+<p>The following example uses <code>%d</code> to format an integer, <code>%g</code> to format a floating-point number (don't ask why), and <code>%s</code> to format a string:</p>
 <pre class="python"><code>&gt;&gt;&gt; &#39;In %d years I have spotted %g %s.&#39; % (3, 0.1, &#39;camels&#39;)
 &#39;In 3 years I have spotted 0.1 camels.&#39;</code></pre>
 <p>The number of elements in the tuple must match the number of format sequences in the string. The types of the elements also must match the format sequences:</p>
@@ -263,7 +263,7 @@ TypeError: not enough arguments for format string
 TypeError: %d format: a number is required, not str</code></pre>
 <p>In the first example, there aren't enough elements; in the second, the element is the wrong type.</p>
 <p>The format operator is powerful, but it can be difficult to use. You can read more about it at</p>
-<p><a href="https://docs.python.org/3.5/library/stdtypes.html#printf-style-string-formatting" class="uri">https://docs.python.org/3.5/library/stdtypes.html#printf-style-string-formatting</a>.</p>
+<p><a href="https://docs.python.org/library/stdtypes.html#printf-style-string-formatting" class="uri">https://docs.python.org/library/stdtypes.html#printf-style-string-formatting</a>.</p>
 <h2 id="debugging">Debugging</h2>
 <p></p>
 <p>A skill that you should cultivate as you program is always asking yourself, &quot;What could go wrong here?&quot; or alternatively, &quot;What crazy thing might our user do to crash our (seemingly) perfect program?&quot;</p>
@@ -291,10 +291,10 @@ Traceback (most recent call last):
 IndexError: string index out of range</code></pre>
 <p>The code works fine until it is presented an empty line. Then there is no zero-th character, so we get a traceback. There are two solutions to this to make line three &quot;safe&quot; even if the line is empty.</p>
 <p>One possibility is to simply use the <code>startswith</code> method which returns <code>False</code> if the string is empty.</p>
-<pre><code>    if line.startswith(&#39;#&#39;):</code></pre>
+<pre class="python"><code>if line.startswith(&#39;#&#39;):</code></pre>
 <p> </p>
 <p>Another way is to safely write the <code>if</code> statement using the <em>guardian</em> pattern and make sure the second logical expression is evaluated only where there is at least one character in the string.:</p>
-<pre><code>    if len(line) &gt; 0 and line[0] == &#39;#&#39;:</code></pre>
+<pre class="python"><code>if len(line) &gt; 0 and line[0] == &#39;#&#39;:</code></pre>
 <h2 id="glossary">Glossary</h2>
 <dl>
 <dt>counter</dt>
@@ -347,15 +347,12 @@ IndexError: string index out of range</code></pre>
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p>Exercise 5: Take the following Python code that stores a string:`</p>
+<p><strong>Exercise 5: Take the following Python code that stores a string:</strong></p>
 <p><code>str = 'X-DSPAM-Confidence:</code><strong><code>0.8475</code></strong><code>'</code></p>
-<p>Use <code>find</code> and string slicing to extract the portion of the string after the colon character and then use the <code>float</code> function to convert the extracted string into a floating point number.</p>
-<p>Exercise 6:</p>
+<p><strong>Use <code>find</code> and string slicing to extract the portion of the string after the colon character and then use the <code>float</code> function to convert the extracted string into a floating point number.</strong></p>
 <p> </p>
-<p>Read the documentation of the string methods at</p>
-<p><a href="https://docs.python.org/3.5/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/3.5/library/stdtypes.html#string-methods</a></p>
-<p>You might want to experiment with some of them to make sure you understand how they work. <code>strip</code> and <code>replace</code> are particularly useful.</p>
-<p>The documentation uses a syntax that might be confusing. For example, in <code>find(sub[, start[, end]])</code>, the brackets indicate optional arguments. So <code>sub</code> is required, but <code>start</code> is optional, and if you include <code>start</code>, then <code>end</code> is optional.</p>
+<p><strong>Exercise 6: Read the documentation of the string methods at <a href="https://docs.python.org/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a> You might want to experiment with some of them to make sure you understand how they work. <code>strip</code> and <code>replace</code> are particularly useful.</strong></p>
+<p><strong>The documentation uses a syntax that might be confusing. For example, in <code>find(sub[, start[, end]])</code>, the brackets indicate optional arguments. So <code>sub</code> is required, but <code>start</code> is optional, and if you include <code>start</code>, then <code>end</code> is optional.</strong></p>
 <div class="footnotes">
 <hr />
 <ol>

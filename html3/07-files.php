@@ -26,8 +26,8 @@
 <p>We will primarily focus on reading and writing text files such as those we create in a text editor. Later we will see how to work with database files which are binary files, specifically designed to be read and written through database software.</p>
 <h2 id="opening-files">Opening files</h2>
 <p>  </p>
-<p>When we want to read or write a file (say on your hard drive), we first must <em>open</em> the file. Opening the file communicates with your operating system, which knows where the data for each file is stored. When you open a file, you are asking the operating system to find the file by name and make sure the file exists. In this example, we open the file <code>mbox.txt</code>, which should be stored in the same folder that you are in when you start Python. You can download this file from <a href="http://www.py4e.com/code3/mbox.txt">www.py4e.com/code3/mbox.txt</a></p>
-<pre><code>&gt;&gt;&gt; fhand = open(&#39;mbox.txt&#39;)
+<p>When we want to read or write a file (say on your hard drive), we first must <em>open</em> the file. Opening the file communicates with your operating system, which knows where the data for each file is stored. When you open a file, you are asking the operating system to find the file by name and make sure the file exists. In this example, we open the file <em>mbox.txt</em>, which should be stored in the same folder that you are in when you start Python. You can download this file from <a href="http://www.py4e.com/code3/mbox.txt">www.py4e.com/code3/mbox.txt</a></p>
+<pre class="python"><code>&gt;&gt;&gt; fhand = open(&#39;mbox.txt&#39;)
 &gt;&gt;&gt; print(fhand)
 &lt;_io.TextIOWrapper name=&#39;mbox.txt&#39; mode=&#39;r&#39; encoding=&#39;cp1252&#39;&gt;</code></pre>
 <p></p>
@@ -37,30 +37,30 @@
 <p class="caption">A File Handle</p>
 </div>
 <p>If the file does not exist, <code>open</code> will fail with a traceback and you will not get a handle to access the contents of the file:</p>
-<pre><code>&gt;&gt;&gt; fhand = open(&#39;stuff.txt&#39;)
+<pre class="python"><code>&gt;&gt;&gt; fhand = open(&#39;stuff.txt&#39;)
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
 FileNotFoundError: [Errno 2] No such file or directory: &#39;stuff.txt&#39;</code></pre>
 <p>Later we will use <code>try</code> and <code>except</code> to deal more gracefully with the situation where we attempt to open a file that does not exist.</p>
 <h2 id="text-files-and-lines">Text files and lines</h2>
 <p>A text file can be thought of as a sequence of lines, much like a Python string can be thought of as a sequence of characters. For example, this is a sample of a text file which records mail activity from various individuals in an open source project development team:</p>
-<p><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code><br />
-<code>Return-Path: &lt;postmaster@collab.sakaiproject.org&gt;</code><br />
-<code>Date: Sat, 5 Jan 2008 09:12:18 -0500</code><br />
-<code>To: source@collab.sakaiproject.org</code><br />
-<code>From: stephen.marquard@uct.ac.za</code><br />
-<code>Subject: [sakai] svn commit: r39772 - content/branches/</code><br />
-<code>Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772</code><br />
-<code>...</code></p>
+<pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+Return-Path: &lt;postmaster@collab.sakaiproject.org&gt;
+Date: Sat, 5 Jan 2008 09:12:18 -0500
+To: source@collab.sakaiproject.org
+From: stephen.marquard@uct.ac.za
+Subject: [sakai] svn commit: r39772 - content/branches/
+Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772
+...</code></pre>
 <p>The entire file of mail interactions is available from</p>
 <p><a href="http://www.py4e.com/code3/mbox.txt">www.py4e.com/code3/mbox.txt</a></p>
 <p>and a shortened version of the file is available from</p>
 <p><a href="http://www.py4e.com/code3/mbox-short.txt">www.py4e.com/code3/mbox-short.txt</a></p>
-<p>These files are in a standard format for a file containing multiple mail messages. The lines which start with &quot;From &quot; separate the messages and the lines which start with &quot;From:&quot; are part of the messages. For more information about the mbox format, see <a href="en.wikipedia.org/wiki/Mbox" class="uri">en.wikipedia.org/wiki/Mbox</a>.</p>
+<p>These files are in a standard format for a file containing multiple mail messages. The lines which start with &quot;From &quot; separate the messages and the lines which start with &quot;From:&quot; are part of the messages. For more information about the mbox format, see <a href="https://en.wikipedia.org/wiki/Mbox" class="uri">https://en.wikipedia.org/wiki/Mbox</a>.</p>
 <p>To break the file into lines, there is a special character that represents the &quot;end of the line&quot; called the <em>newline</em> character.</p>
 <p></p>
 <p>In Python, we represent the <em>newline</em> character as a backslash-n in string constants. Even though this looks like two characters, it is actually a single character. When we look at the variable by entering &quot;stuff&quot; in the interpreter, it shows us the <code>\n</code> in the string, but when we use <code>print</code> to show the string, we see the string broken into two lines by the newline character.</p>
-<pre><code>&gt;&gt;&gt; stuff = &#39;Hello\nWorld!&#39;
+<pre class="python"><code>&gt;&gt;&gt; stuff = &#39;Hello\nWorld!&#39;
 &gt;&gt;&gt; stuff
 &#39;Hello\nWorld!&#39;
 &gt;&gt;&gt; print(stuff)
@@ -91,15 +91,20 @@ print(&#39;Line Count:&#39;, count)
 <p>When the file is read using a <code>for</code> loop in this manner, Python takes care of splitting the data in the file into separate lines using the newline character. Python reads each line through the newline and includes the newline as the last character in the <code>line</code> variable for each iteration of the <code>for</code> loop.</p>
 <p>Because the <code>for</code> loop reads the data one line at a time, it can efficiently read and count the lines in very large files without running out of main memory to store the data. The above program can count the lines in any size file using very little memory since each line is read, counted, and then discarded.</p>
 <p>If you know the file is relatively small compared to the size of your main memory, you can read the whole file into one string using the <code>read</code> method on the file handle.</p>
-<pre><code>&gt;&gt;&gt; fhand = open(&#39;mbox-short.txt&#39;)
+<pre class="python"><code>&gt;&gt;&gt; fhand = open(&#39;mbox-short.txt&#39;)
 &gt;&gt;&gt; inp = fhand.read()
 &gt;&gt;&gt; print(len(inp))
 94626
 &gt;&gt;&gt; print(inp[:20])
 From stephen.marquar</code></pre>
-<p>In this example, the entire contents (all 94,626 characters) of the file <code>mbox-short.txt</code> are read directly into the variable <code>inp</code>. We use string slicing to print out the first 20 characters of the string data stored in <code>inp</code>.</p>
-<p>When the file is read in this manner, all the characters including all of the lines and newline characters are one big string in the variable <em>inp</em>. Remember that this form of the <code>open</code> function should only be used if the file data will fit comfortably in the main memory of your computer.</p>
-<p>If the file is too large to fit in main memory, you should write your program to read the file in chunks using a <code>for</code> or <code>while</code> loop.</p>
+<p>In this example, the entire contents (all 94,626 characters) of the file <em>mbox-short.txt</em> are read directly into the variable <code>inp</code>. We use string slicing to print out the first 20 characters of the string data stored in <code>inp</code>.</p>
+<p>When the file is read in this manner, all the characters including all of the lines and newline characters are one big string in the variable <code>inp</code>. It is a good idea to store the output of <code>read</code> as a variable because each call to <code>read</code> exhausts the resource:</p>
+<pre class="python"><code>&gt;&gt;&gt; fhand = open(&#39;mbox-short.txt&#39;)
+&gt;&gt;&gt; print(len(fhand.read()))
+94626
+&gt;&gt;&gt; print(len(fhand.read()))
+0</code></pre>
+<p>Remember that this form of the <code>open</code> function should only be used if the file data will fit comfortably in the main memory of your computer. If the file is too large to fit in main memory, you should write your program to read the file in chunks using a <code>for</code> or <code>while</code> loop.</p>
 <h2 id="searching-through-a-file">Searching through a file</h2>
 <p>When you are searching through data in a file, it is a very common pattern to read through a file, ignoring most of the lines and only processing lines which meet a particular condition. We can combine the pattern for reading a file with string methods to build simple search mechanisms.</p>
 <p> </p>
@@ -173,6 +178,7 @@ X-Authentication-Warning: set sender to david.horwitz@uct.ac.za using -f
 From: david.horwitz@uct.ac.za
 Author: david.horwitz@uct.ac.za
 ...</code></pre>
+<p>Here we also use the contracted form of the <code>if</code> statement where we put the <code>continue</code> on the same line as the <code>if</code>. This contracted form of the <code>if</code> functions the same as if the <code>continue</code> were on the next line and indented.</p>
 <h2 id="letting-the-user-choose-the-file-name">Letting the user choose the file name</h2>
 <p>We really do not want to have to edit our Python code every time we want to process a different file. It would be more usable to ask the user to enter the file name string each time the program runs so they can use our program on different files without changing the Python code.</p>
 <p>This is quite simple to do by reading the file name from the user using <code>input</code> as follows:</p>
@@ -244,34 +250,34 @@ File cannot be opened: na na boo boo</code></pre>
 <h2 id="writing-files">Writing files</h2>
 <p></p>
 <p>To write a file, you have to open it with mode &quot;w&quot; as a second parameter:</p>
-<pre><code>&gt;&gt;&gt; fout = open(&#39;output.txt&#39;, &#39;w&#39;)
+<pre class="python"><code>&gt;&gt;&gt; fout = open(&#39;output.txt&#39;, &#39;w&#39;)
 &gt;&gt;&gt; print(fout)
 &lt;_io.TextIOWrapper name=&#39;output.txt&#39; mode=&#39;w&#39; encoding=&#39;cp1252&#39;&gt;</code></pre>
 <p>If the file already exists, opening it in write mode clears out the old data and starts fresh, so be careful! If the file doesn't exist, a new one is created.</p>
 <p>The <code>write</code> method of the file handle object puts data into the file, returning the number of characters written. The default write mode is text for writing (and reading) strings.</p>
-<pre><code>&gt;&gt;&gt; line1 = &quot;This here&#39;s the wattle,\n&quot;
+<pre class="python"><code>&gt;&gt;&gt; line1 = &quot;This here&#39;s the wattle,\n&quot;
 &gt;&gt;&gt; fout.write(line1)
 24</code></pre>
 <p></p>
 <p>Again, the file object keeps track of where it is, so if you call <code>write</code> again, it adds the new data to the end.</p>
 <p>We must make sure to manage the ends of lines as we write to the file by explicitly inserting the newline character when we want to end a line. The <code>print</code> statement automatically appends a newline, but the <code>write</code> method does not add the newline automatically.</p>
-<pre><code>&gt;&gt;&gt; line2 = &#39;the emblem of our land.\n&#39;
+<pre class="python"><code>&gt;&gt;&gt; line2 = &#39;the emblem of our land.\n&#39;
 &gt;&gt;&gt; fout.write(line2)
 24</code></pre>
 <p>When you are done writing, you have to close the file to make sure that the last bit of data is physically written to the disk so it will not be lost if the power goes off.</p>
-<pre><code>&gt;&gt;&gt; fout.close()</code></pre>
+<pre class="python"><code>&gt;&gt;&gt; fout.close()</code></pre>
 <p>We could close the files which we open for read as well, but we can be a little sloppy if we are only opening a few files since Python makes sure that all open files are closed when the program ends. When we are writing files, we want to explicitly close the files so as to leave nothing to chance.</p>
 <p> </p>
 <h2 id="debugging">Debugging</h2>
 <p> </p>
 <p>When you are reading and writing files, you might run into problems with whitespace. These errors can be hard to debug because spaces, tabs, and newlines are normally invisible:</p>
-<pre><code>&gt;&gt;&gt; s = &#39;1 2\t 3\n 4&#39;
+<pre class="python"><code>&gt;&gt;&gt; s = &#39;1 2\t 3\n 4&#39;
 &gt;&gt;&gt; print(s)
 1 2  3
  4</code></pre>
 <p>  </p>
 <p>The built-in function <code>repr</code> can help. It takes any object as an argument and returns a string representation of the object. For strings, it represents whitespace characters with backslash sequences:</p>
-<pre><code>&gt;&gt;&gt; print(repr(s))
+<pre class="python"><code>&gt;&gt;&gt; print(repr(s))
 &#39;1 2\t 3\n 4&#39;</code></pre>
 <p>This can be helpful for debugging.</p>
 <p>One other problem you might run into is that different systems use different characters to indicate the end of a line. Some systems use a newline, represented <code>\n</code>. Others use a return character, represented <code>\r</code>. Some use both. If you move files between different systems, these inconsistencies might cause problems.</p>
@@ -296,7 +302,7 @@ File cannot be opened: na na boo boo</code></pre>
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p>Exercise 1: Write a program to read through a file and print the contents of the file (line by line) all in upper case. Executing the program will look as follows:</p>
+<p><strong>Exercise 1: Write a program to read through a file and print the contents of the file (line by line) all in upper case. Executing the program will look as follows:</strong></p>
 <pre><code>python shout.py
 Enter a file name: mbox-short.txt
 FROM STEPHEN.MARQUARD@UCT.AC.ZA SAT JAN  5 09:14:16 2008
@@ -304,18 +310,17 @@ RETURN-PATH: &lt;POSTMASTER@COLLAB.SAKAIPROJECT.ORG&gt;
 RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
      BY FRANKENSTEIN.MAIL.UMICH.EDU (CYRUS V2.3.8) WITH LMTPA;
      SAT, 05 JAN 2008 09:14:16 -0500</code></pre>
-<p>You can download the file from</p>
-<p><a href="http://www.py4e.com/code3/mbox-short.txt">www.py4e.com/code3/mbox-short.txt</a></p>
-<p>Exercise 2: Write a program to prompt for a file name, and then read through the file and look for lines of the form:</p>
-<p><code>X-DSPAM-Confidence:</code><strong><code>0.8475</code></strong></p>
-<p>When you encounter a line that starts with &quot;X-DSPAM-Confidence:&quot; pull apart the line to extract the floating-point number on the line. Count these lines and then compute the total of the spam confidence values from these lines. When you reach the end of the file, print out the average spam confidence.</p>
+<p><strong>You can download the file from</strong> <a href="http://www.py4e.com/code3/mbox-short.txt">www.py4e.com/code3/mbox-short.txt</a></p>
+<p><strong>Exercise 2: Write a program to prompt for a file name, and then read through the file and look for lines of the form:</strong></p>
+<pre><code>X-DSPAM-Confidence: 0.8475</code></pre>
+<p><strong>When you encounter a line that starts with &quot;X-DSPAM-Confidence:&quot; pull apart the line to extract the floating-point number on the line. Count these lines and then compute the total of the spam confidence values from these lines. When you reach the end of the file, print out the average spam confidence.</strong></p>
 <pre><code>Enter the file name: mbox.txt
 Average spam confidence: 0.894128046745
 
 Enter the file name: mbox-short.txt
 Average spam confidence: 0.750718518519</code></pre>
-<p>Test your file on the <code>mbox.txt</code> and <code>mbox-short.txt</code> files.</p>
-<p>Exercise 3: Sometimes when programmers get bored or want to have a bit of fun, they add a harmless <em>Easter Egg</em> to their program Modify the program that prompts the user for the file name so that it prints a funny message when the user types in the exact file name &quot;na na boo boo&quot;. The program should behave normally for all other files which exist and don't exist. Here is a sample execution of the program:</p>
+<p><strong>Test your file on the <em>mbox.txt</em> and <em>mbox-short.txt</em> files.</strong></p>
+<p><strong>Exercise 3: Sometimes when programmers get bored or want to have a bit of fun, they add a harmless <em>Easter Egg</em> to their program Modify the program that prompts the user for the file name so that it prints a funny message when the user types in the exact file name &quot;na na boo boo&quot;. The program should behave normally for all other files which exist and don't exist. Here is a sample execution of the program:</strong></p>
 <pre><code>python egg.py
 Enter the file name: mbox.txt
 There were 1797 subject lines in mbox.txt
@@ -327,7 +332,7 @@ File cannot be opened: missing.tyxt
 python egg.py
 Enter the file name: na na boo boo
 NA NA BOO BOO TO YOU - You have been punk&#39;d!</code></pre>
-<p>We are not encouraging you to put Easter Eggs in your programs; this is just an exercise.</p>
+<p><strong>We are not encouraging you to put Easter Eggs in your programs; this is just an exercise.</strong></p>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

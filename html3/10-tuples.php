@@ -78,7 +78,7 @@ True</code></pre>
 <dd>by extracting the sorted elements of the sequence.
 </dd>
 </dl>
-<p>[DSU]     </p>
+<p>    </p>
 <p>For example, suppose you have a list of words and you want to sort them from longest to shortest:</p>
 <pre class="python"><code>txt = &#39;but soft what light in yonder window breaks&#39;
 words = txt.split()
@@ -259,33 +259,7 @@ for key, val in lst[:10]:
 <p>   </p>
 <h2 id="debugging">Debugging</h2>
 <p>   </p>
-<p>Lists, dictionaries and tuples are known generically as <em>data structures</em>; in this chapter we are starting to see compound data structures, like lists of tuples, and dictionaries that contain tuples as keys and lists as values. Compound data structures are useful, but they are prone to what I call <em>shape errors</em>; that is, errors caused when a data structure has the wrong type, size, or composition, or perhaps you write some code and forget the shape of your data and introduce an error.</p>
-<p>For example, if you are expecting a list with one integer and I give you a plain old integer (not in a list), it won't work.</p>
-<p>When you are debugging a program, and especially if you are working on a hard bug, there are four things to try:</p>
-<dl>
-<dt>reading</dt>
-<dd>Examine your code, read it back to yourself, and check that it says what you meant to say.
-</dd>
-<dt>running</dt>
-<dd>Experiment by making changes and running different versions. Often if you display the right thing at the right place in the program, the problem becomes obvious, but sometimes you have to spend some time to build scaffolding.
-</dd>
-<dt>ruminating</dt>
-<dd>Take some time to think! What kind of error is it: syntax, runtime, semantic? What information can you get from the error messages, or from the output of the program? What kind of error could cause the problem you're seeing? What did you change last, before the problem appeared?
-</dd>
-<dt>retreating</dt>
-<dd>At some point, the best thing to do is back off, undoing recent changes, until you get back to a program that works and that you understand. Then you can start rebuilding.
-</dd>
-</dl>
-<p>Beginning programmers sometimes get stuck on one of these activities and forget the others. Each activity comes with its own failure mode. </p>
-<p>For example, reading your code might help if the problem is a typographical error, but not if the problem is a conceptual misunderstanding. If you don't understand what your program does, you can read it 100 times and never see the error, because the error is in your head.</p>
-<p></p>
-<p>Running experiments can help, especially if you run small, simple tests. But if you run experiments without thinking or reading your code, you might fall into a pattern I call &quot;random walk programming&quot;, which is the process of making random changes until the program does the right thing. Needless to say, random walk programming can take a long time.</p>
-<p> </p>
-<p>You have to take time to think. Debugging is like an experimental science. You should have at least one hypothesis about what the problem is. If there are two or more possibilities, try to think of a test that would eliminate one of them.</p>
-<p>Taking a break helps with the thinking. So does talking. If you explain the problem to someone else (or even to yourself), you will sometimes find the answer before you finish asking the question.</p>
-<p>But even the best debugging techniques will fail if there are too many errors, or if the code you are trying to fix is too big and complicated. Sometimes the best option is to retreat, simplifying the program until you get to something that works and that you understand.</p>
-<p>Beginning programmers are often reluctant to retreat because they can't stand to delete a line of code (even if it's wrong). If it makes you feel better, copy your program into another file before you start stripping it down. Then you can paste the pieces back in a little bit at a time.</p>
-<p>Finding a hard bug requires reading, running, ruminating, and sometimes retreating. If you get stuck on one of these activities, try the others.</p>
+<p>Lists, dictionaries and tuples are known generically as <em>data structures</em>; in this chapter we are starting to see compound data structures, like lists of tuples, and dictionaries that contain tuples as keys and lists as values. Compound data structures are useful, but they are prone to what I call <em>shape errors</em>; that is, errors caused when a data structure has the wrong type, size, or composition, or perhaps you write some code and forget the shape of your data and introduce an error. For example, if you are expecting a list with one integer and I give you a plain old integer (not in a list), it won't work.</p>
 <h2 id="glossary">Glossary</h2>
 <dl>
 <dt>comparable</dt>
@@ -320,8 +294,8 @@ for key, val in lst[:10]:
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1:</strong> Revise a previous program as follows: Read and parse the &quot;From&quot; lines and pull out the addresses from the line. Count the number of messages from each person using a dictionary.</p>
-<p>After all the data has been read, print the person with the most commits by creating a list of (count, email) tuples from the dictionary. Then sort the list in reverse order and print out the person who has the most commits.</p>
+<p><strong>Exercise 1: Revise a previous program as follows: Read and parse the &quot;From&quot; lines and pull out the addresses from the line. Count the number of messages from each person using a dictionary.</strong></p>
+<p><strong>After all the data has been read, print the person with the most commits by creating a list of (count, email) tuples from the dictionary. Then sort the list in reverse order and print out the person who has the most commits.</strong></p>
 <pre><code>Sample Line:
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 
@@ -330,8 +304,7 @@ cwen@iupui.edu 5
 
 Enter a file name: mbox.txt
 zqian@umich.edu 195</code></pre>
-<p><strong>Exercise 2:</strong> This program counts the distribution of the hour of the day for each of the messages. You can pull the hour from the &quot;From&quot; line by finding the time string and then splitting that string into parts using the colon character. Once you have accumulated the counts for each hour, print out the counts, one per line, sorted by hour as shown below.</p>
-<p>Sample Execution:</p>
+<p><strong>Exercise 2: This program counts the distribution of the hour of the day for each of the messages. You can pull the hour from the &quot;From&quot; line by finding the time string and then splitting that string into parts using the colon character. Once you have accumulated the counts for each hour, print out the counts, one per line, sorted by hour as shown below.</strong></p>
 <pre><code>python timeofday.py
 Enter a file name: mbox-short.txt
 04 3
@@ -346,12 +319,12 @@ Enter a file name: mbox-short.txt
 17 2
 18 1
 19 1</code></pre>
-<p><strong>Exercise 3:</strong> Write a program that reads a file and prints the <em>letters</em> in decreasing order of frequency. Your program should convert all the input to lower case and only count the letters a-z. Your program should not count spaces, digits, punctuation, or anything other than the letters a-z. Find text samples from several different languages and see how letter frequency varies between languages. Compare your results with the tables at <a href="wikipedia.org/wiki/Letter_frequencies" class="uri">wikipedia.org/wiki/Letter_frequencies</a>.</p>
+<p><strong>Exercise 3: Write a program that reads a file and prints the <em>letters</em> in decreasing order of frequency. Your program should convert all the input to lower case and only count the letters a-z. Your program should not count spaces, digits, punctuation, or anything other than the letters a-z. Find text samples from several different languages and see how letter frequency varies between languages. Compare your results with the tables at <a href="https://wikipedia.org/wiki/Letter_frequencies" class="uri">https://wikipedia.org/wiki/Letter_frequencies</a>.</strong></p>
 <p> </p>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Fun fact: The word &quot;tuple&quot; comes from the names given to sequences of numbers of varying lengths: single, double, triple, quadruple, quituple, sextuple, septuple, etc.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>Fun fact: The word &quot;tuple&quot; comes from the names given to sequences of numbers of varying lengths: single, double, triple, quadruple, quintuple, sextuple, septuple, etc.<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>Python does not translate the syntax literally. For example, if you try this with a dictionary, it will not work as might expect.<a href="#fnref2">↩</a></p></li>
 </ol>
 </div>

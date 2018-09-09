@@ -28,13 +28,13 @@ False
 &gt;&gt;&gt; type(False)
 &lt;class &#39;bool&#39;&gt;</code></pre>
 <p>The <code>==</code> operator is one of the <em>comparison operators</em>; the others are:</p>
-<pre class="python"><code>      x != y               # x is not equal to y
-      x &gt; y                # x is greater than y
-      x &lt; y                # x is less than y
-      x &gt;= y               # x is greater than or equal to y
-      x &lt;= y               # x is less than or equal to y
-      x is y               # x is the same as y
-      x is not y           # x is not the same as y</code></pre>
+<pre class="python"><code>x != y               # x is not equal to y
+x &gt; y                # x is greater than y
+x &lt; y                # x is less than y
+x &gt;= y               # x is greater than or equal to y
+x &lt;= y               # x is less than or equal to y
+x is y               # x is the same as y
+x is not y           # x is not the same as y</code></pre>
 <p>Although these operations are probably familiar to you, the Python symbols are different from the mathematical symbols for the same operations. A common error is to use a single equal sign (<code>=</code>) instead of a double equal sign (<code>==</code>). Remember that <code>=</code> is an assignment operator and <code>==</code> is a comparison operator. There is no such thing as <code>=&lt;</code> or <code>=&gt;</code>.</p>
 <p> </p>
 <h2 id="logical-operators">Logical operators</h2>
@@ -73,6 +73,16 @@ True</code></pre>
 ...
 Small
 &gt;&gt;&gt;</code></pre>
+<p>When using the Python interpreter, you must leave a blank line at the end of a block, otherwise Python will return an error:</p>
+<pre class="python"><code>&gt;&gt;&gt; x = 3
+&gt;&gt;&gt; if x &lt; 10:
+...    print(&#39;Small&#39;)
+... print(&#39;Done&#39;)
+  File &quot;&lt;stdin&gt;&quot;, line 3
+    print(&#39;Done&#39;)
+        ^
+SyntaxError: invalid syntax</code></pre>
+<p>A blank line at the end of a block of statements is not necessary when writing and executing a script, but it may improve readability of your code.</p>
 <h2 id="alternative-execution">Alternative execution</h2>
 <p>  </p>
 <p>A second form of the <code>if</code> statement is <em>alternative execution</em>, in which there are two possibilities and the condition determines which one gets executed. The syntax looks like this:</p>
@@ -135,9 +145,9 @@ else:
     print(&#39;x is a positive single-digit number.&#39;)</code></pre>
 <h2 id="catching-exceptions-using-try-and-except">Catching exceptions using try and except</h2>
 <p>Earlier we saw a code segment where we used the <code>input</code> and <code>int</code> functions to read and parse an integer number entered by the user. We also saw how treacherous doing this could be:</p>
-<pre class="python"><code>&gt;&gt;&gt; prompt = &quot;What...is the airspeed velocity of an unladen swallow?\n&quot;
+<pre class="python"><code>&gt;&gt;&gt; prompt = &quot;What is the air velocity of an unladen swallow?\n&quot;
 &gt;&gt;&gt; speed = input(prompt)
-What...is the airspeed velocity of an unladen swallow?
+What is the air velocity of an unladen swallow?
 What do you mean, an African or a European swallow?
 &gt;&gt;&gt; int(speed)
 ValueError: invalid literal for int() with base 10:
@@ -282,23 +292,23 @@ IndentationError: unexpected indent</code></pre>
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p>Exercise 1: Rewrite your pay computation to give the employee 1.5 times the hourly rate for hours worked above 40 hours.</p>
+<p><strong>Exercise 1: Rewrite your pay computation to give the employee 1.5 times the hourly rate for hours worked above 40 hours.</strong></p>
 <pre><code>Enter Hours: 45
 Enter Rate: 10
 Pay: 475.0</code></pre>
-<p>Exercise 2: Rewrite your pay program using <code>try</code> and <code>except</code> so that your program handles non-numeric input gracefully by printing a message and exiting the program. The following shows two executions of the program:</p>
+<p><strong>Exercise 2: Rewrite your pay program using <code>try</code> and <code>except</code> so that your program handles non-numeric input gracefully by printing a message and exiting the program. The following shows two executions of the program:</strong></p>
 <pre><code>Enter Hours: 20
 Enter Rate: nine
 Error, please enter numeric input</code></pre>
 <pre><code>Enter Hours: forty
 Error, please enter numeric input</code></pre>
-<p>Exercise 3: Write a program to prompt for a score between 0.0 and 1.0. If the score is out of range, print an error message. If the score is between 0.0 and 1.0, print a grade using the following table:</p>
-<pre><code>Score   Grade
+<p><strong>Exercise 3: Write a program to prompt for a score between 0.0 and 1.0. If the score is out of range, print an error message. If the score is between 0.0 and 1.0, print a grade using the following table:</strong></p>
+<pre><code> Score   Grade
 &gt;= 0.9     A
 &gt;= 0.8     B
 &gt;= 0.7     C
 &gt;= 0.6     D
-&lt; 0.6    F</code></pre>
+ &lt; 0.6     F</code></pre>
 <pre><code>Enter score: 0.95
 A</code></pre>
 <pre><code>Enter score: perfect
