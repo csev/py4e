@@ -28,7 +28,11 @@ if ( strpos($local_path,"geojson") === 0 ) {
     require_once("geojson.php");
     return;
 
-} else if ( strpos($local_path,"geocode") === 0 ) {
+} else if ( strpos($local_path,"xml") === 0 ) {
+    require_once("geocode.php");
+    return;
+
+} else if ( strpos($local_path,"json") === 0 ) {
     require_once("geocode.php");
     return;
 

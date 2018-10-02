@@ -8,7 +8,12 @@ if ( ! isset($_GET['address']) ) {
     die("No address...");
 }
 
-$do_json = strpos($_REQUEST_URI,'geocode/xml') === false;
+if ( ! isset($_GET['key']) || $_GET['key'] != '42' ) { 
+    die("Bad API key...");
+}
+
+
+$do_json = strpos($_SERVER['REQUEST_URI'],'geocode/xml') === false;
 $fragment = $do_json ? 'json' : 'xml';
 
 $address = $_GET['address'];
