@@ -11,7 +11,8 @@ api_key = False
 # api_key = 'AIzaSy___IDByT70'
 
 if api_key is False:
-    serviceurl = "http://py4e-data.dr-chuck.net/geojson?"
+    api_key = 42
+    serviceurl = "http://py4e-data.dr-chuck.net/json?"
 else :
     serviceurl = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 
