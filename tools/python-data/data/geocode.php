@@ -4,19 +4,21 @@ if ( ! isset($CFG->GEOCODE_KEY) ) {
     die('$CFG->GEOCODE_KEY not set');
 }
 
-if ( ! isset($_GET['address']) ) { 
+$address = false;
+
+if ( isset($_GET['address']) ) $address = $_GET['address'];
+if ( ! $address && isset($_GET['query']) ) $address = $_GET['query'];
+if ( ! $address ) {
     die("No address...");
 }
 
 if ( ! isset($_GET['key']) || $_GET['key'] != '42' ) { 
-    die("Bad API key...");
+    die("Missing/incorrect key= parameter (it is an easy number to guess)...");
 }
 
 
-$do_json = strpos($_SERVER['REQUEST_URI'],'geocode/xml') === false;
+$do_json = strpos($_SERVER['REQUEST_URI'],'/xml') === false;
 $fragment = $do_json ? 'json' : 'xml';
-
-$address = $_GET['address'];
 
 $serviceurl = "https://maps.googleapis.com/maps/api/geocode/$fragment?key=".$CFG->GEOCODE_KEY."&address=";
 
