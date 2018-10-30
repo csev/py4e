@@ -14,7 +14,7 @@ if api_key is False:
     api_key = 42
     serviceurl = "http://py4e-data.dr-chuck.net/json?"
 else :
-    serviceurl = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+    serviceurl = "https://maps.googleapis.com/maps/api/geocode/json?"
 
 # Additional detail for urllib
 # http.client.HTTPConnection.debuglevel = 1
@@ -50,7 +50,7 @@ for line in fh:
         pass
 
     parms = dict()
-    parms["query"] = address
+    parms["address"] = address
     if api_key is not False: parms['key'] = api_key
     url = serviceurl + urllib.parse.urlencode(parms)
 
