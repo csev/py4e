@@ -10,7 +10,7 @@ if api_key is False:
     api_key = 42
     serviceurl = "http://py4e-data.dr-chuck.net/xml?"
 else :
-    serviceurl = "https://maps.googleapis.com/maps/api/place/textsearch/xml?"
+    serviceurl = "https://maps.googleapis.com/maps/api/geocode/xml?"
 
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
@@ -22,7 +22,7 @@ while True:
     if len(address) < 1: break
 
     parms = dict()
-    parms["query"] = address
+    parms["address"] = address
     if api_key is not False: parms['key'] = api_key
     url = serviceurl + urllib.parse.urlencode(parms)
     print('Retrieving', url)
