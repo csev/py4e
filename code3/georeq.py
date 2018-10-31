@@ -1,6 +1,6 @@
 import requests
+# You need to install the requests module to use this code
 import json
-import ssl
 
 api_key = False
 # If you have a Google Places API key, enter it here
