@@ -23,10 +23,10 @@ $actual = $MT->shuffle($LOCATIONS);
 $actual_location = $actual[0];
 
 // Retrieve the data
-$api_url = dataUrl('geojson');
+$api_url = dataUrl('json');
 $google_api = 'http://maps.googleapis.com/maps/api/geocode/json?address=University+of+Michigan';
-$sample_url = $api_url . '?address=' . urlencode($sample_location);
-$actual_url = $api_url . '?address=' . urlencode($actual_location);
+$sample_url = $api_url . '?key=42&address=' . urlencode($sample_location);
+$actual_url = $api_url . '?key=42&address=' . urlencode($actual_location);
 
 $sample_data = Net::doGet($sample_url);
 $sample_count = strlen($sample_data);
