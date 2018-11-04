@@ -37,7 +37,7 @@ The <a href="http://www.py4inf.com/">Python 2 version</a> of the book is still a
   </li>
   <li>
 An Italian translation by
-Alessandro Rossetti
+<a href="https://www.linkedin.com/in/alessandrorossetti/" target="_blank">Alessandro Rossetti</a>
 and
 <a href="https://github.com/vittore/py4e" target="_blank">Vittore Zen</a>.
 </li>
