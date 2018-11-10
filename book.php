@@ -40,7 +40,8 @@ An Italian translation by
 <a href="https://www.linkedin.com/in/alessandrorossetti/" target="_blank">Alessandro Rossetti</a>
 and
 <a href="https://www.linkedin.com/in/vittorezen/" target="_blank">Vittore Zen</a>
-(<a href="https://www.linkedin.com/in/alessandrorossetti/" target="_blank">Github</a>).
+(<a href="https://twitter.com/vittore" target="_blank">Twitter</a>,
+<a href="https://github.com/vittore" target="_blank">Github</a>).
 </li>
      <ul class="menu vertical nested is-active">
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.pdf" target="_blank">Download PDF</a></li>
