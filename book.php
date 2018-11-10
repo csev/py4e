@@ -36,7 +36,7 @@ The <a href="http://www.py4inf.com/">Python 2 version</a> of the book is still a
      </ul>
   </li>
   <li>
-<a href="https://amzn.to/2qGksK6" target="_blank">Python per tutti: Esplorare data con Python3</a> - an Italian translation by
+<a href="https://amzn.to/2qGksK6" target="_blank">Python per tutti: Esplorare dati con Python3</a> - an Italian translation by
 <a href="https://www.linkedin.com/in/alessandrorossetti/" target="_blank">Alessandro Rossetti</a>
 and
 <a href="https://www.linkedin.com/in/vittorezen/" target="_blank">Vittore Zen</a>
