@@ -35,8 +35,8 @@ The <a href="http://www.py4inf.com/">Python 2 version</a> of the book is still a
        <li class="menu-text"><a href="https://books.trinket.io/pfe/index.html" target="_blank">Interactive HTML from Trinket.io</a></li>
      </ul>
   </li>
-  <li>
-<a href="https://amzn.to/2qGksK6" target="_blank">Python per tutti: Esplorare dati con Python3</a> - an Italian translation by
+  <li> Italian
+<a href="https://amzn.to/2qGksK6" target="_blank">Python per tutti: Esplorare dati con Python3</a> - translated by
 <a href="https://www.linkedin.com/in/alessandrorossetti/" target="_blank">Alessandro Rossetti</a>
 and
 <a href="https://www.linkedin.com/in/vittorezen/" target="_blank">Vittore Zen</a>
@@ -49,8 +49,8 @@ and
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.epub" target="_blank">Download EPUB</a></li>
      </ul>
   </li>
-  <li>
-     A Spanish translation has been started by <a href="https://github.com/ftardio/pythonlearn" target="_blank">Fernando Tardio</a>.
+  <li> Spanish - the translation has been started by
+     <a href="https://github.com/ftardio/pythonlearn" target="_blank">Fernando Tardio</a>.
      <ul class="menu vertical nested is-active">
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf" target="_blank">Download PDF</a> (Partially translated)</li>
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.epub" target="_blank">Download EPUB</a> (Partially translated)</li>
