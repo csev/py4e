@@ -36,24 +36,27 @@ The <a href="http://www.py4inf.com/">Python 2 version</a> of the book is still a
      </ul>
   </li>
   <li> Italian
-<a href="https://amzn.to/2qGksK6" target="_blank">Python per tutti: Esplorare dati con Python3</a> - translated by
+<a href="https://amzn.to/2qGksK6" target="_blank">Python per tutti: Esplorare dati con Python3</a>
+     <ul class="menu vertical nested is-active">
+       <li class="menu-text">Printed book on <a href="https://amzn.to/2qGksK6" target="_blank">Amazon</a></li>
+       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.pdf" target="_blank">Download PDF</a></li>
+       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.epub" target="_blank">Download EPUB</a></li>
+<li> Translation team:
 <a href="https://www.linkedin.com/in/alessandrorossetti/" target="_blank">Alessandro Rossetti</a>
 and
 <a href="https://www.linkedin.com/in/vittorezen/" target="_blank">Vittore Zen</a>
 (<a href="https://twitter.com/vittore" target="_blank">Twitter</a>,
 <a href="https://github.com/vittore" target="_blank">Github</a>).
 </li>
-     <ul class="menu vertical nested is-active">
-       <li class="menu-text">Printed book on <a href="https://amzn.to/2qGksK6" target="_blank">Amazon</a></li>
-       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.pdf" target="_blank">Download PDF</a></li>
-       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.epub" target="_blank">Download EPUB</a></li>
      </ul>
   </li>
-  <li> Spanish - the translation has been started by
-     <a href="https://github.com/ftardio/pythonlearn" target="_blank">Fernando Tardio</a>.
+  <li> Spanish - In progress
      <ul class="menu vertical nested is-active">
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf" target="_blank">Download PDF</a> (Partially translated)</li>
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.epub" target="_blank">Download EPUB</a> (Partially translated)</li>
+        <li>Translation by:
+            <a href="https://github.com/ftardio/pythonlearn" target="_blank">Fernando Tardio</a>.
+        </li>
      </ul>
   </li>
 
