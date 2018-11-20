@@ -328,6 +328,7 @@ print lst
 "checks" => Array(
 "split" => "You should use split() to break each line into words.",
 "append" => "You should use append() to add the word to the list if it is not there.",
+"!extend" => "You should not use extend() in this assignment.",
 "open" => "You need to use open() to open the file.",
 "sort" => "You need to use sort() to sort the list before you print it out.",
 "!'yonder'" => "You should not put the output data in strings",
