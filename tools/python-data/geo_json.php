@@ -19,12 +19,14 @@ $sample = load_geo(42, $api_url);
 $sample_location = $sample[0];
 $sample_place = $sample[1];
 $sample_count = $sample[2];
+$sample_url = $sample[3];
 
 $code = $USER->id+$LINK->id+$CONTEXT->id;
 $actual = load_geo($code, $api_url);
 $actual_location = $actual[0];
 $actual_place = $actual[1];
 $actual_count = $actual[2];
+$actual_url = $actual[3];
 
 $oldgrade = $RESULT->grade;
 if ( isset($_POST['place_id']) && isset($_POST['code']) ) {

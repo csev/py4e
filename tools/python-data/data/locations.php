@@ -51,7 +51,7 @@ function load_geo($code, $api_url) {
             continue;
         }
         $sample_place =  $sample_json->results[0]->place_id;
-        return array($sample_location, $sample_place, $sample_count);
+        return array($sample_location, $sample_place, $sample_count, $sample_url);
     }
     die("Could not load sample response=$response url=$sample_url json_error=".json_last_error_msg());
 }
