@@ -59,6 +59,14 @@ and
         </li>
      </ul>
   </li>
+<li>
+<p>
+If you are insterested in starting a translation of the book, I have some
+instructions for getting started in
+<a href="https://github.com/csev/py4e/blob/master/TRANSLATION.md"
+ target="_blank">in github</a>.
+</p>
+</li>
 
 </ul>
         <p>
