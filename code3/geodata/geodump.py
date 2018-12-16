@@ -10,8 +10,8 @@ fhand = codecs.open('where.js', 'w', "utf-8")
 fhand.write("myData = [\n")
 count = 0
 for row in cur :
-    data = str(row[1].decode())
-    try: js = json.loads(str(data))
+    data = row[1]
+    try: js = json.loads(data)
     except: continue
 
     if not('status' in js and js['status'] == 'OK') : continue
@@ -26,7 +26,7 @@ for row in cur :
 
         count = count + 1
         if count > 1 : fhand.write(",\n")
-        output = "["+str(lat)+","+str(lng)+", '"+where+"']"
+        output = "[" + str(lat) + "," + str(lng) + ", '" + row[0] + ", " + where +"']"
         fhand.write(output)
     except:
         continue
