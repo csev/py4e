@@ -87,8 +87,7 @@ of the Google Data:
 </pre>
 This API uses the same parameter (address) as the Google API.
 This API also has no rate limit so you can test as often as you like.
-If you visit the URL with no parameters, you get a list of all of the
-address values which can be used with this API.
+If you visit the URL with no parameters, you get "No address..." response.
 </p>
 <p>
 To call the API, you need to provide
