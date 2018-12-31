@@ -68,8 +68,8 @@ your credentials once you get your key.
 </li>
 <li>
 <p>
-<a href="tsugi/cc/select" title="Download course material" target="iframe-frame"
-  onclick="showModalIframe(this.title, 'iframe-dialog', 'iframe-frame', _TSUGI.spinnerUrl, true);" >
+<a href="#" title="Download course material"
+  onclick="showModalIframeUrl(this.title, 'iframe-dialog', 'iframe-frame', 'tsugi/cc/select', _TSUGI.spinnerUrl, true); return false;" >
   Download course material
   </a> as an 
 <a href="https://www.imsglobal.org/cc/index.html" target="_blank">
