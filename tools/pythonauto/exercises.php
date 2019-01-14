@@ -408,7 +408,7 @@ print "There were", count, "lines in the file with From as the first word"
 
 "9.4" => Array(
 "qtext" => "<b>9.4</b> Write a program to read through the <b>mbox-short.txt</b> and figure
-out who has the sent  the greatest number of mail messages.  The program looks
+out who has sent the greatest number of mail messages.  The program looks
 for 'From ' lines and takes the second
 word of those lines as the person who sent the mail.  The program creates a Python
 dictionary that maps the sender's mail address to a count of the number of times
