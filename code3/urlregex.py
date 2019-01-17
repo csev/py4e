@@ -1,4 +1,4 @@
-# Search for lines that start with From and have an at sign
+# Search for link values within URL input
 import urllib.request, urllib.parse, urllib.error
 import re
 import ssl
