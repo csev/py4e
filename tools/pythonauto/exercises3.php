@@ -115,7 +115,7 @@ For the test, enter a score of 0.85.
 and rate per hour using input
 to compute gross pay.  Pay should be the normal rate for hours up to 40 and
 time-and-a-half for the hourly rate for all hours worked above 40 hours.
-Put the logic to do the computation of time-and-a-half in
+Put the logic to do the computation of pay in
 a function called <b>computepay()</b>
 and use the function to do the computation.  The function should return a value.
 Use 45 hours and a rate of 10.50 per hour to test the
