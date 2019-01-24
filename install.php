@@ -3,7 +3,7 @@
 <div class="hide-for-large" id="mobile-support"></div>
 <div id="first-row" class="row">
     <div class="small-12 columns">
-        <h2>Setting up your PythonLearn Development Environment</h2>
+        <h2>Setting up your Python Development Environment</h2>
         <p>
             We have separate pages for each of the commonly used Operating Systems:
         </p>
@@ -14,10 +14,16 @@
             <li>
                 <a href="software-mac.php">Setting up the Python Environment on a Macintosh</a>
             </li>
+            <li>
+                You can also set up Python under Windows-10 using the Windows Subsystem for Linux (WSL)
+                if you prefer a Linux-like experience on your windows computer.
+            </li>
         </ul>
         <p>
-            Can't or don't want to install software on your computer?  Check out <a href="http://trinket.io">Trinket</a>, 
-            <a href="https://www.pythonanywhere.com/">PythonAnywhere</a>, <a href="http://c9.io">Cloud9</a>, or 
+            Can't or don't want to install software on your computer?  Check out
+            <a href="https://www.pythonanywhere.com/">PythonAnywhere</a>,
+            <a href="http://trinket.io">Trinket</a>,
+            <a href="http://c9.io">Cloud9</a>, or
             <a href="http://codeanywhere.com">CodeAnywhere</a>.
         </p>
 
