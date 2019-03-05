@@ -41,7 +41,7 @@ my free <a href="book.php">Python for Everybody</a> text book.  You can take thi
 as the 
 <a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody Specialization</a> on Coursera 
 or 
-<a href="https://www.edx.org/course/programming-for-everybody-getting-started-with-python" target="_blank">Python for Everybody - Getting Started</a> on edX.</p>
+<a href="https://www.edx.org/bio/charles-severance" target="_blank">Python for Everybody</a>(2 courses)  on edX.</p>
 <p>
 You can use this web site many different ways:
 <ul class="list-group">

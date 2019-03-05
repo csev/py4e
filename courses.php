@@ -11,7 +11,15 @@ avilable under a Creative Commons license.
 <ul>
 <li><p><b>Earn a Coursera Certificate for This Course</b>
 <a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody</a> (Coursera Specialization)</li>
-</p></li>
+<ul>
+<li>
+<a href="https://www.coursera.org/learn/python-ar" target="_blank">
+البرمجة للجميع - بدء استخدام بايثون
+</a> (Arabic version)
+</li>
+</ul>
+</p>
+</li>
 <li><p><b>Earn an edX Certificate for This Course</b>
 <a href="https://www.edx.org/course/programming-for-everybody-getting-started-with-python" target="_blank">Python for Everybody - Getting Started</a> (Two edX courses)</li>
 <p></li>
