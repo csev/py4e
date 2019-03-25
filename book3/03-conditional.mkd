@@ -315,98 +315,100 @@ if 0 < x and x < 10:
     print('x is a positive single-digit number.')
 ~~~~
 
-Catching exceptions using try and except
+Tratando exceções usando try e except
 ----------------------------------------
 
-Earlier we saw a code segment where we used the `input` and
-`int` functions to read and parse an integer number entered
-by the user. We also saw how treacherous doing this could be:
+Anteriormente, vimos um trecho de código onde usamos as funções 
+'input' e 'int' para ler e analisar um número inteiro inserido 
+pelo usuário. Vimos também o quão traiçoeiro fazer isso 
+poderia ser:
 
 ~~~~ {.python}
->>> prompt = "What is the air velocity of an unladen swallow?\n"
->>> speed = input(prompt)
-What is the air velocity of an unladen swallow?
-What do you mean, an African or a European swallow?
->>> int(speed)
+>>> prompt = "Qual é a velocidade rasante de uma andorinha sem carga?\n"
+>>> velocidade = input(prompt)
+Qual é a velocidade rasante de uma andorinha sem carga?
+Seja mais específico, uma andorinha africana ou europeia?
+>>> int(velocidade)
 ValueError: invalid literal for int() with base 10:
+	    (conversão literal inválida para int() com base 10)
 >>>
 ~~~~
 
-When we are executing these statements in the Python interpreter, we get
-a new prompt from the interpreter, think "oops", and move on to our next
-statement.
+Quando executamos esse trecho de código no interpretador, 
+nós recebemos um novo aviso do Python, pensamos "oops" e 
+passamos para nossa próxima declaração.
 
-However if you place this code in a Python script and this error occurs,
-your script immediately stops in its tracks with a traceback. It does
-not execute the following statement.
+Entretanto, se você colocar esse código num programa em Python
+e esse erro ocorre, seu programa para imediatamente 
+com um "Traceback" indicando tal erro. Isso faz com que os 
+próximos comandos não sejam executados.
 
 \index{traceback}
 
-Here is a sample program to convert a Fahrenheit temperature to a
-Celsius temperature:
+Aqui está um simples programa que converte uma temperatura 
+em Fahrenheit para Celsius:
 
 \index{fahrenheit}
 \index{celsius}
-\index{temperature conversion}
+\index{conversão de temperatura}
 
 \VerbatimInput{../code3/fahren.py}
 
-If we execute this code and give it invalid input, it simply fails with
-an unfriendly error message:
+Se executarmos esse código e inserirmos uma entrada inválida, 
+simplesmente ele falha com uma mensagem de erro não amigável:
 
 ~~~~
 python fahren.py
-Enter Fahrenheit Temperature:72
+Insira a temperatura em Fahrenheit:72
 22.22222222222222
 ~~~~
 
 ~~~~
 python fahren.py
-Enter Fahrenheit Temperature:fred
+Insira a temperatura em Fahrenheit:fred
 Traceback (most recent call last):
   File "fahren.py", line 2, in <module>
-    fahr = float(inp)
+    fahr = float(ent)
 ValueError: could not convert string to float: 'fred'
+            (não foi possível converter string para float: 'fred')
 ~~~~
 
-There is a conditional execution structure built into Python to handle
-these types of expected and unexpected errors called "try / except". The
-idea of `try` and `except` is that you know that
-some sequence of instruction(s) may have a problem and you want to add
-some statements to be executed if an error occurs. These extra
-statements (the except block) are ignored if there is no error.
+Existe uma estrutura de execução condicional interna ao Python para 
+manipular esses tipos de erros esperados e inesperados chamada 
+"try / except". A ideia de 'try' e 'except' é de você saber que 
+alguma sequencia de instruções pode ter um problema e você quer 
+adicionar alguns comandos a serem executados caso um erro ocorra.
+Esses comandos extra (o bloco 'except') são ignorados se não houver erro.
 
-You can think of the `try` and `except` feature in
-Python as an "insurance policy" on a sequence of statements.
+Você pode pensar a ferramenta 'try' e 'except' no Python como sendo 
+uma "apólice de seguro" sobre uma sequencia de instruções.
 
-We can rewrite our temperature converter as follows:
+Podemos reescrever nosso conversor de temperatura da seguinte forma:
 
 \VerbatimInput{../code3/fahren2.py}
 
-Python starts by executing the sequence of statements in the
-`try` block. If all goes well, it skips the
-`except` block and proceeds. If an exception occurs in the
-`try` block, Python jumps out of the `try` block
-and executes the sequence of statements in the `except`
-block.
+O Python começa executando a sequencia de instruções que estão 
+no bloco 'try'. Se tudo ocorrer bem, pula-se o bloco 'except' 
+e o programa continua. Se uma exceção ocorrer no bloco 'try',
+o Python sai desse bloco e executa os comandos no bloco 'except'.
 
 ~~~~
 python fahren2.py
-Enter Fahrenheit Temperature:72
+Insira a temperatura em Fahrenheit:72
 22.22222222222222
 ~~~~
 
 ~~~~
 python fahren2.py
-Enter Fahrenheit Temperature:fred
-Please enter a number
+Insira a temperatura em Fahrenheit:fred
+Por favor, insira um número
 ~~~~
 
-Handling an exception with a `try` statement is called
-*catching* an exception. In this example, the
-`except` clause prints an error message. In general, catching
-an exception gives you a chance to fix the problem, or try again, or at
-least end the program gracefully.
+O ato tratar uma exceção com um comando 'try' é chamado de 
+*capturar* uma exceção. Nesse exemplo, a condição 'except' 
+mostra uma mensagem de erro. Geralmente, capturar uma exceção 
+te dá a chance de resolver um problema, ou de tentar novamente,
+ou de, pelo menos, encerrar seu programa graciosamente.
 
 Short-circuit evaluation of logical expressions
 -----------------------------------------------
