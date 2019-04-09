@@ -207,7 +207,7 @@ alternativas será executada. As alternativas são chamadas de
 \index{ramificação} 
 \index{ramificações} 
 
-Chained conditionals
+Condições Encadeadas
 --------------------
 
 \index{condições encadeada}
@@ -217,9 +217,6 @@ Chained conditionals
 Ás vezes há mais de duas possibilidades e precisamos de mais de dois caminhos. 
 Uma maneira de expressar uma lógica computacional é através de uma *condição encadeada*:
 
-Sometimes there are more than two possibilities and we need more than
-two branches. One way to express a computation like that is a
-*chained conditional*:
 
 ~~~~ {.python}
 if x < y:
@@ -422,6 +419,33 @@ While this may seem like a fine point, the short-circuit behavior leads
 to a clever technique called the *guardian pattern*.
 Consider the following code sequence in the Python interpreter:
 
+Análise do curto-circuito de expressões lógicas
+-----------------------------------------------
+
+\index{curto-circuito}
+
+Quando Python está processando uma expressão lógica como `x >= 2 and
+(x/y) > 2`, a expressão é analisada da esquerda para a direita.
+Devido a definição de  `and`, se `x` é menor
+que 2, a expressão `x >= 2` é `False` e então
+toda a expressão também é `False` independentemente se
+`(x/y) > 2` é considerada como `True` ou
+`False`.
+
+Quando Python detecta que não há nada a ser ganho examinando o
+resto da expressão lógica, a análise é parada e não são
+feitos os cálculos no resto da expressão lógica. Quando a
+interpretação de uma expressão lógica é interrompida porque o valor geral
+já é conhecido, isso é chamado de *curto-circuito* na
+análise.
+
+\index{padrão guardião}
+\index{padrão!guardião}
+
+Embora isso possa parecer um detalhe, o comportamento de um curto circuito leva
+a uma técnica chamada de *padrão guardião*.
+Considere o seguinte trecho de código no compilador de Python:
+
 ~~~~ {.python}
 >>> x = 6
 >>> y = 2
@@ -440,16 +464,16 @@ ZeroDivisionError: division by zero
 >>>
 ~~~~
 
-The third calculation failed because Python was evaluating
-`(x/y)` and `y` was zero, which causes a runtime
-error. But the second example did *not* fail because the first part of
-the expression `x >= 2` evaluated to `False` so
-the `(x/y)` was not ever executed due to the
-*short-circuit* rule and there was no error.
+O terceiro cálculo falhou, pois Python estava analisando
+`(x/y)` e `y` era zero, causando um erro ao
+executar. Mas o segundo exemplo *não* falhou, pois a primeira parte
+da expressão `x >= 2` foi considerada `False` então
+`(x/y)` nunca foi executado devido à
+regra do *curto-circuito* e não houve erro.
 
-We can construct the logical expression to strategically place a
-*guard* evaluation just before the evaluation that might
-cause an error as follows:
+Podemos construir a expressão lógica estrategicamente para posicionar uma avaliação
+de *guarda* logo antes da avaliação que pode causar
+o seguinte erro:
 
 ~~~~ {.python}
 >>> x = 1
@@ -467,18 +491,18 @@ ZeroDivisionError: division by zero
 >>>
 ~~~~
 
-In the first logical expression, `x >= 2` is
-`False` so the evaluation stops at the `and`. In
-the second logical expression, `x >= 2` is `True`
-but `y != 0` is `False` so we never reach
+Na primeira xpressão lógica, `x >= 2` é
+`False` então a análise para no `and`. Na
+segunda expressão lógica, `x >= 2` é `True`
+mas `y != 0` é `False` então nunca chegamos em
 `(x/y)`.
 
-In the third logical expression, the `y != 0` is *after* the
-`(x/y) ` calculation so the expression fails with an error.
+Na terceira expressão lógica, o `y != 0` é *depois* do
+cálculo de `(x/y) ` então a expressão falha com um erro.
 
-In the second expression, we say that `y != 0` acts as a
-*guard* to insure that we only execute `(x/y)`
-if `y` is non-zero.
+Na segunda expressão, dizemos que `y != 0` age como uma
+*guarda* para garantir que executaremos apenas `(x/y)`
+se `y` é diferente de zero.
 
 Debugging
 ---------
