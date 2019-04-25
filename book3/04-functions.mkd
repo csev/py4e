@@ -72,55 +72,54 @@ posteriores.
 Você deve encarar os nomes das funções internas como palavras reservadas 
 (i.e., evite usar "max" como nome de variável).
 
-Type conversion functions
+Funções de conversão de tipo
 -------------------------
 
 \index{conversion!type}
 \index{type conversion}
 
-Python also provides built-in functions that convert values from one
-type to another. The `int` function takes any value and
-converts it to an integer, if it can, or complains otherwise:
+Python também fornece funções internas que convertem valores de um tipo para outro. A função `int` pega qualquer valor e
+converte em um inteiro, se puder, ou reclama caso contrário:
 
 \index{int function}
 \index{function!int}
 
-~~~~ {.python}
+~~~ {.python}
 >>> int('32')
 32
->>> int('Hello')
+>>> int('Olá')
 ValueError: invalid literal for int() with base 10: 'Hello'
-~~~~
+~~~
 
-`int` can convert floating-point values to integers, but it
-doesn't round off; it chops off the fraction part:
+`int` pode converter valores de pontos-flutuante em inteiros, mas não arredonda;
+corta a parte da fração:
 
-~~~~ {.python}
+~~~ {.python}
 >>> int(3.99999)
 3
 >>> int(-2.3)
 -2
-~~~~
+~~~
 
-`float` converts integers and strings to floating-point
-numbers:
+`float` converte inteiros e strings em números de ponto-flutuante:
 
 \index{float function}
 \index{function!float}
 
-~~~~ {.python}
+~~~ {.python}
 >>> float(32)
 32.0
 >>> float('3.14159')
 3.14159
-~~~~
+~~~
 
-Finally, `str` converts its argument to a string:
+Finalmente, `str` converte seu argumento para uma string:
 
 \index{str function}
 \index{function!str}
 
-~~~~ {.python}
+~~~ 
+{.python}
 >>> str(32)
 '32'
 >>> str(3.14159)
@@ -534,89 +533,90 @@ não tem nada a ver com o nome do parâmetro (`bruce`). Não importa
 como o valor é chamado em casa (na chamada da função); aqui em
 `mostra_duas_vezes`, chamamos todo mundo de `bruce`.
 
-Fruitful functions and void functions
+Funções frutuosas e funções vazias
 -------------------------------------
 
-\index{fruitful function}
-\index{void function}
-\index{function, fruitful}
-\index{function, void}
+\index{função frutuosa}
+\index{função vazia}
+\index{função, frutuosa}
+\index{função, vazia}
 
-Some of the functions we are using, such as the math functions, yield
-results; for lack of a better name, I call them *fruitful
-functions*. Other functions, like `print_twice`, perform an
-action but don't return a value. They are called *void
-functions*.
+Algumas das funções que estamos usando, como as funções matemáticas, produzem
+resultados; por falta de um nome melhor, eu os chamo funções frutuosas.
+outras funções , como `print_twice`, executam uma
+ação mas não retorne um valor. Elas são chamadas *funções
+vazias*.
 
-When you call a fruitful function, you almost always want to do
-something with the result; for example, you might assign it to a
-variable or use it as part of an expression:
+Quando você chama uma função frutuosa, você quase sempre quer fazer
+alguma coisa com resultado; por exemplo, você pode atribui-lo a
+uma variável ou usar-lo como parte de uma expressão:
 
-~~~~ {.python}
+~~ {.python}
 x = math.cos(radians)
 golden = (math.sqrt(5) + 1) / 2
-~~~~
+~~
 
-When you call a function in interactive mode, Python displays the
-result:
+Quando você chama uma função no modo interativo, o Python exibe o resultado:
 
-~~~~ {.python}
+~~ {.python}
 >>> math.sqrt(5)
 2.23606797749979
-~~~~
+~~
 
-But in a script, if you call a fruitful function and do not store the
-result of the function in a variable, the return value vanishes into the
-mist!
+Mas em um script, se você chama uma função frutuosa e não armazena o
+resultado da função em uma variável, o valor de retorno desaparece na névoa!
 
-~~~~ {.python}
+~~ {.python}
 math.sqrt(5)
-~~~~
+~~
 
-This script computes the square root of 5, but since it doesn't store
-the result in a variable or display the result, it is not very useful.
+Esse script calcula a raiz quadrada de 5, mas como não se armazena
+o resultado em uma variável ou exibe o resultado, isso não foi muito útil.
 
-\index{interactive mode}
-\index{script mode}
+\index{modo interativo}
+\index{modo script}
 
-Void functions might display something on the screen or have some other
-effect, but they don't have a return value. If you try to assign the
-result to a variable, you get a special value called `None`.
+Funções vazias podem exibir algo na tela ou ter algum outro efeito,
+mas elas não têm um valor de retorno. Se você tentar atribuir o
+resultado a uma variável, você obtém um valor especial chamado `None`.
 
-\index{None special value}
-\index{special value!None}
+\index{Valor especial none}
+\index{valor especial!None}
 
-~~~~ {.python}
+~~ {.python}
 >>> result = print_twice('Bing')
 Bing
 Bing
 >>> print(result)
 None
-~~~~
+~~
 
-The value `None` is not the same as the string "None". It
-is a special value that has its own type:
+O valor `None` não é o mesmo que uma string "None". Isto
+é um valor especial que possui seu próprio tipo:
 
-~~~~ {.python}
+~~ {.python}
 >>> print(type(None))
 <class 'NoneType'>
-~~~~
+~~
 
-To return a result from a function, we use the `return`
-statement in our function. For example, we could make a very simple
-function called `addtwo` that adds two numbers together and
-returns a result.
+Para retornar um resultado de uma função, nós usamos o comando`return`
+em nossa função. Por exemplo, nós podemos fazer uma função muito simples
+chamada `addtwo` que soma dois números juntos e
+retorna um resultado.
 
 \VerbatimInput{../code3/addtwo.py}
 
-When this script executes, the `print` statement will print
-out "8" because the `addtwo` function was called with 3 and 5
-as arguments. Within the function, the parameters `a` and
-`b` were 3 and 5 respectively. The function computed the sum
-of the two numbers and placed it in the local function variable named
-`added`. Then it used the `return` statement to
-send the computed value back to the calling code as the function result,
-which was assigned to the variable `x` and printed out.
+Quando esse script é executado, a declaração ` print` será impressa
+"8" porque a função `addtwo` foi chamada com 3 e 5
+como argumentos. Dentro de uma função, os parâmetros `a` e
+`b` eram 3 e 5 respectivamente. A função cálcula a soma
+de dois números e colocou-o na váriável de função local nomeada
+`added`. Então usou o comando `return` para
+enviar o valor calculado de volta para o código de chamada como resultado da função,
+o qual foi atribuido à variável `x` e impressa.
+
+
+
 
 Why functions?
 --------------
