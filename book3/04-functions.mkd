@@ -127,81 +127,77 @@ Finally, `str` converts its argument to a string:
 '3.14159'
 ~~~~
 
-Math functions
+Funções Matemáticas
 --------------
 
-\index{math function}
-\index{function, math}
-\index{module}
-\index{module object}
+\index{Funções matemáticas}
+\index{matemáticas, funções}
+\index{módulo}
+\index{Objeto do módulo}
 
-Python has a `math` module that provides most of the familiar
-mathematical functions. Before we can use the module, we have to import
-it:
+Python tem um módulo `math` que possui a maioria das funções matemáticas.
+Antes de utilizar o módulo, nós temos que importá-lo:
 
 ~~~~ {.python}
 >>> import math
 ~~~~
 
-This statement creates a *module object* named math. If
-you print the module object, you get some information about it:
+Essa declaração cria um *objeto do módulo* chamado math. Se você usar 
+print() nele, receberá algumas informações sobre:
 
 ~~~~ {.python}
 >>> print(math)
 <module 'math' (built-in)>
 ~~~~
 
-The module object contains the functions and variables defined in the
-module. To access one of the functions, you have to specify the name of
-the module and the name of the function, separated by a dot (also known
-as a period). This format is called *dot notation*.
+O objeto do módulo contém as funções e variáveis definidas no módulo.
+Para acessar uma das funções, você deve especificar o nome do módulo e 
+o da função, separados por um ponto (também conhecido como _period_).
+Esse formato é conhecido como *notação de ponto*.
 
 \index{dot notation}
 
 ~~~~ {.python}
->>> ratio = signal_power / noise_power
->>> decibels = 10 * math.log10(ratio)
+>>> razao = poder_do_sinal / intensidade_de_ruido
+>>> decibeis = 10 * math.log10(razao)
 
->>> radians = 0.7
->>> height = math.sin(radians)
+>>> radianos = 0.7
+>>> height = math.sin(radianos)
 ~~~~
 
-The first example computes the logarithm base 10 of the signal-to-noise
-ratio. The math module also provides a function called `log`
-that computes logarithms base e.
+O primeiro exemplo computa o logaritmo de base 10 da razão entre o sinal
+e o ruído. O módulo _math_ também fornece uma função chamada `log` que computa
+logaritmos de base e.
 
-\index{log function}
-\index{function!log}
-\index{sine function}
-\index{radian}
-\index{trigonometric function}
-\index{function, trigonometric}
+\index{Função log}
+\index{log!Função}
+\index{Função seno}
+\index{radiano}
+\index{Função trigonométrica}
+\index{trigonométrica, função}
 
-The second example finds the sine of `radians`. The name of
-the variable is a hint that `sin` and the other trigonometric
-functions (`cos`, `tan`, etc.) take arguments in
-radians. To convert from degrees to radians, divide by 360 and multiply
-by $2
-\pi$:
+O segundo exemplo encontra o seno de `radianos`. O nome da variável é uma
+dica que `sin` e outras funções trigonométricas (`cos`, `tan`, etc.) têm 
+argumentos em radianos. Para converter de graus para radianos, dividimos por 
+360 e ultiplicamos por $2\pi$:
 
 ~~~~ {.python}
->>> degrees = 45
->>> radians = degrees / 360.0 * 2 * math.pi
->>> math.sin(radians)
+>>> graus = 45
+>>> radianos = graus / 360.0 * 2 * math.pi
+>>> math.sin(radianoss)
 0.7071067811865476
 ~~~~
 
-The expression `math.pi` gets the variable `pi`
-from the math module. The value of this variable is an approximation of
-$\pi$, accurate to about 15 digits.
+A expressão `math.pi` recebe a variável `pi` do módulo _math_. O valor dessa
+variável é uma aproximação de $\pi$, com precisão de 15 dígitos.
 
 \index{pi}
 
-If you know your trigonometry, you can check the previous result by
-comparing it to the square root of two divided by two:
+Se você sabe trigonometria, pode checar o resultado anterior comparando com a
+raiz quadrada de 2 dividida por 2:
 
-\index{sqrt function}
-\index{function!sqrt}
+\index{Função sqrt}
+\index{sqrt!Função}
 
 ~~~~ {.python}
 >>> math.sqrt(2) / 2.0
@@ -459,84 +455,84 @@ Qual é a moral desse conto sórdido? Quando você lê um programa, você nem
 sempre quer lê-lo de cima para baixo. Às vezes faz mais sentido se
 você seguir o fluxo de execução.
 
-Parameters and arguments
+Parâmetros e argumentos
 ------------------------
 
-\index{parameter}
-\index{function parameter}
-\index{argument}
-\index{function argument}
+\index{Parâmetro}
+\index{Parâmetro de função}
+\index{Argumento}
+\index{Argumento de função}
 
-Some of the built-in functions we have seen require arguments. For
-example, when you call `math.sin` you pass a number as an
-argument. Some functions take more than one argument:
-`math.pow` takes two, the base and the exponent.
+Algumas das funções internas que vimos requerem argumentos. Por exemplo,
+quando você chama `math.sin` você passa um número como argumento. Algumas
+funções requerem mais de um argumento: `math.pow` recebe dois, a base e o
+expoente.
 
-Inside the function, the arguments are assigned to variables called
-*parameters*. Here is an example of a user-defined
-function that takes an argument:
+Dentro da função, os argumentos são atribuidos à variáveis chamadas
+*parâmetros*. Aqui está um exemplo de uma função definida pelo usuário
+que recebe um argumento:
 
 \index{parentheses!parameters in}
 
 ~~~~ {.python}
-def print_twice(bruce):
+def mostra_duas_vezes(bruce):
     print(bruce)
     print(bruce)
 ~~~~
 
-This function assigns the argument to a parameter named
-`bruce`. When the function is called, it prints the value of
-the parameter (whatever it is) twice.
+Essa função atribui o argumento à um parâmetro nomeado `bruce`. Quando
+a função é chamada, ela mostra o valor do parâmetro (qualquer que seja
+ele) duas vezes.
 
-This function works with any value that can be printed.
+Essa função funciona com qualquer valor que possa ser mostrado.
 
 ~~~~ {.python}
->>> print_twice('Spam')
+>>> mostra_duas_vezes('Spam')
 Spam
 Spam
->>> print_twice(17)
+>>> mostra_duas_vezes(17)
 17
 17
 >>> import math
->>> print_twice(math.pi)
+>>> mostra_duas_vezes(math.pi)
 3.141592653589793
 3.141592653589793
 ~~~~
 
-The same rules of composition that apply to built-in functions also
-apply to user-defined functions, so we can use any kind of expression as
-an argument for `print_twice`:
+As mesmas regras de composição que se aplicam às funções internas também
+se aplicam à funções definidas pelo usuário, então podemos usar qualquer 
+tipo de expressão como argumento para `mostra_duas_vezes`:
 
-\index{composition}
+\index{composição}
 
 ~~~~ {.python}
->>> print_twice('Spam '*4)
+>>> mostra_duas_vezs('Spam '*4)
 Spam Spam Spam Spam
 Spam Spam Spam Spam
->>> print_twice(math.cos(math.pi))
+>>> mostra_duas_vezes(math.cos(math.pi))
 -1.0
 -1.0
 ~~~~
 
-The argument is evaluated before the function is called, so in the
-examples the expressions `'Spam '*4` and `math.cos(math.pi)`
-are only evaluated once.
+O argumento é avaliado antes da função ser chamada, então nos exemplos
+as expressões `'Spam '*4` e `math.cos(math.pi)` são avaliadas apenas uma
+vez.
 
-\index{argument}
+\index{argumento}
 
-You can also use a variable as an argument:
+Você também pode usar variáveis como argumento:
 
 ~~~~ {.python}
->>> michael = 'Eric, the half a bee.'
->>> print_twice(michael)
-Eric, the half a bee.
-Eric, the half a bee.
+>>> michael = 'Eric, a meia abelha.'
+>>> mostra_duas_vezes(michael)
+Eric, a meia abelha.
+Eric, a meia abelha.
 ~~~~
 
-The name of the variable we pass as an argument (`michael`)
-has nothing to do with the name of the parameter (`bruce`).
-It doesn't matter what the value was called back home (in the caller);
-here in `print_twice`, we call everybody `bruce`.
+O nome da variávei que passamos como um argumento (`michael`)
+não tem nada a ver com o nome do parâmetro (`bruce`). Não importa
+como o valor é chamado em casa (na chamada da função); aqui em
+`mostra_duas_vezes`, chamamos todo mundo de `bruce`.
 
 Fruitful functions and void functions
 -------------------------------------
