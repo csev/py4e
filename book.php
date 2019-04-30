@@ -50,6 +50,19 @@ and
 </li>
      </ul>
   </li>
+  <li> Portuguese - In progress
+     <ul class="menu vertical nested is-active">
+       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.pdf" target="_blank">Download PDF</a> (Partially translated)</li>
+       <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.epub" target="_blank">Download EPUB</a> (Partially translated)</li>
+        <li> <a href="https://github.com/ras-ufcg/py4e" target="_blank">Book source on github</a> 
+(Thanks to Yuri Loia de Medeiros).
+</li>
+
+        <li>Translation by:
+            <a href="https://github.com/ftardio/pythonlearn" target="_blank">Fernando Tardio</a>.
+        </li>
+     </ul>
+  </li>
   <li> Spanish - In progress
      <ul class="menu vertical nested is-active">
        <li class="menu-text"><a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf" target="_blank">Download PDF</a> (Partially translated)</li>
