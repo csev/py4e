@@ -73,7 +73,8 @@ and
         </li>
      </ul>
   </li>
-<li>
+</ul>
+
 <p>
 If you are insterested in starting a translation of the book, I have some
 instructions for 
@@ -81,9 +82,7 @@ instructions for
  target="_blank">
 getting started</a>.
 </p>
-</li>
 
-</ul>
         <p>
             The sample code and data files for the book is here: <a href="http://www.py4e.com/code3/" target="_blank">Code Samples</a>.
         </p>
