@@ -23,17 +23,24 @@ avilable under a Creative Commons license.
 <li><p><b>Earn an edX Certificate for This Course</b>
 <a href="https://www.edx.org/course/programming-for-everybody-getting-started-with-python" target="_blank">Python for Everybody - Getting Started</a> (Two edX courses)</li>
 <p></li>
+<p>
+<li>
+<a href="https://www.freecodecamp.org/news/python-for-everybody/" target="_blank">FreeCodeCamp</a> - Blends online courses with meetups around the world.
+</li>
+</p>
 <li>
 <p>
 <a href="https://edufyre.com/p/programming-made-easy-with-python"
 target="_blank">Programming Made Easy with Python</a> from 
 <a href="https://edufyre.com/" target="_blank">Edufyre</a> (India)
-</p><li><p>
+</p>
+<li><p>
 <a href="http://www.edwith.org/pythonforeverybody" target="_blank">
 모두를 위한 프로그래밍 : 파이썬 (Programming for All: Python)</a>
 from 
 <a href="http://www.edwith.org/" target="_blank">Edwith</a> (Korean).
-</p></li><li><p>
+</p></li>
+<li><p>
 <a href="https://videodirect.amazon.com/content/edit/season?id=4XS87SAAA29"
 target="_blank">Amazon Video Direct</a>.
 </p></li>
