@@ -25,7 +25,9 @@ avilable under a Creative Commons license.
 <p></li>
 <p>
 <li>
-<a href="https://www.freecodecamp.org/news/python-for-everybody/" target="_blank">FreeCodeCamp</a> - Blends online courses with meetups around the world.
+<a href="https://www.freecodecamp.org/news/python-for-everybody/" target="_blank">FreeCodeCamp</a> 
+(<a href="https://www.youtube.com/watch?v=8DvywoWv6fI" target="_blank">Video</a>)
+- Blends online courses with meetups around the world.
 </li>
 </p>
 <li>
