@@ -481,22 +481,21 @@ method at:
 Write an invocation that counts the number of times the letter a occurs
 in "banana".**
 
-Parsing strings
+Particionando strings
 ---------------
 
-Often, we want to look into a string and find a substring. For example
-if we were presented a series of lines formatted as follows:
+Frequentemente, nós precisamos analisar o que temos dentro de uma string e encontrar uma substring.
+Por exemplo se nos for apresentado a sequência formatados a seguir:
 
 `From stephen.marquard@`*` uct.ac.za`*` Sat Jan  5 09:14:16 2008`
 
-and we wanted to pull out only the second half of the address (i.e.,
-`uct.ac.za`) from each line, we can do this by using the
-`find` method and string slicing.
+e nós quisermos desconsiderar somente a segunda metade do endereço (i.e.,`uct.ac.za`)
+de cada linha, nó podemos fazer isso utilizando o 
+método(a função?) `find` e o fatiamento de strings.
 
-First, we will find the position of the at-sign in the string. Then we
-will find the position of the first space *after* the at-sign. And then
-we will use string slicing to extract the portion of the string which we
-are looking for.
+Primeiramente, acharemos a posição do sinal arroba (@) na string.
+Então acharemos a posição do primeiro espaço *após* o arroba.
+Só então utilizaremos o fatiamento de strings para extrair a parte da string que estamos buscando.
 
 ~~~~ {.python}
 >>> data = 'From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008'
@@ -512,12 +511,12 @@ uct.ac.za
 >>>
 ~~~~
 
-We use a version of the `find` method which allows us to
-specify a position in the string where we want `find` to
-start looking. When we slice, we extract the characters from "one beyond
-the at-sign through up to *but not including* the space character".
+Utilizamos a versão do método (da função?) `find` que nos permite
+especificar a posição na string que queremos `find`(encontrar) para
+começar a busca. Quando fatiamos a string, extraímos os caracteres de
+"um afrente do sinal arroba até o ,*mas não incluindo*, o caractere espaço".
 
-The documentation for the `find` method is available at
+A documentação para o método(a função) `find` está disponível em
 
 <https://docs.python.org/library/stdtypes.html#string-methods>.
 
@@ -603,16 +602,15 @@ Debugging
 
 \index{debugging}
 
-A skill that you should cultivate as you program is always asking
-yourself, "What could go wrong here?" or alternatively, "What crazy
-thing might our user do to crash our (seemingly) perfect program?"
+Uma habilidade que você deveria desenvolver ao programar é a de sempre
+se perguntar, "O que poderia dar errado aqui?" ou, de maneira semelhante, "Qual loucura o usuário poderia fazer para gerar um problema
+no nosso (aparentemente) programa perfeito?"
 
-For example, look at the program which we used to demonstrate the
-`while` loop in the chapter on iteration:
+Por exemplo, observe o programa que utilizamos para dmeonstrar o laço `while` no capítulo de iterações:
 
 \VerbatimInput{../code3/copytildone2.py}
 
-Look what happens when the user enters an empty line of input:
+Observe o que acontece quando o usuário introduz uma linha vazia na entrada:
 
 ~~~~ {.python}
 > hello there
@@ -627,12 +625,11 @@ Traceback (most recent call last):
 IndexError: string index out of range
 ~~~~
 
-The code works fine until it is presented an empty line. Then there is
-no zero-th character, so we get a traceback. There are two solutions to
-this to make line three "safe" even if the line is empty.
+O código funciona bem até o aparecimento da linha vazia. Então não há o caractere da posição 0, logo temos um traceback (erro).
+Existem duas soluções para transformar a linha três em uma linha segura, mesmo que a linha esteja vazia.
 
-One possibility is to simply use the `startswith` method
-which returns `False` if the string is empty.
+Uma alternativa seria simplesmente utilizar o método (a função?) `startswith` 
+que retorna `False` se a string estiver vazia.
 
 ~~~~ {.python}
 if line.startswith('#'):
@@ -641,10 +638,8 @@ if line.startswith('#'):
 \index{guardian pattern}
 \index{pattern!guardian}
 
-Another way is to safely write the `if` statement using the
-*guardian* pattern and make sure the second logical
-expression is evaluated only where there is at least one character in
-the string.:
+Outra forma é a de assegurar escrevendo uma instrunção `if` utilizando um *guardian* pattern e tenha certeza de que a segunda
+expressão lógica será testada apenas se a string conter no mínimo 1 caractere:
 
 ~~~~ {.python}
 if len(line) > 0 and line[0] == '#':
