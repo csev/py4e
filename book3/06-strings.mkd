@@ -1,118 +1,114 @@
 Strings
 =======
 
-A string is a sequence
+A string é uma sequência
 ----------------------
 
-\index{sequence}
-\index{character}
-\index{bracket operator}
-\index{operator!bracket}
+\index{sequência}
+\index{caractere}
+\index{operator de colchetes}
+\index{operador!colchete}
 
-A string is a *sequence* of characters. You can access
-the characters one at a time with the bracket operator:
-
+A string é uma sequência de caracteres. Você pode acessar
+os caracteres um de cada vez com o operador de colchetes:
 ~~~~ {.python}
->>> fruit = 'banana'
->>> letter = fruit[1]
+>>> fruta = 'banana'
+>>> letra = fruta[1]
 ~~~~
 
 \index{index}
 \index{}
 
-The second statement extracts the character at index position 1 from the
-`fruit` variable and assigns it to the `letter`
-variable.
+A segunda instrução extrai o caractere na posição indexada 1, vinda da 
+variável `fruta` e atribui este valor para variável `letra`.
 
+A expressão em colchetes é chamada de *index*. O index indica qual
+caractere da sequência você quer
 The expression in brackets is called an *index*. The
-index indicates which character in the sequence you want (hence the
-name).
+index indicates which character in the sequence you want.
 
-But you might not get what you expect:
+Mas você talvez não receba o que espera:
 
 ~~~~ {.python}
->>> print(letter)
+>>> print(letra)
 a
 ~~~~
 
-For most people, the first letter of "banana" is "b", not
-"a". But in Python, the index is an offset from the beginning
-of the string, and the offset of the first letter is zero.
+Para a maior parte das pessoas, a primeira letra de "banana" é "b",
+não "a". Mas em Python, o index é um deslocamento desde o início da
+string, e o deslocamento da primeira letra é 0.
 
 ~~~~ {.python}
->>> letter = fruit[0]
->>> print(letter)
+>>> letra = fruta[0]
+>>> print(letra)
 b
 ~~~~
 
-So "b" is the 0th letter ("zero-th") of "banana",
-"a" is the 1th letter ("one-th"), and "n" is the
-2th ("two-th") letter.
+Então "b" é a 0ª letra de "banana", "a" é a 1ª letra e "n" 
+é a 2ª letra.
 
 ![String Indexes](height=0.75in@../images/string)
 
-\index{index!starting at zero}
-\index{zero, index starting at}
+\index{index!começando em zero}
+\index{zero, index começando em}
 
-You can use any expression, including variables and operators, as an
-index, but the value of the index has to be an integer. Otherwise you
-get:
+Você pode utilizar qualquer expressão, incluindo variáveis e operadores, 
+como index, mas o valor do indexx deverá ser um inteiro. Caso não seja:
 
 \index{index}
 \index{}
-\index{exception!TypeError}
+\index{exceção!TypeError}
 \index{TypeError}
 
 ~~~~ {.python}
->>> letter = fruit[1.5]
+>>> letra = fruta[1.5]
 TypeError: string indices must be integers
 ~~~~
 
-Getting the length of a string using `len`
+Obtendo o comprimento de uma string utilizando `len`
 -----------------------------------------------------
 
-\index{len function}
-\index{function!len}
+\index{função len}
+\index{função!len}
 
-`len` is a built-in function that returns the number of
-characters in a string:
+``len` é uma função embutida que retorna o número de caracteres
+em uma string:
 
 ~~~~ {.python}
->>> fruit = 'banana'
->>> len(fruit)
+>>> fruta = 'banana'
+>>> len(fruta)
 6
 ~~~~
 
-To get the last letter of a string, you might be tempted to try
-something like this:
+Para obter a última letra de uma string, você pode ficar tentado
+a tentar algo desta natureza:
 
-\index{exception!IndexError}
+\index{exceção!IndexError}
 \index{IndexError}
 
 ~~~~ {.python}
->>> length = len(fruit)
->>> last = fruit[length]
+>>> comprimento = len(fruta)
+>>> ultima = fruta[comprimento]
 IndexError: string index out of range
 ~~~~
 
-The reason for the `IndexError` is that there is no letter in
-"banana" with the index 6. Since we started counting at
-zero, the six letters are numbered 0 to 5. To get the last character,
-you have to subtract 1 from `length`:
+A razão pelo `IndexError` é que a última letra em "banana" é com o 
+index 6. Desde que nós começamos a contar até zero, as seis letras estão
+enumeradas de 0 a 5. Para obter este caractere, você tem de subtrair 1
+de `comprimento`:
 
 ~~~~ {.python}
->>> last = fruit[length-1]
->>> print(last)
+>>> ultima = fruta[comprimento-1]
+>>> print(ultima)
 a
 ~~~~
 
-Alternatively, you can use negative indices, which count backward from
-the end of the string. The expression `fruit[-1]` yields the
-last letter, `fruit[-2]` yields the second to last, and so
-on.
+Alternativamente, você pode utilizar de índices negativos, que fazendo a 
+contagem ao contrário do sentido usual da string. A expressão `fruta[-1]` 
+retorna a última letra, `fruta[-2]` retorna o penúltimo, e assim por diante.
 
-\index{index!negative}
-\index{negative index}
+\index{index!negativo}
+\index{index negativo}
 
 Travessia (traversal) de strings usando loop
 --------------------------------------------
