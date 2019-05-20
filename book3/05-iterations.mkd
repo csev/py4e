@@ -286,10 +286,9 @@ Esses loops são geralmente construídos por:
 Utilizaremos uma lista de números para demonstrar os conceitos e
 construção destes padrões de loop.
 
-### Counting and summing loops
+### Contando e Somando Repetições
 
-For example, to count the number of items in a list, we would write the
-following `for` loop:
+Por exemplo, para contar o número de itens em uma lista, escreveríamos o seguinte para a repetição usando `for`:
 
 ~~~~ {.python}
 count = 0
@@ -297,26 +296,13 @@ for itervar in [3, 41, 12, 9, 74, 15]:
     count = count + 1
 print('Count: ', count)
 ~~~~
-
-We set the variable `count` to zero before the loop starts,
-then we write a `for` loop to run through the list of
-numbers. Our *iteration* variable is named
-`itervar` and while we do not use `itervar` in the
-loop, it does control the loop and cause the loop body to be executed
-once for each of the values in the list.
-
-In the body of the loop, we add 1 to the current value of
-`count` for each of the values in the list. While the loop is
-executing, the value of `count` is the number of values we
-have seen "so far".
-
-Once the loop completes, the value of `count` is the total
-number of items. The total number "falls in our lap" at the end of the
-loop. We construct the loop so that we have what we want when the loop
-finishes.
-
-Another similar loop that computes the total of a set of numbers is as
-follows:
+Nós ajustamos `count`  para zero antes da repetição começar, então nós escrevemos uma repetição `for` para percorrer a lista de números. Nossa variável de *iteração* é chamada de `itervar` e enquanto nós não usamos o `itervar` na repetição, ele controla o loop e faz com que o corpo desta parte do código seja executada uma vez para cada um dos valores na lista.
+ 
+No corpo da repetição, adicionamos 1 ao valor atual de `count`  para cada um dos valores na lista. Enquanto o loop está em execução, o valor de `count` é o número de valores que vimos "até agora". 
+ 
+Depois que a repetição é concluída, o valor de `count` é o número total de itens. O  número total "cai do céu" no final do ciclo. Nós construímos a repetição e então temos o que queremos quando ela termina.
+ 
+Outra repetição semelhante que calcula o total de um conjunto de números é o seguinte
 
 ~~~~ {.python}
 total = 0
@@ -325,36 +311,24 @@ for itervar in [3, 41, 12, 9, 74, 15]:
 print('Total: ', total)
 ~~~~
 
-In this loop we *do* use the *iteration variable*.
-Instead of simply adding one to the `count` as in the
-previous loop, we add the actual number (3, 41, 12, etc.) to the running
-total during each loop iteration. If you think about the variable
-`total`, it contains the "running total of the values so
-far". So before the loop starts `total` is zero because we
-have not yet seen any values, during the loop `total` is the
-running total, and at the end of the loop `total` is the
-overall total of all the values in the list.
-
-As the loop executes, `total` accumulates the sum of the
-elements; a variable used this way is sometimes called an
-*accumulator*.
+Neste loop, *usamos* a *variável de iteração*. Em vez de simplesmente adicionar um à `contagem`, como na repetição anterior, adicionamos o número real (3, 41, 12, etc.) ao executando total durante cada iteração de repetição. Se você pensar na variável `total`, ela contém o "total de valores executados até agora". Então, antes que a repetição comece,`total` é zero porque ainda não vimos nenhum valor. Durante toda a repetição `total`  é compilado e, ao final do loop, `total` é o valor geral de todos os valores na lista.
+ 
+Conforme o loop é executado, `total` acumula a soma dos elementos; uma variável usada desta forma às vezes é chamada de *accumulator*.
 
 \index{accumulator!sum}
 
-Neither the counting loop nor the summing loop are particularly useful
-in practice because there are built-in functions `len()` and
-`sum()` that compute the number of items in a list and the
-total of the items in the list respectively.
+Nem a repetição de contagem nem a repetição de soma são particularmente úteis na prática porque existem funções internas `len()` e
+`sum()` que calculam o número de itens em uma lista e o total dos itens na lista, respectivamente.
 
-### Maximum and minimum loops
+
+### Repetições Máximas e Mínimas
 
 \index{loop!maximum}
 \index{loop!minimum}
 \index{None special value}
 \index{special value!None}
 
-To find the largest value in a list or sequence, we
-construct the following loop:
+Para achar o máximo valor em uma lista ou sequência, construímos a seguinte repetição:
 
 ~~~~ {.python}
 largest = None
@@ -366,7 +340,7 @@ for itervar in [3, 41, 12, 9, 74, 15]:
 print('Largest:', largest)
 ~~~~
 
-When the program executes, the output is as follows:
+Quando o programa é executado, a saída é a seguinte:
 
 ~~~~
 Before: None
@@ -379,34 +353,15 @@ Loop: 15 74
 Largest: 74
 ~~~~
 
-The variable `largest` is best thought of as the "largest
-value we have seen so far". Before the loop, we set `largest`
-to the constant `None`. `None` is a special
-constant value which we can store in a variable to mark the variable as
-"empty".
+A variável `largest` é melhor considerada como o “maior valor que vimos até agora”. Antes da repetição, definimos `largest` para a constante `None`. `None` é uma constante especial de valor que podemos armazenar em uma variável para marca-la como "vazia".
 
-Before the loop starts, the largest value we have seen so far is
-`None` since we have not yet seen any values. While the loop
-is executing, if `largest` is `None` then we take
-the first value we see as the largest so far. You can see in the first
-iteration when the value of `itervar` is 3, since
-`largest` is `None`, we immediately set
-`largest` to be 3.
+Antes do início da repetição, o maior valor que temos até agora é `None`, desde que nós ainda não tenhamos nenhum valor. Enquanto a repetição está sendo executada, se o `maior` for `None`, então nós pegamos o primeiro valor que vemos como o maior até agora. Você pode ver na primeira iteração quando o valor do `itervar` é 3, já que `largest` é `None`, nós imediatamente definimos `largest` como sendo 3.
 
-After the first iteration, `largest` is no longer
-`None`, so the second part of the compound logical expression
-that checks `itervar > largest` triggers only when we see a
-value that is larger than the "largest so far". When we see a new "even
-larger" value we take that new value for `largest`. You can
-see in the program output that `largest` progresses from 3 to
-41 to 74.
+Após a primeira iteração, `largest` não é mais `None`, então a segunda parte da expressão lógica composta verifica se `itervar > largest` acionando apenas quando vemos que um valor que é maior que o "maior até agora". Quando vemos um novo "mesmo maior ”valorizamos esse novo valor para o `largest`. Você pode ver na saída do programa que `largest` progride de 3 para 41 e de 41 para 74.
 
-At the end of the loop, we have scanned all of the values and the
-variable `largest` now does contain the largest value in the
-list.
+No final da repetição, verificamos todos os valores e a variável `largest` agora contém o maior valor da lista.
 
-To compute the smallest number, the code is very similar with one small
-change:
+Para calcular o menor número, o código é muito semelhante com uma pequena alteração:
 
 ~~~~ {.python}
 smallest = None
@@ -418,16 +373,12 @@ for itervar in [3, 41, 12, 9, 74, 15]:
 print('Smallest:', smallest)
 ~~~~
 
-Again, `smallest` is the "smallest so far" before, during,
-and after the loop executes. When the loop has completed,
-`smallest` contains the minimum value in the list.
-
-Again as in counting and summing, the built-in functions
-`max()` and `min()` make writing these exact loops
-unnecessary.
-
-The following is a simple version of the Python built-in
-`min()` function:
+Novamente, `smallest` é o “menor até agora” antes, durante e depois que a repetição é executada.
+Quando a repetição está concluída, `smallest` contém o valor mínimo na lista.
+ 
+Novamente como na contagem e na soma, as funções incorporadas `max()` e `min()` fazem o mesmo sem escrever esses laços desnecessários.
+ 
+A seguir, uma versão simples da função `min()` embutida do Python:
 
 ~~~~ {.python}
 def min(values):
@@ -438,9 +389,8 @@ def min(values):
     return smallest
 ~~~~
 
-In the function version of the smallest code, we removed all of the
-`print` statements so as to be equivalent to the
-`min` function which is already built in to Python.
+Na versão de função do menor código, removemos todas as declarações de `print`, de  modo a ser equivalente à função `min` que já está embutida no Python.
+
 
 Debugging
 ---------
