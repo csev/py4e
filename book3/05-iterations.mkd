@@ -110,116 +110,116 @@ loop deve terminar de *variável de iteração*. Se não houver uma
 variável de iteração, o loop se repetirá eternamente, resultando
 em um *loop infinito*.
 
-Infinite loops
+Loops infinitos
 --------------
 
-An endless source of amusement for programmers is the observation that
-the directions on shampoo, "Lather, rinse, repeat," are an infinite loop
-because there is no *iteration variable* telling you how
-many times to execute the loop.
+Uma fonte de diversão sem fim para programadores é a observação de que
+as instruções no shampoo, “Ensaboe, enxague, repita”, são um loop infinito
+infinito pois não há *variável de iteraação* lhe dizendo quantas
+vezes executar o loop.
 
-\index{infinite loop}
-\index{loop!infinite}
+\index{loop infinito}
+\index{loop!infinito}
 
-In the case of `countdown`, we can prove that the loop
-terminates because we know that the value of `n` is finite,
-and we can see that the value of `n` gets smaller each time
-through the loop, so eventually we have to get to 0. Other times a loop
-is obviously infinite because it has no iteration variable at all.
+No caso de `countdown`, nós podemos provar que o loop
+termina, pois sabemos que o valor de `n` é finito,
+ae podemos ver o valor de `n` gficar cada vez menor
+durante o loop, então eventualmente teremos o 0. Outras vezes o loop
+é obviamente infinito, pois não existe variável de iteração.
 
-\index{break statement}
-\index{statement!break}
+\index{estrutura break}
+\index{estrutura!break}
 
-Sometimes you don't know it's time to end a loop until you get half way
-through the body. In that case you can write an infinite loop on purpose
-and then use the `break` statement to jump out of the loop.
+Às vezes você não sabe que é hora de terminar o loop até chegar ao meio
+do código. Nesse caso você pode escrever um loop infinito de propósito
+e então usar a estrutura `break` para sair do loop.
 
-This loop is obviously an *infinite loop* because the
-logical expression on the `while` statement is simply the
-logical constant `True`:
+Este loop obviamente é um *loop infinito*, pois a
+expressão lógica na estrutura `while` é simplesmente a
+a constante lógica `True`:
 
 ~~~~ {.python}
 n = 10
 while True:
     print(n, end=' ')
     n = n - 1
-print('Done!')
+print('Pronto!')
 ~~~~
 
-If you make the mistake and run this code, you will learn quickly how to
-stop a runaway Python process on your system or find where the power-off
-button is on your computer. This program will run forever or until your
-battery runs out because the logical expression at the top of the loop
-is always true by virtue of the fact that the expression is the constant
-value `True`.
+Se você cometer o erro e executar esse código, você aprenderá rapidamente como
+parar o processo de Python em execução no seu sistema ou achar onde é o botão
+de desligar do seu computador. Este programa rodará eternamente ou até a sua
+bateria acabar, pois a expressão lógica no topo do loop
+é sempre verdadeira graças ao fato de que a expressão é o valor
+constante `True`.
 
-While this is a dysfunctional infinite loop, we can still use this
-pattern to build useful loops as long as we carefully add code to the
-body of the loop to explicitly exit the loop using `break`
-when we have reached the exit condition.
+Enquanto isso é um loop infinito disfuncional, nós podemos continuar usando esse
+padrão para construir loops uteis desde que, cuidadosamente adicionemos o código ao
+corpo do loop para sair dele explicitamente usando `break`
+quando atingimos a condição de saída.
 
-For example, suppose you want to take input from the user until they
-type `done`. You could write:
+Por exemplo, suponha que você queira entradas do usuário até que
+digitem `done`. Você pode escrever:
 
 \VerbatimInput{../code3/copytildone1.py}
 
-The loop condition is `True`, which is always true, so the
-loop runs repeatedly until it hits the break statement.
+A condição do loop é `True`, que sempre é verdadeiro, então o
+loop executa repetidamente até atingir a estrutura break.
 
-Each time through, it prompts the user with an angle bracket. If the
-user types `done`, the `break` statement exits the
-loop. Otherwise the program echoes whatever the user types and goes back
-to the top of the loop. Here's a sample run:
+A cada vez, ele solicita o usuário com um colchete angular. Se o
+usuário digita `done`, a estrutura `break` sai do
+loop. Caso contrário o programa ecoa tudo o que o usuário digita e volta ao início
+do loop. Aqui vemos a execução de uma amostra:
 
 ~~~~
-> hello there
-hello there
-> finished
-finished
-> done
-Done!
+> ola
+ola
+> encerrado
+encerrado
+> pronto
+Pronto!
 ~~~~
 
-This way of writing `while` loops is common because you can
-check the condition anywhere in the loop (not just at the top) and you
-can express the stop condition affirmatively ("stop when this happens")
-rather than negatively ("keep going until that happens.").
+Esta forma de escrever loops `while` é comum, pois você pode
+checar a condição em qualquer lugar do loop (não apenas no topo) e você
+pode expressar a condição de parada afirmativamente (“pare quando isso acontece”)
+melhor que negativamente (“continue até que aquilo aconteça”).
 
-Finishing iterations with `continue`
+Finalizando iterações com `continue`
 -----------------------------------------------
 
-\index{continue statement}
-\index{statement!continue}
+\index{estrutura continue}
+\index{estrutura!continue}
 
-Sometimes you are in an iteration of a loop and want to finish the
-current iteration and immediately jump to the next iteration. In that
-case you can use the `continue` statement to skip to the next
-iteration without finishing the body of the loop for the current
-iteration.
+Às vezes você está em uma iteração de um loop e deseja finalizar a
+iteração atual e pular imediatamente para a próxima. Nesse
+caso você pode usar a estrutura `continue` para avançar para a próxima
+iteração sem terminar o corpo do loop para a iteração
+atual.
 
-Here is an example of a loop that copies its input until the user types
-"done", but treats lines that start with the hash character as lines not
-to be printed (kind of like Python comments).
+Aqui está um exemplo de loop que copia suas entradas até o usuário digitar
+"pronto", considera linhas que comecem com o caractere cerquilha como linhas a não
+serem exibidas (Como os comentários em Python)
 
 \VerbatimInput{../code3/copytildone2.py}
 
-Here is a sample run of this new program with `continue`
-added.
+Aqui temos a execução da amostra desse novo programa com `continue`
+adicionado.
 
 ~~~~ 
-> hello there
-hello there
-> # don't print this
-> print this!
-print this!
-> done
-Done!
+> ola
+ola
+> # não exiba isso
+> exiba isso!
+Exiba isso!
+> pronto
+Pronto!
 ~~~~
 
-All the lines are printed except the one that starts with the hash sign
-because when the `continue` is executed, it ends the current
-iteration and jumps back to the `while` statement to start
-the next iteration, thus skipping the `print` statement.
+Todas as linhas são exibidas exceto a que começa com o sinal cerquilha,
+pois quando o `continue` é executado, ele termina a iteração
+atual e pula de volta para a estrutura `while` para começar
+a próxima iteração, portanto pulando o `print`.
 
 Definindo loop usando `for` 
 --------------------------------------
