@@ -308,7 +308,7 @@ poderia ser:
 ~~~~ {.python}
 >>> prompt = "Qual é a velocidade rasante de uma andorinha sem carga?\n"
 >>> velocidade = input(prompt)
-Qual é a velocidade rasante de uma andorinha sem carga?
+Qual é a velocidade rasante de uma andorinha?
 Seja mais específico, uma andorinha africana ou europeia?
 >>> int(velocidade)
 ValueError: invalid literal for int() with base 10:
@@ -337,7 +337,7 @@ em Fahrenheit para Celsius:
 \VerbatimInput{../code3/fahren.py}
 
 Se executarmos esse código e inserirmos uma entrada inválida, 
-simplesmente ele falha com uma mensagem de erro não amigável:
+ele simplesmente falha, mostrando uma mensagem de erro não amigável:
 
 ~~~~
 python fahren.py
@@ -352,24 +352,24 @@ Traceback (most recent call last):
   File "fahren.py", line 2, in <module>
     fahr = float(ent)
 ValueError: could not convert string to float: 'fred'
-            (não foi possível converter string para float: 'fred')
+           (não foi possível converter string para float: 'fred')
 ~~~~
 
 Existe uma estrutura de execução condicional interna ao Python para 
 manipular esses tipos de erros esperados e inesperados chamada 
 "try / except". A ideia de 'try' e 'except' é de você saber que 
-alguma sequencia de instruções pode ter um problema e você quer 
-adicionar alguns comandos a serem executados caso um erro ocorra.
+alguma sequência de instruções pode ter um problema e você quer 
+adicionar alguns comandos para serem executados caso um erro ocorra.
 Esses comandos extra (o bloco 'except') são ignorados se não houver erro.
 
-Você pode pensar a ferramenta 'try' e 'except' no Python como sendo 
-uma "apólice de seguro" sobre uma sequencia de instruções.
+Você pode pensar na ferramenta 'try' e 'except' no Python como sendo 
+uma "apólice de seguro" sobre uma sequência de instruções.
 
 Podemos reescrever nosso conversor de temperatura da seguinte forma:
 
 \VerbatimInput{../code3/fahren2.py}
 
-O Python começa executando a sequencia de instruções que estão 
+O Python começa executando a sequência de instruções que estão 
 no bloco 'try'. Se tudo ocorrer bem, pula-se o bloco 'except' 
 e o programa continua. Se uma exceção ocorrer no bloco 'try',
 o Python sai desse bloco e executa os comandos no bloco 'except'.
@@ -386,55 +386,28 @@ Insira a temperatura em Fahrenheit:fred
 Por favor, insira um número
 ~~~~
 
-O ato tratar uma exceção com um comando 'try' é chamado de 
+O ato de tratar uma exceção com um comando 'try' é chamado de 
 *capturar* uma exceção. Nesse exemplo, a condição 'except' 
 mostra uma mensagem de erro. Geralmente, capturar uma exceção 
 te dá a chance de resolver um problema, ou de tentar novamente,
 ou de, pelo menos, encerrar seu programa graciosamente.
 
-Short-circuit evaluation of logical expressions
------------------------------------------------
-
-\index{short circuit}
-
-When Python is processing a logical expression such as `x >= 2 and
-(x/y) > 2`, it evaluates the expression from left to right.
-Because of the definition of `and`, if `x` is less
-than 2, the expression `x >= 2` is `False` and so
-the whole expression is `False` regardless of whether
-`(x/y) > 2` evaluates to `True` or
-`False`.
-
-When Python detects that there is nothing to be gained by evaluating the
-rest of a logical expression, it stops its evaluation and does not do
-the computations in the rest of the logical expression. When the
-evaluation of a logical expression stops because the overall value is
-already known, it is called *short-circuiting* the
-evaluation.
-
-\index{guardian pattern}
-\index{pattern!guardian}
-
-While this may seem like a fine point, the short-circuit behavior leads
-to a clever technique called the *guardian pattern*.
-Consider the following code sequence in the Python interpreter:
-
-Análise do curto-circuito de expressões lógicas
+Avaliação de curto-circuito de expressões lógicas
 -----------------------------------------------
 
 \index{curto-circuito}
 
 Quando Python está processando uma expressão lógica como `x >= 2 and
 (x/y) > 2`, a expressão é analisada da esquerda para a direita.
-Devido a definição de  `and`, se `x` é menor
+Devido à definição de `and`, se `x` é menor
 que 2, a expressão `x >= 2` é `False` e então
 toda a expressão também é `False` independentemente se
 `(x/y) > 2` é considerada como `True` ou
 `False`.
 
-Quando Python detecta que não há nada a ser ganho examinando o
-resto da expressão lógica, a análise é parada e não são
-feitos os cálculos no resto da expressão lógica. Quando a
+Quando o Python detecta que não há nada a ser ganho examinando o
+resto da expressão lógica, a análise é interrompida e não são
+feitos os cálculos restantes. Quando a
 interpretação de uma expressão lógica é interrompida porque o valor geral
 já é conhecido, isso é chamado de *curto-circuito* na
 análise.
@@ -442,8 +415,8 @@ análise.
 \index{padrão guardião}
 \index{padrão!guardião}
 
-Embora isso possa parecer um detalhe, o comportamento de um curto circuito leva
-a uma técnica chamada de *padrão guardião*.
+Embora isso possa parecer um detalhe, o comportamento de um curto-circuito leva
+a uma técnica chamada de *padrão guardião* (_guardian pattern_).
 Considere o seguinte trecho de código no compilador de Python:
 
 ~~~~ {.python}
@@ -461,6 +434,7 @@ False
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 ZeroDivisionError: division by zero
+                   (divisão por zero)
 >>>
 ~~~~
 
@@ -488,10 +462,11 @@ False
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 ZeroDivisionError: division by zero
+                   (divisão por zero)
 >>>
 ~~~~
 
-Na primeira xpressão lógica, `x >= 2` é
+Na primeira expressão lógica, `x >= 2` é
 `False` então a análise para no `and`. Na
 segunda expressão lógica, `x >= 2` é `True`
 mas `y != 0` é `False` então nunca chegamos em
@@ -523,7 +498,7 @@ Erros de sintaxe são geralmente fáceis de achar, mas existem algumas
 devido a espaços e "tabs" serem invisíveis e estarmos acostumados 
 a ignorá-los.
 
-\index{whitespace}
+\index{espaços em branco}
 
 ~~~~ {.python}
 >>> x = 5
@@ -532,7 +507,7 @@ a ignorá-los.
     y = 6
     ^
 IndentationError: unexpected indent
-(Erro de indentação: indentação inprevista)
+                  (indentação inprevista)
 ~~~~
 
 Nesse exemplo, o problema está no fato de que a segunda linha está indentada
@@ -542,7 +517,7 @@ descoberto, mas o erro em si pode estar um pouco antes de onde foi apontado,
 às vezes na linha anterior do código.
 
 De modo geral, mensagens de erro te mostram onde o problema foi encontrado,
-mas que muitas vezes não é onde ele foi causado.
+apesar de muitas vezes este local não ser onde ele foi causado.
 
 Glossary
 --------
@@ -561,12 +536,12 @@ Ramo
 \index{branch}
 
 Condicional encadeada
-:   Uma condicional com uma série de ramo alternativos.
+:   Uma condicional com uma série de ramos alternativos.
 \index{chained conditional}
 \index{conditional!chained}
 
 Operador de comparação
-:   Um operador que compara os operandos: `==`,
+:   Um operador que compara seus operandos: `==`,
     `!=`, `>`, `<`, `>=`, e `<=`.
 
 Sentença condicional
@@ -606,8 +581,8 @@ traceback
 \index{traceback}
 
 short circuit
-:   Quando Python está no meio do caminho verificando uma expressão lógica e para a 
-    verificação porque sabe o resultado final da expressão sem a necessidade de verificar
+:   Quando o Python está no meio do caminho verificando uma expressão lógica e para a 
+    verificação porque sabe o resultado final da expressão, sem a necessidade de verificar
     o restante desta.
 \index{short circuit}
 
@@ -618,27 +593,27 @@ Exercícios
 
 
 ~~~~
-Escreva as Horas: 45
-Escreva a taxa: 10
+Insira as Horas: 45
+Insira a taxa: 10
 Pagamento : 475.0
 ~~~~
 
-**Exercício 2: Reescreva seu programa de pagamento utilizando `try` e `except`de forma que o programa consiga lidar com entradas não numéricas graciosamente mostrando uma mensagem e saindo do programa. A seguir é mostrado duas execuções do programa**
+**Exercício 2: Reescreva seu programa de pagamento utilizando `try` e `except`, de forma que o programa consiga lidar com entradas não numéricas graciosamente, mostrando uma mensagem e saindo do programa. A seguir é mostrado duas execuções do programa**
 
 
 ~~~~
-Escreva as Horas: 20
-Escreva a taxa: nove
+Insira as Horas: 20
+Insira a taxa: nove
 Erro, por favor utilize uma entrada numérica 
 ~~~~
 
 ~~~~
-Escreva as Horas: 20
+Insira as Horas: quarenta
 Erro, por favor utilize uma entrada numérica 
 ~~~~
 
 **Exercício 3: Escreva um programa que peça por uma pontuação entre 0.0 e 1.0.
-Se a pontuação for fora do intervalo, mostre uma mensagem de erro. Se a pontuação estiver entre 0.0 e 1.0, mostre a pontuação usando a seguinte tabela**
+Se a pontuação for fora do intervalo, mostre uma mensagem de erro. Se a pontuação estiver entre 0.0 e 1.0, mostre a respectiva nota usando a seguinte tabela**
 
 ~~~~
 Pontuação    Nota
