@@ -528,11 +528,11 @@ Debugging
 ---------
 
 \index{debugging}
-\index{whitespace}
+\index{espaços em branco}
 
-When you are reading and writing files, you might run into problems with
-whitespace. These errors can be hard to debug because spaces, tabs, and
-newlines are normally invisible:
+Quando você está lendo ou escrevendo arquivos, pode ser que encontre problemas
+com espaços em branco. Esses erros podem ser difíceis de tratar porque espaços,
+tabulações e _newlines_ são normalmente invisíveis:
 
 ~~~~ {.python}
 >>> s = '1 2\t 3\n 4'
@@ -541,74 +541,75 @@ newlines are normally invisible:
  4
 ~~~~
 
-\index{repr function}
-\index{function!repr}
-\index{string representation}
+\index{função repr}
+\index{repr!função}
+\index{representação em string}
 
-The built-in function `repr` can help. It takes any object as
-an argument and returns a string representation of the object. For
-strings, it represents whitespace characters with backslash sequences:
+A função interna `repr` pode ajudar. Ela pega qualquer parâmetro como argumento
+e retorna uma representação em string desse objeto. Para strings, caracteres de
+espaço em branco são representados como sequências de barra invertida:
 
 ~~~~ {.python}
 >>> print(repr(s))
 '1 2\t 3\n 4'
 ~~~~
 
-This can be helpful for debugging.
+Isso pode ajudar no tratamento de erros.
 
-One other problem you might run into is that different systems use
-different characters to indicate the end of a line. Some systems use a
-newline, represented `\n`. Others use a return character, represented
-`\r`. Some use both. If you move files between different systems, these
-inconsistencies might cause problems.
+Um outro problema que você deve encontrar é que diferentes sistemas usam caracteres
+diferentes par indicar o fim de uma linha. Alguns usam o _newline_, representado
+por `\n`. Outros usam o caractere de retorno, o `\r`. ALguns usam ambos. Se você
+mover arquivos de um sistema para outro, essas inconsistências podem causam problemas.
 
-\index{end of line character}
 
-For most systems, there are applications to convert from one format to
-another. You can find them (and read more about this issue) at
-[wikipedia.org/wiki/Newline](wikipedia.org/wiki/Newline). Or, of course,
-you could write one yourself.
+\index{caractere de fim de linha}
 
-Glossary
+Para a maioria dos sistemas, existem aplicações que convertem de um formato para o 
+outro. Você pode achar elas (e ler mais sobre esse problema) em 
+[wikipedia.org/wiki/Newline](wikipedia.org/wiki/Newline). Ou, é claro, você
+pode escrever uma por conta própria.
+
+Glossário
 --------
 
-catch
-:   To prevent an exception from terminating a program using the
-    `try` and `except` statements.
-\index{catch}
+arquivo de texto
+:   Uma sequência de caracteres colocada em um armazenamento permanente, como um
+    disco rígido
+\index{arquivo de texto}
+
+capturar
+:   Para prevenir que uma exceção encerre o programa. É usado com
+    as sentenças `try`e `except`
+\index{capturar}
+
+Controle de Qualidade
+:   Uma pessoa ou time focado em assegurar a qualidade geral de um produto
+    de software. O CA é frequentemente envolvido em testes de um produto e
+    na identificação de problemas antes que o produto seja distribuído.
+\index{Controle de Qualidade}
+\index{CA}
 
 newline
-:   A special character used in files and strings to indicate the end of
-    a line.
+:   Um caractere especial usado em arquivos e _strings_ para indicar o fim
+    de uma linha.
 \index{newline}
 
-Pythonic
-:   A technique that works elegantly in Python. "Using try and except is
-    the *Pythonic* way to recover from missing files".
-\index{Pythonic}
+Pythonico
+:   Uma técnica que funciona de forma elegante em Python. "Usar try e except é
+    a forma *Pythonica* de contornar arquivos inexistentes"
+\index{Pythonico}
 
-Quality Assurance
-:   A person or team focused on insuring the overall quality of a
-    software product. QA is often involved in testing a product and
-    identifying problems before the product is released.
-\index{Quality Assurance}
-\index{QA}
 
-text file
-:   A sequence of characters stored in permanent storage like a hard
-    drive.
-\index{text file}
-
-Exercises
+Exercícios
 ---------
 
-**Exercise 1: Write a program to read through a file and print the
-contents of the file (line by line) all in upper case. Executing the
-program will look as follows:**
+**Exercício 1: Escreva um programa que leia um arquivo e mostre o conteúdo deste
+(linha por linha), completamente em caixa alta. A execução do programa deverá ser
+a seguinte:**
 
 ~~~~
 python shout.py
-Enter a file name: mbox-short.txt
+Digite o nome de um arquivo: mbox-short.txt
 FROM STEPHEN.MARQUARD@UCT.AC.ZA SAT JAN  5 09:14:16 2008
 RETURN-PATH: <POSTMASTER@COLLAB.SAKAIPROJECT.ORG>
 RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
@@ -616,52 +617,51 @@ RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
      SAT, 05 JAN 2008 09:14:16 -0500
 ~~~~
 
-**You can download the file from** [www.py4e.com/code3/mbox-short.txt](http://www.py4e.com/code3/mbox-short.txt)
+**Você pode baixar o arquivo em: ** [www.py4e.com/code3/mbox-short.txt](http://www.py4e.com/code3/mbox-short.txt)
 
-**Exercise 2: Write a program to prompt for a file name, and then read
-through the file and look for lines of the form:**
+**Exercício 2: Escreva um programa que solicite um arquivo e então leia ele
+e procure por linhas da forma:**
 
 ~~~~
 X-DSPAM-Confidence: 0.8475
 ~~~~
 
-**When you encounter a line that starts with "X-DSPAM-Confidence:" pull
-apart the line to extract the floating-point number on the line. Count
-these lines and then compute the total of the spam confidence values
-from these lines. When you reach the end of the file, print out the
-average spam confidence.**
+**Quando encontrar uma linha que inicie com "X-DSPAM-Confidence:" separe a linha do texto
+para extrair o número de ponto flutuante que ela contém. Conte essas linhas e então compute 
+o total de valores de Confiança de Spam nelas. Quando chegar no fim do arquivo, mostre a média
+de Confiança de Spam.**
 
 ~~~~
-Enter the file name: mbox.txt
-Average spam confidence: 0.894128046745
+Digite o nome de um arquivo: mbox.txt
+Média de confiança de spam: 0.894128046745
 
-Enter the file name: mbox-short.txt
-Average spam confidence: 0.750718518519
+Digite o nome de um arquivo: mbox-short.txt
+Média de confiança de spam: 0.750718518519
 ~~~~
 
-**Test your file on the *mbox.txt* and *mbox-short.txt* files.**
+**Teste seu programa com os arquivos *mbox.txt* e *mbox-short.txt* **
 
-**Exercise 3: Sometimes when programmers get bored or want to have a bit
-of fun, they add a harmless *Easter Egg* to their program.
-Modify the program that prompts the user for the file name so that it
-prints a funny message when the user types in the exact file name "na na
-boo boo". The program should behave normally for all other files which
-exist and don't exist. Here is a sample execution of the program:**
+**Exercício 2: Às vezes, quando os programadores estão entediados ou querem um pouco de diversão, 
+eles adicionam um *_Easter Egg_* inofensivo em seus programas. Modifique o programa que solicita 
+um arquivo ao usuário para que ele mostre uma mensagem engraçada quando o usuário deigitar no nome
+do arquivo "na na
+boo boo". O programa deve se comportar normalmente para todos os outros arquivos que existem e que
+não existem. Aqui está uma amostra da execução desse programa: **
 
 ~~~~
 python egg.py
-Enter the file name: mbox.txt
-There were 1797 subject lines in mbox.txt
+Digite o nome de um arquivo: mbox.txt
+Há 1797 linhas de assunto em mbox.txt
 
 python egg.py
-Enter the file name: missing.tyxt
-File cannot be opened: missing.tyxt
+Digite o nome de um arquivo: missing.tyxt
+Arquivo não pôde ser aberto: missing.tyxt
 
 python egg.py
-Enter the file name: na na boo boo
-NA NA BOO BOO TO YOU - You have been punk'd!
+Digite o nome de um arquivo: na na boo boo
+NA NA BOO BOO PRA VOCÊ TAMBÉM!
 ~~~~
 
-**We are not encouraging you to put Easter Eggs in your programs; this is
-just an exercise.**
+**Nós não estamos encorajando você a pôr _Easter Eggs_ nos seus programas,
+isso é apenas um exercício.**
 
