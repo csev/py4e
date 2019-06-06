@@ -22,51 +22,38 @@ Neste capítulo, começamos a trabalhar com memória secundária (ou arquivos). 
 
 Nós nos concentraremos principalmente na leitura e escrita de arquivos de texto, como aqueles que criamos em um editor de texto. Mais tarde, veremos como trabalhar com arquivos de banco de dados que são arquivos binários, especificamente projetados para serem lidos e gravados através de software de banco de dados.
 
-Opening files
+Abrindo um arquivo 
 -------------
 
 \index{file!open}
 \index{open function}
 \index{function!open}
 
-When we want to read or write a file (say on your hard drive), we first
-must *open* the file. Opening the file communicates with
-your operating system, which knows where the data for each file is
-stored. When you open a file, you are asking the operating system to
-find the file by name and make sure the file exists. In this example, we
-open the file *mbox.txt*, which should be stored in the same
-folder that you are in when you start Python. You can download this file
-from [www.py4e.com/code3/mbox.txt](http://www.py4e.com/code3/mbox.txt)
+Quando queremos ler ou escrever um arquivo (digamos no seu disco rígido), primeiro devemos abrir o arquivo. Abrir o arquivo se comunica com seu sistema operacional, que sabe onde os dados para cada arquivo são armazenados. Quando abre um ficheiro, está a pedir ao sistema operativo para localizar o ficheiro por nome e certifique-se de que o ficheiro existe. Neste exemplo, abrimos o arquivo mbox. txt, que deve ser armazenado na mesma pasta em que você está quando você inicia o Python. Você pode baixar este arquivo de [www.py4e.com/code3/mbox.txt](http://www.py4e.com/code3/mbox.txt)
 
 ~~~~ {.python}
->>> fhand = open('mbox.txt')
->>> print(fhand)
+>>> Arquivo = open('teste.txt')
+>>> print(Arquivo)
 <_io.TextIOWrapper name='mbox.txt' mode='r' encoding='cp1252'>
 ~~~~
 
 \index{file handle}
 
-If the `open` is successful, the operating system returns us
-a *file handle*. The file handle is not the actual data
-contained in the file, but instead it is a "handle" that we can use to
-read the data. You are given a handle if the requested file exists and
-you have the proper permissions to read the file.
+Se o aberto for bem-sucedido, o sistema operacional retornará um identificador de arquivo. O identificador de arquivo não é os dados reais contidos no arquivo, mas em vez disso, é um "identificador" que podemos usar para ler os dados. Você recebe um identificador se o arquivo solicitado existe e você tem as permissões apropriadas para ler o arquivo.
 
 ![A File Handle](height=2.0in@../images/handle)
 
-If the file does not exist, `open` will fail with a traceback
-and you will not get a handle to access the contents of the file:
+Se o arquivo não existir, abrir falhará com um Traceback e você não receberá um identificador para acessar o conteúdo do arquivo:
 
 ~~~~ {.python}
 >>> fhand = open('stuff.txt')
 Traceback (most recent call last):
 File "<stdin>", line 1, in <module>
 FileNotFoundError: [Errno 2] No such file or directory: 'stuff.txt'
+
 ~~~~
 
-Later we will use `try` and `except` to deal more
-gracefully with the situation where we attempt to open a file that does
-not exist.
+Mais tarde, usaremos try e exceto para lidar mais graciosamente com a situação em que tentamos abrir um arquivo que não existe.
 
 Text files and lines
 --------------------
