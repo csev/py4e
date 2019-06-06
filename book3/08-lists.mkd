@@ -654,7 +654,7 @@ b = 'banana'
 quase nunca tem diferença se `a` e `b` irão se referir à mesma string ou não.
 
 
-List arguments
+Listas como argumento
 --------------
 
 \index{list!as argument}
@@ -663,32 +663,25 @@ List arguments
 \index{reference}
 \index{parameter}
 
-When you pass a list to a function, the function gets a reference to the
-list. If the function modifies a list parameter, the caller sees the
-change. For example, `delete_head` removes the first element from a
-list:
+Quando você passa uma lista como argumento de uma função, a função recebe uma referência dessa lista. Se a função modificar o parâmtro desta lista, o chamador verá a alteração. Por exemplo, remove_primeiro_elemento remove o primeiro elemento de uma lista:
 
 ~~~~ {.python}
-def delete_head(t):
-    del t[0]
+def remove_primeiro_elemento(t)
+	del t[0]
 ~~~~
 
-Here's how it is used:
+Abaixo, é mostrado como ela é usada:
 
 ~~~~ {.python .trinket}
->>> letters = ['a', 'b', 'c']
->>> delete_head(letters)
->>> print(letters)
+>>> letras = ['a', 'b', 'c']
+>>> remove_primeiro_elemento(letras)
+>>> print(letras)
 ['b', 'c']
 ~~~~
 
-The parameter `t` and the variable `letters` are
-aliases for the same object.
+O parâmetro `t` e a variável `letras` são aliases para o mesmo objeto.
 
-It is important to distinguish between operations that modify lists and
-operations that create new lists. For example, the `append`
-method modifies a list, but the `+` operator creates a new
-list:
+É importante distinguir entre operações que modificam listas e operações que criam novas listas. Por exemplo, o método `append` modifica a lista, porém o operador `+` cria uma nova lista:
 
 \index{append method}
 \index{method!append}
@@ -710,207 +703,152 @@ None
 False
 ~~~~
 
-This difference is important when you write functions that are supposed
-to modify lists. For example, this function *does not* delete the head
-of a list:
+A diferença é importante quando você escreve funções que supostamente modificam listas. Por exemplo, a função *does not* remove o início de uma lista:
 
 ~~~~ {.python}
-def bad_delete_head(t):
-    t = t[1:]              # WRONG!
+def errado_remove_primeiro_elemento(t)
+	t = t[1:]               #ERRADO!
 ~~~~
 
-The slice operator creates a new list and the assignment makes
-`t` refer to it, but none of that has any effect on the list
-that was passed as an argument.
+O operador 'slice' cria uma nova lista e a atribuição faz com que `t` se refira a essa, mas nenhuma dessas atribuições tem qualquer efeito sobre a lista passada como referência.
 
 \index{slice operator}
 \index{operator!slice}
 
-An alternative is to write a function that creates and returns a new
-list. For example, `tail` returns all but the first element
-of a list:
+Uma alternativa é escrever uma função que cria e retorna uma nova lista. Por exemplo, `calda` retorna todos, menos o primeiro elemento da lista:
 
 ~~~~ {.python}
-def tail(t):
+def calda(t):
     return t[1:]
 ~~~~
 
-This function leaves the original list unmodified. Here's how it is
-used:
+A função não modifica a lista original. Aqui é mostrado como é usada:
 
 ~~~~ {.python .trinket}
->>> letters = ['a', 'b', 'c']
->>> rest = tail(letters)
->>> print(rest)
+>>> letras = ['a', 'b', 'c']
+>>> resto = tail(letras)
+>>> print(resto)
 ['b', 'c']
 ~~~~
 
-**Exercise 1: Write a function called `chop` that takes a list and modifies
-it, removing the first and last elements, and returns `None`. Then write a function called `middle` that takes a list and returns a new list that contains all but the first and last elements.**
+**Exercício 1: Escreva uma função chamada `corte` que recebe uma lista e a modifica, removendo o primeiro e o último elemento, e retorna `None`. Depois escreva uma função chamada `meio` que recebe uma lista e retorna uma nova lista que contém todos, menos o primeiro e o último elemento.**
 
-Debugging
+
+Depuração
 ---------
 
 \index{debugging}
 
-Careless use of lists (and other mutable objects) can lead to long hours
-of debugging. Here are some common pitfalls and ways to avoid them:
+Descuido com o uso de listas (e outros objetos mutáveis) pode levar a longa horas de depuração. Abaixo mostra algumas deslizes comuns e formas de evitá-las:
 
-1.  Don't forget that most list methods modify the argument and return
-    `None`. This is the opposite of the string methods, which
-    return a new string and leave the original alone.
+1. Não esqueça que a maioria do métodos de listas modifica o argumento e retorna  `None`. Isso é o oposto dos métodos das strings, que    retornam uma nova string e não modifica a string original. 
 
-    If you are used to writing string code like this:
+   Se você está acostumado a escrever código de string como este: 
 
     ~~~~ {.python}
-    word = word.strip()
+    palavra.palavra.strip()
     ~~~~
 
-    It is tempting to write list code like this:
+   É tentador escrever um código de lista desta forma:
 
     ~~~~ {.python}
-    t = t.sort()           # WRONG!
+    t = t.sort()           # ERRADO!
     ~~~~
 
     \index{sort method}
     \index{method!sort}
-
-    Because `sort` returns `None`, the next
-    operation you perform with `t` is likely to fail.
-
-    Before using list methods and operators, you should read the
-    documentation carefully and then test them in interactive mode. The
-    methods and operators that lists share with other sequences (like
-    strings) are documented at:
-
+    
+   Como sort retorna None, a próxima operação que você executar com 't' provavelmente irá falhar.
+    
+    Antes de usar métodos de listas e operadores, você deve ler a documentação com cuidado e depois testar elas em um modo interativo. Os métodos e os operadores que as listas compartilham com outras sequência (como strings) são documentadas em:
+    
     [docs.python.org/library/stdtypes.html#common-sequence-operations](https://docs.python.org/library/stdtypes.html#common-sequence-operations)
-
-    The methods and operators that only apply to mutable sequences are
-    documented at:
+    
+    Os métodos e operadores que são apenas aplicadas em sequências mutáveis são documentadas em:
 
     [docs.python.org/library/stdtypes.html#mutable-sequence-types](https://docs.python.org/library/stdtypes.html#mutable-sequence-types)
 
-2.  Pick an idiom and stick with it.
+2.  Escolha um "idioma" e fique com ele.
 
     \index{idiom}
-
-    Part of the problem with lists is that there are too many ways to do
-    things. For example, to remove an element from a list, you can use
-    `pop`, `remove`, `del`, or even a
-    slice assignment.
-
-    To add an element, you can use the `append` method or the
-    `+` operator. But don't forget that these are right:
-
+    Parte dos problemas, envolvendo listas, é que existem muitas maneiras para fazer coisas. Por exemplo, para remover um elemento de   uma lista, você pode usar o método `pop`, `remove`, `del`, ou simplesmente, utilizando a função `slice`.
+    
+    Para adicionar um elemento, você pode usar o método `append` ou o operador `+`. Porém, não esqueça que estas são as formas corretas de se fazer estes procedimentos:
+    
     ~~~~ {.python}
     t.append(x)
     t = t + [x]
     ~~~~
 
-    And these are wrong:
+    E essas, são as erradas:
 
     ~~~~ {.python}
-    t.append([x])          # WRONG!
-    t = t.append(x)        # WRONG!
-    t + [x]                # WRONG!
-    t = t + x              # WRONG!
+    t.append([x])          # ERRADO!
+    t = t.append(x)        # ERRADO!
+    t + [x]                # ERRADO!
+    t = t + x              # ERRADO!
     ~~~~
+    
+    Tente implementar esses exemplos em um modo interativo para ter certeza que você entende o que eles fazem. Note que apenas o último causa erro na compilação, os outros três são permitidos, porém não faz aquilo que é desejado.
 
-    Try out each of these examples in interactive mode to make sure you
-    understand what they do. Notice that only the last one causes a
-    runtime error; the other three are legal, but they do the wrong
-    thing.
-
-3.  Make copies to avoid aliasing.
+3.  Faça cópias para evitar aliases.
 
     \index{aliasing!copying to avoid}
     \index{copy!to avoid aliasing}
-
-    If you want to use a method like `sort` that modifies the
-    argument, but you need to keep the original list as well, you can
-    make a copy.
-
+    
+    Se você quer usar o método 'sort' que modifica o argumento, porém também precisa manter a lista original intacta, você pode criar uma cópia.
+ 
     ~~~~ {.python}
     orig = t[:]
     t.sort()
     ~~~~
-
-    In this example you could also use the built-in function
-    `sorted`, which returns a new, sorted list and leaves the
-    original alone. But in that case you should avoid using
-    `sorted` as a variable name!
-
-4.  Lists, `split`, and files
-
-    When we read and parse files, there are many opportunities to
-    encounter input that can crash our program so it is a good idea to
-    revisit the *guardian* pattern when it comes writing
-    programs that read through a file and look for a "needle in the
-    haystack".
-
-    Let's revisit our program that is looking for the day of the week on
-    the from lines of our file:
+    Nesse exemplo, você também pode usar uma função existente chamada `sorted`, que retorna uma nova lista organizada e também mantém a  original intacta. Porém, nesse caso, você deve evitar usar `sorted` como um nome da variável!
+   
+4.  Listas, `split`, e arquivos
+    
+    Quando nós lemos e analisamos um arquivo, existem várias ocasiões em que a entrada pode causar falhas em nosso programa, então é uma boa ideia revisitar o padrão *guardião* quando se trata de escrever programas que lêem um arquivo e procuram por uma 'agulha no palheiro'.
+    
+    Vamos revisitar nosso programa que procura pelo dia da semana nas linhas de nosso arquivo:
 
     ~~~~
     From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
     ~~~~
-
-    Since we are breaking this line into words, we could dispense with
-    the use of `startswith` and simply look at the first word
-    of the line to determine if we are interested in the line at all. We
-    can use `continue` to skip lines that don't have "From"
-    as the first word as follows:
-
+    
+    Como estamos quebrando essa linha em palavras, nós podemos dispensar o uso do método `startswith` e simplesmente procurar pela primeira palavra que determina se estamos interessados, de fato, nessa linha. Nós podemos usar `continue` para pular linhas que não têm "From" como sua primeira palavra:
+    
     ~~~~ {.python}
     fhand = open('mbox-short.txt')
-    for line in fhand:
-        words = line.split()
-        if words[0] != 'From' : continue
-        print(words[2])
+    for linha in fhand:
+        palavras = line.split()
+        if palavras[0] != 'From' : continue
+        print(palavras[2])
     ~~~~
-
-    This looks much simpler and we don't even need to do the
-    `rstrip` to remove the newline at the end of the file.
-    But is it better?
-
+    Isso parece ser bem mais simples, além que não precisamos do método `rstrip` para remover a quebra de linha no final do arquivo. Porém, qual o melhor?
+   
     ~~~~
     python search8.py
     Sat
     Traceback (most recent call last):
-      File "search8.py", line 5, in <module>
-        if words[0] != 'From' : continue
+        File "search8.py", line 5, in <module>
+            if palavras[0] != 'From' : continue
     IndexError: list index out of range
     ~~~~
+    Isso funciona e vemos o dia a partir da primeira linha (Sat), mas o programa falha com `traceback error`. Então, o que deu errado? Por quê o nosso elegante, inteligente e "Phytonic" programa falhou?
+   
+    Você poderia encarar seu programa por um longo tempo, quebrar a cabeça tentando decifrá-lo, ou simplesmente pode pedir a ajuda de alguém. Porém a abordagem mais rápida e inteligente é adicionar uma linha de código `print`. O melhor lugar para adicionar essa instrução é logo antes da linha em que o programa falhou e pôr para imprimir na tela o dado que está causando falha.
 
-    It kind of works and we see the day from the first line (Sat), but
-    then the program fails with a traceback error. What went wrong? What
-    messed-up data caused our elegant, clever, and very Pythonic program
-    to fail?
-
-    You could stare at it for a long time and puzzle through it or ask
-    someone for help, but the quicker and smarter approach is to add a
-    `print` statement. The best place to add the print
-    statement is right before the line where the program failed and
-    print out the data that seems to be causing the failure.
-
-    Now this approach may generate a lot of lines of output, but at
-    least you will immediately have some clue as to the problem at hand.
-    So we add a print of the variable `words` right before
-    line five. We even add a prefix "Debug:" to the line so we can keep
-    our regular output separate from our debug output.
-
+    Essa abordagem pode gerar várias linha na saída, pelo menos, você terá, imediatamente, várias pistas sobre o problema em questão. Então, adicionamos um `print` da variável `letras` logo depois da linha cinco. Nós até adicionamos o prefixo "Depuração:" na linha, para podermos manter nossa saída regular separadas de nossa saída depurada.
+    
     ~~~~ {.python}
-    for line in fhand:
-        words = line.split()
-        print('Debug:', words)
-        if words[0] != 'From' : continue
-        print(words[2])
+    for linha in fhand:
+        palavras = linha.split()
+        print('Depuração:', palavras)
+        if palavras[0] != 'From' : continue
+        print(palavras[2])
     ~~~~
-
-    When we run the program, a lot of output scrolls off the screen but
-    at the end, we see our debug output and the traceback so we know
-    what happened just before the traceback.
-
+    
+    Quando compilamos o programa, várias saídas são impressas na tela, porém, no final, vemos nossa saída de depuração e o erro para sabermos o que aconteceu logo antes da mensagem de erro.
+    
     ~~~~
     Debug: ['X-DSPAM-Confidence:', '0.8475']
     Debug: ['X-DSPAM-Probability:', '0.0000']
@@ -920,11 +858,8 @@ of debugging. Here are some common pitfalls and ways to avoid them:
         if words[0] != 'From' : continue
     IndexError: list index out of range
     ~~~~
-
-    Each debug line is printing the list of words which we get when we
-    `split` the line into words. When the program fails, the
-    list of words is empty `[]`. If we open the file in a text editor
-    and look at the file, at that point it looks as follows:
+    
+    Cada linha de depuração imprime uma lista de palavras que obtemos quando dividimos a linha em palavras. Se o programa der erro, a lista de palavras é vazia `[]`. Se abrimos o arquivo em um editor de texto e olharmos o mesmo, ele será exibido da seguinte maneira:
 
     ~~~~
     X-DSPAM-Result: Innocent
@@ -934,123 +869,90 @@ of debugging. Here are some common pitfalls and ways to avoid them:
 
     Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
     ~~~~
-
-    The error occurs when our program encounters a blank line! Of course
-    there are "zero words" on a blank line. Why didn't we think of that
-    when we were writing the code? When the code looks for the first
-    word (`word[0]`) to check to see if it matches "From", we get an
-    "index out of range" error.
-
-    This of course is the perfect place to add some
-    *guardian* code to avoid checking the first word if
-    the first word is not there. There are many ways to protect this
-    code; we will choose to check the number of words we have before we
-    look at the first word:
+    
+    O erro ocorre quando nosso programa encontra uma linha em branco. Claro que não existem palavras em uma linha em branco. Por quê não pensamos nisso quando estávamos escrevendo o código? Quando o código procura pela primeira palavra (`palavras[0]`) para checar se bate com "From", nós temos um erro de índice fora de alcance ("index out of range").
+    
+    Obviamente, esse é um local perfeito para adicionarmos algum código *guardião* para evitar a checagem da primeira palavra caso a mesma não esteja lá. Existem várias formas de proteger nosso código; nós iremos escolher checar o número de palavras que temos antes de olhar para a primeira palavra:
 
     ~~~~ {.python}
     fhand = open('mbox-short.txt')
-    count = 0
-    for line in fhand:
-        words = line.split()
+    contador = 0
+    for linha in fhand:
+        palavras = line.split()
         # print 'Debug:', words
-        if len(words) == 0 : continue
-        if words[0] != 'From' : continue
-        print(words[2])
+        if len(palavras) == 0 : continue
+        if palavras[0] != 'From' : continue
+        print(palavras[2])
+
     ~~~~ 
+    
+    Primeiro, comentamos as linhas que imprimem a depuração, em vez de removê-las (caso nossa modificação falhe, e precisemos da depuração novamente). Depois, adicionamos uma declaração guardiã que checa se temos zero palavras, se sim, nós usamos "continue" para pular para próxima linha do arquivo.
+    
+    Podemos pensar nas duas declarações `continue` como um jeito de nos ajudar a refinar o conjunto de linhas que são interessantes para nós, e quais que queremos processar um pouco mais. Uma linha que não tem "From" como sua primeira palavra não é interessante para nós, então a pulamos.
 
-    First we commented out the debug print statement instead of removing
-    it, in case our modification fails and we need to debug again. Then
-    we added a guardian statement that checks to see if we have zero
-    words, and if so, we use `continue` to skip to the next
-    line in the file.
+    O programa modificado é executado com sucesso, então, talvez ele esteja correto. Nossa declaração guardiã nos dá a certeza que a `palavras[0]` nunca irá falhar, porém, talvez isso não seja suficiente. Quando estamos programando, nós devemos sempre estar pensando, "O que pode acontecer de errado?" 
 
-    We can think of the two `continue` statements as helping
-    us refine the set of lines which are "interesting" to us and which
-    we want to process some more. A line which has no words is
-    "uninteresting" to us so we skip to the next line. A line which does
-    not have "From" as its first word is uninteresting to us so we skip
-    it.
+**Exercício 2: Descubra qual linha do programa acima não está devidamente protegida. Veja se você pode construir um arquivo de texto que causa falha no programa e depois modifique o programa para que a linha seja propriamente protegida e por fim, teste o programa para ter certeza que ele manipula o novo arquivo de texto.**
 
-    The program as modified runs successfully, so perhaps it is correct.
-    Our guardian statement does make sure that the `words[0]`
-    will never fail, but perhaps it is not enough. When we are
-    programming, we must always be thinking, "What might go wrong?"
+**Exercício 3: Reescreva o código guardião nos exemplos acima sem duas declarações `if`. Em vez disso, use uma expressão lógica composta usando o operador lógico `and`, com uma única declaração `if`.**
 
-**Exercise 2: Figure out which line of the above program is still not
-properly guarded. See if you can construct a text file which causes
-the program to fail and then modify the program so that the line is
-properly guarded and test it to make sure it handles your new text
-file.**
-
-**Exercise 3: Rewrite the guardian code in the above example without
-two `if` statements. Instead, use a compound logical
-expression using the `and` logical operator with a single
-`if` statement.**
-
-Glossary
+Glossário
 --------
-
-aliasing
-:   A circumstance where two or more variables refer to the same object.
+aliase
+: Circunstância onde duas ou mais variáveis se referem ao mesmo objeto.
 \index{aliasing}
 
-delimiter
-:   A character or string used to indicate where a string should be
-    split.
+delimitador
+: Caractere ou string usado para indicar onde a string deve ser dividida
 \index{delimiter}
 
-element
-:   One of the values in a list (or other sequence); also called items.
+elemento
+: Um dos valores em uma lista (ou outra sequência); também chamada de itens.
 \index{element}
 
-equivalent
-:   Having the same value.
+equivalente
+: Ter o mesmo valor 
 \index{equivalent}
 
-index
-:   An integer value that indicates an element in a list.
-\index{index}
-\index{}
+índice
+: Um valor inteiro que indica um elemento da lista
+\index{index}\index{}
 
-identical
-:   Being the same object (which implies equivalence).
+idêntico
+: Ser o mesmo objeto (o que implica em equivalência)
 \index{identical}
 
-list
-:   A sequence of values.
+lista
+: Uma sequência de valores
 \index{list}
 
-list traversal
-:   The sequential accessing of each element in a list.
-\index{list!traversal}
+lista de passagem
+: O acesso sequencial sobre cada elemento da lista
+\index{list!transversal}
 
-nested list
-:   A list that is an element of another list.
+lista aninhada
+: Uma lista que é um elemento de uma outra lista.
 \index{nested list}
 
-object
-:   Something a variable can refer to. An object has a type and a value.
+objeto
+: Algo que uma variável pode se referir. Um objeto tem um tipo e um valor.
 \index{object}
 
-reference
-:   The association between a variable and its value.
+referência
+: Associação entre variável e seu valor
 \index{reference}
 
-Exercises
+Exercícios
 ---------
 
 \index{Romeo and Juliet}
 
-**Exercise 4: Download a copy of the file**
+**Exercicio 4: Baixe a copia do arquivo 
 [**www.py4e.com/code3/romeo.txt**](http://www.py4e.com/code3/romeo.txt)**.
-Write a program to open the file *romeo.txt* and read it line
-by line. For each line, split the line into a list of words using the
-`split` function. For each word, check to see if the word is already in a list. If the word is not in the list, add it to the list.
-When the program completes, sort and print the resulting words in
-alphabetical order.**
+Escreva um programa para abrir o arquivo chamado romeo.txt e leia-o linha por linha. Para cada linha, separe-a em uma lista de palavras usando a função `split`. Para cada palavra, cheque se esta palavra já existe na lista. Caso não exista, adicione ela. Quando o programa terminar de verificar, ordene e imprima estas palavras em ordem alfabética.**
 
 ~~~~
-Enter file: romeo.txt
+Digite o nome do arquivo: romeo.txt
 ['Arise', 'But', 'It', 'Juliet', 'Who', 'already',
 'and', 'breaks', 'east', 'envious', 'fair', 'grief',
 'is', 'kill', 'light', 'moon', 'pale', 'sick', 'soft',
@@ -1058,22 +960,17 @@ Enter file: romeo.txt
 'with', 'yonder']
 ~~~~
 
-**Exercise 5: Write a program to read through the mail box data and when
-you find line that starts with "From", you will split the line into
-words using the `split` function. We are interested in who
-sent the message, which is the second word on the From line.**
+**Exercício 5: Escreva um programa que leia uma caixa de email, e quando você encontrar uma linha que comece com "From", você vai partir a linha em palavras usando a função `split`. Nós estamos interessados em quem envia a mensagem, o que é a segunda palavra na linha que começa com From.**
 
 ~~~~
 From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008
 ~~~~
 
-**You will parse the From line and print out the second word for each From
-line, then you will also count the number of From (not From:) lines and
-print out a count at the end. This is a good sample output with a few lines removed:**
+**Você vai analisar a linha que começa com From e irá pôr para imprimir na tela a segunda palavra (para cada linha do tipo) depois o programa também deverá contar o número de linhas que começam com From e imprimir em tela o valor final desse contador. Esse é um bom exemplo da saída com algumas linhas removidas:**
 
 ~~~~
 python fromcount.py
-Enter a file name: mbox-short.txt
+Digite o nome do arquivo: mbox-short.txt
 stephen.marquard@uct.ac.za
 louis@media.berkeley.edu
 zqian@umich.edu
@@ -1087,20 +984,15 @@ cwen@iupui.edu
 There were 27 lines in the file with From as the first word
 ~~~~
 
-**Exercise 6: Rewrite the program that prompts the user for a list of
-numbers and prints out the maximum and minimum of the numbers at the end
-when the user enters "done". Write the program to store the numbers the
-user enters in a list and use the `max()` and
-`min()` functions to compute the maximum and minimum numbers
-after the loop completes.**
+**Exercício 6: Reescreva o programa que solicita o usuário uma lista de números e que depois imprime em tela o maior número e o menor número quando o usuário digitar a palavra "feito". Escreva um programa para armazenar as entradas do usuário em uma lista e use as funções `max()` e `min()` para computar o número máximo e o mínimo depois que o loop for completo.**
 
 ~~~~
-Enter a number: 6
-Enter a number: 2
-Enter a number: 9
-Enter a number: 3
-Enter a number: 5
-Enter a number: done
-Maximum: 9.0
-Minimum: 2.0
+Digite um número: 6
+Digite um número: 2
+Digite um número: 9
+Digite um número: 3
+Digite um número: 5
+Digite um número: feito
+Maximo: 9.0
+Minimo: 2.0
 ~~~~
