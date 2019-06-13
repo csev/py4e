@@ -60,7 +60,6 @@ and
         <li> <a href="https://github.com/ras-ufcg/py4e" target="_blank">Book source on github</a> 
 (Thanks to Yuri Loia de Medeiros).
 </li>
-
      </ul>
   </li>
   <li> Spanish - In progress
@@ -73,6 +72,13 @@ and
         </li>
      </ul>
   </li>
+  <li>
+     Chinese - There is not yet a translation for the book, but if you are in China and have
+trouble viewing the videos there is a copy available at
+<a href="https://www.bilibili.com/video/av46649799" target="_new">
+https://www.bilibili.com/video/av46649799</a> that work well within China.
+  </li>
+
 </ul>
 
 <p>
