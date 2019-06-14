@@ -431,46 +431,46 @@ Primeiro vemos a lista de chaves desordenada que retiramos pelo método
 `key`. Em seguida, vemos os pares chave-valor em ordem, vindos da 
 repetição `for`.
 
-Advanced text parsing
+Métodos avançados de divisão de texto
 ---------------------
 
 \index{Romeo and Juliet}
 
-In the above example using the file *romeo.txt*, we made the
-file as simple as possible by removing all punctuation by hand. The
-actual text has lots of punctuation, as shown below.
+No exemplo abaixo utilizando o arquivo *romeo.txt*, criamos o arquivo o mais simples possível
+removendo todas as pontuações manualmente.
+O texto tem muitas pontuações, como mostrado abaixo.
 
-~~~~
-But, soft! what light through yonder window breaks?
-It is the east, and Juliet is the sun.
-Arise, fair sun, and kill the envious moon,
-Who is already sick and pale with grief,
-~~~~
+~~~
+Mas, sutil! que luz ultrapassa aquela janela?
+Esse é o leste, e Julieta é o sol.
+Ascenda, honesto sol, e acabe com a invejosa lua,
+Que já está doente e pálida com o luto,
+~~~
 
-Since the Python `split` function looks for spaces and treats
-words as tokens separated by spaces, we would treat the words "soft!"
-and "soft" as *different* words and create a separate dictionary entry
-for each word.
+Desde que a função `split` procura por espaços e trata
+as palavras como objetos separados por espaços, nós trataremos as pelavras "sutilmente!"
+e "sutil" como *diferentes* palavras e criaremos informações específicas
+de dicionário para cada palavra
 
-Also since the file has capitalization, we would treat "who" and "Who"
-as different words with different counts.
+Também já que o arquivo tem letras maiúsculas, nós trataremos "quem" e "Quem"
+como palavras diferentes com diferentes significados
 
-We can solve both these problems by using the string methods
-`lower`, `punctuation`, and
-`translate`. The `translate` is the most subtle of
-the methods. Here is the documentation for `translate`:
+Podemos resolver os dois problemas utilizando os métodos de strings
+`lower`, `punctuation`, e  
+`translate`. O `translate` é o mais sutil dos
+métodos. Aqui está a documentação para o `translate`:
 
 `line.translate(str.maketrans(fromstr, tostr, deletestr))`
 
-*Replace the characters in `fromstr` with the character in the same position in `tostr`
-and delete all characters that are in `deletestr`.
-The `fromstr` and `tostr` can be empty strings and the `deletestr`
-parameter can be omitted.*
+*Troque os caracteres em `fromstr` com o caractere na mesma posição em `tostr`
+apague todos os caracteres que estão em `deletestr`.
+Os `fromstr` e `tostr` podem ser strings vazias e o parâmetro
+`deletestr` pode ser omitido.*
 
-We will not specify the `tostr` but we will use the
-`deletestr` parameter to delete all of the punctuation. We
-will even let Python tell us the list of characters that it considers
-"punctuation":
+Nós não iremos especificar o `tostr` mas utilizaremos o
+parâmetro `deletestr` para retirar todas as pontuações. Nós
+até iremos deixar o Python nos mostrar a lista de caracteres que 
+são considerados "pontuação":
 
 ~~~~ {.python}
 >>> import string
@@ -478,116 +478,118 @@ will even let Python tell us the list of characters that it considers
 '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
 ~~~~
 
-The parameters used by `translate` were different in Python 2.0.
+O parâmetro utilizado pelo `translate` era diferente no Python 2.0.
 
-We make the following modifications to our program:
+As seguintes modificações foram feitas no nosso programa:
 
 \VerbatimInput{../code3/count2.py}
 \begin{trinketfiles}
 ../code3/romeo-full.txt
 \end{trinketfiles}
 
-Part of learning the "Art of Python" or "Thinking Pythonically" is
-realizing that Python often has built-in capabilities for many common
-data analysis problems. Over time, you will see enough example code and
-read enough of the documentation to know where to look to see if someone
-has already written something that makes your job much easier.
+Parte do aprendizado em "Art of Python" ou "Thinking Pythonically" é
+perceber que o Python geralmente tem soluções pré feitas para os mais comuns
+problemas de análise de dados. Com o tempo, você verá vários exemplos de códigos e
+lerá documentações de funções suficientes para saber onde procurar caso alguém já
+tenha escrito algo que fará seu trabalho mais fácil.
 
-The following is an abbreviated version of the output:
+A seguir está uma versão abreviada da saída:
 
 ~~~~
-Enter the file name: romeo-full.txt
-{'swearst': 1, 'all': 6, 'afeard': 1, 'leave': 2, 'these': 2,
-'kinsmen': 2, 'what': 11, 'thinkst': 1, 'love': 24, 'cloak': 1,
-a': 24, 'orchard': 2, 'light': 5, 'lovers': 2, 'romeo': 40,
-'maiden': 1, 'whiteupturned': 1, 'juliet': 32, 'gentleman': 1,
-'it': 22, 'leans': 1, 'canst': 1, 'having': 1, ...}
+Entre com o nome do arquivo: romeo-full.txt
+{'juro': 1, 'todos': 6, 'afeard': 1, 'deixar': 2, 'esse': 2,
+'parentes': 2, 'o que': 11, 'pensador': 1, 'amor': 24, 'capa': 1,
+a': 24, 'pomar': 2, 'luz': 5, 'amantes': 2, 'romeo': 40,
+'donzela': 1, 'whiteupturned': 1, 'juliet': 32, 'cavalheiro': 1,
+'isso': 22, 'inclina': 1, 'canst': 1, 'tendo': 1, ...}
 ~~~~
 
-Looking through this output is still unwieldy and we can use Python to
-give us exactly what we are looking for, but to do so, we need to learn
-about Python *tuples*. We will pick up this example once
-we learn about tuples.
+Olhar para essa saída ainda é complicado e podemos usar o Python para nos 
+dar exatamente o que estamos procurando, mas, para isso, precisamos 
+aprender *tuplas*. Nós voltaremos para esse exemplo quando aprendermos 
+tuplas.
 
-Debugging
+Depurando
 ---------
 
-\index{debugging}
+\index{Depurando}
 
-As you work with bigger datasets it can become unwieldy to debug by
-printing and checking data by hand. Here are some suggestions for
-debugging large datasets:
+Como você trabalhou com maiores conjuntos de dados, torna-se difícil 
+depurar mostrando em tela e verificando manualmente. Aqui estão algumas 
+sugestões para depurar grandes conjuntos de dados:
 
-Scale down the input
-:   If possible, reduce the size of the dataset. For example if the
-    program reads a text file, start with just the first 10 lines, or
-    with the smallest example you can find. You can either edit the
-    files themselves, or (better) modify the program so it reads only
-    the first `n` lines.
+Diminua a escala da entrada
+:	Se possível, diminua o tamanho do conjunto de 
+	dados. Por exemplo, se o programa lê um arquivo de texto, comece com 
+	apenas 10 linhas ou com o menor exemplo que encontrar. Você ainda pode 
+	editar os arquivos ou (melhor) modificar o programa para que ele leia 
+	apenas as primeiras 'n' linhas.
 
-    If there is an error, you can reduce `n` to the smallest
-    value that manifests the error, and then increase it gradually as
-    you find and correct errors.
+    Se existir um erro, reduza `n` para o menor valor que manifeste o erro,
+	só então o aumente gradualmente enquanto encontra e corrige os erros.
 
-Check summaries and types
-:   Instead of printing and checking the entire dataset, consider
-    printing summaries of the data: for example, the number of items in
-    a dictionary or the total of a list of numbers.
+Verifique resumos e tipos
+:	Ao invés de mostrar e verificar todo o conjunto 
+	de dados, considere apresentar resumos do conjunto: por exemplo o número 
+	de ítens num dicionário ou o total de uma lista de números.
 
-    A common cause of runtime errors is a value that is not the right
-    type. For debugging this kind of error, it is often enough to print
-    the type of a value.
+    Um tipo comum de erro de compilação é a entraeda que não está de acordo
+	com o modelo. Para depurar esse tipo de erro, normalmente é suficiente 
+	mostrar em tela o tipo da entrada.
 
-Write self-checks
-:   Sometimes you can write code to check for errors automatically. For
-    example, if you are computing the average of a list of numbers, you
-    could check that the result is not greater than the largest element
-    in the list or less than the smallest. This is called a "sanity
-    check" because it detects results that are "completely illogical".
-\index{sanity check}
-\index{consistency check}
+Escreva auto-verificadores
+:	Normalmente pode-se escrever códigos que 
+	verifiquem erros automaticamente. Por exemplo, se você está calculando a 
+	média de um conjunto de números, você pode verificar se o resultado não 
+	está acima do maior valor do conjunto, ou abaixo do menor. Isso é chamado 
+	de "verificação de sanidade", pois detecta resultados que são 
+	"completamente sem lógica".
+\index{verificação de sanidade}
+\index{verificação de consistência}
 
-    Another kind of check compares the results of two different
-    computations to see if they are consistent. This is called a
-    "consistency check".
+    Outro tipo de verificação o resultado de duas compilações diferentes para 
+	analisar a consitência dos resultados. Isso é chamado de "verificação de 
+	consitência".
 
-Pretty print the output
-:   Formatting debugging output can make it easier to spot an error.
+Organize a maneira que a saída será mostrada
+:	Depurar uma saída formatada é mais fácil de encontrar erros.
 
-Again, time you spend building scaffolding can reduce the time you spend
-debugging.
-\index{scaffolding}
+Novamente, o tempo gasto construindo os alicerces diminue o tempo gasto depurando.
+\index{alicerce}
 
-Glossary
+Glossario
 --------
 
-dictionary
-:   A mapping from a set of keys to their corresponding values.
+Dicionário
+:	Um conjunto de uma série de chaves e suas correspondentes 
+	entradas.
 \index{dictionary}
 
-hashtable
-:   The algorithm used to implement Python dictionaries.
+Tabela Hash
+:	O algorítmo utilizado para implementar os dicionários em 
+	Python.
 \index{hashtable}
 
-hash function
-:   A function used by a hashtable to compute the location for a key.
+Função Hash
+:	Uma função utilizada pela tabela Hash para cacular a 
+	localização da chave.
 \index{hash function}
 
-histogram
-:   A set of counters.
+histograma
+:	Um conjunto de contadores.
 \index{histogram}
 
-implementation
-:   A way of performing a computation.
+Implementação
+:	A forma como o problema é resolvido (em forma de código, por exemplo).
 \index{implementation}
 
 item
-:   Another name for a key-value pair.
+:	Outro nome para o par chave-valor.
 \index{item!dictionary}
 
-key
-:   An object that appears in a dictionary as the first part of a
-    key-value pair.
+chave
+:	Um objeto que aparece num dicionário na primeira parte do par 
+	chave-valor.
 \index{key}
 
 key-value pair
@@ -595,48 +597,49 @@ key-value pair
 \index{key-value pair}
 
 lookup
-:   A dictionary operation that takes a key and finds the corresponding
-    value.
+:	Um dicionário que referencia a chave a chave com seu valor 
+	correspondente.
 \index{lookup}
 
-nested loops
-:   When there are one or more loops "inside" of another loop. The inner
-    loop runs to completion each time the outer loop runs once.
+Laços aninhados
+:   Quando há laços de repetição "dentro" de um outro laço. O laço mais 
+    interno completa todas as iterações para cada iteração do laço mais 
+    externo.
 \index{nested loops}
 \index{loop!nested}
 
-value
-:   An object that appears in a dictionary as the second part of a
-    key-value pair. This is more specific than our previous use of the
-    word "value".
+valor
+:   Um objeto que aparece num dicionário na segunda parte do par 
+chave-valor. Isso é mais específico do que nossos usos anteriores da palavra "valor".
 \index{value}
 
 Exercises
 ---------
 
-**Exercise 2: Write a program that categorizes each mail message by which
-day of the week the commit was done. To do this look for lines that
-start with "From", then look for the third word and keep a running count
-of each of the days of the week. At the end of the program print out the
-contents of your dictionary (order does not matter).**
+**Exercício 2: Escreva um programa que categorize cada mensagem de e-mail 
+de acordo com o dia em que a mensagem foi enviada. Para isso, procure por 
+linhas que comecem com "De" então procure pela terceira palavra e 
+continue contando até encontrar o dia da semana. No final do programa, 
+mostre em tela o conteúdo do seu dicionário (a ordem não interessa).**
 
-**Sample Line:**
+**linha exemplo:**
 
 ~~~~
-From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+De stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 ~~~~
 
-**Sample Execution:**
+**Exemplo de código:**
 
 ~~~~
 python dow.py
-Enter a file name: mbox-short.txt
-{'Fri': 20, 'Thu': 6, 'Sat': 1}
+Digite o nome do arquivo: mbox-short.txt
+{'Sex': 20, 'Qui': 6, 'Sab': 1}
 ~~~~
 
-**Exercise 3: Write a program to read through a mail log, build a
-histogram using a dictionary to count how many messages have come from
-each email address, and print the dictionary.**
+**Exercício 3: Escreva um código que leia um registro de mensagens, c
+onstrua um histograma utilizando um dicionário para contar quantas 
+mensagens chegaram em cada endereço de email e mostre em tela o 
+dicionário.**
 
 ~~~~
 Enter file name: mbox-short.txt
@@ -648,7 +651,12 @@ Enter file name: mbox-short.txt
 'ray@media.berkeley.edu': 1}
 ~~~~
 
-**Exercise 4: Add code to the above program to figure out who has the most messages in the file. After all the data has been read and the dictionary has been created, look through the dictionary using a maximum loop (see Chapter 5: Maximum and minimum loops) to find who has the most messages and print how many messages the person has.**
+**Exercício 4: Adicione linhas de código no programa abaixo para 
+identificar quem tem mais mensagens no arquivo. Após todo o dado ser lido 
+e todo o dicionário ser criado, procure no dicionário, utilizando um 
+laço máximo (Veja o capítulo 5: Laços máximo e mínimo), quem tem o maior 
+número de mensagens e mostre em tela quantas 
+mensagens essa pessoa tem.**
 
 ~~~~
 Enter a file name: mbox-short.txt
@@ -658,10 +666,10 @@ Enter a file name: mbox.txt
 zqian@umich.edu 195
 ~~~~
 
-**Exercise 5: This program records the domain name (instead of the
-address) where the message was sent from instead of who the mail came
-from (i.e., the whole email address). At the end of the program, print
-out the contents of your dictionary.**
+**Exercício 5: Esse programa grava o domínio do email (ao invés do 
+endereço) de onde a mensagem foi enviada ao invés de quem o email veio (
+i.e., o endereço completo da mensagem). No final do programa, mostre em 
+tela o conteúdo do seu dicionário.**
 
 ~~~~
 python schoolcount.py
