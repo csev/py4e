@@ -315,79 +315,61 @@ where we put the `continue ` on the same line as the
 the same as if the `continue` were on the next line and
 indented.
 
-Letting the user choose the file name
+Deixando o usuário escolher o nome do arquivo
 -------------------------------------
 
-We really do not want to have to edit our Python code every time we want
-to process a different file. It would be more usable to ask the user to
-enter the file name string each time the program runs so they can use
-our program on different files without changing the Python code.
+Nós realmente não queremos ter quer editar nosso código Python toda vez que quisermos processar um arquivo diferente. Pode ser mais útil pedir ao usuário para inserir a String do nome do arquivo cada vez que o programa for executado, então, nosso programa poderá ser usado em arquivos diferentes sem mudar o código Python.
 
-This is quite simple to do by reading the file name from the user using
-`input` as follows:
+Isso é bastante simples de fazer, lendo o nome do arquivo do usuário usando `input` como à seguir:
 
 \VerbatimInput{../code3/search6.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-We read the file name from the user and place it in a variable named
-`fname` and open that file. Now we can run the program
-repeatedly on different files.
+Nós lemos o nome do arquivo do usuário e o colocamos numa variável nomeada `fname`, abrimos esse arquivo e então podemos executar o programa repetidas vezes em arquivos diferentes.
 
 ~~~~
-python search6.py
-Enter the file name: mbox.txt
-There were 1797 subject lines in mbox.txt
+python pesquisa6.py
+Digite o nome do arquivo: mbox.txt
+Havia 1797 linhas de conteúdo em mbox.txt
 
-python search6.py
-Enter the file name: mbox-short.txt
-There were 27 subject lines in mbox-short.txt
+python pesquisa6.py
+Digite o nome do arquivo: mbox-short.txt
+Havia 27 linhas de conteúdo em mbox-short.txt
 ~~~~
 
-Before peeking at the next section, take a look at the above program and
-ask yourself, "What could go possibly wrong here?" or "What might our
-friendly user do that would cause our nice little program to
-ungracefully exit with a traceback, making us look not-so-cool in the
-eyes of our users?"
+Antes de dar uma olhada na próxima seção, dê uma olhada no programa acima e pergunte a si mesmo: "O que poderia dar errado aqui?" ou “O que nosso amiguinho usuário poderia fazer que pararia desgraçadamente a execução do nosso programinha com um erro de traceback e faria com que não parecêssemos mais tão legais aos olhos do usuário?”
 
-Using `try, except,` and `open`
+Usando `try, except,` e `open`
 -----------------------------------------------------
 
-I told you not to peek. This is your last chance.
+Eu te falei pra não espiar, essa é a sua última chance.
 
-What if our user types something that is not a file name?
+E se nosso usuário digitar algo que não seja um nome de arquivo?
 
 ~~~~
-python search6.py
-Enter the file name: missing.txt
+python pesquisa6.py
+Digite o nome do arquivo: missing.txt
 Traceback (most recent call last):
-  File "search6.py", line 2, in <module>
+  File "pesquisa6.py", line 2, in <module>
     fhand = open(fname)
 FileNotFoundError: [Errno 2] No such file or directory: 'missing.txt'
 
-python search6.py
-Enter the file name: na na boo boo
+python pesquisa6.py
+Digite o nome do arquivo: na na boo boo
 Traceback (most recent call last):
-  File "search6.py", line 2, in <module>
+  File "pesquisa6.py", line 2, in <module>
     fhand = open(fname)
 FileNotFoundError: [Errno 2] No such file or directory: 'na na boo boo'
 ~~~~
 
-Do not laugh. Users will eventually do every possible thing they can do
-to break your programs, either on purpose or with malicious intent. As a
-matter of fact, an important part of any software development team is a
-person or group called *Quality Assurance* (or QA for
-short) whose very job it is to do the craziest things possible in an
-attempt to break the software that the programmer has created.
+Não ria. Os usuários eventualmente farão todas as coisas possíveis que podem fazer para quebrar seus programas, seja de propósito ou com intenção maliciosa. De fato, uma parte importante de qualquer equipe de desenvolvimento de software é uma pessoa ou grupo chamado Quality Assurance (ou QA, abreviado) cujo trabalho é fazer as coisas mais loucas possíveis na tentativa de quebrar o software que o programador criou.
 
 \index{Quality Assurance}
 \index{QA}
 
-The QA team is responsible for finding the flaws in programs before we
-have delivered the program to the end users who may be purchasing the
-software or paying our salary to write the software. So the QA team is
-the programmer's best friend.
+A equipe de QA é responsável por encontrar as falhas no programa antes de entregá-lo aos usuários finais que possivelmente estarão comprando o software ou pagando nosso salário para fazer o software. Então a equipe de QA é a melhor amiga do programador.
 
 \index{try statement}
 \index{statement!try}
@@ -396,51 +378,37 @@ the programmer's best friend.
 \index{exception!IOError}
 \index{IOError}
 
-So now that we see the flaw in the program, we can elegantly fix it
-using the `try`/`except` structure. We need to
-assume that the `open` call might fail and add recovery code
-when the `open` fails as follows:
+Então, agora que vemos a falha no programa, podemos corrigi-lo usando a estrutura `try` / `except`. Precisamos assumir que a chamada do `open` pode falhar e adicionar o código de recuperação da seguinte forma:
 
 \VerbatimInput{../code3/search7.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-The `exit` function terminates the program. It is a function
-that we call that never returns. Now when our user (or QA team) types in
-silliness or bad file names, we "catch" them and recover gracefully:
+A função `exit` termina o programa. É uma função sem retorno. Agora, quando nosso usuário (ou equipe de QA)  digitar bobagens ou nomes de arquivos que não existem, nós os “pegamos” e recuperamos com elegância.
 
 ~~~~
-python search7.py
-Enter the file name: mbox.txt
-There were 1797 subject lines in mbox.txt
+python pesquisa7.py
+Digite o nome do arquivo: mbox.txt
+Havia 1797 linhas de conteúdo em mbox.txt
 
-python search7.py
-Enter the file name: na na boo boo
+python pesquisa7.py
+Digite o nome do arquivo: na na boo boo
 File cannot be opened: na na boo boo
 ~~~~
 
 \index{Pythonic}
 
-Protecting the `open` call is a good example of the proper
-use of `try` and `except` in a Python program. We
-use the term "Pythonic" when we are doing something the "Python way". We
-might say that the above example is the Pythonic way to open a file.
+Proteger a chamada do `open` é um bom exemplo do uso adequado do `try` e `except` em um programa Python. Usamos o termo "Pythonico" quando estamos fazendo algo do tipo "Python". Podemos dizer que o exemplo acima é a maneira Python de abrir um arquivo.
 
-Once you become more skilled in Python, you can engage in repartee with
-other Python programmers to decide which of two equivalent solutions to
-a problem is "more Pythonic". The goal to be "more Pythonic" captures
-the notion that programming is part engineering and part art. We are not
-always interested in just making something work, we also want our
-solution to be elegant and to be appreciated as elegant by our peers.
+Uma vez que você se torne mais habilidoso em Python, você pode interagir com outros programadores em Python para decidir qual das duas soluções equivalentes a um problema é "mais Pythonico". O objetivo de ser "mais Pythonico" capta a noção de que a programação é parte engenharia e parte arte. Nem sempre estamos interessados em fazer algo funcionar, queremos também que a nossa solução seja elegante e seja apreciada como elegante pelos nossos pares.
 
-Writing files
--------------
+Escrevendo arquivos
+-------------------
 
 \index{file!writing}
 
-To write a file, you have to open it with mode "w" as a second
-parameter:
+Para escrever um arquivo você tem que abri-lo com o modo “w” como segundo parâmetro:
 
 ~~~~ {.python}
 >>> fout = open('output.txt', 'w')
@@ -448,13 +416,10 @@ parameter:
 <_io.TextIOWrapper name='output.txt' mode='w' encoding='cp1252'>
 ~~~~
 
-If the file already exists, opening it in write mode clears out the old
-data and starts fresh, so be careful! If the file doesn't exist, a new
-one is created.
+Se o arquivo já existir, abri-lo no modo de gravação limpa os dados antigos e começa de novo, por isso tome cuidado! Se o arquivo não existir, um novo será criado.
 
-The `write` method of the file handle object puts data into
-the file, returning the number of characters written. The default write
-mode is text for writing (and reading) strings.
+O método `write` do objeto de manipulação de arquivos coloca dados no arquivo, retornando o número de caracteres gravados. O modo de gravação padrão é o texto para escrever (e ler) strings.
+
 
 ~~~~ {.python}
 >>> line1 = "This here's the wattle,\n"
@@ -464,13 +429,8 @@ mode is text for writing (and reading) strings.
 
 \index{newline}
 
-Again, the file object keeps track of where it is, so if you call
-`write` again, it adds the new data to the end.
-
-We must make sure to manage the ends of lines as we write to the file by
-explicitly inserting the newline character when we want to end a line.
-The `print` statement automatically appends a newline, but
-the `write` method does not add the newline automatically.
+Novamente, o arquivo mantém o controle de onde está, portanto, se você chamar `write` novamente, ele adicionará os novos dados ao final.
+Devemos nos certificar de gerenciar as extremidades das linhas à medida que escrevemos no arquivo inserindo explicitamente o caractere de nova linha quando queremos terminar uma linha. A instrução `print` anexa automaticamente uma nova linha, mas o método `write` não adiciona a nova linha automaticamente.
 
 ~~~~ {.python}
 >>> line2 = 'the emblem of our land.\n'
@@ -478,19 +438,13 @@ the `write` method does not add the newline automatically.
 24
 ~~~~
 
-When you are done writing, you have to close the file to make sure that
-the last bit of data is physically written to the disk so it will not be
-lost if the power goes off.
+Quando terminar de escrever, feche o arquivo para certificar-se de que o último bit de dados esteja fisicamente gravado no disco, para que ele não seja perdido se faltar energia.
 
 ~~~~ {.python}
 >>> fout.close()
 ~~~~
 
-We could close the files which we open for read as well, but we can be a
-little sloppy if we are only opening a few files since Python makes sure
-that all open files are closed when the program ends. When we are
-writing files, we want to explicitly close the files so as to leave
-nothing to chance.
+Poderíamos fechar os arquivos que abrimos para leitura também, mas podemos ser um pouco desleixados se abrirmos apenas alguns arquivos, pois o Python garante que todos os arquivos abertos sejam fechados quando o programa terminar. Quando estamos escrevendo arquivos, queremos fechar explicitamente os arquivos para não deixar nada ao acaso.
 
 \index{close method}
 \index{method!close}
