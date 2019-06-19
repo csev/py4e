@@ -269,39 +269,83 @@ while True:
 <p>The program takes the search string and constructs a URL with the search string as a properly encoded parameter and then uses <code>urllib</code> to retrieve the text from the Google geocoding API. Unlike a fixed web page, the data we get depends on the parameters we send and the geographical data stored in Google's servers.</p>
 <p>Once we retrieve the JSON data, we parse it with the <code>json</code> library and do a few checks to make sure that we received good data, then extract the information that we are looking for.</p>
 <p>The output of the program is as follows (some of the returned JSON has been removed):</p>
-<pre><code>$ python3 geojson.py
+<pre><code>$ python3 geojson.py 
 Enter location: Ann Arbor, MI
-Retrieving http://maps.googleapis.com/maps/api/
-  geocode/json?address=Ann+Arbor%2C+MI
-Retrieved 1669 characters</code></pre>
+Retrieving http://py4e-data.dr-chuck.net/json?address=Ann+Arbor%2C+MI&amp;key=42
+Retrieved 1736 characters</code></pre>
 <pre class="json"><code>{
-  &quot;status&quot;: &quot;OK&quot;,
-  &quot;results&quot;: [
-    {
-      &quot;geometry&quot;: {
-        &quot;location_type&quot;: &quot;APPROXIMATE&quot;,
-        &quot;location&quot;: {
-          &quot;lat&quot;: 42.2808256,
-          &quot;lng&quot;: -83.7430378
-        }
-      },
-      &quot;address_components&quot;: [
+    &quot;results&quot;: [
         {
-          &quot;long_name&quot;: &quot;Ann Arbor&quot;,
-          &quot;types&quot;: [
-            &quot;locality&quot;,
-            &quot;political&quot;
-          ],
-          &quot;short_name&quot;: &quot;Ann Arbor&quot;
+            &quot;address_components&quot;: [
+                {
+                    &quot;long_name&quot;: &quot;Ann Arbor&quot;,
+                    &quot;short_name&quot;: &quot;Ann Arbor&quot;,
+                    &quot;types&quot;: [
+                        &quot;locality&quot;,
+                        &quot;political&quot;
+                    ]
+                },
+                {
+                    &quot;long_name&quot;: &quot;Washtenaw County&quot;,
+                    &quot;short_name&quot;: &quot;Washtenaw County&quot;,
+                    &quot;types&quot;: [
+                        &quot;administrative_area_level_2&quot;,
+                        &quot;political&quot;
+                    ]
+                },
+                {
+                    &quot;long_name&quot;: &quot;Michigan&quot;,
+                    &quot;short_name&quot;: &quot;MI&quot;,
+                    &quot;types&quot;: [
+                        &quot;administrative_area_level_1&quot;,
+                        &quot;political&quot;
+                    ]
+                },
+                {
+                    &quot;long_name&quot;: &quot;United States&quot;,
+                    &quot;short_name&quot;: &quot;US&quot;,
+                    &quot;types&quot;: [
+                        &quot;country&quot;,
+                        &quot;political&quot;
+                    ]
+                }
+            ],
+            &quot;formatted_address&quot;: &quot;Ann Arbor, MI, USA&quot;,
+            &quot;geometry&quot;: {
+                &quot;bounds&quot;: {
+                    &quot;northeast&quot;: {
+                        &quot;lat&quot;: 42.3239728,
+                        &quot;lng&quot;: -83.6758069
+                    },
+                    &quot;southwest&quot;: {
+                        &quot;lat&quot;: 42.222668,
+                        &quot;lng&quot;: -83.799572
+                    }
+                },
+                &quot;location&quot;: {
+                    &quot;lat&quot;: 42.2808256,
+                    &quot;lng&quot;: -83.7430378
+                },
+                &quot;location_type&quot;: &quot;APPROXIMATE&quot;,
+                &quot;viewport&quot;: {
+                    &quot;northeast&quot;: {
+                        &quot;lat&quot;: 42.3239728,
+                        &quot;lng&quot;: -83.6758069
+                    },
+                    &quot;southwest&quot;: {
+                        &quot;lat&quot;: 42.222668,
+                        &quot;lng&quot;: -83.799572
+                    }
+                }
+            },
+            &quot;place_id&quot;: &quot;ChIJMx9D1A2wPIgR4rXIhkb5Cds&quot;,
+            &quot;types&quot;: [
+                &quot;locality&quot;,
+                &quot;political&quot;
+            ]
         }
-      ],
-      &quot;formatted_address&quot;: &quot;Ann Arbor, MI, USA&quot;,
-      &quot;types&quot;: [
-        &quot;locality&quot;,
-        &quot;political&quot;
-      ]
-    }
-  ]
+    ],
+    &quot;status&quot;: &quot;OK&quot;
 }
 lat 42.2808256 lng -83.7430378
 Ann Arbor, MI, USA</code></pre>

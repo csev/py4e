@@ -24,7 +24,7 @@
   &lt;/phone&gt;
   &lt;email hide=&quot;yes&quot; /&gt;
 &lt;/person&gt;</code></pre>
-<p>Each pair of opening (e.g., <code>&lt;person&gt;</code>) and closing tags (e.g., <code>&lt;\person&gt;</code>) represents a <em>element</em> or <em>node</em> with the same name as the tag (e.g., <code>person</code>). Each element can have some text, some attributes (e.g., <code>hide</code>), and other nested elements. If an XML element is empty (i.e., has no content), then it may be depicted by a self-closing tag (e.g., <code>&lt;email /&gt;</code>).</p>
+<p>Each pair of opening (e.g., <code>&lt;person&gt;</code>) and closing tags (e.g., <code>&lt;/person&gt;</code>) represents a <em>element</em> or <em>node</em> with the same name as the tag (e.g., <code>person</code>). Each element can have some text, some attributes (e.g., <code>hide</code>), and other nested elements. If an XML element is empty (i.e., has no content), then it may be depicted by a self-closing tag (e.g., <code>&lt;email /&gt;</code>).</p>
 <p>Often it is helpful to think of an XML document as a tree structure where there is a top element (here: <code>person</code>), and other tags (e.g., <code>phone</code>) are drawn as <em>children</em> of their <em>parent</em> elements.</p>
 <div class="figure">
 <img src="../images/xml-tree.svg" alt="A Tree Representation of XML" />
@@ -91,7 +91,7 @@ Attribute 2
 Name Brent
 Id 009
 Attribute 7</code></pre>
-<p>It is important to include all parent level elements in the <code>findall</code> statement expect for the top level element (e.g., <code>users/user</code>). Otherwise, Python will not find any desired nodes.</p>
+<p>It is important to include all parent level elements in the <code>findall</code> statement except for the top level element (e.g., <code>users/user</code>). Otherwise, Python will not find any desired nodes.</p>
 <pre class="python"><code>import xml.etree.ElementTree as ET
 
 input = &#39;&#39;&#39;
@@ -218,20 +218,35 @@ Attribute 7</code></pre>
 <p>The following is a simple application to prompt the user for a search string, call the Google geocoding API, and extract information from the returned JSON.</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
 import json
+import ssl
 
-# Note that Google is increasingly requiring keys
-# for this API
-serviceurl = &#39;http://maps.googleapis.com/maps/api/geocode/json?&#39;
+api_key = False
+# If you have a Google Places API key, enter it here
+# api_key = &#39;AIzaSy___IDByT70&#39;
+# https://developers.google.com/maps/documentation/geocoding/intro
+
+if api_key is False:
+    api_key = 42
+    serviceurl = &#39;http://py4e-data.dr-chuck.net/json?&#39;
+else :
+    serviceurl = &#39;https://maps.googleapis.com/maps/api/geocode/json?&#39;
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
 while True:
     address = input(&#39;Enter location: &#39;)
     if len(address) &lt; 1: break
 
-    url = serviceurl + urllib.parse.urlencode(
-        {&#39;address&#39;: address})
+    parms = dict()
+    parms[&#39;address&#39;] = address
+    if api_key is not False: parms[&#39;key&#39;] = api_key
+    url = serviceurl + urllib.parse.urlencode(parms)
 
     print(&#39;Retrieving&#39;, url)
-    uh = urllib.request.urlopen(url)
+    uh = urllib.request.urlopen(url, context=ctx)
     data = uh.read().decode()
     print(&#39;Retrieved&#39;, len(data), &#39;characters&#39;)
 
@@ -247,8 +262,8 @@ while True:
 
     print(json.dumps(js, indent=4))
 
-    lat = js[&quot;results&quot;][0][&quot;geometry&quot;][&quot;location&quot;][&quot;lat&quot;]
-    lng = js[&quot;results&quot;][0][&quot;geometry&quot;][&quot;location&quot;][&quot;lng&quot;]
+    lat = js[&#39;results&#39;][0][&#39;geometry&#39;][&#39;location&#39;][&#39;lat&#39;]
+    lng = js[&#39;results&#39;][0][&#39;geometry&#39;][&#39;location&#39;][&#39;lng&#39;]
     print(&#39;lat&#39;, lat, &#39;lng&#39;, lng)
     location = js[&#39;results&#39;][0][&#39;formatted_address&#39;]
     print(location)
@@ -259,37 +274,81 @@ while True:
 <p>The output of the program is as follows (some of the returned JSON has been removed):</p>
 <pre><code>$ python3 geojson.py
 Enter location: Ann Arbor, MI
-Retrieving http://maps.googleapis.com/maps/api/
-  geocode/json?address=Ann+Arbor%2C+MI
-Retrieved 1669 characters</code></pre>
+Retrieving http://py4e-data.dr-chuck.net/json?address=Ann+Arbor%2C+MI&amp;key=42
+Retrieved 1736 characters</code></pre>
 <pre class="json"><code>{
-  &quot;status&quot;: &quot;OK&quot;,
-  &quot;results&quot;: [
-    {
-      &quot;geometry&quot;: {
-        &quot;location_type&quot;: &quot;APPROXIMATE&quot;,
-        &quot;location&quot;: {
-          &quot;lat&quot;: 42.2808256,
-          &quot;lng&quot;: -83.7430378
-        }
-      },
-      &quot;address_components&quot;: [
+    &quot;results&quot;: [
         {
-          &quot;long_name&quot;: &quot;Ann Arbor&quot;,
-          &quot;types&quot;: [
-            &quot;locality&quot;,
-            &quot;political&quot;
-          ],
-          &quot;short_name&quot;: &quot;Ann Arbor&quot;
+            &quot;address_components&quot;: [
+                {
+                    &quot;long_name&quot;: &quot;Ann Arbor&quot;,
+                    &quot;short_name&quot;: &quot;Ann Arbor&quot;,
+                    &quot;types&quot;: [
+                        &quot;locality&quot;,
+                        &quot;political&quot;
+                    ]
+                },
+                {
+                    &quot;long_name&quot;: &quot;Washtenaw County&quot;,
+                    &quot;short_name&quot;: &quot;Washtenaw County&quot;,
+                    &quot;types&quot;: [
+                        &quot;administrative_area_level_2&quot;,
+                        &quot;political&quot;
+                    ]
+                },
+                {
+                    &quot;long_name&quot;: &quot;Michigan&quot;,
+                    &quot;short_name&quot;: &quot;MI&quot;,
+                    &quot;types&quot;: [
+                        &quot;administrative_area_level_1&quot;,
+                        &quot;political&quot;
+                    ]
+                },
+                {
+                    &quot;long_name&quot;: &quot;United States&quot;,
+                    &quot;short_name&quot;: &quot;US&quot;,
+                    &quot;types&quot;: [
+                        &quot;country&quot;,
+                        &quot;political&quot;
+                    ]
+                }
+            ],
+            &quot;formatted_address&quot;: &quot;Ann Arbor, MI, USA&quot;,
+            &quot;geometry&quot;: {
+                &quot;bounds&quot;: {
+                    &quot;northeast&quot;: {
+                        &quot;lat&quot;: 42.3239728,
+                        &quot;lng&quot;: -83.6758069
+                    },
+                    &quot;southwest&quot;: {
+                        &quot;lat&quot;: 42.222668,
+                        &quot;lng&quot;: -83.799572
+                    }
+                },
+                &quot;location&quot;: {
+                    &quot;lat&quot;: 42.2808256,
+                    &quot;lng&quot;: -83.7430378
+                },
+                &quot;location_type&quot;: &quot;APPROXIMATE&quot;,
+                &quot;viewport&quot;: {
+                    &quot;northeast&quot;: {
+                        &quot;lat&quot;: 42.3239728,
+                        &quot;lng&quot;: -83.6758069
+                    },
+                    &quot;southwest&quot;: {
+                        &quot;lat&quot;: 42.222668,
+                        &quot;lng&quot;: -83.799572
+                    }
+                }
+            },
+            &quot;place_id&quot;: &quot;ChIJMx9D1A2wPIgR4rXIhkb5Cds&quot;,
+            &quot;types&quot;: [
+                &quot;locality&quot;,
+                &quot;political&quot;
+            ]
         }
-      ],
-      &quot;formatted_address&quot;: &quot;Ann Arbor, MI, USA&quot;,
-      &quot;types&quot;: [
-        &quot;locality&quot;,
-        &quot;political&quot;
-      ]
-    }
-  ]
+    ],
+    &quot;status&quot;: &quot;OK&quot;
 }
 lat 42.2808256 lng -83.7430378
 Ann Arbor, MI, USA</code></pre>

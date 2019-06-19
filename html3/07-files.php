@@ -320,7 +320,7 @@ Average spam confidence: 0.894128046745
 Enter the file name: mbox-short.txt
 Average spam confidence: 0.750718518519</code></pre>
 <p><strong>Test your file on the <em>mbox.txt</em> and <em>mbox-short.txt</em> files.</strong></p>
-<p><strong>Exercise 3: Sometimes when programmers get bored or want to have a bit of fun, they add a harmless <em>Easter Egg</em> to their program Modify the program that prompts the user for the file name so that it prints a funny message when the user types in the exact file name &quot;na na boo boo&quot;. The program should behave normally for all other files which exist and don't exist. Here is a sample execution of the program:</strong></p>
+<p><strong>Exercise 3: Sometimes when programmers get bored or want to have a bit of fun, they add a harmless <em>Easter Egg</em> to their program. Modify the program that prompts the user for the file name so that it prints a funny message when the user types in the exact file name &quot;na na boo boo&quot;. The program should behave normally for all other files which exist and don't exist. Here is a sample execution of the program:</strong></p>
 <pre><code>python egg.py
 Enter the file name: mbox.txt
 There were 1797 subject lines in mbox.txt
