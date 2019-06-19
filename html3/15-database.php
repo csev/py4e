@@ -53,7 +53,7 @@ conn.close()
 
 # Code: http://www.py4e.com/code3/db1.py</code></pre>
 <p>   </p>
-<p>The <code>connect</code> operation makes a &quot;connection&quot; to the database stored in the file <code>music.sqlite3</code> in the current directory. If the file does not exist, it will be created. The reason this is called a &quot;connection&quot; is that sometimes the database is stored on a separate &quot;database server&quot; from the server on which we are running our application. In our simple examples the database will just be a local file in the same directory as the Python code we are running.</p>
+<p>The <code>connect</code> operation makes a &quot;connection&quot; to the database stored in the file <code>music.sqlite</code> in the current directory. If the file does not exist, it will be created. The reason this is called a &quot;connection&quot; is that sometimes the database is stored on a separate &quot;database server&quot; from the server on which we are running our application. In our simple examples the database will just be a local file in the same directory as the Python code we are running.</p>
 <p>A <em>cursor</em> is like a file handle that we can use to perform operations on the data stored in the database. Calling <code>cursor()</code> is very similar conceptually to calling <code>open()</code> when dealing with text files.</p>
 <div class="figure">
 <img src="../images/cursor.svg" alt="A Database Cursor" />
@@ -200,7 +200,7 @@ while True:
 cur.close()
 
 # Code: http://www.py4e.com/code3/twspider.py</code></pre>
-<p>Our database is stored in the file <code>spider.sqlite3</code> and it has one table named <code>Twitter</code>. Each row in the <code>Twitter</code> table has a column for the account name, whether we have retrieved the friends of this account, and how many times this account has been &quot;friended&quot;.</p>
+<p>Our database is stored in the file <code>spider.sqlite</code> and it has one table named <code>Twitter</code>. Each row in the <code>Twitter</code> table has a column for the account name, whether we have retrieved the friends of this account, and how many times this account has been &quot;friended&quot;.</p>
 <p>In the main loop of the program, we prompt the user for a Twitter account name or &quot;quit&quot; to exit the program. If the user enters a Twitter account, we retrieve the list of friends and statuses for that user and add each friend to the database if not already in the database. If the friend is already in the list, we add 1 to the <code>friends</code> field in the row in the database.</p>
 <p>If the user presses enter, we look in the database for the next Twitter account that we have not yet retrieved, retrieve the friends and statuses for that account, add them to the database or update them, and increase their <code>friends</code> count.</p>
 <p>Once we retrieve the list of friends and statuses, we loop through all of the <code>user</code> items in the returned JSON and retrieve the <code>screen_name</code> for each user. Then we use the <code>SELECT</code> statement to see if we already have stored this particular <code>screen_name</code> in the database and retrieve the friend count (<code>friends</code>) if the record exists.</p>
@@ -230,8 +230,8 @@ conn.commit()</code></pre>
 Retrieving http://api.twitter.com/1.1/friends ...
 New accounts= 20  revisited= 0
 Enter a Twitter account, or quit: quit</code></pre>
-<p>Since this is the first time we have run the program, the database is empty and we create the database in the file <code>spider.sqlite3</code> and add a table named <code>Twitter</code> to the database. Then we retrieve some friends and add them all to the database since the database is empty.</p>
-<p>At this point, we might want to write a simple database dumper to take a look at what is in our <code>spider.sqlite3</code> file:</p>
+<p>Since this is the first time we have run the program, the database is empty and we create the database in the file <code>spider.sqlite</code> and add a table named <code>Twitter</code> to the database. Then we retrieve some friends and add them all to the database since the database is empty.</p>
+<p>At this point, we might want to write a simple database dumper to take a look at what is in our <code>spider.sqlite</code> file:</p>
 <pre class="python"><code>import sqlite3
 
 conn = sqlite3.connect(&#39;spider.sqlite&#39;)
