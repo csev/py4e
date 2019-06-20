@@ -348,31 +348,24 @@ key:
 
 The new list is sorted in ascending alphabetical order by the key value.
 
-Multiple assignment with dictionaries
--------------------------------------
+Múltipla atribuição com dicionários
+------------------------------------
 
 \index{traverse!dictionary}
 \index{dictionary!traversal}
 
-Combining `items`, tuple assignment, and `for`,
-you can see a nice code pattern for traversing the keys and values of a
-dictionary in a single loop:
+Combinando `items`, atribuição de tuplas e `for`, se tem um bom padrão de código para percorrer as chaves e valores de um dicionário em um único loop:
 
 ~~~~ {.python}
 for key, val in list(d.items()):
     print(val, key)
 ~~~~
 
-This loop has two *iteration variables* because
-`items` returns a list of tuples and `key, val` is
-a tuple assignment that successively iterates through each of the
-key-value pairs in the dictionary.
+Esse loop tem duas *variáveis de iteração*, isso porque `items` retorna uma lista de tuplas e `key, val` é uma atribuição de tupla que itera sucessivamente em cada um dos pares de valore/chave no dicionário.
 
-For each iteration through the loop, both `key` and
-`value` are advanced to the next key-value pair in the
-dictionary (still in hash order).
+Para cada iteração através de um loop, tanto a chave quanto o valor são avançados para o próximo par de valores no dicionário(mantendo a ordem hash).
 
-The output of this loop is:
+A saída deste loop é:
 
 ~~~~
 10 a
@@ -380,17 +373,11 @@ The output of this loop is:
 1 b
 ~~~~
 
-Again, it is in hash key order (i.e., no particular order).
+Novamente, é na ordem da chave hash(nenhuma ordem particular).
 
-If we combine these two techniques, we can print out the contents of a
-dictionary sorted by the *value* stored in each key-value pair.
+Se nós combinarmos essas duas técnicas, nós poderemos imprimir o conteúdo do dicionário ordenado pelo *valor* armazenado em cada par de chave/valor.
 
-To do this, we first make a list of tuples where each tuple is
-`(value, key)`. The `items` method would give us a
-list of `(key, value)` tuples, but this time we want to sort
-by value, not key. Once we have constructed the list with the value-key
-tuples, it is a simple matter to sort the list in reverse order and
-print out the new, sorted list.
+Para fazer isso, primeiro fazemos uma lista de tuplas onde cada tupla é `(valor, chave)`. O método `items` nos daria uma lista de tuplas `(chave, valor)`, mas desta vez queremos classificar por valor, não por chave. Depois de construir a lista com as tuplas de chave e valor é simples ordenar a lista na ordem inversa e imprimir a nova lista ordenada.
 
 ~~~~ {.python}
 >>> d = {'a':10, 'b':1, 'c':22}
@@ -406,44 +393,30 @@ print out the new, sorted list.
 >>>
 ~~~~
 
-By carefully constructing the list of tuples to have the value as the
-first element of each tuple, we can sort the list of tuples and get our
-dictionary contents sorted by value.
+Construindo cuidadosamente a lista de tuplas para ter o valor como o primeiro elemento de cada tupla, podemos ordenar a lista de tuplas e obter nosso conteúdo de dicionário ordenado por valor.
 
-The most common words
----------------------
+As palavras mais comuns
+-----------------------
 
-\index{Romeo and Juliet}
+\index{Romeu e Julieta}
 
-Coming back to our running example of the text from *Romeo and Juliet*
-Act 2, Scene 2, we can augment our program to use this technique to
-print the ten most common words in the text as follows:
+Voltando ao nosso exemplo de sempre do texto de Romeu e Julieta, Ato 2, Cena 2, podemos aumentar nosso programa para usar essa técnica para imprimir as dez palavras mais comuns no texto da seguinte forma:
 
 \VerbatimInput{../code3/count3.py} 
 \begin{trinketfiles}
 ../code3/romeo-full.txt
 \end{trinketfiles}
 
-The first part of the program which reads the file and computes the
-dictionary that maps each word to the count of words in the document is
-unchanged. But instead of simply printing out `counts` and
-ending the program, we construct a list of `(val, key)`
-tuples and then sort the list in reverse order.
+A primeira parte do programa que lê o arquivo e computa o dicionário que mapeia cada palavra para a contagem no documento não foi alterada. Mas, em vez de simplesmente imprimir `counts` e encerrar o programa, construímos uma lista de tuplas `(val, key)` e depois classificamos a lista na ordem inversa.
 
-Since the value is first, it will be used for the comparisons. If there
-is more than one tuple with the same value, it will look at the second
-element (the key), so tuples where the value is the same will be further
-sorted by the alphabetical order of the key.
+Como o valor é o primeiro, ele será usado para as comparações. Se houver mais de uma tupla com o mesmo valor, ela olhará para o segundo elemento (a chave), portanto, as tuplas onde o valor é o mesmo serão classificadas pela ordem alfabética da chave.
 
-At the end we write a nice `for` loop which does a multiple
-assignment iteration and prints out the ten most common words by
-iterating through a slice of the list (`lst[:10]`).
+No final, escrevemos um loop `for` que faz uma iteração de atribuição múltipla e imprime as dez palavras mais comuns, percorrendo uma fatia da lista (`lst [: 10]`).
 
-So now the output finally looks like what we want for our word frequency
-analysis.
+Então agora a saída finalmente parece com o que queremos para nossa análise de frequência de palavras.
 
 ~~~~
-61 i
+61 u
 42 and
 40 romeo
 34 to
@@ -455,9 +428,7 @@ analysis.
 24 thee
 ~~~~
 
-The fact that this complex data parsing and analysis can be done with an
-easy-to-understand 19-line Python program is one reason why Python is a
-good choice as a language for exploring information.
+O fato de essa análise e análise de dados complexos poderem ser feitos com um programa Python de 19 linhas e fácil de entender é uma das razões pelas quais o Python é uma boa escolha como uma linguagem para análise de dados.
 
 Using tuples as keys in dictionaries
 ------------------------------------
