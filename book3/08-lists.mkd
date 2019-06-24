@@ -1,63 +1,63 @@
 
-Lists
+Listas
 =====
 
 \index{list}
 \index{type!list}
 
-A list is a sequence
+Uma lista é uma sequência
 --------------------
 
-Like a string, a *list* is a sequence of values. In a
-string, the values are characters; in a list, they can be any type. The
-values in list are called *elements* or sometimes
-*items*.
+Como uma string, uma * lista * é uma sequência de valores. Em uma
+string, os valores são caracteres; em uma lista, eles podem ser de qualquer tipo. Os
+valores em lista são chamados * elementos * ou às vezes
+*itens*.
 
-\index{element}
-\index{sequence}
-\index{item}
+\ index {element}
+\ index {sequence}
+\ index {item}
 
-There are several ways to create a new list; the simplest is to enclose
-the elements in square brackets ("[" and "]"):
+Existem várias maneiras de criar uma nova lista; o mais simples é incluir
+os elementos entre colchetes ("[" e "]"):
 
 ~~~~ {.python}
 [10, 20, 30, 40]
-['crunchy frog', 'ram bladder', 'lark vomit']
+['cururu crocante', 'estômago de carneiro', 'vômito de lark']
 ~~~~
 
-The first example is a list of four integers. The second is a list of
-three strings. The elements of a list don't have to be the same type.
-The following list contains a string, a float, an integer, and (lo!)
-another list:
+O primeiro exemplo é uma lista de quatro inteiros. O segundo é uma lista de
+três strings. Os elementos de uma lista não precisam ser do mesmo tipo.
+A lista a seguir contém uma string, um float, um inteiro e (lo!)
+outra lista:
 
 ~~~~ {.python}
 ['spam', 2.0, 5, [10, 20]]
-~~~~ 
+~~~~
 
-A list within another list is *nested*.
+* Encaixando * uma lista dentro de outra. 
 
 \index{nested list}
 \index{list!nested}
 
-A list that contains no elements is called an empty list; you can create
-one with empty brackets, `[]`.
+Uma lista que não contém elementos é chamada de lista vazia; você pode criar
+um com colchetes vazios, `[]`.
 
 \index{empty list}
 \index{list!empty}
 
-As you might expect, you can assign list values to variables:
+Como você poderia esperar, você pode atribuir valores de lista a variáveis:
 
 ~~~~ {.python .trinket}
->>> cheeses = ['Cheddar', 'Edam', 'Gouda']
+>>> queijos = ['Cheddar', 'Edam', 'Gouda']
 >>> numbers = [17, 123]
 >>> empty = []
->>> print(cheeses, numbers, empty)
+>>> imprimir (queijos, números, vazios)
 ['Cheddar', 'Edam', 'Gouda'] [17, 123] []
 ~~~~
 
 \index{assignment}
 
-Lists are mutable
+Listas são mutáveis
 -----------------
 
 \index{list!element}
@@ -67,55 +67,61 @@ Lists are mutable
 \index{bracket operator}
 \index{operator!bracket}
 
-The syntax for accessing the elements of a list is the same as for
-accessing the characters of a string: the bracket operator. The
-expression inside the brackets specifies the index. Remember that the
-indices start at 0:
+A sintaxe para acessar os elementos de uma lista é a mesma que para
+acessando os caracteres de uma string: o operador colchete. A
+expressão dentro dos colchetes especifica o índice. Lembre-se que o
+índices começam em 0:
+
 
 ~~~~ {.python}
->>> print(cheeses[0])
+>>> print(queijos[0])
 Cheddar
 ~~~~
 
-Unlike strings, lists are mutable because you can change the order of
-items in a list or reassign an item in a list. When the bracket operator
-appears on the left side of an assignment, it identifies the element of
-the list that will be assigned.
+Ao contrário das strings, as listas são mutáveis porque você pode alterar a ordem de
+itens em uma lista ou reatribuir um item em uma lista. Quando o operador colchete
+aparece no lado esquerdo de uma tarefa, identifica o elemento de
+a lista que será atribuída.
 
 \index{mutability}
 
 ~~~~ {.python .trinket}
->>> numbers = [17, 123]
->>> numbers[1] = 5
->>> print(numbers)
+>>> numeros = [17, 123]
+>>> numeros[1] = 5
+>>> print(numeros)
 [17, 5]
 ~~~~
 
-The one-th element of `numbers`, which used to be 123, is
-now 5.
+O último elemento de `numeros`, que costumava ser 123, e
+agora é 5.
 
 \index{index!starting at zero}
 \index{zero, index starting at}
+
 
 You can think of a list as a relationship between indices and elements.
 This relationship is called a *mapping*; each index "maps
 to" one of the elements.
 
+Você pode pensar em uma lista como uma relação entre índices e elementos.
+Essa relação é chamada de *mapeamento*; cada index "mapas
+para" um dos elementos.
+
 \index{item assignment}
 \index{assignment!item}
 
-List indices work the same way as string indices:
+Os índices de lista funcionam da mesma maneira que os índices de string:
 
--   Any integer expression can be used as an index.
+- Qualquer expressão inteira pode ser usada como um index.
 
--   If you try to read or write an element that does not exist, you get
-    an `IndexError`.
+- Se você tentar ler ou escrever um elemento que não existe, você pode 
+    encontrar um "IndexError".
 
-\index{exception!IndexError}
-\index{IndexError}
+\ index {exception!IndexError}
+\ index {IndexError}
 
--   If an index has a negative value, it counts backward from the end of
-    the list.
+- Se um índice tiver um valor negativo, ele será contado a partir do final de
+    a lista.
 
 \index{list!index}
 \index{list!membership}
@@ -123,14 +129,14 @@ List indices work the same way as string indices:
 \index{in operator}
 \index{operator!in}
 
-The `in` operator also works on lists.
+O operador `in` também funciona em listas.
 
 ~~~~ {.python .trinket}
->>> cheeses = ['Cheddar', 'Edam', 'Gouda']
->>> 'Edam' in cheeses
-True
->>> 'Brie' in cheeses
-False
+>>> queijos = ['Cheddar', 'Edam', 'Gouda']
+>>> 'Edam' em queijos
+Verdade
+>>> 'Brie' em queijos
+Falso
 ~~~~
 
 Traversing a list
@@ -142,43 +148,45 @@ Traversing a list
 \index{loop!for}
 \index{statement!for}
 
-The most common way to traverse the elements of a list is with a
-`for` loop. The syntax is the same as for strings:
+A maneira mais comum de percorrer os elementos de uma lista é com uma
+repetição `for`. A sintaxe é a mesma que para strings:
 
 ~~~~ {.python}
-for cheese in cheeses:
-    print(cheese)
+for queijo in queijos:
+    imprimir (queijo)
 ~~~~
 
-This works well if you only need to read the elements of the list. But
-if you want to write or update the elements, you need the indices. A
-common way to do that is to combine the functions `range` and
-`len`:
+Isso funciona bem se você precisar ler apenas os elementos da lista. Mas
+se você quiser escrever ou atualizar os elementos, você precisa dos índices. Uma
+maneira comum de fazer isso é combinar as funções `range` e `len`:
 
 \index{looping!with indices}
 \index{index!looping with}
 
 ~~~~ {.python}
-for i in range(len(numbers)):
-    numbers[i] = numbers[i] * 2
+for i in range(len(numeros)):
+    numeros[i] = numeros[i] * 2
 ~~~~
 
-This loop traverses the list and updates each element. `len`
-returns the number of elements in the list. `range` returns a
-list of indices from 0 to $n-1$, where $n$ is the length of the list.
-Each time through the loop, `i` gets the index of the next
-element. The assignment statement in the body uses `i` to
-read the old value of the element and to assign the new value.
+Essa repetição percorre a lista e atualiza cada elemento. `len`
+retorna o número de elementos na lista. `range` retorna um
+lista de índices de 0 a $n-1$, onde $n$ é o tamanho da lista.
+Cada vez que passa pela reptição, o `i` recebe o índice do próximo
+elemento. A declaração de atribuição no corpo usa `i` para
+leia o valor antigo do elemento e atribua o novo valor.
 
 \index{item update}
 \index{update!item}
 
-A `for` loop over an empty list never executes the body:
+Uma repetição `for` sobre uma lista vazia nunca executa o corpo:
 
 ~~~~ {.python}
 for x in empty:
-    print('This never happens.')
+    print('Isso nunca acontece.')
 ~~~~
+
+Embora uma lista possa conter outra lista, a lista encaixada ainda conta
+como um único elemento. A duração dessa lista é quatro:
 
 Although a list can contain another list, the nested list still counts
 as a single element. The length of this list is four:
