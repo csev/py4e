@@ -6,7 +6,7 @@ require_once "top.php";
 require_once "nav.php";
 ?>
 <div id="container">
-<h1>Python for Everybody</h1>
+<h1>Python para todos</h1>
 <?php if ( isset($_SESSION['id']) ) { ?>
 <p>
 Welcome to my Massive Open Online Course (MOOC) version of Python for Everybody. 
