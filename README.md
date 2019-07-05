@@ -20,8 +20,17 @@ but if you need to, please contact Dr. Chuck via email.
 
 Your help is greatly appreciated.
 
-Important Translation Areas
----------------------------
+Status
+------
+
+* Book: Preface and Chapter 1 are translated
+* Slides: Chapters 1-5 are translated
+* Book Figures: Nothing is translated
+* Code Samples: Nothing is translated
+* Web pages: Very little translated
+
+Translation Areas
+-----------------
 
 * The book chapters under the folder `book3` - the book is written in
 Markdown so it is prety easy to edit the book using any text editor.
@@ -39,6 +48,8 @@ into the text of the book as part of the book production process.
 into the EPS and SVG formats under images fo inclusion in the EPUB, HMTL,
 and PDF versions of the book.  You will need the OmniGraffle software
 to edit these figures.
+
+* The slides under `lectures3` are in PowerPoint and need to be translated.
 
 * The text of the web site in the various `.php` files in the repository.
 It will help to know PHP to know what to translate without breaking 
