@@ -3,14 +3,20 @@
 <div style="float: right;"/><iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=drchu02-20&marketplace=amazon&region=US&placement=1530051126&asins=1530051126&linkId=2ea6c883c6cf11f29568856139bad34b&show_border=true&link_opens_in_new_window=true"></iframe></div>
         <h2>Python para todos</h2>
         <h3>Explorando la información con Python 3</h3>
-        <p>
-            New Edition! The goal of this book is to provide an Informatics-oriented introduction to programming. The primary difference between a computer science approach and the Informatics approach taken in this book is a greater focus on using Python to solve data analysis problems common in the world of Informatics.
-The <a href="http://www.py4inf.com/">Python 2 version</a> of the book is still available.
-        </p>
 
 <ul>
-<li><p><b><a href="courses">Other Courses Using this Book</a></b>
-</p></li>
+  <li> Spanish - In progress
+     <ul class="menu vertical nested is-active">
+       <li class="menu-text">Free: <a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf" target="_blank">PDF</a>,
+       <a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.epub" target="_blank">EPUB</a></li>
+        <li>
+            <a href="https://github.com/csev-es/py4e" target="_blank">Book source on github</a>
+        </li>
+     </ul>
+    <p>    
+        (Thanks to Fernando Tardio for getting the translation started)
+    </p>
+  </li>
   <li>
      English
      <ul class="menu vertical nested is-active">
@@ -60,16 +66,6 @@ and
         <li> <a href="https://github.com/ras-ufcg/py4e" target="_blank">Book source on github</a> 
 (Thanks to Yuri Loia de Medeiros).
 </li>
-     </ul>
-  </li>
-  <li> Spanish - In progress
-     <ul class="menu vertical nested is-active">
-       <li class="menu-text">Free: <a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf" target="_blank">PDF</a>,
-       <a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.epub" target="_blank">EPUB</a></li>
-        <li>
-            <a href="https://github.com/ftardio/pythonlearn" target="_blank">Book source on github</a>
-(Thanks to Fernando Tardio)
-        </li>
      </ul>
   </li>
   <li>

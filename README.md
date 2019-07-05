@@ -55,5 +55,17 @@ to edit these figures.
 It will help to know PHP to know what to translate without breaking 
 the files.
 
+Python 2 Translation
+====================
+
+The Python 2.0 version of the book is already translated into Spanish
+thanks to Fernando Tardio. (https://twitter.com/fertardio).
+
+You can view it at http://do1.dr-chuck.net/py4inf/ES-es/book.pdf.
+
+It has the same chapters and much the same text as the Python 3.0
+book and you can look at this book if you are interested in
+good phraseology when describing Python in Spanish.
+
 
 
