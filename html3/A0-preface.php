@@ -13,43 +13,43 @@
 </head>
 <body>
 <p></p>
-<h2 id="credits">Credits</h2>
-<pre><code>Editorial Support: Elliott Hauser, Sue Blumenberg
-Cover Design: Aimee Andrion</code></pre>
-<h2 id="printing-history">Printing History</h2>
+<h2 id="créditos">Créditos</h2>
+<pre><code>Soporte Editorial: Elliott Hauser, Sue Blumenberg
+Diseño de portada: Aimee Andrion</code></pre>
+<h2 id="historial-de-impresión">Historial de impresión</h2>
 <ul>
-<li>2016-Jul-05 First Complete Python 3.0 version</li>
-<li>2015-Dec-20 Initial Python 3.0 rough conversion</li>
+<li>05-Jul-2016 Primera versión completa de Python 3.0</li>
+<li>20-Dic-2015 Borrador inicial de conversión a Python 3.0</li>
 </ul>
-<h2 id="copyright-details">Copyright Details</h2>
+<h2 id="detalles-de-copyright">Detalles de Copyright</h2>
 <p>Copyright ~2009- Charles Severance.</p>
-<p>This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. This license is available at</p>
+<p>Este trabajo está registrado bajo una Licencia Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. Este licencia está disponible en</p>
 <p>http://creativecommons.org/licenses/by-nc-sa/3.0/</p>
-<p>You can see what the author considers commercial and non-commercial uses of this material as well as license exemptions in the Appendix titled &quot;Copyright Detail&quot;.</p>
+<p>Puedes ver lo que el autor considera usos comerciales y no-comerciales de este material, así como las exenciones de licencia en el Apéndice titulado &quot;Detalles de Copyright&quot;.</p>
 <p></p>
-<h1 id="preface">Preface</h1>
-<h2 id="remixing-an-open-book">Remixing an Open Book</h2>
-<p>It is quite natural for academics who are continuously told to &quot;publish or perish&quot; to want to always create something from scratch that is their own fresh creation. This book is an experiment in not starting from scratch, but instead &quot;remixing&quot; the book titled <em>Think Python: How to Think Like a Computer Scientist</em> written by Allen B. Downey, Jeff Elkner, and others.</p>
-<p>In December of 2009, I was preparing to teach <em>SI502 - Networked Programming</em> at the University of Michigan for the fifth semester in a row and decided it was time to write a Python textbook that focused on exploring data instead of understanding algorithms and abstractions. My goal in SI502 is to teach people lifelong data handling skills using Python. Few of my students were planning to be professional computer programmers. Instead, they planned to be librarians, managers, lawyers, biologists, economists, etc., who happened to want to skillfully use technology in their chosen field.</p>
-<p>I never seemed to find the perfect data-oriented Python book for my course, so I set out to write just such a book. Luckily at a faculty meeting three weeks before I was about to start my new book from scratch over the holiday break, Dr. Atul Prakash showed me the <em>Think Python</em> book which he had used to teach his Python course that semester. It is a well-written Computer Science text with a focus on short, direct explanations and ease of learning.</p>
-<p>The overall book structure has been changed to get to doing data analysis problems as quickly as possible and have a series of running examples and exercises about data analysis from the very beginning.</p>
-<p>Chapters 2–10 are similar to the <em>Think Python</em> book, but there have been major changes. Number-oriented examples and exercises have been replaced with data-oriented exercises. Topics are presented in the order needed to build increasingly sophisticated data analysis solutions. Some topics like <code>try</code> and <code>except</code> are pulled forward and presented as part of the chapter on conditionals. Functions are given very light treatment until they are needed to handle program complexity rather than introduced as an early lesson in abstraction. Nearly all user-defined functions have been removed from the example code and exercises outside of Chapter 4. The word &quot;recursion&quot;<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> does not appear in the book at all.</p>
-<p>In chapters 1 and 11–16, all of the material is brand new, focusing on real-world uses and simple examples of Python for data analysis including regular expressions for searching and parsing, automating tasks on your computer, retrieving data across the network, scraping web pages for data, object-oriented programming, using web services, parsing XML and JSON data, creating and using databases using Structured Query Language, and visualizing data.</p>
-<p>The ultimate goal of all of these changes is to shift from a Computer Science to an Informatics focus and to only include topics into a first technology class that can be useful even if one chooses not to become a professional programmer.</p>
-<p>Students who find this book interesting and want to further explore should look at Allen B. Downey's <em>Think Python</em> book. Because there is a lot of overlap between the two books, students will quickly pick up skills in the additional areas of technical programming and algorithmic thinking that are covered in <em>Think Python</em>. And given that the books have a similar writing style, they should be able to move quickly through <em>Think Python</em> with a minimum of effort.</p>
+<h1 id="prólogo">Prólogo</h1>
+<h2 id="remezclando-un-libro-libre">Remezclando un Libro Libre</h2>
+<p>Se suele decir de los académicos deben &quot;publicar o perecer&quot; continuamente, de modo que es bastante normal que siempre quieran empezar algo desde cero, para que sea su propia y flamante creación. Este libro es un experimento, ya que no parte desde cero, sino que en vez de eso &quot;remezcla&quot; el libro titulado <em>Think Python: How to Think Like a Computer Scientist</em> (Piensa en Python: Cómo pensar como un científico de la computación), escrito por Allen B. Bowney, Jeff Elkner, y otros.</p>
+<p>En Diciembre de 2009, yo me estaba preparando para enseñar <em>SI502 - Programación en Red</em> en la Universidad de Michigan por quinto semestre consecutivo, y decidí que ya era hora de escribir un libro de texto sobre Python que se centrase en la exploración de datos en lugar de en explicar algoritmos y abstracciones. Mi objetivo en SI502 es enseñar a la gente habilidades permanentes para el manejo de datos usando Python. Pocos de mis estudiantes pretenden llegar a ser programadores de computadoras profesionales. En vez de eso, quieren ser bibliotecarios, gerentes, abogados, biólogos, economistas, etc., que tal vez quieran aplicar el uso de la tecnología en sus respectivos campos.</p>
+<p>Parecía que no podría encontrar el libro perfecto para mi curso, que estuviera orientado al manejo de datos en Python, de modo que decidí empezar a escribirlo por mi mismo. Por suerte, en una reunión de profesores tres semanas antes de las vacaciones, que era la fecha en que tenía planeado empezar a escribir mi libro desde cero, el Dr. Atul Prakash me mostró el libro <em>Think Python</em> (Piensa en Python), que él había utilizado para impartir su curso de Python ese semestre. Se trata de un texto de Ciencias de la Computación bien escrito, con un enfoque breve, explicaciones directas y fácil de aprender.</p>
+<p>La estructura principal del libro se ha cambiado, para empezar a realizar problemas de análisis de datos lo antes posible, y para tener una serie de ejemplos funcionales y de ejercicios sobre el análisis de datos desde el principio.</p>
+<p>Los capítulos 2-10 son similares a los del libro <em>Think Python</em>, pero ha habido cambios importantes. Los ejemplos orientados a números y los ejercicios se han reemplazado por otros orientados a datos. Los temas se presentan en el orden necesario para ir creando soluciones de análisis de datos cuya complejidad aumente progresivamente. Algunos temas como <code>try</code> y <code>except</code> (manejo de excepciones) se han adelantado, y se presentan como parte del capítulo de los condicionales. Las funciones se tratan muy por encima hasta que son necesarias para manejar programas complejos, en lugar de introducirlas como abstracción en las primeras lecciones. Casi todas las funciones definidas por el usuario se han eliminado del código de los ejemplos y de los ejercicios excepto en el capítulo 4. La palabra &quot;recursión&quot;<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> no aparece en todo el libro.</p>
+<p>Todo el contenido del capítulo 1 y del 11 al 16 es nuevo, centrado en aplicaciones para el mundo real y en ejemplos simples del uso de Python para el análisis de datos, incluyendo expresiones regulares para búsqueda y análisis, automatización de tareas en la computadora, descarga de datos a través de la red, escaneo de páginas web para recuperar datos, programación orientada a objetos, uso de servicios web, análisis de datos en formato XML y JSON, creación y uso de bases de datos usando el Lenguaje de Consultas Estructurado (SQL), y la visualización de datos.</p>
+<p>El objetivo final de todos estos cambios es variar la orientación, desde una dirigida a las Ciencias de la Computación hacia otra puramente informática, que trate sólo temas adecuados para una clase de tecnología para principiantes, que puedan resultarles útiles incluso si eligen no ser programadores profesionales.</p>
+<p>Los estudiantes que encuentren este libro interesante y quieran ir más allá, deberían echar un vistazo al libro <em>Think Python</em> de Allen B. Downey's. Como ambos libros comparten un montón de materia, los estudiantes adquirirán rápidamente habilidades en las áreas adicionales de la programación técnica y pensamiento algorítmico que se tratan en <em>Think Python</em>. Y dado que ambos libros comparten un estilo de escritura similar, deberían ser capaces de avanzar rápidamente a través del contenido de <em>Think Python</em> con un esfuerzo mínimo.</p>
 <p>  </p>
-<p>As the copyright holder of <em>Think Python</em>, Allen has given me permission to change the book's license on the material from his book that remains in this book from the GNU Free Documentation License to the more recent Creative Commons Attribution — Share Alike license. This follows a general shift in open documentation licenses moving from the GFDL to the CC-BY-SA (e.g., Wikipedia). Using the CC-BY-SA license maintains the book's strong copyleft tradition while making it even more straightforward for new authors to reuse this material as they see fit.</p>
-<p>I feel that this book serves as an example of why open materials are so important to the future of education, and I want to thank Allen B. Downey and Cambridge University Press for their forward-looking decision to make the book available under an open copyright. I hope they are pleased with the results of my efforts and I hope that you, the reader, are pleased with <em>our</em> collective efforts.</p>
-<p>I would like to thank Allen B. Downey and Lauren Cowles for their help, patience, and guidance in dealing with and resolving the copyright issues around this book.</p>
+<p>Como propietario del copyright de <em>Think Python</em>, Allen me ha dado permiso para cambiar la licencia del contenido de su libro que se utiliza en éste, y que originalmente poseía una <em>GNU Free Documentation License</em> a otra más actual, Creative Commons Attribution — Share Alike license. Así se sigue una tendencia general en las licencias de documentación abierta, que están pasando desde la GFDL a la CC-BY-SA (por ejemplo, Wikipedia). El uso de la licencia CC-BY-SA mantiene la arraigada tradición <em>copyleft</em> del libro, a la vez que hacen más sencillo para los autores nuevos la reutilización de ese material a su conveniencia.</p>
+<p>Personalmente creo que este libro sirve como ejemplo de por qué los contenidos libres son tan importantes para el futuro de la educación, y quiero agradecer a Allen B. Downey y a la <em>Cambridge University Press</em> por su amplitud de miras a la hora de distribuir el libro bajo un copyright abierto. Espero que se sientan satisfechos con el resultado de mis esfuerzos y deseo que tú como lector también te sientas satisfecho de <em>nuestros</em> esfuerzos colectivos.</p>
+<p>Quiero agradecer a Allen B. Downey y Lauren Cowles su ayuda, paciencia y orientación a la hora de tratar y resolver los problemas de copyright referentes a este libro.</p>
 <p>Charles Severance<br />
 www.dr-chuck.com<br />
 Ann Arbor, MI, USA<br />
-September 9, 2013</p>
-<p>Charles Severance is a Clinical Associate Professor at the University of Michigan School of Information.</p>
+9 de Septiembre, 2013</p>
+<p>Charles Severance es Profesor Clínico Adjunto en la Escuela de Información (<em>School of Information</em>) de la Universidad de Michigan.</p>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Except, of course, for this line.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>Excepto, por supuesto, en esa línea.<a href="#fnref1">↩</a></p></li>
 </ol>
 </div>
 </body>

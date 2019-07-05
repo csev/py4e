@@ -127,7 +127,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="kw">&lt;/phone&gt;</span>
   <span class="kw">&lt;email</span><span class="ot"> hide=</span><span class="st">&quot;yes&quot;</span> <span class="kw">/&gt;</span>
 <span class="kw">&lt;/person&gt;</span></code></pre></div>
-<p>Each pair of opening (e.g., <code>&lt;person&gt;</code>) and closing tags (e.g., <code>&lt;\person&gt;</code>) represents a <em>element</em> or <em>node</em> with the same name as the tag (e.g., <code>person</code>). Each element can have some text, some attributes (e.g., <code>hide</code>), and other nested elements. If an XML element is empty (i.e., has no content), then it may be depicted by a self-closing tag (e.g., <code>&lt;email /&gt;</code>).</p>
+<p>Each pair of opening (e.g., <code>&lt;person&gt;</code>) and closing tags (e.g., <code>&lt;/person&gt;</code>) represents a <em>element</em> or <em>node</em> with the same name as the tag (e.g., <code>person</code>). Each element can have some text, some attributes (e.g., <code>hide</code>), and other nested elements. If an XML element is empty (i.e., has no content), then it may be depicted by a self-closing tag (e.g., <code>&lt;email /&gt;</code>).</p>
 <p>Often it is helpful to think of an XML document as a tree structure where there is a top element (here: <code>person</code>), and other tags (e.g., <code>phone</code>) are drawn as <em>children</em> of their <em>parent</em> elements.</p>
 <div class="figure">
 <img src="../images/xml-tree.svg" alt="A Tree Representation of XML" />
@@ -206,7 +206,7 @@ Attribute 2
 Name Brent
 Id 009
 Attribute 7</code></pre>
-<p>It is important to include all parent level elements in the <code>findall</code> statement expect for the top level element (e.g., <code>users/user</code>). Otherwise, Python will not find any desired nodes.</p>
+<p>It is important to include all parent level elements in the <code>findall</code> statement except for the top level element (e.g., <code>users/user</code>). Otherwise, Python will not find any desired nodes.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> xml.etree.ElementTree <span class="im">as</span> ET
 
 <span class="bu">input</span> <span class="op">=</span> <span class="st">&#39;&#39;&#39;</span>
@@ -343,20 +343,35 @@ Attribute 7</code></pre>
 <!--
 import urllib.request, urllib.parse, urllib.error
 import json
+import ssl
 
-# Note that Google is increasingly requiring keys
-# for this API
-serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
+api_key = False
+# If you have a Google Places API key, enter it here
+# api_key = 'AIzaSy___IDByT70'
+# https://developers.google.com/maps/documentation/geocoding/intro
+
+if api_key is False:
+    api_key = 42
+    serviceurl = 'http://py4e-data.dr-chuck.net/json?'
+else :
+    serviceurl = 'https://maps.googleapis.com/maps/api/geocode/json?'
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
 while True:
     address = input('Enter location: ')
     if len(address) < 1: break
 
-    url = serviceurl + urllib.parse.urlencode(
-        {'address': address})
+    parms = dict()
+    parms['address'] = address
+    if api_key is not False: parms['key'] = api_key
+    url = serviceurl + urllib.parse.urlencode(parms)
 
     print('Retrieving', url)
-    uh = urllib.request.urlopen(url)
+    uh = urllib.request.urlopen(url, context=ctx)
     data = uh.read().decode()
     print('Retrieved', len(data), 'characters')
 
@@ -372,8 +387,8 @@ while True:
 
     print(json.dumps(js, indent=4))
 
-    lat = js["results"][0]["geometry"]["location"]["lat"]
-    lng = js["results"][0]["geometry"]["location"]["lng"]
+    lat = js['results'][0]['geometry']['location']['lat']
+    lng = js['results'][0]['geometry']['location']['lng']
     print('lat', lat, 'lng', lng)
     location = js['results'][0]['formatted_address']
     print(location)
@@ -384,39 +399,83 @@ while True:
 <p>The program takes the search string and constructs a URL with the search string as a properly encoded parameter and then uses <code>urllib</code> to retrieve the text from the Google geocoding API. Unlike a fixed web page, the data we get depends on the parameters we send and the geographical data stored in Google's servers.</p>
 <p>Once we retrieve the JSON data, we parse it with the <code>json</code> library and do a few checks to make sure that we received good data, then extract the information that we are looking for.</p>
 <p>The output of the program is as follows (some of the returned JSON has been removed):</p>
-<pre><code>$ python3 geojson.py
+<pre><code>$ python3 geojson.py 
 Enter location: Ann Arbor, MI
-Retrieving http://maps.googleapis.com/maps/api/
-  geocode/json?address=Ann+Arbor%2C+MI
-Retrieved 1669 characters</code></pre>
+Retrieving http://py4e-data.dr-chuck.net/json?address=Ann+Arbor%2C+MI&amp;key=42
+Retrieved 1736 characters</code></pre>
 <div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
-  <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;OK&quot;</span><span class="fu">,</span>
-  <span class="dt">&quot;results&quot;</span><span class="fu">:</span> <span class="ot">[</span>
-    <span class="fu">{</span>
-      <span class="dt">&quot;geometry&quot;</span><span class="fu">:</span> <span class="fu">{</span>
-        <span class="dt">&quot;location_type&quot;</span><span class="fu">:</span> <span class="st">&quot;APPROXIMATE&quot;</span><span class="fu">,</span>
-        <span class="dt">&quot;location&quot;</span><span class="fu">:</span> <span class="fu">{</span>
-          <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.2808256</span><span class="fu">,</span>
-          <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.7430378</span>
-        <span class="fu">}</span>
-      <span class="fu">},</span>
-      <span class="dt">&quot;address_components&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+    <span class="dt">&quot;results&quot;</span><span class="fu">:</span> <span class="ot">[</span>
         <span class="fu">{</span>
-          <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor&quot;</span><span class="fu">,</span>
-          <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span>
-            <span class="st">&quot;locality&quot;</span><span class="ot">,</span>
-            <span class="st">&quot;political&quot;</span>
-          <span class="ot">]</span><span class="fu">,</span>
-          <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor&quot;</span>
+            <span class="dt">&quot;address_components&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+                <span class="fu">{</span>
+                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor&quot;</span><span class="fu">,</span>
+                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor&quot;</span><span class="fu">,</span>
+                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+                        <span class="st">&quot;locality&quot;</span><span class="ot">,</span>
+                        <span class="st">&quot;political&quot;</span>
+                    <span class="ot">]</span>
+                <span class="fu">}</span><span class="ot">,</span>
+                <span class="fu">{</span>
+                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Washtenaw County&quot;</span><span class="fu">,</span>
+                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Washtenaw County&quot;</span><span class="fu">,</span>
+                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+                        <span class="st">&quot;administrative_area_level_2&quot;</span><span class="ot">,</span>
+                        <span class="st">&quot;political&quot;</span>
+                    <span class="ot">]</span>
+                <span class="fu">}</span><span class="ot">,</span>
+                <span class="fu">{</span>
+                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Michigan&quot;</span><span class="fu">,</span>
+                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;MI&quot;</span><span class="fu">,</span>
+                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+                        <span class="st">&quot;administrative_area_level_1&quot;</span><span class="ot">,</span>
+                        <span class="st">&quot;political&quot;</span>
+                    <span class="ot">]</span>
+                <span class="fu">}</span><span class="ot">,</span>
+                <span class="fu">{</span>
+                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;United States&quot;</span><span class="fu">,</span>
+                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;US&quot;</span><span class="fu">,</span>
+                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+                        <span class="st">&quot;country&quot;</span><span class="ot">,</span>
+                        <span class="st">&quot;political&quot;</span>
+                    <span class="ot">]</span>
+                <span class="fu">}</span>
+            <span class="ot">]</span><span class="fu">,</span>
+            <span class="dt">&quot;formatted_address&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor, MI, USA&quot;</span><span class="fu">,</span>
+            <span class="dt">&quot;geometry&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+                <span class="dt">&quot;bounds&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+                    <span class="dt">&quot;northeast&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.3239728</span><span class="fu">,</span>
+                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.6758069</span>
+                    <span class="fu">},</span>
+                    <span class="dt">&quot;southwest&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.222668</span><span class="fu">,</span>
+                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.799572</span>
+                    <span class="fu">}</span>
+                <span class="fu">},</span>
+                <span class="dt">&quot;location&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+                    <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.2808256</span><span class="fu">,</span>
+                    <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.7430378</span>
+                <span class="fu">},</span>
+                <span class="dt">&quot;location_type&quot;</span><span class="fu">:</span> <span class="st">&quot;APPROXIMATE&quot;</span><span class="fu">,</span>
+                <span class="dt">&quot;viewport&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+                    <span class="dt">&quot;northeast&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.3239728</span><span class="fu">,</span>
+                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.6758069</span>
+                    <span class="fu">},</span>
+                    <span class="dt">&quot;southwest&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.222668</span><span class="fu">,</span>
+                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.799572</span>
+                    <span class="fu">}</span>
+                <span class="fu">}</span>
+            <span class="fu">},</span>
+            <span class="dt">&quot;place_id&quot;</span><span class="fu">:</span> <span class="st">&quot;ChIJMx9D1A2wPIgR4rXIhkb5Cds&quot;</span><span class="fu">,</span>
+            <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+                <span class="st">&quot;locality&quot;</span><span class="ot">,</span>
+                <span class="st">&quot;political&quot;</span>
+            <span class="ot">]</span>
         <span class="fu">}</span>
-      <span class="ot">]</span><span class="fu">,</span>
-      <span class="dt">&quot;formatted_address&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor, MI, USA&quot;</span><span class="fu">,</span>
-      <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span>
-        <span class="st">&quot;locality&quot;</span><span class="ot">,</span>
-        <span class="st">&quot;political&quot;</span>
-      <span class="ot">]</span>
-    <span class="fu">}</span>
-  <span class="ot">]</span>
+    <span class="ot">]</span><span class="fu">,</span>
+    <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;OK&quot;</span>
 <span class="fu">}</span>
 <span class="er">lat</span> <span class="er">42.2808256</span> <span class="er">lng</span> <span class="er">-83.7430378</span>
 <span class="er">Ann</span> <span class="er">Arbor,</span> <span class="er">MI,</span> <span class="er">USA</span></code></pre></div>
