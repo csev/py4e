@@ -8,6 +8,7 @@
   <li> Spanish - In progress
      <ul class="menu vertical nested is-active">
        <li class="menu-text">Free: <a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf" target="_blank">PDF</a>,
+       <a href="html3">HTML</a>,
        <a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.epub" target="_blank">EPUB</a></li>
         <li>
             <a href="https://github.com/csev-es/py4e" target="_blank">Book source on github</a>
@@ -29,7 +30,6 @@
 </li>
        <li class="menu-text"><a href="http://amzn.to/29LrtC0" target="_blank">Kindle edition</a> of the book</li>
        <li class="menu-text">Free: <a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.pdf" target="_blank">PDF</a>,
-       <a href="html3">HTML</a>,
        <a href="http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.epub" target="_blank">EPUB</a></li>
        <li class="menu-text"><a href="https://eng.libretexts.org/Textbook_Maps/Computer_Science/Map%3A_Python_for_Everybody_(Severance)" target="_blank">HTML with examples in Jupyter Notebooks from LibreTexts.org</a></li>
 <!--
