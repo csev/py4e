@@ -7,6 +7,10 @@ require_once "nav.php";
 ?>
 <div id="container">
 <h1>Python para todos</h1>
+<p>
+<b>Este sitio esta en construcción. Si desea ayudar con las traducciones, consulte el repositorio de GitHub
+<a href="https://github.com/csev-es/py4e" target="_blank">https://github.com/csev-es/py4e</a>.</b>
+</p>
 <?php if ( isset($_SESSION['id']) ) { ?>
 <p>
 Welcome to my Massive Open Online Course (MOOC) version of Python for Everybody. 
@@ -36,12 +40,17 @@ an IMS Learning Tools Interoperability® (LTI®)
 </ul>
 <?php } else { ?>
 <p>
-Hello and welcome to my site where you can work through my course materials related to
-my free <a href="book.php">Python for Everybody</a> text book.  You can take this course for a certificate
-as the 
-<a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody Specialization</a> on Coursera 
-or 
+<p>
+Hola y bienvenido a mi sitio donde puede trabajar con los materiales de mi curso relacionados con mi libro de texto gratuito
+(<a href="book.php">Python para todos</a>).
+<!--
+You can take this course for a certificate
+as the
+<a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody Specialization</a> on Coursera
+or
 <a href="https://www.edx.org/bio/charles-severance" target="_blank">Python for Everybody</a>(2 courses)  on edX.</p>
+-->
+</p>
 <p>
 You can use this web site many different ways:
 <ul class="list-group">
