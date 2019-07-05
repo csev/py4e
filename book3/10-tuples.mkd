@@ -430,54 +430,55 @@ Então agora a saída finalmente parece com o que queremos para nossa análise d
 
 O fato de essa análise e análise de dados complexos poderem ser feitos com um programa Python de 19 linhas e fácil de entender é uma das razões pelas quais o Python é uma boa escolha como uma linguagem para análise de dados.
 
-Using tuples as keys in dictionaries
+
+Usando tuplas como chaves em dicionários
 ------------------------------------
 
 \index{tuple!as key in dictionary}
 \index{hashable}
 
-Because tuples are *hashable* and lists are not, if we
-want to create a *composite* key to use in a dictionary
-we must use a tuple as the key.
+Como as tuplas são *mutáveis* e as listas não são, se nós
+desejamod criar uma chave *composta* para usar em um dicionário
+devemos usar uma tupla como chave.
 
-We would encounter a composite key if we wanted to create a telephone
-directory that maps from last-name, first-name pairs to telephone
-numbers. Assuming that we have defined the variables `last`,
-`first`, and `number`, we could write a dictionary
-assignment statement as follows:
+Nós encontraríamos uma chave composta se quiséssemos criar um telefone
+diretório que mapeia de pares de nome e sobrenome, para números de telefone.
+Assumindo que definimos as variáveis 'last`,`first` e` number`, poderíamos escrever
+um dicionário com a declaração de atribuição da seguinte forma:
 
 ~~~~ {.python}
-directory[last,first] = number
+diretório [último, primeiro] = número
 ~~~~
 
-The expression in brackets is a tuple. We could use tuple assignment in
-a `for` loop to traverse this dictionary.
+A expressão entre colchetes é uma tupla. Poderíamos usar a atribuição de tupla em
+uma repetição `for` para percorrer este dicionário.
 
 \index{tuple!in brackets}
 
 ~~~~ {.python}
-for last, first in directory:
-    print(first, last, directory[last,first])
+for último, primeiro in diretório:
+    imprimir (primeiro, último, diretório [último, primeiro])
 ~~~~
 
-This loop traverses the keys in `directory`, which are
-tuples. It assigns the elements of each tuple to `last` and
-`first`, then prints the name and corresponding telephone
-number.
+Este loop percorre as chaves em `directory`, que são
+tuplas. Ele designa os elementos de cada tupla para 'last` e
+`primeiro`, depois imprime o nome e o telefone correspondente
+número.
 
-Sequences: strings, lists, and tuples - Oh My!
+
+Sequências: strings, listas e tuplas - Oh meu Deus!
 --------------------------------------------
 
 \index{sequence}
 
-I have focused on lists of tuples, but almost all of the examples in
-this chapter also work with lists of lists, tuples of tuples, and tuples
-of lists. To avoid enumerating the possible combinations, it is
-sometimes easier to talk about sequences of sequences.
+Concentrei-me em listas de tuplas, mas quase todos os exemplos neste capítulo também 
+funcionam com listas de listas, tuplas de tuplas e tuplas de listas. Para evitar 
+enumerar as combinações possíveis, às vezes é mais fácil falar sobre sequências de 
+sequências.
 
-In many contexts, the different kinds of sequences (strings, lists, and
-tuples) can be used interchangeably. So how and why do you choose one
-over the others?
+Em muitos contextos, os diferentes tipos de sequências (strings, listas e tuplas) 
+podem ser usados de forma intercambiável. Então, como e por que você escolhe um 
+sobre os outros?
 
 \index{string}
 \index{list}
@@ -485,31 +486,29 @@ over the others?
 \index{mutability}
 \index{immutability}
 
-To start with the obvious, strings are more limited than other sequences
-because the elements have to be characters. They are also immutable. If
-you need the ability to change the characters in a string (as opposed to
-creating a new string), you might want to use a list of characters
-instead.
+Para começar com o óbvio, as strings são mais limitadas que outras sequências, 
+porque os elementos precisam ser caracteres. Eles também são imutáveis. Se você 
+precisar alterar os caracteres em uma string (em vez de criar uma nova string), 
+você deveria usar uma lista de caracteres.
 
-Lists are more common than tuples, mostly because they are mutable. But
-there are a few cases where you might prefer tuples:
+As listas são mais comuns que as tuplas, principalmente porque são mutáveis. Mas há 
+alguns casos em que você pode preferir tuplas:
 
-1.  In some contexts, like a `return` statement, it is
-    syntactically simpler to create a tuple than a list. In other
-    contexts, you might prefer a list.
+1.  Em alguns contextos, como uma instrução de `return`, é sintaticamente mais
+simples criar uma tupla do que uma lista. Em outros contextos, você pode preferir 
+uma lista.
 
-2.  If you want to use a sequence as a dictionary key, you have to use
-    an immutable type like a tuple or string.
+2.  Se você quiser usar uma sequência como uma chave de dicionário, você tem que 
+usar um tipo imutável como uma tupla ou uma string.
 
-3.  If you are passing a sequence as an argument to a function, using
-    tuples reduces the potential for unexpected behavior due to
-    aliasing.
+3.  Se você estiver passando uma sequência como um argumento para uma função, o uso 
+de tuplas reduz o potencial de comportamento inesperado devido ao 
+aliasing(serrilhamento).
 
-Because tuples are immutable, they don't provide methods like
-`sort` and `reverse`, which modify existing lists.
-However Python provides the built-in functions `sorted` and
-`reversed`, which take any sequence as a parameter and return
-a new sequence with the same elements in a different order.
+Como as tuplas são imutáveis, elas não fornecem métodos como `sort` e `reverse`, o 
+que modifica as listas existentes. No entanto, o Python fornece as funções internas 
+`sorted` and `reversed`, que usam qualquer sequência como parâmetro e retornam uma 
+nova seqüência com os mesmos elementos em uma ordem diferente.
 
 \index{sorted function}
 \index{function!sorted}
