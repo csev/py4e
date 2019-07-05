@@ -3,13 +3,12 @@
 $EXERCISES =
 Array(
 "hello" => Array (
-"qtext" => "Write a program that uses a <b>print</b> statement to say 'hello world'
-as shown in 'Desired Output'.",
+"qtext" => "Escriba un programa que use una declaración <b> imprimir </b> para decir 'hello world' como se muestra en 'Salida deseada'",
 "desired" => "hello world",
-"code" => '# the code below almost works
+"code" => '# el siguiente código casi funciona
 prinq("hello world")',
 "checks" => Array(
-"print" => "You must use a print statement within the loop."
+"print" => "Debe utilizar una declaración print dentro del bucle."
 )),
 
 "loop" => Array (

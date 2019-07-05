@@ -244,7 +244,7 @@ function load_files() {
         }
         window.console && console.log('finalcheck oldtext='+oldtext);
         if ( oldtext.indexOf('42<span') === 0 ) {
-            alert('Although 42 is the answer to the ultimate question of life, the universe, and everything, it appears not to be the correct answer for this assignment.');
+            alert('Aunque 42 es la respuesta a la pregunta fundamental de la vida, el universo y todo, parece no ser la respuesta correcta para esta tarea.');
         }
         $("#spinner").hide();
         var prog = document.getElementById("code").value;
@@ -341,7 +341,7 @@ function outf(text) {
                 continue;
             }
             if ( i >= deslines.length ) {
-                if ( !err ) newoutput += '<span style="color:red"> &larr; Extra output</span>';
+                if ( !err ) newoutput += '<span style="color:red"> &larr; Salida extra</span>';
                 err = true;
                 continue;
             }
@@ -351,13 +351,13 @@ function outf(text) {
                 dl2 = deslines2[i];
             }
             if ( dl != nl && dl2 != nl) {
-                if ( !err ) newoutput += '<span style="color:red"> &larr; Mismatch</span>';
+                if ( !err ) newoutput += '<span style="color:red"> &larr; Desajuste</span>';
                 err = true;
                 continue;
             }
         }
         if ( !err && deslines.length > newlines.length ) {
-            newoutput += '<span style="color:red"> &larr; Missing output</span>';
+            newoutput += '<span style="color:red"> &larr; Falta de salida</span>';
             err = true;
         }
         window.GLOBAL_ERROR = err;
@@ -373,7 +373,7 @@ function outf(text) {
         window.console && console.log('code');
         window.console && console.log(prog);
         if ( prog.length < 1 ) {
-            alert("You do not have any Python code");
+            alert("No tienes ningún código Python");
             return false;
         }
         $("#spinner").show();
@@ -423,7 +423,7 @@ function outf(text) {
     }
 
     function resetcode() {
-        if ( ! confirm("Are you sure you want to reset the code area to the original sample code?") ) return;
+        if ( ! confirm("¿Está seguro de que desea restablecer el área de código al código de muestra original?") ) return;
         if ( window.CM_EDITOR !== false ) window.CM_EDITOR.toTextArea();
         window.CM_EDITOR = false;
         document.getElementById("code").value = document.getElementById("resetcode").value;
@@ -527,47 +527,51 @@ if ( isset($LINK->title) ) {
       </div>
       <div class="modal-body">
 <?php if ( $EX === false ) { ?>
-        <p>This is an open-ended space for you to write and execute Python programs.
-        This page does not check our output and it does not send a grade back.  It is
-        here as a place for you to develop small programs and test things out.
+        <p>
+        Este es un espacio abierto para que escribas y ejecutes programas de Python.
+        Esta página no comprueba nuestra salida y no devuelve una calificación. Es
+        Aquí como un lugar para que desarrolles pequeños programas y pruebes cosas.
         </p>
 <?php if ( $RESULT->id !== false ) { ?>
         <p>
-        Whatever code you type will be saved and restored when you come back to this
-        page.</p>
+Cualquier código que escriba se guardará y se restaurará cuando vuelva a este
+        página.
+</p>
 <?php } ?>
         <p>
-        Remember that this is an in-browser Python emulator and as your programs get
-        more sophisticated, you may encounter situations where this Python emulator
-        gives <i>different</i> results than the real Python 
-        running on your laptop, desktop, or server.  It is intended to be used
-        for simple programs being developed by beginning programmers while they
-        are learning to program.
+Recuerda que este es un emulador de Python en el navegador y que tus programas se activan.
+        más sofisticado, puede encontrar situaciones donde este emulador de Python
+        da <i> resultados diferentes </i> a los de Python real
+        ejecutándose en su computadora portátil, computadora de escritorio o servidor. Está destinado a ser utilizado
+        para programas simples que están siendo desarrollados por programadores principiantes mientras
+        Están aprendiendo a programar.
         </p> <p>
-        There are three files loaded into this environment from the
-        <a href="http://www.py4e.com/" target="_blank">Python for Everybody</a>
-        web site and ready for you to open if you want to
-        do file processing: "mbox-short.txt", "romeo.txt", and "words.txt".
+        Hay tres archivos cargados en este entorno desde el
+        <a href="http://www.py4e.com/" target="_blank"> Python para todos </a>
+        sitio web y listo para que usted abra si desea
+        hacer el procesamiento de archivos: "mbox-short.txt", "romeo.txt" y "words.txt".
         </p>
 <?php } else { ?>
 <?php if ( isset($LTI['grade']) ) { ?>
-        <p style="border: blue 1px solid">Your current grade in this
-        exercise is <span id="curgrade"><?php echo($LTI['grade']); ?></span>.</p>
+        <p style="border: blue 1px solid">
+        Tu grado actual en este el ejercicio es
+        <span id="curgrade"><?php echo($LTI['grade']); ?></span>.</p>
 <?php } ?>
-        <p>Your goal in this auto grader is to write or paste in a program that implements the specifications
-        of the assignment.  You run the program by pressing "Check Code".
-        The output of your program is displayed in the "Your Output" section of the screen.
-        If your output does not match the "Desired Output", you will not get a score.
+        <p>
+Su objetivo en este auto clasificador es escribir o pegar en un programa que implementa las especificaciones
+        de la tarea. Ejecutas el programa presionando "Ejecuta el codigo".
+        La salida de su programa se muestra en la sección "Su salida" de la pantalla.
+        Si su salida no coincide con la "Salida deseada", no obtendrá una puntuación.
         </p><p>
-        Even if "Your Output" matches "Desired Output" exactly,
-        the autograder still does a few checks of your source code to make sure that you
-        implemented the assignment using the expected techniques from the chapter. These messages
-        can also help struggling students with clues as to what might be missing.
+Incluso si "Su salida" coincide exactamente con "Salida deseada",
+        el autograder todavía hace algunas verificaciones de su código fuente para asegurarse de que
+        Implementé la tarea utilizando las técnicas esperadas del capítulo. Estos mensajes
+        También puede ayudar a los estudiantes con dificultades con pistas sobre lo que podría faltar.
         </p>
         <p>
-        This autograder keeps your highest score, not your last score.  You either get full credit (1.0) or
-        no credit (0.0) when you run your code - but if you have a 1.0 score and you do a failed run,
-        your score will not be changed.
+Este autograder mantiene su puntuación más alta, no su última puntuación. O obtienes crédito completo (1.0) o
+        sin crédito (0.0) cuando ejecuta su código, pero si tiene una puntuación de 1.0 y ejecuta una ejecución fallida,
+        Tu puntuación no cambiará.
         </p>
 <?php } ?>
       </div>
@@ -590,9 +594,9 @@ if ( $dueDate->message ) {
 <?php
     if ( $EX !== false ) {
         if ( $python3 ) {
-            echo('<button onclick="runit()" class="btn btn-primary" type="button">Check Code</button>'."\n");
+            echo('<button onclick="runit()" class="btn btn-primary" type="button">Ejecuta el codigo</button>'."\n");
         } else {
-            echo('<button onclick="runit()" class="btn btn-warning" type="button">Check Code (Python 2)</button>'."\n");
+            echo('<button onclick="runit()" class="btn btn-warning" type="button">Ejecuta el codigo (Python 2)</button>'."\n");
         }
     } else {
         if ( $python3 ) {
@@ -602,7 +606,7 @@ if ( $dueDate->message ) {
         }
     }
     if ( strlen($CODE) > 0 ) {
-        echo('<button onclick="resetcode()" class="btn btn-default" type="button">Reset Code</button> ');
+        echo('<button onclick="resetcode()" class="btn btn-default" type="button">Reiniciar</button> ');
     }
     echo('<button onclick="$(\'#info\').modal();return false;" class="btn btn-default" type="button"><span class="glyphicon glyphicon-info-sign"></span></button>'."\n");
     if ( $USER->instructor ) {
@@ -620,11 +624,11 @@ if ( $dueDate->message ) {
     }
 ?>
 <img id="spinner" src="static/spinner.gif" style="vertical-align: middle;display: none">
-<span id="redo" style="color:red;display:none"> Please correct your code and re-run. </span>
-<span id="complete" style="color:green;display:none"> Execution complete. </span>
-<span id="gradegood" style="color:green;display:none"> Grade updated on server. </span>
-<span id="gradelow" style="color:green;display:none"> Grade updated on server. </span>
-<span id="gradebad" style="color:red;display:none"> Error storing grade on server. </span>
+<span id="redo" style="color:red;display:none"> Por favor, corrija su código y vuelva a ejecutar. </span>
+<span id="complete" style="color:green;display:none"> Ejecución completa. </span>
+<span id="gradegood" style="color:green;display:none"> Grado actualizado en el servidor. </span>
+<span id="gradelow" style="color:green;display:none"> Grado actualizado en el servidor. </span>
+<span id="gradebad" style="color:red;display:none"> Error al almacenar el grado en el servidor. </span>
 <br/>
 &nbsp;<br/>
 <div id="textarea" class="inputarea">
@@ -641,13 +645,13 @@ if ( $OLDCODE !== false ) {
 </div>
 <div id="outputs">
 <div id="left">
-<b>Your Output</b>
+<b>Su salida</b>
 <pre id="output" class="inputarea"></pre>
 </pre>
 </div>
 <?php if ( $EX !== false ) { ?>
 <div id="right">
-<b>Desired Output</b>
+<b>Salida deseada</b>
 <pre id="desired" class="inputarea"><?php echo($DESIRED); echo("\n"); ?></pre>
 <span id="desired2" style="display:none"><?php echo($DESIRED2); echo("\n"); ?></span>
 </div>
@@ -677,10 +681,10 @@ Setting:
     }
     echo(' | <a href="'.$editurl.'">'.$textval.'</a>. ');
 ?>
-This software is based on <a href="http://skulpt.org/" target="_blank">Skulpt</a>
-and <a href="http://codemirror.net/" target="_blank">CodeMirror</a>.
-The source code for this auto-grader is available on
-<a href="https://github.com/csev/tsugi" target="_blank">on GitHub</a>.
+Este software se basa en <a href="http://skulpt.org/" target="_blank"> Skulpt </a>
+y <a href="http://codemirror.net/" target="_blank"> CodeMirror </a>.
+El código fuente de este autonivelador está disponible en
+<a href="https://github.com/csev/tsugi" target="_blank"> en GitHub </a>.
 <textarea id="resetcode" cols="80" style="display:none">
 <?php   echo(htmlentities($CODE)); ?>
 </textarea>
