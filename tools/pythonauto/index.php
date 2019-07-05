@@ -528,28 +528,16 @@ if ( isset($LINK->title) ) {
       <div class="modal-body">
 <?php if ( $EX === false ) { ?>
         <p>
-        Este es un espacio abierto para que escribas y ejecutes programas de Python.
-        Esta página no comprueba nuestra salida y no devuelve una calificación. Es
-        Aquí como un lugar para que desarrolles pequeños programas y pruebes cosas.
+Este es un espacio abierto para escribir y ejecutar programas de Python. Esta página no revisa nuestra salida y no envía una calificación. Está aquí como espacio para que usted desarrolle programas pequeños y para probar las cosas.
         </p>
 <?php if ( $RESULT->id !== false ) { ?>
         <p>
-Cualquier código que escriba se guardará y se restaurará cuando vuelva a este
-        página.
+Cualquier código que usted teclee será guardado y restaurado cuando usted regresa a esta página.
 </p>
 <?php } ?>
         <p>
-Recuerda que este es un emulador de Python en el navegador y que tus programas se activan.
-        más sofisticado, puede encontrar situaciones donde este emulador de Python
-        da <i> resultados diferentes </i> a los de Python real
-        ejecutándose en su computadora portátil, computadora de escritorio o servidor. Está destinado a ser utilizado
-        para programas simples que están siendo desarrollados por programadores principiantes mientras
-        Están aprendiendo a programar.
-        </p> <p>
-        Hay tres archivos cargados en este entorno desde el
-        <a href="http://www.py4e.com/" target="_blank"> Python para todos </a>
-        sitio web y listo para que usted abra si desea
-        hacer el procesamiento de archivos: "mbox-short.txt", "romeo.txt" y "words.txt".
+Recuerde que es un imitador de Python dentro del navegador, y mientras sus programas se pongan más sofisticados, usted puede encontrar situaciones en las cuales este imitador de Python da diferentes resultados del Python verdadero funcionando en su computadora portátil, de escritorio o del servidor. Es intencionado para ser usado en programas simples siendo desarrollados por programadores principiantes mientras van aprendiendo a programar.
+        </p> 
         </p>
 <?php } else { ?>
 <?php if ( isset($LTI['grade']) ) { ?>
@@ -594,7 +582,7 @@ if ( $dueDate->message ) {
 <?php
     if ( $EX !== false ) {
         if ( $python3 ) {
-            echo('<button onclick="runit()" class="btn btn-primary" type="button">Ejecuta el codigo</button>'."\n");
+            echo('<button onclick="runit()" class="btn btn-primary" type="button">Ejecuta codigo</button>'."\n");
         } else {
             echo('<button onclick="runit()" class="btn btn-warning" type="button">Ejecuta el codigo (Python 2)</button>'."\n");
         }
