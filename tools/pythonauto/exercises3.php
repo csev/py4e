@@ -12,56 +12,56 @@ prinq("hello world")',
 )),
 
 "loop" => Array (
-"qtext" => "Write a program that uses a <b>for</b> loop and the built-in function
-<b>range</b> to write out three numbers as shown in 'Desired Output'.",
+    "qtext" => "Escriba un programa que use un bucle <b> for </b> y la función incorporada
+<b> range </b> para escribir tres números como se muestra en 'Salida deseada'",
 "desired" => "0
 1
 2",
 "code" => 'print(range(3))',
 "checks" => Array(
-"for" => "You must produce the numbers using a for loop.",
-"print" => "You must use a print statement within the loop.",
-"range" => "You should use the range function to generate the list of numbers on the for statement.",
-":" => "Your for statement should end with a colon (:) and the following line should be indented"
+"for" => "Debes producir los números usando un bucle for.",
+"print" => "Debe utilizar una declaración de impresión dentro del bucle.",
+"range" => "Debe usar la función de range para generar la lista de números en la declaración for.",
+":" => "Su declaración for debe terminar con dos colon (:) y la siguiente línea debe estar sangrada."
 )),
 
 "2.2" => Array (
-"qtext" => "<b>2.2</b> Write a program that uses <b>input</b>
+    "qtext" => "<b> 2.2 </ b> Write a program that uses <b> input </ b>
 to prompt a user for their name and then
-welcomes them.  Note that <b>input</b> will pop up a dialog box.
-Enter <b>Sarah</b> in the pop-up box when you are prompted so your
+welcomes them. Note that <b> input </ b> will pop up a dialog box.
+Enter <b> Sarah </ b> in the pop-up box when you are prompted so your
 output will match the desired output.",
 "desired" => "Hello Sarah",
-"code" => '# The code below almost works
+"code" => '# El siguiente código casi funciona
 
-name = input("Enter your name")
-print("Howdy")',
+name = input("Introduzca su nombre")
+print("Hola")',
 "checks" => Array(
-"input" => "You must prompt for the user's name using the input() function.",
-"!Sarah" => "You must actually prompt for the user's name",
-"print" => "You must use the print statement to print the line of output."
+"input" => "Debe solicitar el nombre del usuario usando la función input().",
+"!Sarah" => "Debes pedir el nombre del usuario.",
+"print" => "Debe utilizar la declaración de print para imprimir la línea de salida.."
 )),
 
 "2.3" => Array(
-"qtext" => "<b>2.3</b> Write a program to prompt the user for
-hours and rate per hour using input
-to compute gross pay.  Use 35 hours and a rate of 2.75 per hour to test the
-program (the pay should be 96.25).  You should use <b>input</b> to
-read a string and <b>float()</b> to convert the string to a number.
-Do not worry about error checking or bad user data.",
-"desired" => "Pay: 96.25",
+    "qtext" => "<b> 2.3 </b> Escriba un programa para solicitar al usuario
+Horas y tarifa por hora utilizando entrada.
+para calcular el salario bruto. Utilice 35 horas y una tasa de 2,75 por hora para probar el
+programa (la paga debe ser 96.25). Debes utilizar <b> input() </b> para
+lee una cadena y <b> float() </b> para convertir la cadena en un número.
+No se preocupe por la comprobación de errores o los datos de usuario incorrectos.",
+"desired" => "Paga: 96.25",
 "desired2" => "96.25",
-"code" => '# This first line is provided for you
+"code" => '# Esta primera línea se proporciona para usted
 
-hrs = input("Enter Hours:")',
+hrs = input("Introduce horas:")',
 "checks" => Array(
-"input" => "You must prompt the pay and rate using the input() function.",
-"print" => "You must use the print statement to print the output.",
-"float" => "You should use the built-in float() function to convert from a string to a float.",
-"*" => "To multiply the pay and rate after you read them use the '*' operator.",
-"!35" => "You should not include the input data in your source code. You must read the values for the rate and pay using input().",
-"!2.75" => "You should not include the input data in your source code. You must read the values for the rate and pay using input().",
-"!96.25" => "You must actually calculate the pay.")),
+"input" => "Debe solicitar el pago y la tasa utilizando la función input().",
+"print" => "Debe utilizar la función print() para imprimir la salida.",
+"float" => "Debe usar la función float () incorporada para convertir de una string a un float.",
+"*" => "Para multiplicar el pago y la tarifa después de leerlos, use el operador '*'.",
+"!35" => "No debe incluir los datos de entrada en su código fuente. Debe leer los valores de la tarifa y pagar usando input().",
+"!2.75" => "No debe incluir los datos de entrada en su código fuente. Debe leer los valores de la tarifa y pagar usando input().",
+"!96.25" => "Realmente debe calcular el pago.")),
 
 
 "3.1" => Array(
@@ -79,7 +79,7 @@ Do not worry about error checking the user input - assume the user types numbers
 h = float(hrs)',
 "checks" => Array(
 "input" => "You must prompt the pay and rate using the input() function.",
-"print" => "You must use the print statement to print the output.",
+"print" => "You must use the print() function to print the output.",
 "if" => "You should use an if statement to decide to to the overtime computation or not.",
 "float" => "You should use the built-in float() function to convert from a string to a float.",
 "!45" => "You must read the data using input() and then convert it. The number '45' should not appear in your program.",
@@ -104,7 +104,7 @@ For the test, enter a score of 0.85.
 "checks" => Array(
 "input" => "You must prompt for the score using the input() function.",
 "float" => "You should use the built-in float() function to convert from a string to a float.",
-"print" => "You must use the print statement to print the output.",
+"print" => "You must use the print() function to print the output.",
 "if" => "You should use an if statement to check the value of the score.",
 "elif" => "You should use an elif statement to check the value of the score.")
 ),
@@ -134,7 +134,7 @@ p = computepay(10,20)
 print("Pay",p)',
 "checks" => Array(
 "input" => "You must prompt the pay and rate using the input() function.",
-"print" => "You must use the print statement to print the output.",
+"print" => "You must use the print() function to print the output.",
 "!45" => "You must prompt for the data.",
 "!10.5" => "You must prompt for the data.",
 "if" => "You should use an if statement to decide to to the overtime computation or not.",
@@ -166,7 +166,7 @@ while True:
 print("Maximum", largest)',
 "checks" => Array(
 "input" => "You must prompt for the numbers using the input() function.",
-"print" => "You must use the print statement to print the output.",
+"print" => "You must use the print() function to print the output.",
 "while" => "You should use a while statement to read the numbers.",
 "int" => "You should use the int() function to convert from a string to an integer.",
 "! 2" => "You should actually compute the maximum and minimum.",
@@ -249,7 +249,7 @@ print(text.upper())
 "checks" => Array(
 "input" => "You must prompt for the file name using the input() function.",
 "open" => "You need to use open() to open the file.",
-"print" => "You must use the print statement to print the lines.",
+"print" => "You must use the print() function to print the lines.",
 "strip" => "You should use strip() or rstrip() to avoid double newlines.  You may need to scroll down to see a mis-match of the output.",
 "upper" => "You should use the upper() function to convert the lines to upper case.")
 ),
@@ -508,7 +508,7 @@ Sample output is below.',
 "desired" => "42",
 "code" => '',
 "checks" => Array(
-"print" => "By now you should know that a print statement would be helpful here.",
+"print" => "By now you should know that a print() function would be helpful here.",
 "*" => "I think that multiplication is involved..."
 )),
 
