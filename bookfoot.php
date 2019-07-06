@@ -31,11 +31,11 @@ function onSelect() {
 </script>    
 <div style="float:right">
 <select id="chapters" onchange="onSelect();">
-  <option <?= x_sel("01-intro") ?>>Chapter 1: Introduction</option>
+  <option <?= x_sel("01-intro") ?>>Chapter 1: Introducción</option>
   <option <?= x_sel("02-variables") ?>>Chapter 2: Variables</option>
-  <option <?= x_sel("03-conditional") ?>>Chapter 3: Conditionals</option>
-  <option <?= x_sel("04-functions") ?>>Chapter 4: Functions</option>
-  <option <?= x_sel("05-iterations") ?>>Chapter 5: Iterations</option>
+  <option <?= x_sel("03-conditional") ?>>Chapter 3: Ejecución condicional</option>
+  <option <?= x_sel("04-functions") ?>>Chapter 4: Funciones</option>
+  <option <?= x_sel("05-iterations") ?>>Chapter 5: Iteración</option>
   <option <?= x_sel("06-strings") ?>>Chapter 6: Strings</option>
   <option <?= x_sel("07-files") ?>>Chapter 7: Files</option>
   <option <?= x_sel("08-lists") ?>>Chapter 8: Lists</option>
