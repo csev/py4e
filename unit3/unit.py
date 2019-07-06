@@ -34,6 +34,8 @@ toskip = [
     'argtest.py', # argument passing - no need to test
     'gitpulls.py', # No auth codes
     'georeq.py',
+    'copytildone1.py',  # Needs input
+    'copytildone2.py',  # Needs input
     'urllink3.py' # might run forever
 ]
 

@@ -1,28 +1,28 @@
 
-Iteration
+Iteración
 =========
 
-\index{iteration}
+\index{iteración}
 
-Updating variables
-------------------
+Actualización de variables {#update}
+--------------------------
 
-\index{update}
-\index{variable!updating}
+\index{actualización}
+\index{variable!actualización}
 
-A common pattern in assignment statements is an assignment statement
-that updates a variable, where the new value of the variable depends on
-the old.
+Uno de los usos habituales de las sentencia de asignación consiste en
+realizar una actualización sobre una variable – en la cual el valor
+nuevo de esa variable depende del antiguo.
 
 ~~~~ {.python}
 x = x + 1
 ~~~~
 
-This means "get the current value of `x`, add 1, and then
-update `x` with the new value."
+Esto quiere decir "‘toma el valor actual de `x`, añádele 1, y
+luego actualiza `x` con el nuevo valor''.
 
-If you try to update a variable that doesn't exist, you get an error,
-because Python evaluates the right side before it assigns a value to
+Si intentas actualizar una variable que no existe, obtendrás un error,
+ya que Python evalúa el lado derecho antes de asignar el valor a
 `x`:
 
 ~~~~ {.python}
@@ -30,521 +30,567 @@ because Python evaluates the right side before it assigns a value to
 NameError: name 'x' is not defined
 ~~~~
 
-Before you can update a variable, you have to
-*initialize* it, usually with a simple assignment:
+Antes de que puedas actualizar una variable, debes
+*inicializarla*, normalmente mediante una simple
+asignación:
 
-\index{initialization (before update)}
+\index{inicialización (antes de actualizar)}
 
 ~~~~ {.python}
 >>> x = 0
 >>> x = x + 1
 ~~~~
 
-Updating a variable by adding 1 is called an *increment*;
-subtracting 1 is called a *decrement*.
+Actualizar una variable añadiéndole 1 se denomina
+*incrementar*; restarle 1 recibe el nombre de
+*decrementar* (o disminuir).
 
-\index{increment}
-\index{decrement}
+\index{incrementar}
+\index{decrementar}
 
-The `while` statement
---------------------------------
+La sentencia `while`
+--------------------
 
-\index{statement!while}
-\index{while loop}
-\index{loop!while}
-\index{iteration}
+\index{while, sentencia}
+\index{sentencia!while}
+\index{while, bucle}
+\index{bucle!while}
+\index{iteración}
 
-Computers are often used to automate repetitive tasks. Repeating
-identical or similar tasks without making errors is something that
-computers do well and people do poorly. Because iteration is so common,
-Python provides several language features to make it easier.
+Los PCs se suelen utilizar a menudo para automatizar tareas repetitivas.
+Repetir tareas idénticas o muy similares sin cometer errores es algo que
+a las máquinas se les da bien y en cambio a las personas no. Como las
+iteraciones resultan tan habituales, Python proporciona varias
+características en su lenguaje para hacerlas más sencillas.
 
-One form of iteration in Python is the `while` statement.
-Here is a simple program that counts down from five and then says
-"Blastoff!".
+Una forma de iteración en Python es la sentencia `while`. He
+aquí un programa sencillo que cuenta hacia atrás desde cinco y luego
+dice "¡Despegue!".
 
 ~~~~ {.python}
 n = 5
 while n > 0:
     print(n)
     n = n - 1
-print('Blastoff!')
+print('¡Despegue!')
 ~~~~
 
-You can almost read the `while` statement as if it were
-English. It means, "While `n` is greater than 0, display the
-value of `n` and then reduce the value of `n` by
-1. When you get to 0, exit the `while` statement and display
-the word `Blastoff!`"
+Casi se puede leer la sentencia `while` como si estuviera
+escrita en inglés. Significa, "Mientras `n` sea mayor que 0,
+muestra el valor de `n` y luego reduce el valor de
+`n` en 1 unidad. Cuando llegues a 0, sal de la sentencia
+`while` y muestra la palabra `¡Despegue!`"
 
-\index{flow of execution}
+\index{flujo de ejecución}
 
-More formally, here is the flow of execution for a `while`
-statement:
+Éste es el flujo de ejecución de la sentencia `while`,
+explicado de un modo más formal:
 
-1.  Evaluate the condition, yielding `True` or
-    `False`.
+1.  Se evalúa la condición, obteniendo `Verdadero` or
+    `Falso`.
 
-2.  If the condition is false, exit the `while` statement and
-    continue execution at the next statement.
+2.  Si la condición es falsa, se sale de la sentencia `while`
+    y se continúa la ejecución en la siguiente sentencia.
 
-3.  If the condition is true, execute the body and then go back to
-    step 1.
+3.  Si la condición es verdadera, se ejecuta el cuerpo del
+    `while` y luego se vuelve al paso 1.
 
-This type of flow is called a *loop* because the third
-step loops back around to the top. We call each time we execute the body
-of the loop an *iteration*. For the above loop, we would
-say, "It had five iterations", which means that the body of the loop was
-executed five times.
+Este tipo de flujo recibe el nombre de *bucle*, ya que el
+tercer paso enlaza de nuevo con el primero. Cada vez que se ejecuta el
+cuerpo del bucle se dice que realizamos una *iteración*.
+Para el bucle anterior, podríamos decir que "ha tenido cinco
+iteraciones", lo que significa que el cuerpo del bucle se ha ejecutado
+cinco veces.
 
-\index{condition}
-\index{loop}
-\index{body}
+\index{condición}
+\index{bucle}
+\index{cuerpo}
 
-The body of the loop should change the value of one or more variables so
-that eventually the condition becomes false and the loop terminates. We
-call the variable that changes each time the loop executes and controls
-when the loop finishes the *iteration variable*. If there
-is no iteration variable, the loop will repeat forever, resulting in an
-*infinite loop*.
+El cuerpo del bucle debe cambiar el valor de una o más variables, de
+modo que la condición pueda en algún momento evaluarse como falsa y el
+bucle termine. La variable que cambia cada vez que el bucle se ejecuta y
+controla cuándo termina éste, recibe el nombre de *variable de
+iteración*. Si no hay variable de iteración, el bucle se
+repetirá para siempre, resultando así un *bucle
+infinito*.
 
-Infinite loops
---------------
+Bucles infinitos
+----------------
 
-An endless source of amusement for programmers is the observation that
-the directions on shampoo, "Lather, rinse, repeat," are an infinite loop
-because there is no *iteration variable* telling you how
-many times to execute the loop.
+Una fuente de diversión sin fin para los programadores es la
+constatación de que las instrucciones del champú: "Enjabone, aclare,
+repita", son un bucle infinito, ya que no hay una *variable de
+iteración* que diga cuántas veces debe ejecutarse el proceso.
 
-\index{infinite loop}
-\index{loop!infinite}
+\index{infinito, bucle}
+\index{bucle!infinito}
 
-In the case of `countdown`, we can prove that the loop
-terminates because we know that the value of `n` is finite,
-and we can see that the value of `n` gets smaller each time
-through the loop, so eventually we have to get to 0. Other times a loop
-is obviously infinite because it has no iteration variable at all.
+En el caso de una `cuenta atrás`, podemos verificar que el
+bucle termina, ya que sabemos que el valor de `n` es finito,
+y podemos ver que ese valor se va haciendo más pequeño cada vez que se
+repite el bucle, de modo que en algún momento llegará a 0. Otras veces
+un bucle es obviamente infinito, porque no tiene ninguna variable de
+iteración.
 
-\index{break statement}
-\index{statement!break}
+"Bucles infinitos" y `break`
+----------------------------
 
-Sometimes you don't know it's time to end a loop until you get half way
-through the body. In that case you can write an infinite loop on purpose
-and then use the `break` statement to jump out of the loop.
+\index{break, sentencia}
+\index{sentencia!break}
 
-This loop is obviously an *infinite loop* because the
-logical expression on the `while` statement is simply the
-logical constant `True`:
+A veces no se sabe si hay que terminar un bucle hasta que se ha
+recorrido la mitad del cuerpo del mismo. En ese caso se puede crear un
+bucle infinito a propósito y usar la sentencia `break` para
+salir fuera de él cuando se desee.
+
+El bucle siguiente es, obviamente, un *bucle infinito*,
+porque la expresión lógica de la sentencia `while` es
+simplemente la constante lógica `True (verdadero)`;
 
 ~~~~ {.python}
 n = 10
 while True:
     print(n, end=' ')
     n = n - 1
-print('Done!')
+print('¡Terminado!')
 ~~~~
 
-If you make the mistake and run this code, you will learn quickly how to
-stop a runaway Python process on your system or find where the power-off
-button is on your computer. This program will run forever or until your
-battery runs out because the logical expression at the top of the loop
-is always true by virtue of the fact that the expression is the constant
-value `True`.
+Si cometes el error de ejecutar este código, aprenderás rápidamente cómo
+detener un proceso de Python bloqueado en el sistema, o tendrás que
+localizar dónde se encuentra el botón de apagado de tu equipo. Este
+programa funcionará para siempre, o hasta que la batería del equipo se
+termine, ya que la expresión lógica al principio del bucle es siempre
+cierta, en virtud del hecho de que esa expresión es precisamente el
+valor constante `True`.
 
-While this is a dysfunctional infinite loop, we can still use this
-pattern to build useful loops as long as we carefully add code to the
-body of the loop to explicitly exit the loop using `break`
-when we have reached the exit condition.
+A pesar de que en este caso se trata de un bucle infinito inútil, se
+puede usar ese diseño para construir bucles útiles, siempre que se tenga
+la precaución de añadir código en el cuerpo del bucle para salir
+explícitamente, usando `break` cuando se haya alcanzado la
+condición de salida.
 
-For example, suppose you want to take input from the user until they
-type `done`. You could write:
+Por ejemplo, supón que quieres recoger entradas de texto del usuario
+hasta que éste escriba `fin`. Podrías escribir:
 
 \VerbatimInput{../code3/copytildone1.py}
 
-The loop condition is `True`, which is always true, so the
-loop runs repeatedly until it hits the break statement.
+La condición del bucle es `True`, lo cual es verdadero
+siempre, así que el bucle se repetirá hasta que se ejecute la sentencia
+break.
 
-Each time through, it prompts the user with an angle bracket. If the
-user types `done`, the `break` statement exits the
-loop. Otherwise the program echoes whatever the user types and goes back
-to the top of the loop. Here's a sample run:
+Cada vez que se entre en el bucle, se pedirá una entrada al usuario. Si
+el usuario escribe `fin`, la sentencia `break`
+hará que se salga del bucle. En cualquier otro caso, el programa
+repetirá cualquier cosa que el usuario escriba y volverá al principio
+del bucle. Éste es un ejemplo de su funcionamiento:
 
 ~~~~
-> hello there
-hello there
-> finished
-finished
-> done
-Done!
+> hola a todos
+hola a todos
+> he terminado
+he terminado
+> fin
+¡Terminado!
 ~~~~
 
-This way of writing `while` loops is common because you can
-check the condition anywhere in the loop (not just at the top) and you
-can express the stop condition affirmatively ("stop when this happens")
-rather than negatively ("keep going until that happens.").
+Este modo de escribir bucles `while` es habitual, ya que así
+se puede comprobar la condición en cualquier punto del bucle (no sólo al
+principio), y se puede expresar la condición de parada afirmativamente
+("detente cuando ocurra..."), en vez de tener que hacerlo con lógica
+negativa ("sigue haciéndolo hasta que ocurra...").
 
-Finishing iterations with `continue`
+Finalizar iteraciones con `continue`
 -----------------------------------------------
 
-\index{continue statement}
-\index{statement!continue}
+\index{continue, sentencia}
+\index{sentencia!continue}
 
-Sometimes you are in an iteration of a loop and want to finish the
-current iteration and immediately jump to the next iteration. In that
-case you can use the `continue` statement to skip to the next
-iteration without finishing the body of the loop for the current
-iteration.
+Algunas veces, estando dentro de un bucle se necesita terminar con la
+iteración actual y saltar a la siguiente de forma inmediata. En ese caso
+se puede utilizar la sentencia `continue` para pasar a la
+siguiente iteración sin terminar la ejecución del cuerpo del bucle para
+la actual.
 
-Here is an example of a loop that copies its input until the user types
-"done", but treats lines that start with the hash character as lines not
-to be printed (kind of like Python comments).
+A continuación se muestra un ejemplo de un bucle que repite lo que
+recibe como entrada hasta que el usuario escribe "fin", pero trata las
+líneas que empiezan por el carácter almohadilla como líneas que no deben
+mostrarse en pantalla (algo parecido a lo que hace Python con los
+comentarios).
 
 \VerbatimInput{../code3/copytildone2.py}
 
-Here is a sample run of this new program with `continue`
-added.
+He aquí una ejecución de ejemplo de ese nuevo programa con la sentencia
+`continue` añadida.
 
-~~~~ 
-> hello there
-hello there
-> # don't print this
-> print this!
-print this!
-> done
-Done!
+~~~~
+> hola a todos
+hola a todos
+> # no imprimas esto
+> ¡imprime esto!
+¡imprime esto!
+> fin
+¡Terminado!
 ~~~~
 
-All the lines are printed except the one that starts with the hash sign
-because when the `continue` is executed, it ends the current
-iteration and jumps back to the `while` statement to start
-the next iteration, thus skipping the `print` statement.
+Todas las líneas se imprimen en pantalla, excepto la que comienza con el
+símbolo de almohadilla, ya que en ese caso se ejecuta
+`continue`, finaliza la iteración actual y salta de vuelta a
+la sentencia `while` para comenzar la siguiente iteración, de
+modo que que se omite la sentencia `print`.
 
-Definite loops using `for` 
---------------------------------------
+Bucles definidos usando `for`
+-----------------------------------------
 
-\index{for statement}
-\index{statement!for}
+\index{for, sentencia}
+\index{sentencia!for}
 
-Sometimes we want to loop through a *set* of things such
-as a list of words, the lines in a file, or a list of numbers. When we
-have a list of things to loop through, we can construct a *definite*
-loop using a `for` statement. We call the `while`
-statement an *indefinite* loop because it simply loops until some
-condition becomes `False`, whereas the `for` loop
-is looping through a known set of items so it runs through as many
-iterations as there are items in the set.
+A veces se desea repetir un bucle a través de un
+*conjunto* de cosas, como una lista de palabras, las
+líneas de un archivo, o una lista de números. Cuando se tiene una lista
+de cosas para recorrer, se puede construir un bucle *definido* usando
+una sentencia `for`. A la sentencia `while` se la
+llama un bucle *indefinido*, porque simplemente se repite hasta que
+cierta condición se hace `Falsa`, mientras que el bucle
+`for` se repite a través de un conjunto conocido de
+elementos, de modo que ejecuta tantas iteraciones como elementos hay en
+el conjunto.
 
-The syntax of a `for` loop is similar to the
-`while` loop in that there is a `for` statement
-and a loop body:
+La sintaxis de un bucle `for` es similar a la del bucle
+`while`, en ella hay una sentencia `for` y un
+cuerpo que se repite:
 
 ~~~~ {.python}
-friends = ['Joseph', 'Glenn', 'Sally']
-for friend in friends:
-    print('Happy New Year:', friend)
-print('Done!')
+amigos = ['Joseph', 'Glenn', 'Sally']
+for amigo in amigos:
+    print('Feliz año nuevo:', amigo)
+print('¡Terminado!')
 ~~~~
 
-In Python terms, the variable `friends` is a list^[We will examine lists 
-in more detail in a later chapter.] of
-three strings and the `for` loop goes through the list and
-executes the body once for each of the three strings in the list
-resulting in this output:
+En términos de Python, la variable `amigos` es una lista[^51]
+de tres cadenas y el bucle `for` se mueve recorriendo la
+lista y ejecuta su cuerpo una vez para cada una de las tres cadenas en
+la lista, produciendo esta salida:
 
 ~~~~ {.python}
-Happy New Year: Joseph
-Happy New Year: Glenn
-Happy New Year: Sally
-Done!
+Feliz año nuevo: Joseph
+Feliz año nuevo: Glenn
+Feliz año nuevo: Sally
+¡Terminado!
 ~~~~
 
-Translating this `for` loop to English is not as direct as
-the `while`, but if you think of friends as a
-*set*, it goes like this: "Run the statements in the body
-of the for loop once for each friend *in* the set named friends."
+La traducción de este bucle `for` al español no es tan
+directa como en el caso del `while`, pero si piensas en los
+amigos como un *conjunto*, sería algo así como: "Ejecuta
+las sentencias en el cuerpo del bucle una vez para cada amigo que esté
+*en (in)* el conjunto llamado amigos."
 
-Looking at the `for` loop, *for* and
-*in* are reserved Python keywords, and
-`friend` and `friends` are variables.
+Revisando el bucle, `for`, *for* e
+*in* son palabras reservadas de Python, mientras que
+`amigo` y `amigos` son variables.
 
 ~~~~ {.python}
-for friend in friends:
-    print('Happy New Year:', friend)
+for amigo in amigos:
+    print('Feliz año nuevo::', amigo)
 ~~~~
 
-In particular, `friend` is the *iteration
-variable* for the for loop. The variable `friend`
-changes for each iteration of the loop and controls when the
-`for` loop completes. The *iteration variable*
-steps successively through the three strings stored in the
-`friends` variable.
+En concreto, `amigo` es la *variable de
+iteración* para el bucle for. La variable `amigo`
+cambia para cada iteración del bucle y controla cuándo se termina el
+bucle `for`. La *variable de iteracion* se
+desplaza sucesivamente a través de las tres cadenas almacenadas en la
+variable `amigos`.
 
-Loop patterns
--------------
+Diseños de bucles
+-----------------
 
-Often we use a `for` or `while` loop to go through
-a list of items or the contents of a file and we are looking for
-something such as the largest or smallest value of the data we scan
-through.
+A menudo se usa un bucle `for` o `while` para
+movernos a través de una lista de elementos o el contenido de un archivo
+y se busca algo, como el valor más grande o el más pequeño de los datos
+que estamos revisando.
 
-These loops are generally constructed by:
+Los bucles generalmente se construyen así:
 
--   Initializing one or more variables before the loop starts
+-   Se inicializan una o más variables antes de que el bucle comience
 
--   Performing some computation on each item in the loop body, possibly
-    changing the variables in the body of the loop
+-   Se realiza alguna operación con cada elemento en el cuerpo del
+    bucle, posiblemente cambiando las variables dentro de ese cuerpo.
 
--   Looking at the resulting variables when the loop completes
+-   Se revisan las variables resultantes cuando el bucle se completa
 
-We will use a list of numbers to demonstrate the concepts and
-construction of these loop patterns.
+Usaremos ahora una lista de números para demostrar los conceptos y
+construcción de estos diseños de bucles.
 
-### Counting and summing loops
+### Bucles de recuento y suma
 
-For example, to count the number of items in a list, we would write the
-following `for` loop:
+Por ejemplo, para contar el número de elementos en una lista, podemos
+escribir el siguiente bucle `for`:
 
 ~~~~ {.python}
-count = 0
-for itervar in [3, 41, 12, 9, 74, 15]:
-    count = count + 1
-print('Count: ', count)
+contador = 0
+for valor in [3, 41, 12, 9, 74, 15]:
+    contador = contador + 1
+print('Num. elementos: ', contador)
 ~~~~
 
-We set the variable `count` to zero before the loop starts,
-then we write a `for` loop to run through the list of
-numbers. Our *iteration* variable is named
-`itervar` and while we do not use `itervar` in the
-loop, it does control the loop and cause the loop body to be executed
-once for each of the values in the list.
+Ajustamos la variable `contador` a cero antes de que el bucle
+comience, después escribimos un bucle `for` para movernos a
+través de la lista de números. Nuestra variable de
+*iteración* se llama `valor`, y dado que no
+usamos `valor` dentro del bucle, lo único que hace es
+controlar el bucle y hacer que el cuerpo del mismo sea ejecutado una vez
+para cada uno de los valores de la lista.
 
-In the body of the loop, we add 1 to the current value of
-`count` for each of the values in the list. While the loop is
-executing, the value of `count` is the number of values we
-have seen "so far".
+En el cuerpo del bucle, añadimos 1 al valor actual de
+`contador` para cada uno de los valores de la lista. Mientras
+el bucle se está ejecutando, el valor de `contador` es la
+cantidad de valores que se hayan visto "hasta ese momento".
 
-Once the loop completes, the value of `count` is the total
-number of items. The total number "falls in our lap" at the end of the
-loop. We construct the loop so that we have what we want when the loop
-finishes.
+Una vez el bucle se completa, el valor de `contador` es el
+número total de elementos. El número total "cae en nuestro poder" al
+final del bucle. Se construye el bucle de modo que obtengamos lo que
+queremos cuando éste termina.
 
-Another similar loop that computes the total of a set of numbers is as
-follows:
+Otro bucle similar, que calcula el total de un conjunto de números, se
+muestra a continuación:
 
 ~~~~ {.python}
 total = 0
-for itervar in [3, 41, 12, 9, 74, 15]:
-    total = total + itervar
+for valor in [3, 41, 12, 9, 74, 15]:
+    total = total + valor
 print('Total: ', total)
 ~~~~
 
-In this loop we *do* use the *iteration variable*.
-Instead of simply adding one to the `count` as in the
-previous loop, we add the actual number (3, 41, 12, etc.) to the running
-total during each loop iteration. If you think about the variable
-`total`, it contains the "running total of the values so
-far". So before the loop starts `total` is zero because we
-have not yet seen any values, during the loop `total` is the
-running total, and at the end of the loop `total` is the
-overall total of all the values in the list.
+En este bucle, *sí* utilizamos la *variable de
+iteración*. En vez de añadir simplemente uno a
+`contador` como en el bucle previo, ahora durante cada
+iteración del bucle añadimos el número actual (3, 41, 12, etc.) al total
+en ese momento. Si piensas en la variable `total`, ésta
+contiene la "suma parcial de valores hasta ese momento". Así que antes
+de que el bucle comience, `total` es cero, porque aún no se
+ha examinado ningún valor. Durante el bucle, `total` es la
+suma parcial, y al final del bucle, `total` es la suma total
+definitiva de todos los valores de la lista.
 
-As the loop executes, `total` accumulates the sum of the
-elements; a variable used this way is sometimes called an
-*accumulator*.
+Cuando el bucle se ejecuta, `total` acumula la suma de los
+elementos; una variable que se usa de este modo recibe a veces el nombre
+de *acumulador*.
 
-\index{accumulator!sum}
+\index{acumulador!sum}
 
-Neither the counting loop nor the summing loop are particularly useful
-in practice because there are built-in functions `len()` and
-`sum()` that compute the number of items in a list and the
-total of the items in the list respectively.
+Ni el bucle que cuenta los elementos ni el que los suma resultan
+particularmente útiles en la práctica, dado que existen las funciones
+internas `len()` y `sum()` que cuentan el número
+de elementos de una lista y el total de elementos en la misma
+respectivamente.
 
-### Maximum and minimum loops
+### Bucles de máximos y mínimos
 
-\index{loop!maximum}
-\index{loop!minimum}
-\index{None special value}
-\index{special value!None}
+\index{bucle!máximo}
+\index{bucle!mínimo}
+\index{None, valor especial}
+\index{valor especial!None}
 
-To find the largest value in a list or sequence, we
-construct the following loop:
-
-~~~~ {.python}
-largest = None
-print('Before:', largest)
-for itervar in [3, 41, 12, 9, 74, 15]:
-    if largest is None or itervar > largest :
-        largest = itervar
-    print('Loop:', itervar, largest)
-print('Largest:', largest)
-~~~~
-
-When the program executes, the output is as follows:
-
-~~~~
-Before: None
-Loop: 3 3
-Loop: 41 41
-Loop: 12 41
-Loop: 9 41
-Loop: 74 74
-Loop: 15 74
-Largest: 74
-~~~~
-
-The variable `largest` is best thought of as the "largest
-value we have seen so far". Before the loop, we set `largest`
-to the constant `None`. `None` is a special
-constant value which we can store in a variable to mark the variable as
-"empty".
-
-Before the loop starts, the largest value we have seen so far is
-`None` since we have not yet seen any values. While the loop
-is executing, if `largest` is `None` then we take
-the first value we see as the largest so far. You can see in the first
-iteration when the value of `itervar` is 3, since
-`largest` is `None`, we immediately set
-`largest` to be 3.
-
-After the first iteration, `largest` is no longer
-`None`, so the second part of the compound logical expression
-that checks `itervar > largest` triggers only when we see a
-value that is larger than the "largest so far". When we see a new "even
-larger" value we take that new value for `largest`. You can
-see in the program output that `largest` progresses from 3 to
-41 to 74.
-
-At the end of the loop, we have scanned all of the values and the
-variable `largest` now does contain the largest value in the
-list.
-
-To compute the smallest number, the code is very similar with one small
-change:
+\[maximumloop\] Para encontrar el valor mayor de una lista o secuencia,
+construimos el bucle siguiente:
 
 ~~~~ {.python}
-smallest = None
-print('Before:', smallest)
-for itervar in [3, 41, 12, 9, 74, 15]:
-    if smallest is None or itervar < smallest:
-        smallest = itervar
-    print('Loop:', itervar, smallest)
-print('Smallest:', smallest)
+mayor = None
+print('Antes:', mayor)
+for valor in [3, 41, 12, 9, 74, 15]:
+    if mayor is None or valor > mayor :
+        mayor = valor
+    print('Bucle:', valor, mayor)
+print('Mayor:', mayor)
 ~~~~
 
-Again, `smallest` is the "smallest so far" before, during,
-and after the loop executes. When the loop has completed,
-`smallest` contains the minimum value in the list.
+Cuando se ejecuta el programa, se obtiene la siguiente salida:
 
-Again as in counting and summing, the built-in functions
-`max()` and `min()` make writing these exact loops
-unnecessary.
+~~~~
+Antes: None
+Bucle: 3 3
+Bucle: 41 41
+Bucle: 12 41
+Bucle: 9 41
+Bucle: 74 74
+Bucle: 15 74
+Mayor: 74
+~~~~
 
-The following is a simple version of the Python built-in
-`min()` function:
+Debemos pensar en la variable `mayor` como el "mayor valor
+visto hasta ese momento". Antes del bucle, asignamos a
+`mayor` el valor `None`. `None` es un
+valor constante especial que se puede almacenar en una variable para
+indicar que la variable está "vacía".
+
+Antes de que el bucle comience, el mayor valor visto hasta entonces es
+`None`, dado que no se ha visto aún ningún valor. Durante la
+ejecución del bucle, si `mayor` es `None`,
+entonces tomamos el primer valor que tenemos como el mayor hasta
+entonces. Se puede ver en la primera iteración, cuando el valor de
+`valor` es 3, mientras que `mayor` es
+`None`, inmediatamente hacemos que `mayor` pase a
+ser 3.
+
+Tras la primera iteración, `mayor` ya no es
+`None`, así que la segunda parte de la expresión lógica
+compuesta que comprueba si `valor &gt; mayor` se activará
+sólo cuando encontremos un valor que sea mayor que el "mayor hasta ese
+momento". Cuando encontramos un nuevo valor "mayor aún", tomamos ese
+nuevo valor para `mayor`. Se puede ver en la salida del
+programa que `mayor` pasa desde 3 a 41 y luego a 74.
+
+Al final del bucle, se habrán revisado todos los valores y la variable
+`mayor` contendrá entonces el valor más grande de la lista.
+
+Para calcular el número más pequeño, el código es muy similar con un
+pequeño cambio:
 
 ~~~~ {.python}
-def min(values):
-    smallest = None
-    for value in values:
-        if smallest is None or value < smallest:
-            smallest = value
-    return smallest
+print('Antes:', menor)
+for valor in [3, 41, 12, 9, 74, 15]:
+    if menor is None or valor < menor:
+        menor = valor
+    print('Bucle:', valor, menor)
+print('Menor:', menor)
 ~~~~
 
-In the function version of the smallest code, we removed all of the
-`print` statements so as to be equivalent to the
-`min` function which is already built in to Python.
+De nuevo, `menor` es el "menor hasta ese momento" antes,
+durante y después de que el bucle se ejecute. Cuando el bucle se ha
+completado, `menor` contendrá el valor mínimo de la lista
 
-Debugging
----------
+También como en el caso del número de elementos y de la suma, las
+funciones internas `max()` y `min()` convierten la
+escritura de este tipo de bucles en innecesaria.
 
-As you start writing bigger programs, you might find yourself spending
-more time debugging. More code means more chances to make an error and
-more places for bugs to hide.
+Lo siguiente es una versión simple de la función interna de Python
+`min()`:
 
-\index{debugging!by bisection}
-\index{bisection, debugging by}
+~~~~ {.python}
+def min(valores):
+    menor = None
+    for valor in valores:
+        if menor is None or valor < menor:
+            menor = valor
+    return menor
+~~~~
 
-One way to cut your debugging time is "debugging by bisection." For
-example, if there are 100 lines in your program and you check them one
-at a time, it would take 100 steps.
+En esta versión de la función para calcular el mínimo, hemos eliminado
+las sentencias `print`, de modo que sea equivalente a la
+función `min`, que ya está incorporada dentro de Python.
 
-Instead, try to break the problem in half. Look at the middle of the
-program, or near it, for an intermediate value you can check. Add a
-`print` statement (or something else that has a verifiable
-effect) and run the program.
+Depuración
+----------
 
-If the mid-point check is incorrect, the problem must be in the first
-half of the program. If it is correct, the problem is in the second
-half.
+\index{depuración}
 
-Every time you perform a check like this, you halve the number of lines
-you have to search. After six steps (which is much less than 100), you
-would be down to one or two lines of code, at least in theory.
+A medida que vayas escribiendo programas más grandes, puede que notes
+que vas necesitando emplear cada vez más tiempo en depurarlos. Más
+código significa más oportunidades de cometer un error y más lugares
+donde los bugs pueden esconderse.
 
-In practice it is not always clear what the "middle of the program" is
-and not always possible to check it. It doesn't make sense to count
-lines and find the exact midpoint. Instead, think about places in the
-program where there might be errors and places where it is easy to put a
-check. Then choose a spot where you think the chances are about the same
-that the bug is before or after the check.
+\index{depuración!por bisección}
+\index{bisección, depuración por}
 
-Glossary
+Un método para acortar el tiempo de depuración es "depurar por
+bisección". Por ejemplo, si hay 100 líneas en tu programa y las
+compruebas de una en una, te llevará 100 pasos.
+
+En lugar de eso, intenta partir el problema por la mitad. Busca en medio
+del programa, o cerca de ahí, un valor intermedio que puedas comprobar.
+Añade una sentencia `print` (o alguna otra cosa que tenga un
+efecto verificable), y haz funcionar el programa.
+
+Si en el punto medio la verificación es incorrecta, el problema debería
+estar en la primera mitad del programa. Si ésta es correcta, el problema
+estará en la segunda mitad.
+
+Cada vez que realices una comprobación como esta, reduces a la mitad el
+número de líneas en las que buscar. Después de seis pasos (que son
+muchos menos de 100), lo habrás reducido a una o dos líneas de código,
+al menos en teoría.
+
+En la práctica no siempre está claro qué es "el medio del programa", y
+no siempre es posible colocar ahí una verificación. No tiene sentido
+contar las líneas y encontrar el punto medio exacto. En lugar de eso,
+piensa en lugares del programa en los cuales pueda haber errores y en
+lugares donde resulte fácil colocar una comprobación. Luego elige un
+sitio donde estimes que las oportunidades de que el bug esté por delante
+y las de que esté por detrás de esa comprobación son más o menos las
+mismas.
+
+Glosario
 --------
 
-accumulator
-:   A variable used in a loop to add up or accumulate a result.
-\index{accumulator}
+acumulador
 
-counter
-:   A variable used in a loop to count the number of times something
-    happened. We initialize a counter to zero and then increment the
-    counter each time we want to "count" something.
-\index{counter}
+:   Una variable usada en un bucle para sumar o acumular un resultado.
 
-decrement
-:   An update that decreases the value of a variable.
-\index{decrement}
+\index{acumulador}
 
-initialize
-:   An assignment that gives an initial value to a variable that will be
-    updated.
+bucle infinito
 
-increment
-:   An update that increases the value of a variable (often by one).
-\index{increment}
+:   Un bucle en el cual la condición de terminación no se satisface
+    nunca o para el cual no existe dicha condición de terminación.
 
-infinite loop
-:   A loop in which the terminating condition is never satisfied or for
-    which there is no terminating condition.
-\index{infinite loop}
+\index{infinito, bucle}
+\index{bucle!infinito}
 
-iteration
-:   Repeated execution of a set of statements using either a function
-    that calls itself or a loop.
-\index{iteration}
+contador
 
-Exercises
----------
+:   Una variable usada en un bucle para contar el número de veces que
+    algo sucede. Inicializamos el contador a cero y luego lo vamos
+    incrementando cada vez que queramos que "cuente" algo.
 
-**Exercise 1: Write a program which repeatedly reads numbers until the
-user enters "done". Once "done" is entered, print out the total, count,
-and average of the numbers. If the user enters anything other than a
-number, detect their mistake using `try` and
-`except` and print an error message and skip to the next
-number.**
+\index{contador}
+
+decremento
+
+:   Una actualización que disminuye el valor de una variable.
+
+\index{decremento}
+
+inicializar
+
+:   Una asignación que da un valor inicial a una variable que va a ser
+    después actualizada.
+
+\index{inicializar!variable}
+
+incremento
+:   Una actualización que aumenta el valor de una variable (a menudo en
+    una unidad).
+
+\index{incremento}
+
+iteración
+:   Ejecución repetida de una serie de sentencias usando bien una
+    función que se llama a si misma o bien un bucle.
+
+\index{iteración}
+
+Ejercicios
+----------
+
+**Exercise 1: Escribe un programa que lea repetidamente números hasta que
+el usuario introduzca "fin". Una vez se haya introducido "fin", muestra
+por pantalla el total, la cantidad de números y la media de esos
+números. Si el usuario introduce cualquier otra cosa que no sea un
+número, detecta su fallo usando `try` y `except`,
+muestra un mensaje de error y pasa al número siguiente.**
 
 ~~~~
-Enter a number: 4
-Enter a number: 5
-Enter a number: bad data
-Invalid input
-Enter a number: 7
-Enter a number: done
-16 3 5.333333333333333
+Introduzca un número: 4
+Introduzca un número: 5
+Introduzca un número: dato erróneo
+Entrada inválida
+Introduzca un número: 7
+Introduzca un número: fin
+16 3 5.33333333333
 ~~~~
 
-**Exercise 2: Write another program that prompts for a list of numbers as
-above and at the end prints out both the maximum and minimum of the
-numbers instead of the average.**
+**Exercise 2: Escribe otro programa que pida una lista de números como la
+anterior y al final muestre por pantalla el máximo y mínimo de los
+números, en vez de la media.**
+
+[^51]: Examinaremos las listas con más detalle en un capítulo posterior.
 

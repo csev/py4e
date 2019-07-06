@@ -1,6 +1,6 @@
 while True:
-    line = input('> ')
-    if line == 'done':
+    linea = input('> ')
+    if linea == 'fin':
         break
-    print(line)
-print('Done!')
+    print(linea)
+print('¡Terminado!')
