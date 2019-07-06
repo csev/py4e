@@ -1,10 +1,9 @@
-def print_lyrics():
-    print("I'm a lumberjack, and I'm okay.")
-    print('I sleep all night and I work all day.')
+def muestra_estribillo():
+    print('Soy un leñador, que alegría.')
+    print('Duermo toda la noche y trabajo todo el día.')
 
+def repite_estribillo():
+    muestra_estribillo()
+    muestra_estribillo()
 
-def repeat_lyrics():
-    print_lyrics()
-    print_lyrics()
-
-repeat_lyrics()
+repite_estribillo()

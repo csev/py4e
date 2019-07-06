@@ -1,6 +1,6 @@
-def addtwo(a, b):
-    added = a + b
-    return added
+def sumados(a, b):
+    suma = a + b
+    return suma
 
-x = addtwo(3, 5)
+x = sumados(3, 5)
 print(x)

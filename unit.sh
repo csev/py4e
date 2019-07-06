@@ -1,5 +1,4 @@
 echo 'Hello from travis..'
-python --version
 python3 --version
 pwd
 echo "Running Python 3 Unit Tests"
