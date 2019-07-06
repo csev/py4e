@@ -10,7 +10,7 @@ In particular, I need translators that:
 * Knows Markdown
 * Knows Python
 * Knows github
-* Can use OmniGraffle
+* Can use OmniGraffle (nice but not essential)
 
 It would be great if the translator had access to a Mac laptop
 or Linux to re-generate the book but that is not essential.
