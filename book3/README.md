@@ -1,9 +1,6 @@
 Python for Everybody
 --------------------
 
-These \*.mkd files are now the master files for the book (i.e. 
-I will not run the conversion any more).
-
 To produce the PDF of the book, you will need to install LaTeX on your 
 system.  For Debian-derived (Ubuntu, Mint, etc.) Linux:
 
@@ -28,8 +25,8 @@ The output `bash book.sh` is in the file `x.pdf` and `x.epub`.
 There is a continuous build server that I have on Digital Ocean that builds
 the PDF and epub versions of the book every hour or so.
 
-    http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.pdf
-    http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.epub
+    http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf
+    http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.epub
 
 Just check in changes and these files will update.
 
@@ -37,7 +34,7 @@ This server also rebuilds any translations every hour or so.
 
 ## Alternate Build Scripts
 
-In addition to the official `book.sh1`, there are other build scripts that make
+In addition to the official `book.sh`, there are other build scripts that make
 alternate versions of the book.   If you make changes to the content, you
 should run all these scripts and check it all into github so it ends up online.
 
@@ -81,7 +78,7 @@ For Linux:
 
 Just take the `x.pdf` and `x.mobi` files and copy them into the `createspace`
 folder, adding a date in the filename as version and then upload them to 
-createspace ins kindle publishing.
+Kindle Direct Publishing.
 
 Chinese Version
 ---------------
@@ -121,7 +118,7 @@ Ref: https://tex.stackexchange.com/questions/16801/xelatex-i-cant-write-on-file-
 
 ## Contributing
 
-If you want to contribute, feel free to fork the pythonlearn
+If you want to contribute, feel free to fork the py4e
 repository and send me pull requests.   
 
 https://github.com/csev/py4e
