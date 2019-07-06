@@ -23,10 +23,10 @@ Your help is greatly appreciated.
 Status
 ------
 
-* Book: Preface and Chapters 1-2 are translated
+* Book: Preface and Chapters 1-5 are translated
 * Slides: Chapters 1-5 are translated
 * Book Figures: Chapters 1-13 figures are translated
-* Code Samples: Nothing is translated
+* Code Samples: Code from Chapters 1-5 is translated
 * Web pages: Very little translated
 
 Areas to Translate
