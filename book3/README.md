@@ -121,7 +121,7 @@ Ref: https://tex.stackexchange.com/questions/16801/xelatex-i-cant-write-on-file-
 If you want to contribute, feel free to fork the py4e
 repository and send me pull requests.   
 
-https://github.com/csev/py4e
+https://github.com/csev-es/py4e
 
 We can also use the issue tracker to coordinate if that helps.
 
