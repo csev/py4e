@@ -1,18 +1,19 @@
-Conditional execution
+Ejecución condicional
 =====================
 
-Boolean expressions
--------------------
+Expresiones booleanas
+---------------------
 
-\index{boolean expression}
-\index{expression!boolean}
-\index{logical operator}
-\index{operator!logical}
+\index{booleana, expresión}
+\index{expresión!booleana}
+\index{lógico, operador}
+\index{operador!lógico}
 
-A *boolean expression* is an expression that is either
-true or false. The following examples use the operator `==`,
-which compares two operands and produces `True` if they are
-equal and `False` otherwise:
+Una *expresión booleana* es aquella que puede ser
+verdadera (`True`) o falsa (`False`). Los ejemplos
+siguientes usan el operador `==`, que compara dos operandos y
+devuelve `True` si son iguales y `False` en caso
+contrario:
 
 ~~~~ {.python .trinket}
 >>> 5 == 5
@@ -22,15 +23,15 @@ False
 {}
 ~~~~
 
-`True` and `False` are special values that belong
-to the class `bool`; they are not strings:
+`True` y `False` son valores especiales que
+pertenecen al tipo `bool (booleano)`; no son cadenas:
 
-\index{True special value}
-\index{False special value}
-\index{special value!True}
-\index{special value!False}
-\index{bool type}
-\index{type!bool}
+\index{True, valor especial}
+\index{False, valor especial}
+\index{valor especial!True}
+\index{valor especial!False}
+\index{booleano, tipo}
+\index{tipo!booleano}
 
 ~~~~ {.python}
 >>> type(True)
@@ -39,401 +40,410 @@ to the class `bool`; they are not strings:
 <class 'bool'>
 ~~~~
 
-The `==` operator is one of the *comparison
-operators*; the others are:
+El operador `==` es uno de los *operadores de
+comparación*; los demás son:
 
 ~~~~ {.python}
-x != y               # x is not equal to y
-x > y                # x is greater than y
-x < y                # x is less than y
-x >= y               # x is greater than or equal to y
-x <= y               # x is less than or equal to y
-x is y               # x is the same as y
-x is not y           # x is not the same as y
+x != y               # x es distinto de y
+x > y                # x es mayor que y
+x < y                # x es menor que y
+x >= y               # x es mayor o igual que y
+x <= y               # x es menor o igual que y
+x is y               # x es lo mismo que y
+x is not y           # x no es lo mismo que y
 ~~~~
 
-Although these operations are probably familiar to you, the Python
-symbols are different from the mathematical symbols for the same
-operations. A common error is to use a single equal sign
-(`=`) instead of a double equal sign (`==`).
-Remember that `=` is an assignment operator and
-`==` is a comparison operator. There is no such thing as
-`=<` or `=>`.
+A pesar de que estas operaciones probablemente te resulten familiares,
+los símbolos en Python son diferentes de los símbolos matemáticos que se
+usan para realizar las mismas operaciones. Un error muy común es usar
+sólo un símbolo igual (`=`) en vez del símbolo de doble
+igualdad (`==`). Recuerda que `=` es un operador
+de asignación, y `==` es un operador de comparación. No
+existe algo como ``=<`` o ``=>``.
 
-\index{comparison operator}
-\index{operator!comparison}
+\index{comparación!operador}
+\index{operador!comparación}
 
-Logical operators
------------------
+Operadores lógicos
+------------------
 
-\index{logical operator}
-\index{operator!logical}
+\index{lógico, operador}
+\index{operador!lógico}
 
-There are three *logical operators*: `and`,
-`or`, and `not`. The semantics (meaning) of these
-operators is similar to their meaning in English. For example,
+Existen tres *operadores lógicos*: `and (y)`,
+`or (o)`, y `not (no)`. El significado semántico
+de estas operaciones es similar a su significado en inglés. Por ejemplo,
 
 `x > 0 and x < 10`
 
-is true only if `x` is greater than 0 *and* less than 10.
+es verdadero sólo cuando `x` es mayor que 0 *y* menor que 10.
 
-\index{and operator}
-\index{or operator}
-\index{not operator}
-\index{operator!and}
-\index{operator!or}
-\index{operator!not}
+\index{and, operador}
+\index{or, operador}
+\index{not, operador}
+\index{operador!and}
+\index{operador!or}
+\index{operador!not}
 
-`n%2 == 0 or n%3 == 0` is true if *either* of the conditions
-is true, that is, if the number is divisible by 2 *or* 3.
+`n%2 == 0 or n%3 == 0` es verdadero si *cualquiera* de las
+condiciones es verdadera, es decir, si el número es divisible por 2 *o*
+por 3.
 
-Finally, the `not` operator negates a boolean expression, so
-`not (x > y)` is true if `x > y` is false; that
-is, if `x` is less than or equal to `y`.
+Finalmente, el operador `not` niega una expresión booleana,
+de modo que `not (x &gt; y)` es verdadero si `x &gt;
+y` es falso; es decir, si `x` es menor o igual que
+`y`.
 
-Strictly speaking, the operands of the logical operators should be
-boolean expressions, but Python is not very strict. Any nonzero number
-is interpreted as "true."
+Estrictamente hablando, los operandos de los operadores lógicos deberían
+ser expresiones booleanas, pero Python no es muy estricto. Cualquier
+número distinto de cero se interpreta como "verdadero."
 
 ~~~~ {.python}
 >>> 17 and True
 True
 ~~~~
 
-This flexibility can be useful, but there are some subtleties to it that
-might be confusing. You might want to avoid it until you are sure you
-know what you are doing.
+Esta flexibilidad puede ser útil, pero existen ciertas sutilezas en ese
+tipo de uso que pueden resultar confusas. Es posible que prefieras
+evitar usarlo de este modo hasta que estés bien seguro de lo que estás
+haciendo.
 
-Conditional execution
+Ejecución condicional {#conditional execution}
 ---------------------
 
-\index{conditional statement}
-\index{statement!conditional}
-\index{if statement}
-\index{statement!if}
-\index{conditional executions}
+\index{condicional!sentencia}
+\index{sentencia!condicional}
+\index{if, sentencia}
+\index{sentencia!if}
+\index{condicional!ejecución}
 
-In order to write useful programs, we almost always need the ability to
-check conditions and change the behavior of the program accordingly.
-*Conditional statements* give us this ability. The
-simplest form is the `if` statement:
+Para poder escribir programas útiles, casi siempre vamos a necesitar la
+capacidad de comprobar condiciones y cambiar el comportamiento del
+programa de acuerdo a ellas. Las `sentencias condicionales`
+nos proporciona esa capacidad. La forma más sencilla es la sentencia
+`if`:
 
 ~~~~ {.python}
 if x > 0 :
-    print('x is positive')
+    print('x es positivo')
 ~~~~
 
-The boolean expression after the `if` statement is called the
-*condition*. We end the `if` statement with a
-colon character (:) and the line(s) after the if statement are indented.
+La expresión booleana después de la sentencia `if` recibe el
+nombre de *condición*. La sentencia `if` se
+finaliza con un carácter de dos-puntos (:) y la(s) línea(s) que van
+detrás de la sentencia if van indentadas[^1] (es decir, llevan una
+tabulación o varios espacios en blanco al principio).
 
 ![If Logic](height=1.5in@../images/if)
 
+Si la condición lógica es verdadera, la sentencia indentada será
+ejecutada. Si la condición es falsa, la sentencia indentada será
+omitida.
 
-If the logical condition is true, then the indented statement gets
-executed. If the logical condition is false, the indented statement is
-skipped.
+\index{condición}
+\index{compuesta, sentencia}
+\index{sentencia!compuesta}
 
-\index{condition}
-\index{compound statement}
-\index{statement!compound}
+La sentencia `if` tiene la misma estructura que la definición
+de funciones o los bucles `for`[^2]. La sentencia consiste en
+una línea de encabezado que termina con el carácter dos-puntos (:)
+seguido por un bloque indentado. Las sentencias de este tipo reciben el
+nombre de *sentencias compuestas*, porque se extienden a
+lo largo de varias líneas.
 
-`if` statements have the same structure as function
-definitions or `for` loops^[We will learn about functions in Chapter 4 and loops in Chapter 5.].
-The statement consists of a
-header line that ends with the colon character (:) followed by an
-indented block. Statements like this are called *compound
-statements* because they stretch across more than one line.
+No hay límite en el número de sentencias que pueden aparecer en el
+cuerpo, pero debe haber al menos una. Ocasionalmente, puede resultar
+útil tener un cuerpo sin sentencias (normalmente como emplazamiento
+reservado para código que no se ha escrito aún). En ese caso, se puede
+usar la sentencia `pass`, que no hace nada.
 
-There is no limit on the number of statements that can appear in the
-body, but there must be at least one. Occasionally, it is useful to have
-a body with no statements (usually as a place holder for code you haven't
-written yet). In that case, you can use the `pass` statement,
-which does nothing.
-
-\index{pass statement}
-\index{statement!pass}
+\index{pass, sentencia}
+\index{sentencia!pass}
 
 ~~~~ {.python}
 if x < 0 :
-    pass          # need to handle negative values!
+    pass          # ¡necesito gestionar los valores negativos!
 ~~~~
 
-If you enter an `if` statement in the Python interpreter, the
-prompt will change from three chevrons to three dots to indicate you are
-in the middle of a block of statements, as shown below:
+Si introduces una sentencia `if` en el intérprete de Python,
+el prompt cambiará su aspecto habitual por puntos suspensivos, para
+indicar que estás en medio de un bloque de sentencias, como se muestra a
+continuación:
 
 ~~~~ {.python}
 >>> x = 3
 >>> if x < 10:
-...    print('Small')
+...    print('Pequeño')
 ...
-Small
+Pequeño
 >>>
 ~~~~
 
-When using the Python interpreter, you must leave a blank line at the end of a block, otherwise Python will return an error:
+Al usar el intérprete de Python, debe dejar una línea en blanco al final de un bloque, de lo contrario Python devolverá un error:
 
 ~~~~ {.python}
 >>> x = 3
 >>> if x < 10:
-...    print('Small')
-... print('Done')
+...    print('Pequeño')
+... print('Hecho')
   File "<stdin>", line 3
-    print('Done')
+    print('Hecho')
         ^
 SyntaxError: invalid syntax
 ~~~~
 
-A blank line at the end of a block of statements is not necessary when writing and executing a script, but it may improve readability of your code.
+No es necesaria una línea en blanco al final de un bloque de instrucciones al escribir y ejecutar un script, pero puede mejorar la legibilidad de su código.
 
-Alternative execution
+Ejecución alternativa {#alternative execution}
 ---------------------
 
-\index{alternative execution}
-\index{else keyword}
-\index{keyword!else}
+\index{ejecución alternativa}
+\index{else, palabra clave}
+\index{palabra clave!else}
 
-A second form of the `if` statement is *alternative
-execution*, in which there are two possibilities and the
-condition determines which one gets executed. The syntax looks like
-this:
+La segunda forma de la sentencia `if` es la *ejecución
+alternativa*, en la cual existen dos posibilidades y la
+condición determina cual de ellas será ejecutada. La sintaxis es similar
+a ésta:
 
 ~~~~ {.python}
 if x%2 == 0 :
-    print('x is even')
+    print('x es par')
 else :
-    print('x is odd')
+    print('x es impar')
 ~~~~
 
-If the remainder when `x` is divided by 2 is 0, then we know
-that `x` is even, and the program displays a message to that
-effect. If the condition is false, the second set of statements is
-executed.
+Si al dividir `x` por 2 obtenemos como resto 0, entonces
+sabemos que `x` es par, y el programa muestra un mensaje a
+tal efecto. Si esa condición es falsa, se ejecuta el segundo conjunto de
+sentencias.
 
 ![If-Then-Else Logic](height=1.5in@../images/if-else)
 
-Since the condition must either be true or false, exactly one of the
-alternatives will be executed. The alternatives are called
-*branches*, because they are branches in the flow of
-execution.
+Dado que la condición debe ser obligatoriamente verdadera o falsa,
+solamente una de las alternativas será ejecutada. Las alternativas
+reciben el nombre de *ramas*, dado que se trata de
+ramificaciones en el flujo de la ejecución.
 
-\index{branch}
+\index{rama}
 
-Chained conditionals
---------------------
+Condicionales encadenados
+-------------------------
 
-\index{chained conditional}
-\index{conditional!chained}
+\index{encadenado, condicional}
+\index{condicional!encadenado}
 
-Sometimes there are more than two possibilities and we need more than
-two branches. One way to express a computation like that is a
-*chained conditional*:
+Algunas veces hay más de dos posibilidades, de modo que necesitamos más
+de dos ramas. Una forma de expresar una operación como ésa es usar un
+*condicional encadenado*:
 
 ~~~~ {.python}
 if x < y:
-    print('x is less than y')
+    print('x es menor que y')
 elif x > y:
-    print('x is greater than y')
+    print('x es mayor que y')
 else:
-    print('x and y are equal')
+    print('x e y son iguales')
 ~~~~
 
-`elif` is an abbreviation of "else if." Again, exactly one
-branch will be executed.
+`elif` es una abreviatura para "else if". En este caso
+también será ejecutada únicamente una de las ramas.
 
 ![If-Then-ElseIf Logic](height=2.0in@../images/elif)
 
-There is no limit on the number of `elif` statements. If
-there is an `else` clause, it has to be at the end, but there
-doesn't have to be one.
+No hay un límite para el número de sentencias `elif`. Si hay
+una clausula `else`, debe ir al final, pero tampoco es
+obligatorio que ésta exista.
 
-\index{elif keyword}
-\index{keyword!elif}
+\index{elif, palabra clave}
+\index{palabra clave!elif}
 
 ~~~~ {.python}
 if choice == 'a':
-    print('Bad guess')
+    print('Respuesta incorrecta')
 elif choice == 'b':
-    print('Good guess')
+    print('Respuesta correcta')
 elif choice == 'c':
-    print('Close, but not correct')
+    print('Casi, pero no es correcto')
 ~~~~
 
-Each condition is checked in order. If the first is false, the next is
-checked, and so on. If one of them is true, the corresponding branch
-executes, and the statement ends. Even if more than one condition is
-true, only the first true branch executes.
+Cada condición es comprobada en orden. Si la primera es falsa, se
+comprueba la siguiente y así con las demás. Si una de ellas es
+verdadera, se ejecuta la rama correspondiente, y la sentencia termina.
+Incluso si hay más de una condición que sea verdadera, sólo se ejecuta
+la primera que se encuentra.
 
-Nested conditionals
--------------------
+Condicionales anidados
+----------------------
 
-\index{nested conditional}
-\index{conditional!nested}
+\index{anidado, condicional}
+\index{condicional!anidado}
 
-One conditional can also be nested within another. We could have written
-the three-branch example like this:
+Un condicional puede también estar anidado dentro de otro. Podríamos
+haber escrito el ejemplo anterior de las tres ramas de este modo:
 
 ~~~~ {.python}
 if x == y:
-    print('x and y are equal')
+    print('x e y son iguales')
 else:
     if x < y:
-        print('x is less than y')
+        print('x es menor que y')
     else:
-        print('x is greater than y')
+        print('x es mayor que y')
 ~~~~
 
-The outer conditional contains two branches. The first branch contains a
-simple statement. The second branch contains another `if`
-statement, which has two branches of its own. Those two branches are
-both simple statements, although they could have been conditional
-statements as well.
+El condicional exterior contiene dos ramas. La primera rama ejecuta una
+sentencia simple. La segunda contiene otra sentencia `if`,
+que tiene a su vez sus propias dos ramas. Esas dos ramas son ambas
+sentencias simples, pero podrían haber sido sentencias condicionales
+también.
 
 ![Nested If Statements](height=2.0in@../images/nested)
 
-Although the indentation of the statements makes the structure apparent,
-*nested conditionals* become difficult to read very
-quickly. In general, it is a good idea to avoid them when you can.
+A pesar de que el indentado de las sentencias hace que la estructura
+esté clara, los *condicionales anidados* pueden volverse
+difíciles de leer rápidamente. En general, es buena idea evitarlos si se
+puede.
 
-Logical operators often provide a way to simplify nested conditional
-statements. For example, we can rewrite the following code using a
-single conditional:
+Los operadores lógicos a menudo proporcionan un modo de simplificar las
+sentencias condicionales anidadas. Por ejemplo, el código siguiente
+puede ser reescrito usando un único condicional:
 
 ~~~~ {.python}
 if 0 < x:
     if x < 10:
-        print('x is a positive single-digit number.')
+        print('x es un número positivo con un sólo dígito.')
 ~~~~
 
-The `print` statement is executed only if we make it past
-both conditionals, so we can get the same effect with the
-`and` operator:
+La sentencia `print` se ejecuta solamente si se cumplen las
+dos condiciones anteriores, así que en realidad podemos conseguir el
+mismo efecto con el operador `and`:
 
 ~~~~ {.python}
 if 0 < x and x < 10:
-    print('x is a positive single-digit number.')
+    print('x es un número positivo con un sólo dígito.')
 ~~~~
 
-Catching exceptions using try and except
-----------------------------------------
+Captura de excepciones usando try y except {#catch1}
+------------------------------------------
 
-Earlier we saw a code segment where we used the `input` and
-`int` functions to read and parse an integer number entered
-by the user. We also saw how treacherous doing this could be:
+Anteriormente vimos un fragmento de código donde usábamos las funciones
+`raw_input` e `int` para leer y analizar un número entero
+introducido por el usuario. También vimos lo poco seguro que podía
+llegar a resultar hacer algo así:
 
 ~~~~ {.python}
->>> prompt = "What is the air velocity of an unladen swallow?\n"
->>> speed = input(prompt)
-What is the air velocity of an unladen swallow?
-What do you mean, an African or a European swallow?
->>> int(speed)
+>>> velocidad = input(prompt)
+¿Cual.... es la velocidad de vuelo de una golondrina sin carga?
+¿Te refieres a una golondrina africana o a una europea?
+>>> int(velocidad)
 ValueError: invalid literal for int() with base 10:
 >>>
 ~~~~
 
-When we are executing these statements in the Python interpreter, we get
-a new prompt from the interpreter, think "oops", and move on to our next
-statement.
+Cuando estamos trabajando con el intérprete de Python, tras el error
+simplemente nos aparece de nuevo el prompt, así que pensamos "¡epa, me
+he equivocado!", y continuamos con la siguiente sentencia.
 
-However if you place this code in a Python script and this error occurs,
-your script immediately stops in its tracks with a traceback. It does
-not execute the following statement.
+Sin embargo, si se escribe ese código en un script de Python y se
+produce el error, el script se detendrá inmediatamente, y mostrará un
+"traceback". No ejecutará la siguiente sentencia.
 
 \index{traceback}
 
-Here is a sample program to convert a Fahrenheit temperature to a
-Celsius temperature:
+He aquí un programa de ejemplo para convertir una temperatura desde
+grados Fahrenheit a grados Celsius:
 
 \index{fahrenheit}
 \index{celsius}
-\index{temperature conversion}
+\index{conversión de temperatura}
 
 \VerbatimInput{../code3/fahren.py}
 
-If we execute this code and give it invalid input, it simply fails with
-an unfriendly error message:
+Si ejecutamos este código y le damos una entrada no válida, simplemente
+fallará con un mensaje de error bastante antipático:
 
 ~~~~
 python fahren.py
-Enter Fahrenheit Temperature:72
-22.22222222222222
+Introduzca la Temperatura Fahrenheit:72
+22.2222222222
 ~~~~
 
 ~~~~
 python fahren.py
-Enter Fahrenheit Temperature:fred
+Introduzca la Temperatura Fahrenheit:fred
 Traceback (most recent call last):
   File "fahren.py", line 2, in <module>
-    fahr = float(inp)
-ValueError: could not convert string to float: 'fred'
+    fahr = float(ent)
+ValueError: invalid literal for float(): fred
 ~~~~
 
-There is a conditional execution structure built into Python to handle
-these types of expected and unexpected errors called "try / except". The
-idea of `try` and `except` is that you know that
-some sequence of instruction(s) may have a problem and you want to add
-some statements to be executed if an error occurs. These extra
-statements (the except block) are ignored if there is no error.
+Existen estructuras de ejecución condicional dentro de Python para
+manejar este tipo de errores esperados e inesperados, llamadas "try /
+except". La idea de `try` y `except` es que si se
+sabe que cierta secuencia de instrucciones puede generar un problema,
+sea posible añadir ciertas sentencias para que sean ejecutadas en caso
+de error. Estas sentencias extras (el bloque except) serán ignoradas si
+no se produce ningún error.
 
-You can think of the `try` and `except` feature in
-Python as an "insurance policy" on a sequence of statements.
+Puedes pensar en la característica `try` y
+`except` de Python como una "póliza de seguros" en una
+secuencia de sentencias.
 
-We can rewrite our temperature converter as follows:
+Se puede reescribir nuestro conversor de temperaturas de esta forma:
 
 \VerbatimInput{../code3/fahren2.py}
 
-Python starts by executing the sequence of statements in the
-`try` block. If all goes well, it skips the
-`except` block and proceeds. If an exception occurs in the
-`try` block, Python jumps out of the `try` block
-and executes the sequence of statements in the `except`
-block.
+Python comienza ejecutando la secuencia de sentencias del bloque
+`try`. Si todo va bien, se saltará todo el bloque
+`except` y terminará. Si ocurre una excepción dentro del
+bloque `try`, Python saltará fuera de ese bloque y ejecutará
+la secuencia de sentencias del bloque `except`.
 
 ~~~~
 python fahren2.py
-Enter Fahrenheit Temperature:72
-22.22222222222222
+Introduzca la Temperatura Fahrenheit:72
+22.2222222222
 ~~~~
 
 ~~~~
 python fahren2.py
-Enter Fahrenheit Temperature:fred
-Please enter a number
+Introduzca la Temperatura Fahrenheit:fred
+Por favor, introduzca un número
 ~~~~
 
-Handling an exception with a `try` statement is called
-*catching* an exception. In this example, the
-`except` clause prints an error message. In general, catching
-an exception gives you a chance to fix the problem, or try again, or at
-least end the program gracefully.
+Gestionar una excepción con una sentencia `try` recibe el
+nombre de *capturar* una excepción. En este ejemplo, la
+clausula `except` muestra un mensaje de error. En general,
+capturar una excepción te da la oportunidad de corregir el problema,
+volverlo a intentar o, al menos, terminar el programa con elegancia.
 
-Short-circuit evaluation of logical expressions
------------------------------------------------
+Evaluación en cortocircuito de expresiones lógicas
+--------------------------------------------------
 
-\index{short circuit}
+\index{cortocircuito}
 
-When Python is processing a logical expression such as `x >= 2 and
-(x/y) > 2`, it evaluates the expression from left to right.
-Because of the definition of `and`, if `x` is less
-than 2, the expression `x >= 2` is `False` and so
-the whole expression is `False` regardless of whether
-`(x/y) > 2` evaluates to `True` or
-`False`.
+Cuando Python está procesando una expresión lógica, como `x &gt;= 2
+and (x/y) &gt; 2`, evalúa la expresión de izquierda a derecha.
+Debido a la definición de `and`, si `x` es menor
+de 2, la expresión `x &gt;= 2` resulta ser
+`falsa`, de modo que la expresión completa ya va a resultar
+`falsa`, independientemente de si `(x/y) &gt; 2`
+se evalúa como `verdadera` o `falsa`.
 
-When Python detects that there is nothing to be gained by evaluating the
-rest of a logical expression, it stops its evaluation and does not do
-the computations in the rest of the logical expression. When the
-evaluation of a logical expression stops because the overall value is
-already known, it is called *short-circuiting* the
-evaluation.
+Cuando Python detecta que no se gana nada evaluando el resto de una
+expresión lógica, detiene su evaluación y no realiza el cálculo del
+resto de la expresión. Cuando la evaluación de una expresión lógica se
+detiene debido a que ya se conoce el valor final, eso es conocido como
+*cortocircuitar* la evaluación.
 
-\index{guardian pattern}
-\index{pattern!guardian}
+\index{guardián, patrón}
+\index{patrón!guardián}
 
-While this may seem like a fine point, the short-circuit behavior leads
-to a clever technique called the *guardian pattern*.
-Consider the following code sequence in the Python interpreter:
+A pesar de que esto pueda parecer hilar demasiado fino, el
+funcionamiento en cortocircuito nos descubre una ingeniosa técnica
+conocida como *patrón guardián*. Examina la siguiente
+secuencia de código en el intérprete de Python:
 
 ~~~~ {.python}
 >>> x = 6
@@ -453,16 +463,17 @@ ZeroDivisionError: division by zero
 >>>
 ~~~~
 
-The third calculation failed because Python was evaluating
-`(x/y)` and `y` was zero, which causes a runtime
-error. But the second example did *not* fail because the first part of
-the expression `x >= 2` evaluated to `False` so
-the `(x/y)` was not ever executed due to the
-*short-circuit* rule and there was no error.
+La tercera operación ha fallado porque Python intentó evaluar
+`(x/y)` e `y` era cero, lo cual provoca un runtime
+error (error en tiempo de ejecución). Pero el segundo ejemplo *no*
+falló, porque la primera parte de la expresión `x &gt;= 2`
+fue evaluada como `falsa`, así que `(x/y)` no
+llegó a ejecutarse debido a la regla del *cortocircuito*,
+y no se produjo ningún error.
 
-We can construct the logical expression to strategically place a
-*guard* evaluation just before the evaluation that might
-cause an error as follows:
+Es posible construir las expresiones lógicas colocando estratégicamente
+una evaluación como *guardián* justo antes de la
+evaluación que podría causar un error, como se muestra a continuación:
 
 ~~~~ {.python}
 >>> x = 1
@@ -480,38 +491,40 @@ ZeroDivisionError: division by zero
 >>>
 ~~~~
 
-In the first logical expression, `x >= 2` is
-`False` so the evaluation stops at the `and`. In
-the second logical expression, `x >= 2` is `True`
-but `y != 0` is `False` so we never reach
-`(x/y)`.
+En la primera expresión lógica, `x &gt;= 2` es
+`falsa`, así que la evaluación se detiene en el
+`and`. En la segunda expresión lógica, `x &gt;= 2`
+es `verdadera`, pero `y != 0` es
+`falsa`, de modo que nunca se alcanza `(x/y)`.
 
-In the third logical expression, the `y != 0` is *after* the
-`(x/y) ` calculation so the expression fails with an error.
+En la tercera expresión lógica, el `y != 0` va *después* del
+cálculo de `(x/y) `, de modo que la expresión falla con un
+error.
 
-In the second expression, we say that `y != 0` acts as a
-*guard* to insure that we only execute `(x/y)`
-if `y` is non-zero.
+En la segunda expresión, se dice que `y != 0` actúa como
+*guardián* para garantizar que sólo se ejecute
+`(x/y)` en el caso de que `y` no sea cero.
 
-Debugging
----------
+Depuración
+----------
 
-\index{debugging}
+\index{depuración}
 \index{traceback}
 
-The traceback Python displays when an error occurs contains a lot of
-information, but it can be overwhelming. The most useful parts are
-usually:
+Los "traceback" que Python muestra cuando se produce un error contienen
+un montón de información, pero pueden resultar abrumadores. Las partes
+más útiles normalmente son:
 
--   What kind of error it was, and
+-   Qué tipo de error se ha producido, y
 
--   Where it occurred.
+-   Dónde ha ocurrido.
 
-Syntax errors are usually easy to find, but there are a few gotchas.
-Whitespace errors can be tricky because spaces and tabs are invisible
-and we are used to ignoring them.
+Los errores de sintaxis (syntax errors), normalmente son fáciles de
+localizar, pero a veces tienen trampa. Los errores debido a espacios en
+blanco pueden ser complicados, ya que los espacios y las tabulaciones
+son invisibles, y solemos ignorarlos.
 
-\index{whitespace}
+\index{espacio en blanco}
 
 ~~~~ {.python}
 >>> x = 5
@@ -522,149 +535,227 @@ and we are used to ignoring them.
 IndentationError: unexpected indent
 ~~~~
 
-In this example, the problem is that the second line is indented by one
-space. But the error message points to `y`, which is
-misleading. In general, error messages indicate where the problem was
-discovered, but the actual error might be earlier in the code, sometimes
-on a previous line.
+En este ejemplo, el problema es que la segunda línea está indentada por
+un espacio. Pero el mensaje de error apunta a `y`, lo cual
+resulta engañoso. En general, los mensajes de error indican dónde se ha
+descubierto el problema, pero el error real podría estar en el código
+previo, a veces en alguna línea anterior.
 
-In general, error messages tell you where the problem was discovered,
-but that is often not where it was caused.
+\index{error!runtime}
+\index{runtime error}
 
-Glossary
+Ocurre lo mismo con los errores en tiempo de ejecución (runtime errors).
+Supón que estás tratando de calcular una relación señal-ruido en
+decibelios. La fórmula es
+$SNR_{db} = 10 \log_{10} (P_{senal} / P_{ruido})$. En Python, podrías
+escribir algo como esto:
+
+\VerbatimInput{../code3/snr.py}
+
+Pero cuando lo haces funcionar, obtienes un mensaje de error[^3]:
+
+\index{exception!OverflowError}
+\index{OverflowError}
+
+~~~~ {.python}
+    Traceback (most recent call last):
+      File "snr.py", line 5, in ?
+        decibelios = 10 * math.log10(relacion)
+    OverflowError: math range error
+~~~~
+
+El mensaje de error apunta a la línea 5, pero no hay nada incorrecto en
+ese línea. Para encontrar el error real, puede resultar útil mostrar en
+pantalla el valor de `relacion`, que resulta ser 0. El
+problema está en la línea 4, ya que al dividir dos enteros se realiza
+una división entera. La solución es representar la intensidad de la
+señal y la intensidad del ruido con valores en punto flotante.
+
+\index{entera, división}
+\index{división!entera}
+
+En general, los mensajes de error te dicen dónde se ha descubierto el
+problema, pero a menudo no es ahí exactamente donde se ha producido.
+
+Glosario
 --------
 
-body
-:   The sequence of statements within a compound statement.
-\index{body}
+condición
 
-boolean expression
-:   An expression whose value is either `True` or `False`.
-\index{boolean expression}
-\index{expression!boolean}
+:   La expresión booleana en una sentencia condicional que determina qué
+    rama será ejecutada.
 
-branch
-:   One of the alternative sequences of statements in a conditional statement.
-\index{branch}
+\index{condición}
 
-chained conditional
-:   A conditional statement with a series of alternative branches.
-\index{chained conditional}
-\index{conditional!chained}
+condicional anidado
 
-comparison operator
-:   One of the operators that compares its operands: `==`,
-    `!=`, `>`, `<`, `>=`, and `<=`.
+:   Una sentencia condicional que aparece en una de las ramas de otra
+    sentencia condicional.
 
-conditional statement
-:   A statement that controls the flow of execution depending on some
-    condition.
-\index{conditional statement}
-\index{statement!conditional}
+\index{anidado, condicional}
+\index{condicional!anidado}
 
-condition
-:   The boolean expression in a conditional statement that determines
-    which branch is executed.
-\index{condition}
+condicional encadenado
 
-compound statement
-:   A statement that consists of a header and a body. The header ends
-    with a colon (:). The body is indented relative to the header.
-\index{compound statement}
+:   Una sentencia condicional con una serie de ramas alternativas.
 
-guardian pattern
-:   Where we construct a logical expression with additional comparisons
-    to take advantage of the short-circuit behavior.
-\index{guardian pattern}
-\index{pattern!guardian}
+\index{encadenado, condicional}
+\index{condicional!encadenado}
 
-logical operator
-:   One of the operators that combines boolean expressions:
-    `and`, `or`, and `not`.
+cortocircuito
 
-nested conditional
-:   A conditional statement that appears in one of the branches of
-    another conditional statement.
-\index{nested conditional}
-\index{conditional!nested}
+:   Cuando Python va evaluando una expresión lógica por tramos y detiene
+    el proceso de evaluación debido a que ya conoce el valor final que
+    va a tener el resultado sin necesidad de evaluar el resto de
+    la expresión.
+
+\index{cortocircuito}
+
+cuerpo
+
+:   La secuencia de sentencias en el interior de una
+    sentencia compuesta.
+
+\index{cuerpo}
+
+expresión booleana
+
+:   Un expresión cuyo valor puede ser o bien `Verdadero` o
+    bien `Falso`.
+
+\index{booleana, expresión}
+\index{expresión!booleana}
+
+operadores de comparación
+
+:   Uno de los operadores que se utiliza para comparar dos operandos:
+    `==`, `!=`, ``>``,
+    ``<``, ``>=``, y ``<=``.
+
+operador lógico
+
+:   Uno de los operadores que se combinan en las expresiones booleanas:
+    `and`, `or`, y `not`.
+
+patrón guardián
+
+:   Cuando construimos una expresión lógica con comparaciones
+    adicionales para aprovecharnos del funcionamiento en cortocircuito.
+
+\index{guardián, patrón}
+\index{patrón!guardián}
+
+rama
+
+:   Una de las secuencias alternativas de sentencias en una
+    sentencia condicional.
+
+\index{rama}
+
+sentencia compuesta
+
+:   Una sentencia que consiste en un encabezado y un cuerpo. El
+    encabezado termina con dos-puntos (:). El cuerpo está indentado con
+    relación al encabezado.
+
+\index{compuesta, sentencia}
+\index{sentencia!compuesta}
+
+sentencia condicional
+
+:   Una sentencia que controla el flujo de ejecución, dependiendo de
+    cierta condición.
+
+\index{condicional!sentencia}
+\index{sentencia!condicional}
 
 traceback
-:   A list of the functions that are executing, printed when an
-    exception occurs.
+
+:   Una lista de las funciones que se están ejecutando, que se muestra
+    en pantalla cuando se produce una excepción.
+
 \index{traceback}
 
-short circuit
-:   When Python is part-way through evaluating a logical expression and
-    stops the evaluation because Python knows the final value for the
-    expression without needing to evaluate the rest of the expression.
-\index{short circuit}
 
-Exercises
----------
+Ejercicios
+----------
 
-**Exercise 1: Rewrite your pay computation to give the employee 1.5 times
-the hourly rate for hours worked above 40 hours.**
+Exercise 1: Reescribe el programa del cálculo del salario para darle al
+empleado 1.5 veces la tarifa horaria para todas las horas trabajadas que
+excedan de 40.
 
 ~~~~
-Enter Hours: 45
-Enter Rate: 10
-Pay: 475.0
+Introduzca las Horas: 45
+Introduzca la Tarifa por hora: 10
+Salario: 475.0
 ~~~~
 
-**Exercise 2: Rewrite your pay program using `try` and
-`except` so that your program handles non-numeric input
-gracefully by printing a message and exiting the program. The following
-shows two executions of the program:**
+Exercise 2: Reescribe el programa del salario usando `try` y
+`except`, de modo que el programa sea capaz de gestionar
+entradas no numéricas con elegancia, mostrando un mensaje y saliendo del
+programa. A continuación se muestran dos ejecuciones del programa:
 
 ~~~~
-Enter Hours: 20
-Enter Rate: nine
-Error, please enter numeric input
+Introduzca las Horas: 20
+Introduzca la Tarifa por hora: nueve
+Error, por favor introduzca un número
 ~~~~
 
 ~~~~
-Enter Hours: forty
-Error, please enter numeric input
+Introduzca las Horas: cuarenta
+Error, por favor introduzca un número
 ~~~~
 
-**Exercise 3: Write a program to prompt for a score between 0.0 and 1.0.
-If the score is out of range, print an error message. If the score is
-between 0.0 and 1.0, print a grade using the following table:**
+Exercise 3: Escribe un programa que solicite una puntuación entre 0.0 y
+1.0. Si la puntuación está fuera de ese rango, muestra un mensaje de
+error. Si la puntuación está entre 0.0 y 1.0, muestra la calificación
+usando la tabla siguiente:
 
 ~~~~
- Score   Grade
->= 0.9     A
->= 0.8     B
->= 0.7     C
->= 0.6     D
- < 0.6     F
-~~~~
 
-~~~~
-Enter score: 0.95
-A
+Puntuación Calificación
+>= 0.9     Sobresaliente
+>= 0.8     Notable
+>= 0.7     Bien
+>= 0.6     Suficiente
+< 0.6      Insuficiente
 ~~~~
 
 ~~~~
-Enter score: perfect
-Bad score
+Introduzca puntuación: 0.95
+Sobresaliente
 ~~~~
 
 ~~~~
-Enter score: 10.0
-Bad score
+Introduzca puntuación: perfecto
+Puntuación incorrecta
 ~~~~
 
 ~~~~
-Enter score: 0.75
-C
+Introduzca puntuación: 10.0
+Puntuación incorrecta
 ~~~~
 
 ~~~~
-Enter score: 0.5
-F
+Introduzca puntuación: 0.75
+Bien
 ~~~~
 
-Run the program repeatedly as shown above to test the various different
-values for input.
+~~~~
+Introduzca puntuación: 0.5
+Insuficiente
+~~~~
 
+Ejecuta el programa repetidamente, como se muestra arriba, para probar
+con varios valores de entrada diferentes.
+
+[^1]: el término correcto en español sería "sangradas", pero en el
+    mundillo de la programación se suele decir que las líneas van
+    "indentadas" (Nota del trad.)
+
+[^2]: Estudiaremos las funciones en el capítulo 4 y los bucles en el
+    capítulo 5.
+
+[^3]: En Python 3.0, ya no se produce el mensaje de error; el operador
+    de división realiza división en punto flotante incluso con operandos
+    enteros.
