@@ -6,7 +6,7 @@ This is the spanish version of www.py4e.com available at
 at es.py4e.com.
 
 You can help with the Spanish translation if you have a github
-account.  You can use the github editor to send up "pull requests"
+account.  You can use the github editor to send us "pull requests"
 whcih we will review and apply.
 
 You can also become a core committer for the project to help review
@@ -29,8 +29,8 @@ Status
 * Code Samples: Nothing is translated
 * Web pages: Very little translated
 
-Translation Areas
------------------
+Areas to Translate
+------------------
 
 * The book chapters under the folder `book3` - the book is written in
 Markdown so it is prety easy to edit the book using any text editor.
@@ -55,15 +55,16 @@ to edit these figures.
 It will help to know PHP to know what to translate without breaking 
 the files.
 
-Python 2 Translation
-====================
+Python 2 Book in Spanish
+========================
 
-The Python 2.0 version of the book is already translated into Spanish
-thanks to Fernando Tardio. (https://twitter.com/fertardio).
+The Python 2 version of the book is already translated into Spanish
+thanks to Fernando Tardio. (https://twitter.com/fertardio).  Fernando
+also started the translation of the Python 3 book.
 
 You can view it at http://do1.dr-chuck.net/py4inf/ES-es/book.pdf.
 
-It has the same chapters and much the same text as the Python 3.0
+It has the same chapters and much the same text as the Python 3
 book and you can look at this book if you are interested in
 good phraseology when describing Python in Spanish.
 
