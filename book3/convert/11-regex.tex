@@ -1,124 +1,127 @@
 % The contents of this file is 
 % Copyright (c) 2009-  Charles R. Severance, All Righs Reserved
 
-\chapter{Regular expressions}
+\chapter{Expresiones regulares}
 
-So far we have been reading through files, looking for patterns and extracting various
-bits of lines that we find interesting.  We have been using string methods like {\tt split}
-and {\tt find} and using lists and string slicing to extract portions of the lines.
-\index{regular expressions}
+Hasta ahora hemos estado leyendo archivos, buscando patrones y extrayendo varios
+fragmentos de líneas que encontrábamos interesantes. Hemos estado usando métodos de cadena, como {\tt split}
+y {\tt find}, usando listas y rebanado de cadenas para extraer porciones de esas líneas.
+\index{expresiones regulares}
 \index{regex}
-\index{re module}
+\index{re, módulo}
 
-This task of searching and extracting is so common that Python has a very powerful library
-called {\bf regular expressions} that handles many of these tasks quite elegantly.  The
-reason we have not introduced regular expressions earlier in the book is because while they
-are very powerful, they are a little complicated and their syntax takes some getting used to. 
+Esta tarea de buscar y extraer es tan común que Python tiene una librería muy potente
+llamada {\bf expresiones regulares}, que se encarga de muchas de estas tareas de forma elegante. La
+razón por la que no hemos introducido las expresiones regulares antes en este libro se debe a que,
+a pesar de que son muy potentes, también son un poco complicadas y lleva algún tiempo acostumbrarse a su
+sintaxis.
 
-Regular expressions are almost their own little programming language for searching and parsing
-strings.  As a matter of fact, entire books have been written on the topic of regular expressions.
-In this chapter, we will only cover the basics of regular expressions.  For more detail on regular
-expressions, see:
+Las expresiones regulares tienen casi su propio pequeño lenguaje de programación para buscar y analizar
+las cadenas. De hecho, se han escritos libros enteros sobre el tema de las expresiones regulares.
+En este capítulo, nosotros sólo cubriremos lo más básico acerca de las expresiones regulares.
+Para obtener más detalles sobre ellas, puedes consultar:
 
-\url{http://en.wikipedia.org/wiki/Regular_expression}
+\url{http://es.wikipedia.org/wiki/Expresion_regular}
 
 \url{https://docs.python.org/2/library/re.html}
 
-The regular expression library {\tt re} must be imported into your program before you can use it.
-The simplest use of the regular expression library is the {\tt search()} function.  The following
-program demonstrates a trivial use of the search function.
+La librería de expresiones regulares {\tt re}, debe ser importada en el programa antes de poder utilizarlas.
+El uso más simple de esta librería es la función {\tt search()}. El programa siguiente
+demuestra un uso trivial de la función {\tt search}.
 \index{regex!search}
 
 \beforeverb
 \begin{verbatim}
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    if re.search('From:', line) :
-        print line
+manf = open('mbox-short.txt')
+for linea in manf:
+    linea = linea.rstrip()
+    if re.search('From:', linea) :
+        print linea
 \end{verbatim}
 \afterverb
 %
-We open the file, loop through each line, and use the regular expression {\tt search()} to
-only print out lines that contain the string ``From:''.   This program does not use the real
-power of regular expressions, since we could have just as easily used {\tt line.find()} to
-accomplish the same result.
-\index{string!find}
+Abrimos el fichero, vamos recorriendo cada línea, y usamos la función {\tt search()},
+de la librería de expresiones regulares, para
+imprimir solamente aquellas líneas que contienen la cadena ``From:''. Este programa no usa la potencia
+real de las expresiones regulares, ya que podríamos haber usado simplemente {\tt linea.find()} para
+lograr el mismo resultado.
+\index{cadena!find}
 
-The power of the regular expressions comes when we add special characters to the search string
-that allow us to more precisely control which lines match the string.  Adding these special
-characters to our regular expression allow us to do sophisticated matching and extraction while
-writing very little code.
+La potencia de las expresiones regulares llega cuando añadimos caracteres especiales a la cadena de
+búsqueda, que nos permiten controlar con mayor precisión qué líneas coinciden con nuestro patrón.
+Añadir estos caracteres especiales a nuestra expresión regular nos permite localizar patrones
+complejos y realizar extracciones escribiendo muy poco código.
 
-For example, the caret character is used in regular 
-expressions to match ``the beginning'' of a line.
-We could change our program to only match 
-lines where ``From:'' was at the beginning of the line as follows:
+Por ejemplo, el carácter de intercalación (\verb"^") es usado en las expresiones
+regulares para indicar ``el comienzo'' de una línea.
+Podemos cambiar nuestro programa para que sólo localice
+aquellas líneas en las cuales ``From:'' esté al principio:
 
 \beforeverb
 \begin{verbatim}
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    if re.search('^From:', line) :
-        print line
+manf = open('mbox-short.txt')
+for linea in manf:
+    linea = linea.rstrip()
+    if re.search('^From:', linea) :
+        print linea
 \end{verbatim}
 \afterverb
 %
-Now we will only match lines that {\em start with} the string ``From:''.  This is still a very
-simple example that we could have done equivalently with the {\tt startswith()} method from
-the string library.  But it serves to introduce the notion that regular expressions contain
-special action characters that give us more control as to what will match the regular expression.
-\index{string!startswith}
+Ahora sólo coincidirán las líneas que {\em comiencen} por la cadena ``From:''. Todavía se trata
+de un ejemplo de análisis muy sencillo, ya que podríamos haber hecho lo mismo con el método
+{\tt startswith()} de la librería de cadenas. Pero sirve para introducir la noción de que las expresiones
+regulares contienen caracteres de acción especiales que nos dan más control sobre lo que localizará
+la expresión regular.
+\index{cadena!startswith}
 
-\section{Character matching in regular expressions}
+\section{Equivalencia de caracteres en expresiones regulares}
 
-There are a number of other special characters that let us build even more powerful regular
-expressions.  The most commonly used special character is the period or full stop, which matches
-any character.
-\index{wild card}
-\index{regex!wild card}
+Hay varios caracteres especiales más que nos permiten construir expresiones regulares aún más potentes.
+El más usado de ellos es el punto o parada completa, que equivale
+a cualquier carácter.
+\index{comodín}
+\index{regex!comodín}
 
-In the following example, the regular expression ``F..m:'' would match any of the strings
-``From:'', ``Fxxm:'', ``F12m:'', or ``F!@m:'' since the period characters in the regular
-expression match any character.
+En el ejemplo siguiente, la expresión regular ``F..m:'' coincidirá con cualquiera de las cadenas
+``From:'', ``Fxxm:'', ``F12m:'', or ``F!@m:'', ya que el carácter punto en la expresión regular
+equivale a cualquier carácter.
 
 \beforeverb
 \begin{verbatim}
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    if re.search('^F..m:', line) :
-        print line
+manf = open('mbox-short.txt')
+for linea in manf:
+    linea = linea.rstrip()
+    if re.search('^F..m:', linea) :
+        print linea
 \end{verbatim}
 \afterverb
 %
-This is particularly powerful when combined with the ability to indicate that a character can
-be repeated any number of times using the ``*'' or ``+'' characters in your regular expression.
-These special characters mean that instead of matching a single character in the search string,
-they match zero-or-more characters (in the case of the asterisk) or one-or-more of the characters
-(in the case of the plus sign).
+Esto resulta particularmente potente cuando se combina con la capacidad de indicar que un carácter
+puede repetirse cualquier número de veces, usando los caracteres ``*'' o ``+'' en la expresión regular.
+Estos caracteres especiales significan que en vez de coincidir un único carácter con la cadena buscada,
+pueden coincidir cero-o-más caracteres (en el caso del asterisco), o uno-o-más caracteres
+(en el caso del signo más).
 
-We can further narrow down the lines that we match using a repeated {\bf wild card} character in
-the following example:
+Podemos restringir aún más las líneas que coincidirán con la búsqueda, usando un carácter {\bf comodín}
+que se repita, como en el ejemplo siguiente:
 
 \beforeverb
 \begin{verbatim}
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    if re.search('^From:.+@', line) :
-        print line
+manf = open('mbox-short.txt')
+for linea in manf:
+    linea = linea.rstrip()
+    if re.search('^From:.+@', linea) :
+        print linea
 \end{verbatim}
 \afterverb
 %
-The search string ``\verb"^"From:.+@'' will successfully match lines that start with ``From:'',
-followed by one or more characters (``.+''), followed by an at-sign.  So this will match the
-following line:
+La cadena buscada ``\verb"^"From:.+@'' encontrará todas las líneas que comienzan con ``From:'',
+seguido por uno o más caracteres (``.+''), seguidos de un símbolo-arroba. De modo que la
+línea siguiente sería localizada:
 
 \beforeverb
 \begin{alltt}
@@ -126,8 +129,8 @@ following line:
 \end{alltt}
 \afterverb
 
-You can think of the ``.+'' wildcard as expanding to match all the characters between the 
-colon character and the at-sign.  
+Puedes pensar en el comodín ``.+'' como una extensión que equivale a todos los caracteres
+que están entre los dos-puntos y el símbolo arroba.
 
 \beforeverb
 \begin{alltt}
@@ -135,8 +138,9 @@ colon character and the at-sign.
 \end{alltt}
 \afterverb
 
-It is good to think of the plus and asterisk characters as ``pushy''.  For example, the following
-string would match the last at-sign in the string as the ``.+'' pushes outwards, as shown below:
+Resulta útil pensar en los caracteres más y asterisco como ``empujadores''. Por ejemplo, en la cadena
+siguiente la coincidencia con nuestra expresión llegaría hasta el último signo arroba de la línea,
+ya que el ``.+'' empuja hacia fuera, como se muestra debajo:
 
 \beforeverb
 \begin{alltt}
@@ -144,17 +148,18 @@ string would match the last at-sign in the string as the ``.+'' pushes outwards,
 \end{alltt}
 \afterverb
 
-It is possible to tell an asterisk or plus sign not to be so ``greedy'' by adding 
-another character.   See the detailed documentation for information on turning off the 
-greedy behavior.
-\index{greedy}
+Es posible decirle a un asterisco o a un signo más que no sean ``codiciosos'', añadiendo
+otro carácter. Mira la documentación detallada para obtener información sobre cómo desactivar
+el comportamiento codicioso.
+\index{codicioso}
 
-\section{Extracting data using regular expressions}
+\section{Extracción de datos usando expresiones regulares}
 
-If we want to extract data from a string in Python we can use the {\tt findall()} method to extract
-all of the substrings which match a regular expression.  Let's use the example of wanting to extract
-anything that looks like an email address from any line regardless of format.  For example, we want
-to pull the email addresses from each of the following lines:
+Si queremos extraer datos desde una cadena en Python, podemos usar el método {\tt findall()} para
+obtener todas las subcadenas que coinciden con una expresión regular. Pongamos por caso que
+queramos extraer todo aquello que se parezca a una dirección de e-mail de cualquier línea, independientemente
+del formato de la misma. Por ejemplo, deseamos extraer las direcciones de e-mail de cada una de las
+líneas siguientes:
 
 \beforeverb
 \begin{verbatim}
@@ -166,9 +171,9 @@ Author: stephen.marquard@uct.ac.za
 \end{verbatim}
 \afterverb
 %
-We don't want to write code for each of the types of lines, splitting and slicing differently for each
-line.  This following program uses {\tt findall()} to find the lines with email addresses in them and
-extract one or more addresses from each of those lines.
+No queremos escribir código para cada uno de los tipos de líneas, dividirlas y rebanarlas de forma diferente
+en cada caso. El programa siguiente usa {\tt findall()} para localizar las líneas que contienen
+direcciones de e-mail, y extraer una o más direcciones de cada una de ellas.
 \index{findall}
 \index{regex!findall}
 
@@ -181,11 +186,11 @@ print lst
 \end{verbatim}
 \afterverb
 %
-The {\tt findall()} method searches the string in the second argument and returns a list of
-all of the strings that look like email addresses.   We are using a two-character sequence 
-that matches a non-whitespace character ({\textbackslash}S). 
+El método {\tt findall()} busca la cadena que se le pasa como segundo argumento y en este caso devuelve
+una lista de todas las cadenas que parecen direcciones de e-mail. Estamos usando una secuencia de dos
+caracteres, que equivale a cualquier carácter distinto de un espacio en blanco ({\textbackslash}S). 
 
-The output of the program would be:
+La salida del programa sería:
 
 \beforeverb
 \begin{verbatim}
@@ -193,33 +198,34 @@ The output of the program would be:
 \end{verbatim}
 \afterverb
 %
-Translating the regular expression, we are looking for substrings that have at least one
-non-whitespace character, followed by an at-sign, followed by at least one more non-whitespace
-character.  The ``{\textbackslash}S+'' matches as many non-whitespace characters as possible.
+Traduciendo la expresión regular, estamos buscando subcadenas que tengan al menos un
+carácter que no sea un espacio en blanco, seguido por un signo arroba, seguido por al menos un carácter más
+que tampoco sea un espacio en blanco. El ``{\textbackslash}S+'' equivale a tantos caracteres
+no-espacio-en-blanco como sea posible.
 
-The regular expression would match twice (csev@umich.edu and cwen@iupui.edu), but it would not
-match the string ``@2PM'' because there are no non-blank characters {\em before} the at-sign.  
-We can use this regular expression in a program to read all the lines in a file and print out
-anything that looks like an email address as follows:
+La expresión regular encontrará dos coincidencias (csev@umich.edu y cwen@iupui.edu), pero no
+capturará la cadena ``@2PM'', ya que no hay ningún carácter distinto de espacio en blanco {\em antes} del
+símbolo arroba. Podemos usar esta expresión regular en un programa para leer todas las líneas de un archivo
+y mostrar en pantalla todo lo que se parezca a una dirección de correo electrónico: 
 
 \beforeverb
 \begin{verbatim}
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    x = re.findall('\S+@\S+', line)
+manf = open('mbox-short.txt')
+for linea in manf:
+    linea = linea.rstrip()
+    x = re.findall('\S+@\S+', linea)
     if len(x) > 0 :
         print x
 \end{verbatim}
 \afterverb
 %
-We read each line and then extract all the substrings that match our regular expression.
-Since {\tt findall()} returns a list, we simply check if the number of elements in our returned
-list is more than zero to print only lines where we found at least one substring that looks
-like an email address.
+Vamos leyendo cada línea y luego extraemos todas las subcadenas que coinciden con nuestra expresión regular.
+Como {\tt findall()} devuelve una lista, simplemente comprobamos si el número de elementos en la lista
+de retorno es mayor que cero, para mostrar sólo aquellas líneas en las cuales hemos encontrado al menos una subcadena
+que parece una dirección de e-mail.
 
-If we run the program on {\tt mbox.txt} we get the following output:
+Si se hace funcionar el programa con {\tt mbox.txt}, obtendremos la siguiente salida:
 
 \beforeverb
 \begin{verbatim}
@@ -235,16 +241,16 @@ If we run the program on {\tt mbox.txt} we get the following output:
 \end{verbatim}
 \afterverb
 %
-Some of our email addresses have incorrect characters like ``\verb"<"'' or ``;'' at the beginning
-or end.   Let's declare that we are only interested in the portion of the string that starts and
-ends with a letter or a number.
+Algunas de nuestras direcciones de correo tienen caracteres incorrectos, como  ``\verb"<"'' o ``;'' al principio
+o al final. Vamos a indicar que sólo estamos interesados en la porción de la cadena que comienza y
+termina con una letra o un número.
 
-To do this, we use another feature of regular expressions.  Square brackets are used to indicate a
-set of multiple acceptable characters we are willing to consider matching.  In a sense, the
-``{\textbackslash}S'' is asking to match the set of ``non-whitespace characters''.  Now we will be
-a little more explicit in terms of the characters we will match.
+Para lograrlo, usaremos otra característica de las expresiones regulares. Los corchetes se utilizan para indicar
+un conjunto de varios caracteres aceptables que estamos dispuestos a considerar coincidencias. En cierto sentido,
+el ``{\textbackslash}S'' ya está exigiendo que coincidan con el conjunto de ``caracteres que no son espacios en
+blanco''. Ahora vamos a ser un poco más explícitos en cuanto a los caracteres con los que queremos que coincida.
 
-Here is our new regular expression:
+He aquí nuestra nueva expresión regular:
 
 \beforeverb
 \begin{verbatim}
@@ -252,25 +258,24 @@ Here is our new regular expression:
 \end{verbatim}
 \afterverb
 %
-This is getting a little complicated and you can begin to see why regular expressions are their own
-little language unto themselves.  Translating this regular expression, we are looking for substrings
-that start with a {\em single} lowercase letter, uppercase letter, or number ``[a-zA-Z0-9]'', followed
-by zero or more non-blank characters (``{\textbackslash}S*''), followed by an at-sign, followed by zero
-or more non-blank characters (``{\textbackslash}S*''), followed by an uppercase or lowercase letter.
-Note that we switched from ``+'' to ``*'' to indicate zero or more non-blank characters since ``[a-zA-Z0-9]''
-is already one non-blank character.   Remember that the ``*'' or ``+'' applies to the single character
-immediately to the left of the plus or asterisk.
-\index{regex!character sets(brackets)}
+Esto se va volviendo un poco complicado y seguramente ya empiezas a ver por qué las expresiones regulares tienen
+su propio lenguaje para ellas solas. Traduciendo esta expresión regular, estamos buscando subcadenas que
+comiencen con una {\em única} letra (minúscula o mayúscula), o un número ``[a-zA-Z0-9]'', seguido por cero
+o más caracteres no-en-blanco (``{\textbackslash}S*''), seguidos por un símbolo arroba, seguidos por cero
+o más caracteres no-en-blanco (``{\textbackslash}S*''), seguidos por una letra mayúscula o minúscula.
+Fíjate que hemos cambiado de ``+'' a ``*'' para indicar cero o más caracteres no-blancos, dado que ``[a-zA-Z0-9]''
+ya es un carácter no-en-blanco. Recuerda que el ``*'' o ``+'' se aplica al carácter que queda inmediatamente
+a la izquierda del más o del asterisco.
 
-If we use this expression in our program, our data is much cleaner:
+Si aplicamos esta expresión en nuestro programa, los datos quedan mucho más limpios:
 
 \beforeverb
 \begin{verbatim}
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    x = re.findall('[a-zA-Z0-9]\S*@\S*[a-zA-Z]', line)
+manf = open('mbox-short.txt')
+for linea in manf:
+    linea = linea.rstrip()
+    x = re.findall('[a-zA-Z0-9]\S*@\S*[a-zA-Z]', linea)
     if len(x) > 0 :
         print x
 \end{verbatim}
@@ -291,19 +296,19 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-Notice that on the ``source@collab.sakaiproject.org'' lines, our regular expression
-eliminated two letters at the end of the string (``\verb">";'').  This is because when we
-append ``[a-zA-Z]'' to the end of our regular expression, we are demanding that whatever
-string the regular expression parser finds must end with a letter.   So when it sees the
-``\verb">"'' after ``sakaiproject.org\verb">";'' it simply stops at the last ``matching''
-letter it found (i.e., the ``g'' was the last good match).
+Fíjate que en las líneas de ``source@collab.sakaiproject.org'', nuestra expresión regular
+ha eliminado dos letras del final de la cadena (``\verb">";''). Esto se debe a que cuando
+añadimos ``[a-zA-Z]'' al final de nuestra expresión regular, le estamos pidiendo que cualquier
+cadena que el analizador de expresión regulares encuentre debe terminar con una letra. De modo que cuando ve el
+``\verb">"'' después de``sakaiproject.org\verb">";'' simplemente se detiene en la última letra que
+ha encontrado que ``coincide'' (es decir, la ``g'' en este caso).
 
-Also note that the output of the program is a Python list that has a string as the single
-element in the list.
+Observa también que la salida de este programa consiste, para cada línea, en una lista de Python que contiene
+una cadena como único elemento.
 
-\section{Combining searching and extracting}
+\section{Combinar búsqueda y extracción}
 
-If we want to find numbers on lines that start with the string ``X-'' such as:
+Si queremos encontrar números en líneas que comienzan con la cadena ``X-'', como en:
 
 \beforeverb
 \begin{verbatim}
@@ -312,10 +317,10 @@ X-DSPAM-Probability: 0.0000
 \end{verbatim}
 \afterverb
 %
-we don't just want any floating-point numbers from any lines.  We only want to extract
-numbers from lines that have the above syntax.
+no querremos simplemente localizar cualquier número en punto flotante de cualquier línea. Querremos extraer
+solamente los números de las líneas que tengan la sintaxis indicada arriba.
 
-We can construct the following regular expression to select the lines:
+Podemos construir la siguiente expresión regular para elegir las líneas:
 
 \beforeverb
 \begin{verbatim}
@@ -323,28 +328,28 @@ We can construct the following regular expression to select the lines:
 \end{verbatim}
 \afterverb
 %
-Translating this, we are saying, we want lines that start with ``X-'', followed by zero or
-more characters (``.*''), followed by a colon (``:'') and then a space.  After the space we are
-looking for one or more characters that are either a digit (0-9) or a period ``[0-9.]+''.
-Note that inside the square brackets, the period matches an actual period (i.e., it is not a
-wildcard between the square brackets).
+Traducido, lo que estamos diciendo es que queremos las líneas que comiencen con ``X-'', seguidas por cero o
+más caracteres (``.*''), seguidas por dos-puntos (``:'') y luego un espacio. Después del espacio busca
+uno o más caracteres que sean o bien dígitos (0-9) o puntos ``[0-9.]+''.
+Fíjate que dentro de los corchetes, el punto coincide con un punto real (es decir, dentro de los corchetes
+no actúa como comodín).
 
-This is a very tight expression that will pretty much match only the lines we are interested
-in as follows:
+Se trata de una expresión muy rigurosa, que localizará bastante bien únicamente las líneas en las que
+estamos interesados:
 
 \beforeverb
 \begin{verbatim}
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    if re.search('^X\S*: [0-9.]+', line) :
-        print line
+manf = open('mbox-short.txt')
+for linea in manf:
+    linea = linea.rstrip()
+    if re.search('^X\S*: [0-9.]+', linea) :
+        print linea
 \end{verbatim}
 \afterverb
 %
-When we run the program, we see the data nicely filtered to show 
-only the lines we are looking for.
+Cuando ejecutemos el programa, veremos los datos correctamente filtrados
+para mostrar sólo las líneas que estamos buscando.
 
 \beforeverb
 \begin{verbatim}
@@ -355,38 +360,37 @@ X-DSPAM-Probability: 0.0000
 \end{verbatim}
 \afterverb
 %
-But now we have to solve the problem of extracting the numbers.  While it would be simple
-enough to use {\tt split}, we can use another feature of regular expressions to both search
-and parse the line at the same time.
-\index{string!split}
+Pero ahora debemos resolver el problema de la extracción de los números. A pesar de que resultaría
+bastante sencillo usar {\tt split}, podemos usar otra características de las expresiones regulares para
+buscar y analizar la línea al mismo tiempo.
+\index{cadena!split}
 
-Parentheses are another special character in regular expressions.  When you add parentheses
-to a regular expression, they are ignored when matching the string. But when you are using
-{\tt findall()}, parentheses indicate that while you want the whole expression to match,
-you only are interested in extracting a portion of the substring that matches the regular
-expression.  
-\index{regex!parentheses}
-\index{parentheses!regular expression}
+Los paréntesis son también caracteres especiales en las expresiones regulares. Cuando se añaden paréntesis
+a una expresión regular, éstos se ignoran a la hora de buscar coincidencias. Pero cuando se usa
+{\tt findall()}, los paréntesis indican que a pesar de que se desea que la expresión completa coincida,
+sólo se está interesado en extraer una cierta porción de la subcadena.
+\index{regex!paréntesis}
+\index{paréntesis!expresiones regulares}
 
-So we make the following change to our program:
+Así que haremos el siguiente cambio en nuestro programa:
 
 \beforeverb
 \begin{verbatim}
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    x = re.findall('^X\S*: ([0-9.]+)', line)
+manf = open('mbox-short.txt')
+for linea in manf:
+    linea = linea.rstrip()
+    x = re.findall('^X\S*: ([0-9.]+)', linea)
     if len(x) > 0 :
         print x
 \end{verbatim}
 \afterverb
 %
-Instead of calling {\tt search()}, we add parentheses around the part of the regular expression
-that represents the floating-point number to indicate we only want {\tt findall()} to give us
-back the floating-point number portion of the matching string.
+En vez de llamar a {\tt search()}, añadimos paréntesis alrededor de la parte de la expresión regular
+que representa el número en punto flotante, para indicar que queremos que {\tt findall()} sólo nos devuelva
+la porción con el número en punto flotante de la cadena coincidente.
 
-The output from this program is as follows:
+La salida de este programa es la siguiente:
 
 \beforeverb
 \begin{verbatim}
@@ -400,12 +404,12 @@ The output from this program is as follows:
 \end{verbatim}
 \afterverb
 %
-The numbers are still in a list and need to be converted from strings to floating point, but we
-have used the power of regular expressions to both search and extract the information we found
-interesting.
+Los número siguen estando en una lista y aún necesitan ser convertidos de cadenas a números en punto flotante, pero
+hemos usado el poder de las expresiones regulares para realizar tanto la búsqueda como la extracción de información
+que nos resulta interesante.
 
-As another example of this technique, if you look at the file there are a number of lines
-of the form:
+Como otro ejemplo más de esta técnica, si observas el archivo verás que hay un cierto número de líneas
+con esta forma:
 
 \beforeverb
 \begin{verbatim}
@@ -413,27 +417,27 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
 \end{verbatim}
 \afterverb
 %
-If we wanted to extract all of the revision numbers (the integer number at the end of these lines)
-using the same technique as above, we could write the following program:
+Si queremos extraer todos los números de revisión (los números enteros al final de esas líneas)
+usando la misma técnica que en el caso anterior, podríamos escribir el programa siguiente:
 
 \beforeverb
 \begin{verbatim}
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    x = re.findall('^Details:.*rev=([0-9]+)', line)
+manf = open('mbox-short.txt')
+for linea in manf:
+    linea = linea.rstrip()
+    x = re.findall('^Details:.*rev=([0-9]+)', linea)
     if len(x) > 0:
         print x
 \end{verbatim}
 \afterverb
 %
-Translating our regular expression, we are looking for lines that start with ``Details:'',
-followed by any number of characters (``.*''), followed by ``rev='', and then by one or
-more digits.   We want to find lines that match the entire expression but we only want to
-extract the integer number at the end of the line, so we surround ``[0-9]+'' with parentheses.  
+Traduciendo nuestra expresión regular, estamos buscando aquellas líneas que comiencen con ``Details:'',
+seguido de cualquier número de caracteres (``*''), seguido por ``rev='', y luego por uno o más dígitos.
+Queremos encontrar las líneas que coincidan con la expresión completa, pero deseamos extraer unicamente
+el número entero al final de la línea, de modo que rodeamos con paréntesis ``[0-9]+''.
 
-When we run the program, we get the following output:
+Cuando ejecutamos el programa, obtenemos la salida siguiente:
 
 \beforeverb
 \begin{verbatim}
@@ -445,13 +449,13 @@ When we run the program, we get the following output:
 \end{verbatim}
 \afterverb
 %
-Remember that the ``[0-9]+'' is ``greedy'' and it tries to make as large a string of digits as
-possible before extracting those digits.  This ``greedy'' behavior is why we get all five digits
-for each number.  The regular expression library expands in both directions until it encounters a
-non-digit, or the beginning or the end of a line.
+Recuerda que el ``[0-9]+'' es ``codicioso'', e intentará conseguir una cadena de dígitos tan larga
+como sea posible antes de extraer esos dígitos. Este comportamiento ``codicioso'' es el motivo por el que obtenemos
+los cinco dígitos de cada número. La expresión regular se expande en ambas direcciones hasta que
+encuentra un no-dígito, o el comienzo o final de una línea.
 
-Now we can use regular expressions to redo an exercise from earlier in the book where we were
-interested in the time of day of each mail message.   We looked for lines of the form:
+Ahora ya podemos usar expresiones regulares para rehacer un ejercicio anterior del libro, en el cual estábamos
+interesados en la hora de cada mensaje de e-mail. Buscamos líneas de la forma:
 
 \beforeverb
 \begin{verbatim}
@@ -459,17 +463,17 @@ From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 \end{verbatim}
 \afterverb
 %
-and wanted to extract the hour of the day for each line.  Previously we did this with two calls
-to {\tt split}.  First the line was split into words and then we pulled out the fifth word and split
-it again on the colon character to pull out the two characters we were interested in.
+y queremos extraer la hora del día de cada linea. Anteriormente lo hicimos con dos llamadas a
+{\tt split}. Primero dividíamos la línea en palabras y luego cogíamos la quinta palabra y la dividíamos
+de nuevo usando el carácter dos-puntos para extraer los dos caracteres en los que estábamos interesados.
 
-% Add a section on the notion of brittle code
-While this worked, it actually results in pretty brittle code that is assuming the lines are nicely
-formatted.  If you were to add enough error checking (or a big try/except block) to insure that your
-program never failed when presented with incorrectly formatted lines, the code would balloon to 
-10-15 lines of code that was pretty hard to read.
+% Añadir una sección con la noción de código frágil
+A pesar de que esto funciona, en realidad se está generando un código bastante frágil, que asume que todas las líneas
+están perfectamente formateadas. Si quisieras añadir suficiente comprobación de errores (o un gran bloque try/except)
+para asegurarte de que el programa nunca falle cuando se encuentre con líneas incorrectamente formateadas,
+el código aumentaría en 10-15 líneas bastante difíciles de leer.
 
-We can do this in a far simpler way with the following regular expression:
+Podemos lograr lo mismo de un modo mucho más sencillo con la siguiente expresión regular:
 
 \beforeverb
 \begin{verbatim}
@@ -477,13 +481,13 @@ We can do this in a far simpler way with the following regular expression:
 \end{verbatim}
 \afterverb
 %
-The translation of this regular expression is that we are looking for lines that start with ``From ''
-(note the space), followed by any number of characters (``.*''), followed by a space, followed by two
-digits ``[0-9][0-9]'', followed by a colon character.  This is the definition of the kinds of lines
-we are looking for.  
+La traducción de esta expresión regular es que estamos buscando líneas que comiencen con ``From ''
+(fíjate en el espacio), seguidas por cualquier cantidad de caracteres (``.*''), seguidos por un espacio,
+seguidos por dos dígitos ``[0-9][0-9]'', seguidos por un carácter dos-puntos. Esta es la definición del tipo de
+líneas que estamos buscando.
 
-In order to pull out only the hour using {\tt findall()}, we add parentheses around the two digits
-as follows:
+Para extraer sólo la hora usando {\tt findall()}, vamos a añadir paréntesis alrededor de los dos dígitos,
+de este modo:
 
 \beforeverb
 \begin{verbatim}
@@ -491,20 +495,20 @@ as follows:
 \end{verbatim}
 \afterverb
 %
-This results in the following program:
+El programa quedaría entonces así:
 
 \beforeverb
 \begin{verbatim}
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    x = re.findall('^From .* ([0-9][0-9]):', line)
+manf = open('mbox-short.txt')
+for linea in manf:
+    linea = linea.rstrip()
+    x = re.findall('^From .* ([0-9][0-9]):', linea)
     if len(x) > 0 : print x
 \end{verbatim}
 \afterverb
 %
-When the program runs, it produces the following output:
+Cuando el programa se ejecuta, produce la siguiente salida:
 
 \beforeverb
 \begin{verbatim}
@@ -516,109 +520,108 @@ When the program runs, it produces the following output:
 \end{verbatim}
 \afterverb
 %
-\section{Escape character}
+\section{Escapado de caracteres}
 
-Since we use special characters in regular expressions to match the beginning or end of 
-a line or specify wild cards, we need a way to indicate that these characters are ``normal'' 
-and we want to match the actual character such as a dollar sign or caret.
+Los caracteres especiales se utilizan en las expresiones regulares para localizar el principio o el final
+de una línea, o también como comodines, así que necesitamos un modo de indicar cuándo esos caracteres son
+``normales'' y lo queremos encontrar es el carácter real, como un signo de dolar o uno de intercalación.
 
-We can indicate that we want to simply match a character by prefixing that character 
-with a backslash.  For example, we can find money amounts with the following regular
-expression.
+Podemos indicar que deseamos que simplemente equivalga a un carácter poniendo delante de ese carácter
+una barra invertida. A esto se le llama ``escapar'' el carácter. Por ejemplo, podemos encontrar
+cantidades de dinero con la expresión regular siguiente:
 
 \beforeverb
 \begin{verbatim}
 import re
-x = 'We just received $10.00 for cookies.'
-y = re.findall('\$[0-9.]+',x)
+x = 'Acabamos de recibir 10.00$ por las galletas.'
+y = re.findall('[0-9.]+\$',x)
 \end{verbatim}
 \afterverb
 %
-Since we prefix the dollar sign with a backslash, it actually matches the dollar sign
-in the input string instead of matching the ``end of line'', and the rest of the regular
-expression matches one or more digits or the period character.  {\em Note:} Inside 
-square brackets, characters are not ``special''.   So when we say ``[0-9.]'', it really 
-means digits or a period.    Outside of square brackets, a period is the ``wild-card'' 
-character and matches any character.  Inside square brackets, the period is a period.
+Dado que hemos antepuesto una barra invertida al signo dólar, ahora equivaldrá al símbolo del dolar
+en la cadena de entrada, en lugar de equivaler al ``final de la línea'', y el resto de la expresión
+regular buscará uno o más dígitos o el carácter punto. {\em Nota:} Dentro de los corchetes,
+los caracteres no son ``especiales''. De modo que cuando escribimos ``[0-9.]'', en realidad
+significa dígitos o un punto. Fuera de los corchetes, un punto es el carácter ``comodín'' y
+coincide con cualquier carácter. Dentro de los corchetes, el punto es simplemente un punto.
 
-\section{Summary}
+\section{Resumen}
 
-While this only scratched the surface of regular expressions, we have learned a bit about
-the language of regular expressions.  They are search strings with special characters in them
-that communicate your wishes to the regular expression system as to what defines ``matching''
-and what is extracted from the matched strings.  Here are some of those special characters
-and character sequences:
+Aunque sólo hemos arañado la superficie de las expresiones regulares, hemos aprendido un poco
+acerca de su lenguaje. Hay cadenas de búsqueda con caracteres especiales en su interior que
+comunican al sistema del expresiones regulares nuestros deseos acerca de qué queremos ``buscar''
+y qué se extraerá de las cadenas que se localicen. Aquí tenemos algunos de esos caracteres especiales
+y secuencias de caracteres:
 
 \verb"^" \newline
-Matches the beginning of the line.
+Coincide con el principio de una línea.
 
 \$ \newline
-Matches the end of the line.
+Coincide con el final de una línea.
 
 . \newline
-Matches any character (a wildcard).
+Coincide con cualquier carácter (un comodín).
 
 {\textbackslash}s \newline
-Matches a whitespace character.
+Coincide con un carácter espacio en blanco.
 
 {\textbackslash}S \newline
-Matches a non-whitespace character (opposite of {\textbackslash}s).
+Coincide con cualquier carácter que no sea un espacio en blanco (opuesto a {\textbackslash}s).
 
 * \newline
-Applies to the immediately preceding character and indicates to match zero or more of the
-preceding character(s).
+Se aplica al carácter que le precede e indica que la búsqueda debe coincidir cero o más veces con él.
 
 *? \newline
-Applies to the immediately preceding character and indicates to match zero or more of the
-preceding character(s) in ``non-greedy mode''.
+Se aplica al carácter que le precede e indica que la búsqueda debe coincidir cero o más veces con él
+en ``modo no-codicioso''.
 
 + \newline
-Applies to the immediately preceding character and indicates to match one or more of the 
-preceding character(s).
+Se aplica al carácter que le precede e indica que la búsqueda debe coincidir una o más veces con él.
 
 +? \newline
-Applies to the immediately preceding character and indicates to match one or more of the 
-preceding character(s) in ``non-greedy mode''.
+Se aplica al carácter que le precede e indica que la búsqueda debe coincidir una o más veces con él
+en ``modo no-codicioso''.
 
 [aeiou] \newline
-Matches a single character as long as that character is in the specified set.  In this example,
-it would match ``a'', ``e'', ``i'', ``o'', or ``u'', but no other characters.
+Coincide con un único carácter siempre que ese carácter esté en el conjunto especificado. En este ejemplo,
+deberían coincidir ``a'', ``e'', ``i'', ``o'', o ``u'', pero no los demás caracteres.
 
 [a-z0-9] \newline
-You can specify ranges of characters using the minus sign.  This example is a single character
-that must be a lowercase letter or a digit.
+Se pueden especificar rangos de caracteres usando el guión. Este ejemplo indica un único carácter
+que puede ser una letra minúscula o un dígito.
 
 [\verb"^"A-Za-z] \newline
-When the first character in the set notation is a caret, it inverts the logic.  This example
-matches a single character that is anything {\em other than} an uppercase or lowercase letter.
+Cuando el primer carácter en la notación del conjunto es un símbolo de intercalación, se invierte la lógica.
+En este ejemplo, la expresión equivale a un único carácter que sea cualquier cosa {\em excepto} una letra
+mayúscula o minúscula.
 
 ( ) \newline
-When parentheses are added to a regular expression, they are ignored for the purpose of matching,
-but allow you to extract a particular subset of the matched string rather than the whole string
-when using {\tt findall()}.
+Cuando se añaden paréntesis a una expresión regular, éstos son ignorados durante la búsqueda,
+pero permiten extraer un subconjunto particular de la cadena localizada en vez de la cadena
+completa, cuando usamos {\tt findall()}.
 
 {\textbackslash}b \newline
-Matches the empty string, but only at the start or end of a word.
+Coincide con la cadena vacía, pero sólo al principio o al final de una palabra.
 
 {\textbackslash}B \newline
-Matches the empty string, but not at the start or end of a word.
+Coincide con la cadena vacía, pero no al principio o al final de una palabra.
 
 {\textbackslash}d \newline
-Matches any decimal digit; equivalent to the set [0-9].
+Coincide con cualquier dígito decimal, es equivalente al conjunto [0-9].
 
 {\textbackslash}D \newline
-Matches any non-digit character; equivalent to the set [\verb"^"0-9].
+Coincide con cualquier carácter que no sea un dígito; equivale al conjunto [\verb"^"0-9].
 
-\section{Bonus section for Unix users}
+\section{Sección extra para usuarios de Unix}
 
-Support for searching files using regular expressions was built into the Unix operating system 
-since the 1960s and it is available in nearly all programming languages in one form or another.
+El soporte para búsqueda de archivos usando expresiones regulares viene incluido dentro del sistema operativo Unix
+desde los años 1960, y está disponible en casi todos los lenguajes de programación de una u otra forma.
 
 \index{grep}
-As a matter of fact, there is a command-line program built into Unix 
-called {\bf grep} (Generalized Regular Expression Parser) that does pretty much 
-the same as the {\tt search()} examples in this chapter.  So if you have a 
-Macintosh or Linux system, you can try the following commands in your command-line window.
+De hecho, existe un programa de línea de comandos integrado en Unix
+llamado {\bf grep} ({\tt Generalized Regular Expression Parser} - Analizador Generalizado de Expresiones Regulares) que
+hace casi lo mismo que hemos visto con {\tt search()} en los ejemplos de este capítulo. De modo que si tienes un
+sistema Macintosh o Linux, puedes probar las siguientes órdenes en la ventana de línea de comandos:
 
 \beforeverb
 \begin{verbatim}
@@ -630,21 +633,20 @@ From: rjlowe@iupui.edu
 \end{verbatim}
 \afterverb
 %
-This tells {\tt grep} to show you lines that start with the string ``From:'' in the file
-{\tt mbox-short.txt}.   If you experiment with the {\tt grep} command a bit and read the
-documentation for {\tt grep}, you will find some subtle differences between the regular
-expression support in Python and the regular expression support in {\tt grep}.  As an example,
-{\tt grep} does not support the non-blank character ``{\textbackslash}S'' so you will need to
-use the slightly more complex set notation ``[\verb"^" ]'', which simply means match a 
-character that is anything other than a space.
+Esto le dice a {\tt grep} que muestre las líneas que comienzan con la cadena ``From:'' del archivo
+{\tt mbox-short.txt}. Si experimentas un poco con el comando {\tt grep} y lees su documentación,
+encontrarás algunas sutiles diferencias entre el soporte de expresiones regulares en Python y el
+de {\tt grep}. Por ejemplo, {\tt grep} no soporta el carácter equivalente a no-espacio-en-blanco,
+``{\textbackslash}S'', de modo que hay que usar la notación bastante más compleja ``[\verb"^" ]'',
+que simplemente significa que busque un carácter que sea cualquier cosa distinta a un espacio.
 
-\section{Debugging}
+\section{Depuración}
 
-Python has some simple and rudimentary built-in documentation that can be quite helpful if
-you need a quick refresher to trigger your memory about the exact name of a particular method.
-This documentation can be viewed in the Python interpreter in interactive mode.
+Python tiene cierta documentación sencilla y rudimentaria que puede llegar a ser bastante útil si
+necesitas un repaso rápido que active tu memoria acerca del nombre exacto de un método particular.
+Esta documentación puede verse en el intérprete de Python en modo interactivo.
 
-You can bring up an interactive help system using {\tt help()}.
+Puedes acceder al sistema de ayuda interactivo usando {\tt help()}.
 
 \beforeverb
 \begin{verbatim}
@@ -668,7 +670,8 @@ help> modules
 \end{verbatim}
 \afterverb
 %
-If you know what module you want to use, you can use the {\tt dir()} command to find the methods in the module as follows:
+Si sabes qué módulo quieres usar, puedes utilizar el comando {\tt dir()} para localizar los métodos del módulo, como
+se muestra a continuación:
 
 \beforeverb
 \begin{verbatim}
@@ -680,7 +683,7 @@ If you know what module you want to use, you can use the {\tt dir()} command to 
 \end{verbatim}
 \afterverb
 %
-You can also get a small amount of documentation on a particular method using the dir command.
+También puedes obtener un poco de documentación acerca de un método particular usando el comando dir.
 
 \beforeverb
 \begin{verbatim}
@@ -694,85 +697,85 @@ search(pattern, string, flags=0)
 \end{verbatim}
 \afterverb
 %
-The built-in documentation is not very extensive, but it can be helpful when you are in a hurry
-or don't have access to a web browser or search engine.
+La documentación integrada no es muy extensa, pero puede resultar útil cuando tienes prisa,
+o no tienes acceso a un navegador web o a un motor de búsqueda.
 
-\section{Glossary}
+\section{Glosario}
 
 \begin{description}
 
-\item[brittle code:]
-Code that works when the input data is in a particular format but is prone to breakage
-if there is some deviation from the correct format.  We call this ``brittle code'' 
-because it is easily broken.
+\item[código frágil:]
+Código que funciona cuando los datos de entrada tienen un formato particular, pero es propenso a fallar
+si hay alguna desviación del formato correcto. Llamamos a eso ``código frágil'',
+porque ``se rompe'' con facilidad.
 
-\item[greedy matching:]
-The notion that the ``+'' and ``*'' characters in a regular expression expand outward to
-match the largest possible string.
-\index{greedy}
-\index{greedy matching}
+\item[coincidencia codiciosa:]
+El concepto de que los caracteres ``+'' y ``*'' de una expresión regular se expanden hacia fuera para
+capturar la cadena más larga posible.
+\index{codicioso}
+\index{coincidencia codiciosa}
+
+\item[comodín:]
+Un carácter especial que coincide con cualquier carácter. En las expresiones regulares, el carácter
+comodín es el punto.
+\index{comodín}
+
+\item[expresión regular:]
+Un lenguaje para expresar cadenas de búsqueda más complejas. Una expresión regular puede contener
+caracteres especiales para indicar que una búsqueda sólo se realice en el principio o el final de una línea,
+y muchas otras capacidades similares.
 
 \item[grep:]
-A command available in most Unix systems that searches through text files looking for lines
-that match regular expressions. The command name stands for "Generalized Regular Expression Parser".
+Un comando disponible en la mayoría de sistemas Unix que busca a través de archivos de texto, localizando líneas
+que coincidan con una expresión regular. El nombre del comando significa "Generalized Regular Expression Parser"
+(Analizador Generalizado de Expresiones Regulares).
 \index{grep}
-
-\item[regular expression:]
-A language for expressing more complex search strings.  A regular expression may contain
-special characters that indicate that a search only matches at the beginning or end of a line
-or many other similar capabilities.
-
-\item[wild card:]
-A special character that matches any character.  In regular expressions the wild-card
-character is the period.
-\index{wild card}
 
 \end{description}
 
-\section{Exercises}
+\section{Ejercicios}
 
 \begin{ex}
-Write a simple program to simulate the operation of the {\tt grep} command 
-on Unix.  Ask the user to enter a regular expression and count the number
-of lines that matched the regular expression:
+Escribe un programa sencillo que simule la forma de operar del comando {\tt grep}
+de Unix. Pide al usuario introducir una expresión regular y cuenta el número
+de líneas que localiza a partir de ella:
 
 \beforeverb
 \begin{verbatim}
 $ python grep.py
-Enter a regular expression: ^Author
-mbox.txt had 1798 lines that matched ^Author
+Introduzca una expresión regular: ^Author
+mbox.txt tiene 1798 líneas que coinciden con ^Author
 
 $ python grep.py
-Enter a regular expression: ^X-
-mbox.txt had 14368 lines that matched ^X-
+Introduzca una expresión regular: ^X-
+mbox.txt tiene 14368 líneas que coinciden con ^X-
 
 $ python grep.py
-Enter a regular expression: java$
-mbox.txt had 4218 lines that matched java$
+Introduzca una expresión regular: java$
+mbox.txt tiene 4218 líneas que coinciden con java$
 \end{verbatim}
 \afterverb
 %
 \end{ex}
 
 \begin{ex}
-Write a program to look for lines of the form
+Escribe un programa para buscar líneas que tengan esta forma:
 
 \verb"New Revision: 39772"
 
-and extract the number from each of the lines using a regular expression
-and the {\tt findall()} method.  Compute the average of the numbers and 
-print out the average.
+y extrae el número de cada una de esas líneas usando una expresión regular
+y el método {\tt findall()}. Calcula la media y el total y
+muestra al final la media obtenida.
 
 \beforeverb
 \begin{verbatim}
-Enter file:mbox.txt 
+Introduzca fichero:mbox.txt 
 38549.7949721
 
-Enter file:mbox-short.txt
+Introduzca fichero:mbox-short.txt
 39756.9259259
 \end{verbatim}
 \afterverb
 %
 
 \end{ex}
-

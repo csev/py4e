@@ -1,0 +1,732 @@
+Expresiones regulares
+=====================
+
+Hasta ahora hemos estado leyendo archivos, buscando patrones y
+extrayendo varios fragmentos de líneas que encontrábamos interesantes.
+Hemos estado usando métodos de cadena, como `split` y
+`find`, usando listas y rebanado de cadenas para extraer
+porciones de esas líneas.
+
+\index{expresiones regulares}
+\index{regex}
+\index{re, módulo}
+
+Esta tarea de buscar y extraer es tan común que Python tiene una
+librería muy potente llamada *expresiones regulares*, que
+se encarga de muchas de estas tareas de forma elegante. La razón por la
+que no hemos introducido las expresiones regulares antes en este libro
+se debe a que, a pesar de que son muy potentes, también son un poco
+complicadas y lleva algún tiempo acostumbrarse a su sintaxis.
+
+Las expresiones regulares tienen casi su propio pequeño lenguaje de
+programación para buscar y analizar las cadenas. De hecho, se han
+escritos libros enteros sobre el tema de las expresiones regulares. En
+este capítulo, nosotros sólo cubriremos lo más básico acerca de las
+expresiones regulares. Para obtener más detalles sobre ellas, puedes
+consultar:
+
+<http://es.wikipedia.org/wiki/Expresion_regular>
+
+<https://docs.python.org/2/library/re.html>
+
+La librería de expresiones regulares `re`, debe ser importada
+en el programa antes de poder utilizarlas. El uso más simple de esta
+librería es la función `search()`. El programa siguiente
+demuestra un uso trivial de la función `search`.
+
+\index{regex!search}
+
+    import re
+    manf = open('mbox-short.txt')
+    for linea in manf:
+        linea = linea.rstrip()
+        if re.search('From:', linea) :
+            print(linea)
+
+Abrimos el fichero, vamos recorriendo cada línea, y usamos la función
+`search()`, de la librería de expresiones regulares, para
+imprimir solamente aquellas líneas que contienen la cadena "From:". Este
+programa no usa la potencia real de las expresiones regulares, ya que
+podríamos haber usado simplemente `linea.find()` para lograr
+el mismo resultado.
+
+\index{cadena!find}
+
+La potencia de las expresiones regulares llega cuando añadimos
+caracteres especiales a la cadena de búsqueda, que nos permiten
+controlar con mayor precisión qué líneas coinciden con nuestro patrón.
+Añadir estos caracteres especiales a nuestra expresión regular nos
+permite localizar patrones complejos y realizar extracciones escribiendo
+muy poco código.
+
+Por ejemplo, el carácter de intercalación (`^`) es usado en las
+expresiones regulares para indicar "el comienzo" de una línea. Podemos
+cambiar nuestro programa para que sólo localice aquellas líneas en las
+cuales "From:" esté al principio:
+
+    import re
+    manf = open('mbox-short.txt')
+    for linea in manf:
+        linea = linea.rstrip()
+        if re.search('^From:', linea) :
+            print(linea)
+
+Ahora sólo coincidirán las líneas que *comiencen* por la
+cadena "From:". Todavía se trata de un ejemplo de análisis muy sencillo,
+ya que podríamos haber hecho lo mismo con el método
+`startswith()` de la librería de cadenas. Pero sirve para
+introducir la noción de que las expresiones regulares contienen
+caracteres de acción especiales que nos dan más control sobre lo que
+localizará la expresión regular.
+
+\index{cadena!startswith}
+
+Equivalencia de caracteres en expresiones regulares
+---------------------------------------------------
+
+Hay varios caracteres especiales más que nos permiten construir
+expresiones regulares aún más potentes. El más usado de ellos es el
+punto o parada completa, que equivale a cualquier carácter.
+
+\index{comodín}
+\index{regex!comodín}
+
+En el ejemplo siguiente, la expresión regular "F..m:" coincidirá con
+cualquiera de las cadenas "From:", "Fxxm:", "F12m:", or "F!@m:", ya que
+el carácter punto en la expresión regular equivale a cualquier carácter.
+
+    import re
+    manf = open('mbox-short.txt')
+    for linea in manf:
+        linea = linea.rstrip()
+        if re.search('^F..m:', linea) :
+            print(linea)
+
+Esto resulta particularmente potente cuando se combina con la capacidad
+de indicar que un carácter puede repetirse cualquier número de veces,
+usando los caracteres "\*" o "+" en la expresión regular. Estos
+caracteres especiales significan que en vez de coincidir un único
+carácter con la cadena buscada, pueden coincidir cero-o-más caracteres
+(en el caso del asterisco), o uno-o-más caracteres (en el caso del signo
+más).
+
+Podemos restringir aún más las líneas que coincidirán con la búsqueda,
+usando un carácter *comodín* que se repita, como en el
+ejemplo siguiente:
+
+    import re
+    manf = open('mbox-short.txt')
+    for linea in manf:
+        linea = linea.rstrip()
+        if re.search('^From:.+@', linea) :
+            print(linea)
+
+La cadena buscada "`^`From:.+@" encontrará todas las líneas que
+comienzan con "From:", seguido por uno o más caracteres (".+"), seguidos
+de un símbolo-arroba. De modo que la línea siguiente sería localizada:
+
+*` From:`*`uct.ac.za`
+
+Puedes pensar en el comodín ".+" como una extensión que equivale a todos
+los caracteres que están entre los dos-puntos y el símbolo arroba.
+
+*` From:`*
+
+Resulta útil pensar en los caracteres más y asterisco como
+"empujadores". Por ejemplo, en la cadena siguiente la coincidencia con
+nuestra expresión llegaría hasta el último signo arroba de la línea, ya
+que el ".+" empuja hacia fuera, como se muestra debajo:
+
+*` From:`*`iupui.edu`
+
+Es posible decirle a un asterisco o a un signo más que no sean
+"codiciosos", añadiendo otro carácter. Mira la documentación detallada
+para obtener información sobre cómo desactivar el comportamiento
+codicioso.
+
+\index{codicioso}
+
+Extracción de datos usando expresiones regulares
+------------------------------------------------
+
+Si queremos extraer datos desde una cadena en Python, podemos usar el
+método `findall()` para obtener todas las subcadenas que
+coinciden con una expresión regular. Pongamos por caso que queramos
+extraer todo aquello que se parezca a una dirección de e-mail de
+cualquier línea, independientemente del formato de la misma. Por
+ejemplo, deseamos extraer las direcciones de e-mail de cada una de las
+líneas siguientes:
+
+    From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+    Return-Path: <postmaster@collab.sakaiproject.org>
+              for <source@collab.sakaiproject.org>;
+    Received: (from apache@localhost)
+    Author: stephen.marquard@uct.ac.za
+
+No queremos escribir código para cada uno de los tipos de líneas,
+dividirlas y rebanarlas de forma diferente en cada caso. El programa
+siguiente usa `findall()` para localizar las líneas que
+contienen direcciones de e-mail, y extraer una o más direcciones de cada
+una de ellas.
+
+\index{findall}
+\index{regex!findall}
+
+    import re
+    s = 'Hello from csev@umich.edu to cwen@iupui.edu about the meeting @2PM'
+    lst = re.findall('\S+@\S+', s)
+    print(lst)
+
+El método `findall()` busca la cadena que se le pasa como
+segundo argumento y en este caso devuelve una lista de todas las cadenas
+que parecen direcciones de e-mail. Estamos usando una secuencia de dos
+caracteres, que equivale a cualquier carácter distinto de un espacio en
+blanco (`\\`S).
+
+La salida del programa sería:
+
+    ['csev@umich.edu', 'cwen@iupui.edu']
+
+Traduciendo la expresión regular, estamos buscando subcadenas que tengan
+al menos un carácter que no sea un espacio en blanco, seguido por un
+signo arroba, seguido por al menos un carácter más que tampoco sea un
+espacio en blanco. El "`\\`S+" equivale a tantos caracteres
+no-espacio-en-blanco como sea posible.
+
+La expresión regular encontrará dos coincidencias (csev@umich.edu y
+cwen@iupui.edu), pero no capturará la cadena "@2PM", ya que no hay
+ningún carácter distinto de espacio en blanco *antes* del
+símbolo arroba. Podemos usar esta expresión regular en un programa para
+leer todas las líneas de un archivo y mostrar en pantalla todo lo que se
+parezca a una dirección de correo electrónico:
+
+    import re
+    manf = open('mbox-short.txt')
+    for linea in manf:
+        linea = linea.rstrip()
+        x = re.findall('\S+@\S+', linea)
+        if len(x) > 0 :
+            print(x)
+
+Vamos leyendo cada línea y luego extraemos todas las subcadenas que
+coinciden con nuestra expresión regular. Como `findall()`
+devuelve una lista, simplemente comprobamos si el número de elementos en
+la lista de retorno es mayor que cero, para mostrar sólo aquellas líneas
+en las cuales hemos encontrado al menos una subcadena que parece una
+dirección de e-mail.
+
+Si se hace funcionar el programa con `mbox.txt`, obtendremos
+la siguiente salida:
+
+    ['wagnermr@iupui.edu']
+    ['cwen@iupui.edu']
+    ['<postmaster@collab.sakaiproject.org>']
+    ['<200801032122.m03LMFo4005148@nakamura.uits.iupui.edu>']
+    ['<source@collab.sakaiproject.org>;']
+    ['<source@collab.sakaiproject.org>;']
+    ['<source@collab.sakaiproject.org>;']
+    ['apache@localhost)']
+    ['source@collab.sakaiproject.org;']
+
+Algunas de nuestras direcciones de correo tienen caracteres incorrectos,
+como "`<`" o ";" al principio o al final. Vamos a indicar que sólo
+estamos interesados en la porción de la cadena que comienza y termina
+con una letra o un número.
+
+Para lograrlo, usaremos otra característica de las expresiones
+regulares. Los corchetes se utilizan para indicar un conjunto de varios
+caracteres aceptables que estamos dispuestos a considerar coincidencias.
+En cierto sentido, el "`\\`S" ya está exigiendo que coincidan
+con el conjunto de "caracteres que no son espacios en blanco". Ahora
+vamos a ser un poco más explícitos en cuanto a los caracteres con los
+que queremos que coincida.
+
+He aquí nuestra nueva expresión regular:
+
+    [a-zA-Z0-9]\S*@\S*[a-zA-Z]
+
+Esto se va volviendo un poco complicado y seguramente ya empiezas a ver
+por qué las expresiones regulares tienen su propio lenguaje para ellas
+solas. Traduciendo esta expresión regular, estamos buscando subcadenas
+que comiencen con una *única* letra (minúscula o
+mayúscula), o un número "\[a-zA-Z0-9\]", seguido por cero o más
+caracteres no-en-blanco ("`\\`S\*"), seguidos por un símbolo
+arroba, seguidos por cero o más caracteres no-en-blanco
+("`\\`S\*"), seguidos por una letra mayúscula o minúscula.
+Fíjate que hemos cambiado de "+" a "\*" para indicar cero o más
+caracteres no-blancos, dado que "\[a-zA-Z0-9\]" ya es un carácter
+no-en-blanco. Recuerda que el "\*" o "+" se aplica al carácter que queda
+inmediatamente a la izquierda del más o del asterisco.
+
+Si aplicamos esta expresión en nuestro programa, los datos quedan mucho
+más limpios:
+
+    import re
+    manf = open('mbox-short.txt')
+    for linea in manf:
+        linea = linea.rstrip()
+        x = re.findall('[a-zA-Z0-9]\S*@\S*[a-zA-Z]', linea)
+        if len(x) > 0 :
+            print(x)
+
+    ...
+    ['wagnermr@iupui.edu']
+    ['cwen@iupui.edu']
+    ['postmaster@collab.sakaiproject.org']
+    ['200801032122.m03LMFo4005148@nakamura.uits.iupui.edu']
+    ['source@collab.sakaiproject.org']
+    ['source@collab.sakaiproject.org']
+    ['source@collab.sakaiproject.org']
+    ['apache@localhost']
+
+Fíjate que en las líneas de "source@collab.sakaiproject.org", nuestra
+expresión regular ha eliminado dos letras del final de la cadena
+("`>`;"). Esto se debe a que cuando añadimos "\[a-zA-Z\]" al final de
+nuestra expresión regular, le estamos pidiendo que cualquier cadena que
+el analizador de expresión regulares encuentre debe terminar con una
+letra. De modo que cuando ve el "`>`" después de"sakaiproject.org`>`;"
+simplemente se detiene en la última letra que ha encontrado que
+"coincide" (es decir, la "g" en este caso).
+
+Observa también que la salida de este programa consiste, para cada
+línea, en una lista de Python que contiene una cadena como único
+elemento.
+
+Combinar búsqueda y extracción
+------------------------------
+
+Si queremos encontrar números en líneas que comienzan con la cadena
+"X-", como en:
+
+    X-DSPAM-Confidence: 0.8475
+    X-DSPAM-Probability: 0.0000
+
+no querremos simplemente localizar cualquier número en punto flotante de
+cualquier línea. Querremos extraer solamente los números de las líneas
+que tengan la sintaxis indicada arriba.
+
+Podemos construir la siguiente expresión regular para elegir las líneas:
+
+    ^X-.*: [0-9.]+
+
+Traducido, lo que estamos diciendo es que queremos las líneas que
+comiencen con "X-", seguidas por cero o más caracteres (".\*"), seguidas
+por dos-puntos (":") y luego un espacio. Después del espacio busca uno o
+más caracteres que sean o bien dígitos (0-9) o puntos "\[0-9.\]+".
+Fíjate que dentro de los corchetes, el punto coincide con un punto real
+(es decir, dentro de los corchetes no actúa como comodín).
+
+Se trata de una expresión muy rigurosa, que localizará bastante bien
+únicamente las líneas en las que estamos interesados:
+
+    import re
+    manf = open('mbox-short.txt')
+    for linea in manf:
+        linea = linea.rstrip()
+        if re.search('^X\S*: [0-9.]+', linea) :
+            print(linea)
+
+Cuando ejecutemos el programa, veremos los datos correctamente filtrados
+para mostrar sólo las líneas que estamos buscando.
+
+    X-DSPAM-Confidence: 0.8475
+    X-DSPAM-Probability: 0.0000
+    X-DSPAM-Confidence: 0.6178
+    X-DSPAM-Probability: 0.0000
+
+Pero ahora debemos resolver el problema de la extracción de los números.
+A pesar de que resultaría bastante sencillo usar `split`,
+podemos usar otra características de las expresiones regulares para
+buscar y analizar la línea al mismo tiempo.
+
+\index{cadena!split}
+
+Los paréntesis son también caracteres especiales en las expresiones
+regulares. Cuando se añaden paréntesis a una expresión regular, éstos se
+ignoran a la hora de buscar coincidencias. Pero cuando se usa
+`findall()`, los paréntesis indican que a pesar de que se
+desea que la expresión completa coincida, sólo se está interesado en
+extraer una cierta porción de la subcadena.
+
+\index{regex!paréntesis}
+\index{paréntesis!expresiones regulares}
+
+Así que haremos el siguiente cambio en nuestro programa:
+
+    import re
+    manf = open('mbox-short.txt')
+    for linea in manf:
+        linea = linea.rstrip()
+        x = re.findall('^X\S*: ([0-9.]+)', linea)
+        if len(x) > 0 :
+            print(x)
+
+En vez de llamar a `search()`, añadimos paréntesis alrededor
+de la parte de la expresión regular que representa el número en punto
+flotante, para indicar que queremos que `findall()` sólo nos
+devuelva la porción con el número en punto flotante de la cadena
+coincidente.
+
+La salida de este programa es la siguiente:
+
+    ['0.8475']
+    ['0.0000']
+    ['0.6178']
+    ['0.0000']
+    ['0.6961']
+    ['0.0000']
+    ..
+
+Los número siguen estando en una lista y aún necesitan ser convertidos
+de cadenas a números en punto flotante, pero hemos usado el poder de las
+expresiones regulares para realizar tanto la búsqueda como la extracción
+de información que nos resulta interesante.
+
+Como otro ejemplo más de esta técnica, si observas el archivo verás que
+hay un cierto número de líneas con esta forma:
+
+    Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
+
+Si queremos extraer todos los números de revisión (los números enteros
+al final de esas líneas) usando la misma técnica que en el caso
+anterior, podríamos escribir el programa siguiente:
+
+    import re
+    manf = open('mbox-short.txt')
+    for linea in manf:
+        linea = linea.rstrip()
+        x = re.findall('^Details:.*rev=([0-9]+)', linea)
+        if len(x) > 0:
+            print(x)
+
+Traduciendo nuestra expresión regular, estamos buscando aquellas líneas
+que comiencen con "Details:", seguido de cualquier número de caracteres
+("\*"), seguido por "rev=", y luego por uno o más dígitos. Queremos
+encontrar las líneas que coincidan con la expresión completa, pero
+deseamos extraer unicamente el número entero al final de la línea, de
+modo que rodeamos con paréntesis "\[0-9\]+".
+
+Cuando ejecutamos el programa, obtenemos la salida siguiente:
+
+    ['39772']
+    ['39771']
+    ['39770']
+    ['39769']
+    ...
+
+Recuerda que el "\[0-9\]+" es "codicioso", e intentará conseguir una
+cadena de dígitos tan larga como sea posible antes de extraer esos
+dígitos. Este comportamiento "codicioso" es el motivo por el que
+obtenemos los cinco dígitos de cada número. La expresión regular se
+expande en ambas direcciones hasta que encuentra un no-dígito, o el
+comienzo o final de una línea.
+
+Ahora ya podemos usar expresiones regulares para rehacer un ejercicio
+anterior del libro, en el cual estábamos interesados en la hora de cada
+mensaje de e-mail. Buscamos líneas de la forma:
+
+    From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+
+y queremos extraer la hora del día de cada linea. Anteriormente lo
+hicimos con dos llamadas a `split`. Primero dividíamos la
+línea en palabras y luego cogíamos la quinta palabra y la dividíamos de
+nuevo usando el carácter dos-puntos para extraer los dos caracteres en
+los que estábamos interesados.
+
+A pesar de que esto funciona, en realidad se está generando un código
+bastante frágil, que asume que todas las líneas están perfectamente
+formateadas. Si quisieras añadir suficiente comprobación de errores (o
+un gran bloque try/except) para asegurarte de que el programa nunca
+falle cuando se encuentre con líneas incorrectamente formateadas, el
+código aumentaría en 10-15 líneas bastante difíciles de leer.
+
+Podemos lograr lo mismo de un modo mucho más sencillo con la siguiente
+expresión regular:
+
+    ^From .* [0-9][0-9]:
+
+La traducción de esta expresión regular es que estamos buscando líneas
+que comiencen con "From " (fíjate en el espacio), seguidas por cualquier
+cantidad de caracteres (".\*"), seguidos por un espacio, seguidos por
+dos dígitos "\[0-9\]\[0-9\]", seguidos por un carácter dos-puntos. Esta
+es la definición del tipo de líneas que estamos buscando.
+
+Para extraer sólo la hora usando `findall()`, vamos a añadir
+paréntesis alrededor de los dos dígitos, de este modo:
+
+    ^From .* ([0-9][0-9]):
+
+El programa quedaría entonces así:
+
+    import re
+    manf = open('mbox-short.txt')
+    for linea in manf:
+        linea = linea.rstrip()
+        x = re.findall('^From .* ([0-9][0-9]):', linea)
+        if len(x) > 0 : print(x)
+
+Cuando el programa se ejecuta, produce la siguiente salida:
+
+    ['09']
+    ['18']
+    ['16']
+    ['15']
+    ...
+
+Escapado de caracteres
+----------------------
+
+Los caracteres especiales se utilizan en las expresiones regulares para
+localizar el principio o el final de una línea, o también como
+comodines, así que necesitamos un modo de indicar cuándo esos caracteres
+son "normales" y lo queremos encontrar es el carácter real, como un
+signo de dolar o uno de intercalación.
+
+Podemos indicar que deseamos que simplemente equivalga a un carácter
+poniendo delante de ese carácter una barra invertida. A esto se le llama
+"escapar" el carácter. Por ejemplo, podemos encontrar cantidades de
+dinero con la expresión regular siguiente:
+
+    import re
+    x = 'Acabamos de recibir 10.00$ por las galletas.'
+    y = re.findall('[0-9.]+\$',x)
+
+Dado que hemos antepuesto una barra invertida al signo dólar, ahora
+equivaldrá al símbolo del dolar en la cadena de entrada, en lugar de
+equivaler al "final de la línea", y el resto de la expresión regular
+buscará uno o más dígitos o el carácter punto. *Nota:*
+Dentro de los corchetes, los caracteres no son "especiales". De modo que
+cuando escribimos "\[0-9.\]", en realidad significa dígitos o un punto.
+Fuera de los corchetes, un punto es el carácter "comodín" y coincide con
+cualquier carácter. Dentro de los corchetes, el punto es simplemente un
+punto.
+
+Resumen
+-------
+
+Aunque sólo hemos arañado la superficie de las expresiones regulares,
+hemos aprendido un poco acerca de su lenguaje. Hay cadenas de búsqueda
+con caracteres especiales en su interior que comunican al sistema del
+expresiones regulares nuestros deseos acerca de qué queremos "buscar" y
+qué se extraerá de las cadenas que se localicen. Aquí tenemos algunos de
+esos caracteres especiales y secuencias de caracteres:
+
+`^` Coincide con el principio de una línea.
+
+\$ Coincide con el final de una línea.
+
+. Coincide con cualquier carácter (un comodín).
+
+`\\`s Coincide con un carácter espacio en blanco.
+
+`\\`S Coincide con cualquier carácter que no sea un espacio
+en blanco (opuesto a `\\`s).
+
+\* Se aplica al carácter que le precede e indica que la búsqueda debe
+coincidir cero o más veces con él.
+
+\*? Se aplica al carácter que le precede e indica que la búsqueda debe
+coincidir cero o más veces con él en "modo no-codicioso".
+
++ Se aplica al carácter que le precede e indica que la búsqueda debe
+coincidir una o más veces con él.
+
++? Se aplica al carácter que le precede e indica que la búsqueda debe
+coincidir una o más veces con él en "modo no-codicioso".
+
+\[aeiou\] Coincide con un único carácter siempre que ese carácter esté
+en el conjunto especificado. En este ejemplo, deberían coincidir "a",
+"e", "i", "o", o "u", pero no los demás caracteres.
+
+\[a-z0-9\] Se pueden especificar rangos de caracteres usando el guión.
+Este ejemplo indica un único carácter que puede ser una letra minúscula
+o un dígito.
+
+\[`^`A-Za-z\] Cuando el primer carácter en la notación del conjunto es
+un símbolo de intercalación, se invierte la lógica. En este ejemplo, la
+expresión equivale a un único carácter que sea cualquier cosa
+*excepto* una letra mayúscula o minúscula.
+
+( ) Cuando se añaden paréntesis a una expresión regular, éstos son
+ignorados durante la búsqueda, pero permiten extraer un subconjunto
+particular de la cadena localizada en vez de la cadena completa, cuando
+usamos `findall()`.
+
+`\\`b Coincide con la cadena vacía, pero sólo al principio o
+al final de una palabra.
+
+`\\`B Coincide con la cadena vacía, pero no al principio o al
+final de una palabra.
+
+`\\`d Coincide con cualquier dígito decimal, es equivalente
+al conjunto \[0-9\].
+
+`\\`D Coincide con cualquier carácter que no sea un dígito;
+equivale al conjunto \[`^`0-9\].
+
+Sección extra para usuarios de Unix
+-----------------------------------
+
+El soporte para búsqueda de archivos usando expresiones regulares viene
+incluido dentro del sistema operativo Unix desde los años 1960, y está
+disponible en casi todos los lenguajes de programación de una u otra
+forma.
+
+\index{grep}
+
+De hecho, existe un programa de línea de comandos integrado en Unix
+llamado *grep* (`Generalized Regular Expression
+Parser` - Analizador Generalizado de Expresiones Regulares) que
+hace casi lo mismo que hemos visto con `search()` en los
+ejemplos de este capítulo. De modo que si tienes un sistema Macintosh o
+Linux, puedes probar las siguientes órdenes en la ventana de línea de
+comandos:
+
+    $ grep '^From:' mbox-short.txt
+    From: stephen.marquard@uct.ac.za
+    From: louis@media.berkeley.edu
+    From: zqian@umich.edu
+    From: rjlowe@iupui.edu
+
+Esto le dice a `grep` que muestre las líneas que comienzan
+con la cadena "From:" del archivo `mbox-short.txt`. Si
+experimentas un poco con el comando `grep` y lees su
+documentación, encontrarás algunas sutiles diferencias entre el soporte
+de expresiones regulares en Python y el de `grep`. Por
+ejemplo, `grep` no soporta el carácter equivalente a
+no-espacio-en-blanco, "`\\`S", de modo que hay que usar la
+notación bastante más compleja "\[`^` \]", que simplemente significa que
+busque un carácter que sea cualquier cosa distinta a un espacio.
+
+Depuración
+----------
+
+Python tiene cierta documentación sencilla y rudimentaria que puede
+llegar a ser bastante útil si necesitas un repaso rápido que active tu
+memoria acerca del nombre exacto de un método particular. Esta
+documentación puede verse en el intérprete de Python en modo
+interactivo.
+
+Puedes acceder al sistema de ayuda interactivo usando
+`help()`.
+
+    >>> help()
+
+    Welcome to Python 2.6!  This is the online help utility.
+
+    If this is your first time using Python, you should definitely check out
+    the tutorial on the Internet at http://docs.python.org/tutorial/.
+
+    Enter the name of any module, keyword, or topic to get help on writing
+    Python programs and using Python modules.  To quit this help utility and
+    return to the interpreter, just type "quit".
+
+    To get a list of available modules, keywords, or topics, type "modules",
+    "keywords", or "topics".  Each module also comes with a one-line summary
+    of what it does; to list the modules whose summaries contain a given word
+    such as "spam", type "modules spam".
+
+    help> modules
+
+Si sabes qué módulo quieres usar, puedes utilizar el comando
+`dir()` para localizar los métodos del módulo, como se
+muestra a continuación:
+
+    >>> import re
+    >>> dir(re)
+    [.. 'compile', 'copy_reg', 'error', 'escape', 'findall',
+    'finditer', 'match', 'purge', 'search', 'split', 'sre_compile',
+    'sre_parse', 'sub', 'subn', 'sys', 'template']
+
+También puedes obtener un poco de documentación acerca de un método
+particular usando el comando dir.
+
+    >>> help (re.search)
+    Help on function search in module re:
+
+    search(pattern, string, flags=0)
+        Scan through string looking for a match to the pattern, returning
+        a match object, or None if no match was found.
+    >>>
+
+La documentación integrada no es muy extensa, pero puede resultar útil
+cuando tienes prisa, o no tienes acceso a un navegador web o a un motor
+de búsqueda.
+
+Glosario
+--------
+
+código frágil
+
+:   Código que funciona cuando los datos de entrada tienen un formato
+    particular, pero es propenso a fallar si hay alguna desviación del
+    formato correcto. Llamamos a eso "código frágil", porque "se rompe"
+    con facilidad.
+
+coincidencia codiciosa
+
+:   El concepto de que los caracteres "+" y "\*" de una expresión
+    regular se expanden hacia fuera para capturar la cadena más
+    larga posible.
+
+\index{codicioso}
+\index{coincidencia codiciosa}
+
+comodín
+
+:   Un carácter especial que coincide con cualquier carácter. En las
+    expresiones regulares, el carácter comodín es el punto.
+
+\index{comodín}
+
+expresión regular
+
+:   Un lenguaje para expresar cadenas de búsqueda más complejas. Una
+    expresión regular puede contener caracteres especiales para indicar
+    que una búsqueda sólo se realice en el principio o el final de una
+    línea, y muchas otras capacidades similares.
+
+grep
+
+:   Un comando disponible en la mayoría de sistemas Unix que busca a
+    través de archivos de texto, localizando líneas que coincidan con
+    una expresión regular. El nombre del comando significa "Generalized
+    Regular Expression Parser" (Analizador Generalizado de
+    Expresiones Regulares).
+
+\index{grep}
+
+Ejercicios
+----------
+
+Exercise 1: Escribe un programa sencillo que simule la forma de operar
+del comando `grep` de Unix. Pide al usuario introducir una
+expresión regular y cuenta el número de líneas que localiza a partir de
+ella:
+
+    $ python grep.py
+    Introduzca una expresión regular: ^Author
+    mbox.txt tiene 1798 líneas que coinciden con ^Author
+
+    $ python grep.py
+    Introduzca una expresión regular: ^X-
+    mbox.txt tiene 14368 líneas que coinciden con ^X-
+
+    $ python grep.py
+    Introduzca una expresión regular: java$
+    mbox.txt tiene 4218 líneas que coinciden con java$
+
+Exercise 2: Escribe un programa para buscar líneas que tengan esta
+forma:
+
+`New Revision: 39772`
+
+y extrae el número de cada una de esas líneas usando una expresión
+regular y el método `findall()`. Calcula la media y el total
+y muestra al final la media obtenida.
+
+    Introduzca fichero:mbox.txt
+    38549.7949721
+
+    Introduzca fichero:mbox-short.txt
+    39756.9259259

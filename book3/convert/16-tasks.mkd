@@ -1,0 +1,695 @@
+Automatización de tareas habituales en tu PC
+============================================
+
+Hemos estado leyendo datos desde ficheros, redes, servicios y bases de
+datos. Python puede moverse también a través de todos los directorios y
+carpetas de tus equipos y además leer los ficheros.
+
+En este capítulo, vamos a escribir programas que busquen por todo el PC
+y realicen ciertas operaciones sobre cada fichero. Los archivos están
+organizados en directorios (también llamados "carpetas"). Scripts
+sencillos en Python pueden ocuparse de tareas simples que se tengan que
+repetir sobre cientos o miles de ficheros distribuidos a lo largo de un
+arbol de directorios o incluso por todo el equipo.
+
+Para movernos a través de todos los directorios y archivos de un árbol
+usaremos `os.walk` y un bucle `for`. Es similar al
+modo en el que `open` nos permite usar un bucle para leer el
+contenido de un archivo, `socket` nos permite usar un bucle
+para leer el contenido de una conexión de red, y `urllib` nos
+permite abrir un documento web y movernos a través de su contenido.
+
+Nombres de archivo y rutas {#paths}
+--------------------------
+
+\index{archivo, nombre}
+\index{ruta}
+\index{directorio}
+\index{carpeta}
+
+Cada programa en ejecución tiene su propio "directorio actual"
+(`current directory`), que es el directorio que usará por
+defecto para la mayoría de las operaciones. Por ejemplo, cuando abres un
+archivo en modo lectura, Python lo busca en el directorio actual.
+
+\index{os, módulo}
+\index{módulo!os}
+
+El módulo `os` proporciona funciones para trabajar con
+archivos y directorios (`os` significa "Operating System"
+(Sistema Operativo). `os.getcwd` devuelve el nombre del
+directorio actual:
+
+\index{getcwd, función}
+\index{función!getcwd}
+
+    >>> import os
+    >>> cwd = os.getcwd()
+    >>> print(cwd)
+    /Users/csev
+
+`cwd` significa *current working directory*
+(directorio de trabajo actual). El resultado en este ejemplo es
+`/Users/csev`, que es el directorio de inicio
+(`home`) para un usuario llamado `csev`.
+
+\index{trabajo, directorio de}
+\index{directorio!de trabajo}
+
+Una cadena como `cwd`, que identifica un fichero, recibe el
+nombre de ruta. Una *ruta relativa* comienza en el
+directorio actual; una *ruta absoluta* comienza en el
+directorio superior del sistema de archivos.
+
+\index{relativa, ruta}
+\index{ruta!relativa}
+\index{absoluta, ruta}
+\index{ruta!absoluta}
+
+Las rutas que hemos visto hasta ahora son simples nombres de fichero, de
+modo que son relativas al directorio actual. Para encontrar la ruta
+absoluta de un archivo se puede utilizar `os.path.abspath`:
+
+    >>> os.path.abspath('memo.txt')
+    '/Users/csev/memo.txt'
+
+`os.path.exists` comprueba si un fichero o directorio existe:
+
+\index{exists, función}
+\index{función!exists}
+
+    >>> os.path.exists('memo.txt')
+    True
+
+Si existe, `os.path.isdir` comprueba si se trata de un
+directorio:
+
+    >>> os.path.isdir('memo.txt')
+    False
+    >>> os.path.isdir('musica')
+    True
+
+De forma similar, `os.path.isfile` comprueba si se trata de
+un fichero.
+
+`os.listdir` devuelve una lista de los ficheros (y otros
+directorios) existentes en el directorio dado:
+
+    >>> os.listdir(cwd)
+    ['musica', 'fotos', 'memo.txt']
+
+Ejemplo: Limpieza de un directorio de fotos
+-------------------------------------------
+
+Hace algún tiempo, construí un software parecido a Flickr, que recibía
+fotos desde mi teléfono móvil y las almacenaba en mi servidor. Lo
+escribí antes de que Flickr existiera y he continuado usándolo después,
+porque quería mantener las copias originales de mis imágenes para
+siempre.
+
+También quería enviar una descripción sencilla, con una línea de texto
+en el mensaje MMS o como título del correo. Almacené esos mensajes en un
+fichero de texto en el mismo directorio que el fichero con la imagen. Se
+me ocurrió una estructura de directorios basada en el mes, año, día y
+hora en que cada foto había sido realizada. Lo siguiente sería un
+ejemplo del nombre de una foto y su descripción:
+
+    ./2006/03/24-03-06_2018002.jpg
+    ./2006/03/24-03-06_2018002.txt
+
+Después de siete años, tenía un montón de fotos y descripciones. A lo
+largo de los años, como iba cambiando de teléfono, a veces mi código
+para extraer el texto de los mensajes fallaba y añadía un montón de
+datos inútiles al servidor en lugar de la descripción.
+
+Quería revisar todos esos ficheros y averiguar cuáles de los textos eran
+realmente descripciones y cuáles eran simplemente basura, para poder
+eliminar los ficheros erróneos. Lo primero que hice fue generar un
+sencillo inventario de cuántos archivos de texto tenía en uno de los
+subdirectorios, usando el programa siguiente:
+
+    import os
+    contador = 0
+    for (nombredir, dirs, ficheros) in os.walk('.'):
+       for nombrefichero in ficheros:
+           if nombrefichero.endswith('.txt') :
+               contador = contador + 1
+    print 'Ficheros:', contador
+
+    python txtcount.py
+    Ficheros: 1917
+
+El trozo de código que hace esto posible es la librería de Python
+`os.walk`. Cuando llamamos a `os.walk` y le damos
+un directorio de inicio, "recorrerá"[^1] todos los directorios y
+subdirectorios de forma recursiva. La cadena "." le indica que comience
+en el directorio actual y se mueva hacia abajo. A medida que va
+encontrando directorios, obtenemos tres valores en una tupla en el
+cuerpo del bucle `for`. El primer valor es el nombre del
+directorio actual, el segundo es la lista de subdirectorios dentro del
+actual y el tercer valor es la lista de ficheros que se encuentran en
+ese directorio.
+
+No necesitamos mirar explícitamente dentro de cada uno de los
+subdirectorios, porque podemos contar con que `os.walk`
+terminará visitando cada uno de ellos. Pero sí que tendremos que
+fijarnos en cada fichero, de modo que usamos un sencillo bucle
+`for` para examinar cada uno de los archivos en el directorio
+actual. Verificamos cada fichero para comprobar si termina por ".txt", y
+así contamos el número de ficheros en todo el árbol de directorios que
+terminan con ese sufijo.
+
+Una vez que tenemos una noción acerca de cuántos archivos terminan por
+".txt", lo siguiente es intentar determinar automáticamente desde Python
+qué ficheros son incorrectos y cuáles están bien. De modo que escribimos
+un programa sencillo para imprimir en pantalla los nombres de los
+ficheros y el tamaño de cada uno:
+
+    import os
+    from os.path import join
+    for (nombredir, dirs, ficheros) in os.walk('.'):
+       for nombrefichero in ficheros:
+           if nombrefichero.endswith('.txt') :
+               elfichero = os.path.join(nombredir,nombrefichero)
+               print(os.path.getsize(elfichero), elfichero)
+
+Ahora en vez de simplemente contar los ficheros, creamos un nombre de
+archivo concatenando el nombre del directorio con el nombre del archivo,
+usando `os.path.join`. Es importante usar
+`os.path.join` en vez de una simple concatenación de cadenas,
+porque en Windows para construir las rutas de archivos se utiliza la
+barra-invertida (`\`), mientras que en Linux o Apple se usa la barra
+normal (`/`). `os.path.join` conoce esas diferencias y sabe
+en qué sistema se está ejecutando, de modo que realiza la concatenación
+correcta dependiendo del sistema. Así el mismo código de Python puede
+ejecutarse tanto en Windows como en sistemas tipo Unix.
+
+Una vez que tenemos el nombre del fichero completo con la ruta del
+directorio, usamos la utilidad `os.path.getsize` para obtener
+el tamaño e imprimirlo en pantalla, produciendo la salida siguiente:
+
+    python txtsize.py
+    ...
+    18 ./2006/03/24-03-06_2303002.txt
+    22 ./2006/03/25-03-06_1340001.txt
+    22 ./2006/03/25-03-06_2034001.txt
+    ...
+    2565 ./2005/09/28-09-05_1043004.txt
+    2565 ./2005/09/28-09-05_1141002.txt
+    ...
+    2578 ./2006/03/27-03-06_1618001.txt
+    2578 ./2006/03/28-03-06_2109001.txt
+    2578 ./2006/03/29-03-06_1355001.txt
+    ...
+
+Si observamos la salida, nos damos cuenta de que algunos ficheros son
+demasiado pequeños y muchos otros son demasiado grandes y tienen siempre
+el mismo tamaño (2578 y 2565). Cuando examinamos manualmente algunos de
+esos ficheros grandes, descubrimos que no son nada más que un montón
+genérico de HTML idéntico, que ha entrado desde el correo enviado al
+sistema por mi teléfono T-Mobile:
+
+    <html>
+            <head>
+                    <title>T-Mobile</title>
+    ...
+
+Ojeando uno de estos fichero, da la impresión de que no hay información
+aprovechable en él, de modo que lo más probable es que se puedan borrar.
+
+Pero antes de borrarlos, escribiremos un programa que busque los
+ficheros que tengan más de una línea de longitud y muestre su contenido.
+No nos vamos a molestar en mostrarnos a nosotros mismos aquellos
+ficheros que tengan un tamaño exacto de 2578 ó 2565 caracteres, porque
+ya sabemos que esos no contienen ninguna información útil.
+
+De modo que escribimos el programa siguiente:
+
+    import os
+    from os.path import join
+    for (nombredir, dirs, ficheros) in os.walk('.'):
+       for nombrefichero in ficheros:
+           if nombrefichero.endswith('.txt') :
+               elfichero = os.path.join(nombredir,nombrefichero)
+               tamano = os.path.getsize(elfichero)
+               if tamano == 2578 or tamano == 2565:
+                   continue
+               manf = open(elfichero,'r')
+               lineas = list()
+               for linea in manf:
+                   lineas.append(linea)
+               manf.close()
+               if len(lineas) > 1:
+                    print(len(lineas), elfichero)
+                    print(lineas[:4])
+
+Usamos un `continue` para omitir los ficheros con los dos
+"tamaños incorrectos", a continuación vamos abriendo el resto de los
+archivos, pasamos las líneas de cada uno de ellos a una lista de Python
+y si el archivo tiene más de una línea imprimimos en pantalla el número
+de líneas que contiene y el contenido de las tres primeras.
+
+Parece que filtrando esos ficheros con los tamaños incorrectos, y
+asumiendo que todos los que tienen sólo una línea son correctos, se
+consiguen unos datos bastante claros:
+
+    python txtcheck.py
+    3 ./2004/03/22-03-04_2015.txt
+    ['Little horse rider\r\n', '\r\n', '\r']
+    2 ./2004/11/30-11-04_1834001.txt
+    ['Testing 123.\n', '\n']
+    3 ./2007/09/15-09-07_074202_03.txt
+    ['\r\n', '\r\n', 'Sent from my iPhone\r\n']
+    3 ./2007/09/19-09-07_124857_01.txt
+    ['\r\n', '\r\n', 'Sent from my iPhone\r\n']
+    3 ./2007/09/20-09-07_115617_01.txt
+    ...
+
+Pero existe aún un tipo de fichero molesto: hay algunos archivos con
+tres líneas que se han colado entre mis datos y que contienen dos líneas
+en blanco seguidas por una línea que dice "Sent from my iPhone". De modo
+que haremos el siguiente cambio al programa para tener en cuenta esos
+ficheros también:
+
+               lineas = list()
+               for linea in manf:
+                   lineas.append(linea)
+               if len(lineas) == 3 and lineas[2].startswith('Sent from my iPhone'):
+                   continue
+               if len(lineas) > 1:
+                    print len(lineas), elfichero
+                    print lineas[:4]
+
+Simplemente comprobamos si tenemos un fichero con tres líneas, y si la
+tercera línea comienza con el texto especificado, lo saltamos.
+
+Ahora, cuando ejecutamos el programa, vemos que sólo quedan cuatro
+ficheros multi-línea, y todos ellos parecen ser correctos:
+
+    python txtcheck2.py
+    3 ./2004/03/22-03-04_2015.txt
+    ['Little horse rider\r\n', '\r\n', '\r']
+    2 ./2004/11/30-11-04_1834001.txt
+    ['Testing 123.\n', '\n']
+    2 ./2006/03/17-03-06_1806001.txt
+    ['On the road again...\r\n', '\r\n']
+    2 ./2006/03/24-03-06_1740001.txt
+    ['On the road again...\r\n', '\r\n']
+
+Si miras al diseño global de este programa, hemos ido refinando
+sucesivamente qué ficheros aceptamos o rechazamos, y una vez que hemos
+localizado un patrón "erróneo", usamos `continue` para saltar
+los ficheros que se ajustan a ese patrón, de modo que podríamos refinar
+aún más el código para localizar más patrones incorrectos.
+
+Ahora estamos preparados para eliminar los ficheros, así que vamos a
+invertir la lógica y en lugar de imprimir en pantalla los ficheros
+correctos que quedan, vamos a imprimir los "incorrectos" que estamos a
+punto de eliminar.
+
+    import os
+    from os.path import join
+    for (nombredir, dirs, ficheros) in os.walk('.'):
+       for nombrefichero in ficheros:
+           if nombrefichero.endswith('.txt') :
+               elfichero = os.path.join(nombredir,nombrefichero)
+               tamano = os.path.getsize(elfichero)
+               if tamano == 2578 or tamano == 2565:
+                   print('T-Mobile:',elfichero)
+                   continue
+               manf = open(elfichero,'r')
+               lineas = list()
+               for linea in manf:
+                   lineas.append(linea)
+               manf.close()
+               if len(lineas) == 3 and lineas[2].startswith('Sent from my iPhone'):
+                   print('iPhone:', elfichero)
+                   continue
+
+Ahora podemos ver una lista de ficheros candidatos al borrado, junto con
+el motivo por el que van a ser eliminados. El programa produce la salida
+siguiente:
+
+    python txtcheck3.py
+    ...
+    T-Mobile: ./2006/05/31-05-06_1540001.txt
+    T-Mobile: ./2006/05/31-05-06_1648001.txt
+    iPhone: ./2007/09/15-09-07_074202_03.txt
+    iPhone: ./2007/09/15-09-07_144641_01.txt
+    iPhone: ./2007/09/19-09-07_124857_01.txt
+    ...
+
+Podemos ir revisando estos ficheros para asegurarnos de que no hemos
+introducido un error en el programa de forma inadvertida, o de que
+quizás nuestra lógica captura algún fichero que no queremos que tome.
+
+Una vez hemos comprobado que ésta es la lista de los archivos que de
+verdad queremos eliminar, realizamos los cambios siguientes en el
+programa:
+
+               if tamano == 2578 or tamano == 2565:
+                   print 'T-Mobile:',elfichero
+                   os.remove(elfichero)
+                   continue
+    ...
+               if len(lineas) == 3 and lineas[2].startswith('Sent from my iPhone'):
+                   print 'iPhone:', elfichero
+                   os.remove(elfichero)
+                   continue
+
+En esta versión del programa, primero mostramos los ficheros erróneos en
+pantalla y luego los eliminamos usando `os.remove`.
+
+    python txtdelete.py
+    T-Mobile: ./2005/01/02-01-05_1356001.txt
+    T-Mobile: ./2005/01/02-01-05_1858001.txt
+    ...
+
+Si por diversión ejecutas el programa por segunda vez, no producirá
+ninguna salida, ya que los ficheros incorrectos ya no estarán.
+
+Si volvemos a ejecutar `txtcount.py`, podremos ver que se han
+eliminado 899 ficheros incorrectos:
+
+    python txtcount.py
+    Ficheros: 1018
+
+En esta sección, hemos seguido una secuencia en la cual usamos a Python
+en primer lugar para buscar a través de los directorios y archivos,
+comprobando patrones. Hemos utilizado también a Python para, poco a
+poco, determinar qué queríamos hacer para limpiar los directorios. Una
+vez supimos qué ficheros eran buenos y cuáles inútiles, utilizamos de
+nuevo a Python para eliminar los ficheros y realizar la limpieza.
+
+El problema que necesites resolver puede ser bastante sencillo, y quizás
+sólo tengas que comprobar los nombres de los ficheros. O tal vez
+necesites leer cada fichero completo y buscar ciertos patrones en el
+interior del mismo. A veces necesitarás leer todos los ficheros y
+realizar un cambio en algunos de ellos. Todo esto resulta bastante
+sencillo una vez que comprendes cómo utilizar `os.walk` y las
+otras utilidades `os`.
+
+Argumentos de línea de comandos
+-------------------------------
+
+\index{argumentos}
+
+En capítulos anteriores, teníamos varios programas que usaban
+`raw_input` para pedir el nombre de un fichero, y luego leían datos de
+ese fichero y los procesaban de este modo:
+
+    nombre = input('Introduzca fichero:')
+    manejador = open(nombre, 'r')
+    texto = manejador.read()
+    ...
+
+Podemos simplificar este programa un poco si tomamos el nombre del
+fichero de la línea de comandos al iniciar Python. Hasta ahora,
+simplemente ejecutábamos nuestros programas de Python y respondíamos a
+la petición de datos de este modo:
+
+    python words.py
+    Introduzca fichero: mbox-short.txt
+    ...
+
+Podemos colocar cadenas adicionales después del nombre del fichero que
+contiene el código de Python y acceder a esos *argumentos de
+línea de comandos* desde el propio programa Python. Aquí tenemos
+un programa sencillo que ilustra la lectura de argumentos desde la línea
+de comandos:
+
+    import sys
+    print('Cantidad:', len(sys.argv))
+    print('Tipo:', type(sys.argv))
+    for arg in sys.argv:
+       print('Argumento:', arg)
+
+El contenido de `sys.argv` es una lista de cadenas en la cual
+la primera es el nombre del programa Python y las siguientes son los
+argumentos que se han escrito en la línea de comandos detrás de ese
+nombre.
+
+Lo siguiente muestra nuestro programa leyendo varios argumentos desde la
+línea de comandos:
+
+    python argtest.py hola aquí
+    Cantidad: 3
+    Tipo: <type 'list'>
+    Argumento: argtest.py
+    Argumento: hola
+    Argumento: aquí
+
+Hay tres argumentos que se han pasado a nuestro programa, en forma de
+lista con tres elementos. El primer elemento de la lista es el nombre
+del fichero (argtest.py) y los otros son los dos argumentos de línea de
+comandos que hemos escrito detrás de ese nombre del fichero.
+
+Podemos reescribir nuestro programa para leer ficheros, tomando el
+nombre del fichero a leer desde un argumento de la línea de comandos, de
+este modo:
+
+    import sys
+
+    nombre = sys.argv[1]
+    manejador = open(nombre, 'r')
+    texto = manejador.read()
+    print(nombre, 'tiene', len(texto), 'bytes')
+
+Tomamos el segundo argumento de la línea de comandos y lo usamos como
+nombre para el fichero (omitiendo el nombre del programa, que está en la
+entrada anterior de la lista, ). Abrimos el fichero y leemos su
+contenido así:
+
+    python argfile.py mbox-short.txt
+    mbox-short.txt tiene 94626 bytes
+
+El uso de argumentos de línea de comandos como entrada puede hacer más
+sencillo reutilizar tus programa Python, especialmente cuando sólo
+necesitas introducir una o dos cadenas.
+
+Pipes (tuberías)
+----------------
+
+\index{shell}
+\index{pipe}
+
+La mayoría de los sistemas operativos proporcionan una interfaz de línea
+de comandos, también conocida como *shell*. Las
+`shells` normalmente proporcionan comandos para navegar por
+el sistema de ficheros y ejecutar aplicaciones. Por ejemplo, en Unix se
+cambia de directorio con `cd`, se muestra el contenido de un
+directorio con `ls`, y se ejecuta un navegador web tecleando
+(por ejemplo) `firefox`.
+
+\index{ls (Comando Unix)}
+\index{Comando Unix!ls}
+
+Cualquier programa que se ejecute desde la shell puede ser ejecutado
+también desde Python usando una *pipe* (tubería). Una
+tubería es un objeto que representa a un proceso en ejecución.
+
+Por ejemplo, el comando de Unix[^2] `ls -l` normalmente
+muestra el contenido del directorio actual (en formato largo). Se puede
+ejecutar `ls` con `os.popen`:
+
+\index{popen, función}
+\index{función!popen}
+
+    >>> cmd = 'ls -l'
+    >>> fp = os.popen(cmd)
+
+El argumento de `os.popen` es una cadena que contiene un
+comando de la shell. El valor de retorno es un puntero a un fichero que
+se comporta exactamente igual que un fichero abierto. Se puede leer la
+salida del proceso `ls` línea a línea usando
+`readline`, u obtener todo de una vez con `read`:
+
+\index{readline, método}
+\index{método!readline}
+\index{read, método}
+\index{método!read}
+
+    >>> res = fp.read()
+
+Cuando hayas terminado, debes cerrar la tubería, como harías con un
+fichero:
+
+\index{close, método}
+\index{método!close}
+
+    >>> stat = fp.close()
+    >>> print(stat)
+    None
+
+El valor de retorno es el estado final del proceso `ls`;
+`None` significa que ha terminado con normalidad (sin
+errores).
+
+Glosario
+--------
+
+argumento de línea de comandos
+
+:   Parámetros de la línea de comandos que van detrás del nombre del
+    fichero Python.
+
+checksum
+
+:   Ver también *hashing*. El término "checksum" (suma de
+    comprobación) viene de la necesidad de verificar si los datos se han
+    alterado al enviarse a través de la red o al escribirse en un medio
+    de almacenamiento y luego ser leídos de nuevo. Cuando los datos son
+    escritos o enviados, el sistema de envío realiza una suma de
+    comprobación (checksum) y la envía también. Cuando los datos se leen
+    o reciben, el sistema de recepción re-calcula la suma de
+    comprobación de esos datos y lo compara con la cifra recibida. Si
+    ambas sumas de comprobación no coinciden, se asume que los datos se
+    han alterado durante la transmisión.
+
+\index{checksum}
+
+directorio de trabajo actual
+
+:   El directorio actual "en" que estás. Puedes cambiar el directorio de
+    trabajo usando el comando `cd` en la interfaz de línea de
+    comandos de la mayoría de los sistemas. Cuando abres un fichero en
+    Python usando sólo el nombre del fichero sin información acerca de
+    la ruta, el fichero debe estar en el directorio de trabajo actual,
+    en el cual estás ejecutando el programa.
+
+\index{directorio!actual}
+\index{directorio!de trabajo}
+\index{directorio!cwd}
+
+hashing
+
+:   Lectura a través de una cantidad potencialmente grande de datos para
+    producir una suma de comprobación única para esos datos. Las mejores
+    funciones hash producen muy pocas "colisiones". Las colisiones se
+    producen cuando se envían dos cadenas de datos distintas a la
+    función de hash y ésta devuelve el mismo hash para ambas. MD5, SHA1,
+    y SHA256 son ejemplos de funciones hash comúnmente utilizadas.
+
+\index{hashing}
+
+pipe (tubería)
+
+:   Una `pipe` o tubería es una conexión con un programa
+    en ejecución. Se puede escribir un programa que envíe datos a otro o
+    reciba datos desde ese otro mediante una tubería. Una tubería es
+    similar a un *socket*, excepto que una tubería sólo
+    puede utilizarse para conectar programas en ejecución dentro del
+    mismo equipo (es decir, no se puede usar a través de una red).
+
+\index{pipe}
+\index{tubería}
+
+ruta absoluta
+
+:   Una cadena que describe dónde está almacenado un fichero o
+    directorio, comenzando desde la "parte superior del árbol de
+    directorios", de modo que puede usarse para acceder al fichero o
+    directorio, independientemente de cual sea el directorio de
+    trabajo actual.
+
+\index{ruta!absoluta}
+
+ruta relativa
+
+:   Una cadena que describe dónde se almacena un fichero o directorio,
+    relativo al directorio de trabajo actual.
+
+\index{ruta!relativa}
+
+shell
+
+:   Una interfaz de línea de comandos de un sistema operativo. También
+    se la llama "terminal de programas" en ciertos sistemas. En esta
+    interfaz se escriben el comando y sus parámetros en una línea y se
+    pulsa "intro" para ejecutarlo.
+
+\index{shell}
+
+walk (recorrer)
+
+:   Un término que se usa para describir el concepto de visitar el árbol
+    completo de directorios, subdirectorios, sub-subdirectorios, hasta
+    que se han visitado todos. A esto se le llama "recorrer el árbol de
+    directorios".
+
+\index{walk}
+\index{recorrer}
+
+Ejercicios
+----------
+
+Exercise 1: \[checksum\]
+
+\index{MP3}
+
+En una colección extensa de archivos MP3 puede haber más de una copia de
+la misma canción, almacenadas en distintos directorios o con nombres de
+archivo diferentes. El objetivo de este ejercicio es buscar esos
+duplicados.
+
+1.  Escribe un programa que recorra un directorio y todos sus
+    subdirectorios, buscando los archivos que tengan un sufijo
+    determinado (como `.mp3`) y liste las parejas de ficheros
+    que tengan el mismo tamaño. Pista: Usa un diccionario en el cual la
+    clave sea el tamaño del fichero obtenido con
+    `os.path.getsize` y el valor sea el nombre de la ruta
+    concatenado con el nombre del fichero. Cada vez que encuentres un
+    fichero, verifica si ya tienes otro con el mismo tamaño. Si es así,
+    has localizado un par de duplicados, de modo que puedes imprimir el
+    tamaño del archivo y los dos nombres (el guardado en el diccionario
+    y el del fichero que estás comprobando).
+
+\index{duplicados}
+\index{MD5, algoritmo}
+\index{algoritmo!MD5}
+\index{checksum}
+\index{suma de comprobación}
+
+2.  Adapta el programa anterior para buscar ficheros que tengan
+    contenidos duplicados usando un algoritmo de hashing o
+    *cheksum* (suma de comprobación). Por ejemplo, MD5
+    (Message-Digest algorithm 5) toma un "mensaje" de cualquier longitud
+    y devuelve una "suma de comprobación" de 128 bits. La probabilidad
+    de que dos ficheros con diferentes contenidos devuelvan la misma
+    suma de comprobación es muy pequeña.
+
+    Puedes leer más acerca de MD5 en
+    [es.wikipedia.org/wiki/MD5](es.wikipedia.org/wiki/MD5). El trozo de
+    código siguiente abre un fichero, lo lee y calcula su suma de
+    comprobación:
+
+        import hashlib
+        ...
+                   manf = open(elfichero,'r')
+                   datos = manf.read()
+                   manf.close()
+                   checksum = hashlib.md5(datos).hexdigest()
+
+    Debes crear un diccionario en el cual la suma de comprobación sea la
+    clave y el nombre del fichero el valor. Cuando calcules una suma de
+    comprobación y ésta ya se encuentre como clave dentro del
+    diccionario, habrás localizado dos ficheros con contenido duplicado,
+    de modo que puedes imprimir en pantalla el nombre del fichero que
+    tienes en el diccionario y el del archivo que acabas de leer. He
+    aquí una salida de ejemplo de la ejecución del programa en una
+    carpeta con archivos de imágenes:
+
+        ./2004/11/15-11-04_0923001.jpg ./2004/11/15-11-04_1016001.jpg
+        ./2005/06/28-06-05_1500001.jpg ./2005/06/28-06-05_1502001.jpg
+        ./2006/08/11-08-06_205948_01.jpg ./2006/08/12-08-06_155318_02.jpg
+
+    Aparentemente, a veces envío la misma foto más de una vez, o hago
+    una copia de una foto de vez en cuando sin eliminar después
+    la original.
+
+[^1]: "walk" significa "recorrer" (Nota del trad.)
+
+[^2]: Cuando se usan tuberías para comunicarse con comandos del sistema
+    operativo como `ls`, es importante que sepas qué sistema
+    operativo estás utilizando y que sólo abras tuberías hacia comandos
+    que estén soportados en ese sistema operativo.

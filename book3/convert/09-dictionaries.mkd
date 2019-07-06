@@ -1,0 +1,687 @@
+Diccionarios
+============
+
+\index{diccionario}
+\index{tipo!dict}
+\index{clave}
+\index{pareja clave-valor}
+\index{índice}
+
+Un *diccionario* es similar a una lista, pero más
+general. En una lista, las posiciones de los índices deben ser enteros;
+en un diccionario, los índices pueden ser de (casi) cualquier tipo.
+
+Puedes pensar en un diccionario como una asignación entre un conjunto de
+índices (a los cuales se les llama *claves*) y un
+conjunto de valores. Cada clave apunta a un valor. La asociación de una
+clave y un valor recibe el nombre de *pareja
+clave-valor*, o a veces *elemento*.
+
+Por ejemplo, hemos construido un diccionario que asocia palabras
+inglesas con sus equivalentes en español, de modo que tanto claves como
+valores son cadenas.
+
+La función `dict` crea un diccionario nuevo sin elementos.
+Dado que `dict` es el nombre de una función interna, debes
+evitar usarla como nombre de variable.
+
+\index{dict, función}
+\index{función!dict}
+
+    >>> eng2sp = dict()
+    >>> print(eng2sp)
+    {}
+
+Las llaves `{}`, representan un diccionario vacío. Para añadir elementos
+al diccionario, se pueden usar corchetes:
+
+\index{llaves}
+
+    >>> eng2sp['one'] = 'uno'
+
+Esta línea crea un elemento con la clave `'one'` que apunta
+al valor "uno". Si imprimimos el diccionario de nuevo, veremos una
+pareja clave-valor con dos-puntos entre la clave y el valor:
+
+    >>> print(eng2sp)
+    {'one': 'uno'}
+
+Este formato de salida es también un formato de entrada. Por ejemplo,
+puedes crear un nuevo diccionario con tres elementos:
+
+    >>> eng2sp = {'one': 'uno', 'two': 'dos', 'three': 'tres'}
+
+Pero si ahora imprimes `eng2sp`, puedes llevarte una
+sorpresa:
+
+    >>> print(eng2sp)
+    {'one': 'uno', 'three': 'tres', 'two': 'dos'}
+
+El orden de las parejas clave-valor no es el mismo. De hecho, si
+escribes el mismo ejemplo en tu PC, puedes obtener un resultado
+diferente. En general, el orden de los elementos en un diccionario es
+impredecible.
+
+Pero eso no es un problema, porque los elementos de un diccionario nunca
+son indexados por índices enteros. En lugar de eso, se usan las claves
+para buscar los valores correspondientes:
+
+    >>> print(eng2sp['two'])
+    'dos'
+
+La clave `'two'` siempre apunta al valor "dos", de modo que
+el orden de los elementos no importa.
+
+Si la clave especificada no está en el diccionario, se obtiene una
+excepción:
+
+\index{exception!KeyError}
+\index{KeyError}
+
+    >>> print(eng2sp['four'])
+    KeyError: 'four'
+
+La función `len` funciona en los diccionarios; devuelve el
+número de parejas clave-valor:
+
+\index{len, función}
+\index{función!len}
+
+    >>> len(eng2sp)
+    3
+
+El operador `in` también funciona en los diccionarios; te
+dice si algo aparece como *clave* en el diccionario (que aparezca como
+valor no es suficiente).
+
+\index{pertenencia!diccionario}
+\index{in, operador}
+\index{operador!in}
+
+    >>> 'one' in eng2sp
+    True
+    >>> 'uno' in eng2sp
+    False
+
+Para ver si algo aparece como valor en un diccionario, se puede usar el
+método `values`, que devuelve los valores como una lista, y
+después usar el operador `in` sobre esa lista:
+
+\index{values, método}
+\index{método!values}
+
+    >>> vals = list(eng2sp.values())
+    >>> 'uno' in vals
+    True
+
+El operador `in` utiliza algoritmos diferentes para las
+listas y para los diccionarios. Para las listas, usa un algoritmo lineal
+de búsqueda. A medida que la lista se va haciendo más larga, el tiempo
+de búsqueda va aumentando en proporción directa a su longitud. Para los
+diccionarios, Python usa un algoritmo llamado *tabla de
+dispersión*, que tiene una propiedad destacada–el operador
+`in` emplea la misma cantidad de tiempo sin importar cuántos
+elementos haya en el diccionario. No explicaré por qué las funciones de
+dispersión son tan mágicas, pero puedes leer más acerca de ello en
+[es.wikipedia.org/wiki/Tabla\_hash](es.wikipedia.org/wiki/Tabla_hash).
+
+\index{tabla de dispersión}
+
+Exercise 1: \[wordlist2\]
+
+\index{establecer pertenencia}
+\index{pertenencia!establecer}
+
+Escribe un programa que lea las palabras de `words.txt` y las
+almacene como claves en un diccionario. No importa qué valores tengan.
+Después puedes usar el operador `in` como un modo rápido de
+comprobar si una cadena está en el diccionario.
+
+Diccionario como conjunto de contadores {#histograma}
+---------------------------------------
+
+\index{contador}
+
+Supongamos que te han dado una cadena y quieres contar cuántas veces
+aparece cada letra. Hay varias formas de hacerlo:
+
+1.  Podrías crear 26 variables, una para cada letra del alfabeto.
+    Después, podrías recorrer la cadena y, para cada carácter, aumentar
+    el contador correspondiente, probablemente usando un
+    condicional encadenado.
+
+2.  Podrías crear una lista con 26 elementos. Luego podrías convertir
+    cada carácter en un número (usando la función interna
+    `ord`), usar el número como índice dentro de la lista, y
+    aumentar el contador apropiado.
+
+3.  Podrías crear un diccionario con los caracteres como claves y
+    contadores como sus valores correspondientes. La primera vez que
+    veas un carácter, añadirías un elemento al diccionario. Después,
+    aumentarías el valor del elemento ya existente.
+
+Todas estas opciones realizan la misma operación, pero cada una de ellas
+implementa esa operación de un modo diferente.
+
+\index{implementación}
+
+Una *implementación* es un modo de realizar una
+operación; algunas implementaciones son mejores que otras. Por ejemplo,
+una ventaja de la implementación del diccionario es que no necesitamos
+saber de antemano qué letras aparecerán en la cadena y sólo tendremos
+que hacer sitio para las letras que vayan apareciendo.
+
+Así es como podría programarse el código:
+
+    palabra = 'brontosaurio'
+    d = dict()
+    for c in palabra:
+        if c not in d:
+            d[c] = 1
+        else:
+            d[c] = d[c] + 1
+    print(d)
+
+En realidad estamos realizando un *histograma*, que es un
+término estadístico para un conjunto de contadores (o frecuencias).
+
+\index{histograma}
+\index{frecuencia}
+\index{recorrido}
+
+El bucle `for` recorre la cadena. Cada vez que entra en el
+bucle, si el carácter `c` no está en el diccionario, creamos
+un nuevo elemento con la clave `c` y el valor inicial 1 (ya
+que hemos encontrado esa letra una vez). Si `c` ya está en el
+diccionario, incrementamos `d\[c\]`.
+
+Aquí está la salida del programa:
+
+    {'a': 1, 'b': 1, 'o': 3, 'n': 1, 's': 1, 'r': 2, 'u': 1, 't': 1, 'i': 1}
+
+El histograma indica que las letras `'a'` y "b" aparecen
+una vez; "o" aparece tres, y así con las demás.
+
+\index{get, método}
+\index{método!get}
+
+Los diccionarios tienen un método llamado `get` que toma una
+clave y un valor por defecto. Si la clave aparece en el diccionario,
+`get` devuelve el valor correspondiente; si no, devuelve el
+valor por defecto. Por ejemplo:
+
+    >>> contadores = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+    >>> print(contadores.get('jan', 0))
+    100
+    >>> print(contadores.get('tim', 0))
+    0
+
+Podemos usar `get` para escribir nuestro bucle de histograma
+de forma más concisa. Como el método `get` gestiona
+automáticamente el caso de que la clave no esté en el diccionario,
+podemos reducir cuatro líneas a una sola y eliminar la sentencia
+`if`
+
+    palabra = 'brontosaurio'
+    d = dict()
+    for c in palabra:
+        d[c] = d.get(c,0) + 1
+    print(d)
+
+El uso del método `get` para simplificar este bucle de
+recuento al final resulta ser un "estilo" que se usa en Python con mucha
+frecuencia, y lo utilizaremos muchas veces en el resto del libro. Así
+que deberías pararte un momento y comparar el bucle usando la sentencia
+`if` y el operador `in` con el mismo bucle usando
+el método `get`. Hacen exactamente lo mismo, pero uno es más
+conciso.
+
+\index{estilo}
+
+Diccionarios y archivos
+-----------------------
+
+Uno de los usos más comunes de un diccionario es contar la aparición de
+palabras en un archivo con texto escrito. Empecemos con un archivo muy
+sencillo de palabras tomados del texto de *Romeo and Juliet*.
+
+Para el primer conjunto de ejemplos, usaremos una versión acortada y
+simplificada del texto, sin signos de puntuación. Más tarde trabajaremos
+con el texto completo de la escena, con puntuación incluida.
+
+    But soft what light through yonder window breaks
+    It is the east and Juliet is the sun
+    Arise fair sun and kill the envious moon
+    Who is already sick and pale with grief
+
+Vamos a escribir un programa en Python para ir leyendo las líneas del
+archivo, dividir cada línea en una lista de palabras, ir recorriendo esa
+lista y contar el número de veces que aparece cada palabra, usando un
+diccionario.
+
+\index{anidados, bucles}
+\index{bucle!anidado}
+
+Verás que tenemos dos bucles `for`. El bucle exterior va
+leyendo las líneas del archivo, mientras que el interior va iterando a
+través de cada una de las palabras de una línea concreta. Esto es un
+ejemplo de un diseño llamado *bucles anidados*, ya que
+uno de los bucles es el *exterior*, y el otro es el *interior*.
+
+Debido a que el bucle interior ejecuta todas sus iteraciones cada vez
+que el bucle exterior realiza una sola, consideramos que el bucle
+interior va iterando "más rápido" y que el exterior lo hace más
+lentamente.
+
+\index{Romeo and Juliet}
+
+La combinación de los dos bucles anidados garantiza que se cuentan todas
+las palabras en cada línea del archivo de entrada.
+
+    nombref = input('Introduzca el nombre del fichero: ')
+    try:
+        manf = open(nombref)
+    except:
+        print('El fichero no se pudo abrir:', fname)
+        exit()
+
+    contadores = dict()
+    for linea in manf:
+        palabras = linea.split()
+        for palabra in palabras:
+            if palabra not in contadores:
+                contadores[palabra] = 1
+            else:
+                contadores[palabra] += 1
+
+    print(contadores)
+
+Cuando hacemos funcionar el programa, veremos un volcado en bruto de
+todos los contadores sin ordenar. (el archivo `romeo.txt`
+está disponible en
+[www.py4inf.com/code/romeo.txt](www.py4inf.com/code/romeo.txt))
+
+    python count1.py
+    Introduzca el nombre del fichero: romeo.txt
+    {'and': 3, 'envious': 1, 'already': 1, 'fair': 1,
+    'is': 3, 'through': 1, 'pale': 1, 'yonder': 1,
+    'what': 1, 'sun': 2, 'Who': 1, 'But': 1, 'moon': 1,
+    'window': 1, 'sick': 1, 'east': 1, 'breaks': 1,
+    'grief': 1, 'with': 1, 'light': 1, 'It': 1, 'Arise': 1,
+    'kill': 1, 'the': 3, 'soft': 1, 'Juliet': 1}
+
+Resulta un poco incómodo buscar a través del diccionario para encontrar
+cuál es la palabra más común y su contador, de modo que necesitaremos
+añadir un poco más de código Phyton para obtener una salida que nos
+resulte más útil.
+
+Bucles y diccionarios
+---------------------
+
+\index{diccionario!iterar con}
+\index{iteración!con diccionarios}
+\index{recorrido}
+
+Si se utiliza un diccionario como secuencia en una sentencia
+`for`, ésta recorrerá todas las claves del diccionario. Este
+bucle imprime cada clave y su valor correspondiente:
+
+    contadores = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+    for clave in contadores:
+        print(clave, contadores[clave])
+
+Aquí tenemos lo que muestra como salida:
+
+    jan 100
+    chuck 1
+    annie 42
+
+Vemos de nuevo que la claves aparecen sin ningún orden en particular.
+
+\index{estilo}
+
+Podemos usar este diseño para poner en práctica las diversas expresiones
+de bucles que hemos descrito antes. Por ejemplo, si queremos encontrar
+todas las entradas de un diccionario que tengan un valor superior a
+diez, podríamos escribir el siguiente código:
+
+    contadores = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+    for clave in contadores:
+        if contadores[clave] > 10 :
+            print(clave, contadores[clave])
+
+El bucle `for` itera a través de las *claves*
+del diccionario, de modo que podemos usar el operador índice para
+recuperar el *valor* correspondiente de cada clave. Aquí
+podemos ver el aspecto de la salida:
+
+    jan 100
+    annie 42
+
+Sólo se muestran las entradas con un valor superior a 10.
+
+\index{keys, método}
+\index{método!keys}
+
+Si se quieren imprimir las claves en orden alfabético, primero se debe
+crear una lista de las claves del diccionario, usando el método
+`keys`, que está disponible en los objetos del tipo
+diccionario. Luego, habrá que ordenar esa lista e irse desplazando a
+través de la lista ordenada, buscando cada clave e imprimiendo las
+parejas clave-valor en orden, como se muestra a continuación:
+
+    contadores = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+    lst = list(counts.keys())
+    print(lst)
+    lst.sort()
+    for clave in lst:
+        print(clave, contadores[clave])
+
+Aquí vemos cómo queda la salida:
+
+    ['jan', 'chuck', 'annie']
+    annie 42
+    chuck 1
+    jan 100
+
+Primero se muestra la lista de claves sin ordenar que obtenemos usando
+el método `keys`. Luego podemos ver las parejas clave-valor
+ya en orden, imprimidas desde el bucle `for`.
+
+Procesado avanzado de texto
+---------------------------
+
+\index{Romeo and Juliet}
+
+En el ejemplo anterior, al usar el fichero `romeo.txt` hemos
+hecho que el archivo fuera lo más sencillo posible, eliminando
+manualmente todos los signos de puntuación. El texto real tiene montones
+de esos signos, como se muestra a continuación:
+
+    But, soft! what light through yonder window breaks?
+    It is the east, and Juliet is the sun.
+    Arise, fair sun, and kill the envious moon,
+    Who is already sick and pale with grief,
+
+Dado que la función de Python `split` busca espacios y trata
+las palabras como piezas separadas por esos espacios, trataríamos las
+palabras "soft!" y "soft" como *diferentes*, y se crearía una entrada
+diferente en el diccionario para cada una de ellas.
+
+Además, dado que el archivo contiene palabras en mayúsculas, también se
+trataría a "who" y "Who" como palabras diferentes, con contadores
+distintos.
+
+Podemos solventar ambos problemas usando los métodos de cadena
+`lower`, `punctuation`, y `translate`.
+`translate` es el más sutil de estos métodos. Aquí está la
+documentación para `translate`:
+
+`string.translate(s, table[, deletechars])`
+
+*Elimina todos los caracteres de s que hay en deletechars (si existe
+alguno), y luego traduce los caracteres usando table, que debe ser una
+cadena de 256-caracteres que proporcione la traducción para cada valor
+de carácter, indexado por su ordinal. Si la tabla es None, entonces sólo
+se realizará el borrado de caracteres.*
+
+Nosotros no especificaremos el valor de `table`, pero
+usaremos el parámetro `deletechars` para eliminar todos los
+signos de puntuación. Incluso dejaremos que sea el propio Python quien
+nos diga la lista de caracteres que él considera "signos de puntuación":
+
+    >>> import string
+    >>> string.punctuation
+    '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+
+Hacemos las siguientes modificaciones a nuestro programa:
+
+    import string                                          # Código nuevo
+
+    nombref = input('Introduzca el nombre del fichero: ')
+    try:
+        manf = open(nombref)
+    except:
+        print('El fichero no se pudo abrir:', nombref)
+        exit()
+
+    contadores = dict()
+    for linea in nombref:
+        linea = linea.translate(None, string.punctuation)    # Código nuevo
+        linea = linea.lower()                                # Código nuevo
+        palabras = linea.split()
+        for palabra in palabras:
+            if palabra not in palabras:
+                contadores[palabra] = 1
+            else:
+                contadores[palabra] += 1
+
+    print(contadores)
+
+Usamos `translate` para eliminar todos los signos de
+puntuación, y `lower` para forzar la línea a minúsculas. El
+resto del programa no se ha modificado. Para Python 2.5 y anteriores,
+`translate` no acepta `None` como primer
+parámetro, de modo que en ese caso habría que usar el siguiente código
+para la llamada a translate:
+
+    print a.translate(string.maketrans(' ',' '), string.punctuation
+
+Parte del aprendizaje del "Arte de Python" o "Pensar Pythónicamente"
+consiste en darse cuenta de que Python a menudo tiene capacidades ya
+integradas para muchos problemas de análisis de datos comunes. Llegará
+un momento en que habrás visto suficiente código de ejemplo y leído
+suficiente documentación para saber dónde buscar para ver si alguien ya
+ha escrito anteriormente algo que pueda facilitarte el trabajo.
+
+Lo siguiente es una versión abreviada de la salida:
+
+    Introduzca el nombre del fichero: romeo-full.txt
+    {'swearst': 1, 'all': 6, 'afeard': 1, 'leave': 2, 'these': 2,
+    'kinsmen': 2, 'what': 11, 'thinkst': 1, 'love': 24, 'cloak': 1,
+    a': 24, 'orchard': 2, 'light': 5, 'lovers': 2, 'romeo': 40,
+    'maiden': 1, 'whiteupturned': 1, 'juliet': 32, 'gentleman': 1,
+    'it': 22, 'leans': 1, 'canst': 1, 'having': 1, ...}
+
+Buscar a través de esta salida resulta todavía pesado y podemos utilizar
+a para que nos dé exactamente lo que buscamos. Pero para eso, tendremos
+que aprender algo sobre las *tuplas* de Python.
+Retomaremos este ejemplo una vez que hayamos estudiado las tuplas.
+
+Depuración
+----------
+
+\index{depuración}
+
+Al ir trabajando con conjuntos de datos más grandes, se irá haciendo más
+pesado depurar imprimiendo y comprobando los datos de forma manual. He
+aquí algunas sugerencias para depurar conjuntos de datos grandes:
+
+Reduce la entrada
+
+:   Si es posible, reduce el tamaño del conjunto de datos. Por ejemplo,
+    si el programa lee un archivo de texto, comienza solamente con las
+    primeras 10 líneas, o con el ejemplo más pequeño que
+    puedas encontrar. Puedes editar los propios archivos, o (mejor)
+    modificar el programa de modo que lea sólo las `n`
+    primeras líneas.
+
+    Si hay un error, puedes reducir `n` hasta el valor más
+    pequeño en el cual se manifieste el error, y luego irlo
+    incrementando gradualmente hasta que encuentres y corrijas
+    los errores.
+
+Comprueba los resúmenes y tipos
+
+:   En vez de imprimir y comprobar el conjunto de datos completo,
+    considera imprimir resúmenes de los datos: por ejemplo, el número de
+    elementos en un diccionario o el total de una lista de números.
+
+    Una causa habitual de errores en tiempo de ejecución es un valor que
+    no es del tipo correcto. Para depurar este tipo de error, a menudo
+    es suficiente con mostrar en pantalla el tipo del valor.
+
+Escribe auto-comprobaciones
+
+:   A veces puedes escribir código que compruebe los
+    errores automáticamente. Por ejemplo, si estás calculando la media
+    de una lista de números, puedes comprobar que el resultado no es
+    mayor que el elemento más grande de la lista, o menor que el
+    más pequeño. A eso se le llama "prueba de coherencia" (`sanity
+    check`), porque detecta resultados que son "completamente
+    ilógicos".
+
+\index{sanity check}
+\index{prueba de coherencia}
+\index{consistency check}
+\index{prueba de consistencia}
+
+    Otro tipo de comprobación compara los resultados de dos cálculos
+    diferentes para ver si son consistentes. A esto se le llama una
+    "prueba de consistencia" (`consistency check`).
+
+Haz que la salida se muestre ordenada
+
+:   Dar formato a la salida de depuración puede conseguir que resulte
+    más fácil localizar un error.
+
+Una vez más, el tiempo que emplees construyendo la estructura puede
+reducir el tiempo que emplearás luego depurando.
+
+\index{estructura}
+
+Glosario
+--------
+
+bucles anidados
+
+:   Cuando hay uno o más bucles "dentro" de otro bucle. El bucle
+    interior se ejecuta completo cada vez que el exterior se ejecuta
+    una vez.
+
+\index{anidados, bucles}
+\index{bucle!anidado}
+
+búsqueda (lookup)
+
+:   Una operación en un diccionario que toma una clave y encuentra su
+    valor correspondiente.
+
+\index{lookup}
+\index{búsqueda}
+
+clave
+
+:   Un objeto que aparece en un diccionario como la primera parte de una
+    pareja clave-valor.
+
+\index{clave}
+
+diccionario
+
+:   Una asociación de un conjunto de claves hacia sus
+    valores correspondientes.
+
+\index{diccionario}
+
+elemento
+
+:   Otro nombre para una pareja clave-valor.
+
+\index{elemento!diccionario}
+
+función de dispersión (hash function)
+
+:   Una función usada por una tabla de dispersión para calcular la
+    localización de una clave.
+
+\index{dispersión!función de}
+\index{hash function}
+
+histograma
+
+:   Un conjunto de contadores.
+
+\index{histograma}
+
+implementación
+
+:   Un modo de realizar una operación.
+
+\index{implementación}
+
+pareja clave-valor
+
+:   La representación de la asociación de una clave con un valor.
+
+\index{pareja clave-valor}
+
+tabla de dispersión (hashtable)
+
+:   El algoritmo usado para implementar los diccionarios de Python.
+
+\index{hashtable}
+\index{dispersión!tabla de}
+
+valor
+
+:   Un objeto que aparece en un diccionario como la segunda parte de una
+    pareja clave-valor. Es más específico que el uso que hacíamos antes
+    de la palabra "valor".
+
+\index{valor}
+
+Ejercicios
+----------
+
+Exercise 2: Escribe un programa que ordene en categorías cada mensaje de
+correo según el día de la semana en que fue hecho el envío. Para
+lograrlo, busca las líneas que comienzan por "From", luego localiza la
+tercera palabra y mantén un contador actualizado de cada uno de los días
+de la semana. Al final del programa imprime en pantalla el contenido de
+tu diccionario (el orden no importa).
+
+    Línea de ejemplo:
+    From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+
+    Ejemplo de Ejecución:
+    python dow.py
+    Intoduzca un nombre de fichero: mbox-short.txt
+    {'Fri': 20, 'Thu': 6, 'Sat': 1}
+
+Exercise 3: Escribe un programa que lea a través de un registro de
+correo, construya un histograma usando un diccionario para contar
+cuántos mensajes han llegado desde cada dirección de correo, e imprima
+el diccionario.
+
+    Introduzca un nombre del fichero: mbox-short.txt
+    {'gopal.ramasammycook@gmail.com': 1, 'louis@media.berkeley.edu': 3,
+    'cwen@iupui.edu': 5, 'antranig@caret.cam.ac.uk': 1,
+    'rjlowe@iupui.edu': 2, 'gsilver@umich.edu': 3,
+    'david.horwitz@uct.ac.za': 4, 'wagnermr@iupui.edu': 1,
+    'zqian@umich.edu': 4, 'stephen.marquard@uct.ac.za': 2,
+    'ray@media.berkeley.edu': 1}
+
+Exercise 4: Añade código al programa anterior para localizar quién tiene
+más mensajes en el fichero.
+
+Después de que los datos hayan sido leídos y el diccionario haya sido
+creado, busca a través del diccionario usando un bucle máximo (mira la
+Section \[maximumloop\]) para encontrar quién es el que tiene más
+mensajes e imprime cuántos mensajes tiene esa persona.
+
+    Introduzca un nombre de fichero: mbox-short.txt
+    cwen@iupui.edu 5
+
+    Introduzca un nombre de fichero: mbox.txt
+    zqian@umich.edu 195
+
+Exercise 5: Este programa debe guardar el nombre de dominio desde donde
+se envió el mensaje en vez de quién mandó el mensaje (es decir, la
+dirección de correo completa). Al final del programa, imprime en
+pantalla el contenido de tu diccionario.
+
+    python schoolcount.py
+    Introduzca un nombre de fichero: mbox-short.txt
+    {'media.berkeley.edu': 4, 'uct.ac.za': 6, 'umich.edu': 7,
+    'gmail.com': 1, 'caret.cam.ac.uk': 1, 'iupui.edu': 8}

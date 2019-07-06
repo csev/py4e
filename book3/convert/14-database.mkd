@@ -1,0 +1,1349 @@
+Bases de datos y SQL
+====================
+
+¿Qué es una base de datos?
+--------------------------
+
+\index{base de datos}
+
+Una *base de datos* es un archivo que está organizado
+para almacenar datos. La mayoría de las bases de datos están organizadas
+como diccionarios, en el sentido de que realizan asociaciones entre
+claves y valores. La diferencia más importante es que la base de datos
+se encuentra en el disco (u otro almacenamiento permanente), de modo que
+su contenido se conserva después de que el programa finaliza. Gracias a
+que la base de datos se guarda en un almacenamiento permanente, puede
+almacenar muchos más datos que un diccionario, que está limitado al
+tamaño de la memoria que tenga el equipo.
+
+\index{base de datos!índices}
+
+Como un diccionario, el software de una base de datos está diseñado para
+conseguir que la inserción y acceso a los datos sean muy rápidos,
+incluso para grandes cantidades de datos. Este software mantiene su
+rendimiento mediante la construcción de *índices*, como
+datos añadidos a la base de datos que permiten al equipo saltar
+rápidamente hasta una entrada concreta.
+
+Existen muchos sistemas de bases de datos diferentes, que se utilizan
+para una amplia variedad de propósitos. Algunos de ellos son: Oracle,
+MySQL, Microsoft SQL Server, PostgreSQL, y SQLite. En este libro nos
+centraremos en SQLite, ya que se trata de una base de datos muy habitual
+y ya viene integrada dentro de Python. SQLite está diseñada para ser
+*incrustada* dentro de otras aplicaciones, de modo que proporcione
+soporte para bases de datos dentro de la aplicación. Por ejemplo, el
+navegador Firefox es uno de los que utilizan la base de datos SQLite
+internamente, al igual que muchos otros productos.
+
+<http://sqlite.org/>
+
+SQLite es muy adecuado para ciertos problemas de manipulación de datos
+que nos encontramos en informática, como en la aplicación de rastreo de
+Twitter que hemos descrito en el capítulo anterior.
+
+Conceptos sobre bases de datos
+------------------------------
+
+Cuando se ve por primera vez una base de datos, se parece a una hoja de
+cálculo con múltiples hojas. Las estructuras de datos primarias en una
+base de datos son: *tablas*, *filas*, y
+*columnas*.
+
+![image](figs2/relational){height="1.50in"}
+
+En las descripciones técnicas de las bases de datos relacionales, los
+conceptos de tabla, fila y columna reciben los nombres más formales de
+*relación*, *tupla*, y
+*atributo* respectivamente. Nosotros a lo largo de este
+capítulo usaremos los términos menos formales.
+
+Add-on de Firefox para gestión de SQLite
+----------------------------------------
+
+A pesar de que en este capítulo nos centraremos en el uso de Python para
+trabajar con datos en archivos de bases de datos SQLite, hay muchas
+operaciones que pueden realizarse de forma más eficaz usando un add-on
+para Firefox llamado *SQLite Database Manager*, que se
+puede descargar libremente desde:
+
+<https://addons.mozilla.org/en-us/firefox/addon/sqlite-manager/>
+
+Utilizando el navegador se pueden crear tablas con facilidad, insertar y
+editar datos o ejecutar consultas SQL sencillas sobre la base de datos.
+
+En cierto sentido, el gestor de base de datos es parecido a un editor de
+texto que trabaja con archivos de texto. Cuando quieres realizar uno o
+dos cambios en un archivo de texto, lo más sencillo es abrirlo en un
+editor de texto y realizar los cambios que quieres. Cuando debes
+realizar muchas modificaciones en el archivo, a menudo habrá que
+escribir un programa en Python sencillo. El mismo enfoque se puede
+aplicar al trabajo con bases de datos. Se realizarán las operaciones más
+sencillas en el gestor de bases de datos, y para otras más complejas
+será más conveniente usar Python.
+
+Creación de una tabla en una base de datos
+------------------------------------------
+
+Las bases de datos necesitan una estructura más definida que las listas
+o diccionarios de Python[^1].
+
+Cuando se crea una *tabla*, se debe indicar de antemano a
+la base de datos los nombres de cada una de las
+*columnas* de esa tabla y el tipo de dato que se va a
+almacenar en cada una de ellas. Cuando el software de la base de datos
+conoce el tipo de dato de cada columna, puede elegir el modo más
+eficiente de almacenar y buscar en ellas, basándose en el tipo de dato
+que contendrán.
+
+Puedes revisar los distintos tipos de datos soportados por SQLite en la
+siguiente dirección:
+
+<http://www.sqlite.org/datatypes.html>
+
+El tener que definir de antemano una estructura para los datos puede
+parecer incómodo al principio, pero la recompensa consiste en obtener un
+acceso rápido a los datos, incluso cuando la base de datos contiene una
+gran cantidad de ellos.
+
+El código para crear un archivo de base de datos y una tabla llamada
+`Canciones` con dos columnas en la base de datos es el
+siguiente:
+
+\index{sqlite3, módulo}
+\index{módulo!sqlite3}
+
+    import sqlite3
+
+    conn = sqlite3.connect('musica.sqlite3')
+    cur = conn.cursor()
+
+    cur.execute('DROP TABLE IF EXISTS Canciones ')
+    cur.execute('CREATE TABLE Canciones (titulo TEXT, reproducciones INTEGER)')
+
+    conn.close()
+
+\index{connect, función}
+\index{función!connect}
+\index{cursor, función}
+\index{función!cursor}
+
+La operación `connect` realiza una "conexión" con la base de
+datos almacenada en el archivo `musica.sqlite3` del
+directorio actual. Si el archivo no existe, se creará nuevo. La razón de
+que se le llame una "conexión" es que a veces la base de datos se
+almacena en un "servidor de bases de datos", distinto del servidor en el
+cual está funcionando nuestra aplicación. En nuestros ejemplos, dado que
+son sencillos, la base de datos será simplemente un archivo local en el
+mismo directorio en el que está funcionando el código de Python.
+
+Un *cursor* es como un manejador de fichero, y se puede
+usar para realizar operaciones en los datos almacenados en la base de
+datos. La llamada a `cursor()` es muy parecida
+conceptualmente a la llamada a `open()` cuando se está
+tratando con ficheros de texto.
+
+![image](figs2/cursor){height="1.50in"}
+
+Una vez que tenemos el cursor, podemos comenzar a ejecutar comandos
+sobre el contenido de la base de datos, usando el método
+`execute()`.
+
+Los comandos de las bases de datos se expresan en un lenguaje especial
+que ha sido estandarizado entre varios proveedores de bases de datos
+diferentes para permitirnos aprender un único lenguaje para todas ellas.
+Este lenguaje recibe el nombre de *Lenguaje de Consultas
+eStructurado* (`Structured Query Language`), o
+*SQL*.
+
+<http://en.wikipedia.org/wiki/SQL>
+
+En nuestro ejemplo, estamos ejecutando dos comandos SQL sobre la base de
+datos. Por convención, mostraremos las palabras claves de SQL en
+mayúscula y las partes de los comandos que añadamos nosotros (como los
+nombres de las tablas y las columnas) irán en minúsculas.
+
+El primer comando SQL elimina la tabla `Canciones` de la base
+de datos si ya existe. Este planteamiento se utiliza simplemente para
+permitirnos ejecutar el mismo programa para crear la tabla
+`Canciones` una y otra vez sin provocar un error. Fíjate en
+que el comando `DROP TABLE` borra la tabla y todo su
+contenido de la base de datos (es decir, aquí no existe la opción
+"deshacer").
+
+    cur.execute('DROP TABLE IF EXISTS Canciones ')
+
+El segundo comando crea un tabla llamada `Canciones` con una
+columna de texto llamada `titulo` y una columna de enteros
+llamada `reproducciones`.
+
+    cur.execute('CREATE TABLE Canciones (titulo TEXT, reproducciones INTEGER)')
+
+Ahora que ya hemos creado la tabla llamada `Canciones`,
+podemos guardar algunos datos en ella usando la operación de SQL
+`INSERT`. Empezaremos realizando otra vez una conexión con la
+base de datos y obteniendo el `cursor`. Luego podremos
+ejecutar comandos SQL usando ese cursor.
+
+El comando `INSERT` de SQL indica qué tabla se está
+utilizando y luego define una fila nueva, enumerando los campos que se
+desean incluir `(título, reproducciones)`, seguidos por los
+valores (`VALUES`) que se desean colocar en esa fila.
+Nosotros vamos a especificar los valores como signos de interrogación
+`(?, ?)` para indicarle que los valores reales serán pasados
+como una tupla `( 'My Way', 15 ) ` en el segundo parámetro de
+la llamada a `execute()`.
+
+    import sqlite3
+
+    conn = sqlite3.connect('musica.sqlite3')
+    cur = conn.cursor()
+
+    cur.execute('INSERT INTO Canciones (titulo, reproducciones) VALUES ( ?, ? )',
+        ( 'Thunderstruck', 20 ) )
+    cur.execute('INSERT INTO Canciones (titulo, reproducciones) VALUES ( ?, ? )',
+        ( 'My Way', 15 ) )
+    conn.commit()
+
+    print('Canciones:')
+    cur.execute('SELECT titulo, reproducciones FROM Canciones')
+    for fila in cur :
+       print(fila)
+
+    cur.execute('DELETE FROM Canciones WHERE reproducciones < 100')
+    conn.commit()
+
+    cur.close()
+
+Primero insertamos (`INSERT`) dos filas en la tabla y usamos
+`commit()` para forzar a que los datos sean escritos en el
+archivo de la base de datos.
+
+![image](figs2/tracks){height="1.00in"}
+
+Después usamos el comando `SELECT` para recuperar las filas
+que acabamos de insertar en la tabla. En el comando `SELECT`,
+indicamos qué columnas nos gustaría obtener `(titulo,
+reproducciones)`, y también desde qué tabla (`FROM`)
+queremos recuperar los datos. Después de ejecutar la sentencia
+`SELECT`, el cursor se convierte en algo con lo que podemos
+iterar mediante una sentencia `for`. Por eficiencia, el
+cursor no lee todos los datos de la base de datos cuando se ejecuta la
+sentencia `SELECT`. En lugar de ello, los datos van siendo
+leídos a medida que se van pidiendo las filas desde el bucle creado con
+la sentencia `for`.
+
+La salida del programa es la siguiente:
+
+    Canciones:
+    (u'Thunderstruck', 20)
+    (u'My Way', 15)
+
+\index{Unicode}
+
+Nuestro bucle `for` encuentra dos filas, y cada fila es una
+tupla de Python cuyo primer valor es el `título` y el segundo
+es el número de `reproducciones`. No nos preocupa que la
+cadena del título comience por `u'`. Se trata de una
+indicación de que las cadenas son del tipo *Unicode*, y
+por tanto capaces de almacenar conjuntos de caracteres no-latinos.
+
+Al final del programa, ejecutamos un comando SQL para borrar
+`(DELETE)` las filas que acabamos de crear, de modo que
+podamos ejecutar el programa una y otra vez. El comando
+`DELETE` nos muestra el uso de la cláusula
+`WHERE`, la cual nos permite expresar un criterio de
+selección, de modo que podemos pedir a la base de datos que aplique el
+comando solamente a las filas que cumplan ese criterio. En este ejemplo,
+el criterio es cumplido por todas las filas, así que vaciamos la tabla
+para que podamos ejecutar el programa de nuevo repetidamente. Después de
+que se ha realizado el `DELETE`, llamamos de nuevo a
+`commit()` para forzar a los datos a ser eliminados de la
+base de datos.
+
+Resumen de Lenguaje de Consultas Estructurado
+---------------------------------------------
+
+Hasta ahora, hemos estado usando el Lenguaje de Consultas Estructurado
+en nuestros ejemplos de Python y hemos utilizado muchos de los comandos
+básicos de SQL. En esta sección, nos centraremos en el lenguaje SQL en
+particular y echaremos un vistazo a su sintaxis.
+
+A pesar de que hay muchos proveedores de bases de datos, el Lenguaje de
+Consultas Estructurado (SQL) está estandarizado, para que podamos
+comunicarnos de una forma similar con sistemas de bases de datos de
+múltiples vendedores.
+
+Una base de datos relacional está compuesta por tablas, filas y
+columnas. Las columnas tienen generalmente un tipo de datos que puede
+ser texto, numérico, o fecha. Cuando se crea una tabla, se indican los
+nombres y tipos de cada columna.
+
+    CREATE TABLE Canciones (titulo TEXT, reproducciones INTEGER)
+
+Para insertar una fila en una tabla, usamos el comando de SQL
+`INSERT`:
+
+    INSERT INTO Canciones (titulo, reproducciones) VALUES ('My Way', 15)
+
+La sentencia `INSERT` especifica el nombre de la tabla,
+seguido por una lista de los campos/columnas que se quieren establecer
+en la fila nueva, a continuación la palabra clave `VALUES`, y
+una lista de los valores correspondientes para cada uno de los campos.
+
+El comando de SQL `SELECT` se usa para recuperar filas y
+columnas desde una base de datos. La sentencia `SELECT`
+permite especificar qué columnas se quieren recibir, junto con una
+clausula `WHERE` para indicar qué filas se desean obtener.
+También permite una clausula opcional, `ORDER BY` para
+controlar el orden de las filas devueltas.
+
+    SELECT * FROM Canciones WHERE titulo = 'My Way'
+
+El `*` indica que se desea que la base de datos devuelva todas las
+columnas para cada línea que cumpla la condición de la clausula
+`WHERE` [^2].
+
+Fíjate que, a diferencia de lo que ocurre en Python, en SQL la clausula
+`WHERE` utiliza un único signo igual para indicar una
+comprobación de igualdad, en lugar de utilizar un signo doble igual.
+Otras operaciones lógicas que se permiten en una clausula
+`WHERE` son `<`, `>`, `<=`, `>=`, `!=`, junto con
+`AND`, `OR` y paréntesis para construir
+expresiones lógicas.
+
+Se puede solicitar que las columnas devueltas vengan ordenadas por uno
+de los campos, de este modo:
+
+    SELECT titulo, reproducciones FROM Canciones ORDER BY titulo
+
+Para eliminar una fila, es necesario usar una clausula
+`WHERE` en una sentencia `DELETE` de SQL. La
+clausula `WHERE` determina qué filas serán eliminadas:
+
+    DELETE FROM Canciones WHERE titulo = 'My Way'
+
+Es posible actualizar `(UPDATE)` una columna o varias de una
+o más filas en una tabla usando la sentencia de SQL `UPDATE`,
+como se muestra a continuación:
+
+    UPDATE Canciones SET reproducciones = 16 WHERE titulo = 'My Way'
+
+La sentencia `UPDATE` especifica una tabla, a continuación
+una lista de campos y valores a cambiar detrás de la palabra clave
+`SET`, y finalmente una clausula opcional `WHERE`
+para elegir las filas que van a ser actualizadas. Una única sentencia
+`UPDATE` cambiará todas las filas que coincidan con la
+clausula `WHERE`. Si no se ha especificado ninguna clausula
+`WHERE`, se realizará la `actualización` de todas
+las filas de la tabla.
+
+Existen cuatro comandos básicos de SQL (INSERT, SELECT, UPDATE y
+DELETE), que nos permiten realizar las cuatro operaciones básicas
+necesarias para crear y mantener datos.
+
+Rastreo en Twitter usando una base de datos
+-------------------------------------------
+
+En esta sección, crearemos un programa araña sencillo que se moverá a
+través de cuentas de Twitter y construirá una base de datos de ellas.
+
+*Nota: Ten mucho cuidado al ejecutar este programa. Si extraes
+demasiados datos o ejecutas el programa durante demasiado tiempo pueden
+terminar cortándote el acceso a Twitter.*
+
+Uno de los problemas de cualquier tipo de programa araña es que se
+necesita poderlo detener y volver a poner en marcha muchas veces, y no
+se quieren perder los datos que se hayan recuperado hasta ese momento.
+No querrás tener que empezar siempre la recuperación de datos desde el
+principio, de modo que necesitaremos almacenar los datos según los vamos
+recuperando para que nuestro programa pueda usar esa copia de seguridad
+y reanudar su recogida de datos desde donde lo dejó la última vez.
+
+Empezaremos por recuperar los amigos de Twitter de una persona y sus
+estados, moviéndonos a través de la lista de amigos y añadiendo cada uno
+de ellos a la base de datos para poder recuperarlos en el futuro.
+Después de haber procesado todos los amigos de esa persona,
+consultaremos la base de datos y recuperaremos los amigos de uno de esos
+amigos. Continuaremos haciendo esto una y otra vez, recogiendo cualquier
+persona "no visitada", recuperando su lista de amigos y añadiendo
+aquellos que no tengamos ya en nuestra lista para una próxima visita.
+
+También contabilizaremos cuántas veces hemos visto un amigo concreto en
+la base de datos, para tener una idea de su "popularidad".
+
+Estamos almacenando nuestra lista de cuentas de conocidos, si hemos
+recuperado una cuenta o no, y la popularidad de cada cuenta. Al tener
+todo ello guardado en una base de datos en nuestro PC, podremos detener
+y reanudar el programa tantas veces como queramos.
+
+Este programa es un poco complejo. Está basado en el código de un
+ejercicio anterior del libro que usa la API de Twitter.
+
+Aquí está el código fuente para nuestra aplicación araña de Twitter:
+
+    import urllib.request, urllib.parse, urllib.error
+    import twurl
+    import json
+    import sqlite3
+
+    TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
+
+    conn = sqlite3.connect('arana.sqlite3')
+    cur = conn.cursor()
+
+    cur.execute('''
+    CREATE TABLE IF NOT EXISTS Twitter
+    (nombre TEXT, recuperado INTEGER, amigos INTEGER)''')
+
+    while True:
+        cuenta = input('Introduzca una cuenta de Twitter o salir: ')
+        if ( cuenta == 'salir' ) : break
+        if ( len(cuenta) < 1 ) :
+            cur.execute('SELECT nombre FROM Twitter WHERE recuperado = 0 LIMIT 1')
+            try:
+                cuenta = cur.fetchone()[0]
+            except:
+                print('No se han encontrado cuentas de Twitter por recuperar')
+                continue
+
+        url = twurl.augment(TWITTER_URL,
+                   {'screen_name': cuenta, 'count': '20'} )
+        print('Recuperando', url)
+        conexion = urllib.request.urlopen(url)
+        datos = conexion.read()
+        cabeceras = conexion.info().dict
+        # print 'Restante', cabeceras['x-rate-limit-remaining']
+        js = json.loads(data)
+        # print json.dumps(js, indent=4)
+
+        cur.execute('UPDATE Twitter SET recuperado=1 WHERE nombre = ?', (cuenta, ) )
+
+        contnuevas = 0
+        contantiguas = 0
+        for u in js['users'] :
+            amigo = u['screen_name']
+            print(amigo)
+            cur.execute('SELECT amigos FROM Twitter WHERE nombre = ? LIMIT 1',
+                (amigo, ) )
+            try:
+                contador = cur.fetchone()[0]
+                cur.execute('UPDATE Twitter SET amigos = ? WHERE nombre = ?',
+                    (contador+1, amigo) )
+                contantiguas = contantiguas + 1
+            except:
+                cur.execute('''INSERT INTO Twitter (nombre, recuperado, amigos)
+                    VALUES ( ?, 0, 1 )''', ( amigo, ) )
+                contnuevas = contnuevas + 1
+        print('Cuentas nuevas=',contnuevas,' ya visitadas=',contantiguas)
+        conn.commit()
+
+    cur.close()
+
+Nuestra base de datos está almacenada en el archivo
+`arana.sqlite3` y tiene una tabla llamada
+`Twitter`. Cada fila en la tabla `Twitter`
+contiene una columna para el nombre de la cuenta, otra para indicar si
+hemos recuperado los amigos de esa cuenta, y otra para guardar cuántas
+veces se ha visto esa cuenta añadida en la lista de amigos de las demás.
+
+En el bucle principal del programa, pedimos al usuario el nombre de una
+cuenta de Twitter o "salir" para finalizar el programa. Si el usuario
+introduce una cuenta de Twitter, recuperamos la lista de amigos de ese
+usuario y sus estados, y añadimos cada amigo a la base de datos, si no
+estaba ya en ella. Si el amigo ya estaba en la lista, aumentamos en 1 el
+campo `amigos` en la fila correspondiente de la base de
+datos.
+
+Si el usuario pulsa intro, buscamos en la base de datos la siguiente
+cuenta de Twitter que no haya sido aún recuperada, recuperamos los
+amigos de esa cuenta y sus estados, y luego los añadimos a la base de
+datos o los actualizamos, e incrementamos su contador de
+`amigos`.
+
+Una vez hemos recuperado la lista de amigos y sus estados, nos movemos a
+través de los elementos `users` del JSON devuelto y
+recuperamos el `screen_name` (nombre a mostrar) de cada usuario. Luego
+usamos la sentencia `SELECT` para comprobar si ya tenemos
+almacenado ese nombre concreto en la base de datos y si es así
+recuperamos su contador de amigos (`amigos`).
+
+        contnuevas = 0
+        contantiguas = 0
+        for u in js['users'] :
+            amigo = u['screen_name']
+            print amigo
+            cur.execute('SELECT amigos FROM Twitter WHERE nombre = ? LIMIT 1',
+                (amigo, ) )
+            try:
+                contador = cur.fetchone()[0]
+                cur.execute('UPDATE Twitter SET amigos = ? WHERE nombre = ?',
+                    (contador+1, amigo) )
+                contantiguas = contantiguas + 1
+            except:
+                cur.execute('''INSERT INTO Twitter (nombre, recuperado, amigos)
+                    VALUES ( ?, 0, 1 )''', ( amigo, ) )
+                contnuevas = contnuevas + 1
+        print 'Cuentas nuevas=',contnuevas,' ya visitadas=',contantiguas
+        conn.commit()
+
+Una vez que el cursor ejecuta la sentencia `SELECT`, tenemos
+que recuperar las filas. Podríamos hacerlo con una sentencia
+`for`, pero dado que sólo estamos recuperando una única fila
+(`LIMIT 1`), podemos también usar el método
+`fetchone()` para extraer la primera (y única) fila que da
+como resultado la operación `SELECT`. Dado que
+`fetchone()` devuelve la fila como una *tupla*
+(incluso si sólo contiene un campo), tomamos el primer valor de la tupla
+mediante , para almacenar así dentro de la variable
+`contador` el valor del contador de amigos actual.
+
+Si esta operación tiene éxito, usamos la sentencia `UPDATE`
+de SQL con una clausula `WHERE` para añadir 1 a la columna
+`amigos` de aquella fila que coincida con la cuenta del
+amigo. Fíjate que hay dos marcadores de posición (es decir, signos de
+interrogación) en el SQL, y que el segundo parámetro de
+`execute()` es una tupla de dos elementos que contiene los
+valores que serán sustituidos por esas interrogaciones dentro de la
+sentencia SQL.
+
+Si el código en el bloque `try` falla, se deberá
+probablemente a que ningún registro coincide con lo especificado en la
+clausula `WHERE nombre = ?` de la sentencia SELECT. Así que
+en el bloque `except`, usamos la sentencia de SQL
+`INSERT` para añadir el nombre a mostrar (`screen_name`) del
+amigo a la tabla, junto con una indicación de que no lo hemos recuperado
+aún, y fijamos su contador de amigos a cero.
+
+La primera vez que el programa funciona e introducimos una cuenta de
+Twitter, mostrará algo similar a esto:
+
+    Introduzca una cuenta de Twitter o salir: drchuck
+    Recuperando http://api.twitter.com/1.1/friends ...
+    Cuentas nuevas= 20  ya visitadas= 0
+    Introduzca una cuenta de Twitter o salir: salir
+
+Dado que es la primera vez que ejecutamos el programa, la base de datos
+está vacía, así que creamos el fichero `arana.sqlite3` y
+añadimos una tabla llamada `Twitter` a la base de datos. A
+continuación recuperamos algunos amigos y los añadimos a la base de
+datos, ya que ésta está vacía.
+
+En este momento, tal vez sea conveniente escribir un programa de volcado
+de datos sencillo, para echar un vistazo a lo que hay dentro del fichero
+`arana.sqlite3`:
+
+    import sqlite3
+
+    conn = sqlite3.connect('arana.sqlite3')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Twitter')
+    contador = 0
+    for fila in cur :
+       print(fila)
+       contador = contador + 1
+    print(contador, 'filas.')
+    cur.close()
+
+Este programa simplemente abre la base de datos y selecciona todas las
+columnas de todas las filas de la tabla `Twitter`, luego se
+mueve a través de las filas e imprime en pantalla su contenido.
+
+Si lanzamos este programa después de la primera ejecución de nuestra
+araña de Twitter, la salida que mostrará será similar a ésta:
+
+    (u'opencontent', 0, 1)
+    (u'lhawthorn', 0, 1)
+    (u'steve_coppin', 0, 1)
+    (u'davidkocher', 0, 1)
+    (u'hrheingold', 0, 1)
+    ...
+    20 filas.
+
+Vemos una fila para cada nombre, que aún no hemos recuperado los datos
+de ninguno de esos nombres, y que todo el mundo en la base de datos
+tiene un amigo.
+
+En este momento la base de datos muestra la recuperación de los amigos
+de nuestra primera cuenta de Twitter (*drchuck*). Podemos
+ejecutar de nuevo el programa y pedirle que recupere los amigos de la
+siguiente cuenta "sin procesar", simplemente pulsando intro en vez de
+escribir el nombre de una cuenta:
+
+    Introduzca una cuenta de Twitter o salir:
+    Recuperando http://api.twitter.com/1.1/friends ...
+    Cuentas nuevas= 18  ya visitadas= 2
+    Introduzca una cuenta de Twitter o salir:
+    Recuperando http://api.twitter.com/1.1/friends ...
+    Cuentas nuevas= 17  ya visitadas= 3
+    Introduzca una cuenta de Twitter o salir: salir
+
+Como hemos pulsado intro (es decir, no hemos especificado otra cuenta de
+Twitter), se ha ejecutado el código siguiente:
+
+        if ( len(cuenta) < 1 ) :
+            cur.execute('SELECT nombre FROM Twitter WHERE recuperado = 0 LIMIT 1')
+            try:
+                cuenta = cur.fetchone()[0]
+            except:
+                print 'No se han encontrado cuentas de Twitter por recuperar'
+                continue
+
+Usamos la sentencia de SQL `SELECT` para obtener el nombre
+del primer usuario (`LIMIT 1`) que aún tiene su valor de
+"hemos recuperado ya este usuario" a cero. También usamos el modelo
+`fechone()\[0\]` en un bloque try/except para extraer el
+"nombre a mostrar" (`screen name`) de los datos recuperados,
+o bien mostrar un mensaje de error y volver al principio.
+
+Si hemos obtenido con éxito el nombre de una cuenta que aún no había
+sido procesada, recuperamos sus datos de este modo:
+
+        url = twurl.augment(TWITTER_URL, {'screen_name': cuenta, 'count': '20'} )
+        print 'Recuperando', url
+        conexion = urllib.urlopen(url)
+        datos = conexion.read()
+        js = json.loads(datos)
+
+        cur.execute('UPDATE Twitter SET recuperado=1 WHERE nombre = ?', (cuenta, ) )
+
+Una vez recuperados correctamente los datos, usamos la sentencia
+`UPDATE` para poner la columna `recuperado` a 1,
+lo que indica que hemos terminado la extracción de amigos de esa cuenta.
+Esto impide que recuperemos los mismos datos una y otra vez, y nos
+permite ir avanzando a través de la red de amigos de Twitter.
+
+Si ejecutamos el programa de amigos y pulsamos intro dos veces para
+recuperar los amigos del siguiente amigo no visitado, y luego ejecutamos
+de nuevo el programa de volcado de datos, nos mostrará la salida
+siguiente:
+
+    (u'opencontent', 1, 1)
+    (u'lhawthorn', 1, 1)
+    (u'steve_coppin', 0, 1)
+    (u'davidkocher', 0, 1)
+    (u'hrheingold', 0, 1)
+    ...
+    (u'cnxorg', 0, 2)
+    (u'knoop', 0, 1)
+    (u'kthanos', 0, 2)
+    (u'LectureTools', 0, 1)
+    ...
+    55 rows.
+
+Podemos ver que se han guardado correctamente las visitas que hemos
+realizado a `lhawthorn` y a `opencontent`. Además,
+las cuentas `cnxorg` y `kthanos` ya tienen dos
+seguidores. A pesar de hasta ahora hemos recuperados sólo los amigos de
+tres personas, (`drchuck`, `opencontent`, y
+`lhawthorn`), la tabla contiene ya 55 filas de amigos por
+recuperar.
+
+Cada vez que ejecutamos el programa y pulsamos intro, se elegirá la
+siguiente cuenta no visitada (es decir, ahora la siguiente cuenta sería
+`steve_coppin`), recuperará sus amigos, los marcará como recuperados y,
+para cada uno de los amigos de `steve_coppin`, o bien lo añadirá al
+final de la base de datos, o bien actualizará su contador de amigos si
+ya estaba en la tabla.
+
+Como ves, al estar los datos del programa almacenados en el disco,
+dentro de una base de datos, la actividad de rastreo puede ser
+suspendida y reanudada tantas veces como se desee, sin que se produzca
+ninguna pérdida de datos.
+
+Modelado de datos básico
+------------------------
+
+La potencia real de las bases de datos relacionales se manifiesta cuando
+se construyen múltiples tablas y se crean enlaces entre ellas. La acción
+de decidir cómo separar los datos de tu aplicación en múltiples tablas y
+establecer las relaciones entre esas tablas recibe el nombre de
+*modelado de datos*. El documento de diseño que muestra
+las tablas y sus relaciones se llama *modelo de datos*.
+
+El modelado de datos es una habilidad relativamente sofisticada, y en
+esta sección sólo introduciremos los conceptos más básicos acerca del
+tema. Para obtener más detalles sobre modelado de datos puedes comenzar
+con:
+
+<http://en.wikipedia.org/wiki/Relational_model>
+
+Supongamos que para nuestra aplicación de rastreo de Twitter, en vez de
+contar los amigos de una persona sin más, queremos mantener una lista de
+todas las relaciones entre ellos, de modo que podamos encontrar una
+lista de gente que esté siguiendo la cuenta de una persona concreta.
+
+Dado que todo el mundo puede tener potencialmente muchas cuentas
+siguiéndole, no podemos añadir simplemente una única columna a nuestra
+tabla de `Twitter`. De modo que creamos una tabla nueva que
+realice un seguimiento de parejas de amigos. A continuación se muestra
+un modo sencillo de hacer una tabla de este tipo:
+
+    CREATE TABLE Colegas (desde_amigo TEXT, hacia_amigo TEXT)
+
+Cada vez que encontremos a una persona de las que está siguiendo
+`drchuck`, insertaremos una fila de esta forma:
+
+    INSERT INTO Colegas (desde_amigo, hacia_amigo) VALUES ('drchuck', 'lhawthorn')
+
+Según vayamos procesando los 20 amigos de `drchuck` que nos
+envía Twitter, insertaremos 20 registros con "drchuck" como primer
+parámetro, de modo que terminaremos duplicando la cadena un montón de
+veces en la base de datos.
+
+Esta duplicación de cadenas de datos viola una de las mejores prácticas
+para la *normalización de bases de datos*, que
+básicamente consiste en que nunca se debe guardar la misma cadena más de
+una vez en la base de datos. Si se necesitan los datos varias veces, se
+debe crear una *clave* numérica para ellos y hacer
+referencia a los datos reales a través de esa clave.
+
+En términos prácticos, una cadena ocupa un montón de espacio más que un
+entero, tanto en el disco como en la memoria del equipo, y además
+necesita más tiempo de procesador para ser comparada y ordenada. Si sólo
+se tienen unos pocos cientos de entradas, el espacio y el tiempo de
+procesador no importan demasiado. Pero si se tienen un millón de
+personas en la base de datos y la posibilidad de 100 millones de enlaces
+de amigos, es importante ser capaz de revisar los datos tan rápido como
+sea posible.
+
+Nosotros vamos a almacenar nuestras cuentas de Twitter en una tabla
+llamada `Personas` en vez de hacerlo en la tabla
+`Twitter` que usamos en el ejemplo anterior. La tabla
+`Personas` tiene una columna adicional para almacenar la
+clave numérica asociada con la fila de cada usuario de Twitter. SQLite
+tiene una característica que permite añadir automáticamente el valor de
+la clave para cualquier fila que insertemos en la tabla, usando un tipo
+especial de datos en la columna, (`INTEGER PRIMARY KEY`).
+
+Podemos, pues, crear la tabla `Personas` con esa columna
+adicional, `id`, como se muestra a continuación:
+
+    CREATE TABLE Personas
+        (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)
+
+Fíjate que ya no necesitamos mantener un contador de amigos en cada
+columna de la tabla `Personas`. Cuando elegimos `INTEGER
+PRIMARY KEY` como el tipo de la columna `id`, estamos
+indicando que queremos que SQLite controle esta columna y asigne
+automáticamente una clave numérica única para cada fila que insertemos.
+También añadimos la palabra clave `UNIQUE`, para indicar que
+no vamos a permitir a SQLite insertar dos filas con el mismo valor de
+`nombre`.
+
+Ahora, en vez de crear la tabla `Colegas` como hicimos antes,
+crearemos una tabla llamada `Seguimientos` con dos columnas
+de tipo entero, `desde_id` y `hacia_id`, y una restricción en la tabla
+que consistirá en que la *combinación* de `desde_id` y `hacia_id` deberá
+ser única (es decir, no se podrán insertar filas en la tabla con estos
+valores duplicados).
+
+    CREATE TABLE Seguimientos
+        (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id) )
+
+Cuando añadimos la claúsula `UNIQUE` a nuestras tablas,
+estamos comunicando un conjunto de reglas que vamos a exigir a la base
+de datos que se cumplan cuando se intenten insertar registros. Estamos
+creando esas reglas porque le convienen a nuestro programa, como veremos
+dentro de un momento. Ambas reglas impiden que se cometan errores y
+hacen más sencillo escribir parte de nuestro código.
+
+En esencia, al crear esta tabla `Seguimientos`, estamos
+modelando una "relación", en la cual una persona "sigue" a otra y se
+representa con un par de números que indican que (a) ambas personas
+están conectadas y (b) la dirección de la relación.
+
+![image](figs2/twitter){height="2.50in"}
+
+Programación con múltiples tablas
+---------------------------------
+
+A continuación reharemos de nuevo el programa araña de Twitter usando
+dos tablas, las claves primarias, y las claves de referencia, como hemos
+descrito antes. He aquí el código de la nueva versión del programa:
+
+    import urllib.request, urllib.parse, urllib.error
+    import twurl
+    import json
+    import sqlite3
+
+    TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
+
+    conn = sqlite3.connect('amigos.sqlitesqlite3')
+    cur = conn.cursor()
+
+    cur.execute('''CREATE TABLE IF NOT EXISTS Personas
+        (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS Seguimientos
+        (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id))''')
+
+    while True:
+        cuenta = input('Introduzca una cuenta de Twitter, o salir: ')
+        if ( cuenta == 'salir' ) : break
+        if ( len(cuenta) < 1 ) :
+            cur.execute('''SELECT id, nombre FROM Personas
+                WHERE recuperado = 0 LIMIT 1''')
+            try:
+                (id, cuenta) = cur.fetchone()
+            except:
+                print('No se han encontrado cuentas de Twitter sin recuperar')
+                continue
+        else:
+            cur.execute('SELECT id FROM Personas WHERE nombre = ? LIMIT 1',
+                (cuenta, ) )
+            try:
+                id = cur.fetchone()[0]
+            except:
+                cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado)
+                    VALUES ( ?, 0)''', ( cuenta, ) )
+                conn.commit()
+                if cur.rowcount != 1 :
+                    print('Error insertando cuenta:',cuenta)
+                    continue
+                id = cur.lastrowid
+
+        url = twurl.augment(TWITTER_URL,
+           {'screen_name': cuenta, 'count': '20'} )
+        print('Recuperando cuenta', cuenta)
+        conexion = urllib.request.urlopen(url)
+        datos = conexion.read()
+        cabeceras = conexion.info().dict
+        print('Restantes', cabeceras['x-rate-limit-remaining'])
+
+        js = json.loads(datos)
+        # print json.dumps(js, indent=4)
+
+        cur.execute('UPDATE Personas SET recuperado=1 WHERE nombre = ?', (cuenta, ) )
+
+        contnuevas = 0
+        contantiguas = 0
+        for u in js['users'] :
+            amigo = u['screen_name']
+            print(amigo)
+            cur.execute('SELECT id FROM Personas WHERE nombre = ? LIMIT 1',
+                (amigo, ) )
+            try:
+                amigo_id = cur.fetchone()[0]
+                contantiguas = contantiguas + 1
+            except:
+                cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado)
+                    VALUES ( ?, 0)''', ( amigo, ) )
+                conn.commit()
+                if cur.rowcount != 1 :
+                    print('Error al insertar cuenta:',amigo)
+                    continue
+                amigo_id = cur.lastrowid
+                contnuevas = contnuevas + 1
+            cur.execute('''INSERT OR IGNORE INTO Seguimientos (desde_id, hacia_id)
+                VALUES (?, ?)''', (id, amigo_id) )
+        print('Cuentas nuevas=',contnuevas,' ya visitadas=',contantiguas)
+        conn.commit()
+
+    cur.close()
+
+Este programa empieza a resultar un poco complicado, pero ilustra los
+patrones de diseño que debemos usar cuando utilizamos claves de enteros
+para enlazar tablas. Esos patrones básicos son:
+
+1.  Crear tablas con claves primarias y restricciones.
+
+2.  Cuando tenemos una clave lógica para una persona (es decir, un
+    nombre de cuenta) y necesitamos el valor del `id` de esa
+    persona, dependiendo de si esa persona ya está en la tabla
+    `Personas` o no, tendremos que: (1) buscar la persona en
+    la tabla `Personas` y recuperar el valor de
+    `id` para esa persona, o (2) añadir la persona a la tabla
+    `Personas` y obtener el valor del `id` para la
+    fila recién añadida.
+
+3.  Insertar la fila que indica la relación de "seguimiento".
+
+Iremos explicando todos los puntos de uno en uno.
+
+### Restricciones en tablas de bases de datos
+
+Una vez diseñada la estructura de la tabla, podemos indicar al sistema
+de la base de datos que aplique unas cuantas reglas. Estas reglas nos
+ayudarán a evitar errores y a introducir correctamente los datos en las
+tablas. Cuando creamos nuestras tablas:
+
+    cur.execute('''CREATE TABLE IF NOT EXISTS Personas
+        (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS Seguimientos
+        (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id))''')
+
+Estamos indicando que la columna `nombre` de la tabla
+`Personas` debe ser `UNIQUE` (única). Además
+indicamos que la combinación de los dos números de cada fila de la tabla
+`Seguimientos` debe ser también única. Estas restricciones
+evitan que cometamos errores como añadir la misma relación entre las
+mismas personas más de una vez.
+
+Después, podemos aprovechar estas restricciones en el código siguiente:
+
+    cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado)
+        VALUES ( ?, 0)''', ( amigo, ) )
+
+Aquí añadimos la clausula `IGNORE` en la sentencia
+`INSERT` para indicar que si este `INSERT` en
+concreto causara una violación de la regla "el `nombre` debe
+ser único", el sistema de la base de datos está autorizado a
+`ignorar` el `INSERT`. De modo que estamos usando
+las restricciones de la base de datos como una red de seguridad para
+asegurarnos de que no hacemos algo incorrecto sin darnos cuenta.
+
+De forma similar, el código siguiente se asegura de que no añadamos
+exactamente la misma relación de `Seguimiento` dos veces.
+
+    cur.execute('''INSERT OR IGNORE INTO Seguimientos
+        (desde_id, hacia_id) VALUES (?, ?)''', (id, amigo_id) )
+
+Aquí también estamos simplemente indicándole a la base de datos que
+ignore cualquier intento de `INSERT` si éste viola la
+restricción de unicidad que hemos especificado para cada fila de
+`Seguimientos`.
+
+### Recuperar y/o insertar un registro
+
+Cuando pedimos al usuario una cuenta de Twitter, si la cuenta ya existe
+deberemos averiguar el valor de su `id`. Si la cuenta no
+existe aún en la tabla `Personas`, deberemos insertar el
+registro y obtener el valor del `id` de la fila recién
+insertada.
+
+Éste es un diseño muy habitual y se utiliza dos veces en el programa
+anterior. Este código muestra cómo se busca el `id` de la
+cuenta de un amigo, una vez extraído su `screen_name` desde un nodo de
+`usuario` del JSON recuperado desde Twitter.
+
+Dado que con el tiempo será cada vez más probable que la cuenta ya
+figure en la base de datos, primero comprobaremos si el registro existe
+en `Personas`, usando una sentencia `SELECT`.
+
+Si todo va bien[^3], dentro de la sección `try` recuperaremos
+el registro mediante `fetchone()` y luego extraeremos el
+primer (y único) elemento de la tupla devuelta, que almacenaremos en
+`amigo_id`.
+
+Si el `SELECT` falla, el código `fetchone()\[0\]`
+también fallará, y el control será transferido a la sección
+`except`.
+
+            amigo = u['screen_name']
+            cur.execute('SELECT id FROM Personas WHERE nombre = ? LIMIT 1',
+                (amigo, ) )
+            try:
+                amigo_id = cur.fetchone()[0]
+                contantiguas = contantiguas + 1
+            except:
+                cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado)
+                    VALUES ( ?, 0)''', ( amigo, ) )
+                conn.commit()
+                if cur.rowcount != 1 :
+                    print 'Error al insertar cuenta:',amigo
+                    continue
+                amigo_id = cur.lastrowid
+                contnuevas = contnuevas + 1
+
+Si terminamos en el código del `except`, eso sólo significa
+que la fila no se ha encontrado en la tabla, de modo que deberemos
+insertarla. Usamos, pues, `INSERT OR IGNORE` para evitar
+posibles errores, y luego llamamos al `commit()` para forzar
+a la base de datos a que se actualice de verdad. Después de que se ha
+realizado la escritura, podemos comprobar el valor de
+`cur.rowcount`, para saber cuántas filas se han visto
+afectadas. Como estamos intentando insertar una única fila, si el número
+de filas afectadas es distinto de 1, se habría producido un error.
+
+Si el `INSERT` tiene éxito, podemos usar
+`cur.lastrowid` para averiguar el valor que la base de datos
+ha asignado a la columna `id` en nuestra fila recién creada.
+
+### Almacenar las relaciones entre amigos
+
+Una vez que sabemos el valor de la clave tanto para del usuario de
+Twitter como para el amigo que hemos extraído del JSON, resulta sencillo
+insertar ambos números en la tabla de `Seguimientos` con el
+código siguiente:
+
+    cur.execute('INSERT OR IGNORE INTO Seguimientos (desde_id, hacia_id) VALUES (?, ?)',
+        (id, amigo_id) )
+
+Fíjate que dejamos que sea la base de datos quien se ocupe de evitar la
+"inserción duplicada" de una relación, mediante la creación de una tabla
+con una restricción de unicidad, de modo que luego en nuestra sentencia
+`INSERT` tan sólo añadimos `o ignoramos`.
+
+Una ejecución de ejemplo del programa sería la siguiente:
+
+    Introduzca una cuenta de Twitter, o salir:
+    No se han encontrado cuentas de Twitter sin recuperar
+    Introduzca una cuenta de Twitter, o salir: drchuck
+    Recuperando http://api.twitter.com/1.1/friends ...
+    Cuentas nuevas= 20  ya visitadas= 0
+    Introduzca una cuenta de Twitter, o salir:
+    Recuperando http://api.twitter.com/1.1/friends ...
+    Cuentas nuevas= 17  ya visitadas= 3
+    Introduzca una cuenta de Twitter, o salir:
+    Recuperando http://api.twitter.com/1.1/friends ...
+    Cuentas nuevas= 17  ya visitadas= 3
+    Introduzca una cuenta de Twitter, o salir: salir
+
+Comenzamos con la cuenta de `drchuck` y luego dejamos que el
+programa escoja de forma automática las siguientes dos cuentas para
+recuperar y añadir a nuestra base de datos.
+
+Las siguientes son las primeras filas de las tablas
+`Personas` y `Seguimientos` después de terminar la
+ejecución anterior:
+
+    Personas:
+    (1, u'drchuck', 1)
+    (2, u'opencontent', 1)
+    (3, u'lhawthorn', 1)
+    (4, u'steve_coppin', 0)
+    (5, u'davidkocher', 0)
+    55 filas.
+    Seguimientos:
+    (1, 2)
+    (1, 3)
+    (1, 4)
+    (1, 5)
+    (1, 6)
+    60 filas.
+
+Puedes ver los campos `id`, `nombre`, y
+`visitado` de la tabla `Personas`, y también los
+números de ambos extremos de la relación en la tabla
+`Seguimientos`. En la tabla `Personas`, vemos que
+las primeras tres personas ya han sido visitadas y que sus datos han
+sido recuperados. Los datos de la tabla `Seguidores` indican
+que `drchuck` (usuario 1) es amigo de todas las personas que
+se muestran en las primeras cinco filas. Lo cual tiene sentido, porque
+los primeros datos que hemos recuperado y almacenado fueron los amigos
+de Twitter de `drchuck`. Si imprimieras más filas de la tabla
+`Seguimientos`, verías también los amigos de los usuarios 2 y
+3.
+
+Tres tipos de claves
+--------------------
+
+Ahora que hemos empezado a construir un modelo de datos, colocando
+nuestros datos en múltiples tablas enlazadas, y hemos enlazado las filas
+de esas tablas usando *claves*, debemos fijarnos en
+cierta terminología acerca de esas claves. Generalmente en un modelo de
+base de datos hay tres tipos de claves que se pueden usar:
+
+-   Una *clave lógica* es una clave que se podría usar en
+    el "mundo real" para localizar una fila. En nuestro ejemplo de
+    modelado de datos, el campo `nombre` es una clave lógica.
+    Es el nombre que se muestra en pantalla para el usuario y, en
+    efecto, usamos el campo `nombre` varias veces en el
+    programa para localizar la fila correspondiente a un usuario.
+    Comprobarás que a menudo tiene sentido añadir una restricción
+    `UNIQUE (única)` a una clave lógica. Como las claves
+    lógicas son las que usamos para buscar una fila desde el mundo
+    exterior, tendría poco sentido permitir que hubiera múltiples filas
+    con el mismo valor en la tabla.
+
+-   Una *clave primaria* es normalmente un número que es
+    asignado automáticamente por la base de datos. En general no tiene
+    ningún significado fuera del programa y sólo se utiliza para enlazar
+    entre sí filas de tablas diferentes. Cuando queremos buscar una fila
+    en una tabla, realizar la búsqueda usando la clave primaria es,
+    normalmente, el modo más rápido de localizarla. Como las claves
+    primarias son números enteros, necesitan muy poco espacio de
+    almacenamiento y pueden ser comparadas y ordenadas muy rápido. En
+    nuestro modelo de datos, el campo `id` es un ejemplo de
+    una clave primaria.
+
+-   Una *clave foránea* (`foreign key`)[^4] es
+    normalmente un número que apunta a la clave primaria de una fila
+    asociada en una tabla diferente. Un ejemplo de una clave foránea en
+    nuestro modelo de datos es la columna `desde_id`.
+
+Estamos usando como convención para los nombres el darle siempre al
+campo de clave primaria el nombre `id` y añadir el sufijo
+`_id` a cualquier nombre de campo que sea una clave foránea.
+
+Uso de JSON para recuperar datos
+--------------------------------
+
+Ahora que hemos cumplido con las reglas de la normalización de bases de
+datos y hemos separado los datos en dos tablas, enlazándolas entre sí
+usando claves primarias y foráneas, necesitaremos ser capaces de
+construir un `SELECT` que vuelva a juntar los datos
+esparcidos por las tablas.
+
+SQL usa la clausula `JOIN` para volver a conectar esas
+tablas. En la clausula `JOIN` se especifican los campos que
+se utilizan para reconectar las filas entre las distintas tablas.
+
+A continuación se muestra un ejemplo de un `SELECT` con una
+clausula `JOIN`:
+
+    SELECT * FROM Seguimientos JOIN Personas
+        ON Seguimientos.desde_id = Personas.id WHERE Personas.id = 1
+
+La clausula `JOIN` indica que los campos que estamos
+seleccionando mezclan las tablas `Seguimientos` y
+`Personas`. La clausula `ON` indica cómo deben ser
+unidas las dos tablas: Toma cada fila de `Seguimientos` y
+añade una fila de `Personas` en la cual el campo `desde_id`
+de `Seguimientos` coincide con el valor `id` en la
+tabla `Personas`.
+
+![image](figs2/join){height="2.50in"}
+
+El resultado del JOIN consiste en la creación de una "meta-fila" extra
+larga, que contendrá tanto los campos de `Personas` como los
+campos de la fila de `Seguimientos` que cumplan la condición.
+Cuando hay más de una coincidencia entre el campo `id` de
+`Personas` y el `desde_id` de `Seguimientos`, JOIN
+creará una meta-fila para *cada una* de las parejas de filas que
+coincidan, duplicando los datos si es necesario.
+
+El código siguiente muestra los datos que tendremos en la base de datos
+después de que el programa multi-tabla araña de Twitter anterior haya
+sido ejecutado varias veces.
+
+    import sqlite3
+
+    conn = sqlite3.connect('arana.sqlite3')
+    cur = conn.cursor()
+
+    cur.execute('SELECT * FROM Personas')
+    contador = 0
+    print('Personas:')
+    for fila in cur :
+       if contador < 5: print(fila)
+       contador = contador + 1
+    print(contador, 'filas.')
+
+    cur.execute('SELECT * FROM Seguimientos')
+    contador = 0
+    print('Seguimientos:')
+    for fila in cur :
+       if contador < 5: print(fila)
+       contador = contador + 1
+    print(contador, 'filas.')
+
+    cur.execute('''SELECT * FROM Seguimientos JOIN Personas
+        ON Seguimientos.hacia_id = Personas.id WHERE Seguimientos.desde_id = 2''')
+    contador = 0
+    print('Conexiones para id=2:')
+    for fila in cur :
+       if contador < 5: print(fila)
+       contador = contador + 1
+    print(contador, 'filas.')
+
+    cur.close()
+
+En este programa, en primer lugar volcamos el contenido de las tablas
+`Personas` y `Seguimientos` y a continuación
+mostramos un subconjunto de datos de las tablas unidas entre sí.
+
+Aquí tenemos la salida del programa:
+
+    python twjoin.py
+    Personas:
+    (1, u'drchuck', 1)
+    (2, u'opencontent', 1)
+    (3, u'lhawthorn', 1)
+    (4, u'steve_coppin', 0)
+    (5, u'davidkocher', 0)
+    55 filas.
+    Seguimientos:
+    (1, 2)
+    (1, 3)
+    (1, 4)
+    (1, 5)
+    (1, 6)
+    60 filas.
+    Conexiones para id=2:
+    (2, 1, 1, u'drchuck', 1)
+    (2, 28, 28, u'cnxorg', 0)
+    (2, 30, 30, u'kthanos', 0)
+    (2, 102, 102, u'SomethingGirl', 0)
+    (2, 103, 103, u'ja_Pac', 0)
+    20 filas.
+
+Se pueden ver las columnas de las tablas `Personas` y
+`Seguimientos`, seguidos del último conjunto de filas, que es
+el resultado del `SELECT` con la clausula `JOIN`.
+
+En el último select, buscamos las cuentas que sean amigas de
+"opencontent" (es decir, de `Personas.id=2`).
+
+En cada una de las "meta-filas" del último select, las primeras dos
+columnas pertenecen a la tabla `Seguimientos`, mientras que
+las columnas tres a cinco pertenecen a la tabla `Personas`.
+Se puede observar también cómo la segunda columna
+(`Seguimientos.hacia_id`) coincide con la tercera
+(`Personas.id`) en cada una de las "meta-filas" unidas.
+
+Resumen
+-------
+
+En este capítulo se han tratado un montón de temas para darte una visión
+de conjunto del uso básico de las bases de datos en Python. Es más
+complicado escribir el código para usar una base de datos que almacene
+los datos que utilizar diccionarios de Python o archivos planos, de modo
+que existen pocas razones para usar una base de datos, a menos que tu
+aplicación necesite de verdad las capacidades que proporciona. Las
+situaciones en las cuales una base de datos pueden resultar bastante
+útil son: (1) cuando tu aplicación necesita realizar muchos cambios
+pequeños de forma aleatoria en un conjunto de datos grandes, (2) cuando
+tienes tantos datos que no caben en un diccionario y necesitas localizar
+información con frecuencia, o (3) cuando tienes un proceso que va a
+funcionar durante mucho tiempo, y necesitas poder detenerlo y volverlo a
+poner en marcha, conservando los datos entre ejecuciones.
+
+Una base de datos con una simple tabla puede resultar suficiente para
+cubrir las necesidades de muchas aplicaciones, pero la mayoría de los
+problemas necesitarán varias tablas y enlaces/relaciones entre filas de
+tablas diferentes. Cuando empieces a crear enlaces entre tablas, es
+importante realizar un diseño meditado y seguir las reglas de
+normalización de bases de datos, para conseguir el mejor uso de sus
+capacidades. Como la motivación principal para usar una base de datos
+suele ser el tener grandes cantidades de datos con las que tratar,
+resulta importante modelar los datos de forma eficiente, para que tu
+programa funcione tan rápidamente como sea posible.
+
+Depuración
+----------
+
+Un planteamiento habitual, cuando se está desarrollando un programa en
+Python que conecta con una base de datos SQLite, será ejecutar primero
+el programa y revisar luego los resultados usando el navegador de bases
+de datos de SQLite (`SQLite Database Browser`). El navegador
+te permite revisar cuidadosamente los datos, para comprobar si tu
+programa está funcionando correctamente.
+
+Debes tener cuidado, ya que SQLite se encarga de evitar que dos programa
+puedan cambiar los mismos datos a la vez. Por ejemplo, si abres una base
+de datos en el navegador y realizas un cambio en la base de datos, pero
+no has pulsado aún el botón "guardar" del navegador, éste "bloqueará" el
+fichero de la base de datos y evitará que cualquier otro programa acceda
+a dicho fichero. Concretamente, en ese caso tu programa Python no será
+capaz de acceder al fichero, ya que éste se encontrará bloqueado.
+
+De modo que la solución pasa por asegurarse de cerrar la ventana del
+navegador de la base de datos, o bien usar el menú
+*Archivo* para cerrar la base de datos abierta en el
+navegador antes de intentar acceder a ella desde Python, para evitar
+encontrarse con el problema de que el código de Python falla debido a
+que la base de datos está bloqueada.
+
+Glosario
+--------
+
+atributo
+
+:   Uno de los valores dentro de una tupla. Más comúnmente llamada
+    "columna" o "campo"..
+
+\index{atributo}
+
+cursor
+
+:   Un cursor permite ejecutar comandos SQL en una base de datos y
+    recuperar los datos de ella. Un cursor es similar a un socket en
+    conexiones de red o a un manejador de ficheros
+    (`handle`).
+
+\index{cursor}
+
+clave foránea
+
+:   Una clave numérica que apunta a la clave primaria de una fila en
+    otra tabla. Las claves foráneas establecen relaciones entre filas
+    almacenadas en tablas diferentes.
+
+\index{foránea, clave}
+\index{clave!foránea}
+
+clave lógica
+
+:   Una clave que el "mundo exterior" utiliza para localizar una
+    fila concreta. Por ejemplo, en una tabla de cuentas de usuario, la
+    dirección de e-mail de una persona sería un buen candidato a
+    utilizar como clave lógica para los datos de ese usuario.
+
+\index{lógica, clave}
+\index{clave!lógica}
+
+clave primaria
+
+:   Una clave numérica asignada a cada fila, que es utilizada para
+    referirnos a esa fila concreta de esa tabla desde otra
+    tabla distinta. A menudo la base de datos se configura para asignar
+    las claves primarias de forma automática, según se van
+    insertando filas.
+
+\index{primaria, clave}
+\index{clave!primaria}
+
+índice
+
+:   Datos adicionales que el software de la base de datos mantiene como
+    filas e inserta en una tabla para conseguir que las búsquedas sean
+    muy rápidas.
+
+\index{índice}
+
+navegador de base de datos
+
+:   Un programa que permite conectar directamente con una base de datos
+    y manipularla, sin tener que escribir código para ello.
+
+\index{gestor de bases de datos}
+\index{base de datos!gestor}
+
+normalización
+
+:   Diseño de un modelado de datos de forma que no haya
+    datos duplicados. Se almacena cada elemento de los datos en un lugar
+    concreto de la base de datos y se referencia desde otros sitios
+    usando una clave foránea.
+
+\index{normalización}
+\index{base de datos!normalización}
+
+relación
+
+:   Un área dentro de una base de datos que contiene tuplas y atributos.
+    Se la conoce más habitualmente como "tabla".
+
+\index{relación}
+
+restricción
+
+:   Cuando le pedimos a una base de datos que imponga una regla a una
+    campo de una fila en una tabla. Una restricción habitual consiste en
+    especificar que no pueda haber valores repetidos en un campo
+    concreto (es decir, que todos los valores deban ser únicos).
+
+\index{restricción}
+
+tupla
+
+:   Una entrada única en una base de datos, que es un conjunto
+    de atributos. Se la conoce más habitualmente como "fila".
+
+\index{tupla}
+
+[^1]: SQLite en realidad permite cierta flexibilidad respecto al tipo de
+    dato que se almacena en cada columna, pero en este capítulo nosotros
+    vamos a mantener los tipos de datos estrictos, para que los
+    conceptos que aprendamos puedan ser igualmente aplicados a otras
+    bases de datos como MySQL.
+
+[^2]: la consulta, traducida al español sería más o menos:
+    `SELECCIONA todas las columnas (\*) DE la tabla 'Canciones'
+    DONDE el título sea 'My Way' (Nota del trad.)`
+
+[^3]: En general, cuando una frase empieza por "si todo va bien" es
+    porque el código del que se habla necesita utilizar try/except.
+
+[^4]: A veces se puede ver también el término traducido al español como
+    "clave externa" (Nota del trad.)

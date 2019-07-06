@@ -1,410 +1,415 @@
 % The contents of this file is 
 % Copyright (c) 2009-  Charles R. Severance, All Righs Reserved
 
-\chapter{Using databases and Structured Query Language (SQL)}
+\chapter{Bases de datos y SQL}
 
-\section{What is a database?}
-\index{database}
+\section{¿Qué es una base de datos?}
+\index{base de datos}
 
-A {\bf database} is a file that is organized for storing data.
-Most databases are organized like a dictionary in the sense
-that they map from keys to values.  The biggest difference
-is that the database is on disk (or other permanent storage),
-so it persists after the program ends.  Because a database is
-stored on permanent storage, it can store far more data than
-a dictionary, which is limited to the size of the memory 
-in the computer.
+Una {\bf base de datos} es un archivo que está organizado para almacenar datos.
+La mayoría de las bases de datos están organizadas como diccionarios, en el sentido
+de que realizan asociaciones entre claves y valores. La diferencia más importante
+es que la base de datos se encuentra en el disco (u otro almacenamiento permanente),
+de modo que su contenido se conserva después de que el programa finaliza. Gracias a que la base de
+datos se guarda en un almacenamiento permanente, puede almacenar muchos más datos que
+un diccionario, que está limitado al tamaño de la memoria
+que tenga el equipo.
 
-\index{database!indexes}
-Like a dictionary, database software is designed to keep 
-the inserting and accessing of data very fast, even for large
-amounts of data.   Database software maintains its performance by 
-building {\bf indexes} as data is added to the database
-to allow the computer to jump quickly to a particular
-entry.
+\index{base de datos!índices}
+Como un diccionario, el software de una base de datos está diseñado para conseguir que
+la inserción y acceso a los datos sean muy rápidos, incluso para grandes
+cantidades de datos. Este software mantiene su rendimiento mediante la
+construcción de {\bf índices}, como datos añadidos a la base de datos
+que permiten al equipo saltar rápidamente hasta una entrada
+concreta.
 
-There are many different database systems which are used for a wide
-variety of purposes including: Oracle, MySQL, Microsoft SQL Server, 
-PostgreSQL, and SQLite.  We focus on SQLite in this book because
-it is a very common database and is already built into Python.  
-SQLite is designed to be \emph{embedded} into other applications
-to provide database support within the application.  For example,
-the Firefox browser also uses the SQLite database internally as do 
-many other products.
+Existen muchos sistemas de bases de datos diferentes, que se utilizan para una
+amplia variedad de propósitos. Algunos de ellos son: Oracle, MySQL, Microsoft SQL Server,
+PostgreSQL, y SQLite. En este libro nos centraremos en SQLite, ya que
+se trata de una base de datos muy habitual y ya viene integrada dentro de Python.
+SQLite está diseñada para ser \emph{incrustada} dentro de otras aplicaciones,
+de modo que proporcione soporte para bases de datos dentro de la aplicación. Por ejemplo,
+el navegador Firefox es uno de los que utilizan la base de datos SQLite internamente,
+al igual que muchos otros productos.
 
 \url{http://sqlite.org/}
 
-SQLite is well suited to some of the data manipulation problems that we 
-see in Informatics such as the Twitter spidering application that we 
-describe in this chapter.
+SQLite es muy adecuado para ciertos problemas de manipulación de datos que nos
+encontramos en informática, como en la aplicación de rastreo de Twitter que
+hemos descrito en el capítulo anterior.
 
-\section{Database concepts}
+\section{Conceptos sobre bases de datos}
 
-When you first look at a database it looks like a 
-spreadsheet with multiple sheets.   The primary data structures 
-in a database are:
-{\bf tables}, {\bf rows}, and {\bf columns}.  
+Cuando se ve por primera vez una base de datos, se parece a una
+hoja de cálculo con múltiples hojas. Las estructuras de datos primarias
+en una base de datos son:
+{\bf tablas}, {\bf filas}, y {\bf columnas}.  
 
 \beforefig
 \centerline{\includegraphics[height=1.50in]{figs2/relational.eps}}
 \afterfig
 
-In technical descriptions of relational databases the concepts of 
-table, row, and column are more formally referred
-to as {\bf relation}, {\bf tuple}, and {\bf attribute}, respectively.
-We will use the less formal terms in this chapter.
+En las descripciones técnicas de las bases de datos relacionales, los conceptos de
+tabla, fila y columna reciben los nombres más formales
+de {\bf relación}, {\bf tupla}, y {\bf atributo} respectivamente.
+Nosotros a lo largo de este capítulo usaremos los términos menos formales.
 
-\section{SQLite manager Firefox add-on}
+\section{Add-on de Firefox para gestión de SQLite}
 
-While this chapter will focus on using Python to work with data 
-in SQLite database files, many operations can be done more
-conveniently using a Firefox add-on called the {\bf SQLite
-Database Manager} which is freely available from:
+A pesar de que en este capítulo nos centraremos en el uso de Python para trabajar con datos
+en archivos de bases de datos SQLite, hay muchas operaciones que pueden realizarse
+de forma más eficaz usando un add-on para Firefox llamado {\bf SQLite
+Database Manager}, que se puede descargar libremente desde:
 
 \url{https://addons.mozilla.org/en-us/firefox/addon/sqlite-manager/}
 
-Using the browser you can easily create tables, insert data, edit data, 
-or run simple SQL queries on the data in the database.
+Utilizando el navegador se pueden crear tablas con facilidad, insertar y editar datos
+o ejecutar consultas SQL sencillas sobre la base de datos.
 
-In a sense, the database manager is similar to a text editor
-when working with text files.   When you want to do one or
-very few operations on a text file, you can just open it
-in a text editor and make the changes you want.   When you have 
-many changes that you need to do to a text file, often you 
-will write a simple Python program.  You will find the same 
-pattern when working with databases.  You will do simple
-operations in the database manager and more complex operations
-will be most conveniently done in Python.
+En cierto sentido, el gestor de base de datos es parecido a un editor de texto
+que trabaja con archivos de texto. Cuando quieres realizar uno o
+dos cambios en un archivo de texto, lo más sencillo es abrirlo en
+un editor de texto y realizar los cambios que quieres. Cuando debes realizar
+muchas modificaciones en el archivo, a menudo
+habrá que escribir un programa en Python sencillo. El mismo enfoque
+se puede aplicar al trabajo con bases de datos. Se realizarán las
+operaciones más sencillas en el gestor de bases de datos, y para otras más complejas
+será más conveniente usar Python.
 
-\section{Creating a database table}
+\section{Creación de una tabla en una base de datos}
 
-Databases require more defined structure than Python lists 
-or dictionaries\footnote{SQLite actually does allow some 
-flexibility in the type of data stored in a column,
-but we will keep our data types strict in this chapter
-so the concepts apply equally to other database systems 
-such as MySQL.}.  
+Las bases de datos necesitan una estructura más definida que las listas
+o diccionarios de Python\footnote{SQLite en realidad permite cierta
+flexibilidad respecto al tipo de dato que se almacena en cada columna,
+pero en este capítulo nosotros vamos a mantener los tipos de datos estrictos,
+para que los conceptos que aprendamos puedan ser igualmente aplicados a otras
+bases de datos como MySQL.}.
 
-When we create a database {\bf table} we
-must tell the database in advance the names of each of the
-{\bf columns} in the table and the type of data which we are 
-planning to store in each {\bf column}.   When the database software
-knows the type of data in each column, it can choose the most 
-efficient way to store and look up the data based on the type of
-data. 
+Cuando se crea una {\bf tabla}, se debe
+indicar de antemano a la base de datos los nombres de cada una de las
+{\bf columnas} de esa tabla y el tipo de dato que se va a
+almacenar en cada una de ellas. Cuando el software de la base de datos
+conoce el tipo de dato de cada columna, puede elegir el modo más
+eficiente de almacenar y buscar en ellas, basándose en el tipo de
+dato que contendrán.
 
-You can look at the various data types supported by SQLite
-at the following url:
+Puedes revisar los distintos tipos de datos soportados por SQLite
+en la siguiente dirección:
 
 \url{http://www.sqlite.org/datatypes.html}
 
-Defining structure for your data up front may seem inconvenient
-at the beginning, but the payoff is fast access to your data 
-even when the database contains a large amount of data.
+El tener que definir de antemano una estructura para los datos puede parecer incómodo
+al principio, pero la recompensa consiste en obtener un acceso rápido a los datos,
+incluso cuando la base de datos contiene una gran cantidad de ellos.
 
-The code to create a database file and a table 
-named {\tt Tracks} with two columns in the 
-database is as follows:
+El código para crear un archivo de base de datos y una tabla
+llamada {\tt Canciones} con dos columnas en la
+base de datos es el siguiente:
 
-\index{sqlite3 module}
-\index{module!sqlite3}
+\index{sqlite3, módulo}
+\index{módulo!sqlite3}
 \beforeverb
 \begin{verbatim}
 import sqlite3
 
-conn = sqlite3.connect('music.sqlite3')
+conn = sqlite3.connect('musica.sqlite3')
 cur = conn.cursor()
 
-cur.execute('DROP TABLE IF EXISTS Tracks ')
-cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
+cur.execute('DROP TABLE IF EXISTS Canciones ')
+cur.execute('CREATE TABLE Canciones (titulo TEXT, reproducciones INTEGER)')
 
 conn.close()
 \end{verbatim}
 \afterverb
 %
-\index{connect function}
-\index{function!connect}
-\index{cursor function}
-\index{function!cursor}
-The {\tt connect} operation makes a ``connection'' to the database 
-stored in the file {\tt music.sqlite3} in the current directory.   If
-the file does not exist, it will be created.  The reason this
-is called a ``connection'' is that sometimes the database is stored
-on a separate ``database server'' from the server on which we 
-are running our application.  In our simple examples 
-the database will just be a local file in the same directory
-as the Python code we are running.
+\index{connect, función}
+\index{función!connect}
+\index{cursor, función}
+\index{función!cursor}
+La operación {\tt connect} realiza una ``conexión'' con la base de datos
+almacenada en el archivo {\tt musica.sqlite3} del directorio actual. Si
+el archivo no existe, se creará nuevo. La razón de que se le
+llame una ``conexión'' es que a veces la base de datos se almacena en
+un ``servidor de bases de datos'', distinto del servidor en el cual está
+funcionando nuestra aplicación. En nuestros ejemplos, dado que son sencillos,
+la base de datos será simplemente un archivo local en el mismo directorio
+en el que está funcionando el código de Python.
 
-A {\bf cursor} is like a file handle that we can use to perform
-operations on the data stored in the database.  Calling 
-{\tt cursor()} is very similar conceptually to calling
-{\tt open()} when dealing with text files.
+Un {\bf cursor} es como un manejador de fichero, y se puede usar para realizar
+operaciones en los datos almacenados en la base de datos. La llamada a
+{\tt cursor()} es muy parecida conceptualmente a la llamada a
+{\tt open()} cuando se está tratando con ficheros de texto.
 
 \beforefig
 \centerline{\includegraphics[height=1.50in]{figs2/cursor.eps}}
 \afterfig
 
-Once we have the cursor, we can begin to execute 
-commands on the contents of the database using the {\tt execute()}
-method.
+Una vez que tenemos el cursor, podemos comenzar a ejecutar
+comandos sobre el contenido de la base de datos, usando el método
+{\tt execute()}.
 
-Database commands are expressed in a special language that has 
-been standardized across many different database vendors 
-to allow us to learn a single database language.   The database
-language is called {\bf Structured Query Language} or {\bf SQL}
-for short.
+Los comandos de las bases de datos se expresan en un lenguaje especial que ha
+sido estandarizado entre varios proveedores de bases de datos diferentes
+para permitirnos aprender un único lenguaje para todas ellas. Este lenguaje
+recibe el nombre de {\bf Lenguaje de Consultas eStructurado}
+({\tt Structured Query Language}), o {\bf SQL}.
 
 \url{http://en.wikipedia.org/wiki/SQL}
 
-In our example, we are executing two SQL commands in our database.
-As a convention, we will show the SQL keywords in uppercase 
-and the parts of the command that we are adding (such as the
-table and column names) will be shown in lowercase.
+En nuestro ejemplo, estamos ejecutando dos comandos SQL sobre la base de datos.
+Por convención, mostraremos las palabras claves de SQL en mayúscula
+y las partes de los comandos que añadamos nosotros (como los nombres
+de las tablas y las columnas) irán en minúsculas.
 
-The first SQL command removes the {\tt Tracks} table from the 
-database if it exists.  This pattern is simply to allow us to 
-run the same program to create the {\tt Tracks} table over 
-and over again without causing an error.  Note that the
-{\tt DROP TABLE} command deletes the table and all of its contents
-from the database (i.e., there is no ``undo'').
-
-\beforeverb
-\begin{verbatim}
-cur.execute('DROP TABLE IF EXISTS Tracks ')
-\end{verbatim}
-\afterverb
-%
-The second command creates a table named
-{\tt Tracks} with a text column named {\tt title}
-and an integer column named {\tt plays}.
+El primer comando SQL elimina la tabla {\tt Canciones} de la
+base de datos si ya existe. Este planteamiento se utiliza simplemente para permitirnos
+ejecutar el mismo programa para crear la tabla {\tt Canciones} una y
+otra vez sin provocar un error. Fíjate en que el comando
+{\tt DROP TABLE} borra la tabla y todo su contenido
+de la base de datos (es decir, aquí no existe la opción ``deshacer'').
 
 \beforeverb
 \begin{verbatim}
-cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
+cur.execute('DROP TABLE IF EXISTS Canciones ')
 \end{verbatim}
 \afterverb
 %
-Now that we have created a table named {\tt Tracks}, we can put some data
-into that table using the SQL {\tt INSERT} operation.   Again, we begin
-by making a connection to the database and obtaining the {\tt cursor}.
-We can then execute SQL commands using the cursor.
+El segundo comando crea un tabla llamada
+{\tt Canciones} con una columna de texto llamada {\tt titulo}
+y una columna de enteros llamada {\tt reproducciones}.
 
-The SQL {\tt INSERT} command indicates which table we are using 
-and then defines a new row by listing the fields we want to 
-include {\tt (title, plays)} followed by the {\tt VALUES} we want
-placed in the new row.  We specify the values as question marks
-{\tt (?, ?)} to indicate that the actual values are passed in as a
-tuple {\tt ( 'My Way', 15 ) } as the second parameter to the
-{\tt execute()} call.
+\beforeverb
+\begin{verbatim}
+cur.execute('CREATE TABLE Canciones (titulo TEXT, reproducciones INTEGER)')
+\end{verbatim}
+\afterverb
+%
+Ahora que ya hemos creado la tabla llamada {\tt Canciones}, podemos guardar
+algunos datos en ella usando la operación de SQL {\tt INSERT}. Empezaremos
+realizando otra vez una conexión con la base de datos y obteniendo el {\tt cursor}.
+Luego podremos ejecutar comandos SQL usando ese cursor.
+
+El comando {\tt INSERT} de SQL indica qué tabla se está utilizando
+y luego define una fila nueva, enumerando los campos que se desean
+incluir {\tt (título, reproducciones)}, seguidos por los valores ({\tt VALUES}) que
+se desean colocar en esa fila. Nosotros vamos a especificar los valores como signos de interrogación
+{\tt (?, ?)} para indicarle que los valores reales serán pasados como una
+tupla {\tt ( 'My Way', 15 ) } en el segundo parámetro de la
+llamada a {\tt execute()}.
 
 \beforeverb
 \begin{verbatim}
 import sqlite3
 
-conn = sqlite3.connect('music.sqlite3')
+conn = sqlite3.connect('musica.sqlite3')
 cur = conn.cursor()
 
-cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )', 
+cur.execute('INSERT INTO Canciones (titulo, reproducciones) VALUES ( ?, ? )', 
     ( 'Thunderstruck', 20 ) )
-cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )', 
+cur.execute('INSERT INTO Canciones (titulo, reproducciones) VALUES ( ?, ? )', 
     ( 'My Way', 15 ) )
 conn.commit()
 
-print 'Tracks:'
-cur.execute('SELECT title, plays FROM Tracks')
-for row in cur :
-   print row
+print 'Canciones:'
+cur.execute('SELECT titulo, reproducciones FROM Canciones')
+for fila in cur :
+   print fila
 
-cur.execute('DELETE FROM Tracks WHERE plays < 100')
+cur.execute('DELETE FROM Canciones WHERE reproducciones < 100')
 conn.commit()
 
 cur.close()
 \end{verbatim}
 \afterverb
 %
-First we {\tt INSERT} two rows into our table and use {\tt commit()} 
-to force the data to be written to the database file.
+Primero insertamos ({\tt INSERT}) dos filas en la tabla y usamos {\tt commit()}
+para forzar a que los datos sean escritos en el archivo de la base de datos.
 
 \beforefig
 \centerline{\includegraphics[height=1.00in]{figs2/tracks.eps}}
 \afterfig
 
-Then we use the {\tt SELECT} command
-to retrieve the rows we just inserted from the table.  
-On the 
-{\tt SELECT} command, we indicate which columns we would like {\tt (title, plays)}
-and indicate which table we want to retrieve the data from.  After we 
-execute the {\tt SELECT} statement, the cursor is something we can loop through
-in a {\tt for} statement.   For efficiency,
-the cursor does not read all of the data from the
-database when we execute the {\tt SELECT} statement.  
-Instead, the data is read on demand
-as we loop through the rows in the {\tt for} statement.
+Después usamos el comando {\tt SELECT} para
+recuperar las filas que acabamos de insertar en la tabla.
+En el comando
+{\tt SELECT}, indicamos qué columnas nos gustaría obtener {\tt (titulo, reproducciones)},
+y también desde qué tabla ({\tt FROM}) queremos recuperar los datos. Después de
+ejecutar la sentencia {\tt SELECT}, el cursor se convierte en algo con lo que podemos
+iterar mediante una sentencia {\tt for}. Por eficiencia,
+el cursor no lee todos los datos de la base de datos
+cuando se ejecuta la sentencia {\tt SELECT}.
+En lugar de ello, los datos van siendo leídos a medida que
+se van pidiendo las filas desde el bucle creado con la sentencia {\tt for}.
 
-The output of the program is as follows:
+La salida del programa es la siguiente:
 
 \beforeverb
 \begin{verbatim}
-Tracks:
+Canciones:
 (u'Thunderstruck', 20)
 (u'My Way', 15)
 \end{verbatim}
 \afterverb
 %
 \index{Unicode}
-Our {\tt for} loop finds two rows, and each row is a Python tuple with the
-first value as the {\tt title} and the second value as the number of {\tt plays}.
-Do not be concerned that the title strings are shown starting with 
-{\tt u'}.  This is an indication that the strings are {\bf Unicode} strings
-that are capable of storing non-Latin character sets.
+Nuestro bucle {\tt for} encuentra dos filas, y cada fila es una tupla de Python cuyo
+primer valor es el {\tt título} y el segundo es el número de {\tt reproducciones}.
+No nos preocupa que la cadena del título comience por
+{\tt u'}. Se trata de una indicación de que las cadenas son del tipo {\bf Unicode},
+y por tanto capaces de almacenar conjuntos de caracteres no-latinos.
 
-At the very end of the program, we execute an SQL command to {\tt DELETE} 
-the rows we have just created so we can run the program over and over.
-The {\tt DELETE} command shows the use of a {\tt WHERE} clause that
-allows us to express a selection criterion so that we can ask the database
-to apply the command to only the rows that match the criterion.  In this example
-the criterion happens to apply to all the rows so we empty the table
-out so we can run the program repeatedly.  After the {\tt DELETE} is performed,
-we also call {\tt commit()} to force the data to be removed from the database.
+Al final del programa, ejecutamos un comando SQL para borrar {\tt (DELETE)}
+las filas que acabamos de crear, de modo que podamos ejecutar el programa una y otra vez.
+El comando {\tt DELETE} nos muestra el uso de la cláusula {\tt WHERE}, la cual
+nos permite expresar un criterio de selección, de modo que podemos pedir a la base de datos
+que aplique el comando solamente a las filas que cumplan ese criterio. En este ejemplo,
+el criterio es cumplido por todas las filas, así que vaciamos la tabla
+para que podamos ejecutar el programa de nuevo repetidamente. Después de que se ha realizado el
+{\tt DELETE}, llamamos de nuevo a {\tt commit()} para forzar a los datos a ser eliminados de
+la base de datos.
 
-\section{Structured Query Language summary}
+\section{Resumen de Lenguaje de Consultas Estructurado}
 
-So far, we have been using the Structured Query Language in our Python
-examples and have covered many of the basics of the SQL commands.
-In this section, we look at the SQL language in particular
-and give an overview of SQL syntax.
+Hasta ahora, hemos estado usando el Lenguaje de Consultas Estructurado en nuestros
+ejemplos de Python y hemos utilizado muchos de los comandos básicos de SQL.
+En esta sección, nos centraremos en el lenguaje SQL en particular
+y echaremos un vistazo a su sintaxis.
 
-Since there are so many different database vendors, the Structured Query
-Language (SQL) was standardized so we could communicate in a portable
-manner to database systems from multiple vendors.
+A pesar de que hay muchos proveedores de bases de datos, el Lenguaje de Consultas
+Estructurado (SQL) está estandarizado, para que podamos comunicarnos de una forma
+similar con sistemas de bases de datos de múltiples vendedores. 
 
-A relational database is made up of tables, rows, and columns.  The columns
-generally have a type such as text, numeric, or date data.  When we create
-a table, we indicate the names and types of the columns:
-
-\beforeverb
-\begin{verbatim}
-CREATE TABLE Tracks (title TEXT, plays INTEGER)
-\end{verbatim}
-\afterverb
-%
-To insert a row into a table, we use the SQL {\tt INSERT} command:
+Una base de datos relacional está compuesta por tablas, filas y columnas. Las columnas
+tienen generalmente un tipo de datos que puede ser texto, numérico, o fecha. Cuando se crea
+una tabla, se indican los nombres y tipos de cada columna.
 
 \beforeverb
 \begin{verbatim}
-INSERT INTO Tracks (title, plays) VALUES ('My Way', 15)
+CREATE TABLE Canciones (titulo TEXT, reproducciones INTEGER)
 \end{verbatim}
 \afterverb
 %
-The {\tt INSERT} statement specifies the table name, then a list of
-the fields/columns that you would like to set in the new row, and then 
-the keyword {\tt VALUES} and a list of corresponding values 
-for each of the fields.
-
-The SQL {\tt SELECT} command is used to retrieve rows and columns from a database.
-The {\tt SELECT} statement lets you specify which columns you would
-like to retrieve as well as a {\tt WHERE} clause to select which 
-rows you would like to see.  It also allows an optional 
-{\tt ORDER BY} clause to control the sorting of the returned rows.
+Para insertar una fila en una tabla, usamos el comando de SQL {\tt INSERT}:
 
 \beforeverb
 \begin{verbatim}
-SELECT * FROM Tracks WHERE title = 'My Way'
+INSERT INTO Canciones (titulo, reproducciones) VALUES ('My Way', 15)
 \end{verbatim}
 \afterverb
 %
-Using \verb"*" indicates that you want the database to return all of 
-the columns for each row that matches the {\tt WHERE} clause.  
+La sentencia {\tt INSERT} especifica el nombre de la tabla, seguido por una lista
+de los campos/columnas que se quieren establecer en la fila nueva, a continuación
+la palabra clave {\tt VALUES}, y una lista de los valores correspondientes
+para cada uno de los campos.
 
-Note, unlike in Python, in a SQL {\tt WHERE} clause 
-we use a single equal sign 
-to indicate a test for equality rather than a double equal sign.
-Other logical operations allowed in a {\tt WHERE} clause include 
+El comando de SQL {\tt SELECT} se usa para recuperar filas y columnas desde una base de datos.
+La sentencia {\tt SELECT} permite especificar qué columnas se quieren
+recibir, junto con una clausula {\tt WHERE} para indicar qué 
+filas se desean obtener. También permite una clausula opcional,
+{\tt ORDER BY} para controlar el orden de las filas devueltas.
+
+\beforeverb
+\begin{verbatim}
+SELECT * FROM Canciones WHERE titulo = 'My Way'
+\end{verbatim}
+\afterverb
+%
+El \verb"*" indica que se desea que la base de datos devuelva todas las
+columnas para cada línea que cumpla la condición de la clausula {\tt WHERE}
+\footnote{la consulta, traducida al español sería más o menos:
+{\tt SELECCIONA todas las columnas (*) DE la tabla 'Canciones' DONDE
+el título sea 'My Way' (Nota del trad.)}}.
+
+Fíjate que, a diferencia de lo que ocurre en Python, en SQL la clausula {\tt WHERE}
+utiliza un único signo igual
+para indicar una comprobación de igualdad, en lugar de utilizar un signo doble igual.
+Otras operaciones lógicas que se permiten en una clausula {\tt WHERE} son
 \verb"<",
 \verb">",
 \verb"<=",
 \verb">=",
 \verb"!=",
-as well as {\tt AND} and {\tt OR} and parentheses
-to build your logical expressions.
+junto con {\tt AND}, {\tt OR} y paréntesis
+para construir expresiones lógicas.
 
-You can request that the returned rows be sorted by one of 
-the fields as follows:
-
-\beforeverb
-\begin{verbatim}
-SELECT title,plays FROM Tracks ORDER BY title
-\end{verbatim}
-\afterverb
-%
-To remove a row, you need a {\tt WHERE} clause on an SQL {\tt DELETE}
-statement.  The {\tt WHERE} clause determines which rows are to be deleted:
+Se puede solicitar que las columnas devueltas vengan ordenadas por uno
+de los campos, de este modo:
 
 \beforeverb
 \begin{verbatim}
-DELETE FROM Tracks WHERE title = 'My Way'
+SELECT titulo, reproducciones FROM Canciones ORDER BY titulo
 \end{verbatim}
 \afterverb
 %
-It is possible to {\tt UPDATE} a column or columns within one or more rows
-in a table using the SQL {\tt UPDATE} statement as follows:
+Para eliminar una fila, es necesario usar una clausula {\tt WHERE} en una sentencia
+{\tt DELETE} de SQL. La clausula {\tt WHERE} determina qué filas serán eliminadas:
 
 \beforeverb
 \begin{verbatim}
-UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
+DELETE FROM Canciones WHERE titulo = 'My Way'
 \end{verbatim}
 \afterverb
 %
-The {\tt UPDATE} statement specifies a table and 
-then a list of fields and values to change after the {\tt SET} 
-keyword and then an optional {\tt WHERE} clause to select
-the rows that are to be updated.  A single {\tt UPDATE} statement
-will change all of the rows that match the {\tt WHERE} clause.  If 
-a {\tt WHERE} clause is not specified, it performs the {\tt UPDATE}
-on all of the rows in the table.
+Es posible actualizar {\tt (UPDATE)} una columna o varias de una o más filas
+en una tabla usando la sentencia de SQL {\tt UPDATE}, como se muestra a continuación:
 
-These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow 
-the four basic operations needed to create and maintain data.
+\beforeverb
+\begin{verbatim}
+UPDATE Canciones SET reproducciones = 16 WHERE titulo = 'My Way'
+\end{verbatim}
+\afterverb
+%
+La sentencia {\tt UPDATE} especifica una tabla, a continuación
+una lista de campos y valores a cambiar detrás de la palabra
+clave {\tt SET}, y finalmente una clausula opcional {\tt WHERE} para elegir
+las filas que van a ser actualizadas. Una única sentencia {\tt UPDATE}
+cambiará todas las filas que coincidan con la clausula {\tt WHERE}.
+Si no se ha especificado ninguna clausula {\tt WHERE}, se realizará la
+{\tt actualización} de todas las filas de la tabla.
 
+Existen cuatro comandos básicos de SQL (INSERT, SELECT, UPDATE y DELETE), que
+nos permiten realizar las cuatro operaciones básicas necesarias para crear y mantener datos.
 
-\section{Spidering Twitter using a database}
+\section{Rastreo en Twitter usando una base de datos}
 
-In this section, we will create a simple spidering program that will 
-go through Twitter accounts and build a database of them.
-\emph{Note: Be very careful when running this program.  You do not
-want to pull too much data or run the program for too long and
-end up having your Twitter access shut off.}
+En esta sección, crearemos un programa araña sencillo que se moverá
+a través de cuentas de Twitter y construirá una base de datos de ellas.
 
-One of the problems of any kind of spidering program is that it 
-needs to be able to be stopped and restarted many times and 
-you do not want to lose the data that you have retrieved so far.
-You don't want to always restart your data retrieval at the
-very beginning so we want to store data as we retrieve it so our
-program can start back up and pick up where it left off.
+\emph{Nota: Ten mucho cuidado al ejecutar este programa. Si extraes
+demasiados datos o ejecutas el programa durante demasiado tiempo
+pueden terminar cortándote el acceso a Twitter.}
 
-We will start by retrieving one person's Twitter friends and their
-statuses, looping through the list of friends, and adding each 
-of the friends to a database to be retrieved in the future.  After
-we process one person's Twitter friends, we check in our database
-and retrieve one of the friends of the friend.  We do this over and
-over, picking an ``unvisited'' person, retrieving their friend list,
-and adding friends we have not seen to our list for a future visit.
+Uno de los problemas de cualquier tipo de programa araña es que se
+necesita poderlo detener y volver a poner en marcha muchas veces, y
+no se quieren perder los datos que se hayan recuperado hasta ese momento.
+No querrás tener que empezar siempre la recuperación de datos desde
+el principio, de modo que necesitaremos almacenar los datos según los vamos recuperando para
+que nuestro programa pueda usar esa copia de seguridad y reanudar su recogida de datos
+desde donde lo dejó la última vez.
 
-We also track how many times we have seen a particular friend in the
-database to get some sense of their ``popularity''.
+Empezaremos por recuperar los amigos de Twitter de una persona y sus estados,
+moviéndonos a través de la lista de amigos y añadiendo cada uno de ellos
+a la base de datos para poder recuperarlos en el futuro. Después
+de haber procesado todos los amigos de esa persona, consultaremos la base de datos
+y recuperaremos los amigos de uno de esos amigos. Continuaremos haciendo esto una y otra vez,
+recogiendo cualquier persona ``no visitada'', recuperando su lista de amigos
+y añadiendo aquellos que no tengamos ya en nuestra lista para una próxima visita.
 
-By storing our list of known accounts and whether 
-we have retrieved the account or not, 
-and how popular the account is in a database on the disk
-of the computer, we can stop and
-restart our program as many times as we like.
+También contabilizaremos cuántas veces hemos visto un amigo concreto en la
+base de datos, para tener una idea de su ``popularidad''.
 
-% TODO: Add a reference to the right spot
-This program is a bit complex. It is based on the code 
-from the exercise earlier in the book that uses
-the Twitter API.
+Estamos almacenando nuestra lista de cuentas de conocidos,
+si hemos recuperado una cuenta o no,
+y la popularidad de cada cuenta.
+Al tener todo ello guardado en una base de datos en nuestro PC,
+podremos detener y reanudar el programa tantas veces como queramos.
 
-Here is the source code for our Twitter spidering application:
+% POR HACER: Añadir una referencia al lugar correcto
+Este programa es un poco complejo. Está basado en el código
+de un ejercicio anterior del libro que usa la
+API de Twitter.
+
+Aquí está el código fuente para nuestra aplicación araña de Twitter:
 
 \beforeverb
 \begin{verbatim}
@@ -415,172 +420,173 @@ import sqlite3
 
 TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 
-conn = sqlite3.connect('spider.sqlite3')
+conn = sqlite3.connect('arana.sqlite3')
 cur = conn.cursor()
 
 cur.execute('''
 CREATE TABLE IF NOT EXISTS Twitter 
-(name TEXT, retrieved INTEGER, friends INTEGER)''')
+(nombre TEXT, recuperado INTEGER, amigos INTEGER)''')
 
 while True:
-    acct = raw_input('Enter a Twitter account, or quit: ')
-    if ( acct == 'quit' ) : break
-    if ( len(acct) < 1 ) :
-        cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
+    cuenta = raw_input('Introduzca una cuenta de Twitter o salir: ')
+    if ( cuenta == 'salir' ) : break
+    if ( len(cuenta) < 1 ) :
+        cur.execute('SELECT nombre FROM Twitter WHERE recuperado = 0 LIMIT 1')
         try:
-            acct = cur.fetchone()[0]
+            cuenta = cur.fetchone()[0]
         except:
-            print 'No unretrieved Twitter accounts found'
+            print 'No se han encontrado cuentas de Twitter por recuperar'
             continue
 
     url = twurl.augment(TWITTER_URL, 
-               {'screen_name': acct, 'count': '20'} )
-    print 'Retrieving', url
-    connection = urllib.urlopen(url)
-    data = connection.read()
-    headers = connection.info().dict
-    # print 'Remaining', headers['x-rate-limit-remaining']
+               {'screen_name': cuenta, 'count': '20'} )
+    print 'Recuperando', url
+    conexion = urllib.urlopen(url)
+    datos = conexion.read()
+    cabeceras = conexion.info().dict
+    # print 'Restante', cabeceras['x-rate-limit-remaining']
     js = json.loads(data)
     # print json.dumps(js, indent=4)
 
-    cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
+    cur.execute('UPDATE Twitter SET recuperado=1 WHERE nombre = ?', (cuenta, ) )
 
-    countnew = 0
-    countold = 0
+    contnuevas = 0
+    contantiguas = 0
     for u in js['users'] :
-        friend = u['screen_name']
-        print friend
-        cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1', 
-            (friend, ) )
+        amigo = u['screen_name']
+        print amigo
+        cur.execute('SELECT amigos FROM Twitter WHERE nombre = ? LIMIT 1', 
+            (amigo, ) )
         try:
-            count = cur.fetchone()[0]
-            cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?', 
-                (count+1, friend) )
-            countold = countold + 1
+            contador = cur.fetchone()[0]
+            cur.execute('UPDATE Twitter SET amigos = ? WHERE nombre = ?', 
+                (contador+1, amigo) )
+            contantiguas = contantiguas + 1
         except:
-            cur.execute('''INSERT INTO Twitter (name, retrieved, friends) 
-                VALUES ( ?, 0, 1 )''', ( friend, ) )
-            countnew = countnew + 1
-    print 'New accounts=',countnew,' revisited=',countold
+            cur.execute('''INSERT INTO Twitter (nombre, recuperado, amigos) 
+                VALUES ( ?, 0, 1 )''', ( amigo, ) )
+            contnuevas = contnuevas + 1
+    print 'Cuentas nuevas=',contnuevas,' ya visitadas=',contantiguas
     conn.commit()
 
 cur.close()
 \end{verbatim}
 \afterverb
 %
-Our database is stored in the file {\tt spider.sqlite3} and it has one 
-table named {\tt Twitter}.  Each row in the {\tt Twitter} table
-has a column for the account name, whether we have retrieved the friends
-of this account, and how many times this account has been ``friended''.
+Nuestra base de datos está almacenada en el archivo {\tt arana.sqlite3} y tiene
+una tabla llamada {\tt Twitter}. Cada fila en la tabla {\tt Twitter}
+contiene una columna para el nombre de la cuenta, otra para indicar si hemos recuperado los
+amigos de esa cuenta, y otra para guardar cuántas veces se ha visto esa cuenta añadida en
+la lista de amigos de las demás.
 
-In the main loop of the program, we prompt the user for a Twitter
-account name or ``quit'' to exit the program.  
-If the user enters a Twitter account, we retrieve the 
-list of friends and statuses
-for that user and add each friend to the database if 
-not already in the database.  If the friend is already in the list, 
-we add 1 to the {\tt friends} field in the row in the database.
+En el bucle principal del programa, pedimos al usuario el nombre de una cuenta
+de Twitter o ``salir'' para finalizar el programa.
+Si el usuario introduce una cuenta de Twitter, recuperamos la
+lista de amigos de ese usuario y sus estados,
+y añadimos cada amigo a la base de datos, si no
+estaba ya en ella. Si el amigo ya estaba en la lista,
+aumentamos en 1 el campo {\tt amigos} en la fila correspondiente de la base de datos.
 
-If the user presses enter, we look in the database for the next 
-Twitter account that we have not yet retrieved, retrieve the
-friends and statuses for that account, add them to the database 
-or update them, and increase their {\tt friends} count.
+Si el usuario pulsa intro, buscamos en la base de datos la siguiente
+cuenta de Twitter que no haya sido aún recuperada, recuperamos los
+amigos de esa cuenta y sus estados, y luego los añadimos a la base de datos
+o los actualizamos, e incrementamos su contador de {\tt amigos}.
 
-Once we retrieve the list of friends and statuses, we loop 
-through all of the {\tt user} items in the returned JSON
-and retrieve the \verb"screen_name" for each user.  Then we use
-the {\tt SELECT} statement to see if we already have stored this
-particular \verb"screen_name" in the database and retrieve the
-friend count ({\tt friends}) if the record exists.
+Una vez hemos recuperado la lista de amigos y sus estados, nos movemos
+a través de los elementos {\tt users} del JSON devuelto
+y recuperamos el \verb"screen_name" (nombre a mostrar) de cada usuario. Luego usamos
+la sentencia {\tt SELECT} para comprobar si ya tenemos almacenado ese
+nombre concreto en la base de datos y si es así recuperamos su
+contador de amigos ({\tt amigos}).
 
 \beforeverb
 \begin{verbatim}
-    countnew = 0
-    countold = 0
+    contnuevas = 0
+    contantiguas = 0
     for u in js['users'] :
-        friend = u['screen_name']
-        print friend
-        cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1', 
-            (friend, ) )
-        try:
-            count = cur.fetchone()[0]
-            cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?', 
-                (count+1, friend) )
-            countold = countold + 1
-        except:
-            cur.execute('''INSERT INTO Twitter (name, retrieved, friends) 
-                VALUES ( ?, 0, 1 )''', ( friend, ) )
-            countnew = countnew + 1
-    print 'New accounts=',countnew,' revisited=',countold
+	    amigo = u['screen_name']
+	    print amigo
+	    cur.execute('SELECT amigos FROM Twitter WHERE nombre = ? LIMIT 1', 
+		    (amigo, ) )
+	    try:
+		    contador = cur.fetchone()[0]
+		    cur.execute('UPDATE Twitter SET amigos = ? WHERE nombre = ?', 
+			    (contador+1, amigo) )
+		    contantiguas = contantiguas + 1
+		except:
+		    cur.execute('''INSERT INTO Twitter (nombre, recuperado, amigos) 
+			    VALUES ( ?, 0, 1 )''', ( amigo, ) )
+		    contnuevas = contnuevas + 1
+    print 'Cuentas nuevas=',contnuevas,' ya visitadas=',contantiguas
     conn.commit()
 \end{verbatim}
 \afterverb
 %
-Once the cursor executes the {\tt SELECT} statement, 
-we must retrieve the rows.  We could do this with a {\tt for} 
-statement, but since we are only retrieving
-one row ({\tt LIMIT 1}), we can use the {\tt fetchone()} method to fetch the
-first (and only) row that is the result of the {\tt SELECT} operation.  
-Since {\tt fetchone()} returns the row as a {\bf tuple} (even though there is only
-one field), we take the first value from the tuple using {\tt [0]} to get the 
-current friend count into the variable {\tt count}.  
+Una vez que el cursor ejecuta la sentencia {\tt SELECT},
+tenemos que recuperar las filas. Podríamos hacerlo con una sentencia {\tt for},
+pero dado que sólo estamos recuperando una única fila
+({\tt LIMIT 1}), podemos también usar el método {\tt fetchone()} para extraer
+la primera (y única) fila que da como resultado la operación {\tt SELECT}.
+Dado que {\tt fetchone()} devuelve la fila como una {\bf tupla} (incluso si sólo
+contiene un campo), tomamos el primer valor de la tupla mediante {\tt [0]}, para
+almacenar así dentro de la variable {\tt contador} el valor del contador de amigos actual.
 
-If this retrieval is successful, we use the SQL {\tt UPDATE} statement with a 
-{\tt WHERE} clause to add 1 to the {\tt friends} column for the row that 
-matches the friend's account.  Notice that there are two placeholders (i.e.,
-question marks) in the SQL, and the second parameter to the {\tt execute()} is
-a two-element tuple that holds the values to be substituted into the SQL
-in place of the question marks.
+Si esta operación tiene éxito, usamos la sentencia {\tt UPDATE} de SQL con una
+clausula {\tt WHERE} para añadir 1 a la columna {\tt amigos} de aquella fila que
+coincida con la cuenta del amigo. Fíjate que hay dos marcadores de posición (es decir,
+signos de interrogación) en el SQL, y que el segundo parámetro de {\tt execute()} es
+una tupla de dos elementos que contiene los valores que serán sustituidos por esas
+interrogaciones dentro de la sentencia SQL.
 
-If the code in the {\tt try} block fails, it is probably because no record
-matched the {\tt WHERE name = ?} clause on the SELECT statement.  So in the
-{\tt except} block, we use the SQL {\tt INSERT} statement to add the friend's
-\verb"screen_name" to the table with an indication that we have not yet 
-retrieved the \verb"screen_name" and set the friend count to zero.
+Si el código en el bloque {\tt try} falla, se deberá probablemente a que ningún registro
+coincide con lo especificado en la clausula {\tt WHERE nombre = ?} de la sentencia SELECT.
+Así que en el bloque {\tt except}, usamos la sentencia de SQL {\tt INSERT} para añadir el
+nombre a mostrar (\verb"screen_name") del amigo a la tabla, junto con una indicación
+de que no lo hemos recuperado aún, y fijamos su contador de amigos a cero.
 
-So the first time the program runs and we enter a Twitter account, the program
-runs as follows:
+La primera vez que el programa funciona e introducimos una cuenta de Twitter, mostrará
+algo similar a esto:
 
 \beforeverb
 \begin{verbatim}
-Enter a Twitter account, or quit: drchuck
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 20  revisited= 0
-Enter a Twitter account, or quit: quit
+Introduzca una cuenta de Twitter o salir: drchuck
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 20  ya visitadas= 0
+Introduzca una cuenta de Twitter o salir: salir
 \end{verbatim}
 \afterverb
 %
-Since this is the first time we have run the program, the database
-is empty and we create the database in the file {\tt spider.sqlite3} and
-add a table named {\tt Twitter} to the database.  Then we retrieve
-some friends and add them all to the database since the database is
-empty.
+Dado que es la primera vez que ejecutamos el programa, la base de datos
+está vacía, así que creamos el fichero {\tt arana.sqlite3} y añadimos
+una tabla llamada {\tt Twitter} a la base de datos. A continuación
+recuperamos algunos amigos y los añadimos a la base de datos, ya que
+ésta está vacía.
 
-At this point, we might want to write a simple database dumper
-to take a look at what is in our {\tt spider.sqlite3} file:
+En este momento, tal vez sea conveniente escribir un programa de volcado de datos
+sencillo, para echar un vistazo a lo que hay dentro del fichero {\tt arana.sqlite3}:
 
 \beforeverb
 \begin{verbatim}
 import sqlite3
 
-conn = sqlite3.connect('spider.sqlite3')
+conn = sqlite3.connect('arana.sqlite3')
 cur = conn.cursor()
 cur.execute('SELECT * FROM Twitter')
-count = 0
-for row in cur :
-   print row
-   count = count + 1
-print count, 'rows.'
+contador = 0
+for fila in cur :
+   print fila
+   contador = contador + 1
+print contador, 'filas.'
 cur.close()
 \end{verbatim}
 \afterverb
 %
-This program simply opens the database and selects all of the 
-columns of all of the rows in the table {\tt Twitter}, then 
-loops through the rows and prints out each row.
+Este programa simplemente abre la base de datos y selecciona todas las columnas
+de todas las filas de la tabla {\tt Twitter}, luego
+se mueve a través de las filas e imprime en pantalla su contenido.
 
-If we run this program after the first execution of our Twitter
-spider above, its output will be as follows:
+Si lanzamos este programa después de la primera ejecución de nuestra araña
+de Twitter, la salida que mostrará será similar a ésta:
 
 \beforeverb
 \begin{verbatim}
@@ -590,77 +596,78 @@ spider above, its output will be as follows:
 (u'davidkocher', 0, 1)
 (u'hrheingold', 0, 1)
 ...
-20 rows.
+20 filas.
 \end{verbatim}
 \afterverb
 %
-We see one row for each \verb"screen_name", that we 
-have not retrieved the data for that \verb"screen_name", and 
-everyone in the database has one friend.
+Vemos una fila para cada nombre, que aún no hemos
+recuperado los datos de ninguno de esos nombres, y
+que todo el mundo en la base de datos tiene un amigo.
 
-Now our database reflects the retrieval of the friends of 
-our first Twitter account ({\bf drchuck}).  We can run the program
-again and tell it to retrieve the friends of the next 
-``unprocessed'' account by simply pressing enter instead of
-a Twitter account as follows:
+En este momento la base de datos muestra la recuperación de los amigos de
+nuestra primera cuenta de Twitter ({\bf drchuck}). Podemos ejecutar de nuevo
+el programa y pedirle que recupere los amigos de la siguiente
+cuenta ``sin procesar'', simplemente pulsando intro en vez de
+escribir el nombre de una cuenta:
 
 \beforeverb
 \begin{verbatim}
-Enter a Twitter account, or quit: 
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 18  revisited= 2
-Enter a Twitter account, or quit: 
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit: quit
+Introduzca una cuenta de Twitter o salir:  
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 18  ya visitadas= 2
+Introduzca una cuenta de Twitter o salir: 
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 17  ya visitadas= 3
+Introduzca una cuenta de Twitter o salir: salir
 \end{verbatim}
 \afterverb
 %
-Since we pressed enter (i.e., we did not specify a Twitter account),
-the following code is executed:
+Como hemos pulsado intro (es decir, no hemos especificado otra cuenta de Twitter),
+se ha ejecutado el código siguiente:
 
 \beforeverb
 \begin{verbatim}
-    if ( len(acct) < 1 ) :
-        cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
+    if ( len(cuenta) < 1 ) :
+        cur.execute('SELECT nombre FROM Twitter WHERE recuperado = 0 LIMIT 1')
         try:
-            acct = cur.fetchone()[0]
+            cuenta = cur.fetchone()[0]
         except:
-            print 'No unretrieved twitter accounts found'
+            print 'No se han encontrado cuentas de Twitter por recuperar'
             continue
 \end{verbatim}
 \afterverb
 %
-We use the SQL {\tt SELECT} statement to retrieve the name of the first 
-({\tt LIMIT 1}) user who still has their ``have we retrieved this user''
-value set to zero.  We also use the {\tt fetchone()[0]} pattern within 
-a try/except block to either extract a \verb"screen_name" from the retrieved
-data or put out an error message and loop back up.
+Usamos la sentencia de SQL {\tt SELECT} para obtener el nombre del primer
+usuario ({\tt LIMIT 1}) que aún tiene su valor de ``hemos recuperado ya este usuario''
+a cero. También usamos el modelo {\tt fechone()[0]} en un bloque
+try/except para extraer el ``nombre a mostrar'' ({\tt screen name}) de los datos recuperados,
+o bien mostrar un mensaje de error y volver al principio.
 
-If we successfully retrieved an unprocessed \verb"screen_name", we retrieve
-their data as follows:
+Si hemos obtenido con éxito el nombre de una cuenta que aún no había sido procesada,
+recuperamos sus datos de este modo:
 
 \beforeverb
 \begin{verbatim}
-    url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '20'} )
-    print 'Retrieving', url
-    connection = urllib.urlopen(url)
-    data = connection.read()
-    js = json.loads(data)
+    url = twurl.augment(TWITTER_URL, {'screen_name': cuenta, 'count': '20'} )
+    print 'Recuperando', url
+    conexion = urllib.urlopen(url)
+    datos = conexion.read()
+    js = json.loads(datos)
 
-    cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
+    cur.execute('UPDATE Twitter SET recuperado=1 WHERE nombre = ?', (cuenta, ) )
 \end{verbatim}
 \afterverb
 %
-Once we retrieve the data successfully, we use the {\tt UPDATE} statement 
-to set the {\tt retrieved} column to 1 to indicate that we have completed 
-the retrieval of the friends of this account.  This keeps us from retrieving
-the same data over and over and keeps us progressing forward through the network
-of Twitter friends.
+Una vez recuperados correctamente los datos, usamos la sentencia {\tt UPDATE}
+para poner la columna {\tt recuperado} a 1, lo que indica que hemos terminado
+la extracción de amigos de esa cuenta. Esto impide que recuperemos los
+mismos datos una y otra vez, y nos permite ir avanzando a través de la red
+de amigos de Twitter. 
 
-If we run the friend program and press enter twice to retrieve the next 
-unvisited friend's friends,
-then run the dumping program, it will give us the following output:
+Si ejecutamos el programa de amigos y pulsamos intro dos veces para recuperar
+los amigos del siguiente amigo no visitado,
+y luego ejecutamos de nuevo el programa de volcado de datos, nos mostrará la
+salida siguiente: 
 
 \beforeverb
 \begin{verbatim}
@@ -679,146 +686,146 @@ then run the dumping program, it will give us the following output:
 \end{verbatim}
 \afterverb
 %
-We can see that we have properly recorded that we have visited 
-{\tt lhawthorn} and {\tt opencontent}.  Also the accounts 
-{\tt cnxorg} and {\tt kthanos} already have two followers.
-Since we now have retrieved the friends of three people
-({\tt drchuck}, {\tt opencontent}, and {\tt lhawthorn}) our table has 55 rows 
-of friends to retrieve.
+Podemos ver que se han guardado correctamente las visitas que hemos realizado
+a {\tt lhawthorn} y a {\tt opencontent}. Además, las cuentas
+{\tt cnxorg} y {\tt kthanos} ya tienen dos seguidores.
+A pesar de hasta ahora hemos recuperados sólo los amigos de tres personas,
+({\tt drchuck}, {\tt opencontent}, y {\tt lhawthorn}), la tabla contiene ya
+55 filas de amigos por recuperar.
 
-Each time we run the program and press enter it will pick the next 
-unvisited account (e.g., the next account will be \verb"steve_coppin"),
-retrieve their friends, mark them as retrieved, and for each of the 
-friends of \verb"steve_coppin" either add them to the end of the 
-database or update their friend count if they are already in the
-database.
+Cada vez que ejecutamos el programa y pulsamos intro, se elegirá la siguiente
+cuenta no visitada (es decir, ahora la siguiente cuenta sería \verb"steve_coppin"),
+recuperará sus amigos, los marcará como recuperados y, para cada uno de los
+amigos de \verb"steve_coppin", o bien lo añadirá al final de la
+base de datos, o bien actualizará su contador de amigos si ya estaba en la
+tabla.
 
-Since the program's data is all stored on disk in a database, 
-the spidering activity can be suspended and resumed as many times as you 
-like with no loss of data.
+Como ves, al estar los datos del programa almacenados en el disco, dentro de una base de datos,
+la actividad de rastreo puede ser suspendida y reanudada tantas veces como se desee,
+sin que se produzca ninguna pérdida de datos.
 
-\section{Basic data modeling}
+\section{Modelado de datos básico}
 
-The real power of a relational database is when we create multiple tables
-and make links between those tables.   The act of deciding how to break
-up your application data into multiple tables and establishing the
-relationships between the tables is called {\bf data modeling}.  The
-design document that shows the tables and their relationships 
-is called a {\bf data model}.
+La potencia real de las bases de datos relacionales se manifiesta cuando se construyen múltiples
+tablas y se crean enlaces entre ellas. La acción de decidir cómo separar los datos de tu
+aplicación en múltiples tablas y establecer las relaciones
+entre esas tablas recibe el nombre de {\bf modelado de datos}. El
+documento de diseño que muestra las tablas y sus relaciones
+se llama {\bf modelo de datos}.
 
-Data modeling is a relatively sophisticated skill and we will only introduce
-the most basic concepts of relational data modeling in this section.  For more
-detail on data modeling you can start with:
+El modelado de datos es una habilidad relativamente sofisticada, y en esta sección sólo
+introduciremos los conceptos más básicos acerca del tema. Para obtener más
+detalles sobre modelado de datos puedes comenzar con:
 
 \url{http://en.wikipedia.org/wiki/Relational_model}
 
-Let's say for our Twitter spider application, instead of just 
-counting a person's friends, we wanted to keep a list of 
-all of the incoming relationships so we could find a list of 
-everyone who is following a particular account.
+Supongamos que para nuestra aplicación de rastreo de Twitter, en vez de contar
+los amigos de una persona sin más, queremos mantener una lista de
+todas las relaciones entre ellos, de modo que podamos encontrar una lista de
+gente que esté siguiendo la cuenta de una persona concreta.
 
-Since everyone will potentially have many accounts that follow
-them, we cannot simply add a single column to our {\tt Twitter} table. 
-So we create a new table that keeps track of pairs of friends.
-The following is a simple way of making such a table:
-
-\beforeverb
-\begin{verbatim}
-CREATE TABLE Pals (from_friend TEXT, to_friend TEXT)
-\end{verbatim}
-\afterverb
-%
-Each time we encounter a person who {\tt drchuck} is following, we
-would insert a row of the form:
+Dado que todo el mundo puede tener potencialmente muchas cuentas siguiéndole,
+no podemos añadir simplemente una única columna a nuestra tabla de {\tt Twitter}.
+De modo que creamos una tabla nueva que realice un seguimiento de parejas de amigos.
+A continuación se muestra un modo sencillo de hacer una tabla de este tipo:
 
 \beforeverb
 \begin{verbatim}
-INSERT INTO Pals (from_friend,to_friend) VALUES ('drchuck', 'lhawthorn')
+CREATE TABLE Colegas (desde_amigo TEXT, hacia_amigo TEXT)
 \end{verbatim}
 \afterverb
 %
-As we are processing the 20 friends from the {\tt drchuck}
-Twitter feed, we will insert 20 records with ``drchuck''
-as the first parameter so we will end up duplicating the 
-string many times in the database.
-
-This duplication of string data violates one of the best practices 
-for {\bf database normalization} which basically states that
-we should never put the same string data in the database more than once.  
-If we need the data more than once, we create a 
-numeric {\bf key} for the data and reference the actual data 
-using this key.
-
-In practical terms, a string takes up a lot more 
-space than an integer on the disk
-and in the memory of our computer, and takes more processor time
-to compare and sort.  If we only have a few hundred entries, 
-the storage and processor time hardly matters.  But if we have 
-a million people in our database and a possibility of 100 million
-friend links, it is important to be able to scan data as quickly
-as possible.
-
-We will store our Twitter accounts in a table named {\tt People}
-instead of the {\tt Twitter} table used in the previous example.
-The {\tt People} table has an additional column 
-to store the numeric key associated with the 
-row for this Twitter user.   
-SQLite has a feature that automatically adds the key value
-for any row we insert into a table using a special type of 
-data column ({\tt INTEGER PRIMARY KEY}).
-
-We can create the {\tt People} table with this additional 
-{\tt id} column as follows:
+Cada vez que encontremos a una persona de las que está siguiendo {\tt drchuck},
+insertaremos una fila de esta forma:
 
 \beforeverb
 \begin{verbatim}
-CREATE TABLE People 
-    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)
+INSERT INTO Colegas (desde_amigo, hacia_amigo) VALUES ('drchuck', 'lhawthorn')
 \end{verbatim}
 \afterverb
 %
-Notice that we are no longer maintaining a friend count in each row
-of the {\tt People} table.
-When we select {\tt INTEGER PRIMARY KEY} as the type of our {\tt id} column,
-we are indicating that we would like SQLite to manage this column and 
-assign a unique numeric key to each row we insert automatically.
-We also add the keyword {\tt UNIQUE} to indicate that we will not 
-allow SQLite to insert two rows with the same value for {\tt name}.
+Según vayamos procesando los 20 amigos de {\tt drchuck}
+que nos envía Twitter, insertaremos 20 registros con ``drchuck''
+como primer parámetro, de modo que terminaremos duplicando la
+cadena un montón de veces en la base de datos.
 
-Now instead of creating the table {\tt Pals} above, we create
-a table called {\tt Follows} with two integer columns
-\verb"from_id" and \verb"to_id" and a constraint on the table that
-the \emph{combination} of \verb"from_id" and \verb"to_id" must be unique 
-in this table (i.e., we cannot insert duplicate rows) in our database.
+Esta duplicación de cadenas de datos viola una de las mejores prácticas
+para la {\bf normalización de bases de datos}, que básicamente consiste en
+que nunca se debe guardar la misma cadena más de una vez en la base de datos.
+Si se necesitan los datos varias veces, se debe crear una
+{\bf clave} numérica para ellos y hacer referencia a los datos reales
+a través de esa clave.
+
+En términos prácticos, una cadena ocupa un montón
+de espacio más que un entero, tanto en el disco como en
+la memoria del equipo, y además necesita más tiempo de procesador
+para ser comparada y ordenada. Si sólo se tienen unos pocos cientos de entradas,
+el espacio y el tiempo de procesador no importan demasiado. Pero si se tienen
+un millón de personas en la base de datos y la posibilidad de 100 millones
+de enlaces de amigos, es importante ser capaz de revisar los datos tan rápido
+como sea posible.
+
+Nosotros vamos a almacenar nuestras cuentas de Twitter en una tabla llamada {\tt Personas}
+en vez de hacerlo en la tabla {\tt Twitter} que usamos en el ejemplo anterior.
+La tabla {\tt Personas} tiene una columna adicional
+para almacenar la clave numérica asociada con la
+fila de cada usuario de Twitter.
+SQLite tiene una característica que permite añadir automáticamente el valor de la clave
+para cualquier fila que insertemos en la tabla, usando un tipo especial de
+datos en la columna, ({\tt INTEGER PRIMARY KEY}).
+
+Podemos, pues, crear la tabla {\tt Personas} con esa columna adicional,
+{\tt id}, como se muestra a continuación:
 
 \beforeverb
 \begin{verbatim}
-CREATE TABLE Follows 
-    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id) )
+CREATE TABLE Personas
+    (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)
 \end{verbatim}
 \afterverb
 %
-When we add {\tt UNIQUE} clauses to our tables, we are communicating a set
-of rules that we are asking the database to enforce when we attempt to insert
-records.   We are creating these rules as a convenience in our programs, as we
-will see in a moment.  The rules both keep us from making mistakes and make
-it simpler to write some of our code.
+Fíjate que ya no necesitamos mantener un contador de amigos en cada columna
+de la tabla {\tt Personas}.
+Cuando elegimos {\tt INTEGER PRIMARY KEY} como el tipo de la columna {\tt id},
+estamos indicando que queremos que SQLite controle esta columna y
+asigne automáticamente una clave numérica única para cada fila que insertemos.
+También añadimos la palabra clave {\tt UNIQUE}, para indicar que no vamos
+a permitir a SQLite insertar dos filas con el mismo valor de {\tt nombre}.
 
-In essence, in creating this {\tt Follows} table, we are modelling a 
-``relationship'' where one person ``follows'' someone else
-and representing it with a pair of numbers indicating that (a) the people are
-connected and (b) the direction of the relationship.
+Ahora, en vez de crear la tabla {\tt Colegas} como hicimos antes, crearemos
+una tabla llamada {\tt Seguimientos} con dos columnas de tipo entero,
+\verb"desde_id" y \verb"hacia_id", y una restricción en la tabla que consistirá en que
+la \emph{combinación} de \verb"desde_id" y \verb"hacia_id" deberá ser única
+(es decir, no se podrán insertar filas en la tabla con estos valores duplicados).
+
+\beforeverb
+\begin{verbatim}
+CREATE TABLE Seguimientos 
+    (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id) )
+\end{verbatim}
+\afterverb
+%
+Cuando añadimos la claúsula {\tt UNIQUE} a nuestras tablas, estamos comunicando un conjunto
+de reglas que vamos a exigir a la base de datos que se cumplan cuando se intenten insertar
+registros. Estamos creando esas reglas porque le convienen a nuestro programa, como
+veremos dentro de un momento. Ambas reglas impiden que se cometan errores y hacen
+más sencillo escribir parte de nuestro código.
+
+En esencia, al crear esta tabla {\tt Seguimientos}, estamos modelando una
+``relación'', en la cual una persona ``sigue'' a otra
+y se representa con un par de números que indican que (a) ambas personas están
+conectadas y (b) la dirección de la relación.
 
 \beforefig
 \centerline{\includegraphics[height=2.50in]{figs2/twitter.eps}}
 \afterfig
 
 
-\section{Programming with multiple tables}
+\section{Programación con múltiples tablas}
 
-We will now redo the Twitter spider program using two tables, the primary
-keys, and the key references as described above.  Here is the code for 
-the new version of the program:
+A continuación reharemos de nuevo el programa araña de Twitter usando dos tablas, las claves
+primarias, y las claves de referencia, como hemos descrito antes. He aquí el código
+de la nueva versión del programa:
 
 \beforeverb
 \begin{verbatim}
@@ -829,549 +836,558 @@ import sqlite3
 
 TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 
-conn = sqlite3.connect('friends.sqlitesqlite3')
+conn = sqlite3.connect('amigos.sqlitesqlite3')
 cur = conn.cursor()
 
-cur.execute('''CREATE TABLE IF NOT EXISTS People 
-    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
-cur.execute('''CREATE TABLE IF NOT EXISTS Follows 
-    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Personas 
+    (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Seguimientos 
+    (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id))''')
 
 while True:
-    acct = raw_input('Enter a Twitter account, or quit: ')
-    if ( acct == 'quit' ) : break
-    if ( len(acct) < 1 ) :
-        cur.execute('''SELECT id, name FROM People 
-            WHERE retrieved = 0 LIMIT 1''')
+    cuenta = raw_input('Introduzca una cuenta de Twitter, o salir: ')
+    if ( cuenta == 'salir' ) : break
+    if ( len(cuenta) < 1 ) :
+        cur.execute('''SELECT id, nombre FROM Personas
+            WHERE recuperado = 0 LIMIT 1''')
         try:
-            (id, acct) = cur.fetchone()
+            (id, cuenta) = cur.fetchone()
         except:
-            print 'No unretrieved Twitter accounts found'
+            print 'No se han encontrado cuentas de Twitter sin recuperar'
             continue
     else:
-        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1', 
-            (acct, ) )
+        cur.execute('SELECT id FROM Personas WHERE nombre = ? LIMIT 1', 
+            (cuenta, ) )
         try:
             id = cur.fetchone()[0]
         except:
-            cur.execute('''INSERT OR IGNORE INTO People (name, retrieved) 
-                VALUES ( ?, 0)''', ( acct, ) )
+            cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado) 
+                VALUES ( ?, 0)''', ( cuenta, ) )
             conn.commit()
             if cur.rowcount != 1 : 
-                print 'Error inserting account:',acct
+                print 'Error insertando cuenta:',cuenta
                 continue
             id = cur.lastrowid
 
     url = twurl.augment(TWITTER_URL, 
-       {'screen_name': acct, 'count': '20'} )
-    print 'Retrieving account', acct
-    connection = urllib.urlopen(url)
-    data = connection.read()
-    headers = connection.info().dict
-    print 'Remaining', headers['x-rate-limit-remaining']
+       {'screen_name': cuenta, 'count': '20'} )
+    print 'Recuperando cuenta', cuenta
+    conexion = urllib.urlopen(url)
+    datos = conexion.read()
+    cabeceras = conexion.info().dict
+    print 'Restantes', cabeceras['x-rate-limit-remaining']
 
-    js = json.loads(data)
+    js = json.loads(datos)
     # print json.dumps(js, indent=4)
 
-    cur.execute('UPDATE People SET retrieved=1 WHERE name = ?', (acct, ) )
+    cur.execute('UPDATE Personas SET recuperado=1 WHERE nombre = ?', (cuenta, ) )
 
-    countnew = 0
-    countold = 0
+    contnuevas = 0
+    contantiguas = 0
     for u in js['users'] :
-        friend = u['screen_name']
-        print friend
-        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1', 
-            (friend, ) )
+        amigo = u['screen_name']
+        print amigo
+        cur.execute('SELECT id FROM Personas WHERE nombre = ? LIMIT 1', 
+            (amigo, ) )
         try:
-            friend_id = cur.fetchone()[0]
-            countold = countold + 1
+            amigo_id = cur.fetchone()[0]
+            contantiguas = contantiguas + 1
         except:
-            cur.execute('''INSERT OR IGNORE INTO People (name, retrieved) 
-                VALUES ( ?, 0)''', ( friend, ) )
+            cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado) 
+                VALUES ( ?, 0)''', ( amigo, ) )
             conn.commit()
             if cur.rowcount != 1 :
-                print 'Error inserting account:',friend
+                print 'Error al insertar cuenta:',amigo
                 continue
-            friend_id = cur.lastrowid
-            countnew = countnew + 1
-        cur.execute('''INSERT OR IGNORE INTO Follows (from_id, to_id) 
-            VALUES (?, ?)''', (id, friend_id) )
-    print 'New accounts=',countnew,' revisited=',countold
+            amigo_id = cur.lastrowid
+            contnuevas = contnuevas + 1
+        cur.execute('''INSERT OR IGNORE INTO Seguimientos (desde_id, hacia_id) 
+            VALUES (?, ?)''', (id, amigo_id) )
+    print 'Cuentas nuevas=',contnuevas,' ya visitadas=',contantiguas
     conn.commit()
 
 cur.close()
 \end{verbatim}
 \afterverb
 %
-This program is starting to get a bit complicated, but it illustrates
-the patterns that we need to use when we are
-using integer keys to link tables. The basic patterns are:
+Este programa empieza a resultar un poco complicado, pero ilustra
+los patrones de diseño que debemos usar cuando utilizamos
+claves de enteros para enlazar tablas. Esos patrones básicos son:
 
 \begin{enumerate}
 
-\item Create tables with primary keys and constraints.
+\item Crear tablas con claves primarias y restricciones.
 
-\item When we have a logical key for a person (i.e., account
-name) and we need the {\tt id} value for the person,
-depending on whether or not the person is already
-in the {\tt People} table we either need to: 
-(1) look up the person in the {\tt People} table and 
-retrieve the {\tt id} value for the person 
-or (2) add the person to the {\tt People} table and get the 
-{\tt id} value for the newly added row.
+\item Cuando tenemos una clave lógica para una persona (es decir, un
+nombre de cuenta) y necesitamos el valor del {\tt id} de esa persona,
+dependiendo de si esa persona ya está en la tabla
+{\tt Personas} o no, tendremos que:
+(1) buscar la persona en la tabla {\tt Personas} y
+recuperar el valor de {\tt id} para esa persona,
+o (2) añadir la persona a la tabla {\tt Personas} y obtener el
+valor del {\tt id} para la fila recién añadida.
 
-\item Insert the row that captures the ``follows'' relationship.
+\item Insertar la fila que indica la relación de ``seguimiento''.
 
 \end{enumerate}
 
-We will cover each of these in turn.
+Iremos explicando todos los puntos de uno en uno.
 
-\subsection{Constraints in database tables}
+\subsection{Restricciones en tablas de bases de datos}
 
-As we design our table structures, we can tell the database system 
-that we would like it to enforce a few rules on us.   These rules
-help us from making mistakes and introducing incorrect data into 
-out tables.   When we create our tables:
+Una vez diseñada la estructura de la tabla, podemos indicar al sistema
+de la base de datos que aplique unas cuantas reglas. Estas reglas nos
+ayudarán a evitar errores y a introducir correctamente los datos en
+las tablas. Cuando creamos nuestras tablas:
 
 \beforeverb
 \begin{verbatim}
-cur.execute('''CREATE TABLE IF NOT EXISTS People 
-    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
-cur.execute('''CREATE TABLE IF NOT EXISTS Follows 
-    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Personas 
+    (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Seguimientos 
+    (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id))''')
 \end{verbatim}
 \afterverb
 %
-We indicate that the {\tt name} column in the {\tt People} table must be
-{\tt UNIQUE}.   We also indicate that the combination of the two numbers
-in each row of the {\tt Follows} table must be unique.  These constraints
-keep us from making mistakes such as adding the same relationship more than
-once.
+Estamos indicando que la columna {\tt nombre} de la tabla {\tt Personas} debe ser
+{\tt UNIQUE} (única). Además indicamos que la combinación de los dos números
+de cada fila de la tabla {\tt Seguimientos} debe ser también única. Estas restricciones
+evitan que cometamos errores como añadir la misma relación entre las mismas personas
+más de una vez.
 
-We can take advantage of these constraints in the following code:
+Después, podemos aprovechar estas restricciones en el código siguiente:
 
 \beforeverb
 \begin{verbatim}
-cur.execute('''INSERT OR IGNORE INTO People (name, retrieved) 
-    VALUES ( ?, 0)''', ( friend, ) )
+cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado) 
+    VALUES ( ?, 0)''', ( amigo, ) )
 \end{verbatim}
 \afterverb
 %
-We add the {\tt OR IGNORE} clause to our {\tt INSERT} statement to indicate
-that if this particular {\tt INSERT} would cause a violation of the
-``{\tt name} must be unique'' rule, the database system is allowed to ignore the 
-{\tt INSERT}.  We are using the database constraint as a safety net
-to make sure we don't inadvertently do something incorrect.
+Aquí añadimos la clausula {\tt IGNORE} en la sentencia {\tt INSERT} para indicar
+que si este {\tt INSERT} en concreto causara una violación de la regla
+``el {\tt nombre} debe ser único'', el sistema de la base de datos está autorizado
+a {\tt ignorar} el {\tt INSERT}. De modo que estamos usando las restricciones de la base de datos
+como una red de seguridad para asegurarnos de que no hacemos algo incorrecto sin darnos cuenta.
 
-Similarly, the following code ensures that we don't add the 
-exact same {\tt Follows} relationship twice.
+De forma similar, el código siguiente se asegura de que no añadamos exactamente
+la misma relación de {\tt Seguimiento} dos veces.
 
 \beforeverb
 \begin{verbatim}
-cur.execute('''INSERT OR IGNORE INTO Follows 
-    (from_id, to_id) VALUES (?, ?)''', (id, friend_id) )
+cur.execute('''INSERT OR IGNORE INTO Seguimientos 
+    (desde_id, hacia_id) VALUES (?, ?)''', (id, amigo_id) )
 \end{verbatim}
 \afterverb
 %
-Again, we simply tell the database to ignore our attempted 
-{\tt INSERT} if it would violate the uniqueness constraint
-that we specified for the {\tt Follows} rows.
+Aquí también estamos simplemente indicándole a la base de datos que ignore cualquier intento
+de {\tt INSERT} si éste viola la restricción de unicidad
+que hemos especificado para cada fila de {\tt Seguimientos}.
 
-\subsection{Retrieve and/or insert a record}
+\subsection{Recuperar y/o insertar un registro}
 
-When we prompt the user for a Twitter account, if the account 
-exists, we must look up its {\tt id} value.  If the account
-does not yet exist in the {\tt People} table, we must insert 
-the record and get the {\tt id} value from the inserted
-row.
+Cuando pedimos al usuario una cuenta de Twitter, si la cuenta ya
+existe deberemos averiguar el valor de su {\tt id}. Si la cuenta
+no existe aún en la tabla {\tt Personas}, deberemos insertar
+el registro y obtener el valor del {\tt id} de la fila
+recién insertada.
 
-This is a very common pattern and is done twice in the program above.
-This code shows how we look up the {\tt id} for a 
-friend's account when we have extracted a \verb"screen_name"
-from a {\tt user} node in the retrieved Twitter JSON.
+Éste es un diseño muy habitual y se utiliza dos veces en el programa anterior.
+Este código muestra cómo se busca el {\tt id} de la
+cuenta de un amigo, una vez extraído su \verb"screen_name"
+desde un nodo de {\tt usuario} del JSON recuperado desde Twitter.
 
-Since over time it will be increasingly likely that the account
-will already be in the database, we first check to see if the
-{\tt People} record exists using a {\tt SELECT} statement.
+Dado que con el tiempo será cada vez más probable que la cuenta
+ya figure en la base de datos, primero comprobaremos si el registro
+existe en {\tt Personas}, usando una sentencia {\tt SELECT}.
 
-If all goes well\footnote{In general, when a sentence starts 
-with ``if all goes well'' you will find that the code needs
-to use try/except.} inside the {\tt try} section, we retrieve the
-record using {\tt fetchone()} and then retrieve the
-first (and only) element of the returned tuple and store it in 
-\verb"friend_id".
+Si todo va bien\footnote{En general, cuando una frase empieza por
+``si todo va bien''	es porque el código del que se habla necesita
+utilizar try/except.}, dentro de la sección {\tt try} recuperaremos el
+registro mediante {\tt fetchone()} y luego extraeremos el
+primer (y único) elemento de la tupla devuelta, que almacenaremos en
+\verb"amigo_id".
 
-If the {\tt SELECT} fails, the {\tt fetchone()[0]} code will fail
-and control will transfer into the {\tt except} section.
+Si el {\tt SELECT} falla, el código {\tt fetchone()[0]} también fallará,
+y el control será transferido a la sección {\tt except}.
 
 \beforeverb
 \begin{verbatim}
-        friend = u['screen_name']
-        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
-            (friend, ) )
+        amigo = u['screen_name']
+        cur.execute('SELECT id FROM Personas WHERE nombre = ? LIMIT 1',
+            (amigo, ) )
         try:
-            friend_id = cur.fetchone()[0]
-            countold = countold + 1
+            amigo_id = cur.fetchone()[0]
+            contantiguas = contantiguas + 1
         except:
-            cur.execute('''INSERT OR IGNORE INTO People (name, retrieved) 
-                VALUES ( ?, 0)''', ( friend, ) )
+            cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado) 
+                VALUES ( ?, 0)''', ( amigo, ) )
             conn.commit()
             if cur.rowcount != 1 :
-                print 'Error inserting account:',friend
+                print 'Error al insertar cuenta:',amigo
                 continue
-            friend_id = cur.lastrowid
-            countnew = countnew + 1
+            amigo_id = cur.lastrowid
+            contnuevas = contnuevas + 1
 \end{verbatim}
 \afterverb
 %
-If we end up in the {\tt except} code, it simply means that the row
-was not found, so we must insert the row.  We use {\tt INSERT OR 
-IGNORE} just to avoid errors and then call {\tt commit()} to 
-force the database to really be updated.  After the write is done, we can 
-check the {\tt cur.rowcount} to see how many rows were affected.  Since
-we are attempting to insert a single row, if the number of 
-affected rows is something other than 1, it is an error.  
+Si terminamos en el código del {\tt except}, eso sólo significa que la fila
+no se ha encontrado en la tabla, de modo que deberemos insertarla. Usamos, pues,
+{\tt INSERT OR IGNORE} para evitar posibles errores, y luego llamamos al {\tt commit()} para
+forzar a la base de datos a que se actualice de verdad. Después de que se ha realizado la escritura,
+podemos comprobar el valor de {\tt cur.rowcount}, para saber cuántas filas se han visto afectadas. Como
+estamos intentando insertar una única fila, si el número de
+filas afectadas es distinto de 1, se habría producido un error.
 
-If the {\tt INSERT} is successful, we can look at {\tt cur.lastrowid} 
-to find out what value the database assigned to the {\tt id} column in 
-our newly created row.
+Si el {\tt INSERT} tiene éxito, podemos usar {\tt cur.lastrowid}
+para averiguar el valor que la base de datos ha asignado a la columna {\tt id}
+en nuestra fila recién creada.
 
-\subsection{Storing the friend relationship}
+\subsection{Almacenar las relaciones entre amigos}
 
-Once we know the key value for both the Twitter user
-and the friend in the JSON, it is a simple matter to insert
-the two numbers into the {\tt Follows} table
-with the following code:
+Una vez que sabemos el valor de la clave tanto para del usuario de Twitter
+como para el amigo que hemos extraído del JSON, resulta sencillo insertar
+ambos números en la tabla de {\tt Seguimientos}
+con el código siguiente:
 
 \beforeverb
 \begin{verbatim}
-cur.execute('INSERT OR IGNORE INTO Follows (from_id, to_id) VALUES (?, ?)',
-    (id, friend_id) )
+cur.execute('INSERT OR IGNORE INTO Seguimientos (desde_id, hacia_id) VALUES (?, ?)',
+    (id, amigo_id) )
 \end{verbatim}
 \afterverb
 %
-Notice that we let the database take care of keeping us from ``double-inserting''
-a relationship by creating the table with a uniqueness constraint and then
-adding {\tt OR IGNORE} to our {\tt INSERT} statement.
+Fíjate que dejamos que sea la base de datos quien se ocupe de evitar la ``inserción duplicada''
+de una relación, mediante la creación de una tabla con una restricción de unicidad, de modo que
+luego en nuestra sentencia {\tt INSERT} tan sólo añadimos {\tt o ignoramos}.
 
-Here is a sample execution of this program:
+Una ejecución de ejemplo del programa sería la siguiente:
 
 \beforeverb
 \begin{verbatim}
-Enter a Twitter account, or quit: 
-No unretrieved Twitter accounts found
-Enter a Twitter account, or quit: drchuck
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 20  revisited= 0
-Enter a Twitter account, or quit: 
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit: 
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit: quit
+Introduzca una cuenta de Twitter, o salir:
+No se han encontrado cuentas de Twitter sin recuperar
+Introduzca una cuenta de Twitter, o salir: drchuck
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 20  ya visitadas= 0
+Introduzca una cuenta de Twitter, o salir: 
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 17  ya visitadas= 3
+Introduzca una cuenta de Twitter, o salir:
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 17  ya visitadas= 3
+Introduzca una cuenta de Twitter, o salir: salir
 \end{verbatim}
 \afterverb
 %
-We started with the {\tt drchuck} account and then let the program
-automatically pick the next two accounts to retrieve and add to 
-our database.
+Comenzamos con la cuenta de {\tt drchuck} y luego dejamos que el programa
+escoja de forma automática las siguientes dos cuentas para recuperar y añadir
+a nuestra base de datos.
 
-The following is the first few rows in the {\tt People} 
-and {\tt Follows} tables after this run is completed:
+Las siguientes son las primeras filas de las tablas {\tt Personas}
+y {\tt Seguimientos} después de terminar la ejecución anterior:
 
 \beforeverb
 \begin{verbatim}
-People:
+Personas:
 (1, u'drchuck', 1)
 (2, u'opencontent', 1)
 (3, u'lhawthorn', 1)
 (4, u'steve_coppin', 0)
 (5, u'davidkocher', 0)
-55 rows.
-Follows:
+55 filas.
+Seguimientos:
 (1, 2)
 (1, 3)
 (1, 4)
 (1, 5)
 (1, 6)
-60 rows.
+60 filas.
 \end{verbatim}
 \afterverb
 %
-You can see the {\tt id}, {\tt name}, and {\tt visited} fields in the 
-{\tt People} table and you see the numbers of both ends of 
-the relationship in the {\tt Follows} table.   
-In the {\tt People} table, we can see that the first three people
-have been visited and their data has been retrieved.
-The data in the {\tt Follows} table indicates that
-{\tt drchuck} (user 1) is a friend to all of the people shown in the first
-five rows.  This makes sense because
-the first data we retrieved and stored was the Twitter friends of
-{\tt drchuck}.  If you were to print more rows from the {\tt Follows} table,
-you would see the friends of users 2 and 3 as well.
+Puedes ver los campos {\tt id}, {\tt nombre}, y {\tt visitado} de la
+tabla {\tt Personas}, y también los números de ambos extremos
+de la relación en la tabla {\tt Seguimientos}.
+En la tabla {\tt Personas}, vemos que las primeras tres personas
+ya han sido visitadas y que sus datos han sido recuperados.
+Los datos de la tabla {\tt Seguidores} indican que
+{\tt drchuck} (usuario 1) es amigo de todas las personas que se muestran en las primeras
+cinco filas. Lo cual tiene sentido, porque
+los primeros datos que hemos recuperado y almacenado fueron los amigos de Twitter de
+{\tt drchuck}. Si imprimieras más filas de la tabla {\tt Seguimientos},
+verías también los amigos de los usuarios 2 y 3.
 
-\section{Three kinds of keys}
+\section{Tres tipos de claves}
 
-Now that we have started building a data model putting our
-data into multiple linked tables and linking the rows in those
-tables using {\bf keys}, we need to look at some terminology 
-around keys.  There are generally three kinds of keys used 
-in a database model.
+Ahora que hemos empezado a construir un modelo de datos, colocando
+nuestros datos en múltiples tablas enlazadas, y hemos enlazado las filas de esas
+tablas usando {\bf claves}, debemos fijarnos en cierta terminología
+acerca de esas claves. Generalmente en un modelo de base de datos hay
+tres tipos de claves que se pueden usar:
 
 \begin{itemize}
 
-\item A {\bf logical key} is a key that the ``real world'' might use
-to look up a row.   In our example data model, the {\tt name}
-field is a logical key.  It is the screen name for the user 
-and we indeed look up a user's row several times in the program
-using the {\tt name} field.  You will often find that it makes
-sense to add a {\tt UNIQUE} constraint to a logical key.  Since the 
-logical key is how we look up a row from the outside world, it makes
-little sense to allow multiple rows with the same value in the table.
+\item Una {\bf clave lógica} es una clave que se podría usar en el ``mundo real''
+para localizar una fila. En nuestro ejemplo de modelado de datos, el campo
+{\tt nombre} es una clave lógica. Es el nombre que se muestra en pantalla para el usuario
+y, en efecto, usamos el campo {\tt nombre} varias veces en el programa
+para localizar la fila correspondiente a un usuario. Comprobarás que a menudo tiene sentido
+añadir una restricción {\tt UNIQUE (única)} a una clave lógica. Como las
+claves lógicas son las que usamos para buscar una fila desde el mundo exterior, tendría
+poco sentido permitir que hubiera múltiples filas con el mismo valor en la tabla.
 
-\item A {\bf primary key} is usually a number that is assigned
-automatically by the database.  It generally has no meaning outside
-the program and is only used to link rows from different tables
-together.  When we want to look up a row in a table, usually 
-searching for the row using the primary key is the fastest 
-way to find the row.  Since primary keys are integer numbers, they 
-take up very little storage and can be compared or sorted very quickly.
-In our data model, the {\tt id} field is an example of a primary key.
+\item Una {\bf clave primaria} es normalmente un número que es asignado
+automáticamente por la base de datos. En general no tiene ningún significado fuera
+del programa y sólo se utiliza para enlazar entre sí filas de tablas diferentes.
+Cuando queremos buscar una fila en una tabla, realizar
+la búsqueda usando la clave primaria es, normalmente, el modo
+más rápido de localizarla. Como las claves primarias son números enteros,
+necesitan muy poco espacio de almacenamiento y pueden ser comparadas y ordenadas muy rápido.
+En nuestro modelo de datos, el campo {\tt id} es un ejemplo de una clave primaria.
 
-\item A {\bf foreign key} is usually a number that points to the primary key
-of an associated row in a different table.  An example of a foreign
-key in our data model is the \verb"from_id".  
+\item Una {\bf clave foránea} ({\tt foreign key})\footnote{A veces se puede ver también
+el término traducido al español como ``clave externa'' (Nota del trad.)}
+es normalmente un número que apunta a la clave primaria
+de una fila asociada en una tabla diferente. Un ejemplo de una clave foránea
+en nuestro modelo de datos es la columna \verb"desde_id".
 
 \end{itemize}
 
-We are using a
-naming convention of always calling the primary key field name
-{\tt id} and appending the suffix \verb"_id" to any field name
-that is a foreign key.
+Estamos usando como
+convención para los nombres el darle siempre al campo de clave primaria el nombre
+{\tt id} y añadir el sufijo \verb"_id" a cualquier nombre de campo
+que sea una clave foránea.
 
+\section{Uso de JSON para recuperar datos}
 
-\section{Using JOIN to retrieve data}
+Ahora que hemos cumplido con las reglas de la normalización de bases de datos
+y hemos separado los datos en dos tablas, enlazándolas entre sí usando
+claves primarias y foráneas, necesitaremos ser capaces de construir un
+{\tt SELECT} que vuelva a juntar los datos esparcidos por las tablas.
 
-Now that we have followed the rules of database normalization
-and have data separated into two tables, linked together using
-primary and foreign keys, we need to be able to build a 
-{\tt SELECT} that reassembles the data across the tables.
+SQL usa la clausula {\tt JOIN} para volver a conectar esas tablas.
+En la clausula {\tt JOIN} se especifican los campos que se utilizan
+para reconectar las filas entre las distintas tablas.
 
-SQL uses the {\tt JOIN} clause to reconnect these tables.  
-In the {\tt JOIN} clause you specify the fields that are used 
-to reconnect the rows between the tables.
-
-The following is an example of a {\tt SELECT} with a 
-{\tt JOIN} clause:
+A continuación se muestra un ejemplo de un {\tt SELECT} con una
+clausula {\tt JOIN}:
 
 \beforeverb
 \begin{verbatim}
-SELECT * FROM Follows JOIN People 
-    ON Follows.from_id = People.id WHERE People.id = 1
+SELECT * FROM Seguimientos JOIN Personas 
+    ON Seguimientos.desde_id = Personas.id WHERE Personas.id = 1
 \end{verbatim}
 \afterverb
 %
-The {\tt JOIN} clause indicates that the fields we are selecting
-cross both the {\tt Follows} and {\tt People} tables.  The {\tt ON}
-clause indicates how the two tables are to be joined:  Take the rows
-from {\tt Follows} and append the row from {\tt People} where the
-field \verb"from_id" in {\tt Follows} is the same the {\tt id} value
-in the {\tt People} table.
+La clausula {\tt JOIN} indica que los campos que estamos seleccionando
+mezclan las tablas {\tt Seguimientos} y {\tt Personas}. La clausula
+{\tt ON} indica cómo deben ser unidas las dos tablas: Toma cada fila
+de {\tt Seguimientos} y añade una fila de {\tt Personas} en la cual el
+campo \verb"desde_id" de {\tt Seguimientos} coincide con el valor {\tt id}
+en la tabla {\tt Personas}.
 
 \beforefig
 \centerline{\includegraphics[height=2.50in]{figs2/join.eps}}
 \afterfig
 
-The result of the JOIN is to create extra-long ``metarows'' which have both 
-the fields from {\tt People} and the matching fields from {\tt Follows}.
-Where there is more than one match between the {\tt id} field from {\tt People}
-and the \verb"from_id" from {\tt People}, then JOIN creates a metarow 
-for \emph{each} of the matching pairs of rows, duplicating data as needed.
+El resultado del JOIN consiste en la creación de una ``meta-fila'' extra larga, que contendrá
+tanto los campos de {\tt Personas} como los campos de la fila de {\tt Seguimientos} que cumplan la
+condición.
+Cuando hay más de una coincidencia entre el campo {\tt id} de {\tt Personas}
+y el \verb"desde_id" de {\tt Seguimientos}, JOIN creará una meta-fila
+para \emph{cada una} de las parejas de filas que coincidan, duplicando los datos si es necesario.
 
-The following code demonstrates the data that we will have in the 
-database after the multi-table Twitter spider program (above) has
-been run several times.
+El código siguiente muestra los datos que tendremos en la
+base de datos después de que el programa multi-tabla araña de Twitter anterior
+haya sido ejecutado varias veces.
 
 \beforeverb
 \begin{verbatim}
 import sqlite3
 
-conn = sqlite3.connect('spider.sqlite3')
+conn = sqlite3.connect('arana.sqlite3')
 cur = conn.cursor()
 
-cur.execute('SELECT * FROM People')
-count = 0
-print 'People:'
-for row in cur :
-   if count < 5: print row
-   count = count + 1
-print count, 'rows.'
+cur.execute('SELECT * FROM Personas')
+contador = 0
+print 'Personas:'
+for fila in cur :
+   if contador < 5: print fila
+   contador = contador + 1
+print contador, 'filas.'
 
-cur.execute('SELECT * FROM Follows')
-count = 0
-print 'Follows:'
-for row in cur :
-   if count < 5: print row
-   count = count + 1
-print count, 'rows.'
+cur.execute('SELECT * FROM Seguimientos')
+contador = 0
+print 'Seguimientos:'
+for fila in cur :
+   if contador < 5: print fila
+   contador = contador + 1
+print contador, 'filas.'
 
-cur.execute('''SELECT * FROM Follows JOIN People 
-    ON Follows.to_id = People.id WHERE Follows.from_id = 2''')
-count = 0
-print 'Connections for id=2:'
-for row in cur :
-   if count < 5: print row
-   count = count + 1
-print count, 'rows.'
+cur.execute('''SELECT * FROM Seguimientos JOIN Personas 
+    ON Seguimientos.hacia_id = Personas.id WHERE Seguimientos.desde_id = 2''')
+contador = 0
+print 'Conexiones para id=2:'
+for fila in cur :
+   if contador < 5: print fila
+   contador = contador + 1
+print contador, 'filas.'
 
 cur.close()
 \end{verbatim}
 \afterverb
 %
-In this program, we first dump out the {\tt People}
-and {\tt Follows} and then dump out a subset of the
-data in the tables joined together.
+En este programa, en primer lugar volcamos el contenido de las tablas {\tt Personas}
+y {\tt Seguimientos} y a continuación mostramos un subconjunto de
+datos de las tablas unidas entre sí.
 
-Here is the output of the program:
+Aquí tenemos la salida del programa:
 
 \beforeverb
 \begin{verbatim}
 python twjoin.py 
-People:
+Personas:
 (1, u'drchuck', 1)
 (2, u'opencontent', 1)
 (3, u'lhawthorn', 1)
 (4, u'steve_coppin', 0)
 (5, u'davidkocher', 0)
-55 rows.
-Follows:
+55 filas.
+Seguimientos:
 (1, 2)
 (1, 3)
 (1, 4)
 (1, 5)
 (1, 6)
-60 rows.
-Connections for id=2:
+60 filas.
+Conexiones para id=2:
 (2, 1, 1, u'drchuck', 1)
 (2, 28, 28, u'cnxorg', 0)
 (2, 30, 30, u'kthanos', 0)
 (2, 102, 102, u'SomethingGirl', 0)
 (2, 103, 103, u'ja_Pac', 0)
-20 rows.
+20 filas.
 \end{verbatim}
 \afterverb
 %
-You see the columns from the {\tt People} and {\tt Follows} tables and the last
-set of rows is the result of the {\tt SELECT} with the {\tt JOIN} clause.
+Se pueden ver las columnas de las tablas {\tt Personas} y {\tt Seguimientos}, seguidos del último
+conjunto de filas, que es el resultado del {\tt SELECT} con la clausula {\tt JOIN}.
 
-In the last select, we are looking for accounts that are friends of 
-``opencontent'' (i.e., {\tt People.id=2}).
+En el último select, buscamos las cuentas que sean amigas de
+``opencontent'' (es decir, de {\tt Personas.id=2}).
 
-In each of the ``metarows'' in the last select, the first two columns are
-from the {\tt Follows}
-table followed by columns three through five from the {\tt People} table.  You can also
-see that the second column (\verb"Follows.to_id") matches the third column
-({\tt People.id}) in each of the joined-up ``metarows''.
+En cada una de las ``meta-filas'' del último select, las primeras dos columnas pertenecen
+a la tabla {\tt Seguimientos}, mientras que las columnas tres a cinco pertenecen a la tabla
+{\tt Personas}. Se puede observar también cómo la segunda columna (\verb"Seguimientos.hacia_id")
+coincide con la tercera ({\tt Personas.id}) en cada una de las ``meta-filas'' unidas.
 
-\section{Summary}
+\section{Resumen}
 
-This chapter has covered a lot of ground to give you an overview of the basics
-of using a database in Python.   It is more complicated to write the code to use 
-a database to store data than Python dictionaries or flat files so there is 
-little reason to use a database unless your application truly needs the capabilities
-of a database.  The situations where a database can be quite useful are: 
-(1) when your application needs to make small many random updates within a large data set,
-(2) when your data is so large it cannot fit in a dictionary and you need to 
-look up information repeatedly, or (3) when you have a long-running process that you
-want to be able to stop and restart and retain the data from one run to the next.
+En este capítulo se han tratado un montón de temas para darte una visión de conjunto del uso básico
+de las bases de datos en Python. Es más complicado escribir el código para usar una base
+de datos que almacene los datos que utilizar diccionarios de Python o archivos planos, de modo que
+existen pocas razones para usar una base de datos, a menos que tu aplicación necesite de verdad
+las capacidades que proporciona. Las situaciones en las cuales una base de datos pueden resultar
+bastante útil son:
+(1) cuando tu aplicación necesita realizar muchos cambios pequeños de forma aleatoria en un conjunto
+de datos grandes,
+(2) cuando tienes tantos datos que no caben en un diccionario y necesitas localizar
+información con frecuencia, o
+(3) cuando tienes un proceso que va a funcionar durante mucho tiempo, y necesitas poder
+detenerlo y volverlo a poner en marcha, conservando los datos entre ejecuciones.
 
-You can build a simple database with a single table to suit many application 
-needs, but most problems will require several tables and links/relationships
-between rows in different tables.   When you start making links between 
-tables, it is important to do some thoughtful design and follow the 
-rules of database normalization to make the best use of the database's
-capabilities.  Since the primary motivation for using a database
-is that you have a large amount of data to deal with, it is important
-to model your data efficiently so your programs run as fast as possible.
+Una base de datos con una simple tabla puede resultar suficiente para cubrir las necesidades de
+muchas aplicaciones, pero la mayoría de los problemas necesitarán varias tablas y enlaces/relaciones
+entre filas de tablas diferentes. Cuando empieces a crear enlaces entre tablas,
+es importante realizar un diseño meditado y seguir las
+reglas de normalización de bases de datos, para conseguir el mejor uso de sus capacidades.
+Como la motivación principal para usar una base de datos
+suele ser el tener grandes cantidades de datos con las que tratar, resulta importante
+modelar los datos de forma eficiente, para que tu programa funcione tan rápidamente como sea
+posible. 
 
-\section{Debugging}
+\section{Depuración}
 
-One common pattern when you are developing a Python program to connect to
-an SQLite database will be to run a Python program and check the
-results using the SQLite Database Browser.  The browser allows you 
-to quickly check to see if your program is working properly.
+Un planteamiento habitual, cuando se está desarrollando un programa en Python que conecta con
+una base de datos SQLite, será ejecutar primero el programa y revisar luego los
+resultados usando el navegador de bases de datos de SQLite ({\tt SQLite Database Browser}). El
+navegador te permite revisar cuidadosamente los datos, para comprobar si tu programa está funcionando
+correctamente.
 
-You must be careful because SQLite takes care to keep two programs
-from changing the same data at the same time.   For example, if
-you open a database in the browser and make a change to the database
-and have not yet pressed the ``save'' button in the browser, the 
-browser ``locks'' the database file and keeps any other program
-from accessing the file.  In particular, your Python program
-will not be able to access the file if it is locked.
+Debes tener cuidado, ya que SQLite se encarga de evitar que dos programa puedan
+cambiar los mismos datos a la vez. Por ejemplo, si abres
+una base de datos en el navegador y realizas un cambio en la base de datos,
+pero no has pulsado aún el botón ``guardar'' del navegador, éste
+``bloqueará'' el fichero de la base de datos y evitará que cualquier otro programa
+acceda a dicho fichero. Concretamente, en ese caso tu programa Python
+no será capaz de acceder al fichero, ya que éste se encontrará bloqueado.
 
-So a solution is to make sure to either close the database browser 
-or use the {\bf File} menu to close the database in the browser
-before you attempt to access the database from Python to avoid
-the problem of your Python code failing because the database is
-locked.
+De modo que la solución pasa por asegurarse de cerrar la ventana del navegador de la base de datos,
+o bien usar el menú {\bf Archivo} para cerrar la base de datos abierta en el navegador
+antes de intentar acceder a ella desde Python, para evitar encontrarse con
+el problema de que el código de Python falla debido a que la base de datos
+está bloqueada.
 
-\section{Glossary}
+\section{Glosario}
 
 \begin{description}
 
-\item[attribute:] One of the values within a tuple.  More commonly
-called a ``column'' or ``field''.
-\index{attribute}
+\item[atributo:] Uno de los valores dentro de una tupla. Más comúnmente
+llamada ``columna'' o ``campo''..
+\index{atributo}
 
-\item[constraint:] 
-When we tell the database to enforce a rule on a field or a row
-in a table.  A common constraint is to insist that there can be no
-duplicate values in a particular field (i.e., all the values must be unique).
-\index{constraint}
-
-\item[cursor:] A cursor allows you to execute SQL commands in a database
-and retrieve data from the database.  A cursor is similar to 
-a socket or file handle for network connections and files, respectively.
+\item[cursor:] Un cursor permite ejecutar comandos SQL en una base de datos
+y recuperar los datos de ella. Un cursor es similar a un
+socket en conexiones de red o a un manejador de ficheros ({\tt handle}).
 \index{cursor}
 
-\item[database browser:] 
-A piece of software that allows you to directly connect to a database 
-and manipulate the database directly without writing a program.
-\index{database browser}
+\item[clave foránea:] Una clave numérica que apunta a la clave primaria de
+una fila en otra tabla. Las claves foráneas establecen relaciones entre filas
+almacenadas en tablas diferentes.
+\index{foránea, clave}
+\index{clave!foránea}
 
-\item[foreign key:] A numeric key that points to the primary key of 
-a row in another table.  Foreign keys establish relationships between rows
-stored in different tables.
-\index{foreign key}
+\item[clave lógica:] Una clave que el ``mundo exterior'' utiliza para localizar una fila
+concreta. Por ejemplo, en una tabla de cuentas de usuario, la dirección de e-mail de una persona
+sería un buen candidato a utilizar como clave lógica para los datos de ese usuario.
+\index{lógica, clave}
+\index{clave!lógica}
 
-\item[index:] Additional data that the database software maintains as rows
-and inserts into a table to make lookups very fast.
-\index{index}
+\item[clave primaria:] Una clave numérica asignada a cada fila, que es utilizada para
+referirnos a esa fila concreta de esa tabla desde otra tabla distinta. A menudo la base de datos
+se configura para asignar las claves primarias de forma automática, según se van insertando filas.
+\index{primaria, clave}
+\index{clave!primaria}
 
-\item[logical key:] A key that the ``outside world'' uses to look up a particular
-row.  For example in a table of user accounts, a person's email address
-might be a good candidate as the logical key for the user's data. 
-\index{logical key}
+\item[índice:] Datos adicionales que el software de la base de datos mantiene como filas
+e inserta en una tabla para conseguir que las búsquedas sean muy rápidas.
+\index{índice}
 
-\item[normalization:] Designing a data model so that no data
-is replicated.  We store each item of data at one place in the database
-and reference it elsewhere using a foreign key.
-\index{normalization}
-\index{database normalization}
+\item[navegador de base de datos:]
+Un programa que permite conectar directamente con una base de datos
+y manipularla, sin tener que escribir código para ello.
+\index{gestor de bases de datos}
+\index{base de datos!gestor}
 
-\item[primary key:] A numeric key assigned to each row that is used to 
-refer to one row in a table from another table.  Often the database
-is configured to automatically assign primary keys as rows are inserted.
-\index{primary key}
+\item[normalización:] Diseño de un modelado de datos de forma que no haya datos
+duplicados. Se almacena cada elemento de los datos en un lugar concreto de la base de datos
+y se referencia desde otros sitios usando una clave foránea.
+\index{normalización}
+\index{base de datos!normalización}
 
-\item[relation:] An area within a database that contains tuples and 
-attributes.  More typically called a ``table''.
-\index{relation}
+\item[relación:] Un área dentro de una base de datos que contiene tuplas y
+atributos. Se la conoce más habitualmente como ``tabla''.
+\index{relación}
 
-\item[tuple:] A single entry in a database table that is a set 
-of attributes.  More typically called ``row''.
-\index{tuple}
+\item[restricción:]
+Cuando le pedimos a una base de datos que imponga una regla a una campo de una fila
+en una tabla. Una restricción habitual consiste en especificar que no pueda haber
+valores repetidos en un campo concreto (es decir, que todos los valores deban ser únicos). 
+\index{restricción}
+
+\item[tupla:] Una entrada única en una base de datos, que es un conjunto
+de atributos. Se la conoce más habitualmente como ``fila''.
+\index{tupla}
 
 \end{description}
-
