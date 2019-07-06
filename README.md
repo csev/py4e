@@ -25,7 +25,7 @@ Status
 
 * Book: Preface and Chapter 1 are translated
 * Slides: Chapters 1-5 are translated
-* Book Figures: Two figures are translated
+* Book Figures: Chapter 1 figures are translated
 * Code Samples: Nothing is translated
 * Web pages: Very little translated
 
