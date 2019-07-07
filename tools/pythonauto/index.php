@@ -28,7 +28,6 @@ if ( $row !== false && isset($row['json'])) {
     $json = json_decode($row['json'], true);
     if ( isset($json["code"]) ) $OLDCODE = $json["code"];
     if ( isset($json["editor"]) ) $editor = $json["editor"];
-    if ( isset($json["python3"]) ) $python3 = $json["python3"];
 }
 
 if ( isset($_GET['editor']) && ( $_GET['editor'] == '1' || $_GET['editor'] == '0' ) ) {
@@ -41,27 +40,7 @@ if ( isset($_GET['editor']) && ( $_GET['editor'] == '1' || $_GET['editor'] == '0
 }
 $codemirror = $editor == 1;
 
-$newpython3 = $python3;
-if ( isset($_GET['python3']) && ( $_GET['python3'] == '1' || $_GET['python3'] == '0' ) ) {
-    $newpython3 = $_GET['python3']+0;
-    setcookie("py4e_python_version",($newpython3+2)."", time()+3600*24*120, '/');
-} else if ( isset($_COOKIE["py4e_python_version"]) ) {
-    $newpython3 = $_COOKIE["py4e_python_version"] - 2;
-}
-if ( $python3 != $newpython3 ) {
-    GradeUtil::gradeUpdateJson(array("python3" => $newpython3));
-    $json['python3'] = $newpython3;
-    $python3 = $newpython3;
-}
-
-// Switch to boolean
-$python3 = $python3 == 1;
-
-if ( $python3 ) {
-    require_once "exercises3.php";
-} else {
-    require_once "exercises.php";
-}
+require_once "exercises3.php";
 
 // Get any due date information
 $dueDate = SettingsForm::getDueDate();
@@ -73,7 +52,7 @@ $QTEXT = 'You can write any code you like in the window below.  There are three 
 loaded and ready for you to open if you want to do file processing:
 "mbox-short.txt", "romeo.txt", and "words.txt".';
 $DESIRED = false;
-if ( $python3 ) {
+
 $CODE = 'fh = open("romeo.txt", "r")
 
 count = 0
@@ -82,16 +61,7 @@ for line in fh:
     count = count + 1
 
 print(count,"Lines")';
-} else {
-$CODE = 'fh = open("romeo.txt", "r")
 
-count = 0
-for line in fh:
-    print line.strip()
-    count = count + 1
-
-print count,"Lines"';
-}
 $CHECKS = false;
 $EX = false;
 
@@ -398,11 +368,7 @@ function outf(text) {
         output.innerHTML = '';
         if ( window.GLOBAL_TIMER != false ) window.clearInterval(window.GLOBAL_TIMER);
         window.GLOBAL_TIMER = setTimeout("finalcheck();",2500);
-        <?php if ( $python3 ) { ?>
         Sk.python3 = true;
-        <?php } else { ?>
-        Sk.python3 = false;
-        <?php } ?>
         Sk.configure({output:outf, read: builtinRead, python3: false});
         // Sk.execLimit = 10000; // Ten Seconds
 
@@ -581,17 +547,9 @@ if ( $dueDate->message ) {
 <form id="forminput">
 <?php
     if ( $EX !== false ) {
-        if ( $python3 ) {
             echo('<button onclick="runit()" class="btn btn-primary" type="button">Ejecuta codigo</button>'."\n");
-        } else {
-            echo('<button onclick="runit()" class="btn btn-warning" type="button">Ejecuta el codigo (Python 2)</button>'."\n");
-        }
     } else {
-        if ( $python3 ) {
-            echo('<button onclick="runit()" class="btn btn-warning" type="button">Run Python3</button>'."\n");
-        } else {
-            echo('<button onclick="runit()" class="btn btn-primary" type="button">Run Python</button>'."\n");
-        }
+            echo('<button onclick="runit()" class="btn btn-warning" type="button">Ejecuta codigo</button>'."\n");
     }
     if ( strlen($CODE) > 0 ) {
         echo('<button onclick="resetcode()" class="btn btn-default" type="button">Reiniciar</button> ');
@@ -658,16 +616,7 @@ Setting:
         $editurl = reconstruct_query('index.php',array("editor" => 1));
         $textval = "Show editor";
     }
-    echo('<a href="'.$editurl.'">'.$textval.'</a>');
-
-    if ( $python3 ) {
-        $editurl = reconstruct_query('index.php',array("python3" => 0));
-        $textval = "Use Python 2";
-    } else {
-        $editurl = reconstruct_query('index.php',array("python3" => 1));
-        $textval = "Use Python 3";
-    }
-    echo(' | <a href="'.$editurl.'">'.$textval.'</a>. ');
+    echo('<a href="'.$editurl.'">'.$textval.'</a> ');
 ?>
 Este software se basa en <a href="http://skulpt.org/" target="_blank"> Skulpt </a>
 y <a href="http://codemirror.net/" target="_blank"> CodeMirror </a>.

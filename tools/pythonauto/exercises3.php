@@ -65,65 +65,65 @@ hrs = input("Introduce horas:")',
 
 
 "3.1" => Array(
-"qtext" => "<b>3.1</b> Write a program to prompt the user for hours and rate per hour using input
-to compute gross pay.  Pay the hourly rate for the hours up to 40 and
-1.5 times the hourly rate for all hours
-worked above 40 hours.  Use 45 hours and a rate of 10.50 per hour to test the
-program (the pay should be 498.75).  You should use <b>input</b> to
-read a string and <b>float()</b> to convert the string to a number.
-Do not worry about error checking the user input - assume the user types numbers properly.
+"qtext" => "<b> 3.1 </b> Escriba un programa para pedirle al usuario las horas y la tarifa por hora usando la entrada
+para calcular el salario bruto. Paga la tarifa por hora por las horas hasta 40 y
+1.5 veces la tarifa por hora para todas las horas
+Trabajó por encima de las 40 horas. Use 45 horas y una tasa de 10.50 por hora para probar el
+programa (la paga debe ser 498.75). Debes utilizar <b> input </b> para
+lee una cadena y <b> float () </b> para convertir la cadena en un número.
+No se preocupe por la comprobación de errores en la entrada del usuario: suponga que el usuario escribe los números correctamente.
 ",
 "desired" => "498.75",
 "desired2" => "Pay: 498.75",
 "code" => 'hrs = input("Enter Hours:")
 h = float(hrs)',
 "checks" => Array(
-"input" => "You must prompt the pay and rate using the input() function.",
-"print" => "You must use the print() function to print the output.",
-"if" => "You should use an if statement to decide to to the overtime computation or not.",
-"float" => "You should use the built-in float() function to convert from a string to a float.",
-"!45" => "You must read the data using input() and then convert it. The number '45' should not appear in your program.",
-"!10.5" => "You must read the data using input() and then convert it.",
-"!498" => "You must actually calculate the pay.")),
+"input" => "Debe solicitar el pago y la tasa utilizando la función input ().",
+"print" => "YDebe utilizar la función print() para imprimir la salida.",
+"if" => "Debe usar una sentencia if para decidir si se realiza el cálculo de horas extra o no.",
+"float" => "Debería usar la función float () incorporada para convertir de una cadena a un flotador.",
+"!45" => "Debe leer los datos utilizando input () y luego convertirlos. El número '45' no debe aparecer en su programa.",
+"!10.5" => "Debe leer los datos utilizando input () y luego convertirlos.",
+"!498" => "Realmente debe calcular el pago.")),
 
 "3.3" => Array(
-"qtext" => "<b>3.3</b> Write a program to prompt for a score between 0.0 and 1.0.
-If the score is out of range, print an error. If the score is between 0.0 and 1.0,
-print a grade using the following table:<br/>
+"qtext" => "<b> 3.3 </b> Escriba un programa para solicitar una puntuación entre 0.0 y 1.0.
+Si el puntaje está fuera de rango, imprima un error. Si el puntaje está entre 0.0 y 1.0,
+imprima un grado usando la siguiente tabla:<br/>
 Score    Grade<br/>
 >= 0.9     A<br/>
 >= 0.8     B<br/>
 >= 0.7     C<br/>
 >= 0.6     D<br/>
 < 0.6      F<br/>
-If the user enters a value out of range, print a suitable error message and exit.
-For the test, enter a score of 0.85.
+Si el usuario ingresa un valor fuera de rango, imprima un mensaje de error adecuado y salga.
+Para la prueba, ingrese un puntaje de 0.85.
 ",
 "desired" => "B",
 "code" => 'score = input("Enter Score: ")',
 "checks" => Array(
-"input" => "You must prompt for the score using the input() function.",
-"float" => "You should use the built-in float() function to convert from a string to a float.",
-"print" => "You must use the print() function to print the output.",
-"if" => "You should use an if statement to check the value of the score.",
-"elif" => "You should use an elif statement to check the value of the score.")
+"input" => "Debe solicitar la puntuación utilizando la función input().",
+"float" => "Debe usar la función float() incorporada para convertir de una cadena a un flotador.",
+"print" => "Debe utilizar la función print() para imprimir la salida.",
+"if" => "Debe usar una instrucción if para verificar el valor de la puntuación.",
+"elif" => "Debe usar una declaración elif para verificar el valor de la puntuación.")
 ),
 
 "4.6" => Array(
-"qtext" => "<b>4.6</b> Write a program to prompt the user for hours
-and rate per hour using input
-to compute gross pay.  Pay should be the normal rate for hours up to 40 and
-time-and-a-half for the hourly rate for all hours worked above 40 hours.
-Put the logic to do the computation of pay in
-a function called <b>computepay()</b>
-and use the function to do the computation.  The function should return a value.
-Use 45 hours and a rate of 10.50 per hour to test the
-program (the pay should be 498.75).
-You should use <b>input</b> to
-read a string and <b>float()</b> to convert the string to a number.
-Do not worry about error checking the user input unless you want to -
-you can assume the user types numbers properly.  Do not name your variable
-sum or use the sum() function.
+"qtext" => "<b> 4.6 </b> Escriba un programa para avisar al usuario por horas
+y tasa por hora utilizando entrada
+para calcular el salario bruto. El pago debe ser la tarifa normal por horas hasta 40 y
+tiempo y medio para la tarifa por hora para todas las horas trabajadas por encima de las 40 horas.
+Ponga la lógica para hacer el cálculo de la paga en
+una función llamada <b> computepay() </b>
+y usar la función para hacer el cálculo. La función debe devolver un valor.
+Use 45 horas y una tasa de 10.50 por hora para probar el
+programa (la paga debe ser 498.75).
+Debes utilizar <b> input </b> para
+lee una cadena y <b> float() </b> para convertir la cadena en un número.
+No se preocupe por la comprobación de errores en la entrada del usuario a menos que desee:
+Usted puede asumir que el usuario escribe los números correctamente. No nombre su variable
+sum o usa la función sum().
 ",
 "desired" => "498.75",
 "code" => 'def computepay(h,r):
@@ -133,25 +133,25 @@ hrs = input("Enter Hours:")
 p = computepay(10,20)
 print("Pay",p)',
 "checks" => Array(
-"input" => "You must prompt the pay and rate using the input() function.",
-"print" => "You must use the print() function to print the output.",
-"!45" => "You must prompt for the data.",
-"!10.5" => "You must prompt for the data.",
-"if" => "You should use an if statement to decide to to the overtime computation or not.",
-"float" => "You should use the built-in float() function to convert from a string to a float.",
-"def" => "You must use a function called computepay to do the computation.",
-"!sum(" => "Do not use a variable named sum or a function named sum()",
-"return" => "You must use a return statement to pass the computed pay back to the main code.",
-"computepay" => "You must use a function called computepay to do the computation.",
-"!475" => "You must actually calculate the pay.")
+"input" => "ebe solicitar el pago y la tasa utilizando la función input().",
+"print" => "Debe utilizar la función print() para imprimir la salida.",
+"!45" => "Usted debe solicitar los datos.",
+"!10.5" => "Usted debe solicitar los datos.",
+"if" => "Debe usar una sentencia if para decidir si se realiza el cálculo de horas extra o no.",
+"float" => "Debe usar la función float() incorporada para convertir de una cadena a un flotador.",
+"def" => "Debe utilizar una función llamada computepay para realizar el cálculo.",
+"!sum(" => "No use una variable llamada sum o una función llamada suma ()",
+"return" => "Debe usar una declaración return para pasar la devolución calculada al código principal.",
+"computepay" => "Debe utilizar una función llamada computepay para realizar el cálculo.",
+"!475" => "Realmente debe calcular el pago.")
 ),
 
 "5.2" => Array(
-"qtext" => "<b>5.2</b> Write a program that repeatedly prompts a user for integer numbers
-until the user enters 'done'.  Once 'done' is entered, print out the largest and smallest
-of the numbers.  If the user enters anything other than a valid number catch it
-with a try/except and put out an appropriate message and ignore the number.
-Enter 7, 2, bob, 10,  and 4 and match the output below.
+"qtext" => "<b> 5.2 </b> Escriba un programa que solicite repetidamente números enteros a un usuario
+hasta que el usuario ingrese 'hecho'. Una vez que se ingrese 'hecho', imprima el más grande y el más pequeño
+de los numeros. Si el usuario ingresa algo que no sea un número válido, cójalo
+con un try / except y envía un mensaje apropiado e ignora el número.
+Ingrese 7, 2, bob, 10 y 4 y haga coincidir la salida a continuación.
 ",
 "desired" => "Invalid input
 Maximum is 10
@@ -160,21 +160,21 @@ Minimum is 2",
 smallest = None
 while True:
     num = input("Enter a number: ")
-    if num == "done" : break
+    if num == "hecho" : break
     print(num)
 
 print("Maximum", largest)',
 "checks" => Array(
-"input" => "You must prompt for the numbers using the input() function.",
-"print" => "You must use the print() function to print the output.",
-"while" => "You should use a while statement to read the numbers.",
-"int" => "You should use the int() function to convert from a string to an integer.",
-"! 2" => "You should actually compute the maximum and minimum.",
-"!=2" => "You should actually compute the maximum and minimum.",
-"! 10" => "You should actually compute the maximum and minimum.",
-"!=10" => "You should actually compute the maximum and minimum.",
-"try" => "You should handle bad numbers using a try/except structure.",
-"except" => "You should handle bad numbers using a try/except structure.")
+"input" => "Debe solicitar los números utilizando la función input().",
+"print" => "Debe utilizar la función print() para imprimir la salida.",
+"while" => "Debe usar una declaración while para leer los números.",
+"int" => "Debe usar la función int() para convertir de una cadena a un entero.",
+"! 2" => "Debes calcular el máximo y el mínimo.",
+"!=2" => "Debes calcular el máximo y el mínimo.",
+"! 10" => "Debes calcular el máximo y el mínimo.",
+"!=10" => "Debes calcular el máximo y el mínimo.",
+"try" => "Debes manejar números malos usando una estructura try / except.",
+"except" => "Debes manejar números malos usando una estructura try / except.")
 ),
 
 "6.5" => Array(
