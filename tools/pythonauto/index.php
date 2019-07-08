@@ -48,9 +48,9 @@ $dueDate = SettingsForm::getDueDate();
 $OUTPUT->header();
 
 // Defaults
-$QTEXT = 'You can write any code you like in the window below.  There are three files
-loaded and ready for you to open if you want to do file processing:
-"mbox-short.txt", "romeo.txt", and "words.txt".';
+$QTEXT = '
+Puede escribir cualquier código que desee en la ventana de abajo. Hay tres archivos cargados y listos para que los abra si desea realizar el procesamiento de archivos: "mbox-short.txt", "romeo.txt" y "words.txt".';
+
 $DESIRED = false;
 
 $CODE = 'fh = open("romeo.txt", "r")
