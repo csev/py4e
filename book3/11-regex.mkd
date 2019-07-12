@@ -72,78 +72,78 @@ will match the regular expression.
 
 \index{string!startswith}
 
-Character matching in regular expressions
+Correspondência de caracteres em expressões regulares
 -----------------------------------------
 
-There are a number of other special characters that let us build even
-more powerful regular expressions. The most commonly used special
-character is the period or full stop, which matches any character.
+Existem vários caracteres especiais que nos permitem construir expressões regulares ainda
+mais poderosas. O caractere especial mais comumente
+usado é o ponto final, que combina com qualquer caractere.
 
-\index{wild card}
-\index{regex!wild card}
+\index{curinga}
+\index{regex!curinga}
 
-In the following example, the regular expression `F..m:` would match any
-of the strings "From:", "Fxxm:", "F12m:", or "F!@m:" since the period
-characters in the regular expression match any character.
+No exemplo seguinte, a expressão regular `F..m:` se encaixaria com
+qualquer uma das strings "From:", "Fxxm:", "F12m:", ou "F!@m:" já que os caracteres
+de ponto final na expressão regular combinam com qualquer outro caractere.
 
 \VerbatimInput{../code3/re03.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-This is particularly powerful when combined with the ability to indicate
-that a character can be repeated any number of times using the `*` or
-`+` characters in your regular expression. These special characters mean
-that instead of matching a single character in the search string, they
-match zero-or-more characters (in the case of the asterisk) or
-one-or-more of the characters (in the case of the plus sign).
+Isso é particularmente poderoso quando combinado com a habilidade
+de indicar que um caractere pode ser repetido inúmeras vezes usando os caracteres `*` ou
+`+` na sua expressão regular. Esses caracteres especiais significam
+que, em vez de corresponder a um único caractere na string de pesquisa, eles
+correspondem à zero ou mais caracteres (no caso do asterisco) ou
+um ou mais caracteres (no caso do sinal de mais).
 
-We can further narrow down the lines that we match using a repeated
-*wild card* character in the following example:
+Podemos restringir ainda mais as linhas que combinamos usando um caractere 
+*curinga* repetido no seguinte exemplo:
 
 \VerbatimInput{../code3/re04.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-The search string `^From:.+@` will successfully match lines that start
-with "From:", followed by one or more characters (`.+`), followed by an
-at-sign. So this will match the following line:
+A string de pesquisa `^From:.+@` irá combinar com sucesso linhas que comece
+com "From:", seguido de um ou mais caracteres (`.+`), seguido por um
+sinal de arroba. Então irá corresponder a seguinte linha:
 
 ~~~~
 From: stephen.marquard@uct.ac.za
 ~~~~
 
-You can think of the `.+` wildcard as expanding to match all the
-characters between the colon character and the at-sign.
+Você pode pensar no curinga `.+` como expansível para corresponder a todos
+os caracteres entre o caractere de dois pontos e o símbolo de arroba.
 
 ~~~~
 From:.+@
 ~~~~
 
-It is good to think of the plus and asterisk characters as "pushy". For
-example, the following string would match the last at-sign in the string
-as the `.+` pushes outwards, as shown below:
+É bom pensar nos sinais de mais e asterisco como “agressivos”. Por
+exemplo, a string a seguir corresponderia o ultimo sinal de arroba na string
+conforme o `.+` é empurrado para fora, como mostrado abaixo:
 
 ~~~~
 From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen @iupui.edu
 ~~~~
 
-It is possible to tell an asterisk or plus sign not to be so "greedy" by
-adding another character. See the detailed documentation for information
-on turning off the greedy behavior.
+É possível dizer que um asterisco ou sinal de mais não seja tão “ganancioso”
+adicionando outro caractere. Veja a documentação detalhada para obter informações
+sobre como desativar o comportamento ganancioso.
 
-\index{greedy}
+\index{ganancioso}
 
-Extracting data using regular expressions
+Extraindo dados usando expressões regulares
 -----------------------------------------
 
-If we want to extract data from a string in Python we can use the
-`findall()` method to extract all of the substrings which
-match a regular expression. Let's use the example of wanting to extract
-anything that looks like an email address from any line regardless of
-format. For example, we want to pull the email addresses from each of
-the following lines:
+Se quisermos extrair dado de uma string em Python podemos usar o método
+`findall()` para extrair todas as substrings que
+correspondem a expressão regular. Vamos usar o exemplo de querer extrair
+qualquer coisa que pareça um endereço de email de qualquer linha independente do
+formato. Por exemplo, queremos extrair os endereços de email de 
+cada linha a seguir:
 
 ~~~~
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -153,10 +153,10 @@ Received: (from apache@localhost)
 Author: stephen.marquard@uct.ac.za
 ~~~~
 
-We don't want to write code for each of the types of lines, splitting
-and slicing differently for each line. This following program uses
-`findall()` to find the lines with email addresses in them
-and extract one or more addresses from each of those lines.
+Nós não queremos escrever código para cada um dos tipos de linha, dividindo 
+e fatiando de forma diferente cada linha. O seguinte programa usa
+`findall()` achar as linhas que contenham endereços de email
+e extrair um ou mais endereços de cada uma dessas linhas.
 
 \index{findall}
 \index{regex!findall}
@@ -166,42 +166,41 @@ and extract one or more addresses from each of those lines.
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-The `findall()` method searches the string in the second
-argument and returns a list of all of the strings that look like email
-addresses. We are using a two-character sequence that matches a
-non-whitespace character (`\S`).
+O método  `findall()` procura a string no segundo
+argumento e retorna uma lista de todas as strings que pareçam endereços 
+de email. Estamos usando uma sequência de dois caracteres que correspondem
+a um caractere sem espaço em branco (`\S`).
 
-The output of the program would be:
+A saída do programa seria:
 
 ~~~~
 ['csev@umich.edu', 'cwen@iupui.edu']
 ~~~~
 
-Translating the regular expression, we are looking for substrings that
-have at least one non-whitespace character, followed by an at-sign,
-followed by at least one more non-whitespace character. The
-`\S+` matches as many non-whitespace characters as
-possible.
+Traduzindo a expressão regular, estamos procurando substrings que
+tenham pelo menos um caractere que não seja espaço em branco, seguido por um arroba,
+seguido por pelo menos mais um caractere que não seja espaço em branco. O
+`\S+` combina o maior número possível de caracteres que não são espaços em branco.
 
-The regular expression would match twice (csev@umich.edu and
-cwen@iupui.edu), but it would not match the string "@2PM" because there
-are no non-blank characters *before* the at-sign. We can
-use this regular expression in a program to read all the lines in a file
-and print out anything that looks like an email address as follows:
+A expressão regular corresponderia duas vezes (csev@umich.edu and
+cwen@iupui.edu), mas não corresponderia a string “@2PM” pois não
+há caracteres não em branco *antes* do arroba. Podemos
+Podemos usar essa expressão regular em um programa para ler todas as linhas em um arquivo
+e exibir qualquer coisa que pareça com um endereço de email da seguinte forma:
 
 \VerbatimInput{../code3/re06.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-We read each line and then extract all the substrings that match our
-regular expression. Since `findall()` returns a list, we
-simply check if the number of elements in our returned list is more than
-zero to print only lines where we found at least one substring that
-looks like an email address.
+Lemos cada linha e então extraimos todas as substrings que correspondem nossa
+expressão regular. Já que `findall()` retorna uma lista, podemos
+simplesmente checar se o número de elementos na nossa lista retornada é maior 
+que zero para imprimir apenas linhas onde encontramos pelo menos uma substring que
+pareça com um endereço de email.
 
-If we run the program on *mbox.txt* we get the following
-output:
+Se executarmos o programa em *mbox.txt* teremos a seguinte
+saída:
 
 ~~~~
 ['wagnermr@iupui.edu']
@@ -215,38 +214,38 @@ output:
 ['source@collab.sakaiproject.org;']
 ~~~~
 
-Some of our email addresses have incorrect characters like "<" or ";"
-at the beginning or end. Let's declare that we are only interested in
-the portion of the string that starts and ends with a letter or a
-number.
+Alguns de nossos endereços de emails tem caracteres incorretos como "<" ou ";"
+no início ou no final. Vamos declarar que estamos interessados apenas na
+parte da string que começa e termina com uma letra ou um
+número.
 
-To do this, we use another feature of regular expressions. Square
-brackets are used to indicate a set of multiple acceptable characters we
-are willing to consider matching. In a sense, the `\S` is
-asking to match the set of "non-whitespace characters". Now we will be a
-little more explicit in terms of the characters we will match.
+Para fazer isso, usamos outro recurso de expressão regular. Colchetes
+são usados para indicar um conjunto de múltiplos caracteres aceitáveis que
+estamos dispostos a considerar correspondente. De certo modo, o `\S` está
+pedindo para combinar o conjunto de “caracteres que não são espaços em branco”. Agora seremos 
+um pouco mais explícitos em termos dos caracteres que iremos combinar.
 
-Here is our new regular expression:
+Aqui está nossa nova expressão regular:
 
 ~~~~
 [a-zA-Z0-9]\S*@\S*[a-zA-Z]
 ~~~~
 
-This is getting a little complicated and you can begin to see why
-regular expressions are their own little language unto themselves.
-Translating this regular expression, we are looking for substrings that
-start with a *single* lowercase letter, uppercase letter,
-or number "[a-zA-Z0-9]", followed by zero or more non-blank characters
-(`\S*`), followed by an at-sign, followed by zero or more
-non-blank characters (`\S*`), followed by an uppercase or
-lowercase letter. Note that we switched from `+` to `*` to indicate
-zero or more non-blank characters since `[a-zA-Z0-9]` is already one
-non-blank character. Remember that the `*` or `+` applies to the single
-character immediately to the left of the plus or asterisk.
+Isto está começando a ficar um pouco complicado e você pode começar a ver porque
+expressões regulares são uma pequena linguagem própria.
+Traduzindo essa expressão regular, estamos procurando por substrings que
+iniciem com uma *única* letra minúscula, letra maiúscula,
+ou número "[a-zA-Z0-9]", seguido por zero ou mais caracteres não em branco
+(`\S*`), seguido por um arroba, seguido por zero ou mais 
+não em branco (`\S*`), seguido por uma letra minúscula ou
+maiúscular. Note que trocamos de  `+` para `*` para indicar 
+zero ou mais caracteres não em branco desde que `[a-zA-Z0-9]` já é um
+caractere não em branco. Lembre-se que o `*` ou `+` se aplica ao caractere único
+imediatamente a esquerda do sinal de mais ou do asterisco.
 
-\index{regex!character sets(brackets)}
+\index{regex!conjunto caractere(colchetes)}
 
-If we use this expression in our program, our data is much cleaner:
+Se usarmos essa expressão em nosso programa, nosso dado é muito mais limpo:
 
 \VerbatimInput{../code3/re07.py} 
 \begin{trinketfiles}
@@ -265,16 +264,16 @@ If we use this expression in our program, our data is much cleaner:
 ['apache@localhost']
 ~~~~
 
-Notice that on the `source@collab.sakaiproject.org` lines, our regular
-expression eliminated two letters at the end of the string (">;").
-This is because when we append `[a-zA-Z]` to the end of our regular
-expression, we are demanding that whatever string the regular expression
-parser finds must end with a letter. So when it sees the ">" at the end of
-"sakaiproject.org>;" it simply stops at the last "matching" letter it
-found (i.e., the "g" was the last good match).
+Perceba que nas linhas `source@collab.sakaiproject.org` lines, nossa expressão 
+regular eliminou duas letras no final da string (">;").
+Isso acontece porque quando acrescentamos `[a-zA-Z]` ao final da nossa expressão
+regular, estamos exigindo que qualquer string que o analisador de expressões
+regulares encontre deve terminar com uma letra. Então quando se vê  ">" no final de 
+"sakaiproject.org>;" ele simplesmente para na ultima letra “correpondente” 
+encontrada (i.e., o “g” foi a ultima correspondencia).
 
-Also note that the output of the program is a Python list that has a
-string as the single element in the list.
+Veja também que a saída do programa é uma lista de Python que contém uma
+string como unico elemento na lista.
 
 Combining searching and extracting
 ----------------------------------
