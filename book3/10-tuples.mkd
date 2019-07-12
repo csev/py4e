@@ -519,104 +519,79 @@ Debugging
 ---------
 
 \index{debugging}
-\index{data structure}
-\index{shape error}
-\index{error!shape}
+\index{estrutura de dados}
+\index{erro de forma}
+\index{erro!forma}
 
-Lists, dictionaries and tuples are known generically as *data
-structures*; in this chapter we are starting to see compound
-data structures, like lists of tuples, and dictionaries that contain
-tuples as keys and lists as values. Compound data structures are useful,
-but they are prone to what I call *shape errors*; that
-is, errors caused when a data structure has the wrong type, size, or
-composition, or perhaps you write some code and forget the shape of your
-data and introduce an error. For example, if you are expecting a list with one integer and I give you a plain old integer (not in a list), it won't work.
-
-Glossary
+Listas, dicionários e tuplas são ocnhecidos genericamente como *estrutura
+de dados*; neste capítulo estamos começando a ver estruturas compostas, como
+listas de tuplas, e dicionários que contém tuplas como chaves e listas como valores. 
+Tais estruturas são úteis, mas elas são propensas ao que chamamos de *erros de forma*; 
+Isto é, erros causados quando a estrutura de dados tem o tipo, tamanho ou composição errada,
+Ou talvez você escreva algum código e esqueça da forma dos seus dados e introduza um erro.
+Por exemplo, se você está esperando uma lista com um inteiro e eu te dou um bom e velho inteiro
+(não em uma lista). Não funciona.
+Glossário
 --------
 
-comparable
-:   A type where one value can be checked to see if it is greater than,
-    less than, or equal to another value of the same type. Types which
-    are comparable can be put in a list and sorted.
-\index{comparable}
+atribuição por tuplas
+:   Uma atribuição com uma sequência no lado direito e uma tupla de variáveis do lado esquerdo. O lado direito é avaliado e então seus elementos são atribuídos às variáveis do lado esquerdo.
+\index{atribuição por tuplas}
+\index{tuplas!atribuição}
 
-data structure
-:   A collection of related values, often organized in lists,
-    dictionaries, tuples, etc.
-\index{data structure}
+comparável
+:   Um tipo no qual um valor por ser verificado para ver se é maior, menor, ou igual a outro valor desse mesmo tipo. Quando são comparáveis, podem ser colocados em listas e também serem ordenados.
+\index{comparável}
 
 DSU
-:   Abbreviation of "decorate-sort-undecorate", a pattern that involves
-    building a list of tuples, sorting, and extracting part of the
-    result.
-\index{DSU pattern}
+:   Aberviação de _"decorate-sort-undecorate"_ (decorar-ordenar-esquecer), um padrão que envolve construir uma lista de tuplas, ordenar e então etrair parte do resultado.
+\index{padrão DSU}
 
-gather
-:   The operation of assembling a variable-length argument tuple.
-\index{gather}
+espalhar
+:   A operação de tratar uma sequência como uma lista de argumentos. \index{espalhar}
+
+estrutura de dados
+:   Uma coleção de valores relacionados, frequentemente organizados em listas, dicionários, tuplas, etc.
+\index{estrutura de dados}
+
+forma (de uma estrutura de dados)
+:   O conjunto de tipo, tamanho e composição de uma estrutura de dados. \index{forma}
 
 hashable
-:   A type that has a hash function. Immutable types like integers,
-    floats, and strings are hashable; mutable types like lists and
-    dictionaries are not.
+:   Um tipo que tem uma funçao hash. Tipos imutáveis como inteiros, _floats_ e _strings_ são hashable, enquanto mutáveis como listas e dicionários não são. 
 \index{hashable}
 
-scatter
-:   The operation of treating a sequence as a list of arguments.
-\index{scatter}
-
-shape (of a data structure)
-:   A summary of the type, size, and composition of a data structure.
-\index{shape}
+reunir
+:   A operação de montar uma tupla de argumentos de tamanho variável.
+\index{reunir}
 
 singleton
-:   A list (or other sequence) with a single element.
-\index{singleton}
+:   Uma lista (ou outr sequência) com um único elemento. \index{singleton}
 
-tuple
-:   An immutable sequence of elements.
-\index{tuple}
+tupla
+:   Uma sequência imutável de elementos.
+ \index{tupla}
 
-tuple assignment
-:   An assignment with a sequence on the right side and a tuple of
-    variables on the left. The right side is evaluated and then its
-    elements are assigned to the variables on the left.
-\index{tuple assignment}
-\index{assignment!tuple}
-
-Exercises
+Exercícios
 ---------
 
-**Exercise 1: Revise a previous program as follows: Read and parse the
-"From" lines and pull out the addresses from the line. Count the number
-of messages from each person using a dictionary.**
-
-**After all the data has been read, print the person with the most commits
-by creating a list of (count, email) tuples from the dictionary. Then
-sort the list in reverse order and print out the person who has the most
-commits.**
-
+**Exercício 1: Revise um programa anterior como é pedido: Leia e analise as linhas com _"From"_ e retire os endereços dessas linhas. Conte o número de mensagens de cada pessoa usando um dicionário. **
+**Depois de todos os dados serem lidos, mostre a pessoa com mais envios criando uma lista de tuplas (contagem, email) do dicionário. Então, ordene a lista em ordem reversa e mostre a pessoa na primeira posição. **
 ~~~~
-Sample Line:
+Linha simples:
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
-
-Enter a file name: mbox-short.txt
+Digite o nome do arquivo: mbox-short.txt
 cwen@iupui.edu 5
 
-Enter a file name: mbox.txt
+Digite o nome do arquivo: mbox.txt
 zqian@umich.edu 195
 ~~~~
 
-**Exercise 2: This program counts the distribution of the hour of the day
-for each of the messages. You can pull the hour from the "From" line by
-finding the time string and then splitting that string into parts using
-the colon character. Once you have accumulated the counts for each hour,
-print out the counts, one per line, sorted by hour as shown below.**
+**Exercício 2: Esse programa conta a distribuição de horas no dia para cada uma das mensagens. Você pode retirar a hora da linha com _"From"_ achando a string de horário e então separando ela em partes usando o caractere ":" (dois pontos). Uma vez acumuladas as contagens para cada hora, mostre os valores, um por linha, ordenados por hora como segue abaixo: **
 
 ~~~~
 python timeofday.py
-Enter a file name: mbox-short.txt
+Digite o nome do arquivo: mbox-short.txt
 04 3
 06 1
 07 1
@@ -631,15 +606,6 @@ Enter a file name: mbox-short.txt
 19 1
 ~~~~
 
-**Exercise 3: Write a program that reads a file and prints the
-*letters* in decreasing order of frequency. Your program
-should convert all the input to lower case and only count the letters
-a-z. Your program should not count spaces, digits, punctuation, or
-anything other than the letters a-z. Find text samples from several
-different languages and see how letter frequency varies between
-languages. Compare your results with the tables at
-<https://wikipedia.org/wiki/Letter_frequencies>.**
-
-\index{letter frequency}
-\index{frequency!letter}
-
+**Exercício 3: Escreva um programa que leia um arquivo e mostre as *letras* em ordem decrescente de frequência. Seu programa deve converter todas as entradas para Caixa baixa e apenas contar as letras de a à z. Não conte espaços, dígitos, pontuações, ou qualquer coisa que não seja uma letra do alfabeto. Encontre textos simples de diversas línguas diferentes e veja como a frequência de letras varia entre os idiomas. Compare seis resultados com as tabelas em <https://wikipedia.org/wiki/Letter_frequencies>.**
+\index{frequência de letras}
+\index{letras!frequência}
