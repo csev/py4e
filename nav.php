@@ -41,7 +41,9 @@ if ( isset($_SESSION['id']) ) {
         $submenu->addLink('Test LTI Tools', $T . 'dev');
     }
     $submenu->addLink('Logout', $R.'logout');
-    if ( isset($_SESSION['avatar']) ) {
+
+    // TODO: Put Avatar back in
+    if ( false && isset($_SESSION['avatar']) ) {
         $set->addRight('<img src="'.$_SESSION['avatar'].'" style="height: 2em;"/>', $submenu);
         // htmlentities($_SESSION['displayname']), $submenu);
     } else {
