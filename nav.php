@@ -42,8 +42,7 @@ if ( isset($_SESSION['id']) ) {
     }
     $submenu->addLink('Logout', $R.'logout');
 
-    // TODO: Put Avatar back in
-    if ( false && isset($_SESSION['avatar']) ) {
+    if ( isset($_SESSION['avatar']) ) {
         $set->addRight('<img src="'.$_SESSION['avatar'].'" style="height: 2em;"/>', $submenu);
         // htmlentities($_SESSION['displayname']), $submenu);
     } else {
