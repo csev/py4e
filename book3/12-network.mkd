@@ -1,84 +1,79 @@
-Networked programs
-==================
+Progragamas com a rede
+=========================
 
-While many of the examples in this book have focused on reading files
-and looking for data in those files, there are many different sources of 
-information when one considers the Internet.
+Enquanto vários dos exemplos no livro estão focados em ler arquivos
+e procurar dados nesses arquivos, existem várias fontes de informação diferentes
+quando consideramos a Internet.
 
-In this chapter we will pretend to be a web browser and retrieve web
-pages using the HyperText Transfer Protocol (HTTP). Then we will read
-through the web page data and parse it.
+Neste capítulo, fingiremos ser um navegador da internet e acessaremos
+as páginas da internet utilizando HyperText Transfer Protocol (HTTP). Então 
+iremos os dados dessa página e utilizá-los.
 
 HyperText Transfer Protocol - HTTP
------------------------------------
+------------------------------------
 
-The network protocol that powers the web is actually quite simple and
-there is built-in support in Python called `sockets` which
-makes it very easy to make network connections and retrieve data over
-those sockets in a Python program.
+O protocolo de rede que provê a internet é atualmente simples e
+existem suportes nativos em Python chamados `soquetes` que
+facilita o trabalho de fazer conexões na rede e recuperar dados por meio
+dos soquetes no programa de Python.
 
-A *socket* is much like a file, except that a single
-socket provides a two-way connection between two programs. You can both
-read from and write to the same socket. If you write something to a
-socket, it is sent to the application at the other end of the socket. If
-you read from the socket, you are given the data which the other
-application has sent.
+Um soquete parece com um arquivo, exceto que um simples soquete provê
+uma conexão de via dupla entre dois programas. É possível ler e escrever
+com o mesmo soquete. Se algo for escrito por um soquete, isso é enviado à 
+aplicação que está do outro lado do soquete. Se algo for lido de um soquete,
+os dados captados foram enviados pela outra aplicação.
 
-But if you try to read a socket when the program on the other end of the
-socket has not sent any data, you just sit and wait. If the programs on
-both ends of the socket simply wait for some data without sending
-anything, they will wait for a very long time, so an important part of programs
-that communicate over the Internet is to have some sort of protocol.
+Porém, ao tentar ler os dados de um soquete em que a outra aplicação não
+enviou nenhum dado, apenas sente e espere. Se os programas do soquete simplesmente
+esperarem por dados sem enviar nada, eles esperarão por muito lempo, então é uma
+parte importante dos programas que se comunicam pela Internet é ter um protocolo.
 
-A protocol is a set of precise rules that
-determine who is to go first, what they are to do, and then what the
-responses are to that message, and who sends next, and so on. In a sense
-the two applications at either end of the socket are doing a dance and
-making sure not to step on each other's toes.
+Um protocolo é um conjunto de regras que determinam quem vai primeiro, o que ele
+tem que fazer, quais as respostas para essa mensagem, quem envia depois, e assim 
+por diante. Em resumo, cada uma das aplicações num soquete estão dançando e 
+certificando de que nenhum dos dois pise no pé do outro.
 
-There are many documents that describe these network protocols. The
-HyperText Transfer Protocol is described in the following document:
+Existem vários documentos que descrevem esses protocolos de rede. O protocolo HTTP 
+é descrito no documento abaixo:
 
 <https://www.w3.org/Protocols/rfc2616/rfc2616.txt>
 
-This is a long and complex 176-page document with a lot of detail. If
-you find it interesting, feel free to read it all. But if you take a
-look around page 36 of RFC2616 you will find the syntax for the GET
-request. To request a document from a web server, we make a connection
-to the `www.pr4e.org` server on port 80, and then send a
-line of the form
+Esse é um complexo e longo documento de 176 páginas com vários detalhes. Se você o
+achar interessante, sinta-se livre para ler todo. Mas se você der uma olhada por 
+volta da página 36 do RFC2616, você encontrará a sintáxe para a solicitação *GET*.
+Para solicitar um documento de um servidor da Internet, nos conectamos com o
+servidor `www.pr4e.org` pela porta 80 e então enviamos uma linha da forma:
 
 `GET http://data.pr4e.org/romeo.txt HTTP/1.0 `
 
-where the second parameter is the web page we are requesting, and then
-we also send a blank line. The web server will respond with some header
-information about the document and a blank line followed by the document
-content.
+Em que o segundo parâmetro é a página que estamos solicitando e ainda enviamos uma
+linha em branco. O servidor responderá com uma informação de cabeçalho sobre o
+documento e a linha em branco seguida do conteúdo do documento.
 
-The world's simplest web browser
---------------------------------
+O navegador da internet mais simples do mundo
+-----------------------------------------------
 
-Perhaps the easiest way to show how the HTTP protocol works is to write
-a very simple Python program that makes a connection to a web server and
-follows the rules of the HTTP protocol to request a document and
-display what the server sends back.
+Talvez a forma mais fácil de mostrar como o protocolo HTTP funciona é
+escrevendo um simples programa em Python que faz conexão com um servidor 
+da internet e segue as regras do protocolo HTTP para solicitar um documento
+e mostrar em tela o que o servidor enviou como reposta.
 
 \VerbatimInput{../code3/socket1.py}
 
-First the program makes a connection to port 80 on the server
-[www.py4e.com](http://www.py4e.com). Since our program is playing the role
-of the "web browser", the HTTP protocol says we must send the GET
-command followed by a blank line. `\r\n` signifies an EOL (end of line),
-so `\r\n\r\n` signifies nothing between two EOL sequences. That is the
-equivalent of a blank line.
+Primeiramente o programa faz conexão com a porta 80 no servidor 
+[www.py4e.com](http://www.py4e.com). Enquanto nosso programa está sendo o
+"navegador da internet", o protocolo HTTP diz que precimaos enviar o 
+comando *GET* seguido de uma linha em branco. `\r\n` significa um
+FDL (final de linha), então `\r\n\r\n` significa nada entre dois FDL em 
+sequência. Isso é equivalente a uma linha em branco.
 
 ![A Socket Connection](height=2.0in@../images/socket)
 
-Once we send that blank line, we write a loop that receives data in
-512-character chunks from the socket and prints the data out until there
-is no more data to read (i.e., the recv() returns an empty string).
+Tendo enviado a linha em branco, nós escrevemos um laço que recebe dados 
+em pedaços de 512 caracteres do soquete e mostra na tela até não haver
+mais dados para ler (i.e., the recv() retorna uma string nula)
 
-The program produces the following output:
+O programa produz a seguinte saída:
 
 ~~~~
 HTTP/1.1 200 OK
@@ -94,38 +89,38 @@ Expires: Wed, 11 Jan 1984 05:00:00 GMT
 Connection: close
 Content-Type: text/plain
 
-But soft what light through yonder window breaks
-It is the east and Juliet is the sun
-Arise fair sun and kill the envious moon
-Who is already sick and pale with grief
+Mas, sutil! que luz ultrapassa aquela janela?
+Esse é o leste, e Julieta é o sol.
+Ascenda, honesto sol, e acabe com a invejosa lua,
+Que já está doente e pálida com o luto,
 ~~~~
 
-The output starts with headers which the web server sends to describe
-the document. For example, the `Content-Type` header
-indicates that the document is a plain text document
-(`text/plain`).
+A saída começa com um cabeçalho que o servidor envia para descrever
+o documento. Por exemplo, o cabeçalho `Content-Type` (tipo de conteúdo) 
+indica que o documento é um texto simples (`text/plain`).
 
-After the server sends us the headers, it adds a blank line to indicate
-the end of the headers, and then sends the actual data of the file
+Após o servidor enviar o cabeçalho, ele adiciona uma linha em branco
+para indicar o final do cabeçalho e então envia os dados do arquivo 
 *romeo.txt*.
 
-This example shows how to make a low-level network connection with
-sockets. Sockets can be used to communicate with a web server or with a
-mail server or many other kinds of servers. All that is needed is to
-find the document which describes the protocol and write the code to
-send and receive the data according to the protocol.
+Esse exemplo mostra como fazer uma conexão de rede de baixo nível
+com soquetes. Soquetes podem ser usados para comunicações com 
+um servidor na internet ou de e-mail ou qualquer outro tipo de servidor. 
+O necessário é encontrar o documento que descreve o protocolo e escrever 
+um código que envie e receba os dados de acordo com o protocolo.
 
-However, since the protocol that we use most commonly is the HTTP web
-protocol, Python has a special library specifically designed to support
-the HTTP protocol for the retrieval of documents and data over the web.
+Entretanto, já que o protocolo mais comum é o HTTP, Python tem uma 
+biblioteca, especificamente criada que suporta o protocolo HTTP para 
+recuperação de documentos e dados pela internet.
 
-One of the requirements for using the HTTP protocol is the need to send
-and receive data as bytes objects, instead of strings. In the preceding
-example, the `encode()` and `decode()` methods convert strings into bytes
-objects and back again.
+Um dos requisitos para o uso de protocolo HTTP é a necessidade de 
+enviar e receber dados como objetos em *bytes*, ao invés de *strings*. 
+No exemplo seguinte, os métodos `encode()` e `decode()` convertem 
+*strings* em  objetos em *bytes* e vice versa.
 
-The next example uses `b''` notation to specify that a variable should
-be stored as a bytes object. `encode()` and `b''` are equivalent.
+O exemplo seguinte utiliza a notação `b''` para especificar a variável 
+que precisa ser armazenada como um objeto em *bytes*. `encode()` e
+`b''` são equivalentes.
 
 ~~~~
 >>> b'Hello world'
