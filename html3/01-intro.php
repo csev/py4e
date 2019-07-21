@@ -284,7 +284,7 @@ SyntaxError: invalid syntax
 <p>Again in all three types of errors, Python is merely trying its hardest to do exactly what you have asked.</p>
 <h2 id="debugging">Debugging</h2>
 <p></p>
-<p>When you Python spits out an error or even when it gives you a result that is different from what you had intended, then begins the hunt for the cause of the error. Debugging is the process of finding the cause of the error in your code. When you are debugging a program, and especially if you are working on a hard bug, there are four things to try:</p>
+<p>When Python spits out an error or even when it gives you a result that is different from what you had intended, then begins the hunt for the cause of the error. Debugging is the process of finding the cause of the error in your code. When you are debugging a program, and especially if you are working on a hard bug, there are four things to try:</p>
 <dl>
 <dt>reading</dt>
 <dd>Examine your code, read it back to yourself, and check that it says what you meant to say.

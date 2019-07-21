@@ -14,13 +14,13 @@
 <body>
 <h1 id="networked-programs">Networked programs</h1>
 <p>While many of the examples in this book have focused on reading files and looking for data in those files, there are many different sources of information when one considers the Internet.</p>
-<p>In this chapter we will pretend to be a web browser and retrieve web pages using the HyperText Transfer Protocol (HTTP). Then we will read through the web page data and parse it.</p>
-<h2 id="hypertext-transfer-protocol---http">HyperText Transfer Protocol - HTTP</h2>
-<p>The network protocol that powers the web is actually quite simple and there is built-in support in Python called <code>sockets</code> which makes it very easy to make network connections and retrieve data over those sockets in a Python program.</p>
+<p>In this chapter we will pretend to be a web browser and retrieve web pages using the Hypertext Transfer Protocol (HTTP). Then we will read through the web page data and parse it.</p>
+<h2 id="hypertext-transfer-protocol---http">Hypertext Transfer Protocol - HTTP</h2>
+<p>The network protocol that powers the web is actually quite simple and there is built-in support in Python called <code>socket</code> which makes it very easy to make network connections and retrieve data over those sockets in a Python program.</p>
 <p>A <em>socket</em> is much like a file, except that a single socket provides a two-way connection between two programs. You can both read from and write to the same socket. If you write something to a socket, it is sent to the application at the other end of the socket. If you read from the socket, you are given the data which the other application has sent.</p>
 <p>But if you try to read a socket when the program on the other end of the socket has not sent any data, you just sit and wait. If the programs on both ends of the socket simply wait for some data without sending anything, they will wait for a very long time, so an important part of programs that communicate over the Internet is to have some sort of protocol.</p>
 <p>A protocol is a set of precise rules that determine who is to go first, what they are to do, and then what the responses are to that message, and who sends next, and so on. In a sense the two applications at either end of the socket are doing a dance and making sure not to step on each other's toes.</p>
-<p>There are many documents that describe these network protocols. The HyperText Transfer Protocol is described in the following document:</p>
+<p>There are many documents that describe these network protocols. The Hypertext Transfer Protocol is described in the following document:</p>
 <p><a href="https://www.w3.org/Protocols/rfc2616/rfc2616.txt" class="uri">https://www.w3.org/Protocols/rfc2616/rfc2616.txt</a></p>
 <p>This is a long and complex 176-page document with a lot of detail. If you find it interesting, feel free to read it all. But if you take a look around page 36 of RFC2616 you will find the syntax for the GET request. To request a document from a web server, we make a connection to the <code>www.pr4e.org</code> server on port 80, and then send a line of the form</p>
 <p><code>GET http://data.pr4e.org/romeo.txt HTTP/1.0</code></p>

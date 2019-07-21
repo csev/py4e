@@ -80,14 +80,14 @@ SyntaxError: invalid syntax</code></pre>
 <p><code>76trombones</code> is illegal because it begins with a number. <code>more@</code> is illegal because it contains an illegal character, @. But what's wrong with <code>class</code>?</p>
 <p>It turns out that <code>class</code> is one of Python's <em>keywords</em>. The interpreter uses keywords to recognize the structure of the program, and they cannot be used as variable names.</p>
 <p></p>
-<p>Python reserves 33 keywords:</p>
+<p>Python reserves 35 keywords:</p>
 <pre><code>and       del       from      None      True
 as        elif      global    nonlocal  try
 assert    else      if        not       while
 break     except    import    or        with
 class     False     in        pass      yield
-continue  finally   is        raise
-def       for       lambda    return</code></pre>
+continue  finally   is        raise     async
+def       for       lambda    return    await</code></pre>
 <p>You might want to keep this list handy. If the interpreter complains about one of your variable names and you don't know why, see if it is on this list.</p>
 <h2 id="statements">Statements</h2>
 <p>A <em>statement</em> is a unit of code that the Python interpreter can execute. We have seen two kinds of statements: print being an expression statement and assignment.</p>
