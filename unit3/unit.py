@@ -33,7 +33,8 @@ toskip = [
     'argfile.py', # argument passing - no need to test
     'argtest.py', # argument passing - no need to test
     'gitpulls.py', # No auth codes
-    'urllink3.py' # might run forever
+    'urllink3.py', # might run forever
+    'georeq.py'
 ]
 
 success = 0
