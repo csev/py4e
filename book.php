@@ -71,10 +71,23 @@ and
      </ul>
   </li>
   <li>
-     Chinese - There is not yet a translation for the book, but if you are in China and have
-trouble viewing the videos there is a copy available at
+     Chinese - In progress
+     <ul class="menu vertical nested is-active">
+       <li class="menu-text">Free:
+
+
+        <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.pdf" target="_blank">PDF</a>,
+       <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.epub" target="_blank">EPUB</a>
+        </li>
+        <li> 
+<a href="https://github.com/RodenLuo/py4e-cn" target="_blank">Book source on github</a> -
+(Thanks to Deng Luo)
+</li>
+  <li> There is an in-China copy of the videos available at
 <a href="https://www.bilibili.com/video/av46649799" target="_new">
-https://www.bilibili.com/video/av46649799</a> that work well within China.
+https://www.bilibili.com/video/av46649799</a>
+  </li>
+     </ul>
   </li>
 
 </ul>
