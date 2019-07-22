@@ -51,25 +51,23 @@ and
 </li>
      </ul>
   </li>
+  <li> Spanish - Book translation and web site translation in progress at
+     <ul class="menu vertical nested is-active">
+        <li>
+<a href="https://es.py4e.com/book">https://es.py4e.com</a>
+</li>
+     </ul>
+  </li>
   <li> Portuguese - In progress
      <ul class="menu vertical nested is-active">
        <li class="menu-text">Free:
         <a href="http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.pdf" target="_blank">PDF</a>,
        <a href="http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.epub" target="_blank">EPUB</a>
         </li>
-        <li> <a href="https://github.com/ras-ufcg/py4e" target="_blank">Book source on github</a> 
+        <li> <a href="https://github.com/ras-ufcg/py4e" target="_blank">Book source on github</a> and 
+<a href="https://github.com/ras-ufcg/py4e/blob/master/RAS_Team_Members.txt" target="_blank">translation team</a>
 (Thanks to Yuri Loia de Medeiros).
 </li>
-     </ul>
-  </li>
-  <li> Spanish - In progress
-     <ul class="menu vertical nested is-active">
-       <li class="menu-text">Free: <a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf" target="_blank">PDF</a>,
-       <a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.epub" target="_blank">EPUB</a></li>
-        <li>
-            <a href="https://github.com/ftardio/pythonlearn" target="_blank">Book source on github</a>
-(Thanks to Fernando Tardio)
-        </li>
      </ul>
   </li>
   <li>
