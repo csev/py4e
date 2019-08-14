@@ -356,12 +356,12 @@ Enter a regular expression: java$
 mbox.txt had 4175 lines that matched java$</code></pre>
 <p><strong>Exercise 2: Write a program to look for lines of the form:</strong></p>
 <pre><code>New Revision: 39772</code></pre>
-<p><strong>Extract the number from each of the lines using a regular expression and the <code>findall()</code> method. Compute the average of the numbers and print out the average.</strong></p>
+<p><strong>Extract the number from each of the lines using a regular expression and the <code>findall()</code> method. Compute the average of the numbers and print out the average as an integer.</strong></p>
 <pre><code>Enter file:mbox.txt
-38444.0323119
+38549
 
 Enter file:mbox-short.txt
-39756.9259259</code></pre>
+39756</code></pre>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {
