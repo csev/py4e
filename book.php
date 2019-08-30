@@ -8,9 +8,12 @@
 The <a href="http://www.py4inf.com/">Python 2 version</a> of the book is still available.
         </p>
 
+<p><b><a href="courses">Other Courses Using this Book</a></b>
+</p>
+<p>
+Book translations:
+</p>
 <ul>
-<li><p><b><a href="courses">Other Courses Using this Book</a></b>
-</p></li>
   <li>
      English
      <ul class="menu vertical nested is-active">
@@ -50,6 +53,9 @@ and
 <a href="https://www.linkedin.com/in/vittorezen/" target="_blank">Vittore Zen</a>)
 </li>
      </ul>
+  </li>
+  <li> Korean (commercial translation)
+<a href="http://www.yes24.com/Product/Goods/77401048?Acode=101" target="_blank">데이터를 다루며 배우는 파이썬</a>
   </li>
   <li> Spanish - Book translation and web site translation in progress at
      <ul class="menu vertical nested is-active">
