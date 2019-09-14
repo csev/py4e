@@ -5,7 +5,6 @@ use \Tsugi\UI\Output;
 require_once "top.php";
 require_once "nav.php";
 ?>
-<h1>Python for Everybody</h1>
 <?php if ( isset($_SESSION['id']) ) { ?>
 <iframe id="forum_embed"
   src="javascript:void(0)"
