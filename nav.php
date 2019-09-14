@@ -37,9 +37,6 @@ if ( isset($_SESSION['id']) ) {
     if ( isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true" ) {
         $submenu->addLink('Administer', $T . 'admin/');
     }
-    if ( $CFG->DEVELOPER ) {
-        $submenu->addLink('Test LTI Tools', $T . 'dev');
-    }
     $submenu->addLink('Logout', $R.'logout');
 
     if ( isset($_SESSION['avatar']) ) {
