@@ -5,7 +5,6 @@ use \Tsugi\UI\Output;
 require_once "top.php";
 require_once "nav.php";
 ?>
-<div id="container">
 <h1>Python for Everybody</h1>
 <?php if ( isset($_SESSION['id']) ) { ?>
 <p>
@@ -92,5 +91,4 @@ echo(Output::safe_var_dump($_SESSION));
 var_dump($USER);
 ?>
 -->
-</div>
 <?php $OUTPUT->footer();
