@@ -9,7 +9,7 @@ $set->addLeft('Get Started', $R.'install');
 $set->addLeft('Lessons', $R.'lessons');
 if ( isset($_SESSION['id']) ) {
     $set->addLeft('Assignments', $R.'assignments');
-    $set->addLeft('Discuss', $R.'group');
+    // $set->addLeft('Discuss', $R.'group');
     // If both are set we go to discuss.php
     // if ( isset($CFG->disqushost) ) $set->addLeft('Discuss', $T.'discuss');
     // else if ( isset($CFG->disquschannel) ) $set->addLeft('Discuss', $CFG->disquschannel);
