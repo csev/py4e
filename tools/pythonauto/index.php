@@ -571,6 +571,16 @@ if ( isset($LINK->title) ) {
         your score will not be changed.
         </p>
 <?php } ?>
+<?php
+    $identity = __("Logged in as: ").$USER->key;
+    if ( strlen($USER->email) > 0 ) {
+        $identity .= ' ' . htmlentities($USER->email);
+    }
+    if ( strlen($USER->displayname) > 0 ) {
+        $identity .= ' ' . htmlentities($USER->displayname);
+    }
+    echo("<p>".$identity."</p>")
+?>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -669,6 +679,8 @@ Setting:
     }
     echo('<a href="'.$editurl.'">'.$textval.'</a>');
 
+    //  TODO: Remove this
+    /* 
     if ( $python3 ) {
         $editurl = reconstruct_query('index.php',array("python3" => 0));
         $textval = "Use Python 2";
@@ -676,7 +688,9 @@ Setting:
         $editurl = reconstruct_query('index.php',array("python3" => 1));
         $textval = "Use Python 3";
     }
+
     echo(' | <a href="'.$editurl.'">'.$textval.'</a>. ');
+    */
 ?>
 This software is based on <a href="http://skulpt.org/" target="_blank">Skulpt</a>
 and <a href="http://codemirror.net/" target="_blank">CodeMirror</a>.
