@@ -1,5 +1,6 @@
 <?php
 require_once "../config.php";
+\Tsugi\Core\LTIX::getConnection();
 
 use \Tsugi\Grades\GradeUtil;
 use \Tsugi\Grades\UI;
