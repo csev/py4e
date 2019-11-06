@@ -1,62 +1,61 @@
-Strings
+Cadenas
 =======
 
-A string is a sequence
+Una cadena es una secuencia
 ----------------------
 
-\index{sequence}
-\index{character}
-\index{bracket operator}
-\index{operator!bracket}
+\index{secuencia}
+\index{caracter}
+\index{operador corchete}
+\index{operador!corchete}
 
-A string is a *sequence* of characters. You can access
-the characters one at a time with the bracket operator:
+Una cadena es una *secuencia* de caracteres. Puedes acceder
+los caracteres uno a la vez con el operador corchete:
 
 ~~~~ {.python}
->>> fruit = 'banana'
->>> letter = fruit[1]
+>>> fruta = 'banana'
+>>> letra = fruta[1]
 ~~~~
 
 \index{index}
 \index{}
 
-The second statement extracts the character at index position 1 from the
-`fruit` variable and assigns it to the `letter`
-variable.
+La segunda sentencia extrae el caracter en la posición del indice 1 de
+la variable `fruta` y la asigna a la variable `letra`.
 
-The expression in brackets is called an *index*. The
-index indicates which character in the sequence you want (hence the
-name).
+La expresión en los corchetes es llamada un *índice*. El
+índice indica cuál caracter de la secuencia quieres (de aquí el
+nombre).
 
-But you might not get what you expect:
+Pero podrías no obtener lo que esperas:
 
 ~~~~ {.python}
->>> print(letter)
+>>> print(letra)
 a
 ~~~~
 
-For most people, the first letter of "banana" is "b", not
-"a". But in Python, the index is an offset from the beginning
-of the string, and the offset of the first letter is zero.
+Para la mayoría de las personas, la primer letra de "banana" es "b", no
+"a". Pero en Python, el índice es un desfase desde el inicio
+de la cadena, y el desfase de la primer letra es cero.
 
 ~~~~ {.python}
->>> letter = fruit[0]
->>> print(letter)
+>>> letra = fruta[0]
+>>> print(letra)
 b
 ~~~~
 
-So "b" is the 0th letter ("zero-th") of "banana",
-"a" is the 1th letter ("one-th"), and "n" is the
-2th ("two-th") letter.
+Así que "b" es la letra 0 ("cero") de "banana",
+"a" es la 1er letra ("primer"), y "n" es la
+2da ("segunda") letra.
 
-![String Indexes](height=0.75in@../images/string)
+![Indices de Cadenas](height=0.75in@../images/string)
 
-\index{index!starting at zero}
-\index{zero, index starting at}
+\index{index!empezando desde cero}
+\index{cero, índice empezando desde}
 
-You can use any expression, including variables and operators, as an
-index, but the value of the index has to be an integer. Otherwise you
-get:
+Puedes usar cualquier expresión, incluyendo variables y operadores, como un
+índice, pero el valor del índice tiene que ser un entero. De otro modo
+obtendrás:
 
 \index{index}
 \index{}
@@ -64,114 +63,114 @@ get:
 \index{TypeError}
 
 ~~~~ {.python}
->>> letter = fruit[1.5]
+>>> letra = fruta[1.5]
 TypeError: string indices must be integers
 ~~~~
 
-Getting the length of a string using `len`
+Obtener el tamaño de una cadena usando `len`
 -----------------------------------------------------
 
 \index{len function}
 \index{function!len}
 
-`len` is a built-in function that returns the number of
-characters in a string:
+`len` es una función nativa que regresa el número de
+caracteres en una cadena:
 
 ~~~~ {.python}
->>> fruit = 'banana'
->>> len(fruit)
+>>> fruta = 'banana'
+>>> len(fruta)
 6
 ~~~~
 
-To get the last letter of a string, you might be tempted to try
-something like this:
+Para obtener la última letra de una cadena, podrías estar tentado a probar
+algo como esto:
 
 \index{exception!IndexError}
 \index{IndexError}
 
 ~~~~ {.python}
->>> length = len(fruit)
->>> last = fruit[length]
+>>> tamaño = len(fruta)
+>>> ultima = fruta[tamaño]
 IndexError: string index out of range
 ~~~~
 
-The reason for the `IndexError` is that there is no letter in
-"banana" with the index 6. Since we started counting at
-zero, the six letters are numbered 0 to 5. To get the last character,
-you have to subtract 1 from `length`:
+La razón de que haya un `IndexError` es que ahí no hay ninguna letra en
+"banana" con el índice 6. Puesto que empezamos a contar desde
+cero, las seis letras están enumeradas desde 0 hasta 5. Para obtener el último caracter,
+tienes que restar 1 del `length`:
 
 ~~~~ {.python}
->>> last = fruit[length-1]
->>> print(last)
+>>> ultima = fruta[tamaño-1]
+>>> print(ultima)
 a
 ~~~~
 
-Alternatively, you can use negative indices, which count backward from
-the end of the string. The expression `fruit[-1]` yields the
-last letter, `fruit[-2]` yields the second to last, and so
-on.
+Alternativamente, puedes usar índices negativos, los cuales cuentan hacia atrás desde
+el final de la cadena. La expresión `fruta[-1]` regresa la
+última letra, `fruta[-2]` regresa la penúltima letra, y así
+sucesivamente.
 
 \index{index!negative}
 \index{negative index}
 
-Traversal through a string with a loop
+Recorriendo una cadena mediante un bucle
 --------------------------------------
 
-\index{traversal}
-\index{loop!traversal}
-\index{for loop}
-\index{loop!for}
-\index{statement!for}
-\index{traversal}
+\index{recorrido}
+\index{bucle!recorrido}
+\index{bucle for}
+\index{bucle!for}
+\index{expresión!for}
+\index{recorrido}
 
-A lot of computations involve processing a string one character at a
-time. Often they start at the beginning, select each character in turn,
-do something to it, and continue until the end. This pattern of
-processing is called a *traversal*. One way to write a
-traversal is with a `while` loop:
-
-~~~~ {.python}
-index = 0
-while index < len(fruit):
-    letter = fruit[index]
-    print(letter)
-    index = index + 1
-~~~~
-
-This loop traverses the string and displays each letter on a line by
-itself. The loop condition is `index < len(fruit)`, so when
-`index` is equal to the length of the string, the condition
-is false, and the body of the loop is not executed. The last character
-accessed is the one with the index `len(fruit)-1`, which is
-the last character in the string.
-
-**Exercise 1: Write a `while` loop that starts at the last
-character in the string and works its way backwards to the first
-character in the string, printing each letter on a separate line, except
-backwards.**
-
-Another way to write a traversal is with a `for` loop:
+Muchos de los cálculos requieren procesar una cadena con un caracter a la
+vez. Frecuentemente empiezan desde el inicio, seleccionando cada caracter presente,
+hacer algo con él, y continuar hasta el final. Este patrón de
+procesamiento es llamado un *recorrido*. Una manera de escribir un
+recorrido es con un bucle `while`:
 
 ~~~~ {.python}
-for char in fruit:
-    print(char)
+indice = 0
+while indice < len(fruta):
+    letra = fruta[indice]
+    print(letra)
+    indice = indice + 1
 ~~~~
 
-Each time through the loop, the next character in the string is assigned
-to the variable `char`. The loop continues until no
-characters are left.
+Este bucle recorre la cadena e imprime cada letra en una línea
+cada una. La condición del bucle es `indice < len(fruta)`, así que cuando
+`indice` es igual al tamaño de la cadena, la condición
+es falsa, y el código del bucle no se ejecuta. El último caracter
+accedido es el que tiene el índice `len(fruta)-1`, el cual es
+el último caracter en la cadena.
 
-String slices
+**Ejercicio 1: Escribe un bucle `while` que comienza con el último
+caracter en la cadena y trabaja hacia atrás hasta el primer
+caracter en la cadena, imprimiendo cada letra en una línea independiente, excepto
+al revés.**
+
+Otra forma de escribir un recorrido es con un bucle `for`:
+
+~~~~ {.python}
+for caracter in fruta:
+    print(caracter)
+~~~~
+
+Cada vez que iteramos el bucle, el siguiente caracter en la cadena es asignado
+a la variable `caracter`. El ciclo continua hasta que no
+quedan caracteres.
+
+Parte de una cadena
 -------------
 
-\index{slice operator}
-\index{operator!slice}
-\index{index!slice}
-\index{string!slice}
-\index{slice!string}
+\index{parte operador}
+\index{operador!parte}
+\index{indice!parte}
+\index{cadena!parte}
+\index{parte!cadena}
 
-A segment of a string is called a *slice*. Selecting a
-slice is similar to selecting a character:
+Un segmento de una cadena es llamado *parte*. Seleccionar una
+parte es similar a seleccionar un caracter:
 
 ~~~~ {.python}
 >>> s = 'Monty Python'
@@ -181,194 +180,193 @@ Monty
 Python
 ~~~~
 
-The operator returns the part of the string from the "n-th" character
-to the "m-th" character, including the first but excluding the last.
+El operador retorna la parte de la cadena desde el "n-avo" caracter
+hasta el "m-avo" caracter, incluyendo el primero pero excluyendo el último.
 
-If you omit the first index (before the colon), the slice starts at the
-beginning of the string. If you omit the second index, the slice goes to
-the end of the string:
+Si omites el primer índice (antes de los dos puntos), la parte comienza desde el
+inicio de la cadena. Si omites el segundo índice, la parte va hasta
+el final de la cadena:
 
 ~~~~ {.python}
->>> fruit = 'banana'
->>> fruit[:3]
+>>> fruta = 'banana'
+>>> fruta[:3]
 'ban'
->>> fruit[3:]
+>>> fruta[3:]
 'ana'
 ~~~~
 
-If the first index is greater than or equal to the second the result is
-an *empty string*, represented by two quotation marks:
+Si el primer índice es mayor que o igual que el segundo, el resultado es
+una *cadena vacía*, representado por dos comillas:
 
-\index{quotation mark}
+\index{comillas}
 
 ~~~~ {.python}
->>> fruit = 'banana'
->>> fruit[3:3]
+>>> fruta = 'banana'
+>>> fruta[3:3]
 ''
 ~~~~
 
-An empty string contains no characters and has length 0, but other than
-that, it is the same as any other string.
+Una cadena vacía no contiene caracteres y tiene un tamaño de 0, pero fuera de
+esto, es lo mismo que cualquier otra cadena.
 
-**Exercise 2: Given that `fruit` is a string, what does
-`fruit[:]` mean?**
+**Ejercicio 2: Dado que `fruta` es una cadena, ¿que significa
+`fruta[:]`?**
 
-\index{copy!slice}
-\index{slice!copy}
+\index{copia!parte}
+\index{parte!copia}
 
-Strings are immutable
+Los cadenas son inmutables
 ---------------------
 
-\index{mutability}
-\index{immutability}
-\index{string!immutable}
+\index{mutabilidad}
+\index{inmutabilidad}
+\index{cadena!inmutable}
 
-It is tempting to use the operator on the left side of an assignment,
-with the intention of changing a character in a string. For example:
+Puede ser tentador utilizar el operador en el lado izquierdo de una asignación,
+con la intención de cambiar un caracter en una cadena. Por ejemplo:
 
 \index{TypeError}
 \index{exception!TypeError}
 
 ~~~~ {.python}
->>> greeting = 'Hello, world!'
->>> greeting[0] = 'J'
+>>> saludo = 'Hola, mundo!'
+>>> saludo[0] = 'J'
 TypeError: 'str' object does not support item assignment
 ~~~~
 
-The "object" in this case is the string and the "item" is the character
-you tried to assign. For now, an *object* is the same
-thing as a value, but we will refine that definition later. An
-*item* is one of the values in a sequence.
+El "object" en este caso es la cadena y el "item" es el caracter
+que tratamos de asignar. Por ahora, un *object* es la misma
+cosa que un valor, pero vamos a redefinir esa definición después. Un
+*item* es uno de los valores en una secuencia.
 
-\index{object}
-\index{item assignment}
-\index{assignment!item}
-\index{immutability}
+\index{item}
+\index{asignación item}
+\index{asignación!item}
+\index{inmutabilidad}
 
-The reason for the error is that strings are *immutable*,
-which means you can't change an existing string. The best you can do is
-create a new string that is a variation on the original:
+La razón por la cual ocurre el error es que las cadenas son *inmutables*,
+lo cual significa que no puedes cambiar una cadena existente. Lo mejor que puedes hacer es
+crear una nueva cadena que sea una variación del original:
 
 ~~~~ {.python}
->>> greeting = 'Hello, world!'
->>> new_greeting = 'J' + greeting[1:]
->>> print(new_greeting)
-Jello, world!
+>>> saludo = 'Hola, mundo!'
+>>> nuevo_saludo = 'J' + saludo[1:]
+>>> print(nuevo_saludo)
+Jola, mundo!
 ~~~~
 
-This example concatenates a new first letter onto a slice of
-`greeting`. It has no effect on the original string.
+Este ejemplo concatena una nueva primer letra a una parte de
+`saludo`. Esto no tiene efecto sobre la cadena original.
 
-\index{concatenation}
+\indice{concatenacion}
 
-Looping and counting
+Iterando y contando
 --------------------
 
-\index{counter}
-\index{counting and looping}
-\index{looping and counting}
-\index{looping!with strings}
+\index{contador}
+\index{contando e iterando}
+\index{iterando y contando}
+\index{iterando!con cadenas}
 
-The following program counts the number of times the letter
-"a" appears in a string:
+El siguiente programa cuenta el número de veces que la letra
+"a" aparece en una cadena:
 
 ~~~~ {.python}
-word = 'banana'
-count = 0
-for letter in word:
-    if letter == 'a':
-        count = count + 1
-print(count)
+palabra = 'banana'
+contador = 0
+for letra in palabra:
+    if letra == 'a':
+        contador = contador + 1
+print(contador)
 ~~~~
 
-This program demonstrates another pattern of computation called a
-*counter*. The variable `count` is initialized
-to 0 and then incremented each time an "a" is found. When the
-loop exits, `count` contains the result: the total number of
+Este programa demuestra otro patrón de computación llamado
+*contador*. La variable `contador` es inicializada en
+0 y después incrementa cada vez que una "a" es encontrada. Cuando el
+bucle termina, `contador` contiene el resultado: el número total de
 a's.
 
-\index{encapsulation}
+\index{encapsulación}
 
-**Exercise 3: Encapsulate this code in a function named `count`, and
-generalize it so that it accepts the string and the letter as arguments.**
+**Ejercicio 3: Encapsula este codigo en una función llamada `cuenta`, y
+hazla general de tal modo que pueda aceptar una cadena y una letra como argumentos.**
 
-The `in` operator
+El operador `in`
 ----------------------------
 
-\index{in operator}
-\index{operator!in}
-\index{boolean operator}
-\index{operator!boolean}
+\index{in operador}
+\index{operador!in}
+\index{booleano operador}
+\index{operador!booleano}
 
-The word `in` is a boolean operator that takes two strings
-and returns `True` if the first appears as a substring in the
-second:
+La palabra `in` es un operador booleano que toma dos cadenas
+y regresa `True` si la primer cadena aparece como una subcadena de la
+segunda:
 
 ~~~~ {.python}
 >>> 'a' in 'banana'
 True
->>> 'seed' in 'banana'
+>>> 'semilla' in 'banana'
 False
 ~~~~
 
-String comparison
+Comparación de cadenas
 -----------------
 
-\index{string!comparison}
-\index{comparison!string}
+\index{cadena!comparacion}
+\index{comparacion!cadena}
 
-The comparison operators work on strings. To see if two strings are
-equal:
+Los operadores de comparacion funcionan en cadenas. Para ver si dos cadenas son
+iguales:
 
 ~~~~ {.python}
-if word == 'banana':
-    print('All right, bananas.')
+if palabra == 'banana':
+    print('Muy bien, bananas.')
 ~~~~ 
 
-Other comparison operations are useful for putting words in alphabetical
-order:
+Otras operaciones de comparación son útiles para poner palabras en orden
+alfabético:
 
 ~~~~ {.python}
-if word < 'banana':
-    print('Your word,' + word + ', comes before banana.')
-elif word > 'banana':
-    print('Your word,' + word + ', comes after banana.')
+if palabra < 'banana':
+    print('Tu palabra, ' + palabra + ', está antes de banana.')
+elif palabra > 'banana':
+    print('Tu palabra, ' + palabra + ', está después de banana.')
 else:
-    print('All right, bananas.')
+    print('Muy bien, bananas.')
 ~~~~
 
-Python does not handle uppercase and lowercase letters the same way that
-people do. All the uppercase letters come before all the lowercase
-letters, so:
+Python no maneja letras mayúsculas y minúsculas en la misma forma que
+la gente lo hace. Todas las letras mayúsculas vienen antes de todas las letras
+minúsculas, por ejemplo:
 
 ~~~~
-Your word, Pineapple, comes before banana.
+Tu palabra, Piña, está antes que banana.
 ~~~~
 
-A common way to address this problem is to convert strings to a standard
-format, such as all lowercase, before performing the comparison. Keep
-that in mind in case you have to defend yourself against a man armed
-with a Pineapple.
+Una forma común de manejar este problema es convertir cadenas a un formato
+estándar, como todas a minúsculas, antes de llevar a cabo la comparación. Ten
+en cuenta eso en caso de que tengas que defenderte contra un hombre armado
+con una Piña.
 
-String methods
+Métodos de cadenas
 ---------------------------
 
-Strings are an example of Python *objects*. An object
-contains both data (the actual string itself) and
-*methods*, which are effectively functions that are built
-into the object and are available to any *instance* of
-the object.
+Los cadenas son un ejemplo de *objetos* en Python. Un objeto
+contiene ambos datos (el valor de la cadena misma) y
+*métodos*, los cuales son efectivamente funciones que estan implementadas
+dentro del objeto y que están disponibles para cualquier *instancia* del
+objeto.
 
-Python has a function called `dir` which lists the methods
-available for an object. The `type` function shows the type
-of an object and the `dir` function shows the available
-methods.
+Python tiene una función llamada `dir` la cual lista los métodos
+disponibles para un objeto. La función `type` muestra el tipo
+de un objeto y la función `dir` muestra los métodos disponibles.
 
 ~~~~ {.python}
->>> stuff = 'Hello world'
->>> type(stuff)
+>>> cosa = 'Hola mundo'
+>>> type(cosa)
 <class 'str'>
->>> dir(stuff)
+>>> dir(cosa)
 ['capitalize', 'casefold', 'center', 'count', 'encode',
 'endswith', 'expandtabs', 'find', 'format', 'format_map',
 'index', 'isalnum', 'isalpha', 'isdecimal', 'isdigit',
@@ -389,226 +387,227 @@ capitalize(...)
 >>>
 ~~~~
 
-While the `dir` function lists the methods, and you can use
-`help` to get some simple documentation on a method, a better
-source of documentation for string methods would be
+Mientras que la función `dir` enlista los métodos, puedes usar la función
+`help` para obtener una breve documentación de un método, una mejor
+fuente de documentación para los métodos de cadenas sería
 <https://docs.python.org/library/stdtypes.html#string-methods>.
 
-Calling a *method* is similar to calling a function (it
-takes arguments and returns a value) but the syntax is different. We call
-a method by appending the method name to the variable name using the
-period as a delimiter.
+Llamar a un *método* es similar a llamar una función (ésta
+toma argumentos y regresa un valor) pero el sintaxis es diferente. Llamamos
+un método agregando el nombre del método al nombre de la variable usando
+un punto como delimitador.
 
-For example, the method `upper` takes a string and returns a
-new string with all uppercase letters:
+Por ejemplo, el método `upper` toma una cadena y regresa una
+nueva cadena con todas las letras en mayúscula:
 
-\index{method}
-\index{string!method}
+\index{método}
+\index{cadena!método}
 
-Instead of the function syntax `upper(word)`, it uses the
-method syntax `word.upper()`.
+En vez de la sintaxis de función `upper(word)`, éste utiliza la
+sintaxis de método `word.upper()`.
 
-\index{dot notation}
+\index{notación del punto}
 
 ~~~~ {.python}
->>> word = 'banana'
->>> new_word = word.upper()
->>> print(new_word)
+>>> palabra = 'banana'
+>>> nueva_palabra = palabra.upper()
+>>> print(nueva_palabra)
 BANANA
 ~~~~
 
-This form of dot notation specifies the name of the method,
-`upper`, and the name of the string to apply the method to,
-`word`. The empty parentheses indicate that this method takes
-no argument.
+Esta forma de notación del punto especifica el nombre del método,
+`upper`, y el nombre de la cadena al que se le aplicará el método,
+`palabra`. Los paréntesis vacíos indican que este método no toma
+argumentos.
 
-\index{parentheses!empty}
+\index{paréntesis!vacío}
 
-A method call is called an *invocation*; in this case, we
-would say that we are invoking `upper` on the
-`word`.
+Una llamada a un método es conocida como una *invocación*; en este caso,
+diríamos que estamos invocando `upper` en
+`palabra`.
 
-\index{invocation}
+\index{invocación}
 
-For example, there is a string method named `find` that
-searches for the position of one string within another:
+Por ejemplo, hay un método de cadena llamado `find` que
+busca por la posición de una cadena dentro de otra cadena:
 
 ~~~~ {.python}
->>> word = 'banana'
->>> index = word.find('a')
->>> print(index)
+>>> palabra = 'banana'
+>>> indice = palabra.find('a')
+>>> print(indice)
 1
 ~~~~ 
 
-In this example, we invoke `find` on `word` and
-pass the letter we are looking for as a parameter.
+En este ejemplo, invocamos `find` en `palabra` y
+pasamos la letra que estamos buscando como un parámetro.
 
-The `find` method can find substrings as well as characters:
+El método `find` puede encontrar subcadenas así como caracteres:
 
 ~~~~ {.python}
->>> word.find('na')
+>>> palabra.find('na')
 2
 ~~~~
 
-It can take as a second argument the index where it should start:
+Este puede tomar como un segundo argumento el índice desde donde debe empezar:
 
-\index{optional argument}
-\index{argument!optional}
+\index{argumento opcional}
+\index{argumento!opcional}
 
 ~~~~ {.python}
->>> word.find('na', 3)
+>>> palabra.find('na', 3)
 4
 ~~~~
 
-One common task is to remove white space (spaces, tabs, or newlines)
-from the beginning and end of a string using the `strip`
-method:
+Una tarea común es remover los espacios en blanco (espacios, tabs, o nuevas líneas)
+en el inicio y el fin de una cadena usando el método
+`strip`:
 
 ~~~~ {.python}
->>> line = '  Here we go  '
->>> line.strip()
-'Here we go'
+>>> linea = '  Aquí vamos  '
+>>> linea.strip()
+'Aquí vamos'
 ~~~~
 
-Some methods such as *startswith* return boolean values.
+Algunos métodos como *startswith* regresan valores booleanos.
 
 ~~~~ {.python}
->>> line = 'Have a nice day'
->>> line.startswith('Have')
+>>> linea = 'Que tengas un buen día'
+>>> linea.startswith('Que')
 True
->>> line.startswith('h')
+>>> linea.startswith('q')
 False
 ~~~~
 
-You will note that `startswith` requires case to match, so
-sometimes we take a line and map it all to lowercase before we do any
-checking using the `lower` method.
+Puedes notar que `startswith` requiere que el formato (mayúscula o minúscula) coincida, de modo que
+a veces tenemos que tomar la línea y cambiarla completa a minúsculas antes de hacer algúna
+verificación utilizando el método `lower`.
 
 ~~~~ {.python}
->>> line = 'Have a nice day'
->>> line.startswith('h')
+>>> linea = 'Que tengas un buen día'
+>>> linea.startswith('q')
 False
->>> line.lower()
-'have a nice day'
->>> line.lower().startswith('h')
+>>> linea.lower()
+'que tengas un buen día'
+>>> linea.lower().startswith('q')
 True
 ~~~~
 
-In the last example, the method `lower` is called and then we
-use `startswith` to see if the resulting lowercase string
-starts with the letter "h". As long as we are careful with the order, we
-can make multiple method calls in a single expression.
+En el último ejemplo, el método `lower` es llamado y después usamos
+`startswith` para ver si la cadena resultante en minúsculas
+comienza con la letra "q". Siempre y cuando seamos cuidadosos con el orden,
+podemos hacer múltiples llamadas a métodos en una sola expresión.
 
-\index{count method}
-\index{method!count}
+\index{cuenta método}
+\index{método!cuenta}
 
-**Exercise 4: There is a string method called `count` that is similar to
-the function in the previous exercise. Read the documentation of this
-method at:
+**Ejercicio 4: Hay un método de cadenas llamado `count` que es similar a
+la función del ejercicio previo. Lee la documentación de este
+método en:
 
 <https://docs.python.org/library/stdtypes.html#string-methods> 
 
-Write an invocation that counts the number of times the letter a occurs
-in "banana".**
+Escribe una invocación que cuenta el número de veces que una letra aparece
+en "banana".**
 
-Parsing strings
+Analizando cadenas
 ---------------
 
-Often, we want to look into a string and find a substring. For example
-if we were presented a series of lines formatted as follows:
+Frecuentemente, queremos ver una cadena y encontrar una subcadena. Por ejemplo
+si se nos presentaran una seria de líneas con el siguiente formato:
 
 `From stephen.marquard@`*` uct.ac.za`*` Sat Jan  5 09:14:16 2008`
 
-and we wanted to pull out only the second half of the address (i.e.,
-`uct.ac.za`) from each line, we can do this by using the
-`find` method and string slicing.
+y quisiéramos obtener únicamente la segunda parte de la dirección (esto es,
+`uct.ac.za`) de cada línea, podemos hacer esto utilizando el método
+`find` y una parte de la cadena.
 
-First, we will find the position of the at-sign in the string. Then we
-will find the position of the first space *after* the at-sign. And then
-we will use string slicing to extract the portion of the string which we
-are looking for.
+Primero, tenemos que encontrar la posición de la arroba en la cadena. Después,
+tenemos que encontrar la posición del primer espacio *después* de la arroba. Y después
+usaremos una parte de la cadena para extraer la porción de la cadena que
+estamos buscando.
 
 ~~~~ {.python}
->>> data = 'From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008'
->>> atpos = data.find('@')
->>> print(atpos)
+>>> dato = 'From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008'
+>>> arrobapos = dato.find('@')
+>>> print(arrobapos)
 21
->>> sppos = data.find(' ',atpos)
->>> print(sppos)
+>>> espos = dato.find(' ',arrobapos)
+>>> print(espos)
 31
->>> host = data[atpos+1:sppos]
->>> print(host)
+>>> direccion = dato[arrobapos+1:espos]
+>>> print(direccion)
 uct.ac.za
 >>>
 ~~~~
 
-We use a version of the `find` method which allows us to
-specify a position in the string where we want `find` to
-start looking. When we slice, we extract the characters from "one beyond
-the at-sign through up to *but not including* the space character".
+Utilizamos una versión del método `find` que nos permite
+especificar una posición en la cadena donde queremos que `find`
+comience a buscar.
+Cuando recortamos una parte de una cadena, extraemos los caracteres desde "uno después
+del signo de arroba hasta *pero no incluyendo* el caracter de espacio".
 
-The documentation for the `find` method is available at
+La documentación del método `find` está disponible en
 
 <https://docs.python.org/library/stdtypes.html#string-methods>.
 
-Format operator
+El operador formato
 ---------------
 
-\index{format operator}
-\index{operator!format}
+\index{formato operador}
+\index{operador!formato}
 
-The *format operator*, `%` allows us to
-construct strings, replacing parts of the strings with the data stored
-in variables. When applied to integers, `%` is the modulus
-operator. But when the first operand is a string, `%` is the
-format operator.
+El *operador formato*, `%` nos permite
+construir cadenas, reemplazar partes de las cadenas con datos almacenados
+en variables. Cuando lo aplicamos a enteros, `%` es el operador
+remanente. Pero cuando el primer operador es una cadena, `%` es el
+operador formato.
 
-\index{format string}
+\index{formato cadena}
 
-The first operand is the *format string*, which contains
-one or more *format sequences* that specify how the
-second operand is formatted. The result is a string.
+El primer operando es la *cadena de formato*, la cual contiene
+una o más *secuencias de formato* que especifican cómo el
+segundo operando es formateado. El resultado es una cadena.
 
-\index{format sequence}
+\index{secuencia de formato}
 
-For example, the format sequence `%d` means that the second operand
-should be formatted as an integer ("d" stands for "decimal"):
+Por ejemplo, la secuencia de formato `%d` significa que el segundo operando
+debería ser formateado como un entero ("d" significa "decimal"):
 
 ~~~~ {.python}
->>> camels = 42
->>> '%d' % camels
+>>> camellos = 42
+>>> '%d' % camellos
 '42'
 ~~~~
 
-The result is the string '42', which is not to be confused with the
-integer value 42.
+El resultado es la cadena '42', el cual no debe ser confundido con el
+entero de valor 42.
 
-A format sequence can appear anywhere in the string, so you can embed a
-value in a sentence:
-
-~~~~ {.python}
->>> camels = 42
->>> 'I have spotted %d camels.' % camels
-'I have spotted 42 camels.'
-~~~~
-
-If there is more than one format sequence in the string, the second
-argument has to be a tuple^[A tuple is a sequence of comma-separated 
-values inside a pair of parenthesis. We will cover tuples in Chapter 10].
-Each format sequence is matched with an
-element of the tuple, in order.
-
-The following example uses `%d` to format an integer, `%g` to format
-a floating-point number (don't ask why), and `%s` to format a string:
+Una secuencia de formato puede aparecer en cualquier lugar en la cadena, así que puedes meter un
+valor en una secuencia:
 
 ~~~~ {.python}
->>> 'In %d years I have spotted %g %s.' % (3, 0.1, 'camels')
-'In 3 years I have spotted 0.1 camels.'
+>>> camellos = 42
+>>> 'Yo he visto %d camellos.' % camellos
+'Yo he visto 42 camellos.'
 ~~~~
 
-The number of elements in the tuple must match the number of format
-sequences in the string. The types of the elements also must match the
-format sequences:
+Si hay más de una secuencia de formato en la cadena, el segundo
+argumento tiene que ser una tupla^[Una tupla es una secuencia de valores
+separados por comas dentro de un par de paréntesis. Veremos tuplas en el Capítulo 10].
+Cada secuencia de formato es relacionada con un
+elemento de la tupla, en orden.
+
+El siguiente ejemplo usa `%d` para formatear un entero, `%g` para formatear
+un número de punto flotante (no preguntes por qué), y `%s` para formatear una cadena:
+
+~~~~ {.python}
+>>> 'En %d años yo he visto %g %s.' % (3, 0.1, 'camellos')
+'En 3 años yo he visto 0.1 camellos.'
+~~~~
+
+El número de elementos en la tupla debe coincidir con el número de secuencias
+de formato en la cadena. El tipo de los elementos también debe coincidir con
+la secuencia de formato:
 
 \index{exception!TypeError}
 \index{TypeError}
@@ -616,33 +615,33 @@ format sequences:
 ~~~~ {.python}
 >>> '%d %d %d' % (1, 2)
 TypeError: not enough arguments for format string
->>> '%d' % 'dollars'
+>>> '%d' % 'dolares'
 TypeError: %d format: a number is required, not str
 ~~~~
 
-In the first example, there aren't enough elements; in the second, the
-element is the wrong type.
+En el primer ejemplo, no hay suficientes elementos; en el segundo, el
+elemento es de un tipo incorrecto.
 
-The format operator is powerful, but it can be difficult to use. You can
-read more about it at
+El operador formato es poderoso, pero puede ser difícil de usar. Puedes
+leer más al respecto en
 
 <https://docs.python.org/library/stdtypes.html#printf-style-string-formatting>.
 
-Debugging
+Depuración
 ---------
 
-\index{debugging}
+\index{depuración}
 
-A skill that you should cultivate as you program is always asking
-yourself, "What could go wrong here?" or alternatively, "What crazy
-thing might our user do to crash our (seemingly) perfect program?"
+Una habilidad que debes cultivar cuando programas es siempre preguntarte
+a tí mismo, "¿Qué pudo haber fallado aquí?" o alternativamente, "¿Qué cosa
+ilógica podría hacer nuestro usuario final para hacer fallar nuestro programa (aparentemente) perfecto?"
 
-For example, look at the program which we used to demonstrate the
-`while` loop in the chapter on iteration:
+Por ejemplo, observa el programa que utilizamos para demostrar el bucle
+`while` en el capítulo de iteraciones:
 
 \VerbatimInput{../code3/copytildone2.py}
 
-Look what happens when the user enters an empty line of input:
+Mira lo que pasa cuando el usuario ingresa una línea vacía como entrada:
 
 ~~~~ {.python}
 > hello there
@@ -657,133 +656,133 @@ Traceback (most recent call last):
 IndexError: string index out of range
 ~~~~
 
-The code works fine until it is presented an empty line. Then there is
-no zero-th character, so we get a traceback. There are two solutions to
-this to make line three "safe" even if the line is empty.
+El código funciona bien hasta que se presenta una línea vacía. Después no hay un
+caracter cero, por lo que obtenemos un rastreo (traceback). Hay dos soluciones a
+esto para hacer la línea tres "segura" incluso si la línea está vacía.
 
-One possibility is to simply use the `startswith` method
-which returns `False` if the string is empty.
+Una posibilidad es simplemente usar el método `startswith`
+que regresa `False` si la cadena está vacía.
 
 ~~~~ {.python}
 if line.startswith('#'):
 ~~~~
 
-\index{guardian pattern}
-\index{pattern!guardian}
+\index{patrón guardián}
+\index{patrón!guardián}
 
-Another way is to safely write the `if` statement using the
-*guardian* pattern and make sure the second logical
-expression is evaluated only where there is at least one character in
-the string.:
+Otra forma segura es escribir una sentencia `if` utilizando el
+patrón *guardián* y asegurarse que la segunda expresión lógica
+es evaluada sólo cuando hay al menos un caracter en
+la cadena:
 
 ~~~~ {.python}
 if len(line) > 0 and line[0] == '#':
 ~~~~
 
-Glossary
+Glosario
 --------
 
-counter
-:   A variable used to count something, usually initialized to zero and
-    then incremented.
-\index{counter}
+contador
+:   Una variable utilizada para contar algo, usualmente inicializada en cero y
+    luego incrementada.
+\index{contador}
 
-empty string
-:   A string with no characters and length 0, represented by two
-    quotation marks.
-\index{empty string}
+cadena vacía
+:   una cadena sin caracteres y de tamaño 0, representada por dos
+    comillas sencillas.
+\index{cadena vacía}
 
-format operator
-:   An operator, `%`, that takes a format string and a tuple
-    and generates a string that includes the elements of the tuple
-    formatted as specified by the format string.
-\index{format operator}
-\index{operator!format}
+operador de formato
+:   Un operador, `%`, que toma una cadena de formato y una tupla
+    y genera una cadena que incluye los elementos de la tupla
+    formateados como se especifíca en la cadena de formato.
+\index{operador formato}
+\index{operador!formato}
 
-format sequence
-:   A sequence of characters in a format string, like `%d`,
-    that specifies how a value should be formatted.
-\index{format sequence}
+secuencia de formato
+:   Una secuencia de caracteres en una cadena de formato, como `%d`,
+    que especifíca cómo un valor debe ser formateado.
+\index{secuencia de formato}
 
-format string
-:   A string, used with the format operator, that contains format
-    sequences.
-\index{format string}
+cadena de formato
+:   Una cadena, usado con el operador de formato, que contiene
+    secuencias de formato.
+\index{cadena de formato}
 
-flag
-:   A boolean variable used to indicate whether a condition is true or false.
-\index{flag}
+bandera
+:   Una variable booleana utilizada para indicar si una condición es verdadera o falsa.
+\index{bandera}
 
-invocation
-:   A statement that calls a method.
-\index{invocation}
+invocación
+:   Un enunciado que llama un método.
+\index{invocación}
 
-immutable
-:   The property of a sequence whose items cannot be assigned.
+inmutable
+:   La propiedad de una secuencia cuyos elementos no pueden ser asignados.
 \index{immutability}
 
-index
-:   An integer value used to select an item in a sequence, such as a
-    character in a string.
-\index{index}
+índice
+:   Un valor de entero utilizado para seleccionar un ítem en una secuencia, tal como
+    un caracter en una cadena.
+\index{índice}
 \index{}
 
-item
-:   One of the values in a sequence.
-\index{item}
+ítem
+:   Uno de los valores en una secuencia.
+\index{ítem}
 
-method
-:   A function that is associated with an object and called using dot
-    notation.
-\index{method}
+método
+:   Una función que está asociada con un objeto y es llamada utilizando la
+    notación de punto.
+\index{método}
 
-object
-:   Something a variable can refer to. For now, you can use "object" and
-    "value" interchangeably.
-\index{object}
+objeto
+:   Algo a lo que una variable puede referir. Por ahora, puedes usar "objeto" y
+    "valor" indistintamente.
+\index{objeto}
 
-search
-:   A pattern of traversal that stops when it finds what it is looking
-    for.
-\index{search pattern}
-\index{pattern!search}
+búsqueda
+:   Un patrón de recorrido que se detiene cuando encuentra lo que está
+    buscando.
+\index{patrón de búsqueda}
+\index{patrón!búsqueda}
 
-sequence
-:   An ordered set; that is, a set of values where each value is
-    identified by an integer index.
-\index{sequence}
+secuencia
+:   Un conjunto ordenado; esto es, un conjunto de valores donde cada valor es
+    identificado por un índice entero.
+\index{secuencia}
 
-slice
-:   A part of a string specified by a range of indices.
-\index{slice}
+parte
+:   Una parte de una cadena especificado por un rango de índices.
+\index{parte}
 
-traverse
-:   To iterate through the items in a sequence, performing a similar
-    operation on each.
-\index{traversal}
+atraversar
+:   Iterar a través de los ítems de una secuencia, ejecutando una operación
+    similar en cada uno.
+\index{atravesar}
 
-Exercises
+Ejercicios
 ---------
 
-**Exercise 5: Take the following Python code that stores a string:**
+**Ejercicio 5: Toma el siguiente código en Python que almacena una cadena:**
 
 `str = 'X-DSPAM-Confidence: `**`0.8475`**`'`
 
-**Use `find` and string slicing to extract the portion of the
-string after the colon character and then use the `float`
-function to convert the extracted string into a floating point number.**
+**Utiliza `find` y una parte de la cadena para extraer la porción de la
+cadena después del caracter dos puntos y después utiliza la función `float`
+para convertir la cadena extraída en un número de punto flotante.**
 
-\index{string method}
-\index{method!string}
+\index{método cadena}
+\index{método!cadena}
 
-**Exercise 6: Read the documentation of the string methods at
+**Ejercicio 6: Lee la documentación de los métodos de cadenas en
 <https://docs.python.org/library/stdtypes.html#string-methods>
-You might want to experiment with some of them to make sure you understand
-how they work. `strip` and `replace` are
-particularly useful.**
+Quizá quieras experimentar con algunos de ellos para asegurarte de entender
+como funcionan. `strip` y `replace` son
+particularmente útiles.**
 
-**The documentation uses a syntax that might be confusing. For example, in
-`find(sub[, start[, end]])`, the brackets indicate optional arguments.
-So `sub` is required, but `start` is optional, and
-if you include `start`, then `end` is optional.**
+**La documentación usa una sintaxis que puede ser confusa. Por ejemplo, en
+`find(sub[, start[, end]])`, los corchetes indican argumentos posicionales.
+De modo que `sub` es requerido, pero `start` es opcional, y
+si tu incluyes `start`, entonces `end` es opcional.**
 
