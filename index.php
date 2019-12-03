@@ -19,10 +19,6 @@ You can track your progress through the course using the <a href="assignments">A
 tool and when you complete a group of assignments, you can earn a <a href="badges">Badge</a>.
 You can download these badges and host them on your web site or refer the badge URLs on this site.</li>
 <li class="list-group-item">
-There is an
-<a href="https://disqus.com/home/channel/pythonforeverybody/" target="_blank">online disucssion forum</a>
-hosted by Disqus.</li>
-<li class="list-group-item">
 If you want to use these Creative Commons Licensed materials 
 in your own classes you can 
 <a href="materials.php">download or link</a> to the artifacts on this site,
