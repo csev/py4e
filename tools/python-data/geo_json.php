@@ -90,12 +90,17 @@ This API also has no rate limit so you can test as often as you like.
 If you visit the URL with no parameters, you get "No address..." response.
 </p>
 <p>
-To call the API, you need to provide the 
+To call the API, you need to include a <b>key=</b> parameter and provide the
 address that you are requesting as the <b>address=</b> parameter that is
 properly URL encoded using the <b>urllib.parse.urlencode()</b> function as shown in
 <a href="http://www.py4e.com/code3/geojson.py"
 target="_blank">http://www.py4e.com/code3/geojson.py</a>
 </p>
+<p>
+Make sure to check that your code is using the API endpoint is as shown above.
+You will get <em>different</em> results from the <b>geojson</b> and <b>json</b>
+endpoints so make sure you are using the same end point as this autograder is using.
+<p>
 <?php httpsWarning($api_url); ?>
 <p><b>Test Data / Sample Execution</b></p>
 <p>
