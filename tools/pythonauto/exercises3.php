@@ -107,7 +107,7 @@ For the test, enter a score of 0.85.
 "float" => "You should use the built-in float() function to convert from a string to a float.",
 "print" => "You must use the print statement to print the output.",
 "if" => "You should use an if statement to check the value of the score.",
-"elif" => "You should use an elif statement to check the value of the score.")
+"elif" => "One of the learning objectives of this assignment is to use an elif statement when checking the value of the score.")
 ),
 
 "4.6" => Array(
