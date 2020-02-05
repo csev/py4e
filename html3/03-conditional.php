@@ -19,8 +19,7 @@
 <pre class="python trinket"><code>&gt;&gt;&gt; 5 == 5
 True
 &gt;&gt;&gt; 5 == 6
-False
-{}</code></pre>
+False</code></pre>
 <p><code>True</code> y <code>False</code> son valores especiales que pertenecen al tipo <code>bool (booleano)</code>; no son cadenas:</p>
 <p>     </p>
 <pre class="python"><code>&gt;&gt;&gt; type(True)
@@ -44,14 +43,14 @@ x is not y           # x no es lo mismo que y</code></pre>
 <p>es verdadero sólo cuando <code>x</code> es mayor que 0 <em>y</em> menor que 10.</p>
 <p>     </p>
 <p><code>n%2 == 0 or n%3 == 0</code> es verdadero si <em>cualquiera</em> de las condiciones es verdadera, es decir, si el número es divisible por 2 <em>o</em> por 3.</p>
-<p>Finalmente, el operador <code>not</code> niega una expresión booleana, de modo que <code>not (x &amp;gt; y)</code> es verdadero si <code>x &amp;gt; y</code> es falso; es decir, si <code>x</code> es menor o igual que <code>y</code>.</p>
+<p>Finalmente, el operador <code>not</code> niega una expresión booleana, de modo que <code>not (x &gt; y)</code> es verdadero si <code>x &gt; y</code> es falso; es decir, si <code>x</code> es menor o igual que <code>y</code>.</p>
 <p>Estrictamente hablando, los operandos de los operadores lógicos deberían ser expresiones booleanas, pero Python no es muy estricto. Cualquier número distinto de cero se interpreta como &quot;verdadero.&quot;</p>
 <pre class="python"><code>&gt;&gt;&gt; 17 and True
 True</code></pre>
 <p>Esta flexibilidad puede ser útil, pero existen ciertas sutilezas en ese tipo de uso que pueden resultar confusas. Es posible que prefieras evitar usarlo de este modo hasta que estés bien seguro de lo que estás haciendo.</p>
-<h2 id="ejecución-condicional-conditional-execution">Ejecución condicional {#conditional execution}</h2>
+<h2 id="ejecución-condicional-1">Ejecución condicional</h2>
 <p>    </p>
-<p>Para poder escribir programas útiles, casi siempre vamos a necesitar la capacidad de comprobar condiciones y cambiar el comportamiento del programa de acuerdo a ellas. Las <code>sentencias condicionales</code> nos proporciona esa capacidad. La forma más sencilla es la sentencia <code>if</code>:</p>
+<p>Para poder escribir programas útiles, casi siempre vamos a necesitar la capacidad de comprobar condiciones y cambiar el comportamiento del programa de acuerdo a ellas. Las <code>sentencias condicionales</code> nos proporcionan esa capacidad. La forma más sencilla es la sentencia <code>if</code>:</p>
 <pre class="python"><code>if x &gt; 0 :
     print(&#39;x es positivo&#39;)</code></pre>
 <p>La expresión booleana después de la sentencia <code>if</code> recibe el nombre de <em>condición</em>. La sentencia <code>if</code> se finaliza con un carácter de dos-puntos (:) y la(s) línea(s) que van detrás de la sentencia if van indentadas<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> (es decir, llevan una tabulación o varios espacios en blanco al principio).</p>
@@ -83,7 +82,7 @@ Pequeño
         ^
 SyntaxError: invalid syntax</code></pre>
 <p>No es necesaria una línea en blanco al final de un bloque de instrucciones al escribir y ejecutar un script, pero puede mejorar la legibilidad de su código.</p>
-<h2 id="ejecución-alternativa-alternative-execution">Ejecución alternativa {#alternative execution}</h2>
+<h2 id="ejecución-alternativa">Ejecución alternativa</h2>
 <p>  </p>
 <p>La segunda forma de la sentencia <code>if</code> es la <em>ejecución alternativa</em>, en la cual existen dos posibilidades y la condición determina cual de ellas será ejecutada. La sintaxis es similar a ésta:</p>
 <pre class="python"><code>if x%2 == 0 :
@@ -144,7 +143,7 @@ else:
 <pre class="python"><code>if 0 &lt; x and x &lt; 10:
     print(&#39;x es un número positivo con un sólo dígito.&#39;)</code></pre>
 <h2 id="catch1">Captura de excepciones usando try y except</h2>
-<p>Anteriormente vimos un fragmento de código donde usábamos las funciones <code>raw_input</code> e <code>int</code> para leer y analizar un número entero introducido por el usuario. También vimos lo poco seguro que podía llegar a resultar hacer algo así:</p>
+<p>Anteriormente vimos un fragmento de código donde usábamos las funciones <code>input</code> e <code>int</code> para leer y analizar un número entero introducido por el usuario. También vimos lo poco seguro que podía llegar a resultar hacer algo así:</p>
 <pre class="python"><code>&gt;&gt;&gt; velocidad = input(prompt)
 ¿Cual.... es la velocidad de vuelo de una golondrina sin carga?
 ¿Te refieres a una golondrina africana o a una europea?
@@ -194,7 +193,7 @@ Por favor, introduzca un número</code></pre>
 <p>Gestionar una excepción con una sentencia <code>try</code> recibe el nombre de <em>capturar</em> una excepción. En este ejemplo, la clausula <code>except</code> muestra un mensaje de error. En general, capturar una excepción te da la oportunidad de corregir el problema, volverlo a intentar o, al menos, terminar el programa con elegancia.</p>
 <h2 id="evaluación-en-cortocircuito-de-expresiones-lógicas">Evaluación en cortocircuito de expresiones lógicas</h2>
 <p></p>
-<p>Cuando Python está procesando una expresión lógica, como <code>x &amp;gt;= 2 and (x/y) &amp;gt; 2</code>, evalúa la expresión de izquierda a derecha. Debido a la definición de <code>and</code>, si <code>x</code> es menor de 2, la expresión <code>x &amp;gt;= 2</code> resulta ser <code>falsa</code>, de modo que la expresión completa ya va a resultar <code>falsa</code>, independientemente de si <code>(x/y) &amp;gt; 2</code> se evalúa como <code>verdadera</code> o <code>falsa</code>.</p>
+<p>Cuando Python está procesando una expresión lógica, como <code>x &gt;= 2 and (x/y) &gt; 2</code>, evalúa la expresión de izquierda a derecha. Debido a la definición de <code>and</code>, si <code>x</code> es menor de 2, la expresión <code>x &gt;= 2</code> resulta ser <code>falsa</code>, de modo que la expresión completa ya va a resultar <code>falsa</code>, independientemente de si <code>(x/y) &gt; 2</code> se evalúa como <code>verdadera</code> o <code>falsa</code>.</p>
 <p>Cuando Python detecta que no se gana nada evaluando el resto de una expresión lógica, detiene su evaluación y no realiza el cálculo del resto de la expresión. Cuando la evaluación de una expresión lógica se detiene debido a que ya se conoce el valor final, eso es conocido como <em>cortocircuitar</em> la evaluación.</p>
 <p> </p>
 <p>A pesar de que esto pueda parecer hilar demasiado fino, el funcionamiento en cortocircuito nos descubre una ingeniosa técnica conocida como <em>patrón guardián</em>. Examina la siguiente secuencia de código en el intérprete de Python:</p>
@@ -213,7 +212,7 @@ Traceback (most recent call last):
   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
 ZeroDivisionError: division by zero
 &gt;&gt;&gt;</code></pre>
-<p>La tercera operación ha fallado porque Python intentó evaluar <code>(x/y)</code> e <code>y</code> era cero, lo cual provoca un runtime error (error en tiempo de ejecución). Pero el segundo ejemplo <em>no</em> falló, porque la primera parte de la expresión <code>x &amp;gt;= 2</code> fue evaluada como <code>falsa</code>, así que <code>(x/y)</code> no llegó a ejecutarse debido a la regla del <em>cortocircuito</em>, y no se produjo ningún error.</p>
+<p>La tercera operación ha fallado porque Python intentó evaluar <code>(x/y)</code> e <code>y</code> era cero, lo cual provoca un runtime error (error en tiempo de ejecución). Pero el segundo ejemplo <em>no</em> falló, porque la primera parte de la expresión <code>x &gt;= 2</code> fue evaluada como <code>falsa</code>, así que <code>(x/y)</code> no llegó a ejecutarse debido a la regla del <em>cortocircuito</em>, y no se produjo ningún error.</p>
 <p>Es posible construir las expresiones lógicas colocando estratégicamente una evaluación como <em>guardián</em> justo antes de la evaluación que podría causar un error, como se muestra a continuación:</p>
 <pre class="python"><code>&gt;&gt;&gt; x = 1
 &gt;&gt;&gt; y = 0
@@ -228,7 +227,7 @@ Traceback (most recent call last):
   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
 ZeroDivisionError: division by zero
 &gt;&gt;&gt;</code></pre>
-<p>En la primera expresión lógica, <code>x &amp;gt;= 2</code> es <code>falsa</code>, así que la evaluación se detiene en el <code>and</code>. En la segunda expresión lógica, <code>x &amp;gt;= 2</code> es <code>verdadera</code>, pero <code>y != 0</code> es <code>falsa</code>, de modo que nunca se alcanza <code>(x/y)</code>.</p>
+<p>En la primera expresión lógica, <code>x &gt;= 2</code> es <code>falsa</code>, así que la evaluación se detiene en el <code>and</code>. En la segunda expresión lógica, <code>x &gt;= 2</code> es <code>verdadera</code>, pero <code>y != 0</code> es <code>falsa</code>, de modo que nunca se alcanza <code>(x/y)</code>.</p>
 <p>En la tercera expresión lógica, el <code>y != 0</code> va <em>después</em> del cálculo de <code>(x/y)</code>, de modo que la expresión falla con un error.</p>
 <p>En la segunda expresión, se dice que <code>y != 0</code> actúa como <em>guardián</em> para garantizar que sólo se ejecute <code>(x/y)</code> en el caso de que <code>y</code> no sea cero.</p>
 <h2 id="depuración">Depuración</h2>
@@ -340,17 +339,17 @@ print(decibelios)
 </dl>
 <p></p>
 <h2 id="ejercicios">Ejercicios</h2>
-<p>Exercise 1: Reescribe el programa del cálculo del salario para darle al empleado 1.5 veces la tarifa horaria para todas las horas trabajadas que excedan de 40.</p>
+<p>Ejercicio 1: Reescribe el programa del cálculo del salario para darle al empleado 1.5 veces la tarifa horaria para todas las horas trabajadas que excedan de 40.</p>
 <pre><code>Introduzca las Horas: 45
 Introduzca la Tarifa por hora: 10
 Salario: 475.0</code></pre>
-<p>Exercise 2: Reescribe el programa del salario usando <code>try</code> y <code>except</code>, de modo que el programa sea capaz de gestionar entradas no numéricas con elegancia, mostrando un mensaje y saliendo del programa. A continuación se muestran dos ejecuciones del programa:</p>
+<p>Ejercicio 2: Reescribe el programa del salario usando <code>try</code> y <code>except</code>, de modo que el programa sea capaz de gestionar entradas no numéricas con elegancia, mostrando un mensaje y saliendo del programa. A continuación se muestran dos ejecuciones del programa:</p>
 <pre><code>Introduzca las Horas: 20
 Introduzca la Tarifa por hora: nueve
 Error, por favor introduzca un número</code></pre>
 <pre><code>Introduzca las Horas: cuarenta
 Error, por favor introduzca un número</code></pre>
-<p>Exercise 3: Escribe un programa que solicite una puntuación entre 0.0 y 1.0. Si la puntuación está fuera de ese rango, muestra un mensaje de error. Si la puntuación está entre 0.0 y 1.0, muestra la calificación usando la tabla siguiente:</p>
+<p>Ejercicio 3: Escribe un programa que solicite una puntuación entre 0.0 y 1.0. Si la puntuación está fuera de ese rango, muestra un mensaje de error. Si la puntuación está entre 0.0 y 1.0, muestra la calificación usando la tabla siguiente:</p>
 <pre><code>
 Puntuación Calificación
 &gt;= 0.9     Sobresaliente

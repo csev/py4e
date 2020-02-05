@@ -69,14 +69,14 @@ ValueError: invalid literal for int() with base 10: &#39;Hola&#39;</code></pre>
 <p>Esta sentencia crea un <em>objeto módulo</em> llamado math. Si se imprime el objeto módulo, se obtiene cierta información sobre él:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(math)
 &lt;module &#39;math&#39; (built-in)&gt;</code></pre>
-<p>El objeto módulo contiene la función y variables definidas en el módulo. Para acceder a una de esas funciones, es necesario especificar el nombre del módulo y el nombre de la función, separados por un punto (también conocido como período). Este formato recibe el nombre de <em>notación punto</em>.</p>
+<p>El objeto módulo contiene las funciones y variables definidas en el módulo. Para acceder a una de esas funciones, es necesario especificar el nombre del módulo y el nombre de la función, separados por un punto (también conocido en inglés como <em>períod</em>). Este formato recibe el nombre de <em>notación punto</em>.</p>
 <p></p>
 <pre class="python"><code>&gt;&gt;&gt; relacion = int_senal / int_ruido
 &gt;&gt;&gt; decibelios = 10 * math.log10(relacion)
 
 &gt;&gt;&gt; radianes = 0.7
 &gt;&gt;&gt; altura = math.sin(radianes)</code></pre>
-<p>El primer ejemplo calcula el logaritmo base 10 de la relación señal-ruido. El módulo math también proporciona una función llamada <code>log</code> que calcula logaritmos en base <code>e</code>.</p>
+<p>El primer ejemplo calcula el logaritmo en base 10 de la relación señal-ruido. El módulo math también proporciona una función llamada <code>log</code> que calcula logaritmos en base <code>e</code>.</p>
 <p>     </p>
 <p>El segundo ejemplo calcula el seno de la variable <code>radianes</code>. El nombre de la variable es una pista de que <code>sin</code> y las otras funciones trigonométricas (<code>cos</code>, <code>tan</code>, etc.) toman argumentos en radianes. Para convertir de grados a radianes, hay que dividir por 360 y multiplicar por <span class="math inline">2<em>π</em></span>:</p>
 <pre class="python"><code>&gt;&gt;&gt; grados = 45
@@ -91,7 +91,7 @@ ValueError: invalid literal for int() with base 10: &#39;Hola&#39;</code></pre>
 0.7071067811865476</code></pre>
 <h2 id="números-aleatorios">Números aleatorios</h2>
 <p>   </p>
-<p>A partir de las mismas entradas, la mayoría de los programas generarán las mismas salidas cada vez, que es lo que llamamos comportamiento <em>determinista</em>. El determinismo normalmente es algo bueno, ya que esperamos que la misma operación nos proporcione siempre el mismo resultado. Para ciertas aplicaciones, sin embargo, querremos que el equipo sea impredecible. Los juegos son el ejemplo obvio, pero hay más.</p>
+<p>A partir de las mismas entradas, la mayoría de los programas generarán las mismas salidas cada vez, que es lo que llamamos comportamiento <em>determinista</em>. El determinismo normalmente es algo bueno, ya que esperamos que la misma operación nos proporcione siempre el mismo resultado. Para ciertas aplicaciones, sin embargo, querremos que el resultado sea impredecible. Los juegos son el ejemplo obvio, pero hay más.</p>
 <p>Conseguir que un programa sea realmente no-determinista no resulta tan fácil, pero hay modos de hacer que al menos lo parezca. Una de ellos es usar <em>algoritmos</em> que generen números <em>pseudoaleatorios</em>. Los números pseudoaleatorios no son verdaderamente aleatorios, ya que son generados por una operación determinista, pero si sólo nos fijamos en los números resulta casi imposible distinguirlos de los aleatorios de verdad.</p>
 <p> </p>
 <p>El módulo <code>random</code> proporciona funciones que generan números pseudoaleatorios (a los que simplemente llamaremos &quot;aleatorios&quot; de ahora en adelante).</p>
@@ -113,7 +113,7 @@ for i in range(10):
 0.510535245390327
 0.27447040171978143
 0.028511805472785867</code></pre>
-<p><strong>Exercise 1: Ejecuta el programa en tu sistema y observa qué números obtienes.</strong></p>
+<p><strong>Ejercicio 1: Ejecuta el programa en tu sistema y observa qué números obtienes.</strong></p>
 <p>La función <code>random</code> es solamente una de las muchas que trabajan con números aleatorios. La función <code>randint</code> toma los parámetros <code>inferior</code> y <code>superior</code>, y devuelve un entero entre <code>inferior</code> y <code>superior</code> (incluyendo ambos extremos).</p>
 <p> </p>
 <pre class="python"><code>&gt;&gt;&gt; random.randint(5, 10)
@@ -127,7 +127,7 @@ for i in range(10):
 2
 &gt;&gt;&gt; random.choice(t)
 3</code></pre>
-<p>El módulo <code>random</code> también proporciona funciones para generar valores aleatorios de distribuciones continuas, incluyendo Gausiana, exponencial, gamma, y unas cuantas más.</p>
+<p>El módulo <code>random</code> también proporciona funciones para generar valores aleatorios de varias distribuciones continuas, incluyendo gaussiana, exponencial, gamma, y unas cuantas más.</p>
 <h2 id="añadiendo-funciones-nuevas">Añadiendo funciones nuevas</h2>
 <p>Hasta ahora, sólo hemos estado usando las funciones que vienen incorporadas en Python, pero es posible añadir también funciones nuevas. Una <em>definición de función</em> especifica el nombre de una función nueva y la secuencia de sentencias que se ejecutan cuando esa función es llamada. Una vez definida una función, se puede reutilizar una y otra vez a lo largo de todo el programa.</p>
 <p>  </p>
@@ -187,8 +187,8 @@ repite_estribillo()
 <p>Este programa contiene dos definiciones de funciones: <code>muestra_estribillo</code> y <code>repite_estribillo</code>. Las definiciones de funciones son ejecutadas exactamente igual que cualquier otra sentencia, pero su resultado consiste en crear objetos del tipo función. Las sentencias dentro de cada función son ejecutadas solamente cuando se llama a esa función, y la definición de una función no genera ninguna salida.</p>
 <p></p>
 <p>Como ya te imaginarás, es necesario crear una función antes de que se pueda ejecutar. En otras palabras, la definición de la función debe ser ejecutada antes de que la función se llame por primera vez.</p>
-<p><strong>Exercise 2: Desplaza la última línea de este programa hacia arriba, de modo que la llamada a la función aparezca antes que las definiciones. Ejecuta el programa y observa qué mensaje de error obtienes.</strong></p>
-<p><strong>Exercise 3: Desplaza la llamada de la función de nuevo hacia el final, y coloca la definición de <code>muestra_estribillo</code> después de la definición de <code>repite_estribillo</code>. ¿Qué ocurre cuando haces funcionar ese programa?</strong></p>
+<p><strong>Ejercicio 2: Desplaza la última línea del programa anterior hacia arriba, de modo que la llamada a la función aparezca antes que las definiciones. Ejecuta el programa y observa qué mensaje de error obtienes.</strong></p>
+<p><strong>Ejercicio 3: Desplaza la llamada de la función de nuevo hacia el final, y coloca la definición de <code>muestra_estribillo</code> después de la definición de <code>repite_estribillo</code>. ¿Qué ocurre cuando haces funcionar ese programa?</strong></p>
 <h2 id="flujo-de-ejecución">Flujo de ejecución</h2>
 <p></p>
 <p>Para asegurarnos de que una función está definida antes de usarla por primera vez, es necesario saber el orden en que las sentencias son ejecutadas, que es lo que llamamos el <em>flujo de ejecución</em>.</p>
@@ -197,7 +197,7 @@ repite_estribillo()
 <p>Una llamada a una función es como un desvío en el flujo de la ejecución. En vez de pasar a la siguiente sentencia, el flujo salta al cuerpo de la función, ejecuta todas las sentencias que hay allí, y después vuelve al punto donde lo dejó.</p>
 <p>Todo esto parece bastante sencillo, hasta que uno recuerda que una función puede llamar a otra. Cuando está en mitad de una función, el programa puede tener que ejecutar las sentencias de otra función. Pero cuando está ejecutando esa nueva función, ¡tal vez haya que ejecutar todavía más funciones!</p>
 <p>Afortunadamente, Python es capaz de llevar el seguimiento de dónde se encuentra en cada momento, de modo que cada vez que completa la ejecución de una función, el programa vuelve al punto donde lo dejó en la función que había llamado a esa. Cuando esto le lleva hasta el final del programa, simplemente termina.</p>
-<p>¿Cuál es la moraleja de esta sórdida historia? Cuando leas un programa, no siempre te convendrá hacerlo de arriba a abajo. A veces tiene más sentido seguir el flujo de la ejecución.</p>
+<p>¿Cuál es la moraleja de esta extraña historia? Cuando leas un programa, no siempre te convendrá hacerlo de arriba a abajo. A veces tiene más sentido seguir el flujo de la ejecución.</p>
 <h2 id="parámetros-y-argumentos">Parámetros y argumentos</h2>
 <p>   </p>
 <p>Algunas de las funciones internas que hemos visto necesitan argumentos. Por ejemplo, cuando se llama a <code>math.sin</code>, se le pasa un número como argumento. Algunas funciones necesitan más de un argumento: <code>math.pow</code> toma dos, la base y el exponente.</p>
@@ -248,7 +248,7 @@ aurea = (math.sqrt(5) + 1) / 2</code></pre>
 <p> </p>
 <p>Las funciones estériles pueden mostrar algo en la pantalla o tener cualquier otro efecto, pero no devuelven un valor. Si intentas asignar el resultado a una variable, obtendrás un valor especial llamado <code>None</code> (nada).</p>
 <p> </p>
-<pre class="python"><code>&gt;&gt;&gt; resultado = print_twice(&#39;Bing&#39;)
+<pre class="python"><code>&gt;&gt;&gt; resultado = muestra_dos_veces(&#39;Bing&#39;)
 Bing
 Bing
 &gt;&gt;&gt; print(resultado)
@@ -270,12 +270,12 @@ print(x)
 <p></p>
 <p>Puede no estar muy claro por qué merece la pena molestarse en dividir un programa en funciones. Existen varias razones:</p>
 <ul>
-<li><p>El crear una función nueva te da oportunidad de dar nombre a un grupo de sentencias, lo cual hace a tu programa más fácil de leer, entender, y depurar.</p></li>
+<li><p>El crear una función nueva te da la oportunidad de dar nombre a un grupo de sentencias, lo cual hace tu programa más fácil de leer, entender y depurar.</p></li>
 <li><p>Las funciones pueden hacer un programa más pequeño, al eliminar código repetido. Además, si quieres realizar cualquier cambio en el futuro, sólo tendrás que hacerlo en un único lugar.</p></li>
 <li><p>Dividir un programa largo en funciones te permite depurar las partes de una en una y luego ensamblarlas juntas en una sola pieza.</p></li>
 <li><p>Las funciones bien diseñadas a menudo resultan útiles para otros muchos programas. Una vez que has escrito y depurado una, puedes reutilizarla.</p></li>
 </ul>
-<p>Throughout the rest of the book, often we will use a function definition to explain a concept. Part of the skill of creating and using functions is to have a function properly capture an idea such as &quot;find the smallest value in a list of values&quot;. Later we will show you code that finds the smallest in a list of values and we will present it to you as a function named <code>min</code> which takes a list of values as its argument and returns the smallest value in the list.</p>
+<p>A lo largo del resto del libro, a menudo usaremos una definición de función para explicar un concepto. Parte de la habilidad de crear y usar funciones consiste en llegar a tener una función que represente correctamente una idea, como &quot;encontrar el valor más pequeño en una lista de valores&quot;. Más adelante te mostraremos el código para encontrar el valor más pequeño de una lista de valores y te lo presentaremos como una función llamada <code>min</code>, que toma una lista de valores como argumento y devuelve el menor valor de esa lista.</p>
 <h2 id="editor">Depuración</h2>
 <p></p>
 <p>Si estás usando un editor de texto para escribir tus propios scripts, puede que tengas problemas con los espacios y tabulaciones. El mejor modo de evitar esos problemas es usar espacios exclusivamente (no tabulaciones). La mayoría de los editores de texto que reconocen Python lo hacen así por defecto, aunque hay algunos que no.</p>
@@ -283,7 +283,7 @@ print(x)
 <p>Las tabulaciones y los espacios normalmente son invisibles, lo cual hace que sea difícil depurar los errores que se pueden producir, así que mejor busca un editor que gestione el indentado por ti.</p>
 <p>Tampoco te olvides de guardar tu programa antes de hacerlo funcionar. Algunos entornos de desarrollo lo hacen automáticamente, pero otros no. En ese caso, el programa que estás viendo en el editor de texto puede no ser el mismo que estás ejecutando en realidad.</p>
 <p>¡La depuración puede llevar mucho tiempo si estás haciendo funcionar el mismo programa con errores una y otra vez!</p>
-<p>Asegúrate que el código que estás examinando es el mismo que estás ejecutando. Si no estás seguro, pon algo como <code>print(&quot;hola&quot;)</code> al principio del programa y hazlo funcionar de nuevo. Si no ves <code>hola</code> en la pantalla, ¡es que no estás ejecutando el programa correcto!</p>
+<p>Asegúrate de que el código que estás examinando es el mismo que estás ejecutando. Si no estás seguro, pon algo como <code>print(&quot;hola&quot;)</code> al principio del programa y hazlo funcionar de nuevo. Si no ves <code>hola</code> en la pantalla, ¡es que no estás ejecutando el programa correcto!</p>
 <h2 id="glosario">Glosario</h2>
 <dl>
 <dt>algoritmo</dt>
@@ -399,14 +399,14 @@ print(x)
 </dd>
 </dl>
 <p></p>
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 4: ¿Cuál es la utilidad de la palabra clave &quot;def&quot; en Python?</strong></p>
+<h2 id="ejercicios">Ejercicios</h2>
+<p><strong>Ejercicio 4: ¿Cuál es la utilidad de la palabra clave &quot;def&quot; en Python?</strong></p>
 <p>a) Es una jerga que significa &quot;este código es realmente estupendo&quot;<br />
 b) Indica el comienzo de una función<br />
 c) Indica que la siguiente sección de código indentado debe ser almacenada para usarla más tarde<br />
 d) b y c son correctas ambas<br />
 e) Ninguna de las anteriores</p>
-<p><strong>Exercise 5: ¿Qué mostrará en pantalla en siguiente programa Python?</strong></p>
+<p><strong>Ejercicio 5: ¿Qué mostrará en pantalla el siguiente programa Python?</strong></p>
 <pre class="python"><code>def fred():
    print(&quot;Zap&quot;)
 
@@ -421,11 +421,11 @@ b) Zap ABC Zap<br />
 c) ABC Zap jane<br />
 d) ABC Zap ABC<br />
 e) Zap Zap Zap</p>
-<p><strong>Exercise 6: Reescribe el programa de cálculo del salario, con tarifa-y-media para las horas extras, y crea una función llamada <code>calculo_salario</code> que reciba dos parámetros (<code>horas</code> y <code>tarifa</code>).</strong></p>
+<p><strong>Ejercicio 6: Reescribe el programa de cálculo del salario, con tarifa-y-media para las horas extras, y crea una función llamada <code>calculo_salario</code> que reciba dos parámetros (<code>horas</code> y <code>tarifa</code>).</strong></p>
 <pre><code>Introduzca Horas: 45
 Introduzca Tarifa: 10
 Salario: 475.0</code></pre>
-<p><strong>EExercise 7: Reescribe el programa de calificaciones del capítulo anterior usando una función llamada <code>calcula_calificacion</code>, que reciba una puntuación como parámetro y devuelva una calificación como cadena.</strong></p>
+<p><strong>Ejercicio 7: Reescribe el programa de calificaciones del capítulo anterior usando una función llamada <code>calcula_calificacion</code>, que reciba una puntuación como parámetro y devuelva una calificación como cadena.</strong></p>
 <pre><code>Puntuación Calificación
 &gt; 0.9      Sobresaliente
 &gt; 0.8      Notable
