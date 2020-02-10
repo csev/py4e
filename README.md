@@ -1,72 +1,72 @@
 
-Welcome to the Spanish Translation of www.py4e.com
+Bienvenido a la traducción al Español de www.py4e.com
 ==================================================
 
-This is the spanish version of www.py4e.com available at
-at es.py4e.com.
+La versión en Español de www.py4e.com se encuentra disponible
+en es.py4e.com.
 
-You can help with the Spanish translation if you have a github
-account.  You can use the github editor to send us "pull requests"
-whcih we will review and apply.
+Puedes ayudar con la traducción al Español si tienes una cuenta de
+GitHub. Puedes utilizar el editor de GitHub para enviarnos "pull requests",
+las cuales revisaremos y aceptaremos.
 
-You can also become a core committer for the project to help review
-and apply changes to the site as well as apply your own translations
-directly.  The best way to become a core contributor is to start
-doing some work and after a while, it will just be simpler to make you
-a core contributor.
+También puedes volverte un colaborador principal en el proyecto ayudando
+a revisar y aceptar cambios al sitio web, así como aplicar tus propias
+traducciones directamente. La mejor forma de volverte un colaborador principal
+es comenzar a trabajar en el proyecto, y después de un tiempo, será sencillo
+hacerte un colaborador principal (core contributor, en Inglés).
 
-We can do most of our communication through github issues and pull requests
-but if you need to, please contact Dr. Chuck via email.
+Podemos comunicarnos en su mayor parte a través de GitHub issues y pull requests,
+pero de ser necesario, por favor contacta al Dr. Chuck por medio de un email.
 
-Your help is greatly appreciated.
+Tu ayuda es muy apreciada.
 
-Status
-------
+Estado actual
+-------------
 
-* Book: Preface and Chapters 1-5 are translated
-* Slides: Chapters 1-5 are translated
-* Book Figures: Chapters 1-13 figures are translated
-* Code Samples: Code from Chapters 1-5 is translated
-* Web pages: Very little translated
+* Libro: Prefacio y Capítulos 1-9 están traducidos
+* Diapositivas: Capítulos 1-5 están traducidos
+* Imágenes del Libro: Imágenes de Capítulos 1-13 están traducidas
+* Ejemplos de Código: Código de Capítulos 1-5 están traducidos
+* Páginas Web: Muy poco ha sido traducido
 
-Areas to Translate
+Areas por Traducir
 ------------------
 
-* The book chapters under the folder `book3` - the book is written in
-Markdown so it is prety easy to edit the book using any text editor.
-Look for the files that end in '.mkd' and edit the files.  Much of the code
-samples for the book are in the `code3` folder and are merged into the
-book as part of the book production process.  Some of code samples
-that don't work without special configuration are included
-directly in the book.
+* Los capítulos del libro bajo el directorio `book3` - el libro está escrito en
+Markdown así que es muy sencillo editar el libro utilizando cualquier editor de texto.
+Busca los archivos que terminen con '.mkd' y edítalos. La mayoria de los ejemplos
+del libro están en el directorio `code3` y son incluidos en el libro
+como parte del proceso de producción del libro. Algunos de los ejemplos de código
+que no funcionan sin una configuración especial también son incluidos directamente
+en el libro.
 
-* The code samples under the folder `code3` - make sure to syntax check
-your code after you make the changes.  These code snippets are included
-into the text of the book as part of the book production process.
+* Los ejemplos de código bajo el directorio `code3` - asegúrate de verificar la
+sintaxis de tu código después de que hagas cambios. Esos bloques de código son
+incluídos en el texto del libro como parte del proceso de producción.
 
-* The OmniGraffle figures under `figures` - these are manually exported
-into the EPS and SVG formats under images fo inclusion in the EPUB, HMTL,
-and PDF versions of the book.  You will need the OmniGraffle software
-to edit these figures.
+* Las figuras OmniGraffle bajo `figures` - éstas son exportadas manualmente
+en formatos EPS y SVG bajo el directorio de images para ser incluidas en las versiones
+EPUB, HMTL, y PDF. Necesitas el software OmniGraffle para editar
+esas figuras.
 
-* The slides under `lectures3` are in PowerPoint and need to be translated.
+* Las diapositivas bajo `lectures3` están en PowerPoint y necesitan ser traducidas.
 
-* The text of the web site in the various `.php` files in the repository.
-It will help to know PHP to know what to translate without breaking 
-the files.
+* El texto del sitio web en los múltiples archivos `.php` en el repositorio.
+Esto ayudará a que PHP sepa qué debe traducir sin romper los
+archivos.
 
-Python 2 Book in Spanish
-========================
+Libro de Python 2 en Español
+============================
 
-The Python 2 version of the book is already translated into Spanish
-thanks to Fernando Tardio. (https://twitter.com/fertardio).  Fernando
-also started the translation of the Python 3 book.
+La versión de Python 2 del libro ya está traducida al Español gracias
+a Fernando Tardio. (https://twitter.com/fertardio). Fernando
+también comenzó la traducción del libro de Python 3.
 
-You can view it at http://do1.dr-chuck.net/py4inf/ES-es/book.pdf.
+Puedes verlo en http://do1.dr-chuck.net/py4inf/ES-es/book.pdf.
 
-It has the same chapters and much the same text as the Python 3
-book and you can look at this book if you are interested in
-good phraseology when describing Python in Spanish.
+Este libro tiene los mismos capítulos y el texto es similar al libro
+de Python 3 y puedes revisar el libro si estás interesado en
+buena terminología cuando describas Python en Español.
 
 
 
