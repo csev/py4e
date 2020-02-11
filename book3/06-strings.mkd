@@ -5,12 +5,12 @@ Una cadena es una secuencia
 ----------------------
 
 \index{secuencia}
-\index{caracter}
+\index{carácter}
 \index{operador corchete}
 \index{operador!corchete}
 
-Una cadena es una *secuencia* de caracteres. Puedes acceder
-los caracteres uno a la vez con el operador corchete:
+Una cadena es una *secuencia* de caracteres. Puedes acceder a
+los caracteres de uno en uno con el operador corchete:
 
 ~~~~ {.python}
 >>> fruta = 'banana'
@@ -20,11 +20,11 @@ los caracteres uno a la vez con el operador corchete:
 \index{index}
 \index{}
 
-La segunda sentencia extrae el caracter en la posición del indice 1 de
+La segunda sentencia extrae el carácter en la posición del indice 1 de
 la variable `fruta` y la asigna a la variable `letra`.
 
-La expresión en los corchetes es llamada un *índice*. El
-índice indica cuál caracter de la secuencia quieres (de aquí el
+La expresión en los corchetes es llamada *índice*. El
+índice indica qué carácter de la secuencia quieres (de ahí el
 nombre).
 
 Pero podrías no obtener lo que esperas:
@@ -36,7 +36,7 @@ a
 
 Para la mayoría de las personas, la primer letra de "banana" es "b", no
 "a". Pero en Python, el índice es un desfase desde el inicio
-de la cadena, y el desfase de la primer letra es cero.
+de la cadena, y el desfase de la primera letra es cero.
 
 ~~~~ {.python}
 >>> letra = fruta[0]
@@ -45,8 +45,8 @@ b
 ~~~~
 
 Así que "b" es la letra 0 ("cero") de "banana",
-"a" es la 1er letra ("primer"), y "n" es la
-2da ("segunda") letra.
+"a" es la letra con índice 1, y "n" es la
+que tiene índice 2, etc.
 
 ![Indices de Cadenas](height=0.75in@../images/string)
 
@@ -73,7 +73,7 @@ Obtener el tamaño de una cadena usando `len`
 \index{len function}
 \index{function!len}
 
-`len` es una función nativa que regresa el número de
+`len` es una función nativa que devuelve el número de
 caracteres en una cadena:
 
 ~~~~ {.python}
@@ -96,8 +96,8 @@ IndexError: string index out of range
 
 La razón de que haya un `IndexError` es que ahí no hay ninguna letra en
 "banana" con el índice 6. Puesto que empezamos a contar desde
-cero, las seis letras están enumeradas desde 0 hasta 5. Para obtener el último caracter,
-tienes que restar 1 del `length`:
+cero, las seis letras están enumeradas desde 0 hasta 5. Para obtener el último carácter,
+tienes que restar 1 a `length`:
 
 ~~~~ {.python}
 >>> ultima = fruta[tamaño-1]
@@ -106,8 +106,8 @@ a
 ~~~~
 
 Alternativamente, puedes usar índices negativos, los cuales cuentan hacia atrás desde
-el final de la cadena. La expresión `fruta[-1]` regresa la
-última letra, `fruta[-2]` regresa la penúltima letra, y así
+el final de la cadena. La expresión `fruta[-1]` devuelve la
+última letra, `fruta[-2]` la penúltima letra, y así
 sucesivamente.
 
 \index{index!negative}
@@ -123,9 +123,8 @@ Recorriendo una cadena mediante un bucle
 \index{expresión!for}
 \index{recorrido}
 
-Muchos de los cálculos requieren procesar una cadena con un caracter a la
-vez. Frecuentemente empiezan desde el inicio, seleccionando cada caracter presente,
-hacer algo con él, y continuar hasta el final. Este patrón de
+Muchos de los cálculos requieren procesar una cadena carácter por carácter. Frecuentemente empiezan desde el inicio, seleccionando cada carácter presente,
+haciendo algo con él, y continuando hasta el final. Este patrón de
 procesamiento es llamado un *recorrido*. Una manera de escribir un
 recorrido es con un bucle `while`:
 
@@ -140,14 +139,13 @@ while indice < len(fruta):
 Este bucle recorre la cadena e imprime cada letra en una línea
 cada una. La condición del bucle es `indice < len(fruta)`, así que cuando
 `indice` es igual al tamaño de la cadena, la condición
-es falsa, y el código del bucle no se ejecuta. El último caracter
+es falsa, y el código del bucle no se ejecuta. El último carácter
 accedido es el que tiene el índice `len(fruta)-1`, el cual es
-el último caracter en la cadena.
+el último carácter en la cadena.
 
-**Ejercicio 1: Escribe un bucle `while` que comienza con el último
-caracter en la cadena y trabaja hacia atrás hasta el primer
-caracter en la cadena, imprimiendo cada letra en una línea independiente, excepto
-al revés.**
+**Ejercicio 1: Escribe un bucle `while` que comience con el último
+carácter en la cadena y haga un recorrido hacia atrás hasta el primer
+carácter en la cadena, imprimiendo cada letra en una línea independiente.**
 
 Otra forma de escribir un recorrido es con un bucle `for`:
 
@@ -156,11 +154,11 @@ for caracter in fruta:
     print(caracter)
 ~~~~
 
-Cada vez que iteramos el bucle, el siguiente caracter en la cadena es asignado
-a la variable `caracter`. El ciclo continua hasta que no
+Cada vez que iteramos el bucle, el siguiente carácter en la cadena es asignado
+a la variable `caracter`. El ciclo continúa hasta que no
 quedan caracteres.
 
-Parte de una cadena
+Parte (slicing) de una cadena
 -------------
 
 \index{parte operador}
@@ -170,7 +168,7 @@ Parte de una cadena
 \index{parte!cadena}
 
 Un segmento de una cadena es llamado *parte*. Seleccionar una
-parte es similar a seleccionar un caracter:
+parte es similar a seleccionar un carácter:
 
 ~~~~ {.python}
 >>> s = 'Monty Python'
@@ -180,8 +178,8 @@ Monty
 Python
 ~~~~
 
-El operador retorna la parte de la cadena desde el "n-avo" caracter
-hasta el "m-avo" caracter, incluyendo el primero pero excluyendo el último.
+El operador [n:m] retorna la parte de la cadena desde el "n-ésimo" carácter
+hasta el "m-ésimo" carácter, incluyendo el primero pero excluyendo el último.
 
 Si omites el primer índice (antes de los dos puntos), la parte comienza desde el
 inicio de la cadena. Si omites el segundo índice, la parte va hasta
@@ -207,7 +205,7 @@ una *cadena vacía*, representado por dos comillas:
 ~~~~
 
 Una cadena vacía no contiene caracteres y tiene un tamaño de 0, pero fuera de
-esto, es lo mismo que cualquier otra cadena.
+esto es lo mismo que cualquier otra cadena.
 
 **Ejercicio 2: Dado que `fruta` es una cadena, ¿que significa
 `fruta[:]`?**
@@ -222,8 +220,8 @@ Los cadenas son inmutables
 \index{inmutabilidad}
 \index{cadena!inmutable}
 
-Puede ser tentador utilizar el operador en el lado izquierdo de una asignación,
-con la intención de cambiar un caracter en una cadena. Por ejemplo:
+Puede ser tentador utilizar el operador [] en el lado izquierdo de una asignación,
+con la intención de cambiar un carácter en una cadena. Por ejemplo:
 
 \index{TypeError}
 \index{exception!TypeError}
@@ -234,10 +232,10 @@ con la intención de cambiar un caracter en una cadena. Por ejemplo:
 TypeError: 'str' object does not support item assignment
 ~~~~
 
-El "object" en este caso es la cadena y el "item" es el caracter
+El "object" en este caso es la cadena y el "ítem" es el carácter
 que tratamos de asignar. Por ahora, un *object* es la misma
 cosa que un valor, pero vamos a redefinir esa definición después. Un
-*item* es uno de los valores en una secuencia.
+*ítem* es uno de los valores en una secuencia.
 
 \index{item}
 \index{asignación item}
@@ -245,7 +243,7 @@ cosa que un valor, pero vamos a redefinir esa definición después. Un
 \index{inmutabilidad}
 
 La razón por la cual ocurre el error es que las cadenas son *inmutables*,
-lo cual significa que no puedes cambiar una cadena existente. Lo mejor que puedes hacer es
+lo cual significa que no puedes modificar una cadena existente. Lo mejor que puedes hacer es
 crear una nueva cadena que sea una variación del original:
 
 ~~~~ {.python}
@@ -255,7 +253,7 @@ crear una nueva cadena que sea una variación del original:
 Jola, mundo!
 ~~~~
 
-Este ejemplo concatena una nueva primer letra a una parte de
+Este ejemplo concatena una nueva letra a una parte de
 `saludo`. Esto no tiene efecto sobre la cadena original.
 
 \index{concatenacion}
@@ -281,15 +279,15 @@ print(contador)
 ~~~~
 
 Este programa demuestra otro patrón de computación llamado
-*contador*. La variable `contador` es inicializada en
-0 y después incrementa cada vez que una "a" es encontrada. Cuando el
+*contador*. La variable `contador` es inicializada a
+0 y después se incrementa cada vez que una "a" es encontrada. Cuando el
 bucle termina, `contador` contiene el resultado: el número total de
 a's.
 
 \index{encapsulación}
 
-**Ejercicio 3: Encapsula este codigo en una función llamada `cuenta`, y
-hazla general de tal modo que pueda aceptar una cadena y una letra como argumentos.**
+**Ejercicio 3: Encapsula este código en una función llamada `cuenta`, y
+hazla genérica de tal modo que pueda aceptar una cadena y una letra como argumentos.**
 
 El operador `in`
 ----------------------------
@@ -300,7 +298,7 @@ El operador `in`
 \index{operador!booleano}
 
 La palabra `in` es un operador booleano que toma dos cadenas
-y regresa `True` si la primer cadena aparece como una subcadena de la
+y regresa `True` si la primera cadena aparece como una subcadena de la
 segunda:
 
 ~~~~ {.python}
@@ -316,7 +314,7 @@ Comparación de cadenas
 \index{cadena!comparacion}
 \index{comparacion!cadena}
 
-Los operadores de comparacion funcionan en cadenas. Para ver si dos cadenas son
+Los operadores de comparación funcionan en cadenas. Para ver si dos cadenas son
 iguales:
 
 ~~~~ {.python}
@@ -336,8 +334,8 @@ else:
     print('Muy bien, bananas.')
 ~~~~
 
-Python no maneja letras mayúsculas y minúsculas en la misma forma que
-la gente lo hace. Todas las letras mayúsculas vienen antes de todas las letras
+Python no maneja letras mayúsculas y minúsculas de la misma forma que
+la gente lo hace. Todas las letras mayúsculas van antes que todas las letras
 minúsculas, por ejemplo:
 
 ~~~~
@@ -353,8 +351,8 @@ Métodos de cadenas
 ---------------------------
 
 Los cadenas son un ejemplo de *objetos* en Python. Un objeto
-contiene ambos datos (el valor de la cadena misma) y
-*métodos*, los cuales son efectivamente funciones que estan implementadas
+contiene tanto datos (el valor de la cadena misma) como
+*métodos*, los cuales son efectivamente funciones que están implementadas
 dentro del objeto y que están disponibles para cualquier *instancia* del
 objeto.
 
@@ -387,17 +385,17 @@ capitalize(...)
 >>>
 ~~~~
 
-Mientras que la función `dir` enlista los métodos, puedes usar la función
+Aunque la función `dir` lista los métodos y puedes usar la función
 `help` para obtener una breve documentación de un método, una mejor
-fuente de documentación para los métodos de cadenas sería
+fuente de documentación para los métodos de cadenas se puede encontrar en 
 <https://docs.python.org/library/stdtypes.html#string-methods>.
 
-Llamar a un *método* es similar a llamar una función (ésta
-toma argumentos y regresa un valor) pero el sintaxis es diferente. Llamamos
-un método agregando el nombre del método al nombre de la variable usando
+Llamar a un *método* es similar a llamar una función (esta
+toma argumentos y devuelve un valor) pero la sintaxis es diferente. Llamamos
+a un método uniendo el nombre del método al de la variable, usando
 un punto como delimitador.
 
-Por ejemplo, el método `upper` toma una cadena y regresa una
+Por ejemplo, el método `upper` toma una cadena y devuelve una
 nueva cadena con todas las letras en mayúscula:
 
 \index{método}
@@ -415,9 +413,9 @@ sintaxis de método `word.upper()`.
 BANANA
 ~~~~
 
-Esta forma de notación del punto especifica el nombre del método,
+Esta forma de notación con punto especifica el nombre del método,
 `upper`, y el nombre de la cadena al que se le aplicará el método,
-`palabra`. Los paréntesis vacíos indican que este método no toma
+`palabra`. Los paréntesis vacíos indican que el método no toma
 argumentos.
 
 \index{paréntesis!vacío}
@@ -428,8 +426,8 @@ diríamos que estamos invocando `upper` en
 
 \index{invocación}
 
-Por ejemplo, hay un método de cadena llamado `find` que
-busca por la posición de una cadena dentro de otra cadena:
+Por ejemplo, existe un método de cadena llamado `find` que
+busca la posición de una cadena dentro de otra:
 
 ~~~~ {.python}
 >>> palabra = 'banana'
@@ -448,7 +446,7 @@ El método `find` puede encontrar subcadenas así como caracteres:
 2
 ~~~~
 
-Este puede tomar como un segundo argumento el índice desde donde debe empezar:
+También puede tomar como un segundo argumento el índice desde donde debe empezar:
 
 \index{argumento opcional}
 \index{argumento!opcional}
@@ -458,8 +456,8 @@ Este puede tomar como un segundo argumento el índice desde donde debe empezar:
 4
 ~~~~
 
-Una tarea común es remover los espacios en blanco (espacios, tabs, o nuevas líneas)
-en el inicio y el fin de una cadena usando el método
+Una tarea común es eliminar los espacios en blanco (espacios, tabs, o nuevas líneas)
+en el inicio y el final de una cadena usando el método
 `strip`:
 
 ~~~~ {.python}
@@ -468,7 +466,7 @@ en el inicio y el fin de una cadena usando el método
 'Aquí vamos'
 ~~~~
 
-Algunos métodos como *startswith* regresan valores booleanos.
+Algunos métodos como *startswith* devuelven valores booleanos.
 
 ~~~~ {.python}
 >>> linea = 'Que tengas un buen día'
@@ -478,9 +476,9 @@ True
 False
 ~~~~
 
-Puedes notar que `startswith` requiere que el formato (mayúscula o minúscula) coincida, de modo que
-a veces tenemos que tomar la línea y cambiarla completa a minúsculas antes de hacer algúna
-verificación utilizando el método `lower`.
+Puedes notar que `startswith` requiere que el formato (mayúsculas y minúsculas) coincida, de modo que
+a veces tendremos que tomar la línea y cambiarla completamente a minúsculas antes de hacer la
+verificación, utilizando el método `lower`.
 
 ~~~~ {.python}
 >>> linea = 'Que tengas un buen día'
@@ -502,28 +500,28 @@ podemos hacer múltiples llamadas a métodos en una sola expresión.
 
 **Ejercicio 4: Hay un método de cadenas llamado `count` que es similar a
 la función del ejercicio previo. Lee la documentación de este
-método en:
+método en:**
 
 <https://docs.python.org/library/stdtypes.html#string-methods> 
 
-Escribe una invocación que cuenta el número de veces que una letra aparece
+**Escribe una invocación que cuenta el número de veces que una letra aparece
 en "banana".**
 
 Analizando cadenas
 ---------------
 
-Frecuentemente, queremos ver una cadena y encontrar una subcadena. Por ejemplo
+Frecuentemente, queremos examinar una cadena para encontrar una subcadena. Por ejemplo,
 si se nos presentaran una seria de líneas con el siguiente formato:
 
-`From stephen.marquard@`*` uct.ac.za`*` Sat Jan  5 09:14:16 2008`
+`From stephen.marquard@`*`uct.ac.za`*` Sat Jan  5 09:14:16 2008`
 
-y quisiéramos obtener únicamente la segunda parte de la dirección (esto es,
+y quisiéramos obtener únicamente la segunda parte de la dirección de correo (esto es,
 `uct.ac.za`) de cada línea, podemos hacer esto utilizando el método
 `find` y una parte de la cadena.
 
-Primero, tenemos que encontrar la posición de la arroba en la cadena. Después,
+Primero tenemos que encontrar la posición de la arroba en la cadena. Después,
 tenemos que encontrar la posición del primer espacio *después* de la arroba. Y después
-usaremos una parte de la cadena para extraer la porción de la cadena que
+partiremos la cadena para extraer la porción de la cadena que
 estamos buscando.
 
 ~~~~ {.python}
@@ -541,30 +539,30 @@ uct.ac.za
 ~~~~
 
 Utilizamos una versión del método `find` que nos permite
-especificar una posición en la cadena donde queremos que `find`
+especificar la posición en la cadena desde donde queremos que `find`
 comience a buscar.
 Cuando recortamos una parte de una cadena, extraemos los caracteres desde "uno después
-del signo de arroba hasta *pero no incluyendo* el caracter de espacio".
+de la arroba hasta, *pero no incluyendo*, el carácter de espacio".
 
 La documentación del método `find` está disponible en
 
 <https://docs.python.org/library/stdtypes.html#string-methods>.
 
-El operador formato
+El operador de formato
 ---------------
 
 \index{formato operador}
 \index{operador!formato}
 
-El *operador formato*, `%` nos permite
-construir cadenas, reemplazar partes de las cadenas con datos almacenados
+El *operador de formato* `%` nos permite
+construir cadenas, reemplazando partes de las cadenas con datos almacenados
 en variables. Cuando lo aplicamos a enteros, `%` es el operador
-remanente. Pero cuando el primer operador es una cadena, `%` es el
-operador formato.
+módulo. Pero cuando es aplicado a una cadena, `%` es el
+operador de formato.
 
 \index{formato cadena}
 
-El primer operando es la *cadena de formato*, la cual contiene
+El primer operando es la *cadena a formatear*, la cual contiene
 una o más *secuencias de formato* que especifican cómo el
 segundo operando es formateado. El resultado es una cadena.
 
@@ -580,10 +578,10 @@ debería ser formateado como un entero ("d" significa "decimal"):
 ~~~~
 
 El resultado es la cadena '42', el cual no debe ser confundido con el
-entero de valor 42.
+valor entero 42.
 
 Una secuencia de formato puede aparecer en cualquier lugar en la cadena, así que puedes meter un
-valor en una secuencia:
+valor en una frase:
 
 ~~~~ {.python}
 >>> camellos = 42
@@ -622,7 +620,7 @@ TypeError: %d format: a number is required, not str
 En el primer ejemplo, no hay suficientes elementos; en el segundo, el
 elemento es de un tipo incorrecto.
 
-El operador formato es poderoso, pero puede ser difícil de usar. Puedes
+El operador de formato es poderoso, pero puede ser difícil de usar. Puedes
 leer más al respecto en
 
 <https://docs.python.org/library/stdtypes.html#printf-style-string-formatting>.
@@ -632,16 +630,16 @@ Depuración
 
 \index{depuración}
 
-Una habilidad que debes cultivar cuando programas es siempre preguntarte
-a tí mismo, "¿Qué pudo haber fallado aquí?" o alternativamente, "¿Qué cosa
-ilógica podría hacer nuestro usuario final para hacer fallar nuestro programa (aparentemente) perfecto?"
+Una habilidad que debes desarrollar cuando programas es siempre preguntarte
+a ti mismo, "¿Qué podría fallar aquí?" o alternativamente, "¿Qué cosa
+ilógica podría hacer un usuario para hacer fallar nuestro (aparentemente) perfecto programa?"
 
 Por ejemplo, observa el programa que utilizamos para demostrar el bucle
 `while` en el capítulo de iteraciones:
 
 \VerbatimInput{../code3/copytildone2.py}
 
-Mira lo que pasa cuando el usuario ingresa una línea vacía como entrada:
+Mira lo que pasa cuando el usuario introduce una línea vacía como entrada:
 
 ~~~~ {.python}
 > hello there
@@ -656,12 +654,12 @@ Traceback (most recent call last):
 IndexError: string index out of range
 ~~~~
 
-El código funciona bien hasta que se presenta una línea vacía. Después no hay un
-caracter cero, por lo que obtenemos un rastreo (traceback). Hay dos soluciones a
-esto para hacer la línea tres "segura" incluso si la línea está vacía.
+El código funciona bien hasta que se presenta una línea vacía. En ese momento no hay un
+carácter cero, por lo que obtenemos una traza de error (traceback). Existen dos soluciones a
+esto para convertir la línea tres en "segura", incluso si la línea está vacía.
 
 Una posibilidad es simplemente usar el método `startswith`
-que regresa `False` si la cadena está vacía.
+que devuelve `False` si la cadena está vacía.
 
 ~~~~ {.python}
 if line.startswith('#'):
@@ -672,7 +670,7 @@ if line.startswith('#'):
 
 Otra forma segura es escribir una sentencia `if` utilizando el
 patrón *guardián* y asegurarse que la segunda expresión lógica
-es evaluada sólo cuando hay al menos un caracter en
+es evaluada sólo cuando hay al menos un carácter en
 la cadena:
 
 ~~~~ {.python}
@@ -683,7 +681,7 @@ Glosario
 --------
 
 contador
-:   Una variable utilizada para contar algo, usualmente inicializada en cero y
+:   Una variable utilizada para contar algo, usualmente inicializada a cero y
     luego incrementada.
 \index{contador}
 
@@ -695,26 +693,26 @@ cadena vacía
 operador de formato
 :   Un operador, `%`, que toma una cadena de formato y una tupla
     y genera una cadena que incluye los elementos de la tupla
-    formateados como se especifíca en la cadena de formato.
+    formateados como se especifica en la cadena de formato.
 \index{operador formato}
 \index{operador!formato}
 
 secuencia de formato
-:   Una secuencia de caracteres en una cadena de formato, como `%d`,
-    que especifíca cómo un valor debe ser formateado.
+:   Una secuencia de caracteres en una cadena a formatear, como `%d`,
+    que especifica cómo un valor debe ser formateado.
 \index{secuencia de formato}
 
-cadena de formato
+cadena a formatear
 :   Una cadena, usado con el operador de formato, que contiene
     secuencias de formato.
-\index{cadena de formato}
+\index{cadena a formatear}
 
-bandera
+flag (bandera)
 :   Una variable booleana utilizada para indicar si una condición es verdadera o falsa.
-\index{bandera}
+\index{flag}
 
 invocación
-:   Un enunciado que llama un método.
+:   Una sentencia que llama un método.
 \index{invocación}
 
 inmutable
@@ -722,8 +720,8 @@ inmutable
 \index{immutability}
 
 índice
-:   Un valor de entero utilizado para seleccionar un ítem en una secuencia, tal como
-    un caracter en una cadena.
+:   Un valor entero utilizado para seleccionar un ítem en una secuencia, tal como
+    un carácter en una cadena.
 \index{índice}
 \index{}
 
@@ -732,12 +730,12 @@ inmutable
 \index{ítem}
 
 método
-:   Una función que está asociada con un objeto y es llamada utilizando la
+:   Una función que está asociada a un objeto y es llamada utilizando la
     notación de punto.
 \index{método}
 
 objeto
-:   Algo a lo que una variable puede referir. Por ahora, puedes usar "objeto" y
+:   Algo a lo que una variable puede referirse. Por ahora, puedes usar "objeto" y
     "valor" indistintamente.
 \index{objeto}
 
@@ -752,11 +750,11 @@ secuencia
     identificado por un índice entero.
 \index{secuencia}
 
-parte
+parte (slice)
 :   Una parte de una cadena especificado por un rango de índices.
 \index{parte}
 
-atraversar
+atravesar
 :   Iterar a través de los ítems de una secuencia, ejecutando una operación
     similar en cada uno.
 \index{atravesar}
@@ -769,7 +767,7 @@ Ejercicios
 `str = 'X-DSPAM-Confidence: `**`0.8475`**`'`
 
 **Utiliza `find` y una parte de la cadena para extraer la porción de la
-cadena después del caracter dos puntos y después utiliza la función `float`
+cadena después del carácter dos puntos y después utiliza la función `float`
 para convertir la cadena extraída en un número de punto flotante.**
 
 \index{método cadena}
@@ -782,7 +780,7 @@ como funcionan. `strip` y `replace` son
 particularmente útiles.**
 
 **La documentación usa una sintaxis que puede ser confusa. Por ejemplo, en
-`find(sub[, start[, end]])`, los corchetes indican argumentos posicionales.
+`find(sub[, start[, end]])`, los corchetes indican argumentos opcionales.
 De modo que `sub` es requerido, pero `start` es opcional, y
-si tu incluyes `start`, entonces `end` es opcional.**
+si se incluye `start`, entonces `end` es opcional.**
 
