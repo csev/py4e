@@ -10,28 +10,28 @@ Persistencia
 \index{persistencia}
 \index{memoria secundaria}
 
-Hasta ahora, hemos aprendido como escribir programas y comunicar nuestras
+Hasta ahora, hemos aprendido cómo escribir programas y comunicar nuestras
 intenciones a la *Unidad Central de Procesamiento* utilizando
 ejecuciones condicionales, funciones, e iteraciones. Hemos aprendido como
-crear y usar estructuras de datos en la *Memoria Principal*. El
-CPU y la memoria están donde nuestro software funciona y ejecuta. Es donde toda
+crear y usar estructuras de datos en la *Memoria Principal*. La
+CPU y la memoria son los lugares donde nuestro software funciona y se ejecuta. Es donde toda
 la *inteligencia* ocurre.
 
 Pero si recuerdas nuestras discusiones de arquitectura de hardware, una vez
-que la corriente se interrumpe, cualquier cosa almacenada ya sea en el CPU o en la memoria es
-eliminada. Así que hasta ahora, nuestros programas han sido sólo una diversión
+que la corriente se interrumpe, cualquier cosa almacenada ya sea en la CPU o en la memoria es
+eliminada. Así que hasta ahora nuestros programas han sido sólo una diversión
 pasajera para aprender Python.
 
 ![Memoria Secundaria](height=2.5in@../images/arch)
 
 En este capítulo, vamos a comenzar a trabajar con *Memoria Secundaria*
 (o archivos). La memoria secundaria no es eliminada cuando apagamos
-una computadora. O en el caso de una memoria USB, los datos que escribimos desde nuestros
-programas pueden ser removidos del sistema y transportados a otro
+una computadora. Incluso, en el caso de una memoria USB, los datos que escribimos desde nuestros
+programas pueden ser retirados del sistema y transportados a otro
 sistema.
 
 Nos vamos a enfocar principalmente en leer y escribir archivos como
-los que creamos en un editor de texto. Después vamos a ver cómo trabajar con archivos
+los que creamos en un editor de texto. Más adelante veremos cómo trabajar con archivos
 de bases de datos, que son archivos binarios diseñados específicamente para ser leídos
 y escritos a través de software para manejo de bases de datos.
 
@@ -59,16 +59,16 @@ archivo desde [www.py4e.com/code3/mbox.txt](http://www.py4e.com/code3/mbox.txt)
 
 \index{manejador archivo}
 
-Si el `open` es exitoso, el sistema operativo nos retorna un
-*manejador de archivo*. El manejador de archivo no es los datos
-contenidos en el archivo, sino un "manejador" que podemos usar para
-leer los datos. Tendrás un manejador de archivo si el archivo solicitado
+Si el `open` es exitoso, el sistema operativo nos devuelve un
+*manejador de archivo*. El manejador de archivo no son los datos
+contenidos en el archivo, sino un "manejador" *(handler)* que podemos usar para
+leer los datos. Obtendrás un manejador de archivo si el archivo solicitado
 existe y si tienes los permisos apropiados para leerlo.
 
 ![Un Manejador de Archivo](height=2.0in@../images/handle)
 
 Si el archivo no existe, `open` fallará con un mensaje de error
-y no obtendrás un manejador para acceder el contenido del archivo:
+y no obtendrás un manejador para acceder al contenido del archivo:
 
 ~~~~ {.python}
 >>> manejador_archivo = open('stuff.txt')
@@ -83,8 +83,8 @@ manera la situación donde tratamos de abrir un archivo que no existe.
 Archivos de texto y líneas
 --------------------
 
-Un archivo de texto puede ser pensado como una secuencia de líneas, así como
-una cadena de Python puede ser pensada como una secuencia de caracteres. Por ejemplo, este
+Un archivo de texto puede ser considerado como una secuencia de líneas, así como
+una cadena de Python puede ser considerada como una secuencia de caracteres. Por ejemplo, este
 es un ejemplo de un archivo de texto que registra la actividad de correos de varias
 personas en un equipo de desarrollo de un proyecto de código abierto (open source):
 
@@ -102,24 +102,23 @@ El archivo completo de interacciones por correo está disponible en
 
 [www.py4e.com/code3/mbox.txt](http://www.py4e.com/code3/mbox.txt)
 
-y una versión recortada del archivo está disponible en
+y una versión reducida del archivo está disponible en
 
 [www.py4e.com/code3/mbox-short.txt](http://www.py4e.com/code3/mbox-short.txt)
 
 Esos archivos están en un formato estándar para un archivo que contiene múltiples
-mensajes de correo. Las líneas que comienzan con "From:" son parte de los mensajes. Para más
-información acerca del formato mbox, ve
+mensajes de correo. Las líneas que comienzan con "From " separan los mensajes y las líneas que comienzan con "From:" son parte de esos mensajes. Para más información acerca del formato mbox, consulta
 
 <https://es.wikipedia.org/wiki/Mbox>.
 
-Para separar el archivo en líneas, hay un caracter especial que
+Para separar el archivo en líneas, hay un carácter especial que
 representa el "final de una línea" llamado *salto de línea*.
 
 \index{saltodelinea}
 
 En Python, representamos el *salto de línea* como una
 barra invertida-n en las cadenas. Incluso aunque esto parezca dos
-caracteres, realmente es un solo caracter. Cuando vemos la variable
+caracteres, realmente es un solo carácter. Cuando vemos la variable
 interactuando con el intérprete, este nos muestra el `\n` en la
 cadena, pero cuando usamos `print` para mostrar la cadena, vemos
 la cadena separada en dos líneas debido al salto de línea.
@@ -140,11 +139,11 @@ Y
 ~~~~
 
 También puedes ver que el tamaño de la cadena `X\nY` es *tres*
-caracteres debido a que el separador de línea es un solo caracter.
+caracteres debido a que el separador de línea es un solo carácter.
 
-Cuando vemos las líneas en un archivo, necesitamos *imaginar* que ahí
-hay un caracter invisible llamada separador de línea al final de cada
-línea, el cual marca el final de la línea.
+Por tanto, cuando vemos las líneas en un archivo, necesitamos *imaginar* que ahí
+hay un carácter invisible llamado separador de línea al final de cada
+línea, el cual marca el final de la misma.
 
 De modo que el separador de línea separa los caracteres del archivo en
 líneas.
@@ -155,9 +154,9 @@ Lectura de archivos
 \index{archivo!lectura}
 \index{contador}
 
-Mientras que el *manejador de archivo* no contiene los datos de un
-archivo, es bastante fácil construir in bucle `for` para leer
-a través de y contar cada una de las líneas en el archivo:
+Aunque el *manejador de archivo* no contiene los datos de un
+archivo, es bastante fácil utilizarlo en un bucle `for` para leer
+a través del archivo y contar cada una de sus líneas:
 
 \VerbatimInput{../code3/open.py}
 \begin{trinketfiles}
@@ -167,22 +166,22 @@ a través de y contar cada una de las líneas en el archivo:
 Podemos usar el manejador de archivos como una secuencia en nuestro bucle `for`.
 Nuestro bucle `for` simplemente cuenta el número de líneas en el archivo y
 las imprime. La traducción aproximada de ese bucle
-al español es, "para cada línea en el archivo representada por el manejador
+al español es, "para cada línea en el archivo representado por el manejador
 de archivo, suma uno a la variable `count`."
 
 La razón por la cual la función `open` no lee el archivo completo
-es porque el archivo puede ser muy grande, incluso muchos gigabytes de datos.
-La sentencia `open` toma la misma cantidad de tiempo sin importar
-el tamaño del archivo. De hecho, el bucle `for` hace que los datos
+es porque el archivo puede ser muy grande, incluso con muchos gigabytes de datos.
+La sentencia `open` emplea la misma cantidad de tiempo sin importar
+el tamaño del archivo. De hecho, es el bucle `for` el que hace que los datos
 sean leídos desde el archivo.
 
 Cuando el archivo es leído usando un bucle `for` de esta manera,
 Python se encarga de dividir los datos del archivo en líneas separadas
-utilizando el separador de línea. Python lee cada línea a través del separador
-e incluye el separador como el último caracter en la variable `line`
+utilizando el separador de línea. Python lee cada línea hasta el separador
+e incluye el separador como el último carácter en la variable `line`
 para cada iteración del bucle `for`.
 
-Debido a que el bucle `for` lee los datos una línea a la vez, éste
+Debido a que el bucle `for` lee los datos línea a línea, éste
 puede leer eficientemente y contar las líneas en archivos muy grandes sin
 quedarse sin memoria principal para almacenar los datos. El programa previo
 puede contar las líneas de cualquier tamaño de archivo utilizando poca memoria, puesto
@@ -201,9 +200,9 @@ el método `read` en el manejador de archivos.
 From stephen.marquar
 ~~~~
 
-En este ejemplo, el contenido completo (todos los 94,626 caracteres) del archivo
+En este ejemplo, el contenido completo (todos los 94626 caracteres) del archivo
 *mbox-short.txt* son leídos directamente en la variable
-`inp`. Utilizamos recorte de cadenas para imprimir los primeros 20
+`inp`. Utilizamos el troceado de cadenas para imprimir los primeros 20
 caracteres de la cadena de datos almacenada en `inp`.
 
 Cuando el archivo es leído de esta forma, todos los caracteres incluyendo
@@ -227,9 +226,9 @@ tu programa para leer el archivo en bloques utilizando un bucle `for` o `while`.
 Búsqueda a través de un archivo
 ------------------------
 
-Cuando buscas a través de los datos de un archivo, un patrón muy comun es
+Cuando buscas a través de los datos de un archivo, un patrón muy común es
 leer el archivo, ignorar la mayoría de las líneas y solamente procesar líneas que
-que cumplen con una condición particular. Podemos combinar el patrón de
+cumplan con una condición particular. Podemos combinar el patrón de
 leer un archivo con métodos de cadenas para construir mecanismos de búsqueda
 sencillos.
 
@@ -246,7 +245,7 @@ deseado:
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Cuando este programa corre, obtenemos la siguiente salida:
+Cuando este programa se ejecuta, obtenemos la siguiente salida:
 
 ~~~~
 From: stephen.marquard@uct.ac.za
@@ -259,24 +258,24 @@ From: rjlowe@iupui.edu
 ...
 ~~~~
 
-La salida se ve bien puesto que solo las líneas que estamos buscando son aquellas
-que comienzan con "From:", pero, ¿por qué estamos viendo las líneas vacías extras?
-Esto es debido al caracter invisible *salto de línea*. Cada una
-de las líneas termina con un salto de línea, así que la sentencia
-`print` imprime la cadena en la variable *line* la cual incluye una línea nueva,
+La salida parece correcta puesto que las líneas que estamos buscando son aquellas
+que comienzan con "From:", pero ¿por qué estamos viendo las líneas vacías extras?
+Esto es debido al carácter invisible *salto de línea*. Cada una
+de las líneas leídas termina con un salto de línea, así que la sentencia
+`print` imprime la cadena almacenada en la variable *line*, la cual incluye ese salto de línea,
 y después `print` agrega *otro* salto de línea, resultando en
 el efecto de doble salto de línea que observamos.
 
-Podemos usar recorte de líneas para imprimir todos excepto el último caracter, pero
+Podemos usar troceado de líneas para imprimir todos los caracteres excepto el último, pero
 una forma más sencilla es usar el método *rstrip*, el cual
-remueve los espacios en blanco del lado derecho de una cadena, tal como:
+elimina los espacios en blanco del lado derecho de una cadena, tal como:
 
 \VerbatimInput{../code3/search2.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Cuando este programa ejecuta, obtenemos lo siguiente:
+Cuando este programa se ejecuta, obtenemos lo siguiente:
 
 ~~~~
 From: stephen.marquard@uct.ac.za
@@ -289,10 +288,10 @@ From: cwen@iupui.edu
 ...
 ~~~~
 
-Así como tus programas de procesamiento de archivos se vuelven más complicados, quizá quieras
+A medida que tus programas de procesamiento de archivos se vuelven más complicados, quizá quieras
 estructurar tus bucles de búsqueda utilizando `continue`. La idea básica de un
-bucle de búsqueda es que estés buscando por líneas "interesantes" e
-ignorando líneas "no interesantes". Después cuando encontramos una línea
+bucle de búsqueda es que estás buscando líneas "interesantes" e
+ignorando líneas "no interesantes". Y cuando encontramos una línea
 interesante, hacemos algo con ella.
 
 Podemos estructurar el bucle para seguir el patrón de ignorar las líneas
@@ -304,16 +303,16 @@ no interesantes así:
 \end{trinketfiles}
 
 La salida del programa es la misma. En Español, las líneas no interesantes son
-aquellas que no comienzan con "From:", así que las brincamos utilizando
-`continue`. Para las líneas "de interés" (i.e., aquellas que comienzan con
-"From:") haremos un procesamiento sobre ellas.
+aquellas que no comienzan con "From:", así que las saltamos utilizando
+`continue`. En cambio las líneas "interesantes" (aquellas que comienzan con
+"From:") las procesamos.
 
-Podemos usar el método de cadenas `find` para simular una búsqueda de editor de texto
-que encuentra líneas donde la cadena de búsqueda está en cualquier parte de la línea.
+Podemos usar el método de cadenas `find` para simular la función de búsqueda de un editor de texto,
+que encuentra las líneas donde aparece la cadena de búsqueda en alguna parte.
 Puesto que `find` busca cualquier ocurrencia de una cadena dentro de
-otra cadena, y retorna la posición de la cadena o -1 si la cadena no fue encontrada,
+otra y devuelve la posición de esa cadena o -1 si la cadena no fue encontrada,
 podemos escribir el siguiente bucle para mostrar las líneas que contienen la cadena
-"@uct.ac.za" (i.e., los que vienen de la Universidad de Cape Town en Sudáfrica):
+"@uct.ac.za" (es decir, los que vienen de la Universidad de Cape Town en Sudáfrica):
 
 \VerbatimInput{../code3/search4.py}
 \begin{trinketfiles}
@@ -344,12 +343,12 @@ indentado.
 Permitiendo al usuario elegir el nombre de archivo
 -------------------------------------
 
-Definitivamente no queremos tener que editar nuestro código de Python cada vez que
-queremos procesar un archivo diferente. Sería más útil pedir al usuario ingresar
-el nombre archivo cada vez que el programa ejecuta, de modo que puede
-usar nuestro programa en diferentes archivos sin tener que cambiar el código de Python.
+Definitivamente no queremos tener que editar nuestro código Python cada vez que
+queremos procesar un archivo diferente. Sería más útil pedir al usuario que introduzca
+el nombre del archivo cada vez que el programa se ejecuta, de modo que pueda
+usar nuestro programa en diferentes archivos sin tener que cambiar el código.
 
-Esto es sencillo de hacer al leer el nombre de archivo del usuario utilizando
+Esto es sencillo de hacer leyendo el nombre de archivo del usuario utilizando
 `input` como se muestra a continuación:
 
 \VerbatimInput{../code3/search6.py}
@@ -357,7 +356,7 @@ Esto es sencillo de hacer al leer el nombre de archivo del usuario utilizando
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Leemos al nombre de archivo del usuario y lo guardamos en una variable llamada
+Leemos el nombre de archivo del usuario y lo guardamos en una variable llamada
 `fname` y abrimos el archivo. Ahora podemos ejecutar el programa
 repetidamente en diferentes archivos.
 
@@ -371,10 +370,10 @@ Enter the file name: mbox-short.txt
 There were 27 subject lines in mbox-short.txt
 ~~~~
 
-Antes de asomarte a la siguiente sección, observa el programa debajo y
-pregúntate a tí mismo, "¿Qué error podría pasar aquí?" o "¿Qué podría
-nuestro amigable usuario hacer que podría causar que nuestro pequeño programa
-termine no existosamente con un error, haciéndonos ver no-muy-geniales ante
+Antes de mirar la siguiente sección, observa el programa anterior y
+pregúntate a ti mismo, "¿Qué error podría suceder aquí?" o "¿Qué podría
+nuestro amigable usuario hacer que cause que nuestro pequeño programa
+termine no exitosamente con un error, haciéndonos ver no-muy-geniales ante
 los ojos de nuestros usuarios?"
 
 Utilizando `try, except,` y `open`
@@ -401,17 +400,17 @@ FileNotFoundError: [Errno 2] No such file or directory: 'na na boo boo'
 ~~~~
 
 No te rías. Los usuarios eventualmente harán cualquier cosa que puedan
-para estropear tus programas, sea intencionalmente o con intenciones maliciosas. Como un
+para estropear tus programas, sea a propósito o sin intenciones maliciosas. De
 hecho, una parte importante de cualquier equipo de desarrollo de software es una
-persona o grupo llamado *Quality Assurance* (Control de Calidad) (o QA en inglés) cuyo trabajo es hacer las cosas
+persona o grupo llamado *Quality Assurance* (Control de Calidad) (o QA en inglés) cuyo trabajo es probar las cosas
 más locas posibles en un intento de hacer fallar el software que el programador ha creado.
 
 \index{Control de Calidad}
 \index{QA}
 
-El equipo de QA (Control de Calidad) es responsable de encontrar las fallas en programas antes de
-que hayamos entregado el programa a los usuarios finales que podrían comprar el software o pagar nuestro salario
-para escribir el software. Así que el equipo de QA es el mejor amigo de un programador.
+El equipo de QA (Control de Calidad) es responsable de encontrar los fallos en los programas antes de
+éstos sean entregados a los usuarios finales, que podrían comprar nuestro software o pagar nuestro salario
+por escribirlo. Así que el equipo de QA es el mejor amigo de un programador.
 
 \index{try sentencia}
 \index{sentencia!try}
@@ -422,8 +421,8 @@ para escribir el software. Así que el equipo de QA es el mejor amigo de un prog
 
 Ahora que vemos el defecto en el programa, podemos arreglarlo de forma elegante utilizando
 la estructura `try`/`except`. Necesitamos asumir que
-la llamada a `open` podría fallar por lo que agregaremos código de recuperación
-cuando la llamada `open` falla así:
+la llamada a `open` podría fallar y agregar código de recuperación
+para ese fallo, así:
 
 \VerbatimInput{../code3/search7.py}
 \begin{trinketfiles}
@@ -431,8 +430,8 @@ cuando la llamada `open` falla así:
 \end{trinketfiles}
 
 La función `exit` termina el programa. Es una función
-que llamamos que nunca retorna. Ahora cuando nuestro usuario (o el equipo de QA) ingrese
-algo sin sentido o un nombre de archivo incorrecto, vamos a "atraparlos" y recuperarnos
+que llamamos que nunca retorna. Ahora cuando nuestro usuario (o el equipo de QA) introduzca
+algo sin sentido o un nombre de archivo incorrecto, vamos a "capturarlo" y recuperarnos
 de forma elegante:
 
 ~~~~
@@ -447,24 +446,24 @@ File cannot be opened: na na boo boo
 
 \index{Pythonic}
 
-Protegiendo la llamada a `open` es un buen ejemplo de un manejo apropiado
-del uso de `try` y `except` en un programa de Python. Utilizamos
-el término "Pythonico" cuando estamos haciendo algo en el "estilo de Python".
-Podríamos decir que el ejemplo anterior es una forma Pythonica de abrir un archivo.
+Proteger la llamada a `open` es un buen ejemplo del uso correcto de 
+`try` y `except` en un programa de Python. Utilizamos
+el término "Pythónico" cuando estamos haciendo algo según el "estilo de Python".
+Podríamos decir que el ejemplo anterior es una forma Pythónica de abrir un archivo.
 
-Una vez que estés más familiarizado en Python, puedes intercambiar opiniones con
+Una vez que estés más familiarizado con Python, puedes intercambiar opiniones con
 otros programadores de Python para decidir cuál de entre dos soluciones equivalentes a
-un problema es "más Pythonica". El objetivo de ser "más Pythonico" engloba la noción
+un problema es "más Pythónica". El objetivo de ser "más Pythónico" engloba la noción
 de que programar es en parte ingeniería y en parte arte. No siempre estamos interesados
-en sólo hacer que algo funcione, también queremos que nuestra solución sea elegante y
-sea apreciada como elegante por nuestros compañeros.
+sólo en hacer que algo funcione, también queremos que nuestra solución sea elegante y
+que sea apreciada como elegante por nuestros compañeros.
 
 Escritura de archivos
 -------------
 
 \index{archivo!escritura}
 
-Para escribir un archivo, tienes que abrirlo en modo "w" como segundo
+Para escribir en un archivo, tienes que abrirlo en modo "w" (de `write`) como segundo
 parámetro:
 
 ~~~~ {.python}
@@ -477,8 +476,8 @@ Si el archivo ya existía previamente, abrirlo en modo de escritura causará que
 todo el contenido del archivo, así que ¡ten cuidado! Si el archivo no existe, un
 nuevo archivo es creado.
 
-El método `write` del manejador de archivos coloca datos dentro
-del archivo, regresando el número de caracteres escritos. El modo de escritura
+El método `write` del manejador de archivos escribe datos dentro
+del archivo, devolviendo el número de caracteres escritos. El modo de escritura
 por defecto es texto para escribir (y leer) cadenas.
 
 ~~~~ {.python}
@@ -489,13 +488,13 @@ por defecto es texto para escribir (y leer) cadenas.
 
 \index{saltodelinea}
 
-De nuevo, el objeto de archivo mantiene seguimiento de dónde está, así que
-si tu llamas `write` de nuevo, éste agrega los nuevos datos al final.
+El manejador de archivo mantiene un seguimiento de dónde está, así que
+si llamas a `write` de nuevo, éste agrega los nuevos datos al final.
 
-Debemos estar seguros de manejar los finales de línea conforme vamos escribiendo
-al archivo insertando explícitamente el caracter de salto de línea que queremos al final de la línea.
+Debemos asegurarnos de gestionar los finales de las líneas conforme vamos escribiendo
+en el archivo, insertando explícitamente el carácter de salto de línea cuando queremos finalizar una línea.
 La sentencia `print` agrega un salto de línea automáticamente, pero
-el método `write` no agrega el salto de línea de forma automática.
+el método `write` no lo agrega de forma automática.
 
 ~~~~ {.python}
 >>> linea2 = 'the emblem of our land.\n'
@@ -504,18 +503,17 @@ el método `write` no agrega el salto de línea de forma automática.
 ~~~~
 
 Cuando terminas de escribir, tienes que cerrar el archivo para asegurarte que
-la última parte de los datos es físicamente escrita en el disco duro, de modo que
-no se pierdan los datos si se apaga la computadora.
+la última parte de los datos es escrita físicamente en el disco duro, de modo que
+no se pierdan los datos si la corriente eléctrica se interrumpe.
 
 ~~~~ {.python}
 >>> fout.close()
 ~~~~
 
-Debemos cerrar los archivos que abrimos para lectura también, pero podemos ser un
-poco rigurosos si sólo estamos abriendo algunos archivos puesto que Python se asegura
-que todos los archivos abiertos sean cerrados cuando termina el programa. Cuando estamos
-escribiendo archivos, queremos de forma explícita cerrar los archivos para no dejar lugar
-a nada.
+Podríamos cerrar los archivos abiertos para lectura también, pero podemos ser menos rigurosos si sólo estamos abriendo unos pocos archivos puesto que Python se asegura
+de que todos los archivos abiertos sean cerrados cuando termina el programa. En cambio, cuando estamos
+escribiendo archivos debemos cerrarlos de forma explícita para no dejar nada
+al azar.
 
 \index{cerrar metodo}
 \index{metodo!cerrar}
@@ -541,9 +539,9 @@ espacios, tabuladores, y saltos de línea son invisibles normalmente:
 \index{funcion!repr}
 \index{cadena representacion}
 
-La función nativa `repr` puede ayudar. Toma cualquier objeto como
-argumento y regresa una representación del objecto como una cadena. Para
-cadenas, representa los espacios en blanco con sequencias de barras invertidas:
+La función nativa `repr` puede ayudarte. Recibe cualquier objeto como
+argumento y devuelve una representación del objeto como una cadena. En el caso de las 
+cadenas, representa los espacios en blanco con secuencias de barras invertidas:
 
 ~~~~ {.python}
 >>> print(repr(s))
@@ -554,11 +552,11 @@ Esto puede ser útil para depurar.
 
 Otro problema que podrías tener es que diferentes sistemas usan
 diferentes caracteres para indicar el final de una línea. Algunos sistemas
-usan un salto de línea, representado como `\n`. Otros usan un caracter de retorno, representado con
-`\r`. Algunos usan ambos. Si mueves archivos entre diferentes sistemas, esas
-inconsistencias podrían causar problemas.
+usan un salto de línea, representado como `\n`. Otros usan un carácter de retorno, representado con
+`\r`. Otros usan ambos. Si mueves archivos entre diferentes sistemas, esas
+inconsistencias podrían causarte problemas.
 
-\index{caracter final de linea}
+\index{carácter final de linea}
 
 Para la mayoría de los sistemas, hay aplicaciones que convierten de un formato a
 otro. Puedes encontrarlas (y leer más acerca de esto) en [wikipedia.org/wiki/Newline](wikipedia.org/wiki/Newline). O también,
@@ -567,25 +565,25 @@ por supuesto, puedes escribir una tu mismo.
 Glosario
 --------
 
-catch
-:   Para prevenir una excepción de terminar un programa usando las sentencias
+capturar (catch)
+:   Evitar que una excepción haga terminar un programa, usando las sentencias
     `try` y `except`.
 \index{catch}
 
-nueva linea
-:   Un caracter especial utilizado en archivos y cadenas para indicar el final de
+salto de línea
+:   Un carácter especial utilizado en archivos y cadenas para indicar el final de
     una línea.
-\index{nueva linea}
+\index{salto de línea}
 
-Pythonico
+Pythónico
 :   Una técnica que funciona de forma elegante en Python. "Utilizar try y except es
-    la forma *Pythonica* de recuperarse de archivos inexistentes".
+    la forma *Pythónica* de gestionar los archivos inexistentes".
 \index{Pythonic}
 
-Control de calidad
+Control de calidad (QA)
 :   Una persona o equipo enfocado en asegurar la calidad en general de un
-    producto de software. Control de calidad (QA) es frecuentemente involucrado en probar
-    un producto e identificar problemas antes de que el producto sea lanzado.
+    producto. El Control de calidad (QA) es frecuentemente encargado de probar
+    un software y encontrar posibles problemas antes de que el software sea lanzado.
 \index{Control de calidad}
 \index{QA}
 
@@ -597,9 +595,9 @@ archivo de texto
 Ejercicios
 ---------
 
-**Ejercicio 1: Escribir un programa para leer a través de un archivo e imprimir el
-contenido del archivo (línea por línea) todo en mayúsculas. Al ejecutar el
-programa, debería verse así:**
+**Ejercicio 1: Escribe un programa que lea un archivo e imprima su
+contenido (línea por línea), todo en mayúsculas. Al ejecutar el
+programa, debería parecerse a esto:**
 
 ~~~~
 python shout.py
@@ -613,17 +611,17 @@ RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
 
 **Puedes descargar el archivo desde** [www.py4e.com/code3/mbox-short.txt](http://www.py4e.com/code3/mbox-short.txt)
 
-**Ejercicio 2: Escribir un programa que pregunta por un nombre de archivo, y después lee
-a través del archivo y busca las líneas que tengan la siguiente forma:**
+**Ejercicio 2: Escribe un programa que solicite un nombre de archivo y después lea
+ese archivo buscando las líneas que tengan la siguiente forma:**
 
 ~~~~
 X-DSPAM-Confidence: 0.8475
 ~~~~
 
 **Cuando encuentres una línea que comience con "X-DSPAM-Confidence:" ponla
-aparte para extraer el número flotante de la línea. Cuenta esas líneas y después
-calcula el total de los valores de "spam-confidence". Cuando llegues al final del archivo,
-imprime el promedio de los valores de "spam confidence".
+aparte para extraer el número decimal de la línea. Cuenta esas líneas y después
+calcula el total acumulado de los valores de "spam-confidence". Cuando llegues al final del archivo,
+imprime el valor medio de "spam confidence".
 
 ~~~~
 Ingresa un nombre de archivo: mbox.txt
@@ -635,9 +633,9 @@ Promedio spam confidence: 0.750718518519
 
 **Prueba tu programa con los archivos *mbox.txt* y *mbox-short.txt*.**
 
-**Ejercicio 3: Algunas veces cuando los programadores se aburren o quieren tener un poco de
-diversión, agregan un inofensivo *Huevo de pascua* a su programa.
-Modifica el programa que pregunta al usuario por el nombre de archivo de modo que
+**Ejercicio 3: Algunas veces cuando los programadores se aburren o quieren divertirse un
+poco, agregan un inofensivo *Huevo de Pascua* a su programa.
+Modifica el programa que pregunta al usuario por el nombre de archivo para que
 imprima un mensaje divertido cuando el usuario escriba "na na
 boo boo" como nombre de archivo. El programa debería funcionar normalmente para cualquier archivo
 que exista o no exista. Aquí está un ejemplo de la ejecución del programa:**
@@ -645,7 +643,7 @@ que exista o no exista. Aquí está un ejemplo de la ejecución del programa:**
 ~~~~
 python huevo.py
 Ingresa un nombre de archivo: mbox.txt
-Hay 1797 líneas de asunto en mbox.txt
+Hay 1797 líneas subject en mbox.txt
 
 python huevo.py
 Ingresa un nombre de archivo: inexistente.tyxt
@@ -656,6 +654,6 @@ Ingresa un nombre de archivo: na na boo boo
 NA NA BOO BOO PARA TI - Te he atrapado!
 ~~~~
 
-**No te estamos inculcando a poner Huevos de pascua en tus programas; es sólo un
+**No te estamos aconsejando poner Huevos de Pascua en tus programas; es sólo un
 ejercicio.**
 
