@@ -1,37 +1,39 @@
-Regular expressions
+Expresiones regulares
 ===================
 
-So far we have been reading through files, looking for patterns and
-extracting various bits of lines that we find interesting. We have been
+Hasta ahora hemos leído archivos, buscando patrones y 
+extrayendo varias secciones de líneas que hemos encontrado interesantes. Hemos 
 
-using string methods like `split` and `find` and
-using lists and string slicing to extract portions of the lines.
+usado métodos de cadenas como `split` y `find`, así como 
+rebanar listas y cadenas para extraer trozos de las líneas.
 
-\index{regular expressions}
+\index{expresiones regulares}
 \index{regex}
 \index{re module}
 
-This task of searching and extracting is so common that Python has a
-very powerful library called *regular expressions* that
-handles many of these tasks quite elegantly. The reason we have not
-introduced regular expressions earlier in the book is because while they
-are very powerful, they are a little complicated and their syntax takes
-some getting used to.
+Esta tarea de buscar y extraer es tan común que Python tiene una
+librería muy poderosa llamada *expresiones regulares* que
+maneja varias de estas tareas de manera bastante elegante. La razón por la que no
+presentamos las expresiones regulares antes se debe a que, aunque son
+muy poderosas, son un poco más complicadas y toma algo de tiempo
+acostumbrarse a su sintaxis.
 
-Regular expressions are almost their own little programming language for
-searching and parsing strings. As a matter of fact, entire books have
-been written on the topic of regular expressions. In this chapter, we
-will only cover the basics of regular expressions. For more detail on
-regular expressions, see:
+Las expresiones regulares casi son su propio lenguaje de programación en miniatura para
+buscar y analizar cadenas. De hecho, se han escrito libros enteros
+sobre las expresiones regulares. En este capítulo, solo
+cubriremos los aspectos básicos de las expresiones regulares. Para más información
+al respecto, recomendamos ver:
 
-<https://en.wikipedia.org/wiki/Regular_expression>
+
+<https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular>
 
 <https://docs.python.org/library/re.html>
 
-The regular expression library `re` must be imported into
-your program before you can use it. The simplest use of the regular
-expression library is the `search()` function. The following
-program demonstrates a trivial use of the search function.
+Se debe importar la librería de expresiones regulares `re`
+a tu programa antes de que puedas usarlas. La forma más simple de usar
+la librería de expresiones regulares es la función `search()` (N. del T.: "search" significa búsqueda). El siguiente
+programa demuestra una forma muy sencilla de usar esta función.
+
 
 \index{regex!search}
 
@@ -40,110 +42,114 @@ program demonstrates a trivial use of the search function.
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-We open the file, loop through each line, and use the regular expression
-`search()` to only print out lines that contain the string
-"From:". This program does not use the real power of regular
-expressions, since we could have just as easily used
-`line.find()` to accomplish the same result.
+Abrimos el archivo, revisamos cada línea, y usamos la expresión regular
+`search()`  para imprimir solo las líneas que contengan la cadena
+"From". Este programa no toma ventaja del auténtico poder de las
+expresiones regulares, ya que podríamos simplemente haber usado
+`line.find()` para lograr el mismo resultado.
 
 \index{string!find}
 
-The power of the regular expressions comes when we add special
-characters to the search string that allow us to more precisely control
-which lines match the string. Adding these special characters to our
-regular expression allow us to do sophisticated matching and extraction
-while writing very little code.
+El poder de las expresiones regulares se manifiesta cuando agregamos
+caracteres especiales a la cadena de búsqueda que nos permite controlar de manera
+más precisa qué líneas calzan con la cadena. Agregar estos caracteres especiales 
+a nuestra expresión regular nos permitirá buscar coincidencias y extraer datos
+usando unas pocas líneas de código.
 
-For example, the caret character is used in regular expressions to match
-"the beginning" of a line. We could change our program to only match
-lines where "From:" was at the beginning of the line as follows:
+
+Por ejemplo, el signo de intercalación (N. del T.: "caret" en inglés, corresponde
+al signo ^) se utiliza en expresiones regulares para encontrar 
+"el comienzo" de una lína. Podríamos cambiar nuestro programa para que solo 
+retorne líneas en que tengan "From:"  al comienzo, de la siguiente manera:
 
 \VerbatimInput{../code3/re02.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Now we will only match lines that *start with* the string
-"From:". This is still a very simple example that we could have done
-equivalently with the `startswith()` method from the string
-library. But it serves to introduce the notion that regular expressions
-contain special action characters that give us more control as to what
+Ahora solo retornará líneas que *comiencen con* la cadena
+"From:". Este sigue siendo un ejemplo muy sencillo que podríamos haber implementado
+usando el método `startswith()` de la librería de cadenas.
+Pero sirve para presentar la idea de que las expresiones regulares
+contienen caracteres especiales que nos dan mayor control sobre qué 
+coincidencias retornará la expresión regular.
 will match the regular expression.
 
 \index{string!startswith}
 
-Character matching in regular expressions
+
+Coincidencia de caracteres en expresiones regulares
 -----------------------------------------
 
-There are a number of other special characters that let us build even
-more powerful regular expressions. The most commonly used special
-character is the period or full stop, which matches any character.
+Existen varios caracteres especiales que nos permiten construir
+expresiones regulares incluso más poderosas. El más común es
+el punto, que coincide con cualquier carácter.
 
 \index{wild card}
 \index{regex!wild card}
 
-In the following example, the regular expression `F..m:` would match any
-of the strings "From:", "Fxxm:", "F12m:", or "F!@m:" since the period
-characters in the regular expression match any character.
+En el siguiente ejemplo, la expresión regular `F..m:` coincidiría con
+las cadenas "From:", "Fxxm:", "F12m:", o "F!@m:", ya que los caracteres
+de punto en la expresión regular coinciden con cualquier carácter.
 
 \VerbatimInput{../code3/re03.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-This is particularly powerful when combined with the ability to indicate
-that a character can be repeated any number of times using the `*` or
-`+` characters in your regular expression. These special characters mean
-that instead of matching a single character in the search string, they
-match zero-or-more characters (in the case of the asterisk) or
-one-or-more of the characters (in the case of the plus sign).
+Esto resulta particularmente poderoso cuando se le combina con la habilidad de indicar
+que un carácter puede repetirse cualquier cantidad de veces usando los 
+caracteres `*` o `+` en tu expresión regular. Estos caracteres especiales indican
+que en lugar de coincidir con un solo carácter en la cadena de búsqueda,
+coinciden con cero o más caracteres (en el caso del asterisco) o
+con uno o más caracteres (en el caso del signo de suma).
 
-We can further narrow down the lines that we match using a repeated
-*wild card* character in the following example:
+Podemos reducir más las líneas que coincidan usando un carácter *comodín*
+en el siguiente ejemplo:
 
 \VerbatimInput{../code3/re04.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-The search string `^From:.+@` will successfully match lines that start
-with "From:", followed by one or more characters (`.+`), followed by an
-at-sign. So this will match the following line:
+La cadena `^From:.+@` retornará coincidencias con líneas que empiecen
+con "From:", seguidas de uno o más caracteres (`.+`), seguidas de un
+carácter @. Por lo tanto, la siguiente línea coincidirá:
 
 ~~~~
 From: stephen.marquard@uct.ac.za
 ~~~~
 
-You can think of the `.+` wildcard as expanding to match all the
-characters between the colon character and the at-sign.
+Puede considerarse que el comodín `.+` se expande para abarcar
+todos los caracteres entre los signos : y @.
 
 ~~~~
 From:.+@
 ~~~~
 
-It is good to think of the plus and asterisk characters as "pushy". For
-example, the following string would match the last at-sign in the string
-as the `.+` pushes outwards, as shown below:
+Conviene considerar que los signos de suma y los asteriscos "empujan".
+Por ejemplo, la siguiente cadena marcaría una coincidencia con el último signo @,
+ya que el `.+` "empujan" hacia afuera, como se muestra a continuación:
 
 ~~~~
 From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen @iupui.edu
 ~~~~
 
-It is possible to tell an asterisk or plus sign not to be so "greedy" by
-adding another character. See the detailed documentation for information
-on turning off the greedy behavior.
+Es posible indicar a un asterisco o signo de suma que no debe ser tan "ambicioso"
+agregando otro carácter. Revisa la documentación para obtener información
+sobre cómo desactivar este comportamiento ambicioso.
 
-\index{greedy}
+\index{ambicioso}
 
-Extracting data using regular expressions
+Extrayendo datos usando expresiones regulares
 -----------------------------------------
 
-If we want to extract data from a string in Python we can use the
-`findall()` method to extract all of the substrings which
-match a regular expression. Let's use the example of wanting to extract
-anything that looks like an email address from any line regardless of
-format. For example, we want to pull the email addresses from each of
-the following lines:
+Si queremos extraer datos de una cadena en Python podemos usar el método
+`findall()` para extraer todas las subcadenas que
+coincidan con una expresión regular. Usemos el ejemplo de querer extraer
+cualquier secuencia que parezca una dirección email en cualquier línea,
+sin importar su formato. Por ejemplo, queremos extraer la dirección email
+de cada una de las siguientes líneas:
 
 ~~~~
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -153,10 +159,10 @@ Received: (from apache@localhost)
 Author: stephen.marquard@uct.ac.za
 ~~~~
 
-We don't want to write code for each of the types of lines, splitting
-and slicing differently for each line. This following program uses
-`findall()` to find the lines with email addresses in them
-and extract one or more addresses from each of those lines.
+No queremos escribir código para cada tipo de líneas, dividiendo y
+rebanando de manera distinta en cada una. El siguiente programa usa
+`findall()` para encontrar las líneas que contienen direcciones de email
+y extraer una o más direcciones de cada línea.
 
 \index{findall}
 \index{regex!findall}
@@ -166,12 +172,12 @@ and extract one or more addresses from each of those lines.
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-The `findall()` method searches the string in the second
-argument and returns a list of all of the strings that look like email
-addresses. We are using a two-character sequence that matches a
-non-whitespace character (`\S`).
+El método `findall()` busca en la cadena en el segundo
+argumento y retorna una lista de todas las cadenas que parecen
+ser direcciones de email. Estamos usando una secuencia de dos caracteres
+que coincide con un carácter distinto a un espacio en blanco (`\S`).
 
-The output of the program would be:
+El resultado de la ejecución del programa debiera ser:
 
 ~~~~
 ['csev@umich.edu', 'cwen@iupui.edu']
