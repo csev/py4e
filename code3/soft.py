@@ -1,13 +1,13 @@
-txt = 'but soft what light in yonder window breaks'
-words = txt.split()
+txt = 'Pero qué luz se deja ver allí'
+palabras = txt.split()
 t = list()
-for word in words:
-    t.append((len(word), word))
+for palabra in palabras:
+    t.append((len(palabra), palabra))
 
 t.sort(reverse=True)
 
 res = list()
-for length, word in t:
-    res.append(word)
+for longitud, palabra in t:
+    res.append(palabra)
 
 print(res)

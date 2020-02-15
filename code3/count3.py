@@ -1,22 +1,22 @@
 import string
-fhand = open('romeo-full.txt')
-counts = dict()
-for line in fhand:
-    line = line.translate(str.maketrans('', '', string.punctuation))
-    line = line.lower()
-    words = line.split()
-    for word in words:
-        if word not in counts:
-            counts[word] = 1
+manejador = open('romeo-full.txt')
+contadores = dict()
+for linea in manejador:
+    linea = linea.translate(str.maketrans('', '', string.punctuation))
+    linea = linea.lower()
+    palabras = linea.split()
+    for palabra in palabras:
+        if palabra not in contadores:
+            contadores[palabra] = 1
         else:
-            counts[word] += 1
+            contadores[palabra] += 1
 
-# Sort the dictionary by value
+# Ordenar el diccionario por valor
 lst = list()
-for key, val in list(counts.items()):
-    lst.append((val, key))
+for clave, valor in list(contadores.items()):
+    lst.append((valor, clave))
 
 lst.sort(reverse=True)
 
-for key, val in lst[:10]:
-    print(key, val)
+for clave, valor in lst[:10]:
+    print(clave, valor)
