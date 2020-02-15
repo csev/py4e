@@ -74,7 +74,7 @@ program (the pay should be 498.75).  You should use <b>raw_input</b> to
 read a string and <b>float()</b> to convert the string to a number.
 Do not worry about error checking the user input - assume the user types numbers properly.
 ",
-"desired" => "498.75",
+"desired" => "Pay 498.75",
 "desired2" => "Pay: 498.75",
 "code" => 'hrs = raw_input("Enter Hours:")
 h = float(hrs)',
@@ -124,7 +124,7 @@ Do not worry about error checking the user input unless you want to -
 you can assume the user types numbers properly.  Do not name your variable
 sum or use the sum() function.
 ",
-"desired" => "498.75",
+"desired" => "Pay 498.75",
 "code" => 'def computepay(h,r):
     return 42.37
 

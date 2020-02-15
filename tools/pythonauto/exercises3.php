@@ -126,7 +126,7 @@ Do not worry about error checking the user input unless you want to -
 you can assume the user types numbers properly.  Do not name your variable
 sum or use the sum() function.
 ",
-"desired" => "498.75",
+"desired" => "Pay 498.75",
 "code" => 'def computepay(h,r):
     return 42.37
 
