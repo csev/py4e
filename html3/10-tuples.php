@@ -12,150 +12,149 @@
   <style type="text/css">code{white-space: pre;}</style>
 </head>
 <body>
-<h1 id="tuples">Tuples</h1>
-<h2 id="tuples-are-immutable">Tuples are immutable</h2>
+<h1 id="tuplas">Tuplas</h1>
+<h2 id="las-tuplas-son-inmutables">Las Tuplas son inmutables</h2>
 <p>  </p>
-<p>A tuple<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> is a sequence of values much like a list. The values stored in a tuple can be any type, and they are indexed by integers. The important difference is that tuples are <em>immutable</em>. Tuples are also <em>comparable</em> and <em>hashable</em> so we can sort lists of them and use tuples as key values in Python dictionaries.</p>
+<p>Una tupla<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> es una secuencia de valores similar a una lista. Los valores guardados en una tupla pueden ser de cualquier tipo, y son indexados por números enteros. La principal diferencia es que las tuplas son <em>inmutables</em>. Las tuplas además son <em>comparables</em> y <em>dispersables</em> (hashables) de modo que las listas de tuplas se pueden ordenar y también usar tuplas como valores para las claves en diccionarios de Python.</p>
 <p>   </p>
-<p>Syntactically, a tuple is a comma-separated list of values:</p>
+<p>Sintácticamente, una tupla es una lista de valores separados por comas:</p>
 <pre class="python"><code>&gt;&gt;&gt; t = &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;</code></pre>
-<p>Although it is not necessary, it is common to enclose tuples in parentheses to help us quickly identify tuples when we look at Python code:</p>
+<p>Aunque no es necesario, es común encerrar las tuplas entre paréntesis para ayudarnos a identificarlas rápidamente cuando revisemos código de Python:</p>
 <p></p>
 <pre class="python"><code>&gt;&gt;&gt; t = (&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)</code></pre>
-<p>To create a tuple with a single element, you have to include the final comma:</p>
+<p>Para crear una tupla con un solo elemento, es necesario incluir una coma al final:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t1 = (&#39;a&#39;,)
 &gt;&gt;&gt; type(t1)
 &lt;type &#39;tuple&#39;&gt;</code></pre>
-<p>Without the comma Python treats <code>('a')</code> as an expression with a string in parentheses that evaluates to a string:</p>
+<p>Sin la coma, Python considera <code>('a')</code> como una expresión con una cadena entre paréntesis que es evaluada como de tipo cadena (string):</p>
 <pre class="python"><code>&gt;&gt;&gt; t2 = (&#39;a&#39;)
 &gt;&gt;&gt; type(t2)
 &lt;type &#39;str&#39;&gt;</code></pre>
-<p>Another way to construct a tuple is the built-in function <code>tuple</code>. With no argument, it creates an empty tuple:</p>
+<p>Otra forma de construir una tupla es utilizando la función interna <code>tuple</code>. Sin argumentos, ésta crea una tupla vacía:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = tuple()
 &gt;&gt;&gt; print(t)
 ()</code></pre>
-<p>If the argument is a sequence (string, list, or tuple), the result of the call to <code>tuple</code> is a tuple with the elements of the sequence:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = tuple(&#39;lupins&#39;)
+<p>Si el argumento es una secuencia (cadena, lista, o tupla), el resultado de la llamada a <code>tuple</code> es una tupla con los elementos de la secuencia:</p>
+<pre class="python trinket"><code>&gt;&gt;&gt; t = tuple(&#39;altramuces&#39;)
 &gt;&gt;&gt; print(t)
-(&#39;l&#39;, &#39;u&#39;, &#39;p&#39;, &#39;i&#39;, &#39;n&#39;, &#39;s&#39;)</code></pre>
-<p>Because <code>tuple</code> is the name of a constructor, you should avoid using it as a variable name.</p>
-<p>Most list operators also work on tuples. The bracket operator indexes an element:</p>
+(&#39;a&#39;, &#39;l&#39;, &#39;t&#39;, &#39;r&#39;, &#39;a&#39;, &#39;m&#39;, &#39;u&#39;, &#39;c&#39;, &#39;e&#39;, &#39;s&#39;)</code></pre>
+<p>Dado que <code>tuple</code> es el nombre de un constructor, debería evitarse su uso como nombre de variable.</p>
+<p>La mayoría de los operadores de listas también funcionan en tuplas. El operador corchete indexa un elemento:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = (&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)
 &gt;&gt;&gt; print(t[0])
 &#39;a&#39;</code></pre>
-<p>And the slice operator selects a range of elements.</p>
+<p>Y el operador de rebanado (slice) selecciona un rango de elementos.</p>
 <p>   </p>
 <pre class="python"><code>&gt;&gt;&gt; print(t[1:3])
 (&#39;b&#39;, &#39;c&#39;)</code></pre>
-<p>But if you try to modify one of the elements of the tuple, you get an error:</p>
+<p>Pero si se intenta modificar uno de los elementos de la tupla, se produce un error:</p>
 <p>   </p>
 <pre class="python"><code>&gt;&gt;&gt; t[0] = &#39;A&#39;
 TypeError: object doesn&#39;t support item assignment</code></pre>
-<p>You can't modify the elements of a tuple, but you can replace one tuple with another:</p>
+<p>No se puede modificar los elementos de una tupla, pero sí se puede reemplazar una tupla por otra:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = (&#39;A&#39;,) + t[1:]
 &gt;&gt;&gt; print(t)
 (&#39;A&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)</code></pre>
-<h2 id="comparing-tuples">Comparing tuples</h2>
+<h2 id="comparación-de-tuplas">Comparación de tuplas</h2>
 <p>   </p>
-<p>The comparison operators work with tuples and other sequences. Python starts by comparing the first element from each sequence. If they are equal, it goes on to the next element, and so on, until it finds elements that differ. Subsequent elements are not considered (even if they are really big).</p>
+<p>Los operadores de comparación funcionan con tuplas y otras secuencias. Python comienza comparando el primer elemento de cada secuencia. Si ambos elementos son iguales, pasa al siguiente elemento y así sucesivamente, hasta que encuentra elementos diferentes. Los elementos subsecuentes no son considerados (aunque sean muy grandes).</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; (0, 1, 2) &lt; (0, 3, 4)
 True
 &gt;&gt;&gt; (0, 1, 2000000) &lt; (0, 3, 4)
 True</code></pre>
-<p>The <code>sort</code> function works the same way. It sorts primarily by first element, but in the case of a tie, it sorts by second element, and so on.</p>
-<p>This feature lends itself to a pattern called <em>DSU</em> for</p>
+<p>La función <code>sort</code> funciona de la misma manera. Ordena inicialmente por el primer elemento, pero en el caso de que ambos elementos sean iguales, ordena por el segundo elemento, y así sucesivamente.</p>
+<p>Esta característica se presta a un patrón de diseño llamado <em>DSU</em>, que</p>
 <dl>
-<dt>Decorate</dt>
-<dd>a sequence by building a list of tuples with one or more sort keys preceding the elements from the sequence,
+<dt>Decorate (Decora)</dt>
+<dd>una secuencia, construyendo una lista de tuplas con uno o más índices ordenados precediendo los elementos de la secuencia,
 </dd>
-<dt>Sort</dt>
-<dd>the list of tuples using the Python built-in <code>sort</code>, and
+<dt>Sort (Ordena)</dt>
+<dd>la lista de tuplas utilizando la función interna <code>sort</code>, y
 </dd>
-<dt>Undecorate</dt>
-<dd>by extracting the sorted elements of the sequence.
+<dt>Undecorate (Quita la decoración)</dt>
+<dd>extrayendo los elementos ordenados de la secuencia.
 </dd>
 </dl>
 <p>    </p>
-<p>For example, suppose you have a list of words and you want to sort them from longest to shortest:</p>
-<pre class="python"><code>txt = &#39;but soft what light in yonder window breaks&#39;
-words = txt.split()
+<p>Por ejemplo, suponiendo una lista de palabras que se quieren ordenar de la más larga a la más corta:</p>
+<pre class="python"><code>txt = &#39;Pero qué luz se deja ver allí&#39;
+palabras = txt.split()
 t = list()
-for word in words:
-    t.append((len(word), word))
+for palabra in palabras:
+    t.append((len(palabra), palabra))
 
 t.sort(reverse=True)
 
 res = list()
-for length, word in t:
-    res.append(word)
+for longitud, palabra in t:
+    res.append(palabra)
 
 print(res)
 
 # Code: http://www.py4e.com/code3/soft.py</code></pre>
-<p>The first loop builds a list of tuples, where each tuple is a word preceded by its length.</p>
-<p><code>sort</code> compares the first element, length, first, and only considers the second element to break ties. The keyword argument <code>reverse=True</code> tells <code>sort</code> to go in decreasing order.</p>
+<p>El primer bucle genera una lista de tuplas, donde cada tupla es una palabra precedida por su longitud.</p>
+<p><code>sort</code> compara el primer elemento (longitud) primero, y solamente considera el segundo elemento para desempatar. El argumento clave <code>reverse=True</code> indica a <code>sort</code> que debe ir en orden decreciente.</p>
 <p>  </p>
-<p>The second loop traverses the list of tuples and builds a list of words in descending order of length. The four-character words are sorted in <em>reverse</em> alphabetical order, so &quot;what&quot; appears before &quot;soft&quot; in the following list.</p>
-<p>The output of the program is as follows:</p>
-<pre><code>[&#39;yonder&#39;, &#39;window&#39;, &#39;breaks&#39;, &#39;light&#39;, &#39;what&#39;,
-&#39;soft&#39;, &#39;but&#39;, &#39;in&#39;]</code></pre>
-<p>Of course the line loses much of its poetic impact when turned into a Python list and sorted in descending word length order.</p>
-<h2 id="tuple-assignment">Tuple assignment</h2>
+<p>El segundo bucle recorre la lista de tuplas y construye una lista de palabras en orden descendente según la longitud. Las palabras de cuatro letras están ordenadas en orden alfabético <em>inverso</em>, así que &quot;deja&quot; aparece antes que &quot;allí&quot; en la siguiente lista.</p>
+<p>La salida del programa es la siguiente:</p>
+<pre><code>[&#39;deja&#39;, &#39;allí&#39;, &#39;Pero&#39;, &#39;ver&#39;, &#39;qué&#39;, &#39;luz&#39;, &#39;se&#39;]</code></pre>
+<p>Por supuesto, la línea pierde mucho de su impacto poético cuando se convierte en una lista de Python y se almacena en orden descendente según la longitud de las palabras.</p>
+<h2 id="asignación-de-tuplas">Asignación de tuplas</h2>
 <p>   </p>
-<p>One of the unique syntactic features of the Python language is the ability to have a tuple on the left side of an assignment statement. This allows you to assign more than one variable at a time when the left side is a sequence.</p>
-<p>In this example we have a two-element list (which is a sequence) and assign the first and second elements of the sequence to the variables <code>x</code> and <code>y</code> in a single statement.</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
+<p>Una de las características sintácticas únicas del lenguaje Python es la capacidad de tener una tupla en el lado izquierdo de una sentencia de asignación. Esto permite asignar más de una variable a la vez cuando hay una secuencia del lado izquierdo.</p>
+<p>En este ejemplo tenemos una lista de dos elementos (la cual es una secuencia) y asignamos el primer y segundo elementos de la secuencia a las variables <code>x</code> y <code>y</code> en una única sentencia.</p>
+<pre class="python trinket"><code>&gt;&gt;&gt; m = [ &#39;pásalo&#39;, &#39;bien&#39; ]
 &gt;&gt;&gt; x, y = m
 &gt;&gt;&gt; x
-&#39;have&#39;
+&#39;pásalo&#39;
 &gt;&gt;&gt; y
-&#39;fun&#39;
+&#39;bien&#39;
 &gt;&gt;&gt;</code></pre>
-<p>It is not magic, Python <em>roughly</em> translates the tuple assignment syntax to be the following:<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
-<pre class="python trinket"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
+<p>No es magia, Python traduce <em>aproximadamente</em> la sintaxis de asignación de la tupla de este modo::<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<pre class="python trinket"><code>&gt;&gt;&gt; m = [ &#39;pásalo&#39;, &#39;bien&#39; ]
 &gt;&gt;&gt; x = m[0]
 &gt;&gt;&gt; y = m[1]
 &gt;&gt;&gt; x
-&#39;have&#39;
+&#39;pásalo&#39;
 &gt;&gt;&gt; y
-&#39;fun&#39;
+&#39;bien&#39;
 &gt;&gt;&gt;</code></pre>
-<p>Stylistically when we use a tuple on the left side of the assignment statement, we omit the parentheses, but the following is an equally valid syntax:</p>
-<pre class="python"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
+<p>Estilísticamente, cuando se utiliza una tupla en el lado izquierdo de la asignación, se omiten los paréntesis, pero lo que se muestra a continuación es una sintaxis igualmente válida:</p>
+<pre class="python"><code>&gt;&gt;&gt; m = [ &#39;pásalo&#39;, &#39;bien&#39; ]
 &gt;&gt;&gt; (x, y) = m
 &gt;&gt;&gt; x
-&#39;have&#39;
+&#39;pásalo&#39;
 &gt;&gt;&gt; y
-&#39;fun&#39;
+&#39;bien&#39;
 &gt;&gt;&gt;</code></pre>
-<p>A particularly clever application of tuple assignment allows us to <em>swap</em> the values of two variables in a single statement:</p>
+<p>Una aplicación particularmente ingeniosa de asignación con tuplas permite <em>intercambiar</em> los valores de dos variables en una sola sentencia:</p>
 <pre class="python"><code>&gt;&gt;&gt; a, b = b, a</code></pre>
-<p>Both sides of this statement are tuples, but the left side is a tuple of variables; the right side is a tuple of expressions. Each value on the right side is assigned to its respective variable on the left side. All the expressions on the right side are evaluated before any of the assignments.</p>
-<p>The number of variables on the left and the number of values on the right must be the same:</p>
+<p>Ambos lados de la sentencia son tuplas, pero el lado izquierdo es una tupla de variables; el lado derecho es una tupla de expresiones. Cada valor en el lado derecho es asignado a su respectiva variable en el lado izquierdo. Todas las expresiones en el lado derecho son evaluadas antes de realizar cualquier asignación.</p>
+<p>El número de variables en el lado izquierdo y el número de valores en el lado derecho deben ser iguales:</p>
 <p> </p>
 <pre class="python"><code>&gt;&gt;&gt; a, b = 1, 2, 3
 ValueError: too many values to unpack</code></pre>
-<p>More generally, the right side can be any kind of sequence (string, list, or tuple). For example, to split an email address into a user name and a domain, you could write:</p>
+<p>Generalizando más, el lado derecho puede ser cualquier tipo de secuencia (cadena, lista, o tupla). Por ejemplo, para dividir una dirección de e-mail en nombre de usuario y dominio, se podría escribir:</p>
 <p>  </p>
-<pre class="python"><code>&gt;&gt;&gt; addr = &#39;monty@python.org&#39;
-&gt;&gt;&gt; uname, domain = addr.split(&#39;@&#39;)</code></pre>
-<p>The return value from <code>split</code> is a list with two elements; the first element is assigned to <code>uname</code>, the second to <code>domain</code>.</p>
-<pre class="python"><code>&gt;&gt;&gt; print(uname)
+<pre class="python"><code>&gt;&gt;&gt; dir = &#39;monty@python.org&#39;
+&gt;&gt;&gt; nombreus, dominio = dir.split(&#39;@&#39;)</code></pre>
+<p>El valor de retorno de <code>split</code> es una lista con dos elementos; el primer elemento es asignado a <code>nombreus</code>, el segundo a <code>dominio</code>.</p>
+<pre class="python"><code>&gt;&gt;&gt; print(nombreus)
 monty
-&gt;&gt;&gt; print(domain)
+&gt;&gt;&gt; print(dominio)
 python.org</code></pre>
-<h2 id="dictionaries-and-tuples">Dictionaries and tuples</h2>
+<h2 id="diccionarios-y-tuplas">Diccionarios y tuplas</h2>
 <p>   </p>
-<p>Dictionaries have a method called <code>items</code> that returns a list of tuples, where each tuple is a key-value pair:</p>
+<p>Los diccionarios tienen un método llamado <code>items</code> que retorna una lista de tuplas, donde cada tupla es un par clave-valor:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; d = {&#39;a&#39;:10, &#39;b&#39;:1, &#39;c&#39;:22}
 &gt;&gt;&gt; t = list(d.items())
 &gt;&gt;&gt; print(t)
 [(&#39;b&#39;, 1), (&#39;a&#39;, 10), (&#39;c&#39;, 22)]</code></pre>
-<p>As you should expect from a dictionary, the items are in no particular order.</p>
-<p>However, since the list of tuples is a list, and tuples are comparable, we can now sort the list of tuples. Converting a dictionary to a list of tuples is a way for us to output the contents of a dictionary sorted by key:</p>
+<p>Como sería de esperar en un diccionario, los elementos no tienen ningún orden en particular.</p>
+<p>Aun así, puesto que la lista de tuplas es una lista, y las tuplas son comparables, ahora se puede ordenar la lista de tuplas. Convertir un diccionario en una lista de tuplas es una forma de obtener el contenido de un diccionario ordenado según sus claves:</p>
 <pre class="python"><code>&gt;&gt;&gt; d = {&#39;a&#39;:10, &#39;b&#39;:1, &#39;c&#39;:22}
 &gt;&gt;&gt; t = list(d.items())
 &gt;&gt;&gt; t
@@ -163,65 +162,65 @@ python.org</code></pre>
 &gt;&gt;&gt; t.sort()
 &gt;&gt;&gt; t
 [(&#39;a&#39;, 10), (&#39;b&#39;, 1), (&#39;c&#39;, 22)]</code></pre>
-<p>The new list is sorted in ascending alphabetical order by the key value.</p>
-<h2 id="multiple-assignment-with-dictionaries">Multiple assignment with dictionaries</h2>
+<p>La nueva lista está ordenada en orden alfabético ascendente de acuerdo al valor de sus claves.</p>
+<h2 id="asignación-múltiple-con-diccionarios">Asignación múltiple con diccionarios</h2>
 <p> </p>
-<p>Combining <code>items</code>, tuple assignment, and <code>for</code>, you can see a nice code pattern for traversing the keys and values of a dictionary in a single loop:</p>
-<pre class="python"><code>for key, val in list(d.items()):
-    print(val, key)</code></pre>
-<p>This loop has two <em>iteration variables</em> because <code>items</code> returns a list of tuples and <code>key, val</code> is a tuple assignment that successively iterates through each of the key-value pairs in the dictionary.</p>
-<p>For each iteration through the loop, both <code>key</code> and <code>value</code> are advanced to the next key-value pair in the dictionary (still in hash order).</p>
-<p>The output of this loop is:</p>
+<p>La combinación de <code>items</code>, asignación de tuplas, y <code>for</code>, produce un buen patrón de diseño de código para recorrer las claves y valores de un diccionario en un único bucle:</p>
+<pre class="python"><code>for clave, valor in list(d.items()):
+    print(valor, clave)</code></pre>
+<p>Este bucle tiene dos <em>variables de iteración</em>, debido a que <code>items</code> retorna una lista de tuplas y <code>clave, valor</code> es una asignación en tupla que itera sucesivamente a través de cada uno de los pares clave-valor del diccionario.</p>
+<p>Para cada iteración a través del bucle, tanto <code>clave</code> y <code>valor</code> van pasando al siguiente par clave-valor del diccionario (todavía en orden de dispersión).</p>
+<p>La salida de este bucle es:</p>
 <pre><code>10 a
-22 c
-1 b</code></pre>
-<p>Again, it is in hash key order (i.e., no particular order).</p>
-<p>If we combine these two techniques, we can print out the contents of a dictionary sorted by the <em>value</em> stored in each key-value pair.</p>
-<p>To do this, we first make a list of tuples where each tuple is <code>(value, key)</code>. The <code>items</code> method would give us a list of <code>(key, value)</code> tuples, but this time we want to sort by value, not key. Once we have constructed the list with the value-key tuples, it is a simple matter to sort the list in reverse order and print out the new, sorted list.</p>
+1 b
+22 c</code></pre>
+<p>De nuevo, las claves están en orden de dispersión (es decir, ningún orden en particular).</p>
+<p>Si se combinan esas dos técnicas, se puede imprimir el contenido de un diccionario ordenado por el <em>valor</em> almacenado en cada par clave-valor.</p>
+<p>Para hacer esto, primero se crea una lista de tuplas donde cada tupla es <code>(valor, clave)</code>. El método <code>items</code> dará una lista de tuplas <code>(clave, valor)</code>, pero esta vez se pretende ordenar por valor, no por clave. Una vez que se ha construido la lista con las tuplas clave-valor, es sencillo ordenar la lista en orden inverso e imprimir la nueva lista ordenada.</p>
 <pre class="python"><code>&gt;&gt;&gt; d = {&#39;a&#39;:10, &#39;b&#39;:1, &#39;c&#39;:22}
 &gt;&gt;&gt; l = list()
-&gt;&gt;&gt; for key, val in d.items() :
-...     l.append( (val, key) )
+&gt;&gt;&gt; for clave, valor in d.items() :
+...     l.append( (valor, clave) )
 ...
 &gt;&gt;&gt; l
-[(10, &#39;a&#39;), (22, &#39;c&#39;), (1, &#39;b&#39;)]
+[(10, &#39;a&#39;), (1, &#39;b&#39;), (22, &#39;c&#39;)]
 &gt;&gt;&gt; l.sort(reverse=True)
 &gt;&gt;&gt; l
 [(22, &#39;c&#39;), (10, &#39;a&#39;), (1, &#39;b&#39;)]
 &gt;&gt;&gt;</code></pre>
-<p>By carefully constructing the list of tuples to have the value as the first element of each tuple, we can sort the list of tuples and get our dictionary contents sorted by value.</p>
-<h2 id="the-most-common-words">The most common words</h2>
+<p>Al construir cuidadosamente la lista de tuplas para tener el valor como el primer elemento de cada tupla, es posible ordenar la lista de tuplas y obtener el contenido de un diccionario ordenado por valor.</p>
+<h2 id="las-palabras-más-comunes">Las palabras más comunes</h2>
 <p></p>
-<p>Coming back to our running example of the text from <em>Romeo and Juliet</em> Act 2, Scene 2, we can augment our program to use this technique to print the ten most common words in the text as follows:</p>
+<p>Volviendo al ejemplo anterior del texto de <em>Romeo y Julieta</em>, Acto 2, Escena 2, podemos mejorar nuestro programa para hacer uso de esta técnica para imprimir las diez palabras más comunes en el texto, como se ve a continuación:</p>
 <pre class="python"><code>import string
-fhand = open(&#39;romeo-full.txt&#39;)
-counts = dict()
-for line in fhand:
-    line = line.translate(str.maketrans(&#39;&#39;, &#39;&#39;, string.punctuation))
-    line = line.lower()
-    words = line.split()
-    for word in words:
-        if word not in counts:
-            counts[word] = 1
+manejador = open(&#39;romeo-full.txt&#39;)
+contadores = dict()
+for linea in manejador:
+    linea = linea.translate(str.maketrans(&#39;&#39;, &#39;&#39;, string.punctuation))
+    linea = linea.lower()
+    palabras = linea.split()
+    for palabra in palabras:
+        if palabra not in contadores:
+            contadores[palabra] = 1
         else:
-            counts[word] += 1
+            contadores[palabra] += 1
 
-# Sort the dictionary by value
+# Ordenar el diccionario por valor
 lst = list()
-for key, val in list(counts.items()):
-    lst.append((val, key))
+for clave, valor in list(contadores.items()):
+    lst.append((valor, clave))
 
 lst.sort(reverse=True)
 
-for key, val in lst[:10]:
-    print(key, val)
+for clave, valor in lst[:10]:
+    print(clave, valor)
 
 # Code: http://www.py4e.com/code3/count3.py</code></pre>
 
-<p>The first part of the program which reads the file and computes the dictionary that maps each word to the count of words in the document is unchanged. But instead of simply printing out <code>counts</code> and ending the program, we construct a list of <code>(val, key)</code> tuples and then sort the list in reverse order.</p>
-<p>Since the value is first, it will be used for the comparisons. If there is more than one tuple with the same value, it will look at the second element (the key), so tuples where the value is the same will be further sorted by the alphabetical order of the key.</p>
-<p>At the end we write a nice <code>for</code> loop which does a multiple assignment iteration and prints out the ten most common words by iterating through a slice of the list (<code>lst[:10]</code>).</p>
-<p>So now the output finally looks like what we want for our word frequency analysis.</p>
+<p>La primera parte del programa, la cual lee un archivo y construye un diccionario que mapea cada palabra con la cantidad de veces que se repite esa palabra en el documento, no ha cambiado. Pero en lugar de imprimir simplemente <code>contadores</code> y terminar el programa, ahora construimos una lista de tuplas <code>(val, key)</code> y luego se ordena la lista en orden inverso.</p>
+<p>Puesto que el valor está primero, será utilizado para las comparaciones. Si hay más de una tupla con el mismo valor, se tendrá en cuenta el segundo elemento (la clave), de forma que las tuplas cuyo valor es el mismo serán también ordenadas en orden alfabético según su clave.</p>
+<p>Al final escribimos un elegante bucle <code>for</code> que hace una iteración con asignación múltiple e imprime las diez palabras más comunes, iterando a través de una parte de la lista (<code>lst[:10]</code>).</p>
+<p>Ahora la salida finalmente tiene el aspecto que queríamos para nuestro análisis de frecuencia de palabras.</p>
 <pre><code>61 i
 42 and
 40 romeo
@@ -232,81 +231,81 @@ for key, val in lst[:10]:
 30 that
 29 my
 24 thee</code></pre>
-<p>The fact that this complex data parsing and analysis can be done with an easy-to-understand 19-line Python program is one reason why Python is a good choice as a language for exploring information.</p>
-<h2 id="using-tuples-as-keys-in-dictionaries">Using tuples as keys in dictionaries</h2>
+<p>El hecho de que este complejo análisis y procesado de datos pueda ser realizado con un programa de Python de 19 líneas fácil de entender, es una razón de por qué Python es una buena elección como lenguaje para explorar información.</p>
+<h2 id="uso-de-tuplas-como-claves-en-diccionarios">Uso de tuplas como claves en diccionarios</h2>
 <p> </p>
-<p>Because tuples are <em>hashable</em> and lists are not, if we want to create a <em>composite</em> key to use in a dictionary we must use a tuple as the key.</p>
-<p>We would encounter a composite key if we wanted to create a telephone directory that maps from last-name, first-name pairs to telephone numbers. Assuming that we have defined the variables <code>last</code>, <code>first</code>, and <code>number</code>, we could write a dictionary assignment statement as follows:</p>
-<pre class="python"><code>directory[last,first] = number</code></pre>
-<p>The expression in brackets is a tuple. We could use tuple assignment in a <code>for</code> loop to traverse this dictionary.</p>
+<p>Dado que las tuplas son <strong>dispersables</strong> <em>(hashable)</em> y las listas no, si se quiere crear una clave <strong>compuesta</strong> para usar en un diccionario, se debe utilizar una tupla como clave.</p>
+<p>Usaríamos por ejemplo una clave compuesta si quisiéramos crear un directorio telefónico que mapea pares appellido, nombre con números telefónicos. Asumiendo que hemos definido las variables <code>apellido</code>, <code>nombre</code>, y <code>número</code>, podríamos escribir una sentencia de asignación de diccionario como sigue:</p>
+<pre class="python"><code>directorio[apellido,nombre] = numero</code></pre>
+<p>La expresión entre corchetes es una tupla. Podríamos utilizar asignación de tuplas en un bucle <code>for</code> para recorrer este diccionario.</p>
 <p></p>
-<pre class="python"><code>for last, first in directory:
-    print(first, last, directory[last,first])</code></pre>
-<p>This loop traverses the keys in <code>directory</code>, which are tuples. It assigns the elements of each tuple to <code>last</code> and <code>first</code>, then prints the name and corresponding telephone number.</p>
-<h2 id="sequences-strings-lists-and-tuples---oh-my">Sequences: strings, lists, and tuples - Oh My!</h2>
+<pre class="python"><code>for apellido, nombre in directorio:
+    print(nombre, apellido, directorio[apellido,nombre])</code></pre>
+<p>Este bucle recorre las claves en <code>directorio</code>, las cuales son tuplas. Asigna los elementos de cada tupla a <code>apellido</code> y <code>nombre</code>, después imprime el nombre y el número telefónico correspondiente.</p>
+<h2 id="secuencias-cadenas-listas-y-tuplas---dios-mío">Secuencias: cadenas, listas, y tuplas - ¡Dios mío!</h2>
 <p></p>
-<p>I have focused on lists of tuples, but almost all of the examples in this chapter also work with lists of lists, tuples of tuples, and tuples of lists. To avoid enumerating the possible combinations, it is sometimes easier to talk about sequences of sequences.</p>
-<p>In many contexts, the different kinds of sequences (strings, lists, and tuples) can be used interchangeably. So how and why do you choose one over the others?</p>
+<p>Me he enfocado en listas de tuplas, pero casi todos los ejemplos de este capítulo funcionan también con listas de listas, tuplas de tuplas, y tuplas de listas. Para evitar enumerar todas las combinaciones posibles, a veces es más sencillo hablar de secuencias de secuencias.</p>
+<p>En muchos contextos, los diferentes tipos de secuencias (cadenas, listas, y tuplas) pueden intercambiarse. Así que, ¿cómo y por qué elegir uno u otro?</p>
 <p>    </p>
-<p>To start with the obvious, strings are more limited than other sequences because the elements have to be characters. They are also immutable. If you need the ability to change the characters in a string (as opposed to creating a new string), you might want to use a list of characters instead.</p>
-<p>Lists are more common than tuples, mostly because they are mutable. But there are a few cases where you might prefer tuples:</p>
+<p>Para comenzar con lo más obvio, las cadenas están más limitadas que otras secuencias, debido a que los elementos tienen que ser caracteres. Además, son inmutables. Si necesitas la capacidad de cambiar los caracteres en una cadena (en vez de crear una nueva), quizá prefieras utilizar una lista de caracteres.</p>
+<p>Las listas son más comunes que las tuplas, principalmente porque son mutables. Pero hay algunos casos donde es preferible utilizar tuplas:</p>
 <ol style="list-style-type: decimal">
-<li><p>In some contexts, like a <code>return</code> statement, it is syntactically simpler to create a tuple than a list. In other contexts, you might prefer a list.</p></li>
-<li><p>If you want to use a sequence as a dictionary key, you have to use an immutable type like a tuple or string.</p></li>
-<li><p>If you are passing a sequence as an argument to a function, using tuples reduces the potential for unexpected behavior due to aliasing.</p></li>
+<li><p>En algunos contextos, como una sentencia return, resulta sintácticamente más simple crear una tupla que una lista. En otros contextos, es posible que prefieras una lista.</p></li>
+<li><p>Si quieres utilizar una secuencia como una clave en un diccionario, debes usar un tipo inmutable como una tupla o una cadena.</p></li>
+<li><p>Si estás pasando una secuencia como argumento de una función, el uso de tuplas reduce la posibilidad de comportamientos inesperados debido a la creación de alias.</p></li>
 </ol>
-<p>Because tuples are immutable, they don't provide methods like <code>sort</code> and <code>reverse</code>, which modify existing lists. However Python provides the built-in functions <code>sorted</code> and <code>reversed</code>, which take any sequence as a parameter and return a new sequence with the same elements in a different order.</p>
+<p>Dado que las tuplas son inmutables, no proporcionan métodos como <code>sort</code> y <code>reverse</code>, que modifican listas ya existentes. Sin embargo, Python proporciona las funciones internas <code>sorted</code> y <code>reversed</code>, que toman una secuencia como parámetro y devuelven una secuencia nueva con los mismos elementos en un orden diferente.</p>
 <p>   </p>
-<h2 id="debugging">Debugging</h2>
+<h2 id="depuración">Depuración</h2>
 <p>   </p>
-<p>Lists, dictionaries and tuples are known generically as <em>data structures</em>; in this chapter we are starting to see compound data structures, like lists of tuples, and dictionaries that contain tuples as keys and lists as values. Compound data structures are useful, but they are prone to what I call <em>shape errors</em>; that is, errors caused when a data structure has the wrong type, size, or composition, or perhaps you write some code and forget the shape of your data and introduce an error. For example, if you are expecting a list with one integer and I give you a plain old integer (not in a list), it won't work.</p>
-<h2 id="glossary">Glossary</h2>
+<p>Las listas, diccionarios y tuplas son conocidas de forma genérica como <em>estructuras de datos</em>; en este capítulo estamos comenzando a ver estructuras de datos compuestas, como listas de tuplas, y diccionarios que contienen tuplas como claves y listas como valores. Las estructuras de datos compuestas son útiles, pero también son propensas a lo que yo llamo <em>errores de modelado</em>; es decir, errores causados cuando una estructura de datos tiene el tipo, tamaño o composición incorrecto, o quizás al escribir una parte del código se nos olvidó cómo era el modelado de los datos y se introdujo un error. Por ejemplo, si estás esperando una lista con un entero y recibes un entero solamente (no en una lista), no funcionará.</p>
+<h2 id="glosario">Glosario</h2>
 <dl>
 <dt>comparable</dt>
-<dd>A type where one value can be checked to see if it is greater than, less than, or equal to another value of the same type. Types which are comparable can be put in a list and sorted.
+<dd>Un tipo en el cual un valor puede ser revisado para ver si es mayor que, menor que, o igual a otro valor del mismo tipo. Los tipos que son comparables pueden ser puestos en una lista y ordenados.
 </dd>
-<dt>data structure</dt>
-<dd>A collection of related values, often organized in lists, dictionaries, tuples, etc.
+<dt>estructura de datos</dt>
+<dd>Una collección de valores relacionados, normalmente organizados en listas, diccionarios, tuplas, etc.
 </dd>
 <dt>DSU</dt>
-<dd>Abbreviation of &quot;decorate-sort-undecorate&quot;, a pattern that involves building a list of tuples, sorting, and extracting part of the result.
+<dd>Abreviatura de &quot;decorate-sort-undecorate (decorar-ordenar-quitar la decoración)&quot;, un patrón de diseño que implica construir una lista de tuplas, ordenarlas, y extraer parte del resultado.
 </dd>
-<dt>gather</dt>
-<dd>The operation of assembling a variable-length argument tuple.
+<dt>reunir</dt>
+<dd>La operación de tratar una secuencia como una lista de argumentos.
 </dd>
-<dt>hashable</dt>
-<dd>A type that has a hash function. Immutable types like integers, floats, and strings are hashable; mutable types like lists and dictionaries are not.
+<dt>hashable (dispersable)</dt>
+<dd>Un tipo que tiene una función de dispersión. Los tipos inmutables, como enteros, flotantes y cadenas son dispersables (hashables); los tipos mutables como listas y diccionarios no lo son.
 </dd>
-<dt>scatter</dt>
-<dd>The operation of treating a sequence as a list of arguments.
+<dt>dispersar</dt>
+<dd>La operación de tratar una secuencia como una lista de argumentos.
 </dd>
-<dt>shape (of a data structure)</dt>
-<dd>A summary of the type, size, and composition of a data structure.
+<dt>modelado (de una estructura de datos)</dt>
+<dd>Un resumen del tipo, tamaño, y composición de una estructura de datos.
 </dd>
 <dt>singleton</dt>
-<dd>A list (or other sequence) with a single element.
+<dd>Una lista (u otra secuencia) con un único elemento.
 </dd>
-<dt>tuple</dt>
-<dd>An immutable sequence of elements.
+<dt>tupla</dt>
+<dd>Una secuencia inmutable de elementos.
 </dd>
-<dt>tuple assignment</dt>
-<dd>An assignment with a sequence on the right side and a tuple of variables on the left. The right side is evaluated and then its elements are assigned to the variables on the left.
+<dt>asignación por tuplas</dt>
+<dd>Una asignación con una secuencia en el lado derecho y una tupla de variables en el izquierdo. El lado derecho es evaluado y luego sus elementos son asignados a las variables en el lado izquierdo.
 </dd>
 </dl>
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Revise a previous program as follows: Read and parse the &quot;From&quot; lines and pull out the addresses from the line. Count the number of messages from each person using a dictionary.</strong></p>
-<p><strong>After all the data has been read, print the person with the most commits by creating a list of (count, email) tuples from the dictionary. Then sort the list in reverse order and print out the person who has the most commits.</strong></p>
-<pre><code>Sample Line:
+<h2 id="ejercicios">Ejercicios</h2>
+<p><strong>Ejercicio 1: Revisa el programa anterior de este modo: Lee y analiza las líneas &quot;From&quot; y extrae las direcciones de correo. Cuenta el número de mensajes de cada persona utilizando un diccionario.</strong></p>
+<p><strong>Después de que todos los datos hayan sido leídos, imprime la persona con más envíos, creando una lista de tuplas (contador, email) del diccionario. Después ordena la lista en orden inverso e imprime la persona que tiene más envíos.</strong></p>
+<pre><code>Línea de ejemplo:
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 
-Enter a file name: mbox-short.txt
+Ingresa un nombre de archivo: mbox-short.txt
 cwen@iupui.edu 5
 
-Enter a file name: mbox.txt
+Ingresa un nombre de archivo: mbox.txt
 zqian@umich.edu 195</code></pre>
-<p><strong>Exercise 2: This program counts the distribution of the hour of the day for each of the messages. You can pull the hour from the &quot;From&quot; line by finding the time string and then splitting that string into parts using the colon character. Once you have accumulated the counts for each hour, print out the counts, one per line, sorted by hour as shown below.</strong></p>
+<p><strong>Ejercicio 2: Este programa cuenta la distribución de la hora del día para cada uno de los mensajes. Puedes extraer la hora de la línea &quot;From&quot; buscando la cadena horaria y luego dividiendo la cadena en partes utilizando el carácter colon. Una vez que hayas acumulado las cuentas para cada hora, imprime las cuentas, una por línea, ordenadas por hora tal como se muestra debajo.</strong></p>
 <pre><code>python timeofday.py
-Enter a file name: mbox-short.txt
+Ingresa un nombre de archivo: mbox-short.txt
 04 3
 06 1
 07 1
@@ -319,13 +318,13 @@ Enter a file name: mbox-short.txt
 17 2
 18 1
 19 1</code></pre>
-<p><strong>Exercise 3: Write a program that reads a file and prints the <em>letters</em> in decreasing order of frequency. Your program should convert all the input to lower case and only count the letters a-z. Your program should not count spaces, digits, punctuation, or anything other than the letters a-z. Find text samples from several different languages and see how letter frequency varies between languages. Compare your results with the tables at <a href="https://wikipedia.org/wiki/Letter_frequencies" class="uri">https://wikipedia.org/wiki/Letter_frequencies</a>.</strong></p>
+<p><strong>Ejercicio 3: Escribe un programa que lee un archivo e imprime las <em>letras</em> en order decreciente de frecuencia. El programa debe convertir todas las entradas a minúsculas y contar solamente las letras a-z. El programa no debe contar espacios, dígitos, signos de puntuación, o cualquier cosa que no sean las letras a-z. Encuentra ejemplos de texto en idiomas diferentes, y observa cómo la frecuencia de letras es diferente en cada idioma. Compara tus resultados con las tablas en <a href="https://es.wikipedia.org/wiki/Frecuencia_de_aparici%C3%B3n_de_letras">https://es.wikipedia.org/wiki/Frecuencia_de_aparici%C3%B3n_de_letras</a>.</strong></p>
 <p> </p>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Fun fact: The word &quot;tuple&quot; comes from the names given to sequences of numbers of varying lengths: single, double, triple, quadruple, quintuple, sextuple, septuple, etc.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Python does not translate the syntax literally. For example, if you try this with a dictionary, it will not work as might expect.<a href="#fnref2">↩</a></p></li>
+<li id="fn1"><p>Dato curioso: La palabra &quot;tuple&quot; proviene de los nombres dados a secuencias de números de distintas longitudes: simple, doble, triple, cuádruple, quíntuple, séxtuple, séptuple, etc.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Python no traduce la sintaxis literalmente. Por ejemplo, si se trata de hacer esto con un diccionario, no va a funcionar como se podría esperar.<a href="#fnref2">↩</a></p></li>
 </ol>
 </div>
 </body>

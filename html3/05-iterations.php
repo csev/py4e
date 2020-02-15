@@ -16,7 +16,7 @@
 <p></p>
 <h2 id="update">Actualización de variables</h2>
 <p> </p>
-<p>Uno de los usos habituales de las sentencia de asignación consiste en realizar una actualización sobre una variable – en la cual el valor nuevo de esa variable depende del antiguo.</p>
+<p>Uno de los usos habituales de las sentencias de asignación consiste en realizar una actualización sobre una variable – en la cual el valor nuevo de esa variable depende del antiguo.</p>
 <pre class="python"><code>x = x + 1</code></pre>
 <p>Esto quiere decir &quot;‘toma el valor actual de <code>x</code>, añádele 1, y luego actualiza <code>x</code> con el nuevo valor''.</p>
 <p>Si intentas actualizar una variable que no existe, obtendrás un error, ya que Python evalúa el lado derecho antes de asignar el valor a <code>x</code>:</p>
@@ -117,8 +117,8 @@ print(&#39;¡Terminado!&#39;)</code></pre>
 Feliz año nuevo: Glenn
 Feliz año nuevo: Sally
 ¡Terminado!</code></pre>
-<p>La traducción de este bucle <code>for</code> al español no es tan directa como en el caso del <code>while</code>, pero si piensas en los amigos como un <em>conjunto</em>, sería algo así como: &quot;Ejecuta las sentencias en el cuerpo del bucle una vez para cada amigo que esté <em>en (in)</em> el conjunto llamado amigos.&quot;</p>
-<p>Revisando el bucle, <code>for</code>, <em>for</em> e <em>in</em> son palabras reservadas de Python, mientras que <code>amigo</code> y <code>amigos</code> son variables.</p>
+<p>La traducción de este bucle <code>for</code> al español no es tan directa como en el caso del <code>while</code>, pero si piensas en los amigos como un <em>conjunto</em>, sería algo así como: &quot;Ejecuta las sentencias en el cuerpo del bucle una vez <em>para (for)</em> cada amigo que esté <em>en (in)</em> el conjunto llamado amigos.&quot;</p>
+<p>Revisando el bucle <code>for</code>, <em>for</em> e <em>in</em> son palabras reservadas de Python, mientras que <code>amigo</code> y <code>amigos</code> son variables.</p>
 <pre class="python"><code>for amigo in amigos:
     print(&#39;Feliz año nuevo::&#39;, amigo)</code></pre>
 <p>En concreto, <code>amigo</code> es la <em>variable de iteración</em> para el bucle for. La variable <code>amigo</code> cambia para cada iteración del bucle y controla cuándo se termina el bucle <code>for</code>. La <em>variable de iteracion</em> se desplaza sucesivamente a través de las tres cadenas almacenadas en la variable <code>amigos</code>.</p>
@@ -151,7 +151,7 @@ print(&#39;Total: &#39;, total)</code></pre>
 <p>Ni el bucle que cuenta los elementos ni el que los suma resultan particularmente útiles en la práctica, dado que existen las funciones internas <code>len()</code> y <code>sum()</code> que cuentan el número de elementos de una lista y el total de elementos en la misma respectivamente.</p>
 <h3 id="bucles-de-máximos-y-mínimos">Bucles de máximos y mínimos</h3>
 <p>   </p>
-<p>[maximumloop] Para encontrar el valor mayor de una lista o secuencia, construimos el bucle siguiente:</p>
+<p>Para encontrar el valor mayor de una lista o secuencia, construimos el bucle siguiente:</p>
 <pre class="python"><code>mayor = None
 print(&#39;Antes:&#39;, mayor)
 for valor in [3, 41, 12, 9, 74, 15]:
@@ -170,8 +170,8 @@ Bucle: 15 74
 Mayor: 74</code></pre>
 <p>Debemos pensar en la variable <code>mayor</code> como el &quot;mayor valor visto hasta ese momento&quot;. Antes del bucle, asignamos a <code>mayor</code> el valor <code>None</code>. <code>None</code> es un valor constante especial que se puede almacenar en una variable para indicar que la variable está &quot;vacía&quot;.</p>
 <p>Antes de que el bucle comience, el mayor valor visto hasta entonces es <code>None</code>, dado que no se ha visto aún ningún valor. Durante la ejecución del bucle, si <code>mayor</code> es <code>None</code>, entonces tomamos el primer valor que tenemos como el mayor hasta entonces. Se puede ver en la primera iteración, cuando el valor de <code>valor</code> es 3, mientras que <code>mayor</code> es <code>None</code>, inmediatamente hacemos que <code>mayor</code> pase a ser 3.</p>
-<p>Tras la primera iteración, <code>mayor</code> ya no es <code>None</code>, así que la segunda parte de la expresión lógica compuesta que comprueba si <code>valor &amp;gt; mayor</code> se activará sólo cuando encontremos un valor que sea mayor que el &quot;mayor hasta ese momento&quot;. Cuando encontramos un nuevo valor &quot;mayor aún&quot;, tomamos ese nuevo valor para <code>mayor</code>. Se puede ver en la salida del programa que <code>mayor</code> pasa desde 3 a 41 y luego a 74.</p>
-<p>Al final del bucle, se habrán revisado todos los valores y la variable <code>mayor</code> contendrá entonces el valor más grande de la lista.</p>
+<p>Tras la primera iteración, <code>mayor</code> ya no es <code>None</code>, así que la segunda parte de la expresión lógica compuesta que comprueba si <code>valor &gt; mayor</code> se activará sólo cuando encontremos un valor que sea mayor que el &quot;mayor hasta ese momento&quot;. Cuando encontramos un nuevo valor &quot;mayor aún&quot;, tomamos ese nuevo valor para <code>mayor</code>. Se puede ver en la salida del programa que <code>mayor</code> pasa desde 3 a 41 y luego a 74.</p>
+<p>Al final del bucle, se habrán revisado todos los valores y la variable <code>mayor</code> contendrá entonces el mayor valor de la lista.</p>
 <p>Para calcular el número más pequeño, el código es muy similar con un pequeño cambio:</p>
 <pre class="python"><code>print(&#39;Antes:&#39;, menor)
 for valor in [3, 41, 12, 9, 74, 15]:
@@ -197,7 +197,7 @@ print(&#39;Menor:&#39;, menor)</code></pre>
 <p>En lugar de eso, intenta partir el problema por la mitad. Busca en medio del programa, o cerca de ahí, un valor intermedio que puedas comprobar. Añade una sentencia <code>print</code> (o alguna otra cosa que tenga un efecto verificable), y haz funcionar el programa.</p>
 <p>Si en el punto medio la verificación es incorrecta, el problema debería estar en la primera mitad del programa. Si ésta es correcta, el problema estará en la segunda mitad.</p>
 <p>Cada vez que realices una comprobación como esta, reduces a la mitad el número de líneas en las que buscar. Después de seis pasos (que son muchos menos de 100), lo habrás reducido a una o dos líneas de código, al menos en teoría.</p>
-<p>En la práctica no siempre está claro qué es &quot;el medio del programa&quot;, y no siempre es posible colocar ahí una verificación. No tiene sentido contar las líneas y encontrar el punto medio exacto. En lugar de eso, piensa en lugares del programa en los cuales pueda haber errores y en lugares donde resulte fácil colocar una comprobación. Luego elige un sitio donde estimes que las oportunidades de que el bug esté por delante y las de que esté por detrás de esa comprobación son más o menos las mismas.</p>
+<p>En la práctica no siempre está claro qué es &quot;en medio del programa&quot;, y no siempre es posible colocar ahí una verificación. No tiene sentido contar las líneas y encontrar el punto medio exacto. En lugar de eso, piensa en lugares del programa en los cuales pueda haber errores y en lugares donde resulte fácil colocar una comprobación. Luego elige un sitio donde estimes que las oportunidades de que el bug esté por delante y las de que esté por detrás de esa comprobación son más o menos las mismas.</p>
 <h2 id="glosario">Glosario</h2>
 <dl>
 <dt>acumulador</dt>
@@ -242,7 +242,7 @@ print(&#39;Menor:&#39;, menor)</code></pre>
 </dl>
 <p></p>
 <h2 id="ejercicios">Ejercicios</h2>
-<p><strong>Exercise 1: Escribe un programa que lea repetidamente números hasta que el usuario introduzca &quot;fin&quot;. Una vez se haya introducido &quot;fin&quot;, muestra por pantalla el total, la cantidad de números y la media de esos números. Si el usuario introduce cualquier otra cosa que no sea un número, detecta su fallo usando <code>try</code> y <code>except</code>, muestra un mensaje de error y pasa al número siguiente.</strong></p>
+<p><strong>Ejercicio 1: Escribe un programa que lea repetidamente números hasta que el usuario introduzca &quot;fin&quot;. Una vez se haya introducido &quot;fin&quot;, muestra por pantalla el total, la cantidad de números y la media de esos números. Si el usuario introduce cualquier otra cosa que no sea un número, detecta su fallo usando <code>try</code> y <code>except</code>, muestra un mensaje de error y pasa al número siguiente.</strong></p>
 <pre><code>Introduzca un número: 4
 Introduzca un número: 5
 Introduzca un número: dato erróneo
@@ -250,7 +250,7 @@ Entrada inválida
 Introduzca un número: 7
 Introduzca un número: fin
 16 3 5.33333333333</code></pre>
-<p><strong>Exercise 2: Escribe otro programa que pida una lista de números como la anterior y al final muestre por pantalla el máximo y mínimo de los números, en vez de la media.</strong></p>
+<p><strong>Ejercicio 2: Escribe otro programa que pida una lista de números como la anterior y al final muestre por pantalla el máximo y mínimo de los números, en vez de la media.</strong></p>
 <div class="footnotes">
 <hr />
 <ol>
