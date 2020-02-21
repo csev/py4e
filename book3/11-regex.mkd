@@ -421,46 +421,46 @@ En su momento, buscamos las líneas:
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 ~~~~
 
-and wanted to extract the hour of the day for each line. Previously we
-did this with two calls to `split`. First the line was split
-into words and then we pulled out the fifth word and split it again on
-the colon character to pull out the two characters we were interested
-in.
+con la intención de extraer la hora del día en cada línea. Antes
+logramos esto haciendo dos llamadas a `split`. Primero se dividía la línea
+en palabras y luego tomábamos la quinta palabra y la dividíamos de nuevo
+en el carácter ":" para obtener los dos caracteres que nos interesaban.
 
-While this worked, it actually results in pretty brittle code that is
-assuming the lines are nicely formatted. If you were to add enough error
-checking (or a big try/except block) to insure that your program never
-failed when presented with incorrectly formatted lines, the code would
-balloon to 10-15 lines of code that was pretty hard to read.
+Aunque esta solución funciona, es el resultado de código bastante frágil,
+que depende de asumir que las líneas tienen el formato adecuado. Si bien puedes agregar
+chequeos (o un gran bloque de try/except) para asegurarte que 
+el programa no falle al encontrar líneas mal formateadas, esto hará
+que el programa aumente a 10 o 15 líneas de código, que además
+serán difíciles de leer.
 
-We can do this in a far simpler way with the following regular
-expression:
+Podemos lograr el resultado de forma mucho más simple
+utilizando la siguiente expresión regular:
 
 ~~~~
 ^From .* [0-9][0-9]:
 ~~~~
 
-The translation of this regular expression is that we are looking for
-lines that start with `From ` (note the space), followed by any number
-of characters (`.*`), followed by a space, followed by two digits
-`[0-9][0-9]`, followed by a colon character. This is the definition of
-the kinds of lines we are looking for.
+La traducción de esta expresión regular sería que estamos buscando
+líneas que empiecen con `From ` (nótese el espacio), seguido de cualquier número
+de caracteres (`.*`), seguidos de un espacio en blanco, seguido de dos dígitos
+`[0-9][0-9]`, seguidos de un carácter ":". Esa es la definición de la clase de 
+líneas que buscamos.
 
-In order to pull out only the hour using `findall()`, we add
-parentheses around the two digits as follows:
+Para extraer solo la hora usando `findall()`, agregamos
+paréntesis alrededor de los dos dígitos, de la siguiente manera:
 
 ~~~~
 ^From .* ([0-9][0-9]):
 ~~~~
 
-This results in the following program:
+Esto resultará en el siguiente programa:
 
 \VerbatimInput{../code3/re13.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-When the program runs, it produces the following output:
+Al ejecutar el programa, obtendremos el siguiente resultado:
 
 ~~~~
 ['09']
@@ -470,17 +470,17 @@ When the program runs, it produces the following output:
 ...
 ~~~~
 
-Escape character
+Secuencias de Escape
 ----------------
 
-Since we use special characters in regular expressions to match the
-beginning or end of a line or specify wild cards, we need a way to
-indicate that these characters are "normal" and we want to match the
-actual character such as a dollar sign or caret.
+Dado que en expresiones regulares usamos caracteres especiales para
+encontrar el comienzo o final de una línea o especificar comodines, necesitamos
+una forma de indicar que esos caracteres son "normales" y queremos
+encontrar la coincidencia con el carácter específico, como un "$" o "^".
 
-We can indicate that we want to simply match a character by prefixing
-that character with a backslash. For example, we can find money amounts
-with the following regular expression.
+Podemos indicar que queremos encontrar la coincidencia con un carácter
+anteponiéndole una barra invertida. Por ejemplo, podemos encontrar cantidades
+de dinero utilizando la siguiente expresión regular:
 
 ~~~~ {.python}
 import re
@@ -488,92 +488,93 @@ x = 'We just received $10.00 for cookies.'
 y = re.findall('\$[0-9.]+',x)
 ~~~~
 
-Since we prefix the dollar sign with a backslash, it actually matches
-the dollar sign in the input string instead of matching the "end of
-line", and the rest of the regular expression matches one or more digits
-or the period character. *Note:* Inside square brackets,
-characters are not "special". So when we say `[0-9.]`, it really means
-digits or a period. Outside of square brackets, a period is the
-"wild-card" character and matches any character. Inside square brackets,
-the period is a period.
+Dado que antepusimos la barra invertida al signo "$", encuentra 
+una coincidencia con el signo en la cadena en lugar de con el final
+de la línea, y el resto de la expresión regular coincide con uno o más
+dígitos del carácter "." *Nota:* dentro de los corchetes, los caracteres
+no se consideran "especiales". Por tanto, al escribir `[0-9.]`, efectivamente
+significa dígitos o un punto. Cuando no está entre corchetes, el punto es
+el carácter "comodín" que coincide con cualquier carácter. Cuando
+está dentro de corchetes, un punto es un punto.
 
-Summary
+Resumen
 -------
 
-While this only scratched the surface of regular expressions, we have
-learned a bit about the language of regular expressions. They are search
-strings with special characters in them that communicate your wishes to
-the regular expression system as to what defines "matching" and what is
-extracted from the matched strings. Here are some of those special
-characters and character sequences:
+Aunque solo hemos escarbado la superficie de las expresiones regulares, 
+hemos aprendido un poco sobre su lenguaje. Son cadenas de búsqueda con
+caracteres especiales en su interior, los que comunican tus deseos al
+sistema de expresiones regulares respecto de qué se considera una coincidencia
+y qué información es extraída de las cadenas coincidentes. A continuación
+tenemos algunos de estos caracteres y secuencias especiales:
 
-`^` Matches the beginning of the line.
+`^` Coincide con el comienzo de la línea.
 
-`$` Matches the end of the line.
+`$` Coincide con el final de la línea
 
-`.` Matches any character (a wildcard).
+`.` Coincide con cualquier carácter (un comodín).
 
-`\s` Matches a whitespace character.
+`\s` Coincide con un espacio en blanco.
 
-`\S` Matches a non-whitespace character (opposite of \\s).
+`\S` Coincide con un carácter que no sea un espacio en blanco (el opuesto a \\s).
 
-`*` Applies to the immediately preceding character(s) and indicates to match
-zero or more times.
+`*` Se aplica al carácter o caracteres inmediatamente anteriores, indicando que pueden coincidir cero o más veces.
 
-`*?` Applies to the immediately preceding character(s) and indicates to
-match zero or more times in "non-greedy mode".
+`*?` Se aplica al carácter o caracteres inmediatamente anteriores, indicando
+que coinciden cero o más veces en modo "no ambicioso".
 
-`+` Applies to the immediately preceding character(s) and indicates to match
-one or more times.
+`+` Se aplica al carácter o caracteres inmediatamente anteriores, indicando que
+pueden coincidir una o más veces.
 
-`+?` Applies to the immediately preceding character(s) and indicates to
-match one or more times in "non-greedy mode".
 
-`?` Applies to the immediately preceding character(s) and indicates to match
-zero or one time.
+`+?` Se aplica al carácter o caracteres inmediatamente anteriores, indicando
+que pueden coincidir una o más veces en modo "no ambicioso".
 
-`??` Applies to the immediately preceding character(s) and indicates to
-match zero or one time in "non-greedy mode".
+`?` Se aplica al carácter o caracteres inmediatamente anteriores, indicando
+que puede coincidir cero o una vez.
 
-`[aeiou]` Matches a single character as long as that character is in the
-specified set. In this example, it would match "a", "e", "i", "o", or
-"u", but no other characters.
+`??` Se aplica al carácter o caracteres inmediatamente anteriores, indicando
+que puede coincidir cero o una vez en modo "no ambicioso".
 
-`[a-z0-9]` You can specify ranges of characters using the minus sign. This
-example is a single character that must be a lowercase letter or a
-digit.
+`[aeiou]` Coincide con un solo carácter, siempre que éste se encuentre
+dentro del conjunto especificado. En este caso, coincidiría con "a",
+"e", "i", "o", o "u", pero no con otros caracteres.
 
-`[^A-Za-z]` When the first character in the set notation is a caret, it
-inverts the logic. This example matches a single character that is
-anything *other than* an uppercase or lowercase letter.
+`[a-z0-9]` Se pueden especificar rangos de caracteres utilizando el signo menos.
+En este caso, sería un solo carácter que debe ser una letra minúscula
+o un dígito.
 
-`( )` When parentheses are added to a regular expression, they are ignored
-for the purpose of matching, but allow you to extract a particular
-subset of the matched string rather than the whole string when using
-`findall()`.
+`[^A-Za-z]` Cuando el primer carácter en la notación del conjunto es "^",
+invierte la lógica. En este ejemplo, habría coincidencia con un solo
+carácter que *no sea* una letra mayúscula o una letra minúscula.
 
-`\b` Matches the empty string, but only at the start or end of a word.
+`( )` Cuando se agregan paréntesis a una expresión regular, son
+ignorados para propósitos de encontrar coincidencias, pero permiten extraer
+un subconjunto determinado de la cadena en que se encuentra la coincidencia,
+en lugar de toda la cadena como cuando se utiliza `findall()`.
 
-`\B` Matches the empty string, but not at the start or end of a word.
+`\b` Coincide con una cadena vacía, pero solo al comienzo o al final de una palabra.
 
-`\d` Matches any decimal digit; equivalent to the set [0-9].
+`\B` Concide con una cadena vacía, pero no al comienzo o al final de una palabra.
 
-`\D` Matches any non-digit character; equivalent to the set [^0-9].
+`\d` Coincide con cualquier dígito decimal; equivalente al conjunto [0-9].
 
-Bonus section for Unix / Linux users
+`\D` Coincide con cualquier carácter que no sea un dígito; equivalente al conjunto [^0-9].
+
+Sección adicional para usuarios de Unix / Linux
 ------------------------------------
 
-Support for searching files using regular expressions was built into the
-Unix operating system since the 1960s and it is available in nearly all
-programming languages in one form or another.
+El soporte para buscar archivos usando expresiones regulares viene incluido
+en el sistema operativo Unix desde la década de 1960, y está disponible en
+prácticamente todos los lenguajes de programación de una u otra forma.
 
 \index{grep}
 
-As a matter of fact, there is a command-line program built into Unix
-called *grep* (Generalized Regular Expression Parser)
-that does pretty much the same as the `search()` examples in
-this chapter. So if you have a Macintosh or Linux system, you can try
-the following commands in your command-line window.
+De hecho, hay un programa de línea de comandos incluido en Unix llamado
+*grep* (Generalized Regular Expression Parser// Analizador Generalizado de Expresiones Regulares)
+que hace prácticamente lo mismo que los ejemplos que hemos dado en este
+capítulo que utilizan `search()`. Por tanto, si usas un sistema Macintosh
+o Linux, puedes probar los siguientes comandos en tu ventana de línea
+de comandos.
 
 ~~~~ {.bash}
 $ grep '^From:' mbox-short.txt
@@ -583,26 +584,27 @@ From: zqian@umich.edu
 From: rjlowe@iupui.edu
 ~~~~
 
-This tells `grep` to show you lines that start with the
-string "From:" in the file *mbox-short.txt*. If you
-experiment with the `grep` command a bit and read the
-documentation for `grep`, you will find some subtle
-differences between the regular expression support in Python and the
-regular expression support in `grep`. As an example,
-`grep` does not support the non-blank character
-`\S` so you will need to use the slightly more complex set
-notation `[^ ]`, which simply means match a character that is anything
-other than a space.
+Esto ordena a `grep` mostrar las líneas que comienzan con
+la cadena "From:" en el archivo *mbox-short.txt*. Si
+experimentas un poco con el comando `grep` y lees su
+documentación, encontrarás algunas sutiles diferencias entre
+el soporte de expresiones regulares en Python y en `grep`.
+Por ejemplo, `grep` no reconoce el carácter de no espacio en blanco 
+`\S`, por lo que deberás usar la notación de conjuntos `[^ ]`,
+que es un poco más compleja, y que significa que encontrará una 
+coincidencia con cualquier carácter que no sea un espacio en blanco.
 
-Debugging
+
+Depurando
 ---------
 
-Python has some simple and rudimentary built-in documentation that can
-be quite helpful if you need a quick refresher to trigger your memory
-about the exact name of a particular method. This documentation can be
-viewed in the Python interpreter in interactive mode.
+Python incluye una documentación simple y rudimentaria que puede ser
+de gran ayuda si necesitas revisar para encontrar el nombre exacto
+de algún método. Esta documentación puede revisarse en el intérprete
+de Python en modo interactivo.
 
-You can bring up an interactive help system using `help()`.
+Para mostrar el sistema de ayuda interactivo, se utiliza
+el comando `help()`.
 
 ~~~~ {.python}
 >>> help()
@@ -610,8 +612,9 @@ You can bring up an interactive help system using `help()`.
 help> modules
 ~~~~
 
-If you know what module you want to use, you can use the
-`dir()` command to find the methods in the module as follows:
+Si sabes qué método quieres usar, puedes utilizar el
+comando `dir()` para encontrar los métodos que contiene
+el módulo, de la siguiente manera:
 
 ~~~~ {.python .trinket}
 >>> import re
@@ -621,8 +624,8 @@ If you know what module you want to use, you can use the
 'sre_parse', 'sub', 'subn', 'sys', 'template']
 ~~~~
 
-You can also get a small amount of documentation on a particular method
-using the dir command.
+También puedes obtener una pequeña porción de la documentación de 
+un método en particular usando el comando dir.
 
 ~~~~ {.python .trinket}
 >>> help (re.search)
@@ -634,48 +637,52 @@ search(pattern, string, flags=0)
 >>>
 ~~~~
 
-The built-in documentation is not very extensive, but it can be helpful
-when you are in a hurry or don't have access to a web browser or search
-engine.
+La documentación incluida no es muy exhaustiva, pero puede ser útil
+si estás con prisa o no tienes acceso a un navegador o motor 
+de búsqueda.
 
-Glossary
+
+Glosario
 --------
 
-brittle code
-:   Code that works when the input data is in a particular format but is
-    prone to breakage if there is some deviation from the correct
-    format. We call this "brittle code" because it is easily broken.
+código frágil
+:   Código que funciona cuando los datos se encuentran en un formato específico
+pero tiene a romperse si éste no se cumple. Lo llamamos "código frágil"
+porque se rompe con facilidad.
 
-greedy matching
-:   The notion that the `+` and `*` characters in a regular expression
-    expand outward to match the largest possible string.
-\index{greedy}
-\index{greedy matching}
+coincidencia ambiciosa
+:  La idea de que los caracteres `+` y `*` en una expresión regular
+se expanden hacia afuera para coincidir con la mayor cadena posible.
+\index{ambiciosa}
+\index{coincidencia ambiciosa}
 
 grep
-:   A command available in most Unix systems that searches through text
-    files looking for lines that match regular expressions. The command
-    name stands for "Generalized Regular Expression Parser".
+: Un comando disponible en la mayoría de los sistemas Unix que busca
+en archivos de texto, buscando líneas que coincidan con expresiones 
+regulares. El nombre del comando significa "Generalized Regular
+Expression Parser, o bien "Analizador Generalizado de
+Expresiones Regulares".
 \index{grep}
 
-regular expression
-:   A language for expressing more complex search strings. A regular
-    expression may contain special characters that indicate that a
-    search only matches at the beginning or end of a line or many other
-    similar capabilities.
+expresión regular
+: Un lenguaje para encontrar cadenas más complejas en una búsqueda.
+Una expresión regular puede contener caracteres especiales que indiquen
+que una búsqueda solo coincida al comienzo o al final de una línea,
+junto con muchas otras capacidades similares.
 
-wild card
-:   A special character that matches any character. In regular
-    expressions the wild-card character is the period.
-\index{wild card}
+comodín
+:   Un carácter especial que coincide con cualquier carácter. En
+expresiones regulares, el carácter comodín es el punto.
 
-Exercises
+\index{comodín}
+
+Ejercicios
 ---------
 
-**Exercise 1: Write a simple program to simulate the operation of the
-`grep` command on Unix. Ask the user to enter a regular
-expression and count the number of lines that matched the regular
-expression:**
+**Ejercicio uno: escribe un programa simple que simule la operación
+del comando `grep` en Unix. Debe pedir al usuario que ingrese una 
+expresión regular y cuente el número de líneas que coincidan
+con ésta:**
 
 ~~~~
 $ python grep.py
@@ -691,15 +698,15 @@ Enter a regular expression: java$
 mbox.txt had 4175 lines that matched java$
 ~~~~
 
-**Exercise 2: Write a program to look for lines of the form:**
+**Ejercicio 2: escribe un programa que busque líneas en el formulatio:**
 
 ~~~~
 New Revision: 39772
 ~~~~
 
-**Extract the number from each of the lines using a regular expression
-and the `findall()` method. Compute the average of the
-numbers and print out the average.**
+**Extrae el número de cada línea usando una expresión regular
+y el método `findall()`. Registra el promedio de esos números
+e imprímelo.**
 
 ~~~~
 Enter file:mbox.txt
