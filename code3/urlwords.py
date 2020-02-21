@@ -1,10 +1,11 @@
 import urllib.request, urllib.parse, urllib.error
 
-fhand = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+man_a = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
 
-counts = dict()
-for line in fhand:
-    words = line.decode().split()
-    for word in words:
-        counts[word] = counts.get(word, 0) + 1
-print(counts)
+contadores = dict()
+for linea in man_a:
+    palabras = linea.decode().split()
+    for palabra in palabras:
+        contadores[palabra] = contadores.get(palabra, 0) + 1
+
+print(contadores)
