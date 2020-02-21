@@ -284,43 +284,43 @@ el último carácter que haya encontrado que coincida con ese criterio
 Nótese también que el resultado de la ejecución del programa es 
 una lista de Python que tiene una cadena como su único elemento.
 
-Combining searching and extracting
+Combinando búsqueda y extracción
 ----------------------------------
 
-If we want to find numbers on lines that start with the string "X-" such
-as:
+Si quisiéramos encontrar los números en las líneas que empiecen con la 
+cadena "X-", como por ejemplo:
 
 ~~~~
 X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000
 ~~~~
 
-we don't just want any floating-point numbers from any lines. We only
-want to extract numbers from lines that have the above syntax.
+no queremos cualquier número de coma flotante contenidos en cualquier línea. Solo
+queremos extraer los números de las líneas que tienen la sintaxis ya mencionada.
 
-We can construct the following regular expression to select the lines:
+Podemos construir la siguiente expresión regular para seleccionar las líneas:
 
 ~~~~
 ^X-.*: [0-9.]+
 ~~~~
 
-Translating this, we are saying, we want lines that start with `X-`,
-followed by zero or more characters (`.*`), followed by a colon (`:`)
-and then a space. After the space we are looking for one or more
-characters that are either a digit (0-9) or a period `[0-9.]+`. Note
-that inside the square brackets, the period matches an actual period
-(i.e., it is not a wildcard between the square brackets).
+Traduciendo esto, estamos diciendo que queremos líneas que empiecen con `X-`,
+seguido por cero o más caracteres (`.*`), seguido por un carácter de dos puntos (`:`)
+y luego un espacio. Después del espacio, buscamos uno o más caracteres
+que sean, o bien un dígito (0-9), o bien un punto `[0-9.]+`. Nótese que
+al interior de los corchetes el punto efectivamente corresponde a un punto
+(es decir, no funciona como comodín entre corchetes).
 
-This is a very tight expression that will pretty much match only the
-lines we are interested in as follows:
+La siguiente es una expresión bastante comprimida que solo retornará
+las líneas que nos interesan:
 
 \VerbatimInput{../code3/re10.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-When we run the program, we see the data nicely filtered to show only
-the lines we are looking for.
+Cuando ejecutamos el programa, vemos que los datos han sido procesados,
+mostrando solo las líneas que buscamos.
 
 ~~~~
 X-DSPAM-Confidence: 0.8475
@@ -329,36 +329,36 @@ X-DSPAM-Confidence: 0.6178
 X-DSPAM-Probability: 0.0000
 ~~~~
 
-But now we have to solve the problem of extracting the numbers. While it
-would be simple enough to use `split`, we can use another
-feature of regular expressions to both search and parse the line at the
-same time.
+Ahora, debemos resolver el problema de extraer los númueros. Aunque sería
+bastante sencillo usar `split`, podemos echar mano
+a otra función de las expresiones regulares para buscar y analizar la línea
+a la vez.
 
 \index{string!split}
 
-Parentheses are another special character in regular expressions. When
-you add parentheses to a regular expression, they are ignored when
-matching the string. But when you are using `findall()`,
-parentheses indicate that while you want the whole expression to match,
-you only are interested in extracting a portion of the substring that
-matches the regular expression.
+Los paréntesis son otros caracteres especiales en las expresiones regulares. Al
+agregar paréntesis a una expresión regular, son ignorados a la hora de
+hacer coincidir la cadena. Pero cuando se usa `findall()`,
+los paréntesis indican que, aunque se quiere que toda la expresión coincida,
+solo interesa extraer una parte de la subcadena que 
+coincida con la expresión regular.
 
-\index{regex!parentheses}
-\index{parentheses!regular expression}
+\index{regex!paréntesis}
+\index{paréntesis!expresión regular}
 
-So we make the following change to our program:
+Entonces, hacemos los siguientes cambios a nuestro programa:
 
 \VerbatimInput{../code3/re11.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Instead of calling `search()`, we add parentheses around the
-part of the regular expression that represents the floating-point number
-to indicate we only want `findall()` to give us back the
-floating-point number portion of the matching string.
+En lugar de usar `search()`, agregamos paréntesis alrededos de
+la parte de la expresión regular que representa al número de coma flotante
+para indicar que solo queremos que `findall()` retorne la parte 
+correspondiente a números de coma flotante de la cadena retornada.
 
-The output from this program is as follows:
+El resultado de este programa es el siguiente:
 
 ~~~~
 ['0.8475']
@@ -370,33 +370,33 @@ The output from this program is as follows:
 ..
 ~~~~
 
-The numbers are still in a list and need to be converted from strings to
-floating point, but we have used the power of regular expressions to
-both search and extract the information we found interesting.
+Los números siguen estando en una lista y deben ser convertidos de cadenas
+a números de coma flotante, pero hemos usado las expresiones regulares
+para buscar y extraer la información que consideramos interesante.
 
-As another example of this technique, if you look at the file there are
-a number of lines of the form:
+Otro ejemplo de esta técnica: si revisan este archivo,
+verán una serie de líneas en el formulario:
 
 ~~~~
-Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
+Detalles: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
 ~~~~
 
-If we wanted to extract all of the revision numbers (the integer number
-at the end of these lines) using the same technique as above, we could
-write the following program:
+Si quisiéramos extraer todos los números de revisión (el número entero
+al final de esas líneas) usando la misma técnica del ejemplo anterior, 
+podríamos escribir el siguiente programa:
 
 \VerbatimInput{../code3/re12.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Translating our regular expression, we are looking for lines that start
-with `Details:`, followed by any number of characters (`.*`), followed
-by `rev=`, and then by one or more digits. We want to find lines that
-match the entire expression but we only want to extract the integer
-number at the end of the line, so we surround `[0-9]+` with parentheses.
+Traducción de la expresión regular: estamos buscando líneas que empiecen
+con `Details:`, seguida de cualquier número de caracteres (`.*`), seguida
+de `rev=`, y después de uno o más dígitos. Queremos encontrar líneas que
+coincidan con toda la expresión pero solo queremos extraer el número
+entero al final de la línea, por lo que ponemos `[0-9]+` entre paréntesis.
 
-When we run the program, we get the following output:
+Al ejecutar el programa, obtenemos el siguiente resultado:
 
 ~~~~
 ['39772']
@@ -406,15 +406,16 @@ When we run the program, we get the following output:
 ...
 ~~~~
 
-Remember that the `[0-9]+` is "greedy" and it tries to make as large a
-string of digits as possible before extracting those digits. This
-"greedy" behavior is why we get all five digits for each number. The
-regular expression library expands in both directions until it
-encounters a non-digit, or the beginning or the end of a line.
+Recuerda que la expresión `[0-9]+`  es "ambiciosa" e intentará formar
+una cadena de dígitos lo más larga posible antes de extraerlos. Este
+comportamiento "ambicioso" es la razón por la que obtenemos los cinco dígitos de cada número.
+La expresiones regular se expande en ambas direcciones hasta que
+encuentra, o bien un carácter que no sea un dígito,
+o bien el comienzo o final de una línea.
 
-Now we can use regular expressions to redo an exercise from earlier in
-the book where we were interested in the time of day of each mail
-message. We looked for lines of the form:
+Ahora podemos usar expresiones regulares para volver a resolver un ejercicio
+que hicimos antes, en el que nos interesaba la hora de cada email.
+En su momento, buscamos las líneas:
 
 ~~~~
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
