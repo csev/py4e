@@ -1,84 +1,86 @@
-Networked programs
-==================
+Programas en red
+================
 
-While many of the examples in this book have focused on reading files
-and looking for data in those files, there are many different sources of 
-information when one considers the Internet.
+Aunque muchos de los ejemplos en este libro se han enfocado en leer archivos
+y buscar datos en ellos, hay muchas fuentes de información diferentes
+si se tiene en cuenta el Internet.
 
-In this chapter we will pretend to be a web browser and retrieve web
-pages using the HyperText Transfer Protocol (HTTP). Then we will read
-through the web page data and parse it.
+En este capítulo fingiremos ser un navegador web y recuperaremos páginas
+web utilizando el Protocolo de Transporte de Hipertexto (HyperText Transfer Protocol - HTTP). Luego revisaremos los datos de esas páginas web y
+los analizaremos.
 
-HyperText Transfer Protocol - HTTP
------------------------------------
+Protocolo de Transporte de Hipertexto - HTTP
+--------------------------------------------
 
-The network protocol that powers the web is actually quite simple and
-there is built-in support in Python called `sockets` which
-makes it very easy to make network connections and retrieve data over
-those sockets in a Python program.
+El protocolo de red que hace funcionar la web es en realidad bastante
+simple, y existe un soporte integrado en Python llamado `sockets`, el
+cual hace que resulte muy fácil realizar conexiones de red y recuperar
+datos a través de esas conexiones desde un programa de Python.
 
-A *socket* is much like a file, except that a single
-socket provides a two-way connection between two programs. You can both
-read from and write to the same socket. If you write something to a
-socket, it is sent to the application at the other end of the socket. If
-you read from the socket, you are given the data which the other
-application has sent.
+Un socket es muy parecido a un archivo, a excepción de que un solo
+proporciona una conexión de doble sentido entre dos programas. Es posible
+tanto leer como escribir en el mismo socket. Si se escribe algo en un
+socket, es enviado a la aplicación que está al otro lado del socket. Si
+se lee desde el socket, se obtienen los datos que la otra aplicación
+ha enviado.
 
-But if you try to read a socket when the program on the other end of the
-socket has not sent any data, you just sit and wait. If the programs on
-both ends of the socket simply wait for some data without sending
-anything, they will wait for a very long time, so an important part of programs
-that communicate over the Internet is to have some sort of protocol.
+Pero si intentas leer un socket cuando el programa que está del otro lado
+del socket no ha enviado ningún dato, puedes sentarte y esperar. Si los programas
+de ambos extremos del socket simplemente esperan por datos sin enviar nada,
+van a esperar por mucho, mucho tiempo, así que una parte importante de la
+comunicación de programas a través del internet consiste en tener algún tipo
+de protocolo.
 
-A protocol is a set of precise rules that
-determine who is to go first, what they are to do, and then what the
-responses are to that message, and who sends next, and so on. In a sense
-the two applications at either end of the socket are doing a dance and
-making sure not to step on each other's toes.
+Un protocolo es un conjunto de reglas precisas que determinan quién va primero,
+qué debe hacer, cuáles son las respuestas siguientes para ese mensaje, quién
+envía a continuación y todo lo demás. En cierto sentido las aplicaciones
+a ambos lados del socket están interpretando un baile y cada una de ellas
+debe estar segura de no pisar los pies del otro.
 
-There are many documents that describe these network protocols. The
-HyperText Transfer Protocol is described in the following document:
+Hay muchos documentos que describen esos protocolos de red. El
+Protocolo de Transporte de Hipertext está descrito en el siguiente documento:
 
 <https://www.w3.org/Protocols/rfc2616/rfc2616.txt>
 
-This is a long and complex 176-page document with a lot of detail. If
-you find it interesting, feel free to read it all. But if you take a
-look around page 36 of RFC2616 you will find the syntax for the GET
-request. To request a document from a web server, we make a connection
-to the `www.pr4e.org` server on port 80, and then send a
-line of the form
+Se trata de un documento largo y complejo de 176 páginas, con un montón de
+detalles. Si lo encuentras interesante, siéntete libre de leerlo completo. Pero si
+echas un vistazo alrededor de la página 36 del RFC2616, encontrarás la sintaxis para las
+peticiones GET. Para pedir un documento a un servidor web, hacemos una conexión al
+servidor `www.pr4e.org` en el puerto 80, y luego enviamos una línea como esta:
 
 `GET http://data.pr4e.org/romeo.txt HTTP/1.0 `
 
-where the second parameter is the web page we are requesting, and then
-we also send a blank line. The web server will respond with some header
-information about the document and a blank line followed by the document
-content.
+en la cual el segundo parámetro es la página web que estamos solicitando, y a
+continuación enviamos una línea en blanco. El servidor web responderá con una
+cabecera que contiene información acerca del documento y una línea en blanco,
+seguido por el contenido del documento.
 
-The world's simplest web browser
---------------------------------
+El navegador web más sencillo del mundo
+---------------------------------------
 
-Perhaps the easiest way to show how the HTTP protocol works is to write
-a very simple Python program that makes a connection to a web server and
-follows the rules of the HTTP protocol to request a document and
-display what the server sends back.
+Quizá la manera más sencilla de demostrar cómo funciona el protocolo HTTP sea
+escribir un programa en Python muy sencillo, que realiza una conexión a un
+servidor web y sigue las reglas del protocolo HTTP para solicitar un documento
+y mostrar lo que el servidor envía de regreso.
 
 \VerbatimInput{../code3/socket1.py}
 
-First the program makes a connection to port 80 on the server
-[www.py4e.com](http://www.py4e.com). Since our program is playing the role
-of the "web browser", the HTTP protocol says we must send the GET
-command followed by a blank line. `\r\n` signifies an EOL (end of line),
-so `\r\n\r\n` signifies nothing between two EOL sequences. That is the
-equivalent of a blank line.
+En primer lugar, el programa realiza una conexión al puerto 80 del servidor
+[www.py4e.com](http://www.py4e.com). Puesto que nuestro programa está jugando
+el rol de "navegador web", el protocolo HTTP dice que debemos enviar
+el comando GET seguido de una línea en blanco. `\r\n` representa un
+salto de línea (end of line, o EOL en inglés), así que `\r\n\r\n`
+significa que no hay nada entre dos secuencias de salto de línea. Ese
+es el equivalente de una línea en blanco.
 
-![A Socket Connection](height=2.0in@../images/socket)
+![Conexión de un socket](height=2.0in@../images/socket)
 
-Once we send that blank line, we write a loop that receives data in
-512-character chunks from the socket and prints the data out until there
-is no more data to read (i.e., the recv() returns an empty string).
+Una vez que enviamos esa línea en blanco, escribimos un bucle que recibe
+los datos desde el socket en bloques de 512 caracteres y los imprime en
+pantalla hasta que no quedan más datos por leer (es decir, la llamada a
+recv() devuelve una cadena vacía).
 
-The program produces the following output:
+El programa produce la salida siguiente:
 
 ~~~~
 HTTP/1.1 200 OK
@@ -100,57 +102,59 @@ Arise fair sun and kill the envious moon
 Who is already sick and pale with grief
 ~~~~
 
-The output starts with headers which the web server sends to describe
-the document. For example, the `Content-Type` header
-indicates that the document is a plain text document
-(`text/plain`).
+La salida comienza con la cabecera que el servidor envía para describir
+el documento. Por ejemplo, la cabecera `Content-Type` indica que
+el documento es un documento de texto sin formato (`text/plain`).
 
-After the server sends us the headers, it adds a blank line to indicate
-the end of the headers, and then sends the actual data of the file
-*romeo.txt*.
+Después de que el servidor nos envía la cabecera, añade una línea en blanco
+para indicar el final de la cabecera, y después envía los datos reales del
+archivo *romeo.txt*.
 
-This example shows how to make a low-level network connection with
-sockets. Sockets can be used to communicate with a web server or with a
-mail server or many other kinds of servers. All that is needed is to
-find the document which describes the protocol and write the code to
-send and receive the data according to the protocol.
+Este ejemplo muestra cómo hacer una conexión de red de bajo nivel con
+sockets. Los sockets pueden ser usados para comunicarse con un servidor web,
+con un servidor de correo, o con muchos otros tipos de servidores. Todo lo
+que se necesita es encontrar el documento que describe el protocolo
+correspondiente y escribir el código para enviar y recibir los datos de
+acuerdo a ese protocolo.
 
-However, since the protocol that we use most commonly is the HTTP web
-protocol, Python has a special library specifically designed to support
-the HTTP protocol for the retrieval of documents and data over the web.
+Sin embargo, como el protocolo que se usa con más frecuencia es el
+protocolo web HTTP, Python tiene una librería especial diseñada especialmente
+para trabajar con el protocolo HTTP para recibir documentos y datos a través
+de la web.
 
-One of the requirements for using the HTTP protocol is the need to send
-and receive data as bytes objects, instead of strings. In the preceding
-example, the `encode()` and `decode()` methods convert strings into bytes
-objects and back again.
+Uno de los requisitos para utilizar el protocolo HTTP es la necesidad de enviar
+y recibir datos como objectos binarios, en vez de cadenas. En el ejemplo anterior,
+los métodos `encode()` y `decode()` convierten cadenas en objectos binarios
+y viceversa.
 
-The next example uses `b''` notation to specify that a variable should
-be stored as a bytes object. `encode()` and `b''` are equivalent.
+El siguiente ejemplo utiliza la notación `b''` para especificar que una varialbe
+debe ser almacenada como un objeto binario. `encode()` y `b''` son equivalentes.
 
 ~~~~
->>> b'Hello world'
-b'Hello world'
->>> 'Hello world'.encode()
-b'Hello world'
+>>> b'Hola mundo'
+b'Hola mundo'
+>>> 'Hola mundo'.encode()
+b'Hola mundo'
 ~~~~
 
-Retrieving an image over HTTP
------------------------------
+Recepción de una imagen mediante HTTP
+-------------------------------------
 
-\index{urllib!image}
-\index{image!jpg}
+\index{imagen!urllib}
+\index{jpg!imagen}
 \index{jpg}
 
-In the above example, we retrieved a plain text file which had newlines
-in the file and we simply copied the data to the screen as the program
-ran. We can use a similar program to retrieve an image across using
-HTTP. Instead of copying the data to the screen as the program runs, we
-accumulate the data in a string, trim off the headers, and then save the
-image data to a file as follows:
+En el ejemplo anterior, recibimos un archivo de texto sin formato que tenía
+saltos de línea en su interior, y lo único que hicimos cuando el programa se
+ejecutó fue copiar los datos a la pantalla. Podemos utilizar un programa similar
+para recibir una imagen utilizando HTTP. En vez de copiar los datos a la pantalla
+conforme va funcionando el programa, vamos a guardar los datos en una cadena,
+remover la cabecera, y después guardar los datos de la imagen en un archivo
+tal como se muestra a continuación:
 
 \VerbatimInput{../code3/urljpeg.py}
 
-When the program runs, it produces the following output:
+Cuando el programa corre, produce la siguiente salida:
 
 ~~~~
 $ python urljpeg.py
@@ -164,10 +168,10 @@ $ python urljpeg.py
 5120 222320
 5120 227440
 3167 230607
-Header length 393
+Header length 394
 HTTP/1.1 200 OK
-Date: Wed, 11 Apr 2018 18:54:09 GMT
-Server: Apache/2.4.7 (Ubuntu)
+Date: Fri, 21 Feb 2020 01:45:41 GMT
+Server: Apache/2.4.18 (Ubuntu)
 Last-Modified: Mon, 15 May 2017 12:27:40 GMT
 ETag: "38342-54f8f2e5b6277"
 Accept-Ranges: bytes
@@ -180,34 +184,32 @@ Connection: close
 Content-Type: image/jpeg
 ~~~~
 
-You can see that for this url, the `Content-Type` header
-indicates that body of the document is an image
-(`image/jpeg`). Once the program completes, you can view the
-image data by opening the file `stuff.jpg` in an image
-viewer.
+Puedes observar que para esta url, la cabecera `Content-Type`
+indica que el cuerpo del documento es una imagen
+(`image/jpeg`). Una vez que el programa termina, puedes ver
+los datos de la imagen abriendo el archivo `cosa.jpg` en un
+visor de imágenes.
 
-As the program runs, you can see that we don't get 5120 characters each
-time we call the `recv()` method. We get as many characters
-as have been transferred across the network to us by the web server at
-the moment we call `recv()`. In this example, we either get
-as few as 3200 characters each time we request up to 5120 characters of
-data.
+Al ejecutar el programa, se puede ver que no se obtienen 5120 caracteres cada vez
+que llamamos el método `recv()`. Se obtienen tantos caracteres como hayan sido
+transferidos por el sevidor web hacia nosotros a través de la red en el momento
+de la llamada a `recv()`. En este emeplo, se obtienen al menos 3200 caracteres cada
+vez que solicitamos hasta 5120 caracteres de datos.
 
-Your results may be different depending on your network speed. Also note
-that on the last call to `recv()` we get 3167 bytes, which is
-the end of the stream, and in the next call to `recv()` we
-get a zero-length string that tells us that the server has called
-`close()` on its end of the socket and there is no more data
-forthcoming.
+Los resultados obtenidos pueden ser diferentes dependiendo de tu velocidad de
+internet. Además observa que en la última llamada a `recv()` obtenemos 3167 bytes,
+lo cual es el final de la cadena, y en la siguiente llamada a `recv()` obtenemos
+una cadena de longitud cero que indica que el servidor ya ha llamado `close()`
+en su lado del socket, y por lo tanto no quedan más datos pendientes por recibir.
 
 \index{time}
 \index{time.sleep}
 
-We can slow down our successive `recv()` calls by
-uncommenting the call to `time.sleep()`. This way, we wait a
-quarter of a second after each call so that the server can "get ahead"
-of us and send more data to us before we call `recv()` again.
-With the delay, in place the program executes as follows:
+Podemos retardar las llamadas sucesivas a `recv()` al descomentar la
+llamada a `time.sleep()`. De esta forma, esperamos un cuarto de segundo
+después de cada llamada de modo que el servidor puede "adelantarse" a
+nosotros y enviarnos más datos antes de que llamemos de nuevo a `recv()`. Con el
+retraso, esta vez el programa se ejecuta así:
 
 ~~~~
 $ python urljpeg.py
@@ -217,11 +219,11 @@ $ python urljpeg.py
 ...
 5120 225280
 5120 230400
-207 230607
-Header length 393
+208 230608
+Header length 394
 HTTP/1.1 200 OK
-Date: Wed, 11 Apr 2018 21:42:08 GMT
-Server: Apache/2.4.7 (Ubuntu)
+Date: Fri, 21 Feb 2020 01:57:31 GMT
+Server: Apache/2.4.18 (Ubuntu)
 Last-Modified: Mon, 15 May 2017 12:27:40 GMT
 ETag: "38342-54f8f2e5b6277"
 Accept-Ranges: bytes
@@ -234,41 +236,41 @@ Connection: close
 Content-Type: image/jpeg
 ~~~~
 
-Now other than the first and last calls to `recv()`, we now
-get 5120 characters each time we ask for new data.
+Ahora todas las llamadas a `recv()`, excepto la primera y la última,
+nos dan 5120 caracteres cada vez que solicitamos más datos.
 
-There is a buffer between the server making `send()` requests
-and our application making `recv()` requests. When we run the
-program with the delay in place, at some point the server might fill up
-the buffer in the socket and be forced to pause until our program starts
-to empty the buffer. The pausing of either the sending application or
-the receiving application is called "flow control."
+Existe un buffer entre el servidor que hace las peticiones `send()`
+y nuestra aplicación que hace las peticiones `recv()`. Cuando ejecutamos
+el programa con el retraso activado, en algún momento el servidor podría
+llenar el buffer del socket y verse forzado a detenerse hasta que nuestro
+programa empiece a vaciar ese buffer. La detención de la aplicación que
+envía los datos o de la que los recibe se llama "control de flujo".
 
-\index{flow control}
+\index{control de flujo}
 
-Retrieving web pages with `urllib`
----------------------------------------------
+Recepción de páginas web con `urllib`
+-------------------------------------
 
-While we can manually send and receive data over HTTP using the socket
-library, there is a much simpler way to perform this common task in
-Python by using the `urllib` library.
+Mientras que podemos enviar y recibir datos manualmente mediante HTTP utilizando
+la librería socket, existe una forma mucho más simple para realizar esta habitual
+tarea en Python, utilizando la librería `urllib`.
 
-Using `urllib`, you can treat a web page much like a file.
-You simply indicate which web page you would like to retrieve and
-`urllib` handles all of the HTTP protocol and header details.
+Utilizando `urllib`, es posible tratar una página web de forma parecida
+a un archivo. Se puede indicar simplemente qué página web se desea recuperar y
+`urllib` se encargará de manejar todo lo referente al protocolo HTTP y los detalles
+de la cabecera.
 
-The equivalent code to read the *romeo.txt* file from the web
-using `urllib` is as follows:
+El código equivalente para leer el archivo *romeo.txt* desde la web usando
+`urllib` es el siguiente:
 
 \VerbatimInput{../code3/urllib1.py}
 
-Once the web page has been opened with `urllib.urlopen`, we
-can treat it like a file and read through it using a `for`
-loop.
+Una vez que la página web ha sido abierta con `urllib.urlopen`, se puede
+tratar como un archivo y leer a través de ella utilizando un bucle `for`.
 
-When the program runs, we only see the output of the contents of the
-file. The headers are still sent, but the `urllib` code
-consumes the headers and only returns the data to us.
+Cuando el programa se ejecuta, en su salida sólo vemos el contenido del archivo.
+Las cabeceras siguen enviándose, pero el código de `urllib` se encarga
+de manejar las cabeceras y solamente nos devuelve los datos.
 
 ~~~~
 But soft what light through yonder window breaks
@@ -277,57 +279,57 @@ Arise fair sun and kill the envious moon
 Who is already sick and pale with grief
 ~~~~
 
-As an example, we can write a program to retrieve the data for
-`romeo.txt` and compute the frequency of each word in the
-file as follows:
+Como ejemplo, podemos escribir un programa para obtener los datos de 
+`romeo.txt` y calcular la frecuencia de cada palabra en el archivo
+de la forma siguiente:
 
 \VerbatimInput{../code3/urlwords.py}
 
-Again, once we have opened the web page, we can read it like a local
-file.
+De nuevo vemos que, una vez abierta la página web, se puede leer como
+si fuera un archivo local.
 
-Reading binary files using `urllib`
------------------------------------
+Leyendo archivos binarios con `urllib`
+-------------------------------------
 
-Sometimes you want to retrieve a non-text (or binary) file such as an
-image or video file. The data in these files is generally not useful to
-print out, but you can easily make a copy of a URL to a local file on
-your hard disk using `urllib`.
+A veces se desea obtener un archivo que no es de texto (o binario) tal
+como una imagen o un archivo de video. Los datos en esos archivos generalmente
+no son útiles para ser impresos en pantalla, pero se puede hacer fácilmente una
+copia de una URL a un archivo local en el disco duro utilizando `urllib`.
 
-\index{binary file}
+\index{archivo binario}
 
-The pattern is to open the URL and use `read` to download the
-entire contents of the document into a string variable
-(`img`) then write that information to a local file as
-follows:
+La secuencia es abrir la dirección URL y utilizar `read` para descargar
+todo el contenido del documento en una cadena (`img`) para después
+escribir esa información a un archivo local, tal como se muestra a continuación:
 
 \VerbatimInput{../code3/curl1.py}
 
-This program reads all of the data in at once across the network and
-stores it in the variable `img` in the main memory of your
-computer, then opens the file `cover.jpg` and writes the data
-out to your disk. The `wb` argument for `open()` opens a binary file
-for writing only. This program will work if the size of the file is less than
-the size of the memory of your computer.
+Este programa lee todos los datos que recibe de la red y los almacena
+en la variable `img` en la memoria principal de la computadora, después, 
+abre el archivo `portada.jpg` y escribe los datos en el disco.
+El argumento `wb` en la función `open()` abre un archivo binario en modo
+de escritura solamente. Este programa funcionará siempre y cuando el tamaño
+del archivo sea menor que el tamaño de la memoria de la computadora.
 
-However if this is a large audio or video file, this program may crash
-or at least run extremely slowly when your computer runs out of memory.
-In order to avoid running out of memory, we retrieve the data in blocks
-(or buffers) and then write each block to your disk before retrieving
-the next block. This way the program can read any size file without
-using up all of the memory you have in your computer.
+Aún asi, si es un archivo grande de audio o video, este programa podría
+fallar o al menos ejecutar muy muy lento cuando la memoria de la computadora
+se haya agotado. Para evitar que la memoria se termine, almacenamos los
+datos en bloques (o buffers) y luego escribimos cada bloque en el disco
+antes de obtener el siguiente bloque. De esta forma, el programa puede
+leer archivos de cualquier tamaño sin utilizar toda la memoria disponible
+en la computadora.
 
 \VerbatimInput{../code3/curl2.py}
 
-In this example, we read only 100,000 characters at a time and then
-write those characters to the `cover.jpg` file before
-retrieving the next 100,000 characters of data from the web.
+En este ejemplo, leemos solamente 100,000 caracteres a la vez, y después
+los escribimos al archivo `portada.jpg` antes de obtener los
+siguientes 100,000 caracteres de datos desde la web.
 
-This program runs as follows:
+Este programa se ejecuta como se observa a continuación:
 
 ~~~~
 python curl2.py
-230210 characters copied.
+230210 caracteres copiados.
 ~~~~
 
 Parsing HTML and scraping the web

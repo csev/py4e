@@ -1,5 +1,5 @@
 import urllib.request
 
-fhand = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
-for line in fhand:
-    print(line.decode().strip())
+man_a = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+for linea in man_a:
+    print(linea.decode().strip())

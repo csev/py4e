@@ -1,31 +1,31 @@
 import socket
 import time
 
-HOST = 'data.pr4e.org'
-PORT = 80
-mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mysock.connect((HOST, PORT))
-mysock.sendall(b'GET http://data.pr4e.org/cover3.jpg HTTP/1.0\r\n\r\n')
-count = 0
-picture = b""
+SERVIDOR = 'data.pr4e.org'
+PUERTO = 80
+misock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+misock.connect((SERVIDOR, PUERTO))
+misock.sendall(b'GET http://data.pr4e.org/cover3.jpg HTTP/1.0\r\n\r\n')
+contador = 0
+imagen = b""
 
 while True:
-    data = mysock.recv(5120)
-    if len(data) < 1: break
+    datos = misock.recv(5120)
+    if len(datos) < 1: break
     #time.sleep(0.25)
-    count = count + len(data)
-    print(len(data), count)
-    picture = picture + data
+    contador = contador + len(datos)
+    print(len(datos), contador)
+    imagen = imagen + datos
 
-mysock.close()
+misock.close()
 
-# Look for the end of the header (2 CRLF)
-pos = picture.find(b"\r\n\r\n")
+# Búsqueda del final de la cabecera (2 CRLF)
+pos = imagen.find(b"\r\n\r\n")
 print('Header length', pos)
-print(picture[:pos].decode())
+print(imagen[:pos].decode())
 
-# Skip past the header and save the picture data
-picture = picture[pos+4:]
-fhand = open("stuff.jpg", "wb")
-fhand.write(picture)
+# Ignorar la cabera y guardar los datos de la imagen
+imagen = imagen[pos+4:]
+fhand = open("cosa.jpg", "wb")
+fhand.write(imagen)
 fhand.close()
