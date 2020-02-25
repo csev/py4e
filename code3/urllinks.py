@@ -1,24 +1,24 @@
-# To run this, you can install BeautifulSoup
+# Para ejecutar este programa descarga BeautifulSoup
 # https://pypi.python.org/pypi/beautifulsoup4
 
-# Or download the file
+# O descarga el archivo
 # http://www.py4e.com/code3/bs4.zip
-# and unzip it in the same directory as this file
+# y descomprimelo en el mismo directorio que este archivo
 
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
 import ssl
 
-# Ignore SSL certificate errors
+# Ignorar errores de certificado SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-url = input('Enter - ')
+url = input('Introduzca - ')
 html = urllib.request.urlopen(url, context=ctx).read()
-soup = BeautifulSoup(html, 'html.parser')
+sopa = BeautifulSoup(html, 'html.parser')
 
-# Retrieve all of the anchor tags
-tags = soup('a')
-for tag in tags:
-    print(tag.get('href', None))
+# Recuperar todas las etiquetas de anclaje
+etiquetas = sopa('a')
+for etiqueta in etiquetas:
+    print(etiqueta.get('href', None))

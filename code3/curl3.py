@@ -1,28 +1,28 @@
 import os
 import urllib.request, urllib.parse, urllib.error
 
-print('Please enter a URL like http://data.pr4e.org/cover3.jpg')
+print('Ingresa una URL como http://data.pr4e.org/cover3.jpg')
 urlstr = input().strip()
 img = urllib.request.urlopen(urlstr)
 
-# Get the last "word"
-words = urlstr.split('/')
-fname = words[-1]
+# Obtener la última "palabra"
+palabras = urlstr.split('/')
+nombre_archivo = palabras[-1]
 
-# Don't overwrite the file
-if os.path.exists(fname):
-    if input('Replace ' + fname + ' (Y/n)?') != 'Y':
-        print('Data not copied')
+# No sobreescribir el archivo
+if os.path.exists(nombre_archivo):
+    if input('¿Remplazar ' + nombre_archivo + ' (S/n)?') != 'S':
+        print('Datos no copiados')
         exit()
-    print('Replacing', fname)
+    print('Reemplazando', nombre_archivo)
 
-fhand = open(fname, 'wb')
-size = 0
+manejador_a = open(nombre_archivo, 'wb')
+longitud = 0
 while True:
     info = img.read(100000)
     if len(info) < 1: break
-    size = size + len(info)
-    fhand.write(info)
+    longitud = longitud + len(info)
+    manejador_a.write(info)
 
-print(size, 'characters copied to', fname)
-fhand.close()
+print(longitud, 'caracteres copiados en', nombre_archivo)
+manejador_a.close()

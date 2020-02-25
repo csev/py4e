@@ -1,28 +1,28 @@
-# To run this, you can install BeautifulSoup
+# Para ejecutar este programa descarga BeautifulSoup
 # https://pypi.python.org/pypi/beautifulsoup4
 
-# Or download the file
+# O descarga el archivo
 # http://www.py4e.com/code3/bs4.zip
-# and unzip it in the same directory as this file
+# y descomprimelo en el mismo directorio que este archivo
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import ssl
 
-# Ignore SSL certificate errors
+# Ignorar errores de certificado SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-url = input('Enter - ')
+url = input('Introduzca - ')
 html = urlopen(url, context=ctx).read()
-soup = BeautifulSoup(html, "html.parser")
+sopa = BeautifulSoup(html, "html.parser")
 
-# Retrieve all of the anchor tags
-tags = soup('a')
-for tag in tags:
+# Obtener todas las etiquetas de anclaje
+etiquetas = sopa('a')
+for etiqueta in etiquetas:
     # Look at the parts of a tag
-    print('TAG:', tag)
-    print('URL:', tag.get('href', None))
-    print('Contents:', tag.contents[0])
-    print('Attrs:', tag.attrs)
+    print('ETIQUETA:', etiqueta)
+    print('URL:', etiqueta.get('href', None))
+    print('Contenido:', etiqueta.contents[0])
+    print('Atributos:', etiqueta.attrs)
