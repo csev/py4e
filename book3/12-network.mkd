@@ -332,88 +332,89 @@ python curl2.py
 230210 caracteres copiados.
 ~~~~
 
-Parsing HTML and scraping the web
----------------------------------
+Análisis the HTML y rascado de la web
+-------------------------------------
 
-\index{web!scraping}
-\index{parsing HTML}
+\index{rascado!web}
+\index{análisis HTML}
 
-One of the common uses of the `urllib` capability in Python
-is to *scrape* the web. Web scraping is when we write a
-program that pretends to be a web browser and retrieves pages, then
-examines the data in those pages looking for patterns.
+Uno de los usos más comunes de las capacidades de `urllib` en Python
+es *rascar* la web. El rascado de la web es cuando escribimos un programa
+que pretende ser un navegador web y recupera páginas, examinando
+luego los datos de esas páginas para encontrar ciertos patrones.
 
-As an example, a search engine such as Google will look at the source of
-one web page and extract the links to other pages and retrieve those
-pages, extracting links, and so on. Using this technique, Google
-*spiders* its way through nearly all of the pages on the
-web.
+Por ejemplo, una motor de búsqueda como Google buscará el código de una
+página web y extraerá los enlaces a otras paginas y recuperará esas
+páginas, extrayendo los enlaces que haya en ellas y así sucesivamente. Utilizando
+esta técnica, las *arañas* de Google se mueven por casi todas las páginas
+de la web.
 
-Google also uses the frequency of links from pages it finds to a
-particular page as one measure of how "important" a page is and how high
-the page should appear in its search results.
+Google utiliza también la frecuencia con que las páginas que encuentra enlazan
+hacia una página concreta para calcular la "importancia" de esa página, y la
+posición en la que debe aparecer dentro de sus resultados de búsqueda.
 
-Parsing HTML using regular expressions
---------------------------------------
+Análisis de HTML mediante expresiones regulares
+-----------------------------------------------
 
-One simple way to parse HTML is to use regular expressions to repeatedly
-search for and extract substrings that match a particular pattern.
+Una forma sencilla de analizar HTML consiste en utilizar expresiones regulares para
+hacer búsquedas repetitivas que extraigan subcadenas coincidentes con un patrón en
+particular.
 
-Here is a simple web page:
+Aquí tenemos una página web simple:
 
 ~~~~ {.html}
-<h1>The First Page</h1>
+<h1>La Primera Página</h1>
 <p>
-If you like, you can switch to the
+Si quieres, puedes visitar la
 <a href="http://www.dr-chuck.com/page2.htm">
-Second Page</a>.
+Segunda Página</a>.
 </p>
 ~~~~
 
-We can construct a well-formed regular expression to match and extract
-the link values from the above text as follows:
+Podemos construir una expresión regular bien formada para buscar y extraer
+los valores de los enlaces del texto anterior, de esta forma:
 
 ~~~~
 href="http[s]?://.+?"
 ~~~~
 
-Our regular expression looks for strings that start with
-"href=\"http://" or "href=\"https://", followed by one or more characters (`.+?`),
-followed by another double quote. The question mark behind the `[s]?` indicates
-to search for the string "http" followed by zero or one "s". 
+Nuestra expresión regular busca cadenas que comiencen con
+"href=\"http://" o "href=\"https://", seguido de uno o dos caracteres (`.+?`),
+seguidos por otra comilla doble. El signo de interrogación después de `[s]?`
+indica que la coincidencia debe ser hecha en modo "no-codicioso", en vez de en
+modo "codicioso". Una búsqueda no-codiciosa intenta encontrar la cadena
+coincidente *más pequeña* posible, mientras que una búsqueda codiciosa intentaría
+localizar la cadena coincidente *más grande*.
 
-The question mark added to the `.+?` indicates
-that the match is to be done in a "non-greedy" fashion instead of a
-"greedy" fashion. A non-greedy match tries to find the
-*smallest* possible matching string and a greedy match
-tries to find the *largest* possible matching string.
+\index{codicioso}
+\index{no-codicioso}
 
-\index{greedy}
-\index{non-greedy}
+Añadimos paréntesis a nuestra expresión regular para indicar qué parte de la
+cadena localizada queremos extraer, y obtenemos el siguiente programa:
 
-We add parentheses to our regular expression to indicate which part of
-our matched string we would like to extract, and produce the following
-program:
-
-\index{regex!parentheses}
-\index{parentheses!regular expression}
+\index{regex!paréntesis}
+\index{paréntesis!expresión regular}
 
 \VerbatimInput{../code3/urlregex.py}
 
-The `ssl` library allows this program to access web sites that strictly
-enforce HTTPS. The `read` method returns HTML source code as a bytes object 
-instead of returning an HTTPResponse object. The `findall` regular expression
-method will give us a list of all of the strings that match our
-regular expression, returning only the link text between the double quotes.
+La librería `ssl` permite a nuestro programa acceder a los sitios web que
+estrictamente requieren HTTPS. El método `read` devuelve código fuente en HTML
+como un objeto binario en vez de devolver un objeto HTTPResponse. El método
+de expresiones regulares `findall` nos da una lista de todas las cadenas que
+coinciden con la expresión regular, devolviendo solamente el texto del enlace
+entre las comillas dobles.
 
-When we run the program and input a URL, we get the following output:
+Cuando corremos el programa e ingresamos una URL, obtenemos lo siguiente:
 
 ~~~~
-Enter - https://docs.python.org
+Introduzca - https://docs.python.org
 https://docs.python.org/3/index.html
 https://www.python.org/
+https://devguide.python.org/docquality/#helping-with-documentation
+https://docs.python.org/3.9/
 https://docs.python.org/3.8/
 https://docs.python.org/3.7/
+https://docs.python.org/3.6/
 https://docs.python.org/3.5/
 https://docs.python.org/2.7/
 https://www.python.org/doc/versions/
@@ -421,68 +422,70 @@ https://www.python.org/dev/peps/
 https://wiki.python.org/moin/BeginnersGuide
 https://wiki.python.org/moin/PythonBooks
 https://www.python.org/doc/av/
+https://devguide.python.org/
 https://www.python.org/
 https://www.python.org/psf/donations/
-http://sphinx.pocoo.org/
+https://docs.python.org/3/bugs.html
+https://www.sphinx-doc.org/
 ~~~~
 
-Regular expressions work very nicely when your HTML is well formatted
-and predictable. But since there are a lot of "broken" HTML pages out
-there, a solution only using regular expressions might either miss some
-valid links or end up with bad data.
+Las expresiones regulares funcionan muy bien cuando el HTML está bien formateado
+y es predecible. Pero dado que ahí afuera hay muchas páginas con HTML "defectuoso",
+una solución usando solamente expresiones regulares podría ya sea perder algunos
+enlaces válidos, o bien terminar obteniendo datos erróneos.
 
-This can be solved by using a robust HTML parsing library.
+Esto se puede resolver utilizando una librería de análisis de HTML robusta.
 
-Parsing HTML using BeautifulSoup
---------------------------------
+Análisis de HTML mediante BeautifulSoup
+---------------------------------------
 
 \index{BeautifulSoup}
 
-Even though HTML looks like XML^[The XML format is described in the next chapter.]
-and some pages are carefully
-constructed to be XML, most HTML is generally broken in ways that cause
-an XML parser to reject the entire page of HTML as improperly formed.
+A pesar de que HTML es parecido a XML^[El formato XML es descrito en el siguiente
+capítulo.] y que algunas páginas son construidas cuidadosamente para ser XML, la
+mayoría del HTML generalmente está incompleto, de modo que puede causar que un analizador
+de XML rechace una página HTML completa por estar formada inadecuadamente.
 
-There are a number of Python libraries which can help you parse HTML and
-extract data from the pages. Each of the libraries has its strengths and
-weaknesses and you can pick one based on your needs.
+Hay una cantidad considerable de librerías en Python que pueden ayudarte a
+analizar HTML y a extraer datos de las páginas. Cada una de las librerías tiene
+sus puntos fuertes y débiles, de modo que puedes elegir una basada en tus necesidades.
 
-As an example, we will simply parse some HTML input and extract links
-using the *BeautifulSoup* library. BeautifulSoup tolerates highly flawed
-HTML and still lets you easily extract the data you need. You can download and
-install the BeautifulSoup code from:
+Por ejemplo, vamos a analizar simplemente una entrada HTML cualquiera y a extraer
+enlaces utilizando la librería *BeautifulSoup*. BeautifulSoup tolera código HTML bastante
+defectuoso y aún así te deja extraer los datos que necesitas. Puedes descargar e instalar
+el código de BeautifulSoup desde:
 
 <https://pypi.python.org/pypi/beautifulsoup4>
 
-Information on installing BeautifulSoup with the Python Package Index tool `pip`
-is available at:
+La información acerca de la instalación de BeautifulSoup utilizando la herramienta de
+Python Package Index `pip` está disponible en:
 
 <https://packaging.python.org/tutorials/installing-packages/>
 
-We will use `urllib` to read the page and then use
-`BeautifulSoup` to extract the `href` attributes
-from the anchor (`a`) tags.
+Vamos a utilizar `urllib` para leer la página y después utilizaremos
+`BeautifulSoup` para extraer los atributos `href`
+de las etiquetas de anclaje (`a`).
 
 \index{BeautifulSoup}
 \index{HTML}
-\index{parsing!HTML}
+\index{análisis!HTML}
 
 \VerbatimInput{../code3/urllinks.py}
 
-The program prompts for a web address, then opens the web page, reads
-the data and passes the data to the BeautifulSoup parser, and then
-retrieves all of the anchor tags and prints out the `href`
-attribute for each tag.
+El programa solicita una dirección web, luego abre la página web, lee
+los datos y se los pasa al analizador BeautifulSoup, que recupera todas las
+etiquetas de anclaje e imprime en pantalla el atributo `href`
+de cada una de ellas.
 
-When the program runs, it produces the following output:
+Cuando el programa se ejecuta, produce lo siguiente:
 
 ~~~~
-Enter - https://docs.python.org
+Introduzca - https://docs.python.org
 genindex.html
 py-modindex.html
 https://www.python.org/
 #
-whatsnew/3.6.html
+whatsnew/3.8.html
 whatsnew/index.html
 tutorial/index.html
 library/index.html
@@ -500,12 +503,15 @@ glossary.html
 search.html
 contents.html
 bugs.html
+https://devguide.python.org/docquality/#helping-with-documentation
 about.html
 license.html
 copyright.html
 download.html
+https://docs.python.org/3.9/
 https://docs.python.org/3.8/
 https://docs.python.org/3.7/
+https://docs.python.org/3.6/
 https://docs.python.org/3.5/
 https://docs.python.org/2.7/
 https://www.python.org/doc/versions/
@@ -513,50 +519,53 @@ https://www.python.org/dev/peps/
 https://wiki.python.org/moin/BeginnersGuide
 https://wiki.python.org/moin/PythonBooks
 https://www.python.org/doc/av/
+https://devguide.python.org/
 genindex.html
 py-modindex.html
 https://www.python.org/
 #
 copyright.html
 https://www.python.org/psf/donations/
-bugs.html
-http://sphinx.pocoo.org/
+https://docs.python.org/3/bugs.html
+https://www.sphinx-doc.org/
 ~~~~
 
-This list is much longer because some HTML anchor tags are relative
-paths (e.g., tutorial/index.html) or in-page references (e.g., '#')
-that do not include "http://" or "https://", which was a
-requirement in our regular expression.
+Esta lista es mucho más larga porque algunas de las etiquetas de anclaje son
+rutas relativas (e.g., tutorial/index.html) o referencias dentro de la página (e.g., '#')
+que no incluyen "http://" o "https://", lo cual era un requerimiento para
+nuestra expresión regular.
 
-You can use also BeautifulSoup to pull out various parts of each tag:
+También puedes utilizar BeautifulSoup para extraer varias partes de cada etiqueta de este modo:
 
 \VerbatimInput{../code3/urllink2.py}
 
 ~~~~
 python urllink2.py
-Enter - http://www.dr-chuck.com/page1.htm
-TAG: <a href="http://www.dr-chuck.com/page2.htm">
+Introduzca - http://www.dr-chuck.com/page1.htm
+ETIQUETA: <a href="http://www.dr-chuck.com/page2.htm">
 Second Page</a>
 URL: http://www.dr-chuck.com/page2.htm
-Content: ['\nSecond Page']
-Attrs: [('href', 'http://www.dr-chuck.com/page2.htm')]
+Contenido:
+Second Page
+Atributos: {'href': 'http://www.dr-chuck.com/page2.htm'}
 ~~~~
 
-`html.parser` is the HTML parser included in the standard Python 3 library.
-Information on other HTML parsers is available at:
+`html.parser` es el analizador de HTML incluido en la librería estándar de
+Python 3. Para más información acerca de otros analizadores de HTML, lee:
 
 <http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser>
 
-These examples only begin to show the power of BeautifulSoup when it
-comes to parsing HTML.
+Estos ejemplo tan sólo muestran un poco de la potencia de BeautifulSoup
+cuando se trata de analizar HTML.
 
-Bonus section for Unix / Linux users
-------------------------------------
+Sección extra para usuarios de Unix / Linux
+-------------------------------------------
 
-If you have a Linux, Unix, or Macintosh computer, you probably have
-commands built in to your operating system that retrieves both plain
-text and binary files using the HTTP or File Transfer (FTP) protocols.
-One of these commands is `curl`:
+Si tienes una computadora Linux, Unix, o Macintosh, probablemente tienes
+comandos nativos de tu sistema operativo para obtener tanto archivos de texto
+plano como archivos binarios utilizando los procolos HTTP o de Transferencia
+de Archivos (File Transfer - FTP).
+Uno de esos comandos es `curl`:
 
 \index{curl}
 
@@ -564,16 +573,16 @@ One of these commands is `curl`:
 $ curl -O http://www.py4e.com/cover.jpg
 ~~~~
 
-The command `curl` is short for "copy URL" and so the two
-examples listed earlier to retrieve binary files with `urllib`
-are cleverly named `curl1.py` and `curl2.py` on
-[www.py4e.com/code3](http://www.py4e.com/code3) as
-they implement similar functionality to the `curl` command.
-There is also a `curl3.py` sample program that does this task
-a little more effectively, in case you actually want to use this pattern
-in a program you are writing.
+El comando `curl` es una abreviación de "copiar URL" y por esa razón los
+dos ejemplos vistos anteriormente para obtener archivos binarios con `urllib`
+son astutamente llamados `curl1.py` y `curl2.py` en
+[www.py4e.com/code3](http://www.py4e.com/code3) debido a que ellos
+implementan una funcionalidad similar a la del comando `curl`.
+Existe también un programa de ejemplo `curl3.py` que realiza la misma tarea de
+forma un poco más eficiente, en caso de que quieras usar de verdad este diseño
+en algún programa que estés escribiendo.
 
-A second command that functions very similarly is `wget`:
+Un segundo comando que funciona de forma similar es `wget`:
 
 \index{wget}
 
@@ -581,74 +590,75 @@ A second command that functions very similarly is `wget`:
 $ wget http://www.py4e.com/cover.jpg
 ~~~~
 
-Both of these commands make retrieving webpages and remote files a
-simple task.
+Ambos comandos hacen que obtener páginas web y archivos remotos
+se vuelva una tarea fácil.
 
-Glossary
+Glosario
 --------
 
 BeautifulSoup
-:   A Python library for parsing HTML documents and extracting data from
-    HTML documents that compensates for most of the imperfections in the
-    HTML that browsers generally ignore. You can download the
-    BeautifulSoup code from [www.crummy.com](http://www.crummy.com).
+:   Una librería de Python para analizar documentos HTML y extraer datos
+    de ellos, que compensa la mayoría de las imperfecciones que los
+    navegadores HTML normalmente ignoran. Puedes descargar el código de
+    BeautifulSoup desde [www.crummy.com](http://www.crummy.com).
 \index{BeautifulSoup}
 
-port
-:   A number that generally indicates which application you are
-    contacting when you make a socket connection to a server. As an
-    example, web traffic usually uses port 80 while email traffic uses
-    port 25.
-\index{port}
+puerto
+:   Un número que generalmente indica con qué aplicación estás contactando
+    cuando realizas una conexión con un socket en un servidor. Por ejemplo,
+    el tráfico web normalmente usa el puerto 80, mientras que el tráfico del
+    correo electrónico usa el puerto 25.
+\index{puerto}
 
-scrape
-:   When a program pretends to be a web browser and retrieves a web
-    page, then looks at the web page content. Often programs are
-    following the links in one page to find the next page so they can
-    traverse a network of pages or a social network.
-\index{socket}
+rascado
+:   Cuando un programa simula ser un navegador web y recupera una página web,
+    para luego realizar una búsqueda en su contenido. A menudo los programas
+    siguen los enlaces en una página para encontrar la siguiente, de modo
+    que pueden atravesar una red de páginas o una red social.
+\index{rascado}
 
 socket
-:   A network connection between two applications where the applications
-    can send and receive data in either direction.
+:   Una conexión de red entre dos aplicaciones, en la cual dichas
+    aplicaciones pueden enviar y recibir datos en ambas direcciones.
 \index{socket}
 
-spider
-:   The act of a web search engine retrieving a page and then all the
-    pages linked from a page and so on until they have nearly all of the
-    pages on the Internet which they use to build their search index.
-\index{spider}
+rastrear
+:   La acción de un motor de búsqueda web que consiste en recuperar una
+    página y luego todas las páginas enlazadas por ella, continuando así
+    sucesivamente hasta que tienen casi todas las páginas de Internet, que
+    usan a continuación para construir su índice de búsqueda.
+\index{rastrear}
 
-Exercises
----------
+Ejercicios
+----------
 
-**Exercise 1: Change the socket program `socket1.py` to prompt
-the user for the URL so it can read any web page. You can use
-`split('/')` to break the URL into its component parts so you
-can extract the host name for the socket `connect` call. Add
-error checking using `try` and `except` to handle
-the condition where the user enters an improperly formatted or
-non-existent URL.**
+**Ejercicio 1: Cambia el programa del socket `socket1.py` para que le pida
+al usuario la URL, de modo que pueda leer cualquier página web. Puedes usar
+`split('/')` para dividir la URL en las partes que la componen, de modo que
+puedas extraer el nombre del host para la llamada a `connect` del socket.
+Añade comprobación de errores utilizando `try` y `except` para contemplar la
+posibilidad de que el usuario introduzca una URL mal formada o
+inexistente.**
 
-**Exercise 2: Change your socket program so that it counts the number of
-characters it has received and stops displaying any text after it has
-shown 3000 characters. The program should retrieve the entire document
-and count the total number of characters and display the count of the
-number of characters at the end of the document.**
+**Ejercicio 2: Cambia el programa del socket para que cuente el número
+de caracteres que ha recibido y se detenga, con un texto en pantalla,
+después de que se hayan mostrado 3000 caracteres. El programa debe recuperar
+el documento completo y contar el número total de caracteres, mostrando
+ese total al final del documento.**
 
-**Exercise 3: Use `urllib` to replicate the previous exercise
-of (1) retrieving the document from a URL, (2) displaying up to 3000
-characters, and (3) counting the overall number of characters in the
-document. Don't worry about the headers for this exercise, simply show
-the first 3000 characters of the document contents.**
+**Ejercicio 3: Utiliza `urllib` para rehacer el ejercicio anterior de modo
+que (1) reciba el documento de una URL, (2) muestre hasta 3000 caracteres,
+y (3) cuente la cantidad total de caracteres en el documento. No te preocupes
+de las cabeceras en este ejercicio, simplemente muesta los primeros 3000
+caracteres del contenido del documento.**
 
-**Exercise 4: Change the `urllinks.py` program to extract and
-count paragraph (p) tags from the retrieved HTML document and display
-the count of the paragraphs as the output of your program. Do not
-display the paragraph text, only count them. Test your program on
-several small web pages as well as some larger web pages.**
+**Ejercicio 4: Cambia el programa `urllinks.py` para extraer y contar las
+etiquetas de párrafo (p) del documento HTML recuperado y mostrar el total de
+párrafos como salida del programa. No muestres el texto de los párrafos, sólo
+cuéntalos. Prueba el programa en varias páginas web pequeñas, y también en
+otras más grandes.**
 
-**Exercise 5: (Advanced) Change the socket program so that it only shows
-data after the headers and a blank line have been received. Remember
-that `recv` receives characters (newlines and all), not lines.**
+**Ejercicio 5: (Avanzado) Cambia el programa del socket de modo que solamente
+muestra datos después de que se haya recibido la cabecera y la línea en blanco.
+Recuerda que `recv` recibe caracteres (saltos de línea incluidos), no líneas.**
 
