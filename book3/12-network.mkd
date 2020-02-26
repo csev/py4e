@@ -17,27 +17,27 @@ simple, y existe un soporte integrado en Python llamado `sockets`, el
 cual hace que resulte muy fácil realizar conexiones de red y recuperar
 datos a través de esas conexiones desde un programa de Python.
 
-Un socket es muy parecido a un archivo, a excepción de que un solo
+Un socket es muy parecido a un archivo, a excepción de que 
 proporciona una conexión de doble sentido entre dos programas. Es posible
-tanto leer como escribir en el mismo socket. Si se escribe algo en un
-socket, es enviado a la aplicación que está al otro lado del socket. Si
+tanto leer como escribir en un mismo socket. Si se escribe algo en un
+socket, es enviado a la aplicación que está al otro lado de éste. Si
 se lee desde el socket, se obtienen los datos que la otra aplicación
 ha enviado.
 
 Pero si intentas leer un socket cuando el programa que está del otro lado
 del socket no ha enviado ningún dato, puedes sentarte y esperar. Si los programas
-de ambos extremos del socket simplemente esperan por datos sin enviar nada,
-van a esperar por mucho, mucho tiempo, así que una parte importante de la
-comunicación de programas a través del internet consiste en tener algún tipo
+en ambos extremos del socket simplemente esperan por datos sin enviar nada,
+van a esperar por mucho, mucho tiempo, así que una parte importante de 
+los programas que se comunican a través de internet consiste en tener algún tipo
 de protocolo.
 
 Un protocolo es un conjunto de reglas precisas que determinan quién va primero,
 qué debe hacer, cuáles son las respuestas siguientes para ese mensaje, quién
-envía a continuación y todo lo demás. En cierto sentido las aplicaciones
-a ambos lados del socket están interpretando un baile y cada una de ellas
-debe estar segura de no pisar los pies del otro.
+envía a continuación, etcétera. En cierto sentido las aplicaciones
+a ambos lados del socket están interpretando un baile y cada una
+debe estar segura de no pisar los pies de la otra.
 
-Hay muchos documentos que describen esos protocolos de red. El
+Hay muchos documentos que describen estos protocolos de red. El
 Protocolo de Transporte de Hipertext está descrito en el siguiente documento:
 
 <https://www.w3.org/Protocols/rfc2616/rfc2616.txt>
@@ -59,8 +59,8 @@ El navegador web más sencillo del mundo
 ---------------------------------------
 
 Quizá la manera más sencilla de demostrar cómo funciona el protocolo HTTP sea
-escribir un programa en Python muy sencillo, que realiza una conexión a un
-servidor web y sigue las reglas del protocolo HTTP para solicitar un documento
+escribir un programa en Python muy sencillo, que realice una conexión a un
+servidor web y siga las reglas del protocolo HTTP para solicitar un documento
 y mostrar lo que el servidor envía de regreso.
 
 \VerbatimInput{../code3/socket1.py}
@@ -119,7 +119,7 @@ acuerdo a ese protocolo.
 
 Sin embargo, como el protocolo que se usa con más frecuencia es el
 protocolo web HTTP, Python tiene una librería especial diseñada especialmente
-para trabajar con el protocolo HTTP para recibir documentos y datos a través
+para trabajar con éste para recibir documentos y datos a través
 de la web.
 
 Uno de los requisitos para utilizar el protocolo HTTP es la necesidad de enviar
@@ -127,7 +127,7 @@ y recibir datos como objectos binarios, en vez de cadenas. En el ejemplo anterio
 los métodos `encode()` y `decode()` convierten cadenas en objectos binarios
 y viceversa.
 
-El siguiente ejemplo utiliza la notación `b''` para especificar que una varialbe
+El siguiente ejemplo utiliza la notación `b''` para especificar que una variable
 debe ser almacenada como un objeto binario. `encode()` y `b''` son equivalentes.
 
 ~~~~
@@ -192,12 +192,12 @@ visor de imágenes.
 
 Al ejecutar el programa, se puede ver que no se obtienen 5120 caracteres cada vez
 que llamamos el método `recv()`. Se obtienen tantos caracteres como hayan sido
-transferidos por el sevidor web hacia nosotros a través de la red en el momento
+transferidos por el servidor web hacia nosotros a través de la red en el momento
 de la llamada a `recv()`. En este emeplo, se obtienen al menos 3200 caracteres cada
 vez que solicitamos hasta 5120 caracteres de datos.
 
-Los resultados obtenidos pueden ser diferentes dependiendo de tu velocidad de
-internet. Además observa que en la última llamada a `recv()` obtenemos 3167 bytes,
+Los resultados pueden variar dependiendo de tu velocidad de
+internet. Además, observa que en la última llamada a `recv()` obtenemos 3167 bytes,
 lo cual es el final de la cadena, y en la siguiente llamada a `recv()` obtenemos
 una cadena de longitud cero que indica que el servidor ya ha llamado `close()`
 en su lado del socket, y por lo tanto no quedan más datos pendientes por recibir.
@@ -251,14 +251,14 @@ envía los datos o de la que los recibe se llama "control de flujo".
 Recepción de páginas web con `urllib`
 -------------------------------------
 
-Mientras que podemos enviar y recibir datos manualmente mediante HTTP utilizando
+Aunque podemos enviar y recibir datos manualmente mediante HTTP utilizando
 la librería socket, existe una forma mucho más simple para realizar esta habitual
 tarea en Python, utilizando la librería `urllib`.
 
 Utilizando `urllib`, es posible tratar una página web de forma parecida
 a un archivo. Se puede indicar simplemente qué página web se desea recuperar y
-`urllib` se encargará de manejar todo lo referente al protocolo HTTP y los detalles
-de la cabecera.
+`urllib` se encargará de manejar todos los detalles referentes al protocolo HTTP y 
+a la cabecera.
 
 El código equivalente para leer el archivo *romeo.txt* desde la web usando
 `urllib` es el siguiente:
@@ -270,7 +270,7 @@ tratar como un archivo y leer a través de ella utilizando un bucle `for`.
 
 Cuando el programa se ejecuta, en su salida sólo vemos el contenido del archivo.
 Las cabeceras siguen enviándose, pero el código de `urllib` se encarga
-de manejar las cabeceras y solamente nos devuelve los datos.
+de manejarlas y solamente nos devuelve los datos.
 
 ~~~~
 But soft what light through yonder window breaks
@@ -298,21 +298,21 @@ copia de una URL a un archivo local en el disco duro utilizando `urllib`.
 
 \index{archivo binario}
 
-La secuencia es abrir la dirección URL y utilizar `read` para descargar
+El método consiste en abrir la dirección URL y utilizar `read` para descargar
 todo el contenido del documento en una cadena (`img`) para después
 escribir esa información a un archivo local, tal como se muestra a continuación:
 
 \VerbatimInput{../code3/curl1.py}
 
 Este programa lee todos los datos que recibe de la red y los almacena
-en la variable `img` en la memoria principal de la computadora, después, 
+en la variable `img` en la memoria principal de la computadora. Después, 
 abre el archivo `portada.jpg` y escribe los datos en el disco.
 El argumento `wb` en la función `open()` abre un archivo binario en modo
 de escritura solamente. Este programa funcionará siempre y cuando el tamaño
 del archivo sea menor que el tamaño de la memoria de la computadora.
 
 Aún asi, si es un archivo grande de audio o video, este programa podría
-fallar o al menos ejecutar muy muy lento cuando la memoria de la computadora
+fallar o al menos ejecutarse sumamente lento cuando la memoria de la computadora
 se haya agotado. Para evitar que la memoria se termine, almacenamos los
 datos en bloques (o buffers) y luego escribimos cada bloque en el disco
 antes de obtener el siguiente bloque. De esta forma, el programa puede
@@ -343,10 +343,10 @@ es *rascar* la web. El rascado de la web es cuando escribimos un programa
 que pretende ser un navegador web y recupera páginas, examinando
 luego los datos de esas páginas para encontrar ciertos patrones.
 
-Por ejemplo, una motor de búsqueda como Google buscará el código de una
-página web y extraerá los enlaces a otras paginas y recuperará esas
-páginas, extrayendo los enlaces que haya en ellas y así sucesivamente. Utilizando
-esta técnica, las *arañas* de Google se mueven por casi todas las páginas
+Por ejemplo, un motor de búsqueda como Google buscará el código de una
+página web, extraerá los enlaces a otras paginas y las recuperará,
+extrayendo los enlaces que haya en ellas y así sucesivamente. Utilizando
+esta técnica, las *arañas* de Google alcanzan a casi todas las páginas
 de la web.
 
 Google utiliza también la frecuencia con que las páginas que encuentra enlazan
@@ -379,7 +379,7 @@ href="http[s]?://.+?"
 ~~~~
 
 Nuestra expresión regular busca cadenas que comiencen con
-"href=\"http://" o "href=\"https://", seguido de uno o dos caracteres (`.+?`),
+"href=\"http://" o "href=\"https://", seguido de uno o más caracteres (`.+?`),
 seguidos por otra comilla doble. El signo de interrogación después de `[s]?`
 indica que la coincidencia debe ser hecha en modo "no-codicioso", en vez de en
 modo "codicioso". Una búsqueda no-codiciosa intenta encontrar la cadena
@@ -431,10 +431,10 @@ https://www.sphinx-doc.org/
 
 Las expresiones regulares funcionan muy bien cuando el HTML está bien formateado
 y es predecible. Pero dado que ahí afuera hay muchas páginas con HTML "defectuoso",
-una solución usando solamente expresiones regulares podría ya sea perder algunos
+una solución que solo utilice expresiones regulares podría perder algunos
 enlaces válidos, o bien terminar obteniendo datos erróneos.
 
-Esto se puede resolver utilizando una librería de análisis de HTML robusta.
+Esto se puede resolver utilizando una librería robusta de análisis de HTML.
 
 Análisis de HTML mediante BeautifulSoup
 ---------------------------------------
@@ -446,11 +446,11 @@ capítulo.] y que algunas páginas son construidas cuidadosamente para ser XML, 
 mayoría del HTML generalmente está incompleto, de modo que puede causar que un analizador
 de XML rechace una página HTML completa por estar formada inadecuadamente.
 
-Hay una cantidad considerable de librerías en Python que pueden ayudarte a
-analizar HTML y a extraer datos de las páginas. Cada una de las librerías tiene
-sus puntos fuertes y débiles, de modo que puedes elegir una basada en tus necesidades.
+Hay varias librerías en Python que pueden ayudarte a
+analizar HTML y extraer datos de las páginas. Cada una tiene
+sus fortalezas y debilidades, por lo que puedes elegir una basada en tus necesidades.
 
-Por ejemplo, vamos a analizar simplemente una entrada HTML cualquiera y a extraer
+Por ejemplo, vamos a analizar una entrada HTML cualquiera y a extraer
 enlaces utilizando la librería *BeautifulSoup*. BeautifulSoup tolera código HTML bastante
 defectuoso y aún así te deja extraer los datos que necesitas. Puedes descargar e instalar
 el código de BeautifulSoup desde:
@@ -458,7 +458,7 @@ el código de BeautifulSoup desde:
 <https://pypi.python.org/pypi/beautifulsoup4>
 
 La información acerca de la instalación de BeautifulSoup utilizando la herramienta de
-Python Package Index `pip` está disponible en:
+Python Package Index (Índice de Paquete de Python) `pip`, disponible en:
 
 <https://packaging.python.org/tutorials/installing-packages/>
 
@@ -472,8 +472,8 @@ de las etiquetas de anclaje (`a`).
 
 \VerbatimInput{../code3/urllinks.py}
 
-El programa solicita una dirección web, luego abre la página web, lee
-los datos y se los pasa al analizador BeautifulSoup, que recupera todas las
+El programa solicita una dirección web, luego la abre, lee
+los datos y se los pasa al analizador BeautifulSoup. Luego, recupera todas las
 etiquetas de anclaje e imprime en pantalla el atributo `href`
 de cada una de ellas.
 
@@ -531,8 +531,8 @@ https://www.sphinx-doc.org/
 ~~~~
 
 Esta lista es mucho más larga porque algunas de las etiquetas de anclaje son
-rutas relativas (e.g., tutorial/index.html) o referencias dentro de la página (e.g., '#')
-que no incluyen "http://" o "https://", lo cual era un requerimiento para
+rutas relativas (e.g., tutorial/index.html) o referencias dentro de la página (p. ej., '#')
+que no incluyen "http://" o "https://", lo cual era un requerimiento en
 nuestra expresión regular.
 
 También puedes utilizar BeautifulSoup para extraer varias partes de cada etiqueta de este modo:
@@ -604,7 +604,7 @@ BeautifulSoup
 \index{BeautifulSoup}
 
 puerto
-:   Un número que generalmente indica con qué aplicación estás contactando
+:   Un número que generalmente indica qué aplicación estás contactando
     cuando realizas una conexión con un socket en un servidor. Por ejemplo,
     el tráfico web normalmente usa el puerto 80, mientras que el tráfico del
     correo electrónico usa el puerto 25.
@@ -617,17 +617,19 @@ rascado
     que pueden atravesar una red de páginas o una red social.
 \index{rascado}
 
-socket
-:   Una conexión de red entre dos aplicaciones, en la cual dichas
-    aplicaciones pueden enviar y recibir datos en ambas direcciones.
-\index{socket}
-
 rastrear
 :   La acción de un motor de búsqueda web que consiste en recuperar una
     página y luego todas las páginas enlazadas por ella, continuando así
     sucesivamente hasta que tienen casi todas las páginas de Internet, que
     usan a continuación para construir su índice de búsqueda.
 \index{rastrear}
+
+socket
+:   Una conexión de red entre dos aplicaciones, en la cual dichas
+    aplicaciones pueden enviar y recibir datos en ambas direcciones.
+\index{socket}
+
+
 
 Ejercicios
 ----------
