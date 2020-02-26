@@ -1,10 +1,10 @@
-# Search for lines that start with 'Details: rev='
-# followed by numbers and '.'
-# Then print the number if it is greater than zero
+# Búsqueda de líneas que comiencen con 'Details: rev='
+# seguido de números y '.'
+# Después imprimir el número si es mayor a cero
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    x = re.findall('^Details:.*rev=([0-9.]+)', line)
+man = open('mbox-short.txt')
+for linea in man:
+    linea = linea.rstrip()
+    x = re.findall('^Details:.*rev=([0-9.]+)', linea)
     if len(x) > 0:
         print(x)

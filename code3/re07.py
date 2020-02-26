@@ -1,9 +1,9 @@
-# Search for lines that have an at sign between characters
-# The characters must be a letter or number
+# Búsqueda de líneas que tengan una arroba entre caracteres
+# Los caracteres deben ser una letra o un número
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    x = re.findall('[a-zA-Z0-9]\S+@\S+[a-zA-Z]', line)
+man = open('mbox-short.txt')
+for linea in man:
+    linea = linea.rstrip()
+    x = re.findall(r'[a-zA-Z0-9]\S+@\S+[a-zA-Z]', linea)
     if len(x) > 0:
         print(x)

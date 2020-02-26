@@ -1,7 +1,7 @@
-# Search for lines that contain 'From'
+# Búsqueda de líneas que contengan 'From'
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    if re.search('From:', line):
-        print(line)
+man = open('mbox-short.txt')
+for linea in man:
+    linea = linea.rstrip()
+    if re.search('From:', linea):
+        print(linea)

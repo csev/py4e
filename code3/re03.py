@@ -1,8 +1,8 @@
-# Search for lines that start with 'F', followed by
-# 2 characters, followed by 'm:'
+# # Búsqueda de líneas que comiencen con 'F', seguidas de
+# 2 caracteres, seguidos de 'm:'
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    if re.search('^F..m:', line):
-        print(line)
+man = open('mbox-short.txt')
+for linea in man:
+    linea = linea.rstrip()
+    if re.search('^F..m:', linea):
+        print(linea)
