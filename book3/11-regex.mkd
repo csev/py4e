@@ -1,15 +1,14 @@
 Expresiones regulares
-===================
+=====================
 
 Hasta ahora hemos leído archivos, buscando patrones y 
 extrayendo varias secciones de líneas que hemos encontrado interesantes. Hemos 
-
 usado métodos de cadenas como `split` y `find`, así como 
-rebanar listas y cadenas para extraer trozos de las líneas.
+rebanado de listas y cadenas para extraer trozos de las líneas.
 
 \index{expresiones regulares}
 \index{regex}
-\index{re module}
+\index{módulo re}
 
 Esta tarea de buscar y extraer es tan común que Python tiene una
 librería muy poderosa llamada *expresiones regulares* que
@@ -24,7 +23,6 @@ sobre las expresiones regulares. En este capítulo, solo
 cubriremos los aspectos básicos de las expresiones regulares. Para más información
 al respecto, recomendamos ver:
 
-
 <https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular>
 
 <https://docs.python.org/library/re.html>
@@ -34,8 +32,7 @@ a tu programa antes de que puedas usarlas. La forma más simple de usar
 la librería de expresiones regulares es la función `search()` (N. del T.: "search" significa búsqueda). El siguiente
 programa demuestra una forma muy sencilla de usar esta función.
 
-
-\index{regex!search}
+\index{búsqueda!regex}
 
 \VerbatimInput{../code3/re01.py} 
 \begin{trinketfiles}
@@ -43,19 +40,18 @@ programa demuestra una forma muy sencilla de usar esta función.
 \end{trinketfiles}
 
 Abrimos el archivo, revisamos cada línea, y usamos la expresión regular
-`search()`  para imprimir solo las líneas que contengan la cadena
+`search()` para imprimir solo las líneas que contengan la cadena
 "From". Este programa no toma ventaja del auténtico poder de las
 expresiones regulares, ya que podríamos simplemente haber usado
 `line.find()` para lograr el mismo resultado.
 
-\index{string!find}
+\index{encontrar!cadena}
 
 El poder de las expresiones regulares se manifiesta cuando agregamos
 caracteres especiales a la cadena de búsqueda que nos permite controlar de manera
 más precisa qué líneas calzan con la cadena. Agregar estos caracteres especiales 
 a nuestra expresión regular nos permitirá buscar coincidencias y extraer datos
 usando unas pocas líneas de código.
-
 
 Por ejemplo, el signo de intercalación (N. del T.: "caret" en inglés, corresponde
 al signo ^) se utiliza en expresiones regulares para encontrar 
@@ -73,20 +69,18 @@ usando el método `startswith()` de la librería de cadenas.
 Pero sirve para presentar la idea de que las expresiones regulares
 contienen caracteres especiales que nos dan mayor control sobre qué 
 coincidencias retornará la expresión regular.
-will match the regular expression.
 
 \index{string!startswith}
 
-
 Coincidencia de caracteres en expresiones regulares
------------------------------------------
+---------------------------------------------------
 
 Existen varios caracteres especiales que nos permiten construir
 expresiones regulares incluso más poderosas. El más común es
 el punto, que coincide con cualquier carácter.
 
-\index{wild card}
-\index{regex!wild card}
+\index{comodín}
+\index{regex!comodín}
 
 En el siguiente ejemplo, la expresión regular `F..m:` coincidiría con
 las cadenas "From:", "Fxxm:", "F12m:", o "F!@m:", ya que los caracteres
@@ -142,7 +136,7 @@ sobre cómo desactivar este comportamiento ambicioso.
 \index{ambicioso}
 
 Extrayendo datos usando expresiones regulares
------------------------------------------
+---------------------------------------------
 
 Si queremos extraer datos de una cadena en Python podemos usar el método
 `findall()` para extraer todas las subcadenas que
@@ -250,7 +244,7 @@ cero o más caracteres que no sean espacios, ya que `[a-zA-Z0-9]` implica un
 carácter distinto de un espacio. Recuerda que el `*` o `+` se aplica al 
 carácter inmediatamente a la izquierda del signo de suma o del asterisco.
 
-\index{regex!character sets(brackets)}
+\index{regex!conjuntos de caracteres(corchetes)}
 
 Si usamos esta expresión en nuestro programas, nuestros datos 
 quedarán mucho más depurados:
@@ -285,7 +279,7 @@ Nótese también que el resultado de la ejecución del programa es
 una lista de Python que tiene una cadena como su único elemento.
 
 Combinando búsqueda y extracción
-----------------------------------
+--------------------------------
 
 Si quisiéramos encontrar los números en las líneas que empiecen con la 
 cadena "X-", como por ejemplo:
@@ -334,7 +328,7 @@ bastante sencillo usar `split`, podemos echar mano
 a otra función de las expresiones regulares para buscar y analizar la línea
 a la vez.
 
-\index{string!split}
+\index{cadena!split}
 
 Los paréntesis son otros caracteres especiales en las expresiones regulares. Al
 agregar paréntesis a una expresión regular, son ignorados a la hora de
@@ -471,7 +465,7 @@ Al ejecutar el programa, obtendremos el siguiente resultado:
 ~~~~
 
 Escapado de Caracteres
-----------------
+----------------------
 
 Dado que en expresiones regulares usamos caracteres especiales para
 encontrar el comienzo o final de una línea o especificar comodines, necesitamos
@@ -561,7 +555,7 @@ en lugar de toda la cadena como cuando se utiliza `findall()`.
 `\D` Coincide con cualquier carácter que no sea un dígito; equivalente al conjunto [^0-9].
 
 Sección adicional para usuarios de Unix / Linux
-------------------------------------
+-----------------------------------------------
 
 El soporte para buscar archivos usando expresiones regulares viene incluido
 en el sistema operativo Unix desde la década de 1960, y está disponible en
@@ -595,8 +589,8 @@ que es un poco más compleja, y que significa que encontrará una
 coincidencia con cualquier carácter que no sea un espacio en blanco.
 
 
-Depurando
----------
+Depuración
+----------
 
 Python incluye una documentación simple y rudimentaria que puede ser
 de gran ayuda si necesitas revisar para encontrar el nombre exacto
@@ -677,7 +671,7 @@ expresiones regulares, el carácter comodín es el punto.
 \index{comodín}
 
 Ejercicios
----------
+----------
 
 **Ejercicio uno: escribe un programa simple que simule la operación
 del comando `grep` en Unix. Debe pedir al usuario que ingrese una 
@@ -686,19 +680,19 @@ con ésta:**
 
 ~~~~
 $ python grep.py
-Enter a regular expression: ^Author
-mbox.txt had 1798 lines that matched ^Author
+Ingresa una expresión regular: ^Author
+mbox.txt tiene 1798 líneas que coinciden con ^Author
 
 $ python grep.py
-Enter a regular expression: ^X-
-mbox.txt had 14368 lines that matched ^X-
+Ingresa una expresión regular: ^X-
+mbox.txt tiene 14368 líneas que coinciden con ^X-
 
 $ python grep.py
-Enter a regular expression: java$
-mbox.txt had 4175 lines that matched java$
+Ingresa una expresión regular: java$
+mbox.txt tiene 4175 líneas que coinciden con java$
 ~~~~
 
-**Ejercicio 2: escribe un programa que busque líneas en el formulario:**
+**Ejercicio 2: escribe un programa que busque líneas en la forma:**
 
 ~~~~
 New Revision: 39772
@@ -709,9 +703,10 @@ y el método `findall()`. Registra el promedio de esos números
 e imprímelo.**
 
 ~~~~
-Enter file:mbox.txt
+Ingresa nombre de archivo: mbox.txt
 38444.0323119
 
-Enter file:mbox-short.txt
+Ingresa nombre de archivo: mbox-short.txt
 39756.9259259
 ~~~~
+
