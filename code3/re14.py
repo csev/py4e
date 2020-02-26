@@ -1,10 +1,10 @@
-# Search for lines that contain 'Author:' followed by any characters,
-# an at sign, and any non whitespace character
-# Then print the character group that follows the at sign
+# Búsqueda de líneas que comienzan con 'Author:' seguido de cualquier número de caracteres,
+# una arroba, y cualquier carácter que no sea espacio en blanco
+# Después imprimir el grupo de caracteres que está después de la arroba
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    x = re.findall('Author:.*@(\S+)', line)
+man = open('mbox-short.txt')
+for linea in man:
+    linea = linea.rstrip()
+    x = re.findall(r'Author:.*@(\S+)', linea)
     if not x: continue
     print(x)

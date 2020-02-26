@@ -1,7 +1,7 @@
-# Search for lines that start with From and have an at sign
+# Búsqueda de líneas que comienzan con From y tienen una arroba
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    if re.search('^From:.+@', line):
-        print(line)
+man = open('mbox-short.txt')
+for linea in man:
+    linea = linea.rstrip()
+    if re.search('^From:.+@', linea):
+        print(linea)

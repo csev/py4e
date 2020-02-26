@@ -1,11 +1,11 @@
-# Search for lines that start with 'X' followed by any
-# non whitespace characters and ':' followed by a space
-# and any number. The number can include a decimal.
-# Then print the number if it is greater than zero.
+# Búsqueda de líneas que comiencen con 'X' seguida de cualquier caracter que
+# no sea espacio en blanco y ':' seguido de un espacio y un número.
+# El número puede incluir decimales.
+# Después imprimir el número si es mayor a cero.
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    x = re.findall('^X\S*: ([0-9.]+)', line)
+man = open('mbox-short.txt')
+for linea in man:
+    linea = linea.rstrip()
+    x = re.findall(r'^X\S*: ([0-9.]+)', linea)
     if len(x) > 0:
         print(x)

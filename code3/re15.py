@@ -1,13 +1,13 @@
-# Search for lines that contain 'New Revision: ' followed by a number
-# Then turn the number into a float and append it to nums
-# Finally print the length and the average of nums
+# Búsqueda de líneas que contengan 'New Revision: ' seguido de un número
+# Después convertir el número en flotante y agregarlo a la lista nums
+# Finalmente imprimir el tamaño y el promedio de la lista nums
 import re
-fname = input('Enter file:')
-hand = open(fname)
+nombrea = input('Ingresa un nombre de archivo: ')
+man = open(nombrea)
 nums = list()
-for line in hand:
-    line = line.rstrip()
-    x = re.findall('New Revision: ([0-9]+)', line)
+for linea in man:
+    linea = linea.rstrip()
+    x = re.findall('New Revision: ([0-9]+)', linea)
     if len(x) == 1:
         val = float(x[0])
         nums.append(val)

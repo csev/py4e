@@ -1,10 +1,10 @@
-# Search for lines that start 'X' followed by any non whitespace
-# characters and ':' then output the first group of non whitespace
-# characters that follows
+# Búsqueda de líneas que comienzan con 'X' seguidas de cualquier caracter que
+# no sea espacio en blanco, y ':', después imprimir el primer grupo de caracteres
+# que no son espacios en blanco como sigue a continuación
 import re
-hand = open('mbox-short.txt')
-for line in hand:
-    line = line.rstrip()
-    x = re.findall('^X\S*: (\S+)', line)
+man = open('mbox-short.txt')
+for linea in man:
+    linea = linea.rstrip()
+    x = re.findall(r'^X\S*: (\S+)', linea)
     if not x: continue
     print(x)

@@ -1,4 +1,4 @@
 import re
-s = 'A message from csev@umich.edu to cwen@iupui.edu about meeting @2PM'
-lst = re.findall('\S+@\S+', s)
+s = 'Un mensaje de csev@umich.edu para cwen@iupui.edu acerca de una junta @2PM'
+lst = re.findall(r'\S+@\S+', s)
 print(lst)
