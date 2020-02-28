@@ -8,11 +8,11 @@ consumidos por otros programas (es decir, no únicamente HTML para ser mostrado
 en un navegador).
 
 Existen dos formatos habituales que se usan para el intercambio de datos a través
-de la web. El “eXtensible Markup Language” (lenguaje extensible de marcas), o
+de la web. El "eXtensible Markup Language" (lenguaje extensible de marcas), o
 XML, ha sido utilizado durante mucho tiempo, y es el más adecuado para intercambiar
 datos del tipo documento. Cuando los programas simplemente quieren
 intercambiar diccionarios, listas u otra información interna, usan
-“JavaScript Object Notation”, o JSON  (Notación de Objetos Javascript; consulta
+"JavaScript Object Notation", o JSON  (Notación de Objetos Javascript; consulta
 www.json.org). Nosotros examinaremos ambos formatos.
 
 
@@ -32,16 +32,16 @@ Este es un ejemplo de un documento XML:
 </person>
 ~~~~
 
-Cada par de etiquetas de apertura (p. ej., `<person>`) y de cierre
-(p. ej., `</person>`) representan un *elemento* o *nodo* con el mismo
-nombre de la etiqueta (p. ej., `person`). Cada elemento puede contener
-texto, atributos (p. ej., `hide`) y otros elementos anidados. Si un
+Cada par de etiquetas de apertura (p. ej., '<person>') y de cierre
+(p. ej., '</person>') representan un *elemento* o *nodo* con el mismo
+nombre de la etiqueta (p. ej., 'person'). Cada elemento puede contener
+texto, atributos (p. ej., 'hide') y otros elementos anidados. Si un
 elemento XML está vacío (es decir, no tiene contenido), puede representarse
-con una etiqueta auto-cerrada (p. ej.,  `<email />`).
+con una etiqueta auto-cerrada (p. ej.,  '<email />').
 
 A menudo resulta útil pensar en un documento XML como en la estructura de un
-árbol, donde hay una etiqueta superior (en este caso `person`), y otras etiquetas como
-`phone` que se muestran como *hijas* de sus nodos *padres*.
+árbol, donde hay una etiqueta superior (en este caso 'person'), y otras etiquetas como
+'phone' que se muestran como *hijas* de sus nodos *padres*.
 
 ![A Tree Representation of XML](height=2.0in@../images/xml-tree)
 
@@ -58,14 +58,14 @@ elementos de él:
 
 \VerbatimInput{../code3/xml1.py} 
 
-Tanto la triple comilla simple (`'''`) como la triple comilla doble (`"""`) permiten la creación de cadenas
+Tanto la triple comilla simple (''''') como la triple comilla doble ('"""') permiten la creación de cadenas
 que abarquen varias líneas.
 
 
-La llamada a `fromstring ` convierte la representación de cadena del XML en un
-“árbol” de nodos XML. Una vez tenemos el XML como un árbol, disponemos de
+La llamada a 'fromstring ' convierte la representación de cadena del XML en un
+"árbol" de nodos XML. Una vez tenemos el XML como un árbol, disponemos de
 una serie de métodos que podemos llamar para extraer porciones de datos de ese
-XML. La función `find ` busca a través del árbol XML y recupera el nodo que coincide
+XML. La función 'find ' busca a través del árbol XML y recupera el nodo que coincide
 con la etiqueta especificada. 
 
 ~~~~
@@ -73,9 +73,9 @@ Name: Chuck
 Attr: yes
 ~~~~
 
-El usar un analizador de XML como `ElementTree ` tiene la ventaja de que, a pesar
+El usar un analizador de XML como 'ElementTree ' tiene la ventaja de que, a pesar
 de que el XML de este ejemplo es bastante sencillo, resulta que hay muchas
-reglas relativas a la validez del XML, y el uso de `ElementTree ` nos permite
+reglas relativas a la validez del XML, y el uso de 'ElementTree ' nos permite
 extraer datos del XML sin preocuparnos por esas reglas de sintaxis.
 
 Desplazamiento a través de los nodos
@@ -86,15 +86,15 @@ Desplazamiento a través de los nodos
 
 A menudo el XML tiene múltiples nodos y tenemos que escribir un bucle para
 procesarlos todos. En el programa siguiente, usamos un bucle para recorrer todos
-los nodos `user`:
+los nodos 'user':
 
 
 \VerbatimInput{../code3/xml2.py} 
 
-El método `findall` devuelve una lista de subárboles que representan
-las estructuras `user` del árbol XML. A continuación podemos escribir un bucle
-`for` que busque en cada uno de los nodos usuario, e imprima el texto de los
-elementos `name` e `id`, además del atributo `x` de cada nodo usuario.
+El método 'findall' devuelve una lista de subárboles que representan
+las estructuras 'user' del árbol XML. A continuación podemos escribir un bucle
+'for' que busque en cada uno de los nodos usuario, e imprima el texto de los
+elementos 'name' e 'id', además del atributo 'x' de cada nodo usuario.
 
 ~~~~
 User count: 2
@@ -106,8 +106,8 @@ Id 009
 Attribute 7
 ~~~~
 
-Es importante incluir todos los elementos base en la declaración de `findall`
-exceptuando aquel que se encuentra en el nivel superior (p. ej., `users/user`).
+Es importante incluir todos los elementos base en la declaración de 'findall'
+exceptuando aquel que se encuentra en el nivel superior (p. ej., 'users/user').
 De lo contrario, Python no encontrará ninguno de los nodos que buscamos.
 
 ~~~~ {.python}
@@ -136,9 +136,9 @@ lst2 = stuff.findall('user')
 print('User count:', len(lst2))
 ~~~~
 
-`lst` almacena todos los elementos `user` anidados dentro de su base `users`.
-`lst2` busca los elementos `user` que no se encuentren anidados dentro del
-elemento de nivel superior `stuff` donde no hay ninguno.
+'lst' almacena todos los elementos 'user' anidados dentro de su base 'users'.
+'lst2' busca los elementos 'user' que no se encuentren anidados dentro del
+elemento de nivel superior 'stuff' donde no hay ninguno.
 
 ~~~~
 User count: 2
@@ -175,8 +175,8 @@ anterior:
 ~~~~
 
 Si te fijas, encontrarás ciertas diferencias. Primero, en XML se pueden añadir
-atributos como “intl” a la etiqueta “phone”. En JSON, simplemente tenemos
-parejas clave-valor. Además, la etiqueta “person” de XML ha desaparecido, reemplazada
+atributos como "intl" a la etiqueta "phone". En JSON, simplemente tenemos
+parejas clave-valor. Además, la etiqueta "person" de XML ha desaparecido, reemplazada
 por un conjunto de llaves exteriores.
 
 En general, las estructuras JSON son más simples que las de XML, debido a que
@@ -198,7 +198,7 @@ En este ejemplo, vamos a representar una lista de usuarios en la que cada usuari
 es un conjunto de parejas clave-valor (es decir, un diccionario). De modo que
 tendremos una lista de diccionarios.
 
-En el programa siguiente, usaremos la librería integrada `json` para analizar el
+En el programa siguiente, usaremos la librería integrada 'json' para analizar el
 JSON y leer los datos. Compáralo cuidadosamente con los datos y código XML
 equivalentes que usamos antes. El JSON tiene menos detalles, de modo que podemos
 saber de antemano que vamos a obtener una lista y que la lista es de usuarios
@@ -208,7 +208,7 @@ conciso (una ventaja), pero también es menos auto-descriptivo (una desventaja).
 \VerbatimInput{../code3/json2.py}
 
 Si comparas el código que extrae los datos del JSON analizado y el del XML, verás
-que lo que obtenemos de `json.loads()` es una lista de Python que recorreremos con
+que lo que obtenemos de 'json.loads()' es una lista de Python que recorreremos con
 un bucle for, y cada elemento dentro de esa lista es un diccionario de Python. Una
 vez analizado el JSON, podemos usar el operador índice de Python para extraer
 los distintos fragmentos de datos de cada usuario. No tenemos que usar la librería
@@ -245,12 +245,12 @@ Protocolo de Transporte de Hipertexto (HTTP), y un modo de representar estructur
 de datos complejas para poder enviar y recibir los datos entre esas aplicaciones,
 a través del eXtensibleMarkup Language (XML) o del JavaScript Object Notation (JSON).
 
-El paso siguiente es empezar a definir y documentar “contratos” entre
+El paso siguiente es empezar a definir y documentar "contratos" entre
 aplicaciones usando estas técnicas. El nombre habitual para estos contratos entre
 aplicaciones es *Interfaces de Programación de Aplicaciones* (Application
 Program Interfaces), o APIs. Cuando se utiliza una API, normalmente un programa
 crea un conjunto de *servicios* disponibles para que los usen otras aplicaciones
-y publica las APIs (es decir, las “reglas”) que deben ser seguidas para acceder
+y publica las APIs (es decir, las "reglas") que deben ser seguidas para acceder
 a los servicios proporcionados por el programa.
 
 Cuando comenzamos a construir programas con funcionalidades que incluyen el
@@ -292,7 +292,7 @@ Seguridad y uso de APIs
 \index{OAuth}
 \index{API!key}
 
-Resulta bastante frecuente que se necesite algún tipo de “clave API” para hacer
+Resulta bastante frecuente que se necesite algún tipo de "clave API" para hacer
 uso de una API comercial. La idea general es que ellos quieren saber quién está
 usando sus servicios y cuánto los utiliza cada usuario. Tal vez tienen distintos
 niveles (gratuitos y de pago) de servicios, o una política que limita el número
@@ -358,7 +358,7 @@ Aplicación Nº 1: Servicio web de geocodificación de Google
 
 Google tiene un excelente servicio web que nos permite hacer uso de su enorme
 base de datos de información geográfica. Podemos enviar una cadena de búsqueda
-geográfica, como “Ann Arbor, MI” a su API de geocodificación y conseguir que
+geográfica, como "Ann Arbor, MI" a su API de geocodificación y conseguir que
 Google nos devuelva su mejor suposición sobre donde podría estar nuestra cadena
 de búsqueda en un mapa, además de los puntos de referencia en los alrededores.
 
@@ -390,12 +390,12 @@ nos devuelve.
 \VerbatimInput{../code3/geojson.py} 
 
 El programa toma la cadena de búsqueda y construye una URL codificándola como
-parámetro dentro de ella, utilizando luego `urllib ` para recuperar el texto de la
+parámetro dentro de ella, utilizando luego 'urllib' para recuperar el texto de la
 API de geocodificación de Google. A diferencia de una página web estática, los
 datos que obtengamos dependerán de los parámetros que enviemos y de los datos
 geográficos almacenados en los servidores de Google.
 
-Una vez recuperados los datos JSON, los analizamos con la librería `json` y
+Una vez recuperados los datos JSON, los analizamos con la librería 'json' y
 revisamos para asegurarnos de que hemos recibido datos válidos. Finalmente,
 extraemos la información que buscábamos.
 
@@ -502,7 +502,7 @@ revisar las variantes JSON y XML de la API de geocodificación de Google.
 **para imprimir en pantalla el código de país de dos caracteres de los datos 
 recuperados. Añade comprobación de errores, de modo que tu programa no
 rastree los datos si el código del país no está presente.
-Una vez que lo tengas funcionando, busca “Océano Atlántico” y asegúrate de que
+Una vez que lo tengas funcionando, busca "Océano Atlántico" y asegúrate de que
 es capaz de gestionar ubicaciones que no estén dentro de ningún país.
 **
 
@@ -583,14 +583,14 @@ Enter Twitter Account:
 
 Junto con los datos de la línea del tiempo, Twitter también devuelve metadatos
 sobre la petición en las cabeceras de respuesta HTTP. Una cabecera en particular,
-`x-rate-limit-remaining `, nos informa sobre cuántas peticiones podremos hacer
+'x-rate-limit-remaining', nos informa sobre cuántas peticiones podremos hacer
 antes de que seamos bloqueados por un corto periodo de tiempo. Puedes ver que
 cada vez que realizamos una petición a la API nuestros intentos restantes 
 van disminuyendo.
 
 En el ejemplo siguiente, recuperamos los amigos de un usuario en Twitter, analizamos
 el JSON devuelto y extraemos parte de la información sobre esos amigos.
-Después de analizar el JSON e “imprimirlo bonito”, realizamos un volcado
+Después de analizar el JSON e "imprimirlo bonito", realizamos un volcado
 completo con un indentado de cuatro caracteres, que nos permite estudiar
 minuciosamente los datos en caso de que queramos extraer más campos.
 
@@ -600,7 +600,7 @@ minuciosamente los datos en caso de que queramos extraer más campos.
 \end{trinketfiles}
 
 Dado que el JSON se transforma en un conjunto de listas y diccionarios de Python anidados,
-podemos usar una combinación del operador índice junto con bucles `for ` para
+podemos usar una combinación del operador índice junto con bucles 'for ' para
 movernos a través de las estructuras de datos devueltas con muy poco código de 
 Python.
 
@@ -661,9 +661,9 @@ Enter Twitter Account:
 ~~~~
 
 El último trozo de la salida es donde podemos ver cómo el bucle for lee los cinco
-“amigos” más nuevos de la cuenta de Twitter *@drchuck* e imprime el estado
+"amigos" más nuevos de la cuenta de Twitter *@drchuck* e imprime el estado
 más reciente de cada uno de ellos. Hay muchos más datos disponibles en el JSON
-devuelto. Si miras la salida del programa, podrás ver que el “encuentra a los amigos”
+devuelto. Si miras la salida del programa, podrás ver que el "encuentra a los amigos"
 de una cuenta particular tiene una limitación de usos distinta a la del número
 de consultas de líneas de tiempo que está permitido realizar durante un periodo de
 tiempo.
