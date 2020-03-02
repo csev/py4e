@@ -1,140 +1,143 @@
+Programación Orientada a Objetos
+================================
 
-Object-oriented programming
-===========================
+Manejando programas más grandes
+-------------------------------
 
-Managing larger programs
-------------------------
+\index{orientada a objetos}
 
-\index{object-oriented}
+Al comienzo de este libro, vimos cuatro patrones básicos de programación
+que utilizamos para construir programas:
 
-At the beginning of this book, we came up with four basic programming
-patterns which we use to construct programs:
+* Código secuencial
+* Código condicional (declaraciones `if`)
+* Código repetitivo (bucles)
+* Almacenar y reutilizar (funciones)
 
-* Sequential code
-* Conditional code (if statements)
-* Repetitive code (loops)
-* Store and reuse (functions)
+En capítulos posteriores, exploramos las variables simples, así como 
+estructuras de datos de colecciones, tales como listas, tuplas y diccionarios.
 
-In later chapters, we explored simple variables as well as collection
-data structures like lists, tuples, and dictionaries.
+A medida que construimos programas, diseñamos estructuras de datos y 
+escribimos código para manipularlas. Hay muchas formas de escribir programas
+y, a estas alturas, probablemente hayas escrito algunos programas "no muy elegantes"
+y otros que son "más elegantes". Aunque tus programas aún
+sean pequeños, estás empezando a ver que al escribir código
+hay una parte de arte y de consideraciones estéticas.
 
-As we build programs, we design data structures and write code
-to manipulate those data structures.   There are many ways to write programs
-and by now, you probably have written some programs that are "not so elegant"
-and other programs that are "more elegant". Even though your programs
-may be small, you are starting to see how there is a bit of art and
-aesthetic to writing code.
+A medida que los programas crecen hasta abarcar millones de líneas de código, 
+se vuelve cada vez más importante que éste resulte fácil de entender. Si estás
+trabajando en un programa de un millón de líneas, es imposible mantener todo
+el programa en tu mente a la vez. Necesitamos maneras de dividir programas grandes
+en varias piezas más pequeñas para que tengamos que 
+concentrarnos en una sección menor cuando tengamos que resolver un problema,
+arreglar un bug, o agregar una nueva funcionalidad.
 
-As programs get to be millions of lines long, it becomes increasingly important
-to write code that is easy to understand.  If you are working on a million-line
-program, you can never keep the entire program in your mind at the same time.
-We need ways to break large programs into multiple smaller pieces so that
-we have less to look at when solving a problem, fix a bug, or add a new feature.
+En cierto modo, la programación orientada a objetos es una forma
+de ordenar tu código de tal manera que puedas enfocarte en 50
+líneas de código y entenderlas, e ignorar las otras 999,950
+mientras tanto.
 
-In a way, object oriented programming is a way to arrange your code
-so that you can zoom into 50 lines of the code and understand it
-while ignoring the other 999,950 lines of code for the moment.
+Cómo empezar
+------------
 
-Getting started
----------------
+Al igual que muchos aspectos de la programación, es necesario aprender
+los conceptos de la programación orientada a objetos para poder utilizarlos
+de manera efectiva. Deberías enfocarte en este capítulo como una forma
+de aprender algunos términos y conceptos y examinar algunos ejemplos
+sencillos para sentar las bases de tu futuro aprendizaje.
 
-Like many aspects of programming, it is necessary to learn the concepts of
-object oriented programming before you can use them effectively.
-You should approach this chapter as a way to learn some terms and concepts and work
-through a few simple examples to lay a foundation for future learning.
+El resultado clave de este capítulo será una comprensión a nivel básico
+de cómo se construyen los objetos, cómo funcionan y, lo más importante,
+cómo usar las características de los objetos que nos dan Python
+y sus librerías.
 
-The key outcome of this chapter is to have a basic understanding of how
-objects are constructed and how they function and most importantly how
-we make use of the capabilities of objects that are provided to us by Python
-and Python libraries.
+Usando objetos
+--------------
 
-Using objects
--------------
-
-As it turns out, we have been using objects all along in this book. Python
-provides us with many built-in objects. Here is some simple code
-where the first few lines should feel very simple and natural to you.
+Curiosamente, en el libro hemos estado utilizando objetos todo este tiempo. Python
+contiene muchos objetos incluidos. He aquí un programa sencillo, cuyas
+primeras líneas deberían resultarte sumamente simples y familiares.
 
 \index{list object}
 
 \VerbatimInput{../code3/party1.py}
 
-Instead of focusing on what these lines accomplish, let's look at what is
-really happening from the point of view of object-oriented programming.
-Don't worry if the following paragraphs don't make any sense the
-first time you read them because we have not yet defined all of these terms.
+En lugar de enfocarnos en el resultado que obtienen estas líneas, enfoquémonos
+en lo que está pasando desde el punto de vista de la programación orientada
+a objetos. No te preocupes si los siguientes párrafos no parecen tener sentido
+la primera vez que los lees, pues no hemos definido todos estos términos aún.
 
-The first line *constructs* an object of type `list`, the second and third
-lines *call* the `append()` *method*, the fourth line calls
-the `sort()` method, and the fifth line *retrieves* the item at position 0.
+La primera línea *construye* un objeto de tipo `list`, la segunda y tercera
+líneas *llaman* al *método* `append`, la cuarta línea llama al método
+`sort()` y la quinta línea *recupera* el elemento en posición 0.
 
-The sixth line calls the `__getitem__()` method in the `stuff` list
-with a parameter of zero.
+La sexta línea llama al método `__getitem__()` en la lista `stuff`
+con un parámetro de cero.
 
 ~~~~ {.python}
 print (stuff.__getitem__(0))
 ~~~~
 
-The seventh line is an even more verbose way of retrieving the 0th item
-in the list.
+La séptima línea es una manera incluso más verbosa de obtener el elemento
+en posición 0 de la lista.
 
 ~~~~ {.python}
 print (list.__getitem__(stuff,0))
 ~~~~
 
-In this code, we call the `__getitem__` method in the `list` class
-and *pass* the list and the item we want retrieved from the list
-as parameters.
+En este programa, llamamos al método `__getitem__` en la clase `lista`
+y *pasamos* la lista y el elemento que queremos recuperar de ésta
+como parámetros.
 
-The last three lines of the program are equivalent, but it is more
-convenient to simply use the square bracket syntax to look up an item at
-a particular position in a list.
+Las últimas tres líneas del programa son equivalentes, pero es más conveniente
+simplemente usar corchetes para buscar un elemento en una posición
+específica dentro de una lista.
 
-We can take a look at the capabilities of an object by
-looking at the output of the `dir()` function:
+Podemos ver las capacidades de un objeto mirando
+el resultado de la función `dir()`:
 
     >>> stuff = list()
     >>> dir(stuff)
-    ['__add__', '__class__', '__contains__', '__delattr__',
-    '__delitem__', '__dir__', '__doc__', '__eq__',
-    '__format__', '__ge__', '__getattribute__', '__getitem__',
-    '__gt__', '__hash__', '__iadd__', '__imul__', '__init__',
-    '__iter__', '__le__', '__len__', '__lt__', '__mul__',
-    '__ne__', '__new__', '__reduce__', '__reduce_ex__',
-    '__repr__', '__reversed__', '__rmul__', '__setattr__',
-    '__setitem__', '__sizeof__', '__str__', '__subclasshook__',
-    'append', 'clear', 'copy', 'count', 'extend', 'index',
-    'insert', 'pop', 'remove', 'reverse', 'sort']
+    [`__add__`, `__class__`, `__contains__`, `__delattr__`,
+    `__delitem__`, `__dir__`, `__doc__`, `__eq__`,
+    `__format__`, `__ge__`, `__getattribute__`, `__getitem__`,
+    `__gt__`, `__hash__`, `__iadd__`, `__imul__`, `__init__`,
+    `__iter__`, `__le__`, `__len__`, `__lt__`, `__mul__`,
+    `__ne__`, `__new__`, `__reduce__`, `__reduce_ex__`,
+    `__repr__`, `__reversed__`, `__rmul__`, `__setattr__`,
+    `__setitem__`, `__sizeof__`, `__str__`, `__subclasshook__`,
+    `append`, `clear`, `copy`, `count`, `extend`, `index`,
+    `insert`, `pop`, `remove`, `reverse`, `sort`]
     >>>
 
-The rest of this chapter will define all of the above terms so make sure to
-come back after you finish the chapter and re-read the above paragraphs to
-check your understanding.
+El resto de este capítulo estará dedicado a definir estos términos, así que
+asegúrate de volver a leer los párrafos anteriores una vez que termines de 
+leerlo, para asegurarte de haberlo comprendido correctamente.
 
-Starting with programs
-----------------------
+Comenzando con programas
+------------------------
 
-A program in its most basic form takes some input, does some processing, and
-produces some output.  Our elevator conversion program demonstrates a very
-short but complete program showing all three of these steps.
+En su forma más básica, un programa toma algún dato de entrada, lo procesa
+y luego produce un resultado. Nuestro programa de conversión de un elevador
+muestra una manera muy corta, pero completa, de llevar a cabo estos tres pasos.
 
 \VerbatimInput{../code3/elev.py}
 
-If we think a bit more about this program, there is the "outside world" and
-the program. The input and output aspects are where the program interacts
-with the outside world.  Within the program we have code and data to accomplish
-the task the program is designed to solve.
+Si pensamos un poco más sobre este programa, existe un "mundo exterior" y
+el programa. Es con los datos de entrada y de salida que el programa interactúa
+con el mundo exterior. Dentro del programa utilizamos tanto el código como los datos
+para cumplir la tarea que el programa está diseñado para resolver.
 
 ![A Program](height=1.20in@../images/program)
 
-One way to think about object-oriented programming is that it separates
-our program into multiple "zones." Each zone contains some code and data
-(like a program) and has well defined interactions with the outside world
-and the other zones within the program.
+Una forma de pensar en la programación orientada a objetos es que separa
+nuestro programa en varias "zonas". Cada zona contiene algo de código
+y datos (como un programa) y tiene interacciones bien definidas tanto
+con el mundo exterior como con las otras zonas del programa.
 
-If we look back at the link extraction application where we used the
-BeautifulSoup library, we can see a program that is constructed by connecting
-different objects together to accomplish a task:
+Si miramos la aplicación de extracción de enlaces en la que usamos
+la librería BeautifulSoup, podemos ver un programa que fue construido
+conectando distintos objetos para cumplir una tarea:
 
 \index{BeautifulSoup}
 \index{HTML}
@@ -142,88 +145,86 @@ different objects together to accomplish a task:
 
 \VerbatimInput{../code3/urllinks.py}
 
-We read the URL into a string and then pass that into `urllib` to retrieve
-the data from the web.  The `urllib` library uses the `socket` library to
-make the actual network connection to retrieve the data. We take the string
-that `urllib` returns and hand it to BeautifulSoup for parsing.
-BeautifulSoup makes use of the object
-`html.parser`^[https://docs.python.org/3/library/html.parser.html] and returns an object.
-We call the `tags()` method on the returned object that returns a dictionary of tag
-objects. We loop through the tags and call the `get()` method for each tag
-to print out the `href` attribute.
+Convertimos la URL en una cadena y luego pasamos a ésta por `urllib` para
+recuperar los datos de la web. La librería `urllib` utiliza la librería `socket`
+para llevar a cabo la conexión que recupera los datos. Tomamos la cadena
+que retorna `urllib` y se la entregamos a BeautifulSoup para su análisis.
+BeautifulSoup utiliza el objeto `html.parser`^[https://docs.python.org/3/library/html.parser.html]
+y retorna un objeto. Luego, llamamos al método `tags()` en el objeto retornado, lo que
+retorna un diccionario de etiquetas. Nos desplazamos por las etiquetas y llamamos el 
+método `get()` por cada etiqueta para imprimir el atributo `href`.
 
-We can draw a picture of this program and how the objects work together.
+Podemos hacer un diagrama de este programa y cómo los objetos funcionan en conjunto.
 
 ![A Program as Network of Objects](height=1.50in@../images/program-oo)
 
-The key here is not to understand perfectly how this program works but to see
-how we build a network of interacting objects and orchestrate the movement
-of information between the objects to create a program.  It is also important
-to note that when you looked at that program several chapters back, you could
-fully understand what was going on in the program without even realizing
-that the program was "orchestrating the movement of data between objects."
-It was just lines of code that got the job done.
+Lo importante ahora no es entender perfectamente como funciona este programa,
+sino que ver cómo construimos una red de objetos que interactúen entre sí y
+orquestamos el movimiento de información entre esos objetos para crear un programa.
+También es importante notar que, cuando viste el programa hace varios capítulos, 
+pudiste entender perfectamente cómo funcionaba sin siquiera percatarte de que
+estaba "orquestando el movimiento de datos entre objetos". Eran solo líneas de
+código que cumplían una tarea.
 
-Subdividing a problem
----------------------
+Subdividiendo un problema
+-------------------------
 
-One of the advantages of the object-oriented approach is that it can
-hide complexity. For example, while we need to know how to use the
-`urllib` and BeautifulSoup code, we do not need to know how those libraries
-work internally. This allows us to focus on the part of the problem we need to
-solve and ignore the other parts of the program.
+Una de las ventajas del enfoque orientado a objetos es que puede ocultar la
+complejidad de un programa. Por ejemplo, aunque necesitamos saber cómo usar
+el código de `urllib` y BeautifulSoup, no necesitamos saber cómo funcionan
+internamente esas librerías. Esto nos permite enfocarnos en la parte del problema
+que necesitamos resolver e ignorar las otras partes del programa.
 
 ![Ignoring Detail When Using an Object](height=1.50in@../images/program-oo-code)
 
-This ability to focus exclusively on the part of a program that we care about
-and ignore the rest is also helpful to the developers of the objects that we use.
-For example, the programmers developing BeautifulSoup do not need to
-know or care about how we retrieve our HTML page, what parts we want to
-read, or what we plan to do with the data we extract from the web page.
+Esta capacidad de enfocarnos exclusivamente en la parte del programa que nos
+preocupa e ignorar el resto también le sirve a los desarrolladores de los objetos
+que utilizamos. Por ejemplo, los programadores que desarrollan BeautifulSoup no 
+necesitan saber cómo recuperamos nuestra página HTML, qué partes de ésta queremos
+leer, o qué queremos hacer con los datos que obtengamos de la página web.
 
 ![Ignoring Detail When Building an Object](height=1.50in@../images/program-oo-bs4)
 
-Our first Python object
------------------------
+Nuestro primer objeto de Python
+-------------------------------
 
-At a basic level, an object is simply some code plus data structures that are
-smaller than a whole program. Defining a function allows us to store
-a bit of code and give it a name and then later invoke that code using the
-name of the function.
+En un nivel elemental, un objeto es simplemente un trozo de código más estructuras 
+de datos, más pequeños que un programa completo. Definir una función nos permite
+almacenar un trozo de código, darle un nombre y luego invocarlo usando el nombre
+de la función.
 
-An object can contain a number of functions (which we call *methods*) as
-well as data that is used by those functions.  We call data items that are
-part of the object *attributes*.
+Un objeto puede contener varias funciones (a las que llamaremos *métodos*),
+así como los datos utilizados por esas funciones. Llamamos *atributos* a los
+datos que son parte del objeto.
 
-\index{class keyword}
+\index{palabra clave class}
 
-We use the `class` keyword to define the data and code that will make up each
-of the objects. The class keyword includes the name of the class and begins
-an indented block of code where we include the attributes (data)
-and methods (code).
+Usamos la palabra clave `class` para definir los datos y el código que compondrán
+cada objeto. La palabra clave class incluye el nombre de la clase y da inicio a
+un bloque de código indentado en el que incluiremos sus atributos (datos)
+y métodos (código).
 
 \VerbatimInput{../code3/party2.py}
 
-Each method looks like a function, starting with the `def` keyword and
-consisting of an indented block of code.  This object has one attribute (`x`)
-and one method (`party`).  The methods have a special first parameter that
-we name by convention `self`.
+Cada método parece una función: comienzan con la palabra clave `def` y
+consisten en un bloque de código indentado. Este objeto tiene un atributo (`x`)
+y un método (`party`). Los métodos tienen un primer parámetro especial al que,
+por convención, llamamos `self`.
 
-Just as the `def` keyword does not cause function code to be executed, the
-`class` keyword does not create an object.  Instead, the `class`
-keyword defines a template indicating what data and code will be contained
-in each object of type `PartyAnimal`.  The class is like a cookie cutter
-and the objects created using the class are the
-cookies^[Cookie image copyright CC-BY
+Tal como la palabra clave `def` no causa que el código de una función se ejecute,
+la palabra clave `class` no crea un objeto. En vez, la palabra clave `class`
+define una plantilla que indica qué datos y código contendrá cada objeto
+de tipo `PartyAnimal`. La clase es como un molde para galletas y los objetos
+creados usándola son las galletas^[Cookie image copyright CC-BY
 https://www.flickr.com/photos/dinnerseries/23570475099].
-You don't put frosting on the cookie cutter;
-you put frosting on the cookies, and you can put different frosting
-on each cookie.
+No se le echa el glaseado al molde de las galletas;
+se le echa glaseado a las galletas mismas, con lo que se
+puede poner un glaseado distinto en cada galleta.
 
 ![A Class and Two Objects](height=2.0in@../photos/cookie_cutter_flickr_Didriks)
 
-If we continue through this sample program, we see the first executable line of
-code:
+Si seguimos con este programa de ejemplo, veremos la primera línea ejecutable
+de código:
 
 ~~~~ {.python}
 an = PartyAnimal()
@@ -234,55 +235,55 @@ an = PartyAnimal()
 \index{instance}
 \index{class}
 
-This is where we instruct Python to construct (i.e., create) an *object* or
-*instance* of the class `PartyAnimal`. It looks like a function call to the
-class itself. Python constructs the object with the right data and methods
-and returns the object which is then assigned to the variable `an`.
-In a way this is quite similar to the following line which we have
-been using all along:
+Es aquí que le ordenamos a Python construir (es decir, crear) un *objeto* o
+*instancia* de la clase `PartyAnimal`. Se ve como si fuera una llamada de función
+a la clase misma. Python construye el objeto con los datos y métodos adecuados,
+asignándolo luego a la variable `an`. En cierto modo, esto es muy similar
+a la siguiente línea, que hemos estado usando todo este tiempo:
 
 ~~~~ {.python}
 counts = dict()
 ~~~~
 
-Here we instruct Python to construct an object using the `dict` template
-(already present in Python), return the instance of dictionary,
-and assign it to the variable `counts`.
+Aquí le ordenamos a Python construir un objeto usando la plantilla `dict`
+(que viene incluida en Python), devolver la instancia del diccionario,
+y asignarla a la variable `counts`.
 
-When the `PartyAnimal` class is used to construct an object, the variable `an`
-is used to point to that object.  We use `an` to access the code and data for that
-particular instance of the `PartyAnimal` class.
+Cuando se usa la clase `PartyAnimal` para construir un objeto, la variable `an`
+se usa para señalar ese objeto. Usamos `an` para acceder al código y datos de esa
+instancia específica de la clase `PartyAnimal`.
 
-Each Partyanimal object/instance contains within it a variable `x`
-and a method/function named `party`. We call the `party` method in this line:
+Cada objeto o instancia de PartyAnimal contiene una variable `x`
+y un método/ función llamado `party`. Llamamos al método `party` en esta línea:
 
 ~~~~ {.python}
 an.party()
 ~~~~
 
-When the `party` method is called, the first parameter (which we call by convention `self`)
-points to the particular instance of the PartyAnimal object that `party` is called from.
-Within the `party` method, we see the line:
+Al llamar al método `party`, el primer parámetro (al que por convención llamamos `self`)
+apunta a la instancia específica del objeto PartyAnimal desde el que se llama a `party`.
+Dentro del método `party`, vemos la siguiente línea:
 
 ~~~~ {.python}
 self.x = self.x + 1
 ~~~~
 
-This syntax using the *dot* operator is saying 'the x within self.' Each time `party()` is
-called, the internal `x` value is incremented by 1 and the value is printed out.
+Esta sintaxis utiliza el operador de *punto*, con lo que significa `la x dentro de self`.
+Cada vez que se llama a `party()`, el valor interno de `x` se incrementa en 1 y se imprime
+su valor.
 
-The following line is another way to call the `party` method within the `an`
-object:
+La siguiente línea muestra otra manera de llamar al método `party` dentro del 
+objeto `an`:
 
 ~~~~ {.python}
 PartyAnimal.party(an)
 ~~~~
 
-In this variation, we access the code from within the class and explicitly
-pass the object pointer `an` as the first parameter (i.e., `self` within the method).
-You can think of `an.party()` as shorthand for the above line.
+En esta variante, accedemos al código desde el interior de la clase y explícitamente
+pasamos el apuntador del objeto `an` como el primer parámetro (es decir, `self` dentro del método).
+Se puede pensar en `an.party()` como una abreviación de la línea precedente.
 
-When the program executes, it produces the following output:
+Al ejecutar el programa, produce el siguiente resultado:
 
 ~~~~
 So far 1
@@ -291,57 +292,58 @@ So far 3
 So far 4
 ~~~~
 
-The object is constructed, and the `party` method is called four times, both
-incrementing and printing the value for `x` within the `an` object.
+El objeto es construido, y el método `party` es llamado cuatro veces,
+incrementando e imprimiendo el valor de `x` dentro del objeto `an`.
 
-Classes as types
-----------------
+
+Clases como tipos
+-----------------
 
 \index{dir}
 \index{type}
 
-As we have seen, in Python all variables have a type.  We can use the built-in
-`dir` function to examine the capabilities of a variable.  We can also use `type` and
-`dir` with the classes that we create.
+Como hemos visto, en Python todas las variables tienen un tipo. Podemos usar
+la función `dir` incluida en Python para examinar las características de una variable.
+También podemos usar `type` y `dir` con las clases que creemos.
 
 \VerbatimInput{../code3/party3.py}
 
-When this program executes, it produces the following output:
+Al ejecutar este programa, produce el siguiente resultado:
 
 ~~~~
-Type <class '__main__.PartyAnimal'>
-Dir  ['__class__', '__delattr__', ...
-'__sizeof__', '__str__', '__subclasshook__',
-'__weakref__', 'party', 'x']
-Type <class 'int'>
-Type <class 'method'>
+Type <class `__main__.PartyAnimal`>
+Dir  [`__class__`, `__delattr__`, ...
+`__sizeof__`, `__str__`, `__subclasshook__`,
+`__weakref__`, `party`, `x`]
+Type <class `int`>
+Type <class `method`>
 ~~~~
 
-You can see that using the `class` keyword, we have created a new type.
-From the `dir` output, you can see both the `x` integer attribute and the `party`
-method are available in the object.
+Puedes ver que, usando la palabra clave `class`, hemos creado un nuevo tipo.
+En el resultado de usar `dir`, puedes ver que tanto el atributo de tipo entero `x` 
+como el método `party` están disponibles dentro del objeto.
 
-Object lifecycle
-----------------
+Ciclo de vida de un objeto
+------------------------
 
 \index{constructor}
 \index{destructor}
-\index{object lifecycle}
+\index{ciclo de vida del objeto}
 
-In the previous examples, we define a class (template), use that class
-to create an instance of that class (object), and then use the instance.  When
-the program finishes, all of the variables are discarded.  Usually, we don't think
-much about the creation and destruction of variables, but often as our objects
-become more complex, we need to take some action within the object to set things
-up as the object is constructed and possibly clean things up as the object is
-discarded.
+En los ejemplos anteriores, definimos una clase (plantilla), la usamos
+para crear una instancia de ella (objeto) y luego usamos esa instancia. Al
+finalizar el programa, todas las variables son descartadas. Normalmente, no nos
+preocupamos mucho de la creación y destrucción de variables, pero a menudo,
+cuando nuestros objetos se vuelven más complejos, resulta necesario efectuar
+algunos pasos dentro del objeto para configurar la construcción de éste y, posiblemente,
+ordenar cuando el objeto es descartado.
 
-If we want our object to be aware of these moments of construction and destruction,
-we add specially named methods to our object:
+Si queremos que nuestro objeto sea consciente de esos momentos de creación y destrucción,
+debemos agregarle métodos especialmente nombrados al efecto:
 
 \VerbatimInput{../code3/party4.py}
 
-When this program executes, it produces the following output:
+Al ejecutar este programa, produce el siguiente resultado:
 
 ~~~~
 I am constructed
@@ -351,56 +353,56 @@ I am destructed 2
 an contains 42
 ~~~~
 
-As Python constructs our object, it calls our `__init__` method to
-give us a chance to set up some default or initial values for the object.
-When Python encounters the line:
+Cuando Python construye el objeto, llama a nuestro método `__init__` para
+darnos la oportunidad de configurar algunos valores por defecto o iniciales
+para éste. Cuando Python encuentra la línea:
 
 ~~~~
 an = 42
 ~~~~
 
-It actually "thows our object away" so it can reuse the `an` variable
-to store the value `42`.  Just at the moment when our `an` object is
-being "destroyed" our destructor code (`__del__`) is called.  We cannot
-stop our variable from being destroyed, but we can do any necessary
-cleanup right before our object no longer exists.
+efectivamente "tira a la basura" el objeto para reutilizar la variable
+`an`, almacenando el valor `42`. Justo en el momento en que nuestro objeto
+`an` está siendo "destruido" se llama a nuestro código destructor (`__del__`).
+No podemos evitar que nuestra variable sea destruida, pero podemos efectuar
+la configuración que resulte necesaria antes de que el objeto deje de existir.
+ 
+Al desarrollar objetos, es bastante común agregarles un constructor que fije
+sus valores iniciales. Es relativamente raro necesitar un destructor para 
+un objeto.
 
-When developing objects, it is quite common to add a constructor to an object
-to set up initial values for the object. It is relatively rare to need a
-destructor for an object.
+Múltiples instancias
+--------------------
 
-Multiple instances
-------------------
+Hasta ahora hemos definido una clase, construido un solo objeto,
+usado ese objeto, y luego descartado el objeto. Sin embargo, el auténtico
+potencial de la programación orientada a objetos se manifiesta al
+construir múltiples instancias de nuestra clase.
 
-So far, we have defined a class, constructed a single object, used
-that object, and then thrown the object away. However, the real power
-in object-oriented programming happens when we construct multiple instances
-of our class.
-
-When we construct multiple objects from our class, we might want to set
-up different initial values for each of the objects. We can
-pass data to the constructors to give each object a different initial
-value:
+Al construir múltiples instancias de nuestra clase, puede que queramos
+fijar distintos valores iniciales para cada objeto. Podemos pasar
+datos a los constructores para dar a cada objeto un distinto
+valor inicial:
 
 \VerbatimInput{../code3/party5.py}
 
-The constructor has both a `self` parameter that points to the object instance
-and additional parameters that are passed into the constructor as the
-object is constructed:
+El constructor tiene tanto un parámetro `self`, que apunta a la instancia
+del objeto, como parámetros adicionales, que se pasan al constructor
+al momento de construir el objeto:
 
 ~~~~
-s = PartyAnimal('Sally')
+s = PartyAnimal(`Sally`)
 ~~~~
 
-Within the constructor, the second line copies the parameter (`nam`) that is
-passed into the `name` attribute within the object instance.
+Dentro del constructor, la segunda línea copia el parámetro (`nam`), el que
+se pasa al atributo `nombre` dentro del objeto.
 
 ~~~~
 self.name = nam
 ~~~~
 
-The output of the program shows that each of the objects (`s` and `j`) contain their own
-independent copies of `x` and `nam`:
+El resultado del programa muestra que cada objeto (`s` y `j`) contienen sus propias
+copias independientes de `x` y `nam`:
 
 ~~~~
 Sally constructed
@@ -410,28 +412,28 @@ Jim party count 1
 Sally party count 2
 ~~~~
 
-Inheritance
------------
+Herencia
+--------
 
-Another powerful feature of object-oriented programming is the ability to
-create a new class by extending an existing class.  When extending a class,
-we call the original class the *parent class* and the new class the
-*child class*.
+Otra poderosa característica de la programación orientada a objetos es la capacidad
+de crear una nueva clase extendiendo una clase ya existente. Al extender una clase,
+llamamos a la clase original la *clase padre* y a la nueva clase *clase hija*.
 
-For this example, we move our `PartyAnimal` class into its own file.
-Then, we can 'import' the `PartyAnimal` class in a new file and extend it, as follows:
+Por ejemplo, podemos mover a nuestra clase `PartyAnimal` a su propio archivo. 
+Luego, podemos hacer `import` a la clase `PartyAnimal` en un nuevo archivo y
+extenderla, de la siguiente manera:
 
 \VerbatimInput{../code3/party6.py}
 
-When we define the `CricketFan` class, we indicate that we are extending
-the `PartyAnimal` class.  This means that all of the variables (`x`) and methods
-(`party`) from the `PartyAnimal` class are *inherited* by the `CricketFan` class.
-For example, within the `six` method in the `CricketFan` class, we 
-call the `party` method from the `PartyAnimal` class.
+Cuando definimos la clase `CricketFan`, indicamos que estamos extendiendo
+la clase `PartyAnimal`. Esto significa que todas las variables (`x`) y métodos
+(`party`) de la clase `PartyAnimal` son *heredados* por la clase `CricketFan`.
+Por ejemplo, dentro del método `six` en la clase `CricketFan`, llamamos
+al método `party` de la clase `PartyAnimal`.
 
-As the program executes, we create `s` and `j` as independent instances
-of `PartyAnimal` and `CricketFan`. The `j` object has additional capabilities beyond
-the `s` object.
+Al ejecutar el programa, creamos `s` y `j` como instancias independientes de
+`PartyAnimal` y `CricketFan`. El objeto `j` tiene características adicionales que
+van más allá de aquellas que tiene el objeto `s`.
 
 ~~~~
 Sally constructed
@@ -440,116 +442,110 @@ Jim constructed
 Jim party count 1
 Jim party count 2
 Jim points 6
-['__class__', '__delattr__', ... '__weakref__',
-'name', 'party', 'points', 'six', 'x']
+[`__class__`, `__delattr__`, ... `__weakref__`,
+`name`, `party`, `points`, `six`, `x`]
 ~~~~
 
-In the `dir` output for the `j` object (instance of the `CricketFan` class), we see
-that it has the attributes and methods of the parent class, as well as the attributes
-and methods that were added when the class was extended to create the `CricketFan` class.
+En el resultado de llamar a `dir` sobre el objeto `j` (instancia de la clase `CricketFan`),
+vemos que tiene los atributos y métodos de la clase padre, además de los atributos
+y métodos que fueron agregados cuando la extendimos para crear la clase `CricketFan`.
 
-Summary
+Sumario
 -------
 
-This is a very quick introduction to object-oriented programming that focuses mainly
-on terminology and the syntax of defining and using objects.
-Let's quickly review the code that we looked at in the beginning of the chapter.
-At this point you should fully understand what is going on.
+Esta es una introducción muy superficial a la programación orientada a objetos, 
+enfocada principalmente en la terminología y sintaxis necesarias para definir 
+y usar objetos.
+Vamos a reseñar rápidamente el código que vimos al comienzo del capítulo.
+A estas alturas deberías entender completamente lo que está pasando.
 
 \VerbatimInput{../code3/party1.py}
 
-The first line constructs a `list` *object*.  When Python creates the `list` object,
-it calls the *constructor* method (named `__init__`) to set up the internal
-data attributes that will be used to store the list data. We have not passed any
-parameters to the *constructor*. When the constructor returns, we use the variable
-`stuff` to point to the returned instance of the `list` class.
+La primera línea construye un *objeto* de clase `list`. Cuando Python crea el objeto
+de clase `list` llama al método *constructor* (llamado `__init__`) para configurar los
+atributos internos de datos que se utilizarán para almacenar los datos de la lista. Aún
+no hemos pasado ningún parámetro al *constructor*. When el constructor retorna,
+usamos la variable `stuff` para apuntar la instancia retornada de la clase `list`.
 
-The second and third lines call the `append` method
-with one parameter to add a new item at the end of the list by updating the
-attributes within `stuff`.  Then in the fourth line,
-we call the `sort` method with no parameters to sort the data within the `stuff`
-object.
+La segunda y tercera líneas llaman al método `append` con un parámetro para agregar
+un nuevo objeto al final de la lista actualizando los atributos al interior de
+`stuff`. Luego, en la cuarta línea, llamamos al método `sort` sin darle ningún
+parámetro para ordenar los datos dentro del objeto `stuff`.
 
-We then print out the first item in the list using the square brackets which are
-a shortcut to calling the `__getitem__` method within the `stuff`.  This
-is equivalent to calling the `__getitem__` method in the `list` *class*
-and passing the `stuff` object as the first parameter and the position
-we are looking for as the second parameter.
+Luego, imprimimos el primer objeto en la lista usando los corchetes, los que
+son una abreviatura para llamar el método `__getitem__` dentro de `stuff`. Esto
+es equivalente a llamado al método `__getitem__` dentro de la *clase* `list`
+y pasar el objeto `stuff` como primer parámetro y la posición que necesitamos
+como segundo parámetro.
 
-At the end of the program, the `stuff` object is discarded but not before
-calling the *destructor* (named `__del__`) so that the object can clean up any
-loose ends as necessary.
+Al final del programa, el objeto `stuff` es descartado, pero no antes de
+llamar al método *destructor* (llamado `__del__`) de manera tal que el 
+objeto pueda atar cabos sueltos en caso de resultar necesario.
 
-Those are the basics of object-oriented programming. There are many additional details
-as to how to best use object-oriented approaches when developing large applications
-and libraries that are beyond the scope of this chapter.^[If
-you are curious about where the `list` class is defined, take a look
-at (hopefully the URL won't change)
-https://github.com/python/cpython/blob/master/Objects/listobject.c -
-the list class is written in a language
-called "C". If you take a look at that source code and find it curious
-you might want to explore a few Computer Science courses.]
+Estos son los aspectos básicos de la programación orientada a objetos. Hay
+muchos detalles adicionales sobre cómo usar un enfoque de programación orientada
+a objetos al desarrollar aplicaciones, así como librerías, las que van más 
+allá del ámbito de este capítulo.^[Si quieres saber donde se encuentra definida
+la clase `list`, echa un vistazo a (ojalá la URL no cambie) https://github.com/python/cpython/blob/master/Objects/listobject.c -
+la clase list está escrita en un lenguaje llamado "C". Si ves el código fuente
+y sientes curiosidad, quizá te convenga buscar algunos cursos sobre
+Ciencias de la Computación.]
 
-Glossary
+Glosario
 --------
 
-attribute
-:   A variable that is part of a class.
-\index{attribute}
+atributo
+:   Una variable que es parte de una clase.
+\index{atributo}
 
-class
-:   A template that can be used to construct an object.  Defines
-    the attributes and methods that will make up the object.
-\index{class}
+clase
+:   Una plantilla que puede usarse para construir un objeto. Define
+    los atributos y métodos que formarán a dicho objeto.
+\index{clase}
 
-child class
-:   A new class created when a parent class is extended.  The child class
-    inherits all of the attributes and methods of the parent class.
-\index{child class}
+clase hija
+:   Una nueva clase creada cuando una clase padre es extendida. La clase hija
+    hereda todos los atributos y métodos de la clase padre.
+\index{clase hija}
 
 constructor
-:   An optional specially named method (`__init__`) that is called at the
-    moment when a class is being used to construct an object.
-    Usually this is used to set up initial values for the object.
+:   Un método opcional con un nombre especial (`__init__`) que es llamado
+    al momento en que se utiliza una clase para construir un objeto.
+    Normalmente se utiliza para determinar los valores iniciales del objeto.
 \index{constructor}
 
 destructor
-:   An optional specially named method (`__del__`) that is called at the
-    moment just before an object is destroyed.  Destructors are rarely
-    used.
+:   Un método opcional con un nombre especial (`__del__`) que es llamado
+    justo un momento antes de que un objeto sea destruido. Los destructores
+    rara vez son utilizados.
 \index{destructor}
 
-inheritance
-:   When we create a new class (child) by extending an
-    existing class (parent).  The child class has all the attributes
-    and methods of the parent class plus additional attributes and
-    methods defined by the child class.
-\index{inheritance}
+herencia
+:   Cuando creamos una nueva clase (hija) extendiendo una clase existente
+    (padre). La clase hija tiene todos los atributos y métodos de la 
+    clase padre, más los atributos y métodos adicionales
+    definidos por la clase hija.
 
-method
-:   A function that is contained within a class and the objects
-    that are constructed from the class.  Some object-oriented
-    patterns use 'message' instead of 'method' to describe this concept.
-\index{method}
-\index{message}
+\index{herencia}
 
-object
-:   A constructed instance of a class.  An object contains all of
-    the attributes and methods that were defined by the class.
-    Some object-oriented documentation uses the term 'instance'
-    interchangeably with 'object'.
-\index{method}
+método
+:   Una función contenida dentro de una clase y de los objetos
+    construidos desde esa clase. Algunos patrones de diseño orientados
+    a objetos describen este concepto como `mensaje` en lugar de `método`.
+\index{método}
+\index{mensaje}
 
-parent class
-:   The class which is being extended to create a new child class.
-    The parent class contributes all of its methods and attributes
-    to the new child class.
-\index{parent class}
+objeto
+:   Una instancia construida de una clase. Un objeto contiene todos
+    los atributos y métodos definidos por la clase. En algunos casos
+    de documentación orientada a objetos se utiliza el término
+    `instancia` de manera intercambiable con `objeto`.
+\index{objeto}
+\index{instancia}
 
+clase padre
+:   La clase que está siendo extendida para crear una nueva clase hija.
+    La clase padre aporta todos sus métodos y atributos a la nueva
+    clase hija.
 
-
-
-
-
-
-
+\index{clase padre}
