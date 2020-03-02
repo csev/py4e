@@ -3,18 +3,18 @@ import sqlite3
 conn = sqlite3.connect('music.sqlite')
 cur = conn.cursor()
 
-cur.execute('INSERT INTO Tracks (title, plays) VALUES (?, ?)', 
+cur.execute('INSERT INTO Canciones (titulo, reproducciones) VALUES (?, ?)', 
     ('Thunderstruck', 20))
-cur.execute('INSERT INTO Tracks (title, plays) VALUES (?, ?)', 
+cur.execute('INSERT INTO Canciones (titulo, reproducciones) VALUES (?, ?)', 
     ('My Way', 15))
 conn.commit()
 
-print('Tracks:')
-cur.execute('SELECT title, plays FROM Tracks')
-for row in cur:
-     print(row)
+print('Canciones:')
+cur.execute('SELECT titulo, reproducciones FROM Canciones')
+for fila in cur:
+     print(fila)
 
-cur.execute('DELETE FROM Tracks WHERE plays < 100')
+cur.execute('DELETE FROM Canciones WHERE reproducciones < 100')
 conn.commit()
 
 cur.close()

@@ -1,226 +1,221 @@
-Using Databases and SQL
-=======================
+Bases de datos y SQL
+====================
 
-What is a database?
--------------------
+¿Qué es una base de datos?
+--------------------------
 
-\index{database}
+\index{base de datos}
 
-A *database* is a file that is organized for storing
-data. Most databases are organized like a dictionary in the sense that
-they map from keys to values. The biggest difference is that the
-database is on disk (or other permanent storage), so it persists after
-the program ends. Because a database is stored on permanent storage, it
-can store far more data than a dictionary, which is limited to the size
-of the memory in the computer.
+Una *base de datos* es un archivo que está organizado para almacenar datos.
+La mayoría de las bases de datos están organizadas como diccionarios, en el
+sentido de que realizan asociaciones entre claves y valores. La diferencia más
+importante es que la base de datos se encuentra en el disco (u otro almacenamiento
+permanente), de modo que su contenido se conserva después de que el programa
+finaliza. Gracias a que la base de datos se guarda en almacenamiento permanente,
+puede almacenar muchos más datos que un diccionario, que está limitado al tamaño
+de memoria que tenga la computadora.
 
-\index{database!indexes}
+\index{índices!base de datos}
 
-Like a dictionary, database software is designed to keep the inserting
-and accessing of data very fast, even for large amounts of data.
-Database software maintains its performance by building
-*indexes* as data is added to the database to allow the
-computer to jump quickly to a particular entry.
+Como un diccionario, el software de una base de datos está diseñado para conseguir
+que la inserción y acceso a los datos sean muy rápidos, incluso para grandes
+cantidades de datos. Este software mantiene su rendimiento mediante la construcción
+de índices, como datos añadidos a la base de datos que permiten al equipo saltar
+rápidamente hasta una entrada concreta.
 
-There are many different database systems which are used for a wide
-variety of purposes including: Oracle, MySQL, Microsoft SQL Server,
-PostgreSQL, and SQLite. We focus on SQLite in this book because it is a
-very common database and is already built into Python. SQLite is
-designed to be *embedded* into other applications to provide database
-support within the application. For example, the Firefox browser also
-uses the SQLite database internally as do many other products.
+Existen muchos sistemas de bases de datos diferentes, que se utilizan para una
+amplia variedad de propósitos. Algunos de ellos son: Oracle, MySQL, Microsoft SQL
+Server, PostgreSQL, y SQLite. En este libro nos enfocaremos en SQLite, ya que se
+trata de una base de datos muy común y ya viene integrada dentro de Python. SQLite
+está diseñada para ser *incrustada* dentro de otras aplicaciones, de modo que
+proporcione soporte para bases de datos dentro de la aplicación. Por ejemplo, el
+navegador Firefox es uno de los que utilizan la base de datos SQLite internamente,
+al igual que muchos otros productos.
 
 <http://sqlite.org/>
 
-SQLite is well suited to some of the data manipulation problems that we
-see in Informatics such as the Twitter spidering application that we
-describe in this chapter.
+SQLite es muy adecuado para ciertos problemas de manipulación de datos que nos
+encontramos en informática, como en la aplicación de rastreo de Twitter que
+hemos descrito en el capítulo anterior.
 
-Database concepts
------------------
+Conceptos sobre bases de datos
+------------------------------
 
-When you first look at a database it looks like a spreadsheet with
-multiple sheets. The primary data structures in a database are:
-*tables*, *rows*, and
-*columns*.
+Cuando se ve por primera vez una base de datos, se parece a una hoja de cálculo con
+múltiples hojas. Las estructuras de datos primarias en una base de datos son:
+*tablas*, *files*, and
+*columnas*.
 
-![Relational Databases](height=2.0in@../images/relational)
+![Bases de datos relacionales](height=2.0in@../images/relational)
 
-In technical descriptions of relational databases the concepts of table,
-row, and column are more formally referred to as
-*relation*, *tuple*, and
-*attribute*, respectively. We will use the less formal
-terms in this chapter.
+En las descripciones técnicas de las bases de datos relacionales, los conceptos
+de tabla, fila y columna reciben los nombres más formales de
+*relación*, *tupla*, y
+*atributo*, respectivamente. Nosotros utilizaremos los términos menos formales
+en este capítulo.
 
-Database Browser for SQLite
----------------------------
 
-While this chapter will focus on using Python to work with data in
-SQLite database files, many operations can be done more conveniently
-using software called the *Database Browser for SQLite* which is freely available from:
+Navegador de bases de datos para SQLite
+---------------------------------------
+
+A pesar de que en este capítulo nos enfocaremos en utilizar Python para trabajar
+con datos en archivos de bases de datos SQLite, muchas operaciones pueden ser hechas
+de forma más eficaz usando un programa de software llamado *Database Browser for SQLite*,
+que se puede descargar gratis desde:
 
 <http://sqlitebrowser.org/>
 
-Using the browser you can easily create tables, insert data, edit data,
-or run simple SQL queries on the data in the database.
+Utilizando el navegador se pueden crear tablas, insertar datos, editar datos,
+o ejecutar consultas SQL sencillas sobre la base de datos.
 
-In a sense, the database browser is similar to a text editor when
-working with text files. When you want to do one or very few operations
-on a text file, you can just open it in a text editor and make the
-changes you want. When you have many changes that you need to do to a
-text file, often you will write a simple Python program. You will find
-the same pattern when working with databases. You will do simple
-operations in the database manager and more complex operations will be
-most conveniently done in Python.
+En cierto modo, el navegador de base de datos es parecido a un editor de texto
+que trabaja con archivos de texto. Cuando quieres realizar uno o dos cambios en un
+archivo de texto, lo más sencillo es abrirlo en un editor de texto y realizar los
+cambios que quieres. Cuando debes realizar muchas modificaciones en el archivo, a
+menudo habrá que escribir un programa en Python sencillo. El mismo enfoque se puede aplicar
+al trabajo con bases de datos. Se realizarán las operaciones más sencillas en el gestor
+de bases de datos, y para otras más complejas será más conveniente usar Python.
 
-Creating a database table
--------------------------
+Creación de una tabla en una base de datos
+------------------------------------------
 
-Databases require more defined structure than Python lists or
-dictionaries^[SQLite actually does allow some flexibility in the type of data
-stored in a column, but we will keep our data types strict in this
-chapter so the concepts apply equally to other database systems such
-as MySQL.].
+Las bases de datos necesitan una estructura más definida que las listas o diccionarios
+de Python^[SQLite en realidad permite cierta flexibilidad respecto al tipo de dato
+que se almacena en cada columna, pero en este capítulo nosotros vamos a mantener los tipos
+de datos estrictos, para que los conceptos que aprendamos puedan ser igualmente aplicados
+a otras bases de datos como MySQL.].
 
-When we create a database *table* we must tell the
-database in advance the names of each of the *columns* in
-the table and the type of data which we are planning to store in each
-*column*. When the database software knows the type of
-data in each column, it can choose the most efficient way to store and
-look up the data based on the type of data.
+Cuando creamos una *tabla*, debemos indicar de antemano a la base de datos los
+nombres de cada una de las *columnas* de esa tabla y el tipo de dato que se va a
+almacenar en cada una de ellas. Cuando el software de la base de datos conoce el tipo
+de dato de cada columna, puede elegir el modo más eficiente de almacenar y buscar
+en ellas, basándose en el tipo de dato que contendrán.
 
-You can look at the various data types supported by SQLite at the
-following url:
+Puedes revisar los distintos tipos de datos soportados por SQLite en la
+siguiente dirección:
 
 <http://www.sqlite.org/datatypes.html>
 
-Defining structure for your data up front may seem inconvenient at the
-beginning, but the payoff is fast access to your data even when the
-database contains a large amount of data.
+El tener que definir de antemano una estructura para los datos puede parecer incómodo al
+principio, pero la recompensa consiste en obtener un acceso rápido a los datos, incluso
+cuando la base de datos contiene una gran cantidad de ellos.
 
-The code to create a database file and a table named `Tracks`
-with two columns in the database is as follows:
+El código para crear un archivo de base de datos y una tabla llamada `Canciones`
+con dos columnas en la base de datos es el siguiente:
 
-\index{sqlite3 module}
-\index{module!sqlite3}
+\index{módulo sqlite3}
+\index{sqlite3!módulo}
 
 \VerbatimInput{../code3/db1.py}
 
-\index{connect function}
-\index{function!connect}
-\index{cursor function}
-\index{function!cursor}
+\index{función connect}
+\index{connect!función}
+\index{función cursor}
+\index{cursor!función}
 
-The `connect` operation makes a "connection" to the database
-stored in the file `music.sqlite` in the current directory.
-If the file does not exist, it will be created. The reason this is
-called a "connection" is that sometimes the database is stored on a
-separate "database server" from the server on which we are running our
-application. In our simple examples the database will just be a local
-file in the same directory as the Python code we are running.
+La operación `connect` realiza una conexión con la base de datos almacenada en el
+archivo `musica.sqlite` en el directorio actual. Si el archivo no existe, se creará
+uno nuevo. La razón de que se le llame una "conexión" es que a veces la base de datos
+se almacena en un "servidor de bases de datos", distinto del servidor en el cual está
+funcionando nuestra aplicación. En nuestros ejemplos, dado que son sencillos, la
+base de datos será simplemente un archivo local en el mismo directorio en el que
+está funcionando el código de Python.
 
-A *cursor* is like a file handle that we can use to
-perform operations on the data stored in the database. Calling
-`cursor()` is very similar conceptually to calling
-`open()` when dealing with text files.
+Un *cursor* es como un manejador de archivos, y se puede usar para realizar operaciones
+en los datos almacenados en la base de datos. La llamada a `cursor()` es muy similar
+conceptualmente a la llamada `open()` cuando se está tratando con archivos
+de texto.
 
-![A Database Cursor](height=2.0in@../images/cursor)
+![Un cursor de bases de datos](height=2.0in@../images/cursor)
 
-Once we have the cursor, we can begin to execute commands on the
-contents of the database using the `execute()` method.
+Una vez que tenemos el cursor, podemos comenzar a ejecutar comandos sobre el contenido
+de la base de datos, usando el método `execute()`.
 
-Database commands are expressed in a special language that has been
-standardized across many different database vendors to allow us to learn
-a single database language. The database language is called
-*Structured Query Language* or *SQL* for
-short.
+Los comandos de las bases de datos se expresan en un lenguaje especial que ha sido
+estandarizado entre varios proveedores de bases de datos diferentes para permitirnos
+aprender un único lenguaje para todas ellas. Este lenguaje recibe el nombre de
+*Lenguaje de Consultas Estructurado* (Structured Query Language), o *SQL*.
 
-<http://en.wikipedia.org/wiki/SQL>
+<https://es.wikipedia.org/wiki/SQL>
 
-In our example, we are executing two SQL commands in our database. As a
-convention, we will show the SQL keywords in uppercase and the parts of
-the command that we are adding (such as the table and column names) will
-be shown in lowercase.
+En nuestro ejemplo, estamos ejecutando dos comandos SQL sobre la base de datos.
+Por convención, mostraremos las palabras claves de SQL en mayúscula y las partes
+de los comandos que añadamos nosotros (como los nombres de las tablas y las columnas)
+irán en minúsculas.
 
-The first SQL command removes the `Tracks` table from the
-database if it exists. This pattern is simply to allow us to run the
-same program to create the `Tracks` table over and over again
-without causing an error. Note that the `DROP TABLE` command
-deletes the table and all of its contents from the database (i.e., there
-is no "undo").
+El primer comando SQL elimina la tabla `Canciones` si ya existe. Este planteamiento
+se utiliza simplemente para permitirnos ejecutar el mismo programa para crear la tabla
+`Canciones` una y otra vez sin provocar un error. Observa que el comando `DROP TABLE`
+elimina la tabla y todo su contenido de la base de datos (es decir, aquí no existe la opción
+"deshacer").
 
 ~~~~ {.python}
-cur.execute('DROP TABLE IF EXISTS Tracks ')
+cur.execute('DROP TABLE IF EXISTS Canciones ')
 ~~~~
 
-The second command creates a table named `Tracks` with a text
-column named `title` and an integer column named
-`plays`.
+El segundo comando crea una tabla llamada `Canciones` con una columna de texto
+llamada `titulo` y una columna de enteros llamada `reproducciones`.
 
 ~~~~ {.python}
-cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
+cur.execute('CREATE TABLE Canciones (titulo TEXT, reproducciones INTEGER)')
 ~~~~
 
-Now that we have created a table named `Tracks`, we can put
-some data into that table using the SQL `INSERT` operation.
-Again, we begin by making a connection to the database and obtaining the
-`cursor`. We can then execute SQL commands using the cursor.
+Ahora que ya hemos creado la tabla llamada `Canciones`, podemos guardar algunos
+datos en ella usando la operación de SQL `INSERT`. Empezaremos realizando otra
+vez una conexión con la base de datos y obteniendo el 
+`cursor`. Luego podemos ejecutar comandos SQL usando ese
+cursor.
 
-The SQL `INSERT` command indicates which table we are using
-and then defines a new row by listing the fields we want to include
-`(title, plays)` followed by the `VALUES` we want
-placed in the new row. We specify the values as question marks `(?,
-?)` to indicate that the actual values are passed in as a tuple
-`( 'My Way', 15 ) ` as the second parameter to the
-`execute()` call.
+El comando `INSERT` de SQL indica qué tabla se está utilizando y luego define una fila nueva,
+enumerando los campos que se desean incluir `(titulo, reproducciones)` seguidos por los valores
+(`VALUES`) que queremos colocar en esa fila. Nosotros vamos a especificar los valores como
+signos de interrogación `(?, ?)` para indicarle que los valores reales serán pasados como
+una tupla `( 'My Way', 15 ) ` en el segundo parámetro de la llamada a `execute()`.
 
 \VerbatimInput{../code3/db2.py}
 
-First we `INSERT` two rows into our table and use
-`commit()` to force the data to be written to the database
-file.
+Primero insertamos (`INSERT`) dos filas en la tabla y usamos `commit()`
+para forzar a que los datos sean escritos en el archivo de la base de
+datos.
 
-![Rows in a Table](height=1.5in@../images/tracks)
+![Columnas en una tabla](height=1.5in@../images/tracks)
 
-Then we use the `SELECT` command to retrieve the rows we just
-inserted from the table. On the `SELECT` command, we indicate
-which columns we would like `(title, plays)` and indicate
-which table we want to retrieve the data from. After we execute the
-`SELECT` statement, the cursor is something we can loop
-through in a `for` statement. For efficiency, the cursor does
-not read all of the data from the database when we execute the
-`SELECT` statement. Instead, the data is read on demand as we
-loop through the rows in the `for` statement.
+Después usamos el comando `SELECT` para recuperar las filas que acabamos de insertar
+en la tabla. En el comando `SELECT`, indicamos qué columnas nos gustaría obtener
+`(titulo, reproducciones)`, y también desde qué tabla queremos recuperar los
+datos. Después de ejecutar la sentencia `SELECT`, el cursor se convierte en algo
+con lo que podemos iterar mediante una sentencia `for`. Por eficiencia, el cursor no lee
+todos los datos de la base de datos cuando se ejecuta la sentencia
+`SELECT`. En lugar de ello, los datos van siendo leídos a medida que se van
+pidiendo las filas desde el bucle creado con la sentencia `for`.
 
-The output of the program is as follows:
+La salida del programa es la siguiente:
 
 ~~~~
-Tracks:
+Canciones:
 ('Thunderstruck', 20)
 ('My Way', 15)
 ~~~~
 
 \index{Unicode}
 
-Our `for` loop finds two rows, and each row is a Python tuple
-with the first value as the `title` and the second value as
-the number of `plays`. 
+Nuestro bucle `for` encuentra dos filas, y cada fila es una tupla de Python cuyo
+primer valor es el `titulo` y el segundo es el número de `reproducciones`. 
 
-*Note: You may see strings starting with `u'` in other books or on the Internet. 
-This was an indication in Python 2 that the strings are *Unicode* strings that are capable
-of storing non-Latin character sets. In Python 3, all strings are unicode
-strings by default.*
+*Nota: Puede que veas cadenas comenzando con `u'` en otros libros o en Internet.
+Esto es una indicación en Python 2 que dice que las cadenas son cadenas *Unicode*
+que son capaces de almacenar caracteres no-latinos. En Python 3, todas las cadenas
+son del tipo `Unicode` por defecto.*
 
-At the very end of the program, we execute an SQL command to
-`DELETE` the rows we have just created so we can run the
-program over and over. The `DELETE` command shows the use of
-a `WHERE` clause that allows us to express a selection
-criterion so that we can ask the database to apply the command to only
-the rows that match the criterion. In this example the criterion happens
-to apply to all the rows so we empty the table out so we can run the
-program repeatedly. After the `DELETE` is performed, we also
-call `commit()` to force the data to be removed from the
-database.
+Al final del programa, ejecutamos un comando SQL para borrar (`DELETE`) las files
+que acabamos de crear, de modo que podamos ejecutar el programa una y otra vez. El
+comando `DELETE` nos muestra el uso de la cláusula `WHERE`, la cual nos permite
+expresar un criterio de selección, de modo que podemos pedir a la base de datos
+que aplique el comando solamente a las filas que cumplan ese criterio. En este
+ejemplo, el criterio es cumplido por todas las filas, así que vaciamos la tabla
+para que podamos ejecutar el programa de nuevo repetidamente. Después de que se ha
+realizado el `DELETE`, llamamos de nuevo a `commit()` para forzar a los datos a ser
+eliminados de la base de datos.
 
 Structured Query Language summary
 ---------------------------------
