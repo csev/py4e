@@ -217,229 +217,223 @@ para que podamos ejecutar el programa de nuevo repetidamente. Después de que se
 realizado el `DELETE`, llamamos de nuevo a `commit()` para forzar a los datos a ser
 eliminados de la base de datos.
 
-Structured Query Language summary
----------------------------------
+Resumen de Lenguaje de Consultas Estructurado
+---------------------------------------------
 
-So far, we have been using the Structured Query Language in our Python
-examples and have covered many of the basics of the SQL commands. In
-this section, we look at the SQL language in particular and give an
-overview of SQL syntax.
+Hasta ahora, hemos estado usando el Lenguaje de Consultas Estructurado (SQL)
+en nuestros ejemplos de Python y hemos utilizado muchos de los comandos básicos
+de SQL. En esta sección, nos centraremos en el lenguaje SQL en particular y
+echaremos un vistazo a su sintaxis.
 
-Since there are so many different database vendors, the Structured Query
-Language (SQL) was standardized so we could communicate in a portable
-manner to database systems from multiple vendors.
+Debido a que hay muchos proveedores de bases de datos, el Lenguaje de Consultas
+Estructurado (SQL) está estandarizado, para que podamos comunicarnos de una
+forma similar con sistemas de bases de datos de múltiples vendedores.
 
-A relational database is made up of tables, rows, and columns. The
-columns generally have a type such as text, numeric, or date data. When
-we create a table, we indicate the names and types of the columns:
-
-~~~~ {.sql}
-CREATE TABLE Tracks (title TEXT, plays INTEGER)
-~~~~
-
-To insert a row into a table, we use the SQL `INSERT`
-command:
+Una base de datos relacional está compuesta por tablas, filas, y columnas. Las
+columnas tienen generalmente un tipo de datos que puede ser texto, números, o
+datos de fechas. Cuando se crea una tabla, se indican los nombres y tipos de cada
+columna:
 
 ~~~~ {.sql}
-INSERT INTO Tracks (title, plays) VALUES ('My Way', 15)
+CREATE TABLE Canciones (titulo TEXT, reproducciones INTEGER)
 ~~~~
 
-The `INSERT` statement specifies the table name, then a list
-of the fields/columns that you would like to set in the new row, and
-then the keyword `VALUES` and a list of corresponding values
-for each of the fields.
-
-The SQL `SELECT` command is used to retrieve rows and columns
-from a database. The `SELECT` statement lets you specify
-which columns you would like to retrieve as well as a `WHERE`
-clause to select which rows you would like to see. It also allows an
-optional `ORDER BY` clause to control the sorting of the
-returned rows.
+Para insertar una fila en una tabla, usamos el comando de SQL `INSERT`:
 
 ~~~~ {.sql}
-SELECT * FROM Tracks WHERE title = 'My Way'
+INSERT INTO Canciones (titulo, reproducciones) VALUES ('My Way', 15)
 ~~~~
 
-Using `*` indicates that you want the database to return all of the
-columns for each row that matches the `WHERE` clause.
+La sentencia `INSERT` especifíca el nombre de la tabla, seguido por una lista de
+los campos/columnas que se quieren establecer en la fila nueva, a continuación la
+palabra clave `VALUES`, y una lista de los valores correspondientes para cada uno de
+los campos.
 
-Note, unlike in Python, in a SQL `WHERE` clause we use a
-single equal sign to indicate a test for equality rather than a double
-equal sign. Other logical operations allowed in a `WHERE`
-clause include `<`, `>`, `<=`, `>=`, `!=`, as well as `AND`
-and `OR` and parentheses to build your logical expressions.
-
-You can request that the returned rows be sorted by one of the fields as
-follows:
+El comando de SQL `SELECT`se utiliza para recuperar filas y columnas desde una base de
+datos. La sentencia `SELECT` permite especificar qué columnas se quieren recibir, junto
+con una clausula `WHERE` para indicar qué filas se desean obtener. También permite
+una clausula opcional, `ORDER BY` para controlar el orden de las files devueltas.
 
 ~~~~ {.sql}
-SELECT title,plays FROM Tracks ORDER BY title
+SELECT * FROM Canciones WHERE titulo = 'My Way'
 ~~~~
 
-To remove a row, you need a `WHERE` clause on an SQL
-`DELETE` statement. The `WHERE` clause determines
-which rows are to be deleted:
+El uso de `*` indica que se desea que la base de datos devuelva todas las columnas para
+cada línea que cumpla la condición de la clausula `WHERE`.
+
+Hay que notar que, a diferencia de lo que ocurre en Python, en SQL la clausula
+`WHERE` utiliza un único signo igual para indicar una comprobación de igualdad,
+en lugar de utilizar un signo doble igual. Otras operaciones lógicas que se
+permiten en una clausula `WHERE` son `<`, `>`, `<=`, `>=`, `!=`, así como también `AND`
+y `OR`, y paréntesis para construir expresiones lógicas.
+
+Se puede solicitar que las columnas devueltas vengan ordenadas por uno de los
+campos, de este modo:
 
 ~~~~ {.sql}
-DELETE FROM Tracks WHERE title = 'My Way'
+SELECT titulo,reproducciones FROM Canciones ORDER BY titulo
 ~~~~
 
-It is possible to `UPDATE` a column or columns within one or
-more rows in a table using the SQL `UPDATE` statement as
-follows:
+Para eliminar una fila, es necesario usar una clausula `WHERE` en una sentencia
+`DELETE` de SQL. La clausula `WHERE` determina qué filas serán eliminadas:
 
 ~~~~ {.sql}
-UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
+DELETE FROM Canciones WHERE titulo = 'My Way'
 ~~~~
 
-The `UPDATE` statement specifies a table and then a list of
-fields and values to change after the `SET` keyword and then
-an optional `WHERE` clause to select the rows that are to be
-updated. A single `UPDATE` statement will change all of the
-rows that match the `WHERE` clause. If a `WHERE`
-clause is not specified, it performs the `UPDATE` on all of
-the rows in the table.
+Es posible actualizar (`UPDATE`) una columna o varias de una o más filas en una
+tabla usando la secuencia de SQL `UPDATE`, como se muestra a continuación:
 
-These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow
-the four basic operations needed to create and maintain data.
+~~~~ {.sql}
+UPDATE Canciones SET reproducciones = 16 WHERE titulo = 'My Way'
+~~~~
 
-Spidering Twitter using a database
-----------------------------------
+La sentencia `UPDATE` especifíca una tabla, a continuación una lista de campos
+y valores a cambiar detrás de la palabra clave `SET`, y finalmente una
+clausula opcional `WHERE` para elegir las filas que van a ser actualizadas.
+Una única sentencia `UPDATE` cambiará todas las filas que coincidan con la clausula
+`WHERE`. Si no se ha especificado ninguna clausula `WHERE`, se realizará la
+actualización (`UPDATE`) de todas las filas de la tabla.
 
-In this section, we will create a simple spidering program that will go
-through Twitter accounts and build a database of them. *Note: Be very
-careful when running this program. You do not want to pull too much data
-or run the program for too long and end up having your Twitter access
-shut off.*
+Existen cuatro comandos básicos de SQL (INSERT, SELECT, UPDATE, y DELETE), que nos
+permiten realizar las cuatro operaciones básicas necesarias para crear y mantener
+datos.
 
-One of the problems of any kind of spidering program is that it needs to
-be able to be stopped and restarted many times and you do not want to
-lose the data that you have retrieved so far. You don't want to always
-restart your data retrieval at the very beginning so we want to store
-data as we retrieve it so our program can start back up and pick up
-where it left off.
+Rastreo en Twitter usando una base de datos
+-------------------------------------------
 
-We will start by retrieving one person's Twitter friends and their
-statuses, looping through the list of friends, and adding each of the
-friends to a database to be retrieved in the future. After we process
-one person's Twitter friends, we check in our database and retrieve one
-of the friends of the friend. We do this over and over, picking an
-"unvisited" person, retrieving their friend list, and adding friends we
-have not seen to our list for a future visit.
+En esta sección, crearemos un programa araña sencillo que se moverá a través de
+cuentas de Twitter y construirá una base de datos de ellas. *Nota: Ten mucho
+cuidado cuando al ejecutar este programa. Si extraes demasiados datos o ejecutas
+el programa durante demasiado tiempo pueden terminar cortándote el acceso a
+Twitter.*
 
-We also track how many times we have seen a particular friend in the
-database to get some sense of their "popularity".
+Uno de los problemas de cualquier tipo de programa araña es que se necesita
+poderlo deener y volver a poner en marcha muchas veces, y no se quieren perder los
+datos que se hayan recuperado hasta ese momento. No querrás tener que empezar siempre
+la recuperación de datos desde el principio, de modo que necesitaremos almacenar
+los datos según los vamos recuperando para que nuestro programa pueda usar esa
+copia de seguridad y reanudar la recolección de datos desde donde lo dejó la
+última vez.
 
-By storing our list of known accounts and whether we have retrieved the
-account or not, and how popular the account is in a database on the disk
-of the computer, we can stop and restart our program as many times as we
-like.
+Vamos a comenzar por recuperar los amigos de Twitter de una persona y sus estados,
+moviéndonos a través de la lista de amigos y añadiendo cada uno de ellos a la base
+de datos para poder recuperarlos en el futuro. Después de haber procesado todos los
+amigos de esa persona, consultaremos la base de datos y recuperaremos los amigos de
+uno de esos amigos. Continuaremos haciendo esto una y otra vez, recogiendo cualquier
+persona "no visitada", recuperando su lista de amigos y añadiendo aquellos que no
+tengamos ya en nuestra lista para una próxima visita.
 
-This program is a bit complex. It is based on the code from the exercise
-earlier in the book that uses the Twitter API.
+También vamos a contar cuántas veces hemos visto un amigo concreto en la base
+de datos, para tener una idea de su "popularidad".
 
-Here is the source code for our Twitter spidering application:
+Estamos almacenando nuestra lista de cuentas de conocidos, si hemos recuperado
+la cuenta o no, y la popularidad de cada cuenta. Al tener todo ello guardado en
+una base de datos en nuestro PC, podremos detener y reanudar el programa tantas
+veces como queramos.
+
+Este programa es un poco complejo. Está basado en el código de un ejercicio
+anterior del libro que usa la API de Twitter.
+
+Aquí está el código fuente para nuestra aplicación araña de Twitter:
 
 \VerbatimInput{../code3/twspider.py}
 
-Our database is stored in the file `spider.sqlite` and it
-has one table named `Twitter`. Each row in the
-`Twitter` table has a column for the account name, whether we
-have retrieved the friends of this account, and how many times this
-account has been "friended".
+Nuestra base de datos está almacenada en el archivo `arana.sqlite` y tiene
+una tabla llamada `Twitter`. Cada fila en la tabla `Twitter` contiene una columna
+para el nombre de la cuenta, otra para indicar si hemos recuperado los amigos
+de esa cuenta, y otra para guardar cuántas veces se ha visto esa cuenta añadida
+en la lista de amigos de las demás.
 
-In the main loop of the program, we prompt the user for a Twitter
-account name or "quit" to exit the program. If the user enters a Twitter
-account, we retrieve the list of friends and statuses for that user and
-add each friend to the database if not already in the database. If the
-friend is already in the list, we add 1 to the `friends`
-field in the row in the database.
+En el bucle principal del programa, pedimos al usuario el nombre de una cuenta
+de Twitter o "salir" para finalizar el programa. Si el usuario introduce una cuenta
+de Twitter, recuperamos la lista de amigos de ese usuario y sus estados, y
+añadimos cada amigo a la base de datos, si no estaba ya en ella. Si el amigo ya
+estaba en la lista, aumentamos en 1 el campo `amigos` en la fila correspondiente
+de la base de datos.
 
-If the user presses enter, we look in the database for the next Twitter
-account that we have not yet retrieved, retrieve the friends and
-statuses for that account, add them to the database or update them, and
-increase their `friends` count.
+Si el usuario presiona intro, buscamos en la base de datos la siguiente cuenta de
+Twitter que no haya sido aún recuperada, recuperamos los amigos de esa cuenta y
+sus estados, y luego los añadimos a la base de datos o los actualizamos, e
+incrementamos su contador de `amigos`.
 
-Once we retrieve the list of friends and statuses, we loop through all
-of the `user` items in the returned JSON and retrieve the
-`screen_name` for each user. Then we use the `SELECT`
-statement to see if we already have stored this particular `screen_name`
-in the database and retrieve the friend count (`friends`) if
-the record exists.
+Una vez hemos recuperado la lista de amigos y sus estados, nos movemos a través
+de los elementos `user` del JSON devuelto y recuperamos el `screen_name` (nombre
+a mostrar) de cada usuario. Luego usamos la sentencia `SELECT` para comprobar
+si ya tenemos almacenado ese nombre concreto en la base de datos y si es así
+recuperamos su contador de amigos (`amigos`).
 
 ~~~~ {.python}
-countnew = 0
-countold = 0
-for u in js['users'] :
-    friend = u['screen_name']
-    print(friend)
-    cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1',
-        (friend, ) )
+contnuevas = 0
+contantiguas = 0
+for u in js['users']:
+    amigo = u['screen_name']
+    print(amigo)
+    cur.execute('SELECT amigos FROM Twitter WHERE nombre = ? LIMIT 1',
+                (amigo, ))
     try:
-        count = cur.fetchone()[0]
-        cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?',
-            (count+1, friend) )
-        countold = countold + 1
+        contador = cur.fetchone()[0]
+        cur.execute('UPDATE Twitter SET amigos = ? WHERE nombre = ?',
+                    (contador+1, amigo))
+        contantiguas = contantiguas + 1
     except:
-        cur.execute('''INSERT INTO Twitter (name, retrieved, friends)
-            VALUES ( ?, 0, 1 )''', ( friend, ) )
-        countnew = countnew + 1
-print('New accounts=',countnew,' revisited=',countold)
+        cur.execute('''INSERT INTO Twitter (nombre, recuperado, amigos)
+                    VALUES (?, 0, 1)''', (amigo, ))
+        contnuevas = contnuevas + 1
+print('Cuentas nuevas=', contnuevas, ' ya visitadas=', contantiguas)
 conn.commit()
 ~~~~
 
-Once the cursor executes the `SELECT` statement, we must
-retrieve the rows. We could do this with a `for` statement,
-but since we are only retrieving one row (`LIMIT 1`), we can
-use the `fetchone()` method to fetch the first (and only) row
-that is the result of the `SELECT` operation. Since
-`fetchone()` returns the row as a *tuple*
-(even though there is only one field), we take the first value from the
-tuple using to get the current friend count into the variable
-`count`.
+Una vez que el cursor ejecuta la sentencia `SELECT`, tenemos que
+recuperar las filas. Podríamos hacerlo con una sentencia `for`, pero dado
+que sólo estamos recuperando una única fila (`LIMIT 1`), podemos también
+usar el método `fetchone()` para extraer la primera (y única) fila que da
+como resultado la operación `SELECT`. Dado que `fetchone()` devuelve la
+fila como una *tupla* (incluso si sólo contiene un campo), tomamos el
+primer valor de la tupla mediante [0], para almacenar así dentro de la
+variable `contador` el valor del contador de amigos actual.
 
-If this retrieval is successful, we use the SQL `UPDATE`
-statement with a `WHERE` clause to add 1 to the
-`friends` column for the row that matches the friend's
-account. Notice that there are two placeholders (i.e., question marks)
-in the SQL, and the second parameter to the `execute()` is a
-two-element tuple that holds the values to be substituted into the SQL
-in place of the question marks.
+Si esta operación tiene éxito, usamos la sentencia `UPDATE` de SQL con
+una clausula `WHERE` para añadir 1 a la columa `amigos` de aquella fila que
+coincida con la cuenta del amigo. Fíjate que hay dos marcadores de posición (es
+decir, signos de interrogación) en el SQL, y que el segundo parámetro de
+`execute()` es una tupla de dos elementos que contiene los valores que
+serán sustituidos por esas interrogaciones dentro de la sentencia SQL.
 
-If the code in the `try` block fails, it is probably because
-no record matched the `WHERE name = ?` clause on the SELECT
-statement. So in the `except` block, we use the SQL
-`INSERT` statement to add the friend's `screen_name` to the
-table with an indication that we have not yet retrieved the
-`screen_name` and set the friend count to zero.
+Si el código en el bloque `try` falla, se deberá probablemente a que ningún
+registro coincide con lo especificado en la clausula `WHERE nombre = ?`
+de la setencia SELECT. Así que en el bloque `except`, usamos la sentencia
+de SQL `INSERT` para añadir el nombre a mostrar (`screen_name`) del amigo a la
+tabla, junto con una indicación de que no lo hemos recuperado aún, y fijamos
+su contador de amigos a cero.
 
-So the first time the program runs and we enter a Twitter account, the
-program runs as follows:
+La primera vez que el programa funciona e introducimos una cuenta de Twitter,
+mostrará algo similar a esto:
 
 ~~~~
-Enter a Twitter account, or quit: drchuck
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 20  revisited= 0
-Enter a Twitter account, or quit: quit
+Ingresa una cuenta de Twitter, o salir: drchuck
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 20  ya visitadas= 0
+Ingresa una cuenta de Twitter, o salir: salir
 ~~~~
 
-Since this is the first time we have run the program, the database is
-empty and we create the database in the file `spider.sqlite`
-and add a table named `Twitter` to the database. Then we
-retrieve some friends and add them all to the database since the
-database is empty.
+Dado que es la primera vez que ejecutamos el programa, la base de datos
+está vacía, así que creamos el archivo `arana.sqlite` y añadimos una
+tabla llamada `Twitter` a la base de datos. A continuación recuperamos
+algunos amigos y los añadimos a la base de datos, ya que ésta está vacía.
 
-At this point, we might want to write a simple database dumper to take a
-look at what is in our `spider.sqlite` file:
+En este punto, tal vez sea conveniente escribir un programa de volcado
+de datos sencillo, para echar un vistazo a lo que hay dentro del
+archivo `spider.sqlite`:
 
 \VerbatimInput{../code3/twdump.py}
 
-This program simply opens the database and selects all of the columns of
-all of the rows in the table `Twitter`, then loops through
-the rows and prints out each row.
+Este programa simplemente abre la base de datos y selecciona todas las
+columnas de todas las filas de la tabla `Twitter`, luego se mueve a través
+de las filas e imprime en pantalla su contenido.
 
-If we run this program after the first execution of our Twitter spider
-above, its output will be as follows:
+Si ejecutamos este programa después de la primera ejecución de nuestra araña
+de Twitter, la salida que mostrará será similar a esta:
 
 ~~~~
 ('opencontent', 0, 1)
@@ -448,69 +442,70 @@ above, its output will be as follows:
 ('davidkocher', 0, 1)
 ('hrheingold', 0, 1)
 ...
-20 rows.
+20 filas.
 ~~~~
 
-We see one row for each `screen_name`, that we have not retrieved the
-data for that `screen_name`, and everyone in the database has one
-friend.
+Vemos una fila para cada nombre, que aún no hemos recuperado los datos de
+ninguno de esos nombres, y que todo el mundo en la base de datos tiene un
+amigo.
 
-Now our database reflects the retrieval of the friends of our first
-Twitter account (*drchuck*). We can run the program again
-and tell it to retrieve the friends of the next "unprocessed" account by
-simply pressing enter instead of a Twitter account as follows:
+En este momento la base de datos muestra la recuperación de los amigos
+de nuestra primera cuenta de Twitter (*drchuck*). Podemos ejecutar de nuevo
+el programa y pedirle que recupere los amigos de la siguiente cuenta "sin
+procesar", simplemente pulsando intro en vez de escribir el nombre de una
+cuenta:
 
 ~~~~
-Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 18  revisited= 2
-Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit: quit
+Ingresa una cuenta de Twitter, o salir:
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 18  ya visitadas= 2
+Ingresa una cuenta de Twitter, o salir:
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 17  ya visitadas= 3
+Ingresa una cuenta de Twitter, o salir: salir
 ~~~~
 
-Since we pressed enter (i.e., we did not specify a Twitter account), the
-following code is executed:
+Como hemos pulsado intro (es decir, no hemos especificado otra cuenta de Twitter),
+se ha ejecutado el código siguiente:
 
 ~~~~ {.python}
-if ( len(acct) < 1 ) :
-    cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
+if ( len(cuenta) < 1 ) :
+    cur.execute('SELECT nombre FROM Twitter WHERE recuperado = 0 LIMIT 1')
     try:
-        acct = cur.fetchone()[0]
+        cuenta = cur.fetchone()[0]
     except:
-        print('No unretrieved twitter accounts found')
+        print('No se han encontrado cuentas de Twitter por recuperar')
         continue
 ~~~~
 
-We use the SQL `SELECT` statement to retrieve the name of the
-first (`LIMIT 1`) user who still has their "have we retrieved
-this user" value set to zero. We also use the `fetchone()[0]`
-pattern within a try/except block to either extract a `screen_name` from
-the retrieved data or put out an error message and loop back up.
+Usamos la sentencia de SQL `SELECT` para obtener el nombre del primer usuario
+(`LIMIT 1`) que aún tiene su valor de "hemos recuperado ya este usuario" a cero.
+También usamos el patrón `fetchone()[0]` en un bloque try/except para extraer
+el "nombre a mostrar" (`screen_name`) de los datos recuperados, o bien mostrar
+un mensaje de error y volver al principio.
 
-If we successfully retrieved an unprocessed `screen_name`, we retrieve
-their data as follows:
+Si hemos obtenido con éxito el nombre de una cuenta que aún no había sido
+procesada, recuperamos sus datos de este modo:
 
 ~~~~ {.python}
-url=twurl.augment(TWITTER_URL,{'screen_name': acct,'count': '20'})
-print('Retrieving', url)
-connection = urllib.urlopen(url)
-data = connection.read()
-js = json.loads(data)
+url=twurl.augment(TWITTER_URL,{'screen_name': cuenta,'count': '20'})
+print('Recuperando', url)
+conexion = urllib.urlopen(url)
+datos = conexion.read()
+js = json.loads(datos)
 
-cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?',(acct, ))
+cur.execute('UPDATE Twitter SET recuperado=1 WHERE nombre = ?',(cuenta, ))
 ~~~~
 
-Once we retrieve the data successfully, we use the `UPDATE`
-statement to set the `retrieved` column to 1 to indicate that
-we have completed the retrieval of the friends of this account. This
-keeps us from retrieving the same data over and over and keeps us
-progressing forward through the network of Twitter friends.
+Una vez recuperados correctamente los datos, usamos la sentencia `UPDATE`
+para poner la columna `recuperado` a 1, lo que indica que hemos terminado
+la extracción de amigos de esa cuenta. Esto impide que recuperemos los
+mismos datos una y otra vez, y nos permite ir avanzando a través de la red
+de amigos de Twitter.
 
-If we run the friend program and press enter twice to retrieve the next
-unvisited friend's friends, then run the dumping program, it will give
-us the following output:
+Si ejecutamos el programa de amigos y pulsamos intro dos veces para recuperar
+los amigos del siguiente amigo no visitado, y luego ejecutamos de nuevo el
+programa de volcado de datos, nos mostrará la salida siguiente:
 
 ~~~~
 ('opencontent', 1, 1)
@@ -524,25 +519,24 @@ us the following output:
 ('kthanos', 0, 2)
 ('LectureTools', 0, 1)
 ...
-55 rows.
+55 filas.
 ~~~~
 
-We can see that we have properly recorded that we have visited
-`lhawthorn` and `opencontent`. Also the accounts
-`cnxorg` and `kthanos` already have two followers.
-Since we now have retrieved the friends of three people
-(`drchuck`, `opencontent`, and
-`lhawthorn`) our table has 55 rows of friends to retrieve.
+Podemos ver que se han guardado correctamente las visitas que hemos realizado
+a `lhawthorn` y `opencontent`. Además, las cuentas `cnxorg` y `kthanos`
+ya tienen dos seguidores. Puesto que hemos recuperado los amigos de tres
+personas (`drchuck`, `opencontent`, y `lhawthorn`), la tabla contiene 55
+filas de amigos por recuperar.
 
-Each time we run the program and press enter it will pick the next
-unvisited account (e.g., the next account will be `steve_coppin`),
-retrieve their friends, mark them as retrieved, and for each of the
-friends of `steve_coppin` either add them to the end of the database or
-update their friend count if they are already in the database.
+Cada vez que ejecutamos el programa y pulsamos intro, se elegirá la siguiente
+cuenta no visitada (es decir, ahora la siguiente cuenta sería `steve_coppin`),
+recuperará sus amigos, los marcará como recuperados y, para cada uno de los
+amigos de `steve_coppin`, o bien lo añadirá al final de la base de datos, o
+bien actualizará su contador de amigos si ya estaba en la base de datos.
 
-Since the program's data is all stored on disk in a database, the
-spidering activity can be suspended and resumed as many times as you
-like with no loss of data.
+Como todos los datos del programa están almacenados en el disco en una base
+de datos, la actividad de rastreo puede ser suspendida y reanudada tantas
+veces como se desee, sin que se produzca ninguna pérdida de datos.
 
 Basic data modeling
 -------------------
