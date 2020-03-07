@@ -3,27 +3,27 @@
 <div class="hide-for-large" id="mobile-support"></div>
 <div id="first-row" class="row">
     <div class="small-12 columns">
-        <h2>Setting up your Python Development Environment</h2>
+        <h2>Creando tu Ambiente de Desarrollo de Python</h2>
         <p>
-            We have separate pages for each of the commonly used Operating Systems:
+            Tenemos páginas separadas para los sistemas operativos más comunes:           
         </p>
         <ul>
             <li>
-                <a href="software-win.php">Setting up the Python Environment in Microsoft Windows</a>
+                <a href="software-win.php">Creando el Ambiente de Desarrollo de Python en Microsoft Windows</a>
             </li>
             <li>
-                <a href="software-mac.php">Setting up the Python Environment on a Macintosh</a>
+                <a href="software-mac.php">Creando el Ambiente de Desarrollo de Python en un Macintosh</a>
             </li>
             <li>
-                You can also set up Python under Windows-10 using the Windows Subsystem for Linux (WSL)
-                if you prefer a Linux-like experience on your windows computer.
+                También puedes configurar Python en Windows 10 usando el Subsistema de Windows para Linux (WSL)
+                si prefieres una experiencia similar a Linux en tu computador Windows.               
             </li>
         </ul>
         <p>
-            Can't or don't want to install software on your computer?  Check out
+            ¿No puedes o no quieres instalar software en tu computador? Revisa            
             <a href="https://www.pythonanywhere.com/">PythonAnywhere</a>,
             <a href="http://trinket.io">Trinket</a>,
-            <a href="http://c9.io">Cloud9</a>, or
+            <a href="http://c9.io">Cloud9</a>, o
             <a href="http://codeanywhere.com">CodeAnywhere</a>.
         </p>
 
