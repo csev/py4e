@@ -538,543 +538,539 @@ Como todos los datos del programa están almacenados en el disco en una base
 de datos, la actividad de rastreo puede ser suspendida y reanudada tantas
 veces como se desee, sin que se produzca ninguna pérdida de datos.
 
-Basic data modeling
--------------------
+Modelado de datos básico
+------------------------
 
-The real power of a relational database is when we create multiple
-tables and make links between those tables. The act of deciding how to
-break up your application data into multiple tables and establishing the
-relationships between the tables is called *data
-modeling*. The design document that shows the tables and their
-relationships is called a *data model*.
+La potencia real de las bases de datos relacionales se manifiesta cuando se
+construyen múltiples tablas y se crean enlaces entre ellas. La acción de decidir
+cómo separar los datos de tu aplicación en múltiples tablas y establecer las
+relaciones entre esas tablas recibe el nombre de *modelado de datos*. El
+documento de diseño que muestra las tablas y sus relaciones se llama *modelo
+de datos*.
 
-Data modeling is a relatively sophisticated skill and we will only
-introduce the most basic concepts of relational data modeling in this
-section. For more detail on data modeling you can start with:
+El modelado de datos es una habilidad relativamente sofisticada, y en esta
+sección sólo introduciremos los conceptos más básicos acerca del tema. Para
+obtener más detalles sobre modelado de datos puedes comenzar con:
 
-<http://en.wikipedia.org/wiki/Relational_model>
+<http://es.wikipedia.org/wiki/Modelo_relacional>
 
-Let's say for our Twitter spider application, instead of just counting a
-person's friends, we wanted to keep a list of all of the incoming
-relationships so we could find a list of everyone who is following a
-particular account.
+Supongamos que para nuestra aplicación de rastreo de Twitter, en vez de contar
+los amigos de una persona sin más, queremos mantener una lista de todas las
+relaciones entre ellos, de modo que podamos encontrar una lista de gente que
+esté siguiendo la cuenta de una persona concreta.
 
-Since everyone will potentially have many accounts that follow them, we
-cannot simply add a single column to our `Twitter` table. So
-we create a new table that keeps track of pairs of friends. The
-following is a simple way of making such a table:
-
-~~~~ {.sql}
-CREATE TABLE Pals (from_friend TEXT, to_friend TEXT)
-~~~~
-
-Each time we encounter a person who `drchuck` is following,
-we would insert a row of the form:
+Dado que todo el mundo puede tener potencialmente muchas cuentas siguiéndole,
+no podemos añadir simplemente una única columna a nuestra tabla de `Twitter`.
+De modo que creamos una tabla nueva que realice un seguimiento de parejas de
+amigos. A continuación se muestra un modo sencillo de hacer una tabla de este
+tipo:
 
 ~~~~ {.sql}
-INSERT INTO Pals (from_friend,to_friend) VALUES ('drchuck', 'lhawthorn')
+CREATE TABLE Colegas (desde_amigo TEXT, hacia_amigo TEXT)
 ~~~~
 
-As we are processing the 20 friends from the `drchuck`
-Twitter feed, we will insert 20 records with "drchuck" as the first
-parameter so we will end up duplicating the string many times in the
-database.
-
-This duplication of string data violates one of the best practices for
-*database normalization* which basically states that we
-should never put the same string data in the database more than once. If
-we need the data more than once, we create a numeric
-*key* for the data and reference the actual data using
-this key.
-
-In practical terms, a string takes up a lot more space than an integer
-on the disk and in the memory of our computer, and takes more processor
-time to compare and sort. If we only have a few hundred entries, the
-storage and processor time hardly matters. But if we have a million
-people in our database and a possibility of 100 million friend links, it
-is important to be able to scan data as quickly as possible.
-
-We will store our Twitter accounts in a table named `People`
-instead of the `Twitter` table used in the previous example.
-The `People` table has an additional column to store the
-numeric key associated with the row for this Twitter user. SQLite has a
-feature that automatically adds the key value for any row we insert into
-a table using a special type of data column (`INTEGER PRIMARY
-KEY`).
-
-We can create the `People` table with this additional
-`id` column as follows:
+Cada vez que encontremos una persona de las que está siguiendo `drchuck`,
+insertaremos una fila de esta forma:
 
 ~~~~ {.sql}
-CREATE TABLE People
-    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)
+INSERT INTO Colegas (desde_amigo,hacia_amigo) VALUES ('drchuck', 'lhawthorn')
 ~~~~
 
-Notice that we are no longer maintaining a friend count in each row of
-the `People` table. When we select `INTEGER PRIMARY
-KEY` as the type of our `id` column, we are indicating
-that we would like SQLite to manage this column and assign a unique
-numeric key to each row we insert automatically. We also add the keyword
-`UNIQUE` to indicate that we will not allow SQLite to insert
-two rows with the same value for `name`.
+Conforma vayamos procesando los 20 amigos de `drchuck` que nos envía Twitter,
+insertaremos 20 registros con "drchuck" como primer parámetro, de modo que
+terminaremos duplicando la cadena un montón de veces en la base de datos.
 
-Now instead of creating the table `Pals` above, we create a
-table called `Follows` with two integer columns `from_id` and
-`to_id` and a constraint on the table that the *combination* of
-`from_id` and `to_id` must be unique in this table (i.e., we cannot
-insert duplicate rows) in our database.
+Esta duplicación de cadenas de datos viola una de las mejores prácticas para la
+*normalización de bases de datos*, que básicamente consiste en que nunca se debe
+guardar la misma cadena más de una vez en la base de datos. Si se necesitan los
+datos varias veces, se debe crear una *clave* numérica para ellos y hacer
+referencia a los datos reales a través de esa clave.
+
+En términos prácticos, una cadena ocupa un montón de espacio más que un entero,
+tanto en el disco como en la memoria del equipo, y además necesita más tiempo
+de procesador para ser comparada y ordenada. Si sólo se tienen unos pocos
+cientos de entradas, el espacio y el tiempo de procesador no importan demasiado.
+Pero si se tienen un millón de personas en la base de datos y la posibilidad
+de 100 millones de enlaces de amigos, es importante ser capaz de revisar los
+datos tan rápido como sea posible.
+
+Vamos a almacenar nuestras cuentas de Twitter en una tabla llamada `Personas`
+en vez de hacerlo en la tabla `Twitter` que usamos en el ejemplo anterior. La
+tabla `Personas` tiene una columna adicional para almacenar la clave numérica
+asociada con la fila de cada usuario de Twitter. SQLite tiene una característica
+que permite añadir automáticamente el valor de la clave para cualquier fila
+que insertemos en la tabla, usando un tipo especial de datos en la columna
+(`INTEGER PRIMARY KEY`).
+
+Podemos crear la tabla `Personas` con esa columna adicional, `id`, como se
+muestra a continuación:
 
 ~~~~ {.sql}
-CREATE TABLE Follows
-    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id) )
+CREATE TABLE Personas
+    (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)
 ~~~~
 
-When we add `UNIQUE` clauses to our tables, we are
-communicating a set of rules that we are asking the database to enforce
-when we attempt to insert records. We are creating these rules as a
-convenience in our programs, as we will see in a moment. The rules both
-keep us from making mistakes and make it simpler to write some of our
-code.
+Hay que notar que ya no necesitamos mantener un contador de amigos en cada
+columna de la tabla `Personas`. Cuando elegimos `INTEGER PRIMARY KEY` como el
+tipo de la columa `id`, estamos indicando que queremos que SQLite controle esta
+columa y asigne automáticamente una clave numérica única para cada fila que
+insertemos. También añadimos la palabra clave `UNIQUE`, para indicar que no
+vamos a permitir a SQLite insertar dos filas con el mismo valor de `nombre`.
 
-In essence, in creating this `Follows` table, we are
-modelling a "relationship" where one person "follows" someone else and
-representing it with a pair of numbers indicating that (a) the people
-are connected and (b) the direction of the relationship.
+Ahora, en vez de crear la tabla `Colegas` como hicimos antes, crearemos una tabla
+llamada `Seguimientos` con dos columnas de tipo entero, `desde_id` y `hacia_id`,
+y una restricción en la tabla que consistirá en que la *combinación* de
+`desde_id` y `hacia_id` deberá ser única (es decir, no se podrán insertar filas
+en la tabla con estos valores duplicados) en nuestra base de datos.
 
-![Relationships Between Tables](height=3.5in@figs2/twitter)
+~~~~ {.sql}
+CREATE TABLE Seguimientos
+    (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id) )
+~~~~
 
-Programming with multiple tables
---------------------------------
+Cuando añadimos la clausula `UNIQUE` a nuestras tablas, estamos comunicando
+un conjunto de reglas que vamos a exigir a la base de datos que se cumplan cuando
+se intenten insertar registros. Estamos creando esas reglas porque le convienen
+a nuestro programa, como veremos dentro de un momento. Ambas reglas impiden que
+se cometan errores y hacen más sencillo escribir parte de nuestro código.
 
-We will now redo the Twitter spider program using two tables, the
-primary keys, and the key references as described above. Here is the
-code for the new version of the program:
+En esencia, al crear esta tabla `Seguimientos` estamos modelando una "relación",
+en la cual una persona "sigue" a otra y se representa con un par de números que
+indican que (a) ambas personas están conectadas y (b) la dirección de la relación.
+
+![Relaciones Entre Tablas](height=3.5in@figs2/twitter)
+
+Programación con múltiples tablas
+---------------------------------
+
+Ahora vamos a rehacer de nuevo el programa araña de Twitter usando dos tablas,
+las claves primarias, y las claves de referencia, como hemos descrito antes. He
+aquí el código de la nueva versión del programa:
 
 \VerbatimInput{../code3/twfriends.py}
 
-This program is starting to get a bit complicated, but it illustrates
-the patterns that we need to use when we are using integer keys to link
-tables. The basic patterns are:
+Este programa empieza a resultar un poco complicado, pero ilustra los patrones
+de diseño que debemos usar cuando utilizamos claves de enteros para enlazar
+tablas. Esos patrones básicos son:
 
-1.  Create tables with primary keys and constraints.
+1.  Crear tablas con claves primarias y restricciones.
 
-2.  When we have a logical key for a person (i.e., account name) and we
-    need the `id` value for the person, depending on whether
-    or not the person is already in the `People` table we
-    either need to: (1) look up the person in the `People`
-    table and retrieve the `id` value for the person or (2)
-    add the person to the `People` table and get the
-    `id` value for the newly added row.
+2.  Cuando tenemos una clave lógica para una persona (es decir, un nombre de
+    cuenta) y necesitamos el valor del `id` de esa persona, dependiento de si
+    esa persona ya está en la tabla `Personas` o no, tendremos que: (1) buscar
+    la persona en la tabla `Personas` y recuperar el valor de `id` para esa
+    persona, o (2) añadir la persona a la tabla `Personas` y obtener el valor
+    del `id` para la fila recién añadida.
 
-3.  Insert the row that captures the "follows" relationship.
+3.  Insertar la fila que indica la relación de "seguimiento".
 
-We will cover each of these in turn.
+Vamos a explicar todos los puntos de uno en uno.
 
-### Constraints in database tables
+### Restricciones en tablas de bases de datos
 
-As we design our table structures, we can tell the database system that
-we would like it to enforce a few rules on us. These rules help us from
-making mistakes and introducing incorrect data into out tables. When we
-create our tables:
+Conforme diseñamos la estructura de la tabla, podemos indicar al sistema de la
+base de datos que queremos aplicar algunas reglas. Estas reglas nos ayudarán a
+evitar errores y a introducir correctamente los datos en las tablas. Cuando
+creamos nuestras tablas:
 
 ~~~~ {.python}
-cur.execute('''CREATE TABLE IF NOT EXISTS People
-    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
-cur.execute('''CREATE TABLE IF NOT EXISTS Follows
-    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Personas
+    (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Seguimientos
+    (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id))''')
 ~~~~
 
-We indicate that the `name` column in the `People`
-table must be `UNIQUE`. We also indicate that the combination
-of the two numbers in each row of the `Follows` table must be
-unique. These constraints keep us from making mistakes such as adding
-the same relationship more than once.
+Estamos indicando que la columna `nombre` de la tabla `Personas` debe ser 
+`UNIQUE` (única). Además indicamos que la combinación de los dos números de cada
+fila de la tabla `Seguimientos` debe ser también única. Estas restricciones
+evitan que cometamos errores como añadir la misma relación entre las mismas
+personas más de una vez.
 
-We can take advantage of these constraints in the following code:
+Después, podemos aprovechar estas restricciones en el código siguiente:
 
 ~~~~ {.python}
-cur.execute('''INSERT OR IGNORE INTO People (name, retrieved)
-    VALUES ( ?, 0)''', ( friend, ) )
+cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado)
+    VALUES ( ?, 0)''', ( amigo, ) )
 ~~~~
 
-We add the `OR IGNORE` clause to our `INSERT`
-statement to indicate that if this particular `INSERT` would
-cause a violation of the "`name` must be unique" rule, the
-database system is allowed to ignore the `INSERT`. We are
-using the database constraint as a safety net to make sure we don't
-inadvertently do something incorrect.
+Aquí añadimos la clausula `OR IGNORE` en la sentencia `INSERT` para indicar que si
+este `INSERT` en particular causara una violación de la regla "el `nombre` debe
+ser único", el sistema de la base de datos está autorizado a ignorar el `INSERT`.
+De esta forma, estamos usando las restricciones de la base de datos como una
+red de seguridad para asegurarnos de que no hacemos algo incorrecto sin darnos
+cuenta.
 
-Similarly, the following code ensures that we don't add the exact same
-`Follows` relationship twice.
+De manera similar, el código siguiente se asegura de que no añadamos exactamente
+la misma relación de `Seguimiento` dos veces.
 
 ~~~~ {.python}
-cur.execute('''INSERT OR IGNORE INTO Follows
-    (from_id, to_id) VALUES (?, ?)''', (id, friend_id) )
+cur.execute('''INSERT OR IGNORE INTO Seguimientos
+    (desde_id, hacia_id) VALUES (?, ?)''', (id, amigo_id) )
 ~~~~
 
-Again, we simply tell the database to ignore our attempted
-`INSERT` if it would violate the uniqueness constraint that
-we specified for the `Follows` rows.
+De nuevo, simplemente estamos indicándole a la base de datos que ignore cualquier
+intento de `INSERT` si éste viola la restricción de unicidad que hemos
+especificado para cada fila de `Seguimientos`.
 
-### Retrieve and/or insert a record
+### Recuperar y/o insertar un registro
 
-When we prompt the user for a Twitter account, if the account exists, we
-must look up its `id` value. If the account does not yet
-exist in the `People` table, we must insert the record and
-get the `id` value from the inserted row.
+Cuando pedimos al usuario una cuenta de Twitter, si la cuenta ya existe debemos
+averiguar el valor de su `id`. Si la cuenta no existe aún en la tabla `Personas`,
+debemos insertar el registro y obtener el valor del `id` de la fila recién
+insertada.
 
-This is a very common pattern and is done twice in the program above.
-This code shows how we look up the `id` for a friend's
-account when we have extracted a `screen_name` from a `user`
-node in the retrieved Twitter JSON.
+Éste es un diseño muy habitual y se utiliza dos veces en el programa anterior.
+Este código muestra cómo se busca el `id` de la cuenta de un amigo, una vez
+extraído su `screen_name` desde un nodo de `usuario` del JSON recuperado desde
+Twitter.
 
-Since over time it will be increasingly likely that the account will
-already be in the database, we first check to see if the
-`People` record exists using a `SELECT` statement.
+Dado que con el tiempo será cada vez más probable que la cuenta ya figure en la
+base de datos, primero comprobaremos si el registro existe en `Personas`, usando
+una sentencia `SELECT`.
 
-If all goes well^[In general, when a sentence starts with "if all goes well" you
-will find that the code needs to use try/except.] inside 
-the `try` section, we retrieve
-the record using `fetchone()` and then retrieve the first
-(and only) element of the returned tuple and store it in `friend_id`.
+Si todo sale bien^[En general, cuando una frase empieza por "si todo va bien",
+es porque el código del que se habla necesita utilizar try/except.] dentro de
+la sección `try` recuperaremos el registro mediante `fetchone()` y luego
+extraeremos el primer (y único) elemento de la tupla devuelta, que almacenaremos
+en `amigo_id`.
 
-If the `SELECT` fails, the `fetchone()[0]` code
-will fail and control will transfer into the `except`
-section.
+Si el `SELECT` falla, el código `fetchone()[0]` también fallará, y el control
+será transferido a la sección `except`.
 
 ~~~~ {.python}
-    friend = u['screen_name']
-    cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
-        (friend, ) )
+    amigo = u['screen_name']
+    cur.execute('SELECT id FROM Personas WHERE nombre = ? LIMIT 1',
+        (amigo, ) )
     try:
-        friend_id = cur.fetchone()[0]
-        countold = countold + 1
+        amigo_id = cur.fetchone()[0]
+        contantiguas = contantiguas + 1
     except:
-        cur.execute('''INSERT OR IGNORE INTO People (name, retrieved)
-            VALUES ( ?, 0)''', ( friend, ) )
+        cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado)
+            VALUES ( ?, 0)''', ( amigo, ) )
         conn.commit()
         if cur.rowcount != 1 :
-            print('Error inserting account:',friend)
+            print('Error al insertar cuenta:',amigo)
             continue
-        friend_id = cur.lastrowid
-        countnew = countnew + 1
+        amigo_id = cur.lastrowid
+        contnuevas = contnuevas + 1
 ~~~~
 
-If we end up in the `except` code, it simply means that the
-row was not found, so we must insert the row. We use `INSERT OR
-IGNORE` just to avoid errors and then call `commit()`
-to force the database to really be updated. After the write is done, we
-can check the `cur.rowcount` to see how many rows were
-affected. Since we are attempting to insert a single row, if the number
-of affected rows is something other than 1, it is an error.
+Si terminamos en el código del `except`, eso sólo significa que la fila no se
+ha encontrado en la table, de modo que debemos insertarla. Usamos `INSERT OR IGNORE`
+para evitar posibles errores, y luego llamamos a `commit()` para forzar a la
+base de datos a que se actualice de verdad. Después de que se ha realizado
+la escritura, podemos comprobar el valor de `cur.rowcount`, para saber cuántas
+filas se han visto afectadas. Como estamos intentando insertar una única fila,
+si el número de filas afectadas es distinto de 1, se habría producido un error.
 
-If the `INSERT` is successful, we can look at
-`cur.lastrowid` to find out what value the database assigned
-to the `id` column in our newly created row.
+Si el `INSERT` tiene éxito, podemos usar `cur.lastrowid` para averiguar el
+valor que la base de datos ha asignado a la columna `id` en nuestra fila
+recién creada.
 
-### Storing the friend relationship
+### Almacenar las relaciones entre amigos
 
-Once we know the key value for both the Twitter user and the friend in
-the JSON, it is a simple matter to insert the two numbers into the
-`Follows` table with the following code:
+Una vez que sabemos el valor de la clave tanto para el usuario de Twitter como
+para el amigo que hemos extraído del JSON, resulta sencillo insertar ambos
+números en la tabla de `Seguimientos` con el código siguiente:
 
 ~~~~ {.python}
-cur.execute('INSERT OR IGNORE INTO Follows (from_id, to_id) VALUES (?, ?)',
-    (id, friend_id) )
+cur.execute('INSERT OR IGNORE INTO Seguimientos (desde_id, hacia_id) VALUES (?, ?)',
+    (id, amigo_id) )
 ~~~~
 
-Notice that we let the database take care of keeping us from
-"double-inserting" a relationship by creating the table with a
-uniqueness constraint and then adding `OR IGNORE` to our
-`INSERT` statement.
+Nota que dejamos que sea la base de datos quien se ocupe de evitar la "inserción
+duplicada" de una relación, mediante la creación de una tabla con una restricción
+de unicidad, de modo que luego en nuestra sentencia `INSERT` tan sólo añadimos
+`o ignoramos`.
 
-Here is a sample execution of this program:
-
-~~~~
-Enter a Twitter account, or quit:
-No unretrieved Twitter accounts found
-Enter a Twitter account, or quit: drchuck
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 20  revisited= 0
-Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit: quit
-~~~~
-
-We started with the `drchuck` account and then let the
-program automatically pick the next two accounts to retrieve and add to
-our database.
-
-The following is the first few rows in the `People` and
-`Follows` tables after this run is completed:
+Aquí está un ejemplo de la ejecución de este programa:
 
 ~~~~
-People:
+Ingresa una cuenta de Twitter, o salir:
+No se han encontrado cuentas de Twitter sin recuperar
+Ingresa una cuenta de Twitter, o salir: drchuck
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 20  ya visitadas= 0
+Ingresa una cuenta de Twitter, o salir:
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 17  ya visitadas= 3
+Ingresa una cuenta de Twitter, o salir:
+Recuperando http://api.twitter.com/1.1/friends ...
+Cuentas nuevas= 17  ya visitadas= 3
+Ingresa una cuenta de Twitter, o salir: salir
+~~~~
+
+Comenzamos con la cuenta de `drchuck` y luego dejamos que el programa escoja
+de forma automática las siguientes dos cuentas para recuperar y añadir a nuestra
+base de datos.
+
+Las siguientes son las primeras filas de las tablas `Personas` y `Seguimientos`
+después de terminar la ejecución anterior:
+
+~~~~
+Personas:
 (1, 'drchuck', 1)
 (2, 'opencontent', 1)
 (3, 'lhawthorn', 1)
 (4, 'steve_coppin', 0)
 (5, 'davidkocher', 0)
-55 rows.
-Follows:
+55 filas.
+Seguimientos:
 (1, 2)
 (1, 3)
 (1, 4)
 (1, 5)
 (1, 6)
-60 rows.
+60 filas.
 ~~~~
 
-You can see the `id`, `name`, and
-`visited` fields in the `People` table and you see
-the numbers of both ends of the relationship in the `Follows`
-table. In the `People` table, we can see that the first three
-people have been visited and their data has been retrieved. The data in
-the `Follows` table indicates that `drchuck` (user
-1) is a friend to all of the people shown in the first five rows. This
-makes sense because the first data we retrieved and stored was the
-Twitter friends of `drchuck`. If you were to print more rows
-from the `Follows` table, you would see the friends of users
-2 and 3 as well.
+Puedes ver los campos `id`, `nombre`, `visitado` de la tabla `Personas`, y
+también los números de ambos extremos de la relación en la tabla `Seguimientos`.
+En la tabla `Personas`, vemos que las primeras tres personas ya han sido
+visitadas y que sus datos han sido recuperados. Los datos de la tabla
+`Seguidores` indican que `drchuck` (usuario 1) es amigo de todas las personas
+que se muestran en las primeras cinco filas. Esto tiene sentido, ya que los
+primeros datos que recuperamos y almacenamos fueron los amigos de Twitter de
+`drchuck`. Si imprimieras más filas de la tabla `Seguimientos` verías también
+los amigos de los usuarios 2 y 3.
 
-Three kinds of keys
--------------------
+Tres tipos de claves
+--------------------
 
-Now that we have started building a data model putting our data into
-multiple linked tables and linking the rows in those tables using
-*keys*, we need to look at some terminology around keys.
-There are generally three kinds of keys used in a database model.
+Ahora que hemos empezado a construir un modelo de datos, colocando nuestros
+datos en múltiples tablas enlazadas, y hemos enlazado las filas de esas tablas
+usando *claves*, debemos fijarnos en cierta terminología acerca de esas claves.
+Generalmente, en un modelo de base de datos hay tres tipos de claves que se
+pueden usar.
 
--   A *logical key* is a key that the "real world" might
-    use to look up a row. In our example data model, the
-    `name` field is a logical key. It is the screen name for
-    the user and we indeed look up a user's row several times in the
-    program using the `name` field. You will often find that
-    it makes sense to add a `UNIQUE` constraint to a logical
-    key. Since the logical key is how we look up a row from the outside
-    world, it makes little sense to allow multiple rows with the same
-    value in the table.
+-   Una *clave lógica* es una clave que se podría usar en el "mundo real" para
+    localizar una fila. En nuestro ejemplo de modelado de datos, el campo
+    `nombre` es una clave lógica. Es el nombre que se muestra en pantalla para
+    el usuario y, en efecto, usamos el campo `nombre` varias veces en el
+    programa para localizar la fila correspondiente a un usuario. Comprobarás
+    que a menudo tiene sentido añadir una restricción `UNIQUE (única)` a una
+    clave lógica. Como las claves lógicas son las que usamos para buscar una
+    fila desde el mundo exterior, tendría poco sentido permitir que hubiera
+    múltiples filas con el mismo valor en la tabla.
 
--   A *primary key* is usually a number that is assigned
-    automatically by the database. It generally has no meaning outside
-    the program and is only used to link rows from different tables
-    together. When we want to look up a row in a table, usually
-    searching for the row using the primary key is the fastest way to
-    find the row. Since primary keys are integer numbers, they take up
-    very little storage and can be compared or sorted very quickly. In
-    our data model, the `id` field is an example of a primary
-    key.
+-   Una *clave primaria* es normalmente un número que es asignado automáticamente
+    por la base de datos. En general no tiene ningún significado fuera del programa
+    y sólo se utiliza para enlazar entre sí filas de tablas diferentes. Cuando
+    queremos buscar una fila en una tabla, realizar la búsqueda usando la clave
+    primaria es, normalmente, el modo más rápido de localizarla. Como las
+    claves primarias son números enteros, necesitan muy poco espacio de
+    almacenamiento y pueden ser comparadas y ordenadas muy rápido. En nuestro
+    modelo de datos, el campo `id` es un ejemplo de una clave primaria.
 
--   A *foreign key* is usually a number that points to
-    the primary key of an associated row in a different table. An
-    example of a foreign key in our data model is the `from_id`.
+-   Una *clave foránea* (foreign key) es normalmente un número que apunta
+    a la clave primaria de una fila asociada en una tabla diferente. Un ejemplo
+    de una clave foránea en nuestro modelo de datos es la columna `desde_id`.
 
-We are using a naming convention of always calling the primary key field
-name `id` and appending the suffix `_id` to any field name
-that is a foreign key.
+Estamos usando como convención para los nombres el darle siempre al campo de
+clave primaria el nombre `id` y añadir el sufijo `_id` a cualquier nombre de campo
+que sea una clave foránea.
 
-Using JOIN to retrieve data
----------------------------
 
-Now that we have followed the rules of database normalization and have
-data separated into two tables, linked together using primary and
-foreign keys, we need to be able to build a `SELECT` that
-reassembles the data across the tables.
+Uso de JOIN para recuperar datos
+--------------------------------
 
-SQL uses the `JOIN` clause to reconnect these tables. In the
-`JOIN` clause you specify the fields that are used to
-reconnect the rows between the tables.
+Ahora que hemos cumplido con las reglas de la normalización de bases de datos
+y hemos separado los datos en dos tablas, enlazándolas entre sí usando claves
+primarias y foráneas, necesitaremos ser capaces de construir un `SELECT` que
+vuelva a juntar los datos esparcidos por las tablas.
 
-The following is an example of a `SELECT` with a
-`JOIN` clause:
+SQL usa la clausula `JOIN` para volver a conectar esas tablas. En la clausula
+`JOIN` se especifican los campos que se utilizan para reconectar las filas entre las
+distintas tablas.
+
+A continuación se muestra un ejemplo de un `SELECT` con una clausula
+`JOIN`:
 
 ~~~~ {.sql}
-SELECT * FROM Follows JOIN People
-    ON Follows.from_id = People.id WHERE People.id = 1
+SELECT * FROM Seguimientos JOIN Personas
+    ON Seguimientos.desde_id = Personas.id WHERE Personas.id = 1
 ~~~~
 
-The `JOIN` clause indicates that the fields we are selecting
-cross both the `Follows` and `People` tables. The
-`ON` clause indicates how the two tables are to be joined:
-Take the rows from `Follows` and append the row from
-`People` where the field `from_id` in `Follows` is
-the same the `id` value in the `People` table.
+La clausula `JOIN` indica que los campos que estamos seleccionando mezclan las
+tablas `Seguimientos` y `Personas`. La clausula `ON` indica cómo deben ser unidas
+las dos tablas: Toma cada fila de `Seguimientos` y añade una fila de `Personas`
+en la cual el campo `desde_id` en `Seguimientos` coincide con el valor `id`
+en la tabla `Personas`.
 
-![Connecting Tables Using JOIN](height=3.5in@figs2/join)
+![Conexión de Tablas Usando JOIN](height=3.5in@figs2/join)
 
-The result of the JOIN is to create extra-long "metarows" which have
-both the fields from `People` and the matching fields from
-`Follows`. Where there is more than one match between the
-`id` field from `People` and the `from_id` from
-`People`, then JOIN creates a metarow for *each* of the
-matching pairs of rows, duplicating data as needed.
+El resultado del JOIN consiste en la creación de una "meta-fila" extra larga,
+que contendrá tanto los campos de `Personas` como los campos de la fila de
+`Seguimientos` que cumplan la condición. Cuando hay más de una coincidencia entre
+el campo `id` de `Personas` y el `desde_id` de `Seguimientos`, JOIN creará una
+meta-fila para *cada una* de las parejas de filas que coincidan, duplicando
+los datos si es necesario.
 
-The following code demonstrates the data that we will have in the
-database after the multi-table Twitter spider program (above) has been
-run several times.
+El código siguiente muestra los datos que tendremos en la base de datos después
+de que el programa multi-tabla araña de Twitter anterior haya sido ejecutado
+varias veces.
 
 \VerbatimInput{../code3/twjoin.py}
 
-In this program, we first dump out the `People` and
-`Follows` and then dump out a subset of the data in the
-tables joined together.
+En este programa, en primer lugar volcamos el contenido de las tablas `Personas` y
+`Seguimientos` y a continuación mostramos un subconjunto de datos de las tablas
+unidas entre sí.
 
-Here is the output of the program:
+Aquí tenemos la salida del programa:
 
 ~~~~
 python twjoin.py
-People:
+Personas:
 (1, 'drchuck', 1)
 (2, 'opencontent', 1)
 (3, 'lhawthorn', 1)
 (4, 'steve_coppin', 0)
 (5, 'davidkocher', 0)
-55 rows.
-Follows:
+55 filas.
+Seguimientos:
 (1, 2)
 (1, 3)
 (1, 4)
 (1, 5)
 (1, 6)
-60 rows.
-Connections for id=2:
+60 filas.
+Conexiones para id=2:
 (2, 1, 1, 'drchuck', 1)
 (2, 28, 28, 'cnxorg', 0)
 (2, 30, 30, 'kthanos', 0)
 (2, 102, 102, 'SomethingGirl', 0)
 (2, 103, 103, 'ja_Pac', 0)
-20 rows.
+20 filas.
 ~~~~
 
-You see the columns from the `People` and
-`Follows` tables and the last set of rows is the result of
-the `SELECT` with the `JOIN` clause.
+Se pueden ver las columnas de las tablas `Personas` y `Seguimientos`, seguidos
+del último conjunto de filas, que es el resultado del `SELECT` con la clausula
+`JOIN`.
 
-In the last select, we are looking for accounts that are friends of
-"opencontent" (i.e., `People.id=2`).
+En el último select, buscamos las cuentas que sean amigas de "opencontent" (es
+decir, de `Personas.id=2`).
 
-In each of the "metarows" in the last select, the first two columns are
-from the `Follows` table followed by columns three through
-five from the `People` table. You can also see that the
-second column (`Follows.to_id`) matches the third column
-(`People.id`) in each of the joined-up "metarows".
+En cada una de las "meta-filas" del último select, las primeras dos columnas
+pertenecen a la tabla `Seguimientos`, mientras que las columnas tres a cinco
+pertenecen a la tabla `Personas`. Se puede observar también cómo la segunda
+columna (`Seguimientos.hacia_id`) coincide con la tercera (`Personas.id`) en cada
+una de las "meta-filas" unidas.
 
-Summary
+Resumen
 -------
 
-This chapter has covered a lot of ground to give you an overview of the
-basics of using a database in Python. It is more complicated to write
-the code to use a database to store data than Python dictionaries or
-flat files so there is little reason to use a database unless your
-application truly needs the capabilities of a database. The situations
-where a database can be quite useful are: (1) when your application
-needs to make small many random updates within a large data set, (2)
-when your data is so large it cannot fit in a dictionary and you need to
-look up information repeatedly, or (3) when you have a long-running
-process that you want to be able to stop and restart and retain the data
-from one run to the next.
+En este capítulo se han tratado un montón de temas para darte una visión de
+de lo necesario para utilizar una base de datos en Python. Es más complicado
+escribir el código para usar una base de datos que almacene los datos que
+utilizar diccionarios de Python o archivos planos, de modo que existen pocas
+razones para usar una base de datos, a menos que tu aplicación necesite de verdad
+las capacidades que proporciona. Las situaciones en las cuales una base de datos
+pueden resultar bastante útil son: (1) cuanto tu aplicación necesita realizar
+muchos cambios pequeños de forma aleatoria en un conjunto de datos grandes, (2)
+cuando tienes tantos datos que no caben en un diccionario y necesitas localizar
+información con frecuencia, o (3) cuando tienes un proceso que va a funcionar
+durante mucho tiempo, y necesitas poder detenerlo y volverlo a poner en marcha,
+conservando los datos entre ejecuciones.
 
-You can build a simple database with a single table to suit many
-application needs, but most problems will require several tables and
-links/relationships between rows in different tables. When you start
-making links between tables, it is important to do some thoughtful
-design and follow the rules of database normalization to make the best
-use of the database's capabilities. Since the primary motivation for
-using a database is that you have a large amount of data to deal with,
-it is important to model your data efficiently so your programs run as
-fast as possible.
+Una base de datos con una simple tabla puede resultar suficiente para cubrir las
+necesidades de muchas aplicaciones, pero la mayoría de los problemas necesitarán
+varias tablas y enlaces/relaciones entre filas de tablas diferentes. Cuando
+empieces a crear enlaces entre tablas, es importante realizar un diseño meditado y
+seguir las reglas de normalización de bases de datos, para conseguir el mejor
+uso de sus capacidades. Como la motivación principal para usar una base de datos
+suele ser el tener grandes cantidades de datos con las que tratar, resulta
+importante modelar los datos de forma eficiente, para que tu programa funcione
+tan rápidamente como sea posible.
 
-Debugging
----------
+Depuración
+----------
 
-One common pattern when you are developing a Python program to connect
-to an SQLite database will be to run a Python program and check the
-results using the Database Browser for SQLite. The browser allows you to
-quickly check to see if your program is working properly.
+Un planteamiento habitual, cuando se está desarrollando un programa en Python
+que conecta con una base de datos SQLite, será ejecutar primero el programa y
+revisar luego los resultados usando el navegador de bases de datos de SQLite
+(Database Browser for SQLite). El navegador te permite revisar cuidadosamente
+los datos, para comprobar si tu programa está funcionando correctamente.
 
-You must be careful because SQLite takes care to keep two programs from
-changing the same data at the same time. For example, if you open a
-database in the browser and make a change to the database and have not
-yet pressed the "save" button in the browser, the browser "locks" the
-database file and keeps any other program from accessing the file. In
-particular, your Python program will not be able to access the file if
-it is locked.
+Debes tener cuidado, ya que SQLite se encarga de evitar que dos programas puedan
+cambiar los mismos datos a la vez. Por ejemplo, si abres una base de datos en el
+navegador y realizas un cambio en la base de datos, pero no has pulsado aún el
+botón "guardar" del navegador, éste "bloqueará" el archivo de la base de datos
+y evitará que cualquier otro programa acceda a dicho fichero. Concretamente, en
+ese caso tu programa de Python no será capaz de acceder al archivo, ya que éste
+se encontrará bloqueado.
 
-So a solution is to make sure to either close the database browser or
-use the *File* menu to close the database in the browser
-before you attempt to access the database from Python to avoid the
-problem of your Python code failing because the database is locked.
+De modo que la solución pasa por asegurarse de cerrar la ventana del navegador
+de la base de datos, o bien usar el menú *Archivo* para cerrar la base de datos
+abierta en el navegador antes de intentar acceder a ella desde Python, para evitar
+encontrarse con el problema de que el código de Python falle debido a que la
+base de datos está bloqueada.
 
-Glossary
+Glosario
 --------
 
-attribute
-:   One of the values within a tuple. More commonly called a "column" or
-    "field".
-\index{attribute}
-
-constraint
-:   When we tell the database to enforce a rule on a field or a row in a
-    table. A common constraint is to insist that there can be no
-    duplicate values in a particular field (i.e., all the values must be
-    unique).
-\index{constraint}
+atributo
+:   Uno de los valores dentro de una tupla. Más comúnmente llamada "columa" o
+    "campo".
+\index{atributo}
 
 cursor
-:   A cursor allows you to execute SQL commands in a database and
-    retrieve data from the database. A cursor is similar to a socket or
-    file handle for network connections and files, respectively.
+:   Un cursor permite ejecutar comandos SQL en una base de datos y recuperar los
+    datos de ella. Un cursor es similar a un socket en conexiones de red o a un
+    manejar de archivos.
 \index{cursor}
 
-database browser
-:   A piece of software that allows you to directly connect to a
-    database and manipulate the database directly without writing a
-    program.
-\index{database browser}
+clave foránea
+:   Una clave nuḿerica que apunta a la clave primaria de una fila en otra tabla.
+    Las claves foráneas establecen relaciones entre filas almacenadas en
+    tablas diferentes.
+\index{clave foránea}
 
-foreign key
-:   A numeric key that points to the primary key of a row in another
-    table. Foreign keys establish relationships between rows stored in
-    different tables.
-\index{foreign key}
+clave lógica
+:   Una clave que el "mundo exterior" utiliza para localizar una fila concreta.
+    Por ejemplo, en una tabla de cuentas de usuario, la dirección de e-mail de
+    una persona sería un buen candidato a utilizar como clave lógica para los
+    datos de ese usuario.
+\index{clave lógica}
 
-index
-:   Additional data that the database software maintains as rows and
-    inserts into a table to make lookups very fast.
-\index{index}
+clave primaria
+:   Una clave numérica asignada a cada fila, que es utilizada para referirnos
+    a esa fila concreta de esa tabla desde otra tabla distinta. A menudo la base
+    de datos se configura para asignar las claves primarias de forma automática,
+    según se van insertando filas.
+\index{clave primaria}
+
+índice
+:   Datos adicionales que el software de la base de datos mantiene como filas e
+    inserta en una tabla para conseguir que las búsquedas sean muy rápidas.
+\index{índice}
 \index{}
 
-logical key
-:   A key that the "outside world" uses to look up a particular row. For
-    example in a table of user accounts, a person's email address might
-    be a good candidate as the logical key for the user's data.
-\index{logical key}
+navegador de base de datos
+:   Un programa que permite conectar directamente con una base de datos y
+    manipularla, sin tener que escribir código para ello.
+\index{navegador de base de datos}
 
-normalization
-:   Designing a data model so that no data is replicated. We store each
-    item of data at one place in the database and reference it elsewhere
-    using a foreign key.
-\index{normalization}
-\index{database normalization}
+normalización
+:   Diseño de un modelado de datos de forma que no haya datos duplicados. Se
+    almacena cada elemento de los datos en un lugar concreto de la base de
+    datos y se referencia desde otros sitios usando una clave foránea.
+\index{normalización}
+\index{normalización de bases de datos}
 
-primary key
-:   A numeric key assigned to each row that is used to refer to one row
-    in a table from another table. Often the database is configured to
-    automatically assign primary keys as rows are inserted.
-\index{primary key}
+relación
+:   Un área dentro de una base de datos que contiene tuplas y atributos. Se le
+    conoce más habitualmente como "tabla".
+\index{relación}
 
-relation
-:   An area within a database that contains tuples and attributes. More
-    typically called a "table".
-\index{relation}
+restricción
+:   Cuando le pedimos a una base de datos que imponga una regla a un campo de una
+    fila en una tabla. Una restricción habitual consiste en especificar que no
+    pueda haber valores repetidos en un campo concreto (es decir, que todos los
+    valores deban ser únicos).
+\index{restricción}
 
-tuple
-:   A single entry in a database table that is a set of attributes. More
-    typically called "row".
-
-\index{tuple}
+tupla
+:   Una entrada única en una base de datos, que es un conjunto de atributos. Se
+    le conoce más habitualmente como "fila".
+\index{tupla}
 
