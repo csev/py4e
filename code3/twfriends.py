@@ -6,13 +6,13 @@ import ssl
 
 TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 
-conn = sqlite3.connect('friends.sqlite')
+conn = sqlite3.connect('amigos.sqlite')
 cur = conn.cursor()
 
-cur.execute('''CREATE TABLE IF NOT EXISTS People
-            (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
-cur.execute('''CREATE TABLE IF NOT EXISTS Follows
-            (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Personas
+            (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Seguimientos
+            (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id))''')
 
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
@@ -20,81 +20,81 @@ ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 while True:
-    acct = input('Enter a Twitter account, or quit: ')
-    if (acct == 'quit'): break
-    if (len(acct) < 1):
-        cur.execute('SELECT id, name FROM People WHERE retrieved=0 LIMIT 1')
+    cuenta = input('Ingresa una cuenta de Twitter, o salir: ')
+    if (cuenta == 'salir'): break
+    if (len(cuenta) < 1):
+        cur.execute('SELECT id, nombre FROM Personas WHERE recuperado=0 LIMIT 1')
         try:
-            (id, acct) = cur.fetchone()
+            (id, cuenta) = cur.fetchone()
         except:
-            print('No unretrieved Twitter accounts found')
+            print('No se han encontrado cuentas de Twitter sin recuperar')
             continue
     else:
-        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
-                    (acct, ))
+        cur.execute('SELECT id FROM Personas WHERE nombre = ? LIMIT 1',
+                    (cuenta, ))
         try:
             id = cur.fetchone()[0]
         except:
-            cur.execute('''INSERT OR IGNORE INTO People
-                        (name, retrieved) VALUES (?, 0)''', (acct, ))
+            cur.execute('''INSERT OR IGNORE INTO Personas
+                        (nombre, recuperado) VALUES (?, 0)''', (cuenta, ))
             conn.commit()
             if cur.rowcount != 1:
-                print('Error inserting account:', acct)
+                print('Error insertando cuenta:', cuenta)
                 continue
             id = cur.lastrowid
 
-    url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '100'})
-    print('Retrieving account', acct)
+    url = twurl.augment(TWITTER_URL, {'screen_name': cuenta, 'count': '100'})
+    print('Recuperando cuenta', cuenta)
     try:
-        connection = urllib.request.urlopen(url, context=ctx)
+        conexion = urllib.request.urlopen(url, context=ctx)
     except Exception as err:
-        print('Failed to Retrieve', err)
+        print('Fallo al recuperar', err)
         break
 
-    data = connection.read().decode()
-    headers = dict(connection.getheaders())
+    datos = conexion.read().decode()
+    cabeceras = dict(conexion.getheaders())
 
-    print('Remaining', headers['x-rate-limit-remaining'])
+    print('Restantes', cabeceras['x-rate-limit-remaining'])
 
     try:
-        js = json.loads(data)
+        js = json.loads(datos)
     except:
-        print('Unable to parse json')
-        print(data)
+        print('Fallo al analizar json')
+        print(datos)
         break
 
-    # Debugging
+    # Depuración
     # print(json.dumps(js, indent=4))
 
     if 'users' not in js:
-        print('Incorrect JSON received')
+        print('JSON incorrecto recibido')
         print(json.dumps(js, indent=4))
         continue
 
-    cur.execute('UPDATE People SET retrieved=1 WHERE name = ?', (acct, ))
+    cur.execute('UPDATE Personas SET recuperado=1 WHERE nombre = ?', (cuenta, ))
 
-    countnew = 0
-    countold = 0
+    contnuevas = 0
+    contantiguas = 0
     for u in js['users']:
-        friend = u['screen_name']
-        print(friend)
-        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
-                    (friend, ))
+        amigo = u['screen_name']
+        print(amigo)
+        cur.execute('SELECT id FROM Personas WHERE nombre = ? LIMIT 1',
+                    (amigo, ))
         try:
-            friend_id = cur.fetchone()[0]
-            countold = countold + 1
+            amigo_id = cur.fetchone()[0]
+            contantiguas = contantiguas + 1
         except:
-            cur.execute('''INSERT OR IGNORE INTO People (name, retrieved)
-                        VALUES (?, 0)''', (friend, ))
+            cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado)
+                        VALUES (?, 0)''', (amigo, ))
             conn.commit()
             if cur.rowcount != 1:
-                print('Error inserting account:', friend)
+                print('Error inserting account:', amigo)
                 continue
-            friend_id = cur.lastrowid
-            countnew = countnew + 1
-        cur.execute('''INSERT OR IGNORE INTO Follows (from_id, to_id)
-                    VALUES (?, ?)''', (id, friend_id))
-    print('New accounts=', countnew, ' revisited=', countold)
-    print('Remaining', headers['x-rate-limit-remaining'])
+            amigo_id = cur.lastrowid
+            contnuevas = contnuevas + 1
+        cur.execute('''INSERT OR IGNORE INTO Seguimientos (desde_id, hacia_id)
+                    VALUES (?, ?)''', (id, amigo_id))
+    print('Cuentas nuevas=', contnuevas, ' ya visitadas=', contantiguas)
+    print('Restantes', cabeceras['x-rate-limit-remaining'])
     conn.commit()
 cur.close()

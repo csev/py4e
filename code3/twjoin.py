@@ -1,32 +1,32 @@
 import sqlite3
 
-conn = sqlite3.connect('friends.sqlite')
+conn = sqlite3.connect('amigos.sqlite')
 cur = conn.cursor()
 
-cur.execute('SELECT * FROM People')
-count = 0
-print('People:')
-for row in cur:
-    if count < 5: print(row)
-    count = count + 1
-print(count, 'rows.')
+cur.execute('SELECT * FROM Personas')
+contador = 0
+print('Personas:')
+for fila in cur:
+    if contador < 5: print(fila)
+    contador = contador + 1
+print(contador, 'filas.')
 
-cur.execute('SELECT * FROM Follows')
-count = 0
-print('Follows:')
-for row in cur:
-    if count < 5: print(row)
-    count = count + 1
-print(count, 'rows.')
+cur.execute('SELECT * FROM Seguimientos')
+contador = 0
+print('Seguimientos:')
+for fila in cur:
+    if contador < 5: print(fila)
+    contador = contador + 1
+print(contador, 'filas.')
 
-cur.execute('''SELECT * FROM Follows JOIN People
-            ON Follows.to_id = People.id
-            WHERE Follows.from_id = 2''')
-count = 0
-print('Connections for id=2:')
-for row in cur:
-    if count < 5: print(row)
-    count = count + 1
-print(count, 'rows.')
+cur.execute('''SELECT * FROM Seguimientos JOIN Personas
+            ON Seguimientos.hacia_id = Personas.id
+            WHERE Seguimientos.desde_id = 2''')
+contador = 0
+print('Conexiones para id=2:')
+for fila in cur:
+    if contador < 5: print(fila)
+    contador = contador + 1
+print(contador, 'filas.')
 
 cur.close()
