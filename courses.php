@@ -5,7 +5,7 @@
         <p>
 
 Esta página muestra varios cursos alrededor del mundo que usan este libro.
-Esta traducción/ adaptación/ reutilización es alentada, ya que los materiales
+Esta traducción / adaptación / reutilización es alentada, ya que los materiales
 están disponibles bajo una licencia de Creative Commons.                
         </p>
 
