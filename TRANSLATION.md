@@ -24,7 +24,7 @@ materiales y estaré encantado de apuntar mis subdominios a tus servidores o ree
 solicitudes a estos subdominios a tus servidores.
 
 He configurado mi repositorio de github de forma tal que puedas hacer una 
-bifurcación de éste y comenzar a traducirlo. Estaré encantado de subir y poner
+copia (fork) de éste y comenzar a traducirlo. Estaré encantado de subir y poner
 a disposición lo que decidas traducir. Tengo un servidor de construcción automático
 para el libro que te lleva a su última versión y, además de producir una versión
 en PDF y en EPUB, las aloja en línea en
