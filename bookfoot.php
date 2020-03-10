@@ -56,7 +56,7 @@ echo($body);
 <hr/>
 <p>
 Si encuentras un error en este libro, siéntete libre de enviarme una solución usando
-<a href="https://github.com/csev/py4e/tree/master/book3" target="_blank">Github</a>.
+<a href="https://github.com/csev-es/py4e/tree/master/book3" target="_blank">Github</a>.
 </p>
 <?php
 
