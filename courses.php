@@ -23,6 +23,9 @@ avilable under a Creative Commons license.
 <li><p><b>Earn an edX Certificate for This Course</b>
 <a href="https://www.edx.org/course/programming-for-everybody-getting-started-with-python" target="_blank">Python for Everybody - Getting Started</a> (Two edX courses)</li>
 <p></li>
+<li><p><b>Earn a FutureLearn Certificate for This Course</b>
+<a href="https://www.futurelearn.com/courses/programming-for-everybody-python" target="_blank">Python for Everybody - Getting Started</a> (Two FutureLearn courses)</li>
+<p></li>
 <p>
 <li>
 <a href="https://www.freecodecamp.org/news/python-for-everybody/" target="_blank">FreeCodeCamp</a> 
