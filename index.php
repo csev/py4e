@@ -34,9 +34,10 @@ an IMS Learning Tools Interoperability® (LTI®)
 Hello and welcome to my site where you can work through my course materials related to
 my free <a href="book.php">Python for Everybody</a> text book.  You can take this course for a certificate
 as the 
-<a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody Specialization</a> on Coursera 
-or 
-<a href="https://www.edx.org/bio/charles-severance" target="_blank">Python for Everybody</a>(2 courses)  on edX.</p>
+<a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody Specialization</a> on Coursera,
+<a href="https://www.edx.org/bio/charles-severance" target="_blank">Python for Everybody</a> (2 courses)  on edX, or
+<a href="https://www.futurelearn.com/courses/programming-for-everybody-python" target="_blank">Python for Everybody</a> (2 courses) on FutureLearn.
+</p>
 <p>
 You can use this web site many different ways:
 <ul class="list-group">
