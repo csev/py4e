@@ -1,8 +1,8 @@
-fhand = open('mbox-short.txt')
-for line in fhand:
-    line = line.rstrip()
-    # Skip 'uninteresting lines'
-    if not line.startswith('From:'):
+man_a = open('mbox-short.txt')
+for linea in man_a:
+    linea = linea.rstrip()
+    # Ignorar 'líneas que no nos interesan'
+    if not linea.startswith('From:'):
         continue
-    # Process our 'interesting' line
-    print(line)
+    # Procesar la línea que nos 'interesa'
+    print(linea)

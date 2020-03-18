@@ -1,5 +1,5 @@
-fhand = open('mbox-short.txt')
-count = 0
-for line in fhand:
-    if line.startswith('From:'):
-        print(line)
+man_a = open('mbox-short.txt')
+contador = 0
+for linea in man_a:
+    if linea.startswith('From:'):
+        print(linea)

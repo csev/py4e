@@ -1,11 +1,11 @@
-fname = input('Enter the file name: ')
+narchivo = input('Ingresa un nombre de archivo: ')
 try:
-    fhand = open(fname)
+    man_a = open(narchivo)
 except:
-    print('File cannot be opened:', fname)
+    print('No se puede abrir el archivo:', narchivo)
     exit()
-count = 0
-for line in fhand:
-    if line.startswith('Subject:'):
-        count = count + 1
-print('There were', count, 'subject lines in', fname)
+contador = 0
+for linea in man_a:
+    if linea.startswith('Subject:'):
+        contador = contador + 1
+print('Hay', contador, 'líneas de asunto (subject) en', narchivo)
