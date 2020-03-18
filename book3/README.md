@@ -1,74 +1,74 @@
-Python for Everybody
---------------------
+Python para Todos
+-----------------
 
-To produce the PDF of the book, you will need to install LaTeX on your 
-system.  For Debian-derived (Ubuntu, Mint, etc.) Linux:
+Para generar el PDF del libro, necesitas instalar LaTeX en tu
+computadora. Para sistemas Linux basados en Debian (Ubuntu, Mint, etc.):
 
     sudo apt-get install texlive-full
     sudo apt-get install pandoc
 
-For Macintosh,
+Para Macintosh,
 
     https://www.tug.org/mactex/
     https://www.tug.org/mactex/mactextras.html
 
-To produce the book run
+Para generar el libro, ejecuta:
 
     bash book.sh
 
-The output `bash book.sh` is in the file `x.pdf` and `x.epub`.
+La salida de `bash book.sh` se encuentra en los archivos `x.pdf` y `x.epub`.
 
-*Note that the build scripts require Python 2*
+*Nótese que los scripts requiren Python 2 para compilar el libro*
 
-## Build Server
+## Servidor de compilación
 
-There is a continuous build server that I have on Digital Ocean that builds
-the PDF and epub versions of the book every hour or so.
+Hay un servidor de compilación continua que tengo en Digital Ocean que compila
+las versiones PDF y epub del libro aproximadamente cada hora.
 
     http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf
     http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.epub
 
-Just check in changes and these files will update.
+Solamente necesitas enviar los cambios y los archivos se actualizarán.
 
-This server also rebuilds any translations every hour or so.
+Este servidor también recompila cualquier traducción aproximadamente cada hora.
 
-## Alternate Build Scripts
+## Scripts de compilaciones alternas
 
-In addition to the official `book.sh`, there are other build scripts that make
-alternate versions of the book.   If you make changes to the content, you
-should run all these scripts and check it all into github so it ends up online.
+Además del script oficial `book.sh`, también hay otros scripts de compilación que hacen
+versiones alternas del libro.   Si haces cambios al contenido, deberías
+ejecutar todos esos scripts y enviar todo a github de modo que todo termine en línea.
 
-* `phpbook.sh` will make an html/php verion of the book that is an extension
-of this site in `../html3` - this is then checked into github.
+* `phpbook.sh` hará una versión html/php del libro, la cual es una extensión
+de este sitio en `../html3` - después esto es agregado a github.
 
-* `htmlbook.sh` will make an html verion of the book, with interactive examples
-embedded in trinkets. These files are in `books/html` if you want to download
-or view them.
+* `htmlbook.sh` hará una versión html del libro, con ejemplos interactivos
+embebidos en trinkets. Esos archivos están en `books/html` en caso de que quieras descargarlos
+o verlos.
 
-* `zipbook.sh` will make two html versions of the book with Trinket branding,
-one with interactive examples (that require an internet connection to work) and one with 
-syntax highlighted code blocks for completely offline viewing.  A zip containing 
-these is at `/book/zips/pfe.zip` if you'd just like to download it.
+* `zipbook.sh` hará dos versiones html del libro con la marca de Trinket,
+uno con ejemplos interactivos (que requieren una conexión de internet para funcionar) y otra con
+bloques de código resaltados para verlos completamente fuera de línea. Hay un archivo zip
+que contiene todo esto en `/book/zips/pfe.zip` en caso de que quieras descargarlo.
 
-* `trinketbook.sh` will make the nunjucks template that we use to host the book
-at [books.trinket.io](https://books.trinket.io).  This is likely not of use to you
-unless you're looking for an example of how to get the book source into your own
-templating language.  If you'd like to see the output of this script it's in
-`books/trinket/pfe`.   Also updates `../trinket3`.
+* `trinketbook.sh` hará la plantilla de nunjucks que usamos para almacenar el libro
+en [books.trinket.io](https://books.trinket.io).  Esto no será necesario que lo utilices
+a menos que busques un ejemplo de cómo obtener el contenido fuente del libro en tu propio
+lenguaje de plantillas.   Si quisieras ver la salida de este script, la puedes encontrar en
+`books/trinket/pfe`.   También actualiza `../trinket3`.
 
-If you'd like to make your own build script, you can use these as examples. If
-your build script might have use to others, consider contributing it in a pull request.
-Note that each build script plays nicely with the others and the represent parallel
-workflows.  Please don't alter any of the python scripts that are used by another
-script if you intend on contributing a new script. 
+Si quisieras hacer tu propio script de compilación, puedes utilizar estos como ejemplo. Si
+tu script de compilación podría ser utilizado por otras personas, considera hacer una contribución
+mediante un pull request. Ten en cuenta que cada script de compilación funciona bien con los otros
+scripts y ejecutan en paralelo. Por favor no modifiques ninguna porción de código en los scripts de
+python que son utilizados por otro script en caso de que quieras contribuir con un nuevo script.
 
 ## KindleGen
 
-The `book.sh` script will generate the `x.mobi` file is KindleGen is in the path:
+El script `book.sh` genera el archivo `x.mobi` (KindleGen) en la siguiente ruta:
 
     https://www.amazon.com/gp/feature.html?docId=1000765211
 
-For Linux:
+Para Linux:
 
     curl -O http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz
     tar xfv kindlegen_linux_2.6_i386_v2_9.tar.gz 
@@ -76,39 +76,39 @@ For Linux:
 
 ## Createspace
 
-Just take the `x.pdf` and `x.mobi` files and copy them into the `createspace`
-folder, adding a date in the filename as version and then upload them to 
+Unicamente toma los archivos `x.pdf` y `x.mobi` y copialos dentro de la carpeta `createspace`,
+agregando una fecha en el nombre de archivo como versión y después subiéndolos a
 Kindle Direct Publishing.
 
-Chinese Version
----------------
+Versión en Chino
+----------------
 
-If you are building the file for Chinese, touch the file
+Si estás compilando el archivo en Chino, crea el archivo
 
     touch .chinese
 
-So it runs LaTeX in a way to produce chinese documents.
+De modo que LaTeX se ejecuta en una manera que produzca documentos en Chino.
 
-Install the 'Noto Serif CJK SC' Font.  Download from here and unzip:
+Instala la fuente (Font) 'Noto Serif CJK SC'.  Descarga de aquí y descomprime:
 
     https://noto-website.storage.googleapis.com/pkgs/NotoSerifCJK.ttc.zip
 
-You should get a file like `NotoSerifCJK.ttc`.
+Deberías obtener un archivo llamado `NotoSerifCJK.ttc`.
 
-On Mac copy the file to `~/Library/Fonts` and rebuild font cache:
+En Mac, copia el archivo en `~/Library/Fonts` y recompila la cache de fuentes:
 
     sudo atsutil databases -remove
 
-On Linux put them in `/usr/share/fonts`:
+En Linux coloca el archivo en `/usr/share/fonts`:
 
     [ -d /usr/share/fonts/opentype ] || sudo mkdir /usr/share/fonts/opentype
     [ -d /usr/share/fonts/opentype/noto ] || sudo mkdir /usr/share/fonts/opentype/noto
     sudo mv NotoSerifCJK.ttc /usr/share/fonts/opentype/noto
     sudo fc-cache -f -v
 
-Strange Note:  If you are running on a small memory linux system, you 
-may encounter the error "I can't write on file `test.pdf'" - turns
-out this is `xelatex` running out of RAM - this fixed it.
+Nota extraña:  Si estás corriendo un un sistema Linux con poca memoria, podrías
+encontrar el error "I can't write on file `test.pdf`" - significa
+que `xelatex` no tiene suficiente memoria RAM para correr - esto lo arreglará.
 
     dd if=/dev/zero of=/var/512mb.swap bs=1M count=512
     mkswap /var/512mb.swap
@@ -116,14 +116,14 @@ out this is `xelatex` running out of RAM - this fixed it.
 
 Ref: https://tex.stackexchange.com/questions/16801/xelatex-i-cant-write-on-file-test-pdf
 
-## Contributing
+## Contribuir
 
-If you want to contribute, feel free to fork the py4e
-repository and send me pull requests.   
+Si quieres contribuir, siéntete libre de hacer fork al repositorio
+de py4e y enviarme pull requests.
 
 https://github.com/csev-es/py4e
 
-We can also use the issue tracker to coordinate if that helps.
+Podemos utilizar el "issue tracker" para coordinarnos si eso ayuda.
 
 /Chuck
 
