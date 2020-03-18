@@ -1,7 +1,7 @@
-fhand = open('mbox-short.txt')
-for line in fhand:
-    words = line.split()
-    # print 'Debug:', words
-    if len(words) == 0: continue
-    if words[0] != 'From': continue
-    print(words[2])
+man_a = open('mbox-short.txt')
+for linea in man_a:
+    palabras = linea.split()
+    # print('Depuración:', palabras)
+    if len(palabras) == 0: continue
+    if palabras[0] != 'From': continue
+    print(palabras[2])

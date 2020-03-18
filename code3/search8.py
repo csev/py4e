@@ -1,8 +1,8 @@
-fhand = open('mbox-short.txt')
-count = 0
-for line in fhand:
-    words = line.split()
-    if len(words) > 0:
-        if words[0] != 'From':
+man_a = open('mbox-short.txt')
+contador = 0
+for linea in man_a:
+    palabras = linea.split()
+    if len(palabras) > 0:
+        if palabras[0] != 'From':
             continue
-        print(words[2])
+        print(palabras[2])

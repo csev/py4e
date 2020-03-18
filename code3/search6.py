@@ -1,7 +1,7 @@
-fname = input('Enter the file name: ')
-fhand = open(fname)
-count = 0
-for line in fhand:
-    if line.startswith('Subject:'):
-        count = count + 1
-print('There were', count, 'subject lines in', fname)
+narchivo = input('Ingresa un nombre de archivo: ')
+man_a = open(narchivo)
+contador = 0
+for linea in man_a:
+    if linea.startswith('Subject:'):
+        contador = contador + 1
+print('Hay', contador, 'líneas de asunto (subject) en', narchivo)

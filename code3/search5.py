@@ -1,6 +1,6 @@
-fhand = open('mbox-short.txt')
-for line in fhand:
-    line = line.rstrip()
-    if not line.startswith('From '): continue
-    words = line.split()
-    print(words[2])
+man_a = open('mbox-short.txt')
+for linea in man_a:
+    linea = linea.rstrip()
+    if not linea.startswith('From '): continue
+    palabras = linea.split()
+    print(palabras[2])

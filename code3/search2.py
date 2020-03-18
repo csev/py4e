@@ -1,5 +1,5 @@
-fhand = open('mbox-short.txt')
-for line in fhand:
-    line = line.rstrip()
-    if line.startswith('From:'):
-        print(line)
+man_a = open('mbox-short.txt')
+for linea in man_a:
+    linea = linea.rstrip()
+    if linea.startswith('From:'):
+        print(linea)

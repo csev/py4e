@@ -1,5 +1,5 @@
-fhand = open('mbox-short.txt')
-count = 0
-for line in fhand:
-    count = count + 1
-print('Line Count:', count)
+man_archivo = open('mbox-short.txt')
+contador = 0
+for linea in man_archivo:
+    contador = contador + 1
+print('Contador de líneas:', contador)
