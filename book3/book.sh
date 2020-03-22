@@ -4,8 +4,13 @@
 #    touch .chinese
 # in this folder so as to run the LaTex to make Chinese output
 
+python --version
+
 # For yucks make the epub
-cat epub-metadata.txt *.mkd | grep -v '^%' | python pre-html.py | python verbatim.py | pandoc --default-image-extension=svg --epub-stylesheet=epub.css -o x.epub
+cat epub-metadata.txt *.mkd | grep -v '^%' | python pre-html.py | python verbatim.py | pandoc --default-image-extension=svg --css=epub.css -o x.epub
+
+# Old CSS 2020-03
+# -cat epub-metadata.txt *.mkd | grep -v '^%' | python pre-html.py | python verbatim.py | pandoc --default-image-extension=svg --epub-stylesheet=epub.css -o x.epub
 
 # make the mobi if it works (add verbose for debugging)
 if hash kindlegen 2>/dev/null; then

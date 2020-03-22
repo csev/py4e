@@ -2,14 +2,24 @@
   require_once "../booktop.php";
   ob_start();
 }?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <h1 id="diccionarios">Diccionarios</h1>
@@ -26,7 +36,7 @@
 <p>Las llaves, <code>{}</code>, representan un diccionario vacío. Para agregar elementos a un diccionario, puedes utilizar corchetes:</p>
 <p> </p>
 <pre class="python"><code>&gt;&gt;&gt; eng2sp[&#39;one&#39;] = &#39;uno&#39;</code></pre>
-<p>Esta línea crea un elemento asociando a la clave <code>'one'</code> el valor &quot;uno&quot;. Si imprimimos el diccionario de nuevo, vamos a ver un par clave-valor con dos puntos entre la clave y el valor:</p>
+<p>Esta línea crea un elemento asociando a la clave <code>'one'</code> el valor “uno”. Si imprimimos el diccionario de nuevo, vamos a ver un par clave-valor con dos puntos entre la clave y el valor:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(eng2sp)
 {&#39;one&#39;: &#39;uno&#39;}</code></pre>
 <p>Este formato de salida es también un formato de entrada. Por ejemplo, puedes crear un nuevo diccionario con tres elementos. Pero si imprimes <code>eng2sp</code>, te vas a sorprender:</p>
@@ -37,7 +47,7 @@
 <p>Pero ese no es un problema porque los elementos de un diccionario nunca son indexados con índices enteros. En vez de eso, utilizas las claves para encontrar los valores correspondientes:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(eng2sp[&#39;two&#39;])
 &#39;dos&#39;</code></pre>
-<p>La clave <code>'two'</code> siempre se asocia al valor &quot;dos&quot;, así que el orden de los elementos no importa.</p>
+<p>La clave <code>'two'</code> siempre se asocia al valor “dos”, así que el orden de los elementos no importa.</p>
 <p>Si la clave no está en el diccionario, obtendrás una excepción (exception):</p>
 <p> </p>
 <pre class="python"><code>&gt;&gt;&gt; print(eng2sp[&#39;four&#39;])
@@ -64,7 +74,7 @@ True</code></pre>
 <h2 id="diccionario-como-un-conjunto-de-contadores">Diccionario como un conjunto de contadores</h2>
 <p></p>
 <p>Supongamos que recibes una cadena y quieres contar cuántas veces aparece cada letra. Hay varias formas en que puedes hacerlo:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li><p>Puedes crear 26 variables, una por cada letra del alfabeto. Luego puedes recorrer la cadena, y para cada caracter, incrementar el contador correspondiente, probablemente utilizando varios condicionales.</p></li>
 <li><p>Puedes crear una lista con 26 elementos. Después podrías convertir cada caracter en un número (usando la función interna <code>ord</code>), usar el número como índice dentro de la lista, e incrementar el contador correspondiente.</p></li>
 <li><p>Puedes crear un diccionario con caracteres como claves y contadores como los valores correspondientes. La primera vez que encuentres un caracter, agregarías un elemento al diccionario. Después de eso incrementarías el valor del elemento existente.</p></li>
@@ -87,7 +97,7 @@ print(d)</code></pre>
 <p></p>
 <p>Aquí está la salida del programa:</p>
 <pre><code>{&#39;b&#39;: 1, &#39;r&#39;: 2, &#39;o&#39;: 3, &#39;n&#39;: 1, &#39;t&#39;: 1, &#39;s&#39;: 1, &#39;a&#39;: 1, &#39;u&#39;: 1, &#39;i&#39;: 1}</code></pre>
-<p>El histograma indica que las letras &quot;a&quot; y &quot;b&quot; aparecen solo una vez; &quot;o&quot; aparece dos, y así sucesivamente.</p>
+<p>El histograma indica que las letras “a” y “b” aparecen solo una vez; “o” aparece dos, y así sucesivamente.</p>
 <p> </p>
 <p>Los diccionarios tienen un método llamado <code>get</code> que toma una clave y un valor por defecto. Si la clave aparece en el diccionario, <code>get</code> regresa el valor correspondiente; si no, regresa el valor por defecto. Por ejemplo:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; cuentas = { &#39;chuck&#39; : 1 , &#39;annie&#39; : 42, &#39;jan&#39;: 100}
@@ -101,7 +111,7 @@ d = dict()
 for c in palabra:
     d[c] = d.get(c,0) + 1
 print(d)</code></pre>
-<p>El uso del método <code>get</code> para simplificar este bucle contador termina siendo un &quot;idioma&quot; muy utilizado en Python y vamos a utilizarlo muchas veces en el resto del libro. Así que deberías tomar un momento para comparar el bucle utilizando la sentencia <code>if</code> y el operador <code>in</code> con el bucle utilizando el método <code>get</code>. Ambos hacen exactamente lo mismo, pero uno es más breve.</p>
+<p>El uso del método <code>get</code> para simplificar este bucle contador termina siendo un “idioma” muy utilizado en Python y vamos a utilizarlo muchas veces en el resto del libro. Así que deberías tomar un momento para comparar el bucle utilizando la sentencia <code>if</code> y el operador <code>in</code> con el bucle utilizando el método <code>get</code>. Ambos hacen exactamente lo mismo, pero uno es más breve.</p>
 <p></p>
 <h2 id="diccionarios-y-archivos">Diccionarios y archivos</h2>
 <p>Uno de los usos más comunes de un diccionario es contar las ocurrencias de palabras en un archivo con algún texto escrito. Vamos comenzando con un archivo de palabras muy simple tomado del texto de <em>Romeo y Julieta</em>.</p>
@@ -113,7 +123,7 @@ Who is already sick and pale with grief</code></pre>
 <p>Vamos a escribir un programa de Python para leer a través de las líneas del archivo, dividiendo cada línea en una lista de palabras, y después iterando a través de cada una de las palabras en la línea y contando cada palabra utilizando un diccionario.</p>
 <p> </p>
 <p>Verás que tenemos dos bucles <code>for</code>. El bucle externo está leyendo las líneas del archivo y el bucle interno está iterando a través de cada una de las palabras en esa línea en particular. Este es un ejemplo de un patrón llamado <em>bucles anidados</em> porque uno de los bucles es el bucle <em>externo</em> y el otro bucle es el bucle <em>interno</em>.</p>
-<p>Como el bucle interno ejecuta todas sus iteraciones cada vez que el bucle externo hace una sola iteración, consideramos que el bucle interno itera &quot;más rápido&quot; y el bucle externo itera más lento.</p>
+<p>Como el bucle interno ejecuta todas sus iteraciones cada vez que el bucle externo hace una sola iteración, consideramos que el bucle interno itera “más rápido” y el bucle externo itera más lento.</p>
 <p></p>
 <p>La combinación de los dos bucles anidados asegura que contemos cada palabra en cada línea del archivo de entrada.</p>
 <pre class="python"><code>fname = input(&#39;Ingresa el nombre de archivo: &#39;)
@@ -135,7 +145,6 @@ for line in fhand:
 print(counts)
 
 # Code: http://www.py4e.com/code3/count1.py</code></pre>
-
 <p>En nuestra sentencia <code>else</code>, utilizamos la alternativa más compacta para incrementar una variable. <code>counts[word] += 1</code> es equivalente a <code>counts[word] = counts[word] + 1</code>. Cualquiera de los dos métodos puede usarse para cambiar el valor de una variable en cualquier cantidad. Existen alternativas similares para <code>-=</code>, <code>*=</code>, y <code>/=</code>.</p>
 <p>Cuando ejecutamos el programa, vemos una salida sin procesar que contiene todos los contadores sin ordenar. (el archivo <em>romeo.txt</em> está disponible en <a href="http://es.py4e.com/code3/romeo.txt">es.py4e.com/code3/romeo.txt</a>)</p>
 <pre><code>python count1.py
@@ -189,12 +198,12 @@ jan 100</code></pre>
 It is the east, and Juliet is the sun.
 Arise, fair sun, and kill the envious moon,
 Who is already sick and pale with grief,</code></pre>
-<p>Puesto que la función <code>split</code> en Python busca espacios y trata las palabras como piezas separadas por esos espacios, trataríamos a las palabras &quot;soft!&quot; y &quot;soft&quot; como <em>diferentes</em> palabras y crearíamos una entrada independiente para cada palabra en el diccionario.</p>
-<p>Además, como el archivo tiene letras mayúsculas, trataríamos &quot;who&quot; y &quot;Who&quot; como diferentes palabras con diferentes contadores.</p>
+<p>Puesto que la función <code>split</code> en Python busca espacios y trata las palabras como piezas separadas por esos espacios, trataríamos a las palabras “soft!” y “soft” como <em>diferentes</em> palabras y crearíamos una entrada independiente para cada palabra en el diccionario.</p>
+<p>Además, como el archivo tiene letras mayúsculas, trataríamos “who” y “Who” como diferentes palabras con diferentes contadores.</p>
 <p>Podemos resolver ambos problemas utilizando los métodos de cadenas <code>lower</code>, <code>punctuation</code>, y <code>translate</code>. El método <code>translate</code> es el más sutil de los métodos. Aquí esta la documentación para <code>translate</code>:</p>
 <p><code>line.translate(str.maketrans(fromstr, tostr, deletestr))</code></p>
 <p><em>Reemplaza los caracteres en <code>fromstr</code> con el caracter en la misma posición en <code>tostr</code> y elimina todos los caracteres que están en <code>deletestr</code>. Los parámetros <code>fromstr</code> y <code>tostr</code> pueden ser cadenas vacías y el parámetro <code>deletestr</code> es opcional.</em></p>
-<p>No vamos a especificar el valor de <code>tostr</code> pero vamos a utilizar el parámetro <code>deletestr</code> para eliminar todos los signos de puntuación. Incluso vamos a dejar que Python nos diga la lista de caracteres que considera como &quot;signos de puntuación&quot;:</p>
+<p>No vamos a especificar el valor de <code>tostr</code> pero vamos a utilizar el parámetro <code>deletestr</code> para eliminar todos los signos de puntuación. Incluso vamos a dejar que Python nos diga la lista de caracteres que considera como “signos de puntuación”:</p>
 <pre class="python"><code>&gt;&gt;&gt; import string
 &gt;&gt;&gt; string.punctuation
 &#39;!&quot;#$%&amp;\&#39;()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~&#39;</code></pre>
@@ -224,8 +233,7 @@ for line in fhand:
 print(counts)
 
 # Code: http://www.py4e.com/code3/count2.py</code></pre>
-
-<p>Parte de aprender el &quot;Arte de Python&quot; o &quot;Pensamiento Pythónico&quot; es entender que Python muchas veces tiene funciones internas para muchos problemas de análisis de datos comunes. A través del tiempo, verás suficientes códigos de ejemplo y leerás lo suficiente en la documentación para saber dónde buscar si alguien escribió algo que haga tu trabajo más fácil.</p>
+<p>Parte de aprender el “Arte de Python” o “Pensamiento Pythónico” es entender que Python muchas veces tiene funciones internas para muchos problemas de análisis de datos comunes. A través del tiempo, verás suficientes códigos de ejemplo y leerás lo suficiente en la documentación para saber dónde buscar si alguien escribió algo que haga tu trabajo más fácil.</p>
 <p>Lo siguiente es una versión reducida de la salida:</p>
 <pre><code>Ingresa el nombre de archivo: romeo-full.txt
 {&#39;swearst&#39;: 1, &#39;all&#39;: 6, &#39;afeard&#39;: 1, &#39;leave&#39;: 2, &#39;these&#39;: 2,
@@ -247,8 +255,8 @@ a&#39;: 24, &#39;orchard&#39;: 2, &#39;light&#39;: 5, &#39;lovers&#39;: 2, &#39;
 <p>Una causa común de errores en tiempo de ejecución es un valor que no es el tipo correcto. Para depurar este tipo de error, generalmente es suficiente con imprimir el tipo de un valor.</p>
 </dd>
 <dt>Escribe auto-verificaciones</dt>
-<dd><p>Algunas veces puedes escribir código para revisar errores automáticamente. Por ejemplo, si estás calculando el promedio de una lista de números, podrías verificar que el resultado no sea más grande que el elemento más grande de la lista o que sea menor que el elemento más pequeño de la lista. Esto es llamado &quot;prueba de sanidad&quot; porque detecta resultados que son &quot;completamente ilógicos&quot;.  </p>
-<p>Otro tipo de prueba compara los resultados de dos diferentes cálculos para ver si son consistentes. Esto es conocido como &quot;prueba de consistencia&quot;.</p>
+<dd><p>Algunas veces puedes escribir código para revisar errores automáticamente. Por ejemplo, si estás calculando el promedio de una lista de números, podrías verificar que el resultado no sea más grande que el elemento más grande de la lista o que sea menor que el elemento más pequeño de la lista. Esto es llamado “prueba de sanidad” porque detecta resultados que son “completamente ilógicos”.  </p>
+<p>Otro tipo de prueba compara los resultados de dos diferentes cálculos para ver si son consistentes. Esto es conocido como “prueba de consistencia”.</p>
 </dd>
 <dt>Imprimir una salida ordenada</dt>
 <dd>Dar un formato a los mensajes de depuración puede facilitar encontrar un error.
@@ -257,11 +265,20 @@ a&#39;: 24, &#39;orchard&#39;: 2, &#39;light&#39;: 5, &#39;lovers&#39;: 2, &#39;
 <p>De nuevo, el tiempo que inviertas haciendo una buena estructura puede reducir el tiempo que inviertas en depurar. </p>
 <h2 id="glosario">Glosario</h2>
 <dl>
+<dt>bucles anidados</dt>
+<dd>Cuando hay uno o más bucles “dentro” de otro bucle. Los bucles internos terminan de ejecutar cada vez que el bucle externo ejecuta una vez.
+</dd>
+<dt>búsqueda</dt>
+<dd>Una operación de diccionario que toma una clave y encuentra su valor correspondiente.
+</dd>
+<dt>clave</dt>
+<dd>Un objeto que aparece en un diccionario como la primera parte de un par clave-valor.
+</dd>
 <dt>diccionario</dt>
 <dd>Una asociación de un conjunto de claves a sus valores correspondientes.
 </dd>
-<dt>tabla hash</dt>
-<dd>El algoritmo utilizado para implementar diccionarios en Python.
+<dt>elemento</dt>
+<dd>Otro nombre para un par clave-valor.
 </dd>
 <dt>función hash</dt>
 <dd>Una función utilizada por una tabla hash para calcular la localización de una clave.
@@ -272,27 +289,18 @@ a&#39;: 24, &#39;orchard&#39;: 2, &#39;light&#39;: 5, &#39;lovers&#39;: 2, &#39;
 <dt>implementación</dt>
 <dd>Una forma de llevar a cabo un cálculo.
 </dd>
-<dt>elemento</dt>
-<dd>Otro nombre para un par clave-valor.
-</dd>
-<dt>clave</dt>
-<dd>Un objeto que aparece en un diccionario como la primera parte de un par clave-valor.
-</dd>
 <dt>par clave-valor</dt>
 <dd>La representación de una asociación de una clave a un valor.
 </dd>
-<dt>búsqueda</dt>
-<dd>Una operación de diccionario que toma una clave y encuentra su valor correspondiente.
-</dd>
-<dt>bucles anidados</dt>
-<dd>Cuando hay uno o más bucles &quot;dentro&quot; de otro bucle. Los bucles internos terminan de ejecutar cada vez que el bucle externo ejecuta una vez.
+<dt>tabla hash</dt>
+<dd>El algoritmo utilizado para implementar diccionarios en Python.
 </dd>
 <dt>valor</dt>
-<dd>Un objeto que aparece en un diccionario como la segunda parte de un par clave-valor. Esta definición es más específica que nuestro uso previo de la palabra &quot;valor&quot;.
+<dd>Un objeto que aparece en un diccionario como la segunda parte de un par clave-valor. Esta definición es más específica que nuestro uso previo de la palabra “valor”.
 </dd>
 </dl>
 <h2 id="ejercicios">Ejercicios</h2>
-<p><strong>Ejercicio 2: Escribir un programa que clasifica cada mensaje de correo dependiendo del día de la semana en que se recibió. Para hacer esto busca las líneas que comienzan con &quot;From&quot;, después busca por la tercer palabra y mantén un contador para cada uno de los días de la semana. Al final del programa imprime los contenidos de tu diccionario (el orden no importa).</strong></p>
+<p><strong>Ejercicio 2: Escribir un programa que clasifica cada mensaje de correo dependiendo del día de la semana en que se recibió. Para hacer esto busca las líneas que comienzan con “From”, después busca por la tercer palabra y mantén un contador para cada uno de los días de la semana. Al final del programa imprime los contenidos de tu diccionario (el orden no importa).</strong></p>
 <p><strong>Línea de ejemplo:</strong></p>
 <pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
 <p><strong>Ejemplo de ejecución:</strong></p>

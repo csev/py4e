@@ -2,14 +2,24 @@
   require_once "../booktop.php";
   ob_start();
 }?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <h1 id="cadenas">Cadenas</h1>
@@ -24,15 +34,14 @@
 <p>Pero podrías no obtener lo que esperas:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(letra)
 a</code></pre>
-<p>Para la mayoría de las personas, la primer letra de &quot;banana&quot; es &quot;b&quot;, no &quot;a&quot;. Pero en Python, el índice es un desfase desde el inicio de la cadena, y el desfase de la primera letra es cero.</p>
+<p>Para la mayoría de las personas, la primer letra de “banana” es “b”, no “a”. Pero en Python, el índice es un desfase desde el inicio de la cadena, y el desfase de la primera letra es cero.</p>
 <pre class="python"><code>&gt;&gt;&gt; letra = fruta[0]
 &gt;&gt;&gt; print(letra)
 b</code></pre>
-<p>Así que &quot;b&quot; es la letra 0 (&quot;cero&quot;) de &quot;banana&quot;, &quot;a&quot; es la letra con índice 1, y &quot;n&quot; es la que tiene índice 2, etc.</p>
-<div class="figure">
-<img src="../images/string.svg" alt="Indices de Cadenas" />
-<p class="caption">Indices de Cadenas</p>
-</div>
+<p>Así que “b” es la letra 0 (“cero”) de “banana”, “a” es la letra con índice 1, y “n” es la que tiene índice 2, etc.</p>
+<figure>
+<img src="../images/string.svg" alt="" /><figcaption>Indices de Cadenas</figcaption>
+</figure>
 <p> </p>
 <p>Puedes usar cualquier expresión, incluyendo variables y operadores, como un índice, pero el valor del índice tiene que ser un entero. De otro modo obtendrás:</p>
 <p>   </p>
@@ -49,7 +58,7 @@ TypeError: string indices must be integers</code></pre>
 <pre class="python"><code>&gt;&gt;&gt; tamaño = len(fruta)
 &gt;&gt;&gt; ultima = fruta[tamaño]
 IndexError: string index out of range</code></pre>
-<p>La razón de que haya un <code>IndexError</code> es que ahí no hay ninguna letra en &quot;banana&quot; con el índice 6. Puesto que empezamos a contar desde cero, las seis letras están enumeradas desde 0 hasta 5. Para obtener el último carácter, tienes que restar 1 a <code>length</code>:</p>
+<p>La razón de que haya un <code>IndexError</code> es que ahí no hay ninguna letra en “banana” con el índice 6. Puesto que empezamos a contar desde cero, las seis letras están enumeradas desde 0 hasta 5. Para obtener el último carácter, tienes que restar 1 a <code>length</code>:</p>
 <pre class="python"><code>&gt;&gt;&gt; ultima = fruta[tamaño-1]
 &gt;&gt;&gt; print(ultima)
 a</code></pre>
@@ -69,16 +78,16 @@ while indice &lt; len(fruta):
 <pre class="python"><code>for caracter in fruta:
     print(caracter)</code></pre>
 <p>Cada vez que iteramos el bucle, el siguiente carácter en la cadena es asignado a la variable <code>caracter</code>. El ciclo continúa hasta que no quedan caracteres.</p>
-<h2 id="parte-slicing-de-una-cadena">Parte (slicing) de una cadena</h2>
+<h2 id="rebanado-de-una-cadena">Rebanado de una cadena</h2>
 <p>    </p>
-<p>Un segmento de una cadena es llamado <em>parte</em>. Seleccionar una parte es similar a seleccionar un carácter:</p>
+<p>Un segmento de una cadena es llamado <em>rebanado</em>. Seleccionar un rebanado es similar a seleccionar un carácter:</p>
 <pre class="python"><code>&gt;&gt;&gt; s = &#39;Monty Python&#39;
 &gt;&gt;&gt; print(s[0:5])
 Monty
 &gt;&gt;&gt; print(s[6:12])
 Python</code></pre>
-<p>El operador [n:m] retorna la parte de la cadena desde el &quot;n-ésimo&quot; carácter hasta el &quot;m-ésimo&quot; carácter, incluyendo el primero pero excluyendo el último.</p>
-<p>Si omites el primer índice (antes de los dos puntos), la parte comienza desde el inicio de la cadena. Si omites el segundo índice, la parte va hasta el final de la cadena:</p>
+<p>El operador [n:m] retorna la parte de la cadena desde el “n-ésimo” carácter hasta el “m-ésimo” carácter, incluyendo el primero pero excluyendo el último.</p>
+<p>Si omites el primer índice (antes de los dos puntos), el rebanado comienza desde el inicio de la cadena. Si omites el segundo índice, el rebanado va hasta el final de la cadena:</p>
 <pre class="python"><code>&gt;&gt;&gt; fruta = &#39;banana&#39;
 &gt;&gt;&gt; fruta[:3]
 &#39;ban&#39;
@@ -99,9 +108,9 @@ Python</code></pre>
 <pre class="python"><code>&gt;&gt;&gt; saludo = &#39;Hola, mundo!&#39;
 &gt;&gt;&gt; saludo[0] = &#39;J&#39;
 TypeError: &#39;str&#39; object does not support item assignment</code></pre>
-<p>El &quot;object&quot; en este caso es la cadena y el &quot;ítem&quot; es el carácter que tratamos de asignar. Por ahora, un <em>object</em> es la misma cosa que un valor, pero vamos a redefinir esa definición después. Un <em>ítem</em> es uno de los valores en una secuencia.</p>
+<p>El “objeto” en este caso es la cadena y el “ítem” es el carácter que tratamos de asignar. Por ahora, un <em>objeto</em> es la misma cosa que un valor, pero vamos a redefinir esa definición después. Un <em>ítem</em> es uno de los valores en una secuencia.</p>
 <p>   </p>
-<p>La razón por la cual ocurre el error es que las cadenas son <em>inmutables</em>, lo cual significa que no puedes modificar una cadena existente. Lo mejor que puedes hacer es crear una nueva cadena que sea una variación del original:</p>
+<p>La razón por la cual ocurre el error es que las cadenas son <em>inmutables</em>, lo cual significa que no puedes modificar una cadena existente. Lo mejor que puedes hacer es crear una nueva cadena que sea una variación de la original:</p>
 <pre class="python"><code>&gt;&gt;&gt; saludo = &#39;Hola, mundo!&#39;
 &gt;&gt;&gt; nuevo_saludo = &#39;J&#39; + saludo[1:]
 &gt;&gt;&gt; print(nuevo_saludo)
@@ -110,14 +119,14 @@ Jola, mundo!</code></pre>
 <p></p>
 <h2 id="iterando-y-contando">Iterando y contando</h2>
 <p>   </p>
-<p>El siguiente programa cuenta el número de veces que la letra &quot;a&quot; aparece en una cadena:</p>
+<p>El siguiente programa cuenta el número de veces que la letra “a” aparece en una cadena:</p>
 <pre class="python"><code>palabra = &#39;banana&#39;
 contador = 0
 for letra in palabra:
     if letra == &#39;a&#39;:
         contador = contador + 1
 print(contador)</code></pre>
-<p>Este programa demuestra otro patrón de computación llamado <em>contador</em>. La variable <code>contador</code> es inicializada a 0 y después se incrementa cada vez que una &quot;a&quot; es encontrada. Cuando el bucle termina, <code>contador</code> contiene el resultado: el número total de a's.</p>
+<p>Este programa demuestra otro patrón de computación llamado <em>contador</em>. La variable <code>contador</code> es inicializada a 0 y después se incrementa cada vez que una “a” es encontrada. Cuando el bucle termina, <code>contador</code> contiene el resultado: el número total de a’s.</p>
 <p></p>
 <p><strong>Ejercicio 3: Encapsula este código en una función llamada <code>cuenta</code>, y hazla genérica de tal modo que pueda aceptar una cadena y una letra como argumentos.</strong></p>
 <h2 id="el-operador-in">El operador <code>in</code></h2>
@@ -212,11 +221,11 @@ False
 &#39;que tengas un buen día&#39;
 &gt;&gt;&gt; linea.lower().startswith(&#39;q&#39;)
 True</code></pre>
-<p>En el último ejemplo, el método <code>lower</code> es llamado y después usamos <code>startswith</code> para ver si la cadena resultante en minúsculas comienza con la letra &quot;q&quot;. Siempre y cuando seamos cuidadosos con el orden, podemos hacer múltiples llamadas a métodos en una sola expresión.</p>
+<p>En el último ejemplo, el método <code>lower</code> es llamado y después usamos <code>startswith</code> para ver si la cadena resultante en minúsculas comienza con la letra “q”. Siempre y cuando seamos cuidadosos con el orden, podemos hacer múltiples llamadas a métodos en una sola expresión.</p>
 <p> </p>
 <p><strong>Ejercicio 4: Hay un método de cadenas llamado <code>count</code> que es similar a la función del ejercicio previo. Lee la documentación de este método en:</strong></p>
 <p><a href="https://docs.python.org/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a></p>
-<p><strong>Escribe una invocación que cuenta el número de veces que una letra aparece en &quot;banana&quot;.</strong></p>
+<p><strong>Escribe una invocación que cuenta el número de veces que una letra aparece en “banana”.</strong></p>
 <h2 id="analizando-cadenas">Analizando cadenas</h2>
 <p>Frecuentemente, queremos examinar una cadena para encontrar una subcadena. Por ejemplo, si se nos presentaran una seria de líneas con el siguiente formato:</p>
 <p><code>From stephen.marquard@</code><em><code>uct.ac.za</code></em><code> Sat Jan  5 09:14:16 2008</code></p>
@@ -233,7 +242,7 @@ True</code></pre>
 &gt;&gt;&gt; print(direccion)
 uct.ac.za
 &gt;&gt;&gt;</code></pre>
-<p>Utilizamos una versión del método <code>find</code> que nos permite especificar la posición en la cadena desde donde queremos que <code>find</code> comience a buscar. Cuando recortamos una parte de una cadena, extraemos los caracteres desde &quot;uno después de la arroba hasta, <em>pero no incluyendo</em>, el carácter de espacio&quot;.</p>
+<p>Utilizamos una versión del método <code>find</code> que nos permite especificar la posición en la cadena desde donde queremos que <code>find</code> comience a buscar. Cuando recortamos una parte de una cadena, extraemos los caracteres desde “uno después de la arroba hasta, <em>pero no incluyendo</em>, el carácter de espacio”.</p>
 <p>La documentación del método <code>find</code> está disponible en</p>
 <p><a href="https://docs.python.org/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a>.</p>
 <h2 id="el-operador-de-formato">El operador de formato</h2>
@@ -242,16 +251,16 @@ uct.ac.za
 <p></p>
 <p>El primer operando es la <em>cadena a formatear</em>, la cual contiene una o más <em>secuencias de formato</em> que especifican cómo el segundo operando es formateado. El resultado es una cadena.</p>
 <p></p>
-<p>Por ejemplo, la secuencia de formato <code>%d</code> significa que el segundo operando debería ser formateado como un entero (&quot;d&quot; significa &quot;decimal&quot;):</p>
+<p>Por ejemplo, la secuencia de formato <code>%d</code> significa que el segundo operando debería ser formateado como un entero (“d” significa “decimal”):</p>
 <pre class="python"><code>&gt;&gt;&gt; camellos = 42
 &gt;&gt;&gt; &#39;%d&#39; % camellos
 &#39;42&#39;</code></pre>
-<p>El resultado es la cadena '42', el cual no debe ser confundido con el valor entero 42.</p>
+<p>El resultado es la cadena ‘42’, el cual no debe ser confundido con el valor entero 42.</p>
 <p>Una secuencia de formato puede aparecer en cualquier lugar en la cadena, así que puedes meter un valor en una frase:</p>
 <pre class="python"><code>&gt;&gt;&gt; camellos = 42
 &gt;&gt;&gt; &#39;Yo he visto %d camellos.&#39; % camellos
 &#39;Yo he visto 42 camellos.&#39;</code></pre>
-<p>Si hay más de una secuencia de formato en la cadena, el segundo argumento tiene que ser una tupla<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. Cada secuencia de formato es relacionada con un elemento de la tupla, en orden.</p>
+<p>Si hay más de una secuencia de formato en la cadena, el segundo argumento tiene que ser una tupla<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Cada secuencia de formato es relacionada con un elemento de la tupla, en orden.</p>
 <p>El siguiente ejemplo usa <code>%d</code> para formatear un entero, <code>%g</code> para formatear un número de punto flotante (no preguntes por qué), y <code>%s</code> para formatear una cadena:</p>
 <pre class="python"><code>&gt;&gt;&gt; &#39;En %d años yo he visto %g %s.&#39; % (3, 0.1, &#39;camellos&#39;)
 &#39;En 3 años yo he visto 0.1 camellos.&#39;</code></pre>
@@ -266,7 +275,7 @@ TypeError: %d format: a number is required, not str</code></pre>
 <p><a href="https://docs.python.org/library/stdtypes.html#printf-style-string-formatting" class="uri">https://docs.python.org/library/stdtypes.html#printf-style-string-formatting</a>.</p>
 <h2 id="depuración">Depuración</h2>
 <p></p>
-<p>Una habilidad que debes desarrollar cuando programas es siempre preguntarte a ti mismo, &quot;¿Qué podría fallar aquí?&quot; o alternativamente, &quot;¿Qué cosa ilógica podría hacer un usuario para hacer fallar nuestro (aparentemente) perfecto programa?&quot;</p>
+<p>Una habilidad que debes desarrollar cuando programas es siempre preguntarte a ti mismo, “¿Qué podría fallar aquí?” o alternativamente, “¿Qué cosa ilógica podría hacer un usuario para hacer fallar nuestro (aparentemente) perfecto programa?”</p>
 <p>Por ejemplo, observa el programa que utilizamos para demostrar el bucle <code>while</code> en el capítulo de iteraciones:</p>
 <pre class="python"><code>while True:
     linea = input(&#39;&gt; &#39;)
@@ -289,7 +298,7 @@ Traceback (most recent call last):
   File &quot;copytildone.py&quot;, line 3, in &lt;module&gt;
     if line[0] == &#39;#&#39;:
 IndexError: string index out of range</code></pre>
-<p>El código funciona bien hasta que se presenta una línea vacía. En ese momento no hay un carácter cero, por lo que obtenemos una traza de error (traceback). Existen dos soluciones a esto para convertir la línea tres en &quot;segura&quot;, incluso si la línea está vacía.</p>
+<p>El código funciona bien hasta que se presenta una línea vacía. En ese momento no hay un carácter cero, por lo que obtenemos una traza de error (traceback). Existen dos soluciones a esto para convertir la línea tres en “segura”, incluso si la línea está vacía.</p>
 <p>Una posibilidad es simplemente usar el método <code>startswith</code> que devuelve <code>False</code> si la cadena está vacía.</p>
 <pre class="python"><code>if line.startswith(&#39;#&#39;):</code></pre>
 <p> </p>
@@ -297,32 +306,29 @@ IndexError: string index out of range</code></pre>
 <pre class="python"><code>if len(line) &gt; 0 and line[0] == &#39;#&#39;:</code></pre>
 <h2 id="glosario">Glosario</h2>
 <dl>
-<dt>contador</dt>
-<dd>Una variable utilizada para contar algo, usualmente inicializada a cero y luego incrementada.
+<dt>bandera</dt>
+<dd>Una variable booleana utilizada para indicar si una condición es verdadera o falsa.
 </dd>
-<dt>cadena vacía</dt>
-<dd>una cadena sin caracteres y de tamaño 0, representada por dos comillas sencillas.
-</dd>
-<dt>operador de formato</dt>
-<dd>Un operador, <code>%</code>, que toma una cadena de formato y una tupla y genera una cadena que incluye los elementos de la tupla formateados como se especifica en la cadena de formato.
-</dd>
-<dt>secuencia de formato</dt>
-<dd>Una secuencia de caracteres en una cadena a formatear, como <code>%d</code>, que especifica cómo un valor debe ser formateado.
+<dt>búsqueda</dt>
+<dd>Un patrón de recorrido que se detiene cuando encuentra lo que está buscando.
 </dd>
 <dt>cadena a formatear</dt>
 <dd>Una cadena, usado con el operador de formato, que contiene secuencias de formato.
 </dd>
-<dt>flag (bandera)</dt>
-<dd>Una variable booleana utilizada para indicar si una condición es verdadera o falsa.
+<dt>cadena vacía</dt>
+<dd>una cadena sin caracteres y de tamaño 0, representada por dos comillas sencillas.
 </dd>
-<dt>invocación</dt>
-<dd>Una sentencia que llama un método.
+<dt>contador</dt>
+<dd>Una variable utilizada para contar algo, usualmente inicializada a cero y luego incrementada.
+</dd>
+<dt>índice</dt>
+<dd>Un valor entero utilizado para seleccionar un ítem en una secuencia, tal como un carácter en una cadena.
 </dd>
 <dt>inmutable</dt>
 <dd>La propiedad de una secuencia cuyos elementos no pueden ser asignados.
 </dd>
-<dt>índice</dt>
-<dd>Un valor entero utilizado para seleccionar un ítem en una secuencia, tal como un carácter en una cadena.
+<dt>invocación</dt>
+<dd>Una sentencia que llama un método.
 </dd>
 <dt>ítem</dt>
 <dd>Uno de los valores en una secuencia.
@@ -331,19 +337,22 @@ IndexError: string index out of range</code></pre>
 <dd>Una función que está asociada a un objeto y es llamada utilizando la notación de punto.
 </dd>
 <dt>objeto</dt>
-<dd>Algo a lo que una variable puede referirse. Por ahora, puedes usar &quot;objeto&quot; y &quot;valor&quot; indistintamente.
+<dd>Algo a lo que una variable puede referirse. Por ahora, puedes usar “objeto” y “valor” indistintamente.
 </dd>
-<dt>búsqueda</dt>
-<dd>Un patrón de recorrido que se detiene cuando encuentra lo que está buscando.
+<dt>operador de formato</dt>
+<dd>Un operador, <code>%</code>, que toma una cadena de formato y una tupla y genera una cadena que incluye los elementos de la tupla formateados como se especifica en la cadena de formato.
+</dd>
+<dt>rebanado</dt>
+<dd>Una parte de una cadena especificado por un rango de índices.
+</dd>
+<dt>recorrido</dt>
+<dd>Iterar a través de los ítems de una secuencia, ejecutando una operación similar en cada uno.
 </dd>
 <dt>secuencia</dt>
 <dd>Un conjunto ordenado; esto es, un conjunto de valores donde cada valor es identificado por un índice entero.
 </dd>
-<dt>parte (slice)</dt>
-<dd>Una parte de una cadena especificado por un rango de índices.
-</dd>
-<dt>atravesar</dt>
-<dd>Iterar a través de los ítems de una secuencia, ejecutando una operación similar en cada uno.
+<dt>secuencia de formato</dt>
+<dd>Una secuencia de caracteres en una cadena a formatear, como <code>%d</code>, que especifica cómo un valor debe ser formateado.
 </dd>
 </dl>
 <h2 id="ejercicios">Ejercicios</h2>
@@ -353,12 +362,12 @@ IndexError: string index out of range</code></pre>
 <p> </p>
 <p><strong>Ejercicio 6: Lee la documentación de los métodos de cadenas en <a href="https://docs.python.org/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a> Quizá quieras experimentar con algunos de ellos para asegurarte de entender como funcionan. <code>strip</code> y <code>replace</code> son particularmente útiles.</strong></p>
 <p><strong>La documentación usa una sintaxis que puede ser confusa. Por ejemplo, en <code>find(sub[, start[, end]])</code>, los corchetes indican argumentos opcionales. De modo que <code>sub</code> es requerido, pero <code>start</code> es opcional, y si se incluye <code>start</code>, entonces <code>end</code> es opcional.</strong></p>
-<div class="footnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Una tupla es una secuencia de valores separados por comas dentro de un par de paréntesis. Veremos tuplas en el Capítulo 10<a href="#fnref1">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Una tupla es una secuencia de valores separados por comas dentro de un par de paréntesis. Veremos tuplas en el Capítulo 10<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</div>
+</section>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {
