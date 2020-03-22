@@ -263,12 +263,12 @@ the</code></pre>
 <p>Normalmente cuando estamos leyendo un archivo queremos hacer algo con las líneas que no sea solamente imprimir las líneas como son. Frecuentemente queremos encontrar las “líneas interesantes” y después <em>analizar</em> la línea para encontrar alguna “parte interesante” en la línea. ¿Qué tal si quisiéramos imprimir el día de la semana de las líneas que comienzan con “From”?</p>
 <pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
 <p>El método <code>split</code> es muy efectivo cuando nos encontramos este tipo de problemas. Podemos escribir un pequeño programa que busca líneas donde la línea comienza con “From”, <code>split</code> (dividir) esas líneas, y finalmente imprimir la tercer palabra de la línea:</p>
-<pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-for line in fhand:
-    line = line.rstrip()
-    if not line.startswith(&#39;From &#39;): continue
-    words = line.split()
-    print(words[2])
+<pre class="python"><code>man_a = open(&#39;mbox-short.txt&#39;)
+for linea in man_a:
+    linea = linea.rstrip()
+    if not linea.startswith(&#39;From &#39;): continue
+    palabras = linea.split()
+    print(palabras[2])
 
 # Code: http://www.py4e.com/code3/search5.py</code></pre>
 <p>El programa produce lo siguiente:</p>

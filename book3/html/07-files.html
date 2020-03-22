@@ -84,11 +84,11 @@ Y
 <h2 id="lectura-de-archivos">Lectura de archivos</h2>
 <p> </p>
 <p>Aunque el <em>manejador de archivo</em> no contiene los datos de un archivo, es bastante fácil utilizarlo en un bucle <code>for</code> para leer a través del archivo y contar cada una de sus líneas:</p>
-<pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-count = 0
-for line in fhand:
-    count = count + 1
-print(&#39;Line Count:&#39;, count)
+<pre class="python"><code>man_archivo = open(&#39;mbox-short.txt&#39;)
+contador = 0
+for linea in man_archivo:
+    contador = contador + 1
+print(&#39;Contador de líneas:&#39;, contador)
 
 # Code: http://www.py4e.com/code3/open.py</code></pre>
 <p>Podemos usar el manejador de archivos como una secuencia en nuestro bucle <code>for</code>. Nuestro bucle <code>for</code> simplemente cuenta el número de líneas en el archivo y las imprime. La traducción aproximada de ese bucle al español es, “para cada línea en el archivo representado por el manejador de archivo, suma uno a la variable <code>count</code>.”</p>
@@ -114,11 +114,11 @@ From stephen.marquar</code></pre>
 <p>Cuando buscas a través de los datos de un archivo, un patrón muy común es leer el archivo, ignorar la mayoría de las líneas y solamente procesar líneas que cumplan con una condición particular. Podemos combinar el patrón de leer un archivo con métodos de cadenas para construir mecanismos de búsqueda sencillos.</p>
 <p> </p>
 <p>Por ejemplo, si queremos leer un archivo y solamente imprimir las líneas que comienzan con el prefijo “From:”, podríamos usar el método de cadenas <em>startswith</em> para seleccionar solo aquellas líneas con el prefijo deseado:</p>
-<pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-count = 0
-for line in fhand:
-    if line.startswith(&#39;From:&#39;):
-        print(line)
+<pre class="python"><code>man_a = open(&#39;mbox-short.txt&#39;)
+contador = 0
+for linea in man_a:
+    if linea.startswith(&#39;From:&#39;):
+        print(linea)
 
 # Code: http://www.py4e.com/code3/search1.py</code></pre>
 <p>Cuando este programa se ejecuta, obtenemos la siguiente salida:</p>
@@ -132,11 +132,11 @@ From: rjlowe@iupui.edu
 ...</code></pre>
 <p>La salida parece correcta puesto que las líneas que estamos buscando son aquellas que comienzan con “From:”, pero ¿por qué estamos viendo las líneas vacías extras? Esto es debido al carácter invisible <em>salto de línea</em>. Cada una de las líneas leídas termina con un salto de línea, así que la sentencia <code>print</code> imprime la cadena almacenada en la variable <em>line</em>, la cual incluye ese salto de línea, y después <code>print</code> agrega <em>otro</em> salto de línea, resultando en el efecto de doble salto de línea que observamos.</p>
 <p>Podemos usar troceado de líneas para imprimir todos los caracteres excepto el último, pero una forma más sencilla es usar el método <em>rstrip</em>, el cual elimina los espacios en blanco del lado derecho de una cadena, tal como:</p>
-<pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-for line in fhand:
-    line = line.rstrip()
-    if line.startswith(&#39;From:&#39;):
-        print(line)
+<pre class="python"><code>man_a = open(&#39;mbox-short.txt&#39;)
+for linea in man_a:
+    linea = linea.rstrip()
+    if linea.startswith(&#39;From:&#39;):
+        print(linea)
 
 # Code: http://www.py4e.com/code3/search2.py</code></pre>
 <p>Cuando este programa se ejecuta, obtenemos lo siguiente:</p>
@@ -150,23 +150,23 @@ From: cwen@iupui.edu
 ...</code></pre>
 <p>A medida que tus programas de procesamiento de archivos se vuelven más complicados, quizá quieras estructurar tus bucles de búsqueda utilizando <code>continue</code>. La idea básica de un bucle de búsqueda es que estás buscando líneas “interesantes” e ignorando líneas “no interesantes”. Y cuando encontramos una línea interesante, hacemos algo con ella.</p>
 <p>Podemos estructurar el bucle para seguir el patrón de ignorar las líneas no interesantes así:</p>
-<pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-for line in fhand:
-    line = line.rstrip()
-    # Skip &#39;uninteresting lines&#39;
-    if not line.startswith(&#39;From:&#39;):
+<pre class="python"><code>man_a = open(&#39;mbox-short.txt&#39;)
+for linea in man_a:
+    linea = linea.rstrip()
+    # Ignorar &#39;líneas que no nos interesan&#39;
+    if not linea.startswith(&#39;From:&#39;):
         continue
-    # Process our &#39;interesting&#39; line
-    print(line)
+    # Procesar la línea que nos &#39;interesa&#39;
+    print(linea)
 
 # Code: http://www.py4e.com/code3/search3.py</code></pre>
 <p>La salida del programa es la misma. En Español, las líneas no interesantes son aquellas que no comienzan con “From:”, así que las saltamos utilizando <code>continue</code>. En cambio las líneas “interesantes” (aquellas que comienzan con “From:”) las procesamos.</p>
 <p>Podemos usar el método de cadenas <code>find</code> para simular la función de búsqueda de un editor de texto, que encuentra las líneas donde aparece la cadena de búsqueda en alguna parte. Puesto que <code>find</code> busca cualquier ocurrencia de una cadena dentro de otra y devuelve la posición de esa cadena o -1 si la cadena no fue encontrada, podemos escribir el siguiente bucle para mostrar las líneas que contienen la cadena “<span class="citation" data-cites="uct.ac.za">@uct.ac.za</span>” (es decir, los que vienen de la Universidad de Cape Town en Sudáfrica):</p>
-<pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-for line in fhand:
-    line = line.rstrip()
-    if line.find(&#39;@uct.ac.za&#39;) == -1: continue
-    print(line)
+<pre class="python"><code>man_a = open(&#39;mbox-short.txt&#39;)
+for linea in man_a:
+    linea = linea.rstrip()
+    if linea.find(&#39;@uct.ac.za&#39;) == -1: continue
+    print(linea)
 
 # Code: http://www.py4e.com/code3/search4.py</code></pre>
 <p>Lo cual produce la siguiente salida:</p>
@@ -183,88 +183,88 @@ Author: david.horwitz@uct.ac.za
 <h2 id="permitiendo-al-usuario-elegir-el-nombre-de-archivo">Permitiendo al usuario elegir el nombre de archivo</h2>
 <p>Definitivamente no queremos tener que editar nuestro código Python cada vez que queremos procesar un archivo diferente. Sería más útil pedir al usuario que introduzca el nombre del archivo cada vez que el programa se ejecuta, de modo que pueda usar nuestro programa en diferentes archivos sin tener que cambiar el código.</p>
 <p>Esto es sencillo de hacer leyendo el nombre de archivo del usuario utilizando <code>input</code> como se muestra a continuación:</p>
-<pre class="python"><code>fname = input(&#39;Enter the file name: &#39;)
-fhand = open(fname)
-count = 0
-for line in fhand:
-    if line.startswith(&#39;Subject:&#39;):
-        count = count + 1
-print(&#39;There were&#39;, count, &#39;subject lines in&#39;, fname)
+<pre class="python"><code>narchivo = input(&#39;Ingresa un nombre de archivo: &#39;)
+man_a = open(narchivo)
+contador = 0
+for linea in man_a:
+    if linea.startswith(&#39;Subject:&#39;):
+        contador = contador + 1
+print(&#39;Hay&#39;, contador, &#39;líneas de asunto (subject) en&#39;, narchivo)
 
 # Code: http://www.py4e.com/code3/search6.py</code></pre>
 <p>Leemos el nombre de archivo del usuario y lo guardamos en una variable llamada <code>fname</code> y abrimos el archivo. Ahora podemos ejecutar el programa repetidamente en diferentes archivos.</p>
 <pre><code>python search6.py
-Enter the file name: mbox.txt
-There were 1797 subject lines in mbox.txt
+Ingresa un nombre de archivo: mbox.txt
+Hay 1797 líneas de asunto (subject) en mbox.txt
 
 python search6.py
-Enter the file name: mbox-short.txt
-There were 27 subject lines in mbox-short.txt</code></pre>
+Ingresa un nombre de archivo: mbox-short.txt
+Hay 27 líneas de asunto (subject) en mbox-short.txt</code></pre>
 <p>Antes de mirar la siguiente sección, observa el programa anterior y pregúntate a ti mismo, “¿Qué error podría suceder aquí?” o “¿Qué podría nuestro amigable usuario hacer que cause que nuestro pequeño programa termine no exitosamente con un error, haciéndonos ver no-muy-geniales ante los ojos de nuestros usuarios?”</p>
 <h2 id="utilizando-try-except-y-open">Utilizando <code>try, except,</code> y <code>open</code></h2>
 <p>Te dije que no miraras. Esta es tu última oportunidad.</p>
 <p>¿Qué tal si nuestro usuario escribe algo que no es un nombre de archivo?</p>
 <pre><code>python search6.py
-Enter the file name: missing.txt
+Ingresa un nombre de archivo: missing.txt
 Traceback (most recent call last):
   File &quot;search6.py&quot;, line 2, in &lt;module&gt;
-    fhand = open(fname)
+    man_a = open(narchivo)
 FileNotFoundError: [Errno 2] No such file or directory: &#39;missing.txt&#39;
 
 python search6.py
-Enter the file name: na na boo boo
+Ingresa un nombre de archivo: na na boo boo
 Traceback (most recent call last):
   File &quot;search6.py&quot;, line 2, in &lt;module&gt;
-    fhand = open(fname)
+    man_a = open(narchivo)
 FileNotFoundError: [Errno 2] No such file or directory: &#39;na na boo boo&#39;</code></pre>
 <p>No te rías. Los usuarios eventualmente harán cualquier cosa que puedan para estropear tus programas, sea a propósito o sin intenciones maliciosas. De hecho, una parte importante de cualquier equipo de desarrollo de software es una persona o grupo llamado <em>Quality Assurance</em> (Control de Calidad) (o QA en inglés) cuyo trabajo es probar las cosas más locas posibles en un intento de hacer fallar el software que el programador ha creado.</p>
 <p> </p>
 <p>El equipo de QA (Control de Calidad) es responsable de encontrar los fallos en los programas antes de éstos sean entregados a los usuarios finales, que podrían comprar nuestro software o pagar nuestro salario por escribirlo. Así que el equipo de QA es el mejor amigo de un programador.</p>
 <p>     </p>
 <p>Ahora que vemos el defecto en el programa, podemos arreglarlo de forma elegante utilizando la estructura <code>try</code>/<code>except</code>. Necesitamos asumir que la llamada a <code>open</code> podría fallar y agregar código de recuperación para ese fallo, así:</p>
-<pre class="python"><code>fname = input(&#39;Enter the file name: &#39;)
+<pre class="python"><code>narchivo = input(&#39;Ingresa un nombre de archivo: &#39;)
 try:
-    fhand = open(fname)
+    man_a = open(narchivo)
 except:
-    print(&#39;File cannot be opened:&#39;, fname)
+    print(&#39;No se puede abrir el archivo:&#39;, narchivo)
     exit()
-count = 0
-for line in fhand:
-    if line.startswith(&#39;Subject:&#39;):
-        count = count + 1
-print(&#39;There were&#39;, count, &#39;subject lines in&#39;, fname)
+contador = 0
+for linea in man_a:
+    if linea.startswith(&#39;Subject:&#39;):
+        contador = contador + 1
+print(&#39;Hay&#39;, contador, &#39;líneas de asunto (subject) en&#39;, narchivo)
 
 # Code: http://www.py4e.com/code3/search7.py</code></pre>
 <p>La función <code>exit</code> termina el programa. Es una función que llamamos que nunca retorna. Ahora cuando nuestro usuario (o el equipo de QA) introduzca algo sin sentido o un nombre de archivo incorrecto, vamos a “capturarlo” y recuperarnos de forma elegante:</p>
 <pre><code>python search7.py
-Enter the file name: mbox.txt
-There were 1797 subject lines in mbox.txt
+Ingresa un nombre de archivo: mbox.txt
+Hay 1797 líneas de asunto (subject) en mbox.txt
 
 python search7.py
-Enter the file name: na na boo boo
-File cannot be opened: na na boo boo</code></pre>
+Ingresa un nombre de archivo: na na boo boo
+No se puede abrir el archivo: na na boo boo</code></pre>
 <p></p>
 <p>Proteger la llamada a <code>open</code> es un buen ejemplo del uso correcto de <code>try</code> y <code>except</code> en un programa de Python. Utilizamos el término “Pythónico” cuando estamos haciendo algo según el “estilo de Python”. Podríamos decir que el ejemplo anterior es una forma Pythónica de abrir un archivo.</p>
 <p>Una vez que estés más familiarizado con Python, puedes intercambiar opiniones con otros programadores de Python para decidir cuál de entre dos soluciones equivalentes a un problema es “más Pythónica”. El objetivo de ser “más Pythónico” engloba la noción de que programar es en parte ingeniería y en parte arte. No siempre estamos interesados sólo en hacer que algo funcione, también queremos que nuestra solución sea elegante y que sea apreciada como elegante por nuestros compañeros.</p>
 <h2 id="escritura-de-archivos">Escritura de archivos</h2>
 <p></p>
-<p>Para escribir en un archivo, tienes que abrirlo en modo “w” (de <code>write</code>) como segundo parámetro:</p>
-<pre class="python"><code>&gt;&gt;&gt; fout = open(&#39;salida.txt&#39;, &#39;w&#39;)
-&gt;&gt;&gt; print(fout)
+<p>Para escribir en un archivo, tienes que abrirlo en modo “w” (de <code>write</code>, escritura) como segundo parámetro:</p>
+<pre class="python"><code>&gt;&gt;&gt; fsal = open(&#39;salida.txt&#39;, &#39;w&#39;)
+&gt;&gt;&gt; print(fsal)
 &lt;_io.TextIOWrapper name=&#39;salida.txt&#39; mode=&#39;w&#39; encoding=&#39;cp1252&#39;&gt;</code></pre>
 <p>Si el archivo ya existía previamente, abrirlo en modo de escritura causará que se borre todo el contenido del archivo, así que ¡ten cuidado! Si el archivo no existe, un nuevo archivo es creado.</p>
 <p>El método <code>write</code> del manejador de archivos escribe datos dentro del archivo, devolviendo el número de caracteres escritos. El modo de escritura por defecto es texto para escribir (y leer) cadenas.</p>
-<pre class="python"><code>&gt;&gt;&gt; linea1 = &quot;This here&#39;s the wattle,\n&quot;
-&gt;&gt;&gt; fout.write(linea1)
+<pre class="python"><code>&gt;&gt;&gt; linea1 = &quot;Aquí está el zarzo,\n&quot;
+&gt;&gt;&gt; fsal.write(linea1)
 24</code></pre>
 <p></p>
 <p>El manejador de archivo mantiene un seguimiento de dónde está, así que si llamas a <code>write</code> de nuevo, éste agrega los nuevos datos al final.</p>
 <p>Debemos asegurarnos de gestionar los finales de las líneas conforme vamos escribiendo en el archivo, insertando explícitamente el carácter de salto de línea cuando queremos finalizar una línea. La sentencia <code>print</code> agrega un salto de línea automáticamente, pero el método <code>write</code> no lo agrega de forma automática.</p>
-<pre class="python"><code>&gt;&gt;&gt; linea2 = &#39;the emblem of our land.\n&#39;
-&gt;&gt;&gt; fout.write(linea2)
+<pre class="python"><code>&gt;&gt;&gt; linea2 = &#39;el símbolo de nuestra tierra.\n&#39;
+&gt;&gt;&gt; fsal.write(linea2)
 24</code></pre>
 <p>Cuando terminas de escribir, tienes que cerrar el archivo para asegurarte que la última parte de los datos es escrita físicamente en el disco duro, de modo que no se pierdan los datos si la corriente eléctrica se interrumpe.</p>
-<pre class="python"><code>&gt;&gt;&gt; fout.close()</code></pre>
+<pre class="python"><code>&gt;&gt;&gt; fsal.close()</code></pre>
 <p>Podríamos cerrar los archivos abiertos para lectura también, pero podemos ser menos rigurosos si sólo estamos abriendo unos pocos archivos puesto que Python se asegura de que todos los archivos abiertos sean cerrados cuando termina el programa. En cambio, cuando estamos escribiendo archivos debemos cerrarlos de forma explícita para no dejar nada al azar.</p>
 <p> </p>
 <h2 id="depuración">Depuración</h2>
