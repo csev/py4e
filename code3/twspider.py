@@ -30,7 +30,7 @@ while True:
             print('No se han encontrado cuentas de Twitter por recuperar')
             continue
 
-    url = twurl.augment(TWITTER_URL, {'screen_name': cuenta, 'count': '5'})
+    url = twurl.aumentar(TWITTER_URL, {'screen_name': cuenta, 'count': '5'})
     print('Recuperando', url)
     conexion = urlopen(url, context=ctx)
     datos = conexion.read().decode()

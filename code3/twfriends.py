@@ -43,7 +43,7 @@ while True:
                 continue
             id = cur.lastrowid
 
-    url = twurl.augment(TWITTER_URL, {'screen_name': cuenta, 'count': '100'})
+    url = twurl.aumentar(TWITTER_URL, {'screen_name': cuenta, 'count': '100'})
     print('Recuperando cuenta', cuenta)
     try:
         conexion = urllib.request.urlopen(url, context=ctx)

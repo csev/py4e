@@ -1,7 +1,7 @@
-# Keep this file separate
+# Mantener este archivo separado
 
 # https://apps.twitter.com/
-# Create new App and get the four strings
+# Crear nueva App y obtener las cuatro cadenas
 
 def oauth():
     return {"consumer_key": "h7Lu...Ng",

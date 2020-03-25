@@ -3,29 +3,29 @@ import oauth
 import hidden
 
 # https://apps.twitter.com/
-# Create App and get the four strings, put them in hidden.py
+# Crear App y obtener las cuatro cadenas, luego colocarlas en hidden.py
 
-def augment(url, parameters):
-    secrets = hidden.oauth()
-    consumer = oauth.OAuthConsumer(secrets['consumer_key'],
-                                   secrets['consumer_secret'])
-    token = oauth.OAuthToken(secrets['token_key'], secrets['token_secret'])
+def aumentar(url, parametros):
+    credenciales = hidden.oauth()
+    consumidor = oauth.OAuthConsumer(credenciales['consumer_key'],
+                                     credenciales['consumer_secret'])
+    token = oauth.OAuthToken(credenciales['token_key'], credenciales['token_secret'])
 
-    oauth_request = oauth.OAuthRequest.from_consumer_and_token(consumer,
-                    token=token, http_method='GET', http_url=url,
-                    parameters=parameters)
-    oauth_request.sign_request(oauth.OAuthSignatureMethod_HMAC_SHA1(),
-                               consumer, token)
-    return oauth_request.to_url()
+    oauth_solicitud = oauth.OAuthRequest.from_consumer_and_token(consumidor,
+                      token=token, http_method='GET', http_url=url,
+                      parameters=parametros)
+    oauth_solicitud.sign_request(oauth.OAuthSignatureMethod_HMAC_SHA1(),
+                                 consumidor, token)
+    return oauth_solicitud.to_url()
 
 
-def test_me():
-    print('* Calling Twitter...')
-    url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json',
+def pruebame():
+    print('* Conectando a Twitter...')
+    url = aumentar('https://api.twitter.com/1.1/statuses/user_timeline.json',
                   {'screen_name': 'drchuck', 'count': '2'})
     print(url)
-    connection = urllib.request.urlopen(url)
-    data = connection.read()
-    print(data)
-    headers = dict(connection.getheaders())
-    print(headers)
+    conexion = urllib.request.urlopen(url)
+    datos = conexion.read()
+    print(datos)
+    cabeceras = dict(conexion.getheaders())
+    print(cabeceras)

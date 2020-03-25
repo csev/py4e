@@ -69,8 +69,8 @@ XML. La función 'find ' busca a través del árbol XML y recupera el nodo que c
 con la etiqueta especificada. 
 
 ~~~~
-Name: Chuck
-Attr: yes
+Nombre: Chuck
+Atributo: si
 ~~~~
 
 El usar un analizador de XML como 'ElementTree ' tiene la ventaja de que, a pesar
@@ -86,63 +86,63 @@ Desplazamiento a través de los nodos
 
 A menudo el XML tiene múltiples nodos y tenemos que escribir un bucle para
 procesarlos todos. En el programa siguiente, usamos un bucle para recorrer todos
-los nodos 'user':
+los nodos 'usuario':
 
 
 \VerbatimInput{../code3/xml2.py} 
 
 El método 'findall' devuelve una lista de subárboles que representan
-las estructuras 'user' del árbol XML. A continuación podemos escribir un bucle
+las estructuras 'usuario' del árbol XML. A continuación podemos escribir un bucle
 'for' que busque en cada uno de los nodos usuario, e imprima el texto de los
-elementos 'name' e 'id', además del atributo 'x' de cada nodo usuario.
+elementos 'nombre' e 'id', además del atributo 'x' de cada nodo usuario.
 
 ~~~~
-User count: 2
-Name Chuck
+Contador de usuarios: 2
+Nombre Chuck
 Id 001
-Attribute 2
-Name Brent
+Atributo 2
+Nombre Brent
 Id 009
-Attribute 7
+Atributo 7
 ~~~~
 
 Es importante incluir todos los elementos base en la declaración de 'findall'
-exceptuando aquel que se encuentra en el nivel superior (p. ej., 'users/user').
+exceptuando aquel que se encuentra en el nivel superior (p. ej., 'usuarios/usuario').
 De lo contrario, Python no encontrará ninguno de los nodos que buscamos.
 
 ~~~~ {.python}
 import xml.etree.ElementTree as ET
 
 input = '''
-<stuff>
-  <users>
-    <user x="2">
+<cosa>
+  <usuarios>
+    <usuario x="2">
       <id>001</id>
-      <name>Chuck</name>
-    </user>
-    <user x="7">
+      <nombre>Chuck</nombre>
+    </usuario>
+    <usuario x="7">
       <id>009</id>
-      <name>Brent</name>
-    </user>
-  </users>
-</stuff>'''
+      <nombre>Brent</nombre>
+    </usuario>
+  </usuarios>
+</cosa>'''
 
-stuff = ET.fromstring(input)
+cosa = ET.fromstring(input)
 
-lst = stuff.findall('users/user')
-print('User count:', len(lst))
+lst = cosa.findall('usuarios/usuario')
+print('Cuenta de usuarios:', len(lst))
 
-lst2 = stuff.findall('user')
-print('User count:', len(lst2))
+lst2 = cosa.findall('usuario')
+print('Cuenta de usuarios:', len(lst2))
 ~~~~
 
-'lst' almacena todos los elementos 'user' anidados dentro de su base 'users'.
-'lst2' busca los elementos 'user' que no se encuentren anidados dentro del
-elemento de nivel superior 'stuff' donde no hay ninguno.
+'lst' almacena todos los elementos 'usuario' anidados dentro de su base 'usuarios'.
+'lst2' busca los elementos 'usuario' que no se encuentren anidados dentro del
+elemento de nivel superior 'cosa' donde no hay ninguno.
 
 ~~~~
-User count: 2
-User count: 0
+Cuenta de usuarios: 2
+Cuenta de usuarios: 0
 ~~~~
 
 JavaScript Object Notation - JSON
@@ -219,13 +219,13 @@ La salida de este programa es exactamente la misma que la de la versión XML
 anterior.
 
 ~~~~
-User count: 2
-Name Chuck
+Total de usuarios: 2
+Nombre Chuck
 Id 001
-Attribute 2
-Name Brent
+Atributo 2
+Nombre Brent
 Id 009
-Attribute 7
+Atributo 7
 ~~~~
 
 En general, hay una tendencia en la industria a apartarse del XML y pasar al
@@ -560,25 +560,25 @@ simplemente los primeros 250 caracteres de esa cadena:
 Cuando el programa se ejecuta, produce la salida siguiente:
 
 ~~~~
-Enter Twitter Account:drchuck
-Retrieving https://api.twitter.com/1.1/ ...
+Ingresa una cuenta de Twitter:drchuck
+Recuperando https://api.twitter.com/1.1/ ...
 [{"created_at":"Sat Sep 28 17:30:25 +0000 2013","
 id":384007200990982144,"id_str":"384007200990982144",
 "text":"RT @fixpert: See how the Dutch handle traffic
 intersections: http:\/\/t.co\/tIiVWtEhj4\n#brilliant",
 "source":"web","truncated":false,"in_rep
-Remaining 178
+Restantes 178
 
-Enter Twitter Account:fixpert
-Retrieving https://api.twitter.com/1.1/ ...
+Ingresa una cuenta de Twitter:fixpert
+Recuperando https://api.twitter.com/1.1/ ...
 [{"created_at":"Sat Sep 28 18:03:56 +0000 2013",
 "id":384015634108919808,"id_str":"384015634108919808",
 "text":"3 months after my freak bocce ball accident,
 my wedding ring fits again! :)\n\nhttps:\/\/t.co\/2XmHPx7kgX",
 "source":"web","truncated":false,
-Remaining 177
+Restantes 177
 
-Enter Twitter Account:
+Ingresa una cuenta de Twitter:
 ~~~~
 
 Junto con los datos de la línea del tiempo, Twitter también devuelve metadatos
@@ -608,9 +608,9 @@ La salida del programa se parece a la siguiente (parte de los datos se han acort
 para que quepan en la página):
 
 ~~~~
-Enter Twitter Account:drchuck
-Retrieving https://api.twitter.com/1.1/friends ...
-Remaining 14
+Ingresa una cuenta de Twitter:drchuck
+Recuperando https://api.twitter.com/1.1/friends ...
+Restantes 14
 ~~~~
 
 ~~~~ {.json}
@@ -657,7 +657,7 @@ halherzog
 scweeker
    @DeviceLabDC love it! Now where so I get that "etc
 
-Enter Twitter Account:
+Ingresa una cuenta de Twitter:
 ~~~~
 
 El último trozo de la salida es donde podemos ver cómo el bucle for lee los cinco
