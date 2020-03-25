@@ -1,12 +1,12 @@
-class PartyAnimal:
+class GrupoAnimal:
    x = 0
 
-   def party(self) :
+   def grupo(self) :
      self.x = self.x + 1
-     print("So far",self.x)
+     print("Hasta ahora",self.x)
 
-an = PartyAnimal()
+an = GrupoAnimal()
 print ("Type", type(an))
 print ("Dir ", dir(an))
 print ("Type", type(an.x))
-print ("Type", type(an.party))
+print ("Type", type(an.grupo))

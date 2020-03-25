@@ -1,3 +1,3 @@
-usf = input('Enter the US Floor Number: ')
+usf = input('Ingresa el Número de Piso US: ')
 wf = int(usf) - 1
-print('Non-US Floor Number is',wf)
+print('Número de Piso No-US es',wf)

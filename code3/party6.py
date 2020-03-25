@@ -1,15 +1,15 @@
-from party import PartyAnimal
+from party import GrupoAnimal
 
-class CricketFan(PartyAnimal):
-   points = 0
-   def six(self):
-      self.points = self.points + 6
-      self.party()
-      print(self.name,"points",self.points)
+class GrilloFan(GrupoAnimal):
+   puntos = 0
+   def seis(self):
+      self.puntos = self.puntos + 6
+      self.grupo()
+      print(self.nombre,"puntos",self.puntos)
 
-s = PartyAnimal("Sally")
-s.party()
-j = CricketFan("Jim")
-j.party()
-j.six()
+s = GrupoAnimal("Sally")
+s.grupo()
+j = GrilloFan("Jim")
+j.grupo()
+j.seis()
 print(dir(j))
