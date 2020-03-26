@@ -1,18 +1,18 @@
-class PartyAnimal:
+class GrupoAnimal:
    x = 0
 
    def __init__(self):
-     print('I am constructed')
+     print('Estoy construido')
 
-   def party(self) :
+   def grupo(self) :
      self.x = self.x + 1
-     print('So far',self.x)
+     print('Hasta ahora',self.x)
 
    def __del__(self):
-     print('I am destructed', self.x)
+     print('Estoy destruido', self.x)
 
-an = PartyAnimal()
-an.party()
-an.party()
+an = GrupoAnimal()
+an.grupo()
+an.grupo()
 an = 42
-print('an contains',an)
+print('an contiene',an)

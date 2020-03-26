@@ -2,44 +2,44 @@ import urllib.request, urllib.parse, urllib.error
 import json
 import ssl
 
-api_key = False
-# If you have a Google Places API key, enter it here
-# api_key = 'AIzaSy___IDByT70'
+clave_api = False
+# Si tienes una clave API de Google Places, ingresala aquí
+# clave_api = 'AIzaSy___IDByT70'
 # https://developers.google.com/maps/documentation/geocoding/intro
 
-if api_key is False:
-    api_key = 42
-    serviceurl = 'http://py4e-data.dr-chuck.net/json?'
+if clave_api is False:
+    clave_api = 42
+    url_de_servicio = 'http://py4e-data.dr-chuck.net/json?'
 else :
-    serviceurl = 'https://maps.googleapis.com/maps/api/geocode/json?'
+    url_de_servicio = 'https://maps.googleapis.com/maps/api/geocode/json?'
 
-# Ignore SSL certificate errors
+# Ignorar errores de certificado SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 while True:
-    address = input('Enter location: ')
-    if len(address) < 1: break
+    direccion = input('Ingresa una ubicación: ')
+    if len(direccion) < 1: break
 
     parms = dict()
-    parms['address'] = address
-    if api_key is not False: parms['key'] = api_key
-    url = serviceurl + urllib.parse.urlencode(parms)
+    parms['address'] = direccion
+    if clave_api is not False: parms['key'] = clave_api
+    url = url_de_servicio + urllib.parse.urlencode(parms)
 
-    print('Retrieving', url)
+    print('Recuperando', url)
     uh = urllib.request.urlopen(url, context=ctx)
-    data = uh.read().decode()
-    print('Retrieved', len(data), 'characters')
+    datos = uh.read().decode()
+    print('Recuperados', len(datos), 'caracteres')
 
     try:
-        js = json.loads(data)
+        js = json.loads(datos)
     except:
         js = None
 
     if not js or 'status' not in js or js['status'] != 'OK':
-        print('==== Failure To Retrieve ====')
-        print(data)
+        print('==== Error al Recuperar ====')
+        print(datos)
         continue
 
     print(json.dumps(js, indent=4))

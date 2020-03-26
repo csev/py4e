@@ -1,10 +1,10 @@
-class PartyAnimal:
+class GrupoAnimal:
    x = 0
-   name = ''
-   def __init__(self, nam):
-     self.name = nam
-     print(self.name,'constructed')
+   nombre = ''
+   def __init__(self, nom):
+     self.nombre = nom
+     print(self.nombre,'construido')
 
-   def party(self) :
+   def grupo(self) :
      self.x = self.x + 1
-     print(self.name,'party count',self.x)
+     print(self.nombre,'recuento grupal',self.x)

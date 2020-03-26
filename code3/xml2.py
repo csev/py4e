@@ -1,24 +1,24 @@
 import xml.etree.ElementTree as ET
 
-input = '''
-<stuff>
-  <users>
-    <user x="2">
+datos = '''
+<cosa>
+  <usuarios>
+    <usuario x="2">
       <id>001</id>
-      <name>Chuck</name>
-    </user>
-    <user x="7">
+      <nombre>Chuck</nombre>
+    </usuario>
+    <usuario x="7">
       <id>009</id>
-      <name>Brent</name>
-    </user>
-  </users>
-</stuff>'''
+      <nombre>Brent</nombre>
+    </usuario>
+  </usuarios>
+</cosa>'''
 
-stuff = ET.fromstring(input)
-lst = stuff.findall('users/user')
-print('User count:', len(lst))
+cosa = ET.fromstring(datos)
+lst = cosa.findall('usuarios/usuario')
+print('Total de usuarios:', len(lst))
 
 for item in lst:
-    print('Name', item.find('name').text)
+    print('Nombre', item.find('nombre').text)
     print('Id', item.find('id').text)
-    print('Attribute', item.get('x'))
+    print('Atributo', item.get('x'))
