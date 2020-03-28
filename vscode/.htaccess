@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule ^ - [E=protossl]
+    RewriteCond %{HTTPS} on
+    RewriteRule ^ - [E=protossl:s]
+    RewriteRule "(^|/)\." - [F]
+    RewriteCond %{REQUEST_URI} !=/favicon.ico
+    RewriteCond %{REQUEST_URI} !\.(jpg|png|css|js|php)$
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    FallbackResource index.php
+</IfModule>
