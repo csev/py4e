@@ -89,7 +89,7 @@ because eventually you will need to use bash to run more complex programs.
 You can scroll back through previous commands by pressing the up and down arrows and re-execute 
 commands using the enter key.  This can save a lot of typing.
 If you like keeping your screen uncluttered, you can clear the scroll 
-back buffer by pressing the Command key and the K key at the same time.
+back buffer by pressing the <b>Command key</b> and the <b>K</b> key at the same time.
 
 <h2>Editing Files on PythonAnywhere</h2>
 <p>
