@@ -15,7 +15,7 @@ to write and run Python code is a web browser. There is nothing to install at al
 This means that you can do this course on a "locked-down" environment on systems
 like Apple's iPad, iPhone, Android, ChromeBooks, or Windows 10 Home S.  You can
 also use PythonAnywhere if you are using a work or school computer that does not
-allow any software ito be installed.
+allow any software into be installed.
 </p>
 <h2>Sign up for an account</h2>
 <p>
@@ -81,7 +81,7 @@ shows details like permissions, modification date and file size.</li>
 <li><b>python3 hello.py</b> runs Python on your file</li>
 </ul>
 We recommend that you start using the Linux bash shell to run your code from the very beginning
-because eventually you will need to use bash to run most complex programs.
+because eventually you will need to use bash to run more complex programs.
 </p>
 <p>
 <h2>Some Cool Hints on the bash console</h2>

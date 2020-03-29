@@ -1,8 +1,8 @@
 <?php include("top.php"); ?>
 <?php include("nav.php"); ?>
 <h1>Installing Python 3 On Windows 10</h1>
-<p><b>Note:</b> Any reasonably recent version of Python is acceptible for this course.
-If you have a verison of Python 3.x on your computer already you should be able to use it for this class.
+<p><b>Note:</b> Any reasonably recent version of Python is acceptable for this course.
+If you have a version of Python 3.x on your computer already you should be able to use it for this class.
 </p>
 <p>Please download and install Python 3.x from:</p>
 <p><a href="http://www.python.org/download/" target="_blank">http://www.python.org/download/</a></p>
@@ -73,7 +73,7 @@ the most important is to set the Command History Buffer Size to be 999.
 <h1>Running Your Python Program in the Command Line</h1>
 <p>
 To run your program in the command line you type at the command line prompt.
-Windows knows that files wthat end with a ".py" suffix are Python programs.
+Windows knows that files that end with a ".py" suffix are Python programs.
 <pre>
     python firstprog.py
 </pre>
