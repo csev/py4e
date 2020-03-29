@@ -73,7 +73,7 @@ Here is what the commands are doing:
 <ul>
 <li><b>cd</b> - Change directory into my home folder - we do this just to make sure we are starting in the 
 right place in the folder hierarchy.</li>
-<li><b>pwd</b>> - Print Working Directory - this command tells you where you are at in the folder
+<li><b>pwd</b> - Print Working Directory - this command tells you where you are at in the folder
 hierarchy.  We are in our home folder.  Linux is a multi-user system and each user has their own 'home'
 directory.  You can build a folder hirearchy from your home folder on down.</li>
 <li><b>ls -l</b> list the files and subfolders in the current folder.  The '-l' option
@@ -84,10 +84,43 @@ We recommend that you start using the Linux bash shell to run your code from the
 because eventually you will need to use bash to run most complex programs.
 </p>
 <p>
-<h2>Some Cool Hints on The Macintosh Terminal Program</h2>
+<h2>Some Cool Hints on the bash console</h2>
 <p>
 You can scroll back through previous commands by pressing the up and down arrows and re-execute 
 commands using the enter key.  This can save a lot of typing.
 If you like keeping your screen uncluttered, you can clear the scroll 
 back buffer by pressing the Command key and the K key at the same time.
+
+<h2>Editing Files on PythonAnywhere</h2>
+<p>
+There are three ways to edit files in your PythonAnywhere environment, ranging from the easiest
+to the coolest.  You only have to edit the file one of these ways.
+<ol>
+<li>
+Go to the main PythonAnywhere dashboard, browse files, navigate to the correct folder and edit the file.
+</li><li>
+Or in the command line:
+<pre>
+cd ~
+nano hello.py
+</pre>
+Save the File by pressing 'CTRL-X', 'Y', and Enter.
+</li><li>
+Don't try this most difficult and most cool way to edit files on Linux without a helper
+if it is your first time with the `vi` text editor.
+<pre>
+cd ~
+vi hello.py
+</pre>
+Once you have opened `vi`, cursor down where you want to make a change, and press the
+`i` key to go into 'INSERT' mode, then type your new text and press the `esc` key when you are
+done.  To save the file, you type `:wq` followed by `enter`.  If you get lost press `escape` `:q!`
+`enter` to get out of the file without saving.
+</li>
+</ol>
+If you aleady know some _other_ command line text editor in Linux, you can use it to edit files.  In general,
+you will find that it often quicker and easier to make small edits to files in the command line
+rather than a full screen UI.  And once you start deploying real applications in production
+environments like Google, Amazon, Microsoft, etc.. all you will have is command line.
+
 <?php include('footer.php');?>
