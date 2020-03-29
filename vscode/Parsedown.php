@@ -1177,6 +1177,7 @@ class Parsedown
                 'attributes' => array(
                     'src' => $Link['element']['attributes']['href'],
                     'alt' => $Link['element']['text'],
+                    'style' => 'max-width:100%;',
                 ),
             ),
         );

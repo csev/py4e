@@ -9,6 +9,10 @@
         </p>
         <ul>
             <li>
+                <a href="software-pyaw.php">Using Python on PythonAnywhere</a> 
+                    (Cloud / browser based - no installation required)
+            </li>
+            <li>
                 <a href="software-win.php">Setting up the Python Environment in Microsoft Windows</a>
             </li>
             <li>
@@ -20,8 +24,7 @@
             </li>
         </ul>
         <p>
-            Can't or don't want to install software on your computer?  Check out
-            <a href="https://www.pythonanywhere.com/">PythonAnywhere</a>,
+            Other cloud-provided Python environments include
             <a href="http://trinket.io">Trinket</a>,
             <a href="http://c9.io">Cloud9</a>, or
             <a href="http://codeanywhere.com">CodeAnywhere</a>.

@@ -4,6 +4,7 @@ if ( ! defined('COOKIE_SESSION') ) define('COOKIE_SESSION', true);
 
 require_once "../tsugi/config.php";
 require_once "Parsedown.php";
+require_once "Parsedown_emoji.php";
 
 require_once "../top.php";
 require_once "../nav.php";
@@ -74,7 +75,8 @@ function onSelect() {
 </div>
 <?php
     $Parsedown = new Parsedown();
-    echo $Parsedown->text($contents);
+    $result = str_replace($parsedown_emoji_search, $parsedown_emoji_replace, $Parsedown->text($contents));
+    echo $Parsedown->text($result);
 } else {
 ?>
 <p>
