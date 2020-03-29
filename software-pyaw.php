@@ -115,7 +115,7 @@ vi hello.py
 Once you have opened <b>vi</b>, cursor down where you want to make a change, and press the
 <b>i</b> key to go into 'INSERT' mode, then type your new text and press
 the <b>esc</b> key when you are done.  To save the file, you type <b>:wq</b>
-followed by <b>enter</b>.  If you get lost press <b>escape</b> <b>:q!</b>
+followed by <b>enter</b>.  If you get lost press <b>esc</b> <b>:q!</b>
 <b>enter</b> to get out of the file without saving.
 </li>
 </ol>
