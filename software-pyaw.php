@@ -107,15 +107,16 @@ nano hello.py
 Save the File by pressing 'CTRL-X', 'Y', and Enter.
 </li><li>
 Don't try this most difficult and most cool way to edit files on Linux without a helper
-if it is your first time with the `vi` text editor.
+if it is your first time with the <b>vi</b> text editor.
 <pre>
 cd ~
 vi hello.py
 </pre>
-Once you have opened `vi`, cursor down where you want to make a change, and press the
-`i` key to go into 'INSERT' mode, then type your new text and press the `esc` key when you are
-done.  To save the file, you type `:wq` followed by `enter`.  If you get lost press `escape` `:q!`
-`enter` to get out of the file without saving.
+Once you have opened <b>vi</b>, cursor down where you want to make a change, and press the
+<b>i</b> key to go into 'INSERT' mode, then type your new text and press
+the <b>esc</b> key when you are done.  To save the file, you type <b>:wq</b>
+followed by <b>enter</b>.  If you get lost press <b>escape</b> <b>:q!</b>
+<b>enter</b> to get out of the file without saving.
 </li>
 </ol>
 If you aleady know some _other_ command line text editor in Linux, you can use it to edit files.  In general,
