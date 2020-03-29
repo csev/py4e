@@ -35,25 +35,25 @@ in your home folder (should be something like <b>/home/drchuck</b>.  Put the fol
 <pre>
 print('Hello world')
 </pre>
-Save the file and press 'Run' and you should see:
+Save the file and press <b>Run</b> and you should see:
 <pre>
 Hello world 123
 &gt;&gt;&gt;
 </pre>
-Then change the text to 'Hello PY4E world', press 'Save' and press 'Run' and it should run your modified
+Then change the text to 'Hello PY4E world', press <b>Save</b> and press <b>Run</b> and it should run your modified
 program.
 </pre>
 </p>
 <p>
-While the 'Run' button works for programs thata re a few lines, once you start working on more complex
+While the <b>Run</b> button works for programs thata re a few lines, once you start working on more complex
 programs you will need to use a Linux shell (command line).  It might feel a little strange at the beginning
 but learning a little bit of Linux is a great idea as it is the dominant system that is used for servers.
 </p>
 <h2>Using the Linux Shell on PythonAnywhere</h2>
 <p>
 This works best if you can have two tabs open at the same time in the browser.  One tab should be navigated to
-the 'Files' screen and another should be nagivated to the 'Consoles' screen.  If you already have a 
-bash console running you can go back to it - otherwise start a new 'Bash' console.  After it starts up, 
+the <b>Files</b> screen and another should be nagivated to the <b>Consoles</b> screen.  If you already have a 
+bash console running you can go back to it - otherwise start a new <b>Bash</b> console.  After it starts up, 
 you should see something like:
 <pre>
 14:12 ~ $
@@ -76,7 +76,7 @@ right place in the folder hierarchy.</li>
 <li><b>pwd</b> - Print Working Directory - this command tells you where you are at in the folder
 hierarchy.  We are in our home folder.  Linux is a multi-user system and each user has their own 'home'
 directory.  You can build a folder hirearchy from your home folder on down.</li>
-<li><b>ls -l</b> list the files and subfolders in the current folder.  The '-l' option
+<li><b>ls -l</b> list the files and subfolders in the current folder.  The <b>-l</b> option
 shows details like permissions, modification date and file size.</li>
 <li><b>python3 hello.py</b> runs Python on your file</li>
 </ul>
@@ -104,7 +104,7 @@ Or in the command line:
 cd ~
 nano hello.py
 </pre>
-Save the File by pressing 'CTRL-X', 'Y', and Enter.
+Save the File by pressing <b>CTRL-X</b>, <b>Y</b>, and Enter.
 </li><li>
 Don't try this most difficult and most cool way to edit files on Linux without a helper
 if it is your first time with the <b>vi</b> text editor.
