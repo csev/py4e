@@ -30,6 +30,7 @@ In each of these examples, your logged in account should be used instead of csev
     Windows Vista:          C:\Users\csev
     Windows 7:              C:\Users\csev
     Windows 10:             C:\Users\csev
+    Windows 10 OneDrive:    C:\Users\csev\OneDrive
 </pre>
 The command line prompt usually includes some clue as to 
 where you are in the folder structure on your hard drive.
@@ -45,7 +46,8 @@ Where can you go?
 <p>
 Generally the first thing you want to do when you open a command line 
 interface is to navigate to the right folder.  Say you wanted to run a 
-file from your desktop.   The command is <b>cd Desktop</b> to get into the 
+file from your desktop.   The command is <b>cd Desktop</b> (or <b>cd OneDrive\Desktop</b>) 
+to get into the 
 folder that is your Desktop.  You can use the <b>dir</b> command to see 
 which files are in the current directory and the 
 <b>cd ..</b> command to go "<b style="color:black;background-color:#a0ffff">up</b>" a directory
