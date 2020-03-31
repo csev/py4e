@@ -37,7 +37,7 @@ print('Hello world')
 </pre>
 Save the file and press <b>Run</b> and you should see:
 <pre>
-Hello world 123
+Hello world
 &gt;&gt;&gt;
 </pre>
 Then change the text to 'Hello PY4E world', press <b>Save</b> and press <b>Run</b> and it should run your modified
@@ -45,7 +45,7 @@ program.
 </pre>
 </p>
 <p>
-While the <b>Run</b> button works for programs thata re a few lines, once you start working on more complex
+While the <b>Run</b> button works for programs that are a few lines, once you start working on more complex
 programs you will need to use a Linux shell (command line).  It might feel a little strange at the beginning
 but learning a little bit of Linux is a great idea as it is the dominant system that is used for servers.
 </p>
