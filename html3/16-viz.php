@@ -26,7 +26,7 @@
 <p>Hasta el momento, hemos estado aprendiendo el lenguaje de Python y hemos aprendido cómo usar Python, la red y las bases de datos para manipular datos.</p>
 <p>En este capítulo, echaremos un vistazo a tres aplicaciones completas que usan todos estos elementos para gestionar y visualizar datos. Puedes usar estas aplicaciones como código de ejemplo que sirva de punto de partida para resolver problemas del mundo real.</p>
 <p>Cada aplicación es un archivo ZIP que puedes descargar, extraer en tu equipo y ejecutar.</p>
-<h2 id="construcción-de-un-mapa-de-google-a-partir-de-datos-geocodificados">Construcción de un mapa de Google a partir de datos geocodificados</h2>
+<h2 id="mapa-de-google-a-partir-de-datos-geocodificados">Mapa de Google a partir de datos geocodificados</h2>
 <p> </p>
 <p>En este proyecto usaremos la API de geocodificación de Google para limpiar varias ubicaciones geográficas de nombres de universidades introducidas por los usuarios, y luego colocaremos los datos en un mapa de Google.</p>
 <figure>

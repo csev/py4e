@@ -39,7 +39,7 @@ for linea in man:
     if re.search(&#39;From:&#39;, linea):
         print(linea)
 
-# Code: http://www.py4e.com/code3/re01.py</code></pre>
+# Código: https://es.py4e.com/code3/re01.py</code></pre>
 <p>Abrimos el archivo, revisamos cada línea, y usamos la expresión regular <code>search()</code> para imprimir solo las líneas que contengan la cadena “From”. Este programa no toma ventaja del auténtico poder de las expresiones regulares, ya que podríamos simplemente haber usado <code>line.find()</code> para lograr el mismo resultado.</p>
 <p></p>
 <p>El poder de las expresiones regulares se manifiesta cuando agregamos caracteres especiales a la cadena de búsqueda que nos permite controlar de manera más precisa qué líneas calzan con la cadena. Agregar estos caracteres especiales a nuestra expresión regular nos permitirá buscar coincidencias y extraer datos usando unas pocas líneas de código.</p>
@@ -52,7 +52,7 @@ for linea in man:
     if re.search(&#39;^From:&#39;, linea):
         print(linea)
 
-# Code: http://www.py4e.com/code3/re02.py</code></pre>
+# Código: https://es.py4e.com/code3/re02.py</code></pre>
 <p>Ahora solo retornará líneas que <em>comiencen con</em> la cadena “From:”. Este sigue siendo un ejemplo muy sencillo que podríamos haber implementado usando el método <code>startswith()</code> de la librería de cadenas. Pero sirve para presentar la idea de que las expresiones regulares contienen caracteres especiales que nos dan mayor control sobre qué coincidencias retornará la expresión regular.</p>
 <p></p>
 <h2 id="coincidencia-de-caracteres-en-expresiones-regulares">Coincidencia de caracteres en expresiones regulares</h2>
@@ -68,7 +68,7 @@ for linea in man:
     if re.search(&#39;^F..m:&#39;, linea):
         print(linea)
 
-# Code: http://www.py4e.com/code3/re03.py</code></pre>
+# Código: https://es.py4e.com/code3/re03.py</code></pre>
 <p>Esto resulta particularmente poderoso cuando se le combina con la habilidad de indicar que un carácter puede repetirse cualquier cantidad de veces usando los caracteres <code>*</code> o <code>+</code> en tu expresión regular. Estos caracteres especiales indican que en lugar de coincidir con un solo carácter en la cadena de búsqueda, coinciden con cero o más caracteres (en el caso del asterisco) o con uno o más caracteres (en el caso del signo de suma).</p>
 <p>Podemos reducir más las líneas que coincidan usando un carácter <em>comodín</em> en el siguiente ejemplo:</p>
 <pre class="python"><code># Búsqueda de líneas que comienzan con From y tienen una arroba
@@ -79,7 +79,7 @@ for linea in man:
     if re.search(&#39;^From:.+@&#39;, linea):
         print(linea)
 
-# Code: http://www.py4e.com/code3/re04.py</code></pre>
+# Código: https://es.py4e.com/code3/re04.py</code></pre>
 <p>La cadena <code>^From:.+@</code> retornará coincidencias con líneas que empiecen con “From:”, seguidas de uno o más caracteres (<code>.+</code>), seguidas de un carácter @. Por lo tanto, la siguiente línea coincidirá:</p>
 <pre><code>From: stephen.marquard@uct.ac.za</code></pre>
 <p>Puede considerarse que el comodín <code>.+</code> se expande para abarcar todos los caracteres entre los signos : y @.</p>
@@ -98,11 +98,11 @@ Author: stephen.marquard@uct.ac.za</code></pre>
 <p>No queremos escribir código para cada tipo de líneas, dividiendo y rebanando de manera distinta en cada una. El siguiente programa usa <code>findall()</code> para encontrar las líneas que contienen direcciones de email y extraer una o más direcciones de cada línea.</p>
 <p> </p>
 <pre class="python"><code>import re
-s = &#39;Un mensaje de csev@umich.edu para cwen@iupui.edu acerca de una junta @2PM&#39;
+s = &#39;Una nota de csev@umich.edu a cwen@iupui.edu sobre una reunión @ 2PM&#39;
 lst = re.findall(r&#39;\S+@\S+&#39;, s)
 print(lst)
 
-# Code: http://www.py4e.com/code3/re05.py</code></pre>
+# Código: https://es.py4e.com/code3/re05.py</code></pre>
 <p>El método <code>findall()</code> busca en la cadena en el segundo argumento y retorna una lista de todas las cadenas que parecen ser direcciones de email. Estamos usando una secuencia de dos caracteres que coincide con un carácter distinto a un espacio en blanco (<code>\S</code>).</p>
 <p>El resultado de la ejecución del programa debiera ser:</p>
 <pre><code>[&#39;csev@umich.edu&#39;, &#39;cwen@iupui.edu&#39;]</code></pre>
@@ -117,7 +117,7 @@ for linea in man:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re06.py</code></pre>
+# Código: https://es.py4e.com/code3/re06.py</code></pre>
 <p>Con esto, leemos cada línea y luego extraemos las subcadenas que coincidan con nuestra expresión regular. Dado que <code>findall()</code> retorna una lista, simplemente revisamos si el número de elementos en ésta es mayor a cero e imprimir solo líneas donde encontramos al menos una subcadena que pudiera ser una dirección de email.</p>
 <p>Si ejecutamos el programa en <em>mbox.txt</em> obtendremos el siguiente resultado:</p>
 <pre><code>[&#39;wagnermr@iupui.edu&#39;]
@@ -146,7 +146,7 @@ for linea in man:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re07.py</code></pre>
+# Código: https://es.py4e.com/code3/re07.py</code></pre>
 <pre><code>...
 [&#39;wagnermr@iupui.edu&#39;]
 [&#39;cwen@iupui.edu&#39;]
@@ -177,7 +177,7 @@ for linea in man:
     if re.search(r&#39;^X\S*: [0-9.]+&#39;, linea):
         print(linea)
 
-# Code: http://www.py4e.com/code3/re10.py</code></pre>
+# Código: https://es.py4e.com/code3/re10.py</code></pre>
 <p>Cuando ejecutamos el programa, vemos que los datos han sido procesados, mostrando solo las líneas que buscamos.</p>
 <pre><code>X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000
@@ -200,7 +200,7 @@ for linea in man:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re11.py</code></pre>
+# Código: https://es.py4e.com/code3/re11.py</code></pre>
 <p>En lugar de usar <code>search()</code>, agregamos paréntesis alrededos de la parte de la expresión regular que representa al número de coma flotante para indicar que solo queremos que <code>findall()</code> retorne la parte correspondiente a números de coma flotante de la cadena retornada.</p>
 <p>El resultado de este programa es el siguiente:</p>
 <pre><code>[&#39;0.8475&#39;]
@@ -225,7 +225,7 @@ for linea in man:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re12.py</code></pre>
+# Código: https://es.py4e.com/code3/re12.py</code></pre>
 <p>Traducción de la expresión regular: estamos buscando líneas que empiecen con <code>Details:</code>, seguida de cualquier número de caracteres (<code>.*</code>), seguida de <code>rev=</code>, y después de uno o más dígitos. Queremos encontrar líneas que coincidan con toda la expresión pero solo queremos extraer el número entero al final de la línea, por lo que ponemos <code>[0-9]+</code> entre paréntesis.</p>
 <p>Al ejecutar el programa, obtenemos el siguiente resultado:</p>
 <pre><code>[&#39;39772&#39;]
@@ -254,7 +254,7 @@ for linea in man:
     x = re.findall(&#39;^From .* ([0-9][0-9]):&#39;, linea)
     if len(x) &gt; 0: print(x)
 
-# Code: http://www.py4e.com/code3/re13.py</code></pre>
+# Código: https://es.py4e.com/code3/re13.py</code></pre>
 <p>Al ejecutar el programa, obtendremos el siguiente resultado:</p>
 <pre><code>[&#39;09&#39;]
 [&#39;18&#39;]

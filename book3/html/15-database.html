@@ -57,7 +57,7 @@ cur.execute(&#39;CREATE TABLE Canciones (titulo TEXT, reproducciones INTEGER)&#3
 
 conn.close()
 
-# Code: http://www.py4e.com/code3/db1.py</code></pre>
+# Código: https://es.py4e.com/code3/db1.py</code></pre>
 <p>   </p>
 <p>La operación <code>connect</code> realiza una conexión con la base de datos almacenada en el archivo <code>musica.sqlite</code> en el directorio actual. Si el archivo no existe, se creará uno nuevo. La razón de que se le llame una “conexión” es que a veces la base de datos se almacena en un “servidor de bases de datos”, distinto del servidor en el cual está funcionando nuestra aplicación. En nuestros ejemplos, dado que son sencillos, la base de datos será simplemente un archivo local en el mismo directorio en el que está funcionando el código de Python.</p>
 <p>Un <em>cursor</em> es como un manejador de archivos, y se puede usar para realizar operaciones en los datos almacenados en la base de datos. La llamada a <code>cursor()</code> es muy similar conceptualmente a la llamada <code>open()</code> cuando se está tratando con archivos de texto.</p>
@@ -76,7 +76,7 @@ conn.close()
 <p>El comando <code>INSERT</code> de SQL indica qué tabla se está utilizando y luego define una fila nueva, enumerando los campos que se desean incluir <code>(titulo, reproducciones)</code> seguidos por los valores (<code>VALUES</code>) que queremos colocar en esa fila. Nosotros vamos a especificar los valores como signos de interrogación <code>(?, ?)</code> para indicarle que los valores reales serán pasados como una tupla <code>( 'My Way', 15 )</code> en el segundo parámetro de la llamada a <code>execute()</code>.</p>
 <pre class="python"><code>import sqlite3
 
-conn = sqlite3.connect(&#39;music.sqlite&#39;)
+conn = sqlite3.connect(&#39;musica.sqlite&#39;)
 cur = conn.cursor()
 
 cur.execute(&#39;INSERT INTO Canciones (titulo, reproducciones) VALUES (?, ?)&#39;,
@@ -95,7 +95,7 @@ conn.commit()
 
 cur.close()
 
-# Code: http://www.py4e.com/code3/db2.py</code></pre>
+# Código: https://es.py4e.com/code3/db2.py</code></pre>
 <p>Primero insertamos (<code>INSERT</code>) dos filas en la tabla y usamos <code>commit()</code> para forzar a que los datos sean escritos en el archivo de la base de datos.</p>
 <figure>
 <img src="../images/tracks.svg" alt="" /><figcaption>Columnas en una tabla</figcaption>
@@ -162,7 +162,8 @@ while True:
     cuenta = input(&#39;Ingresa una cuenta de Twitter, o salir: &#39;)
     if (cuenta == &#39;salir&#39;): break
     if (len(cuenta) &lt; 1):
-        cur.execute(&#39;SELECT nombre FROM Twitter WHERE recuperado = 0 LIMIT 1&#39;)
+        cur.execute(&#39;&#39;&#39;SELECT nombre FROM Twitter
+            WHERE recuperado = 0 LIMIT 1&#39;&#39;&#39;)
         try:
             cuenta = cur.fetchone()[0]
         except:
@@ -180,7 +181,8 @@ while True:
     # Depuración
     # print json.dumps(js, indent=4)
 
-    cur.execute(&#39;UPDATE Twitter SET recuperado=1 WHERE nombre = ?&#39;, (cuenta, ))
+    cur.execute(&#39;&#39;&#39;UPDATE Twitter
+            SET recuperado=1 WHERE nombre = ?&#39;&#39;&#39;, (cuenta, ))
 
     contnuevas = 0
     contantiguas = 0
@@ -203,7 +205,7 @@ while True:
 
 cur.close()
 
-# Code: http://www.py4e.com/code3/twspider.py</code></pre>
+# Código: https://es.py4e.com/code3/twspider.py</code></pre>
 <p>Nuestra base de datos está almacenada en el archivo <code>arana.sqlite</code> y tiene una tabla llamada <code>Twitter</code>. Cada fila en la tabla <code>Twitter</code> contiene una columna para el nombre de la cuenta, otra para indicar si hemos recuperado los amigos de esa cuenta, y otra para guardar cuántas veces se ha visto esa cuenta añadida en la lista de amigos de las demás.</p>
 <p>En el bucle principal del programa, pedimos al usuario el nombre de una cuenta de Twitter o “salir” para finalizar el programa. Si el usuario introduce una cuenta de Twitter, recuperamos la lista de amigos de ese usuario y sus estados, y añadimos cada amigo a la base de datos, si no estaba ya en ella. Si el amigo ya estaba en la lista, aumentamos en 1 el campo <code>amigos</code> en la fila correspondiente de la base de datos.</p>
 <p>Si el usuario presiona intro, buscamos en la base de datos la siguiente cuenta de Twitter que no haya sido aún recuperada, recuperamos los amigos de esa cuenta y sus estados, y luego los añadimos a la base de datos o los actualizamos, e incrementamos su contador de <code>amigos</code>.</p>
@@ -248,7 +250,7 @@ for fila in cur:
 print(contador, &#39;filas.&#39;)
 cur.close()
 
-# Code: http://www.py4e.com/code3/twdump.py</code></pre>
+# Código: https://es.py4e.com/code3/twdump.py</code></pre>
 <p>Este programa simplemente abre la base de datos y selecciona todas las columnas de todas las filas de la tabla <code>Twitter</code>, luego se mueve a través de las filas e imprime en pantalla su contenido.</p>
 <p>Si ejecutamos este programa después de la primera ejecución de nuestra araña de Twitter, la salida que mostrará será similar a esta:</p>
 <pre><code>(&#39;opencontent&#39;, 0, 1)
@@ -340,9 +342,9 @@ conn = sqlite3.connect(&#39;amigos.sqlite&#39;)
 cur = conn.cursor()
 
 cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS Personas
-            (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)&#39;&#39;&#39;)
+    (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)&#39;&#39;&#39;)
 cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS Seguimientos
-            (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id))&#39;&#39;&#39;)
+    (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id))&#39;&#39;&#39;)
 
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
@@ -353,7 +355,8 @@ while True:
     cuenta = input(&#39;Ingresa una cuenta de Twitter, o salir: &#39;)
     if (cuenta == &#39;salir&#39;): break
     if (len(cuenta) &lt; 1):
-        cur.execute(&#39;SELECT id, nombre FROM Personas WHERE recuperado=0 LIMIT 1&#39;)
+        cur.execute(&#39;&#39;&#39;SELECT id, nombre FROM Personas
+                WHERE recuperado=0 LIMIT 1&#39;&#39;&#39;)
         try:
             (id, cuenta) = cur.fetchone()
         except:
@@ -373,7 +376,8 @@ while True:
                 continue
             id = cur.lastrowid
 
-    url = twurl.aumentar(TWITTER_URL, {&#39;screen_name&#39;: cuenta, &#39;count&#39;: &#39;100&#39;})
+    url = twurl.aumentar(TWITTER_URL,
+            {&#39;screen_name&#39;: cuenta, &#39;count&#39;: &#39;100&#39;})
     print(&#39;Recuperando cuenta&#39;, cuenta)
     try:
         conexion = urllib.request.urlopen(url, context=ctx)
@@ -414,22 +418,22 @@ while True:
             amigo_id = cur.fetchone()[0]
             contantiguas = contantiguas + 1
         except:
-            cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Personas (nombre, recuperado)
-                        VALUES (?, 0)&#39;&#39;&#39;, (amigo, ))
+            cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Personas
+                (nombre, recuperado) VALUES (?, 0)&#39;&#39;&#39;, (amigo, ))
             conn.commit()
             if cur.rowcount != 1:
                 print(&#39;Error inserting account:&#39;, amigo)
                 continue
             amigo_id = cur.lastrowid
             contnuevas = contnuevas + 1
-        cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Seguimientos (desde_id, hacia_id)
-                    VALUES (?, ?)&#39;&#39;&#39;, (id, amigo_id))
+        cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Seguimientos
+             (desde_id, hacia_id) VALUES (?, ?)&#39;&#39;&#39;, (id, amigo_id))
     print(&#39;Cuentas nuevas=&#39;, contnuevas, &#39; ya visitadas=&#39;, contantiguas)
     print(&#39;Restantes&#39;, cabeceras[&#39;x-rate-limit-remaining&#39;])
     conn.commit()
 cur.close()
 
-# Code: http://www.py4e.com/code3/twfriends.py</code></pre>
+# Código: https://es.py4e.com/code3/twfriends.py</code></pre>
 <p>Este programa empieza a resultar un poco complicado, pero ilustra los patrones de diseño que debemos usar cuando utilizamos claves de enteros para enlazar tablas. Esos patrones básicos son:</p>
 <ol type="1">
 <li><p>Crear tablas con claves primarias y restricciones.</p></li>
@@ -477,8 +481,8 @@ cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS Seguimientos
 <p>Si el <code>INSERT</code> tiene éxito, podemos usar <code>cur.lastrowid</code> para averiguar el valor que la base de datos ha asignado a la columna <code>id</code> en nuestra fila recién creada.</p>
 <h3 id="almacenar-las-relaciones-entre-amigos">Almacenar las relaciones entre amigos</h3>
 <p>Una vez que sabemos el valor de la clave tanto para el usuario de Twitter como para el amigo que hemos extraído del JSON, resulta sencillo insertar ambos números en la tabla de <code>Seguimientos</code> con el código siguiente:</p>
-<pre class="python"><code>cur.execute(&#39;INSERT OR IGNORE INTO Seguimientos (desde_id, hacia_id) VALUES (?, ?)&#39;,
-    (id, amigo_id) )</code></pre>
+<pre class="python"><code>cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Seguimientos 
+    (desde_id, hacia_id) VALUES (?, ?)&#39;&#39;&#39;, (id, amigo_id) )</code></pre>
 <p>Nota que dejamos que sea la base de datos quien se ocupe de evitar la “inserción duplicada” de una relación, mediante la creación de una tabla con una restricción de unicidad, de modo que luego en nuestra sentencia <code>INSERT</code> tan sólo añadimos <code>o ignoramos</code>.</p>
 <p>Aquí está un ejemplo de la ejecución de este programa:</p>
 <pre><code>Ingresa una cuenta de Twitter, o salir:
@@ -563,7 +567,7 @@ print(contador, &#39;filas.&#39;)
 
 cur.close()
 
-# Code: http://www.py4e.com/code3/twjoin.py</code></pre>
+# Código: https://es.py4e.com/code3/twjoin.py</code></pre>
 <p>En este programa, en primer lugar volcamos el contenido de las tablas <code>Personas</code> y <code>Seguimientos</code> y a continuación mostramos un subconjunto de datos de las tablas unidas entre sí.</p>
 <p>Aquí tenemos la salida del programa:</p>
 <pre><code>python twjoin.py

@@ -166,7 +166,7 @@ fahr = float(ent)
 cel = (fahr - 32.0) * 5.0 / 9.0
 print(cel)
 
-# Code: http://www.py4e.com/code3/fahren.py</code></pre>
+# Código: https://es.py4e.com/code3/fahren.py</code></pre>
 <p>Si ejecutamos este código y le damos una entrada no válida, simplemente fallará con un mensaje de error bastante antipático:</p>
 <pre><code>python fahren.py
 Introduzca la Temperatura Fahrenheit:72
@@ -188,7 +188,7 @@ try:
 except:
     print(&#39;Por favor, introduzca un número&#39;)
 
-# Code: http://www.py4e.com/code3/fahren2.py</code></pre>
+# Código: https://es.py4e.com/code3/fahren2.py</code></pre>
 <p>Python comienza ejecutando la secuencia de sentencias del bloque <code>try</code>. Si todo va bien, se saltará todo el bloque <code>except</code> y terminará. Si ocurre una excepción dentro del bloque <code>try</code>, Python saltará fuera de ese bloque y ejecutará la secuencia de sentencias del bloque <code>except</code>.</p>
 <pre><code>python fahren2.py
 Introduzca la Temperatura Fahrenheit:72
@@ -261,7 +261,7 @@ relacion = int_senal / int_ruido
 decibelios = 10 * math.log10(relacion)
 print(decibelios)
 
-# Code: http://www.py4e.com/code3/snr.py</code></pre>
+# Código: https://es.py4e.com/code3/snr.py</code></pre>
 <p>Pero cuando lo haces funcionar, obtienes un mensaje de error<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>:</p>
 <p> </p>
 <pre class="python"><code>    Traceback (most recent call last):

@@ -193,7 +193,7 @@ def repite_estribillo():
 
 repite_estribillo()
 
-# Code: http://www.py4e.com/code3/lyrics.py</code></pre>
+# Código: https://es.py4e.com/code3/lyrics.py</code></pre>
 <p>Este programa contiene dos definiciones de funciones: <code>muestra_estribillo</code> y <code>repite_estribillo</code>. Las definiciones de funciones son ejecutadas exactamente igual que cualquier otra sentencia, pero su resultado consiste en crear objetos del tipo función. Las sentencias dentro de cada función son ejecutadas solamente cuando se llama a esa función, y la definición de una función no genera ninguna salida.</p>
 <p></p>
 <p>Como ya te imaginarás, es necesario crear una función antes de que se pueda ejecutar. En otras palabras, la definición de la función debe ser ejecutada antes de que la función se llame por primera vez.</p>
@@ -274,7 +274,7 @@ None</code></pre>
 x = sumados(3, 5)
 print(x)
 
-# Code: http://www.py4e.com/code3/addtwo.py</code></pre>
+# Código: https://es.py4e.com/code3/addtwo.py</code></pre>
 <p>Cuando se ejecuta este script, la sentencia <code>print</code> mostrará “8”, ya que la función <code>sumados</code> ha sido llamada con 3 y 5 como argumentos. Dentro de la función, los parámetros <code>a</code> y <code>b</code> equivaldrán a 3 y a 5 respectivamente. La función calculó la suma de ambos número y la guardó en una variable local a la función llamada <code>suma</code>. Después usó la sentencia <code>return</code> para enviar el valor calculado de vuelta al código de llamada como resultado de la función, que fue asignado a la variable <code>x</code> y mostrado en pantalla.</p>
 <h2 id="por-qué-funciones">¿Por qué funciones?</h2>
 <p></p>

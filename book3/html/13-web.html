@@ -54,7 +54,7 @@ arbol = ET.fromstring(datos)
 print(&#39;Nombre:&#39;, arbol.find(&#39;nombre&#39;).text)
 print(&#39;Atributo:&#39;, arbol.find(&#39;email&#39;).get(&#39;oculto&#39;))
 
-# Code: http://www.py4e.com/code3/xml1.py</code></pre>
+# Código: https://es.py4e.com/code3/xml1.py</code></pre>
 <p>Tanto la triple comilla simple (’’’’‘) como la triple comilla doble (’"""’) permiten la creación de cadenas que abarquen varias líneas.</p>
 <p>La llamada a ‘fromstring’ convierte la representación de cadena del XML en un “árbol” de nodos XML. Una vez tenemos el XML como un árbol, disponemos de una serie de métodos que podemos llamar para extraer porciones de datos de ese XML. La función ‘find’ busca a través del árbol XML y recupera el nodo que coincide con la etiqueta especificada.</p>
 <pre><code>Nombre: Chuck
@@ -88,7 +88,7 @@ for item in lst:
     print(&#39;Id&#39;, item.find(&#39;id&#39;).text)
     print(&#39;Atributo&#39;, item.get(&#39;x&#39;))
 
-# Code: http://www.py4e.com/code3/xml2.py</code></pre>
+# Código: https://es.py4e.com/code3/xml2.py</code></pre>
 <p>El método ‘findall’ devuelve una lista de subárboles que representan las estructuras ‘usuario’ del árbol XML. A continuación podemos escribir un bucle ‘for’ que busque en cada uno de los nodos usuario, e imprima el texto de los elementos ‘nombre’ e ‘id’, además del atributo ‘x’ de cada nodo usuario.</p>
 <pre><code>Contador de usuarios: 2
 Nombre Chuck
@@ -166,7 +166,7 @@ for elemento in info:
     print(&#39;Id&#39;, elemento[&#39;id&#39;])
     print(&#39;Atributo&#39;, elemento[&#39;x&#39;])
 
-# Code: http://www.py4e.com/code3/json2.py</code></pre>
+# Código: https://es.py4e.com/code3/json2.py</code></pre>
 <p>Si comparas el código que extrae los datos del JSON analizado y el del XML, verás que lo que obtenemos de ‘json.loads()’ es una lista de Python que recorreremos con un bucle for, y cada elemento dentro de esa lista es un diccionario de Python. Una vez analizado el JSON, podemos usar el operador índice de Python para extraer los distintos fragmentos de datos de cada usuario. No tenemos que usar la librería JSON para rebuscar a través del JSON analizado, ya que los datos devueltos son sencillamente estructuras nativas de Python.</p>
 <p>La salida de este programa es exactamente la misma que la de la versión XML anterior.</p>
 <pre><code>Total de usuarios: 2
@@ -280,7 +280,7 @@ while True:
     location = js[&#39;results&#39;][0][&#39;formatted_address&#39;]
     print(location)
 
-# Code: http://www.py4e.com/code3/geojson.py</code></pre>
+# Código: https://es.py4e.com/code3/geojson.py</code></pre>
 <p>El programa toma la cadena de búsqueda y construye una URL codificándola como parámetro dentro de ella, utilizando luego ‘urllib’ para recuperar el texto de la API de geocodificación de Google. A diferencia de una página web estática, los datos que obtengamos dependerán de los parámetros que enviemos y de los datos geográficos almacenados en los servidores de Google.</p>
 <p>Una vez recuperados los datos JSON, los analizamos con la librería ‘json’ y revisamos para asegurarnos de que hemos recibido datos válidos. Finalmente, extraemos la información que buscábamos.</p>
 <p>La salida del programa es la siguiente (parte del JSON recibido ha sido eliminado):</p>
@@ -382,10 +382,15 @@ def oauth():
             &quot;token_key&quot;: &quot;10185562-eibxCp9n2...P4GEQQOSGI&quot;,
             &quot;token_secret&quot;: &quot;H0ycCFemmC4wyf1...qoIpBo&quot;}
 
-# Code: http://www.py4e.com/code3/hidden.py</code></pre>
+# Código: https://es.py4e.com/code3/hidden.py</code></pre>
 <p>Se puede acceder al servicio web de Twitter mediante una URL como ésta:</p>
 <p><a href="https://api.twitter.com/1.1/statuses/user_timeline.json" class="uri">https://api.twitter.com/1.1/statuses/user_timeline.json</a></p>
-<p>Pero una vez añadida la información de seguridad, la URL se parecerá más a esto: ~~~~ https://api.twitter.com/1.1/statuses/user_timeline.json?count=2 &amp;oauth_version=1.0&amp;oauth_token=101…SGI&amp;screen_name=drchuck &amp;oauth_nonce=09239679&amp;oauth_timestamp=1380395644 &amp;oauth_signature=rLK…BoD&amp;oauth_consumer_key=h7Lu…GNg &amp;oauth_signature_method=HMAC-SHA1 ~~~~</p>
+<p>Pero una vez añadida la información de seguridad, la URL se parecerá más a esto:</p>
+<pre><code>https://api.twitter.com/1.1/statuses/user_timeline.json?count=2
+&amp;oauth_version=1.0&amp;oauth_token=101...SGI&amp;screen_name=drchuck
+&amp;oauth_nonce=09239679&amp;oauth_timestamp=1380395644
+&amp;oauth_signature=rLK...BoD&amp;oauth_consumer_key=h7Lu...GNg
+&amp;oauth_signature_method=HMAC-SHA1</code></pre>
 <p>Puedes leer la especificación OAuth si quieres saber más acerca del significado de los distintos parámetros que hemos añadido para cumplir con los requerimientos de seguridad de OAuth.</p>
 <p>Para los programas que ejecutamos con Twitter, ocultamos toda la complejidad dentro de los archivos <em>oauth.py</em> y <em>twurl.py</em>. Simplemente ajustamos los parámetros secretos en <em>hidden.py</em>, enviamos la URL deseada a la función <em>twurl.augment()</em>, y el código de la librería añade todos los parámetros necesarios a la URL.</p>
 <p>Este programa recupera la línea de tiempo de un usuario de Twitter concreto y nos la devuelve en formato JSON como una cadena. Vamos a imprimir simplemente los primeros 250 caracteres de esa cadena:</p>
@@ -417,7 +422,7 @@ while True:
     # Imprimir cabeceras
     print(&#39;Restantes&#39;, cabeceras[&#39;x-rate-limit-remaining&#39;])
 
-# Code: http://www.py4e.com/code3/twitter1.py</code></pre>
+# Código: https://es.py4e.com/code3/twitter1.py</code></pre>
 <p>Cuando el programa se ejecuta, produce la salida siguiente:</p>
 <pre><code>Ingresa una cuenta de Twitter:drchuck
 Recuperando https://api.twitter.com/1.1/ ...
@@ -479,7 +484,7 @@ while True:
         s = u[&#39;status&#39;][&#39;text&#39;]
         print(&#39;  &#39;, s[:50])
 
-# Code: http://www.py4e.com/code3/twitter2.py</code></pre>
+# Código: https://es.py4e.com/code3/twitter2.py</code></pre>
 <p>Dado que el JSON se transforma en un conjunto de listas y diccionarios de Python anidados, podemos usar una combinación del operador índice junto con bucles ‘for’ para movernos a través de las estructuras de datos devueltas con muy poco código de Python.</p>
 <p>La salida del programa se parece a la siguiente (parte de los datos se han acortado para que quepan en la página):</p>
 <pre><code>Ingresa una cuenta de Twitter:drchuck
