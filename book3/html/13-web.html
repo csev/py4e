@@ -41,89 +41,89 @@
 <p>He aquí una aplicación sencilla que analiza un archivo XML y extrae algunos elementos de él:</p>
 <pre class="python"><code>import xml.etree.ElementTree as ET
 
-data = &#39;&#39;&#39;
-&lt;person&gt;
-  &lt;name&gt;Chuck&lt;/name&gt;
-  &lt;phone type=&quot;intl&quot;&gt;
+datos = &#39;&#39;&#39;
+&lt;persona&gt;
+  &lt;nombre&gt;Chuck&lt;/nombre&gt;
+  &lt;telefono type=&quot;intl&quot;&gt;
     +1 734 303 4456
-  &lt;/phone&gt;
-  &lt;email hide=&quot;yes&quot; /&gt;
-&lt;/person&gt;&#39;&#39;&#39;
+  &lt;/telefono&gt;
+  &lt;email oculto=&quot;si&quot; /&gt;
+&lt;/persona&gt;&#39;&#39;&#39;
 
-tree = ET.fromstring(data)
-print(&#39;Name:&#39;, tree.find(&#39;name&#39;).text)
-print(&#39;Attr:&#39;, tree.find(&#39;email&#39;).get(&#39;hide&#39;))
+arbol = ET.fromstring(datos)
+print(&#39;Nombre:&#39;, arbol.find(&#39;nombre&#39;).text)
+print(&#39;Atributo:&#39;, arbol.find(&#39;email&#39;).get(&#39;oculto&#39;))
 
 # Code: http://www.py4e.com/code3/xml1.py</code></pre>
 <p>Tanto la triple comilla simple (’’’’‘) como la triple comilla doble (’"""’) permiten la creación de cadenas que abarquen varias líneas.</p>
 <p>La llamada a ‘fromstring’ convierte la representación de cadena del XML en un “árbol” de nodos XML. Una vez tenemos el XML como un árbol, disponemos de una serie de métodos que podemos llamar para extraer porciones de datos de ese XML. La función ‘find’ busca a través del árbol XML y recupera el nodo que coincide con la etiqueta especificada.</p>
-<pre><code>Name: Chuck
-Attr: yes</code></pre>
+<pre><code>Nombre: Chuck
+Atributo: si</code></pre>
 <p>El usar un analizador de XML como ‘ElementTree’ tiene la ventaja de que, a pesar de que el XML de este ejemplo es bastante sencillo, resulta que hay muchas reglas relativas a la validez del XML, y el uso de ‘ElementTree’ nos permite extraer datos del XML sin preocuparnos por esas reglas de sintaxis.</p>
 <h2 id="desplazamiento-a-través-de-los-nodos">Desplazamiento a través de los nodos</h2>
 <p> </p>
-<p>A menudo el XML tiene múltiples nodos y tenemos que escribir un bucle para procesarlos todos. En el programa siguiente, usamos un bucle para recorrer todos los nodos ‘user’:</p>
+<p>A menudo el XML tiene múltiples nodos y tenemos que escribir un bucle para procesarlos todos. En el programa siguiente, usamos un bucle para recorrer todos los nodos ‘usuario’:</p>
 <pre class="python"><code>import xml.etree.ElementTree as ET
 
-input = &#39;&#39;&#39;
-&lt;stuff&gt;
-  &lt;users&gt;
-    &lt;user x=&quot;2&quot;&gt;
+datos = &#39;&#39;&#39;
+&lt;cosa&gt;
+  &lt;usuarios&gt;
+    &lt;usuario x=&quot;2&quot;&gt;
       &lt;id&gt;001&lt;/id&gt;
-      &lt;name&gt;Chuck&lt;/name&gt;
-    &lt;/user&gt;
-    &lt;user x=&quot;7&quot;&gt;
+      &lt;nombre&gt;Chuck&lt;/nombre&gt;
+    &lt;/usuario&gt;
+    &lt;usuario x=&quot;7&quot;&gt;
       &lt;id&gt;009&lt;/id&gt;
-      &lt;name&gt;Brent&lt;/name&gt;
-    &lt;/user&gt;
-  &lt;/users&gt;
-&lt;/stuff&gt;&#39;&#39;&#39;
+      &lt;nombre&gt;Brent&lt;/nombre&gt;
+    &lt;/usuario&gt;
+  &lt;/usuarios&gt;
+&lt;/cosa&gt;&#39;&#39;&#39;
 
-stuff = ET.fromstring(input)
-lst = stuff.findall(&#39;users/user&#39;)
-print(&#39;User count:&#39;, len(lst))
+cosa = ET.fromstring(datos)
+lst = cosa.findall(&#39;usuarios/usuario&#39;)
+print(&#39;Total de usuarios:&#39;, len(lst))
 
 for item in lst:
-    print(&#39;Name&#39;, item.find(&#39;name&#39;).text)
+    print(&#39;Nombre&#39;, item.find(&#39;nombre&#39;).text)
     print(&#39;Id&#39;, item.find(&#39;id&#39;).text)
-    print(&#39;Attribute&#39;, item.get(&#39;x&#39;))
+    print(&#39;Atributo&#39;, item.get(&#39;x&#39;))
 
 # Code: http://www.py4e.com/code3/xml2.py</code></pre>
-<p>El método ‘findall’ devuelve una lista de subárboles que representan las estructuras ‘user’ del árbol XML. A continuación podemos escribir un bucle ‘for’ que busque en cada uno de los nodos usuario, e imprima el texto de los elementos ‘name’ e ‘id’, además del atributo ‘x’ de cada nodo usuario.</p>
-<pre><code>User count: 2
-Name Chuck
+<p>El método ‘findall’ devuelve una lista de subárboles que representan las estructuras ‘usuario’ del árbol XML. A continuación podemos escribir un bucle ‘for’ que busque en cada uno de los nodos usuario, e imprima el texto de los elementos ‘nombre’ e ‘id’, además del atributo ‘x’ de cada nodo usuario.</p>
+<pre><code>Contador de usuarios: 2
+Nombre Chuck
 Id 001
-Attribute 2
-Name Brent
+Atributo 2
+Nombre Brent
 Id 009
-Attribute 7</code></pre>
-<p>Es importante incluir todos los elementos base en la declaración de ‘findall’ exceptuando aquel que se encuentra en el nivel superior (p. ej., ‘users/user’). De lo contrario, Python no encontrará ninguno de los nodos que buscamos.</p>
+Atributo 7</code></pre>
+<p>Es importante incluir todos los elementos base en la declaración de ‘findall’ exceptuando aquel que se encuentra en el nivel superior (p. ej., ‘usuarios/usuario’). De lo contrario, Python no encontrará ninguno de los nodos que buscamos.</p>
 <pre class="python"><code>import xml.etree.ElementTree as ET
 
 input = &#39;&#39;&#39;
-&lt;stuff&gt;
-  &lt;users&gt;
-    &lt;user x=&quot;2&quot;&gt;
+&lt;cosa&gt;
+  &lt;usuarios&gt;
+    &lt;usuario x=&quot;2&quot;&gt;
       &lt;id&gt;001&lt;/id&gt;
-      &lt;name&gt;Chuck&lt;/name&gt;
-    &lt;/user&gt;
-    &lt;user x=&quot;7&quot;&gt;
+      &lt;nombre&gt;Chuck&lt;/nombre&gt;
+    &lt;/usuario&gt;
+    &lt;usuario x=&quot;7&quot;&gt;
       &lt;id&gt;009&lt;/id&gt;
-      &lt;name&gt;Brent&lt;/name&gt;
-    &lt;/user&gt;
-  &lt;/users&gt;
-&lt;/stuff&gt;&#39;&#39;&#39;
+      &lt;nombre&gt;Brent&lt;/nombre&gt;
+    &lt;/usuario&gt;
+  &lt;/usuarios&gt;
+&lt;/cosa&gt;&#39;&#39;&#39;
 
-stuff = ET.fromstring(input)
+cosa = ET.fromstring(input)
 
-lst = stuff.findall(&#39;users/user&#39;)
-print(&#39;User count:&#39;, len(lst))
+lst = cosa.findall(&#39;usuarios/usuario&#39;)
+print(&#39;Cuenta de usuarios:&#39;, len(lst))
 
-lst2 = stuff.findall(&#39;user&#39;)
-print(&#39;User count:&#39;, len(lst2))</code></pre>
-<p>‘lst’ almacena todos los elementos ‘user’ anidados dentro de su base ‘users’. ‘lst2’ busca los elementos ‘user’ que no se encuentren anidados dentro del elemento de nivel superior ‘stuff’ donde no hay ninguno.</p>
-<pre><code>User count: 2
-User count: 0</code></pre>
+lst2 = cosa.findall(&#39;usuario&#39;)
+print(&#39;Cuenta de usuarios:&#39;, len(lst2))</code></pre>
+<p>‘lst’ almacena todos los elementos ‘usuario’ anidados dentro de su base ‘usuarios’. ‘lst2’ busca los elementos ‘usuario’ que no se encuentren anidados dentro del elemento de nivel superior ‘cosa’ donde no hay ninguno.</p>
+<pre><code>Cuenta de usuarios: 2
+Cuenta de usuarios: 0</code></pre>
 <h2 id="javascript-object-notation---json">JavaScript Object Notation - JSON</h2>
 <p> </p>
 <p>El formato JSON se inspiró en el formato de objetos y arrays que se usa en el lenguaje JavaScript. Pero como Python se inventó antes que JavaScript, la sintaxis usada en Python para los diccionarios y listas influyeron la sintaxis de JSON. De modo que el formato del JSON es casi idéntico a la combinación de listas y diccionarios de Python.</p>
@@ -146,36 +146,36 @@ User count: 0</code></pre>
 <p>En el programa siguiente, usaremos la librería integrada ‘json’ para analizar el JSON y leer los datos. Compáralo cuidadosamente con los datos y código XML equivalentes que usamos antes. El JSON tiene menos detalles, de modo que podemos saber de antemano que vamos a obtener una lista y que la lista es de usuarios y además que cada usuario es un conjunto de parejas clave-valor. El JSON es más conciso (una ventaja), pero también es menos auto-descriptivo (una desventaja).</p>
 <pre class="python"><code>import json
 
-data = &#39;&#39;&#39;
+datos = &#39;&#39;&#39;
 [
   { &quot;id&quot; : &quot;001&quot;,
     &quot;x&quot; : &quot;2&quot;,
-    &quot;name&quot; : &quot;Chuck&quot;
+    &quot;nombre&quot; : &quot;Chuck&quot;
   } ,
   { &quot;id&quot; : &quot;009&quot;,
     &quot;x&quot; : &quot;7&quot;,
-    &quot;name&quot; : &quot;Brent&quot;
+    &quot;nombre&quot; : &quot;Brent&quot;
   }
 ]&#39;&#39;&#39;
 
-info = json.loads(data)
-print(&#39;User count:&#39;, len(info))
+info = json.loads(datos)
+print(&#39;Total de usuarios:&#39;, len(info))
 
-for item in info:
-    print(&#39;Name&#39;, item[&#39;name&#39;])
-    print(&#39;Id&#39;, item[&#39;id&#39;])
-    print(&#39;Attribute&#39;, item[&#39;x&#39;])
+for elemento in info:
+    print(&#39;Nombre&#39;, elemento[&#39;nombre&#39;])
+    print(&#39;Id&#39;, elemento[&#39;id&#39;])
+    print(&#39;Atributo&#39;, elemento[&#39;x&#39;])
 
 # Code: http://www.py4e.com/code3/json2.py</code></pre>
 <p>Si comparas el código que extrae los datos del JSON analizado y el del XML, verás que lo que obtenemos de ‘json.loads()’ es una lista de Python que recorreremos con un bucle for, y cada elemento dentro de esa lista es un diccionario de Python. Una vez analizado el JSON, podemos usar el operador índice de Python para extraer los distintos fragmentos de datos de cada usuario. No tenemos que usar la librería JSON para rebuscar a través del JSON analizado, ya que los datos devueltos son sencillamente estructuras nativas de Python.</p>
 <p>La salida de este programa es exactamente la misma que la de la versión XML anterior.</p>
-<pre><code>User count: 2
-Name Chuck
+<pre><code>Total de usuarios: 2
+Nombre Chuck
 Id 001
-Attribute 2
-Name Brent
+Atributo 2
+Nombre Brent
 Id 009
-Attribute 7</code></pre>
+Atributo 7</code></pre>
 <p>En general, hay una tendencia en la industria a apartarse del XML y pasar al JSON para los servicios web. Como el JSON es más sencillo, y se mapea de forma más directa hacia estructuras de datos nativas que ya tenemos en los lenguajes de programación, el código de análisis y extracción de datos normalmente es más sencillo y directo usando JSON. Sin embargo, XML es más auto-descriptivo, y por eso hay ciertas aplicaciones en las cuales mantiene su ventaja. Por ejemplo, la mayoría de los procesadores de texto almacenan sus documentos internamente usando XML en vez de JSON.</p>
 <h2 id="interfaces-de-programación-de-aplicaciones">Interfaces de programación de aplicaciones</h2>
 <p>Ahora tenemos la capacidad de intercambiar datos entre aplicaciones usando el Protocolo de Transporte de Hipertexto (HTTP), y un modo de representar estructuras de datos complejas para poder enviar y recibir los datos entre esas aplicaciones, a través del eXtensibleMarkup Language (XML) o del JavaScript Object Notation (JSON).</p>
@@ -232,44 +232,44 @@ Attribute 7</code></pre>
 import json
 import ssl
 
-api_key = False
-# If you have a Google Places API key, enter it here
-# api_key = &#39;AIzaSy___IDByT70&#39;
+clave_api = False
+# Si tienes una clave API de Google Places, ingresala aquí
+# clave_api = &#39;AIzaSy___IDByT70&#39;
 # https://developers.google.com/maps/documentation/geocoding/intro
 
-if api_key is False:
-    api_key = 42
-    serviceurl = &#39;http://py4e-data.dr-chuck.net/json?&#39;
+if clave_api is False:
+    clave_api = 42
+    url_de_servicio = &#39;http://py4e-data.dr-chuck.net/json?&#39;
 else :
-    serviceurl = &#39;https://maps.googleapis.com/maps/api/geocode/json?&#39;
+    url_de_servicio = &#39;https://maps.googleapis.com/maps/api/geocode/json?&#39;
 
-# Ignore SSL certificate errors
+# Ignorar errores de certificado SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 while True:
-    address = input(&#39;Enter location: &#39;)
-    if len(address) &lt; 1: break
+    direccion = input(&#39;Ingresa una ubicación: &#39;)
+    if len(direccion) &lt; 1: break
 
     parms = dict()
-    parms[&#39;address&#39;] = address
-    if api_key is not False: parms[&#39;key&#39;] = api_key
-    url = serviceurl + urllib.parse.urlencode(parms)
+    parms[&#39;address&#39;] = direccion
+    if clave_api is not False: parms[&#39;key&#39;] = clave_api
+    url = url_de_servicio + urllib.parse.urlencode(parms)
 
-    print(&#39;Retrieving&#39;, url)
+    print(&#39;Recuperando&#39;, url)
     uh = urllib.request.urlopen(url, context=ctx)
-    data = uh.read().decode()
-    print(&#39;Retrieved&#39;, len(data), &#39;characters&#39;)
+    datos = uh.read().decode()
+    print(&#39;Recuperados&#39;, len(datos), &#39;caracteres&#39;)
 
     try:
-        js = json.loads(data)
+        js = json.loads(datos)
     except:
         js = None
 
     if not js or &#39;status&#39; not in js or js[&#39;status&#39;] != &#39;OK&#39;:
-        print(&#39;==== Failure To Retrieve ====&#39;)
-        print(data)
+        print(&#39;==== Error al Recuperar ====&#39;)
+        print(datos)
         continue
 
     print(json.dumps(js, indent=4))
@@ -371,10 +371,10 @@ Ann Arbor, MI, USA</code></pre>
 <p>A medida que la API de Twitter se vuelve más valiosa, Twitter pasó de una API pública y abierta a una que requiere el uso de firmas OAuth en cada solicitud.</p>
 <p>Para el programa de ejemplo siguiente, descarga los archivos <em>twurl.py</em>, <em>hidden.py</em>, <em>oauth.py</em> y <em>twitter1.py</em> desde <a href="http://www.py4e.com/code3">www.py4e.com/code</a> y ponlos todos en una misma carpeta en tu equipo.</p>
 <p>Para usar estos programas debes tener una cuenta de Twitter, y autorizar a tu código Python como aplicación permitida, estableciendo diversos parámetros (key, secret, token y token secret). Luego deberás editar el archivo <em>hidden.py</em> y colocar esas cuatro cadenas en las variables apropiadas dentro del archivo:</p>
-<pre class="python"><code># Keep this file separate
+<pre class="python"><code># Mantener este archivo separado
 
 # https://apps.twitter.com/
-# Create new App and get the four strings
+# Crear nueva App y obtener las cuatro cadenas
 
 def oauth():
     return {&quot;consumer_key&quot;: &quot;h7Lu...Ng&quot;,
@@ -394,50 +394,50 @@ import twurl
 import ssl
 
 # https://apps.twitter.com/
-# Create App and get the four strings, put them in hidden.py
+# Crear App y obtener las cuatro cadenas, luego colocarlas en hidden.py
 
 TWITTER_URL = &#39;https://api.twitter.com/1.1/statuses/user_timeline.json&#39;
 
-# Ignore SSL certificate errors
+# Ignorar errores de certificado SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 while True:
     print(&#39;&#39;)
-    acct = input(&#39;Enter Twitter Account:&#39;)
-    if (len(acct) &lt; 1): break
-    url = twurl.augment(TWITTER_URL,
-                        {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;2&#39;})
-    print(&#39;Retrieving&#39;, url)
-    connection = urllib.request.urlopen(url, context=ctx)
-    data = connection.read().decode()
-    print(data[:250])
-    headers = dict(connection.getheaders())
-    # print headers
-    print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
+    cuenta = input(&#39;Ingresa una cuenta de Twitter:&#39;)
+    if (len(cuenta) &lt; 1): break
+    url = twurl.aumentar(TWITTER_URL,
+                         {&#39;screen_name&#39;: cuenta, &#39;count&#39;: &#39;2&#39;})
+    print(&#39;Recuperando&#39;, url)
+    conexion = urllib.request.urlopen(url, context=ctx)
+    datos = conexion.read().decode()
+    print(datos[:250])
+    cabeceras = dict(conexion.getheaders())
+    # Imprimir cabeceras
+    print(&#39;Restantes&#39;, cabeceras[&#39;x-rate-limit-remaining&#39;])
 
 # Code: http://www.py4e.com/code3/twitter1.py</code></pre>
 <p>Cuando el programa se ejecuta, produce la salida siguiente:</p>
-<pre><code>Enter Twitter Account:drchuck
-Retrieving https://api.twitter.com/1.1/ ...
+<pre><code>Ingresa una cuenta de Twitter:drchuck
+Recuperando https://api.twitter.com/1.1/ ...
 [{&quot;created_at&quot;:&quot;Sat Sep 28 17:30:25 +0000 2013&quot;,&quot;
 id&quot;:384007200990982144,&quot;id_str&quot;:&quot;384007200990982144&quot;,
 &quot;text&quot;:&quot;RT @fixpert: See how the Dutch handle traffic
 intersections: http:\/\/t.co\/tIiVWtEhj4\n#brilliant&quot;,
 &quot;source&quot;:&quot;web&quot;,&quot;truncated&quot;:false,&quot;in_rep
-Remaining 178
+Restantes 178
 
-Enter Twitter Account:fixpert
-Retrieving https://api.twitter.com/1.1/ ...
+Ingresa una cuenta de Twitter:fixpert
+Recuperando https://api.twitter.com/1.1/ ...
 [{&quot;created_at&quot;:&quot;Sat Sep 28 18:03:56 +0000 2013&quot;,
 &quot;id&quot;:384015634108919808,&quot;id_str&quot;:&quot;384015634108919808&quot;,
 &quot;text&quot;:&quot;3 months after my freak bocce ball accident,
 my wedding ring fits again! :)\n\nhttps:\/\/t.co\/2XmHPx7kgX&quot;,
 &quot;source&quot;:&quot;web&quot;,&quot;truncated&quot;:false,
-Remaining 177
+Restantes 177
 
-Enter Twitter Account:</code></pre>
+Ingresa una cuenta de Twitter:</code></pre>
 <p>Junto con los datos de la línea del tiempo, Twitter también devuelve metadatos sobre la petición en las cabeceras de respuesta HTTP. Una cabecera en particular, ‘x-rate-limit-remaining’, nos informa sobre cuántas peticiones podremos hacer antes de que seamos bloqueados por un corto periodo de tiempo. Puedes ver que cada vez que realizamos una petición a la API nuestros intentos restantes van disminuyendo.</p>
 <p>En el ejemplo siguiente, recuperamos los amigos de un usuario en Twitter, analizamos el JSON devuelto y extraemos parte de la información sobre esos amigos. Después de analizar el JSON e “imprimirlo bonito”, realizamos un volcado completo con un indentado de cuatro caracteres, que nos permite estudiar minuciosamente los datos en caso de que queramos extraer más campos.</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
@@ -446,35 +446,35 @@ import json
 import ssl
 
 # https://apps.twitter.com/
-# Create App and get the four strings, put them in hidden.py
+# Crear App y obtener las cuatro cadenas, luego colocarlas en hidden.py
 
 TWITTER_URL = &#39;https://api.twitter.com/1.1/friends/list.json&#39;
 
-# Ignore SSL certificate errors
+# Ignorar errores de certificado SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 while True:
     print(&#39;&#39;)
-    acct = input(&#39;Enter Twitter Account:&#39;)
-    if (len(acct) &lt; 1): break
-    url = twurl.augment(TWITTER_URL,
-                        {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;5&#39;})
-    print(&#39;Retrieving&#39;, url)
-    connection = urllib.request.urlopen(url, context=ctx)
-    data = connection.read().decode()
+    cuenta = input(&#39;Ingresa una cuenta de Twitter:&#39;)
+    if (len(cuenta) &lt; 1): break
+    url = twurl.aumentar(TWITTER_URL,
+                         {&#39;screen_name&#39;: cuenta, &#39;count&#39;: &#39;5&#39;})
+    print(&#39;Recuperando&#39;, url)
+    conexion = urllib.request.urlopen(url, context=ctx)
+    data = conexion.read().decode()
 
     js = json.loads(data)
     print(json.dumps(js, indent=2))
 
-    headers = dict(connection.getheaders())
-    print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
+    cabeceras = dict(conexion.getheaders())
+    print(&#39;Restantes&#39;, cabeceras[&#39;x-rate-limit-remaining&#39;])
 
     for u in js[&#39;users&#39;]:
         print(u[&#39;screen_name&#39;])
         if &#39;status&#39; not in u:
-            print(&#39;   * No status found&#39;)
+            print(&#39;   * Estado no encontrado&#39;)
             continue
         s = u[&#39;status&#39;][&#39;text&#39;]
         print(&#39;  &#39;, s[:50])
@@ -482,9 +482,9 @@ while True:
 # Code: http://www.py4e.com/code3/twitter2.py</code></pre>
 <p>Dado que el JSON se transforma en un conjunto de listas y diccionarios de Python anidados, podemos usar una combinación del operador índice junto con bucles ‘for’ para movernos a través de las estructuras de datos devueltas con muy poco código de Python.</p>
 <p>La salida del programa se parece a la siguiente (parte de los datos se han acortado para que quepan en la página):</p>
-<pre><code>Enter Twitter Account:drchuck
-Retrieving https://api.twitter.com/1.1/friends ...
-Remaining 14</code></pre>
+<pre><code>Ingresa una cuenta de Twitter:drchuck
+Recuperando https://api.twitter.com/1.1/friends ...
+Restantes 14</code></pre>
 <pre class="json"><code>{
   &quot;next_cursor&quot;: 1444171224491980205,
   &quot;users&quot;: [
@@ -525,7 +525,7 @@ halherzog
 scweeker
    @DeviceLabDC love it! Now where so I get that &quot;etc
 
-Enter Twitter Account:</code></pre>
+Ingresa una cuenta de Twitter:</code></pre>
 <p>El último trozo de la salida es donde podemos ver cómo el bucle for lee los cinco “amigos” más nuevos de la cuenta de Twitter <em><span class="citation" data-cites="drchuck">@drchuck</span></em> e imprime el estado más reciente de cada uno de ellos. Hay muchos más datos disponibles en el JSON devuelto. Si miras la salida del programa, podrás ver que el “encuentra a los amigos” de una cuenta particular tiene una limitación de usos distinta a la del número de consultas de líneas de tiempo que está permitido realizar durante un periodo de tiempo.</p>
 <p>Estas claves de seguridad de la API permiten a Twitter tener la certeza de que sabe quién está usando su API de datos, y a qué nivel. El enfoque de límite de usos nos permite hacer capturas de datos sencillas, pero no crear un producto que extraiga datos de esa API millones de veces al día.</p>
 </body>

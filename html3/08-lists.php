@@ -201,29 +201,29 @@ b</code></pre>
 <p>Podríamos reescribir un programa anterior que calculaba el promedio de una lista de números ingresados por el usuario utilizando una lista.</p>
 <p>Primero, el programa para calcular un promedio sin una lista:</p>
 <pre class="python"><code>total = 0
-count = 0
+contador = 0
 while (True):
-    inp = input(&#39;Enter a number: &#39;)
-    if inp == &#39;done&#39;: break
-    value = float(inp)
-    total = total + value
-    count = count + 1
+    inp = input(&#39;Ingresa un número: &#39;)
+    if inp == &#39;fin&#39;: break
+    valor = float(inp)
+    total = total + valor
+    contador = contador + 1
 
-average = total / count
-print(&#39;Average:&#39;, average)
+promedio = total / contador
+print(&#39;Promedio:&#39;, promedio)
 
 # Code: http://www.py4e.com/code3/avenum.py</code></pre>
-<p>En este programa, tenemos las variables <code>count</code> y <code>total</code> para almacenar la cantidad y el total actual de los números del usuario según el usuario va ingresando los números repetidamente.</p>
+<p>En este programa, tenemos las variables <code>contador</code> y <code>total</code> para almacenar la cantidad y el total actual de los números del usuario según el usuario va ingresando los números repetidamente.</p>
 <p>Podríamos simplemente recordar cada número como el número lo ingresó, y utilizar funciones internas para calcular la suma y el total de números al final.</p>
-<pre class="python"><code>numlist = list()
+<pre class="python"><code>numlista = list()
 while (True):
-    inp = input(&#39;Enter a number: &#39;)
-    if inp == &#39;done&#39;: break
-    value = float(inp)
-    numlist.append(value)
+    inp = input(&#39;Ingresa un número: &#39;)
+    if inp == &#39;fin&#39;: break
+    valor = float(inp)
+    numlista.append(valor)
 
-average = sum(numlist) / len(numlist)
-print(&#39;Average:&#39;, average)
+promedio = sum(numlista) / len(numlista)
+print(&#39;Promedio:&#39;, promedio)
 
 # Code: http://www.py4e.com/code3/avelist.py</code></pre>
 <p>Creamos una lista vacía antes de que comience el bucle, y luego cada vez que tengamos un número, lo agregamos a la lista. Al final del programa, simplemente calculamos la suma de los números en la lista y la dividimos por el total de números en la lista para obtener el promedio.</p>

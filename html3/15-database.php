@@ -172,7 +172,7 @@ while True:
             print(&#39;No se han encontrado cuentas de Twitter por recuperar&#39;)
             continue
 
-    url = twurl.augment(TWITTER_URL, {&#39;screen_name&#39;: cuenta, &#39;count&#39;: &#39;5&#39;})
+    url = twurl.aumentar(TWITTER_URL, {&#39;screen_name&#39;: cuenta, &#39;count&#39;: &#39;5&#39;})
     print(&#39;Recuperando&#39;, url)
     conexion = urlopen(url, context=ctx)
     datos = conexion.read().decode()
@@ -376,7 +376,7 @@ while True:
                 continue
             id = cur.lastrowid
 
-    url = twurl.augment(TWITTER_URL, {&#39;screen_name&#39;: cuenta, &#39;count&#39;: &#39;100&#39;})
+    url = twurl.aumentar(TWITTER_URL, {&#39;screen_name&#39;: cuenta, &#39;count&#39;: &#39;100&#39;})
     print(&#39;Recuperando cuenta&#39;, cuenta)
     try:
         conexion = urllib.request.urlopen(url, context=ctx)
@@ -610,7 +610,7 @@ Conexiones para id=2:
 <dd>Un cursor permite ejecutar comandos SQL en una base de datos y recuperar los datos de ella. Un cursor es similar a un socket en conexiones de red o a un manejar de archivos.
 </dd>
 <dt>clave foránea</dt>
-<dd>Una clave nuḿerica que apunta a la clave primaria de una fila en otra tabla. Las claves foráneas establecen relaciones entre filas almacenadas en tablas diferentes.
+<dd>Una clave numérica que apunta a la clave primaria de una fila en otra tabla. Las claves foráneas establecen relaciones entre filas almacenadas en tablas diferentes.
 </dd>
 <dt>clave lógica</dt>
 <dd>Una clave que el “mundo exterior” utiliza para localizar una fila concreta. Por ejemplo, en una tabla de cuentas de usuario, la dirección de e-mail de una persona sería un buen candidato a utilizar como clave lógica para los datos de ese usuario.

@@ -42,26 +42,26 @@
 <h2 id="usando-objetos">Usando objetos</h2>
 <p>Curiosamente, en el libro hemos estado utilizando objetos todo este tiempo. Python contiene muchos objetos incluidos. He aquí un programa sencillo, cuyas primeras líneas deberían resultarte sumamente simples y familiares.</p>
 <p></p>
-<pre class="python"><code>stuff = list()
-stuff.append(&#39;python&#39;)
-stuff.append(&#39;chuck&#39;)
-stuff.sort()
-print (stuff[0])
-print (stuff.__getitem__(0))
-print (list.__getitem__(stuff,0))
+<pre class="python"><code>cosa = list()
+cosa.append(&#39;python&#39;)
+cosa.append(&#39;chuck&#39;)
+cosa.sort()
+print (cosa[0])
+print (cosa.__getitem__(0))
+print (list.__getitem__(cosa,0))
 
 # Code: http://www.py4e.com/code3/party1.py</code></pre>
 <p>En lugar de enfocarnos en el resultado que obtienen estas líneas, enfoquémonos en lo que está pasando desde el punto de vista de la programación orientada a objetos. No te preocupes si los siguientes párrafos no parecen tener sentido la primera vez que los lees, pues no hemos definido todos estos términos aún.</p>
 <p>La primera línea <em>construye</em> un objeto de tipo <code>list</code>, la segunda y tercera líneas <em>llaman</em> al <em>método</em> <code>append</code>, la cuarta línea llama al método <code>sort()</code> y la quinta línea <em>recupera</em> el elemento en posición 0.</p>
-<p>La sexta línea llama al método <code>__getitem__()</code> en la lista <code>stuff</code> con un parámetro de cero.</p>
-<pre class="python"><code>print (stuff.__getitem__(0))</code></pre>
+<p>La sexta línea llama al método <code>__getitem__()</code> en la lista <code>cosa</code> con un parámetro de cero.</p>
+<pre class="python"><code>print (cosa.__getitem__(0))</code></pre>
 <p>La séptima línea es una manera incluso más verbosa de obtener el elemento en posición 0 de la lista.</p>
-<pre class="python"><code>print (list.__getitem__(stuff,0))</code></pre>
+<pre class="python"><code>print (list.__getitem__(cosa,0))</code></pre>
 <p>En este programa, llamamos al método <code>__getitem__</code> en la clase <code>lista</code> y <em>pasamos</em> la lista y el elemento que queremos recuperar de ésta como parámetros.</p>
 <p>Las últimas tres líneas del programa son equivalentes, pero es más conveniente simplemente usar corchetes para buscar un elemento en una posición específica dentro de una lista.</p>
 <p>Podemos ver las capacidades de un objeto mirando el resultado de la función <code>dir()</code>:</p>
-<pre><code>&gt;&gt;&gt; stuff = list()
-&gt;&gt;&gt; dir(stuff)
+<pre><code>&gt;&gt;&gt; cosa = list()
+&gt;&gt;&gt; dir(cosa)
 [&#39;__add__&#39;, &#39;__class__&#39;, &#39;__contains__&#39;, &#39;__delattr__&#39;,
 &#39;__delitem__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;,
 &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__getitem__&#39;,
@@ -76,9 +76,9 @@ print (list.__getitem__(stuff,0))
 <p>El resto de este capítulo estará dedicado a definir estos términos, así que asegúrate de volver a leer los párrafos anteriores una vez que termines de leerlo, para asegurarte de haberlo comprendido correctamente.</p>
 <h2 id="comenzando-con-programas">Comenzando con programas</h2>
 <p>En su forma más básica, un programa toma algún dato de entrada, lo procesa y luego produce un resultado. Nuestro programa de conversión de un elevador muestra una manera muy corta, pero completa, de llevar a cabo estos tres pasos.</p>
-<pre class="python"><code>usf = input(&#39;Enter the US Floor Number: &#39;)
+<pre class="python"><code>usf = input(&#39;Ingresa el Número de Piso US: &#39;)
 wf = int(usf) - 1
-print(&#39;Non-US Floor Number is&#39;,wf)
+print(&#39;Número de Piso No-US es&#39;,wf)
 
 # Code: http://www.py4e.com/code3/elev.py</code></pre>
 <p>Si pensamos un poco más sobre este programa, existe un “mundo exterior” y el programa. Es con los datos de entrada y de salida que el programa interactúa con el mundo exterior. Dentro del programa utilizamos tanto el código como los datos para cumplir la tarea que el programa está diseñado para resolver.</p>
@@ -134,101 +134,101 @@ for etiqueta in etiquetas:
 <p>Un objeto puede contener varias funciones (a las que llamaremos <em>métodos</em>), así como los datos utilizados por esas funciones. Llamamos <em>atributos</em> a los datos que son parte del objeto.</p>
 <p></p>
 <p>Usamos la palabra clave <code>class</code> para definir los datos y el código que compondrán cada objeto. La palabra clave class incluye el nombre de la clase y da inicio a un bloque de código indentado en el que incluiremos sus atributos (datos) y métodos (código).</p>
-<pre class="python"><code>class PartyAnimal:
+<pre class="python"><code>class GrupoAnimal:
    x = 0
 
-   def party(self) :
+   def grupo(self) :
      self.x = self.x + 1
-     print(&quot;So far&quot;,self.x)
+     print(&quot;Hasta ahora&quot;,self.x)
 
-an = PartyAnimal()
-an.party()
-an.party()
-an.party()
-PartyAnimal.party(an)
+an = GrupoAnimal()
+an.grupo()
+an.grupo()
+an.grupo()
+GrupoAnimal.grupo(an)
 
 # Code: http://www.py4e.com/code3/party2.py</code></pre>
-<p>Cada método parece una función: comienzan con la palabra clave <code>def</code> y consisten en un bloque de código indentado. Este objeto tiene un atributo (<code>x</code>) y un método (<code>party</code>). Los métodos tienen un primer parámetro especial al que, por convención, llamamos <code>self</code>.</p>
-<p>Tal como la palabra clave <code>def</code> no causa que el código de una función se ejecute, la palabra clave <code>class</code> no crea un objeto. En vez, la palabra clave <code>class</code> define una plantilla que indica qué datos y código contendrá cada objeto de tipo <code>PartyAnimal</code>. La clase es como un molde para galletas y los objetos creados usándola son las galletas<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. No se le echa el glaseado al molde de las galletas; se le echa glaseado a las galletas mismas, con lo que se puede poner un glaseado distinto en cada galleta.</p>
+<p>Cada método parece una función: comienzan con la palabra clave <code>def</code> y consisten en un bloque de código indentado. Este objeto tiene un atributo (<code>x</code>) y un método (<code>grupo</code>). Los métodos tienen un primer parámetro especial al que, por convención, llamamos <code>self</code>.</p>
+<p>Tal como la palabra clave <code>def</code> no causa que el código de una función se ejecute, la palabra clave <code>class</code> no crea un objeto. En vez, la palabra clave <code>class</code> define una plantilla que indica qué datos y código contendrá cada objeto de tipo <code>GrupoAnimal</code>. La clase es como un molde para galletas y los objetos creados usándola son las galletas<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. No se le echa el glaseado al molde de las galletas; se le echa glaseado a las galletas mismas, con lo que se puede poner un glaseado distinto en cada galleta.</p>
 <figure>
 <img src="../photos/cookie_cutter_flickr_Didriks.png" alt="" /><figcaption>A Class and Two Objects</figcaption>
 </figure>
 <p>Si seguimos con este programa de ejemplo, veremos la primera línea ejecutable de código:</p>
-<pre class="python"><code>an = PartyAnimal()</code></pre>
+<pre class="python"><code>an = GrupoAnimal()</code></pre>
 <p>   </p>
-<p>Es aquí que le ordenamos a Python construir (es decir, crear) un <em>objeto</em> o <em>instancia</em> de la clase <code>PartyAnimal</code>. Se ve como si fuera una llamada de función a la clase misma. Python construye el objeto con los datos y métodos adecuados, asignándolo luego a la variable <code>an</code>. En cierto modo, esto es muy similar a la siguiente línea, que hemos estado usando todo este tiempo:</p>
+<p>Es aquí que le ordenamos a Python construir (es decir, crear) un <em>objeto</em> o <em>instancia</em> de la clase <code>GrupoAnimal</code>. Se ve como si fuera una llamada de función a la clase misma. Python construye el objeto con los datos y métodos adecuados, asignándolo luego a la variable <code>an</code>. En cierto modo, esto es muy similar a la siguiente línea, que hemos estado usando todo este tiempo:</p>
 <pre class="python"><code>counts = dict()</code></pre>
 <p>Aquí le ordenamos a Python construir un objeto usando la plantilla <code>dict</code> (que viene incluida en Python), devolver la instancia del diccionario, y asignarla a la variable <code>counts</code>.</p>
-<p>Cuando se usa la clase <code>PartyAnimal</code> para construir un objeto, la variable <code>an</code> se usa para señalar ese objeto. Usamos <code>an</code> para acceder al código y datos de esa instancia específica de la clase <code>PartyAnimal</code>.</p>
-<p>Cada objeto o instancia de PartyAnimal contiene una variable <code>x</code> y un método/ función llamado <code>party</code>. Llamamos al método <code>party</code> en esta línea:</p>
-<pre class="python"><code>an.party()</code></pre>
-<p>Al llamar al método <code>party</code>, el primer parámetro (al que por convención llamamos <code>self</code>) apunta a la instancia específica del objeto PartyAnimal desde el que se llama a <code>party</code>. Dentro del método <code>party</code>, vemos la siguiente línea:</p>
+<p>Cuando se usa la clase <code>GrupoAnimal</code> para construir un objeto, la variable <code>an</code> se usa para señalar ese objeto. Usamos <code>an</code> para acceder al código y datos de esa instancia específica de la clase <code>GrupoAnimal</code>.</p>
+<p>Cada objeto o instancia de GrupoAnimal contiene una variable <code>x</code> y un método/ función llamado <code>grupo</code>. Llamamos al método <code>grupo</code> en esta línea:</p>
+<pre class="python"><code>an.grupo()</code></pre>
+<p>Al llamar al método <code>grupo</code>, el primer parámetro (al que por convención llamamos <code>self</code>) apunta a la instancia específica del objeto GrupoAnimal desde el que se llama a <code>grupo</code>. Dentro del método <code>grupo</code>, vemos la siguiente línea:</p>
 <pre class="python"><code>self.x = self.x + 1</code></pre>
-<p>Esta sintaxis utiliza el operador de <em>punto</em>, con lo que significa ‘la x dentro de self’. Cada vez que se llama a <code>party()</code>, el valor interno de <code>x</code> se incrementa en 1 y se imprime su valor.</p>
-<p>La siguiente línea muestra otra manera de llamar al método <code>party</code> dentro del objeto <code>an</code>:</p>
-<pre class="python"><code>PartyAnimal.party(an)</code></pre>
-<p>En esta variante, accedemos al código desde el interior de la clase y explícitamente pasamos el apuntador del objeto <code>an</code> como el primer parámetro (es decir, <code>self</code> dentro del método). Se puede pensar en <code>an.party()</code> como una abreviación de la línea precedente.</p>
+<p>Esta sintaxis utiliza el operador de <em>punto</em>, con lo que significa ‘la x dentro de self’. Cada vez que se llama a <code>grupo()</code>, el valor interno de <code>x</code> se incrementa en 1 y se imprime su valor.</p>
+<p>La siguiente línea muestra otra manera de llamar al método <code>grupo</code> dentro del objeto <code>an</code>:</p>
+<pre class="python"><code>GrupoAnimal.grupo(an)</code></pre>
+<p>En esta variante, accedemos al código desde el interior de la clase y explícitamente pasamos el apuntador del objeto <code>an</code> como el primer parámetro (es decir, <code>self</code> dentro del método). Se puede pensar en <code>an.grupo()</code> como una abreviación de la línea precedente.</p>
 <p>Al ejecutar el programa, produce el siguiente resultado:</p>
 <pre><code>So far 1
 So far 2
 So far 3
 So far 4</code></pre>
-<p>El objeto es construido, y el método <code>party</code> es llamado cuatro veces, incrementando e imprimiendo el valor de <code>x</code> dentro del objeto <code>an</code>.</p>
+<p>El objeto es construido, y el método <code>grupo</code> es llamado cuatro veces, incrementando e imprimiendo el valor de <code>x</code> dentro del objeto <code>an</code>.</p>
 <h2 id="clases-como-tipos">Clases como tipos</h2>
 <p> </p>
 <p>Como hemos visto, en Python todas las variables tienen un tipo. Podemos usar la función <code>dir</code> incluida en Python para examinar las características de una variable. También podemos usar <code>type</code> y <code>dir</code> con las clases que creemos.</p>
-<pre class="python"><code>class PartyAnimal:
+<pre class="python"><code>class GrupoAnimal:
    x = 0
 
-   def party(self) :
+   def grupo(self) :
      self.x = self.x + 1
-     print(&quot;So far&quot;,self.x)
+     print(&quot;Hasta ahora&quot;,self.x)
 
-an = PartyAnimal()
+an = GrupoAnimal()
 print (&quot;Type&quot;, type(an))
 print (&quot;Dir &quot;, dir(an))
 print (&quot;Type&quot;, type(an.x))
-print (&quot;Type&quot;, type(an.party))
+print (&quot;Type&quot;, type(an.grupo))
 
 # Code: http://www.py4e.com/code3/party3.py</code></pre>
 <p>Al ejecutar este programa, produce el siguiente resultado:</p>
-<pre><code>Type &lt;class &#39;__main__.PartyAnimal&#39;&gt;
+<pre><code>Type &lt;class &#39;__main__.GrupoAnimal&#39;&gt;
 Dir  [&#39;__class__&#39;, &#39;__delattr__&#39;, ...
 &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;,
-&#39;__weakref__&#39;, &#39;party&#39;, &#39;x&#39;]
+&#39;__weakref__&#39;, &#39;grupo&#39;, &#39;x&#39;]
 Type &lt;class &#39;int&#39;&gt;
 Type &lt;class &#39;method&#39;&gt;</code></pre>
-<p>Puedes ver que, usando la palabra clave <code>class</code>, hemos creado un nuevo tipo. En el resultado de usar <code>dir</code>, puedes ver que tanto el atributo de tipo entero <code>x</code> como el método <code>party</code> están disponibles dentro del objeto.</p>
+<p>Puedes ver que, usando la palabra clave <code>class</code>, hemos creado un nuevo tipo. En el resultado de usar <code>dir</code>, puedes ver que tanto el atributo de tipo entero <code>x</code> como el método <code>grupo</code> están disponibles dentro del objeto.</p>
 <h2 id="ciclo-de-vida-de-un-objeto">Ciclo de vida de un objeto</h2>
 <p>  </p>
 <p>En los ejemplos anteriores, definimos una clase (plantilla), la usamos para crear una instancia de ella (objeto) y luego usamos esa instancia. Al finalizar el programa, todas las variables son descartadas. Normalmente, no nos preocupamos mucho de la creación y destrucción de variables, pero a menudo, cuando nuestros objetos se vuelven más complejos, resulta necesario efectuar algunos pasos dentro del objeto para configurar la construcción de éste y, posiblemente, ordenar cuando el objeto es descartado.</p>
 <p>Si queremos que nuestro objeto sea consciente de esos momentos de creación y destrucción, debemos agregarle métodos especialmente nombrados al efecto:</p>
-<pre class="python"><code>class PartyAnimal:
+<pre class="python"><code>class GrupoAnimal:
    x = 0
 
    def __init__(self):
-     print(&#39;I am constructed&#39;)
+     print(&#39;Estoy construido&#39;)
 
-   def party(self) :
+   def grupo(self) :
      self.x = self.x + 1
-     print(&#39;So far&#39;,self.x)
+     print(&#39;Hasta ahora&#39;,self.x)
 
    def __del__(self):
-     print(&#39;I am destructed&#39;, self.x)
+     print(&#39;Estoy destruido&#39;, self.x)
 
-an = PartyAnimal()
-an.party()
-an.party()
+an = GrupoAnimal()
+an.grupo()
+an.grupo()
 an = 42
-print(&#39;an contains&#39;,an)
+print(&#39;an contiene&#39;,an)
 
 # Code: http://www.py4e.com/code3/party4.py</code></pre>
 <p>Al ejecutar este programa, produce el siguiente resultado:</p>
-<pre><code>I am constructed
-So far 1
-So far 2
-I am destructed 2
-an contains 42</code></pre>
+<pre><code>Estoy construido
+Hasta ahora 1
+Hasta ahora 2
+Estoy destruido 2
+an contiene 42</code></pre>
 <p>Cuando Python construye el objeto, llama a nuestro método <code>__init__</code> para darnos la oportunidad de configurar algunos valores por defecto o iniciales para éste. Cuando Python encuentra la línea:</p>
 <pre><code>an = 42</code></pre>
 <p>efectivamente “tira a la basura” el objeto para reutilizar la variable <code>an</code>, almacenando el valor <code>42</code>. Justo en el momento en que nuestro objeto <code>an</code> está siendo “destruido” se llama a nuestro código destructor (<code>__del__</code>). No podemos evitar que nuestra variable sea destruida, pero podemos efectuar la configuración que resulte necesaria antes de que el objeto deje de existir.</p>
@@ -236,81 +236,81 @@ an contains 42</code></pre>
 <h2 id="múltiples-instancias">Múltiples instancias</h2>
 <p>Hasta ahora hemos definido una clase, construido un solo objeto, usado ese objeto, y luego descartado el objeto. Sin embargo, el auténtico potencial de la programación orientada a objetos se manifiesta al construir múltiples instancias de nuestra clase.</p>
 <p>Al construir múltiples instancias de nuestra clase, puede que queramos fijar distintos valores iniciales para cada objeto. Podemos pasar datos a los constructores para dar a cada objeto un distinto valor inicial:</p>
-<pre class="python"><code>class PartyAnimal:
+<pre class="python"><code>class GrupoAnimal:
    x = 0
-   name = &#39;&#39;
-   def __init__(self, nam):
-     self.name = nam
-     print(self.name,&#39;constructed&#39;)
+   nombre = &#39;&#39;
+   def __init__(self, nom):
+     self.nombre = nom
+     print(self.nombre,&#39;construido&#39;)
 
-   def party(self) :
+   def grupo(self) :
      self.x = self.x + 1
-     print(self.name,&#39;party count&#39;,self.x)
+     print(self.nombre,&#39;recuento grupal&#39;,self.x)
 
-s = PartyAnimal(&#39;Sally&#39;)
-j = PartyAnimal(&#39;Jim&#39;)
+s = GrupoAnimal(&#39;Sally&#39;)
+j = GrupoAnimal(&#39;Jim&#39;)
 
-s.party()
-j.party()
-s.party()
+s.grupo()
+j.grupo()
+s.grupo()
 
 # Code: http://www.py4e.com/code3/party5.py</code></pre>
 <p>El constructor tiene tanto un parámetro <code>self</code>, que apunta a la instancia del objeto, como parámetros adicionales, que se pasan al constructor al momento de construir el objeto:</p>
-<pre><code>s = PartyAnimal(&#39;Sally&#39;)</code></pre>
-<p>Dentro del constructor, la segunda línea copia el parámetro (<code>nam</code>), el que se pasa al atributo <code>nombre</code> dentro del objeto.</p>
-<pre><code>self.name = nam</code></pre>
-<p>El resultado del programa muestra que cada objeto (<code>s</code> y <code>j</code>) contienen sus propias copias independientes de <code>x</code> y <code>nam</code>:</p>
-<pre><code>Sally constructed
-Sally party count 1
-Jim constructed
-Jim party count 1
-Sally party count 2</code></pre>
+<pre><code>s = GrupoAnimal(&#39;Sally&#39;)</code></pre>
+<p>Dentro del constructor, la segunda línea copia el parámetro (<code>nom</code>), el que se pasa al atributo <code>nombre</code> dentro del objeto.</p>
+<pre><code>self.nombre = nom</code></pre>
+<p>El resultado del programa muestra que cada objeto (<code>s</code> y <code>j</code>) contienen sus propias copias independientes de <code>x</code> y <code>nom</code>:</p>
+<pre><code>Sally construido
+Jim construido
+Sally recuento grupal 1
+Jim recuento grupal 1
+Sally recuento grupal 2</code></pre>
 <h2 id="herencia">Herencia</h2>
 <p>Otra poderosa característica de la programación orientada a objetos es la capacidad de crear una nueva clase extendiendo una clase ya existente. Al extender una clase, llamamos a la clase original la <em>clase padre</em> y a la nueva clase <em>clase hija</em>.</p>
-<p>Por ejemplo, podemos mover a nuestra clase <code>PartyAnimal</code> a su propio archivo. Luego, podemos ‘importar’ la clase <code>PartyAnimal</code> en un nuevo archivo y extenderla, de la siguiente manera:</p>
-<pre class="python"><code>from party import PartyAnimal
+<p>Por ejemplo, podemos mover a nuestra clase <code>GrupoAnimal</code> a su propio archivo. Luego, podemos ‘importar’ la clase <code>GrupoAnimal</code> en un nuevo archivo y extenderla, de la siguiente manera:</p>
+<pre class="python"><code>from party import GrupoAnimal
 
-class CricketFan(PartyAnimal):
-   points = 0
-   def six(self):
-      self.points = self.points + 6
-      self.party()
-      print(self.name,&quot;points&quot;,self.points)
+class GrilloFan(GrupoAnimal):
+   puntos = 0
+   def seis(self):
+      self.puntos = self.puntos + 6
+      self.grupo()
+      print(self.nombre,&quot;puntos&quot;,self.puntos)
 
-s = PartyAnimal(&quot;Sally&quot;)
-s.party()
-j = CricketFan(&quot;Jim&quot;)
-j.party()
-j.six()
+s = GrupoAnimal(&quot;Sally&quot;)
+s.grupo()
+j = GrilloFan(&quot;Jim&quot;)
+j.grupo()
+j.seis()
 print(dir(j))
 
 # Code: http://www.py4e.com/code3/party6.py</code></pre>
-<p>Cuando definimos la clase <code>CricketFan</code>, indicamos que estamos extendiendo la clase <code>PartyAnimal</code>. Esto significa que todas las variables (<code>x</code>) y métodos (<code>party</code>) de la clase <code>PartyAnimal</code> son <em>heredados</em> por la clase <code>CricketFan</code>. Por ejemplo, dentro del método <code>six</code> en la clase <code>CricketFan</code>, llamamos al método <code>party</code> de la clase <code>PartyAnimal</code>.</p>
-<p>Al ejecutar el programa, creamos <code>s</code> y <code>j</code> como instancias independientes de <code>PartyAnimal</code> y <code>CricketFan</code>. El objeto <code>j</code> tiene características adicionales que van más allá de aquellas que tiene el objeto <code>s</code>.</p>
-<pre><code>Sally constructed
-Sally party count 1
-Jim constructed
-Jim party count 1
-Jim party count 2
-Jim points 6
+<p>Cuando definimos la clase <code>GrilloFan</code>, indicamos que estamos extendiendo la clase <code>GrupoAnimal</code>. Esto significa que todas las variables (<code>x</code>) y métodos (<code>grupo</code>) de la clase <code>GrupoAnimal</code> son <em>heredados</em> por la clase <code>GrilloFan</code>. Por ejemplo, dentro del método <code>six</code> en la clase <code>GrilloFan</code>, llamamos al método <code>grupo</code> de la clase <code>GrupoAnimal</code>.</p>
+<p>Al ejecutar el programa, creamos <code>s</code> y <code>j</code> como instancias independientes de <code>GrupoAnimal</code> y <code>GrilloFan</code>. El objeto <code>j</code> tiene características adicionales que van más allá de aquellas que tiene el objeto <code>s</code>.</p>
+<pre><code>Sally construido
+Sally recuento grupal 1
+Jim construido
+Jim recuento grupal 1
+Jim recuento grupal 2
+Jim puntos 6
 [&#39;__class__&#39;, &#39;__delattr__&#39;, ... &#39;__weakref__&#39;,
-&#39;name&#39;, &#39;party&#39;, &#39;points&#39;, &#39;six&#39;, &#39;x&#39;]</code></pre>
-<p>En el resultado de llamar a <code>dir</code> sobre el objeto <code>j</code> (instancia de la clase <code>CricketFan</code>), vemos que tiene los atributos y métodos de la clase padre, además de los atributos y métodos que fueron agregados cuando la extendimos para crear la clase <code>CricketFan</code>.</p>
+&#39;nombre&#39;, &#39;grupo&#39;, &#39;puntos&#39;, &#39;seis&#39;, &#39;x&#39;]</code></pre>
+<p>En el resultado de llamar a <code>dir</code> sobre el objeto <code>j</code> (instancia de la clase <code>GrilloFan</code>), vemos que tiene los atributos y métodos de la clase padre, además de los atributos y métodos que fueron agregados cuando la extendimos para crear la clase <code>GrilloFan</code>.</p>
 <h2 id="resumen">Resumen</h2>
 <p>Esta es una introducción muy superficial a la programación orientada a objetos, enfocada principalmente en la terminología y sintaxis necesarias para definir y usar objetos. Vamos a reseñar rápidamente el código que vimos al comienzo del capítulo. A estas alturas deberías entender completamente lo que está pasando.</p>
-<pre class="python"><code>stuff = list()
-stuff.append(&#39;python&#39;)
-stuff.append(&#39;chuck&#39;)
-stuff.sort()
-print (stuff[0])
-print (stuff.__getitem__(0))
-print (list.__getitem__(stuff,0))
+<pre class="python"><code>cosa = list()
+cosa.append(&#39;python&#39;)
+cosa.append(&#39;chuck&#39;)
+cosa.sort()
+print (cosa[0])
+print (cosa.__getitem__(0))
+print (list.__getitem__(cosa,0))
 
 # Code: http://www.py4e.com/code3/party1.py</code></pre>
-<p>La primera línea construye un <em>objeto</em> de clase <code>list</code>. Cuando Python crea el objeto de clase <code>list</code> llama al método <em>constructor</em> (llamado <code>__init__</code>) para configurar los atributos internos de datos que se utilizarán para almacenar los datos de la lista. Aún no hemos pasado ningún parámetro al <em>constructor</em>. When el constructor retorna, usamos la variable <code>stuff</code> para apuntar la instancia retornada de la clase <code>list</code>.</p>
-<p>La segunda y tercera líneas llaman al método <code>append</code> con un parámetro para agregar un nuevo objeto al final de la lista actualizando los atributos al interior de <code>stuff</code>. Luego, en la cuarta línea, llamamos al método <code>sort</code> sin darle ningún parámetro para ordenar los datos dentro del objeto <code>stuff</code>.</p>
-<p>Luego, imprimimos el primer objeto en la lista usando los corchetes, los que son una abreviatura para llamar el método <code>__getitem__</code> dentro de <code>stuff</code>. Esto es equivalente a llamado al método <code>__getitem__</code> dentro de la <em>clase</em> <code>list</code> y pasar el objeto <code>stuff</code> como primer parámetro y la posición que necesitamos como segundo parámetro.</p>
-<p>Al final del programa, el objeto <code>stuff</code> es descartado, pero no antes de llamar al método <em>destructor</em> (llamado <code>__del__</code>) de manera tal que el objeto pueda atar cabos sueltos en caso de resultar necesario.</p>
+<p>La primera línea construye un <em>objeto</em> de clase <code>list</code>. Cuando Python crea el objeto de clase <code>list</code> llama al método <em>constructor</em> (llamado <code>__init__</code>) para configurar los atributos internos de datos que se utilizarán para almacenar los datos de la lista. Aún no hemos pasado ningún parámetro al <em>constructor</em>. When el constructor retorna, usamos la variable <code>cosa</code> para apuntar la instancia retornada de la clase <code>list</code>.</p>
+<p>La segunda y tercera líneas llaman al método <code>append</code> con un parámetro para agregar un nuevo objeto al final de la lista actualizando los atributos al interior de <code>cosa</code>. Luego, en la cuarta línea, llamamos al método <code>sort</code> sin darle ningún parámetro para ordenar los datos dentro del objeto <code>cosa</code>.</p>
+<p>Luego, imprimimos el primer objeto en la lista usando los corchetes, los que son una abreviatura para llamar el método <code>__getitem__</code> dentro de <code>cosa</code>. Esto es equivalente a llamado al método <code>__getitem__</code> dentro de la <em>clase</em> <code>list</code> y pasar el objeto <code>cosa</code> como primer parámetro y la posición que necesitamos como segundo parámetro.</p>
+<p>Al final del programa, el objeto <code>cosa</code> es descartado, pero no antes de llamar al método <em>destructor</em> (llamado <code>__del__</code>) de manera tal que el objeto pueda atar cabos sueltos en caso de resultar necesario.</p>
 <p>Estos son los aspectos básicos de la programación orientada a objetos. Hay muchos detalles adicionales sobre cómo usar un enfoque de programación orientada a objetos al desarrollar aplicaciones, así como librerías, las que van más allá del ámbito de este capítulo.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <h2 id="glosario">Glosario</h2>
 <dl>
@@ -322,6 +322,9 @@ print (list.__getitem__(stuff,0))
 </dd>
 <dt>clase hija</dt>
 <dd>Una nueva clase creada cuando una clase padre es extendida. La clase hija hereda todos los atributos y métodos de la clase padre.
+</dd>
+<dt>clase padre</dt>
+<dd>La clase que está siendo extendida para crear una nueva clase hija. La clase padre aporta todos sus métodos y atributos a la nueva clase hija.
 </dd>
 <dt>constructor</dt>
 <dd>Un método opcional con un nombre especial (<code>__init__</code>) que es llamado al momento en que se utiliza una clase para construir un objeto. Normalmente se utiliza para determinar los valores iniciales del objeto.
@@ -341,11 +344,7 @@ print (list.__getitem__(stuff,0))
 <dt>objeto</dt>
 <dd>Una instancia construida de una clase. Un objeto contiene todos los atributos y métodos definidos por la clase. En algunos casos de documentación orientada a objetos se utiliza el término ‘instancia’ de manera intercambiable con ‘objeto’.
 </dd>
-<dt>clase padre</dt>
-<dd>La clase que está siendo extendida para crear una nueva clase hija. La clase padre aporta todos sus métodos y atributos a la nueva clase hija.
-</dd>
 </dl>
-<p></p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
