@@ -54,14 +54,14 @@ and
 </li>
      </ul>
   </li>
-  <li> Korean (commercial translation)
-<a href="http://www.yes24.com/Product/Goods/77401048?Acode=101" target="_blank">데이터를 다루며 배우는 파이썬</a>
-  </li>
-  <li> Spanish - Book translation and web site translation in progress at
+  <li> Spanish - Book translation and web site at
      <ul class="menu vertical nested is-active">
         <li>
 <a href="https://es.py4e.com/book">https://es.py4e.com</a>
 </li>
+  <li> Korean (commercial translation)
+<a href="http://www.yes24.com/Product/Goods/77401048?Acode=101" target="_blank">데이터를 다루며 배우는 파이썬</a>
+  </li>
      </ul>
   </li>
   <li> Portuguese - In progress
