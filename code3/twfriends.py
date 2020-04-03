@@ -10,9 +10,9 @@ conn = sqlite3.connect('amigos.sqlite')
 cur = conn.cursor()
 
 cur.execute('''CREATE TABLE IF NOT EXISTS Personas
-            (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)''')
+    (id INTEGER PRIMARY KEY, nombre TEXT UNIQUE, recuperado INTEGER)''')
 cur.execute('''CREATE TABLE IF NOT EXISTS Seguimientos
-            (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id))''')
+    (desde_id INTEGER, hacia_id INTEGER, UNIQUE(desde_id, hacia_id))''')
 
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
@@ -23,7 +23,8 @@ while True:
     cuenta = input('Ingresa una cuenta de Twitter, o salir: ')
     if (cuenta == 'salir'): break
     if (len(cuenta) < 1):
-        cur.execute('SELECT id, nombre FROM Personas WHERE recuperado=0 LIMIT 1')
+        cur.execute('''SELECT id, nombre FROM Personas
+                WHERE recuperado=0 LIMIT 1''')
         try:
             (id, cuenta) = cur.fetchone()
         except:
@@ -43,7 +44,8 @@ while True:
                 continue
             id = cur.lastrowid
 
-    url = twurl.aumentar(TWITTER_URL, {'screen_name': cuenta, 'count': '100'})
+    url = twurl.aumentar(TWITTER_URL, 
+            {'screen_name': cuenta, 'count': '100'})
     print('Recuperando cuenta', cuenta)
     try:
         conexion = urllib.request.urlopen(url, context=ctx)
@@ -84,16 +86,16 @@ while True:
             amigo_id = cur.fetchone()[0]
             contantiguas = contantiguas + 1
         except:
-            cur.execute('''INSERT OR IGNORE INTO Personas (nombre, recuperado)
-                        VALUES (?, 0)''', (amigo, ))
+            cur.execute('''INSERT OR IGNORE INTO Personas
+                (nombre, recuperado) VALUES (?, 0)''', (amigo, ))
             conn.commit()
             if cur.rowcount != 1:
                 print('Error inserting account:', amigo)
                 continue
             amigo_id = cur.lastrowid
             contnuevas = contnuevas + 1
-        cur.execute('''INSERT OR IGNORE INTO Seguimientos (desde_id, hacia_id)
-                    VALUES (?, ?)''', (id, amigo_id))
+        cur.execute('''INSERT OR IGNORE INTO Seguimientos
+             (desde_id, hacia_id) VALUES (?, ?)''', (id, amigo_id))
     print('Cuentas nuevas=', contnuevas, ' ya visitadas=', contantiguas)
     print('Restantes', cabeceras['x-rate-limit-remaining'])
     conn.commit()

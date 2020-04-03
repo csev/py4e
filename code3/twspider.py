@@ -23,7 +23,8 @@ while True:
     cuenta = input('Ingresa una cuenta de Twitter, o salir: ')
     if (cuenta == 'salir'): break
     if (len(cuenta) < 1):
-        cur.execute('SELECT nombre FROM Twitter WHERE recuperado = 0 LIMIT 1')
+        cur.execute('''SELECT nombre FROM Twitter 
+            WHERE recuperado = 0 LIMIT 1''')
         try:
             cuenta = cur.fetchone()[0]
         except:
@@ -41,7 +42,8 @@ while True:
     # Depuración
     # print json.dumps(js, indent=4)
 
-    cur.execute('UPDATE Twitter SET recuperado=1 WHERE nombre = ?', (cuenta, ))
+    cur.execute('''UPDATE Twitter 
+            SET recuperado=1 WHERE nombre = ?''', (cuenta, ))
 
     contnuevas = 0
     contantiguas = 0
