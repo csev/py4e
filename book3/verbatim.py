@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding: utf-8
 import re
 import sys
 import os
@@ -75,8 +76,8 @@ while True:
         if fn.startswith('../') :
             # Add a blank unless there is one at end of file
             if blank : print 
-            fu = fn.replace('../','http://www.py4e.com/')
-            print '# Code:', fu
+            fu = fn.replace('../','https://es.py4e.com/')
+            print '# Código:', fu
             if trinket:
                 print "# Or select Download from this trinket's left-hand menu"
         
