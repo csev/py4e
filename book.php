@@ -5,7 +5,7 @@
         <h3>Explorando la información con Python 3</h3>
 
 <ul>
-  <li> Spanish - In progress
+  <li> Spanish 
      <ul class="menu vertical nested is-active">
        <li class="menu-text">Free: <a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf" target="_blank">PDF</a>,
        <a href="html3">HTML</a>,
@@ -15,7 +15,13 @@
         </li>
      </ul>
     <p>    
-        (Thanks to Fernando Tardio for getting the translation started)
+    Contributors:  
+    Juan Carlos Perez Castellanos, 
+    Juan Dougnac,
+    Daniel Merino Echeverría, 
+    Jaime Bermeo Ramírez 
+    y 
+    Fernando Tardío.
     </p>
   </li>
   <li>
