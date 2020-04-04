@@ -1,12 +1,13 @@
 <?php include("top.php"); ?>
 <?php include("nav.php");?>
-<div style="float: right;"/><iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=drchu02-20&marketplace=amazon&region=US&placement=1530051126&asins=1530051126&linkId=2ea6c883c6cf11f29568856139bad34b&show_border=true&link_opens_in_new_window=true"></iframe></div>
-        <h2>Python para todos</h2>
+<h2>Python para todos</h2>
+<div style="float: right;"/><iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=drchu02-20&language=en_US&marketplace=amazon&region=US&placement=B086P9BD4G&asins=B086P9BD4G&linkId=e70b8edb40c9b72f4b45f6b4074c34d3&show_border=true&link_opens_in_new_window=true"></iframe></div>
         <h3>Explorando la información con Python 3</h3>
 
 <ul>
   <li> Spanish 
      <ul class="menu vertical nested is-active">
+       </li class="menu-text">Printed textbook on <a href="https://amzn.to/2V5pBKF" target="_blank">Amazon</li>
        <li class="menu-text">Free: <a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf" target="_blank">PDF</a>,
        <a href="html3">HTML</a>,
        <a href="http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.epub" target="_blank">EPUB</a></li>
