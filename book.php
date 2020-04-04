@@ -18,7 +18,8 @@
     <p>    
     Contributors:  
     <a href="https://github.com/don-charlie-pc" target="_blank">Juan Carlos Perez Castellanos</a>, 
-    <a href="https://github.com/jdougnac" target="_blank">Juan Dougnac</a>,
+    <a href="https://github.com/jdougnac" target="_blank">Juan Dougnac</a> 
+    (<a href="https://twitter.com/JuanDougnac" target="_blank">@JuanDougnac</a>),
     <a href="https://github.com/danielmerino" target="_blank">Daniel Merino Echeverría</a>, 
     Jaime Bermeo Ramírez 
     y 
