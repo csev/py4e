@@ -1,7 +1,7 @@
 <?php include("top.php"); ?>
 <?php include("nav.php");?>
 <h2>Python para todos</h2>
-<div style="float: right;"/><iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=drchu02-20&language=en_US&marketplace=amazon&region=US&placement=B086P9BD4G&asins=B086P9BD4G&linkId=e70b8edb40c9b72f4b45f6b4074c34d3&show_border=true&link_opens_in_new_window=true"></iframe></div>
+<div style="float: right;"/><iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=drchu02-20&language=en_US&marketplace=amazon&region=US&placement=B086PSMTSV&asins=B086PSMTSV&linkId=3e74ae18e7467130a98a1ab0a8edf436&show_border=true&link_opens_in_new_window=true"></iframe></div>
         <h3>Explorando la información con Python 3</h3>
 
 <ul>
