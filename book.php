@@ -64,7 +64,7 @@ Translated book, autograders, resources, and web site at
        <a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.epub" target="_blank">EPUB</a>)
 </li>
 <li> 
-<a href="`https://github.com/vittore/py4e/" target="_blank">Book source on github</a>, 
+<a href="https://github.com/vittore/py4e/" target="_blank">Book source on github</a>, 
 (Thanks to
 <a href="https://www.linkedin.com/in/alessandrorossetti/" target="_blank">Alessandro Rossetti</a>
 and
