@@ -44,23 +44,22 @@ if ( count($_POST) > 0 && $assn && isset($assignments[$assn]) ) {
     return;
 }
 
+$menu = false;
+if ( $LAUNCH->link && $LAUNCH->user && $LAUNCH->user->instructor ) {
+    $menu = new \Tsugi\UI\MenuSet();
+    $menu->addLeft('Student Data', 'grades.php');
+    if ( $CFG->launchactivity ) {
+        $menu->addRight(__('Launches'), 'analytics');
+    }
+    $menu->addRight(__('Settings'), '#', /* push */ false, SettingsForm::attr());
+}
+
 // View
 $OUTPUT->header();
 $OUTPUT->bodyStart();
-$OUTPUT->topNav();
+$OUTPUT->topNav($menu);
 
-// Settings button and dialog
-
-echo('<span style="float: right;">');
-if ( $USER->instructor ) {
-    if ( $CFG->launchactivity ) {
-        echo('<a href="analytics" class="btn btn-default">Launches</a> ');
-    }
-    echo('<a href="grades.php" target="_blank"><button class="btn btn-info">Grade detail</button></a> '."\n");
-SettingsForm::button();
-}
-echo('</span>');
-
+// Settings dialog
 SettingsForm::start();
 SettingsForm::select("exercise", __('Please select an assignment'),$assignments);
 SettingsForm::dueDate();

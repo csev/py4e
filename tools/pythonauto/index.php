@@ -66,6 +66,16 @@ if ( $python3 ) {
 // Get any due date information
 $dueDate = SettingsForm::getDueDate();
 
+$menu = false;
+if ( $LAUNCH->link && $LAUNCH->user && $LAUNCH->user->instructor ) {
+    $menu = new \Tsugi\UI\MenuSet();
+    $menu->addLeft('Student Data', 'grades.php');
+    if ( $CFG->launchactivity ) {
+        $menu->addRight(__('Launches'), 'analytics');
+    }
+    $menu->addRight(__('Settings'), '#', /* push */ false, SettingsForm::attr());
+}
+
 $OUTPUT->header();
 
 // Defaults
@@ -500,7 +510,7 @@ font-size: 14px;
 </style>
 <?php
 $OUTPUT->bodyStart();
-$OUTPUT->topNav();
+$OUTPUT->topNav($menu);
 
 if ( $USER->instructor ) {
     SettingsForm::start();
@@ -616,19 +626,6 @@ if ( $dueDate->message ) {
         echo('<button onclick="resetcode()" class="btn btn-default" type="button">Reset Code</button> ');
     }
     echo('<button onclick="$(\'#info\').modal();return false;" class="btn btn-default" type="button"><span class="glyphicon glyphicon-info-sign"></span></button>'."\n");
-    if ( $USER->instructor ) {
-        if ( $CFG->launchactivity ) {
-            echo('<a href="analytics" class="btn btn-default">Analytics</a> ');
-        }
-        SettingsForm::button();
-    }
-    if ( $USER->instructor ) {
-        if ( $EX === false ) {
-            echo(' <a href="grades.php" class="btn btn-default" target="_blank">View Student Code</a>'."\n");
-        } else {
-            echo(' <a href="grades.php" class="btn btn-default" target="_blank">View Grades</a>'."\n");
-        }
-    }
 ?>
 <img id="spinner" src="static/spinner.gif" style="vertical-align: middle;display: none">
 <span id="redo" style="color:red;display:none"> Please correct your code and re-run. </span>
