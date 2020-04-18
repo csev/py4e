@@ -89,14 +89,14 @@ You can list the contents of the current directory using the <b>ls -l</b>  comma
     /Users/csev/Desktop
     udhcp-macvpn-624:Desktop csev$ ls -l 
     total 8
-    -rw-r--r--  1 csev  staff   15 Sep 16 15:17 firstprog.py
+    -rw-r--r--  1 csev  staff   15 Sep 16 15:17 hello.py
     udhcp-macvpn-624:Desktop csev$ 
 </pre>
 Running Your Python Program in the Terminal
 <p>
 Start the Terminal program, navigate to the proper directory and type the following command:
 <pre>
-    python3 firstprog.py
+    python3 hello.py
 </pre>
 This loads the Python 3 interpreter and runs <b>firstprog.py</b>, showing the program output 
 and/or errors in the Terminal window.
