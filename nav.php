@@ -14,7 +14,7 @@ if ( isset($_SESSION['id']) ) {
     // if ( isset($CFG->disqushost) ) $set->addLeft('Discuss', $T.'discuss');
     // else if ( isset($CFG->disquschannel) ) $set->addLeft('Discuss', $CFG->disquschannel);
 } else {
-    $set->addLeft('Materials', $R.'materials');
+    $set->addLeft('OER', $R.'materials');
 }
 
 if ( isset($_SESSION['id']) ) {
