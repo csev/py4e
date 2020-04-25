@@ -9,11 +9,11 @@ The Python3 versions of the code is all in code3
 If you are interested in the Python for Everybody book
 see the folders
 
-* book3
-* figures
-* images
+* [book3](book3/)
+* [figures](figures/)
+* [images](images/)
 
-See the file `book3/README.md` for more details.
+See the file [`book3/README.md`](book3/README.md) for more details.
 
 Setup On Localhost
 ------------------
