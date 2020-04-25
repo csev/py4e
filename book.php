@@ -15,9 +15,9 @@ Book translations:
 </p>
 <ul>
   <li>
-     English
+     English -
+<a href="https://amzn.to/29w0lsX" target="_blank">Python for Everbody: Exploring Data in Python3</a>
      <ul class="menu vertical nested is-active">
-       <li class="menu-text">Printed book on <a href="http://amzn.to/29w0lsX" target="_blank">Amazon</a></li>
        <li class="menu-text">Printed book on
 <a href="https://www.amazon.in/dp/9352136276" target="_blank">Amazon India</a>
 (low-cost shipping within India thanks to
@@ -38,7 +38,8 @@ Book translations:
        <li class="menu-text"><a href="https://books.trinket.io/pfe/index.html" target="_blank">Interactive HTML from Trinket.io</a></li>
      </ul>
   </li>
-<li> Spanish 
+<li> Spanish -
+<a href="https://amzn.to/3axKzHv" target="_blank">Python para todos: Explorando la información con Python 3</a>
 <ul>
 <li>
 Translated book, autograders, resources, and web site at
@@ -59,9 +60,9 @@ Translated book, autograders, resources, and web site at
 <li> Italian
 <a href="https://amzn.to/2qGksK6" target="_blank">Python per tutti: Esplorare dati con Python3</a>
      <ul class="menu vertical nested is-active">
-       <li class="menu-text">Printed book on <a href="https://amzn.to/2qGksK6" target="_blank">Amazon</a>
-       (Free <a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.pdf" target="_blank">PDF</a>,
-       <a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.epub" target="_blank">EPUB</a>)
+<li>
+       Free <a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.pdf" target="_blank">PDF</a>,
+       <a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.epub" target="_blank">EPUB</a>
 </li>
 <li> 
 <a href="https://github.com/vittore/py4e/" target="_blank">Book source on github</a>, 
@@ -72,12 +73,8 @@ and
 </li>
      </ul>
   </li>
-  <li> Korean (commercial translation)
-<a href="http://www.yes24.com/Product/Goods/77401048?Acode=101" target="_blank">데이터를 다루며 배우는 파이썬</a>
-  </li>
-     </ul>
-  </li>
-  <li> Portuguese - In progress
+  <li> Portuguese -
+<a href="https://amzn.to/2S6GpA6" target="_blank">Python Para Todos: Explorando Dados com Python 3</a>
      <ul class="menu vertical nested is-active">
        <li class="menu-text">Free:
         <a href="http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.pdf" target="_blank">PDF</a>,
@@ -87,6 +84,9 @@ and
 <a href="https://github.com/ras-ufcg/py4e/blob/master/RAS_Team_Members.txt" target="_blank">translation team</a>
 (Thanks to Yuri Loia de Medeiros).
 </li>
+  <li> Korean (commercial translation)
+<a href="http://www.yes24.com/Product/Goods/77401048?Acode=101" target="_blank">데이터를 다루며 배우는 파이썬</a>
+  </li>
      </ul>
   </li>
   <li>
