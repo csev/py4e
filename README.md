@@ -13,7 +13,7 @@ see the folders
 * [figures](figures/)
 * [images](images/)
 
-See the file `book3/README.md` for more details.
+See the file [`book3/README.md`](book3/README.md) for more details.
 
 Setup On Localhost
 ------------------
