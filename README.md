@@ -9,7 +9,7 @@ The Python3 versions of the code is all in code3
 If you are interested in the Python for Everybody book
 see the folders
 
-* [book3](py4e/book3/)
+* [book3](book3/)
 * figures
 * images
 
