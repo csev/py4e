@@ -10,8 +10,8 @@ If you are interested in the Python for Everybody book
 see the folders
 
 * [book3](book3/)
-* figures
-* images
+* [figures](figures/)
+* [images](images/)
 
 See the file `book3/README.md` for more details.
 
