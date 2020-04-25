@@ -82,7 +82,7 @@ and
         </li>
         <li> <a href="https://github.com/ras-ufcg/py4e" target="_blank">Book source on github</a> and 
 <a href="https://github.com/ras-ufcg/py4e/blob/master/RAS_Team_Members.txt" target="_blank">translation team</a>
-(Thanks to Yuri Loia de Medeiros).
+(Thanks to <a href="https://twitter.com/yuriloia" target="_blank">Yuri Loia de Medeiros</a>).
 </li>
   <li> Korean (commercial translation)
 <a href="http://www.yes24.com/Product/Goods/77401048?Acode=101" target="_blank">데이터를 다루며 배우는 파이썬</a>
