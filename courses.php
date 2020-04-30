@@ -43,7 +43,11 @@ target="_blank">Programming Made Easy with Python</a> from
 <a href="http://www.edwith.org/pythonforeverybody" target="_blank">
 모두를 위한 프로그래밍 : 파이썬 (Programming for All: Python)</a>
 from 
-<a href="http://www.edwith.org/" target="_blank">Edwith</a> (Korean).
+<a href="https://www.edwith.org/" target="_blank">Edwith</a> (Korean).
+</p></li>
+<li><p>
+<a href="https://training.gom.com" target="_blank">
+GOM Training Center</a>
 </p></li>
 <li><p>
 <a href="https://videodirect.amazon.com/content/edit/season?id=4XS87SAAA29"
