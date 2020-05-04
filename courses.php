@@ -46,6 +46,10 @@ from
 <a href="https://www.edwith.org/" target="_blank">Edwith</a> (Korean).
 </p></li>
 <li><p>
+<a href="https://www.codementor.io/w/coding-starter-kit?utm_source=py4e&utm_campaign=outreach" target="_blank">
+CodeMentor Starting Kit</a>
+</p></li>
+<li><p>
 <a href="https://training.gom.com" target="_blank">
 GOM Training Center</a>
 </p></li>
