@@ -333,6 +333,8 @@ print(lst)
 "open" => "You need to use open() to open the file.",
 "sort" => "You need to use sort() to sort the list before you print it out.",
 "!'yonder'" => "You should not put the output data in strings",
+"!.remove(" => "You should not need to use the remove() method",
+"!.set(" => "You should not need to use the set() method",
 "for" => "You need two for loops. One for the lines and one for the words on each line.")
 ),
 
