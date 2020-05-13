@@ -178,9 +178,9 @@ print("Maximum", largest)',
 ),
 
 "6.5" => Array(
-"qtext" => "<b>6.5</b> Write code using find() and string slicing (see section 6.10) to extract
-the number at the end of the line below.   Convert the extracted value to a floating point
-number and print it out.",
+"qtext" => "<b>6.5</b> Escriba el código utilizando find() y segmentación de
+cadenas (consulte la sección 6.10) para extraer el número al final de la línea de abajo.
+Convierta el valor extraído en un número de coma flotante e imprímalo.",
 "desired" => "0.8475",
 "code" => 'text = "X-DSPAM-Confidence:    0.8475";',
 "checks" => Array(
@@ -205,13 +205,10 @@ print(count,"Lines")
 ),
 
 "7.1" => Array(
-"qtext" => "<b>7.1</b> Write a program that prompts for a file name, then opens that file
-and reads through the file, and print the contents of the file in upper case.  Use
-the file <b>words.txt</b> to produce the output below.".
+"qtext" => "<b>7.1</b> 
+Escriba un programa que solicite un nombre de archivo, luego abra ese archivo y lea el archivo e imprima el contenido del archivo en mayúsculas. Use el archivo words.txt para producir el resultado de abajo.",
 '<p>
-You can download the sample data at
-<a href="http://www.py4e.com/code3/words.txt" target="_blank">
-http://www.py4e.com/code3/words.txt</a>',
+Puede descargar los datos de muestra en http://es.py4e.com/code3/words.txt"',
 "desired" => "WRITING PROGRAMS OR PROGRAMMING IS A VERY CREATIVE
 AND REWARDING ACTIVITY  YOU CAN WRITE PROGRAMS FOR
 MANY REASONS RANGING FROM MAKING YOUR LIVING TO SOLVING
@@ -255,19 +252,20 @@ print(text.upper())
 ),
 
 "7.2" => Array(
-"qtext" => '<b>7.2</b> Write a program that prompts for a file name, then opens that file
-and reads through the file, looking for lines of the form:
+"qtext" => '<b>7.2</b> 
+Escribir un programa que solicita un nombre de archivo, a continuación, abre el archivo y lee a través del archivo, en busca de líneas de la forma:
 <pre>
 X-DSPAM-Confidence:    0.8475
 </pre>
-Count these lines and extract the floating point values from each
-of the lines and compute the average of those values and produce an output
-as shown below.  Do not use the sum() function or a variable named sum in your solution.
+Cuente estas líneas y extraiga los valores de coma flotante de cada una de las líneas y calcule el promedio de esos valores y produzca una salida como se muestra a continuación. No use la función sum () o una variable llamada sum en su solución.
 <p>
-You can download the sample data at
-<a href="http://www.py4e.com/code3/mbox-short.txt" target="_blank">
-http://www.py4e.com/code3/mbox-short.txt</a> when you are testing
-below enter <b>mbox-short.txt</b> as the file name.',
+Puede descargar los datos de muestra en http://www.py4e.com/code3/mbox-short.txt cuando esté probando a continuación, ingrese cuando esté probando a continuación, ingrese mbox-short.txt como el nombre del archivo. como el nombre del archivo.
+<p>
+Puede descargar los datos de muestra en 
+<a href="http://es.py4e.com/code3/mbox-short.txt" target="_blank">
+http://es.py4e.com/code3/mbox-short.txt</a> 
+esté probando a continuación, ingrese cuando esté probando a continuación,
+ingrese <b>mbox-short.txt</b> como el nombre del archivo. como el nombre del archivo.',
 "desired" => "Average spam confidence: 0.750718518519",
 "code" => '# Use the file name mbox-short.txt as the file name
 fname = input("Enter file name: ")
@@ -299,15 +297,12 @@ print("Average spam confidence:", tot/count)
 ),
 
 "8.4" => Array(
-"qtext" => '<b>8.4</b> Open the file <b>romeo.txt</b> and read it line by
-line.  For each line, split the line into a list of words using the <b>split()</b>
-method.   The program should build a list of words.  For each word on each line
-check to see if the word is already in the list and if not append it to the list.
-When the program completes, sort and print the resulting words in alphabetical order.
+"qtext" => '<b>8.4</b>
+Abra el archivo romeo.txt y léalo línea por línea. Para cada línea, divídala en una lista de palabras usando el método split(). El programa debe construir una lista de palabras. Para cada palabra en cada línea, verifique si la palabra ya está en la lista y, si no, añádala a la lista. Cuando el programa se complete, ordene e imprima las palabras resultantes en orden alfabético.
 <p>
-You can download the sample data at
-<a href="http://www.py4e.com/code3/romeo.txt" target="_blank">
-http://www.py4e.com/code3/romeo.txt</a>',
+Puede descargar los datos de muestra en
+<a href="http://es.py4e.com/code3/romeo.txt" target="_blank">
+http://es.py4e.com/code3/romeo.txt</a>',
 "desired" => "['Arise', 'But', 'It', 'Juliet', 'Who', 'already', 'and', 'breaks', 'east', 'envious', 'fair', 'grief', 'is', 'kill', 'light', 'moon', 'pale', 'sick', 'soft', 'sun', 'the', 'through', 'what', 'window', 'with', 'yonder']",
 "code" => 'fname = input("Enter file name: ")
 fh = open(fname)
@@ -408,13 +403,8 @@ print("There were", count, "lines in the file with From as the first word")
 ),
 
 "9.4" => Array(
-"qtext" => "<b>9.4</b> Write a program to read through the <b>mbox-short.txt</b> and figure
-out who has sent the greatest number of mail messages.  The program looks
-for 'From ' lines and takes the second
-word of those lines as the person who sent the mail.  The program creates a Python
-dictionary that maps the sender's mail address to a count of the number of times
-they appear in the file.  After the dictionary is produced, the program reads through
-the dictionary using a maximum loop to find the most prolific committer.",
+"qtext" => "<b>9.4</b>
+Escriba un programa para leer <b>mbox-short.txt</b> y descubra quién ha enviado la mayor cantidad de mensajes de correo. El programa busca líneas 'De' y toma la segunda palabra de esas líneas como la persona que envió el correo. El programa crea un diccionario Python que asigna la dirección de correo del remitente a un recuento de la cantidad de veces que aparecen en el archivo. Después de que se produce el diccionario, el programa lee a través del diccionario utilizando un bucle máximo para encontrar el confirmador más prolífico.",
 "desired" => "cwen@iupui.edu 5",
 "code" => 'name = input("Enter file:")
 if len(name) < 1 : name = "mbox-short.txt"
@@ -449,15 +439,12 @@ print(bigname, bigcount)
 ),
 
 "10.2" => Array(
-"qtext" => "<b>10.2</b> Write a program to read through the <b>mbox-short.txt</b> and figure
-out the distribution by hour of the day for each of the messages.  You can pull the hour
-out from the 'From ' line by finding the time and then splitting the string a second time
-using a colon.
+"qtext" => "<b>10.2</b> 
+Escriba un programa para leer <b>mbox-short.txt</b> y calcule la distribución por hora del día para cada uno de los mensajes. Puede tirar de la hora desde el 'De' línea por encontrar el tiempo y luego dividir la cadena por segunda vez con dos puntos.
 <pre>
 From stephen.marquard@uct.ac.za Sat Jan  5 <b>09</b>:14:16 2008
 </pre>
-Once you have accumulated the counts for each hour, print out the counts, sorted by hour
-as shown below.",
+Una vez que haya acumulado los recuentos de cada hora, imprima los recuentos, ordenados por hora como se muestra a continuación.",
 "desired" => "04 3
 06 1
 07 1
