@@ -332,20 +332,20 @@ print(lst)
 ),
 
 "8.5" => Array(
-"qtext" => "<b>8.5</b> Open the file <b>mbox-short.txt</b> and read it line by
-line.  When you find a line that starts with 'From ' like the following line:
+"qtext" => "<b>8.5</b> Escriba un programa para leer <b>mbox-short.txt</b> 
+Cuando encuentre una línea que comience con 'From' como la siguiente línea:
 <pre>
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 </pre>
-You will parse the From line using split() and print out the second word in the line
-(i.e. the entire address of the person who sent the message).  Then print out
-a count at the end.
+Analizará la línea From utilizando split() e imprimirá la segunda palabra en la línea (es decir, la dirección completa de la persona 
+que envió el mensaje). A continuación, imprimir un recuento al final.
+</p>
 <p>
-<b>Hint:</b> make sure not to include the lines that start with 'From:'.".
+<b>Sugerencia:</b> asegúrese de no incluir las líneas que comienzan con 'From:'.".
 '<p>
-You can download the sample data at
-<a href="http://www.py4e.com/code3/mbox-short.txt" target="_blank">
-http://www.py4e.com/code3/mbox-short.txt</a>',
+Puede descargar los datos de muestra en
+<a href="http://es.py4e.com/code3/mbox-short.txt" target="_blank">
+http://es.py4e.com/code3/mbox-short.txt</a>',
 "desired" => "stephen.marquard@uct.ac.za
 louis@media.berkeley.edu
 zqian@umich.edu
