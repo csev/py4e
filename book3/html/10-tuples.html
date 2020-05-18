@@ -1,18 +1,28 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="http://thisisdallas.github.io/Simple-Grid/simpleGrid.css" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="http://thisisdallas.github.io/Simple-Grid/simpleGrid.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <h1 id="tuples">Tuples</h1>
 <h2 id="tuples-are-immutable">Tuples are immutable</h2>
 <p>  </p>
-<p>A tuple<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> is a sequence of values much like a list. The values stored in a tuple can be any type, and they are indexed by integers. The important difference is that tuples are <em>immutable</em>. Tuples are also <em>comparable</em> and <em>hashable</em> so we can sort lists of them and use tuples as key values in Python dictionaries.</p>
+<p>A tuple<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> is a sequence of values much like a list. The values stored in a tuple can be any type, and they are indexed by integers. The important difference is that tuples are <em>immutable</em>. Tuples are also <em>comparable</em> and <em>hashable</em> so we can sort lists of them and use tuples as key values in Python dictionaries.</p>
 <p>   </p>
 <p>Syntactically, a tuple is a comma-separated list of values:</p>
 <pre class="python"><code>&gt;&gt;&gt; t = &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;</code></pre>
@@ -51,7 +61,7 @@
 <p>   </p>
 <pre class="python"><code>&gt;&gt;&gt; t[0] = &#39;A&#39;
 TypeError: object doesn&#39;t support item assignment</code></pre>
-<p>You can't modify the elements of a tuple, but you can replace one tuple with another:</p>
+<p>You can’t modify the elements of a tuple, but you can replace one tuple with another:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = (&#39;A&#39;,) + t[1:]
 &gt;&gt;&gt; print(t)
 (&#39;A&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)</code></pre>
@@ -95,7 +105,7 @@ print(res)
 <p>The first loop builds a list of tuples, where each tuple is a word preceded by its length.</p>
 <p><code>sort</code> compares the first element, length, first, and only considers the second element to break ties. The keyword argument <code>reverse=True</code> tells <code>sort</code> to go in decreasing order.</p>
 <p>  </p>
-<p>The second loop traverses the list of tuples and builds a list of words in descending order of length. The four-character words are sorted in <em>reverse</em> alphabetical order, so &quot;what&quot; appears before &quot;soft&quot; in the following list.</p>
+<p>The second loop traverses the list of tuples and builds a list of words in descending order of length. The four-character words are sorted in <em>reverse</em> alphabetical order, so “what” appears before “soft” in the following list.</p>
 <p>The output of the program is as follows:</p>
 <pre><code>[&#39;yonder&#39;, &#39;window&#39;, &#39;breaks&#39;, &#39;light&#39;, &#39;what&#39;,
 &#39;soft&#39;, &#39;but&#39;, &#39;in&#39;]</code></pre>
@@ -111,7 +121,7 @@ print(res)
 &gt;&gt;&gt; y
 &#39;fun&#39;
 &gt;&gt;&gt;</code></pre>
-<p>It is not magic, Python <em>roughly</em> translates the tuple assignment syntax to be the following:<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<p>It is not magic, Python <em>roughly</em> translates the tuple assignment syntax to be the following:<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <pre class="python trinket"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
 &gt;&gt;&gt; x = m[0]
 &gt;&gt;&gt; y = m[1]
@@ -214,7 +224,6 @@ for key, val in lst[:10]:
     print(key, val)
 
 # Code: http://www.py4e.com/code3/count3.py</code></pre>
-
 <p>The first part of the program which reads the file and computes the dictionary that maps each word to the count of words in the document is unchanged. But instead of simply printing out <code>counts</code> and ending the program, we construct a list of <code>(val, key)</code> tuples and then sort the list in reverse order.</p>
 <p>Since the value is first, it will be used for the comparisons. If there is more than one tuple with the same value, it will look at the second element (the key), so tuples where the value is the same will be further sorted by the alphabetical order of the key.</p>
 <p>At the end we write a nice <code>for</code> loop which does a multiple assignment iteration and prints out the ten most common words by iterating through a slice of the list (<code>lst[:10]</code>).</p>
@@ -247,16 +256,16 @@ for key, val in lst[:10]:
 <p>    </p>
 <p>To start with the obvious, strings are more limited than other sequences because the elements have to be characters. They are also immutable. If you need the ability to change the characters in a string (as opposed to creating a new string), you might want to use a list of characters instead.</p>
 <p>Lists are more common than tuples, mostly because they are mutable. But there are a few cases where you might prefer tuples:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li><p>In some contexts, like a <code>return</code> statement, it is syntactically simpler to create a tuple than a list. In other contexts, you might prefer a list.</p></li>
 <li><p>If you want to use a sequence as a dictionary key, you have to use an immutable type like a tuple or string.</p></li>
 <li><p>If you are passing a sequence as an argument to a function, using tuples reduces the potential for unexpected behavior due to aliasing.</p></li>
 </ol>
-<p>Because tuples are immutable, they don't provide methods like <code>sort</code> and <code>reverse</code>, which modify existing lists. However Python provides the built-in functions <code>sorted</code> and <code>reversed</code>, which take any sequence as a parameter and return a new sequence with the same elements in a different order.</p>
+<p>Because tuples are immutable, they don’t provide methods like <code>sort</code> and <code>reverse</code>, which modify existing lists. However Python provides the built-in functions <code>sorted</code> and <code>reversed</code>, which take any sequence as a parameter and return a new sequence with the same elements in a different order.</p>
 <p>   </p>
 <h2 id="debugging">Debugging</h2>
 <p>   </p>
-<p>Lists, dictionaries and tuples are known generically as <em>data structures</em>; in this chapter we are starting to see compound data structures, like lists of tuples, and dictionaries that contain tuples as keys and lists as values. Compound data structures are useful, but they are prone to what I call <em>shape errors</em>; that is, errors caused when a data structure has the wrong type, size, or composition, or perhaps you write some code and forget the shape of your data and introduce an error. For example, if you are expecting a list with one integer and I give you a plain old integer (not in a list), it won't work.</p>
+<p>Lists, dictionaries and tuples are known generically as <em>data structures</em>; in this chapter we are starting to see compound data structures, like lists of tuples, and dictionaries that contain tuples as keys and lists as values. Compound data structures are useful, but they are prone to what I call <em>shape errors</em>; that is, errors caused when a data structure has the wrong type, size, or composition, or perhaps you write some code and forget the shape of your data and introduce an error. For example, if you are expecting a list with one integer and I give you a plain old integer (not in a list), it won’t work.</p>
 <h2 id="glossary">Glossary</h2>
 <dl>
 <dt>comparable</dt>
@@ -266,7 +275,7 @@ for key, val in lst[:10]:
 <dd>A collection of related values, often organized in lists, dictionaries, tuples, etc. 
 </dd>
 <dt>DSU</dt>
-<dd>Abbreviation of &quot;decorate-sort-undecorate&quot;, a pattern that involves building a list of tuples, sorting, and extracting part of the result. 
+<dd>Abbreviation of “decorate-sort-undecorate”, a pattern that involves building a list of tuples, sorting, and extracting part of the result. 
 </dd>
 <dt>gather</dt>
 <dd>The operation of assembling a variable-length argument tuple. 
@@ -291,7 +300,7 @@ for key, val in lst[:10]:
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Revise a previous program as follows: Read and parse the &quot;From&quot; lines and pull out the addresses from the line. Count the number of messages from each person using a dictionary.</strong></p>
+<p><strong>Exercise 1: Revise a previous program as follows: Read and parse the “From” lines and pull out the addresses from the line. Count the number of messages from each person using a dictionary.</strong></p>
 <p><strong>After all the data has been read, print the person with the most commits by creating a list of (count, email) tuples from the dictionary. Then sort the list in reverse order and print out the person who has the most commits.</strong></p>
 <pre><code>Sample Line:
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -301,7 +310,7 @@ cwen@iupui.edu 5
 
 Enter a file name: mbox.txt
 zqian@umich.edu 195</code></pre>
-<p><strong>Exercise 2: This program counts the distribution of the hour of the day for each of the messages. You can pull the hour from the &quot;From&quot; line by finding the time string and then splitting that string into parts using the colon character. Once you have accumulated the counts for each hour, print out the counts, one per line, sorted by hour as shown below.</strong></p>
+<p><strong>Exercise 2: This program counts the distribution of the hour of the day for each of the messages. You can pull the hour from the “From” line by finding the time string and then splitting that string into parts using the colon character. Once you have accumulated the counts for each hour, print out the counts, one per line, sorted by hour as shown below.</strong></p>
 <pre><code>python timeofday.py
 Enter a file name: mbox-short.txt
 04 3
@@ -318,12 +327,12 @@ Enter a file name: mbox-short.txt
 19 1</code></pre>
 <p><strong>Exercise 3: Write a program that reads a file and prints the <em>letters</em> in decreasing order of frequency. Your program should convert all the input to lower case and only count the letters a-z. Your program should not count spaces, digits, punctuation, or anything other than the letters a-z. Find text samples from several different languages and see how letter frequency varies between languages. Compare your results with the tables at <a href="https://wikipedia.org/wiki/Letter_frequencies" class="uri">https://wikipedia.org/wiki/Letter_frequencies</a>.</strong></p>
 <p> </p>
-<div class="footnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Fun fact: The word &quot;tuple&quot; comes from the names given to sequences of numbers of varying lengths: single, double, triple, quadruple, quintuple, sextuple, septuple, etc.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Python does not translate the syntax literally. For example, if you try this with a dictionary, it will not work as might expect.<a href="#fnref2">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Fun fact: The word “tuple” comes from the names given to sequences of numbers of varying lengths: single, double, triple, quadruple, quintuple, sextuple, septuple, etc.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Python does not translate the syntax literally. For example, if you try this with a dictionary, it will not work as might expect.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</div>
+</section>
 </body>
 </html>

@@ -2,14 +2,24 @@
   require_once "../booktop.php";
   ob_start();
 }?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <h1 id="dictionaries">Dictionaries</h1>
@@ -17,7 +27,7 @@
 <p>    </p>
 <p>A <em>dictionary</em> is like a list, but more general. In a list, the index positions have to be integers; in a dictionary, the indices can be (almost) any type.</p>
 <p>You can think of a dictionary as a mapping between a set of indices (which are called <em>keys</em>) and a set of values. Each key maps to a value. The association of a key and a value is called a <em>key-value pair</em> or sometimes an <em>item</em>.</p>
-<p>As an example, we'll build a dictionary that maps from English to Spanish words, so the keys and the values are all strings.</p>
+<p>As an example, we’ll build a dictionary that maps from English to Spanish words, so the keys and the values are all strings.</p>
 <p>The function <code>dict</code> creates a new dictionary with no items. Because <code>dict</code> is the name of a built-in function, you should avoid using it as a variable name.</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; eng2sp = dict()
@@ -26,7 +36,7 @@
 <p>The curly brackets, <code>{}</code>, represent an empty dictionary. To add items to the dictionary, you can use square brackets:</p>
 <p> </p>
 <pre class="python"><code>&gt;&gt;&gt; eng2sp[&#39;one&#39;] = &#39;uno&#39;</code></pre>
-<p>This line creates an item that maps from the key <code>'one'</code> to the value &quot;uno&quot;. If we print the dictionary again, we see a key-value pair with a colon between the key and value:</p>
+<p>This line creates an item that maps from the key <code>'one'</code> to the value “uno”. If we print the dictionary again, we see a key-value pair with a colon between the key and value:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(eng2sp)
 {&#39;one&#39;: &#39;uno&#39;}</code></pre>
 <p>This output format is also an input format. For example, you can create a new dictionary with three items. But if you print <code>eng2sp</code>, you might be surprised:</p>
@@ -34,11 +44,11 @@
 &gt;&gt;&gt; print(eng2sp)
 {&#39;one&#39;: &#39;uno&#39;, &#39;three&#39;: &#39;tres&#39;, &#39;two&#39;: &#39;dos&#39;}</code></pre>
 <p>The order of the key-value pairs is not the same. In fact, if you type the same example on your computer, you might get a different result. In general, the order of items in a dictionary is unpredictable.</p>
-<p>But that's not a problem because the elements of a dictionary are never indexed with integer indices. Instead, you use the keys to look up the corresponding values:</p>
+<p>But that’s not a problem because the elements of a dictionary are never indexed with integer indices. Instead, you use the keys to look up the corresponding values:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(eng2sp[&#39;two&#39;])
 &#39;dos&#39;</code></pre>
-<p>The key <code>'two'</code> always maps to the value &quot;dos&quot; so the order of the items doesn't matter.</p>
-<p>If the key isn't in the dictionary, you get an exception:</p>
+<p>The key <code>'two'</code> always maps to the value “dos” so the order of the items doesn’t matter.</p>
+<p>If the key isn’t in the dictionary, you get an exception:</p>
 <p> </p>
 <pre class="python"><code>&gt;&gt;&gt; print(eng2sp[&#39;four&#39;])
 KeyError: &#39;four&#39;</code></pre>
@@ -57,21 +67,21 @@ False</code></pre>
 <pre class="python"><code>&gt;&gt;&gt; vals = list(eng2sp.values())
 &gt;&gt;&gt; &#39;uno&#39; in vals
 True</code></pre>
-<p>The <code>in</code> operator uses different algorithms for lists and dictionaries. For lists, it uses a linear search algorithm. As the list gets longer, the search time gets longer in direct proportion to the length of the list. For dictionaries, Python uses an algorithm called a <em>hash table</em> that has a remarkable property: the <code>in</code> operator takes about the same amount of time no matter how many items there are in a dictionary. I won't explain why hash functions are so magical, but you can read more about it at <a href="https://wikipedia.org/wiki/Hash_table">wikipedia.org/wiki/Hash_table</a>.</p>
+<p>The <code>in</code> operator uses different algorithms for lists and dictionaries. For lists, it uses a linear search algorithm. As the list gets longer, the search time gets longer in direct proportion to the length of the list. For dictionaries, Python uses an algorithm called a <em>hash table</em> that has a remarkable property: the <code>in</code> operator takes about the same amount of time no matter how many items there are in a dictionary. I won’t explain why hash functions are so magical, but you can read more about it at <a href="https://wikipedia.org/wiki/Hash_table">wikipedia.org/wiki/Hash_table</a>.</p>
 <p>  </p>
 <p><strong>Exercise 1: Download a copy of the file</strong> <a href="http://www.py4e.com/code3/words.txt">www.py4e.com/code3/words.txt</a></p>
-<p><strong>Write a program that reads the words in <em>words.txt</em> and stores them as keys in a dictionary. It doesn't matter what the values are. Then you can use the <code>in</code> operator as a fast way to check whether a string is in the dictionary.</strong></p>
+<p><strong>Write a program that reads the words in <em>words.txt</em> and stores them as keys in a dictionary. It doesn’t matter what the values are. Then you can use the <code>in</code> operator as a fast way to check whether a string is in the dictionary.</strong></p>
 <h2 id="dictionary-as-a-set-of-counters">Dictionary as a set of counters</h2>
 <p></p>
 <p>Suppose you are given a string and you want to count how many times each letter appears. There are several ways you could do it:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li><p>You could create 26 variables, one for each letter of the alphabet. Then you could traverse the string and, for each character, increment the corresponding counter, probably using a chained conditional.</p></li>
 <li><p>You could create a list with 26 elements. Then you could convert each character to a number (using the built-in function <code>ord</code>), use the number as an index into the list, and increment the appropriate counter.</p></li>
 <li><p>You could create a dictionary with characters as keys and counters as the corresponding values. The first time you see a character, you would add an item to the dictionary. After that you would increment the value of an existing item.</p></li>
 </ol>
 <p>Each of these options performs the same computation, but each of them implements that computation in a different way.</p>
 <p></p>
-<p>An <em>implementation</em> is a way of performing a computation; some implementations are better than others. For example, an advantage of the dictionary implementation is that we don't have to know ahead of time which letters appear in the string and we only have to make room for the letters that do appear.</p>
+<p>An <em>implementation</em> is a way of performing a computation; some implementations are better than others. For example, an advantage of the dictionary implementation is that we don’t have to know ahead of time which letters appear in the string and we only have to make room for the letters that do appear.</p>
 <p>Here is what the code might look like:</p>
 <pre class="python trinket"><code>word = &#39;brontosaurus&#39;
 d = dict()
@@ -85,9 +95,9 @@ print(d)</code></pre>
 <p>  </p>
 <p>The <code>for</code> loop traverses the string. Each time through the loop, if the character <code>c</code> is not in the dictionary, we create a new item with key <code>c</code> and the initial value 1 (since we have seen this letter once). If <code>c</code> is already in the dictionary we increment <code>d[c]</code>.</p>
 <p></p>
-<p>Here's the output of the program:</p>
+<p>Here’s the output of the program:</p>
 <pre><code>{&#39;a&#39;: 1, &#39;b&#39;: 1, &#39;o&#39;: 2, &#39;n&#39;: 1, &#39;s&#39;: 2, &#39;r&#39;: 2, &#39;u&#39;: 2, &#39;t&#39;: 1}</code></pre>
-<p>The histogram indicates that the letters &quot;a&quot; and &quot;b&quot; appear once; &quot;o&quot; appears twice, and so on.</p>
+<p>The histogram indicates that the letters “a” and “b” appear once; “o” appears twice, and so on.</p>
 <p> </p>
 <p>Dictionaries have a method called <code>get</code> that takes a key and a default value. If the key appears in the dictionary, <code>get</code> returns the corresponding value; otherwise it returns the default value. For example:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; counts = { &#39;chuck&#39; : 1 , &#39;annie&#39; : 42, &#39;jan&#39;: 100}
@@ -101,10 +111,10 @@ d = dict()
 for c in word:
     d[c] = d.get(c,0) + 1
 print(d)</code></pre>
-<p>The use of the <code>get</code> method to simplify this counting loop ends up being a very commonly used &quot;idiom&quot; in Python and we will use it many times in the rest of the book. So you should take a moment and compare the loop using the <code>if</code> statement and <code>in</code> operator with the loop using the <code>get</code> method. They do exactly the same thing, but one is more succinct.</p>
+<p>The use of the <code>get</code> method to simplify this counting loop ends up being a very commonly used “idiom” in Python and we will use it many times in the rest of the book. So you should take a moment and compare the loop using the <code>if</code> statement and <code>in</code> operator with the loop using the <code>get</code> method. They do exactly the same thing, but one is more succinct.</p>
 <p></p>
 <h2 id="dictionaries-and-files">Dictionaries and files</h2>
-<p>One of the common uses of a dictionary is to count the occurrence of words in a file with some written text. Let's start with a very simple file of words taken from the text of <em>Romeo and Juliet</em>.</p>
+<p>One of the common uses of a dictionary is to count the occurrence of words in a file with some written text. Let’s start with a very simple file of words taken from the text of <em>Romeo and Juliet</em>.</p>
 <p>For the first set of examples, we will use a shortened and simplified version of the text with no punctuation. Later we will work with the text of the scene with punctuation included.</p>
 <pre><code>But soft what light through yonder window breaks
 It is the east and Juliet is the sun
@@ -113,7 +123,7 @@ Who is already sick and pale with grief</code></pre>
 <p>We will write a Python program to read through the lines of the file, break each line into a list of words, and then loop through each of the words in the line and count each word using a dictionary.</p>
 <p> </p>
 <p>You will see that we have two <code>for</code> loops. The outer loop is reading the lines of the file and the inner loop is iterating through each of the words on that particular line. This is an example of a pattern called <em>nested loops</em> because one of the loops is the <em>outer</em> loop and the other loop is the <em>inner</em> loop.</p>
-<p>Because the inner loop executes all of its iterations each time the outer loop makes a single iteration, we think of the inner loop as iterating &quot;more quickly&quot; and the outer loop as iterating more slowly.</p>
+<p>Because the inner loop executes all of its iterations each time the outer loop makes a single iteration, we think of the inner loop as iterating “more quickly” and the outer loop as iterating more slowly.</p>
 <p></p>
 <p>The combination of the two nested loops ensures that we will count every word on every line of the input file.</p>
 <pre class="python"><code>fname = input(&#39;Enter the file name: &#39;)
@@ -135,7 +145,6 @@ for line in fhand:
 print(counts)
 
 # Code: http://www.py4e.com/code3/count1.py</code></pre>
-
 <p>In our <code>else</code> statement, we use the more compact alternative for incrementing a variable. <code>counts[word] += 1</code> is equivalent to <code>counts[word] = counts[word] + 1</code>. Either method can be used to change the value of a variable by any desired amount. Similar alternatives exist for <code>-=</code>, <code>*=</code>, and <code>/=</code>.</p>
 <p>When we run the program, we see a raw dump of all of the counts in unsorted hash order. (the <em>romeo.txt</em> file is available at <a href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a>)</p>
 <pre><code>python count1.py
@@ -153,7 +162,7 @@ Enter the file name: romeo.txt
 <pre class="python"><code>counts = { &#39;chuck&#39; : 1 , &#39;annie&#39; : 42, &#39;jan&#39;: 100}
 for key in counts:
     print(key, counts[key])</code></pre>
-<p>Here's what the output looks like:</p>
+<p>Here’s what the output looks like:</p>
 <pre><code>jan 100
 chuck 1
 annie 42</code></pre>
@@ -164,7 +173,7 @@ annie 42</code></pre>
 for key in counts:
     if counts[key] &gt; 10 :
         print(key, counts[key])</code></pre>
-<p>The <code>for</code> loop iterates through the <em>keys</em> of the dictionary, so we must use the index operator to retrieve the corresponding <em>value</em> for each key. Here's what the output looks like:</p>
+<p>The <code>for</code> loop iterates through the <em>keys</em> of the dictionary, so we must use the index operator to retrieve the corresponding <em>value</em> for each key. Here’s what the output looks like:</p>
 <pre><code>jan 100
 annie 42</code></pre>
 <p>We see only the entries with a value above 10.</p>
@@ -176,7 +185,7 @@ print(lst)
 lst.sort()
 for key in lst:
     print(key, counts[key])</code></pre>
-<p>Here's what the output looks like:</p>
+<p>Here’s what the output looks like:</p>
 <pre><code>[&#39;jan&#39;, &#39;chuck&#39;, &#39;annie&#39;]
 annie 42
 chuck 1
@@ -189,12 +198,12 @@ jan 100</code></pre>
 It is the east, and Juliet is the sun.
 Arise, fair sun, and kill the envious moon,
 Who is already sick and pale with grief,</code></pre>
-<p>Since the Python <code>split</code> function looks for spaces and treats words as tokens separated by spaces, we would treat the words &quot;soft!&quot; and &quot;soft&quot; as <em>different</em> words and create a separate dictionary entry for each word.</p>
-<p>Also since the file has capitalization, we would treat &quot;who&quot; and &quot;Who&quot; as different words with different counts.</p>
+<p>Since the Python <code>split</code> function looks for spaces and treats words as tokens separated by spaces, we would treat the words “soft!” and “soft” as <em>different</em> words and create a separate dictionary entry for each word.</p>
+<p>Also since the file has capitalization, we would treat “who” and “Who” as different words with different counts.</p>
 <p>We can solve both these problems by using the string methods <code>lower</code>, <code>punctuation</code>, and <code>translate</code>. The <code>translate</code> is the most subtle of the methods. Here is the documentation for <code>translate</code>:</p>
 <p><code>line.translate(str.maketrans(fromstr, tostr, deletestr))</code></p>
 <p><em>Replace the characters in <code>fromstr</code> with the character in the same position in <code>tostr</code> and delete all characters that are in <code>deletestr</code>. The <code>fromstr</code> and <code>tostr</code> can be empty strings and the <code>deletestr</code> parameter can be omitted.</em></p>
-<p>We will not specify the <code>tostr</code> but we will use the <code>deletestr</code> parameter to delete all of the punctuation. We will even let Python tell us the list of characters that it considers &quot;punctuation&quot;:</p>
+<p>We will not specify the <code>tostr</code> but we will use the <code>deletestr</code> parameter to delete all of the punctuation. We will even let Python tell us the list of characters that it considers “punctuation”:</p>
 <pre class="python"><code>&gt;&gt;&gt; import string
 &gt;&gt;&gt; string.punctuation
 &#39;!&quot;#$%&amp;\&#39;()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~&#39;</code></pre>
@@ -224,8 +233,7 @@ for line in fhand:
 print(counts)
 
 # Code: http://www.py4e.com/code3/count2.py</code></pre>
-
-<p>Part of learning the &quot;Art of Python&quot; or &quot;Thinking Pythonically&quot; is realizing that Python often has built-in capabilities for many common data analysis problems. Over time, you will see enough example code and read enough of the documentation to know where to look to see if someone has already written something that makes your job much easier.</p>
+<p>Part of learning the “Art of Python” or “Thinking Pythonically” is realizing that Python often has built-in capabilities for many common data analysis problems. Over time, you will see enough example code and read enough of the documentation to know where to look to see if someone has already written something that makes your job much easier.</p>
 <p>The following is an abbreviated version of the output:</p>
 <pre><code>Enter the file name: romeo-full.txt
 {&#39;swearst&#39;: 1, &#39;all&#39;: 6, &#39;afeard&#39;: 1, &#39;leave&#39;: 2, &#39;these&#39;: 2,
@@ -247,8 +255,8 @@ a&#39;: 24, &#39;orchard&#39;: 2, &#39;light&#39;: 5, &#39;lovers&#39;: 2, &#39;
 <p>A common cause of runtime errors is a value that is not the right type. For debugging this kind of error, it is often enough to print the type of a value.</p>
 </dd>
 <dt>Write self-checks</dt>
-<dd><p>Sometimes you can write code to check for errors automatically. For example, if you are computing the average of a list of numbers, you could check that the result is not greater than the largest element in the list or less than the smallest. This is called a &quot;sanity check&quot; because it detects results that are &quot;completely illogical&quot;.  </p>
-<p>Another kind of check compares the results of two different computations to see if they are consistent. This is called a &quot;consistency check&quot;.</p>
+<dd><p>Sometimes you can write code to check for errors automatically. For example, if you are computing the average of a list of numbers, you could check that the result is not greater than the largest element in the list or less than the smallest. This is called a “sanity check” because it detects results that are “completely illogical”.  </p>
+<p>Another kind of check compares the results of two different computations to see if they are consistent. This is called a “consistency check”.</p>
 </dd>
 <dt>Pretty print the output</dt>
 <dd>Formatting debugging output can make it easier to spot an error.
@@ -285,14 +293,14 @@ a&#39;: 24, &#39;orchard&#39;: 2, &#39;light&#39;: 5, &#39;lovers&#39;: 2, &#39;
 <dd>A dictionary operation that takes a key and finds the corresponding value.
 </dd>
 <dt>nested loops</dt>
-<dd>When there are one or more loops &quot;inside&quot; of another loop. The inner loop runs to completion each time the outer loop runs once.
+<dd>When there are one or more loops “inside” of another loop. The inner loop runs to completion each time the outer loop runs once.
 </dd>
 <dt>value</dt>
-<dd>An object that appears in a dictionary as the second part of a key-value pair. This is more specific than our previous use of the word &quot;value&quot;.
+<dd>An object that appears in a dictionary as the second part of a key-value pair. This is more specific than our previous use of the word “value”.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 2: Write a program that categorizes each mail message by which day of the week the commit was done. To do this look for lines that start with &quot;From&quot;, then look for the third word and keep a running count of each of the days of the week. At the end of the program print out the contents of your dictionary (order does not matter).</strong></p>
+<p><strong>Exercise 2: Write a program that categorizes each mail message by which day of the week the commit was done. To do this look for lines that start with “From”, then look for the third word and keep a running count of each of the days of the week. At the end of the program print out the contents of your dictionary (order does not matter).</strong></p>
 <p><strong>Sample Line:</strong></p>
 <pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
 <p><strong>Sample Execution:</strong></p>

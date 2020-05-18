@@ -2,14 +2,24 @@
   require_once "../booktop.php";
   ob_start();
 }?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <h1 id="conditional-execution">Conditional execution</h1>
@@ -45,7 +55,7 @@ x is not y           # x is not the same as y</code></pre>
 <p>     </p>
 <p><code>n%2 == 0 or n%3 == 0</code> is true if <em>either</em> of the conditions is true, that is, if the number is divisible by 2 <em>or</em> 3.</p>
 <p>Finally, the <code>not</code> operator negates a boolean expression, so <code>not (x &gt; y)</code> is true if <code>x &gt; y</code> is false; that is, if <code>x</code> is less than or equal to <code>y</code>.</p>
-<p>Strictly speaking, the operands of the logical operators should be boolean expressions, but Python is not very strict. Any nonzero number is interpreted as &quot;true.&quot;</p>
+<p>Strictly speaking, the operands of the logical operators should be boolean expressions, but Python is not very strict. Any nonzero number is interpreted as “true.”</p>
 <pre class="python"><code>&gt;&gt;&gt; 17 and True
 True</code></pre>
 <p>This flexibility can be useful, but there are some subtleties to it that might be confusing. You might want to avoid it until you are sure you know what you are doing.</p>
@@ -55,14 +65,13 @@ True</code></pre>
 <pre class="python"><code>if x &gt; 0 :
     print(&#39;x is positive&#39;)</code></pre>
 <p>The boolean expression after the <code>if</code> statement is called the <em>condition</em>. We end the <code>if</code> statement with a colon character (:) and the line(s) after the if statement are indented.</p>
-<div class="figure">
-<img src="../images/if.svg" alt="If Logic" />
-<p class="caption">If Logic</p>
-</div>
+<figure>
+<img src="../images/if.svg" alt="" /><figcaption>If Logic</figcaption>
+</figure>
 <p>If the logical condition is true, then the indented statement gets executed. If the logical condition is false, the indented statement is skipped.</p>
 <p>  </p>
-<p><code>if</code> statements have the same structure as function definitions or <code>for</code> loops<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. The statement consists of a header line that ends with the colon character (:) followed by an indented block. Statements like this are called <em>compound statements</em> because they stretch across more than one line.</p>
-<p>There is no limit on the number of statements that can appear in the body, but there must be at least one. Occasionally, it is useful to have a body with no statements (usually as a place holder for code you haven't written yet). In that case, you can use the <code>pass</code> statement, which does nothing.</p>
+<p><code>if</code> statements have the same structure as function definitions or <code>for</code> loops<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The statement consists of a header line that ends with the colon character (:) followed by an indented block. Statements like this are called <em>compound statements</em> because they stretch across more than one line.</p>
+<p>There is no limit on the number of statements that can appear in the body, but there must be at least one. Occasionally, it is useful to have a body with no statements (usually as a place holder for code you haven’t written yet). In that case, you can use the <code>pass</code> statement, which does nothing.</p>
 <p> </p>
 <pre class="python"><code>if x &lt; 0 :
     pass          # need to handle negative values!</code></pre>
@@ -91,10 +100,9 @@ SyntaxError: invalid syntax</code></pre>
 else :
     print(&#39;x is odd&#39;)</code></pre>
 <p>If the remainder when <code>x</code> is divided by 2 is 0, then we know that <code>x</code> is even, and the program displays a message to that effect. If the condition is false, the second set of statements is executed.</p>
-<div class="figure">
-<img src="../images/if-else.svg" alt="If-Then-Else Logic" />
-<p class="caption">If-Then-Else Logic</p>
-</div>
+<figure>
+<img src="../images/if-else.svg" alt="" /><figcaption>If-Then-Else Logic</figcaption>
+</figure>
 <p>Since the condition must either be true or false, exactly one of the alternatives will be executed. The alternatives are called <em>branches</em>, because they are branches in the flow of execution.</p>
 <p></p>
 <h2 id="chained-conditionals">Chained conditionals</h2>
@@ -106,12 +114,11 @@ elif x &gt; y:
     print(&#39;x is greater than y&#39;)
 else:
     print(&#39;x and y are equal&#39;)</code></pre>
-<p><code>elif</code> is an abbreviation of &quot;else if.&quot; Again, exactly one branch will be executed.</p>
-<div class="figure">
-<img src="../images/elif.svg" alt="If-Then-ElseIf Logic" />
-<p class="caption">If-Then-ElseIf Logic</p>
-</div>
-<p>There is no limit on the number of <code>elif</code> statements. If there is an <code>else</code> clause, it has to be at the end, but there doesn't have to be one.</p>
+<p><code>elif</code> is an abbreviation of “else if.” Again, exactly one branch will be executed.</p>
+<figure>
+<img src="../images/elif.svg" alt="" /><figcaption>If-Then-ElseIf Logic</figcaption>
+</figure>
+<p>There is no limit on the number of <code>elif</code> statements. If there is an <code>else</code> clause, it has to be at the end, but there doesn’t have to be one.</p>
 <p> </p>
 <pre class="python"><code>if choice == &#39;a&#39;:
     print(&#39;Bad guess&#39;)
@@ -131,10 +138,9 @@ else:
     else:
         print(&#39;x is greater than y&#39;)</code></pre>
 <p>The outer conditional contains two branches. The first branch contains a simple statement. The second branch contains another <code>if</code> statement, which has two branches of its own. Those two branches are both simple statements, although they could have been conditional statements as well.</p>
-<div class="figure">
-<img src="../images/nested.svg" alt="Nested If Statements" />
-<p class="caption">Nested If Statements</p>
-</div>
+<figure>
+<img src="../images/nested.svg" alt="" /><figcaption>Nested If Statements</figcaption>
+</figure>
 <p>Although the indentation of the statements makes the structure apparent, <em>nested conditionals</em> become difficult to read very quickly. In general, it is a good idea to avoid them when you can.</p>
 <p>Logical operators often provide a way to simplify nested conditional statements. For example, we can rewrite the following code using a single conditional:</p>
 <pre class="python"><code>if 0 &lt; x:
@@ -152,7 +158,7 @@ What do you mean, an African or a European swallow?
 &gt;&gt;&gt; int(speed)
 ValueError: invalid literal for int() with base 10:
 &gt;&gt;&gt;</code></pre>
-<p>When we are executing these statements in the Python interpreter, we get a new prompt from the interpreter, think &quot;oops&quot;, and move on to our next statement.</p>
+<p>When we are executing these statements in the Python interpreter, we get a new prompt from the interpreter, think “oops”, and move on to our next statement.</p>
 <p>However if you place this code in a Python script and this error occurs, your script immediately stops in its tracks with a traceback. It does not execute the following statement.</p>
 <p></p>
 <p>Here is a sample program to convert a Fahrenheit temperature to a Celsius temperature:</p>
@@ -173,8 +179,8 @@ Traceback (most recent call last):
   File &quot;fahren.py&quot;, line 2, in &lt;module&gt;
     fahr = float(inp)
 ValueError: could not convert string to float: &#39;fred&#39;</code></pre>
-<p>There is a conditional execution structure built into Python to handle these types of expected and unexpected errors called &quot;try / except&quot;. The idea of <code>try</code> and <code>except</code> is that you know that some sequence of instruction(s) may have a problem and you want to add some statements to be executed if an error occurs. These extra statements (the except block) are ignored if there is no error.</p>
-<p>You can think of the <code>try</code> and <code>except</code> feature in Python as an &quot;insurance policy&quot; on a sequence of statements.</p>
+<p>There is a conditional execution structure built into Python to handle these types of expected and unexpected errors called “try / except”. The idea of <code>try</code> and <code>except</code> is that you know that some sequence of instruction(s) may have a problem and you want to add some statements to be executed if an error occurs. These extra statements (the except block) are ignored if there is no error.</p>
+<p>You can think of the <code>try</code> and <code>except</code> feature in Python as an “insurance policy” on a sequence of statements.</p>
 <p>We can rewrite our temperature converter as follows:</p>
 <pre class="python"><code>inp = input(&#39;Enter Fahrenheit Temperature:&#39;)
 try:
@@ -320,12 +326,12 @@ C</code></pre>
 <pre><code>Enter score: 0.5
 F</code></pre>
 <p>Run the program repeatedly as shown above to test the various different values for input.</p>
-<div class="footnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>We will learn about functions in Chapter 4 and loops in Chapter 5.<a href="#fnref1">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>We will learn about functions in Chapter 4 and loops in Chapter 5.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</div>
+</section>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

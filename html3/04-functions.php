@@ -2,25 +2,35 @@
   require_once "../booktop.php";
   ob_start();
 }?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <h1 id="functions">Functions</h1>
 <h2 id="function-calls">Function calls</h2>
 <p></p>
-<p>In the context of programming, a <em>function</em> is a named sequence of statements that performs a computation. When you define a function, you specify the name and the sequence of statements. Later, you can &quot;call&quot; the function by name. We have already seen one example of a <em>function call</em>:</p>
+<p>In the context of programming, a <em>function</em> is a named sequence of statements that performs a computation. When you define a function, you specify the name and the sequence of statements. Later, you can “call” the function by name. We have already seen one example of a <em>function call</em>:</p>
 <pre class="python"><code>&gt;&gt;&gt; type(32)
 &lt;class &#39;int&#39;&gt;</code></pre>
 <p>The name of the function is <code>type</code>. The expression in parentheses is called the <em>argument</em> of the function. The argument is a value or variable that we are passing into the function as input to the function. The result, for the <code>type</code> function, is the type of the argument.</p>
 <p></p>
-<p>It is common to say that a function &quot;takes&quot; an argument and &quot;returns&quot; a result. The result is called the <em>return value</em>.</p>
+<p>It is common to say that a function “takes” an argument and “returns” a result. The result is called the <em>return value</em>.</p>
 <p> </p>
 <h2 id="built-in-functions">Built-in functions</h2>
 <p>Python provides a number of important built-in functions that we can use without needing to provide the function definition. The creators of Python wrote a set of functions to solve common problems and included them in Python for us to use.</p>
@@ -30,13 +40,13 @@
 &gt;&gt;&gt; min(&#39;Hello world&#39;)
 &#39; &#39;
 &gt;&gt;&gt;</code></pre>
-<p>The <code>max</code> function tells us the &quot;largest character&quot; in the string (which turns out to be the letter &quot;w&quot;) and the <code>min</code> function shows us the smallest character (which turns out to be a space).</p>
+<p>The <code>max</code> function tells us the “largest character” in the string (which turns out to be the letter “w”) and the <code>min</code> function shows us the smallest character (which turns out to be a space).</p>
 <p>Another very common built-in function is the <code>len</code> function which tells us how many items are in its argument. If the argument to <code>len</code> is a string, it returns the number of characters in the string.</p>
 <pre class="python"><code>&gt;&gt;&gt; len(&#39;Hello world&#39;)
 11
 &gt;&gt;&gt;</code></pre>
 <p>These functions are not limited to looking at strings. They can operate on any set of values, as we will see in later chapters.</p>
-<p>You should treat the names of built-in functions as reserved words (i.e., avoid using &quot;max&quot; as a variable name).</p>
+<p>You should treat the names of built-in functions as reserved words (i.e., avoid using “max” as a variable name).</p>
 <h2 id="type-conversion-functions">Type conversion functions</h2>
 <p> </p>
 <p>Python also provides built-in functions that convert values from one type to another. The <code>int</code> function takes any value and converts it to an integer, if it can, or complains otherwise:</p>
@@ -45,7 +55,7 @@
 32
 &gt;&gt;&gt; int(&#39;Hello&#39;)
 ValueError: invalid literal for int() with base 10: &#39;Hello&#39;</code></pre>
-<p><code>int</code> can convert floating-point values to integers, but it doesn't round off; it chops off the fraction part:</p>
+<p><code>int</code> can convert floating-point values to integers, but it doesn’t round off; it chops off the fraction part:</p>
 <pre class="python"><code>&gt;&gt;&gt; int(3.99999)
 3
 &gt;&gt;&gt; int(-2.3)
@@ -94,7 +104,7 @@ ValueError: invalid literal for int() with base 10: &#39;Hello&#39;</code></pre>
 <p>Given the same inputs, most computer programs generate the same outputs every time, so they are said to be <em>deterministic</em>. Determinism is usually a good thing, since we expect the same calculation to yield the same result. For some applications, though, we want the computer to be unpredictable. Games are an obvious example, but there are more.</p>
 <p>Making a program truly nondeterministic turns out to be not so easy, but there are ways to make it at least seem nondeterministic. One of them is to use <em>algorithms</em> that generate <em>pseudorandom</em> numbers. Pseudorandom numbers are not truly random because they are generated by a deterministic computation, but just by looking at the numbers it is all but impossible to distinguish them from random.</p>
 <p> </p>
-<p>The <code>random</code> module provides functions that generate pseudorandom numbers (which I will simply call &quot;random&quot; from here on).</p>
+<p>The <code>random</code> module provides functions that generate pseudorandom numbers (which I will simply call “random” from here on).</p>
 <p> </p>
 <p>The function <code>random</code> returns a random float between 0.0 and 1.0 (including 0.0 but not 1.0). Each time you call <code>random</code>, you get the next number in a long series. To see a sample, run this loop:</p>
 <pre class="python"><code>import random
@@ -135,13 +145,13 @@ for i in range(10):
 <pre class="python"><code>def print_lyrics():
     print(&quot;I&#39;m a lumberjack, and I&#39;m okay.&quot;)
     print(&#39;I sleep all night and I work all day.&#39;)</code></pre>
-<p><code>def</code> is a keyword that indicates that this is a function definition. The name of the function is <code>print_lyrics</code>. The rules for function names are the same as for variable names: letters, numbers and some punctuation marks are legal, but the first character can't be a number. You can't use a keyword as the name of a function, and you should avoid having a variable and a function with the same name.</p>
+<p><code>def</code> is a keyword that indicates that this is a function definition. The name of the function is <code>print_lyrics</code>. The rules for function names are the same as for variable names: letters, numbers and some punctuation marks are legal, but the first character can’t be a number. You can’t use a keyword as the name of a function, and you should avoid having a variable and a function with the same name.</p>
 <p>  </p>
-<p>The empty parentheses after the name indicate that this function doesn't take any arguments. Later we will build functions that take arguments as their inputs.</p>
+<p>The empty parentheses after the name indicate that this function doesn’t take any arguments. Later we will build functions that take arguments as their inputs.</p>
 <p>    </p>
 <p>The first line of the function definition is called the <em>header</em>; the rest is called the <em>body</em>. The header has to end with a colon and the body has to be indented. By convention, the indentation is always four spaces. The body can contain any number of statements.</p>
 <p></p>
-<p>If you type a function definition in interactive mode, the interpreter prints ellipses (<em>...</em>) to let you know that the definition isn't complete:</p>
+<p>If you type a function definition in interactive mode, the interpreter prints ellipses (<em>…</em>) to let you know that the definition isn’t complete:</p>
 <pre class="python"><code>&gt;&gt;&gt; def print_lyrics():
 ...     print(&quot;I&#39;m a lumberjack, and I&#39;m okay.&quot;)
 ...     print(&#39;I sleep all night and I work all day.&#39;)
@@ -152,7 +162,7 @@ for i in range(10):
 &lt;function print_lyrics at 0xb7e99e9c&gt;
 &gt;&gt;&gt; print(type(print_lyrics))
 &lt;class &#39;function&#39;&gt;</code></pre>
-<p>The value of <code>print_lyrics</code> is a <em>function object</em>, which has type &quot;function&quot;.</p>
+<p>The value of <code>print_lyrics</code> is a <em>function object</em>, which has type “function”.</p>
 <p> </p>
 <p>The syntax for calling the new function is the same as for built-in functions:</p>
 <pre class="python"><code>&gt;&gt;&gt; print_lyrics()
@@ -168,7 +178,7 @@ I&#39;m a lumberjack, and I&#39;m okay.
 I sleep all night and I work all day.
 I&#39;m a lumberjack, and I&#39;m okay.
 I sleep all night and I work all day.</code></pre>
-<p>But that's not really how the song goes.</p>
+<p>But that’s not really how the song goes.</p>
 <h2 id="definitions-and-uses">Definitions and uses</h2>
 <p></p>
 <p>Pulling together the code fragments from the previous section, the whole program looks like this:</p>
@@ -197,7 +207,7 @@ repeat_lyrics()
 <p>A function call is like a detour in the flow of execution. Instead of going to the next statement, the flow jumps to the body of the function, executes all the statements there, and then comes back to pick up where it left off.</p>
 <p>That sounds simple enough, until you remember that one function can call another. While in the middle of one function, the program might have to execute the statements in another function. But while executing that new function, the program might have to execute yet another function!</p>
 <p>Fortunately, Python is good at keeping track of where it is, so each time a function completes, the program picks up where it left off in the function that called it. When it gets to the end of the program, it terminates.</p>
-<p>What's the moral of this sordid tale? When you read a program, you don't always want to read from top to bottom. Sometimes it makes more sense if you follow the flow of execution.</p>
+<p>What’s the moral of this sordid tale? When you read a program, you don’t always want to read from top to bottom. Sometimes it makes more sense if you follow the flow of execution.</p>
 <h2 id="parameters-and-arguments">Parameters and arguments</h2>
 <p>   </p>
 <p>Some of the built-in functions we have seen require arguments. For example, when you call <code>math.sin</code> you pass a number as an argument. Some functions take more than one argument: <code>math.pow</code> takes two, the base and the exponent.</p>
@@ -233,10 +243,10 @@ Spam Spam Spam Spam
 &gt;&gt;&gt; print_twice(michael)
 Eric, the half a bee.
 Eric, the half a bee.</code></pre>
-<p>The name of the variable we pass as an argument (<code>michael</code>) has nothing to do with the name of the parameter (<code>bruce</code>). It doesn't matter what the value was called back home (in the caller); here in <code>print_twice</code>, we call everybody <code>bruce</code>.</p>
+<p>The name of the variable we pass as an argument (<code>michael</code>) has nothing to do with the name of the parameter (<code>bruce</code>). It doesn’t matter what the value was called back home (in the caller); here in <code>print_twice</code>, we call everybody <code>bruce</code>.</p>
 <h2 id="fruitful-functions-and-void-functions">Fruitful functions and void functions</h2>
 <p>   </p>
-<p>Some of the functions we are using, such as the math functions, yield results; for lack of a better name, I call them <em>fruitful functions</em>. Other functions, like <code>print_twice</code>, perform an action but don't return a value. They are called <em>void functions</em>.</p>
+<p>Some of the functions we are using, such as the math functions, yield results; for lack of a better name, I call them <em>fruitful functions</em>. Other functions, like <code>print_twice</code>, perform an action but don’t return a value. They are called <em>void functions</em>.</p>
 <p>When you call a fruitful function, you almost always want to do something with the result; for example, you might assign it to a variable or use it as part of an expression:</p>
 <pre class="python"><code>x = math.cos(radians)
 golden = (math.sqrt(5) + 1) / 2</code></pre>
@@ -245,16 +255,16 @@ golden = (math.sqrt(5) + 1) / 2</code></pre>
 2.23606797749979</code></pre>
 <p>But in a script, if you call a fruitful function and do not store the result of the function in a variable, the return value vanishes into the mist!</p>
 <pre class="python"><code>math.sqrt(5)</code></pre>
-<p>This script computes the square root of 5, but since it doesn't store the result in a variable or display the result, it is not very useful.</p>
+<p>This script computes the square root of 5, but since it doesn’t store the result in a variable or display the result, it is not very useful.</p>
 <p> </p>
-<p>Void functions might display something on the screen or have some other effect, but they don't have a return value. If you try to assign the result to a variable, you get a special value called <code>None</code>.</p>
+<p>Void functions might display something on the screen or have some other effect, but they don’t have a return value. If you try to assign the result to a variable, you get a special value called <code>None</code>.</p>
 <p> </p>
 <pre class="python"><code>&gt;&gt;&gt; result = print_twice(&#39;Bing&#39;)
 Bing
 Bing
 &gt;&gt;&gt; print(result)
 None</code></pre>
-<p>The value <code>None</code> is not the same as the string &quot;None&quot;. It is a special value that has its own type:</p>
+<p>The value <code>None</code> is not the same as the string “None”. It is a special value that has its own type:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(type(None))
 &lt;class &#39;NoneType&#39;&gt;</code></pre>
 <p>To return a result from a function, we use the <code>return</code> statement in our function. For example, we could make a very simple function called <code>addtwo</code> that adds two numbers together and returns a result.</p>
@@ -266,7 +276,7 @@ x = addtwo(3, 5)
 print(x)
 
 # Code: http://www.py4e.com/code3/addtwo.py</code></pre>
-<p>When this script executes, the <code>print</code> statement will print out &quot;8&quot; because the <code>addtwo</code> function was called with 3 and 5 as arguments. Within the function, the parameters <code>a</code> and <code>b</code> were 3 and 5 respectively. The function computed the sum of the two numbers and placed it in the local function variable named <code>added</code>. Then it used the <code>return</code> statement to send the computed value back to the calling code as the function result, which was assigned to the variable <code>x</code> and printed out.</p>
+<p>When this script executes, the <code>print</code> statement will print out “8” because the <code>addtwo</code> function was called with 3 and 5 as arguments. Within the function, the parameters <code>a</code> and <code>b</code> were 3 and 5 respectively. The function computed the sum of the two numbers and placed it in the local function variable named <code>added</code>. Then it used the <code>return</code> statement to send the computed value back to the calling code as the function result, which was assigned to the variable <code>x</code> and printed out.</p>
 <h2 id="why-functions">Why functions?</h2>
 <p></p>
 <p>It may not be clear why it is worth the trouble to divide a program into functions. There are several reasons:</p>
@@ -276,15 +286,15 @@ print(x)
 <li><p>Dividing a long program into functions allows you to debug the parts one at a time and then assemble them into a working whole.</p></li>
 <li><p>Well-designed functions are often useful for many programs. Once you write and debug one, you can reuse it.</p></li>
 </ul>
-<p>Throughout the rest of the book, often we will use a function definition to explain a concept. Part of the skill of creating and using functions is to have a function properly capture an idea such as &quot;find the smallest value in a list of values&quot;. Later we will show you code that finds the smallest in a list of values and we will present it to you as a function named <code>min</code> which takes a list of values as its argument and returns the smallest value in the list.</p>
+<p>Throughout the rest of the book, often we will use a function definition to explain a concept. Part of the skill of creating and using functions is to have a function properly capture an idea such as “find the smallest value in a list of values”. Later we will show you code that finds the smallest in a list of values and we will present it to you as a function named <code>min</code> which takes a list of values as its argument and returns the smallest value in the list.</p>
 <h2 id="debugging">Debugging</h2>
 <p></p>
-<p>If you are using a text editor to write your scripts, you might run into problems with spaces and tabs. The best way to avoid these problems is to use spaces exclusively (no tabs). Most text editors that know about Python do this by default, but some don't.</p>
+<p>If you are using a text editor to write your scripts, you might run into problems with spaces and tabs. The best way to avoid these problems is to use spaces exclusively (no tabs). Most text editors that know about Python do this by default, but some don’t.</p>
 <p></p>
 <p>Tabs and spaces are usually invisible, which makes them hard to debug, so try to find an editor that manages indentation for you.</p>
-<p>Also, don't forget to save your program before you run it. Some development environments do this automatically, but some don't. In that case, the program you are looking at in the text editor is not the same as the program you are running.</p>
+<p>Also, don’t forget to save your program before you run it. Some development environments do this automatically, but some don’t. In that case, the program you are looking at in the text editor is not the same as the program you are running.</p>
 <p>Debugging can take a long time if you keep running the same incorrect program over and over!</p>
-<p>Make sure that the code you are looking at is the code you are running. If you're not sure, put something like <code>print(&quot;hello&quot;)</code> at the beginning of the program and run it again. If you don't see <code>hello</code>, you're not running the right program!</p>
+<p>Make sure that the code you are looking at is the code you are running. If you’re not sure, put something like <code>print("hello")</code> at the beginning of the program and run it again. If you don’t see <code>hello</code>, you’re not running the right program!</p>
 <h2 id="glossary">Glossary</h2>
 <dl>
 <dt>algorithm</dt>
@@ -346,8 +356,8 @@ print(x)
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 4: What is the purpose of the &quot;def&quot; keyword in Python?</strong></p>
-<p>a) It is slang that means &quot;the following code is really cool&quot;<br />
+<p><strong>Exercise 4: What is the purpose of the “def” keyword in Python?</strong></p>
+<p>a) It is slang that means “the following code is really cool”<br />
 b) It indicates the start of a function<br />
 c) It indicates that the following indented section of code is to be stored for later<br />
 d) b and c are both true<br />
