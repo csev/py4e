@@ -3,7 +3,7 @@ Bienvenido a la traducción al Español de www.py4e.com
 ==================================================
 
 La versión en Español de www.py4e.com se encuentra disponible
-en es.py4e.com.
+en https://es.py4e.com.
 
 Puedes ayudar con la traducción al Español si tienes una cuenta de
 GitHub. Puedes utilizar el editor de GitHub para enviarnos "pull requests",
@@ -23,11 +23,11 @@ Tu ayuda es muy apreciada.
 Estado actual
 -------------
 
-* Libro: Prefacio y Capítulos 1-9 están traducidos
-* Diapositivas: Capítulos 1-5 están traducidos
+* Libro: Prefacio y Capítulos 1-16 están traducidos
+* Diapositivas: Capítulos 1-10 están traducidos
 * Imágenes del Libro: Imágenes de Capítulos 1-13 están traducidas
-* Ejemplos de Código: Código de Capítulos 1-5 están traducidos
-* Páginas Web: Muy poco ha sido traducido
+* Ejemplos de Código: Código de Capítulos 1-15 están traducidos
+* Páginas Web: La mayoría ha sido traducido
 
 Areas por Traducir
 ------------------
@@ -49,11 +49,24 @@ en formatos EPS y SVG bajo el directorio de images para ser incluidas en las ver
 EPUB, HMTL, y PDF. Necesitas el software OmniGraffle para editar
 esas figuras.
 
-* Las diapositivas bajo `lectures3` están en PowerPoint y necesitan ser traducidas.
+* Las diapositivas bajo `lectures3` están en PowerPoint y algunas necesitan ser traducidas.
 
 * El texto del sitio web en los múltiples archivos `.php` en el repositorio.
 Esto ayudará a que PHP sepa qué debe traducir sin romper los
 archivos.
+
+
+Libro de Python 3 en Español
+============================
+
+La versión de Python 3 del libro ya está traducida al Español gracias
+a Juan Carlos Perez Castellanos, Juan Dougnac,
+Daniel Merino Echeverría, Jaime Bermeo Ramírez y Fernando Tardío.
+
+Puedes obtener el PDF del libro en http://do1.dr-chuck.com/pythonlearn/ES_es/pythonlearn.pdf
+
+También puedes adquirir el libro impreso en Amazon https://amzn.to/2RuFj0W
+
 
 Libro de Python 2 en Español
 ============================
@@ -67,6 +80,3 @@ Puedes verlo en http://do1.dr-chuck.net/py4inf/ES-es/book.pdf.
 Este libro tiene los mismos capítulos y el texto es similar al libro
 de Python 3 y puedes revisar el libro si estás interesado en
 buena terminología cuando describas Python en Español.
-
-
-
