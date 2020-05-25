@@ -12,6 +12,7 @@ see the folders
 * [book3](book3/)
 * [figures](figures/)
 * [images](images/)
+* [code3](code3/)
 
 See the file [`book3/README.md`](book3/README.md) for more details.
 
