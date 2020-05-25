@@ -30,7 +30,7 @@ while True:
             print('No unretrieved Twitter accounts found')
             continue
 
-    url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '5'})
+    url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '20'})
     print('Retrieving', url)
     connection = urlopen(url, context=ctx)
     data = connection.read().decode()
