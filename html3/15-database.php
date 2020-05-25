@@ -172,7 +172,7 @@ while True:
             print(&#39;No unretrieved Twitter accounts found&#39;)
             continue
 
-    url = twurl.augment(TWITTER_URL, {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;5&#39;})
+    url = twurl.augment(TWITTER_URL, {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;20&#39;})
     print(&#39;Retrieving&#39;, url)
     connection = urlopen(url, context=ctx)
     data = connection.read().decode()
@@ -231,7 +231,7 @@ print(&#39;New accounts=&#39;,countnew,&#39; revisited=&#39;,countold)
 conn.commit()</code></pre>
 <p>Once the cursor executes the <code>SELECT</code> statement, we must retrieve the rows. We could do this with a <code>for</code> statement, but since we are only retrieving one row (<code>LIMIT 1</code>), we can use the <code>fetchone()</code> method to fetch the first (and only) row that is the result of the <code>SELECT</code> operation. Since <code>fetchone()</code> returns the row as a <em>tuple</em> (even though there is only one field), we take the first value from the tuple using to get the current friend count into the variable <code>count</code>.</p>
 <p>If this retrieval is successful, we use the SQL <code>UPDATE</code> statement with a <code>WHERE</code> clause to add 1 to the <code>friends</code> column for the row that matches the friend’s account. Notice that there are two placeholders (i.e., question marks) in the SQL, and the second parameter to the <code>execute()</code> is a two-element tuple that holds the values to be substituted into the SQL in place of the question marks.</p>
-<p>If the code in the <code>try</code> block fails, it is probably because no record matched the <code>WHERE name = ?</code> clause on the SELECT statement. So in the <code>except</code> block, we use the SQL <code>INSERT</code> statement to add the friend’s <code>screen_name</code> to the table with an indication that we have not yet retrieved the <code>screen_name</code> and set the friend count to zero.</p>
+<p>If the code in the <code>try</code> block fails, it is probably because no record matched the <code>WHERE name = ?</code> clause on the SELECT statement. So in the <code>except</code> block, we use the SQL <code>INSERT</code> statement to add the friend’s <code>screen_name</code> to the table with an indication that we have not yet retrieved the <code>screen_name</code> and set the friend count to one.</p>
 <p>So the first time the program runs and we enter a Twitter account, the program runs as follows:</p>
 <pre><code>Enter a Twitter account, or quit: drchuck
 Retrieving http://api.twitter.com/1.1/friends ...
