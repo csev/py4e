@@ -220,7 +220,7 @@ Traceback (most recent call last):
   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
 ZeroDivisionError: division by zero
 &gt;&gt;&gt;</code></pre>
-<p>The third calculation failed because Python was evaluating <code>(x/y)</code> and <code>y</code> was zero, which causes a runtime error. But the second example did <em>not</em> fail because the first part of the expression <code>x &gt;= 2</code> evaluated to <code>False</code> so the <code>(x/y)</code> was not ever executed due to the <em>short-circuit</em> rule and there was no error.</p>
+<p>The third calculation failed because Python was evaluating <code>(x/y)</code> and <code>y</code> was zero, which causes a runtime error. But the first and the second examples did <em>not</em> fail because the first part of these expressions <code>x &gt;= 2</code> evaluated to <code>False</code> so the <code>(x/y)</code> was not ever executed due to the <em>short-circuit</em> rule and there was no error.</p>
 <p>We can construct the logical expression to strategically place a <em>guard</em> evaluation just before the evaluation that might cause an error as follows:</p>
 <pre class="python"><code>&gt;&gt;&gt; x = 1
 &gt;&gt;&gt; y = 0
