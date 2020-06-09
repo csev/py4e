@@ -62,9 +62,9 @@ or similar.
 <p>
 If your LMS supports
 <a href="https://www.imsglobal.org/activity/learning-tools-interoperability" target="_blank">
-IMS Learning Tools Interoperabilty®</a> version 1.x or 2.x, you can login, and request access
+IMS Learning Tools Interoperabilty®</a> version 1.x, you can login, and request access
 to the tools on this site.  Make sure you indicate whether you need an LTI 1.x
-key (most common) or LTI 2.x key.   You will be given instructions on how to use
+key.   You will be given instructions on how to use
 your credentials once you get your key.
 </p>
 </li>
