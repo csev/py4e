@@ -19,7 +19,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Pages
      error INTEGER, old_rank REAL, new_rank REAL)''')
 
 cur.execute('''CREATE TABLE IF NOT EXISTS Links
-    (from_id INTEGER, to_id INTEGER)''')
+    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
 
 cur.execute('''CREATE TABLE IF NOT EXISTS Webs (url TEXT UNIQUE)''')
 
