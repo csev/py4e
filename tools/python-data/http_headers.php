@@ -83,7 +83,6 @@ different for each URL.
 </li>
 <li>Open the URL in a web browser with a developer console or FireBug and manually examine the headers that
 are returned.</li>
-<li>Use the <b>telnet</b> program as shown in lecture to retrieve the headers and content.</li>
 </ul>
 </p>
 <p>
