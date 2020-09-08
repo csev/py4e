@@ -41,7 +41,11 @@ while True:
     # Debugging
     # print json.dumps(js, indent=4)
 
-    cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ))
+    name_in_database = cur.execute('SELECT name FROM Twitter WHERE name = ? LIMIT 1', (acct,)).fetchone()
+    if name_in_database is None:
+        cur.execute('INSERT OR IGNORE INTO Twitter (name, retrieved, friends) VALUES (?, 1, 0)', (acct,))
+    else:
+        cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct,))
 
     countnew = 0
     countold = 0
