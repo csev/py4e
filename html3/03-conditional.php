@@ -29,8 +29,7 @@
 <pre class="python trinket"><code>&gt;&gt;&gt; 5 == 5
 True
 &gt;&gt;&gt; 5 == 6
-False
-{}</code></pre>
+False</code></pre>
 <p><code>True</code> and <code>False</code> are special values that belong to the class <code>bool</code>; they are not strings:</p>
 <p>     </p>
 <pre class="python"><code>&gt;&gt;&gt; type(True)
