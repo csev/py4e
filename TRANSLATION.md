@@ -118,7 +118,7 @@ in the file `lessons.json` in the top-level folder to point to your new files.
 
 The next thing to be translated are all the PHP files in the top level folder
 as well as the text in `lessons.json` - this file drives what users see when they
-go the `/lessons` url.
+go to the `/lessons` url.
 
 The next place that needs translation is the autograder.  This code is in the folder
 `tools\pythonauto` - go through all the PHP files.  Pay particular attention to
