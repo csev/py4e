@@ -132,12 +132,8 @@ body { font-family: sans-serif; }
 <script type="text/javascript" src="static/codemirror/codemirror.js"></script>
 <script type="text/javascript" src="static/codemirror/python.js"></script>
 <?php } ?>
-<!--
 <script src="static/skulpt-004/skulpt.min.js?v=1" type="text/javascript"></script>
 <script src="static/skulpt-004/skulpt-stdlib.js?v=1" type="text/javascript"></script>
--->
-<script src="static/skulpt-2020-09-15/skulpt.min.js?v=1" type="text/javascript"></script>
-<script src="static/skulpt-2020-09-15/skulpt-stdlib.js?v=1" type="text/javascript"></script>
 <script type="text/javascript">
 
 function builtinRead(x)
@@ -380,19 +376,8 @@ function outf(text) {
         output.innerHTML = '';
         if ( window.GLOBAL_TIMER != false ) window.clearInterval(window.GLOBAL_TIMER);
         window.GLOBAL_TIMER = setTimeout("finalcheck();",2500);
-        /* skulpt-004
         Sk.python3 = true;
         Sk.configure({output:outf, read: builtinRead, python3: false});
-         */
-        // Skulpt-2009-09-15
-        // https://github.com/skulpt/skulpt/issues/639
-        Sk.configure({output:outf, read: builtinRead, __future__: Sk.python3,
-            inputfunTakesPrompt: true,
-            inputfun: function (prompt) {
-                console.log('Yada', prompt);
-                return window.prompt(prompt);
-            }
-        });
         // Sk.execLimit = 10000; // Ten Seconds
 
         try {
