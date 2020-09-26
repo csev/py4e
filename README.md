@@ -141,6 +141,23 @@ you will need to re-run the database upgrade process to create the peer-grader t
 
 Then install the "Gift Quiz" tool and re-run the database upgrade.  
 
+If you want to have access to the quiz content, please contact Chuck for access 
+to the private py4e repository.  Access will only be given to those seriously installing
+the software and verified as teaching the course and adopting the materials.
+To checkout the private repo:
+
+    cd py4e
+    git clone https://github.com/csev/py4e-private.git
+
+Then add the following line to your `config.php`:
+
+    $CFG->giftquizzes = $CFG->dirroot.'/../py4e-private/quiz';
+
+At this point, you will need the "quiz unlock password" (also from Chuck) and at that point,
+you should be able to launch and load all the quizzes (one at a time) from the repository.  You
+need to load the quiz content for every course (context) separately.  But at least you don't have
+to ttype them all in.
+
 The other two LTI tools that are required are already part of the py4e repo and in `py4e/tools`
 folder.
 
