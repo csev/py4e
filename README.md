@@ -105,7 +105,7 @@ Starting the Application
 
 After the above configuration is done, navigate to your application:
 
-    http://localhost:8888/py4e/
+    http://localhost:8888/py4e/tsugi/
 
 It should complain that you have not created tables and suggest you 
 use the Admin console to do that:
@@ -117,7 +117,17 @@ unlocking the admin console.  Run the "Upgrade Database" option and
 it should create lots of tables in the database and the red warning
 message about bad database, should go away.
 
-Got into the database and the `lti_key` table, find the row with the `key_key`
+Alternately, you can create all the databases on the command line using:
+
+    cd py4e/tsugi/admin
+    php upgrade.php
+
+Keep refreshing the `/py4e/tsugi` page until all the error messages go away.
+Once the error messages are gone, the main page should also have no errors.
+
+    http://localhost:8888/py4e/
+
+Go into the database and the `lti_key` table, find the row with the `key_key`
 of google.com and put a value in the `secret` column - anything will do - 
 just don't leave it empty or the internal LTI tools will not launch.
 
@@ -126,10 +136,20 @@ from the github repository:
 
     http://localhost:8888/py4e/tsugi/admin/install
 
-Click on "Available Modules" and install https://github.com/tsugitools/peer-grade
+Click on "Available Modules" and install https://github.com/tsugitools/peer-grade - 
+you will need to re-run the database upgrade process to create the peer-grader tables.
 
-The other two LTI tools are already part of the py4e repo and in `wa4e/tools`
+Then install the "Gift Quiz" tool and re-run the database upgrade.  
+
+The other two LTI tools that are required are already part of the py4e repo and in `py4e/tools`
 folder.
+
+You can always test the tools using the "App Store" at:
+
+    http://localhost:8888/py4e/tools/
+
+This allows you to do test launches as the instructor and student in a test environment using the
+key '12345'.
 
 Using the Application
 ---------------------
