@@ -2,7 +2,7 @@ Translating Python for Everybody
 ================================
 
 These course materials are Creative Commons Attribution and so they can be used
-as long as they are attibuted properly.  I am happy to help those
+as long as they are attributed properly.  I am happy to help those
 adopting/adapting these materials make sure their acknowledgement is
 sufficient.  I am always excited to learn of new translations and promote them
 to my students.
@@ -65,7 +65,7 @@ Translating the Figures
 -----------------------
 
 The figures are in `OmniGraffle` format in the *figures* folder.   Yes OmniGraffle
-if not free - but I don't have the talent to build figures in InkScape - believe
+is not free - but I don't have the talent to build figures in InkScape - believe
 me - I tried.  You edit the figures in *figures* and then export both an SVG and
 EPS version into the *images* folder.   The book publishing process reads from
 the *images* folder.  The EPS versions drive the PDF version and the SVGs are
@@ -76,7 +76,7 @@ Translating the Sample Code
 
 The book includes code snippets from the *code3* folder.   You can leave the
 code snippets untranslated, translate the comments or translate variables and
-prompts.   These files are included everytime you build the book (PDF, ePUB, or
+prompts.   These files are included every time you build the book (PDF, ePUB, or
 HTML).
 
 There are simple code unit tests that you can run and run via travis at every
@@ -91,9 +91,9 @@ check in.   There is a `unit.sh` script that you can run in the top level folder
     'mailcount.py', 'party3.py', 'party6.py', 'urlwords.py']
     Comparing outputs...
 
-The expected outputs are in a folder `unit3/testout`  as you translate the code
+The expected outputs are in a folder `unit3/testout` as you translate the code
 unit tests will fail - you can fix them by simply copying the new output to the
-expected oitput - assuming you did not actually introduce a bug:
+expected output - assuming you did not actually introduce a bug:
 
     cp unit3/testtmp/re15.txt unit3/testout/re15.txt
 
@@ -103,7 +103,7 @@ Translating / Cleaning up YouTube Captions
 ------------------------------------------
 
 Generally all of the YouTube videos for the course have the "Allow Community
-Translations" turned on so you shuol djust be able to go in and clean up the
+Translations" turned on so you should just be able to go in and clean up the
 captions for your language on YouTube - let me know if this does not work.
 
 
@@ -118,7 +118,7 @@ in the file `lessons.json` in the top-level folder to point to your new files.
 
 The next thing to be translated are all the PHP files in the top level folder
 as well as the text in `lessons.json` - this file drives what users see when they
-go the the `/lessons` url.
+go to the `/lessons` url.
 
 The next place that needs translation is the autograder.  This code is in the folder
 `tools\pythonauto` - go through all the PHP files.  Pay particular attention to
