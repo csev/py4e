@@ -107,6 +107,26 @@ Once you have made the necessary changes to the program
 and it has been run successfully reading the above JSON data, 
 run the following SQL command:
 <pre>
+SELECT User.name,Course.title, Member.role FROM 
+    User JOIN Member JOIN Course 
+    ON User.id = Member.user_id AND Member.course_id = Course.id
+    ORDER BY User.name DESC, Course.title DESC, Member.role DESC LIMIT 2;
+</pre>
+The output should look as follows:
+<pre>
+<?php
+$desc = $roster;
+rsort($desc);
+$count = 0;
+foreach ($desc as $row) {
+    echo(htmlentities("$row[0]|$row[1]|$row[2]")."\n");
+    $count++;
+    if ( $count >= 2 ) break;
+}
+?>
+</pre>
+Once that query gives the correct data, run this query:
+<pre>
 SELECT hex(User.name || Course.title || Member.role ) AS X FROM 
     User JOIN Member JOIN Course 
     ON User.id = Member.user_id AND Member.course_id = Course.id
