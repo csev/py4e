@@ -79,7 +79,7 @@ enter the code you get here: <br/>
 <input type="text" size="80" name="sha1">
 <input type="submit">
 </form>
-(Hint: starts with <?= substr($goodsha,0,3) ?>)<br/>
+(Hint: starts with <?= substr($goodsha,0,5) ?>)<br/>
 </p>
 <h1>Instructions</h1>
 <p>
