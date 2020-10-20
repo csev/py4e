@@ -110,8 +110,7 @@ run the following SQL command:
 SELECT hex(User.name || Course.title || Member.role ) AS X FROM 
     User JOIN Member JOIN Course 
     ON User.id = Member.user_id AND Member.course_id = Course.id
-    ORDER BY X
+    ORDER BY X LIMIT 1;
 </pre>
-Find the <b>first</b> row in the resulting record set and enter the long string that looks like 
-<b>53656C696E613333</b>.
+You should get one row with a string that looks like <b>53656C696E613333</b>.
 </p>
