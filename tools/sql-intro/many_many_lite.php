@@ -12,14 +12,12 @@ $roster = makeRoster($code);
 $shas = array();
 foreach($roster as $i => $student) {
     $row = $student[0].$student[1].$student[2];
-    $sha = strtoupper(bin2hex($row));
-    // Dang SHAs that have only numbers
-    $shas[] = $sha.'!';
+    $sha = 'X'.strtoupper(bin2hex($row));
+    $shas[] = $sha;
 }
 $sorted = $shas;
 sort($sorted);
 $goodsha = $sorted[0];
-$goodsha = str_replace('!','',$goodsha);
 
 $oldgrade = $RESULT->grade;
 
@@ -127,10 +125,10 @@ foreach ($desc as $row) {
 </pre>
 Once that query gives the correct data, run this query:
 <pre>
-SELECT hex(User.name || Course.title || Member.role ) AS X FROM 
+SELECT 'X' || hex(User.name || Course.title || Member.role ) AS X FROM 
     User JOIN Member JOIN Course 
     ON User.id = Member.user_id AND Member.course_id = Course.id
     ORDER BY X LIMIT 1;
 </pre>
-You should get one row with a string that looks like <b>53656C696E613333</b>.
+You should get one row with a string that looks like <b>X53656C696E613333</b>.
 </p>
