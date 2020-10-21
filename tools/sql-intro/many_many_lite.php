@@ -12,7 +12,7 @@ $roster = makeRoster($code);
 $shas = array();
 foreach($roster as $i => $student) {
     $row = $student[0].$student[1].$student[2];
-    $sha = 'X'.strtoupper(bin2hex($row));
+    $sha = 'XYZZY'.strtoupper(bin2hex($row));
     $shas[] = $sha;
 }
 $sorted = $shas;
@@ -79,7 +79,7 @@ enter the code you get here: <br/>
 <input type="text" size="80" name="sha1">
 <input type="submit">
 </form>
-(Hint: starts with <?= substr($goodsha,0,5) ?>)<br/>
+(Hint: starts with <?= substr($goodsha,0,10) ?>)<br/>
 </p>
 <h1>Instructions</h1>
 <p>
@@ -125,10 +125,10 @@ foreach ($desc as $row) {
 </pre>
 Once that query gives the correct data, run this query:
 <pre>
-SELECT 'X' || hex(User.name || Course.title || Member.role ) AS X FROM 
+SELECT 'XYZZY' || hex(User.name || Course.title || Member.role ) AS X FROM 
     User JOIN Member JOIN Course 
     ON User.id = Member.user_id AND Member.course_id = Course.id
     ORDER BY X LIMIT 1;
 </pre>
-You should get one row with a string that looks like <b>X53656C696E613333</b>.
+You should get one row with a string that looks like <b>XYZZY53656C696E613333</b>.
 </p>
