@@ -180,4 +180,37 @@ You should click around without logging in and see if things work.
 Then log in with your Google account and the UI should change.  In particular you should
 see 'Assignments' and in Lessons you should start seeing LTI autograders.
 
+Becoming Instructor in the Global Course
+----------------------------------------
+
+Tsugi can support using the content in a Learning Management system through LTI launches and LTI Keys.
+
+You can also run a "MOOC" where students directly log in using Google to your site and do the homework,
+track their grades, and earn badges.
+
+You wil want to "promote" your student account to a teacher accound as follows.
+
+* Log in with your Google account
+
+* Go to `/tsugi/admin` - Note that you won't see the Admin option in your drop down until you visit it
+once and successfully log in to the Admin UI.
+
+* Enter the admin password you chose in `config.php` to log into Admin. 
+
+* In the Administration Console, choose `View Contexts` - These are the "courses" - if you just set things
+up there will be just one course.  Otherwise find the course that matches your configured `context_name`
+and go into it.
+
+* Find your account in the membership records.  You can search using your gmail address if there are a lot.  Go into
+your membership record.
+
+* Edit your membership record and change your "Role Override" value to 1000 and save your record.
+
+Poof! You (and as many of the other folks you give this power to) are now the "instructors" of the global class.
+
+
+
+
+
+
    
