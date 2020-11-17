@@ -188,7 +188,7 @@ Tsugi can support using the content in a Learning Management system through LTI 
 You can also run a "MOOC" where students directly log in using Google to your site and do the homework,
 track their grades, and earn badges.
 
-You wil want to "promote" your student account to a teacher accound as follows.
+You will want to "promote" your student account to a teacher account as follows.
 
 * Log in with your Google account
 
@@ -208,8 +208,24 @@ your membership record.
 
 Poof! You (and as many of the other folks you give this power to) are now the "instructors" of the global class.
 
+Becoming Instructor for an LTI-Launched Course when the LMS Does not support the Instructor Role
+------------------------------------------------------------------------------------------------
 
+Some LMS systems do not send the Instructor role "the way you would like it to".  Sometimes it never
+sends the instructor role and in other cases it does not send the instructor role for teaching assistants
+or perhaps you want to promote some students into teaching assistants.   
 
+It is pretty simple to do this in Tsugi.
+
+* Log in to `/tsugi/admin`  as in the previous instructions.
+
+* Find the context that corresponds to your LTI-Launched course.  Enter the context.
+
+* Find the membership record (often searching on email address) and then edit the membership
+record, setting "Role Override" to 1000 and saving the membership record.
+
+From that point forward regardless of the role sent by the LMS - that use will be seen as an instructor
+by Tsugi.
 
 
 
