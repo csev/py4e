@@ -65,9 +65,10 @@ Much of the software used in this company is open source so you can examine/audi
 <p>In order to be in line with Fair Information Practices we will take the following responsive action, should a data breach occur: We will notify you via email</p>
 <p>If there are any questions regarding this privacy policy, you may contact us using the information below.<br></p>
 <pre><code>Python for Everybody (py4e.com)
-1537 Holbrook Drive
-Holt, Michigan 48842
+c/o Learning Experiences (learnxp.com)
+2190 Aurelius Rd. Unit 175
+Holt MI 48842-9998
 United States</code></pre>
-<p>Last edited: 27-Nov-2017</p>
+<p>Last edited: 22-Nov-2020</p>
 <?php include("footer.php"); ?>
 

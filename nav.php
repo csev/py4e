@@ -35,6 +35,7 @@ if ( isset($_SESSION['id']) ) {
     $submenu->addLink('Free App Store', 'https://www.tsugicloud.org');
     $submenu->addLink('Rate this course', 'https://www.class-central.com/mooc/7363/python-for-everybody');
     $submenu->addLink('Privacy', $R.'privacy');
+    $submenu->addLink('Service Level', $R.'service');
     if ( isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true" ) {
         $submenu->addLink('Administer', $T . 'admin/');
     }
