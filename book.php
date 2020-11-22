@@ -82,11 +82,30 @@ and
         <li> <a href="https://github.com/ras-ufcg/py4e" target="_blank">Book source on github</a> and 
 <a href="https://github.com/ras-ufcg/py4e/blob/master/RAS_Team_Members.txt" target="_blank">translation team</a>
 (Thanks to <a href="https://twitter.com/yuriloia" target="_blank">Yuri Loia de Medeiros</a>).
+</ul>
+</li>
+<li>
+Polskie tłumaczenie (Polish):
+     <ul class="menu vertical nested is-active">
+<li>
+Translated book, autograders, resources, and web site at
+<a href="https://py4e.pl/" target="blank">https://py4e.pl</a>
+</li>
+            <li class="menu-text">
+                <a href="https://py4e.pl/html3">HTML</a>, 
+     <a href="https://py4e.pl/translations/PL/py4e-pl-a4-latest.pdf" target="_blank">PDF (format A4)</a>, 
+<a href="https://py4e.pl/translations/PL/py4e-pl-print-latest.pdf" target="_blank">PDF (format for print)</a>, 
+<a href="https://py4e.pl/translations/PL/py4e-pl-latest.epub" target="_blank">EPUB</a>,
+<a href="https://py4e.pl/translations/PL/py4e-pl-latest.mobi" target="_blank">MOBI</a>
+            </li>
+            <li class="menu-text"><a href="https://github.com/andre-wojtowicz/py4e-pl" target="_blank">Github Repository</a> (zmiany w repozytorium powodują automatyczne przebudowanie ww. formatów na tej stronie)</li>
+        <li>Współtwórcy (contributors): <a href="https://github.com/andre-wojtowicz" target="_blank">Andrzej Wójtowicz</a></li>
+    </li>
+</ul>
 </li>
   <li> Korean (commercial translation)
 <a href="http://www.yes24.com/Product/Goods/77401048?Acode=101" target="_blank">데이터를 다루며 배우는 파이썬</a>
   </li>
-     </ul>
   </li>
   <li>
      Chinese - In progress
