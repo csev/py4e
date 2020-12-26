@@ -5,14 +5,10 @@ $T = $CFG->wwwroot . '/';
 $adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
 $set = new \Tsugi\UI\MenuSet();
 $set->setHome($CFG->servicename, $CFG->apphome);
-$set->addLeft('Get Started', $R.'install');
 $set->addLeft('Lessons', $R.'lessons');
+if ( isset($CFG->tdiscus) && $CFG->tdiscus  ) $set->addLeft('Discussions', $R.'discussions');
 if ( isset($_SESSION['id']) ) {
     $set->addLeft('Assignments', $R.'assignments');
-    // $set->addLeft('Discuss', $R.'group');
-    // If both are set we go to discuss.php
-    // if ( isset($CFG->disqushost) ) $set->addLeft('Discuss', $T.'discuss');
-    // else if ( isset($CFG->disquschannel) ) $set->addLeft('Discuss', $CFG->disquschannel);
 } else {
     $set->addLeft('OER', $R.'materials');
 }
