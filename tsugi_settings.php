@@ -18,6 +18,8 @@ $CFG->lessons = $CFG->dirroot.'/../lessons.json';
 
 $CFG->tdiscus = $CFG->apphome . '/mod/tdiscus/';
 
+$CFG->launcherror = $CFG->apphome . "/launcherror";
+
 $buildmenu = $CFG->dirroot.'/../buildmenu.php';
 if ( file_exists($buildmenu) ) {
     require_once $buildmenu;
