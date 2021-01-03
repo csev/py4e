@@ -25,6 +25,8 @@ $CFG->context_title = "Python for Everybody";
 
 $CFG->lessons = $CFG->dirroot.'/../lessons.json';
 
+$CFG->tdiscus = $CFG->apphome . '/mod/tdiscus/';
+
 $buildmenu = $CFG->dirroot.'/../buildmenu.php';
 if ( file_exists($buildmenu) ) {
     require_once $buildmenu;
