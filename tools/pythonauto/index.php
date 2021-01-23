@@ -347,6 +347,7 @@ function outf(text) {
         output.innerHTML = newoutput;
     }
 
+    var sendCodeFail = false;
     function runit()
     {
         hideall();
@@ -361,20 +362,25 @@ function outf(text) {
         $("#spinner").show();
 
 <?php if ( $RESULT->id ) { ?>
-        var toSend = { code : prog };
-        $.ajax({
-            type: "POST",
-            url: "<?php echo addSession('sendcode.php'); ?>",
-            dataType: "json",
-            beforeSend: function (request)
-            {
-                request.setRequestHeader("X-CSRF-Token", CSRF_TOKEN);
-            },
-            data: toSend
-        }).done( function (data) {
-            console.log("Code updated on server.");
-        });
-<?php } ?>
+        if ( ! sendCodeFail ) {
+            var toSend = { code : prog };
+            $.ajax({
+                type: "POST",
+                url: "<?php echo addSession('sendcode.php'); ?>",
+                dataType: "json",
+                beforeSend: function (request)
+                {
+                    request.setRequestHeader("X-CSRF-Token", CSRF_TOKEN);
+                },
+                data: toSend
+            }).done( function (data) {
+                console.log("Code updated on server.");
+            }).error( function() {
+                console.log("Sendcode disabled due to error");
+                sendCodeFail = true;
+            });
+        }
+    <?php } ?>
 
         var output = document.getElementById("output");
         output.innerHTML = '';

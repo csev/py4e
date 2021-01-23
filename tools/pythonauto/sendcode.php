@@ -3,8 +3,10 @@ require_once "../config.php";
 
 use \Tsugi\Grades\GradeUtil;
 use \Tsugi\Core\LTIX;
+use \Tsugi\UI\Output;
 
 // Sanity checks
+Output::headerJson();
 $LAUNCH = LTIX::requireData();
 $user_id = $USER->id;
 
