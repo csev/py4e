@@ -22,7 +22,7 @@ You can download these badges and host them on your web site or refer the badge 
 If you want to use these Creative Commons Licensed materials 
 in your own classes you can 
 <a href="materials.php">download or link</a> to the artifacts on this site,
-<a href="tsugi/cc/export.php">export the course material</a> as an
+<a href="tsugi/cc/">export the course material</a> as an
 IMS Common Cartridge®, or apply for
 an IMS Learning Tools Interoperability® (LTI®)
 <a href="tsugi/admin/key/index.php">key and secret</a>
@@ -58,7 +58,7 @@ We take your privacy seriously on this site, you can review our
 <li class="list-group-item">
 If you want to use these materials 
 in your own classes you can download or link to the artifacts on this site,
-<a href="tsugi/cc/export.php">export the course material</a> as an
+<a href="tsugi/cc/">export the course material</a> as an
 IMS Common Cartridge®, or apply for
 an IMS Learning Tools Interoperability® (LTI®)
 <a href="tsugi/admin/key/index.php">key and secret</a>
