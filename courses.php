@@ -61,6 +61,14 @@ mentorship marketplace for developers.  The
 Codementor for Students</a> program gives free credits for students with
 a ".edu" email address.
 </p></li>
+<li><p>
+<a href="https://www.boostcourse.org/cs122" target="_blank">
+모두를 위한 파이썬 (PY4E)</a> (Korean)
+</p></li>
+<li><p>
+<a href="http://steamvietnam.vn/py4e/" target="_blank">
+Python for Everybody</a> (Vietnam)
+</p></li>
 </ul>
 </div>
 </div>
