@@ -63,11 +63,15 @@ a ".edu" email address.
 </p></li>
 <li><p>
 <a href="https://www.boostcourse.org/cs122" target="_blank">
-모두를 위한 파이썬 (PY4E)</a> (Korean)
+모두를 위한 파이썬 (PY4E)</a>
+From <a href="https://www.edwith.org/" target="_blank">edwith</a>.
+(Korean)
 </p></li>
 <li><p>
 <a href="http://steamvietnam.vn/py4e/" target="_blank">
-Python for Everybody</a> (Vietnam)
+Python for Everybody</a> 
+From <a href="http://vng.edu.vn/" target="_blank">VNG Education</a>
+(Vietnam)
 </p></li>
 </ul>
 </div>
