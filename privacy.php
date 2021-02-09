@@ -42,7 +42,7 @@ you request not to be tracked using a Do Not Track signal (see below).</p>
 <p>Some pages on this site may use Google Maps.</p>
 <?php } ?>
 <p><strong>How does our site handle Do Not Track signals?</strong></p>
-<p>We do honor Do Not Track signals.  When DNT is indicated, we supress the gathering of all internal analytics data and do not use any third-party (Google only) analytics on the pages the user visits.</p>
+<p>We do honor Do Not Track signals.  When DNT is indicated, we supress the gathering of all internal analytics data.</p>
 <p><strong>COPPA (Children Online Privacy Protection Act)</strong></p>
 <p>We do not specifically market to children under the age of 13 years old.</p>
 <p><strong>Data Retention</strong></p>
@@ -51,13 +51,13 @@ We actively expire inactive data based on a schedule. When data expires or is ma
 </p>
 <p><strong>Data Analysis</strong></p>
 <p>
-We will limit our analysis of PII data to reports requested by the customer or reports that are necessary for accounting, technical support, and overall statistics for the system. We may do internal data analysis to improve the technical reliability, functionality, or performance of the system. In particular we will not use Machine Learning, or Artificial Intelligence techniques to understand the behavior of those using our site.
+We will limit our analysis of PII data to reports requested by the customer or reports that are necessary for accounting, technical support, and overall statistics for the system. We may do internal data analysis to improve the technical reliability, functionality, or performance of the system. In particular we will <b>not</b> use Machine Learning, or Artificial Intelligence techniques to understand the behavior of those using our site.
 </p>
 <p><strong>General Philosphy</strong></p>
 <p>
-It is often said that if you are not paying for a service, then you are the product. For this service, you are not the product and your data/activity is not the product. We retain only as much of your data as is needed to accomplish your teaching and learning goals and for no other purpose. Wherever possible, we give you direct control over the retention of your data and respect your wishes with respect to the retention of your data.
+It is often said that if you are not paying for a service, then you are the product. For this service, you are not the product and your data/activity is not the product. We retain only as much of your data as is needed to accomplish your teaching and learning goals and for no other purpose. Wherever possible, we give you control over the retention of your data and respect your wishes with respect to the retention of your data.
 </p><p>
-Our goal is to comply both with the letter and spirit or privacy laws like the The Family Educational Rights and Privacy Act (FERPA) and EU General Data Protection Regulation (GDPR) regulations. We aspire to a company that far exceeds the minimum requirements of these laws.
+Our goal is to comply both with the letter and spirit or privacy laws like the The Family Educational Rights and Privacy Act (FERPA) and EU General Data Protection Regulation (GDPR) regulations. Our goal is to have a commitment to learner privacy that exceeds the minimum requirements of these laws.
 </p><p>
 Much of the software used in this company is open source so you can examine/audit what we are doing with respect to privacy and potentially help us improve our approaches to this very important topic.
 </p>
