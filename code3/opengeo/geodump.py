@@ -2,10 +2,10 @@ import sqlite3
 import json
 import codecs
 
-conn = sqlite3.connect('geodata.sqlite')
+conn = sqlite3.connect('opengeo.sqlite')
 cur = conn.cursor()
 
-cur.execute('SELECT * FROM Lokalizacje')
+cur.execute('SELECT * FROM Locations')
 fhand = codecs.open('where.js', 'w', "utf-8")
 fhand.write("myData = [\n")
 count = 0
@@ -33,6 +33,6 @@ for row in cur :
 fhand.write("\n];\n")
 cur.close()
 fhand.close()
-print(count, "wierszy zapisano do where.js")
-print("Otwórz w przeglądarce internetowej plik where.html aby obejrzeć dane.")
+print(count, "records written to where.js")
+print("Open where.html to view the data in a browser")
 

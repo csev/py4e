@@ -1,121 +1,123 @@
-Korzystanie z API OpenStreetMap z bazą danych i wizualizacja danych
-na OpenStreetMap.
+Using the OpenStreetMap API with the database and data visualization
+on OpenStreetMap.
 
-W tym projekcie korzystamy z darmowego API OpenStreetMap (usługa Nominatim) aby 
-zamienić wpisane przez użytkowników nazwy uczelni na lokalizacje geograficzne,
-a następnie umieszczamy przetworzone dane na mapie OpenStreetMap.
+In this project, we use the free OpenStreetMap API (Nominatim service) to 
+convert university names entered by users into geographical locations,
+and then we place the processed data on the OpenStreetMap map.
 
-Uwaga: Po Windowsem zalecamy korzystać z terminala PowerShell, tak aby nie było 
-problemów z wyświetlaniem znaków UTF-8.
+Note: After Windows, we recommend that you use the PowerShell terminal so that it doesn't 
+problems with displaying UTF-8 characters.
 
-Aby móc przeglądać i modyfikować bazę danych, należy zainstalować program
+The program must be installed to view and modify the database
 DB Browser for SQLite:
 
 https://sqlitebrowser.org/
 
-W warunkach korzystania z usługi Nominatim jest wskazanie by ogarniczyć się do 
-maksymalnie jednego zapytania na sekundę (usługa jest darmowa, stąd też gdybyśmy
-generowali bardzo dużą liczbę zapytań w krótkim czasie, to prawdopodobnie szybko
-zablokowano by nam dostęp do API). Nasze zadanie dzielimy na dwie fazy.
+In the terms of using the Nominatim service there is an indication to agree to 
+a maximum of one query per second (the service is free, hence if we
+they generated a very large number of inquiries in a short time, probably quickly
+we would be blocked from accessing the API). We divide our task into two phases.
 
-W pierwszej fazie bierzemy nasze dane wejściowe z pliku where.data i odczytujemy
-je wiersz po wierszu, odczytując przy tym zgeokodowaną odpowiedź serwera
-Nominatim i przechowujemy ją w bazie danych (plik geodata.sqlite). Zanim użyjemy
-API geokodowania, po prostu sprawdzamy, czy mamy już dane dla tego konkretnego
-wiersza, dzięki czemu w przypadku ponownego uruchomienia programu nie będziemy
-musieli drugi razy wysyłać zapytania do API.
+In the first phase, we take our input from where.data and read it
+them line by line while reading the server's geocoded response
+Nominatim and store it in the database (opengeo.sqlite file). Before we use
+Geocoding API, we just check if we already have data for this particular one
+line, so we won't be able to restart the program
+they had to query the API a second time.
 
-W dowolnym momencie możesz uruchomić cały proces od początku, po prostu usuwając
-wygenerowany plik geodata.sqlite.
+At any time, you can start the entire process from scratch by simply deleting
+the generated opengeo.sqlite file.
 
-Uruchom program geoload.py. Program ten odczyta wiersze wejściowe z pliku
-where.data i dla każdego wiersza sprawdzi, czy jest on już w bazie danych, a
-jeśli nie mamy danych dla przetwarzanej lokalizacji, to wywoła on zapytanie API
-geokodowania aby pobrać dane i przechowywać je w bazie SQLite.
+Run the geoload.py program. This program will read input lines from the file
+where.data and check for each row to see if it's already in the database, and
+if we do not have data for the location being processed, it will trigger an API query
+geocoding to retrieve data and store it in SQLite.
 
-Oto przykładowe uruchomienie po tym, jak w bazie danych znajdują się już jakieś
-dane:
+Here is an example of a run after some are already in the database
+data:
 
 
 
 python3 geoload.py
 
-Znaleziono w bazie  AGH University of Science and Technology
+Found in the AGH University of Science and Technology database
 
-Znaleziono w bazie  Academy of Fine Arts Warsaw Poland
+Found in the Academy of Fine Arts Warsaw Poland database
 
-Znaleziono w bazie  American University in Cairo
+Found on the American University in Cairo database
 
-Znaleziono w bazie  Arizona State University
+Found at the Arizona State University database
 
-Znaleziono w bazie  Athens Information Technology
+Found on Athens Information Technology
 
-Pobieranie https://nominatim.openstreetmap.org/search.php?q=University+of+Pretor
-ia&format=geojson&limit=1&addressdetails=1&accept-language=pl
-Pobrano 954 znaków {"type":"FeatureColl
+Downloading https://nominatim.openstreetmap.org/search.php?q=University+of+Pretor
+ia & format = geojson & limit = 1 & addressdetails = 1 & accept-language = pl
+954 characters downloaded {"type": "FeatureColl
 
-Pobieranie https://nominatim.openstreetmap.org/search.php?q=University+of+Salama
-nca&format=geojson&limit=1&addressdetails=1&accept-language=pl
-Pobrano 822 znaków {"type":"FeatureColl
+Downloading https://nominatim.openstreetmap.org/search.php?q=University+of+Salama
+nca & format = geojson & limit = 1 & addressdetails = 1 & accept-language = pl
+822 characters downloaded {"type": "FeatureColl
 
 
 
-Pierwsze pięć lokalizacji znajduje się już w bazie danych, a więc są one
-pomijane. Program przetwarza dane do momentu, w którym znajdzie niezapisane
-lokalizacje i zaczyna o nie odpytywać API.
+The first five locations are already in the database, and so are they
+omitted. The program processes data until it finds unsaved
+locations and starts asking the API for them.
 
-Plik geoload.py może zostać zatrzymany w dowolnym momencie, a ponadto kod
-zawiera licznik (zmienna 'count'), którego można użyć do ograniczenia liczby
-połączeń do API geokodowania w danym uruchomieniu programu.
+The geoload.py file can be stopped at any time, plus the code
+contains a counter (the variable 'count') that can be used to limit the number
+connections to the geocoding API in a given program startup.
 
-Po załadowaniu danych do geodata.sqlite, możesz je zwizualizować za pomocą
-programu geodump.py. Program ten odczytuje bazę danych i zapisuje plik where.js
-zawierający lokalizacje, szerokości i długości geograficzne w postaci
-wykonywalnego kodu JavaScript. Pobrany przez Ciebie plik ZIP zawiera już
-wygenerowany where.js, ale możesz go wygenerować jeszcze raz aby sprawdzić
-działanie programu geodump.py.
+After the data has been loaded into opengeo.sqlite, you can visualize it with
+geodump.py. This program reads the database and writes the where.js file
+containing locations, latitudes, and longitudes in the form
+JavaScript executable. The ZIP file you downloaded already contains
+where.js generated, but you can generate it again to check
+operation of the geodump.py program.
 
-Uruchomienie programu geodump.py odbywa się w następujący sposób:
+The geodump.py program is launched as follows:
 
 
 
 python3 geodump.py
 
-Akademia Górniczo-Hutnicza, Czarnowiejska, Czarna Wieś, Krowodrza, Kraków,
-województwo małopolskie, 31-126, Polska 50.065703299999996 19.918958667058632
-Akademia Sztuk Pięknych, Krakowskie Przedmieście, Śródmieście Północne,
-Śródmieście, Warszawa, województwo mazowieckie, 00-046, Polska 52.2397515
+AGH University of Science and Technology, Czarnowiejska, Czarna Wieś, Krowodrza, Kraków,
+Lesser Poland Voivodeship, 31-126, Poland 50.065703299999996 19.918958667058632
+Academy of Fine Arts, Krakowskie Przedmieście, Northern Śródmieście,
+Śródmieście, Warsaw, Masovian Voivodeship, 00-046, Poland 52.2397515
 21.015564130658333
 ...
-260 wierszy zapisano do where.js
-Otwórz w przeglądarce internetowej plik where.html aby obejrzeć dane.
+260 lines were written to where.js
+Open the where.html file in a web browser to view the data.
 
 
 
-Plik where.html składa się z kodu HTML i JavaScript, które służą do wizualizacji
-mapy OpenStreetMap przy pomocy biblioteki OpenLayers. Strona odczytuje
-najświeższe dane z pliku where.js po to by uzyskać dane niezbędne do
-wizualizacji. Oto format pliku where.js:
+The where.html file consists of HTML and JavaScript that are used for visualization
+OpenStreetMap maps using the OpenLayers library. The page reads
+the most recent data from the where.js file to get the data necessary for
+visualization. Here is the format of the where.js file:
 
 
 
 myData = [
-[50.065703299999996,19.918958667058632, 'Akademia Górniczo-Hutnicza, Czarnowiejs
-ka, Czarna Wieś, Krowodrza, Kraków, województwo małopolskie, 31-126, Polska'],
-[52.2397515,21.015564130658333, 'Akademia Sztuk Pięknych, Krakowskie Przedmieści
-e, Śródmieście Północne, Śródmieście, Warszawa, województwo mazowieckie, 00-046,
-Polska'],
+[50.065703299999996,19.918958667058632, 'AGH University of Science and Technology, Czarnowiejs
+ka, Czarna Wieś, Krowodrza, Kraków, Lesser Poland Voivodeship, 31-126, Poland '],
+[52.2397515,21.015564130658333, 'Academy of Fine Arts, Krakowskie Przedmieście
+e, Śródmieście Północne, Śródmieście, Warsaw, Masovian Voivodeship, 00-046,
+Poland'],
    ...
 ];
 
 
 
-Jest to lista list zapisana w języku JavaScript. Składnia listy w języku
-JavaScript jest bardzo podobna do składni Pythona.
+This is a list of lists written in JavaScript. Language list syntax
+JavaScript is very similar to Python syntax.
 
-By zobaczyć lokalizacje na mapie, otwórz plik where.html w przeglądarce
-internetowej. Możesz najechać kursorem na każdą pinezkę mapy i na nią kliknąć,
-tak aby znaleźć lokalizację, którą zwróciło API kodowania dla danych wejściowych
-wprowadzonych przez użytkownika. Jeżeli po otwarciu pliku where.html nie widzisz
-żadnych danych, sprawdź czy w przeglądarce jest włączony JavaScript lub w
-konsoli deweloperskiej swojej przeglądarki sprawdź czy są jakieś błędy.
+To see the locations on the map, open the where.html file in your browser
+website. You can hover over each map pin and click on it,
+so as to find the location that the encoding API returned for the input
+entered by the user. If you don't see the where.html file when you open it
+no data, check if JavaScript is enabled in the browser or in
+your browser's development console, check if there are any errors.
+
+
