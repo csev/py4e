@@ -35,7 +35,7 @@ if ( $do_json ) {
 $url = $serviceurl . urlencode($address);
 if ( strpos($address, 'USA') !== false && strpos($address, 'Address') !== false ) {
    echo('{ "answer" : 42 }');
-   error_log("geooops ".$address);
+   error_log("geooops $ipaddr $address");
    return;
 }
 
