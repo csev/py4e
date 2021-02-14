@@ -1,9 +1,10 @@
 <?php
 
+require_once "rate_limit.php";
+
 $serviceurl = 'https://nominatim.openstreetmap.org/search.php?';
 
-$q = false;
-if ( isset($_GET['q']) ) $q = $_GET['q'];
+$q = \Tsugi\Util\U::get($_GET, 'q', false);
 if ( ! $q ) {
 ?>
 <h1>Python For Everybody Caching Open StreetMap Server</h1>
@@ -20,8 +21,23 @@ If a request makes it past the cache, it will be delayed
 by 5 seconds before being forwarded to the OpenStreetMap server
 in order not to trigger its rate limit.
 </p>
+<p>
+This server has its own rate limiting to keep users
+from busting this cache and triggering OpenStreetMap's rate limit.
+</p>
 <?php
 	return;
+}
+
+$ipaddr = \Tsugi\Util\Net::getIP();
+$delta = check_rate_limit('/tmp/opengeo.db', $ipaddr, $q);
+
+error_log("opengeo $q $ipaddr $delta");
+
+if ( $delta < 3 ) {
+    sleep(20);
+} else { 
+    sleep(7);
 }
 
 $parms = array();
@@ -31,13 +47,10 @@ $parms['limit'] = 1;
 $parms['addressdetails'] = 1;
 $parms['accept-language'] = 'en';
 
-header('Content-Type: application/json; charset=utf-8');
-
 $url = $serviceurl . http_build_query($parms);
 
-error_log("opengeo ".$q);
+header('Content-Type: application/json; charset=utf-8');
 
-sleep(5);
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
