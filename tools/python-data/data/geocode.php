@@ -33,11 +33,7 @@ if ( $do_json ) {
 }
 
 $url = $serviceurl . urlencode($address);
-if ( strpos($address, 'USA') !== false && strpos($address, 'Address') !== false ) {
-   echo('{ "answer" : 42 }');
-   error_log("geooops $ipaddr $address");
-   return;
-}
+if ( filter_bad_things($address, $ipaddr) ) return;
 
 error_log("geocode $address $ipaddr $delta");
 if ( $delta < 7 ) sleep(7);

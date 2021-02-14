@@ -37,3 +37,19 @@ function check_rate_limit($database, $ipaddr, $q) {
 
     return $delta;
 }
+
+function filter_bad_things($address, $ipaddr) {
+    $badthings = array(
+        'Address', 'scrapy.org', 'HTTP',
+        "\r", "\n"
+    );
+    foreach($badthings as $badthing) {
+        if ( strpos($address, $badthing) !== false ) {
+           echo('{ "answer" : 42 }');
+           error_log("geooops $ipaddr $address");
+           return true;
+        }
+    }
+    return false;
+}
+

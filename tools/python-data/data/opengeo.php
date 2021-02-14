@@ -38,6 +38,9 @@ and respectful way.
 }
 
 $ipaddr = \Tsugi\Util\Net::getIP();
+
+if ( filter_bad_things($q, $ipaddr) ) return;
+
 $delta = check_rate_limit('/tmp/opengeo.db', $ipaddr, $q);
 
 error_log("opengeo $q $ipaddr $delta");
