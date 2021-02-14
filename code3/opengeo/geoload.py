@@ -71,7 +71,6 @@ for line in fh:
     cur.execute('''INSERT INTO Locations (address, geodata)
                 VALUES ( ?, ? )''', (memoryview(address.encode()), memoryview(data.encode()) ) )
     conn.commit()
-    time.sleep(1) # https://operations.osmfoundation.org/policies/nominatim/
 
 if nofound > 0:
     print('Number of features for which the location could not be found:', nofound)
