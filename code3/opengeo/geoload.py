@@ -6,7 +6,7 @@ import time
 import ssl
 import sys
 
-serviceurl = 'https://nominatim.openstreetmap.org/search.php?'
+serviceurl = 'https://py4e-data.dr-chuck.net/opengeo?'
 
 # Additional detail for urllib
 # http.client.HTTPConnection.debuglevel = 1
@@ -17,7 +17,7 @@ cur = conn.cursor()
 cur.execute('''
 CREATE TABLE IF NOT EXISTS Locations (address TEXT, geodata TEXT)''')
 
-# Ignoruj błędy związane z certyfikatami SSL
+# Ignore SSL certificate errors
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
@@ -26,8 +26,8 @@ fh = open("where.data")
 count = 0
 nofound = 0
 for line in fh:
-    if count > 200 :
-        print('Retrieved 200 locations, restart to retrieve more')
+    if count > 50 :
+        print('Retrieved 50 locations, restart to retrieve more')
         break
 
     address = line.strip()
@@ -44,10 +44,6 @@ for line in fh:
 
     parms = dict()
     parms['q'] = address
-    parms['format'] = 'geojson'
-    parms['limit'] = 1
-    parms['addressdetails'] = 1
-    parms['accept-language'] = 'pl'
 
     url = serviceurl + urllib.parse.urlencode(parms)
 
