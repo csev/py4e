@@ -36,6 +36,11 @@ if ( strpos($local_path,"geojson") === 0 ) {
     require_once("geocode.php");
     return;
 
+} else if ( strpos($local_path,"opengeo") === 0 ) {
+    require_once("opengeo.php");
+    return;
+
+
 // New
 } else if ( strpos($local_path, "regex_sum_") === 0 && strpos($local_path, ".txt") !== false ) {
     header('Content-Type: text/plain');
