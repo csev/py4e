@@ -7,23 +7,31 @@ $serviceurl = 'https://nominatim.openstreetmap.org/search.php?';
 $q = \Tsugi\Util\U::get($_GET, 'q', false);
 if ( ! $q ) {
 ?>
-<h1>Python For Everybody Caching Open StreetMap Server</h1>
+<h1>Python For Everybody Open StreetMap Proxy Server</h1>
 <p>
-This server is used in the Python for Everybody (www.py4e.com)
+This server is used in the Python for Everybody
+(<a href="https://www.py4e.com">www.py4e.com</a>)
 series of courses.  It is <b>highly</b> cached using CloudFlare
-edge servers.  The student assignments retrieve a provided
+edge servers worldwide.  The student assignments retrieve a
 fixed list of addresses so nearly every request will be fulfilled by the cache.
-Each student adds one address to their list and that one will 
-miss the cache once.
+Each student adds <i>one</i> address to their list and that one will
+miss the CloudFlare cache once.
 </p>
 <p>
-If a request makes it past the cache, it will be delayed 
-by 5 seconds before being forwarded to the OpenStreetMap server
+If a request makes it past the CloudFlare cache, it will be delayed
+by 5 seconds in this proxy before being forwarded to the OpenStreetMap server
 in order not to trigger its rate limit.
+This server also has its own rate limiting to keep users
+from bypassing the CloudFlare cache and triggering OpenStreetMap's rate limit.
 </p>
 <p>
-This server has its own rate limiting to keep users
-from busting this cache and triggering OpenStreetMap's rate limit.
+This service acts as a caching proxy for the free
+<a href="https://wiki.openstreetmap.org/wiki/Nominatim">Nominatim</a>
+server provided by the
+<a href="https://operations.osmfoundation.org/policies/nominatim/">
+Open Street Map Foundation
+</a>.   We make every effort to use this service in an efficient
+and respectful way.
 </p>
 <?php
 	return;
@@ -36,7 +44,7 @@ error_log("opengeo $q $ipaddr $delta");
 
 if ( $delta < 3 ) {
     sleep(20);
-} else { 
+} else {
     sleep(7);
 }
 
