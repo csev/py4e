@@ -492,14 +492,19 @@ for line in fhand:
 </dl>
 <h2 id="exercises">Exercises</h2>
 <p></p>
-<p><strong>Exercise 4: Download a copy of the file</strong> <a href="http://www.py4e.com/code3/romeo.txt"><strong>www.py4e.com/code3/romeo.txt</strong></a><strong>. Write a program to open the file <em>romeo.txt</em> and read it line by line. For each line, split the line into a list of words using the <code>split</code> function. For each word, check to see if the word is already in a list. If the word is not in the list, add it to the list. When the program completes, sort and print the resulting words in alphabetical order.</strong></p>
+<p><strong>Exercise 4: Find all unique words in a file</strong></p>
+<p><strong>Shakespeare used over 20,000 words in his works. But how would you determine that? How would you produce the list of all the words that Shakespeare used? Would you download all his work, read it and track all unique words by hand?</strong></p>
+<p><strong>Let’s use Python to achieve that instead. List all unique words, sorted in alphabetical order, that are stored in a file <code>romeo.txt</code> containing a subset of Shakespeare’s work.</strong></p>
+<p><strong>To get started, download a copy of the file</strong> <a href="http://www.py4e.com/code3/romeo.txt"><strong>www.py4e.com/code3/romeo.txt</strong></a><strong>. Create a list of unique words, which will contain the final result. Write a program to open the file <code>romeo.txt</code> and read it line by line. For each line, split the line into a list of words using the <code>split</code> function. For each word, check to see if the word is already in the list of unique words. If the word is not in the list of unique words, add it to the list. When the program completes, sort and print the list of unique words in alphabetical order.</strong></p>
 <pre><code>Enter file: romeo.txt
 [&#39;Arise&#39;, &#39;But&#39;, &#39;It&#39;, &#39;Juliet&#39;, &#39;Who&#39;, &#39;already&#39;,
 &#39;and&#39;, &#39;breaks&#39;, &#39;east&#39;, &#39;envious&#39;, &#39;fair&#39;, &#39;grief&#39;,
 &#39;is&#39;, &#39;kill&#39;, &#39;light&#39;, &#39;moon&#39;, &#39;pale&#39;, &#39;sick&#39;, &#39;soft&#39;,
 &#39;sun&#39;, &#39;the&#39;, &#39;through&#39;, &#39;what&#39;, &#39;window&#39;,
 &#39;with&#39;, &#39;yonder&#39;]</code></pre>
-<p><strong>Exercise 5: Write a program to read through the mail box data and when you find line that starts with “From”, you will split the line into words using the <code>split</code> function. We are interested in who sent the message, which is the second word on the From line.</strong></p>
+<p><strong>Exercise 5: Minimalist Email Client.</strong></p>
+<p><strong>MBOX (mail box) is a popular file format to store and share a collection of emails. This was used by early email servers and desktop apps. Without getting into too many details, MBOX is a text file, which stores emails consecutively. Emails are separated by a special line which starts with <code>From</code> (notice the space). Importantly, lines starting with <code>From:</code> (notice the colon) describes the email itself and does not act as a separator. Imagine you wrote a minimalist email app, that lists the email of the senders in the user’s Inbox and counts the number of emails.</strong></p>
+<p><strong>Write a program to read through the mail box data and when you find line that starts with “From”, you will split the line into words using the <code>split</code> function. We are interested in who sent the message, which is the second word on the From line.</strong></p>
 <pre><code>From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008</code></pre>
 <p><strong>You will parse the From line and print out the second word for each From line, then you will also count the number of From (not From:) lines and print out a count at the end. This is a good sample output with a few lines removed:</strong></p>
 <pre><code>python fromcount.py

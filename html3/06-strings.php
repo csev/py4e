@@ -223,9 +223,9 @@ False
 True</code></pre>
 <p>In the last example, the method <code>lower</code> is called and then we use <code>startswith</code> to see if the resulting lowercase string starts with the letter “h”. As long as we are careful with the order, we can make multiple method calls in a single expression.</p>
 <p> </p>
-<p>**Exercise 4: There is a string method called <code>count</code> that is similar to the function in the previous exercise. Read the documentation of this method at:</p>
+<p><strong>Exercise 4: There is a string method called <code>count</code> that is similar to the function in the previous exercise. Read the documentation of this method at:</strong></p>
 <p><a href="https://docs.python.org/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a></p>
-<p>Write an invocation that counts the number of times the letter a occurs in “banana”.**</p>
+<p><strong>Write an invocation that counts the number of times the letter a occurs in “banana”.</strong></p>
 <h2 id="parsing-strings">Parsing strings</h2>
 <p>Often, we want to look into a string and find a substring. For example if we were presented a series of lines formatted as follows:</p>
 <p><code>From stephen.marquard@</code><em><code> uct.ac.za</code></em><code> Sat Jan  5 09:14:16 2008</code></p>

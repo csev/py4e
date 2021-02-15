@@ -26,57 +26,66 @@
 <p>So far we have been learning the Python language and then learning how to use Python, the network, and databases to manipulate data.</p>
 <p>In this chapter, we take a look at three complete applications that bring all of these things together to manage and visualize data. You might use these applications as sample code to help get you started in solving a real-world problem.</p>
 <p>Each of the applications is a ZIP file that you can download and extract onto your computer and execute.</p>
-<h2 id="building-a-google-map-from-geocoded-data">Building a Google map from geocoded data</h2>
-<p> </p>
-<p>In this project, we are using the Google geocoding API to clean up some user-entered geographic locations of university names and then placing the data on a Google map.</p>
+<h2 id="building-a-openstreetmap-from-geocoded-data">Building a OpenStreetMap from geocoded data</h2>
+<p>  </p>
+<p>In this project, we are using the OpenStreetMap geocoding API to clean up some user-entered geographic locations of university names and then placing the data on an actual OpenStreetMap.</p>
 <figure>
-<img src="../images/google-map.png" alt="" /><figcaption>A Google Map</figcaption>
+<img src="../images/openstreet-map.png" alt="" /><figcaption>An OpenStreetMap</figcaption>
 </figure>
 <p>To get started, download the application from:</p>
-<p><a href="http://www.py4e.com/code3/geodata.zip">www.py4e.com/code3/geodata.zip</a></p>
-<p>The first problem to solve is that the free Google geocoding API is rate-limited to a certain number of requests per day. If you have a lot of data, you might need to stop and restart the lookup process several times. So we break the problem into two phases.</p>
+<p><a href="http://www.py4e.com/code3/opengeo.zip">www.py4e.com/code3/opengeo.zip</a></p>
+<p>The first problem to solve is that these geocoding APIs are rate-limited to a certain number of requests per day. If you have a lot of data, you might need to stop and restart the lookup process several times. So we break the problem into two phases.</p>
 <p></p>
 <p>In the first phase we take our input “survey” data in the file <em>where.data</em> and read it one line at a time, and retrieve the geocoded information from Google and store it in a database <em>geodata.sqlite</em>. Before we use the geocoding API for each user-entered location, we simply check to see if we already have the data for that particular line of input. The database is functioning as a local “cache” of our geocoding data to make sure we never ask Google for the same data twice.</p>
 <p>You can restart the process at any time by removing the file <em>geodata.sqlite</em>.</p>
 <p>Run the <em>geoload.py</em> program. This program will read the input lines in <em>where.data</em> and for each line check to see if it is already in the database. If we don’t have the data for the location, it will call the geocoding API to retrieve the data and store it in the database.</p>
 <p>Here is a sample run after there is already some data in the database:</p>
-<pre><code>Found in database  Northeastern University
-Found in database  University of Hong Kong, ...
-Found in database  Technion
-Found in database  Viswakarma Institute, Pune, India
-Found in database  UMD
-Found in database  Tufts University
+<pre><code>Found in database AGH University of Science and Technology
 
-Resolving Monash University
-Retrieving http://maps.googleapis.com/maps/api/
-    geocode/json?address=Monash+University
-Retrieved 2063 characters {    &quot;results&quot; : [
-{&#39;status&#39;: &#39;OK&#39;, &#39;results&#39;: ... }
+Found in database Academy of Fine Arts Warsaw Poland
 
-Resolving Kokshetau Institute of Economics and Management
-Retrieving http://maps.googleapis.com/maps/api/
-    geocode/json?address=Kokshetau+Inst ...
-Retrieved 1749 characters {    &quot;results&quot; : [
-{&#39;status&#39;: &#39;OK&#39;, &#39;results&#39;: ... }
+Found in database American University in Cairo
+
+Found in database Arizona State University
+
+Found in database Athens Information Technology
+
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=BITS+Pilani
+Retrieved 794 characters {&quot;type&quot;:&quot;FeatureColl
+
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=Babcock+University
+Retrieved 760 characters {&quot;type&quot;:&quot;FeatureColl
+
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=Banaras+Hindu+University
+Retrieved 866 characters {&quot;type&quot;:&quot;FeatureColl
 ...</code></pre>
 <p>The first five locations are already in the database and so they are skipped. The program scans to the point where it finds new locations and starts retrieving them.</p>
 <p>The <em>geoload.py</em> program can be stopped at any time, and there is a counter that you can use to limit the number of calls to the geocoding API for each run. Given that the <em>where.data</em> only has a few hundred data items, you should not run into the daily rate limit, but if you had more data it might take several runs over several days to get your database to have all of the geocoded data for your input.</p>
 <p>Once you have some data loaded into <em>geodata.sqlite</em>, you can visualize the data using the <em>geodump.py</em> program. This program reads the database and writes the file <em>where.js</em> with the location, latitude, and longitude in the form of executable JavaScript code.</p>
 <p>A run of the <em>geodump.py</em> program is as follows:</p>
-<pre><code>Northeastern University, ... Boston, MA 02115, USA 42.3396998 -71.08975
-Bradley University, 1501 ... Peoria, IL 61625, USA 40.6963857 -89.6160811
+<pre><code>AGH University of Science and Technology, Czarnowiejska,
+Czarna Wieś, Krowodrza, Kraków, Lesser Poland
+Voivodeship, 31-126, Poland 50.0657 19.91895
+
+Academy of Fine Arts, Krakowskie Przedmieście,
+Northern Śródmieście, Śródmieście, Warsaw, Masovian
+Voivodeship, 00-046, Poland 52.239 21.0155
 ...
-Technion, Viazman 87, Kesalsaba, 32000, Israel 32.7775 35.0216667
-Monash University Clayton ... VIC 3800, Australia -37.9152113 145.134682
-Kokshetau, Kazakhstan 53.2833333 69.3833333
-...
-12 records written to where.js
-Open where.html to view the data in a browser</code></pre>
+260 lines were written to where.js
+Open the where.html file in a web browser to view the data.</code></pre>
 <p>The file <em>where.html</em> consists of HTML and JavaScript to visualize a Google map. It reads the most recent data in <em>where.js</em> to get the data to be visualized. Here is the format of the <em>where.js</em> file:</p>
 <pre class="js"><code>myData = [
-[42.3396998,-71.08975, &#39;Northeastern Uni ... Boston, MA 02115&#39;],
-[40.6963857,-89.6160811, &#39;Bradley University, ... Peoria, IL 61625, USA&#39;],
-[32.7775,35.0216667, &#39;Technion, Viazman 87, Kesalsaba, 32000, Israel&#39;],
+[50.0657,19.91895,
+&#39;AGH University of Science and Technology, Czarnowiejska,
+Czarna Wieś, Krowodrza, Kraków, Lesser Poland
+Voivodeship, 31-126, Poland &#39;],
+[52.239,21.0155,
+&#39;Academy of Fine Arts, Krakowskie Przedmieściee,
+Śródmieście Północne, Śródmieście, Warsaw,
+Masovian Voivodeship, 00-046, Poland&#39;],
    ...
 ];</code></pre>
 <p>This is a JavaScript variable that contains a list of lists. The syntax for JavaScript list constants is very similar to Python, so the syntax should be familiar to you.</p>
