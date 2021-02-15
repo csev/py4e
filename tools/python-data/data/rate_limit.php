@@ -39,6 +39,21 @@ function check_rate_limit($database, $ipaddr, $q) {
 }
 
 function filter_bad_things($address, $ipaddr) {
+    if ( strlen($address) < 1 && strlen($address) > 120 ) {
+       echo('{ "address": "length", "answer" : 42 }');
+       error_log("geo_fail_length $ipaddr $address");
+       return true;
+    }
+
+    for($i=0; $i<strlen($address); $i++) {
+        $ch = substr($address, $i, 1);
+        if ( ord($ch) < 32 ) {
+           echo('{ "address": "npc", "answer" : 42 }');
+           error_log("geo_fail_npc $ipaddr $address");
+           return true;
+        }
+    }
+
     $badthings = array(
         'Address', 'scrapy.org', 'HTTP',
         "\r", "\n", "http", "https",
@@ -46,7 +61,7 @@ function filter_bad_things($address, $ipaddr) {
     foreach($badthings as $badthing) {
         if ( strpos($address, $badthing) !== false ) {
            echo('{ "address": "fail", "answer" : 42 }');
-           error_log("geooops $ipaddr $address");
+           error_log("geo_fail_hack $ipaddr $address");
            return true;
         }
     }

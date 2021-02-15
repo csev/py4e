@@ -38,6 +38,11 @@ if ( filter_bad_things($address, $ipaddr) ) return;
 error_log("geocode $address $ipaddr $delta");
 if ( $delta < 7 ) sleep(7);
 
-$contents = file_get_contents($url);
+$contents = @file_get_contents($url);
+if ( ! is_string($contents) ) {
+   error_log(strlen($contents)." bytes retrieved in error ".$url);
+   $contents = '{ "error": "Error from Google" }';
+}
+
 echo($contents);
 
