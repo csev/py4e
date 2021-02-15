@@ -33,6 +33,10 @@ Open Street Map Foundation
 </a>.   We make every effort to use this service in an efficient
 and respectful way.
 </p>
+<p>
+This server is maintained by
+<a href="http://www.twitter.com/drchuck" target="_blank">@DrChuck</a>.
+</p>
 <?php
 	return;
 }

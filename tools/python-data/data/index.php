@@ -309,6 +309,7 @@ Python for Informatics: Exploring Information</a> written by
 <li><a href="comments_42.xml" target=_"blank">Some data in an xml file to be summed</a></li>
 <li><a href="comments_42.json" target=_"blank">Some data in an json file to be summed</a></li>
 <li><a href="known_by_42.html" target=_"blank">A set of friend lists</a></li>
+<li><a href="opengeo" target=_"blank">A proxy for the OpenStreetMap API</a></li>
 </ul>
 </p>
 <p>
