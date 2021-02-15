@@ -26,8 +26,8 @@ fh = open("where.data")
 count = 0
 nofound = 0
 for line in fh:
-    if count > 50 :
-        print('Retrieved 50 locations, restart to retrieve more')
+    if count > 100 :
+        print('Retrieved 100 locations, restart to retrieve more')
         break
 
     address = line.strip()
@@ -71,6 +71,10 @@ for line in fh:
     cur.execute('''INSERT INTO Locations (address, geodata)
                 VALUES ( ?, ? )''', (memoryview(address.encode()), memoryview(data.encode()) ) )
     conn.commit()
+
+    if count % 10 == 0 :
+        print('Pausing for a bit...')
+        time.sleep(5)
 
 if nofound > 0:
     print('Number of features for which the location could not be found:', nofound)

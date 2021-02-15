@@ -36,29 +36,28 @@ geocoding to retrieve data and store it in SQLite.
 Here is an example of a run after some are already in the database
 data:
 
+python3 geoload.py 
 
+Found in database AGH University of Science and Technology
 
-python3 geoload.py
+Found in database Academy of Fine Arts Warsaw Poland
 
-Found in the AGH University of Science and Technology database
+Found in database American University in Cairo
 
-Found in the Academy of Fine Arts Warsaw Poland database
+Found in database Arizona State University
 
-Found on the American University in Cairo database
+Found in database Athens Information Technology
 
-Found at the Arizona State University database
+Retrieving https://py4e-data.dr-chuck.net/opengeo?q=BITS+Pilani
+Retrieved 794 characters {"type":"FeatureColl
 
-Found on Athens Information Technology
+Retrieving https://py4e-data.dr-chuck.net/opengeo?q=Babcock+University
+Retrieved 760 characters {"type":"FeatureColl
 
-Downloading https://nominatim.openstreetmap.org/search.php?q=University+of+Pretor
-ia & format = geojson & limit = 1 & addressdetails = 1 & accept-language = pl
-954 characters downloaded {"type": "FeatureColl
+Retrieving https://py4e-data.dr-chuck.net/opengeo?q=Banaras+Hindu+University
+Retrieved 866 characters {"type":"FeatureColl
 
-Downloading https://nominatim.openstreetmap.org/search.php?q=University+of+Salama
-nca & format = geojson & limit = 1 & addressdetails = 1 & accept-language = pl
-822 characters downloaded {"type": "FeatureColl
-
-
+...
 
 The first five locations are already in the database, and so are they
 omitted. The program processes data until it finds unsaved
@@ -91,12 +90,10 @@ Academy of Fine Arts, Krakowskie Przedmieście, Northern Śródmieście,
 Open the where.html file in a web browser to view the data.
 
 
-
 The where.html file consists of HTML and JavaScript that are used for visualization
 OpenStreetMap maps using the OpenLayers library. The page reads
 the most recent data from the where.js file to get the data necessary for
 visualization. Here is the format of the where.js file:
-
 
 
 myData = [
