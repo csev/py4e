@@ -38,41 +38,51 @@
 <p>Run the <em>geoload.py</em> program. This program will read the input lines in <em>where.data</em> and for each line check to see if it is already in the database. If we don’t have the data for the location, it will call the geocoding API to retrieve the data and store it in the database.</p>
 <p>Here is a sample run after there is already some data in the database:</p>
 <pre><code>Found in database AGH University of Science and Technology
+
 Found in database Academy of Fine Arts Warsaw Poland
+
 Found in database American University in Cairo
+
 Found in database Arizona State University
+
 Found in database Athens Information Technology
 
-Retrieving https://py4e-data.dr-chuck.net/opengeo?q=BITS+Pilani
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=BITS+Pilani
 Retrieved 794 characters {&quot;type&quot;:&quot;FeatureColl
 
-Retrieving https://py4e-data.dr-chuck.net/opengeo?q=Babcock+University
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=Babcock+University
 Retrieved 760 characters {&quot;type&quot;:&quot;FeatureColl
 
-Retrieving https://py4e-data.dr-chuck.net/opengeo?q=Banaras+Hindu+University
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=Banaras+Hindu+University
 Retrieved 866 characters {&quot;type&quot;:&quot;FeatureColl
 ...</code></pre>
 <p>The first five locations are already in the database and so they are skipped. The program scans to the point where it finds new locations and starts retrieving them.</p>
 <p>The <em>geoload.py</em> program can be stopped at any time, and there is a counter that you can use to limit the number of calls to the geocoding API for each run. Given that the <em>where.data</em> only has a few hundred data items, you should not run into the daily rate limit, but if you had more data it might take several runs over several days to get your database to have all of the geocoded data for your input.</p>
 <p>Once you have some data loaded into <em>geodata.sqlite</em>, you can visualize the data using the <em>geodump.py</em> program. This program reads the database and writes the file <em>where.js</em> with the location, latitude, and longitude in the form of executable JavaScript code.</p>
 <p>A run of the <em>geodump.py</em> program is as follows:</p>
-<pre><code>AGH University of Science and Technology, Czarnowiejska, Czarna Wieś, Krowodrza, Kraków,
-Lesser Poland Voivodeship, 31-126, Poland 50.065703299999996 19.918958667058632
-Academy of Fine Arts, Krakowskie Przedmieście, Northern Śródmieście,
-Śródmieście, Warsaw, Masovian Voivodeship, 00-046, Poland 52.2397515
-21.015564130658333
+<pre><code>AGH University of Science and Technology, Czarnowiejska,
+Czarna Wieś, Krowodrza, Kraków, Lesser Poland 
+Voivodeship, 31-126, Poland 50.0657 19.91895
+
+Academy of Fine Arts, Krakowskie Przedmieście,
+Northern Śródmieście, Śródmieście, Warsaw, Masovian
+Voivodeship, 00-046, Poland 52.239 21.0155
 ...
 260 lines were written to where.js
 Open the where.html file in a web browser to view the data.</code></pre>
 <p>The file <em>where.html</em> consists of HTML and JavaScript to visualize a Google map. It reads the most recent data in <em>where.js</em> to get the data to be visualized. Here is the format of the <em>where.js</em> file:</p>
 <pre class="js"><code>myData = [
-[50.065703299999996,19.918958667058632, 
-&#39;AGH University of Science and Technology, Czarnowiejska, Czarna Wieś,
- Krowodrza, Kraków, Lesser Poland Voivodeship, 31-126, Poland &#39;],
-[52.2397515,21.015564130658333, 
-&#39;Academy of Fine Arts, Krakowskie Przedmieściee, Śródmieście Północne,
-Śródmieście, Warsaw, Masovian Voivodeship, 00-046,
-Poland&#39;],
+[50.0657,19.91895, 
+&#39;AGH University of Science and Technology, Czarnowiejska,
+Czarna Wieś, Krowodrza, Kraków, Lesser Poland 
+Voivodeship, 31-126, Poland &#39;],
+[52.239,21.0155, 
+&#39;Academy of Fine Arts, Krakowskie Przedmieściee,
+Śródmieście Północne, Śródmieście, Warsaw,
+Masovian Voivodeship, 00-046, Poland&#39;],
    ...
 ];</code></pre>
 <p>This is a JavaScript variable that contains a list of lists. The syntax for JavaScript list constants is very similar to Python, so the syntax should be familiar to you.</p>
