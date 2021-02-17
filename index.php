@@ -12,7 +12,7 @@ require_once "nav.php";
 <h1>Python for Everybody</h1>
 <?php if ( isset($_SESSION['id']) ) { ?>
 <p>
-Welcome to my Massive Open Online Course (MOOC) version of Python for Everybody. 
+Welcome to my free web site for Python for Everybody.
 Now that you have logged in, you have access to course-style features of this web site.
 <ul>
 <li>
@@ -23,8 +23,8 @@ You can track your progress through the course using the <a href="assignments">A
 tool and when you complete a group of assignments, you can earn a <a href="badges">Badge</a>.
 You can download these badges and host them on your web site or refer the badge URLs on this site.</li>
 <li>
-If you want to use these Creative Commons Licensed materials 
-in your own classes you can 
+If you want to use these Creative Commons Licensed materials
+in your own classes you can
 <a href="materials.php">download or link</a> to the artifacts on this site,
 <a href="tsugi/cc/">export the course material</a> as an
 IMS Common Cartridge®, or apply for
@@ -35,12 +35,12 @@ an IMS Learning Tools Interoperability® (LTI®)
 </ul>
 <?php } else { ?>
 <p>
-Hello and welcome to my site where you can work through my course materials related to
-my free <a href="book.php">Python for Everybody</a> text book.  You can take this course for a certificate
-as the 
-<a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody Specialization</a> on Coursera,
-<a href="https://www.edx.org/bio/charles-severance" target="_blank">Python for Everybody</a> (2 courses)  on edX, or
-<a href="https://www.futurelearn.com/courses/programming-for-everybody-python" target="_blank">Python for Everybody</a> (2 courses) on FutureLearn.
+Welcome to the web site for my
+<a href="book.php">Python for Everybody</a> text book.
+You can take this course for a certificate on
+<a href="https://www.coursera.org/specializations/python" target="_blank">Coursera</a>,
+<a href="https://www.edx.org/bio/charles-severance" target="_blank">edX</a>, or
+<a href="https://www.futurelearn.com/courses/programming-for-everybody-python" target="_blank">FutureLearn</a>.
 </p>
 <p>
 You can use this web site many different ways:
@@ -60,7 +60,7 @@ We take your privacy seriously on this site, you can review our
 <a href="privacy">Privacy Policy</a> for more details.
 </li>
 <li>
-If you want to use these materials 
+If you want to use these materials
 in your own classes you can download or link to the artifacts on this site,
 <a href="tsugi/cc/">export the course material</a> as an
 IMS Common Cartridge®, or apply for
@@ -78,12 +78,12 @@ instructions on how to translate this course</a> in my GitHub repository.
 </li>
 </ul>
 <?php } ?>
-This site uses <a href="http://www.tsugi.org" target="_blank">Tsugi</a> 
+This site uses <a href="http://www.tsugi.org" target="_blank">Tsugi</a>
 framework to embed a learning management system into this site and
-provide the autograders.  
+provide the autograders.
 If you are interested in collaborating
 to build these kinds of sites for yourself, please see the
-<a href="http://www.tsugi.org" target="_blank">tsugi.org</a> website and/or 
+<a href="http://www.tsugi.org" target="_blank">tsugi.org</a> website and/or
 contact me.
 </p>
 <!--
