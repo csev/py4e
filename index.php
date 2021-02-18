@@ -86,6 +86,10 @@ to build these kinds of sites for yourself, please see the
 <a href="http://www.tsugi.org" target="_blank">tsugi.org</a> website and/or
 contact me.
 </p>
+<p>
+And yes, Dr. Chuck actually has a race car - it is called the
+<a href="https://www.sakaiger.com/sakaicar/" target=_blank">SakaiCar</a>.
+</p>
 <!--
 <?php
 echo(Output::safe_var_dump($_SESSION));
