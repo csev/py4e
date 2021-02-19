@@ -89,6 +89,8 @@ contact me.
 <p>
 And yes, Dr. Chuck actually has a race car - it is called the
 <a href="https://www.sakaiger.com/sakaicar/" target=_blank">SakaiCar</a>.
+He races in a series called
+<a href="https://www.24hoursoflemons.com" target="_blank">24 Hours of Lemons</a>.
 </p>
 <!--
 <?php
