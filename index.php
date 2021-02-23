@@ -35,31 +35,28 @@ an IMS Learning Tools Interoperability® (LTI®)
 </ul>
 <?php } else { ?>
 <p>
-Welcome to the web site for my
-<a href="book.php">Python for Everybody</a> text book.
-You can take this course for a certificate on
-<a href="https://www.coursera.org/specializations/python" target="_blank">Coursera</a>,
-<a href="https://www.edx.org/bio/charles-severance" target="_blank">edX</a>, or
-<a href="https://www.futurelearn.com/courses/programming-for-everybody-python" target="_blank">FutureLearn</a>.
-</p>
-<p>
-You can use this web site many different ways:
+This web site is building a set of free 
+<a href="lessons">materials</a>, 
+<a href="https://www.youtube.com/watch?v=UjeNA_JtXME&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p&index=1" target="_blank">lectures</a>, 
+<a href="book.php">book</a>
+and assignments to help students
+learn how to program in Python.
+You can take this course and receive a certificate at:
 <ul>
-<li>
-You browse my videos and course materials under <a href="lessons">Lessons</a>.  The materials
-I have developed
-for this class are all provided with a Creative Commons license so you can download or link to
-them to incorporate them into your own teaching if you like.</li>
-<li>
+<li><a href="https://www.coursera.org/specializations/python" target="_blank">Coursera: Python for Everybody Specialization</a> </li>
+<li><a href="https://www.edx.org/bio/charles-severance" target="_blank">edX: Python for Everybody</a></li>
+<li><a href="https://www.futurelearn.com/courses/programming-for-everybody-python" target="_blank">FutureLearn: Programming for Everybody (Getting Started with Python)</a></li>
+</ul>
+<p>
 If you <a href="tsugi/login.php">log in</a> to this site
-it is as if you have joined a free, global
-open and online course.  You have a grade book, autograded assignments, a discussion forum, and can earn
-badges for your efforts.</li>
-<li>
+you have joined a free, global
+open and online course.  You have a grade book, autograded assignments, discussion forums, and can earn
+badges for your efforts.</p>
+<p>
 We take your privacy seriously on this site, you can review our
 <a href="privacy">Privacy Policy</a> for more details.
-</li>
-<li>
+</p>
+<p>
 If you want to use these materials
 in your own classes you can download or link to the artifacts on this site,
 <a href="tsugi/cc/">export the course material</a> as an
@@ -67,16 +64,15 @@ IMS Common Cartridge®, or apply for
 an IMS Learning Tools Interoperability® (LTI®)
 <a href="tsugi/admin/key/index.php">key and secret</a>
  to launch the autograders from your LMS.
-</li>
-<li>
+</p>
+<p>
 The code for this site including the autograders, slides, and course content is all available on
 <a href="https://github.com/csev/py4e" target="_blank">GitHub</a>.  That means you could make your own
 copy of the course site, publish it and remix it any way you like.  Even more exciting, you could translate
 the entire site (course) into your own language and publish it.  I have provided
 some <a href="https://github.com/csev/py4e/blob/master/TRANSLATION.md" target="_new">
 instructions on how to translate this course</a> in my GitHub repository.
-</li>
-</ul>
+</p>
 <?php } ?>
 This site uses <a href="http://www.tsugi.org" target="_blank">Tsugi</a>
 framework to embed a learning management system into this site and
