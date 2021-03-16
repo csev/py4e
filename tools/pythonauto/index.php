@@ -395,7 +395,7 @@ function outf(text) {
         Sk.configure({output:outf, read: builtinRead, __future__: Sk.python3,
             inputfunTakesPrompt: true,
             inputfun: function (prompt) {
-                console.log('Yada', prompt);
+                console.log('inputfun', prompt);
                 return window.prompt(prompt);
             }
         });

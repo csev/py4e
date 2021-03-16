@@ -45,7 +45,7 @@ Translated book, autograders, resources, and web site at
 <a href="https://es.py4e.com/book">https://es.py4e.com</a>
 </li>
 <li>
-<a href="https://github.com/csev-es" target="_blank">Github repo</a> - 
+<a href="https://github.com/csev-es" target="_blank">Github repo</a> -
     Contributors:
     <a href="https://github.com/don-charlie-pc" target="_blank">Juan Carlos Perez Castellanos</a>,
     <a href="https://github.com/jdougnac" target="_blank">Juan Dougnac</a>,
@@ -63,8 +63,8 @@ Translated book, autograders, resources, and web site at
        Free <a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.pdf" target="_blank">PDF</a>,
        <a href="http://do1.dr-chuck.com/pythonlearn/IT_it/pythonlearn.epub" target="_blank">EPUB</a>
 </li>
-<li> 
-<a href="https://github.com/vittore/py4e/" target="_blank">Book source on github</a>, 
+<li>
+<a href="https://github.com/vittore/py4e/" target="_blank">Book source on github</a>,
 (Thanks to
 <a href="https://www.linkedin.com/in/alessandrorossetti/" target="_blank">Alessandro Rossetti</a>
 and
@@ -79,22 +79,24 @@ and
         <a href="http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.pdf" target="_blank">PDF</a>,
        <a href="http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.epub" target="_blank">EPUB</a>
         </li>
-        <li> <a href="https://github.com/ras-ufcg/py4e" target="_blank">Book source on github</a> and 
+        <li> <a href="https://github.com/ras-ufcg/py4e" target="_blank">Book source on github</a> and
 <a href="https://github.com/ras-ufcg/py4e/blob/master/RAS_Team_Members.txt" target="_blank">translation team</a>
 (Thanks to <a href="https://twitter.com/yuriloia" target="_blank">Yuri Loia de Medeiros</a>).
 </ul>
 </li>
 <li>
-Polish:
+Polish -
+<a href="https://amzn.to/38M2zjt" target="_blank">Python dla wszystkich: Odkrywanie danych z Python 3</a>
+(<a href="https://www.amazon.pl/gp/product/8396017603" target="_blank">from Amazon.pl</a>)
      <ul class="menu vertical nested is-active">
 <li>
 Translated book, autograders, resources, and web site at
 <a href="https://py4e.pl/" target="blank">https://py4e.pl</a>
 </li>
             <li class="menu-text">
-                <a href="https://py4e.pl/html3">HTML</a>, 
-     <a href="https://py4e.pl/translations/PL/py4e-pl-a4-latest.pdf" target="_blank">PDF (format A4)</a>, 
-<a href="https://py4e.pl/translations/PL/py4e-pl-print-latest.pdf" target="_blank">PDF (format for print)</a>, 
+                <a href="https://py4e.pl/html3">HTML</a>,
+     <a href="https://py4e.pl/translations/PL/py4e-pl-a4-latest.pdf" target="_blank">PDF (format A4)</a>,
+<a href="https://py4e.pl/translations/PL/py4e-pl-print-latest.pdf" target="_blank">PDF (format for print)</a>,
 <a href="https://py4e.pl/translations/PL/py4e-pl-latest.epub" target="_blank">EPUB</a>,
 <a href="https://py4e.pl/translations/PL/py4e-pl-latest.mobi" target="_blank">MOBI</a>
             </li>
@@ -116,7 +118,7 @@ Translated book, autograders, resources, and web site at
         <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.pdf" target="_blank">PDF</a>,
        <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.epub" target="_blank">EPUB</a>
         </li>
-        <li> 
+        <li>
 <a href="https://github.com/RodenLuo/py4e-cn" target="_blank">Book source on github</a> -
 (Thanks to Deng Luo)
 </li>
@@ -131,7 +133,7 @@ https://www.bilibili.com/video/av46649799</a>
 
 <p>
 If you are insterested in starting a translation of the book, I have some
-instructions for 
+instructions for
 <a href="https://github.com/csev/py4e/blob/master/TRANSLATION.md"
  target="_blank">
 getting started</a>.
