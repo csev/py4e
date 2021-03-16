@@ -87,7 +87,8 @@ and
 <li>
 Polish -
 <a href="https://amzn.to/38M2zjt" target="_blank">Python dla wszystkich: Odkrywanie danych z Python 3</a>
-(<a href="https://www.amazon.pl/gp/product/8396017603" target="_blank">from Amazon.pl</a>)
+(<a href="https://www.amazon.pl/gp/product/8396017603" target="_blank">from Amazon.pl</a> and
+<a href="https://www.amazon.de/gp/product/8396017603" target="_blank">from Amazon.de</a>)
      <ul class="menu vertical nested is-active">
 <li>
 Translated book, autograders, resources, and web site at
