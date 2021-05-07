@@ -129,6 +129,12 @@ https://www.bilibili.com/video/av46649799</a>
   </li>
      </ul>
   </li>
+  <li>
+    Russian - In progress
+    <ul>
+    <li><a href="lectures3/ru/index.htm" target="_blank">Russian versions of the slides</a> from
+<a href="https://www.linkedin.com/in/violetta-fomkina-9451372/" target="_blank">Violetta Fomkina</a>.
+</li>
 
 </ul>
 
