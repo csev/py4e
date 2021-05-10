@@ -45,7 +45,7 @@ latest book in github and produces the PDF and EPUB and hosts it online at
 http://do1.dr-chuck.com/pythonlearn/.
 
 In terms of licensing, since the book is CC-NC-SA, you do not need
-my permission to translate, produce, and distributed electronic copies
+my permission to translate, produce, and distribute electronic copies
 of the book.  You do need permission to sell printed copies of the
 translated book - which I am happy to give as long as the translation
 is complete and of high quality.
@@ -54,7 +54,7 @@ I have detailed instructions as to the copyright of the book at:
 
 https://github.com/csev/py4e/blob/master/book3/AB-copyright.mkd
 
-So far (and this is not required) those who have translated my book have given
+So far (and this is not required) most who have translated my book have given
 me permission to publish their work on Amazon and give the profits to charity.
 This works well because it makes these translations widely available.  Sometimes
 it is important to separately publish the printed book in a country that is not
@@ -79,7 +79,7 @@ code snippets untranslated, translate the comments or translate variables and
 prompts.   These files are included every time you build the book (PDF, ePUB, or
 HTML).
 
-There are simple code unit tests that you can run and run via travis at every
+There are simple code unit tests that you can run and run at every
 check in.   There is a `unit.sh` script that you can run in the top level folder:
 
     bash unit.sh
@@ -113,7 +113,7 @@ Translating the Web Site
 If you want to translate the web site, the first place to start is the lecture
 slides in the *lectures3* folder.   Don't worry about keeping the English versions
 of the files - just translate the PPTs in place.  If you want to change the names
-of the files once they are translated, make sure to update the file names 
+of the files once they are translated, make sure to update the file names
 in the file `lessons.json` in the top-level folder to point to your new files.
 
 The next thing to be translated are all the PHP files in the top level folder
@@ -123,8 +123,8 @@ go to the `/lessons` url.
 The next place that needs translation is the autograder.  This code is in the folder
 `tools\pythonauto` - go through all the PHP files.  Pay particular attention to
 the `exercises3.php` file - it drives all the exercises.  You can ignore `exercises.php`
-as it is just a holover from the Python2 version of the course that I will 
-likely cleanup and remove January 1, 2001.
+as it is just a holdover from the Python2 version of the course that I will
+likely cleanup and remove January 1, 2021.
 
 Hosting and Production
 ----------------------
@@ -136,7 +136,7 @@ pay for, and support the site.
 I am happy to build the site and set it up while you are translating so you can see it in action
 and test it live.
 
-There are one of two ways to do it in terms of github.   
+There are one of two ways to do it in terms of github.
 
 * I can set a new organization that holds the translation and make you a co-admin and
 then have the site pull from that repo.  Just because it is my site does not mean that
@@ -147,7 +147,7 @@ is up to you.  The Spanish translation is set up this way:
         https://github.com/csev-es/py4e/   (Chuck's Spanish Translation)
         https:/es.py4e.com                 (Spanish site)
 
-* We can set the site to pull from your forked repo - and then everything you push to master 
+* We can set the site to pull from your forked repo - and then everything you push to master
 just goes into production.  I will make a fork that I will use to follow your work and keep a
 shadow copy updated.  The Italian translation is set up that way:
 
@@ -157,7 +157,8 @@ shadow copy updated.  The Italian translation is set up that way:
 
 In both cases the "forked" relationship between the original English and the translation
 is in effect severed.  It is highly doubtful that there will be any pull requests from
-`csev/py4e` to `csev-es/py4e`.  If there is a needed change it is easier to just re-apply it 
+`csev/py4e` to `csev-es/py4e`.  If there is a needed change it is easier to just re-apply it
 in the translated repo rather than sort it out from all the commits to the English repo.
 
 No matter how you want to set it up, I stand ready to help and provide support.
+
