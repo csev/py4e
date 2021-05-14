@@ -126,12 +126,12 @@ you can assume the user types numbers properly.  Do not name your variable
 sum or use the sum() function.
 ",
 "desired" => "Pay 498.75",
-"code" => 'def computepay(h,r):
+"code" => 'def computepay(h, r):
     return 42.37
 
 hrs = input("Enter Hours:")
-p = computepay(10,20)
-print("Pay",p)',
+p = computepay(10, 20)
+print("Pay", p)',
 "checks" => Array(
 "input" => "You must prompt the pay and rate using the input() function.",
 "print" => "You must use the print statement to print the output.",
@@ -160,7 +160,8 @@ Minimum is 2",
 smallest = None
 while True:
     num = input("Enter a number: ")
-    if num == "done" : break
+    if num == "done":
+        break
     print(num)
 
 print("Maximum", largest)',
@@ -182,7 +183,7 @@ print("Maximum", largest)',
 the number at the end of the line below.   Convert the extracted value to a floating point
 number and print it out.",
 "desired" => "0.8475",
-"code" => 'text = "X-DSPAM-Confidence:    0.8475";',
+"code" => 'text = "X-DSPAM-Confidence:    0.8475"',
 "checks" => Array(
 "find" => "You should use the find function to get the position of the colon in the string.",
 ":" => "You should use string slicing [n:m] to extract data from the string.",
@@ -273,7 +274,8 @@ below enter <b>mbox-short.txt</b> as the file name.',
 fname = input("Enter file name: ")
 fh = open(fname)
 for line in fh:
-    if not line.startswith("X-DSPAM-Confidence:") : continue
+    if not line.startswith("X-DSPAM-Confidence:"):
+        continue
     print(line)
 print("Done")
 ',
@@ -382,7 +384,8 @@ cwen@iupui.edu
 cwen@iupui.edu
 There were 27 lines in the file with From as the first word",
 "code" => 'fname = input("Enter file name: ")
-if len(fname) < 1 : fname = "mbox-short.txt"
+if len(fname) < 1:
+    fname = "mbox-short.txt"
 
 fh = open(fname)
 count = 0
@@ -419,7 +422,8 @@ they appear in the file.  After the dictionary is produced, the program reads th
 the dictionary using a maximum loop to find the most prolific committer.",
 "desired" => "cwen@iupui.edu 5",
 "code" => 'name = input("Enter file:")
-if len(name) < 1 : name = "mbox-short.txt"
+if len(name) < 1:
+    name = "mbox-short.txt"
 handle = open(name)
 ',
 "xcode" => 'name = input("Enter file:")
@@ -473,7 +477,8 @@ as shown below.",
 18 1
 19 1",
 "code" => 'name = input("Enter file:")
-if len(name) < 1 : name = "mbox-short.txt"
+if len(name) < 1:
+    name = "mbox-short.txt"
 handle = open(name)
 ',
 "xcode" => 'name = input("Enter file:")
