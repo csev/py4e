@@ -36,8 +36,10 @@ Go into the newly checked out folder and get a copy of Tsugi:
 Create a database in your SQL server:
 
     CREATE DATABASE tsugi DEFAULT CHARACTER SET utf8;
-    GRANT ALL ON tsugi.* TO 'ltiuser'@'localhost' IDENTIFIED BY 'ltipassword';
-    GRANT ALL ON tsugi.* TO 'ltiuser'@'127.0.0.1' IDENTIFIED BY 'ltipassword';
+    CREATE USER 'ltiuser'@'localhost' IDENTIFIED BY 'ltipassword';
+    GRANT ALL ON tsugi.* TO 'ltiuser'@'localhost';
+    CREATE USER 'ltiuser'@'127.0.0.1' IDENTIFIED BY 'ltipassword';
+    GRANT ALL ON tsugi.* TO 'ltiuser'@'127.0.0.1';
 
 Still in the tsugi folder set up config.php:
 
