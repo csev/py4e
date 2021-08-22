@@ -1,0 +1,1118 @@
+1
+00:00:00,542 --> 00:00:03,016
+- Hello, and welcome back
+to Hardware Architecture.
+
+2
+00:00:03,016 --> 00:00:04,157
+Now you might ask,
+
+3
+00:00:04,157 --> 00:00:07,990
+why do I tell you about
+hardware architecture?
+
+4
+00:00:09,009 --> 00:00:11,541
+Probably you're not
+gonna build any hardware,
+
+5
+00:00:11,541 --> 00:00:14,072
+although it's fun stuff to
+do and if you're gonna become
+
+6
+00:00:14,072 --> 00:00:17,375
+a computer scientist, which
+most of you won't want to be,
+
+7
+00:00:17,375 --> 00:00:19,430
+it's a great thing to study.
+
+8
+00:00:19,430 --> 00:00:22,455
+Those who build our hardware
+are amazingly talented
+
+9
+00:00:22,455 --> 00:00:26,414
+individuals and it's a
+really rewarding job.
+
+10
+00:00:26,414 --> 00:00:28,739
+The reason I like talking
+to you about hardware
+
+11
+00:00:28,739 --> 00:00:31,919
+is because I want to be able
+to use words at some point
+
+12
+00:00:31,919 --> 00:00:33,543
+and say, oh, secondary storage,
+
+13
+00:00:33,543 --> 00:00:38,133
+or central processing unit,
+or random access memory,
+
+14
+00:00:38,133 --> 00:00:40,744
+or peripherals, input devices.
+
+15
+00:00:40,744 --> 00:00:41,951
+And I wanna be able to say those words
+
+16
+00:00:41,951 --> 00:00:44,171
+and I want you to be
+able to understand them.
+
+17
+00:00:44,171 --> 00:00:46,053
+I'll start with a little piece of hardware
+
+18
+00:00:46,053 --> 00:00:47,929
+called the Raspberry Pi.
+
+19
+00:00:47,929 --> 00:00:51,528
+And the Raspberry Pi is a cute
+little single-board computer.
+
+20
+00:00:51,528 --> 00:00:54,424
+As we go forward, these things are smaller
+
+21
+00:00:54,424 --> 00:00:56,318
+and smaller and smaller.
+
+22
+00:00:56,318 --> 00:00:58,255
+And the interesting thing is is that
+
+23
+00:00:58,255 --> 00:01:00,126
+the architecture of these stays the same
+
+24
+00:01:00,126 --> 00:01:03,043
+but the number of components drops.
+
+25
+00:01:03,902 --> 00:01:07,735
+I'm gonna start and give you
+a block diagram of sort of
+
+26
+00:01:07,735 --> 00:01:12,297
+a generic computer, and tell
+you the major parts of it.
+
+27
+00:01:12,297 --> 00:01:16,083
+I'm gonna show you some
+really old hardware,
+
+28
+00:01:16,083 --> 00:01:18,827
+some really new hardware,
+and then some hardware
+
+29
+00:01:18,827 --> 00:01:20,660
+that is of medium age.
+
+30
+00:01:21,551 --> 00:01:23,107
+And the medium age hardware is
+
+31
+00:01:23,107 --> 00:01:24,659
+probably the easiest one to see.
+
+32
+00:01:24,659 --> 00:01:27,991
+The architecture is the same, okay?
+
+33
+00:01:27,991 --> 00:01:32,408
+And so the basic block
+diagram is that the brains,
+
+34
+00:01:32,408 --> 00:01:36,199
+if there are brains in computers,
+which there really aren't.
+
+35
+00:01:36,199 --> 00:01:38,743
+The software is the closest
+thing computers have to brains.
+
+36
+00:01:38,743 --> 00:01:41,801
+But in hardware, the closest
+brain the computer has is this,
+
+37
+00:01:41,801 --> 00:01:45,968
+called a micro processing unit,
+or a central processor unit.
+
+38
+00:01:47,313 --> 00:01:51,063
+This is designed three
+billion times a second
+
+39
+00:01:52,465 --> 00:01:55,409
+to ask the question, what
+do you want me to do next?
+
+40
+00:01:55,409 --> 00:01:58,642
+And these little pins on the
+back are our instructions,
+
+41
+00:01:58,642 --> 00:02:02,268
+like 32 or 64 of these
+pins, three billion times
+
+42
+00:02:02,268 --> 00:02:06,721
+a second we send an
+instruction into these things.
+
+43
+00:02:06,721 --> 00:02:10,026
+We can't sit there and
+talk to it, we can't.
+
+44
+00:02:10,026 --> 00:02:12,249
+So the instructions we store in
+
+45
+00:02:12,249 --> 00:02:14,245
+what's called the main memory.
+
+46
+00:02:14,245 --> 00:02:16,168
+And this memory is really fast.
+
+47
+00:02:16,168 --> 00:02:18,582
+The memory sort of feeds this.
+
+48
+00:02:18,582 --> 00:02:21,714
+So every time the CPU
+needs a new instruction,
+
+49
+00:02:21,714 --> 00:02:24,279
+it asks the memory where
+that instruction is.
+
+50
+00:02:24,279 --> 00:02:26,540
+And so the memory feeds
+the instruction to the CPU,
+
+51
+00:02:26,540 --> 00:02:28,771
+the CPU does it, says give
+me another instruction,
+
+52
+00:02:28,771 --> 00:02:30,905
+CPU does it, gives me another instruction.
+
+53
+00:02:30,905 --> 00:02:34,802
+And that is the basic
+essence of programming.
+
+54
+00:02:34,802 --> 00:02:36,853
+This asks what's next and this is
+
+55
+00:02:36,853 --> 00:02:39,464
+where your program is stored, or a program
+
+56
+00:02:39,464 --> 00:02:41,834
+you purchased or came with your hardware,
+
+57
+00:02:41,834 --> 00:02:46,001
+where that's all stored,
+and those are your places.
+
+58
+00:02:47,840 --> 00:02:51,173
+Your programs end up inside this memory.
+
+59
+00:02:54,021 --> 00:02:58,009
+In software you tend to program the CPU.
+
+60
+00:02:58,009 --> 00:03:00,531
+And if you had bought a desktop computer
+
+61
+00:03:00,531 --> 00:03:02,301
+a number of years back, it would have
+
+62
+00:03:02,301 --> 00:03:04,230
+this thing called the motherboard.
+
+63
+00:03:04,230 --> 00:03:06,420
+And the motherboard is
+called this because it
+
+64
+00:03:06,420 --> 00:03:09,031
+kinda connects all the
+components together.
+
+65
+00:03:09,031 --> 00:03:11,875
+And so if you buy memory
+by itself, it does nothing,
+
+66
+00:03:11,875 --> 00:03:14,338
+but it has a place to plug
+in to the motherboard.
+
+67
+00:03:14,338 --> 00:03:16,308
+And if you buy a microprocessor,
+
+68
+00:03:16,308 --> 00:03:20,058
+it has a place to plug
+in to the motherboard.
+
+69
+00:03:21,992 --> 00:03:24,325
+And if you buy a hard drive,
+
+70
+00:03:26,018 --> 00:03:28,402
+this is a really old hard drive,
+
+71
+00:03:28,402 --> 00:03:30,418
+it has a place to plug
+in on the motherboard.
+
+72
+00:03:30,418 --> 00:03:32,933
+And so the motherboard sorta
+connects everything together.
+
+73
+00:03:32,933 --> 00:03:35,933
+The hard drive is secondary storage.
+
+74
+00:03:36,828 --> 00:03:41,644
+How secondary storage is
+different than the main memory,
+
+75
+00:03:41,644 --> 00:03:45,394
+which there it is, I
+gotta unpile this stuff.
+
+76
+00:03:46,620 --> 00:03:50,545
+So this main memory is really
+fast, but as soon as you
+
+77
+00:03:50,545 --> 00:03:54,117
+turn the power off of this
+memory, it sort of vanishes.
+
+78
+00:03:54,117 --> 00:03:56,874
+And so to store files
+like word processing files
+
+79
+00:03:56,874 --> 00:04:00,135
+or text files, or
+whatever, you gotta start
+
+80
+00:04:00,135 --> 00:04:02,675
+on something that lasts
+a little bit longer.
+
+81
+00:04:02,675 --> 00:04:05,990
+And so that's the purpose
+of the secondary storage,
+
+82
+00:04:05,990 --> 00:04:09,328
+it's permanent, when the
+power's off, it stores it.
+
+83
+00:04:09,328 --> 00:04:12,165
+Now this one here is in
+such bad shape it isn't
+
+84
+00:04:12,165 --> 00:04:15,483
+probably storing anything, but
+it's got these little heads
+
+85
+00:04:15,483 --> 00:04:18,817
+and it spins around and goes in and out.
+
+86
+00:04:18,817 --> 00:04:21,648
+We'll have a video later
+that shows you one of
+
+87
+00:04:21,648 --> 00:04:24,091
+these things that's not
+quite in as bad of shape.
+
+88
+00:04:24,091 --> 00:04:26,732
+If you look, this has
+four different platters
+
+89
+00:04:26,732 --> 00:04:28,744
+that are all spinnin' around.
+
+90
+00:04:28,744 --> 00:04:32,369
+So this is just using magnetic
+material and electronics
+
+91
+00:04:32,369 --> 00:04:35,947
+that sort of magnetize and
+demagnetize this stuff.
+
+92
+00:04:35,947 --> 00:04:38,584
+And if you look at a
+disk, they're often rated,
+
+93
+00:04:38,584 --> 00:04:41,374
+physical disks are rated
+in revolutions per minute,
+
+94
+00:04:41,374 --> 00:04:43,717
+and that's how many times
+this thing spins around.
+
+95
+00:04:43,717 --> 00:04:46,499
+If you got an old desktop
+and you hear it spin up,
+
+96
+00:04:46,499 --> 00:04:48,630
+this is the thing that's spinning.
+
+97
+00:04:48,630 --> 00:04:51,134
+And it's the place that
+your operating system lives,
+
+98
+00:04:51,134 --> 00:04:54,364
+your files live, your
+applications live while they're
+
+99
+00:04:54,364 --> 00:04:56,220
+stored and while the
+computer's turned off.
+
+100
+00:04:56,220 --> 00:04:59,719
+And then they're loaded into
+this while they're running,
+
+101
+00:04:59,719 --> 00:05:00,636
+and then...
+
+102
+00:05:07,162 --> 00:05:09,904
+this CPU takes the data from
+
+103
+00:05:09,904 --> 00:05:12,571
+the main memory and your program
+
+104
+00:05:13,860 --> 00:05:17,527
+runs at three billion
+operations per second.
+
+105
+00:05:18,690 --> 00:05:20,588
+Let's talk a little bit
+about something that,
+
+106
+00:05:20,588 --> 00:05:23,921
+this is probably from the 1960s or '70s.
+
+107
+00:05:24,963 --> 00:05:29,206
+This actually has, if you're
+an electrical person, it has
+
+108
+00:05:29,206 --> 00:05:33,373
+capacitors, those little
+silver things are capacitors.
+
+109
+00:05:34,438 --> 00:05:37,437
+These little colored things are resisters,
+
+110
+00:05:37,437 --> 00:05:39,540
+and that's more capacitors,
+and then there's wires,
+
+111
+00:05:39,540 --> 00:05:41,597
+and wires move everything.
+
+112
+00:05:41,597 --> 00:05:45,527
+So when you say this has
+millions of transistors,
+
+113
+00:05:45,527 --> 00:05:48,785
+oh wait, that isn't a
+capacitor, that's a transistor.
+
+114
+00:05:48,785 --> 00:05:50,075
+That's a transistor.
+
+115
+00:05:50,075 --> 00:05:52,943
+When you say that this here has etched,
+
+116
+00:05:52,943 --> 00:05:54,325
+and it you look closely at this,
+
+117
+00:05:54,325 --> 00:05:56,642
+go look at a picture of
+a microprocessor online,
+
+118
+00:05:56,642 --> 00:05:59,113
+you will see that is
+has millions of these.
+
+119
+00:05:59,113 --> 00:06:02,780
+And so the difference
+between 1960 and today
+
+120
+00:06:04,104 --> 00:06:06,771
+is this circuitry of capacitors,
+
+121
+00:06:08,529 --> 00:06:10,779
+resistors, and transistors,
+
+122
+00:06:11,826 --> 00:06:14,871
+has been micro-ized and put onto this.
+
+123
+00:06:14,871 --> 00:06:17,242
+It's using a photographic process
+
+124
+00:06:17,242 --> 00:06:20,577
+and they're tinier and tinier,
+and putting more and more on.
+
+125
+00:06:20,577 --> 00:06:23,150
+And if you think going from millions
+
+126
+00:06:23,150 --> 00:06:26,748
+of these to one of these is crazy,
+
+127
+00:06:26,748 --> 00:06:28,671
+the thing that's happening now,
+
+128
+00:06:28,671 --> 00:06:31,589
+and the reason we have whole
+computers inside our pocket,
+
+129
+00:06:31,589 --> 00:06:35,734
+is that everything, all
+of this, this whole thing,
+
+130
+00:06:35,734 --> 00:06:39,391
+CPU, memory, everything,
+all of it connected,
+
+131
+00:06:39,391 --> 00:06:42,775
+and the storage, is being
+made smaller and smaller.
+
+132
+00:06:42,775 --> 00:06:44,680
+And so this little single-board computer
+
+133
+00:06:44,680 --> 00:06:47,513
+called a Raspberry Pi,
+has one thing in it.
+
+134
+00:06:47,513 --> 00:06:50,497
+It has the main memory,
+and it has the CPU,
+
+135
+00:06:50,497 --> 00:06:52,683
+it has connections for
+thing like peripherals
+
+136
+00:06:52,683 --> 00:06:54,227
+like keyboards and stuff.
+
+137
+00:06:54,227 --> 00:06:56,744
+Now it doesn't yet have
+secondary storage on it,
+
+138
+00:06:56,744 --> 00:07:00,919
+the secondary storage gets
+plugged in right here by a USB.
+
+139
+00:07:00,919 --> 00:07:04,644
+And then if you take it one
+step farther to my phone,
+
+140
+00:07:04,644 --> 00:07:08,868
+it's got the secondary
+storage built right in.
+
+141
+00:07:08,868 --> 00:07:12,850
+This picture goes from the size
+of cabinets in the old days,
+
+142
+00:07:12,850 --> 00:07:15,708
+all the way down to really tiny.
+
+143
+00:07:15,708 --> 00:07:19,232
+But at the end of the
+day, inside it is a highly
+
+144
+00:07:19,232 --> 00:07:21,736
+sophisticated piece of
+circuitry that asks for
+
+145
+00:07:21,736 --> 00:07:25,204
+instructions one at a time and main memory
+
+146
+00:07:25,204 --> 00:07:29,039
+that holds the instructions
+and feeds them.
+
+147
+00:07:29,039 --> 00:07:31,789
+Central processor does the
+thinking, take a look here.
+
+148
+00:07:31,789 --> 00:07:35,168
+Central processor does the
+thinking, it run the program,
+
+149
+00:07:35,168 --> 00:07:38,345
+it's asking what's next,
+it's not really smart,
+
+150
+00:07:38,345 --> 00:07:39,607
+but it's really fast.
+
+151
+00:07:39,607 --> 00:07:43,289
+And so we compensate for
+the lack of intelligence
+
+152
+00:07:43,289 --> 00:07:46,336
+of this thing by us writing
+really good software
+
+153
+00:07:46,336 --> 00:07:47,597
+that runs really fast.
+
+154
+00:07:47,597 --> 00:07:50,476
+And so voice recognition
+on things like phones
+
+155
+00:07:50,476 --> 00:07:53,727
+is possible because computers
+have so much storage
+
+156
+00:07:53,727 --> 00:07:56,376
+and they run so fast
+and the algorithms that
+
+157
+00:07:56,376 --> 00:08:00,442
+do voice recognition are
+finally starting to work.
+
+158
+00:08:00,442 --> 00:08:03,625
+Input devices like
+keyboards and mice and pens
+
+159
+00:08:03,625 --> 00:08:05,627
+and whatever, they come in.
+
+160
+00:08:05,627 --> 00:08:08,360
+Output devices are like
+the screens that we see.
+
+161
+00:08:08,360 --> 00:08:11,230
+The main memory is the
+fast part of the computer
+
+162
+00:08:11,230 --> 00:08:12,865
+that stores all the programs.
+
+163
+00:08:12,865 --> 00:08:16,297
+And the secondary memory
+is the permanent storage.
+
+164
+00:08:16,297 --> 00:08:19,047
+Increasingly, secondary memory...
+
+165
+00:08:20,056 --> 00:08:22,719
+Do I have any USB sticks in here?
+
+166
+00:08:22,719 --> 00:08:23,958
+I don't.
+
+167
+00:08:23,958 --> 00:08:28,041
+Well, increasingly secondary
+memory is flash RAM,
+
+168
+00:08:28,965 --> 00:08:30,048
+or static RAM
+
+169
+00:08:31,648 --> 00:08:33,398
+with no moving parts.
+
+170
+00:08:34,478 --> 00:08:36,987
+In a few years you'll
+not even be able to see
+
+171
+00:08:36,987 --> 00:08:39,866
+secondary memory with moving parts.
+
+172
+00:08:39,866 --> 00:08:42,155
+But that's okay, it's
+still secondary memory,
+
+173
+00:08:42,155 --> 00:08:44,572
+it's still memory that lasts.
+
+174
+00:08:45,471 --> 00:08:48,584
+And so you and where
+your place is in here,
+
+175
+00:08:48,584 --> 00:08:50,901
+is you live in the main
+memory, this is you.
+
+176
+00:08:50,901 --> 00:08:52,349
+You are here.
+
+177
+00:08:52,349 --> 00:08:55,658
+And so in a sense, when
+the CPU asks the question,
+
+178
+00:08:55,658 --> 00:08:58,124
+what next? It is your job to answer that.
+
+179
+00:08:58,124 --> 00:09:00,920
+And you answer that by
+writing Python code.
+
+180
+00:09:00,920 --> 00:09:03,751
+So your Python code, you'll
+write a file in Python code,
+
+181
+00:09:03,751 --> 00:09:05,619
+blah blah blah blah blah blah blah.
+
+182
+00:09:05,619 --> 00:09:08,838
+And then that Python code sort
+of gets loaded in the main
+
+183
+00:09:08,838 --> 00:09:11,594
+memory, there's a magic
+translation process that happens.
+
+184
+00:09:11,594 --> 00:09:15,093
+And then your code is actually
+answering this question
+
+185
+00:09:15,093 --> 00:09:16,693
+three billion times a second.
+
+186
+00:09:16,693 --> 00:09:18,985
+Three billion times a
+second, you're sitting there,
+
+187
+00:09:18,985 --> 00:09:22,594
+but this is you, you're really
+out here, but you then write
+
+188
+00:09:22,594 --> 00:09:25,561
+a file and the file's loaded
+in and then the files runs.
+
+189
+00:09:25,561 --> 00:09:27,589
+And that's how things are at.
+
+190
+00:09:27,589 --> 00:09:30,528
+And that's your place in the world.
+
+191
+00:09:30,528 --> 00:09:33,651
+What's actually running
+is not Python code,
+
+192
+00:09:33,651 --> 00:09:36,349
+there is, as I said,
+a translation process.
+
+193
+00:09:36,349 --> 00:09:40,668
+You write a Python file, and
+then Python itself translates
+
+194
+00:09:40,668 --> 00:09:44,835
+this into the actual language
+known by the micro processor.
+
+195
+00:09:45,902 --> 00:09:48,379
+Which is a series of zeros and
+ones called machine language.
+
+196
+00:09:48,379 --> 00:09:50,855
+Some day I would love
+to teach you a class on
+
+197
+00:09:50,855 --> 00:09:53,665
+machine language, but for now
+we're gonna teach you Python
+
+198
+00:09:53,665 --> 00:09:55,435
+and we're gonna use Python as a crutch,
+
+199
+00:09:55,435 --> 00:09:58,125
+we don't have to talk machine
+language, but you could.
+
+200
+00:09:58,125 --> 00:10:00,488
+If you really wanted to,
+you could know how to write
+
+201
+00:10:00,488 --> 00:10:02,812
+machine language but
+I assure you Python is
+
+202
+00:10:02,812 --> 00:10:06,206
+far easier to learn than machine language.
+
+203
+00:10:06,206 --> 00:10:09,317
+So Python acts as a translator,
+translates what you're
+
+204
+00:10:09,317 --> 00:10:11,781
+doing into machine language,
+and then the machine language
+
+205
+00:10:11,781 --> 00:10:14,111
+is what's sent back and forth.
+
+206
+00:10:14,111 --> 00:10:16,187
+But still, even though it's
+translated to machine language,
+
+207
+00:10:16,187 --> 00:10:19,311
+it's you, it is you
+answering those questions.
+
+208
+00:10:19,311 --> 00:10:22,088
+And that's what a program
+is, is you pre-storing
+
+209
+00:10:22,088 --> 00:10:24,692
+your response to the what next question
+
+210
+00:10:24,692 --> 00:10:27,154
+over and over again.
+
+211
+00:10:27,154 --> 00:10:28,555
+So here's a couple of videos that
+
+212
+00:10:28,555 --> 00:10:31,527
+you can look at on YouTube about a CPU.
+
+213
+00:10:31,527 --> 00:10:33,426
+These CPUs, and it looks very much
+
+214
+00:10:33,426 --> 00:10:36,656
+like this CPU that I've got with me,
+
+215
+00:10:36,656 --> 00:10:39,573
+these CPUs run extremely high heat.
+
+216
+00:10:40,908 --> 00:10:43,470
+When you put your computer on your lap
+
+217
+00:10:43,470 --> 00:10:45,434
+and it starts to heat up, that means it's
+
+218
+00:10:45,434 --> 00:10:47,443
+thinking really, really hard.
+
+219
+00:10:47,443 --> 00:10:50,268
+And so this is a small little old video
+
+220
+00:10:50,268 --> 00:10:52,843
+from a long time ago that
+shows what happens when you
+
+221
+00:10:52,843 --> 00:10:56,728
+you take out the cooling
+capability of microprocessors,
+
+222
+00:10:56,728 --> 00:10:59,091
+and just how hot they can be.
+
+223
+00:10:59,091 --> 00:11:02,971
+And the other video that
+I have is a hard disk,
+
+224
+00:11:02,971 --> 00:11:06,084
+something like this hard disk that I have,
+
+225
+00:11:06,084 --> 00:11:09,105
+except that it works and
+they turn the power on.
+
+226
+00:11:09,105 --> 00:11:11,458
+Some of them last for a few seconds,
+
+227
+00:11:11,458 --> 00:11:15,123
+some of them last for a few minutes.
+
+228
+00:11:15,123 --> 00:11:17,373
+(sneezing)
+
+229
+00:11:19,463 --> 00:11:22,252
+I must be allergic to this hard drive,
+
+230
+00:11:22,252 --> 00:11:24,630
+or maybe it's 'cause there's
+dust in the hard drive
+
+231
+00:11:24,630 --> 00:11:27,630
+and I keep spinning it and I sneeze.
+
+232
+00:11:28,707 --> 00:11:31,890
+But basically, some of them
+last for a few seconds,
+
+233
+00:11:31,890 --> 00:11:33,398
+some of them last for a few minutes.
+
+234
+00:11:33,398 --> 00:11:35,062
+It's not a good idea to open them up,
+
+235
+00:11:35,062 --> 00:11:36,938
+but I'm glad somebody
+opened it up and then
+
+236
+00:11:36,938 --> 00:11:39,288
+did what they did and
+then recorded it so we
+
+237
+00:11:39,288 --> 00:11:44,035
+can all enjoy what it is that
+they're capable of doing.
+
+238
+00:11:44,035 --> 00:11:46,887
+So that's a quick
+introduction to hardware,
+
+239
+00:11:46,887 --> 00:11:50,338
+mostly so that I can use
+those words going forward.
+
+240
+00:11:50,338 --> 00:11:53,421
+What we're gonna talk
+about next is communicating
+
+241
+00:11:53,421 --> 00:11:56,393
+in the language Python,
+that is writing code and
+
+242
+00:11:56,393 --> 00:11:59,227
+putting it into the computer
+so that that can execute,
+
+243
+00:11:59,227 --> 00:12:00,060
+okay?
+
