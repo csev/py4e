@@ -8,7 +8,7 @@ function buildMenu() {
     $set = new \Tsugi\UI\MenuSet();
     $set->setHome($CFG->servicename, $CFG->apphome);
     $set->addLeft('Lessons', $R.'lessons');
-    if ( isset($CFG->tdiscus) && $CFG->tdiscus  ) $set->addLeft('Discussions', $R.'discussions');
+    if ( isset($CFG->tdiscus) && $CFG->tdiscus ) $set->addLeft('Discussions', $R.'discussions');
     if ( isset($_SESSION['id']) ) {
         $set->addLeft('Assignments', $R.'assignments');
     } else {
