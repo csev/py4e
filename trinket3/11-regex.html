@@ -8,6 +8,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -11748,16 +11749,17 @@ You can modify how you receive notifications at My Workspace > Preferences.
 
 -->
 <p>We read each line and then extract all the substrings that match our regular expression. Since <code>findall()</code> returns a list, we simply check if the number of elements in our returned list is more than zero to print only lines where we found at least one substring that looks like an email address.</p>
-<p>If we run the program on <em>mbox.txt</em> we get the following output:</p>
-<pre><code>[&#39;wagnermr@iupui.edu&#39;]
-[&#39;cwen@iupui.edu&#39;]
-[&#39;&lt;postmaster@collab.sakaiproject.org&gt;&#39;]
-[&#39;&lt;200801032122.m03LMFo4005148@nakamura.uits.iupui.edu&gt;&#39;]
-[&#39;&lt;source@collab.sakaiproject.org&gt;;&#39;]
+<p>If we run the program on <em>mbox-short.txt</em> we get the following output:</p>
+<pre><code>...
 [&#39;&lt;source@collab.sakaiproject.org&gt;;&#39;]
 [&#39;&lt;source@collab.sakaiproject.org&gt;;&#39;]
 [&#39;apache@localhost)&#39;]
-[&#39;source@collab.sakaiproject.org;&#39;]</code></pre>
+[&#39;source@collab.sakaiproject.org;&#39;]
+[&#39;cwen@iupui.edu&#39;]
+[&#39;source@collab.sakaiproject.org&#39;]
+[&#39;cwen@iupui.edu&#39;]
+[&#39;cwen@iupui.edu&#39;]
+[&#39;wagnermr@iupui.edu&#39;]</code></pre>
 <p>Some of our email addresses have incorrect characters like “&lt;” or “;” at the beginning or end. Let’s declare that we are only interested in the portion of the string that starts and ends with a letter or a number.</p>
 <p>To do this, we use another feature of regular expressions. Square brackets are used to indicate a set of multiple acceptable characters we are willing to consider matching. In a sense, the <code>\S</code> is asking to match the set of “non-whitespace characters”. Now we will be a little more explicit in terms of the characters we will match.</p>
 <p>Here is our new regular expression:</p>
@@ -11775,7 +11777,7 @@ import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    x = re.findall('[a-zA-Z0-9]\S+@\S+[a-zA-Z]', line)
+    x = re.findall('[a-zA-Z0-9]\S*@\S*[a-zA-Z]', line)
     if len(x) > 0:
         print(x)
 
@@ -15648,7 +15650,8 @@ You can modify how you receive notifications at My Workspace > Preferences.
 <pre><code>X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000
 X-DSPAM-Confidence: 0.6178
-X-DSPAM-Probability: 0.0000</code></pre>
+X-DSPAM-Probability: 0.0000
+...</code></pre>
 <p>But now we have to solve the problem of extracting the numbers. While it would be simple enough to use <code>split</code>, we can use another feature of regular expressions to both search and parse the line at the same time.</p>
 <p></p>
 <p>Parentheses are another special character in regular expressions. When you add parentheses to a regular expression, they are ignored when matching the string. But when you are using <code>findall()</code>, parentheses indicate that while you want the whole expression to match, you only are interested in extracting a portion of the substring that matches the regular expression.</p>
@@ -17593,7 +17596,7 @@ You can modify how you receive notifications at My Workspace > Preferences.
 [&#39;0.0000&#39;]
 [&#39;0.6961&#39;]
 [&#39;0.0000&#39;]
-..</code></pre>
+...</code></pre>
 <p>The numbers are still in a list and need to be converted from strings to floating point, but we have used the power of regular expressions to both search and extract the information we found interesting.</p>
 <p>As another example of this technique, if you look at the file there are a number of lines of the form:</p>
 <pre><code>Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772</code></pre>
@@ -17603,13 +17606,13 @@ You can modify how you receive notifications at My Workspace > Preferences.
 </iframe>
 <!--
 # Search for lines that start with 'Details: rev='
-# followed by numbers and '.'
-# Then print the number if it is greater than zero
+# followed by numbers
+# Then print the number if one is found
 import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    x = re.findall('^Details:.*rev=([0-9.]+)', line)
+    x = re.findall('^Details:.*rev=([0-9]+)', line)
     if len(x) > 0:
         print(x)
 
@@ -21484,9 +21487,9 @@ You can modify how you receive notifications at My Workspace > Preferences.
 <h2 id="escape-character">Escape character</h2>
 <p>Since we use special characters in regular expressions to match the beginning or end of a line or specify wild cards, we need a way to indicate that these characters are “normal” and we want to match the actual character such as a dollar sign or caret.</p>
 <p>We can indicate that we want to simply match a character by prefixing that character with a backslash. For example, we can find money amounts with the following regular expression.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="im">import</span> re</span>
-<span id="cb19-2"><a href="#cb19-2"></a>x <span class="op">=</span> <span class="st">&#39;We just received $10.00 for cookies.&#39;</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>y <span class="op">=</span> re.findall(<span class="st">&#39;\$[0-9.]+&#39;</span>,x)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;We just received $10.00 for cookies.&#39;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> re.findall(<span class="st">&#39;\$[0-9.]+&#39;</span>,x)</span></code></pre></div>
 <p>Since we prefix the dollar sign with a backslash, it actually matches the dollar sign in the input string instead of matching the “end of line”, and the rest of the regular expression matches one or more digits or the period character. <em>Note:</em> Inside square brackets, characters are not “special”. So when we say <code>[0-9.]</code>, it really means digits or a period. Outside of square brackets, a period is the “wild-card” character and matches any character. Inside square brackets, the period is a period.</p>
 <h2 id="summary">Summary</h2>
 <p>While this only scratched the surface of regular expressions, we have learned a bit about the language of regular expressions. They are search strings with special characters in them that communicate your wishes to the regular expression system as to what defines “matching” and what is extracted from the matched strings. Here are some of those special characters and character sequences:</p>
@@ -21513,18 +21516,18 @@ You can modify how you receive notifications at My Workspace > Preferences.
 <p>Support for searching files using regular expressions was built into the Unix operating system since the 1960s and it is available in nearly all programming languages in one form or another.</p>
 <p></p>
 <p>As a matter of fact, there is a command-line program built into Unix called <em>grep</em> (Generalized Regular Expression Parser) that does pretty much the same as the <code>search()</code> examples in this chapter. So if you have a Macintosh or Linux system, you can try the following commands in your command-line window.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1"></a>$ <span class="fu">grep</span> <span class="st">&#39;^From:&#39;</span> mbox-short.txt</span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="ex">From</span>: stephen.marquard@uct.ac.za</span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="ex">From</span>: louis@media.berkeley.edu</span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="ex">From</span>: zqian@umich.edu</span>
-<span id="cb20-5"><a href="#cb20-5"></a><span class="ex">From</span>: rjlowe@iupui.edu</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> grep <span class="st">&#39;^From:&#39;</span> mbox-short.txt</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">From:</span> stephen.marquard@uct.ac.za</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="ex">From:</span> louis@media.berkeley.edu</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="ex">From:</span> zqian@umich.edu</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="ex">From:</span> rjlowe@iupui.edu</span></code></pre></div>
 <p>This tells <code>grep</code> to show you lines that start with the string “From:” in the file <em>mbox-short.txt</em>. If you experiment with the <code>grep</code> command a bit and read the documentation for <code>grep</code>, you will find some subtle differences between the regular expression support in Python and the regular expression support in <code>grep</code>. As an example, <code>grep</code> does not support the non-blank character <code>\S</code> so you will need to use the slightly more complex set notation <code>[^ ]</code>, which simply means match a character that is anything other than a space.</p>
 <h2 id="debugging">Debugging</h2>
 <p>Python has some simple and rudimentary built-in documentation that can be quite helpful if you need a quick refresher to trigger your memory about the exact name of a particular method. This documentation can be viewed in the Python interpreter in interactive mode.</p>
 <p>You can bring up an interactive help system using <code>help()</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>()</span>
-<span id="cb21-2"><a href="#cb21-2"></a></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="bu">help</span><span class="op">&gt;</span> modules</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">help</span><span class="op">&gt;</span> modules</span></code></pre></div>
 <p>If you know what module you want to use, you can use the <code>dir()</code> command to find the methods in the module as follows:</p>
 <script type="text/javascript">(function(d,l,s,i,c){function n(e){e=e.nextSibling;return (!e||e.nodeType!=3)?e:n(e);};function r(f){/in/.test(d.readyState) ? setTimeout(function(){r(f);},9):f()};l=d.getElementsByTagName('script');s=l[l.length-1];r(function(){i=n(s),c=n(i);i.setAttribute('data-src','https://trinket.io/tools/1.0/jekyll/embed/python3?runMode=console&outputOnly=true#code='+encodeURIComponent(c.nodeValue.replace(/^\s+|\s+$/g,'')));});})(document)</script>
 <iframe width="100%" height="200" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen class="lazy lazyload">

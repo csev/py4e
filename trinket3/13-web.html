@@ -8,6 +8,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -147,17 +148,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There are two common formats that we use when exchanging data across the web. eXtensible Markup Language (XML) has been in use for a very long time and is best suited for exchanging document-style data. When programs just want to exchange dictionaries, lists, or other internal information with each other, they use JavaScript Object Notation (JSON) (see <a href="http://www.json.org">www.json.org</a>). We will look at both formats.</p>
 <h2 id="extensible-markup-language---xml">eXtensible Markup Language - XML</h2>
 <p>XML looks very similar to HTML, but XML is more structured than HTML. Here is a sample of an XML document:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">&lt;person&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="kw">&lt;name&gt;</span>Chuck<span class="kw">&lt;/name&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>  <span class="kw">&lt;phone</span><span class="ot"> type=</span><span class="st">&quot;intl&quot;</span><span class="kw">&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>    +1 734 303 4456</span>
-<span id="cb1-5"><a href="#cb1-5"></a>  <span class="kw">&lt;/phone&gt;</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>  <span class="kw">&lt;email</span><span class="ot"> hide=</span><span class="st">&quot;yes&quot;</span> <span class="kw">/&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">&lt;/person&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">person</span>&gt;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">name</span>&gt;Chuck&lt;/<span class="kw">name</span>&gt;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">phone</span><span class="ot"> type=</span><span class="st">&quot;intl&quot;</span>&gt;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    +1 734 303 4456</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">phone</span>&gt;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">email</span><span class="ot"> hide=</span><span class="st">&quot;yes&quot;</span> /&gt;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">person</span>&gt;</span></code></pre></div>
 <p>Each pair of opening (e.g., <code>&lt;person&gt;</code>) and closing tags (e.g., <code>&lt;/person&gt;</code>) represents a <em>element</em> or <em>node</em> with the same name as the tag (e.g., <code>person</code>). Each element can have some text, some attributes (e.g., <code>hide</code>), and other nested elements. If an XML element is empty (i.e., has no content), then it may be depicted by a self-closing tag (e.g., <code>&lt;email /&gt;</code>).</p>
 <p>Often it is helpful to think of an XML document as a tree structure where there is a top element (here: <code>person</code>), and other tags (e.g., <code>phone</code>) are drawn as <em>children</em> of their <em>parent</em> elements.</p>
 <figure>
-<img src="../images/xml-tree.svg" alt="" /><figcaption>A Tree Representation of XML</figcaption>
+<img src="../images/xml-tree.svg" alt="A Tree Representation of XML" style="height: 2.0in;"/>
+<figcaption>
+A Tree Representation of XML
+</figcaption>
 </figure>
 <h2 id="parsing-xml">Parsing XML</h2>
 <p>  </p>
@@ -233,29 +237,29 @@ Name Brent
 Id 009
 Attribute 7</code></pre>
 <p>It is important to include all parent level elements in the <code>findall</code> statement except for the top level element (e.g., <code>users/user</code>). Otherwise, Python will not find any desired nodes.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> xml.etree.ElementTree <span class="im">as</span> ET</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="bu">input</span> <span class="op">=</span> <span class="st">&#39;&#39;&#39;</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="st">&lt;stuff&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  &lt;users&gt;</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="st">    &lt;user x=&quot;2&quot;&gt;</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="st">      &lt;id&gt;001&lt;/id&gt;</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="st">      &lt;name&gt;Chuck&lt;/name&gt;</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="st">    &lt;/user&gt;</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="st">    &lt;user x=&quot;7&quot;&gt;</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="st">      &lt;id&gt;009&lt;/id&gt;</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="st">      &lt;name&gt;Brent&lt;/name&gt;</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="st">    &lt;/user&gt;</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="st">  &lt;/users&gt;</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="st">&lt;/stuff&gt;&#39;&#39;&#39;</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a></span>
-<span id="cb4-17"><a href="#cb4-17"></a>stuff <span class="op">=</span> ET.fromstring(<span class="bu">input</span>)</span>
-<span id="cb4-18"><a href="#cb4-18"></a></span>
-<span id="cb4-19"><a href="#cb4-19"></a>lst <span class="op">=</span> stuff.findall(<span class="st">&#39;users/user&#39;</span>)</span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="bu">print</span>(<span class="st">&#39;User count:&#39;</span>, <span class="bu">len</span>(lst))</span>
-<span id="cb4-21"><a href="#cb4-21"></a></span>
-<span id="cb4-22"><a href="#cb4-22"></a>lst2 <span class="op">=</span> stuff.findall(<span class="st">&#39;user&#39;</span>)</span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="bu">print</span>(<span class="st">&#39;User count:&#39;</span>, <span class="bu">len</span>(lst2))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xml.etree.ElementTree <span class="im">as</span> ET</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> <span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;stuff&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;users&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;user x=&quot;2&quot;&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;id&gt;001&lt;/id&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;name&gt;Chuck&lt;/name&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;/user&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;user x=&quot;7&quot;&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;id&gt;009&lt;/id&gt;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;name&gt;Brent&lt;/name&gt;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;/user&gt;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;/users&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;/stuff&gt;&#39;&#39;&#39;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>stuff <span class="op">=</span> ET.fromstring(<span class="bu">input</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>lst <span class="op">=</span> stuff.findall(<span class="st">&#39;users/user&#39;</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;User count:&#39;</span>, <span class="bu">len</span>(lst))</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>lst2 <span class="op">=</span> stuff.findall(<span class="st">&#39;user&#39;</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;User count:&#39;</span>, <span class="bu">len</span>(lst2))</span></code></pre></div>
 <p><code>lst</code> stores all <code>user</code> elements that are nested within their <code>users</code> parent. <code>lst2</code> looks for <code>user</code> elements that are not nested within the top level <code>stuff</code> element where there are none.</p>
 <pre><code>User count: 2
 User count: 0</code></pre>
@@ -263,16 +267,16 @@ User count: 0</code></pre>
 <p> </p>
 <p>The JSON format was inspired by the object and array format used in the JavaScript language. But since Python was invented before JavaScript, Python’s syntax for dictionaries and lists influenced the syntax of JSON. So the format of JSON is nearly identical to a combination of Python lists and dictionaries.</p>
 <p>Here is a JSON encoding that is roughly equivalent to the simple XML from above:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">{</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="dt">&quot;name&quot;</span> <span class="fu">:</span> <span class="st">&quot;Chuck&quot;</span><span class="fu">,</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="dt">&quot;phone&quot;</span> <span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>    <span class="dt">&quot;type&quot;</span> <span class="fu">:</span> <span class="st">&quot;intl&quot;</span><span class="fu">,</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a>    <span class="dt">&quot;number&quot;</span> <span class="fu">:</span> <span class="st">&quot;+1 734 303 4456&quot;</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>   <span class="fu">},</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a>   <span class="dt">&quot;email&quot;</span> <span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a>     <span class="dt">&quot;hide&quot;</span> <span class="fu">:</span> <span class="st">&quot;yes&quot;</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a>   <span class="fu">}</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;name&quot;</span> <span class="fu">:</span> <span class="st">&quot;Chuck&quot;</span><span class="fu">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;phone&quot;</span> <span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;type&quot;</span> <span class="fu">:</span> <span class="st">&quot;intl&quot;</span><span class="fu">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;number&quot;</span> <span class="fu">:</span> <span class="st">&quot;+1 734 303 4456&quot;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">},</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>   <span class="dt">&quot;email&quot;</span> <span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>     <span class="dt">&quot;hide&quot;</span> <span class="fu">:</span> <span class="st">&quot;yes&quot;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">}</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>You will notice some differences. First, in XML, we can add attributes like “intl” to the “phone” tag. In JSON, we simply have key-value pairs. Also the XML “person” tag is gone, replaced by a set of outer curly braces.</p>
 <p>In general, JSON structures are simpler than XML because JSON has fewer capabilities than XML. But JSON has the advantage that it maps <em>directly</em> to some combination of dictionaries and lists. And since nearly all programming languages have something equivalent to Python’s dictionaries and lists, JSON is a very natural format to have two cooperating programs exchange data.</p>
 <p>JSON is quickly becoming the format of choice for nearly all data exchange between applications because of its relative simplicity compared to XML.</p>
@@ -324,7 +328,10 @@ Attribute 7</code></pre>
 <p>When we begin to build our programs where the functionality of our program includes access to services provided by other programs, we call the approach a <em>Service-oriented architecture</em> (SOA). A SOA approach is one where our overall application makes use of the services of other applications. A non-SOA approach is where the application is a single standalone application which contains all of the code necessary to implement the application.</p>
 <p>We see many examples of SOA when we use the web. We can go to a single web site and book air travel, hotels, and automobiles all from a single site. The data for hotels is not stored on the airline computers. Instead, the airline computers contact the services on the hotel computers and retrieve the hotel data and present it to the user. When the user agrees to make a hotel reservation using the airline site, the airline site uses another web service on the hotel systems to actually make the reservation. And when it comes time to charge your credit card for the whole transaction, still other computers become involved in the process.</p>
 <figure>
-<img src="../images/soa.svg" alt="" /><figcaption>Service-oriented architecture</figcaption>
+<img src="../images/soa.svg" alt="Service-oriented architecture" style="height: 3.0in;"/>
+<figcaption>
+Service-oriented architecture
+</figcaption>
 </figure>
 <p>A Service-oriented architecture has many advantages, including: (1) we always maintain only one copy of data (this is particularly important for things like hotel reservations where we do not want to over-commit) and (2) the owners of the data can set the rules about the use of their data. With these advantages, an SOA system must be carefully designed to have good performance and meet the user’s needs.</p>
 <p>When an application makes a set of services in its API available over the web, we call these <em>web services</em>.</p>
@@ -428,82 +435,82 @@ while True:
 Enter location: Ann Arbor, MI
 Retrieving http://py4e-data.dr-chuck.net/json?address=Ann+Arbor%2C+MI&amp;key=42
 Retrieved 1736 characters</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">{</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>    <span class="dt">&quot;results&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>        <span class="fu">{</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>            <span class="dt">&quot;address_components&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>                <span class="fu">{</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor&quot;</span><span class="fu">,</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor&quot;</span><span class="fu">,</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a>                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a>                        <span class="st">&quot;locality&quot;</span><span class="ot">,</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a>                        <span class="st">&quot;political&quot;</span></span>
-<span id="cb9-11"><a href="#cb9-11"></a>                    <span class="ot">]</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a>                <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb9-13"><a href="#cb9-13"></a>                <span class="fu">{</span></span>
-<span id="cb9-14"><a href="#cb9-14"></a>                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Washtenaw County&quot;</span><span class="fu">,</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a>                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Washtenaw County&quot;</span><span class="fu">,</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a>                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb9-17"><a href="#cb9-17"></a>                        <span class="st">&quot;administrative_area_level_2&quot;</span><span class="ot">,</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a>                        <span class="st">&quot;political&quot;</span></span>
-<span id="cb9-19"><a href="#cb9-19"></a>                    <span class="ot">]</span></span>
-<span id="cb9-20"><a href="#cb9-20"></a>                <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb9-21"><a href="#cb9-21"></a>                <span class="fu">{</span></span>
-<span id="cb9-22"><a href="#cb9-22"></a>                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Michigan&quot;</span><span class="fu">,</span></span>
-<span id="cb9-23"><a href="#cb9-23"></a>                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;MI&quot;</span><span class="fu">,</span></span>
-<span id="cb9-24"><a href="#cb9-24"></a>                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb9-25"><a href="#cb9-25"></a>                        <span class="st">&quot;administrative_area_level_1&quot;</span><span class="ot">,</span></span>
-<span id="cb9-26"><a href="#cb9-26"></a>                        <span class="st">&quot;political&quot;</span></span>
-<span id="cb9-27"><a href="#cb9-27"></a>                    <span class="ot">]</span></span>
-<span id="cb9-28"><a href="#cb9-28"></a>                <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb9-29"><a href="#cb9-29"></a>                <span class="fu">{</span></span>
-<span id="cb9-30"><a href="#cb9-30"></a>                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;United States&quot;</span><span class="fu">,</span></span>
-<span id="cb9-31"><a href="#cb9-31"></a>                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;US&quot;</span><span class="fu">,</span></span>
-<span id="cb9-32"><a href="#cb9-32"></a>                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb9-33"><a href="#cb9-33"></a>                        <span class="st">&quot;country&quot;</span><span class="ot">,</span></span>
-<span id="cb9-34"><a href="#cb9-34"></a>                        <span class="st">&quot;political&quot;</span></span>
-<span id="cb9-35"><a href="#cb9-35"></a>                    <span class="ot">]</span></span>
-<span id="cb9-36"><a href="#cb9-36"></a>                <span class="fu">}</span></span>
-<span id="cb9-37"><a href="#cb9-37"></a>            <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb9-38"><a href="#cb9-38"></a>            <span class="dt">&quot;formatted_address&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor, MI, USA&quot;</span><span class="fu">,</span></span>
-<span id="cb9-39"><a href="#cb9-39"></a>            <span class="dt">&quot;geometry&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb9-40"><a href="#cb9-40"></a>                <span class="dt">&quot;bounds&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb9-41"><a href="#cb9-41"></a>                    <span class="dt">&quot;northeast&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb9-42"><a href="#cb9-42"></a>                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.3239728</span><span class="fu">,</span></span>
-<span id="cb9-43"><a href="#cb9-43"></a>                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.6758069</span></span>
-<span id="cb9-44"><a href="#cb9-44"></a>                    <span class="fu">},</span></span>
-<span id="cb9-45"><a href="#cb9-45"></a>                    <span class="dt">&quot;southwest&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb9-46"><a href="#cb9-46"></a>                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.222668</span><span class="fu">,</span></span>
-<span id="cb9-47"><a href="#cb9-47"></a>                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.799572</span></span>
-<span id="cb9-48"><a href="#cb9-48"></a>                    <span class="fu">}</span></span>
-<span id="cb9-49"><a href="#cb9-49"></a>                <span class="fu">},</span></span>
-<span id="cb9-50"><a href="#cb9-50"></a>                <span class="dt">&quot;location&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb9-51"><a href="#cb9-51"></a>                    <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.2808256</span><span class="fu">,</span></span>
-<span id="cb9-52"><a href="#cb9-52"></a>                    <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.7430378</span></span>
-<span id="cb9-53"><a href="#cb9-53"></a>                <span class="fu">},</span></span>
-<span id="cb9-54"><a href="#cb9-54"></a>                <span class="dt">&quot;location_type&quot;</span><span class="fu">:</span> <span class="st">&quot;APPROXIMATE&quot;</span><span class="fu">,</span></span>
-<span id="cb9-55"><a href="#cb9-55"></a>                <span class="dt">&quot;viewport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb9-56"><a href="#cb9-56"></a>                    <span class="dt">&quot;northeast&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb9-57"><a href="#cb9-57"></a>                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.3239728</span><span class="fu">,</span></span>
-<span id="cb9-58"><a href="#cb9-58"></a>                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.6758069</span></span>
-<span id="cb9-59"><a href="#cb9-59"></a>                    <span class="fu">},</span></span>
-<span id="cb9-60"><a href="#cb9-60"></a>                    <span class="dt">&quot;southwest&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb9-61"><a href="#cb9-61"></a>                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.222668</span><span class="fu">,</span></span>
-<span id="cb9-62"><a href="#cb9-62"></a>                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.799572</span></span>
-<span id="cb9-63"><a href="#cb9-63"></a>                    <span class="fu">}</span></span>
-<span id="cb9-64"><a href="#cb9-64"></a>                <span class="fu">}</span></span>
-<span id="cb9-65"><a href="#cb9-65"></a>            <span class="fu">},</span></span>
-<span id="cb9-66"><a href="#cb9-66"></a>            <span class="dt">&quot;place_id&quot;</span><span class="fu">:</span> <span class="st">&quot;ChIJMx9D1A2wPIgR4rXIhkb5Cds&quot;</span><span class="fu">,</span></span>
-<span id="cb9-67"><a href="#cb9-67"></a>            <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb9-68"><a href="#cb9-68"></a>                <span class="st">&quot;locality&quot;</span><span class="ot">,</span></span>
-<span id="cb9-69"><a href="#cb9-69"></a>                <span class="st">&quot;political&quot;</span></span>
-<span id="cb9-70"><a href="#cb9-70"></a>            <span class="ot">]</span></span>
-<span id="cb9-71"><a href="#cb9-71"></a>        <span class="fu">}</span></span>
-<span id="cb9-72"><a href="#cb9-72"></a>    <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb9-73"><a href="#cb9-73"></a>    <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;OK&quot;</span></span>
-<span id="cb9-74"><a href="#cb9-74"></a><span class="fu">}</span></span>
-<span id="cb9-75"><a href="#cb9-75"></a><span class="er">lat</span> <span class="er">42.2808256</span> <span class="er">lng</span> <span class="er">-83.7430378</span></span>
-<span id="cb9-76"><a href="#cb9-76"></a><span class="er">Ann</span> <span class="er">Arbor,</span> <span class="er">MI,</span> <span class="er">USA</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;results&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;address_components&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor&quot;</span><span class="fu">,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor&quot;</span><span class="fu">,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;locality&quot;</span><span class="ot">,</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;political&quot;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                    <span class="ot">]</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                <span class="fu">{</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Washtenaw County&quot;</span><span class="fu">,</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Washtenaw County&quot;</span><span class="fu">,</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;administrative_area_level_2&quot;</span><span class="ot">,</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;political&quot;</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>                    <span class="ot">]</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>                <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>                <span class="fu">{</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Michigan&quot;</span><span class="fu">,</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;MI&quot;</span><span class="fu">,</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;administrative_area_level_1&quot;</span><span class="ot">,</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;political&quot;</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>                    <span class="ot">]</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>                <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>                <span class="fu">{</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;long_name&quot;</span><span class="fu">:</span> <span class="st">&quot;United States&quot;</span><span class="fu">,</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;short_name&quot;</span><span class="fu">:</span> <span class="st">&quot;US&quot;</span><span class="fu">,</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;country&quot;</span><span class="ot">,</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;political&quot;</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>                    <span class="ot">]</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>                <span class="fu">}</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>            <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;formatted_address&quot;</span><span class="fu">:</span> <span class="st">&quot;Ann Arbor, MI, USA&quot;</span><span class="fu">,</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;geometry&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;bounds&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;northeast&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.3239728</span><span class="fu">,</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.6758069</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">},</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;southwest&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.222668</span><span class="fu">,</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.799572</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">}</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>                <span class="fu">},</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;location&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.2808256</span><span class="fu">,</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.7430378</span></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>                <span class="fu">},</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;location_type&quot;</span><span class="fu">:</span> <span class="st">&quot;APPROXIMATE&quot;</span><span class="fu">,</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;viewport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;northeast&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.3239728</span><span class="fu">,</span></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.6758069</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">},</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">&quot;southwest&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>                        <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="fl">42.222668</span><span class="fu">,</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>                        <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="fl">-83.799572</span></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">}</span></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>                <span class="fu">}</span></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>            <span class="fu">},</span></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;place_id&quot;</span><span class="fu">:</span> <span class="st">&quot;ChIJMx9D1A2wPIgR4rXIhkb5Cds&quot;</span><span class="fu">,</span></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;types&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;locality&quot;</span><span class="ot">,</span></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;political&quot;</span></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>            <span class="ot">]</span></span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;OK&quot;</span></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a><span class="er">lat</span> <span class="er">42.2808256</span> <span class="er">lng</span> <span class="er">-83.7430378</span></span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a><span class="er">Ann</span> <span class="er">Arbor,</span> <span class="er">MI,</span> <span class="er">USA</span></span></code></pre></div>
 <pre><code>Enter location:</code></pre>
 <p>You can download <a href="http://www.py4e.com/code3/geoxml.py">www.py4e.com/code3/geoxml.py</a> to explore the XML variant of the Google geocoding API.</p>
 <p><strong>Exercise 1: Change either</strong> <a href="http://www.py4e.com/code3/geojson.py"><strong>geojson.py</strong></a> <strong>or</strong> <a href="http://www.py4e.com/code3/geoxml.py"><strong>geoxml.py</strong></a> <strong>to print out the two-character country code from the retrieved data. Add error checking so your program does not traceback if the country code is not there. Once you have it working, search for “Atlantic Ocean” and make sure it can handle locations that are not in any country.</strong></p>
@@ -714,35 +721,35 @@ def test_me():
 <pre><code>Enter Twitter Account:drchuck
 Retrieving https://api.twitter.com/1.1/friends ...
 Remaining 14</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">{</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="dt">&quot;next_cursor&quot;</span><span class="fu">:</span> <span class="dv">1444171224491980205</span><span class="fu">,</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>  <span class="dt">&quot;users&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a>    <span class="fu">{</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">662433</span><span class="fu">,</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a>      <span class="dt">&quot;followers_count&quot;</span><span class="fu">:</span> <span class="dv">28725</span><span class="fu">,</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a>      <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a>        <span class="dt">&quot;text&quot;</span><span class="fu">:</span> <span class="st">&quot;@jazzychad I just bought one .__.&quot;</span><span class="fu">,</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a>        <span class="dt">&quot;created_at&quot;</span><span class="fu">:</span> <span class="st">&quot;Fri Sep 20 08:36:34 +0000 2013&quot;</span><span class="fu">,</span></span>
-<span id="cb14-10"><a href="#cb14-10"></a>        <span class="dt">&quot;retweeted&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
-<span id="cb14-11"><a href="#cb14-11"></a>      <span class="fu">},</span></span>
-<span id="cb14-12"><a href="#cb14-12"></a>      <span class="dt">&quot;location&quot;</span><span class="fu">:</span> <span class="st">&quot;San Francisco, California&quot;</span><span class="fu">,</span></span>
-<span id="cb14-13"><a href="#cb14-13"></a>      <span class="dt">&quot;screen_name&quot;</span><span class="fu">:</span> <span class="st">&quot;leahculver&quot;</span><span class="fu">,</span></span>
-<span id="cb14-14"><a href="#cb14-14"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Leah Culver&quot;</span><span class="fu">,</span></span>
-<span id="cb14-15"><a href="#cb14-15"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb14-16"><a href="#cb14-16"></a>    <span class="fu">{</span></span>
-<span id="cb14-17"><a href="#cb14-17"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">40426722</span><span class="fu">,</span></span>
-<span id="cb14-18"><a href="#cb14-18"></a>      <span class="dt">&quot;followers_count&quot;</span><span class="fu">:</span> <span class="dv">2635</span><span class="fu">,</span></span>
-<span id="cb14-19"><a href="#cb14-19"></a>      <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb14-20"><a href="#cb14-20"></a>        <span class="dt">&quot;text&quot;</span><span class="fu">:</span> <span class="st">&quot;RT @WSJ: Big employers like Google ...&quot;</span><span class="fu">,</span></span>
-<span id="cb14-21"><a href="#cb14-21"></a>        <span class="dt">&quot;created_at&quot;</span><span class="fu">:</span> <span class="st">&quot;Sat Sep 28 19:36:37 +0000 2013&quot;</span><span class="fu">,</span></span>
-<span id="cb14-22"><a href="#cb14-22"></a>      <span class="fu">},</span></span>
-<span id="cb14-23"><a href="#cb14-23"></a>      <span class="dt">&quot;location&quot;</span><span class="fu">:</span> <span class="st">&quot;Victoria Canada&quot;</span><span class="fu">,</span></span>
-<span id="cb14-24"><a href="#cb14-24"></a>      <span class="dt">&quot;screen_name&quot;</span><span class="fu">:</span> <span class="st">&quot;_valeriei&quot;</span><span class="fu">,</span></span>
-<span id="cb14-25"><a href="#cb14-25"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Valerie Irvine&quot;</span><span class="fu">,</span></span>
-<span id="cb14-26"><a href="#cb14-26"></a>    <span class="fu">}</span></span>
-<span id="cb14-27"><a href="#cb14-27"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb14-28"><a href="#cb14-28"></a> <span class="dt">&quot;next_cursor_str&quot;</span><span class="fu">:</span> <span class="st">&quot;1444171224491980205&quot;</span></span>
-<span id="cb14-29"><a href="#cb14-29"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;next_cursor&quot;</span><span class="fu">:</span> <span class="dv">1444171224491980205</span><span class="fu">,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;users&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">662433</span><span class="fu">,</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;followers_count&quot;</span><span class="fu">:</span> <span class="dv">28725</span><span class="fu">,</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;text&quot;</span><span class="fu">:</span> <span class="st">&quot;@jazzychad I just bought one .__.&quot;</span><span class="fu">,</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;created_at&quot;</span><span class="fu">:</span> <span class="st">&quot;Fri Sep 20 08:36:34 +0000 2013&quot;</span><span class="fu">,</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;retweeted&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;location&quot;</span><span class="fu">:</span> <span class="st">&quot;San Francisco, California&quot;</span><span class="fu">,</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;screen_name&quot;</span><span class="fu">:</span> <span class="st">&quot;leahculver&quot;</span><span class="fu">,</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Leah Culver&quot;</span><span class="fu">,</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">40426722</span><span class="fu">,</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;followers_count&quot;</span><span class="fu">:</span> <span class="dv">2635</span><span class="fu">,</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;text&quot;</span><span class="fu">:</span> <span class="st">&quot;RT @WSJ: Big employers like Google ...&quot;</span><span class="fu">,</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;created_at&quot;</span><span class="fu">:</span> <span class="st">&quot;Sat Sep 28 19:36:37 +0000 2013&quot;</span><span class="fu">,</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;location&quot;</span><span class="fu">:</span> <span class="st">&quot;Victoria Canada&quot;</span><span class="fu">,</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;screen_name&quot;</span><span class="fu">:</span> <span class="st">&quot;_valeriei&quot;</span><span class="fu">,</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Valerie Irvine&quot;</span><span class="fu">,</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a> <span class="dt">&quot;next_cursor_str&quot;</span><span class="fu">:</span> <span class="st">&quot;1444171224491980205&quot;</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <pre><code>leahculver
    @jazzychad I just bought one .__.
 _valeriei

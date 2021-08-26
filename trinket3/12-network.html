@@ -8,6 +8,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -181,7 +182,10 @@ mysock.close()
 -->
 <p>First the program makes a connection to port 80 on the server <a href="http://www.py4e.com">www.py4e.com</a>. Since our program is playing the role of the “web browser”, the HTTP protocol says we must send the GET command followed by a blank line. <code>\r\n</code> signifies an EOL (end of line), so <code>\r\n\r\n</code> signifies nothing between two EOL sequences. That is the equivalent of a blank line.</p>
 <figure>
-<img src="../images/socket.svg" alt="" /><figcaption>A Socket Connection</figcaption>
+<img src="../images/socket.svg" alt="A Socket Connection" style="height: 2.0in;"/>
+<figcaption>
+A Socket Connection
+</figcaption>
 </figure>
 <p>Once we send that blank line, we write a loop that receives data in 512-character chunks from the socket and prints the data out until there is no more data to read (i.e., the recv() returns an empty string).</p>
 <p>The program produces the following output:</p>
@@ -406,12 +410,12 @@ fhand.close()
 <h2 id="parsing-html-using-regular-expressions">Parsing HTML using regular expressions</h2>
 <p>One simple way to parse HTML is to use regular expressions to repeatedly search for and extract substrings that match a particular pattern.</p>
 <p>Here is a simple web page:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">&lt;h1&gt;</span>The First Page<span class="kw">&lt;/h1&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">&lt;p&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>If you like, you can switch to the</span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://www.dr-chuck.com/page2.htm&quot;</span><span class="kw">&gt;</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>Second Page<span class="kw">&lt;/a&gt;</span>.</span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="kw">&lt;/p&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;h1&gt;</span>The First Page<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>If you like, you can switch to the</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;http://www.dr-chuck.com/page2.htm&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Second Page<span class="kw">&lt;/a&gt;</span>.</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/p&gt;</span></span></code></pre></div>
 <p>We can construct a well-formed regular expression to match and extract the link values from the above text as follows:</p>
 <pre><code>href=&quot;http[s]?://.+?&quot;</code></pre>
 <p>Our regular expression looks for strings that start with “href="http://” or “href="https://”, followed by one or more characters (<code>.+?</code>), followed by another double quote. The question mark behind the <code>[s]?</code> indicates to search for the string “http” followed by zero or one “s”.</p>
@@ -594,11 +598,11 @@ Attrs: [(&#39;href&#39;, &#39;http://www.dr-chuck.com/page2.htm&#39;)]</code></p
 <h2 id="bonus-section-for-unix-linux-users">Bonus section for Unix / Linux users</h2>
 <p>If you have a Linux, Unix, or Macintosh computer, you probably have commands built in to your operating system that retrieves both plain text and binary files using the HTTP or File Transfer (FTP) protocols. One of these commands is <code>curl</code>:</p>
 <p></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a>$ <span class="ex">curl</span> -O http://www.py4e.com/cover.jpg</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> curl <span class="at">-O</span> http://www.py4e.com/cover.jpg</span></code></pre></div>
 <p>The command <code>curl</code> is short for “copy URL” and so the two examples listed earlier to retrieve binary files with <code>urllib</code> are cleverly named <code>curl1.py</code> and <code>curl2.py</code> on <a href="http://www.py4e.com/code3">www.py4e.com/code3</a> as they implement similar functionality to the <code>curl</code> command. There is also a <code>curl3.py</code> sample program that does this task a little more effectively, in case you actually want to use this pattern in a program you are writing.</p>
 <p>A second command that functions very similarly is <code>wget</code>:</p>
 <p></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1"></a>$ <span class="fu">wget</span> http://www.py4e.com/cover.jpg</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wget http://www.py4e.com/cover.jpg</span></code></pre></div>
 <p>Both of these commands make retrieving webpages and remote files a simple task.</p>
 <h2 id="glossary">Glossary</h2>
 <dl>

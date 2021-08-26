@@ -8,6 +8,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -149,26 +150,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So far, we have learned how to write programs and communicate our intentions to the <em>Central Processing Unit</em> using conditional execution, functions, and iterations. We have learned how to create and use data structures in the <em>Main Memory</em>. The CPU and memory are where our software works and runs. It is where all of the “thinking” happens.</p>
 <p>But if you recall from our hardware architecture discussions, once the power is turned off, anything stored in either the CPU or main memory is erased. So up to now, our programs have just been transient fun exercises to learn Python.</p>
 <figure>
-<img src="../images/arch.svg" alt="" /><figcaption>Secondary Memory</figcaption>
+<img src="../images/arch.svg" alt="Secondary Memory" style="height: 2.5in;"/>
+<figcaption>
+Secondary Memory
+</figcaption>
 </figure>
 <p>In this chapter, we start to work with <em>Secondary Memory</em> (or files). Secondary memory is not erased when the power is turned off. Or in the case of a USB flash drive, the data we write from our programs can be removed from the system and transported to another system.</p>
 <p>We will primarily focus on reading and writing text files such as those we create in a text editor. Later we will see how to work with database files which are binary files, specifically designed to be read and written through database software.</p>
 <h2 id="opening-files">Opening files</h2>
 <p>  </p>
 <p>When we want to read or write a file (say on your hard drive), we first must <em>open</em> the file. Opening the file communicates with your operating system, which knows where the data for each file is stored. When you open a file, you are asking the operating system to find the file by name and make sure the file exists. In this example, we open the file <em>mbox.txt</em>, which should be stored in the same folder that you are in when you start Python. You can download this file from <a href="http://www.py4e.com/code3/mbox.txt">www.py4e.com/code3/mbox.txt</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">&gt;&gt;&gt;</span> fhand <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;mbox.txt&#39;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(fhand)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="op">&lt;</span>_io.TextIOWrapper name<span class="op">=</span><span class="st">&#39;mbox.txt&#39;</span> mode<span class="op">=</span><span class="st">&#39;r&#39;</span> encoding<span class="op">=</span><span class="st">&#39;cp1252&#39;</span><span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fhand <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;mbox.txt&#39;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(fhand)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>_io.TextIOWrapper name<span class="op">=</span><span class="st">&#39;mbox.txt&#39;</span> mode<span class="op">=</span><span class="st">&#39;r&#39;</span> encoding<span class="op">=</span><span class="st">&#39;cp1252&#39;</span><span class="op">&gt;</span></span></code></pre></div>
 <p></p>
 <p>If the <code>open</code> is successful, the operating system returns us a <em>file handle</em>. The file handle is not the actual data contained in the file, but instead it is a “handle” that we can use to read the data. You are given a handle if the requested file exists and you have the proper permissions to read the file.</p>
 <figure>
-<img src="../images/handle.svg" alt="" /><figcaption>A File Handle</figcaption>
+<img src="../images/handle.svg" alt="A File Handle" style="height: 2.0in;"/>
+<figcaption>
+A File Handle
+</figcaption>
 </figure>
 <p>If the file does not exist, <code>open</code> will fail with a traceback and you will not get a handle to access the contents of the file:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">&gt;&gt;&gt;</span> fhand <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;stuff.txt&#39;</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>Traceback (most recent call last):</span>
-<span id="cb2-3"><a href="#cb2-3"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="pp">FileNotFoundError</span>: [Errno <span class="dv">2</span>] No such <span class="bu">file</span> <span class="kw">or</span> directory: <span class="st">&#39;stuff.txt&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fhand <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;stuff.txt&#39;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">FileNotFoundError</span>: [Errno <span class="dv">2</span>] No such <span class="bu">file</span> <span class="kw">or</span> directory: <span class="st">&#39;stuff.txt&#39;</span></span></code></pre></div>
 <p>Later we will use <code>try</code> and <code>except</code> to deal more gracefully with the situation where we attempt to open a file that does not exist.</p>
 <h2 id="text-files-and-lines">Text files and lines</h2>
 <p>A text file can be thought of as a sequence of lines, much like a Python string can be thought of as a sequence of characters. For example, this is a sample of a text file which records mail activity from various individuals in an open source project development team:</p>
@@ -188,18 +195,18 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772
 <p>To break the file into lines, there is a special character that represents the “end of the line” called the <em>newline</em> character.</p>
 <p></p>
 <p>In Python, we represent the <em>newline</em> character as a backslash-n in string constants. Even though this looks like two characters, it is actually a single character. When we look at the variable by entering “stuff” in the interpreter, it shows us the <code>\n</code> in the string, but when we use <code>print</code> to show the string, we see the string broken into two lines by the newline character.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="op">&gt;&gt;&gt;</span> stuff <span class="op">=</span> <span class="st">&#39;Hello</span><span class="ch">\n</span><span class="st">World!&#39;</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="op">&gt;&gt;&gt;</span> stuff</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">&#39;Hello</span><span class="ch">\n</span><span class="co">World!&#39;</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(stuff)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>Hello</span>
-<span id="cb4-6"><a href="#cb4-6"></a>World<span class="op">!</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="op">&gt;&gt;&gt;</span> stuff <span class="op">=</span> <span class="st">&#39;X</span><span class="ch">\n</span><span class="st">Y&#39;</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(stuff)</span>
-<span id="cb4-9"><a href="#cb4-9"></a>X</span>
-<span id="cb4-10"><a href="#cb4-10"></a>Y</span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(stuff)</span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> stuff <span class="op">=</span> <span class="st">&#39;Hello</span><span class="ch">\n</span><span class="st">World!&#39;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> stuff</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;Hello</span><span class="ch">\n</span><span class="co">World!&#39;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(stuff)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Hello</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>World<span class="op">!</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> stuff <span class="op">=</span> <span class="st">&#39;X</span><span class="ch">\n</span><span class="st">Y&#39;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(stuff)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>X</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>Y</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(stuff)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div>
 <p>You can also see that the length of the string <code>X\nY</code> is <em>three</em> characters because the newline character is a single character.</p>
 <p>So when we look at the lines in a file, we need to <em>imagine</em> that there is a special invisible character called the newline at the end of each line that marks the end of the line.</p>
 <p>So the newline character separates the characters in the file into lines.</p>
@@ -2136,19 +2143,19 @@ You can modify how you receive notifications at My Workspace > Preferences.
 <p>When the file is read using a <code>for</code> loop in this manner, Python takes care of splitting the data in the file into separate lines using the newline character. Python reads each line through the newline and includes the newline as the last character in the <code>line</code> variable for each iteration of the <code>for</code> loop.</p>
 <p>Because the <code>for</code> loop reads the data one line at a time, it can efficiently read and count the lines in very large files without running out of main memory to store the data. The above program can count the lines in any size file using very little memory since each line is read, counted, and then discarded.</p>
 <p>If you know the file is relatively small compared to the size of your main memory, you can read the whole file into one string using the <code>read</code> method on the file handle.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">&gt;&gt;&gt;</span> fhand <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;mbox-short.txt&#39;</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="op">&gt;&gt;&gt;</span> inp <span class="op">=</span> fhand.read()</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="bu">len</span>(inp))</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="dv">94626</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(inp[:<span class="dv">20</span>])</span>
-<span id="cb5-6"><a href="#cb5-6"></a>From stephen.marquar</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fhand <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;mbox-short.txt&#39;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> inp <span class="op">=</span> fhand.read()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="bu">len</span>(inp))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="dv">94626</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(inp[:<span class="dv">20</span>])</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>From stephen.marquar</span></code></pre></div>
 <p>In this example, the entire contents (all 94,626 characters) of the file <em>mbox-short.txt</em> are read directly into the variable <code>inp</code>. We use string slicing to print out the first 20 characters of the string data stored in <code>inp</code>.</p>
 <p>When the file is read in this manner, all the characters including all of the lines and newline characters are one big string in the variable <code>inp</code>. It is a good idea to store the output of <code>read</code> as a variable because each call to <code>read</code> exhausts the resource:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">&gt;&gt;&gt;</span> fhand <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;mbox-short.txt&#39;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="bu">len</span>(fhand.read()))</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="dv">94626</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="bu">len</span>(fhand.read()))</span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fhand <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;mbox-short.txt&#39;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="bu">len</span>(fhand.read()))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dv">94626</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="bu">len</span>(fhand.read()))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span></code></pre></div>
 <p>Remember that this form of the <code>open</code> function should only be used if the file data will fit comfortably in the main memory of your computer. If the file is too large to fit in main memory, you should write your program to read the file in chunks using a <code>for</code> or <code>while</code> loop.</p>
 <h2 id="searching-through-a-file">Searching through a file</h2>
 <p>When you are searching through data in a file, it is a very common pattern to read through a file, ignoring most of the lines and only processing lines which meet a particular condition. We can combine the pattern for reading a file with string methods to build simple search mechanisms.</p>
@@ -13797,39 +13804,39 @@ File cannot be opened: na na boo boo</code></pre>
 <h2 id="writing-files">Writing files</h2>
 <p></p>
 <p>To write a file, you have to open it with mode “w” as a second parameter:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">&gt;&gt;&gt;</span> fout <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;output.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(fout)</span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="op">&lt;</span>_io.TextIOWrapper name<span class="op">=</span><span class="st">&#39;output.txt&#39;</span> mode<span class="op">=</span><span class="st">&#39;w&#39;</span> encoding<span class="op">=</span><span class="st">&#39;cp1252&#39;</span><span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fout <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;output.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(fout)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>_io.TextIOWrapper name<span class="op">=</span><span class="st">&#39;output.txt&#39;</span> mode<span class="op">=</span><span class="st">&#39;w&#39;</span> encoding<span class="op">=</span><span class="st">&#39;cp1252&#39;</span><span class="op">&gt;</span></span></code></pre></div>
 <p>If the file already exists, opening it in write mode clears out the old data and starts fresh, so be careful! If the file doesn’t exist, a new one is created.</p>
 <p>The <code>write</code> method of the file handle object puts data into the file, returning the number of characters written. The default write mode is text for writing (and reading) strings.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="op">&gt;&gt;&gt;</span> line1 <span class="op">=</span> <span class="st">&quot;This here&#39;s the wattle,</span><span class="ch">\n</span><span class="st">&quot;</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="op">&gt;&gt;&gt;</span> fout.write(line1)</span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="dv">24</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> line1 <span class="op">=</span> <span class="st">&quot;This here&#39;s the wattle,</span><span class="ch">\n</span><span class="st">&quot;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fout.write(line1)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span></span></code></pre></div>
 <p></p>
 <p>Again, the file object keeps track of where it is, so if you call <code>write</code> again, it adds the new data to the end.</p>
 <p>We must make sure to manage the ends of lines as we write to the file by explicitly inserting the newline character when we want to end a line. The <code>print</code> statement automatically appends a newline, but the <code>write</code> method does not add the newline automatically.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="op">&gt;&gt;&gt;</span> line2 <span class="op">=</span> <span class="st">&#39;the emblem of our land.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="op">&gt;&gt;&gt;</span> fout.write(line2)</span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="dv">24</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> line2 <span class="op">=</span> <span class="st">&#39;the emblem of our land.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fout.write(line2)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span></span></code></pre></div>
 <p>When you are done writing, you have to close the file to make sure that the last bit of data is physically written to the disk so it will not be lost if the power goes off.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="op">&gt;&gt;&gt;</span> fout.close()</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fout.close()</span></code></pre></div>
 <p>We could close the files which we open for read as well, but we can be a little sloppy if we are only opening a few files since Python makes sure that all open files are closed when the program ends. When we are writing files, we want to explicitly close the files so as to leave nothing to chance.</p>
 <p> </p>
 <h2 id="debugging">Debugging</h2>
 <p> </p>
 <p>When you are reading and writing files, you might run into problems with whitespace. These errors can be hard to debug because spaces, tabs, and newlines are normally invisible:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">&#39;1 2</span><span class="ch">\t</span><span class="st"> 3</span><span class="ch">\n</span><span class="st"> 4&#39;</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(s)</span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="dv">1</span> <span class="dv">2</span>  <span class="dv">3</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a> <span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">&#39;1 2</span><span class="ch">\t</span><span class="st"> 3</span><span class="ch">\n</span><span class="st"> 4&#39;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(s)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2</span>  <span class="dv">3</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span></span></code></pre></div>
 <p>  </p>
 <p>The built-in function <code>repr</code> can help. It takes any object as an argument and returns a string representation of the object. For strings, it represents whitespace characters with backslash sequences:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="bu">repr</span>(s))</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="co">&#39;1 2</span><span class="ch">\t</span><span class="co"> 3</span><span class="ch">\n</span><span class="co"> 4&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="bu">repr</span>(s))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;1 2</span><span class="ch">\t</span><span class="co"> 3</span><span class="ch">\n</span><span class="co"> 4&#39;</span></span></code></pre></div>
 <p>This can be helpful for debugging.</p>
 <p>One other problem you might run into is that different systems use different characters to indicate the end of a line. Some systems use a newline, represented <code>\n</code>. Others use a return character, represented <code>\r</code>. Some use both. If you move files between different systems, these inconsistencies might cause problems.</p>
 <p></p>
-<p>For most systems, there are applications to convert from one format to another. You can find them (and read more about this issue) at <a href="wikipedia.org/wiki/Newline">wikipedia.org/wiki/Newline</a>. Or, of course, you could write one yourself.</p>
+<p>For most systems, there are applications to convert from one format to another. You can find them (and read more about this issue) at <a href="https://wikipedia.org/wiki/Newline">https://www.wikipedia.org/wiki/Newline</a>. Or, of course, you could write one yourself.</p>
 <h2 id="glossary">Glossary</h2>
 <dl>
 <dt>catch</dt>

@@ -62,3 +62,8 @@ cp -r zipbook/embeds/* ../trinket3
 
 
 rm tmp.*
+
+echo 
+echo Cleaning up zipbook folder
+
+find zipbook/. -type f -not -path '*/images/*' -not -path '*/fonts/*' | xargs rm

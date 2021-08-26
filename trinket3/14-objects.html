@@ -8,6 +8,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -180,9 +181,9 @@ print (list.__getitem__(stuff,0))
 <p>Instead of focusing on what these lines accomplish, let’s look at what is really happening from the point of view of object-oriented programming. Don’t worry if the following paragraphs don’t make any sense the first time you read them because we have not yet defined all of these terms.</p>
 <p>The first line <em>constructs</em> an object of type <code>list</code>, the second and third lines <em>call</em> the <code>append()</code> <em>method</em>, the fourth line calls the <code>sort()</code> method, and the fifth line <em>retrieves</em> the item at position 0.</p>
 <p>The sixth line calls the <code>__getitem__()</code> method in the <code>stuff</code> list with a parameter of zero.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="bu">print</span> (stuff.<span class="fu">__getitem__</span>(<span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (stuff.<span class="fu">__getitem__</span>(<span class="dv">0</span>))</span></code></pre></div>
 <p>The seventh line is an even more verbose way of retrieving the 0th item in the list.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="bu">print</span> (<span class="bu">list</span>.<span class="fu">__getitem__</span>(stuff,<span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (<span class="bu">list</span>.<span class="fu">__getitem__</span>(stuff,<span class="dv">0</span>))</span></code></pre></div>
 <p>In this code, we call the <code>__getitem__</code> method in the <code>list</code> class and <em>pass</em> the list and the item we want retrieved from the list as parameters.</p>
 <p>The last three lines of the program are equivalent, but it is more convenient to simply use the square bracket syntax to look up an item at a particular position in a list.</p>
 <p>We can take a look at the capabilities of an object by looking at the output of the <code>dir()</code> function:</p>
@@ -215,7 +216,10 @@ print('Non-US Floor Number is',wf)
 -->
 <p>If we think a bit more about this program, there is the “outside world” and the program. The input and output aspects are where the program interacts with the outside world. Within the program we have code and data to accomplish the task the program is designed to solve.</p>
 <figure>
-<img src="../images/program.svg" alt="" /><figcaption>A Program</figcaption>
+<img src="../images/program.svg" alt="A Program" style="height: 1.20in;"/>
+<figcaption>
+A Program
+</figcaption>
 </figure>
 <p>One way to think about object-oriented programming is that it separates our program into multiple “zones.” Each zone contains some code and data (like a program) and has well defined interactions with the outside world and the other zones within the program.</p>
 <p>If we look back at the link extraction application where we used the BeautifulSoup library, we can see a program that is constructed by connecting different objects together to accomplish a task:</p>
@@ -252,17 +256,26 @@ for tag in tags:
 <p>We read the URL into a string and then pass that into <code>urllib</code> to retrieve the data from the web. The <code>urllib</code> library uses the <code>socket</code> library to make the actual network connection to retrieve the data. We take the string that <code>urllib</code> returns and hand it to BeautifulSoup for parsing. BeautifulSoup makes use of the object <code>html.parser</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and returns an object. We call the <code>tags()</code> method on the returned object that returns a dictionary of tag objects. We loop through the tags and call the <code>get()</code> method for each tag to print out the <code>href</code> attribute.</p>
 <p>We can draw a picture of this program and how the objects work together.</p>
 <figure>
-<img src="../images/program-oo.svg" alt="" /><figcaption>A Program as Network of Objects</figcaption>
+<img src="../images/program-oo.svg" alt="A Program as Network of Objects" style="height: 1.50in;"/>
+<figcaption>
+A Program as Network of Objects
+</figcaption>
 </figure>
 <p>The key here is not to understand perfectly how this program works but to see how we build a network of interacting objects and orchestrate the movement of information between the objects to create a program. It is also important to note that when you looked at that program several chapters back, you could fully understand what was going on in the program without even realizing that the program was “orchestrating the movement of data between objects.” It was just lines of code that got the job done.</p>
 <h2 id="subdividing-a-problem">Subdividing a problem</h2>
 <p>One of the advantages of the object-oriented approach is that it can hide complexity. For example, while we need to know how to use the <code>urllib</code> and BeautifulSoup code, we do not need to know how those libraries work internally. This allows us to focus on the part of the problem we need to solve and ignore the other parts of the program.</p>
 <figure>
-<img src="../images/program-oo-code.svg" alt="" /><figcaption>Ignoring Detail When Using an Object</figcaption>
+<img src="../images/program-oo-code.svg" alt="Ignoring Detail When Using an Object" style="height: 1.50in;"/>
+<figcaption>
+Ignoring Detail When Using an Object
+</figcaption>
 </figure>
 <p>This ability to focus exclusively on the part of a program that we care about and ignore the rest is also helpful to the developers of the objects that we use. For example, the programmers developing BeautifulSoup do not need to know or care about how we retrieve our HTML page, what parts we want to read, or what we plan to do with the data we extract from the web page.</p>
 <figure>
-<img src="../images/program-oo-bs4.svg" alt="" /><figcaption>Ignoring Detail When Building an Object</figcaption>
+<img src="../images/program-oo-bs4.svg" alt="Ignoring Detail When Building an Object" style="height: 1.50in;"/>
+<figcaption>
+Ignoring Detail When Building an Object
+</figcaption>
 </figure>
 <h2 id="our-first-python-object">Our first Python object</h2>
 <p>At a basic level, an object is simply some code plus data structures that are smaller than a whole program. Defining a function allows us to store a bit of code and give it a name and then later invoke that code using the name of the function.</p>
@@ -292,22 +305,25 @@ PartyAnimal.party(an)
 <p>Each method looks like a function, starting with the <code>def</code> keyword and consisting of an indented block of code. This object has one attribute (<code>x</code>) and one method (<code>party</code>). The methods have a special first parameter that we name by convention <code>self</code>.</p>
 <p>Just as the <code>def</code> keyword does not cause function code to be executed, the <code>class</code> keyword does not create an object. Instead, the <code>class</code> keyword defines a template indicating what data and code will be contained in each object of type <code>PartyAnimal</code>. The class is like a cookie cutter and the objects created using the class are the cookies<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. You don’t put frosting on the cookie cutter; you put frosting on the cookies, and you can put different frosting on each cookie.</p>
 <figure>
-<img src="../photos/cookie_cutter_flickr_Didriks.png" alt="" /><figcaption>A Class and Two Objects</figcaption>
+<img src="../photos/cookie_cutter_flickr_Didriks.png" alt="A Class and Two Objects" style="height: 2.0in;"/>
+<figcaption>
+A Class and Two Objects
+</figcaption>
 </figure>
 <p>If we continue through this sample program, we see the first executable line of code:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>an <span class="op">=</span> PartyAnimal()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>an <span class="op">=</span> PartyAnimal()</span></code></pre></div>
 <p>   </p>
 <p>This is where we instruct Python to construct (i.e., create) an <em>object</em> or <em>instance</em> of the class <code>PartyAnimal</code>. It looks like a function call to the class itself. Python constructs the object with the right data and methods and returns the object which is then assigned to the variable <code>an</code>. In a way this is quite similar to the following line which we have been using all along:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>counts <span class="op">=</span> <span class="bu">dict</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> <span class="bu">dict</span>()</span></code></pre></div>
 <p>Here we instruct Python to construct an object using the <code>dict</code> template (already present in Python), return the instance of dictionary, and assign it to the variable <code>counts</code>.</p>
 <p>When the <code>PartyAnimal</code> class is used to construct an object, the variable <code>an</code> is used to point to that object. We use <code>an</code> to access the code and data for that particular instance of the <code>PartyAnimal</code> class.</p>
 <p>Each Partyanimal object/instance contains within it a variable <code>x</code> and a method/function named <code>party</code>. We call the <code>party</code> method in this line:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>an.party()</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>an.party()</span></code></pre></div>
 <p>When the <code>party</code> method is called, the first parameter (which we call by convention <code>self</code>) points to the particular instance of the PartyAnimal object that <code>party</code> is called from. Within the <code>party</code> method, we see the line:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="va">self</span>.x <span class="op">=</span> <span class="va">self</span>.x <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.x <span class="op">=</span> <span class="va">self</span>.x <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
 <p>This syntax using the <em>dot</em> operator is saying ‘the x within self.’ Each time <code>party()</code> is called, the internal <code>x</code> value is incremented by 1 and the value is printed out.</p>
 <p>The following line is another way to call the <code>party</code> method within the <code>an</code> object:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>PartyAnimal.party(an)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>PartyAnimal.party(an)</span></code></pre></div>
 <p>In this variation, we access the code from within the class and explicitly pass the object pointer <code>an</code> as the first parameter (i.e., <code>self</code> within the method). You can think of <code>an.party()</code> as shorthand for the above line.</p>
 <p>When the program executes, it produces the following output:</p>
 <pre><code>So far 1
@@ -384,7 +400,7 @@ I am destructed 2
 an contains 42</code></pre>
 <p>As Python constructs our object, it calls our <code>__init__</code> method to give us a chance to set up some default or initial values for the object. When Python encounters the line:</p>
 <pre><code>an = 42</code></pre>
-<p>It actually “thows our object away” so it can reuse the <code>an</code> variable to store the value <code>42</code>. Just at the moment when our <code>an</code> object is being “destroyed” our destructor code (<code>__del__</code>) is called. We cannot stop our variable from being destroyed, but we can do any necessary cleanup right before our object no longer exists.</p>
+<p>It actually “throws our object away” so it can reuse the <code>an</code> variable to store the value <code>42</code>. Just at the moment when our <code>an</code> object is being “destroyed” our destructor code (<code>__del__</code>) is called. We cannot stop our variable from being destroyed, but we can do any necessary cleanup right before our object no longer exists.</p>
 <p>When developing objects, it is quite common to add a constructor to an object to set up initial values for the object. It is relatively rare to need a destructor for an object.</p>
 <h2 id="multiple-instances">Multiple instances</h2>
 <p>So far, we have defined a class, constructed a single object, used that object, and then thrown the object away. However, the real power in object-oriented programming happens when we construct multiple instances of our class.</p>

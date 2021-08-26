@@ -26,3 +26,12 @@ for fn in *.mkd; do
 done
 
 rm tmp.*
+
+# Make the zip
+rm zips/html.zip
+zip -r9 zips/html.zip html && echo "Wrote zips/html.zip"
+
+# Clean directory
+echo
+echo Cleaning up html folder
+find html/. -type f -not -name 'figs2' | xargs rm
