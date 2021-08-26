@@ -10,12 +10,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>-</title>
   <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
@@ -65,7 +197,10 @@ True</code></pre>
     print(&#39;x is positive&#39;)</code></pre>
 <p>The boolean expression after the <code>if</code> statement is called the <em>condition</em>. We end the <code>if</code> statement with a colon character (:) and the line(s) after the if statement are indented.</p>
 <figure>
-<img src="../images/if.svg" alt="" /><figcaption>If Logic</figcaption>
+<img src="../images/if.svg" alt="If Logic" style="height: 1.5in;"/>
+<figcaption>
+If Logic
+</figcaption>
 </figure>
 <p>If the logical condition is true, then the indented statement gets executed. If the logical condition is false, the indented statement is skipped.</p>
 <p>  </p>
@@ -100,7 +235,10 @@ else :
     print(&#39;x is odd&#39;)</code></pre>
 <p>If the remainder when <code>x</code> is divided by 2 is 0, then we know that <code>x</code> is even, and the program displays a message to that effect. If the condition is false, the second set of statements is executed.</p>
 <figure>
-<img src="../images/if-else.svg" alt="" /><figcaption>If-Then-Else Logic</figcaption>
+<img src="../images/if-else.svg" alt="If-Then-Else Logic" style="height: 1.5in;"/>
+<figcaption>
+If-Then-Else Logic
+</figcaption>
 </figure>
 <p>Since the condition must either be true or false, exactly one of the alternatives will be executed. The alternatives are called <em>branches</em>, because they are branches in the flow of execution.</p>
 <p></p>
@@ -115,7 +253,10 @@ else:
     print(&#39;x and y are equal&#39;)</code></pre>
 <p><code>elif</code> is an abbreviation of “else if.” Again, exactly one branch will be executed.</p>
 <figure>
-<img src="../images/elif.svg" alt="" /><figcaption>If-Then-ElseIf Logic</figcaption>
+<img src="../images/elif.svg" alt="If-Then-ElseIf Logic" style="height: 2.0in;"/>
+<figcaption>
+If-Then-ElseIf Logic
+</figcaption>
 </figure>
 <p>There is no limit on the number of <code>elif</code> statements. If there is an <code>else</code> clause, it has to be at the end, but there doesn’t have to be one.</p>
 <p> </p>
@@ -138,7 +279,10 @@ else:
         print(&#39;x is greater than y&#39;)</code></pre>
 <p>The outer conditional contains two branches. The first branch contains a simple statement. The second branch contains another <code>if</code> statement, which has two branches of its own. Those two branches are both simple statements, although they could have been conditional statements as well.</p>
 <figure>
-<img src="../images/nested.svg" alt="" /><figcaption>Nested If Statements</figcaption>
+<img src="../images/nested.svg" alt="Nested If Statements" style="height: 2.0in;"/>
+<figcaption>
+Nested If Statements
+</figcaption>
 </figure>
 <p>Although the indentation of the statements makes the structure apparent, <em>nested conditionals</em> become difficult to read very quickly. In general, it is a good idea to avoid them when you can.</p>
 <p>Logical operators often provide a way to simplify nested conditional statements. For example, we can rewrite the following code using a single conditional:</p>
@@ -219,7 +363,7 @@ Traceback (most recent call last):
   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
 ZeroDivisionError: division by zero
 &gt;&gt;&gt;</code></pre>
-<p>The third calculation failed because Python was evaluating <code>(x/y)</code> and <code>y</code> was zero, which causes a runtime error. But the first and the second examples did <em>not</em> fail because the first part of these expressions <code>x &gt;= 2</code> evaluated to <code>False</code> so the <code>(x/y)</code> was not ever executed due to the <em>short-circuit</em> rule and there was no error.</p>
+<p>The third calculation failed because Python was evaluating <code>(x/y)</code> and <code>y</code> was zero, which causes a runtime error. But the first and the second examples did <em>not</em> fail because in the first calculation <code>y</code> was non zero and in the second one the first part of these expressions <code>x &gt;= 2</code> evaluated to <code>False</code> so the <code>(x/y)</code> was not ever executed due to the <em>short-circuit</em> rule and there was no error.</p>
 <p>We can construct the logical expression to strategically place a <em>guard</em> evaluation just before the evaluation that might cause an error as follows:</p>
 <pre class="python"><code>&gt;&gt;&gt; x = 1
 &gt;&gt;&gt; y = 0

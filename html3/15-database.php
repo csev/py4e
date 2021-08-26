@@ -10,12 +10,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>-</title>
   <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
@@ -34,7 +166,10 @@
 <h2 id="database-concepts">Database concepts</h2>
 <p>When you first look at a database it looks like a spreadsheet with multiple sheets. The primary data structures in a database are: <em>tables</em>, <em>rows</em>, and <em>columns</em>.</p>
 <figure>
-<img src="../images/relational.svg" alt="" /><figcaption>Relational Databases</figcaption>
+<img src="../images/relational.svg" alt="Relational Databases" style="height: 2.0in;"/>
+<figcaption>
+Relational Databases
+</figcaption>
 </figure>
 <p>In technical descriptions of relational databases the concepts of table, row, and column are more formally referred to as <em>relation</em>, <em>tuple</em>, and <em>attribute</em>, respectively. We will use the less formal terms in this chapter.</p>
 <h2 id="database-browser-for-sqlite">Database Browser for SQLite</h2>
@@ -65,7 +200,10 @@ conn.close()
 <p>The <code>connect</code> operation makes a “connection” to the database stored in the file <code>music.sqlite</code> in the current directory. If the file does not exist, it will be created. The reason this is called a “connection” is that sometimes the database is stored on a separate “database server” from the server on which we are running our application. In our simple examples the database will just be a local file in the same directory as the Python code we are running.</p>
 <p>A <em>cursor</em> is like a file handle that we can use to perform operations on the data stored in the database. Calling <code>cursor()</code> is very similar conceptually to calling <code>open()</code> when dealing with text files.</p>
 <figure>
-<img src="../images/cursor.svg" alt="" /><figcaption>A Database Cursor</figcaption>
+<img src="../images/cursor.svg" alt="A Database Cursor" style="height: 2.0in;"/>
+<figcaption>
+A Database Cursor
+</figcaption>
 </figure>
 <p>Once we have the cursor, we can begin to execute commands on the contents of the database using the <code>execute()</code> method.</p>
 <p>Database commands are expressed in a special language that has been standardized across many different database vendors to allow us to learn a single database language. The database language is called <em>Structured Query Language</em> or <em>SQL</em> for short.</p>
@@ -101,7 +239,10 @@ cur.close()
 # Code: http://www.py4e.com/code3/db2.py</code></pre>
 <p>First we <code>INSERT</code> two rows into our table and use <code>commit()</code> to force the data to be written to the database file.</p>
 <figure>
-<img src="../images/tracks.svg" alt="" /><figcaption>Rows in a Table</figcaption>
+<img src="../images/tracks.svg" alt="Rows in a Table" style="height: 1.5in;"/>
+<figcaption>
+Rows in a Table
+</figcaption>
 </figure>
 <p>Then we use the <code>SELECT</code> command to retrieve the rows we just inserted from the table. On the <code>SELECT</code> command, we indicate which columns we would like <code>(title, plays)</code> and indicate which table we want to retrieve the data from. After we execute the <code>SELECT</code> statement, the cursor is something we can loop through in a <code>for</code> statement. For efficiency, the cursor does not read all of the data from the database when we execute the <code>SELECT</code> statement. Instead, the data is read on demand as we loop through the rows in the <code>for</code> statement.</p>
 <p>The output of the program is as follows:</p>
@@ -327,7 +468,10 @@ cur.execute(&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;,(acct, ))</c
 <p>When we add <code>UNIQUE</code> clauses to our tables, we are communicating a set of rules that we are asking the database to enforce when we attempt to insert records. We are creating these rules as a convenience in our programs, as we will see in a moment. The rules both keep us from making mistakes and make it simpler to write some of our code.</p>
 <p>In essence, in creating this <code>Follows</code> table, we are modelling a “relationship” where one person “follows” someone else and representing it with a pair of numbers indicating that (a) the people are connected and (b) the direction of the relationship.</p>
 <figure>
-<img src="figs2/twitter.svg" alt="" /><figcaption>Relationships Between Tables</figcaption>
+<img src="figs2/twitter.svg" alt="Relationships Between Tables" style="height: 3.5in;"/>
+<figcaption>
+Relationships Between Tables
+</figcaption>
 </figure>
 <h2 id="programming-with-multiple-tables">Programming with multiple tables</h2>
 <p>We will now redo the Twitter spider program using two tables, the primary keys, and the key references as described above. Here is the code for the new version of the program:</p>
@@ -529,7 +673,10 @@ Follows:
     ON Follows.from_id = People.id WHERE People.id = 1</code></pre>
 <p>The <code>JOIN</code> clause indicates that the fields we are selecting cross both the <code>Follows</code> and <code>People</code> tables. The <code>ON</code> clause indicates how the two tables are to be joined: Take the rows from <code>Follows</code> and append the row from <code>People</code> where the field <code>from_id</code> in <code>Follows</code> is the same the <code>id</code> value in the <code>People</code> table.</p>
 <figure>
-<img src="figs2/join.svg" alt="" /><figcaption>Connecting Tables Using JOIN</figcaption>
+<img src="figs2/join.svg" alt="Connecting Tables Using JOIN" style="height: 3.5in;"/>
+<figcaption>
+Connecting Tables Using JOIN
+</figcaption>
 </figure>
 <p>The result of the JOIN is to create extra-long “metarows” which have both the fields from <code>People</code> and the matching fields from <code>Follows</code>. Where there is more than one match between the <code>id</code> field from <code>People</code> and the <code>from_id</code> from <code>People</code>, then JOIN creates a metarow for <em>each</em> of the matching pairs of rows, duplicating data as needed.</p>
 <p>The following code demonstrates the data that we will have in the database after the multi-table Twitter spider program (above) has been run several times.</p>

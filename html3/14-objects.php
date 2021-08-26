@@ -10,12 +10,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>-</title>
   <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
@@ -83,7 +215,10 @@ print(&#39;Non-US Floor Number is&#39;,wf)
 # Code: http://www.py4e.com/code3/elev.py</code></pre>
 <p>If we think a bit more about this program, there is the “outside world” and the program. The input and output aspects are where the program interacts with the outside world. Within the program we have code and data to accomplish the task the program is designed to solve.</p>
 <figure>
-<img src="../images/program.svg" alt="" /><figcaption>A Program</figcaption>
+<img src="../images/program.svg" alt="A Program" style="height: 1.20in;"/>
+<figcaption>
+A Program
+</figcaption>
 </figure>
 <p>One way to think about object-oriented programming is that it separates our program into multiple “zones.” Each zone contains some code and data (like a program) and has well defined interactions with the outside world and the other zones within the program.</p>
 <p>If we look back at the link extraction application where we used the BeautifulSoup library, we can see a program that is constructed by connecting different objects together to accomplish a task:</p>
@@ -114,17 +249,26 @@ for tag in tags:
 <p>We read the URL into a string and then pass that into <code>urllib</code> to retrieve the data from the web. The <code>urllib</code> library uses the <code>socket</code> library to make the actual network connection to retrieve the data. We take the string that <code>urllib</code> returns and hand it to BeautifulSoup for parsing. BeautifulSoup makes use of the object <code>html.parser</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and returns an object. We call the <code>tags()</code> method on the returned object that returns a dictionary of tag objects. We loop through the tags and call the <code>get()</code> method for each tag to print out the <code>href</code> attribute.</p>
 <p>We can draw a picture of this program and how the objects work together.</p>
 <figure>
-<img src="../images/program-oo.svg" alt="" /><figcaption>A Program as Network of Objects</figcaption>
+<img src="../images/program-oo.svg" alt="A Program as Network of Objects" style="height: 1.50in;"/>
+<figcaption>
+A Program as Network of Objects
+</figcaption>
 </figure>
 <p>The key here is not to understand perfectly how this program works but to see how we build a network of interacting objects and orchestrate the movement of information between the objects to create a program. It is also important to note that when you looked at that program several chapters back, you could fully understand what was going on in the program without even realizing that the program was “orchestrating the movement of data between objects.” It was just lines of code that got the job done.</p>
 <h2 id="subdividing-a-problem">Subdividing a problem</h2>
 <p>One of the advantages of the object-oriented approach is that it can hide complexity. For example, while we need to know how to use the <code>urllib</code> and BeautifulSoup code, we do not need to know how those libraries work internally. This allows us to focus on the part of the problem we need to solve and ignore the other parts of the program.</p>
 <figure>
-<img src="../images/program-oo-code.svg" alt="" /><figcaption>Ignoring Detail When Using an Object</figcaption>
+<img src="../images/program-oo-code.svg" alt="Ignoring Detail When Using an Object" style="height: 1.50in;"/>
+<figcaption>
+Ignoring Detail When Using an Object
+</figcaption>
 </figure>
 <p>This ability to focus exclusively on the part of a program that we care about and ignore the rest is also helpful to the developers of the objects that we use. For example, the programmers developing BeautifulSoup do not need to know or care about how we retrieve our HTML page, what parts we want to read, or what we plan to do with the data we extract from the web page.</p>
 <figure>
-<img src="../images/program-oo-bs4.svg" alt="" /><figcaption>Ignoring Detail When Building an Object</figcaption>
+<img src="../images/program-oo-bs4.svg" alt="Ignoring Detail When Building an Object" style="height: 1.50in;"/>
+<figcaption>
+Ignoring Detail When Building an Object
+</figcaption>
 </figure>
 <h2 id="our-first-python-object">Our first Python object</h2>
 <p>At a basic level, an object is simply some code plus data structures that are smaller than a whole program. Defining a function allows us to store a bit of code and give it a name and then later invoke that code using the name of the function.</p>
@@ -148,7 +292,10 @@ PartyAnimal.party(an)
 <p>Each method looks like a function, starting with the <code>def</code> keyword and consisting of an indented block of code. This object has one attribute (<code>x</code>) and one method (<code>party</code>). The methods have a special first parameter that we name by convention <code>self</code>.</p>
 <p>Just as the <code>def</code> keyword does not cause function code to be executed, the <code>class</code> keyword does not create an object. Instead, the <code>class</code> keyword defines a template indicating what data and code will be contained in each object of type <code>PartyAnimal</code>. The class is like a cookie cutter and the objects created using the class are the cookies<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. You don’t put frosting on the cookie cutter; you put frosting on the cookies, and you can put different frosting on each cookie.</p>
 <figure>
-<img src="../photos/cookie_cutter_flickr_Didriks.png" alt="" /><figcaption>A Class and Two Objects</figcaption>
+<img src="../photos/cookie_cutter_flickr_Didriks.png" alt="A Class and Two Objects" style="height: 2.0in;"/>
+<figcaption>
+A Class and Two Objects
+</figcaption>
 </figure>
 <p>If we continue through this sample program, we see the first executable line of code:</p>
 <pre class="python"><code>an = PartyAnimal()</code></pre>

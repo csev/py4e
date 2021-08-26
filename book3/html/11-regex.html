@@ -12,6 +12,7 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="http://thisisdallas.github.io/Simple-Grid/simpleGrid.css" />
   <!--[if lt IE 9]>
@@ -117,16 +118,17 @@ for line in hand:
 
 # Code: http://www.py4e.com/code3/re06.py</code></pre>
 <p>We read each line and then extract all the substrings that match our regular expression. Since <code>findall()</code> returns a list, we simply check if the number of elements in our returned list is more than zero to print only lines where we found at least one substring that looks like an email address.</p>
-<p>If we run the program on <em>mbox.txt</em> we get the following output:</p>
-<pre><code>[&#39;wagnermr@iupui.edu&#39;]
-[&#39;cwen@iupui.edu&#39;]
-[&#39;&lt;postmaster@collab.sakaiproject.org&gt;&#39;]
-[&#39;&lt;200801032122.m03LMFo4005148@nakamura.uits.iupui.edu&gt;&#39;]
-[&#39;&lt;source@collab.sakaiproject.org&gt;;&#39;]
+<p>If we run the program on <em>mbox-short.txt</em> we get the following output:</p>
+<pre><code>...
 [&#39;&lt;source@collab.sakaiproject.org&gt;;&#39;]
 [&#39;&lt;source@collab.sakaiproject.org&gt;;&#39;]
 [&#39;apache@localhost)&#39;]
-[&#39;source@collab.sakaiproject.org;&#39;]</code></pre>
+[&#39;source@collab.sakaiproject.org;&#39;]
+[&#39;cwen@iupui.edu&#39;]
+[&#39;source@collab.sakaiproject.org&#39;]
+[&#39;cwen@iupui.edu&#39;]
+[&#39;cwen@iupui.edu&#39;]
+[&#39;wagnermr@iupui.edu&#39;]</code></pre>
 <p>Some of our email addresses have incorrect characters like “&lt;” or “;” at the beginning or end. Let’s declare that we are only interested in the portion of the string that starts and ends with a letter or a number.</p>
 <p>To do this, we use another feature of regular expressions. Square brackets are used to indicate a set of multiple acceptable characters we are willing to consider matching. In a sense, the <code>\S</code> is asking to match the set of “non-whitespace characters”. Now we will be a little more explicit in terms of the characters we will match.</p>
 <p>Here is our new regular expression:</p>
@@ -140,7 +142,7 @@ import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
     line = line.rstrip()
-    x = re.findall(&#39;[a-zA-Z0-9]\S+@\S+[a-zA-Z]&#39;, line)
+    x = re.findall(&#39;[a-zA-Z0-9]\S*@\S*[a-zA-Z]&#39;, line)
     if len(x) &gt; 0:
         print(x)
 
@@ -181,7 +183,8 @@ for line in hand:
 <pre><code>X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000
 X-DSPAM-Confidence: 0.6178
-X-DSPAM-Probability: 0.0000</code></pre>
+X-DSPAM-Probability: 0.0000
+...</code></pre>
 <p>But now we have to solve the problem of extracting the numbers. While it would be simple enough to use <code>split</code>, we can use another feature of regular expressions to both search and parse the line at the same time.</p>
 <p></p>
 <p>Parentheses are another special character in regular expressions. When you add parentheses to a regular expression, they are ignored when matching the string. But when you are using <code>findall()</code>, parentheses indicate that while you want the whole expression to match, you only are interested in extracting a portion of the substring that matches the regular expression.</p>
@@ -208,19 +211,19 @@ for line in hand:
 [&#39;0.0000&#39;]
 [&#39;0.6961&#39;]
 [&#39;0.0000&#39;]
-..</code></pre>
+...</code></pre>
 <p>The numbers are still in a list and need to be converted from strings to floating point, but we have used the power of regular expressions to both search and extract the information we found interesting.</p>
 <p>As another example of this technique, if you look at the file there are a number of lines of the form:</p>
 <pre><code>Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772</code></pre>
 <p>If we wanted to extract all of the revision numbers (the integer number at the end of these lines) using the same technique as above, we could write the following program:</p>
 <pre class="python"><code># Search for lines that start with &#39;Details: rev=&#39;
-# followed by numbers and &#39;.&#39;
-# Then print the number if it is greater than zero
+# followed by numbers
+# Then print the number if one is found
 import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
     line = line.rstrip()
-    x = re.findall(&#39;^Details:.*rev=([0-9.]+)&#39;, line)
+    x = re.findall(&#39;^Details:.*rev=([0-9]+)&#39;, line)
     if len(x) &gt; 0:
         print(x)
 
