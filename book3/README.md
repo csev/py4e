@@ -45,13 +45,12 @@ should run all these scripts and check it all into github so it ends up online.
 of this site in `../html3` - this is then checked into github.
 
 * `htmlbook.sh` will make an html verion of the book, with interactive examples
-embedded in trinkets. These files are in `books/html` if you want to download
-or view them.
+embedded in trinkets and then make a zip file.
 
 * `zipbook.sh` will make two html versions of the book with Trinket branding,
 one with interactive examples (that require an internet connection to work) and one with 
 syntax highlighted code blocks for completely offline viewing.  A zip containing 
-these is at `/book/zips/pfe.zip` if you'd just like to download it.
+these is at `/book3/zips/pfe.zip` if you'd just like to download it.
 
 * `trinketbook.sh` will make the nunjucks template that we use to host the book
 at [books.trinket.io](https://books.trinket.io).  This is likely not of use to you
