@@ -10,12 +10,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>-</title>
   <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
@@ -30,7 +162,7 @@
 <p>  </p>
 <p>In this project, we are using the OpenStreetMap geocoding API to clean up some user-entered geographic locations of university names and then placing the data on an actual OpenStreetMap.</p>
 <figure>
-<img src="../images/openstreet-map.png" alt="" /><figcaption>An OpenStreetMap</figcaption>
+<img src="../images/openstreet-map.png" alt="An OpenStreetMap" /><figcaption aria-hidden="true">An OpenStreetMap</figcaption>
 </figure>
 <p>To get started, download the application from:</p>
 <p><a href="http://www.py4e.com/code3/opengeo.zip">www.py4e.com/code3/opengeo.zip</a></p>
@@ -96,7 +228,10 @@ Masovian Voivodeship, 00-046, Poland&#39;],
 <p>You can download and extract this application from:</p>
 <p><a href="http://www.py4e.com/code3/pagerank.zip">www.py4e.com/code3/pagerank.zip</a></p>
 <figure>
-<img src="../images/pagerank.png" alt="" /><figcaption>A Page Ranking</figcaption>
+<img src="../images/pagerank.png" alt="A Page Ranking" style="height: 3.5in;"/>
+<figcaption>
+A Page Ranking
+</figcaption>
 </figure>
 <p>The first program (<em>spider.py</em>) program crawls a web site and pulls a series of pages into the database (<em>spider.sqlite</em>), recording the links between pages. You can restart the process at any time by removing the <em>spider.sqlite</em> file and rerunning <em>spider.py</em>.</p>
 <pre><code>Enter web url or enter: http://www.dr-chuck.com/
@@ -163,7 +298,10 @@ Open force.html in a browser to view the visualization</code></pre>
 <p>Up to this point in the book, you have become quite familiar with our <em>mbox-short.txt</em> and <em>mbox.txt</em> data files. Now it is time to take our analysis of email data to the next level.</p>
 <p>In the real world, sometimes you have to pull down mail data from servers. That might take quite some time and the data might be inconsistent, error-filled, and need a lot of cleanup or adjustment. In this section, we work with an application that is the most complex so far and pull down nearly a gigabyte of data and visualize it.</p>
 <figure>
-<img src="../images/wordcloud.png" alt="" /><figcaption>A Word Cloud from the Sakai Developer List</figcaption>
+<img src="../images/wordcloud.png" alt="A Word Cloud from the Sakai Developer List" style="height: 3.5in;"/>
+<figcaption>
+A Word Cloud from the Sakai Developer List
+</figcaption>
 </figure>
 <p>You can download this application from:</p>
 <p><a href="https://www.py4e.com/code3/gmane.zip">https://www.py4e.com/code3/gmane.zip</a></p>
@@ -246,7 +384,7 @@ Top 10 Oranizations
 Output written to gline.js</code></pre>
 <p>Its output is written to <em>gline.js</em> which is visualized using <em>gline.htm</em>.</p>
 <figure>
-<img src="../images/mailorg.png" alt="" /><figcaption>Sakai Mail Activity by Organization</figcaption>
+<img src="../images/mailorg.png" alt="Sakai Mail Activity by Organization" /><figcaption aria-hidden="true">Sakai Mail Activity by Organization</figcaption>
 </figure>
 <p>This is a relatively complex and sophisticated application and has features to do some real data retrieval, cleaning, and visualization.</p>
 </body>

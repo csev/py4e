@@ -10,12 +10,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>-</title>
   <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
@@ -120,16 +252,17 @@ for line in hand:
 
 # Code: http://www.py4e.com/code3/re06.py</code></pre>
 <p>We read each line and then extract all the substrings that match our regular expression. Since <code>findall()</code> returns a list, we simply check if the number of elements in our returned list is more than zero to print only lines where we found at least one substring that looks like an email address.</p>
-<p>If we run the program on <em>mbox.txt</em> we get the following output:</p>
-<pre><code>[&#39;wagnermr@iupui.edu&#39;]
-[&#39;cwen@iupui.edu&#39;]
-[&#39;&lt;postmaster@collab.sakaiproject.org&gt;&#39;]
-[&#39;&lt;200801032122.m03LMFo4005148@nakamura.uits.iupui.edu&gt;&#39;]
-[&#39;&lt;source@collab.sakaiproject.org&gt;;&#39;]
+<p>If we run the program on <em>mbox-short.txt</em> we get the following output:</p>
+<pre><code>...
 [&#39;&lt;source@collab.sakaiproject.org&gt;;&#39;]
 [&#39;&lt;source@collab.sakaiproject.org&gt;;&#39;]
 [&#39;apache@localhost)&#39;]
-[&#39;source@collab.sakaiproject.org;&#39;]</code></pre>
+[&#39;source@collab.sakaiproject.org;&#39;]
+[&#39;cwen@iupui.edu&#39;]
+[&#39;source@collab.sakaiproject.org&#39;]
+[&#39;cwen@iupui.edu&#39;]
+[&#39;cwen@iupui.edu&#39;]
+[&#39;wagnermr@iupui.edu&#39;]</code></pre>
 <p>Some of our email addresses have incorrect characters like “&lt;” or “;” at the beginning or end. Let’s declare that we are only interested in the portion of the string that starts and ends with a letter or a number.</p>
 <p>To do this, we use another feature of regular expressions. Square brackets are used to indicate a set of multiple acceptable characters we are willing to consider matching. In a sense, the <code>\S</code> is asking to match the set of “non-whitespace characters”. Now we will be a little more explicit in terms of the characters we will match.</p>
 <p>Here is our new regular expression:</p>
@@ -143,7 +276,7 @@ import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
     line = line.rstrip()
-    x = re.findall(&#39;[a-zA-Z0-9]\S+@\S+[a-zA-Z]&#39;, line)
+    x = re.findall(&#39;[a-zA-Z0-9]\S*@\S*[a-zA-Z]&#39;, line)
     if len(x) &gt; 0:
         print(x)
 
@@ -184,7 +317,8 @@ for line in hand:
 <pre><code>X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000
 X-DSPAM-Confidence: 0.6178
-X-DSPAM-Probability: 0.0000</code></pre>
+X-DSPAM-Probability: 0.0000
+...</code></pre>
 <p>But now we have to solve the problem of extracting the numbers. While it would be simple enough to use <code>split</code>, we can use another feature of regular expressions to both search and parse the line at the same time.</p>
 <p></p>
 <p>Parentheses are another special character in regular expressions. When you add parentheses to a regular expression, they are ignored when matching the string. But when you are using <code>findall()</code>, parentheses indicate that while you want the whole expression to match, you only are interested in extracting a portion of the substring that matches the regular expression.</p>
@@ -211,19 +345,19 @@ for line in hand:
 [&#39;0.0000&#39;]
 [&#39;0.6961&#39;]
 [&#39;0.0000&#39;]
-..</code></pre>
+...</code></pre>
 <p>The numbers are still in a list and need to be converted from strings to floating point, but we have used the power of regular expressions to both search and extract the information we found interesting.</p>
 <p>As another example of this technique, if you look at the file there are a number of lines of the form:</p>
 <pre><code>Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772</code></pre>
 <p>If we wanted to extract all of the revision numbers (the integer number at the end of these lines) using the same technique as above, we could write the following program:</p>
 <pre class="python"><code># Search for lines that start with &#39;Details: rev=&#39;
-# followed by numbers and &#39;.&#39;
-# Then print the number if it is greater than zero
+# followed by numbers
+# Then print the number if one is found
 import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
     line = line.rstrip()
-    x = re.findall(&#39;^Details:.*rev=([0-9.]+)&#39;, line)
+    x = re.findall(&#39;^Details:.*rev=([0-9]+)&#39;, line)
     if len(x) &gt; 0:
         print(x)
 

@@ -10,12 +10,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>-</title>
   <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
@@ -27,7 +159,7 @@
 <h2 id="a-list-is-a-sequence">A list is a sequence</h2>
 <p>Like a string, a <em>list</em> is a sequence of values. In a string, the values are characters; in a list, they can be any type. The values in list are called <em>elements</em> or sometimes <em>items</em>.</p>
 <p>  </p>
-<p>There are several ways to create a new list; the simplest is to enclose the elements in square brackets (“[" and "]”):</p>
+<p>There are several ways to create a new list; the simplest is to enclose the elements in square brackets (“[” and ”]”):</p>
 <pre class="python"><code>[10, 20, 30, 40]
 [&#39;crunchy frog&#39;, &#39;ram bladder&#39;, &#39;lark vomit&#39;]</code></pre>
 <p>The first example is a list of four integers. The second is a list of three strings. The elements of a list don’t have to be the same type. The following list contains a string, a float, an integer, and (lo!) another list:</p>
@@ -257,7 +389,7 @@ the</code></pre>
 &gt;&gt;&gt; delimiter = &#39; &#39;
 &gt;&gt;&gt; delimiter.join(t)
 &#39;pining for the fjords&#39;</code></pre>
-<p>In this case the delimiter is a space character, so <code>join</code> puts a space between words. To concatenate strings without spaces, you can use the empty string, "", as a delimiter.</p>
+<p>In this case the delimiter is a space character, so <code>join</code> puts a space between words. To concatenate strings without spaces, you can use the empty string, ““, as a delimiter.</p>
 <p> </p>
 <h2 id="parsing-lines">Parsing lines</h2>
 <p>Usually when we are reading a file we want to do something to the lines other than just printing the whole line. Often we want to find the “interesting lines” and then <em>parse</em> the line to find some interesting <em>part</em> of the line. What if we wanted to print out the day of the week from those lines that start with “From”?</p>
@@ -286,7 +418,10 @@ b = &#39;banana&#39;</code></pre>
 <p>we know that <code>a</code> and <code>b</code> both refer to a string, but we don’t know whether they refer to the <em>same</em> string. There are two possible states:</p>
 <p></p>
 <figure>
-<img src="../images/list1.svg" alt="" /><figcaption>Variables and Objects</figcaption>
+<img src="../images/list1.svg" alt="Variables and Objects" style="height: 0.5in;"/>
+<figcaption>
+Variables and Objects
+</figcaption>
 </figure>
 <p>In one case, <code>a</code> and <code>b</code> refer to two different objects that have the same value. In the second case, they refer to the same object.</p>
 <p> </p>

@@ -8,6 +8,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -146,59 +147,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So far we have been learning the Python language and then learning how to use Python, the network, and databases to manipulate data.</p>
 <p>In this chapter, we take a look at three complete applications that bring all of these things together to manage and visualize data. You might use these applications as sample code to help get you started in solving a real-world problem.</p>
 <p>Each of the applications is a ZIP file that you can download and extract onto your computer and execute.</p>
-<h2 id="building-a-google-map-from-geocoded-data">Building a Google map from geocoded data</h2>
-<p> </p>
-<p>In this project, we are using the Google geocoding API to clean up some user-entered geographic locations of university names and then placing the data on a Google map.</p>
+<h2 id="building-a-openstreetmap-from-geocoded-data">Building a OpenStreetMap from geocoded data</h2>
+<p>  </p>
+<p>In this project, we are using the OpenStreetMap geocoding API to clean up some user-entered geographic locations of university names and then placing the data on an actual OpenStreetMap.</p>
 <figure>
-<img src="../images/google-map.png" alt="" /><figcaption>A Google Map</figcaption>
+<img src="../images/openstreet-map.png" alt="An OpenStreetMap" /><figcaption aria-hidden="true">An OpenStreetMap</figcaption>
 </figure>
 <p>To get started, download the application from:</p>
-<p><a href="http://www.py4e.com/code3/geodata.zip">www.py4e.com/code3/geodata.zip</a></p>
-<p>The first problem to solve is that the free Google geocoding API is rate-limited to a certain number of requests per day. If you have a lot of data, you might need to stop and restart the lookup process several times. So we break the problem into two phases.</p>
+<p><a href="http://www.py4e.com/code3/opengeo.zip">www.py4e.com/code3/opengeo.zip</a></p>
+<p>The first problem to solve is that these geocoding APIs are rate-limited to a certain number of requests per day. If you have a lot of data, you might need to stop and restart the lookup process several times. So we break the problem into two phases.</p>
 <p></p>
 <p>In the first phase we take our input “survey” data in the file <em>where.data</em> and read it one line at a time, and retrieve the geocoded information from Google and store it in a database <em>geodata.sqlite</em>. Before we use the geocoding API for each user-entered location, we simply check to see if we already have the data for that particular line of input. The database is functioning as a local “cache” of our geocoding data to make sure we never ask Google for the same data twice.</p>
 <p>You can restart the process at any time by removing the file <em>geodata.sqlite</em>.</p>
 <p>Run the <em>geoload.py</em> program. This program will read the input lines in <em>where.data</em> and for each line check to see if it is already in the database. If we don’t have the data for the location, it will call the geocoding API to retrieve the data and store it in the database.</p>
 <p>Here is a sample run after there is already some data in the database:</p>
-<pre><code>Found in database  Northeastern University
-Found in database  University of Hong Kong, ...
-Found in database  Technion
-Found in database  Viswakarma Institute, Pune, India
-Found in database  UMD
-Found in database  Tufts University
+<pre><code>Found in database AGH University of Science and Technology
 
-Resolving Monash University
-Retrieving http://maps.googleapis.com/maps/api/
-    geocode/json?address=Monash+University
-Retrieved 2063 characters {    &quot;results&quot; : [
-{&#39;status&#39;: &#39;OK&#39;, &#39;results&#39;: ... }
+Found in database Academy of Fine Arts Warsaw Poland
 
-Resolving Kokshetau Institute of Economics and Management
-Retrieving http://maps.googleapis.com/maps/api/
-    geocode/json?address=Kokshetau+Inst ...
-Retrieved 1749 characters {    &quot;results&quot; : [
-{&#39;status&#39;: &#39;OK&#39;, &#39;results&#39;: ... }
+Found in database American University in Cairo
+
+Found in database Arizona State University
+
+Found in database Athens Information Technology
+
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=BITS+Pilani
+Retrieved 794 characters {&quot;type&quot;:&quot;FeatureColl
+
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=Babcock+University
+Retrieved 760 characters {&quot;type&quot;:&quot;FeatureColl
+
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=Banaras+Hindu+University
+Retrieved 866 characters {&quot;type&quot;:&quot;FeatureColl
 ...</code></pre>
 <p>The first five locations are already in the database and so they are skipped. The program scans to the point where it finds new locations and starts retrieving them.</p>
 <p>The <em>geoload.py</em> program can be stopped at any time, and there is a counter that you can use to limit the number of calls to the geocoding API for each run. Given that the <em>where.data</em> only has a few hundred data items, you should not run into the daily rate limit, but if you had more data it might take several runs over several days to get your database to have all of the geocoded data for your input.</p>
 <p>Once you have some data loaded into <em>geodata.sqlite</em>, you can visualize the data using the <em>geodump.py</em> program. This program reads the database and writes the file <em>where.js</em> with the location, latitude, and longitude in the form of executable JavaScript code.</p>
 <p>A run of the <em>geodump.py</em> program is as follows:</p>
-<pre><code>Northeastern University, ... Boston, MA 02115, USA 42.3396998 -71.08975
-Bradley University, 1501 ... Peoria, IL 61625, USA 40.6963857 -89.6160811
+<pre><code>AGH University of Science and Technology, Czarnowiejska,
+Czarna Wieś, Krowodrza, Kraków, Lesser Poland
+Voivodeship, 31-126, Poland 50.0657 19.91895
+
+Academy of Fine Arts, Krakowskie Przedmieście,
+Northern Śródmieście, Śródmieście, Warsaw, Masovian
+Voivodeship, 00-046, Poland 52.239 21.0155
 ...
-Technion, Viazman 87, Kesalsaba, 32000, Israel 32.7775 35.0216667
-Monash University Clayton ... VIC 3800, Australia -37.9152113 145.134682
-Kokshetau, Kazakhstan 53.2833333 69.3833333
-...
-12 records written to where.js
-Open where.html to view the data in a browser</code></pre>
+260 lines were written to where.js
+Open the where.html file in a web browser to view the data.</code></pre>
 <p>The file <em>where.html</em> consists of HTML and JavaScript to visualize a Google map. It reads the most recent data in <em>where.js</em> to get the data to be visualized. Here is the format of the <em>where.js</em> file:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1"></a>myData <span class="op">=</span> [</span>
-<span id="cb3-2"><a href="#cb3-2"></a>[<span class="fl">42.3396998</span><span class="op">,-</span><span class="fl">71.08975</span><span class="op">,</span> <span class="st">&#39;Northeastern Uni ... Boston, MA 02115&#39;</span>]<span class="op">,</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>[<span class="fl">40.6963857</span><span class="op">,-</span><span class="fl">89.6160811</span><span class="op">,</span> <span class="st">&#39;Bradley University, ... Peoria, IL 61625, USA&#39;</span>]<span class="op">,</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>[<span class="fl">32.7775</span><span class="op">,</span><span class="fl">35.0216667</span><span class="op">,</span> <span class="st">&#39;Technion, Viazman 87, Kesalsaba, 32000, Israel&#39;</span>]<span class="op">,</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>   <span class="op">...</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>]<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>myData <span class="op">=</span> [</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>[<span class="fl">50.0657</span><span class="op">,</span><span class="fl">19.91895</span><span class="op">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;AGH University of Science and Technology, Czarnowiejska,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Czarna Wieś<span class="op">,</span> Krowodrza<span class="op">,</span> Kraków<span class="op">,</span> Lesser Poland</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Voivodeship<span class="op">,</span> <span class="dv">31</span><span class="op">-</span><span class="dv">126</span><span class="op">,</span> Poland <span class="st">&#39;],</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>[<span class="fl">52.239</span><span class="op">,</span><span class="fl">21.0155</span><span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Academy of Fine Arts, Krakowskie Przedmieściee,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>Śródmieście Północne<span class="op">,</span> Śródmieście<span class="op">,</span> Warsaw<span class="op">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Masovian Voivodeship<span class="op">,</span> <span class="dv">00</span><span class="op">-</span><span class="bn">046</span><span class="op">,</span> Poland<span class="st">&#39;],</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>   <span class="op">...</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span></code></pre></div>
 <p>This is a JavaScript variable that contains a list of lists. The syntax for JavaScript list constants is very similar to Python, so the syntax should be familiar to you.</p>
 <p>Simply open <em>where.html</em> in a browser to see the locations. You can hover over each map pin to find the location that the geocoding API returned for the user-entered input. If you cannot see any data when you open the <em>where.html</em> file, you might want to check the JavaScript or developer console for your browser.</p>
 <h2 id="visualizing-networks-and-interconnections">Visualizing networks and interconnections</h2>
@@ -207,7 +217,10 @@ Open where.html to view the data in a browser</code></pre>
 <p>You can download and extract this application from:</p>
 <p><a href="http://www.py4e.com/code3/pagerank.zip">www.py4e.com/code3/pagerank.zip</a></p>
 <figure>
-<img src="../images/pagerank.png" alt="" /><figcaption>A Page Ranking</figcaption>
+<img src="../images/pagerank.png" alt="A Page Ranking" style="height: 3.5in;"/>
+<figcaption>
+A Page Ranking
+</figcaption>
 </figure>
 <p>The first program (<em>spider.py</em>) program crawls a web site and pulls a series of pages into the database (<em>spider.sqlite</em>), recording the links between pages. You can restart the process at any time by removing the <em>spider.sqlite</em> file and rerunning <em>spider.py</em>.</p>
 <pre><code>Enter web url or enter: http://www.dr-chuck.com/
@@ -274,12 +287,15 @@ Open force.html in a browser to view the visualization</code></pre>
 <p>Up to this point in the book, you have become quite familiar with our <em>mbox-short.txt</em> and <em>mbox.txt</em> data files. Now it is time to take our analysis of email data to the next level.</p>
 <p>In the real world, sometimes you have to pull down mail data from servers. That might take quite some time and the data might be inconsistent, error-filled, and need a lot of cleanup or adjustment. In this section, we work with an application that is the most complex so far and pull down nearly a gigabyte of data and visualize it.</p>
 <figure>
-<img src="../images/wordcloud.png" alt="" /><figcaption>A Word Cloud from the Sakai Developer List</figcaption>
+<img src="../images/wordcloud.png" alt="A Word Cloud from the Sakai Developer List" style="height: 3.5in;"/>
+<figcaption>
+A Word Cloud from the Sakai Developer List
+</figcaption>
 </figure>
 <p>You can download this application from:</p>
-<p><a href="http://www.py4e.com/code3/gmane.zip">www.py4e.com/code3/gmane.zip</a></p>
-<p>We will be using data from a free email list archiving service called <a href="http://www.gmane.org">www.gmane.org</a>. This service is very popular with open source projects because it provides a nice searchable archive of their email activity. They also have a very liberal policy regarding accessing their data through their API. They have no rate limits, but ask that you don’t overload their service and take only the data you need. You can read gmane’s terms and conditions at this page:</p>
-<p><a href="http://gmane.org/export.php" class="uri">http://gmane.org/export.php</a></p>
+<p><a href="https://www.py4e.com/code3/gmane.zip">https://www.py4e.com/code3/gmane.zip</a></p>
+<p>We will be using data from a free email list archiving service called <a href="http://www.gmane.org">http://www.gmane.org</a>. This service is very popular with open source projects because it provides a nice searchable archive of their email activity. They also have a very liberal policy regarding accessing their data through their API. They have no rate limits, but ask that you don’t overload their service and take only the data you need. You can read gmane’s terms and conditions at this page:</p>
+<p><a href="http://www.gmane.org/export.php">http://www.gmane.org/export.php</a></p>
 <p><em>It is very important that you make use of the gmane.org data responsibly by adding delays to your access of their services and spreading long-running jobs over a longer period of time. Do not abuse this free service and ruin it for the rest of us.</em></p>
 <p>When the Sakai email data was spidered using this software, it produced nearly a Gigabyte of data and took a number of runs on several days. The file <em>README.txt</em> in the above ZIP may have instructions as to how you can download a pre-spidered copy of the <em>content.sqlite</em> file for a majority of the Sakai email corpus so you don’t have to spider for five days just to run the programs. If you download the pre-spidered content, you should still run the spidering process to catch up with more recent messages.</p>
 <p>The first step is to spider the gmane repository. The base URL is hard-coded in the <em>gmane.py</em> and is hard-coded to the Sakai developer list. You can spider another repository by changing that base url. Make sure to delete the <em>content.sqlite</em> file if you switch the base url.</p>
@@ -300,7 +316,7 @@ http://download.gmane.org/gmane.comp.cms.sakai.devel/51415/51416 0
 
 Does not start with From</code></pre>
 <p>The program scans <em>content.sqlite</em> from one up to the first message number not already spidered and starts spidering at that message. It continues spidering until it has spidered the desired number of messages or it reaches a page that does not appear to be a properly formatted message.</p>
-<p>Sometimes <a href="gmane.org">gmane.org</a> is missing a message. Perhaps administrators can delete messages or perhaps they get lost. If your spider stops, and it seems it has hit a missing message, go into the SQLite Manager and add a row with the missing id leaving all the other fields blank and restart <em>gmane.py</em>. This will unstick the spidering process and allow it to continue. These empty messages will be ignored in the next phase of the process.</p>
+<p>Sometimes <strong>gmane.org</strong> is missing a message. Perhaps administrators can delete messages or perhaps they get lost. If your spider stops, and it seems it has hit a missing message, go into the SQLite Manager and add a row with the missing id leaving all the other fields blank and restart <em>gmane.py</em>. This will unstick the spidering process and allow it to continue. These empty messages will be ignored in the next phase of the process.</p>
 <p>One nice thing is that once you have spidered all of the messages and have them in <em>content.sqlite</em>, you can run <em>gmane.py</em> again to get new messages as they are sent to the list.</p>
 <p>The <em>content.sqlite</em> data is pretty raw, with an inefficient data model, and not compressed. This is intentional as it allows you to look at <em>content.sqlite</em> in the SQLite Manager to debug problems with the spidering process. It would be a bad idea to run any queries against this database, as they would be quite slow.</p>
 <p>The second process is to run the program <em>gmodel.py</em>. This program reads the raw data from <em>content.sqlite</em> and produces a cleaned-up and well-modeled version of the data in the file <em>index.sqlite</em>. This file will be much smaller (often 10X smaller) than <em>content.sqlite</em> because it also compresses the header and body text.</p>
@@ -357,7 +373,7 @@ Top 10 Oranizations
 Output written to gline.js</code></pre>
 <p>Its output is written to <em>gline.js</em> which is visualized using <em>gline.htm</em>.</p>
 <figure>
-<img src="../images/mailorg.png" alt="" /><figcaption>Sakai Mail Activity by Organization</figcaption>
+<img src="../images/mailorg.png" alt="Sakai Mail Activity by Organization" /><figcaption aria-hidden="true">Sakai Mail Activity by Organization</figcaption>
 </figure>
 <p>This is a relatively complex and sophisticated application and has features to do some real data retrieval, cleaning, and visualization.</p>
         </div>
