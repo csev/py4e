@@ -9,83 +9,80 @@ require_once "nav.php";
 <div style="margin-left: 10px; float:right">
 <iframe width="400" height="225" src="https://www.youtube.com/embed/UjeNA_JtXME?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
-<h1>Python for Everybody</h1>
+<h1>Python για Όλους</h1>
 <?php if ( isset($_SESSION['id']) ) { ?>
 <p>
-Welcome to my free web site for Python for Everybody.
-Now that you have logged in, you have access to course-style features of this web site.
+Καλώς ορίσατε στον δωρεάν ιστότοπό μου για την Python για όλους.
+Τώρα που έχετε συνδεθεί, έχετε πρόσβαση σε λειτουργίες τύπου-μαθήματος του συγκεκριμένου ιστότοπου.
 <ul>
 <li>
-As you go through the <a href="lessons">Lessons</a> in the course you now will see additional
-links to the autograders in the class.  You can attempt the autograders and get a score.</li>
+Καθώς προχωράτε στα <a href="lessons">Μαθήματα</a> της σειράς μαθημάτων θα βλέπετε επιπλέον
+συνδέσμους για τους αυτόματους βαθμολογητές (autograders) της τάξης. Μπορείτε να δοκιμάσετε τους autograders και να λάβετε βαθμολογία.</li>
 <li>
-You can track your progress through the course using the <a href="assignments">Assignments</a>
-tool and when you complete a group of assignments, you can earn a <a href="badges">Badge</a>.
-You can download these badges and host them on your web site or refer the badge URLs on this site.</li>
+Μπορείτε να παρακολουθήσετε την πρόοδό σας μέσω του μαθήματος χρησιμοποιώντας την επιλογή <a href="assignments">Εργασίες</a>
+και όταν ολοκληρώσετε μια ομάδα εργασιών, μπορείτε να κερδίσετε ένα <a href="badges">Badge - Σήμα</a>.
+Μπορείτε να κατεβάσετε αυτά τα badges και να τα φιλοξενήσετε στον ιστότοπό σας ή να παραπέμψετε τις διευθύνσεις URL του σήματος σε αυτόν τον ιστότοπο.</li>
 <li>
-If you want to use these Creative Commons Licensed materials
-in your own classes you can
-<a href="materials.php">download or link</a> to the artifacts on this site,
-<a href="tsugi/cc/">export the course material</a> as an
-IMS Common Cartridge®, or apply for
-an IMS Learning Tools Interoperability® (LTI®)
-<a href="tsugi/admin/key/index.php">key and secret</a>
- to launch the autograders from your LMS.
+Εάν θέλετε να χρησιμοποιήσετε αυτά τα υλικά με άδεια Creative Commons στις δικές σας τάξεις, μπορείτε να κάνετε
+<a href="materials.php">λήψη ή σύνδεση</a> στα περιεχόμενα αυτού του ιστότοπου, να
+<a href="tsugi/cc/">εξάγετε το υλικό του μαθήματος</a> ως ένα
+IMS Common Cartridge®, ή να κάνετε αίτηση για
+ένα <a href="tsugi/admin/key/index.php">key και secret</a> IMS Learning Tools Interoperability® (LTI®)
+για να ξεκινήσετε τους αυτόματους βαθμολογητές από το LMS σας.
 </li>
 </ul>
 <?php } else { ?>
 <p>
-This web site is building a set of free 
-<a href="lessons">materials</a>, 
-<a href="https://www.youtube.com/watch?v=UjeNA_JtXME&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p&index=1" target="_blank">lectures</a>, 
-<a href="book.php">book</a>
-and assignments to help students
-learn how to program in Python.
-You can take this course and receive a certificate at:
+Αυτός ο ιστότοπος δημιουργεί ένα σύνολο από δωρεάν 
+<a href="lessons">υλικό</a>, 
+<a href="https://www.youtube.com/watch?v=UjeNA_JtXME&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p&index=1" target="_blank">διαλέξεις</a>, 
+<a href="book.php">βιβλίο</a>
+και εργασίες για να βοηθήσει τους μαθητές να
+μάθουν πως να προγραμματίζουν σε Python.
+Μπορείτε να παρακολουθήσετε αυτό το μάθημα και να λάβετε ένα πιστοποιητικό από:
 <ul>
 <li><a href="https://www.coursera.org/specializations/python" target="_blank">Coursera: Python for Everybody Specialization</a> </li>
 <li><a href="https://www.edx.org/bio/charles-severance" target="_blank">edX: Python for Everybody</a></li>
 <li><a href="https://www.futurelearn.com/courses/programming-for-everybody-python" target="_blank">FutureLearn: Programming for Everybody (Getting Started with Python)</a></li>
 </ul>
 <p>
-If you <a href="tsugi/login.php">log in</a> to this site
-you have joined a free, global
-open and online course.  You have a grade book, autograded assignments, discussion forums, and can earn
-badges for your efforts.</p>
+Εάν <a href="tsugi/login.php">συνδεθείτε</a> σε αυτόν τον ιστότοπο
+θα έχετε συμμετάσχει σε ένα δωρεάν, παγκόσμιο
+και ανοιχτό διαδικτυακό μάθημα. Θα έχετε ένα βιβλίο βαθμολογίας, εργασίες αυτόματης βαθμολόγησης, φόρουμ συζήτησης και μπορείτε να κερδίσετε
+διακριτικά για τις προσπάθειές σας.</p>
 <p>
-We take your privacy seriously on this site, you can review our
-<a href="privacy">Privacy Policy</a> for more details.
+Σε αυτόν τον ιστότοπο λαμβάνουμε σοβαρά υπόψη το απόρρητό σας, μπορείτε να ελέγξετε την
+<a href="privacy">Πολιτική Απορρήτου</a> για περισσότερες λεπτομέρειες.
 </p>
 <p>
-If you want to use these materials
-in your own classes you can download or link to the artifacts on this site,
-<a href="tsugi/cc/">export the course material</a> as an
-IMS Common Cartridge®, or apply for
-an IMS Learning Tools Interoperability® (LTI®)
-<a href="tsugi/admin/key/index.php">key and secret</a>
- to launch the autograders from your LMS.
+Εάν θέλετε να χρησιμοποιήσετε αυτό το υλικό
+στα δικά σας μαθήματα μπορείτε να κατεβάσετε ή να συνδέσετε τα περιεχόμενα αυτού του ιστότοπου κάνοντας
+<a href="tsugi/cc/">εξαγωγή του υλικού του μαθήματος</a> σαν ένα
+IMS Common Cartridge®, ή κάνοντας αίτηση για 
+ένα <a href="tsugi/admin/key/index.php">key και secret</a> IMS Learning Tools Interoperability® (LTI®)
+για να ξεκινήσετε τους αυτόματους βαθμολογητές από το LMS σας.
 </p>
 <p>
-The code for this site including the autograders, slides, and course content is all available on
-<a href="https://github.com/csev/py4e" target="_blank">GitHub</a>.  That means you could make your own
-copy of the course site, publish it and remix it any way you like.  Even more exciting, you could translate
-the entire site (course) into your own language and publish it.  I have provided
-some <a href="https://github.com/csev/py4e/blob/master/TRANSLATION.md" target="_new">
-instructions on how to translate this course</a> in my GitHub repository.
+Ο κωδικός για αυτόν τον ιστότοπο, συμπεριλαμβανομένων των αυτόματων βαθμολογητών, των διαφανειών και του περιεχομένου των μαθημάτων, είναι διαθέσιμος στο
+<a href="https://github.com/csev/py4e" target="_blank">GitHub</a>.  Αυτό σημαίνει ότι μπορείτε να φτιάξετε το δικό σας
+αντίγραφο του ιστότοπου του μαθήματος, να το δημοσιεύστε και να το αλλάξετε με όποιον τρόπο θέλετε.  Ακόμα πιο συναρπαστικό, θα μπορούσατε να μεταφράσετε
+ολόκληρο τον ιστότοπο (μάθημα) στη γλώσσα σας και να τον δημοσιεύστε.  Έχω δώσει 
+κάποιες <a href="https://github.com/csev/py4e/blob/master/TRANSLATION.md" target="_new">
+οδηγίες για τον τρόπο μετάφρασης αυτού του μαθήματος</a> στο αποθετήριο (repository) μου στο GitHub.
 </p>
 <?php } ?>
-This site uses <a href="http://www.tsugi.org" target="_blank">Tsugi</a>
-framework to embed a learning management system into this site and
-provide the autograders.
-If you are interested in collaborating
-to build these kinds of sites for yourself, please see the
-<a href="http://www.tsugi.org" target="_blank">tsugi.org</a> website and/or
-contact me.
+Αυτός ο ιστότοπος χρησιμοποιεί το framework <a href="http://www.tsugi.org" target="_blank">Tsugi</a>
+να ενσωματώσει ένα σύστημα διαχείρισης μάθησης και να
+παράσχει τους αυτόματους βαθμολογητές.
+Εάν ενδιαφέρεστε να συνεργαστείτε
+για να δημιουργήσετε τέτοιου είδους ιστότοπους για τον εαυτό σας, δείτε την
+ιστοσελίδα <a href="http://www.tsugi.org" target="_blank">tsugi.org</a> και/ή
+επικοινωνήστε μαζί μου.
 </p>
 <p>
-And yes, Dr. Chuck actually has a race car - it is called the
+Και ναι, ο Δρ Τσακ έχει πραγματικά ένα αγωνιστικό αυτοκίνητο - ονομάζεται
 <a href="https://www.sakaiger.com/sakaicar/" target=_blank">SakaiCar</a>.
-He races in a series called
+Αγωνίζεται στο
 <a href="https://www.24hoursoflemons.com" target="_blank">24 Hours of Lemons</a>.
 </p>
 <!--
