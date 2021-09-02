@@ -4,9 +4,10 @@
 <h2>Python for Everybody</h2>
 <p>
 The goal of this book is to provide an Informatics-oriented introduction to programming. The primary difference between a computer science approach and the Informatics approach taken in this book is a greater focus on using Python to solve data analysis problems common in the world of Informatics.
-The <a href="http://www.py4inf.com/">Python 2 version</a> of the book is still available.
         </p>
-
+        <p>
+            The sample code and data files for the book is here: <a href="http://www.py4e.com/code3/" target="_blank">Code Samples</a>.
+        </p>
 <p><b><a href="courses">Other courses / web sites using this book</a></b>
 </p>
 <p>
@@ -132,11 +133,21 @@ https://www.bilibili.com/video/av46649799</a>
   <li>
     Russian - In progress
     <ul>
+<li><a href="https://dmkpress.com" target="_blank">DMK Press</a>
+is working on a commercial translation of the book and will provide a free PDF for this site when it is completed.</li>
     <li><a href="lectures3/ru/index.htm" target="_blank">Russian versions of the slides</a> from
 <a href="https://www.linkedin.com/in/violetta-fomkina-9451372/" target="_blank">Violetta Fomkina</a>.
 </li>
-
 </ul>
+
+<li>
+Greek - In progress
+<ul>
+<li>
+<a href="lectures3/gr" target="_blank">Greek versions of the slides</a> from 
+<a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kirourtidou</a></li>
+</ul>
+</li>
 
 <p>
 If you are insterested in starting a translation of the book, I have some
@@ -145,13 +156,10 @@ instructions for
  target="_blank">
 getting started</a>.
 </p>
-
-        <p>
-            The sample code and data files for the book is here: <a href="http://www.py4e.com/code3/" target="_blank">Code Samples</a>.
-        </p>
         <p>
             Chapters 2-10 are heavily adapted from the open book titled: "<a href="http://www.greenteapress.com/thinkpython/thinkCSpy/" target="_blank">Think Python: How to Think like a Computer Scientist</a>" by <a href="http://allendowney.com/" target="_blank">Allen B. Downey</a>
 and <a href="http://www.elkner.net/" target="_blank">Jeff Elkner</a>.
+The <a href="http://www.py4inf.com/">Python 2 version</a> of the book is still available.
         </p>
 </div>
 </div>
