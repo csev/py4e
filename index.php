@@ -80,7 +80,7 @@ IMS Common Cartridge®, ή κάνοντας αίτηση για
 επικοινωνήστε μαζί μου.
 </p>
 <p>
-Και ναι, ο Δρ Τσακ έχει πραγματικά ένα αγωνιστικό αυτοκίνητο - ονομάζεται
+Και ναι, ο Dr Chuck έχει πραγματικά ένα αγωνιστικό αυτοκίνητο - ονομάζεται
 <a href="https://www.sakaiger.com/sakaicar/" target=_blank">SakaiCar</a>.
 Αγωνίζεται στο
 <a href="https://www.24hoursoflemons.com" target="_blank">24 Hours of Lemons</a>.
