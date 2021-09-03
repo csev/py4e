@@ -3,28 +3,28 @@
 <div class="hide-for-large" id="mobile-support"></div>
 <div id="first-row" class="row">
     <div class="small-12 columns">
-        <h2>Setting up your Python Development Environment</h2>
+        <h2>Ρύθμιση του Περιβάλλοντος Ανάπτυξης Python</h2>
         <p>
-            We have separate pages for each of the commonly used Operating Systems:
+        Έχουμε ξεχωριστές σελίδες για καθένα από τα συνήθως χρησιμοποιούμενα λειτουργικά συστήματα:
         </p>
         <ul>
             <li>
-                <a href="software-pyaw.php">Using Python on PythonAnywhere</a> 
-                    (Cloud / browser based - no installation required)
+                <a href="software-pyaw.php">Χρήση Python στο PythonAnywhere</a> 
+                (Βασίζεται σε πρόγραμμα περιήγησης/cloud - δεν απαιτείται εγκατάσταση)
             </li>
             <li>
-                <a href="software-win.php">Setting up the Python Environment in Microsoft Windows</a>
+                <a href="software-win.php">Ρύθμιση του περιβάλλοντος Python στα Microsoft Windows</a>
             </li>
             <li>
-                <a href="software-mac.php">Setting up the Python Environment on a Macintosh</a>
+                <a href="software-mac.php">Ρύθμιση του περιβάλλοντος Python σε Macintosh</a>
             </li>
             <li>
-                You can also set up Python under Windows-10 using the Windows Subsystem for Linux (WSL)
-                if you prefer a Linux-like experience on your windows computer.
+                Μπορείτε επίσης να ρυθμίσετε την Python στα Windows-10 χρησιμοποιώντας το Υποσύστημα Windows για Linux (WSL)
+                εάν προτιμάτε ένα περιβάλλον παρόμοιο με το Linux στον υπολογιστή σας, χρησιμοποιώντας Windows.
             </li>
         </ul>
         <p>
-            Other cloud-provided Python environments include
+        Άλλα περιβάλλοντα Python που παρέχονται από cloud περιλαμβάνουν
             <a href="http://trinket.io">Trinket</a>,
             <a href="http://c9.io">Cloud9</a>, or
             <a href="http://codeanywhere.com">CodeAnywhere</a>.
