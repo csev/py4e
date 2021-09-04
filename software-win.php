@@ -1,30 +1,31 @@
 <?php include("top.php"); ?>
 <?php include("nav.php"); ?>
-<h1>Installing Python 3 On Windows 10</h1>
-<p><b>Note:</b> Any reasonably recent version of Python is acceptable for this course.
-If you have a version of Python 3.x on your computer already you should be able to use it for this class.
+<h1Εγκατάσταση της Python 3 Στα Windows 10</h1>
+<p><b>Σημείωση:</b> Οποιαδήποτε λογικά πρόσφατη έκδοση της Python είναι αποδεκτή για αυτό το μάθημα.
+Εάν έχετε ήδη μια έκδοση της Python 3.x στον υπολογιστή σας, θα πρέπει να μπορείτε να την χρησιμοποιήσετε
+για αυτήν την τάξη.
 </p>
-<p>Please download and install Python 3.x from:</p>
+<p>Κατεβάστε και εγκαταστήστε την Python 3.x από το:</p>
 <p><a href="http://www.python.org/download/" target="_blank">http://www.python.org/download/</a></p>
-<p>As you install Python, make sure to check the "Add Python 3.5 to PATH" so that you can 
-type <b>python</b> at the command line prompt to run Python.
+<p>Κατά την εγκατάσταση της Python, βεβαιωθείτε ότι έχετε επιλέξει το "Add Python 3.5 to PATH", ώστε να μπορείτε να πληκτρολογήσετε 
+<b>python</b> στη γραμμή εντολών για να εκτελέσετε Python.
 </p>
-<b>Installing the Atom Text Editor</b>
-<p>Please download and install Atom from this site:
+<b>Εγκατάσταση του Συντάκτη Κειμένου Atom</b>
+<p>Κατεβάστε και εγκαταστήστε το Atom από αυτόν τον ιστότοπο:
 </p>
-<p><a href="http://atom.io" target="_blank">http://atom.io</a>
+<p><a href="http://atom.io" target="_blank">http://atom.io</a></p>
 
-<h1>Writing a Python 3 program with Atom on Windows-10</h1>
+<h1>Γράφοντας ένα πρόγραμμα Python 3 με το Atom στα Windows-10</h1>
 <p>
-We have a short 
+Έχουμε ένα σύντομο 
 <a href="https://www.youtube.com/watch?v=uZbaYeYGYRQ&index=1&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
-step-by-step video</a> showing how to install Python 3 and Atom and write your first program.
+βίντεο βήμα προς βήμα</a> που δείχνει πώς να εγκαταστήσετε την Python 3 και το Atom και να γράψετε το πρώτο σας πρόγραμμα.
+</p>
+<h1>Σημειώσεις Γραμμής Εντολών των Windows</h1>
 <p>
-<h1>Windows Command Line Notes</h1>
-<p>
-When the command line starts <b style="color:black;background-color:#a0ffff">up</b>, you are in your "home" directory.  Your home directory 
-is different for each of the operating systems.  
-In each of these examples, your logged in account should be used instead of csev.
+Όταν η γραμμή εντολών <b style="color:black;background-color:#a0ffff">ξεκινήσει</b>, βρίσκεστε στον "αρχικό" κατάλογό σας. 
+Ο αρχικός σας κατάλογος είναι διαφορετικός για καθένα από τα λειτουργικά συστήματα. Σε καθένα από αυτά τα παραδείγματα, ο 
+συνδεδεμένος λογαριασμός σας θα πρέπει να χρησιμοποιείται αντί του csev.</p>
 <pre>
     Windows XP:             C:\Documents and Settings\csev
     Windows Vista:          C:\Users\csev
@@ -32,48 +33,46 @@ In each of these examples, your logged in account should be used instead of csev
     Windows 10:             C:\Users\csev
     Windows 10 OneDrive:    C:\Users\csev\OneDrive
 </pre>
-The command line prompt usually includes some clue as to 
-where you are in the folder structure on your hard drive.
+Η γραμμή γραμμής εντολών συνήθως περιλαμβάνει κάποια ένδειξη για το πού βρίσκεστε στη δομή φακέλου στον σκληρό σας δίσκο.
 <p>
-If you want to really figure out where you are, use the cd command with no parameters
+Αν θέλετε πραγματικά να καταλάβετε πού βρίσκεστε, χρησιμοποιήστε την εντολή cd χωρίς παραμέτρους</p>
 <pre>
     C:\Users\csev> cd
     C:\Users\csev
 </pre>
 <p>
-Where can you go?
+Πού μπορείτε να πάτε;
 </p>
 <p>
-Generally the first thing you want to do when you open a command line 
-interface is to navigate to the right folder.  Say you wanted to run a 
-file from your desktop.   The command is <b>cd Desktop</b> (or <b>cd OneDrive\Desktop</b>) 
-to get into the 
-folder that is your Desktop.  You can use the <b>dir</b> command to see 
-which files are in the current directory and the 
-<b>cd ..</b> command to go "<b style="color:black;background-color:#a0ffff">up</b>" a directory
+Γενικά το πρώτο πράγμα που πρέπει να κάνετε όταν ανοίγετε μια διεπαφή γραμμής εντολών είναι να μεταβείτε στο σωστό φάκελο. 
+Πείτε ότι θέλετε να εκτελέσετε ένα αρχείο από την επιφάνεια εργασίας σας. Η εντολή είναι <b>cd Desktop</b> (ή <b>cd OneDrive\Desktop</b>)
+για να μπείτε στο φάκελο που είναι η επιφάνεια εργασίας σας. Μπορείτε να χρησιμοποιήσετε την εντολή <b>di </b> για να δείτε ποια
+αρχεία βρίσκονται στον τρέχοντα κατάλογο και την εντολή <b>cd ..</b> για να πάτε "<b style="color:black;background-color:#a0ffff">πάνω</b>" έναν κατάλογο
 </p>
 <p> 
-<b>Nifty Trick:</b>  On the cd command, you can partially type a folder name like
-Desktop and then press the TAB key and the system will auto-complete the folder name 
-if you have typed enough that the system can accurately guess what you mean to type.
+<b>Έξυπνο Κόλπο:</b> Στην εντολή cd, μπορείτε να πληκτρολογήσετε μερικώς ένα όνομα φακέλου, όπως το Desktop, και στη συνέχεια να πατήσετε το πλήκτρο TAB 
+και το σύστημα θα συμπληρώσει αυτόματα το όνομα του φακέλου, εάν έχετε πληκτρολογήσει αρκετά ώστε το σύστημα να μπορεί να μαντέψει με ακρίβεια τι σκοπεύατε να πληκτρολογήσετε.
+</p>
 <p>
 If you get Lost...
+</p>
 <p>
-If you can't figure out what folder you are in and/or cannot figure out how 
-to get to the folder you want to get to - simply close and re-open 
-the Command Line / Terminal window.  You will be back to 
-your "home" directory - so you can start from a known location.
+Εάν δεν μπορείτε να καταλάβετε σε ποιο φάκελο βρίσκεστε και/ή δεν μπορείτε να καταλάβετε πώς να φτάσετε 
+στον φάκελο στον οποίο θέλετε να φτάσετε - απλώς κλείστε και ανοίξτε ξανά το παράθυρο Γραμμή εντολών/Τερματικό.
+Θα επιστρέψετε στον "αρχικό" κατάλογο - έτσι θα μπορέσετε να ξεκινήσετε από μια γνωστή τοποθεσία.
+</p>
 <p>
-Some Cool Hints on the Windows Command Line Interface
+Μερικές Καλές Συμβουλές στη Διεπαφή Γραμμής Εντολών των Windows
+</p>
 <p>
-If you click on the little icon in the upper-left of the command prompt window 
-and select Preferences - you can set many things about the command line - probably 
-the most important is to set the Command History Buffer Size to be 999.
+Εάν κάνετε κλικ στο μικρό εικονίδιο στην επάνω αριστερή γωνία του παραθύρου της γραμμής εντολών και επιλέξετε 
+Preferences/Προτιμήσεις-μπορείτε να ορίσετε πολλά πράγματα σχετικά με τη γραμμή εντολών - πιθανότατα το πιο 
+σημαντικό είναι να ορίσετε το Μέγεθος του buffer ιστορικού εντολών σε 999.
+</p>
+<h1>Εκτέλεση του Προγράμματος Python στη Γραμμή Εντολών</h1>
 <p>
-<h1>Running Your Python Program in the Command Line</h1>
-<p>
-To run your program in the command line you type at the command line prompt.
-Windows knows that files that end with a ".py" suffix are Python programs.
+Για να εκτελέσετε το πρόγραμμά σας στη γραμμή εντολών πληκτρολογείτε στη γραμμή εντολών.
+Τα Windows γνωρίζουν ότι τα αρχεία που τελειώνουν με επίθημα ".py" είναι προγράμματα Python.
 <pre>
     python firstprog.py
 </pre>
@@ -81,13 +80,13 @@ or
 <pre>
     firstprog.py
 </pre>
-Where firstprog.py is the name of the file containing your Python program.  
-Make sure to use the cd command to be in the correct directory that contains your program file(s).
+Όπου firstprog.py είναι το όνομα του αρχείου που περιέχει το πρόγραμμα Python.
+Βεβαιωθείτε ότι χρησιμοποιείτε την εντολή cd ώστε να βρίσκεται στο σωστό κατάλογο που περιέχει το αρχείο του προγράμματος σας.
 </p>
 <p> 
-You can run your program over and over again in the command window.  
-Hint:  You can use the <b style="color:black;background-color:#a0ffff">up</b>-arrow key to scroll back through previous 
-commands and re-execute them by pressing enter.  This allows you to quickly 
-edit and rerun your program to make and test changes.
+Μπορείτε να εκτελέσετε το πρόγραμμά σας ξανά και ξανά στο παράθυρο εντολών.
+Υπόδειξη: Μπορείτε να χρησιμοποιήσετε το πλήκτρο βέλους <b style = "color: black; background-color:#a0ffff">επάνω</b> 
+για να μετακινηθείτε πίσω στις προηγούμενες εντολές που εκτελέσατε και να τις εκτελέσετε ξανά πατώντας enter. Αυτό σας
+επιτρέπει να επεξεργαστείτε γρήγορα και να επανεκτελέσετε το πρόγραμμά σας, για να κάνετε και να δοκιμάσετε αλλαγές.
 </p>
 <?php include('footer.php');?>
