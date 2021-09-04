@@ -1,66 +1,66 @@
 <?php include("top.php"); ?>
 <?php include("nav.php"); ?>
 <h1>
-Χρήση της Python στο PythonAnywhere
+Χρήση της Python στην PythonAnywhere
 </h1>
 <p>
-Το PythonAnywhere</a>
+Η PythonAnywhere</a>
 (<a href="https://www.pythonanywhere.com" target="_blank">www.pythonanywhere.com</a>)
 είναι μια δωρεάν online υπηρεσία που σας δίνει τη δυνατότητα να αναπτύξετε και να εκτελεσετε
 προγράμματα Python μέσω του φυλλομετρητή ιστού. Είναι ένα πλήρως εξοπλισμένο περιβάλλον
 Linux με έναν επςξεργαστή κειμένου που βασίζεται στο πρόγραμμα περιήγησης, με επισήμανση
-σύνταξης.  Για να χρησιμοποιήσετε το Pythonanywhere για αυτήν την τάξη - το μόνο που χρειάζεστε
+σύνταξης. Για να χρησιμοποιήσετε την Pythonanywhere για αυτήν την τάξη - το μόνο που χρειάζεστε
 για την εγγραφή και την εκτέλεση κώδικα Python είναι ένα πρόγραμμα περιήγησης ιστού. 
 Δεν υπάρχει απολύτως τίποτα για εγκατάσταση.
 </p>
 <p>
 Αυτό σημαίνει ότι μπορείτε να κάνετε αυτό το μάθημα σε έναα περιβάλλον "κλειδωμένο" σε
 συστήματα όπως το iPad της Apple, το iPhone, το Android, το ChromeBooks ή το Windows 10 
-Home S. Μπορείτε επίσης να χρησιμοποιήσετε το PythonAnywhere εάν χρησιμοποιείτε υπολογιστή
+Home S. Μπορείτε επίσης να χρησιμοποιήσετε την PythonAnywhere εάν χρησιμοποιείτε υπολογιστή
 εργασίας ή σχολείου όπου δεν επιτρέπεται η εγκατάσταση λογισμικού.</p>
 <h2>Εγγραφείτε για λογαριασμό</h2>
 <p>
-Θα χρειαστεί να εγγραφείτε για έναν λογαριασμό για να χρησιμοποιήσετε το pythonAnywhere.
+Θα χρειαστεί να εγγραφείτε για έναν λογαριασμό για να χρησιμοποιήσετε την PythonAnywhere.
 Έχουν ένα δωρεάν επίπεδο που μπορεί να καλύψει όλες τις ανάγκες σας για αυτό το μάθημα 
 μέχρι και το Κεφαλαίο 15.
 </p>
 <p>
-PythonAnywhere is committed to letting you have a free account forever as long as you
-keep logging in and extending it.  They have low cost paid plans if you want more disk
-space or compute power for your own projects or more flexibility or features.  But
-rest assured that their free plan is sufficient for this course.
+H PythonAnywhere έχει δεσμευτεί να σας επιτρέπει τη χρήση δωρεάν λογαριασμού για πάντα,
+αρκεί να συνεχίσετε να συνδέεστε και τον επεκτήνετε. Έχουν χαμηλού κόστους παροχές, εάν θέλετε περισσότερο
+χώρο στο δίσκο ή υπολογιστική ισχύ για τα έργα σας ή περισσότερη ευελιξία ή δυνατότητες. Αλλά να είστε
+σίγουροι ότι το δωρεάν πρόγραμμα τους είναι αρκετό για αυτό το μάθημα.
 </p>
-<h2>Writing Your First Program on PythonAnywhere</h2>
+<h2>Γράφοντας το πρώτο σας πρόγραμμα στην PythonAnywhere</h2>
 <p>
-Once you can log in to PythonAnywhere, go into the files tab and create a new file called <b>hello.py</b>
-in your home folder (should be something like <b>/home/drchuck</b>.  Put the following line in the file:
+Μόλις συνδεθείτε στην PythonAnywhere, μεταβείτε στην καρτέλα αρχεία και δημιουργήστε ένα νέο αρχείο με το όνομα
+<b>hello.py</b> στον αρχικό σας φάκελο (πρέπει να είναι κάτι σαν <b>/home/drchuck</b>). Βάλτε την ακόλουθη γραμμή 
+στο αρχείο:
 <pre>
 print('Hello world')
 </pre>
-Save the file and press <b>Run</b> and you should see:
+Αποθηκεύστε το αρχείο και πατήστε <b>Run</b>, θα πρέπει να δείτε:
 <pre>
 Hello world
 &gt;&gt;&gt;
 </pre>
-Then change the text to 'Hello PY4E world', press <b>Save</b> and press <b>Run</b> and it should run your modified
-program.
-</pre>
+Στη συνέχεια, αλλάξτε το κείμενο σε "Hello PY4E world", πατήστε <b>Save</b> και έπειτα πατήστε <b>Run</b>, θα
+πρέπει να εκτελέσει το τροποποιημένο σας πρόγραμμα.
 </p>
 <p>
-While the <b>Run</b> button works for programs that are a few lines, once you start working on more complex
-programs you will need to use a Linux shell (command line).  It might feel a little strange at the beginning
-but learning a little bit of Linux is a great idea as it is the dominant system that is used for servers.
+Ενώ το κουμπί <b> Run </b> λειτουργεί για προγράμματα που είναι λίγες γραμμές, μόλις ξεκινήσετε να εργάζεστε σε
+πιο πολύπλοκα προγράμματα θα χρειαστεί να χρησιμοποιήσετε ένα περιβάλλον Linux (γραμμή εντολών). Μπορεί να σας φανεί
+λίγο περίεργο στην αρχή, αλλά η εκμάθηση βασικών στοιχείων του Linux είναι μια εξαιρετική ιδέα καθώς είναι το
+κυρίαρχο σύστημα που χρησιμοποιείται για διακομιστές.
 </p>
-<h2>Using the Linux Shell on PythonAnywhere</h2>
+<h2>Χρησιμοποιώντας το περιβάλλον Shell στην PythonAnywhere</h2>
 <p>
-This works best if you can have two tabs open at the same time in the browser.  One tab should be navigated to
-the <b>Files</b> screen and another should be nagivated to the <b>Consoles</b> screen.  If you already have a 
-bash console running you can go back to it - otherwise start a new <b>Bash</b> console.  After it starts up, 
-you should see something like:
+Αυτό λειτουργεί καλύτερα εάν μπορείτε να έχετε δύο καρτέλες ανοιχτές ταυτόχρονα στο πρόγραμμα περιήγησης.
+Μια καρτέλα πρέπει να εμφανίζει το περιεχόμενο της επιλογής <b>Files</b> και μια άλλη το περιεχόμενο της επιλογής 
+<b>Consoles</b>.
 <pre>
 14:12 ~ $
 </pre>
-This is the Linux command prompt.  Lets run your 'hello.py' program from the command line:
+Αυτή είναι η γραμμή εντολών Linux. Ας τρέξουμε το πρόγραμμα 'hello.py' από τη γραμμή εντολών:
 <pre>
 14:12 ~ $ cd
 14:14 ~ $ pwd
@@ -71,59 +71,61 @@ This is the Linux command prompt.  Lets run your 'hello.py' program from the com
 Hello PY4E world
 14:16 ~ $
 </pre>
-Here is what the commands are doing:
+Να τι κάνουν οι εντολές:
 <ul>
-<li><b>cd</b> - Change directory into my home folder - we do this just to make sure we are starting in the 
-right place in the folder hierarchy.</li>
-<li><b>pwd</b> - Print Working Directory - this command tells you where you are at in the folder
-hierarchy.  We are in our home folder.  Linux is a multi-user system and each user has their own 'home'
-directory.  You can build a folder hirearchy from your home folder on down.</li>
-<li><b>ls -l</b> list the files and subfolders in the current folder.  The <b>-l</b> option
-shows details like permissions, modification date and file size.</li>
-<li><b>python3 hello.py</b> runs Python on your file</li>
+<li><b>cd</b> - Αλλαγή καταλόγου στον αρχικό μου φάκελο - το κάνουμε αυτό για να βεβαιωθούμε ότι 
+ξεκινάμε στο σωστό μέρος στην ιεραρχία φακέλων.</li>
+<li><b>pwd</b> -Εκτύπωση καταλόγου εργασίας - αυτή η εντολή σας λέει πού βρίσκεστε στην ιεραρχία
+φακέλων. Βρισκόμαστε στον αρχικό μας φάκελο. Το Linux είναι ένα σύστημα πολλαπλών χρηστών και κάθε
+χρήστης έχει τον δικό του «αρχικό» κατάλογο. Μπορείτε να δημιουργήσετε υποφακέλους κάτω από τον 
+αρχικό φάκελο σας.</li>
+<li><b>ls -l</b> παραθέστε τα αρχεία και τους υποφακέλους στον τρέχοντα φάκελο. Η επιλογή <b>-l</b>
+εμφανίζει λεπτομέρειες όπως δικαιώματα, ημερομηνία τροποποίησης και μέγεθος αρχείου.</li>
+<li><b>python3 hello.py</b> εκτελεί την Python στο αρχείο σας</li>
 </ul>
-We recommend that you start using the Linux bash shell to run your code from the very beginning
-because eventually you will need to use bash to run more complex programs.
-</p>
+Σας συνιστούμε να αρχίσετε να χρησιμοποιείτε το κέλυφος Linux bash για να τρέξετε τον κώδικά σας 
+από την αρχή, επειδή τελικά θα χρειαστεί να χρησιμοποιήσετε το bash για να εκτελέσετε πιο πολύπλοκα
+προγράμματα.</p>
+<h2>Μερικές Καλές Συμβουλές για την κονσόλα bash</h2>
 <p>
-<h2>Some Cool Hints on the bash console</h2>
-<p>
-You can scroll back through previous commands by pressing the up and down arrows and re-execute 
-commands using the enter key.  This can save a lot of typing.
-If you like keeping your screen uncluttered, you can clear the scroll 
-back buffer by pressing the <b>Command key</b> and the <b>K</b> key at the same time.
+Μπορείτε να μετακινηθείτε προς τα πίσω στις προηγούμενες εντολές πατώντας τα βέλη πάνω και κάτω και
+να εκτελέσετε ξανά τις προηγούμενες εντολές χρησιμοποιώντας το πλήκτρο Enter. Αυτό μπορεί να σας 
+εξοικονομήσει πολύ χρόνο πληκτρολόγησης. Αν σας αρέσει να διατηρείτε την οθόνη σας καθαρή, μπορείτε 
+να διαγράψετε το buffer κύλισης προς τα πίσω πατώντας ταυτόχρονα το <b>Command key</b> και το πλήκτρο
+<b>K</b> (σε Mac υπολογιστές).</p>
 
-<h2>Editing Files on PythonAnywhere</h2>
+<h2>Επεξεργασία αρχείων στην PythonAnywhere</h2>
 <p>
-There are three ways to edit files in your PythonAnywhere environment, ranging from the easiest
-to the coolest.  You only have to edit the file one of these ways.
+Υπάρχουν τρεις τρόποι για να επεξεργαστείτε αρχεία στο περιβάλλον σας PythonAnywhere, που κυμαίνονται από τον
+ευκολότερο έως το πιο προχωρημένο. Αρκεί να επεξεργαστείτε το αρχείο με έναν από αυτούς τους τρόπους.
 <ol>
 <li>
-Go to the main PythonAnywhere dashboard, browse files, navigate to the correct folder and edit the file.
+Μεταβείτε στον κύριο πίνακα ελέγχου PythonAnywhere, περιηγηθείτε σε αρχεία, μεταβείτε στο σωστό φάκελο κάντε edit το αρχείο.
 </li><li>
-Or in the command line:
+Ή στη γραμμή εντολών:
 <pre>
 cd ~
 nano hello.py
 </pre>
-Save the File by pressing <b>CTRL-X</b>, <b>Y</b>, and Enter.
+Αποθηκεύστε το αρχείο πατώντας <b>CTRL-X</b>, <b>Y</b> και Enter.
 </li><li>
-Don't try this most difficult and most cool way to edit files on Linux without a helper
-if it is your first time with the <b>vi</b> text editor.
+Μην δοκιμάσετε αυτόν τον πιο δύσκολο και πιο προχωρημένο τρόπο για να επεξεργαστείτε αρχεία στο Linux χωρίς βοήθεια,
+αν είναι η πρώτη σας φορά με τον επεξεργαστή κειμένου <b>vi</b>.
 <pre>
 cd ~
 vi hello.py
 </pre>
-Once you have opened <b>vi</b>, cursor down where you want to make a change, and press the
-<b>i</b> key to go into 'INSERT' mode, then type your new text and press
-the <b>esc</b> key when you are done.  To save the file, you type <b>:wq</b>
-followed by <b>enter</b>.  If you get lost press <b>esc</b> <b>:q!</b>
-<b>enter</b> to get out of the file without saving.
+Μόλις ανοίξετε το <b>vi</b>, πάντε το δρομέα προς τα κάτω, στο σημείο που θέλετε να κάνετε κάποια αλλαγή και 
+πατήστε το πλήκτρο <b>i</b> για να μεταβείτε στη λειτουργία 'INSERT (ΕΙΣΑΓΩΓΗ)' και, στη συνέχεια, πληκτρολογήστε
+το νέο σας κείμενο και πατήστε το πλήκτρο <b>esc</b> όταν τελειώσετε. Για να αποθηκεύσετε το αρχείο, πληκτρολογήστε
+<b>:wq</b> ακολουθούμενο από <b>enter</b>. Εάν χαθείτε πατήστε <b>esc</b> <b>:q!</b> και στη συνέχεια <b>enter</b> 
+για να βγείτε από το αρχείο χωρίς αποθήκευση.
 </li>
 </ol>
-If you aleady know some _other_ command line text editor in Linux, you can use it to edit files.  In general,
-you will find that it often quicker and easier to make small edits to files in the command line
-rather than a full screen UI.  And once you start deploying real applications in production
-environments like Google, Amazon, Microsoft, etc.. all you will have is command line.
+<p>Εάν γνωρίζετε ήδη κάποιον _άλλον_ επεξεργαστή κειμένου της γραμμής εντολών, μπορείτε να τον χρησιμοποιήσετε για να
+επεξεργαστείτε αρχεία. Σε γενικές γραμμές, θα διαπιστώσετε ότι είναι συχνά πιο γρήγορο και ευκολότερο να κάνετε μικρές 
+επεξεργασίες σε αρχεία στη γραμμή εντολών και όχι στη διεπαφή χρήστη πλήρους οθόνης. Και μόλις αρχίσετε να αναπτύσσετε 
+πραγματικές εφαρμογές σε περιβάλλοντα παραγωγής όπως το Google, η Amazon, η Microsoft κλπ... το μόνο που θα χρειάζεστε
+είναι η γραμμή εντολών.</p>
 
 <?php include('footer.php');?>
