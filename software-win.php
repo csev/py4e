@@ -76,7 +76,7 @@ Preferences/Προτιμήσεις-μπορείτε να ορίσετε πολλ
 <pre>
     python firstprog.py
 </pre>
-or
+ή
 <pre>
     firstprog.py
 </pre>
