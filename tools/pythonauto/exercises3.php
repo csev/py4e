@@ -3,27 +3,26 @@
 $EXERCISES =
 Array(
 "hello" => Array (
-"qtext" => "Write a program that uses a <b>print</b> statement to say 'hello world'
-as shown in 'Desired Output'.",
+"qtext" => "Γράψτε ένα πρόγραμμα που χρησιμοποιεί μια εντολή <b>print</b> για να πει 'hello world' όπως φαίνεται στην 'Επιθυμητή έξοδο'.",
 "desired" => "hello world",
-"code" => '# the code below almost works
+"code" => '# ο παρακάτω κώδικας σχεδόν λειτουργεί
 prinq("hello world")',
 "checks" => Array(
-"print" => "You must use a print statement within the loop."
+"print" => "Πρέπει να χρησιμοποιήσετε μια δήλωση print εντός του βρόχου."
 )),
 
 "loop" => Array (
-"qtext" => "Write a program that uses a <b>for</b> loop and the built-in function
-<b>range</b> to write out three numbers as shown in 'Desired Output'.",
+"qtext" => "Γράψτε ένα πρόγραμμα που χρησιμοποιεί έναν βρόχο <b>for</b> και την ενσωματωμένη συνάρτηση
+<b>range</b> για να γράψει τρεις αριθμούς όπως φαίνεται στην 'Επιθυμητή έξοδο'.",
 "desired" => "0
 1
 2",
 "code" => 'print(range(3))',
 "checks" => Array(
-"for" => "You must produce the numbers using a for loop.",
-"print" => "You must use a print statement within the loop.",
-"range" => "You should use the range function to generate the list of numbers on the for statement.",
-":" => "Your for statement should end with a colon (:) and the following line should be indented"
+"for" => "Πρέπει να παράγετε τους αριθμούς χρησιμοποιώντας έναν βρόχο for.",
+"print" => "Πρέπει να χρησιμοποιήσετε μια δήλωση print εντός του βρόχου.",
+"range" => "Θα πρέπει να χρησιμοποιήσετε τη συνάρτηση range για να δημιουργήσετε τη λίστα αριθμών στη δήλωση for.",
+":" => "Η δήλωση for πρέπει να τελειώνει με άνω κάτω τελεία (:) και η επόμενη γραμμή πρέπει να έχει εσοχή"
 )),
 
 "2.2" => Array (
