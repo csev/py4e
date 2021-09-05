@@ -10,7 +10,7 @@
   <li>
     <p>
       <b>Earn a Coursera Certificate for This Course</b>
-      <a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody</a> (Coursera Specialization)
+      <a href="https://www.coursera.org/specializations/python" target="_blank">Python for Everybody</a> (Ειδίκευση Coursera)
     </p>
   </li>
   <ul>
@@ -63,7 +63,7 @@
   <li>
     <p>
       <a href="https://www.codementor.io/w/coding-starter-kit?utm_source=py4e&utm_campaign=outreach" target="_blank">CodeMentor Starting Kit</a>
-      - Codementor is an on-demand mentorship marketplace for developers. Το πρόγραμμα <a href="https://www.codementor.io/students" target="_blank">
+      - Codementor είναι μια αγορά καθοδήγησης, κατά παραγγελία, για προγραμματιστές. Το πρόγραμμα <a href="https://www.codementor.io/students" target="_blank">
       Codementor for Students</a> δίνει δωρεάν μονάδες για φοιτητές με διεύθυνση ηλεκτρονικού ταχυδρομείου ".edu".
     </p>
   </li>
