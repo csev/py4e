@@ -19,6 +19,6 @@ c/o Learning Experiences (learnxp.com)
 2190 Aurelius Rd. Unit 175
 Holt MI 48842-9998
 United States</code></pre>
-<p>Last edited: 22-Nov-2020</p>
+<p>Τελευταία ενημέρωση: 22-Nov-2020</p>
 <?php include("footer.php"); ?>
 
