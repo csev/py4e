@@ -63,7 +63,7 @@ to make this hand-copying as easy as it can be.
 </p>
 </li>
 </ul>
-<p><b><a href="courses">Courses/web sites using this material</a></b>
+<p><a href="courses">Courses/web sites using this material</a>
 </p>
 <p>This web site uses the <a href="http://www.tsugi.org/" target="_blank">Tsugi</a> software
 to both host the software-based autograders and provide this material so it can easily be
