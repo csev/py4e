@@ -9,7 +9,7 @@
 <p>
 You are welcome to use/reuse/remix/retain the materials from this site in your own courses.
 Nearly all the material in this web site is Copyright Creative Commons Attribution.  These are
-links to downloadable content as well as links to other sources of this course material.
+links to downloadable content as well as links to other sources of this course material.</p>
 <ul>
 <li>
 <p>
@@ -68,10 +68,10 @@ to make this hand-copying as easy as it can be.
 <p>This web site uses the <a href="http://www.tsugi.org/" target="_blank">Tsugi</a> software
 to both host the software-based autograders and provide this material so it can easily be
 integrated into a Learning Management System like
-<a href="http://www.sakaiproject.org/" target=_blank">Sakai</a>, Moodle, Canvas, Desire2Learn, Blackboard
+<a href="http://www.sakaiproject.org/" target="_blank">Sakai</a>, Moodle, Canvas, Desire2Learn, Blackboard
 or similar.
 </p>
-</p>
+
 <h1>Links to course materials</h1>
 <ul>
     <li>Video Lectures
