@@ -77,7 +77,7 @@
       </ul>
     </li>
     <li>
-        <a href="lectures3/" target="_blank">Διαφάνειες Διαλέξεων και Φυλλάδια</a>
+        <a href="lectures3/gr/" target="_blank">Διαφάνειες Διαλέξεων και Φυλλάδια</a>
     </li>
     <li>
         <a href="code3.zip" target="_blank">Δείγμα Κώδικα ZIP</a>
