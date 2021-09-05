@@ -31,7 +31,7 @@ rest assured that their free plan is sufficient for this course.
 <h2>Writing Your First Program on PythonAnywhere</h2>
 <p>
 Once you can log in to PythonAnywhere, go into the files tab and create a new file called <b>hello.py</b>
-in your home folder (should be something like <b>/home/drchuck</b>.  Put the following line in the file:
+in your home folder (should be something like <b>/home/drchuck</b>).  Put the following line in the file:
 <pre>
 print('Hello world')
 </pre>
@@ -83,28 +83,27 @@ shows details like permissions, modification date and file size.</li>
 We recommend that you start using the Linux bash shell to run your code from the very beginning
 because eventually you will need to use bash to run more complex programs.
 </p>
-<p>
 <h2>Some Cool Hints on the bash console</h2>
 <p>
 You can scroll back through previous commands by pressing the up and down arrows and re-execute 
 commands using the enter key.  This can save a lot of typing.
 If you like keeping your screen uncluttered, you can clear the scroll 
-back buffer by pressing the <b>Command key</b> and the <b>K</b> key at the same time.
+back buffer by pressing the <b>Command key</b> and the <b>K</b> key at the same time.</p>
 
 <h2>Editing Files on PythonAnywhere</h2>
 <p>
 There are three ways to edit files in your PythonAnywhere environment, ranging from the easiest
-to the coolest.  You only have to edit the file one of these ways.
+to the coolest.  You only have to edit the file one of these ways.</p>
 <ol>
 <li>
 Go to the main PythonAnywhere dashboard, browse files, navigate to the correct folder and edit the file.
 </li><li>
-Or in the command line:
+<p>Or in the command line:</p>
 <pre>
 cd ~
 nano hello.py
 </pre>
-Save the File by pressing <b>CTRL-X</b>, <b>Y</b>, and Enter.
+<p>Save the File by pressing <b>CTRL-X</b>, <b>Y</b>, and Enter.</p>
 </li><li>
 Don't try this most difficult and most cool way to edit files on Linux without a helper
 if it is your first time with the <b>vi</b> text editor.
@@ -119,9 +118,9 @@ followed by <b>enter</b>.  If you get lost press <b>esc</b> <b>:q!</b>
 <b>enter</b> to get out of the file without saving.
 </li>
 </ol>
-If you aleady know some _other_ command line text editor in Linux, you can use it to edit files.  In general,
+<p>If you aleady know some _other_ command line text editor in Linux, you can use it to edit files.  In general,
 you will find that it often quicker and easier to make small edits to files in the command line
 rather than a full screen UI.  And once you start deploying real applications in production
-environments like Google, Amazon, Microsoft, etc.. all you will have is command line.
+environments like Google, Amazon, Microsoft, etc.. all you will have is command line.</p>
 
 <?php include('footer.php');?>
