@@ -99,7 +99,7 @@
     -rw-r--r--  1 csev  staff   15 Sep 16 15:17 hello.py
     udhcp-macvpn-624:Desktop csev$ 
 </pre>
-<h1>Εκτέλεση του Προγράμματος Python στο Terminal</h1>
+<h1>Εκτέλεση της Python στο Terminal</h1>
 <p>
    Ξεκινήστε το πρόγραμμα Terminal, μεταβείτε στον κατάλληλο κατάλογο και πληκτρολογήστε την ακόλουθη εντολή:
 </p>     
