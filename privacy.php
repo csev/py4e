@@ -1,70 +1,115 @@
 <?php include("top.php");?>
 <?php include("nav.php");?>
-        <h2>Privacy Policy</h2>
-<p>This privacy policy has been compiled to better serve those who are concerned with how their 'Personally Identifiable Information' (PII) is being used online. PII, as described in US privacy law and information security, is information that can be used on its own or with other information to identify, contact, or locate a single person, or to identify an individual in context. Please read our privacy policy carefully to get a clear understanding of how we collect, use, protect or otherwise handle your Personally Identifiable Information in accordance with our website.</p>
-<p><strong>What personal information do we collect from the people that visit our blog, website or app?</strong></p>
-<p>When ordering or registering on our site, as appropriate, you may be asked to enter your name, email address or other details to help you with your experience.</p>
-<p><strong>When do we collect information?</strong></p>
-<p>We may use the information we collect from you when you register, sign up for our newsletter, respond to a survey or marketing communication, surf the website, or use certain other site features.</p>
-<p><strong>How do we protect your information?</strong></p>
-<p>Your personal information is contained behind secured networks and is only accessible by a limited number of persons who have special access rights to such systems, and are required to keep the information confidential. In addition, all sensitive/credit information you supply is encrypted via Secure Socket Layer (SSL) technology.</p>
-<p><strong>Do we use 'cookies'?</strong></p>
-<p>Yes. Cookies are small files that a site or its service provider transfers to your computer's hard drive through your Web browser (if you allow) that enables the site's or service provider's systems to recognize your browser and capture and remember certain information.</p>
-<p><strong>We use cookies to:</strong></p>
-<p>Understand and save user's preferences and identity for future visits.</p>
-<p>Gather analytics data that is only used to monitor and improve the site.</p>
-<p><strong>If users disable cookies in their browser:</strong></p>
-<p>If you turn cookies off, you won't be able to log in to the site directly.</p>
-<p>You <b>can</b> use the learning tools on this system when launched from an LMS with cookies turned off since
-the learning applications <i>neither use nor require cookies</i> and will have full function even when cookies are turned off.
+        <h2>Πολιτική απορρήτου</h2>
+<p>
+        Αυτή η πολιτική απορρήτου έχει συνταχθεί για να εξυπηρετεί καλύτερα εκείνους που ενδιαφέρονται για το πώς χρησιμοποιούνται οι «Προσωπικά αναγνωρίσιμες πληροφορίες» 
+        τους (PII) στο διαδίκτυο. Το PII, όπως περιγράφεται στη νομοθεσία περί απορρήτου των ΗΠΑ και την ασφάλεια των πληροφοριών, είναι πληροφορίες που μπορούν να 
+        χρησιμοποιηθούν από μόνα τους ή με άλλες πληροφορίες για την αναγνώριση, την επαφή ή τον εντοπισμό ενός ατόμου ή τον προσδιορισμό ενός ατόμου σε αυτό το πλαίσιο. 
+        Διαβάστε προσεκτικά την πολιτική απορρήτου μας για να κατανοήσετε τον τρόπο με τον οποίο συλλέγουμε, χρησιμοποιούμε, προστατεύουμε ή με άλλο τρόπο χειριζόμαστε τις
+        Προσωπικές σας Πληροφορίες σύμφωνα με τον ιστότοπό μας.
 </p>
-<p><strong>Third-party disclosure</strong></p>
-<p>We do not sell, trade, or otherwise transfer to outside parties your Personally Identifiable Information.</p>
-<p><strong>Third-party links</strong></p>
-<p>We do not include or offer third-party products or services on our website.</p>
-<p><strong>Advertising</strong></p>
-<p>We do no third-party advertising on this site.</p>
+<p><strong>Ποιες προσωπικές πληροφορίες συλλέγουμε από τα άτομα που επισκέπτονται το ιστολόγιο(blog), τον ιστότοπο ή την εφαρμογή μας;</strong></p>
+<p>
+        Κατά την παραγγελία ή την εγγραφή στον ιστότοπό μας, ανάλογα με την περίπτωση, μπορεί να σας ζητηθεί να εισαγάγετε το όνομά σας, τη διεύθυνση ηλεκτρονικού ταχυδρομείου ή άλλες
+        λεπτομέρειες για να σας βοηθήσουμε με την εμπειρία σας.
+</p>
+<p><strong>Πότε συλλέγουμε πληροφορίες;</strong></p>
+<p>
+        Ενδέχεται να χρησιμοποιήσουμε τις πληροφορίες που συλλέγουμε από εσάς όταν γίνει η καταγραφή σας, εγγραφείτε στο ενημερωτικό μας δελτίο, απαντήσετε σε έρευνα ή 
+        επικοινωνία μάρκετινγκ, περιηγηθείτε στον ιστότοπο ή χρησιμοποιήσετε ορισμένες άλλες λειτουργίες του ιστότοπου.
+</p>
+<p><strong>Πώς προστατεύουμε τις πληροφορίες σας;</strong></p>
+<p>
+        Τα προσωπικά σας στοιχεία βρίσκονται πίσω από ασφαλή δίκτυα και είναι προσβάσιμα μόνο από περιορισμένο αριθμό ατόμων που έχουν ειδικά δικαιώματα πρόσβασης σε τέτοια 
+        συστήματα και είναι υποχρεωμένα να διατηρούν εμπιστευτικές τις πληροφορίες. Επιπλέον, όλες οι ευαίσθητες/πιστωτικές πληροφορίες που παρέχετε είναι κρυπτογραφημένες μέσω
+        της τεχνολογίας Secure Socket Layer (SSL).
+</p>
+<p><strong>Χρησιμοποιούμε «cookies»;</strong></p>
+<p>
+        Ναί. Τα cookie είναι μικρά αρχεία που ένας ιστότοπος ή ο πάροχος υπηρεσιών του μεταφέρει στον σκληρό δίσκο του υπολογιστή σας μέσω του προγράμματος περιήγησής σας στο
+        Web (εάν το επιτρέπετε), που επιτρέπει στα συστήματα του ιστότοπου ή του παρόχου υπηρεσιών να αναγνωρίζουν το πρόγραμμα περιήγησής σας και να καταγράφουν και να 
+        θυμούνται ορισμένες πληροφορίες.
+</p>
+<p><strong>Χρησιμοποιούμε cookies για:</strong></p>
+<p>Κατανόηση και αποθήκευση των προτιμήσεων και της αναγνώριση της ταυτότητας του χρήστη σε μελλοντικές επισκέψεις.</p>
+<p>Συλλογή δεδομένων ανάλυσης που χρησιμοποιούνται μόνο για την παρακολούθηση και τη βελτίωση του ιστότοπου.</p>
+<p><strong>Εάν οι χρήστες απενεργοποιήσουν τα cookie στο πρόγραμμα περιήγησής τους:</strong></p>
+<p>Εάν απενεργοποιήσετε τα cookie, δεν θα μπορείτε να συνδεθείτε απευθείας στον ιστότοπο.</p>
+<p>
+        <b>Μπορείτε</b> να χρησιμοποιήσετε τα εργαλεία εκμάθησης σε αυτό το σύστημα όταν εκκινείτε από ένα LMS με απενεργοποιημένα τα cookies, αφού οι εφαρμογές εκμάθησης 
+        <i> ούτε χρησιμοποιούν, ούτε απαιτούν cookie </i> και θα έχουν λητουργούν πλήρως ακόμη και όταν τα cookie είναι απενεργοποιημένα.
+</p>
+<p><strong>Γνωστοποίηση σε τρίτους</strong></p>
+<p>Δεν πουλάμε, δεν εμπορευόμαστε ή δεν μεταβιβάζουμε με άλλον τρόπο τις Προσωπικές σας Πληροφορίες σε τρίτους.</p>
+
+<p><strong>Σύνδεσμοι τρίτων</strong></p>
+<p>Δεν συμπεριλαμβάνουμε ή προσφέρουμε προϊόντα ή υπηρεσίες τρίτων μερών στον ιστότοπό μας.</p>
+
+<p><strong>Διαφήμιση</strong></p>
+<p>Δεν κάνουμε διαφήμιση τρίτων σε αυτόν τον ιστότοπο.</p>
+
 <p><strong>Google Analytics</strong></p>
 <?php if ( isset($CFG->universal_analytics) && $CFG->universal_analytics ) { ?>
-<p>We use Google analytics to track usage and improve the site unless
-you request not to be tracked using a Do Not Track signal (see below).</p>
-<p>Google, as a third-party vendor, uses cookies to support analytics on our site. Users may opt-out of the use of the DART cookie by using the Google-provided opt-out capabilities. If users opt-out of Google Analytics on this site, there is no reduction in functionality of this site.</p>
+        <p>
+                Χρησιμοποιούμε το Google analytics για την παρακολούθηση της χρήσης και τη βελτίωση του ιστότοπου, εκτός εάν ζητήσετε να μην παρακολουθήσται χρησιμοποιώντας το 
+                σήμα Do Not Track (δείτε παρακάτω).
+        </p>
+        <p>
+                Η Google, ως τρίτος προμηθευτής, χρησιμοποιεί cookie για την υποστήριξη αναλυτικών στοιχείων στον ιστότοπό μας. Οι χρήστες μπορούν να εξαιρεθούν από τη χρήση του 
+                cookie DART χρησιμοποιώντας τις δυνατότητες εξαίρεσης που παρέχονται από την Google. Εάν οι χρήστες εξαιρεθούν από το Google Analytics σε αυτόν τον ιστότοπο, 
+                δεν υπάρχει μείωση στη λειτουργικότητα αυτού του ιστότοπου.
+        </p>
 <?php } else { ?>
-<p>We do not use Google Analytics on this site.</p>
+        <p>Δεν χρησιμοποιούμε Google Analytics σε αυτόν τον ιστότοπο.</p>
 <?php } ?>
 <?php if ( isset($CFG->google_translate) && $CFG->google_translate ) { ?>
-<p><strong>Google Translate</strong></p>
-<p>We use Google Translate on this site unless
-you request not to be tracked using a Do Not Track signal (see below).</p>
+        <p><strong>Μετάφραση Google</strong></p>
+        <p>
+                Χρησιμοποιούμε τη Μετάφραση Google σε αυτόν τον ιστότοπο, εκτός εάν ζητήσετε να μην παρακολουθήσται χρησιμοποιώντας το σήμα "Μην παρακολουθείτε/Do Not Track" 
+                (δείτε παρακάτω).
+        </p>
 <?php } ?>
 <?php if ( isset($CFG->google_map_api_key) && $CFG->google_map_api_key ) { ?>
-<p><strong>Google Maps</strong></p>
-<p>Some pages on this site may use Google Maps.</p>
+        <p><strong>Χάρτες Google</strong></p>
+        <p>Ορισμένες σελίδες σε αυτόν τον ιστότοπο ενδέχεται να χρησιμοποιούν τους Χάρτες Google.</p>
 <?php } ?>
-<p><strong>How does our site handle Do Not Track signals?</strong></p>
-<p>We do honor Do Not Track signals.  When DNT is indicated, we supress the gathering of all internal analytics data.</p>
+
+<p><strong>Πώς χειρίζεται ο ιστότοπός μας σήματα Do Not Track;</strong></p>
+<p>Τιμούμε τα σήματα Do Not Track. Όταν υποδεικνύεται το DMT, καταστέλλουμε τη συλλογή όλων των εσωτερικών δεδομένων ανάλυσης.</p>
+
 <p><strong>COPPA (Children Online Privacy Protection Act)</strong></p>
-<p>We do not specifically market to children under the age of 13 years old.</p>
-<p><strong>Data Retention</strong></p>
+<p>Δεν εμπορευόμαστε, ειδικά σε παιδιά κάτω των 13 ετών.</p>
+
+<p><strong>Διατήρηση Δεδομένων</strong></p>
 <p>
-We actively expire inactive data based on a schedule. When data expires or is manually removed, this service does not retain a copy of the data. By only keeping active data in the system, we reduce the overall amount of 'Personally Identifiable Information' (PII) on the system at any time.
+        Λήγουμε ενεργά τα ανενεργά δεδομένα με βάση ένα χρονοδιάγραμμα. Όταν τα δεδομένα λήγουν ή αφαιρούνται με μη αυτόματο τρόπο, αυτή η υπηρεσία δεν διατηρεί αντίγραφο 
+        των δεδομένων. Διατηρώντας μόνο ενεργά δεδομένα στο σύστημα, μειώνουμε τη συνολική ποσότητα «Προσωπικά αναγνωρίσιμων πληροφοριών» (PII) στο σύστημα ανά πάσα στιγμή.
 </p>
-<p><strong>Data Analysis</strong></p>
+<p><strong>Ανάλυση δεδομένων</strong></p>
 <p>
-We will limit our analysis of PII data to reports requested by the customer or reports that are necessary for accounting, technical support, and overall statistics for the system. We may do internal data analysis to improve the technical reliability, functionality, or performance of the system. In particular we will <b>not</b> use Machine Learning, or Artificial Intelligence techniques to understand the behavior of those using our site.
+        Περιορίζουμε την ανάλυση των δεδομένων PII σε αναφορές που ζητούνται από τον πελάτη ή αναφορές που είναι απαραίτητες για τη λογιστική, την τεχνική υποστήριξη και τα συνολικά 
+        στατιστικά στοιχεία του συστήματος. Ενδέχεται να κάνουμε εσωτερική ανάλυση δεδομένων για να βελτιώσουμε την τεχνική αξιοπιστία, τη λειτουργικότητα ή την απόδοση του συστήματος.
+        Συγκεκριμένα, <b> δεν </b> θα χρησιμοποιήσουμε τεχνικές μηχανικής μάθησης ή Τεχνητής Νοημοσύνης για να κατανοήσουμε τη συμπεριφορά όσων χρησιμοποιούν τον ιστότοπό μας.
 </p>
-<p><strong>General Philosphy</strong></p>
+<p><strong>Γενική Φιλοσοφία</strong></p>
 <p>
-It is often said that if you are not paying for a service, then you are the product. For this service, you are not the product and your data/activity is not the product. We retain only as much of your data as is needed to accomplish your teaching and learning goals and for no other purpose. Wherever possible, we give you control over the retention of your data and respect your wishes with respect to the retention of your data.
-</p><p>
-Our goal is to comply both with the letter and spirit or privacy laws like the The Family Educational Rights and Privacy Act (FERPA) and EU General Data Protection Regulation (GDPR) regulations. Our goal is to have a commitment to learner privacy that exceeds the minimum requirements of these laws.
-</p><p>
-Much of the software used in this company is open source so you can examine/audit what we are doing with respect to privacy and potentially help us improve our approaches to this very important topic.
+        Συχνά λέγεται ότι εάν δεν πληρώνετε για μια υπηρεσία, τότε είστε το προϊόν. Για αυτήν την υπηρεσία, δεν είστε το προϊόν και τα δεδομένα/δραστηριότητά σας δεν είναι το 
+        προϊόν. Διατηρούμε μόνο όσα δεδομένα χρειάζεστε για την επίτευξη των διδακτικών και μαθησιακών σας στόχων και για κανέναν άλλο σκοπό. Όπου είναι δυνατόν, σας δίνουμε 
+        τον έλεγχο της διατήρησης των δεδομένων σας και σεβόμαστε τις επιθυμίες σας όσον αφορά τη διατήρηση των δεδομένων σας.
 </p>
-<p><strong>Notifications</strong> </p>
-<p>In order to be in line with Fair Information Practices we will take the following responsive action, should a data breach occur: We will notify you via email</p>
-<p>If there are any questions regarding this privacy policy, you may contact us using the information below.<br></p>
-<pre><code>Python for Everybody (py4e.com)
+<p>
+        Στόχος μας είναι να συμμορφωθούμε τόσο με τα γράμματα όσο και με το πνεύμα των νόμων περί απορρήτου, όπως ο νόμος περί The Family Educational Rights and Privacy Act
+        (FERPA) και οι κανονισμοί της ΕΕ για τον Γενικό Κανονισμό Προστασίας Δεδομένων / General Data Protection Regulation (GDPR). Στόχος μας είναι να δεσμευτούμε για την 
+        προστασία της ιδιωτικής ζωής των μαθητών που υπερβαίνει τις ελάχιστες απαιτήσεις αυτών των νόμων.
+</p>
+<p>
+        Μεγάλο μέρος του λογισμικού που χρησιμοποιείται σε αυτήν την εταιρεία είναι ανοιχτού κώδικα, ώστε να μπορείτε να εξετάσετε/ελέγξετε τι κάνουμε σε σχέση με την ιδιωτική
+        ζωή και ενδεχομένως να μας βοηθήσετε να βελτιώσουμε τις προσεγγίσεις μας σε αυτό το πολύ σημαντικό θέμα.
+</p>
+<p><strong>Ειδοποιήσεις</strong> </p>
+<p>Για να είμαστε σύμφωνοι με τις Δίκαιες Πρακτικές Πληροφόρησης, θα λάβουμε τις ακόλουθες απαντητικές ενέργειες, εάν προκύψει παραβίαση δεδομένων: Θα σας ενημερώσουμε μέσω email</p>
+<p>Εάν υπάρχουν ερωτήσεις σχετικά με αυτήν την πολιτική απορρήτου, μπορείτε να επικοινωνήσετε μαζί μας χρησιμοποιώντας τις παρακάτω πληροφορίες.<br></p>
+<pre><code>Python για Όλους (gr.py4e.com)
 c/o Learning Experiences (learnxp.com)
 2190 Aurelius Rd. Unit 175
 Holt MI 48842-9998
