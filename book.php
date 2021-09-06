@@ -3,11 +3,12 @@
 <div style="float: right; margin: 5px;"/><iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=drchu02-20&marketplace=amazon&region=US&placement=1530051126&asins=1530051126&linkId=2ea6c883c6cf11f29568856139bad34b&show_border=true&link_opens_in_new_window=true"></iframe></div>
 <h2>Python for Everybody</h2>
 <p>
-The goal of this book is to provide an Informatics-oriented introduction to programming. The primary difference between a computer science approach and the Informatics approach taken in this book is a greater focus on using Python to solve data analysis problems common in the world of Informatics.
-        </p>
-        <p>
-            The sample code and data files for the book is here: <a href="http://www.py4e.com/code3/" target="_blank">Code Samples</a>.
-        </p>
+        The goal of this book is to provide an Informatics-oriented introduction to programming. The primary difference between a computer science approach and the Informatics 
+        approach taken in this book is a greater focus on using Python to solve data analysis problems common in the world of Informatics.
+</p>
+<p>
+        The sample code and data files for the book is here: <a href="http://www.py4e.com/code3/" target="_blank">Code Samples</a>.
+</p>
 <p><b><a href="courses">Other courses / web sites using this book</a></b>
 </p>
 <p>
@@ -82,7 +83,7 @@ and
         </li>
         <li> <a href="https://github.com/ras-ufcg/py4e" target="_blank">Book source on github</a> and
 <a href="https://github.com/ras-ufcg/py4e/blob/master/RAS_Team_Members.txt" target="_blank">translation team</a>
-(Thanks to <a href="https://twitter.com/yuriloia" target="_blank">Yuri Loia de Medeiros</a>).
+(Thanks to <a href="https://twitter.com/yuriloia" target="_blank">Yuri Loia de Medeiros</a>).</li>
 </ul>
 </li>
 <li>
@@ -102,7 +103,7 @@ Translated book, autograders, resources, and web site at
 <a href="https://py4e.pl/translations/PL/py4e-pl-latest.epub" target="_blank">EPUB</a>,
 <a href="https://py4e.pl/translations/PL/py4e-pl-latest.mobi" target="_blank">MOBI</a>
             </li>
-            <li class="menu-text"><a href="https://github.com/andre-wojtowicz/py4e-pl" target="_blank">Github Repository</a>
+            <li class="menu-text"><a href="https://github.com/andre-wojtowicz/py4e-pl" target="_blank">Github Repository</a></li>
         <li>Contributors: <a href="https://github.com/andre-wojtowicz" target="_blank">Andrzej Wójtowicz</a> (Adam Mickiewicz University in Poznań, Poland)</li>
     </li>
 </ul>
@@ -110,13 +111,10 @@ Translated book, autograders, resources, and web site at
   <li> Korean (commercial translation)
 <a href="http://www.yes24.com/Product/Goods/77401048?Acode=101" target="_blank">데이터를 다루며 배우는 파이썬</a>
   </li>
-  </li>
   <li>
      Chinese - In progress
      <ul class="menu vertical nested is-active">
        <li class="menu-text">Free:
-
-
         <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.pdf" target="_blank">PDF</a>,
        <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.epub" target="_blank">EPUB</a>
         </li>
@@ -148,7 +146,7 @@ Greek - In progress
 <a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kirourtidou</a></li>
 </ul>
 </li>
-
+</ul>
 <p>
 If you are insterested in starting a translation of the book, I have some
 instructions for
@@ -161,8 +159,6 @@ getting started</a>.
 and <a href="http://www.elkner.net/" target="_blank">Jeff Elkner</a>.
 The <a href="http://www.py4inf.com/">Python 2 version</a> of the book is still available.
         </p>
-</div>
-</div>
 <?php
 include("footer.php");
 ?>
