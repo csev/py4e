@@ -2,10 +2,10 @@ Things left to do:
 =================
 
 1. [book.php](book.php)
-2. srts
+2. **srts**
 5. tools/pythonauto/
 6. code3/
-7. book3/
+7. **book3/**
 8. Quizs
 
 
