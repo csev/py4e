@@ -74,7 +74,7 @@
                                        <a href="http://do1.dr-chuck.com/pythonlearn/PT_br/pythonlearn.epub" target="_blank">EPUB</a>
                                 </li>
                                 <li> 
-                                        <a href="https://github.com/ras-ufcg/py4e" target="_blank">Ο κώδικάς του βιβλίου στο github</a> and
+                                        <a href="https://github.com/ras-ufcg/py4e" target="_blank">Ο κώδικάς του βιβλίου στο github</a> και η
                                         <a href="https://github.com/ras-ufcg/py4e/blob/master/RAS_Team_Members.txt" target="_blank">μεταφραστική ομάδα</a>
                                         (Χάρη σε <a href="https://twitter.com/yuriloia" target="_blank">Yuri Loia de Medeiros</a>).
                                 </li>                                        
