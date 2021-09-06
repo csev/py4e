@@ -18,6 +18,14 @@
                 Μεταφράσεις του Βιβλίου:
         </p>
         <ul>
+                <li>Ελληνικά - Σε εξέλιξη
+                        <ul>
+                                <li>
+                                        <a href="lectures3/gr" target="_blank">Ελληνική έκδοση των διαφανειών</a> από την 
+                                        <a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kirourtidou</a>
+                                </li>
+                        </ul>
+                </li>
                 <li>
                         Αγγλικά - <a href="https://amzn.to/29w0lsX" target="_blank">Python for Everbody: Exploring Data in Python3</a>
                         <ul class="menu vertical nested is-active">
@@ -123,14 +131,6 @@
                                 <li>
                                         <a href="lectures3/ru/index.htm" target="_blank">Ρωσική έκδοση των διαφανειών</a> από την
                                         <a href="https://www.linkedin.com/in/violetta-fomkina-9451372/" target="_blank">Violetta Fomkina</a>.
-                                </li>
-                        </ul>
-
-                <li>Ελληνικά - Σε εξέλιξη
-                        <ul>
-                                <li>
-                                        <a href="lectures3/gr" target="_blank">Ελληνική έκδοση των διαφανειών</a> από την 
-                                        <a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kirourtidou</a>
                                 </li>
                         </ul>
                 </li>
