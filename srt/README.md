@@ -25,3 +25,5 @@ Notes
 
 https://pypi.org/project/python-youtube/
 
+https://www.geeksforgeeks.org/download-youtube-videos-or-whole-playlist-with-python/
+
