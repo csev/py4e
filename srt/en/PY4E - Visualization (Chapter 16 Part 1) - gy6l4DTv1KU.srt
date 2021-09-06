@@ -1,0 +1,687 @@
+1
+00:00:00,725 --> 00:00:03,631
+- Hello, and welcome to our final chapter
+
+2
+00:00:03,631 --> 00:00:05,309
+Retrieving and Visualizing Data.
+
+3
+00:00:05,309 --> 00:00:08,113
+In this chapter, we are going to basically
+
+4
+00:00:08,113 --> 00:00:09,592
+bring this all together,
+
+5
+00:00:09,592 --> 00:00:15,160
+databases, web services,
+code, loops, logic
+
+6
+00:00:15,160 --> 00:00:18,640
+and we're going to solve a problem that is
+
+7
+00:00:18,640 --> 00:00:20,847
+a multi step data analysis.
+
+8
+00:00:20,847 --> 00:00:23,562
+We're going to find some
+data on the internet
+
+9
+00:00:23,562 --> 00:00:26,810
+might be HTML, might
+be an API or whatever,
+
+10
+00:00:26,810 --> 00:00:30,026
+and we're going to write
+a relatively slow process
+
+11
+00:00:30,026 --> 00:00:32,247
+that's going to pull data slowly,
+
+12
+00:00:32,247 --> 00:00:33,966
+cause these are all rate limited,
+
+13
+00:00:33,966 --> 00:00:37,350
+this is a slow and restartable process,
+
+14
+00:00:37,350 --> 00:00:38,597
+so you can restart this
+
+15
+00:00:38,597 --> 00:00:40,229
+and what we're going to
+do is we have a database
+
+16
+00:00:40,229 --> 00:00:42,823
+that's going to hold the
+data that we're pulling
+
+17
+00:00:42,823 --> 00:00:45,353
+and so this might take
+several days actually,
+
+18
+00:00:45,353 --> 00:00:47,590
+if you're really have to do it
+
+19
+00:00:47,590 --> 00:00:49,642
+and then you'll build up
+your data in your database
+
+20
+00:00:49,642 --> 00:00:51,490
+and then what you tend to do is,
+
+21
+00:00:51,490 --> 00:00:53,467
+you tend to produce two databases,
+
+22
+00:00:53,467 --> 00:00:57,069
+one is kind of a raw
+database, that you know is
+
+23
+00:00:57,069 --> 00:01:00,003
+really it's, all of it's data columns are
+
+24
+00:01:00,003 --> 00:01:02,808
+aimed at helping you figure
+out what you've gotta retrieve
+
+25
+00:01:02,808 --> 00:01:04,763
+yet and what you haven't retrieved yet.
+
+26
+00:01:04,763 --> 00:01:08,263
+So that's kind of a
+crawling, spidering process.
+
+27
+00:01:08,263 --> 00:01:11,628
+And then you find that the
+data is kinda nasty and ugly
+
+28
+00:01:11,628 --> 00:01:14,650
+and you find that before you're
+going to do any analysis,
+
+29
+00:01:14,650 --> 00:01:16,595
+you probably want to clean and process it.
+
+30
+00:01:16,595 --> 00:01:18,632
+So you, in a lot of these
+you're going to go from
+
+31
+00:01:18,632 --> 00:01:21,177
+a raw database to a clean one.
+
+32
+00:01:21,177 --> 00:01:23,066
+And this is going to be really large.
+
+33
+00:01:23,066 --> 00:01:25,058
+And this is going to be really small.
+
+34
+00:01:25,058 --> 00:01:28,261
+And you're going to do this
+sort of once but slowly
+
+35
+00:01:28,261 --> 00:01:30,252
+and you'll do this as
+many times as you need,
+
+36
+00:01:30,252 --> 00:01:32,808
+changing this program,
+cleaning the data up,
+
+37
+00:01:32,808 --> 00:01:34,294
+over and over and over again
+
+38
+00:01:34,294 --> 00:01:36,197
+and then you'll end up
+with really clean data
+
+39
+00:01:36,197 --> 00:01:37,468
+and it's relatively small
+
+40
+00:01:37,468 --> 00:01:39,619
+and you might run programs
+that'll loop through this
+
+41
+00:01:39,619 --> 00:01:43,693
+to do visualizations or analysis
+or somethings or whatever.
+
+42
+00:01:43,693 --> 00:01:46,189
+You'll actually sort of use this database
+
+43
+00:01:46,189 --> 00:01:50,179
+as a source of information.
+
+44
+00:01:50,179 --> 00:01:52,654
+So that's the basic pattern
+
+45
+00:01:52,654 --> 00:01:54,368
+of what we're going to work with.
+
+46
+00:01:54,368 --> 00:01:56,995
+Now, this is what I call
+personal data mining
+
+47
+00:01:56,995 --> 00:01:58,929
+and if you're going to do this seriously,
+
+48
+00:01:58,929 --> 00:02:01,798
+python is used in lots
+of data mining activities
+
+49
+00:02:01,798 --> 00:02:03,582
+but if you're going to do
+data mining seriously with
+
+50
+00:02:03,582 --> 00:02:04,976
+really, really large data sets.
+
+51
+00:02:04,976 --> 00:02:08,231
+We're doing small to
+medium size data sets,
+
+52
+00:02:08,231 --> 00:02:10,327
+as you might do for sort of for
+
+53
+00:02:10,327 --> 00:02:12,371
+an individual personal
+research versus like
+
+54
+00:02:12,371 --> 00:02:13,582
+an organization research where you're
+
+55
+00:02:13,582 --> 00:02:17,187
+processing the logs of a web
+server or something like that
+
+56
+00:02:17,187 --> 00:02:19,665
+and there's lots and lots
+of wonderful technology
+
+57
+00:02:19,665 --> 00:02:22,112
+and what's really cool
+is, this technology just
+
+58
+00:02:22,112 --> 00:02:23,924
+keeps getting better and
+better cause the whole
+
+59
+00:02:23,924 --> 00:02:27,513
+data mining, data analysis,
+natural language processing
+
+60
+00:02:27,513 --> 00:02:31,156
+field is just so hot right
+now, it's so awesome.
+
+61
+00:02:31,156 --> 00:02:33,647
+We're going to keep it simple and do stuff
+
+62
+00:02:33,647 --> 00:02:35,185
+for ourselves for now.
+
+63
+00:02:35,185 --> 00:02:38,730
+And I gave you a bunch of sample code
+
+64
+00:02:38,730 --> 00:02:41,394
+that's going to make it so
+you can adapt the sample code
+
+65
+00:02:41,394 --> 00:02:44,065
+to solve the problems
+that you'll need to solve.
+
+66
+00:02:44,065 --> 00:02:46,827
+So like I said, this is more
+of a programming exercise.
+
+67
+00:02:46,827 --> 00:02:48,528
+Data mining might be a lot more complex.
+
+68
+00:02:48,528 --> 00:02:50,190
+If you're doing simple research,
+
+69
+00:02:50,190 --> 00:02:53,389
+this might actually model
+what you do pretty well.
+
+70
+00:02:53,389 --> 00:02:55,110
+So the first thing that
+we're going to do is
+
+71
+00:02:55,110 --> 00:03:00,017
+what's called, use the Google's
+Json API for Geo-coding.
+
+72
+00:03:00,017 --> 00:03:02,172
+And there are two versions of this.
+
+73
+00:03:02,172 --> 00:03:04,083
+One version requires a key and
+
+74
+00:03:04,083 --> 00:03:06,683
+one version doesn't require a key.
+
+75
+00:03:06,683 --> 00:03:09,581
+Google used to make all
+this data available for free
+
+76
+00:03:09,581 --> 00:03:12,418
+with just a rate limit
+but now they're making,
+
+77
+00:03:12,418 --> 00:03:14,211
+increasingly requiring the key.
+
+78
+00:03:14,211 --> 00:03:17,800
+So I give you code in the zip
+file that kind of does both.
+
+79
+00:03:17,800 --> 00:03:19,871
+If you really want to do
+something in production of
+
+80
+00:03:19,871 --> 00:03:23,514
+taking user entered places
+and names and getting
+
+81
+00:03:23,514 --> 00:03:25,469
+precise latitude, longitude coordinates,
+
+82
+00:03:25,469 --> 00:03:31,873
+so you can produce a nice
+little Google Map like this.
+
+83
+00:03:31,873 --> 00:03:33,827
+Since Google has made a rate limited API,
+
+84
+00:03:33,827 --> 00:03:37,127
+I've actually pre-spidered
+a copy of the Google data
+
+85
+00:03:37,127 --> 00:03:39,243
+and I have my own sort of fake Google API
+
+86
+00:03:39,243 --> 00:03:42,730
+and so you can do your
+assignments and test all your code
+
+87
+00:03:42,730 --> 00:03:45,330
+using my fake API which
+
+88
+00:03:45,330 --> 00:03:47,680
+has no rate limits and has no problems
+
+89
+00:03:47,680 --> 00:03:51,121
+but it's only a limited set of the data.
+
+90
+00:03:51,121 --> 00:03:52,728
+So this is the basic process
+
+91
+00:03:52,728 --> 00:03:55,387
+and it's one of those things that
+
+92
+00:03:55,387 --> 00:03:58,545
+it follows that basic
+personal data modeling,
+
+93
+00:03:58,545 --> 00:04:00,520
+personal data mining pattern.
+
+94
+00:04:00,520 --> 00:04:03,116
+And so here's this API which
+is either Google or me,
+
+95
+00:04:03,116 --> 00:04:04,955
+I've got my own doctor
+chuck version of this
+
+96
+00:04:04,955 --> 00:04:06,814
+drchuck.net version of this,
+
+97
+00:04:06,814 --> 00:04:10,961
+and there is an input
+queue of the locations.
+
+98
+00:04:10,961 --> 00:04:13,110
+So this is the user data
+where they just put in
+
+99
+00:04:13,110 --> 00:04:14,835
+the name of where they think they live,
+
+100
+00:04:14,835 --> 00:04:18,468
+The University of Tubagan or something,
+
+101
+00:04:18,468 --> 00:04:20,964
+so this is the queue of
+the things that are to be
+
+102
+00:04:20,964 --> 00:04:23,122
+retrieved and in my case,
+
+103
+00:04:23,122 --> 00:04:24,991
+when I built this map for the first time,
+
+104
+00:04:24,991 --> 00:04:29,388
+there was like 15,000 and
+it took me days to get this
+
+105
+00:04:29,388 --> 00:04:30,923
+and so it would stop
+
+106
+00:04:30,923 --> 00:04:33,863
+and so what I would do
+is, I would, you know,
+
+107
+00:04:33,863 --> 00:04:36,548
+read the first one into this geoload.py,
+
+108
+00:04:36,548 --> 00:04:38,503
+check to see if I already
+had it in my database,
+
+109
+00:04:38,503 --> 00:04:39,918
+if I didn't already
+have it in my database,
+
+110
+00:04:39,918 --> 00:04:42,004
+I would go into the API
+and pull the data down
+
+111
+00:04:42,004 --> 00:04:43,538
+and I would put it in the database
+
+112
+00:04:43,538 --> 00:04:45,197
+and then I'll go to the next one,
+
+113
+00:04:45,197 --> 00:04:46,030
+and the next one and next one
+
+114
+00:04:46,030 --> 00:04:49,119
+and so I might get a
+thousand in my database
+
+115
+00:04:49,119 --> 00:04:51,982
+and then it blows up or I'm
+told I can't go any further.
+
+116
+00:04:51,982 --> 00:04:53,941
+So I wait 24 hours, I start it up
+
+117
+00:04:53,941 --> 00:04:55,256
+and it reads the first 1,000
+
+118
+00:04:55,256 --> 00:04:57,034
+and says, oh they're all
+in the database already
+
+119
+00:04:57,034 --> 00:04:59,818
+and then it starts at 1,001.
+
+120
+00:04:59,818 --> 00:05:02,597
+And then it adds that and
+adds that until it stops
+
+121
+00:05:02,597 --> 00:05:05,335
+and so it took me several
+days of processing
+
+122
+00:05:05,335 --> 00:05:06,780
+to get this data right.
+
+123
+00:05:06,780 --> 00:05:09,670
+Now, I didn't have a
+separate cleaning process
+
+124
+00:05:09,670 --> 00:05:11,256
+cause this data is pretty simple,
+
+125
+00:05:11,256 --> 00:05:15,664
+I was pulling out the Json and
+latitude and longitude etc.
+
+126
+00:05:15,664 --> 00:05:18,607
+So I didn't have to do
+two separate processes
+
+127
+00:05:18,607 --> 00:05:19,736
+to clean this data up.
+
+128
+00:05:19,736 --> 00:05:22,135
+It was clean enough right as I pulled it.
+
+129
+00:05:22,135 --> 00:05:24,138
+Cause I was talking to an API.
+
+130
+00:05:24,138 --> 00:05:26,445
+If you're talking to an
+HTML sometimes it gets
+
+131
+00:05:26,445 --> 00:05:28,701
+nasty and ugly.
+
+132
+00:05:28,701 --> 00:05:31,392
+So then I wrote this program
+that just reads through it,
+
+133
+00:05:31,392 --> 00:05:33,648
+it just does a select and
+reads through the stuff
+
+134
+00:05:33,648 --> 00:05:36,507
+and it prints out some summary information
+
+135
+00:05:36,507 --> 00:05:37,844
+and tells you what to do.
+
+136
+00:05:37,844 --> 00:05:40,539
+It also prints out, and
+you'll see this pattern,
+
+137
+00:05:40,539 --> 00:05:45,384
+cause you know I'm visualizing
+using browser's HTML
+
+138
+00:05:45,384 --> 00:05:49,266
+and this happens to be
+using the Google Maps API.
+
+139
+00:05:49,266 --> 00:05:51,305
+And putting all the data in
+a little Java script file
+
+140
+00:05:51,305 --> 00:05:54,036
+so these end up being assignment
+statements in java script.
+
+141
+00:05:54,036 --> 00:05:55,639
+You can take a look at that file.
+
+142
+00:05:55,639 --> 00:05:59,165
+And all the data shows up
+as assignment statements
+
+143
+00:05:59,165 --> 00:06:01,423
+in the Java script and
+when this HTML loads,
+
+144
+00:06:01,423 --> 00:06:03,980
+it reads this file and
+puts up all those pins
+
+145
+00:06:03,980 --> 00:06:05,292
+as long as you have access to
+
+146
+00:06:05,292 --> 00:06:09,741
+the end browser Java script API.
+
+147
+00:06:09,741 --> 00:06:11,342
+So the next thing we're
+going to talk about
+
+148
+00:06:11,342 --> 00:06:14,924
+is pagering which is spidering now HTML.
+
+149
+00:06:14,924 --> 00:06:18,041
+We talked a lot about this,
+spider HTML, get some links
+
+150
+00:06:18,041 --> 00:06:20,121
+and so up next we're
+going to actually build
+
+151
+00:06:20,121 --> 00:06:23,695
+a real database, full
+featured, search engine
+
+152
+00:06:23,695 --> 00:06:24,945
+using pagering.
+

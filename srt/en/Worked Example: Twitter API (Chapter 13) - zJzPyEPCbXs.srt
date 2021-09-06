@@ -1,0 +1,1660 @@
+1
+00:00:00,834 --> 00:00:08,489
+(piano jazz music)
+
+2
+00:00:08,489 --> 00:00:09,893
+- [Charles] Welcome to
+Python for Everybody.
+
+3
+00:00:09,893 --> 00:00:12,157
+We're doing some code, sample code.
+
+4
+00:00:12,157 --> 00:00:14,615
+We're playing through with
+some sample code samples
+
+5
+00:00:14,615 --> 00:00:16,862
+and you can get this by downloading it.
+
+6
+00:00:16,862 --> 00:00:18,691
+I've got this whole thing downloaded
+
+7
+00:00:18,691 --> 00:00:22,667
+and I've got all the files here
+
+8
+00:00:22,667 --> 00:00:24,985
+and these are the files we're
+going to play with today.
+
+9
+00:00:24,985 --> 00:00:26,323
+Today, what we're going to do
+
+10
+00:00:26,323 --> 00:00:28,169
+is talk about the Twitter API
+
+11
+00:00:28,169 --> 00:00:30,972
+and the one thing we gotta
+learn about the Twitter API
+
+12
+00:00:30,972 --> 00:00:32,814
+is we have to authorize ourselves
+
+13
+00:00:32,814 --> 00:00:37,900
+and so we have to make sure
+that we have a Twitter account
+
+14
+00:00:37,900 --> 00:00:39,745
+and then we get some keys.
+
+15
+00:00:39,745 --> 00:00:41,918
+In this particular application,
+
+16
+00:00:41,918 --> 00:00:43,752
+if you want to duplicate what I'm doing,
+
+17
+00:00:43,752 --> 00:00:45,909
+you have to go to apps.twitter.com,
+
+18
+00:00:45,909 --> 00:00:47,904
+click this create new application button
+
+19
+00:00:47,904 --> 00:00:49,931
+and then get some codes.
+
+20
+00:00:49,931 --> 00:00:53,009
+And the codes show up as
+soon as you hit this button
+
+21
+00:00:53,009 --> 00:00:54,169
+and then one more button,
+
+22
+00:00:54,169 --> 00:00:56,973
+which I'm not going to do on screen.
+
+23
+00:00:56,973 --> 00:00:58,835
+And so, what happens is,
+
+24
+00:00:58,835 --> 00:01:00,564
+there are four codes that you got
+
+25
+00:01:00,564 --> 00:01:02,761
+to put in this file, hidden.py.
+
+26
+00:01:02,761 --> 00:01:04,265
+Consumer_key, the consumer_secret,
+
+27
+00:01:04,265 --> 00:01:06,328
+token_key, and token_secret.
+
+28
+00:01:06,328 --> 00:01:07,736
+These are just messed up,
+
+29
+00:01:07,736 --> 00:01:09,411
+so I'll show you how this works
+
+30
+00:01:09,411 --> 00:01:12,868
+and blows up if, first.
+
+31
+00:01:12,868 --> 00:01:14,702
+And then I'll put my keys in here,
+
+32
+00:01:14,702 --> 00:01:16,100
+without showing you.
+
+33
+00:01:16,100 --> 00:01:18,883
+But basically, this is the
+little file you gotta edit
+
+34
+00:01:18,883 --> 00:01:21,257
+or these Twitter ones don't work.
+
+35
+00:01:21,257 --> 00:01:22,687
+You'll see what happens.
+
+36
+00:01:22,687 --> 00:01:25,681
+So, the first one I'm gonna
+do, is the simplest one of all
+
+37
+00:01:25,681 --> 00:01:28,592
+and that is, I call
+this thing Twitter test
+
+38
+00:01:28,592 --> 00:01:32,033
+and it's going to go ask
+for the user timeline
+
+39
+00:01:32,033 --> 00:01:33,672
+and we can take a look at this
+
+40
+00:01:33,672 --> 00:01:36,625
+and we're gonna take the URL
+
+41
+00:01:36,625 --> 00:01:38,821
+and we're going to augment the URL.
+
+42
+00:01:38,821 --> 00:01:40,661
+This is the base, we
+found this looking at the
+
+43
+00:01:40,661 --> 00:01:42,735
+Twitter API documentation.
+
+44
+00:01:42,735 --> 00:01:44,301
+We're going to pass the parameter of
+
+45
+00:01:44,301 --> 00:01:46,126
+screen_name, drchuck, and a count of two.
+
+46
+00:01:46,126 --> 00:01:48,025
+So, this is just a Python dictionary
+
+47
+00:01:48,025 --> 00:01:52,762
+and augment comes from this
+little bit of code called twurl
+
+48
+00:01:52,762 --> 00:01:57,722
+and this uses a bit of code called oauth,
+
+49
+00:01:57,722 --> 00:02:04,680
+which is built into Python as well
+
+50
+00:02:04,680 --> 00:02:09,033
+and it augments the URL and
+it takes the key, the secret,
+
+51
+00:02:09,033 --> 00:02:11,196
+the token key and does a thing
+
+52
+00:02:11,196 --> 00:02:14,947
+and assigns it and makes
+this big, long, ugly, URL,
+
+53
+00:02:14,947 --> 00:02:16,627
+which you will soon see.
+
+54
+00:02:16,627 --> 00:02:19,053
+It's a signature of the URL.
+
+55
+00:02:19,053 --> 00:02:21,337
+So, we pass this data
+back and forth to Twitter
+
+56
+00:02:21,337 --> 00:02:26,315
+with a signature and then
+they recheck the signature
+
+57
+00:02:26,315 --> 00:02:29,365
+and it's a digital signature
+that this URL came from
+
+58
+00:02:29,365 --> 00:02:30,851
+a program that knows the
+
+59
+00:02:30,851 --> 00:02:34,423
+key, secret, token, and token secret.
+
+60
+00:02:34,423 --> 00:02:36,058
+And so this augment basically,
+
+61
+00:02:36,058 --> 00:02:41,476
+is something I wrote, twurl, augment,
+
+62
+00:02:41,476 --> 00:02:43,598
+is something I wrote to
+make it easier to add
+
+63
+00:02:43,598 --> 00:02:45,375
+all these oauth parameters
+
+64
+00:02:45,375 --> 00:02:50,060
+and you feed this code by
+putting your data into hidden.py.
+
+65
+00:02:50,060 --> 00:02:52,036
+Lots of people get this to work,
+
+66
+00:02:52,036 --> 00:02:53,523
+so don't worry, it's kinda cool
+
+67
+00:02:53,523 --> 00:02:56,362
+when you finally get it to work.
+
+68
+00:02:56,362 --> 00:02:58,125
+So, let's take a look at what it does,
+
+69
+00:02:58,125 --> 00:03:00,657
+just know that this makes an awesome URL
+
+70
+00:03:00,657 --> 00:03:02,413
+that does all the security
+
+71
+00:03:02,413 --> 00:03:06,109
+and we'll see one of those URLs.
+
+72
+00:03:06,109 --> 00:03:08,276
+Ignore the certificate errors,
+
+73
+00:03:08,276 --> 00:03:10,111
+this has to do with the fact that
+
+74
+00:03:10,111 --> 00:03:13,583
+we're using https and
+Python doesn't have enough
+
+75
+00:03:13,583 --> 00:03:16,214
+certificates to put into by default,
+
+76
+00:03:16,214 --> 00:03:18,173
+for a lot of reasons, but
+our quick and dirty way
+
+77
+00:03:18,173 --> 00:03:19,735
+is to turn them off.
+
+78
+00:03:19,735 --> 00:03:22,708
+Thank you Python for reducing
+security by teaching us,
+
+79
+00:03:22,708 --> 00:03:24,952
+so this is the best way to do it.
+
+80
+00:03:24,952 --> 00:03:27,383
+That's a crumpium moment on my part.
+
+81
+00:03:27,383 --> 00:03:28,366
+So, what we're going to do,
+
+82
+00:03:28,366 --> 00:03:31,351
+we're going to do a URL open,
+
+83
+00:03:31,351 --> 00:03:34,067
+this is to shut off the security checking
+
+84
+00:03:34,067 --> 00:03:36,029
+for the ssl certificate.
+
+85
+00:03:36,029 --> 00:03:37,573
+We're going to read all the data
+
+86
+00:03:37,573 --> 00:03:39,347
+and then we're going to print it out
+
+87
+00:03:39,347 --> 00:03:43,469
+and we're also going
+to ask the connection.
+
+88
+00:03:43,469 --> 00:03:46,069
+Remember, I told you a long time ago
+
+89
+00:03:46,069 --> 00:03:50,680
+that urllib eats the headers
+but you can get them back
+
+90
+00:03:50,680 --> 00:03:51,904
+and now we're going to ask to get
+
+91
+00:03:51,904 --> 00:03:53,634
+a dictionary of the headers back.
+
+92
+00:03:53,634 --> 00:03:55,027
+So, we'll print those out.
+
+93
+00:03:55,027 --> 00:03:58,047
+This is really kinda just testing
+
+94
+00:03:58,047 --> 00:04:00,900
+the body and the headers
+and printing them out
+
+95
+00:04:00,900 --> 00:04:02,963
+sort of in as raw a way we can do.
+
+96
+00:04:02,963 --> 00:04:05,425
+So, let's go run this.
+
+97
+00:04:05,425 --> 00:04:07,496
+Now this is going to fail
+the first time we do it
+
+98
+00:04:07,496 --> 00:04:12,163
+because we haven't put the
+hidden variables in there.
+
+99
+00:04:12,163 --> 00:04:16,524
+So, if I say python3 twtest.py,
+
+100
+00:04:16,524 --> 00:04:18,515
+it's going to run and blow up
+
+101
+00:04:18,515 --> 00:04:21,600
+and give you this 401
+authorization required.
+
+102
+00:04:21,600 --> 00:04:23,681
+That's a good sign because that means you
+
+103
+00:04:23,681 --> 00:04:30,522
+haven't yet updated your
+values in hidden.py.
+
+104
+00:04:30,522 --> 00:04:33,755
+This is that augmented
+URL and you can see the
+
+105
+00:04:33,755 --> 00:04:35,303
+consumer_key, then consumer_secret,
+
+106
+00:04:35,303 --> 00:04:38,044
+and the oauth_token and whatever.
+
+107
+00:04:38,044 --> 00:04:43,689
+Okay, so these tokens are like, wrong.
+
+108
+00:04:43,689 --> 00:04:45,306
+Oops, control C.
+
+109
+00:04:45,306 --> 00:04:47,539
+They aren't real, but you'll notice that
+
+110
+00:04:47,539 --> 00:04:50,328
+key and the secret, the
+token_key and the token_secret,
+
+111
+00:04:50,328 --> 00:04:52,898
+and the secret and that's
+all actually encoded
+
+112
+00:04:52,898 --> 00:04:54,094
+in this signature.
+
+113
+00:04:54,094 --> 00:04:56,859
+Turns out that you need to have the
+
+114
+00:04:56,859 --> 00:04:58,863
+secret and the token_secret
+
+115
+00:04:58,863 --> 00:05:04,296
+to generate the signature
+and where is the signature,
+
+116
+00:05:04,296 --> 00:05:07,162
+oh there's the signature,
+right, there's the signature.
+
+117
+00:05:07,162 --> 00:05:09,853
+And so, this signature
+combined with nonce,
+
+118
+00:05:09,853 --> 00:05:13,998
+the signature has time and
+includes all kinds of things,
+
+119
+00:05:13,998 --> 00:05:15,924
+so even if you type this in,
+
+120
+00:05:15,924 --> 00:05:17,744
+you'll see these go by
+
+121
+00:05:17,744 --> 00:05:21,425
+and it's not really breaking
+my security too much
+
+122
+00:05:21,425 --> 00:05:22,873
+when you see these afterwards.
+
+123
+00:05:22,873 --> 00:05:24,735
+So, don't get all excited when you say,
+
+124
+00:05:24,735 --> 00:05:27,293
+oh, you revealed your token and your key.
+
+125
+00:05:27,293 --> 00:05:28,907
+Well I can reveal my token_key
+
+126
+00:05:28,907 --> 00:05:33,149
+but I'm not gonna reveal the secret.
+
+127
+00:05:33,149 --> 00:05:35,101
+This adds all this oauth stuff.
+
+128
+00:05:35,101 --> 00:05:37,179
+Oauth_nonce, oauth_timestamp,
+
+129
+00:05:37,179 --> 00:05:39,272
+and these timestamps and nonces are made
+
+130
+00:05:39,272 --> 00:05:40,940
+so you can't replay my URL,
+
+131
+00:05:40,940 --> 00:05:43,519
+even if you see the exact URL.
+
+132
+00:05:43,519 --> 00:05:45,918
+Once I hit it, then you can't hit it again
+
+133
+00:05:45,918 --> 00:05:47,736
+and so that's what the nonce does.
+
+134
+00:05:47,736 --> 00:05:51,067
+So, I'm gonna close hidden.py here
+
+135
+00:05:51,067 --> 00:06:10,710
+and I'm going to update
+hidden.py in another window.
+
+136
+00:06:10,710 --> 00:06:15,128
+So, in another window,
+I updated hidden.py,
+
+137
+00:06:15,128 --> 00:06:16,708
+I'm not going to show you that,
+
+138
+00:06:16,708 --> 00:06:20,461
+but now I'm going to
+run python3 twtest.py.
+
+139
+00:06:20,461 --> 00:06:22,813
+So, twurl is going to read hidden
+
+140
+00:06:22,813 --> 00:06:25,377
+and now these keys and
+secrets are my real ones,
+
+141
+00:06:25,377 --> 00:06:26,971
+that I haven't shown you.
+
+142
+00:06:26,971 --> 00:06:30,859
+So, this should work, fingers crossed.
+
+143
+00:06:30,859 --> 00:06:33,077
+Yay, it worked.
+
+144
+00:06:33,077 --> 00:06:36,719
+So, it worked, so I'm calling Twitter.
+
+145
+00:06:36,719 --> 00:06:38,870
+Here's the URL, now don't worry,
+
+146
+00:06:38,870 --> 00:06:41,840
+the token and the
+consumer_key are not enough
+
+147
+00:06:41,840 --> 00:06:43,687
+to break into my account
+
+148
+00:06:43,687 --> 00:06:46,322
+and neither is the signature
+because you can't replay this,
+
+149
+00:06:46,322 --> 00:06:53,498
+in about five minutes, you
+can't replay this anymore.
+
+150
+00:06:53,498 --> 00:06:55,044
+You can't generate the signature,
+
+151
+00:06:55,044 --> 00:06:59,998
+the signature includes the time and date,
+
+152
+00:06:59,998 --> 00:07:03,436
+so you can't, trust me.
+
+153
+00:07:03,436 --> 00:07:05,224
+Go read up on oauth, don't worry.
+
+154
+00:07:05,224 --> 00:07:06,898
+I haven't really revealed anything,
+
+155
+00:07:06,898 --> 00:07:08,523
+but the first thing we see is this.
+
+156
+00:07:08,523 --> 00:07:12,283
+We should part like the
+line of dashes here.
+
+157
+00:07:12,283 --> 00:07:14,837
+This is the JSON, it ain't very pretty,
+
+158
+00:07:14,837 --> 00:07:16,121
+it's not very pretty.
+
+159
+00:07:16,121 --> 00:07:18,401
+So, that's the JSON, from there to there.
+
+160
+00:07:18,401 --> 00:07:20,699
+It's just what most APIs give us back,
+
+161
+00:07:20,699 --> 00:07:22,686
+it's really dense JSON, right.
+
+162
+00:07:22,686 --> 00:07:24,747
+And so, this is a byte array.
+
+163
+00:07:24,747 --> 00:07:27,178
+Remember how you have to do a .decode?
+
+164
+00:07:27,178 --> 00:07:29,222
+I didn't do a .decode here
+
+165
+00:07:29,222 --> 00:07:32,310
+and so Python is telling
+us this is a byte array.
+
+166
+00:07:32,310 --> 00:07:36,376
+Which it's a raw set of bytes
+that came from the internet,
+
+167
+00:07:36,376 --> 00:07:40,543
+which probably are UTFA
+and if I put a decode here,
+
+168
+00:07:40,543 --> 00:07:44,557
+then it would decode, if
+I say .data.decode there,
+
+169
+00:07:44,557 --> 00:07:46,571
+then it would be fine,
+
+170
+00:07:46,571 --> 00:07:52,630
+but we don't care, this is just
+a dump, do we get anything?
+
+171
+00:07:52,630 --> 00:07:56,702
+Let's do this, print, I'll
+just make this code different,
+
+172
+00:07:56,702 --> 00:08:00,842
+put some equal signs here,
+a lot of equal signs.
+
+173
+00:08:00,842 --> 00:08:02,172
+So we can easily see
+
+174
+00:08:02,172 --> 00:08:06,805
+where the thing starts and stops.
+
+175
+00:08:06,805 --> 00:08:09,309
+So we'll run that again,
+if you look at those URLs.
+
+176
+00:08:09,309 --> 00:08:15,543
+That was all of that stuff and then
+
+177
+00:08:15,543 --> 00:08:16,919
+this is the headers.
+
+178
+00:08:16,919 --> 00:08:19,641
+So, the headers, again, are not pretty.
+
+179
+00:08:19,641 --> 00:08:21,690
+You get the headers, it's a dictionary.
+
+180
+00:08:21,690 --> 00:08:26,056
+You got cache-control,
+no-cache, this is the string.
+
+181
+00:08:26,056 --> 00:08:29,328
+Key value, you got to find
+your commas key value.
+
+182
+00:08:29,328 --> 00:08:33,830
+But the one that's really
+interesting here is,
+
+183
+00:08:33,830 --> 00:08:36,270
+which one is it?
+
+184
+00:08:36,270 --> 00:08:39,674
+X-rate-limit-remaining,
+
+185
+00:08:39,674 --> 00:08:42,102
+so that means for this particular API,
+
+186
+00:08:42,102 --> 00:08:47,855
+this header tells me
+that I got 898 calls left
+
+187
+00:08:47,855 --> 00:08:56,209
+and this is when I'll get more calls.
+
+188
+00:08:56,209 --> 00:08:57,984
+So watch, I'm going to do this again
+
+189
+00:08:57,984 --> 00:09:02,329
+and you will see that I can
+only do this 897 more times now.
+
+190
+00:09:02,329 --> 00:09:06,522
+Run it, I can only do the 897.
+
+191
+00:09:06,522 --> 00:09:08,682
+So, I am being tracked at this point.
+
+192
+00:09:08,682 --> 00:09:10,532
+I am being tracked by Twitter.
+
+193
+00:09:10,532 --> 00:09:14,355
+Twitter knows that it's drchuck doing this
+
+194
+00:09:14,355 --> 00:09:19,426
+and drchuck had done
+900, he's done 899, 897,
+
+195
+00:09:19,426 --> 00:09:20,791
+and if I keep running this,
+
+196
+00:09:20,791 --> 00:09:24,425
+eventually Twitter will tell
+me, you gotta wait for awhile
+
+197
+00:09:24,425 --> 00:09:26,394
+and that's because
+Twitter doesn't want me,
+
+198
+00:09:26,394 --> 00:09:28,155
+under my drchuck account,
+
+199
+00:09:28,155 --> 00:09:30,711
+pulling out lots and
+lots of stuff out Twitter
+
+200
+00:09:30,711 --> 00:09:34,082
+and making my own website.
+
+201
+00:09:34,082 --> 00:09:36,552
+I do actually have my own Twitter website,
+
+202
+00:09:36,552 --> 00:09:38,383
+using some cool software.
+
+203
+00:09:38,383 --> 00:09:48,869
+Www.dr-chuck.com/twitter.
+
+204
+00:09:48,869 --> 00:09:49,910
+And this I have to run
+
+205
+00:09:49,910 --> 00:10:00,541
+and rate limits cause
+all kinds of whatever.
+
+206
+00:10:00,541 --> 00:10:02,018
+So, I'll save that.
+
+207
+00:10:02,018 --> 00:10:05,436
+So, this is just a test.
+
+208
+00:10:05,436 --> 00:10:07,036
+I want to do something interesting.
+
+209
+00:10:07,036 --> 00:10:09,461
+So we're not parsing the
+JSON that comes back,
+
+210
+00:10:09,461 --> 00:10:12,086
+we're not doing anything tricky with this
+
+211
+00:10:12,086 --> 00:10:13,430
+and away we go.
+
+212
+00:10:13,430 --> 00:10:18,482
+Let's take a look at some more code.
+
+213
+00:10:18,482 --> 00:10:22,119
+I think I don't need this anymore.
+
+214
+00:10:22,119 --> 00:10:24,811
+I am going to parse this.
+
+215
+00:10:24,811 --> 00:10:26,795
+So, most of this looks the same.
+
+216
+00:10:26,795 --> 00:10:29,087
+I've got that same user_timeline.json,
+
+217
+00:10:29,087 --> 00:10:35,108
+I'm going to ignore the ssl
+certificates, write a loop.
+
+218
+00:10:35,108 --> 00:10:38,929
+I'm going to print.
+
+219
+00:10:38,929 --> 00:10:40,480
+I'm going get a Twitter account
+
+220
+00:10:40,480 --> 00:10:42,107
+and quit if it's a blank line (inaudible).
+
+221
+00:10:42,107 --> 00:10:45,473
+I'm going to use the
+twurl.augment the same way.
+
+222
+00:10:45,473 --> 00:10:48,325
+That's going to do all the
+signing using from hidden.py,
+
+223
+00:10:48,325 --> 00:10:50,793
+I'll retrieve it and I'm
+going to retrieve it,
+
+224
+00:10:50,793 --> 00:10:54,126
+ignoring the ssl errors and
+them I'm going to decode it,
+
+225
+00:10:54,126 --> 00:10:57,049
+so I get a real unicode string
+
+226
+00:10:57,049 --> 00:10:59,342
+and I'll print the first
+250 characters of it.
+
+227
+00:10:59,342 --> 00:11:01,628
+I'm gonna grab the headers
+and I'm going to print
+
+228
+00:11:01,628 --> 00:11:05,833
+the remaining rate limit.
+
+229
+00:11:05,833 --> 00:11:10,712
+This is sort of a very simple
+version this, same thing,
+
+230
+00:11:10,712 --> 00:11:12,156
+it really is decoding the data
+
+231
+00:11:12,156 --> 00:11:14,511
+and only printing the
+first 250 characters,
+
+232
+00:11:14,511 --> 00:11:26,874
+so let's run that.
+
+233
+00:11:26,874 --> 00:11:31,185
+Drchuck, boom and it's got 896.
+
+234
+00:11:31,185 --> 00:11:33,204
+So this just a little simpler version,
+
+235
+00:11:33,204 --> 00:11:36,182
+a little less brutal debugging.
+
+236
+00:11:36,182 --> 00:11:38,081
+So, now let's do something even more fun.
+
+237
+00:11:38,081 --> 00:11:41,689
+Let's go to twitter2.py and tear it apart.
+
+238
+00:11:41,689 --> 00:11:46,231
+So again, we're going to
+look at my friends list,
+
+239
+00:11:46,231 --> 00:11:48,769
+or anybody's friends list.
+
+240
+00:11:48,769 --> 00:11:51,735
+We're going to ask for the friends
+
+241
+00:11:51,735 --> 00:11:53,664
+and ask for the screen_name,
+
+242
+00:11:53,664 --> 00:11:55,413
+ask for the first five friends
+
+243
+00:11:55,413 --> 00:11:57,918
+and then look at their statuses.
+
+244
+00:11:57,918 --> 00:11:59,830
+Open it, decode it, get the headers,
+
+245
+00:11:59,830 --> 00:12:01,674
+print the rate limit remaining.
+
+246
+00:12:01,674 --> 00:12:03,599
+All this stuff is the same as in twitter1
+
+247
+00:12:03,599 --> 00:12:07,005
+and now we're going to
+parse the javascript.
+
+248
+00:12:07,005 --> 00:12:08,792
+I'm not even putting
+this in a try and accept
+
+249
+00:12:08,792 --> 00:12:10,607
+because, hey, I'm talking to Twitter.
+
+250
+00:12:10,607 --> 00:12:11,440
+I'm gonna guess that Twitter's
+
+251
+00:12:11,440 --> 00:12:15,600
+gonna give me the right stuff.
+
+252
+00:12:15,600 --> 00:12:17,057
+You'll probably want to
+put a try and accept here.
+
+253
+00:12:17,057 --> 00:12:18,765
+Then I'm gonna do a debug print.
+
+254
+00:12:18,765 --> 00:12:21,422
+I'm gonna do a JSON pretty print,
+
+255
+00:12:21,422 --> 00:12:24,278
+let's make that be 2, so
+it looks a little better.
+
+256
+00:12:24,278 --> 00:12:27,293
+And then, I'll run it
+
+257
+00:12:27,293 --> 00:12:29,830
+and then you're gonna see
+how we have to parse this.
+
+258
+00:12:29,830 --> 00:12:33,426
+We're gonna see that it's a list.
+
+259
+00:12:33,426 --> 00:12:34,509
+We're done with that
+
+260
+00:12:34,509 --> 00:12:37,637
+and now we're running twitter2.py.
+
+261
+00:12:37,637 --> 00:12:39,559
+So, I'm gonna go to drchuck
+
+262
+00:12:39,559 --> 00:12:41,985
+and this is going to ask the question,
+
+263
+00:12:41,985 --> 00:12:45,449
+who drchuck's friends are.
+
+264
+00:12:45,449 --> 00:12:46,823
+Okay, let's go to top.
+
+265
+00:12:46,823 --> 00:12:48,798
+It hit this API
+
+266
+00:12:48,798 --> 00:12:53,591
+and it has the screen
+name, drchuck equals five
+
+267
+00:12:53,591 --> 00:12:55,247
+and all the oauth stuff.
+
+268
+00:12:55,247 --> 00:12:56,962
+Again, this is not a security breach
+
+269
+00:12:56,962 --> 00:12:58,770
+by showing you all of this.
+
+270
+00:12:58,770 --> 00:13:02,009
+Because the signature,
+the secrets aren't there.
+
+271
+00:13:02,009 --> 00:13:03,404
+If we look at it,
+
+272
+00:13:03,404 --> 00:13:08,706
+it's an outer object or dictionary
+
+273
+00:13:08,706 --> 00:13:13,609
+and then outer has a users which is a list
+
+274
+00:13:13,609 --> 00:13:15,926
+and then each user has some stuff in it.
+
+275
+00:13:15,926 --> 00:13:17,355
+This one is Stephanie Teasley.
+
+276
+00:13:17,355 --> 00:13:21,917
+It's got her screen name and
+it's got some descriptions.
+
+277
+00:13:21,917 --> 00:13:23,813
+Keep on going, it's got her status,
+
+278
+00:13:23,813 --> 00:13:26,231
+her latest status.
+
+279
+00:13:26,231 --> 00:13:27,408
+For my friend, her status,
+
+280
+00:13:27,408 --> 00:13:30,387
+her source, where she's at.
+
+281
+00:13:30,387 --> 00:13:33,188
+Man oh man, she's got a lot of stuff here.
+
+282
+00:13:33,188 --> 00:13:36,926
+Okay, there we go, that was the first one.
+
+283
+00:13:36,926 --> 00:13:40,549
+Then the next one I'm following
+is LiveEdu, et cetera.
+
+284
+00:13:40,549 --> 00:13:42,656
+Som you'll see that this an array.
+
+285
+00:13:42,656 --> 00:13:45,918
+So that outer thing is an array of users.
+
+286
+00:13:45,918 --> 00:13:51,328
+Now, js here is a dictionary.
+
+287
+00:13:51,328 --> 00:13:53,505
+So I can say for U in js sub users,
+
+288
+00:13:53,505 --> 00:13:55,867
+while js sub users is a list.
+
+289
+00:13:55,867 --> 00:13:58,488
+So the first U is gonna be
+this Stephanie Teasley U
+
+290
+00:13:58,488 --> 00:14:01,356
+and the second U is gonna be LiveEdu.
+
+291
+00:14:01,356 --> 00:14:04,398
+That's all it took to get
+through all that stuff
+
+292
+00:14:04,398 --> 00:14:07,475
+and figure that out.
+
+293
+00:14:07,475 --> 00:14:11,276
+Then I'm gonna say, get me
+the screen name of my person.
+
+294
+00:14:11,276 --> 00:14:15,415
+So that's gonna pull Stephanie Teasley
+
+295
+00:14:15,415 --> 00:14:17,501
+as stephteasley out.
+
+296
+00:14:17,501 --> 00:14:22,611
+Then I'm gonna go find her status.
+
+297
+00:14:22,611 --> 00:14:26,086
+Lets find her somewhere in here.
+
+298
+00:14:26,086 --> 00:14:30,605
+The U of status sub text.
+
+299
+00:14:30,605 --> 00:14:32,286
+Come on, there's sub status.
+
+300
+00:14:32,286 --> 00:14:36,129
+Sub status is all this stuff.
+
+301
+00:14:36,129 --> 00:14:38,885
+More, more, more, more, more, more.
+
+302
+00:14:38,885 --> 00:14:41,997
+Right there, that's status,
+that's U of status is that
+
+303
+00:14:41,997 --> 00:14:46,639
+and then U of status
+sub text, is this stuff.
+
+304
+00:14:46,639 --> 00:14:51,044
+So it's gonna extract this bit right here.
+
+305
+00:14:51,044 --> 00:14:53,270
+and so, U status text
+
+306
+00:14:53,270 --> 00:14:55,627
+and I print out the first 50 characters
+
+307
+00:14:55,627 --> 00:14:57,874
+of the screen name status.
+
+308
+00:14:57,874 --> 00:15:00,430
+And I do that for the first five
+
+309
+00:15:00,430 --> 00:15:05,353
+because I told it, I only wanted five.
+
+310
+00:15:05,353 --> 00:15:07,359
+And then of course, I get
+to see the rate limit.
+
+311
+00:15:07,359 --> 00:15:08,635
+So, let's go down to the bottom.
+
+312
+00:15:08,635 --> 00:15:13,501
+All of this is the debug
+print of the JSON I got back.
+
+313
+00:15:13,501 --> 00:15:15,123
+Here is the program starting to print.
+
+314
+00:15:15,123 --> 00:15:17,043
+Here is the screen name of my first friend
+
+315
+00:15:17,043 --> 00:15:19,188
+and here's the first 50 characters
+
+316
+00:15:19,188 --> 00:15:21,378
+of her most recent status.
+
+317
+00:15:21,378 --> 00:15:24,299
+Here is the screen name of my,
+
+318
+00:15:24,299 --> 00:15:27,739
+and these are in reverse
+order who I've been following.
+
+319
+00:15:27,739 --> 00:15:29,392
+So I've been playing with
+this live coding stuff.
+
+320
+00:15:29,392 --> 00:15:32,535
+So I'm following them.
+
+321
+00:15:32,535 --> 00:15:34,806
+What?
+
+322
+00:15:34,806 --> 00:15:41,852
+KeyError status, that didn't work.
+
+323
+00:15:41,852 --> 00:15:47,169
+Why not?
+
+324
+00:15:47,169 --> 00:15:49,437
+Oh that's because Livecodingtv,
+
+325
+00:15:49,437 --> 00:15:52,010
+somehow doesn't have a status.
+
+326
+00:15:52,010 --> 00:15:54,160
+So, most of these work.
+
+327
+00:15:54,160 --> 00:15:56,265
+So now you'll get to see me fix something.
+
+328
+00:15:56,265 --> 00:15:58,658
+When you download it, it'll be fixed.
+
+329
+00:15:58,658 --> 00:16:00,007
+And so it says KeyError status,
+
+330
+00:16:00,007 --> 00:16:05,060
+so that means I've gotta
+do a thing that says,
+
+331
+00:16:05,060 --> 00:16:20,488
+if status not in u,
+
+332
+00:16:20,488 --> 00:16:26,769
+print no status found, continue.
+
+333
+00:16:26,769 --> 00:16:28,594
+Since sometimes, there's no statuses,
+
+334
+00:16:28,594 --> 00:16:30,343
+who would have thought?
+
+335
+00:16:30,343 --> 00:16:38,852
+I did not know that.
+
+336
+00:16:38,852 --> 00:16:41,289
+Okay, let's run this again.
+
+337
+00:16:41,289 --> 00:16:45,421
+Did I get to see my remaining?
+
+338
+00:16:45,421 --> 00:16:48,486
+Actually, let me change the order of this.
+
+339
+00:16:48,486 --> 00:16:51,954
+Let me put this down here.
+
+340
+00:16:51,954 --> 00:16:53,201
+That'll be wrong from the slides
+
+341
+00:16:53,201 --> 00:16:58,407
+but it'll be prettier now.
+
+342
+00:16:58,407 --> 00:17:04,252
+Let's put the headers
+after the dump of the data.
+
+343
+00:17:04,252 --> 00:17:07,347
+Okay, let's run it again.
+
+344
+00:17:07,347 --> 00:17:09,903
+Did I save it, yeah.
+
+345
+00:17:09,903 --> 00:17:12,998
+Drchuck, blah, a whole bunch of stuff.
+
+346
+00:17:12,998 --> 00:17:15,319
+So, I got 13 remaining calls on this one.
+
+347
+00:17:15,319 --> 00:17:17,483
+So, it's not the same as the other one.
+
+348
+00:17:17,483 --> 00:17:19,627
+I don't get to call this
+too many more times,
+
+349
+00:17:19,627 --> 00:17:25,580
+so hopefully I'll get
+debugging to work, sort of.
+
+350
+00:17:25,580 --> 00:17:27,107
+I got a bad space here.
+
+351
+00:17:27,107 --> 00:17:30,313
+Not status found, no status found.
+
+352
+00:17:30,313 --> 00:17:32,064
+And I need to put three spaces there.
+
+353
+00:17:32,064 --> 00:17:35,563
+No status found, I'll make an asterisk.
+
+354
+00:17:35,563 --> 00:17:38,232
+So, let's run it again
+
+355
+00:17:38,232 --> 00:17:40,231
+and see I got 13 remaining.
+
+356
+00:17:40,231 --> 00:17:42,976
+It's important write code
+that's aware of your remaining,
+
+357
+00:17:42,976 --> 00:17:45,689
+that's why I made so obvious about that.
+
+358
+00:17:45,689 --> 00:17:47,201
+It'll retrieve all of that.
+
+359
+00:17:47,201 --> 00:17:49,500
+I got 12 remaining, but
+my code starts to look,
+
+360
+00:17:49,500 --> 00:17:52,596
+ah dang it, I need another space here.
+
+361
+00:17:52,596 --> 00:17:57,005
+Hang on, gotta fix that.
+
+362
+00:17:57,005 --> 00:17:58,983
+I need yet another space.
+
+363
+00:17:58,983 --> 00:18:13,502
+Hopefully, I can make this as
+pretty as I want it to work.
+
+364
+00:18:13,502 --> 00:18:15,264
+Oh wait a sec (laughs),
+
+365
+00:18:15,264 --> 00:18:18,729
+I didn't even do drchuck,
+are you that wrong?
+
+366
+00:18:18,729 --> 00:18:20,134
+Type my name wrong.
+
+367
+00:18:20,134 --> 00:18:23,554
+Okay, so now it works (laughs).
+
+368
+00:18:23,554 --> 00:18:26,886
+Oh well, so now I have my
+
+369
+00:18:26,886 --> 00:18:30,751
+first most five recent friends are this,
+
+370
+00:18:30,751 --> 00:18:33,776
+stephteasley,
+liveeduofficial, livecodingtv,
+
+371
+00:18:33,776 --> 00:18:37,480
+nancygilby, and greggykrueger.
+
+372
+00:18:37,480 --> 00:18:39,401
+And so there are their statuses
+
+373
+00:18:39,401 --> 00:18:42,905
+and I tore all this JSON apart
+
+374
+00:18:42,905 --> 00:18:46,213
+using twitter2.py.
+
+375
+00:18:46,213 --> 00:18:50,225
+Of course, after fixing hidden.py,
+
+376
+00:18:50,225 --> 00:18:51,542
+which I'm not going to show you,
+
+377
+00:18:51,542 --> 00:18:53,406
+'cause it actually contains my real
+
+378
+00:18:53,406 --> 00:18:55,835
+consumer_key and consumer_secret.
+
+379
+00:18:55,835 --> 00:18:58,216
+You're seeing the
+consumer_key and the token_key
+
+380
+00:18:58,216 --> 00:19:00,329
+go by on each of these URLs,
+
+381
+00:19:00,329 --> 00:19:02,198
+but what you're not seeing
+is these two things,
+
+382
+00:19:02,198 --> 00:19:04,176
+which are the thing I'm protecting.
+
+383
+00:19:04,176 --> 00:19:06,720
+So, that it's not a problem.
+
+384
+00:19:06,720 --> 00:19:08,723
+Okay, I will send that up.
+
+385
+00:19:08,723 --> 00:19:13,331
+There you go.
+
+386
+00:19:13,331 --> 00:19:15,206
+I hope you found this useful.
+
+387
+00:19:15,206 --> 00:19:17,502
+The code will be fixed
+when you take a look at it
+
+388
+00:19:17,502 --> 00:19:24,791
+and download it here from samplecode.zip.
+
+389
+00:19:24,791 --> 00:19:27,707
+(piano jazz music)
+

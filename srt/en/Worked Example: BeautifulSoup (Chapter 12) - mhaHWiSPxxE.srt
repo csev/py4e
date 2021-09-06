@@ -1,0 +1,792 @@
+1
+00:00:08,519 --> 00:00:09,352
+- [Instructor] Hello everybody,
+
+2
+00:00:09,352 --> 00:00:10,357
+welcome to Python For Everybody.
+
+3
+00:00:10,357 --> 00:00:12,186
+We're gonna do a little
+bit of sample code.
+
+4
+00:00:12,186 --> 00:00:14,330
+If you're interested in
+getting the sample code,
+
+5
+00:00:14,330 --> 00:00:19,398
+you can download this zip here
+at py4e.com/materials.php.
+
+6
+00:00:19,398 --> 00:00:24,058
+And you will download, and
+you will get all the files.
+
+7
+00:00:24,058 --> 00:00:27,400
+All the files that I'm looking at here.
+
+8
+00:00:27,400 --> 00:00:28,549
+The one I'm gonna play with today
+
+9
+00:00:28,549 --> 00:00:31,690
+is the file called urllinks.py.
+
+10
+00:00:31,690 --> 00:00:35,771
+So the first thing you gotta
+do before urllinks.py works
+
+11
+00:00:35,771 --> 00:00:38,659
+is you have got to install Beautiful Soup,
+
+12
+00:00:38,659 --> 00:00:39,979
+and I've got some simple instructions
+
+13
+00:00:39,979 --> 00:00:41,851
+at the beginning of the file.
+
+14
+00:00:41,851 --> 00:00:43,977
+And so one way to do it is install it
+
+15
+00:00:43,977 --> 00:00:49,749
+using python install process
+to install this Beautiful Soup
+
+16
+00:00:49,749 --> 00:00:51,796
+for all python applications.
+
+17
+00:00:51,796 --> 00:00:53,597
+If you are the owner of your computer
+
+18
+00:00:53,597 --> 00:00:55,127
+and you're going to use
+Beautiful Soup a lot,
+
+19
+00:00:55,127 --> 00:00:56,906
+it's a fine idea to do that.
+
+20
+00:00:56,906 --> 00:00:59,963
+But I wanna show you a simpler way that,
+
+21
+00:00:59,963 --> 00:01:01,915
+if you don't own your own computer
+
+22
+00:01:01,915 --> 00:01:05,746
+and you just wanna make it
+so that Beautiful Soup works,
+
+23
+00:01:05,746 --> 00:01:09,366
+you can download this file.
+
+24
+00:01:09,366 --> 00:01:13,473
+This file right here. Bs4.zip.
+
+25
+00:01:13,473 --> 00:01:16,995
+Unzip it, and put it in
+the same folder as here.
+
+26
+00:01:16,995 --> 00:01:19,156
+And so if you look in this folder,
+
+27
+00:01:19,156 --> 00:01:21,675
+I have a subfolder called bs4,
+
+28
+00:01:21,675 --> 00:01:24,345
+and that's the unzipped version of this.
+
+29
+00:01:24,345 --> 00:01:25,178
+It has these things.
+
+30
+00:01:25,178 --> 00:01:27,625
+I didn't write this code, so
+I'm sorry if the name is bad,
+
+31
+00:01:27,625 --> 00:01:29,964
+but this is the code to bs4.
+
+32
+00:01:29,964 --> 00:01:32,385
+And this is what's in bs4.zip,
+
+33
+00:01:32,385 --> 00:01:39,566
+and it's in the same
+folder as urllinks.py.
+
+34
+00:01:39,566 --> 00:01:42,363
+And so what happens is
+when you do this from bs4
+
+35
+00:01:42,363 --> 00:01:44,805
+import BeautifulSoup,
+that either can go to
+
+36
+00:01:44,805 --> 00:01:48,234
+sort of this global magic place
+that python installs stuff,
+
+37
+00:01:48,234 --> 00:01:50,505
+and pulls in the Beautiful Soup object,
+
+38
+00:01:50,505 --> 00:01:54,585
+or it can go to the folder,
+bs4, and pull it in.
+
+39
+00:01:54,585 --> 00:01:57,343
+Okay? And so that's how that works.
+
+40
+00:01:57,343 --> 00:01:59,744
+So you have to do one of these two things.
+
+41
+00:01:59,744 --> 00:02:02,945
+I prefer to keep it simple;
+download and unzip this file
+
+42
+00:02:02,945 --> 00:02:08,585
+and put it in the same folder
+as this code, and away you go.
+
+43
+00:02:08,585 --> 00:02:09,953
+So, from the previous example,
+
+44
+00:02:09,953 --> 00:02:11,933
+we're gonna use urllib of course,
+
+45
+00:02:11,933 --> 00:02:14,955
+and then we're going to pull
+in BeautifulSoup from the bs4
+
+46
+00:02:14,955 --> 00:02:17,313
+library, we're gonna get
+the BeautifulSoup object.
+
+47
+00:02:17,313 --> 00:02:19,524
+Now, if you do this with ssl,
+
+48
+00:02:19,524 --> 00:02:21,945
+these websites we're
+gonna play with have ssl,
+
+49
+00:02:21,945 --> 00:02:25,232
+you pretty much have
+to do this little hack.
+
+50
+00:02:25,232 --> 00:02:28,095
+And these three lines, don't
+worry too much about it.
+
+51
+00:02:28,095 --> 00:02:30,945
+The whole idea, you can do
+Google on stack overflow
+
+52
+00:02:30,945 --> 00:02:32,405
+and figure this out.
+
+53
+00:02:32,405 --> 00:02:34,205
+But this is the way that you ignore errors
+
+54
+00:02:34,205 --> 00:02:38,720
+when you have ssl certificate errors.
+
+55
+00:02:38,720 --> 00:02:41,635
+And so we have to add this
+parameter, context=ctx,
+
+56
+00:02:41,635 --> 00:02:43,484
+which is this variable that we create.
+
+57
+00:02:43,484 --> 00:02:47,565
+So this part and this part,
+sort of, just do them.
+
+58
+00:02:47,565 --> 00:02:50,599
+You can take them out, actually.
+
+59
+00:02:50,599 --> 00:02:52,649
+Otherwise you won't be
+able to do https sites.
+
+60
+00:02:52,649 --> 00:02:54,689
+So let's take a look at what we're doing
+
+61
+00:02:54,689 --> 00:03:00,465
+other than dealing with the https problem.
+
+62
+00:03:00,465 --> 00:03:02,151
+We're going to ask the user for a URL.
+
+63
+00:03:02,151 --> 00:03:06,233
+We are going to retrieve all the HTML,
+
+64
+00:03:06,233 --> 00:03:09,353
+we're gonna do a urlopen,
+just like we did before.
+
+65
+00:03:09,353 --> 00:03:11,539
+Now this would return us
+something we could loop through
+
+66
+00:03:11,539 --> 00:03:13,230
+line by line, with a for loop,
+
+67
+00:03:13,230 --> 00:03:15,590
+but instead we're gonna say,
+hey, read the whole thing.
+
+68
+00:03:15,590 --> 00:03:19,921
+And that basically returns
+us the entire document
+
+69
+00:03:19,921 --> 00:03:23,731
+at that webpage in a single big string
+
+70
+00:03:23,731 --> 00:03:25,841
+with new lines at the end of each line.
+
+71
+00:03:25,841 --> 00:03:28,101
+And this is not in unicode,
+
+72
+00:03:28,101 --> 00:03:30,192
+but it's probably a utf-8 string.
+
+73
+00:03:30,192 --> 00:03:32,511
+But it turns out BeautifulSoup
+knows how to do deal with
+
+74
+00:03:32,511 --> 00:03:35,681
+utf-8, and it also knows how
+to deal with unicode strings.
+
+75
+00:03:35,681 --> 00:03:38,490
+So what we're saying is,
+"BeautifulSoup, read through and
+
+76
+00:03:38,490 --> 00:03:41,431
+deal with all the nasty bits," right?
+
+77
+00:03:41,431 --> 00:03:45,663
+So html is like, very very flexible.
+
+78
+00:03:45,663 --> 00:03:54,292
+So dr-chuck.com/page1.htm.
+
+79
+00:03:54,292 --> 00:03:56,262
+And so if we take a look
+at the source of this,
+
+80
+00:03:56,262 --> 00:03:59,801
+View Page Source, make this bigger.
+
+81
+00:03:59,801 --> 00:04:02,303
+You know, you might be able
+to do regular expressions,
+
+82
+00:04:02,303 --> 00:04:05,030
+but it does things like
+break stuff across lines.
+
+83
+00:04:05,030 --> 00:04:06,711
+There could be a line break here.
+
+84
+00:04:06,711 --> 00:04:08,662
+There could be all kinds of things, right?
+
+85
+00:04:08,662 --> 00:04:12,830
+And so writing regular
+expressions or splits or whatever
+
+86
+00:04:12,830 --> 00:04:15,132
+is really hard for html.
+
+87
+00:04:15,132 --> 00:04:17,732
+And so what we do is,
+someone has written this,
+
+88
+00:04:17,732 --> 00:04:25,221
+it's called BeautifulSoup.
+
+89
+00:04:25,221 --> 00:04:27,821
+This is the code, and it's based on a joke
+
+90
+00:04:27,821 --> 00:04:32,131
+from a children's story.
+
+91
+00:04:32,131 --> 00:04:33,632
+Basically, someone has just went through
+
+92
+00:04:33,632 --> 00:04:35,800
+and figured all the bad things
+that could possibly happen
+
+93
+00:04:35,800 --> 00:04:38,321
+when you're reading and parsing html.
+
+94
+00:04:38,321 --> 00:04:40,540
+So either you use it, or
+you will slowly but surely
+
+95
+00:04:40,540 --> 00:04:44,122
+derive all the things
+that it doesn't work.
+
+96
+00:04:44,122 --> 00:04:47,671
+And so when we look at
+this line right here,
+
+97
+00:04:47,671 --> 00:04:50,220
+this line, at a high level, is saying,
+
+98
+00:04:50,220 --> 00:04:53,350
+we're giving you ugly, nasty
+html that could make no sense
+
+99
+00:04:53,350 --> 00:04:56,681
+whatsoever, please read it, and
+have all the brains that you
+
+100
+00:04:56,681 --> 00:05:00,172
+have, and all the weird
+stuff, figure that out for us.
+
+101
+00:05:00,172 --> 00:05:02,241
+And give us back an object.
+
+102
+00:05:02,241 --> 00:05:04,671
+I happen to call it soup, you
+don't have to call it soup.
+
+103
+00:05:04,671 --> 00:05:07,272
+An object, and that is
+a proxy for that html,
+
+104
+00:05:07,272 --> 00:05:09,980
+but this soup object is clean.
+
+105
+00:05:09,980 --> 00:05:11,480
+And so what we can do is we can
+
+106
+00:05:11,480 --> 00:05:13,622
+sort of retrieve all the anchor tags.
+
+107
+00:05:13,622 --> 00:05:16,029
+So we can talk to this object and say,
+
+108
+00:05:16,029 --> 00:05:18,162
+ask it, give me the anchor tags.
+
+109
+00:05:18,162 --> 00:05:19,471
+What's an anchor tag?
+
+110
+00:05:19,471 --> 00:05:21,050
+Well, if we take a look at this source,
+
+111
+00:05:21,050 --> 00:05:23,941
+the anchor tag is the a through the /a.
+
+112
+00:05:23,941 --> 00:05:24,951
+That is the tag.
+
+113
+00:05:24,951 --> 00:05:28,260
+It is the tag, it is
+attributes that are on the tag,
+
+114
+00:05:28,260 --> 00:05:30,860
+it is the text within
+the tag, and everything.
+
+115
+00:05:30,860 --> 00:05:32,381
+And so that's what we're going to get.
+
+116
+00:05:32,381 --> 00:05:34,631
+Now, I called it "tags" plural,
+
+117
+00:05:34,631 --> 00:05:36,720
+not because plural matters at all,
+
+118
+00:05:36,720 --> 00:05:38,392
+but because we're gonna
+get a list of tags.
+
+119
+00:05:38,392 --> 00:05:42,629
+Because even though this webpage
+has lots and lots of tags,
+
+120
+00:05:42,629 --> 00:05:50,272
+if we look at, say, dr-chuck.com,
+
+121
+00:05:50,272 --> 00:05:56,971
+and View Page Source,
+
+122
+00:05:56,971 --> 00:06:02,628
+and we go look for anchor
+tags, we got 45 of them,
+
+123
+00:06:02,628 --> 00:06:05,141
+and they all kind of have
+weird stuff in them, right?
+
+124
+00:06:05,141 --> 00:06:08,862
+So this line will give
+us back a list of tags.
+
+125
+00:06:08,862 --> 00:06:11,692
+It will give us all the
+tags in this document.
+
+126
+00:06:11,692 --> 00:06:15,349
+So the tag goes from there to there.
+
+127
+00:06:15,349 --> 00:06:16,812
+And then what we're
+gonna do is write a loop,
+
+128
+00:06:16,812 --> 00:06:17,843
+to loop through all the tags.
+
+129
+00:06:17,843 --> 00:06:19,621
+So that's basically hopping,
+
+130
+00:06:19,621 --> 00:06:22,069
+like it's hopping through the
+document, sorta like this.
+
+131
+00:06:22,069 --> 00:06:26,982
+That's what it's doing. Hop,
+hop, hop, hop, hop, hop.
+
+132
+00:06:26,982 --> 00:06:30,381
+And it's pulling out the
+text of the href attribute,
+
+133
+00:06:30,381 --> 00:06:33,511
+so it's gonna pull out
+this bit right here.
+
+134
+00:06:33,511 --> 00:06:36,331
+Woops! Oh darn, that was so cool!
+
+135
+00:06:36,331 --> 00:06:38,073
+Because that's a flaw, look at that!
+
+136
+00:06:38,073 --> 00:06:39,469
+This is my own page.
+
+137
+00:06:39,469 --> 00:06:41,292
+There is no closing quote here,
+
+138
+00:06:41,292 --> 00:06:44,000
+but it's gonna work
+because html soup is like,
+
+139
+00:06:44,000 --> 00:06:46,859
+"Oh I know what to do about
+that. I can deal with that."
+
+140
+00:06:46,859 --> 00:06:48,249
+So let's check to see if that one works,
+
+141
+00:06:48,249 --> 00:06:49,659
+because that's like a mistake.
+
+142
+00:06:49,659 --> 00:06:52,060
+But that's one of the things
+we like about BeautifulSoup.
+
+143
+00:06:52,060 --> 00:06:52,899
+So we're gonna read through,
+
+144
+00:06:52,899 --> 00:06:54,750
+and then we're gonna
+pull out all the hrefs.
+
+145
+00:06:54,750 --> 00:06:59,888
+So, this is probably
+thousands of lines of code
+
+146
+00:06:59,888 --> 00:07:01,898
+that you really don't want to run.
+
+147
+00:07:01,898 --> 00:07:07,199
+So python3 urllinks.py.
+
+148
+00:07:07,199 --> 00:07:08,829
+And so let's start with a simple one,
+
+149
+00:07:08,829 --> 00:07:16,319
+http://www.dr-chuck.com/
+
+150
+00:07:16,319 --> 00:07:18,593
+And it reads it.
+
+151
+00:07:18,593 --> 00:07:21,398
+Oh, that's actually the hard one,
+
+152
+00:07:21,398 --> 00:07:22,637
+because we got a whole bunch.
+
+153
+00:07:22,637 --> 00:07:28,085
+See, the tsugi one
+worked. It found that one.
+
+154
+00:07:28,085 --> 00:07:29,868
+It's right after
+sakaiproject.org, where's that?
+
+155
+00:07:29,868 --> 00:07:32,989
+Is there another tsugi?
+
+156
+00:07:32,989 --> 00:07:34,986
+Oh, no, it didn't find that
+one, that's kinda funky.
+
+157
+00:07:34,986 --> 00:07:37,476
+Look, it found it wrong. But that's okay.
+
+158
+00:07:37,476 --> 00:07:39,377
+So you see, it found all these,
+
+159
+00:07:39,377 --> 00:07:41,865
+and did a lot of nice stuff for us.
+
+160
+00:07:41,865 --> 00:07:43,948
+If we do it
+
+161
+00:07:43,948 --> 00:07:52,189
+python3 urllinks.py and do the easy one,
+
+162
+00:07:52,189 --> 00:08:02,449
+http://www.dr-chuck.com/page1.htm,
+
+163
+00:08:02,449 --> 00:08:05,468
+we will only see one.
+
+164
+00:08:05,468 --> 00:08:06,678
+And there we go.
+
+165
+00:08:06,678 --> 00:08:13,778
+Now, the ssl is if you are
+looking at a page that has ssl.
+
+166
+00:08:13,778 --> 00:08:17,429
+Python3 urllinks, so I'll go to like
+
+167
+00:08:17,429 --> 00:08:26,087
+https://www.si.umich.edu/
+
+168
+00:08:26,087 --> 00:08:27,488
+and that will get a bunch of links.
+
+169
+00:08:27,488 --> 00:08:29,027
+And so you'll see.
+
+170
+00:08:29,027 --> 00:08:32,736
+If it wasn't for that, so all
+kinds of stuff coming back,
+
+171
+00:08:32,736 --> 00:08:34,879
+if it wasn't for this bit right here,
+
+172
+00:08:34,879 --> 00:08:36,568
+and this bit right here,
+
+173
+00:08:36,568 --> 00:08:37,947
+this https wouldn't have worked.
+
+174
+00:08:37,947 --> 00:08:40,777
+And it's not that that
+website had a bad url,
+
+175
+00:08:40,777 --> 00:08:46,648
+it has a certificate that's
+not in python's official list.
+
+176
+00:08:46,648 --> 00:08:49,126
+So the url is okay.
+
+177
+00:08:49,126 --> 00:08:54,984
+So that gives you a quick summary of
+
+178
+00:08:54,984 --> 00:08:56,275
+using the BeautifulSoup
+
+179
+00:08:56,275 --> 00:09:02,320
+library in python, along with the urllib.
+
+180
+00:09:02,320 --> 00:09:05,320
+(soft jazzy music)
+

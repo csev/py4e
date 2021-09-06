@@ -1,0 +1,936 @@
+1
+00:00:00,767 --> 00:00:02,496
+- Welcome to Networked Programs.
+
+2
+00:00:02,496 --> 00:00:03,598
+This is Chapter 12.
+
+3
+00:00:03,598 --> 00:00:05,496
+Now we're going to learn a little bit
+
+4
+00:00:05,496 --> 00:00:09,172
+about how we talk to
+resources on the network
+
+5
+00:00:09,172 --> 00:00:10,761
+using Python.
+
+6
+00:00:10,761 --> 00:00:13,960
+Now, this is a really quick introduction
+
+7
+00:00:13,960 --> 00:00:15,304
+into how the network really works.
+
+8
+00:00:15,304 --> 00:00:17,756
+I have a whole book that I wrote.
+
+9
+00:00:17,756 --> 00:00:19,809
+It's also translated into Spanish,
+
+10
+00:00:19,809 --> 00:00:21,156
+on how the network works.
+
+11
+00:00:21,156 --> 00:00:23,367
+Starting at the very lowest layer,
+
+12
+00:00:23,367 --> 00:00:24,756
+packets and everything,
+
+13
+00:00:24,756 --> 00:00:25,589
+right on up,
+
+14
+00:00:25,589 --> 00:00:26,939
+and it's actually really easy to read.
+
+15
+00:00:26,939 --> 00:00:29,481
+I wrote it for a high school audience.
+
+16
+00:00:29,481 --> 00:00:32,972
+It's a short book and pretty easy to read.
+
+17
+00:00:32,972 --> 00:00:33,910
+So if you read that book
+
+18
+00:00:33,910 --> 00:00:35,710
+you will understand that there is this
+
+19
+00:00:35,710 --> 00:00:37,876
+layered architecture,
+
+20
+00:00:37,876 --> 00:00:40,667
+the TCP architecture that
+sort of runs our network.
+
+21
+00:00:40,667 --> 00:00:41,637
+At the lowest layer,
+
+22
+00:00:41,637 --> 00:00:43,953
+on one side here this is your computer
+
+23
+00:00:43,953 --> 00:00:45,996
+and this is server computer
+
+24
+00:00:45,996 --> 00:00:47,720
+and if you start on a web page,
+
+25
+00:00:47,720 --> 00:00:49,128
+goes across the network,
+
+26
+00:00:49,128 --> 00:00:51,384
+does this like 15 or 20 times,
+
+27
+00:00:51,384 --> 00:00:53,078
+that goes up into the server,
+
+28
+00:00:53,078 --> 00:00:54,714
+reads the data
+
+29
+00:00:54,714 --> 00:00:59,127
+and then the data comes back
+15, 20 tops for the packets,
+
+30
+00:00:59,127 --> 00:01:04,131
+and then it's shown to
+you as what you see.
+
+31
+00:01:04,131 --> 00:01:06,324
+And so that's how it works
+
+32
+00:01:06,324 --> 00:01:07,672
+and there's these layers
+
+33
+00:01:07,672 --> 00:01:09,462
+that we're not going to
+talk about in this section
+
+34
+00:01:09,462 --> 00:01:12,177
+but I talk about in that book.
+
+35
+00:01:12,177 --> 00:01:13,512
+The layers of the link layer
+
+36
+00:01:13,512 --> 00:01:15,194
+which talk about how to get over one hop,
+
+37
+00:01:15,194 --> 00:01:16,381
+the internet layer
+
+38
+00:01:16,381 --> 00:01:18,253
+which talks about how to construct,
+
+39
+00:01:18,253 --> 00:01:21,284
+say 15 or so hops
+
+40
+00:01:21,284 --> 00:01:23,894
+to get packets back and forth.
+
+41
+00:01:23,894 --> 00:01:26,413
+That's the sort of lower level bits.
+
+42
+00:01:26,413 --> 00:01:27,466
+We're gonna start at what we call
+
+43
+00:01:27,466 --> 00:01:28,539
+the transport layer
+
+44
+00:01:28,539 --> 00:01:31,003
+and that's the layer where your computer
+
+45
+00:01:31,003 --> 00:01:33,998
+sort of assumes that it
+can make a phone call
+
+46
+00:01:33,998 --> 00:01:34,864
+to another computer.
+
+47
+00:01:34,864 --> 00:01:35,697
+Another process
+
+48
+00:01:35,697 --> 00:01:37,845
+running on a program on this computer
+
+49
+00:01:37,845 --> 00:01:39,563
+talks to a program on this computer
+
+50
+00:01:39,563 --> 00:01:41,401
+and then it kind of comes back.
+
+51
+00:01:41,401 --> 00:01:44,516
+Okay and so we're gonna leave this alone,
+
+52
+00:01:44,516 --> 00:01:45,784
+we're going to ignore it.
+
+53
+00:01:45,784 --> 00:01:47,016
+We're going to assume that there's this
+
+54
+00:01:47,016 --> 00:01:48,599
+nice reliable pipe that's going from
+
+55
+00:01:48,599 --> 00:01:50,283
+point A to point B
+
+56
+00:01:50,283 --> 00:01:51,827
+and what are we gonna do with the pipe?
+
+57
+00:01:51,827 --> 00:01:53,087
+But if you're interested,
+
+58
+00:01:53,087 --> 00:01:54,582
+take a look at the book.
+
+59
+00:01:54,582 --> 00:01:56,815
+So we're just gonna start with the pipe.
+
+60
+00:01:56,815 --> 00:01:58,057
+Some kind of connection.
+
+61
+00:01:58,057 --> 00:02:00,495
+We have two processes,
+
+62
+00:02:00,495 --> 00:02:02,286
+process, process
+
+63
+00:02:02,286 --> 00:02:04,291
+and we have some kind of a connection
+
+64
+00:02:04,291 --> 00:02:05,371
+between them
+
+65
+00:02:05,371 --> 00:02:07,147
+and it is a connection
+that we can both use
+
+66
+00:02:07,147 --> 00:02:11,217
+to talk and to listen.
+
+67
+00:02:11,217 --> 00:02:13,796
+In nerd terms we call these things sockets
+
+68
+00:02:13,796 --> 00:02:16,350
+and that is one process
+running on one computer
+
+69
+00:02:16,350 --> 00:02:19,616
+another process running
+on a second computer,
+
+70
+00:02:19,616 --> 00:02:21,818
+connected through the internet somehow
+
+71
+00:02:21,818 --> 00:02:24,648
+and one computer speaks into that socket
+
+72
+00:02:24,648 --> 00:02:25,797
+and it comes out
+
+73
+00:02:25,797 --> 00:02:28,642
+and the other computer returns
+something and it comes.
+
+74
+00:02:28,642 --> 00:02:31,087
+And so this is a bi-directional protocol
+
+75
+00:02:31,087 --> 00:02:34,063
+of data which is a series of an effect
+
+76
+00:02:34,063 --> 00:02:36,660
+data phone calls between applications.
+
+77
+00:02:36,660 --> 00:02:39,032
+So the application might be on your side,
+
+78
+00:02:39,032 --> 00:02:41,911
+this might be your browser.
+
+79
+00:02:41,911 --> 00:02:45,063
+Chrome, Firefox, Internet Explorer.
+
+80
+00:02:45,063 --> 00:02:47,952
+On the other side this is a web server.
+
+81
+00:02:47,952 --> 00:02:49,642
+It might be Internet IIS,
+
+82
+00:02:49,642 --> 00:02:51,747
+Internet something
+something from Microsoft
+
+83
+00:02:51,747 --> 00:02:54,824
+or Apache or Java Tomcat.
+
+84
+00:02:54,824 --> 00:02:56,206
+There's another program
+
+85
+00:02:56,206 --> 00:02:57,724
+and you are making phone calls
+
+86
+00:02:57,724 --> 00:02:59,137
+between these programs.
+
+87
+00:02:59,137 --> 00:03:02,017
+Now in general these servers here
+
+88
+00:03:02,017 --> 00:03:03,543
+stay up all the time
+
+89
+00:03:03,543 --> 00:03:04,733
+and you sort of just can
+
+90
+00:03:04,733 --> 00:03:06,126
+make a request when you feel like it
+
+91
+00:03:06,126 --> 00:03:07,766
+in your program.
+
+92
+00:03:07,766 --> 00:03:08,947
+But that's what we're going to do
+
+93
+00:03:08,947 --> 00:03:11,335
+and this is what we call a socket.
+
+94
+00:03:11,335 --> 00:03:12,598
+So that little connection,
+
+95
+00:03:12,598 --> 00:03:13,486
+that phone call,
+
+96
+00:03:13,486 --> 00:03:17,240
+that data phone call is
+what we call a socket.
+
+97
+00:03:17,240 --> 00:03:19,055
+Now, you have to decide
+
+98
+00:03:19,055 --> 00:03:21,686
+which of the systems you're gonna talk to
+
+99
+00:03:21,686 --> 00:03:23,118
+and then which of the services
+
+100
+00:03:23,118 --> 00:03:25,521
+on those systems or which process.
+
+101
+00:03:25,521 --> 00:03:28,216
+And so we have this
+concept called port numbers
+
+102
+00:03:28,216 --> 00:03:29,225
+and they're best thought of
+
+103
+00:03:29,225 --> 00:03:30,791
+like extensions on phones.
+
+104
+00:03:30,791 --> 00:03:33,122
+So one organization has one phone number
+
+105
+00:03:33,122 --> 00:03:34,759
+and it says, "please enter the extension
+
+106
+00:03:34,759 --> 00:03:36,643
+of the party you'd like to talk to".
+
+107
+00:03:36,643 --> 00:03:38,375
+Well that's kind of what ports are.
+
+108
+00:03:38,375 --> 00:03:40,585
+They're like, "I'm a server
+
+109
+00:03:40,585 --> 00:03:41,661
+and I'm connected to the internet,
+
+110
+00:03:41,661 --> 00:03:44,119
+please enter the extension of the process
+
+111
+00:03:44,119 --> 00:03:45,901
+that you would like to talk to."
+
+112
+00:03:45,901 --> 00:03:47,357
+And so for example,
+
+113
+00:03:47,357 --> 00:03:48,483
+there might be processes
+
+114
+00:03:48,483 --> 00:03:51,154
+running on various computers
+
+115
+00:03:51,154 --> 00:03:53,043
+and so the email's known to hang out
+
+116
+00:03:53,043 --> 00:03:54,522
+on cross port 25
+
+117
+00:03:54,522 --> 00:03:55,976
+or extension 25.
+
+118
+00:03:55,976 --> 00:03:57,408
+Login, insecure login,
+
+119
+00:03:57,408 --> 00:03:59,323
+lives on port 23,
+
+120
+00:03:59,323 --> 00:04:01,195
+and secure web lives on 80
+
+121
+00:04:01,195 --> 00:04:02,924
+and secure web lives on 443
+
+122
+00:04:02,924 --> 00:04:04,807
+and there's a couple
+of different protocols,
+
+123
+00:04:04,807 --> 00:04:07,235
+say if you have your mail stored on Gmail
+
+124
+00:04:07,235 --> 00:04:09,449
+and you have a local mail client,
+
+125
+00:04:09,449 --> 00:04:11,459
+say like Thunderbird or Apple mail
+
+126
+00:04:11,459 --> 00:04:13,008
+that talks a protocol
+
+127
+00:04:13,008 --> 00:04:14,262
+to pull that mail across
+
+128
+00:04:14,262 --> 00:04:16,036
+and those live on various ports.
+
+129
+00:04:16,036 --> 00:04:18,908
+So, these ports are those extensions
+
+130
+00:04:18,908 --> 00:04:21,514
+and by convention
+
+131
+00:04:21,514 --> 00:04:23,525
+we have standards that tell us
+
+132
+00:04:23,525 --> 00:04:26,436
+what to roughly expect at those ports.
+
+133
+00:04:26,436 --> 00:04:28,541
+So when you're talking to port 80,
+
+134
+00:04:28,541 --> 00:04:30,661
+you expect to talk to a web server
+
+135
+00:04:30,661 --> 00:04:33,411
+or a http server.
+
+136
+00:04:33,411 --> 00:04:34,905
+If you're talking on port 23,
+
+137
+00:04:34,905 --> 00:04:36,713
+you expect to talk to a Telnet server
+
+138
+00:04:36,713 --> 00:04:38,155
+and on and on and on and on
+
+139
+00:04:38,155 --> 00:04:39,682
+and so these are the extensions,
+
+140
+00:04:39,682 --> 00:04:43,438
+the typical, commonly
+used default extensions
+
+141
+00:04:43,438 --> 00:04:46,619
+for various network application processes
+
+142
+00:04:46,619 --> 00:04:48,807
+that are serving us data.
+
+143
+00:04:48,807 --> 00:04:50,502
+Now sometimes you'll go to a URL
+
+144
+00:04:50,502 --> 00:04:52,504
+and you'll see in that URL
+
+145
+00:04:52,504 --> 00:04:53,416
+there's a colon and a number,
+
+146
+00:04:53,416 --> 00:04:55,581
+that means that it's a web server
+
+147
+00:04:55,581 --> 00:04:57,212
+that's running on a port other than
+
+148
+00:04:57,212 --> 00:05:01,090
+the official 80 or 443 port.
+
+149
+00:05:01,090 --> 00:05:04,670
+Now, in Python we can
+talk to these sockets,
+
+150
+00:05:04,670 --> 00:05:06,235
+right, we can just talk to them
+
+151
+00:05:06,235 --> 00:05:07,603
+and it's really easy,
+
+152
+00:05:07,603 --> 00:05:10,303
+surprisingly easy.
+
+153
+00:05:10,303 --> 00:05:11,518
+We have to import socket
+
+154
+00:05:11,518 --> 00:05:12,718
+'cause that's a library,
+
+155
+00:05:12,718 --> 00:05:15,317
+it comes with Python
+
+156
+00:05:15,317 --> 00:05:18,212
+but you can't use it in your program
+
+157
+00:05:18,212 --> 00:05:20,121
+until you say it.
+
+158
+00:05:20,121 --> 00:05:22,175
+And then you, basically
+in the socket library
+
+159
+00:05:22,175 --> 00:05:23,547
+you call socket function,
+
+160
+00:05:23,547 --> 00:05:26,771
+that's what that syntax is saying.
+
+161
+00:05:26,771 --> 00:05:27,787
+You're making a socket.
+
+162
+00:05:27,787 --> 00:05:28,695
+Now the key to a socket
+
+163
+00:05:28,695 --> 00:05:32,245
+is sort of like an unopened file handle,
+
+164
+00:05:32,245 --> 00:05:33,506
+it's half of a file handle
+
+165
+00:05:33,506 --> 00:05:35,223
+it's an outward looking thing
+
+166
+00:05:35,223 --> 00:05:36,677
+that's not yet connected.
+
+167
+00:05:36,677 --> 00:05:37,549
+These parameters,
+
+168
+00:05:37,549 --> 00:05:39,080
+you're just gonna type them in.
+
+169
+00:05:39,080 --> 00:05:40,367
+This says we're gonna make a socket
+
+170
+00:05:40,367 --> 00:05:41,780
+that goes across the internet
+
+171
+00:05:41,780 --> 00:05:42,861
+and it's a stream socket
+
+172
+00:05:42,861 --> 00:05:44,941
+which means that it's
+a series of characters
+
+173
+00:05:44,941 --> 00:05:46,612
+that come one after another
+
+174
+00:05:46,612 --> 00:05:48,383
+rather than a series of blocks of text.
+
+175
+00:05:48,383 --> 00:05:49,491
+There's another kind
+
+176
+00:05:49,491 --> 00:05:50,659
+that's harder to deal with
+
+177
+00:05:50,659 --> 00:05:51,712
+but we're gonna do this.
+
+178
+00:05:51,712 --> 00:05:54,124
+So this, don't worry about this line,
+
+179
+00:05:54,124 --> 00:05:55,672
+just know that this creates a socket
+
+180
+00:05:55,672 --> 00:05:57,831
+but does not associate it.
+
+181
+00:05:57,831 --> 00:05:58,969
+The very next line,
+
+182
+00:05:58,969 --> 00:06:01,279
+we get back a socket object
+
+183
+00:06:01,279 --> 00:06:03,951
+that I'm storing in the variable mysock.
+
+184
+00:06:03,951 --> 00:06:05,715
+And then when you wanna make a connection
+
+185
+00:06:05,715 --> 00:06:07,053
+across the internet,
+
+186
+00:06:07,053 --> 00:06:08,324
+to the far end,
+
+187
+00:06:08,324 --> 00:06:10,354
+you say, "oh, hey, dear socket,
+
+188
+00:06:10,354 --> 00:06:11,819
+extend yourself across the internet,
+
+189
+00:06:11,819 --> 00:06:14,563
+make the phone call to this host,
+
+190
+00:06:14,563 --> 00:06:17,053
+data.pr4e.org
+
+191
+00:06:17,053 --> 00:06:18,468
+and on that port 80."
+
+192
+00:06:18,468 --> 00:06:20,130
+So that's making the phone call.
+
+193
+00:06:20,130 --> 00:06:21,455
+This is like a phone number
+
+194
+00:06:21,455 --> 00:06:23,101
+and this is like the phone extension.
+
+195
+00:06:23,101 --> 00:06:25,345
+So we haven't sent any data yet,
+
+196
+00:06:25,345 --> 00:06:27,293
+we have simply run the phone
+
+197
+00:06:27,293 --> 00:06:28,952
+of a process,
+
+198
+00:06:28,952 --> 00:06:30,837
+hopefully living on port 80.
+
+199
+00:06:30,837 --> 00:06:31,920
+If it's there, great.
+
+200
+00:06:31,920 --> 00:06:32,954
+This might blow up.
+
+201
+00:06:32,954 --> 00:06:34,019
+This one here won't blow up.
+
+202
+00:06:34,019 --> 00:06:34,986
+But this line here
+
+203
+00:06:34,986 --> 00:06:36,214
+we could blow up
+
+204
+00:06:36,214 --> 00:06:37,515
+if there's nothing
+sitting on that process.
+
+205
+00:06:37,515 --> 00:06:38,488
+It would come back and say,
+
+206
+00:06:38,488 --> 00:06:39,769
+"Oh, you tried to call?
+
+207
+00:06:39,769 --> 00:06:40,736
+You got no answer."
+
+208
+00:06:40,736 --> 00:06:42,368
+That's a legitimate thing to happen.
+
+209
+00:06:42,368 --> 00:06:44,283
+Maybe you don't have a network connection
+
+210
+00:06:44,283 --> 00:06:46,728
+or maybe that service
+is down on that server
+
+211
+00:06:46,728 --> 00:06:48,314
+or the whole server's down.
+
+212
+00:06:48,314 --> 00:06:50,672
+But...
+
+213
+00:06:50,672 --> 00:06:53,557
+So I just, it's kind of amazing
+
+214
+00:06:53,557 --> 00:06:55,590
+that we're sitting here in Python
+
+215
+00:06:55,590 --> 00:06:58,400
+and in three lines we have
+
+216
+00:06:58,400 --> 00:07:00,710
+probably half a million engineers
+
+217
+00:07:00,710 --> 00:07:02,233
+have built this thing called the internet,
+
+218
+00:07:02,233 --> 00:07:04,420
+all these protocols and all this software.
+
+219
+00:07:04,420 --> 00:07:07,039
+And we just made use of it
+
+220
+00:07:07,039 --> 00:07:08,272
+in three lines of Python.
+
+221
+00:07:08,272 --> 00:07:10,063
+And I guess this is one of the reasons
+
+222
+00:07:10,063 --> 00:07:12,689
+that people absolutely love Python.
+
+223
+00:07:12,689 --> 00:07:15,146
+Absolutely love Python.
+
+224
+00:07:15,146 --> 00:07:16,829
+So, now that we have a socket
+
+225
+00:07:16,829 --> 00:07:18,313
+we have to ask ourselves
+
+226
+00:07:18,313 --> 00:07:20,617
+what kind of data are we going to send
+
+227
+00:07:20,617 --> 00:07:21,598
+and then what kind of data
+
+228
+00:07:21,598 --> 00:07:23,471
+are we going to expect to receive
+
+229
+00:07:23,471 --> 00:07:25,054
+across that socket.
+

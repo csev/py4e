@@ -1,0 +1,483 @@
+1
+00:00:00,460 --> 00:00:02,666
+- In this section, we're
+gonna write a web browser
+
+2
+00:00:02,666 --> 00:00:03,499
+using Python.
+
+3
+00:00:03,499 --> 00:00:04,666
+So we've already got a socket,
+
+4
+00:00:04,666 --> 00:00:06,101
+we know how to write a socket.
+
+5
+00:00:06,101 --> 00:00:08,131
+In the previous section we played with
+
+6
+00:00:08,131 --> 00:00:11,595
+the protocol and used
+Tellnet to do it by hand,
+
+7
+00:00:11,595 --> 00:00:13,285
+and now we're gonna do it in Python.
+
+8
+00:00:13,285 --> 00:00:18,217
+And what you're gonna find
+is it's not that hard.
+
+9
+00:00:18,217 --> 00:00:19,334
+So here we go.
+
+10
+00:00:19,334 --> 00:00:23,074
+So the first three lines of
+this program, import socket,
+
+11
+00:00:23,074 --> 00:00:23,907
+make the socket.
+
+12
+00:00:23,907 --> 00:00:25,888
+Remember, the socket isn't really
+
+13
+00:00:25,888 --> 00:00:29,274
+got the connection, so you
+make the socket, again,
+
+14
+00:00:29,274 --> 00:00:30,620
+we're gonna make a stream-based socket,
+
+15
+00:00:30,620 --> 00:00:33,004
+and it's suitable for
+going across the internet.
+
+16
+00:00:33,004 --> 00:00:36,013
+The connection that's
+like ring, phone call,
+
+17
+00:00:36,013 --> 00:00:40,409
+connect to data dot P R
+four E dot org and port 80.
+
+18
+00:00:40,409 --> 00:00:43,646
+So that basically says
+send the socket across
+
+19
+00:00:43,646 --> 00:00:45,774
+and connect to a web server,
+
+20
+00:00:45,774 --> 00:00:48,112
+and so there's gotta be a
+piece of software running
+
+21
+00:00:48,112 --> 00:00:52,557
+and this will blow up if the
+software is not running, okay?
+
+22
+00:00:52,557 --> 00:00:54,861
+So then, now we've got a phone.
+
+23
+00:00:54,861 --> 00:00:56,287
+We've made a phone call.
+
+24
+00:00:56,287 --> 00:00:59,416
+Now whether or not the
+remote side says hello or not
+
+25
+00:00:59,416 --> 00:01:01,915
+is up to the application protocol,
+
+26
+00:01:01,915 --> 00:01:04,196
+and in this case, the
+web servers say nothing,
+
+27
+00:01:04,196 --> 00:01:05,671
+and they wait for you to talk first,
+
+28
+00:01:05,671 --> 00:01:07,640
+so we're the web browser in this case,
+
+29
+00:01:07,640 --> 00:01:09,313
+and so we're gonna talk first,
+
+30
+00:01:09,313 --> 00:01:11,838
+and we know what, because
+we read the documentation,
+
+31
+00:01:11,838 --> 00:01:14,106
+we know that we're gonna
+send get blah blah blah
+
+32
+00:01:14,106 --> 00:01:15,361
+blah blah blah blah blah blah blah blah.
+
+33
+00:01:15,361 --> 00:01:17,095
+Space blah blah blah blah blah H D one,
+
+34
+00:01:17,095 --> 00:01:18,846
+and then two new lines.
+
+35
+00:01:18,846 --> 00:01:21,144
+Return, return, remember you
+had to have a blank line?
+
+36
+00:01:21,144 --> 00:01:23,061
+We'll talk a little
+bit about this end code
+
+37
+00:01:23,061 --> 00:01:25,537
+It's preparing the data
+to go across the internet,
+
+38
+00:01:25,537 --> 00:01:27,528
+and then we say send it.
+
+39
+00:01:27,528 --> 00:01:29,664
+And so this basically
+takes that little string
+
+40
+00:01:29,664 --> 00:01:31,704
+and sends it across the network,
+
+41
+00:01:31,704 --> 00:01:34,862
+and then this piece of
+software is waiting for it
+
+42
+00:01:34,862 --> 00:01:37,196
+and then the software
+goes and reads the file
+
+43
+00:01:37,196 --> 00:01:39,385
+or does some other stuff and
+then it starts sending us
+
+44
+00:01:39,385 --> 00:01:43,374
+data back, which we can
+then choose to receive.
+
+45
+00:01:43,374 --> 00:01:45,422
+So now I write a real simple loop.
+
+46
+00:01:45,422 --> 00:01:47,078
+We're gonna receive the
+first, we're gonna receive
+
+47
+00:01:47,078 --> 00:01:49,441
+these things 512 characters at a time,
+
+48
+00:01:49,441 --> 00:01:52,676
+so we're gonna loop through
+receiving 512 each time,
+
+49
+00:01:52,676 --> 00:01:56,132
+and if we get zero
+characters, that means it's
+
+50
+00:01:56,132 --> 00:01:58,488
+end of the stream, the stream is closed.
+
+51
+00:01:58,488 --> 00:02:00,120
+And if you look at the little example
+
+52
+00:02:00,120 --> 00:02:02,297
+from the previous one,
+you saw connection closed.
+
+53
+00:02:02,297 --> 00:02:04,870
+When the connection is
+closed, we get an indication
+
+54
+00:02:04,870 --> 00:02:06,970
+that it is because we ask for some data
+
+55
+00:02:06,970 --> 00:02:08,196
+and we get zero data.
+
+56
+00:02:08,196 --> 00:02:11,187
+Otherwise if there might
+be more data, this'll wait.
+
+57
+00:02:11,187 --> 00:02:12,550
+If the network is slow, you'll see
+
+58
+00:02:12,550 --> 00:02:13,987
+if you do print statement in here,
+
+59
+00:02:13,987 --> 00:02:16,145
+you will see that this will
+pause from time to time
+
+60
+00:02:16,145 --> 00:02:17,590
+on a really slow network.
+
+61
+00:02:17,590 --> 00:02:19,523
+If your network is fast,
+it'll just go blank,
+
+62
+00:02:19,523 --> 00:02:21,431
+and it'll be so fast it won't matter.
+
+63
+00:02:21,431 --> 00:02:22,938
+But this is how we go.
+
+64
+00:02:22,938 --> 00:02:26,251
+So this is basically
+until the entire socket,
+
+65
+00:02:26,251 --> 00:02:28,282
+until the socket is closed,
+
+66
+00:02:28,282 --> 00:02:30,221
+we are going to read this data,
+
+67
+00:02:30,221 --> 00:02:32,717
+and because this data's
+coming from the outside world
+
+68
+00:02:32,717 --> 00:02:35,391
+we have to decode it before we print it,
+
+69
+00:02:35,391 --> 00:02:37,312
+and then when we're all
+done we break out of here
+
+70
+00:02:37,312 --> 00:02:38,637
+and we close the socket.
+
+71
+00:02:38,637 --> 00:02:44,875
+So literally that is an entire web browser
+
+72
+00:02:44,875 --> 00:02:48,661
+written in 10 lines of Python.
+
+73
+00:02:48,661 --> 00:02:51,987
+And again, this is why
+everybody loves Python.
+
+74
+00:02:51,987 --> 00:02:56,025
+So this is what this program
+will show if you run.
+
+75
+00:02:56,025 --> 00:02:57,021
+The get is sent.
+
+76
+00:02:57,021 --> 00:03:00,161
+It looks exactly like doing it by hand.
+
+77
+00:03:00,161 --> 00:03:01,833
+You get some headers.
+
+78
+00:03:01,833 --> 00:03:02,845
+Again, this is metadata.
+
+79
+00:03:02,845 --> 00:03:04,816
+It tells you something about the file.
+
+80
+00:03:04,816 --> 00:03:06,171
+In this case, one of the important things
+
+81
+00:03:06,171 --> 00:03:07,745
+is what kind of thing is coming next.
+
+82
+00:03:07,745 --> 00:03:09,437
+There's always a blank line between,
+
+83
+00:03:09,437 --> 00:03:12,347
+as a break between the
+headers and the actual data,
+
+84
+00:03:12,347 --> 00:03:13,941
+the metadata and the data,
+
+85
+00:03:13,941 --> 00:03:16,693
+and then here is the actual
+text of that romeo dot
+
+86
+00:03:16,693 --> 00:03:20,414
+txt file, and then it's
+just gonna run this,
+
+87
+00:03:20,414 --> 00:03:21,532
+print data dot decode.
+
+88
+00:03:21,532 --> 00:03:23,559
+All this is coming from
+the print statement.
+
+89
+00:03:23,559 --> 00:03:25,688
+If you were gonna parse
+this, you have to know
+
+90
+00:03:25,688 --> 00:03:27,488
+that you're gonna read the headers
+
+91
+00:03:27,488 --> 00:03:28,676
+up to a little blank line.
+
+92
+00:03:28,676 --> 00:03:31,953
+The blank line is your indication
+as a software developer
+
+93
+00:03:31,953 --> 00:03:33,140
+that the headers have stopped,
+
+94
+00:03:33,140 --> 00:03:34,555
+and the actual text begins,
+
+95
+00:03:34,555 --> 00:03:36,090
+and you know the syntax.
+
+96
+00:03:36,090 --> 00:03:39,726
+This actually could be a jpeg or a png
+
+97
+00:03:39,726 --> 00:03:41,237
+or some kind of image, right?
+
+98
+00:03:41,237 --> 00:03:43,376
+And this data right here
+would like like blech.
+
+99
+00:03:43,376 --> 00:03:45,553
+So if you type this and
+you change that code
+
+100
+00:03:45,553 --> 00:03:48,474
+to actually talk, go retrieve a jpeg url,
+
+101
+00:03:48,474 --> 00:03:50,592
+gibberish will come out, okay?
+
+102
+00:03:50,592 --> 00:03:53,561
+And so that's exactly what you will see.
+
+103
+00:03:53,561 --> 00:03:58,292
+And so now you have built
+a very simple web browser.
+
+104
+00:03:58,292 --> 00:04:00,164
+Next I wanna talk a little bit about
+
+105
+00:04:00,164 --> 00:04:04,093
+what happens when characters transition
+
+106
+00:04:04,093 --> 00:04:06,934
+from outside your computer,
+I mean from inside
+
+107
+00:04:06,934 --> 00:04:09,547
+the computer in strings,
+out across the sockets
+
+108
+00:04:09,547 --> 00:04:14,071
+to servers and then back.
+
+109
+00:04:14,071 --> 00:04:16,571
+(metal music)
+

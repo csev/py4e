@@ -1,0 +1,515 @@
+1
+00:00:00,560 --> 00:00:08,407
+(soft piano music)
+
+2
+00:00:08,407 --> 00:00:10,470
+- [Narrator] Hello and welcome
+to Python for Everybody,
+
+3
+00:00:10,470 --> 00:00:12,386
+I'm Charles Severance, I'm
+the author of the textbook
+
+4
+00:00:12,386 --> 00:00:14,627
+and we're going to do
+a little bit of code,
+
+5
+00:00:14,627 --> 00:00:16,733
+if you want to get your hands on the code,
+
+6
+00:00:16,733 --> 00:00:22,892
+go to the materials
+website materials dot php,
+
+7
+00:00:22,892 --> 00:00:27,038
+actually materials dot php
+and download the sample code.
+
+8
+00:00:27,038 --> 00:00:28,954
+The code that we're going to work on today
+
+9
+00:00:28,954 --> 00:00:33,943
+is the xml code and we
+need to be able to talk xml
+
+10
+00:00:33,943 --> 00:00:35,414
+to work with web services and so
+
+11
+00:00:35,414 --> 00:00:37,190
+here's one of the examples from the book.
+
+12
+00:00:37,190 --> 00:00:42,189
+It's xml one dot py and
+so later we'll be pulling
+
+13
+00:00:42,189 --> 00:00:44,510
+xml and json from the web but for now
+
+14
+00:00:44,510 --> 00:00:48,975
+we're just gonna put it in a
+triple coded string, so data.
+
+15
+00:00:48,975 --> 00:00:51,934
+And we're going to use
+a built in xml parser
+
+16
+00:00:51,934 --> 00:00:54,461
+in Python called Element Tree
+
+17
+00:00:54,461 --> 00:00:57,995
+and when we say import
+xml etree element tree
+
+18
+00:00:57,995 --> 00:01:00,568
+as ET, this as ET gives us basically
+
+19
+00:01:00,568 --> 00:01:04,086
+a shortcut handle for it.
+
+20
+00:01:04,086 --> 00:01:06,013
+And so the idea, this is a string
+
+21
+00:01:06,013 --> 00:01:07,412
+it has less thans and greater thans
+
+22
+00:01:07,412 --> 00:01:09,215
+it looks like structured information
+
+23
+00:01:09,215 --> 00:01:12,268
+and it is but really at this
+point it's only a string.
+
+24
+00:01:12,268 --> 00:01:14,233
+Now we have to call this ET from string
+
+25
+00:01:14,233 --> 00:01:17,547
+to read this and give
+us back a tree object.
+
+26
+00:01:17,547 --> 00:01:19,248
+And what it does is this might blow up,
+
+27
+00:01:19,248 --> 00:01:21,051
+this code might blow up right here
+
+28
+00:01:21,051 --> 00:01:23,108
+if there was a mistake in it.
+
+29
+00:01:23,108 --> 00:01:26,226
+Okay, and a matter of fact, I
+can probably put a mistake in.
+
+30
+00:01:26,226 --> 00:01:29,592
+Let's see if I can delete this
+and save it and run this code
+
+31
+00:01:29,592 --> 00:01:38,547
+and we'll see that it will blow up.
+
+32
+00:01:38,547 --> 00:01:41,730
+Right, and so it blew
+up here in line eight
+
+33
+00:01:41,730 --> 00:01:47,983
+element tree blew up, it blew
+up in line 12 of the code
+
+34
+00:01:47,983 --> 00:01:49,463
+which is right here.
+
+35
+00:01:49,463 --> 00:01:51,866
+This failed because the line eight
+
+36
+00:01:51,866 --> 00:01:54,496
+of the xml string was wrong.
+
+37
+00:01:54,496 --> 00:01:56,668
+So let's put that back in.
+
+38
+00:01:56,668 --> 00:01:58,974
+So now it's properly formed xml.
+
+39
+00:01:58,974 --> 00:02:01,311
+So this tree we get back, I name it tree
+
+40
+00:02:01,311 --> 00:02:03,130
+just because I always name it tree
+
+41
+00:02:03,130 --> 00:02:05,725
+but you could name it x, so the key is
+
+42
+00:02:05,725 --> 00:02:09,619
+tree dot find goes and
+looks for a tag named find.
+
+43
+00:02:09,619 --> 00:02:10,970
+Tree has no longer got less thans
+
+44
+00:02:10,970 --> 00:02:12,620
+and greater thans in it.
+
+45
+00:02:12,620 --> 00:02:15,080
+It has went and turned these into
+
+46
+00:02:15,080 --> 00:02:18,669
+objects within objects within objects.
+
+47
+00:02:18,669 --> 00:02:23,642
+So tree find name says I would
+like to find the tag name
+
+48
+00:02:23,642 --> 00:02:25,809
+and that's what this bit is right here.
+
+49
+00:02:25,809 --> 00:02:28,822
+And then dot tx dot text
+is going within that
+
+50
+00:02:28,822 --> 00:02:30,973
+and grabbing that text, okay?
+
+51
+00:02:30,973 --> 00:02:33,964
+And if we say tree find dot email
+
+52
+00:02:33,964 --> 00:02:36,437
+then that's going to give us this.
+
+53
+00:02:36,437 --> 00:02:39,821
+And then that's that
+object, and then dot get
+
+54
+00:02:39,821 --> 00:02:43,014
+asks for the contents
+of the hide attribute
+
+55
+00:02:43,014 --> 00:02:45,847
+which is the string yes.
+
+56
+00:02:45,847 --> 00:02:48,800
+And so if we run this, now that it's fixed
+
+57
+00:02:48,800 --> 00:02:53,032
+python three xml one
+dot py, it will pull in
+
+58
+00:02:53,032 --> 00:02:56,496
+and get the name and the attribute.
+
+59
+00:02:56,496 --> 00:02:58,400
+So it pulled the Chuck out.
+
+60
+00:02:58,400 --> 00:02:59,827
+So you get this object and then
+
+61
+00:02:59,827 --> 00:03:01,778
+you kind of dive into that object.
+
+62
+00:03:01,778 --> 00:03:04,866
+And so that's xml one dot py
+
+63
+00:03:04,866 --> 00:03:07,264
+if you've got a tag, you can either
+
+64
+00:03:07,264 --> 00:03:09,100
+get the text out of the tag or
+
+65
+00:03:09,100 --> 00:03:11,747
+you can get an attribute out of the tag.
+
+66
+00:03:11,747 --> 00:03:14,195
+So now let's take a
+look at xml two dot py.
+
+67
+00:03:14,195 --> 00:03:17,480
+Again we import element
+tree and we have a tag.
+
+68
+00:03:17,480 --> 00:03:21,581
+And xml's always gotta
+have a single outter tag.
+
+69
+00:03:21,581 --> 00:03:25,412
+But this time we're gonna
+have it affect a list.
+
+70
+00:03:25,412 --> 00:03:29,405
+Now let's line this up a little better.
+
+71
+00:03:29,405 --> 00:03:32,198
+There we go, that looks a little prettier.
+
+72
+00:03:32,198 --> 00:03:34,630
+And so users, the fact that it's users
+
+73
+00:03:34,630 --> 00:03:37,374
+doesn't mean anything
+but we often come up with
+
+74
+00:03:37,374 --> 00:03:41,997
+semantically meaningful
+names for these things.
+
+75
+00:03:41,997 --> 00:03:44,081
+Users is gonna have as its children
+
+76
+00:03:44,081 --> 00:03:46,925
+as a list of user tags.
+
+77
+00:03:46,925 --> 00:03:50,691
+So the children under
+user, users under users
+
+78
+00:03:50,691 --> 00:03:53,195
+and then this has each of these as a tag.
+
+79
+00:03:53,195 --> 00:03:55,401
+So we wanna parse this, and this is a
+
+80
+00:03:55,401 --> 00:03:59,184
+common thing we wanna do.
+
+81
+00:03:59,184 --> 00:04:02,223
+So again the first thing
+we do is we read the string
+
+82
+00:04:02,223 --> 00:04:04,213
+to just take this, it's
+a triple coded string
+
+83
+00:04:04,213 --> 00:04:06,061
+going from here to here.
+
+84
+00:04:06,061 --> 00:04:08,039
+And then we're gonna
+instead of doing find,
+
+85
+00:04:08,039 --> 00:04:09,677
+which gives us one tag,
+
+86
+00:04:09,677 --> 00:04:13,062
+we're going to do find
+all with the users tag,
+
+87
+00:04:13,062 --> 00:04:16,435
+the user tag that is a child of users.
+
+88
+00:04:16,435 --> 00:04:20,031
+And we get back a python list of the tags
+
+89
+00:04:20,031 --> 00:04:22,632
+not of the text but of the tags.
+
+90
+00:04:22,632 --> 00:04:25,856
+So there's one tag, and
+there is another tag.
+
+91
+00:04:25,856 --> 00:04:29,270
+And so you can do len of that
+so we can see that we got two.
+
+92
+00:04:29,270 --> 00:04:31,069
+And then we can write a four loop
+
+93
+00:04:31,069 --> 00:04:33,998
+and this item is gonna iterate through the
+
+94
+00:04:33,998 --> 00:04:37,530
+user tags that are children of users.
+
+95
+00:04:37,530 --> 00:04:40,392
+So the first time item
+is gonna be this tag,
+
+96
+00:04:40,392 --> 00:04:42,610
+a tag remember, and then the second time
+
+97
+00:04:42,610 --> 00:04:44,009
+is gonna be this tag.
+
+98
+00:04:44,009 --> 00:04:47,393
+And so we can do things like find and get
+
+99
+00:04:47,393 --> 00:04:50,938
+just like we did with the in xml one
+
+100
+00:04:50,938 --> 00:04:53,331
+so running this is not too exciting.
+
+101
+00:04:53,331 --> 00:04:57,476
+Python three xml two dot py,
+
+102
+00:04:57,476 --> 00:04:59,665
+you see that there are two users
+
+103
+00:04:59,665 --> 00:05:02,194
+that comes from this print right here.
+
+104
+00:05:02,194 --> 00:05:04,889
+There are two users in
+there and the first one
+
+105
+00:05:04,889 --> 00:05:08,632
+if we go into name and we go find the text
+
+106
+00:05:08,632 --> 00:05:12,622
+within the name tag within user
+
+107
+00:05:12,622 --> 00:05:14,543
+then we get Chuck and then we get the id
+
+108
+00:05:14,543 --> 00:05:16,703
+which is zero zero one, so we find the id
+
+109
+00:05:16,703 --> 00:05:19,286
+within that item and then we get the text.
+
+110
+00:05:19,286 --> 00:05:24,302
+And then we look and we grab
+the x attribute off of that
+
+111
+00:05:24,302 --> 00:05:28,964
+and so we see Chuck
+
+112
+00:05:28,964 --> 00:05:30,770
+Chuck zero zero one and two
+
+113
+00:05:30,770 --> 00:05:33,533
+and then the next tag we
+get a four loop continues
+
+114
+00:05:33,533 --> 00:05:35,797
+and we print that out, okay?
+
+115
+00:05:35,797 --> 00:05:37,986
+So that's just a basic run through
+
+116
+00:05:37,986 --> 00:05:43,457
+of the xml from the
+
+117
+00:05:43,457 --> 00:05:45,370
+chapter in the python book.
+
+118
+00:05:45,370 --> 00:05:47,778
+Okay? Thanks
+
+119
+00:05:47,778 --> 00:05:51,028
+(soothing piano music)
+

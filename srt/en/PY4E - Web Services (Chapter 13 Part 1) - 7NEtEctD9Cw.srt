@@ -1,0 +1,300 @@
+1
+00:00:00,117 --> 00:00:03,182
+- Hello and welcome to
+Chapter 13, Web Services.
+
+2
+00:00:03,182 --> 00:00:05,319
+So what we've been doing so far is
+
+3
+00:00:05,319 --> 00:00:07,339
+we've been using the
+request-response cycle,
+
+4
+00:00:07,339 --> 00:00:08,241
+we've learned about sockets,
+
+5
+00:00:08,241 --> 00:00:10,128
+we learned about urllib,
+
+6
+00:00:10,128 --> 00:00:11,956
+and we've actually
+learned how to pull HTML,
+
+7
+00:00:11,956 --> 00:00:14,825
+and even flat text off the internet,
+
+8
+00:00:14,825 --> 00:00:16,819
+but what we're gonna talk about now is
+
+9
+00:00:16,819 --> 00:00:18,645
+using that same request-response cycle
+
+10
+00:00:18,645 --> 00:00:20,767
+to retrieve information that is
+
+11
+00:00:20,767 --> 00:00:24,308
+specifically designed for
+programmatic consumption,
+
+12
+00:00:24,308 --> 00:00:27,341
+so that, you know, we had
+to have this beautiful soup
+
+13
+00:00:27,341 --> 00:00:31,032
+which sort of did a hack job or hard,
+
+14
+00:00:31,032 --> 00:00:33,056
+solve the hard problem of parsing HTML,
+
+15
+00:00:33,056 --> 00:00:35,457
+but why not produce data in a format
+
+16
+00:00:35,457 --> 00:00:37,322
+that makes good sense to a program,
+
+17
+00:00:37,322 --> 00:00:39,255
+because programs wanna talk to each other.
+
+18
+00:00:39,255 --> 00:00:41,397
+If you recall, the whole idea of a socket
+
+19
+00:00:41,397 --> 00:00:43,894
+is to have one application process
+
+20
+00:00:43,894 --> 00:00:47,325
+sending data to another
+application process,
+
+21
+00:00:47,325 --> 00:00:50,151
+and so if we think
+about this for a moment,
+
+22
+00:00:50,151 --> 00:00:53,196
+and we realize that we
+have all these programs,
+
+23
+00:00:53,196 --> 00:00:55,109
+they can be written in
+different programming languages
+
+24
+00:00:55,109 --> 00:00:57,069
+and they're all connected and so
+
+25
+00:00:57,069 --> 00:00:58,528
+they might wanna send data back and forth
+
+26
+00:00:58,528 --> 00:01:00,668
+through the network.
+
+27
+00:01:00,668 --> 00:01:03,903
+PHP programs, JavaScript
+programs, Java programs,
+
+28
+00:01:03,903 --> 00:01:07,268
+and so we have to decide on a protocol
+
+29
+00:01:07,268 --> 00:01:09,961
+that is independent of
+any programming language
+
+30
+00:01:09,961 --> 00:01:11,808
+and then we call that the wire protocol,
+
+31
+00:01:11,808 --> 00:01:14,181
+because if you were to sort
+of take some connection
+
+32
+00:01:14,181 --> 00:01:17,570
+and watch the exact characters
+that go back and forth,
+
+33
+00:01:17,570 --> 00:01:19,539
+that's what you would see
+if you were monitoring
+
+34
+00:01:19,539 --> 00:01:22,881
+the wire, so that's why we
+call that the wire protocol,
+
+35
+00:01:22,881 --> 00:01:26,284
+and so the idea is is that we have to
+
+36
+00:01:26,284 --> 00:01:29,460
+agree on a format that is
+gonna represent the data,
+
+37
+00:01:29,460 --> 00:01:31,688
+and we can't a Python=specific format,
+
+38
+00:01:31,688 --> 00:01:35,330
+or a Java format, and
+when we take the data
+
+39
+00:01:35,330 --> 00:01:37,252
+from the internal representation,
+
+40
+00:01:37,252 --> 00:01:38,539
+maybe a Python dictionary,
+
+41
+00:01:38,539 --> 00:01:41,844
+so send it to the wire, we
+call that act serialization,
+
+42
+00:01:41,844 --> 00:01:44,525
+and that's going from sort of
+the internal representation
+
+43
+00:01:44,525 --> 00:01:47,198
+to the serial representation,
+or the wire representation,
+
+44
+00:01:47,198 --> 00:01:50,088
+and then, here is an example of person
+
+45
+00:01:50,088 --> 00:01:51,443
+with a name and phone number
+
+46
+00:01:51,443 --> 00:01:53,304
+with using less thans and greater thans,
+
+47
+00:01:53,304 --> 00:01:56,252
+this is an XML example,
+and then in a far end
+
+48
+00:01:56,252 --> 00:01:57,475
+in a different programming language,
+
+49
+00:01:57,475 --> 00:01:59,945
+it receives this and then deserializes it
+
+50
+00:01:59,945 --> 00:02:02,186
+and then turns it into
+some useful structure
+
+51
+00:02:02,186 --> 00:02:04,415
+inside that programming language,
+
+52
+00:02:04,415 --> 00:02:07,287
+and so this is an example of wire protocol
+
+53
+00:02:07,287 --> 00:02:09,524
+that's using XML, and that's one of the
+
+54
+00:02:09,524 --> 00:02:11,250
+formats we're going to talk about.
+
+55
+00:02:11,250 --> 00:02:13,035
+Another format that we're gonna talk about
+
+56
+00:02:13,035 --> 00:02:15,372
+is a format called JSON,
+
+57
+00:02:15,372 --> 00:02:19,472
+JavaScript Object Notation,
+and it is simpler and easier,
+
+58
+00:02:19,472 --> 00:02:24,054
+but it's not as precise
+and descriptive as XML is,
+
+59
+00:02:24,054 --> 00:02:26,384
+and so, while you'll find
+that most of the things
+
+60
+00:02:26,384 --> 00:02:27,929
+you run into, especially
+if you're talking to
+
+61
+00:02:27,929 --> 00:02:29,661
+APIs of one form or another,
+
+62
+00:02:29,661 --> 00:02:32,176
+you'll find that JSON is very common.
+
+63
+00:02:32,176 --> 00:02:35,824
+XML still holds sway in
+places like documents.
+
+64
+00:02:35,824 --> 00:02:38,133
+So if you look at docx at the end of a
+
+65
+00:02:38,133 --> 00:02:41,317
+Microsoft Word document, docx means that
+
+66
+00:02:41,317 --> 00:02:43,737
+it's an XML version of the representation
+
+67
+00:02:43,737 --> 00:02:46,150
+of a word processing document.
+
+68
+00:02:46,150 --> 00:02:48,573
+So the first thing
+we'll talk about is XML.
+

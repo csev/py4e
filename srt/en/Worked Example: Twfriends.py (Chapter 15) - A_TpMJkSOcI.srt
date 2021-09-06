@@ -1,0 +1,2041 @@
+1
+00:00:00,391 --> 00:00:09,982
+(smooth music)
+
+2
+00:00:09,982 --> 00:00:10,815
+- [Charles] Hello everybody.
+
+3
+00:00:10,815 --> 00:00:11,925
+Welcome to Python for Everybody.
+
+4
+00:00:11,925 --> 00:00:13,598
+We are doing some code walk throughs.
+
+5
+00:00:13,598 --> 00:00:15,243
+If you wanna follow along with the code,
+
+6
+00:00:15,243 --> 00:00:17,299
+you can download the source code from
+
+7
+00:00:17,299 --> 00:00:21,529
+Python for Everybody dot, the
+Python for Everybody website.
+
+8
+00:00:21,529 --> 00:00:23,041
+Okay?
+
+9
+00:00:23,041 --> 00:00:25,422
+So, the code we're playin' with today is
+
+10
+00:00:25,422 --> 00:00:27,415
+T W friends dot P Y.
+
+11
+00:00:27,415 --> 00:00:31,905
+And, this is a step beyond
+the simple T W spider.
+
+12
+00:00:31,905 --> 00:00:33,641
+It is a restartable spider.
+
+13
+00:00:33,641 --> 00:00:35,665
+But, we're gonna data model
+things a little bit differently.
+
+14
+00:00:35,665 --> 00:00:38,376
+We're gonna have two tables
+and we're gonna have a,
+
+15
+00:00:38,376 --> 00:00:42,212
+a many to many relationship,
+expect that it's sort of a many
+
+16
+00:00:42,212 --> 00:00:46,692
+to many relationship between
+the same table, which is okay.
+
+17
+00:00:46,692 --> 00:00:47,525
+Friends is a,
+
+18
+00:00:47,525 --> 00:00:52,610
+Twitter friends are a
+directional relationship.
+
+19
+00:00:52,610 --> 00:00:56,488
+And so, so we start out
+here in T W friends dot P Y.
+
+20
+00:00:56,488 --> 00:00:59,692
+Remember that the file hidden dot P Y,
+
+21
+00:00:59,692 --> 00:01:01,140
+I'll show it to you but
+I'm not gonna open it
+
+22
+00:01:01,140 --> 00:01:03,268
+'cause I've got my keys and secrets in it.
+
+23
+00:01:03,268 --> 00:01:06,452
+So, this hidden dot P Y file,
+you gotta edit that and you
+
+24
+00:01:06,452 --> 00:01:10,716
+gotta go to apps dot Twitter
+dot com and get your keys
+
+25
+00:01:10,716 --> 00:01:12,980
+and put them in there, otherwise
+these things won't work.
+
+26
+00:01:12,980 --> 00:01:16,344
+But, if you have Twitter
+and you set your API keys up
+
+27
+00:01:16,344 --> 00:01:18,115
+and you put them in hidden dot P Y,
+
+28
+00:01:18,115 --> 00:01:19,395
+then all these things will work.
+
+29
+00:01:19,395 --> 00:01:21,099
+It's kinda fun, actually, and impressive.
+
+30
+00:01:21,099 --> 00:01:24,745
+Not hard to do, actually.
+
+31
+00:01:24,745 --> 00:01:26,315
+So,
+
+32
+00:01:26,315 --> 00:01:27,274
+(clears throat)
+
+33
+00:01:27,274 --> 00:01:29,839
+the Twitter URL, that's my
+library that reads hidden dot P Y
+
+34
+00:01:29,839 --> 00:01:33,294
+and augments the URL and does
+all the Oh WOT stuff, jay son
+
+35
+00:01:33,294 --> 00:01:36,486
+and S S L, because Twitter
+doesn't, I mean because Python
+
+36
+00:01:36,486 --> 00:01:38,134
+doesn't accept any certificates,
+
+37
+00:01:38,134 --> 00:01:39,503
+even if they're good certificates.
+
+38
+00:01:39,503 --> 00:01:42,310
+So, we kinda crush that.
+
+39
+00:01:42,310 --> 00:01:44,238
+Here's our friend's list
+that we're gonna hit.
+
+40
+00:01:44,238 --> 00:01:47,772
+We're gonna make a database,
+friends dot S Q lite.
+
+41
+00:01:47,772 --> 00:01:50,299
+Now, here we're doing
+create table if not exists.
+
+42
+00:01:50,299 --> 00:01:51,866
+So, what this really is saying is,
+
+43
+00:01:51,866 --> 00:01:53,970
+I want this to be a restartable process,
+
+44
+00:01:53,970 --> 00:01:55,674
+and I don't wanna lose the data.
+
+45
+00:01:55,674 --> 00:02:02,237
+If we're starting out,
+we do not have S Q lite,
+
+46
+00:02:02,237 --> 00:02:03,545
+any S Q lite files,
+
+47
+00:02:03,545 --> 00:02:05,033
+and so this is going
+to create the database
+
+48
+00:02:05,033 --> 00:02:07,929
+and create these tables, but
+the second time we run it,
+
+49
+00:02:07,929 --> 00:02:09,747
+we're not gonna recreate the tables.
+
+50
+00:02:09,747 --> 00:02:11,505
+We're not gonna, we're gonna
+be able to restart this
+
+51
+00:02:11,505 --> 00:02:16,170
+because we're gonna run out of,
+
+52
+00:02:16,170 --> 00:02:19,371
+we're gonna run out of rate
+limit before we finish this,
+
+53
+00:02:19,371 --> 00:02:21,556
+but, so, we just have to
+wait however long the rate,
+
+54
+00:02:21,556 --> 00:02:22,987
+the time it takes to reset.
+
+55
+00:02:22,987 --> 00:02:25,012
+We'll watch the rate limit go down.
+
+56
+00:02:25,012 --> 00:02:27,196
+And, so we're gonna have a people table
+
+57
+00:02:27,196 --> 00:02:29,604
+and we're gonna have a
+primary key and the name.
+
+58
+00:02:29,604 --> 00:02:31,468
+The name is gonna be unique.
+
+59
+00:02:31,468 --> 00:02:33,212
+And, whether or not we've retrieved it.
+
+60
+00:02:33,212 --> 00:02:34,727
+And, that's kinda from a previous one.
+
+61
+00:02:34,727 --> 00:02:37,991
+But then there's the who follows who.
+
+62
+00:02:37,991 --> 00:02:39,730
+The from ID to to ID.
+
+63
+00:02:39,730 --> 00:02:42,700
+So, this is a direction and
+we're going to put a uniqueness
+
+64
+00:02:42,700 --> 00:02:45,340
+constraint in just like we do
+in many to many that basically
+
+65
+00:02:45,340 --> 00:02:48,676
+says the combination of from ID and to ID
+
+66
+00:02:48,676 --> 00:02:49,835
+has got to be unique.
+
+67
+00:02:49,835 --> 00:02:52,644
+We don't allow ourselves to put duplicates
+
+68
+00:02:52,644 --> 00:02:54,059
+of the combination.
+
+69
+00:02:54,059 --> 00:02:57,333
+So, from ID can be one in many
+records and to ID can be one
+
+70
+00:02:57,333 --> 00:03:00,955
+in many records but one,
+one is only allowed once.
+
+71
+00:03:00,955 --> 00:03:04,489
+And, this is the crud we
+have to do to convince Python
+
+72
+00:03:04,489 --> 00:03:07,654
+to accept the Twitter certificate.
+
+73
+00:03:07,654 --> 00:03:09,972
+And, so this is similar
+to some of the other stuff
+
+74
+00:03:09,972 --> 00:03:10,988
+that we've done.
+
+75
+00:03:10,988 --> 00:03:14,247
+We're going to enter a
+Twitter account or quit.
+
+76
+00:03:14,247 --> 00:03:17,782
+And, if we hit enter by itself,
+then we will actually go
+
+77
+00:03:17,782 --> 00:03:21,420
+and retrieve a record that
+was not yet retrieved.
+
+78
+00:03:21,420 --> 00:03:26,480
+And, now we're actually pulling
+out two values: ID and name.
+
+79
+00:03:26,480 --> 00:03:29,784
+And, so we will, we will grab,
+fetch one is gonna give us a
+
+80
+00:03:29,784 --> 00:03:31,367
+two tuple, basically.
+
+81
+00:03:31,367 --> 00:03:33,944
+And, we're gonna store
+that in ID and account.
+
+82
+00:03:33,944 --> 00:03:36,504
+Of course, that's like, this
+is, this is coming back with
+
+83
+00:03:36,504 --> 00:03:39,905
+a two tuple, first of which
+is the ID from the database.
+
+84
+00:03:39,905 --> 00:03:41,889
+Limit one means we're only
+gonna get one of these,
+
+85
+00:03:41,889 --> 00:03:43,545
+or zero of these.
+
+86
+00:03:43,545 --> 00:03:44,482
+If there are zero of these,
+
+87
+00:03:44,482 --> 00:03:47,313
+that means there are no
+un-retrieved Twitter accounts.
+
+88
+00:03:47,313 --> 00:03:50,754
+Retrieved equals zero, well
+you'll see in a second that the,
+
+89
+00:03:50,754 --> 00:03:53,843
+all the new accounts
+we put in are the ones
+
+90
+00:03:53,843 --> 00:03:55,162
+for which we haven't retrieved.
+
+91
+00:03:55,162 --> 00:03:56,562
+And, again given that our rate limit,
+
+92
+00:03:56,562 --> 00:03:59,554
+we wanna know which ones we've retrieved.
+
+93
+00:03:59,554 --> 00:04:00,577
+Okay?
+
+94
+00:04:00,577 --> 00:04:06,762
+And, and so what we're gonna
+do next is we're gonna check
+
+95
+00:04:06,762 --> 00:04:11,320
+to see if the person that we just checked,
+
+96
+00:04:11,320 --> 00:04:13,376
+which means the length of the
+account is greater (mumbles),
+
+97
+00:04:13,376 --> 00:04:14,560
+that we just were entered.
+
+98
+00:04:14,560 --> 00:04:16,314
+We're gonna check to see
+if they're already there.
+
+99
+00:04:16,314 --> 00:04:17,471
+Okay?
+
+100
+00:04:17,471 --> 00:04:20,833
+And, we're gonna select ID
+from people where name equals.
+
+101
+00:04:20,833 --> 00:04:22,457
+So, that's the one we just entered.
+
+102
+00:04:22,457 --> 00:04:24,889
+And, we're gonna fetch one
+and grab the first thing,
+
+103
+00:04:24,889 --> 00:04:27,938
+'cause we only got one thing
+in the select statement, here.
+
+104
+00:04:27,938 --> 00:04:33,409
+And, if this person that
+we just asked to see is not
+
+105
+00:04:33,409 --> 00:04:36,129
+in the table, that means
+this is going to fail,
+
+106
+00:04:36,129 --> 00:04:38,038
+we're going to do an insert or ignore.
+
+107
+00:04:38,038 --> 00:04:39,383
+This or ignore is kinda redundant
+
+108
+00:04:39,383 --> 00:04:42,261
+because we just checked
+to see if it was there.
+
+109
+00:04:42,261 --> 00:04:44,174
+But, we'll put that in just to be safe.
+
+110
+00:04:44,174 --> 00:04:47,199
+And, we're gonna put the name in for,
+
+111
+00:04:47,199 --> 00:04:50,562
+as the new, new account
+that we're looking at.
+
+112
+00:04:50,562 --> 00:04:54,353
+And, we're indicating
+that retrieved is zero.
+
+113
+00:04:54,353 --> 00:04:55,824
+So, that we will, we will know
+
+114
+00:04:55,824 --> 00:04:56,929
+that we haven't retrieved it yet.
+
+115
+00:04:56,929 --> 00:04:58,889
+You'll see we'll update that in a second.
+
+116
+00:04:58,889 --> 00:05:01,825
+We commit it so that later
+selects will see this.
+
+117
+00:05:01,825 --> 00:05:06,174
+So, the, so you gotta do the commit.
+
+118
+00:05:06,174 --> 00:05:09,252
+This later select wouldn't
+see the one we just inserted.
+
+119
+00:05:09,252 --> 00:05:12,059
+And, we're gonna ask how
+many rows were effected.
+
+120
+00:05:12,059 --> 00:05:14,796
+And, if it's not equal to
+one then we're gonna complain
+
+121
+00:05:14,796 --> 00:05:16,356
+about we inserted it.
+
+122
+00:05:16,356 --> 00:05:18,707
+And, we are going to do this thing.
+
+123
+00:05:18,707 --> 00:05:23,248
+We're gonna ask, "Hey, member
+there was an ID up there?"
+
+124
+00:05:23,248 --> 00:05:24,413
+Do do do.
+
+125
+00:05:24,413 --> 00:05:27,479
+Right here: ID integer primary key.
+
+126
+00:05:27,479 --> 00:05:30,805
+And, we did not insert this here,
+
+127
+00:05:30,805 --> 00:05:32,245
+but we wanna know what that ID is.
+
+128
+00:05:32,245 --> 00:05:34,293
+And, every time I was
+showing you that in lectures,
+
+129
+00:05:34,293 --> 00:05:37,080
+I was saying it's really
+easy in Python to do this.
+
+130
+00:05:37,080 --> 00:05:38,128
+And, that's what we're saying,
+
+131
+00:05:38,128 --> 00:05:39,959
+is this cursor did the insert,
+
+132
+00:05:39,959 --> 00:05:41,183
+but one of the things happens is,
+
+133
+00:05:41,183 --> 00:05:44,406
+after the insert we're
+gonna grab the last row ID,
+
+134
+00:05:44,406 --> 00:05:51,061
+which is the primary key
+that was assigned by S Q L.
+
+135
+00:05:51,061 --> 00:05:51,894
+Okay?
+
+136
+00:05:51,894 --> 00:05:53,727
+And, so that means that one
+way or another coming through
+
+137
+00:05:53,727 --> 00:05:57,171
+this code, here, in line 45,
+one way or another we're either
+
+138
+00:05:57,171 --> 00:06:00,260
+gonna know the ID of the
+user that was there before
+
+139
+00:06:00,260 --> 00:06:02,891
+or we just inserted one and so
+we're gonna know the primary
+
+140
+00:06:02,891 --> 00:06:04,267
+key of the current user.
+
+141
+00:06:04,267 --> 00:06:05,446
+And, you'll see why we need that.
+
+142
+00:06:05,446 --> 00:06:09,441
+So, ID is the primary
+key of the current user
+
+143
+00:06:09,441 --> 00:06:11,657
+that we entered right here.
+
+144
+00:06:11,657 --> 00:06:13,168
+Okay?
+
+145
+00:06:13,168 --> 00:06:15,281
+And, now what we're gonna do
+is do the Twitter URL augment
+
+146
+00:06:15,281 --> 00:06:17,606
+with the oh off and all
+the keys and the secrets
+
+147
+00:06:17,606 --> 00:06:18,505
+in hidden dot P Y.
+
+148
+00:06:18,505 --> 00:06:20,778
+And, instead we're gonna go
+through, let's count 1000,
+
+149
+00:06:20,778 --> 00:06:24,173
+let's go count, what
+the heck, let's go 200,
+
+150
+00:06:24,173 --> 00:06:25,989
+up to 200 friends.
+
+151
+00:06:25,989 --> 00:06:27,713
+Save, no let's do 100.
+
+152
+00:06:27,713 --> 00:06:29,273
+Let's keep it that way.
+
+153
+00:06:29,273 --> 00:06:30,833
+And, then we're gonna retrieve it.
+
+154
+00:06:30,833 --> 00:06:33,257
+And, we're retrieving the account.
+
+155
+00:06:33,257 --> 00:06:35,457
+We're not gonna print the nasty URL out.
+
+156
+00:06:35,457 --> 00:06:36,593
+We could.
+
+157
+00:06:36,593 --> 00:06:39,058
+Then, we're gonna open
+the URL with a connection,
+
+158
+00:06:39,058 --> 00:06:40,913
+and then we're gonna read
+that and we're gonna get
+
+159
+00:06:40,913 --> 00:06:44,231
+the UTFA data from this
+and then we're decode that.
+
+160
+00:06:44,231 --> 00:06:46,201
+And, we're gonna have the uni-code data.
+
+161
+00:06:46,201 --> 00:06:50,043
+So, the data in string is a
+internal Python string with all
+
+162
+00:06:50,043 --> 00:06:52,659
+that data representing all
+the wonderful characters.
+
+163
+00:06:52,659 --> 00:06:55,715
+And, of course we're gonna
+ask URL open to give us back
+
+164
+00:06:55,715 --> 00:06:59,674
+the headers as a
+dictionary, using this call.
+
+165
+00:06:59,674 --> 00:07:01,259
+And, we can see what the,
+
+166
+00:07:01,259 --> 00:07:03,899
+how many we have left for the remaining.
+
+167
+00:07:03,899 --> 00:07:04,883
+Right?
+
+168
+00:07:04,883 --> 00:07:07,194
+What's the remaining
+rate limit that we have?
+
+169
+00:07:07,194 --> 00:07:08,162
+Okay?
+
+170
+00:07:08,162 --> 00:07:10,322
+And, so then what we're gonna
+do is parse the data with
+
+171
+00:07:10,322 --> 00:07:11,835
+jay son load s.
+
+172
+00:07:11,835 --> 00:07:16,267
+If, oh wait, I need a continue in here.
+
+173
+00:07:16,267 --> 00:07:17,883
+Continue.
+
+174
+00:07:17,883 --> 00:07:18,716
+Okay.
+
+175
+00:07:18,716 --> 00:07:20,217
+Save.
+
+176
+00:07:20,217 --> 00:07:22,953
+If we are going to parse this
+data, we'll print it out.
+
+177
+00:07:22,953 --> 00:07:23,786
+Right?
+
+178
+00:07:23,786 --> 00:07:25,299
+So, that means that this, this died,
+
+179
+00:07:25,299 --> 00:07:27,299
+which means it's not
+syntactically correct,
+
+180
+00:07:27,299 --> 00:07:28,963
+jay son, basically.
+
+181
+00:07:28,963 --> 00:07:31,227
+And, who knows if we're
+ever gonna see that.
+
+182
+00:07:31,227 --> 00:07:34,607
+But, at least when it blows
+up, it'll print this data out.
+
+183
+00:07:34,607 --> 00:07:36,894
+We'll have to catch it,
+and then it'll continue.
+
+184
+00:07:36,894 --> 00:07:39,966
+Actually, I'll make this a break.
+
+185
+00:07:39,966 --> 00:07:42,942
+'Cause if that's blowin' up
+that bad, we should quit.
+
+186
+00:07:42,942 --> 00:07:46,780
+Now, we don't, I don't yet know
+what happens when this rate
+
+187
+00:07:46,780 --> 00:07:48,700
+limit says you can't have it.
+
+188
+00:07:48,700 --> 00:07:52,058
+And, so, but I do know that I
+expect when it's successful,
+
+189
+00:07:52,058 --> 00:07:56,980
+that there will be a key of
+users in this outer dictionary
+
+190
+00:07:56,980 --> 00:07:58,308
+that we're going to get.
+
+191
+00:07:58,308 --> 00:08:00,668
+And, if this outer dictionary that we're,
+
+192
+00:08:00,668 --> 00:08:04,292
+if we, if users is not
+in the parsed dictionary,
+
+193
+00:08:04,292 --> 00:08:07,476
+then I'm gonna dump out
+this data so at least I can
+
+194
+00:08:07,476 --> 00:08:11,860
+debug what happens when I've
+got some broken jay son.
+
+195
+00:08:11,860 --> 00:08:15,605
+So, the difference between this code,
+
+196
+00:08:15,605 --> 00:08:20,295
+this code is gonna fail when
+the jay son syntactically bad,
+
+197
+00:08:20,295 --> 00:08:22,945
+meaning a curly brace
+isn't right or whatever.
+
+198
+00:08:22,945 --> 00:08:26,699
+This code will trigger
+when I get good jay son,
+
+199
+00:08:26,699 --> 00:08:29,298
+but I don't have a users key in it.
+
+200
+00:08:29,298 --> 00:08:31,107
+Okay?
+
+201
+00:08:31,107 --> 00:08:34,768
+So, then once we've retrieved it,
+
+202
+00:08:34,768 --> 00:08:36,136
+we're pretty happy with it,
+
+203
+00:08:36,136 --> 00:08:39,703
+we're gonna update for our
+account that we are retrieving,
+
+204
+00:08:39,703 --> 00:08:42,489
+we're gonna set this is one
+of our retrieved accounts.
+
+205
+00:08:42,489 --> 00:08:43,962
+Okay?
+
+206
+00:08:43,962 --> 00:08:46,161
+And, then what we're going
+to do is write a loop
+
+207
+00:08:46,161 --> 00:08:50,249
+that goes through all the
+friends of this particular user
+
+208
+00:08:50,249 --> 00:08:52,902
+that we're asking, and
+gets their screen name.
+
+209
+00:08:52,902 --> 00:08:54,318
+Prints it out.
+
+210
+00:08:54,318 --> 00:08:59,435
+And, then we're going to check
+to see if this one is already
+
+211
+00:08:59,435 --> 00:09:02,075
+in our people database
+'cause this is a spider,
+
+212
+00:09:02,075 --> 00:09:03,964
+we're grabbing accounts.
+
+213
+00:09:03,964 --> 00:09:07,355
+And, and so we'll do a friend ID.
+
+214
+00:09:07,355 --> 00:09:10,532
+And, do a fetch one,
+grab the subzero thing.
+
+215
+00:09:10,532 --> 00:09:13,419
+And, if that works, if
+this person's not in there,
+
+216
+00:09:13,419 --> 00:09:15,243
+this fetch one is gonna blow up,
+
+217
+00:09:15,243 --> 00:09:17,619
+which means we're gonna drop
+down to the except code.
+
+218
+00:09:17,619 --> 00:09:21,737
+But, if it does work, we have
+friend ID is the, you know,
+
+219
+00:09:21,737 --> 00:09:25,556
+they're in there and they're
+already in our database.
+
+220
+00:09:25,556 --> 00:09:26,389
+Right?
+
+221
+00:09:26,389 --> 00:09:27,660
+They just weren't retrieved.
+
+222
+00:09:27,660 --> 00:09:28,493
+Okay?
+
+223
+00:09:28,493 --> 00:09:31,799
+And, so now, if friend ID wasn't there,
+
+224
+00:09:31,799 --> 00:09:35,477
+we're gonna do an insert into
+setting retrieve to zero.
+
+225
+00:09:35,477 --> 00:09:37,969
+And, then we're gonna commit, right?
+
+226
+00:09:37,969 --> 00:09:41,979
+Now, member, row count is
+how many rows were effected
+
+227
+00:09:41,979 --> 00:09:43,475
+by this last transaction.
+
+228
+00:09:43,475 --> 00:09:44,580
+Cur dot row account.
+
+229
+00:09:44,580 --> 00:09:47,861
+And, we're gonna die if that
+(mumbles) insert doesn't work.
+
+230
+00:09:47,861 --> 00:09:49,729
+This is unlikely,
+
+231
+00:09:49,729 --> 00:09:51,469
+unless somehow we ran out
+of disk drive or something.
+
+232
+00:09:51,469 --> 00:09:56,075
+And, we're gonna grab the
+friend ID as the, as they key,
+
+233
+00:09:56,075 --> 00:09:58,172
+the last row that was inserted.
+
+234
+00:09:58,172 --> 00:09:59,349
+We're only gonna insert one row,
+
+235
+00:09:59,349 --> 00:10:01,156
+so it's basically the primary key
+
+236
+00:10:01,156 --> 00:10:02,788
+of the row we just inserted.
+
+237
+00:10:02,788 --> 00:10:05,708
+So, if you look at this code right here.
+
+238
+00:10:05,708 --> 00:10:08,214
+It comes out the bottom one way or another
+
+239
+00:10:08,214 --> 00:10:10,396
+with friend ID successful.
+
+240
+00:10:10,396 --> 00:10:11,229
+Right?
+
+241
+00:10:11,229 --> 00:10:13,564
+'Cause friend ID is either
+they're already in our database
+
+242
+00:10:13,564 --> 00:10:15,188
+or they're not.
+
+243
+00:10:15,188 --> 00:10:17,788
+And, if we insert them, then we have it.
+
+244
+00:10:17,788 --> 00:10:21,345
+And, so now this count new
+and count old is just so
+
+245
+00:10:21,345 --> 00:10:22,753
+I can print out a nice print out.
+
+246
+00:10:22,753 --> 00:10:25,410
+Now, we are gonna insert
+into the friend's table,
+
+247
+00:10:25,410 --> 00:10:27,404
+which is called the
+follows table in this case.
+
+248
+00:10:27,404 --> 00:10:31,698
+From ID and to ID, those are
+the, those are the two outward,
+
+249
+00:10:31,698 --> 00:10:35,219
+outward pointing foreign keys.
+
+250
+00:10:35,219 --> 00:10:38,427
+And, we have the ID of the
+account that we are retrieving
+
+251
+00:10:38,427 --> 00:10:39,372
+the friends of.
+
+252
+00:10:39,372 --> 00:10:41,051
+And, then this particular friend.
+
+253
+00:10:41,051 --> 00:10:43,460
+And, so we're inserting the connection
+
+254
+00:10:43,460 --> 00:10:46,107
+from this person to that person.
+
+255
+00:10:46,107 --> 00:10:47,179
+And, then we commit it.
+
+256
+00:10:47,179 --> 00:10:50,499
+We wanna commit these again
+so that later selects,
+
+257
+00:10:50,499 --> 00:10:52,779
+when the loop goes back up,
+
+258
+00:10:52,779 --> 00:10:56,280
+later selects get all of
+that data that's going on.
+
+259
+00:10:56,280 --> 00:10:57,113
+Okay?
+
+260
+00:10:57,113 --> 00:10:58,144
+So, we do want to commit
+from time to time.
+
+261
+00:10:58,144 --> 00:11:00,280
+And, then we close the
+cursor at the very end.
+
+262
+00:11:00,280 --> 00:11:01,456
+Okay?
+
+263
+00:11:01,456 --> 00:11:06,617
+So, let's run this and see what happens.
+
+264
+00:11:06,617 --> 00:11:07,450
+Okay.
+
+265
+00:11:07,450 --> 00:11:09,060
+So, Python.
+
+266
+00:11:09,060 --> 00:11:13,430
+T W friends dot P Y.
+
+267
+00:11:13,430 --> 00:11:16,467
+Oh, of course.
+
+268
+00:11:16,467 --> 00:11:20,015
+I am a refugee from Python
+two so I always forget
+
+269
+00:11:20,015 --> 00:11:22,863
+to type Python three.
+
+270
+00:11:22,863 --> 00:11:25,303
+Okay, so we're gonna start.
+
+271
+00:11:25,303 --> 00:11:27,135
+If we take a look right now,
+
+272
+00:11:27,135 --> 00:11:29,494
+I'm gonna start another tab over here,
+
+273
+00:11:29,494 --> 00:11:33,770
+and L S minus L star S Q lite.
+
+274
+00:11:33,770 --> 00:11:36,674
+Now, that S Q lite file is there, right?
+
+275
+00:11:36,674 --> 00:11:38,266
+And, it's actually made the tables.
+
+276
+00:11:38,266 --> 00:11:40,545
+If you go up here, it ran all this stuff.
+
+277
+00:11:40,545 --> 00:11:43,130
+Create the tables, yada yada,
+and we're sitting right here
+
+278
+00:11:43,130 --> 00:11:44,267
+at this line.
+
+279
+00:11:44,267 --> 00:11:45,320
+As a matter of fact,
+
+280
+00:11:45,320 --> 00:11:47,634
+I think without causing too much trouble,
+
+281
+00:11:47,634 --> 00:11:51,982
+I can open that database
+and get into this database
+
+282
+00:11:51,982 --> 00:11:54,446
+right here, and there is no
+data in the follows table
+
+283
+00:11:54,446 --> 00:11:56,622
+and there is no data in the people table.
+
+284
+00:11:56,622 --> 00:11:58,358
+It's completely empty.
+
+285
+00:11:58,358 --> 00:11:59,191
+Okay?
+
+286
+00:11:59,191 --> 00:12:01,094
+So, we're waiting for the first one.
+
+287
+00:12:01,094 --> 00:12:04,191
+And, I'll go with mine, Doctor Chuck.
+
+288
+00:12:04,191 --> 00:12:07,844
+So, it's retrieving the hundred
+friends and they all were
+
+289
+00:12:07,844 --> 00:12:11,905
+brand new, they were all
+in the serted, right?
+
+290
+00:12:11,905 --> 00:12:13,423
+And, so now if I hit refresh,
+
+291
+00:12:13,423 --> 00:12:18,786
+we will see that Doctor
+Chuck is retrieved.
+
+292
+00:12:18,786 --> 00:12:21,442
+Who follows, so these are
+all the people I follow.
+
+293
+00:12:21,442 --> 00:12:23,170
+If one follows two.
+
+294
+00:12:23,170 --> 00:12:25,113
+So, of we look at here,
+we see that Doctor Chuck
+
+295
+00:12:25,113 --> 00:12:26,481
+follows Stephanie Teasley.
+
+296
+00:12:26,481 --> 00:12:28,561
+Because we grabbed the
+followers of Doctor Chuck,
+
+297
+00:12:28,561 --> 00:12:32,183
+you know, we're gonna have a
+record in all of the follows
+
+298
+00:12:32,183 --> 00:12:33,527
+for all the ones that I did.
+
+299
+00:12:33,527 --> 00:12:34,360
+Right?
+
+300
+00:12:34,360 --> 00:12:36,127
+So, these are all the people I followed.
+
+301
+00:12:36,127 --> 00:12:37,945
+And, we put them in.
+
+302
+00:12:37,945 --> 00:12:39,097
+Okay?
+
+303
+00:12:39,097 --> 00:12:42,417
+So, we can go back,
+
+304
+00:12:42,417 --> 00:12:45,338
+and we can, let's see, grab somebody.
+
+305
+00:12:45,338 --> 00:12:49,702
+Let's go grab Stephanie Teasley.
+
+306
+00:12:49,702 --> 00:12:53,519
+And let's pull out her friends.
+
+307
+00:12:53,519 --> 00:12:57,842
+So, we grabbed a hundred of her folks.
+
+308
+00:12:57,842 --> 00:13:00,649
+I got 14 left, that's my ex-rate limit.
+
+309
+00:13:00,649 --> 00:13:03,465
+So, I did Stephanie Teasley,
+so let's go back here.
+
+310
+00:13:03,465 --> 00:13:06,817
+So, you'll notice there's 101,
+there's probably gonna be,
+
+311
+00:13:06,817 --> 00:13:09,177
+oh 182, that's interesting.
+
+312
+00:13:09,177 --> 00:13:11,945
+So, we've retrieved Doctor
+Chuck and Stephanie Teasley,
+
+313
+00:13:11,945 --> 00:13:14,417
+and let's go take a look
+in the friends table,
+
+314
+00:13:14,417 --> 00:13:15,754
+the follows table.
+
+315
+00:13:15,754 --> 00:13:17,825
+Okay.
+
+316
+00:13:17,825 --> 00:13:19,346
+So, we have all of the people I follow
+
+317
+00:13:19,346 --> 00:13:22,060
+now all the people Stephanie follows.
+
+318
+00:13:22,060 --> 00:13:23,014
+Okay?
+
+319
+00:13:23,014 --> 00:13:24,372
+So, there we go.
+
+320
+00:13:24,372 --> 00:13:26,076
+So, let's go ahead and do somebody else.
+
+321
+00:13:26,076 --> 00:13:30,340
+Let's see, I think we
+both follow Tim McKay.
+
+322
+00:13:30,340 --> 00:13:38,183
+Where's Tim McKay?
+
+323
+00:13:38,183 --> 00:13:39,273
+Yeah, let's follow Tim McKay.
+
+324
+00:13:39,273 --> 00:13:40,597
+Let's see what, who Tim follows.
+
+325
+00:13:40,597 --> 00:13:44,963
+See if we can get like an overlap.
+
+326
+00:13:44,963 --> 00:13:46,164
+Oh, we revisited some.
+
+327
+00:13:46,164 --> 00:13:52,714
+Let's see if we can see
+this in the follows.
+
+328
+00:13:52,714 --> 00:13:54,379
+See people.
+
+329
+00:13:54,379 --> 00:13:56,857
+So, we've got Doctor Chuck retrieved,
+
+330
+00:13:56,857 --> 00:14:05,069
+and Tim McKay's somewhere down here.
+
+331
+00:14:05,069 --> 00:14:07,679
+It might take us a while before we get
+
+332
+00:14:07,679 --> 00:14:11,253
+any really good overlaps.
+
+333
+00:14:11,253 --> 00:14:15,971
+Let's see, let's do a database call,
+
+334
+00:14:15,971 --> 00:14:23,065
+let's see, let's do a database SQL.
+
+335
+00:14:23,065 --> 00:14:27,642
+Select.
+
+336
+00:14:27,642 --> 00:14:33,959
+Count.
+
+337
+00:14:33,959 --> 00:14:38,846
+Eh.
+
+338
+00:14:38,846 --> 00:14:40,231
+Okay, so let's just run this some more.
+
+339
+00:14:40,231 --> 00:14:41,198
+It's clearly working.
+
+340
+00:14:41,198 --> 00:14:44,775
+Now, one thing I can do
+here is I can hit enter
+
+341
+00:14:44,775 --> 00:14:47,478
+and it will just pick one randomly.
+
+342
+00:14:47,478 --> 00:14:49,674
+So, it grabbed live E D U TV.
+
+343
+00:14:49,674 --> 00:14:52,150
+And, I can, and let's
+see how many I got left.
+
+344
+00:14:52,150 --> 00:14:53,622
+We got 12 left.
+
+345
+00:14:53,622 --> 00:14:57,726
+And, now I can hit enter
+again, it picks another one.
+
+346
+00:14:57,726 --> 00:14:59,332
+That was the next one.
+
+347
+00:14:59,332 --> 00:15:00,660
+Oh, it's kinda pickin' 'em in order.
+
+348
+00:15:00,660 --> 00:15:01,493
+Is it pickin' 'em in order?
+
+349
+00:15:01,493 --> 00:15:03,796
+Let's go to people.
+
+350
+00:15:03,796 --> 00:15:05,029
+Yeah, it's pickin' these.
+
+351
+00:15:05,029 --> 00:15:07,228
+So, it's gonna, we can see that
+it's gonna just do the first
+
+352
+00:15:07,228 --> 00:15:10,444
+un-retrieved person, who is Nancy.
+
+353
+00:15:10,444 --> 00:15:12,108
+Let's let it retrieve Nancy.
+
+354
+00:15:12,108 --> 00:15:13,468
+So, it grabbed Nancy.
+
+355
+00:15:13,468 --> 00:15:14,301
+No.
+
+356
+00:15:14,301 --> 00:15:17,404
+So, we're finding some, and
+this table's gettin' really big.
+
+357
+00:15:17,404 --> 00:15:21,612
+So, if we look at the people
+table, we now have 455 people.
+
+358
+00:15:21,612 --> 00:15:27,794
+And, we have 467 following records.
+
+359
+00:15:27,794 --> 00:15:30,146
+And, so there we go.
+
+360
+00:15:30,146 --> 00:15:31,274
+Oops.
+
+361
+00:15:31,274 --> 00:15:34,587
+Hit enter, it does another one.
+
+362
+00:15:34,587 --> 00:15:35,578
+And, away we go.
+
+363
+00:15:35,578 --> 00:15:37,306
+So, you get the idea.
+
+364
+00:15:37,306 --> 00:15:41,244
+I can type quit to finish.
+
+365
+00:15:41,244 --> 00:15:48,709
+And, just to give you a, a
+little interesting bit of code
+
+366
+00:15:48,709 --> 00:15:51,245
+to show you how to do selects,
+I'm gonna do this TW join,
+
+367
+00:15:51,245 --> 00:15:53,092
+now you'll notice that we're not talking,
+
+368
+00:15:53,092 --> 00:15:55,788
+oh let's show you one thing.
+
+369
+00:15:55,788 --> 00:16:01,933
+LS one S L friends star SQ lite.
+
+370
+00:16:01,933 --> 00:16:06,357
+So, this database has it so
+I can restart this process
+
+371
+00:16:06,357 --> 00:16:09,381
+and run it again, and the
+database is still there.
+
+372
+00:16:09,381 --> 00:16:14,757
+And, so we just grab, (laughs) swear trek,
+
+373
+00:16:14,757 --> 00:16:16,618
+and so we can keep doing this.
+
+374
+00:16:16,618 --> 00:16:19,322
+And, and so this data it keeps extending.
+
+375
+00:16:19,322 --> 00:16:22,682
+So this is a restartable,
+restartable process.
+
+376
+00:16:22,682 --> 00:16:25,106
+I can run it and then tell it to grab
+
+377
+00:16:25,106 --> 00:16:26,842
+the next un-retrieved one.
+
+378
+00:16:26,842 --> 00:16:29,548
+And, so away we go, right?
+
+379
+00:16:29,548 --> 00:16:32,272
+And,
+
+380
+00:16:32,272 --> 00:16:33,311
+so that's part of it.
+
+381
+00:16:33,311 --> 00:16:39,031
+So, so I can, if I run out
+of my, I've got eight left,
+
+382
+00:16:39,031 --> 00:16:40,791
+oh how many do I have left, really?
+
+383
+00:16:40,791 --> 00:16:45,599
+Let's keep going.
+
+384
+00:16:45,599 --> 00:16:46,446
+How many do I got left?
+
+385
+00:16:46,446 --> 00:16:48,007
+I've got five left.
+
+386
+00:16:48,007 --> 00:16:48,958
+Okay.
+
+387
+00:16:48,958 --> 00:16:51,350
+Wait, oh I guess we'll just run it out.
+
+388
+00:16:51,350 --> 00:16:53,535
+So, I got four left.
+
+389
+00:16:53,535 --> 00:16:54,810
+You know what I should do is I should,
+
+390
+00:16:54,810 --> 00:16:55,817
+I can't change the code.
+
+391
+00:16:55,817 --> 00:16:57,198
+Yes, I can't change the code.
+
+392
+00:16:57,198 --> 00:17:00,238
+I can stop the code and
+I can quit the code.
+
+393
+00:17:00,238 --> 00:17:01,925
+So, what I'ma do is I'ma change this code
+
+394
+00:17:01,925 --> 00:17:05,060
+a little bit really quick.
+
+395
+00:17:05,060 --> 00:17:08,005
+And, I'ma print the
+headers of rate limiting
+
+396
+00:17:08,005 --> 00:17:11,631
+at the beginning
+
+397
+00:17:11,631 --> 00:17:18,760
+and at the end.
+
+398
+00:17:18,760 --> 00:17:19,959
+So, now I can run it again.
+
+399
+00:17:19,959 --> 00:17:22,551
+I changed the code, hopefully
+I didn't make a Python error.
+
+400
+00:17:22,551 --> 00:17:23,848
+Tell it to go get another one.
+
+401
+00:17:23,848 --> 00:17:25,087
+Hannah Devaro.
+
+402
+00:17:25,087 --> 00:17:28,295
+And, so I got three left.
+
+403
+00:17:28,295 --> 00:17:29,360
+Oops.
+
+404
+00:17:29,360 --> 00:17:33,746
+We'll see what happens when
+I run outta rate limit.
+
+405
+00:17:33,746 --> 00:17:37,127
+Run outta rate limit.
+
+406
+00:17:37,127 --> 00:17:39,006
+So, we have one left.
+
+407
+00:17:39,006 --> 00:17:40,494
+Hit enter.
+
+408
+00:17:40,494 --> 00:17:42,855
+Hit control k.
+
+409
+00:17:42,855 --> 00:17:43,688
+Open source dot org.
+
+410
+00:17:43,688 --> 00:17:44,830
+So, we have zero left.
+
+411
+00:17:44,830 --> 00:17:46,518
+That worked.
+
+412
+00:17:46,518 --> 00:17:48,150
+Now, let's see what happens.
+
+413
+00:17:48,150 --> 00:17:51,514
+I don't know what happens next.
+
+414
+00:17:51,514 --> 00:17:53,002
+Oh, we blew up.
+
+415
+00:17:53,002 --> 00:17:54,586
+Too many requests.
+
+416
+00:17:54,586 --> 00:17:57,186
+Oh we got a H T to be error four 29.
+
+417
+00:17:57,186 --> 00:18:02,193
+So that means that, going from Mark Cuban,
+
+418
+00:18:02,193 --> 00:18:04,089
+that was in line 48,
+
+419
+00:18:04,089 --> 00:18:11,222
+so the right thing to
+do would be in line 48,
+
+420
+00:18:11,222 --> 00:18:14,278
+we should really put this
+in a tri, tri except block.
+
+421
+00:18:14,278 --> 00:18:26,198
+Tri except block because
+it gives us an error.
+
+422
+00:18:26,198 --> 00:18:27,445
+Print.
+
+423
+00:18:27,445 --> 00:18:29,693
+Oh fiddle sticks.
+
+424
+00:18:29,693 --> 00:18:31,173
+How do I print the exception message?
+
+425
+00:18:31,173 --> 00:18:33,261
+I always am forgetting.
+
+426
+00:18:33,261 --> 00:18:39,834
+Print failed to retrieve.
+
+427
+00:18:39,834 --> 00:18:40,667
+Okay.
+
+428
+00:18:40,667 --> 00:18:43,098
+So, we'll put that in.
+
+429
+00:18:43,098 --> 00:18:51,117
+Now, if I run it.
+
+430
+00:18:51,117 --> 00:18:52,324
+And, then I have to put a break here
+
+431
+00:18:52,324 --> 00:18:53,732
+because that's not good.
+
+432
+00:18:53,732 --> 00:19:00,599
+Break.
+
+433
+00:19:00,599 --> 00:19:01,432
+Failed to retrieve.
+
+434
+00:19:01,432 --> 00:19:04,602
+Now, I gotta figure out, oh I,
+see I never know how to print
+
+435
+00:19:04,602 --> 00:19:07,778
+out the error message.
+
+436
+00:19:07,778 --> 00:19:09,282
+Yeah.
+
+437
+00:19:09,282 --> 00:19:12,482
+So, I have to, I never,
+see that's the weird thing
+
+438
+00:19:12,482 --> 00:19:15,914
+about stuff is that I
+don't ever remember enough.
+
+439
+00:19:15,914 --> 00:19:19,860
+I don't remember the
+syntax what I say here
+
+440
+00:19:19,860 --> 00:19:22,043
+to print the error message out.
+
+441
+00:19:22,043 --> 00:19:24,150
+So, I'm gonna go to Google,
+
+442
+00:19:24,150 --> 00:19:35,463
+and I'm gonna say print out the
+exception message in Python.
+
+443
+00:19:35,463 --> 00:19:37,599
+Print out the exception message in Python.
+
+444
+00:19:37,599 --> 00:19:44,813
+Oh, Python three, hello.
+
+445
+00:19:44,813 --> 00:19:51,103
+Okay, so let's go find it
+here in the documentation.
+
+446
+00:19:51,103 --> 00:19:53,199
+Except.
+
+447
+00:19:53,199 --> 00:19:57,523
+Except.
+
+448
+00:19:57,523 --> 00:19:58,620
+Is this it?
+
+449
+00:19:58,620 --> 00:20:15,676
+Is this what I say?
+
+450
+00:20:15,676 --> 00:20:21,321
+I just wanna print out the message.
+
+451
+00:20:21,321 --> 00:20:23,089
+Ah, that's it.
+
+452
+00:20:23,089 --> 00:20:26,789
+Except.
+
+453
+00:20:26,789 --> 00:20:42,959
+Let's try this.
+
+454
+00:20:42,959 --> 00:20:45,081
+So, this is part of Python
+programming is like,
+
+455
+00:20:45,081 --> 00:20:46,321
+for me at least,
+
+456
+00:20:46,321 --> 00:20:50,988
+'cause I'm just not like a
+genius expert at this stuff.
+
+457
+00:20:50,988 --> 00:20:53,564
+(laughs)
+
+458
+00:20:53,564 --> 00:20:55,812
+This is one thing I like about Python,
+
+459
+00:20:55,812 --> 00:20:58,332
+is you can guess stuff and
+sometimes you guess right.
+
+460
+00:20:58,332 --> 00:20:59,165
+So, there we go.
+
+461
+00:20:59,165 --> 00:21:01,188
+We got the error, we got the
+nice little error message
+
+462
+00:21:01,188 --> 00:21:03,397
+and we see error four
+29, too many requests.
+
+463
+00:21:03,397 --> 00:21:06,428
+So, that cleans that up nicely.
+
+464
+00:21:06,428 --> 00:21:09,557
+So we're, we have run out of requests.
+
+465
+00:21:09,557 --> 00:21:15,046
+And on that, it is a good,
+good time to say thanks for
+
+466
+00:21:15,046 --> 00:21:19,633
+listening and I hope that
+you found this valuable.
+
+467
+00:21:19,633 --> 00:21:22,216
+(smooth music)
+

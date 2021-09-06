@@ -1,0 +1,1156 @@
+1
+00:00:00,726 --> 00:00:08,296
+(ambient music)
+
+2
+00:00:08,296 --> 00:00:09,129
+- Hello everybody.
+
+3
+00:00:09,129 --> 00:00:10,034
+Welcome to Python for Everybody,
+
+4
+00:00:10,034 --> 00:00:12,357
+We're doing a bit of code walk through.
+
+5
+00:00:12,357 --> 00:00:13,930
+If you wanna follow along,
+
+6
+00:00:13,930 --> 00:00:16,103
+you can download the
+zip file for the code,
+
+7
+00:00:16,103 --> 00:00:18,219
+from our website.
+
+8
+00:00:18,219 --> 00:00:20,623
+We are in the process of retrieving data
+
+9
+00:00:20,623 --> 00:00:24,994
+from this gmane server, one
+that I've made a copy of.
+
+10
+00:00:24,994 --> 00:00:28,039
+And we have so far spider-ed it all,
+
+11
+00:00:28,039 --> 00:00:30,691
+ended up with 600 megabytes
+of spider-ed information.
+
+12
+00:00:30,691 --> 00:00:33,861
+We have ran a rather
+complex clean up process
+
+13
+00:00:33,861 --> 00:00:36,690
+that you probably don't
+need to fully understand.
+
+14
+00:00:36,690 --> 00:00:38,810
+You can look at it for patterns,
+
+15
+00:00:38,810 --> 00:00:40,602
+but, in general, the clean up process
+
+16
+00:00:40,602 --> 00:00:44,048
+will be very sensitive to the data.
+
+17
+00:00:44,048 --> 00:00:45,743
+And then we have this index.sqlite,
+
+18
+00:00:45,743 --> 00:00:48,505
+which is 260 megabytes right now.
+
+19
+00:00:48,505 --> 00:00:51,148
+And we are going to now do a--
+
+20
+00:00:51,148 --> 00:00:53,827
+the easy, the fun, easy, bits here.
+
+21
+00:00:53,827 --> 00:00:55,503
+Where we're gonna run little queries
+
+22
+00:00:55,503 --> 00:00:56,688
+that just pull data out.
+
+23
+00:00:56,688 --> 00:00:58,351
+So these are much simpler.
+
+24
+00:00:58,351 --> 00:01:01,207
+So part of what I wrote
+when I was doing this,
+
+25
+00:01:01,207 --> 00:01:02,801
+is I wanted to do some simple,
+
+26
+00:01:02,801 --> 00:01:06,617
+basic calculations on the data, to make--
+
+27
+00:01:06,617 --> 00:01:09,777
+I really was sort of looking
+for anomalies, right?
+
+28
+00:01:09,777 --> 00:01:11,880
+What was working, what wasn't working.
+
+29
+00:01:11,880 --> 00:01:13,867
+So I wrote a series of
+really simple things,
+
+30
+00:01:13,867 --> 00:01:16,640
+like this gbasic.
+
+31
+00:01:16,640 --> 00:01:21,047
+A gbasic code, just to give
+me some basic data, right?
+
+32
+00:01:21,047 --> 00:01:23,469
+So I wrote things down,
+and I counted things.
+
+33
+00:01:23,469 --> 00:01:27,550
+And so, do I need urllib
+request in this one?
+
+34
+00:01:27,550 --> 00:01:29,111
+I don't think so.
+
+35
+00:01:29,111 --> 00:01:31,561
+Let's fix that bug, it's not there.
+
+36
+00:01:31,561 --> 00:01:34,267
+No reason to put any
+of that stuff in there.
+
+37
+00:01:34,267 --> 00:01:37,132
+So, it just, it reads that index.sqlite,
+
+38
+00:01:37,132 --> 00:01:39,367
+which is our cleaned up data.
+
+39
+00:01:39,367 --> 00:01:41,402
+It reads through and makes it dictionary.
+
+40
+00:01:41,402 --> 00:01:42,879
+This pattern you're gonna see a lot,
+
+41
+00:01:42,879 --> 00:01:47,982
+where I'm gonna make a
+dictionary of id to senders.
+
+42
+00:01:47,982 --> 00:01:50,594
+Save myself repeatedly looking at things.
+
+43
+00:01:50,594 --> 00:01:53,485
+I'm gonna grab the subjects,
+I've cashed them all.
+
+44
+00:01:53,485 --> 00:01:55,109
+I could've done this all with sql,
+
+45
+00:01:55,109 --> 00:01:59,353
+but I just wanted to do things faster.
+
+46
+00:01:59,353 --> 00:02:03,346
+And now I'm gonna go through
+each of these messages,
+
+47
+00:02:03,346 --> 00:02:05,188
+and make a dictionary of them.
+
+48
+00:02:05,188 --> 00:02:07,064
+Gonna put a lot of stuff in memory.
+
+49
+00:02:07,064 --> 00:02:09,494
+And then I'm going to do some counts.
+
+50
+00:02:09,494 --> 00:02:12,062
+I'm gonna see who has
+sent the most, right?
+
+51
+00:02:12,062 --> 00:02:16,581
+The organizations, and so
+now I've gotta re-go through
+
+52
+00:02:16,581 --> 00:02:21,307
+all the messages.
+
+53
+00:02:21,307 --> 00:02:24,401
+So you'll notice that I'm
+not selecting the body,
+
+54
+00:02:24,401 --> 00:02:27,797
+or the headers here, I am
+just getting sender id,
+
+55
+00:02:27,797 --> 00:02:31,130
+subject id, I probably
+could've done this with a join,
+
+56
+00:02:31,130 --> 00:02:32,832
+it would have been cleaner.
+
+57
+00:02:32,832 --> 00:02:35,449
+You can do that, you can make that change.
+
+58
+00:02:35,449 --> 00:02:41,052
+Do that with a join so it's cleaner.
+
+59
+00:02:41,052 --> 00:02:42,592
+So I'm going through all the messages,
+
+60
+00:02:42,592 --> 00:02:43,738
+except not the bodies.
+
+61
+00:02:43,738 --> 00:02:45,399
+So this is going to be really quick.
+
+62
+00:02:45,399 --> 00:02:48,623
+And I'm pulling out the sender's id,
+
+63
+00:02:48,623 --> 00:02:50,577
+I'm breaking the sender into pieces.
+
+64
+00:02:50,577 --> 00:02:52,122
+See, my data's clean now.
+
+65
+00:02:52,122 --> 00:02:54,617
+I cleaned it all up in
+the previous processes.
+
+66
+00:02:54,617 --> 00:02:56,312
+And if I don't have two pieces,
+
+67
+00:02:56,312 --> 00:02:58,624
+I continue, and I get the domain name.
+
+68
+00:02:58,624 --> 00:03:03,412
+So I have the person, I'm doing a basic
+
+69
+00:03:03,412 --> 00:03:07,218
+dictionary histogram for
+the people and the domains.
+
+70
+00:03:07,218 --> 00:03:10,804
+And then I'm going to sort them.
+
+71
+00:03:10,804 --> 00:03:12,946
+Alright.
+
+72
+00:03:12,946 --> 00:03:15,320
+With a sorted.
+
+73
+00:03:15,320 --> 00:03:16,912
+And we're gonna grab the key,
+
+74
+00:03:16,912 --> 00:03:20,829
+we're gonna sort it by the
+how many there are, reverse.
+
+75
+00:03:20,829 --> 00:03:25,109
+And then print out the top
+few of the organizations,
+
+76
+00:03:25,109 --> 00:03:27,091
+and the top few of the people.
+
+77
+00:03:27,091 --> 00:03:30,026
+Kay, so we'll just run that code.
+
+78
+00:03:30,026 --> 00:03:33,878
+Python gbasic.py, P Y.
+
+79
+00:03:33,878 --> 00:03:36,379
+Let's type the, dump out the top 10.
+
+80
+00:03:36,379 --> 00:03:39,546
+So we loaded 59,000 messages,
+
+81
+00:03:39,546 --> 00:03:42,749
+29,000 subjects, and 1,800 senders.
+
+82
+00:03:42,749 --> 00:03:45,408
+And figured out the top 10 people,
+
+83
+00:03:45,408 --> 00:03:47,366
+and the top 10 organizations.
+
+84
+00:03:47,366 --> 00:03:50,631
+And you can write
+various things like that,
+
+85
+00:03:50,631 --> 00:03:52,975
+that just sort of,
+scream through your data,
+
+86
+00:03:52,975 --> 00:03:57,343
+and it's good to get sanity
+checking on your data.
+
+87
+00:03:57,343 --> 00:04:00,070
+Okay, so that's gbasic.
+
+88
+00:04:00,070 --> 00:04:04,109
+Now I wanna do gword.py.
+
+89
+00:04:04,109 --> 00:04:05,797
+So that's kinda fun.
+
+90
+00:04:05,797 --> 00:04:09,040
+Gword.py, I don't need urllib,
+
+91
+00:04:09,040 --> 00:04:11,593
+why do I keep putting
+urllib in all these things?
+
+92
+00:04:11,593 --> 00:04:13,795
+So we'll get rid of that.
+
+93
+00:04:13,795 --> 00:04:16,471
+So this is really simple
+because I'm just gonna
+
+94
+00:04:16,471 --> 00:04:18,689
+go for the words and the subject line.
+
+95
+00:04:18,689 --> 00:04:21,442
+And so I go through index.sqlite,
+
+96
+00:04:21,442 --> 00:04:25,756
+I read in all of the subjects.
+
+97
+00:04:25,756 --> 00:04:27,972
+And I make a dictionary of those.
+
+98
+00:04:27,972 --> 00:04:32,089
+And then I go and find
+all of the subjects.
+
+99
+00:04:32,089 --> 00:04:33,950
+And then I'm doing this code right here,
+
+100
+00:04:33,950 --> 00:04:41,104
+I'm pulling out the subject
+based on the message.
+
+101
+00:04:41,104 --> 00:04:42,946
+And I'm doing this so
+that when the subjects
+
+102
+00:04:42,946 --> 00:04:46,676
+are used more than once I
+count the words more than once.
+
+103
+00:04:46,676 --> 00:04:48,584
+This str.maketrans,
+
+104
+00:04:48,584 --> 00:04:52,081
+I talked about that in a earlier chapter.
+
+105
+00:04:52,081 --> 00:04:55,552
+This basically throws away
+punctuation and numbers,
+
+106
+00:04:55,552 --> 00:04:56,971
+so that when I make my words,
+
+107
+00:04:56,971 --> 00:04:59,734
+I don't end up with words
+that are like dashes,
+
+108
+00:04:59,734 --> 00:05:01,944
+it compresses them down.
+
+109
+00:05:01,944 --> 00:05:05,091
+Then I strip it, I convert
+everything to lowercase.
+
+110
+00:05:05,091 --> 00:05:06,619
+This is basically just to keep
+
+111
+00:05:06,619 --> 00:05:09,577
+too many words from showing
+up, and I do a split.
+
+112
+00:05:09,577 --> 00:05:12,210
+And then I got a counts, a dictionary.
+
+113
+00:05:12,210 --> 00:05:20,407
+So this is a no punctuation,
+no numbers, dictionary count.
+
+114
+00:05:20,407 --> 00:05:25,262
+And then I just take
+the, and do a dictionary.
+
+115
+00:05:25,262 --> 00:05:29,513
+And then I sort them in reverse order.
+
+116
+00:05:29,513 --> 00:05:31,578
+And then I figure out what
+the highest and lowest is,
+
+117
+00:05:31,578 --> 00:05:35,177
+by running through a--
+
+118
+00:05:35,177 --> 00:05:38,303
+I could have probably done
+this with a max and a min,
+
+119
+00:05:38,303 --> 00:05:41,659
+if I felt like it.
+
+120
+00:05:41,659 --> 00:05:46,369
+And so now I have the
+highest and the lowest.
+
+121
+00:05:46,369 --> 00:05:48,917
+You know, I should've done
+a max and a min on that one.
+
+122
+00:05:48,917 --> 00:05:50,026
+Why'd I do that?
+
+123
+00:05:50,026 --> 00:05:53,154
+But oh well.
+
+124
+00:05:53,154 --> 00:05:55,721
+And now I've got to spread out the size,
+
+125
+00:05:55,721 --> 00:05:57,915
+and so I'm gonna produce
+this file gword.js,
+
+126
+00:05:57,915 --> 00:06:01,564
+which is to needed by the visualization,
+
+127
+00:06:01,564 --> 00:06:07,204
+cause it's gonna use d3.js, a
+word visualizer, and gword.js.
+
+128
+00:06:07,204 --> 00:06:09,259
+I have to tell it how big the text is,
+
+129
+00:06:09,259 --> 00:06:11,690
+and so I'm doing some text normalization,
+
+130
+00:06:11,690 --> 00:06:13,951
+took me a little experimentation.
+
+131
+00:06:13,951 --> 00:06:24,221
+So if I run this now, and
+I say python gword.js.
+
+132
+00:06:24,221 --> 00:06:29,352
+And I say python3 gword.js,
+which is a lot better.
+
+133
+00:06:29,352 --> 00:06:32,786
+Oh, not--
+
+134
+00:06:32,786 --> 00:06:35,140
+Python.
+
+135
+00:06:35,140 --> 00:06:38,732
+Okay, so now I can go
+look at the gword.js,
+
+136
+00:06:38,732 --> 00:06:39,856
+wherever that is.
+
+137
+00:06:39,856 --> 00:06:42,068
+Gword.js, yep.
+
+138
+00:06:42,068 --> 00:06:43,261
+And so this is basically,
+
+139
+00:06:43,261 --> 00:06:47,390
+it normalized all the frequencies,
+
+140
+00:06:47,390 --> 00:06:51,109
+and made it font size,
+these are font sizes now.
+
+141
+00:06:51,109 --> 00:06:54,097
+Okay, and so this is just
+the data that's needed
+
+142
+00:06:54,097 --> 00:06:56,678
+by this gword.jm, which uses
+
+143
+00:06:56,678 --> 00:07:01,713
+this d3 visualization, word cloud code.
+
+144
+00:07:01,713 --> 00:07:03,584
+So this pulls in all my data,
+
+145
+00:07:03,584 --> 00:07:05,930
+and then this is just some java script
+
+146
+00:07:05,930 --> 00:07:11,340
+that draws the picture
+in on the page, okay?
+
+147
+00:07:11,340 --> 00:07:13,691
+And so the easy part now is to just
+
+148
+00:07:13,691 --> 00:07:18,982
+open gword.htm in a browser,
+
+149
+00:07:18,982 --> 00:07:21,370
+it just so happens on
+a Mac, I can do this.
+
+150
+00:07:21,370 --> 00:07:27,760
+And so that gives me a word
+cloud based on that data.
+
+151
+00:07:27,760 --> 00:07:30,222
+And it kinda randomizes it,
+it shows different stuff,
+
+152
+00:07:30,222 --> 00:07:35,035
+but it's using this.
+
+153
+00:07:35,035 --> 00:07:39,220
+It's using this data to generate
+how big those things are,
+
+154
+00:07:39,220 --> 00:07:41,037
+and then using a bit of
+randomness and simulating
+
+155
+00:07:41,037 --> 00:07:42,535
+the kneeling to lay it out.
+
+156
+00:07:42,535 --> 00:07:45,217
+That's not stuff that we
+actually have to worry about.
+
+157
+00:07:45,217 --> 00:07:46,050
+Okay?
+
+158
+00:07:46,050 --> 00:07:47,619
+So that's how we get to the point
+
+159
+00:07:47,619 --> 00:07:52,451
+where we're seeing a word cloud from this.
+
+160
+00:07:52,451 --> 00:07:55,216
+Now we're gonna do another visualization.
+
+161
+00:07:55,216 --> 00:07:58,179
+And this time we're gonna
+do a line visualization.
+
+162
+00:07:58,179 --> 00:08:00,582
+And we're gonna create
+a thing called gline.js
+
+163
+00:08:00,582 --> 00:08:03,063
+and produce with another html file.
+
+164
+00:08:03,063 --> 00:08:06,929
+We're gonna use d3, and
+produce that output.
+
+165
+00:08:06,929 --> 00:08:13,348
+So let's say goodbye here,
+bye, goodbye, goodbye, goodbye.
+
+166
+00:08:13,348 --> 00:08:19,528
+So gline.py, get rid of that file.
+
+167
+00:08:19,528 --> 00:08:22,981
+So again, I'm gonna
+preload all of the senders.
+
+168
+00:08:22,981 --> 00:08:25,899
+In this case, and again, I
+could've done this with a join,
+
+169
+00:08:25,899 --> 00:08:27,773
+probably should have
+done this with a join.
+
+170
+00:08:27,773 --> 00:08:32,614
+I'm going to preload all the messages.
+
+171
+00:08:32,614 --> 00:08:35,167
+The sender id, subject id, et cetera.
+
+172
+00:08:35,167 --> 00:08:36,846
+And I'll load those up.
+
+173
+00:08:36,846 --> 00:08:39,926
+And now I'm going to read through,
+
+174
+00:08:39,926 --> 00:08:45,144
+I'm going to have the sending
+organizations and the senders.
+
+175
+00:08:45,144 --> 00:08:49,418
+And I'm going to split the senders,
+
+176
+00:08:49,418 --> 00:08:52,137
+and I'm gonna have the
+sending organizations,
+
+177
+00:08:52,137 --> 00:08:53,764
+and then I'm going to
+do a simple dictionary,
+
+178
+00:08:53,764 --> 00:08:56,410
+as I accumulate the sending organizations
+
+179
+00:08:56,410 --> 00:08:59,572
+by splitting the person's
+name into "at" signs,
+
+180
+00:08:59,572 --> 00:09:01,545
+and then based on the organization,
+
+181
+00:09:01,545 --> 00:09:03,821
+I accumulate it.
+
+182
+00:09:03,821 --> 00:09:06,830
+And then I sort them,
+and I pull out the top 10
+
+183
+00:09:06,830 --> 00:09:10,068
+organizations, print those out.
+
+184
+00:09:10,068 --> 00:09:15,437
+And now I'm going to
+produce, break this down,
+
+185
+00:09:15,437 --> 00:09:20,488
+into months and I'll show
+you what this looks like,
+
+186
+00:09:20,488 --> 00:09:21,331
+in a second.
+
+187
+00:09:21,331 --> 00:09:24,483
+Let's go to the gline.js.
+
+188
+00:09:24,483 --> 00:09:27,007
+So the month looks like this.
+
+189
+00:09:27,007 --> 00:09:28,390
+Okay, so the month looks like that,
+
+190
+00:09:28,390 --> 00:09:31,792
+so that's the first seven
+characters of the date.
+
+191
+00:09:31,792 --> 00:09:35,681
+So if we look at the date.
+
+192
+00:09:35,681 --> 00:09:36,565
+The date looks like that,
+
+193
+00:09:36,565 --> 00:09:39,475
+and the month is the
+first seven characters.
+
+194
+00:09:39,475 --> 00:09:44,187
+And this is the data
+that I've gotta give it.
+
+195
+00:09:44,187 --> 00:09:45,433
+I'll clean that up in a second,
+
+196
+00:09:45,433 --> 00:09:49,853
+that data will look better in a moment.
+
+197
+00:09:49,853 --> 00:09:56,211
+Go back to gline.py, and so this is,
+
+198
+00:09:56,211 --> 00:10:00,754
+we're doing a, the key is a topple,
+
+199
+00:10:00,754 --> 00:10:05,691
+which is the month, and
+which organization it is,
+
+200
+00:10:05,691 --> 00:10:06,991
+that did it.
+
+201
+00:10:06,991 --> 00:10:08,827
+And it's only in the
+top ten organizations,
+
+202
+00:10:08,827 --> 00:10:15,286
+and then we're gonna do a,
+
+203
+00:10:15,286 --> 00:10:17,816
+we're going to basically do a dictionary,
+
+204
+00:10:17,816 --> 00:10:20,187
+where the key is a topple.
+
+205
+00:10:20,187 --> 00:10:22,054
+And then we're gonna sort it.
+
+206
+00:10:22,054 --> 00:10:26,156
+Sort by key in this case, not by value.
+
+207
+00:10:26,156 --> 00:10:29,595
+That's in the months,
+it's gonna sort that.
+
+208
+00:10:29,595 --> 00:10:32,816
+And then we're going to
+write all this data out
+
+209
+00:10:32,816 --> 00:10:34,753
+into gline.js.
+
+210
+00:10:34,753 --> 00:10:36,075
+So let's go ahead and run this,
+
+211
+00:10:36,075 --> 00:10:38,104
+and again, this is just the data
+
+212
+00:10:38,104 --> 00:10:41,367
+that has to be written in a way that
+
+213
+00:10:41,367 --> 00:10:43,118
+the Java Script can understand it.
+
+214
+00:10:43,118 --> 00:10:50,630
+Python gline, python3 giline.py.
+
+215
+00:10:50,630 --> 00:10:52,227
+Okay, so top 10 organizations.
+
+216
+00:10:52,227 --> 00:10:54,695
+So now let's take a
+look at the java script.
+
+217
+00:10:54,695 --> 00:10:56,217
+So this is what it looks like.
+
+218
+00:10:56,217 --> 00:11:01,680
+So it just so happens
+that you gotta tell it,
+
+219
+00:11:01,680 --> 00:11:04,523
+these are the data points,
+these are the lines.
+
+220
+00:11:04,523 --> 00:11:07,550
+This is the year, the line
+for University of Michigan,
+
+221
+00:11:07,550 --> 00:11:09,981
+gmail.com, swinsborg.com,
+
+222
+00:11:09,981 --> 00:11:13,267
+so this, this first
+column is that line point.
+
+223
+00:11:13,267 --> 00:11:14,912
+So the next line points.
+
+224
+00:11:14,912 --> 00:11:18,023
+So all this code was to get the data,
+
+225
+00:11:18,023 --> 00:11:22,168
+in such a way that I could
+produce this java script file.
+
+226
+00:11:22,168 --> 00:11:27,618
+Because, if I look at
+gline.htm, I need that data.
+
+227
+00:11:27,618 --> 00:11:29,483
+In that particular format.
+
+228
+00:11:29,483 --> 00:11:33,503
+And I've got all this stuff,
+I'll make a line chart.
+
+229
+00:11:33,503 --> 00:11:34,933
+And I draw with this data,
+
+230
+00:11:34,933 --> 00:11:37,721
+that data, I had to go
+read all the documentation
+
+231
+00:11:37,721 --> 00:11:40,689
+on how to figure this stuff out.
+
+232
+00:11:40,689 --> 00:11:42,217
+Alright, and now that's the data
+
+233
+00:11:42,217 --> 00:11:43,254
+that I'm going to use.
+
+234
+00:11:43,254 --> 00:11:44,432
+And I had to figure this out,
+
+235
+00:11:44,432 --> 00:11:46,672
+and I can transform
+it, and make it pretty.
+
+236
+00:11:46,672 --> 00:11:48,535
+It took me quite a while
+to get this to work,
+
+237
+00:11:48,535 --> 00:11:50,486
+and this is not a Java Script class,
+
+238
+00:11:50,486 --> 00:11:53,364
+nor a "How to Visualize in d3",
+
+239
+00:11:53,364 --> 00:11:57,603
+but basically we pulled all that stuff in,
+
+240
+00:11:57,603 --> 00:12:01,891
+and there's the gline that
+came from the Java Script,
+
+241
+00:12:01,891 --> 00:12:03,830
+and then it makes a arrayToDataTable,
+
+242
+00:12:03,830 --> 00:12:06,856
+and then that data table
+is what gline draws.
+
+243
+00:12:06,856 --> 00:12:09,015
+So, with no further adieu,
+
+244
+00:12:09,015 --> 00:12:18,769
+let's open gline.htm to show that data.
+
+245
+00:12:18,769 --> 00:12:19,602
+So there you go.
+
+246
+00:12:19,602 --> 00:12:21,720
+That's the Sakai Developer Participation
+
+247
+00:12:21,720 --> 00:12:25,815
+from 2015 through 2000, uh,
+
+248
+00:12:25,815 --> 00:12:29,833
+2005 through 2015, based
+on which organizations
+
+249
+00:12:29,833 --> 00:12:33,591
+did the most commits in Sakai.
+
+250
+00:12:33,591 --> 00:12:35,982
+And so I know that I
+haven't done all this code
+
+251
+00:12:35,982 --> 00:12:38,983
+full justice, there's a lot of code here.
+
+252
+00:12:38,983 --> 00:12:41,505
+The fun is just to kinda
+run it, and see it.
+
+253
+00:12:41,505 --> 00:12:43,742
+And then when the time comes,
+
+254
+00:12:43,742 --> 00:12:45,885
+to come back and see the techniques
+
+255
+00:12:45,885 --> 00:12:47,418
+that are used when you're trying
+
+256
+00:12:47,418 --> 00:12:51,025
+to build your own visualization pipeline.
+
+257
+00:12:51,025 --> 00:12:55,805
+So I hope that you found this useful.
+
+258
+00:12:55,805 --> 00:12:57,195
+You know, this is a lot of code,
+
+259
+00:12:57,195 --> 00:12:59,134
+hard to explain in 15-20 minutes,
+
+260
+00:12:59,134 --> 00:13:01,956
+but I hope you take some
+time and look it over.
+
+261
+00:13:01,956 --> 00:13:05,039
+And I hope you found all these videos,
+
+262
+00:13:05,039 --> 00:13:06,919
+this is kinda the last walk-through video
+
+263
+00:13:06,919 --> 00:13:08,954
+for chapter 16 of the book.
+
+264
+00:13:08,954 --> 00:13:11,767
+And so I hope that I
+will see you on the net.
+
+265
+00:13:11,767 --> 00:13:14,434
+(ambient music)
+

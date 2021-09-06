@@ -1,0 +1,1317 @@
+1
+00:00:00,000 --> 00:00:07,886
+(jazz music)
+
+2
+00:00:07,886 --> 00:00:08,719
+- [Charles] Hello everybody,
+
+3
+00:00:08,719 --> 00:00:09,965
+and welcome to Python for Everybody.
+
+4
+00:00:09,965 --> 00:00:12,099
+We're gonna do some code walkthroughs,
+
+5
+00:00:12,099 --> 00:00:14,781
+actually running some code.
+
+6
+00:00:14,781 --> 00:00:16,839
+And if you want to follow
+along with the code,
+
+7
+00:00:16,839 --> 00:00:19,481
+the sample code is here
+in the materials of my
+
+8
+00:00:19,481 --> 00:00:21,842
+Python for Everybody website.
+
+9
+00:00:21,842 --> 00:00:23,098
+So you can take a look at that.
+
+10
+00:00:23,098 --> 00:00:26,267
+So, the code we're
+going to look at is from
+
+11
+00:00:26,267 --> 00:00:28,113
+the database chapter.
+
+12
+00:00:28,113 --> 00:00:31,114
+And we're gonna look at tracks dot PY.
+
+13
+00:00:31,114 --> 00:00:32,792
+So a lot of the lectures that I give in
+
+14
+00:00:32,792 --> 00:00:36,424
+this database chapter are just about SQL.
+
+15
+00:00:36,424 --> 00:00:38,568
+And this is really about SQL in Python.
+
+16
+00:00:38,568 --> 00:00:41,348
+So I'll go through this in some detail.
+
+17
+00:00:41,348 --> 00:00:44,227
+So the code that I'm going
+through is in Tracks.
+
+18
+00:00:44,227 --> 00:00:47,136
+There's also Tracks dot
+Zip that you can grab.
+
+19
+00:00:47,136 --> 00:00:48,475
+It has these two things.
+
+20
+00:00:48,475 --> 00:00:53,260
+It's got this Library dot XML
+file, which you can export
+
+21
+00:00:53,260 --> 00:00:55,781
+from your ...
+
+22
+00:00:55,781 --> 00:00:57,441
+If you have iTunes you can export this.
+
+23
+00:00:57,441 --> 00:00:59,415
+Or you can just play with my iTunes.
+
+24
+00:00:59,415 --> 00:01:02,543
+And so this is also gonna
+review how to read XML.
+
+25
+00:01:02,543 --> 00:01:05,388
+So we're gonna actually
+pull all this data.
+
+26
+00:01:05,388 --> 00:01:11,641
+And this XML that Apple
+produces out of iTunes,
+
+27
+00:01:11,641 --> 00:01:14,409
+is a little weird in that
+it's kinda key values.
+
+28
+00:01:14,409 --> 00:01:15,811
+And so you see key value pairs.
+
+29
+00:01:15,811 --> 00:01:18,339
+And it even uses the word dictionary.
+
+30
+00:01:18,339 --> 00:01:21,211
+And so it's like, I'm gonna
+make a dictionary that has this,
+
+31
+00:01:21,211 --> 00:01:22,876
+then a dictionary within a dictionary.
+
+32
+00:01:22,876 --> 00:01:26,581
+This to me would be so
+nice if it was Json,
+
+33
+00:01:26,581 --> 00:01:30,172
+because it's really a
+list of dictionaries.
+
+34
+00:01:30,172 --> 00:01:31,750
+This is a dictionary.
+
+35
+00:01:31,750 --> 00:01:32,795
+Then another dictionary.
+
+36
+00:01:32,795 --> 00:01:34,686
+Then another dictionary.
+
+37
+00:01:34,686 --> 00:01:36,461
+Then the key for that dictionary.
+
+38
+00:01:36,461 --> 00:01:37,294
+And it's ...
+
+39
+00:01:37,294 --> 00:01:41,134
+It's a weird, weird format.
+
+40
+00:01:41,134 --> 00:01:43,178
+But we'll write some Python
+to be able to read it.
+
+41
+00:01:43,178 --> 00:01:48,652
+And so, you export that from iTunes.
+
+42
+00:01:48,652 --> 00:01:52,228
+And you can use my file,
+or you can use your file.
+
+43
+00:01:52,228 --> 00:01:55,461
+Might be more fun to use your file.
+
+44
+00:01:55,461 --> 00:01:57,163
+So here's Tracks dot PY.
+
+45
+00:01:57,163 --> 00:01:59,177
+We're gonna do some XML.
+
+46
+00:01:59,177 --> 00:02:01,343
+And so import that.
+
+47
+00:02:01,343 --> 00:02:03,348
+We're gonna import
+SQLite3 because we wanna
+
+48
+00:02:03,348 --> 00:02:04,666
+talk to the database.
+
+49
+00:02:04,666 --> 00:02:06,537
+And then we're gonna make
+a database connection.
+
+50
+00:02:06,537 --> 00:02:10,060
+And in this, once we run this,
+you'll see that that file
+
+51
+00:02:10,060 --> 00:02:12,225
+will exist.
+
+52
+00:02:12,225 --> 00:02:16,175
+And so right now, if
+I'm in my Tracks Data,
+
+53
+00:02:16,175 --> 00:02:17,720
+that file doesn't exist.
+
+54
+00:02:17,720 --> 00:02:20,997
+But, what we'll see, is this
+is going to actually create it.
+
+55
+00:02:20,997 --> 00:02:22,801
+Now remember that we have a cursor,
+
+56
+00:02:22,801 --> 00:02:24,050
+which is sort of our ...
+
+57
+00:02:24,050 --> 00:02:24,975
+Like a file handle.
+
+58
+00:02:24,975 --> 00:02:26,993
+It's really a database handle, as it were.
+
+59
+00:02:26,993 --> 00:02:31,362
+And in order to sort of
+bootstrap this nicely,
+
+60
+00:02:31,362 --> 00:02:32,195
+we are going ...
+
+61
+00:02:32,195 --> 00:02:35,419
+Because this code is
+gonna run all the time,
+
+62
+00:02:35,419 --> 00:02:38,365
+it's gonna run and read
+all of Library dot XML.
+
+63
+00:02:38,365 --> 00:02:42,570
+In later things we won't wipe
+out the database every time.
+
+64
+00:02:42,570 --> 00:02:46,164
+And so, I'm executing a
+script, which is a series
+
+65
+00:02:46,164 --> 00:02:49,252
+of SQL commands separated by semicolons.
+
+66
+00:02:49,252 --> 00:02:51,653
+So I'm gonna throw away the
+artist table, album table
+
+67
+00:02:51,653 --> 00:02:53,173
+and track table.
+
+68
+00:02:53,173 --> 00:02:56,049
+Very similar to the stuff
+we covered in lecture.
+
+69
+00:02:56,049 --> 00:02:57,411
+And then I'm gonna do the create table.
+
+70
+00:02:57,411 --> 00:02:59,204
+And I'm doing this all automatically.
+
+71
+00:02:59,204 --> 00:03:00,074
+And so ...
+
+72
+00:03:00,074 --> 00:03:01,938
+And you'll notice this is
+a triple quoted strings,
+
+73
+00:03:01,938 --> 00:03:04,875
+so this is just one big, long string here.
+
+74
+00:03:04,875 --> 00:03:07,232
+And it happens to know that it's SQL.
+
+75
+00:03:07,232 --> 00:03:08,939
+Thank you Adam, for that.
+
+76
+00:03:08,939 --> 00:03:11,027
+And so it creates all these things.
+
+77
+00:03:11,027 --> 00:03:13,989
+Now, it's not quite as rich
+as the data model we built,
+
+78
+00:03:13,989 --> 00:03:16,127
+because there's no genres in here.
+
+79
+00:03:16,127 --> 00:03:18,972
+And so it's artist, album, track.
+
+80
+00:03:18,972 --> 00:03:20,903
+And then there's a
+foreign key for album ID,
+
+81
+00:03:20,903 --> 00:03:22,497
+and a foreign key for artist ID,
+
+82
+00:03:22,497 --> 00:03:29,760
+which it's sort of a
+subset of what we're doing.
+
+83
+00:03:29,760 --> 00:03:32,302
+And so when that's done,
+
+84
+00:03:32,302 --> 00:03:34,715
+that actually creates all the tables.
+
+85
+00:03:34,715 --> 00:03:37,626
+And we'll see those in a
+moment, once we run the code.
+
+86
+00:03:37,626 --> 00:03:40,509
+Then it asks for a file name for the XML.
+
+87
+00:03:40,509 --> 00:03:41,342
+Right?
+
+88
+00:03:41,342 --> 00:03:44,010
+And so that's what that is.
+
+89
+00:03:44,010 --> 00:03:45,478
+And we're going to ...
+
+90
+00:03:45,478 --> 00:03:49,461
+I wrote a function that does a lookup.
+
+91
+00:03:49,461 --> 00:03:50,707
+It's really weird.
+
+92
+00:03:50,707 --> 00:03:54,567
+Because if you look at these files ...
+
+93
+00:03:54,567 --> 00:03:57,169
+Like in this dictionary
+there is a key, right?
+
+94
+00:03:57,169 --> 00:03:59,395
+So the key of this dictionary ...
+
+95
+00:03:59,395 --> 00:04:01,554
+This really, coulda shoulda
+been a key value pair.
+
+96
+00:04:01,554 --> 00:04:02,396
+But, so I had ...
+
+97
+00:04:02,396 --> 00:04:06,174
+There's this weird thing
+where the key for an object
+
+98
+00:04:06,174 --> 00:04:08,124
+is inside of the object.
+
+99
+00:04:08,124 --> 00:04:12,465
+And so we're gonna grab ...
+
+100
+00:04:12,465 --> 00:04:14,230
+We're gonna loop through all the children
+
+101
+00:04:14,230 --> 00:04:17,231
+in this outer dictionary,
+
+102
+00:04:17,231 --> 00:04:20,880
+and find a child tag that
+has a particular key.
+
+103
+00:04:20,880 --> 00:04:22,316
+And so you'll see how this works.
+
+104
+00:04:22,316 --> 00:04:23,149
+And this will ...
+
+105
+00:04:23,149 --> 00:04:27,167
+Something I was gonna
+use over and over again.
+
+106
+00:04:27,167 --> 00:04:28,367
+And so the first thing we're gonna do,
+
+107
+00:04:28,367 --> 00:04:30,080
+is we're gonna just parse this string.
+
+108
+00:04:30,080 --> 00:04:31,424
+And this is the string.
+
+109
+00:04:31,424 --> 00:04:35,309
+And then this, of course,
+is an XML ET object.
+
+110
+00:04:35,309 --> 00:04:36,311
+And then we're gonna say ...
+
+111
+00:04:36,311 --> 00:04:38,177
+We're gonna do a find all.
+
+112
+00:04:38,177 --> 00:04:40,030
+And so this shows how the find all ...
+
+113
+00:04:40,030 --> 00:04:40,863
+We're gonna go ...
+
+114
+00:04:40,863 --> 00:04:42,314
+The third level dictionaries,
+
+115
+00:04:42,314 --> 00:04:45,836
+we wanna see all of the tracks.
+
+116
+00:04:45,836 --> 00:04:48,581
+And so we have a dictionary,
+and a dictionary,
+
+117
+00:04:48,581 --> 00:04:49,481
+and a dictionary.
+
+118
+00:04:49,481 --> 00:04:54,301
+And so what we want, is
+all of these guys, right?
+
+119
+00:04:54,301 --> 00:04:56,730
+All those guys right there.
+
+120
+00:04:56,730 --> 00:04:58,080
+Right?
+
+121
+00:04:58,080 --> 00:05:00,049
+Track ID.
+
+122
+00:05:00,049 --> 00:05:01,670
+So we're gonna get a list of all those.
+
+123
+00:05:01,670 --> 00:05:04,695
+That'll be the first one.
+
+124
+00:05:04,695 --> 00:05:06,066
+This'll be the second one.
+
+125
+00:05:06,066 --> 00:05:11,866
+Because the find all says go to the ...
+
+126
+00:05:11,866 --> 00:05:15,720
+Find the dictionary key, then
+a dictionary tag within that,
+
+127
+00:05:15,720 --> 00:05:16,553
+and a dictionary tag.
+
+128
+00:05:16,553 --> 00:05:17,386
+So it's ...
+
+129
+00:05:17,386 --> 00:05:19,563
+And then we'll tell
+how many things we got.
+
+130
+00:05:19,563 --> 00:05:20,754
+And then we're gonna loop through.
+
+131
+00:05:20,754 --> 00:05:26,312
+And entry is going to iterate
+through each of these.
+
+132
+00:05:26,312 --> 00:05:28,964
+And see, you'll get our
+name, and our artist:
+
+133
+00:05:28,964 --> 00:05:30,795
+Another One Bites the Dust, Queen.
+
+134
+00:05:30,795 --> 00:05:32,153
+And away we go.
+
+135
+00:05:32,153 --> 00:05:35,365
+And then the next time through
+the loop we'll hit this one.
+
+136
+00:05:35,365 --> 00:05:36,198
+Okay?
+
+137
+00:05:36,198 --> 00:05:38,742
+So, then what we're going to do,
+
+138
+00:05:38,742 --> 00:05:41,337
+is we're gonna go through
+all those entries.
+
+139
+00:05:41,337 --> 00:05:43,450
+And if there's no track ID ...
+
+140
+00:05:43,450 --> 00:05:45,255
+And that's this track ID field.
+
+141
+00:05:45,255 --> 00:05:46,780
+Where are you hiding?
+
+142
+00:05:46,780 --> 00:05:48,181
+Track ID.
+
+143
+00:05:48,181 --> 00:05:51,122
+We don't have that, we're gonna continue.
+
+144
+00:05:51,122 --> 00:05:53,545
+And then we're gonna look
+up the name, artist, album,
+
+145
+00:05:53,545 --> 00:05:56,645
+play count, rating and total time.
+
+146
+00:05:56,645 --> 00:05:59,082
+Okay?
+
+147
+00:05:59,082 --> 00:06:02,357
+And so, here they are.
+
+148
+00:06:02,357 --> 00:06:03,190
+Play count.
+
+149
+00:06:03,190 --> 00:06:07,154
+A lot of those things that
+we had in the sample lecture
+
+150
+00:06:07,154 --> 00:06:08,349
+that I did.
+
+151
+00:06:08,349 --> 00:06:10,402
+And we're gonna look those things up.
+
+152
+00:06:10,402 --> 00:06:12,467
+And we're gonna do some sanity checking.
+
+153
+00:06:12,467 --> 00:06:14,761
+If we didn't get a name
+or an artist or an album,
+
+154
+00:06:14,761 --> 00:06:16,021
+we're gonna continue.
+
+155
+00:06:16,021 --> 00:06:17,552
+We're gonna print them out.
+
+156
+00:06:17,552 --> 00:06:23,240
+And then, we are going to get ...
+
+157
+00:06:23,240 --> 00:06:25,544
+Remember how you have
+to get the primary key
+
+158
+00:06:25,544 --> 00:06:27,588
+of a row so you can use it?
+
+159
+00:06:27,588 --> 00:06:29,858
+So, the way we're gonna do this,
+
+160
+00:06:29,858 --> 00:06:32,091
+is we're going to do an insert or ignore.
+
+161
+00:06:32,091 --> 00:06:34,281
+So this or ignore basically says,
+
+162
+00:06:34,281 --> 00:06:37,541
+because I said that the artist name ...
+
+163
+00:06:37,541 --> 00:06:38,918
+Go up here.
+
+164
+00:06:38,918 --> 00:06:40,977
+I said the artist name is unique.
+
+165
+00:06:40,977 --> 00:06:43,120
+Which means if I try to attempt to insert
+
+166
+00:06:43,120 --> 00:06:46,955
+the same artist twice,
+it will blow up, okay?
+
+167
+00:06:46,955 --> 00:06:49,762
+Because I put this constraint on that.
+
+168
+00:06:49,762 --> 00:06:53,316
+Except, when I say insert or
+ignore, that basically says,
+
+169
+00:06:53,316 --> 00:06:57,914
+'Hey, if it's already there,
+don't insert it again.'
+
+170
+00:06:57,914 --> 00:07:00,930
+So, what I'm doing here is
+insert or ignore into artist.
+
+171
+00:07:00,930 --> 00:07:03,521
+So this is putting a new
+row into the artist table,
+
+172
+00:07:03,521 --> 00:07:08,553
+unless there's already a
+row in that artist table.
+
+173
+00:07:08,553 --> 00:07:11,738
+And, this syntax right here ...
+
+174
+00:07:11,738 --> 00:07:14,798
+You know the question mark
+is sort of where this artist
+
+175
+00:07:14,798 --> 00:07:16,132
+variable goes.
+
+176
+00:07:16,132 --> 00:07:19,447
+And this is a tuple, but I have
+to sort of put this comma in
+
+177
+00:07:19,447 --> 00:07:20,968
+to force it to be a tuple.
+
+178
+00:07:20,968 --> 00:07:23,806
+So this is a way you have a one tuple.
+
+179
+00:07:23,806 --> 00:07:25,992
+And then what I need to
+know, is I need to know
+
+180
+00:07:25,992 --> 00:07:28,657
+the primary key of this
+particular artist row.
+
+181
+00:07:28,657 --> 00:07:31,118
+Now this line may or may not,
+
+182
+00:07:31,118 --> 00:07:33,097
+if it'd actually done the insert.
+
+183
+00:07:33,097 --> 00:07:36,131
+And so I need to know what the ID
+
+184
+00:07:36,131 --> 00:07:38,105
+for that particular artist is.
+
+185
+00:07:38,105 --> 00:07:40,296
+So I do a a select ID from
+artist where name equals.
+
+186
+00:07:40,296 --> 00:07:43,424
+Now it either was already
+there, or I'm getting it fresh
+
+187
+00:07:43,424 --> 00:07:44,648
+and brand new.
+
+188
+00:07:44,648 --> 00:07:46,489
+So I do an artist ID equals.
+
+189
+00:07:46,489 --> 00:07:49,311
+I fetch one row, and it's
+gonna be the first thing,
+
+190
+00:07:49,311 --> 00:07:50,878
+given that I only selected ID.
+
+191
+00:07:50,878 --> 00:07:55,069
+And so this artist ID
+is going to be the ID.
+
+192
+00:07:55,069 --> 00:08:01,095
+Now I have the foreign
+key for the album title.
+
+193
+00:08:01,095 --> 00:08:02,063
+Right?
+
+194
+00:08:02,063 --> 00:08:05,565
+And so now I'm gonna insert
+into the title, artist ID.
+
+195
+00:08:05,565 --> 00:08:07,951
+This is the foreign key
+to the artist table.
+
+196
+00:08:07,951 --> 00:08:11,678
+And I got this value that I
+just, moments ago, retrieved.
+
+197
+00:08:11,678 --> 00:08:13,266
+And I got the album title.
+
+198
+00:08:13,266 --> 00:08:16,688
+But this also is insert
+or ignore, because ...
+
+199
+00:08:16,688 --> 00:08:21,848
+And now if you'll look, I have
+unique on the album title.
+
+200
+00:08:21,848 --> 00:08:26,104
+Yeah, unique's on the album
+title, so that'll do nothing.
+
+201
+00:08:26,104 --> 00:08:27,316
+It doesn't blow up.
+
+202
+00:08:27,316 --> 00:08:30,972
+Or ignore says, 'Don't
+blow up, just do nothing.'
+
+203
+00:08:30,972 --> 00:08:32,996
+Because this next line is gonna select it.
+
+204
+00:08:32,996 --> 00:08:35,966
+And I grab the album's foreign key
+
+205
+00:08:35,966 --> 00:08:39,022
+for either the existing
+row or the new row,
+
+206
+00:08:39,022 --> 00:08:41,912
+and then I'm going to insert or replace.
+
+207
+00:08:41,912 --> 00:08:45,269
+And so what this basically says
+is if the unique constraint
+
+208
+00:08:45,269 --> 00:08:49,351
+would be violated, this
+turns into an update.
+
+209
+00:08:49,351 --> 00:08:52,876
+Now not all SQLs have
+this, but SQLite has this.
+
+210
+00:08:52,876 --> 00:08:56,695
+That basically says insert or replace.
+
+211
+00:08:56,695 --> 00:08:58,217
+Some SQLs are totally standard.
+
+212
+00:08:58,217 --> 00:08:59,969
+Some things we do like this is ...
+
+213
+00:08:59,969 --> 00:09:03,256
+This select statement is
+a totally standard part of
+
+214
+00:09:03,256 --> 00:09:04,225
+SQL.
+
+215
+00:09:04,225 --> 00:09:07,601
+Then the insert is totally
+standard, but insert or replace,
+
+216
+00:09:07,601 --> 00:09:10,459
+and insert or ignore,
+is not totally standard.
+
+217
+00:09:10,459 --> 00:09:12,386
+But that's OK, it works for SQLite,
+
+218
+00:09:12,386 --> 00:09:13,466
+which is what we're doing.
+
+219
+00:09:13,466 --> 00:09:15,772
+And so we have the
+title, album ID, length,
+
+220
+00:09:15,772 --> 00:09:17,120
+rating and count.
+
+221
+00:09:17,120 --> 00:09:19,706
+And don't we have a tuple
+that does all of that stuff?
+
+222
+00:09:19,706 --> 00:09:24,686
+And of course, the title is unique.
+
+223
+00:09:24,686 --> 00:09:26,944
+The title is unique in
+the track table as well.
+
+224
+00:09:26,944 --> 00:09:28,112
+And so we've inserted that.
+
+225
+00:09:28,112 --> 00:09:30,971
+And so the clever bit here is
+
+226
+00:09:30,971 --> 00:09:34,980
+dealing with new or existing
+names in these three lines.
+
+227
+00:09:34,980 --> 00:09:38,238
+And we see that pattern twice
+here, where we're doing that.
+
+228
+00:09:38,238 --> 00:09:39,238
+Okay?
+
+229
+00:09:39,238 --> 00:09:42,459
+So there's not much left
+to do except run this code.
+
+230
+00:09:42,459 --> 00:09:44,925
+Hopefully it runs.
+
+231
+00:09:44,925 --> 00:09:53,902
+Python3, Tracks dot PY
+and Library dot XML.
+
+232
+00:09:53,902 --> 00:09:55,618
+(surprised noise)
+
+233
+00:09:55,618 --> 00:09:59,034
+So that is my ...
+
+234
+00:09:59,034 --> 00:10:05,080
+So we found 404 of those
+dictionaries, 3D dictionaries.
+
+235
+00:10:05,080 --> 00:10:07,039
+And now it's starting to insert them.
+
+236
+00:10:07,039 --> 00:10:09,814
+Insert them, insert them, insert them.
+
+237
+00:10:09,814 --> 00:10:12,792
+And we can take a look at ...
+
+238
+00:10:12,792 --> 00:10:15,665
+So we can do a LS minus
+L for Duran Windows,
+
+239
+00:10:15,665 --> 00:10:18,393
+we'll see that we made a track database.
+
+240
+00:10:18,393 --> 00:10:20,384
+We extracted the data from this library,
+
+241
+00:10:20,384 --> 00:10:21,952
+and we made a track database.
+
+242
+00:10:21,952 --> 00:10:24,320
+And we have all these foreign keys.
+
+243
+00:10:24,320 --> 00:10:27,639
+So, let's go and take a
+look at the SQLite browser.
+
+244
+00:10:27,639 --> 00:10:32,587
+File, open database, Track DBSQLite.
+
+245
+00:10:32,587 --> 00:10:33,846
+And come on up.
+
+246
+00:10:33,846 --> 00:10:36,166
+Where'd you hide?
+
+247
+00:10:36,166 --> 00:10:38,197
+I've got it minimized, so there you go.
+
+248
+00:10:38,197 --> 00:10:39,823
+Let's look at the database structure.
+
+249
+00:10:39,823 --> 00:10:41,632
+We have an album.
+
+250
+00:10:41,632 --> 00:10:43,539
+This is the structure.
+
+251
+00:10:43,539 --> 00:10:44,372
+Artist and track.
+
+252
+00:10:44,372 --> 00:10:45,983
+We have no genre.
+
+253
+00:10:45,983 --> 00:10:47,995
+And this is all like we did it by hand,
+
+254
+00:10:47,995 --> 00:10:51,039
+except Python did all this work for us.
+
+255
+00:10:51,039 --> 00:10:52,194
+If we take a look at the data,
+
+256
+00:10:52,194 --> 00:10:56,414
+and we start from the outside
+in, we have the artist names
+
+257
+00:10:56,414 --> 00:10:59,063
+and their primary keys.
+
+258
+00:10:59,063 --> 00:11:02,583
+There's the artists'
+names and primary keys.
+
+259
+00:11:02,583 --> 00:11:08,902
+And then we have the albums
+and we have the artist IDs.
+
+260
+00:11:08,902 --> 00:11:11,164
+See the artist IDs, how nice those are.
+
+261
+00:11:11,164 --> 00:11:14,573
+So we have the primary key
+here, and the foreign key there.
+
+262
+00:11:14,573 --> 00:11:16,066
+And then we have the title.
+
+263
+00:11:16,066 --> 00:11:20,101
+And if we get to the track,
+
+264
+00:11:20,101 --> 00:11:22,494
+we have the album ID, and away we go.
+
+265
+00:11:22,494 --> 00:11:27,122
+So, if I was clever, I could
+be able to type some SQL.
+
+266
+00:11:27,122 --> 00:11:28,889
+Oh great.
+
+267
+00:11:28,889 --> 00:11:32,057
+If I was smart I'd have
+had this in a paste buffer.
+
+268
+00:11:32,057 --> 00:11:38,860
+So, select ...
+
+269
+00:11:38,860 --> 00:11:43,787
+Select Track dot Title.
+
+270
+00:11:43,787 --> 00:11:48,155
+Album dot Title.
+
+271
+00:11:48,155 --> 00:11:52,598
+Artist dot Name, I think.
+
+272
+00:11:52,598 --> 00:11:55,956
+Artists have names and albums have titles.
+
+273
+00:11:55,956 --> 00:11:57,220
+Yes.
+
+274
+00:11:57,220 --> 00:11:59,044
+Okay so, I can do that.
+
+275
+00:11:59,044 --> 00:12:07,402
+From Track join Album.
+
+276
+00:12:07,402 --> 00:12:08,693
+Oops.
+
+277
+00:12:08,693 --> 00:12:12,462
+Album join ...
+
+278
+00:12:12,462 --> 00:12:16,722
+Make that a little bigger.
+
+279
+00:12:16,722 --> 00:12:18,236
+Bring that over here.
+
+280
+00:12:18,236 --> 00:12:24,355
+Album, Track, join Album, join Artist.
+
+281
+00:12:24,355 --> 00:12:26,951
+I need an ON clause, and I can say,
+
+282
+00:12:26,951 --> 00:12:37,379
+'Track dot Album ID equals Album.'
+
+283
+00:12:37,379 --> 00:12:41,943
+Notice how I know the name
+that I named these things.
+
+284
+00:12:41,943 --> 00:12:48,367
+'And Album dot Artist'
+
+285
+00:12:48,367 --> 00:12:52,344
+This is so great when you
+use a naming convention.
+
+286
+00:12:52,344 --> 00:12:56,627
+Artist ID.
+
+287
+00:12:56,627 --> 00:12:59,289
+Golly, I think that might work.
+
+288
+00:12:59,289 --> 00:13:01,553
+Let's just see what we
+get when we type that
+
+289
+00:13:01,553 --> 00:13:04,106
+into the SQL box here.
+
+290
+00:13:04,106 --> 00:13:07,490
+Execute SQL.
+
+291
+00:13:07,490 --> 00:13:08,707
+Run.
+
+292
+00:13:08,707 --> 00:13:11,734
+Yay, I got it right the first time!
+
+293
+00:13:11,734 --> 00:13:14,973
+So that's basically my nice,
+little, joined-up track list.
+
+294
+00:13:14,973 --> 00:13:18,788
+Oh, I'm so happy that I got
+that right the first time.
+
+295
+00:13:18,788 --> 00:13:19,798
+Okay, well you can ...
+
+296
+00:13:19,798 --> 00:13:23,415
+So you can play with this yourself.
+
+297
+00:13:23,415 --> 00:13:24,417
+Play with this tracks.
+
+298
+00:13:24,417 --> 00:13:28,120
+Maybe make an export of
+your own iTunes library
+
+299
+00:13:28,120 --> 00:13:30,010
+and run it with that.
+
+300
+00:13:30,010 --> 00:13:33,586
+And so, I hope that you found
+
+301
+00:13:33,586 --> 00:13:36,775
+this particular bit of code useful.
+
+302
+00:13:36,775 --> 00:13:37,794
+Okay?
+
+303
+00:13:37,794 --> 00:13:38,627
+Cheers.
+
+304
+00:13:38,627 --> 00:13:41,044
+(jazz music)
+

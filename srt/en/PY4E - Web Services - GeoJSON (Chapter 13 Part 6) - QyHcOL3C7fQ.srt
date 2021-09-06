@@ -1,0 +1,683 @@
+1
+00:00:00,000 --> 00:00:02,386
+- So now that we're solving our problem
+
+2
+00:00:02,386 --> 00:00:04,933
+using a series of cooperating applications
+
+3
+00:00:04,933 --> 00:00:07,170
+communicating across the network,
+
+4
+00:00:07,170 --> 00:00:09,439
+we're gonna talk a little
+bit more detail about
+
+5
+00:00:09,439 --> 00:00:12,045
+a notion of what we call web services.
+
+6
+00:00:12,045 --> 00:00:15,291
+And in this, we're going to
+take a different perspective.
+
+7
+00:00:15,291 --> 00:00:17,058
+Instead of building our application
+
+8
+00:00:17,058 --> 00:00:18,808
+and breaking it into pieces,
+
+9
+00:00:18,808 --> 00:00:20,659
+we're gonna have an
+application that's gonna really
+
+10
+00:00:20,659 --> 00:00:22,691
+consume an API from somebody else.
+
+11
+00:00:22,691 --> 00:00:28,091
+So there is some other provider
+of this API that's not us.
+
+12
+00:00:28,091 --> 00:00:31,144
+And so if you're gonna
+talk to somebody's data
+
+13
+00:00:31,144 --> 00:00:34,764
+like Google or Amazon or Twitter,
+
+14
+00:00:34,764 --> 00:00:37,691
+they're gonna say, you
+have to use our API.
+
+15
+00:00:37,691 --> 00:00:38,735
+So what's that?
+
+16
+00:00:38,735 --> 00:00:40,979
+So an API is a contract that says look,
+
+17
+00:00:40,979 --> 00:00:43,280
+if you do this, and
+this and this and this,
+
+18
+00:00:43,280 --> 00:00:44,868
+we're gonna give you data this way,
+
+19
+00:00:44,868 --> 00:00:47,753
+and they set the rules, they
+study what the URLs are,
+
+20
+00:00:47,753 --> 00:00:50,455
+they'll tell if it's XML or JSON,
+
+21
+00:00:50,455 --> 00:00:52,672
+and this is called the
+Application Program Interface,
+
+22
+00:00:52,672 --> 00:00:56,077
+and it's something you
+read and you understand.
+
+23
+00:00:56,077 --> 00:00:58,895
+And so you go look at the documentation.
+
+24
+00:00:58,895 --> 00:01:01,948
+This is the documentation
+for the Google Maps API.
+
+25
+00:01:01,948 --> 00:01:05,081
+So it turns out that Google
+knows a lot about Maps.
+
+26
+00:01:05,081 --> 00:01:07,595
+It knows a lot of data, it
+knows how to search Maps,
+
+27
+00:01:07,595 --> 00:01:11,180
+and it actually provides
+some of those features to you
+
+28
+00:01:11,180 --> 00:01:13,724
+that your application
+can take advantage of.
+
+29
+00:01:13,724 --> 00:01:16,513
+I took advantage of this at one point by
+
+30
+00:01:16,513 --> 00:01:18,591
+asking all the students in one section
+
+31
+00:01:18,591 --> 00:01:21,275
+in one of my online course
+where they were from.
+
+32
+00:01:21,275 --> 00:01:23,087
+And I just let them type in where it was
+
+33
+00:01:23,087 --> 00:01:25,891
+and then I said, well I don't
+know how to code any of that
+
+34
+00:01:25,891 --> 00:01:29,477
+so I used this API using
+what's called geo-coding
+
+35
+00:01:29,477 --> 00:01:32,062
+to look all those places
+up and get precise
+
+36
+00:01:32,062 --> 00:01:33,773
+latitudes and longitudes for the ones
+
+37
+00:01:33,773 --> 00:01:36,841
+Google could figure out and
+that saved me a lot of work.
+
+38
+00:01:36,841 --> 00:01:39,105
+Now, these are expensive resources
+
+39
+00:01:39,105 --> 00:01:42,726
+but I could be patient and
+make use of these resources
+
+40
+00:01:42,726 --> 00:01:47,098
+which as long as you use them
+not too much they can be free.
+
+41
+00:01:47,098 --> 00:01:48,869
+We'll talk a little bit
+more about rate limiting
+
+42
+00:01:48,869 --> 00:01:50,681
+and what's free and what's not in a bit.
+
+43
+00:01:50,681 --> 00:01:52,858
+But you start by reading documentation.
+
+44
+00:01:52,858 --> 00:01:56,830
+It says, do this, hit
+this URL, hit that URL.
+
+45
+00:01:56,830 --> 00:01:59,276
+So if you read that documentation,
+
+46
+00:01:59,276 --> 00:02:02,682
+you'll find that there
+is a URL that you can hit
+
+47
+00:02:02,682 --> 00:02:07,144
+and they tell you where to
+go and then you go this URL,
+
+48
+00:02:07,144 --> 00:02:09,152
+you got a question mark and then you say
+
+49
+00:02:09,152 --> 00:02:11,785
+address equals and then ann arbor plus
+
+50
+00:02:11,785 --> 00:02:13,161
+and there's all these rules.
+
+51
+00:02:13,161 --> 00:02:15,419
+These are called URL encoding
+rules when you have key values
+
+52
+00:02:15,419 --> 00:02:20,670
+on URLs, the plus means space
+and percent two C means comma.
+
+53
+00:02:20,670 --> 00:02:25,569
+So these are called URL encoded.
+
+54
+00:02:25,569 --> 00:02:27,303
+Don't worry to much about
+that, 'cause we're gonna have
+
+55
+00:02:27,303 --> 00:02:29,960
+a magic library like
+we always do in Python
+
+56
+00:02:29,960 --> 00:02:31,495
+that takes care of this.
+
+57
+00:02:31,495 --> 00:02:34,045
+And so if you were to hit this URL,
+
+58
+00:02:34,045 --> 00:02:36,915
+you type in the exact
+right way in your browser,
+
+59
+00:02:36,915 --> 00:02:38,686
+you will get back a JSON document.
+
+60
+00:02:38,686 --> 00:02:40,951
+It's an object that has key value pairs.
+
+61
+00:02:40,951 --> 00:02:42,735
+First value's this status.
+
+62
+00:02:42,735 --> 00:02:44,424
+Then it has these results and it's a list
+
+63
+00:02:44,424 --> 00:02:46,107
+and you dive down and eventually,
+
+64
+00:02:46,107 --> 00:02:47,628
+you can kinda find that
+latitude and longitude
+
+65
+00:02:47,628 --> 00:02:50,849
+of the thing that you are looking for.
+
+66
+00:02:50,849 --> 00:02:53,207
+And so the idea is can we right a program
+
+67
+00:02:53,207 --> 00:02:54,867
+that can read this.
+
+68
+00:02:54,867 --> 00:02:57,663
+And so here's our little
+program that reads this.
+
+69
+00:02:57,663 --> 00:03:01,096
+And a lot of this is sort of comfortable.
+
+70
+00:03:01,096 --> 00:03:03,737
+You've already seen some of this.
+
+71
+00:03:03,737 --> 00:03:07,175
+You import your lib,
+we've deparsed in JSON,
+
+72
+00:03:07,175 --> 00:03:10,001
+we grab the URL, and
+then we're gonna write
+
+73
+00:03:10,001 --> 00:03:12,918
+a little Y-loop that's
+gonna ask for a location,
+
+74
+00:03:12,918 --> 00:03:15,686
+and we can type that location that in.
+
+75
+00:03:15,686 --> 00:03:18,921
+And we've got to concatenate with this URL
+
+76
+00:03:18,921 --> 00:03:22,449
+the location equals, and
+there is a bit of code,
+
+77
+00:03:22,449 --> 00:03:24,953
+a library that called parse URL and code
+
+78
+00:03:24,953 --> 00:03:28,515
+that takes the key and the
+value so the address equals
+
+79
+00:03:28,515 --> 00:03:31,537
+and then whatever this text
+is that read in from the user
+
+80
+00:03:31,537 --> 00:03:33,908
+that goes in here and it
+does that URL and coding
+
+81
+00:03:33,908 --> 00:03:36,842
+with the pluses and percent
+two C and all that stuff
+
+82
+00:03:36,842 --> 00:03:38,105
+is taken care of.
+
+83
+00:03:38,105 --> 00:03:42,498
+And that is our URL that
+we're gonna pass to URL Open.
+
+84
+00:03:42,498 --> 00:03:44,301
+So we print out that
+we're gonna retrieve it.
+
+85
+00:03:44,301 --> 00:03:46,871
+It prints this out and if
+you look at this too long,
+
+86
+00:03:46,871 --> 00:03:51,235
+it has all that fancy stuff
+on it, and then we read it.
+
+87
+00:03:51,235 --> 00:03:53,686
+I mean, we open it with URL Open,
+
+88
+00:03:53,686 --> 00:03:55,261
+and then we read it and decode it.
+
+89
+00:03:55,261 --> 00:03:57,418
+So these two things, hit this URL,
+
+90
+00:03:57,418 --> 00:04:02,312
+decode it, and then we
+retrieved 1669 characters
+
+91
+00:04:02,312 --> 00:04:04,847
+'cause it's just a, in this case,
+
+92
+00:04:04,847 --> 00:04:07,230
+because we've decoded
+it, data is a string now
+
+93
+00:04:07,230 --> 00:04:11,174
+that's read is bytes and data is a string.
+
+94
+00:04:11,174 --> 00:04:15,433
+So we read that many
+characters, 1669 characters.
+
+95
+00:04:15,433 --> 00:04:17,385
+And then we're going to take this data
+
+96
+00:04:17,385 --> 00:04:19,826
+and we're gonna parse it with JSON
+
+97
+00:04:19,826 --> 00:04:22,108
+and we might get the bad data here.
+
+98
+00:04:22,108 --> 00:04:24,353
+It might blow up, but it might work.
+
+99
+00:04:24,353 --> 00:04:26,858
+And so in this case, it works.
+
+100
+00:04:26,858 --> 00:04:29,394
+We have an error that basically
+says if we got a bad thing
+
+101
+00:04:29,394 --> 00:04:31,898
+we're gonna blow up, but in
+this case it doesn't blow up.
+
+102
+00:04:31,898 --> 00:04:34,561
+And so now we're going
+to sorta dig through.
+
+103
+00:04:34,561 --> 00:04:37,938
+And if you go back
+
+104
+00:04:37,938 --> 00:04:40,051
+Let me just go back.
+
+105
+00:04:40,051 --> 00:04:43,565
+So the results, sub zero geometry.
+
+106
+00:04:43,565 --> 00:04:45,222
+Let's show you how that works.
+
+107
+00:04:45,222 --> 00:04:48,681
+So results is the first key.
+
+108
+00:04:48,681 --> 00:04:51,481
+So this is a dictionary
+with a key of results
+
+109
+00:04:51,481 --> 00:04:54,371
+but then it has a list and the zero item
+
+110
+00:04:54,371 --> 00:04:56,833
+this list starts here and goes there
+
+111
+00:04:56,833 --> 00:04:59,722
+and there's, I'm only
+gonna show part of it
+
+112
+00:04:59,722 --> 00:05:01,363
+but there's many things here.
+
+113
+00:05:01,363 --> 00:05:03,196
+So the zero item is this.
+
+114
+00:05:03,196 --> 00:05:05,180
+This is the subzero.
+
+115
+00:05:05,180 --> 00:05:08,230
+And then geometry within
+that sub zero item.
+
+116
+00:05:08,230 --> 00:05:12,760
+So if we look at that, it is
+
+117
+00:05:12,760 --> 00:05:14,801
+the outer dictionary,
+
+118
+00:05:14,801 --> 00:05:17,450
+the first item in the list, sub geometry.
+
+119
+00:05:17,450 --> 00:05:20,313
+So that grabs one part.
+
+120
+00:05:20,313 --> 00:05:25,950
+That grabs this part right here.
+
+121
+00:05:25,950 --> 00:05:28,521
+And then we're going to
+go into location and lat.
+
+122
+00:05:28,521 --> 00:05:30,241
+And those are just keys within keys,
+
+123
+00:05:30,241 --> 00:05:32,377
+a dictionary within a dictionary.
+
+124
+00:05:32,377 --> 00:05:35,985
+And so you see it says,
+sub location, sub lat.
+
+125
+00:05:35,985 --> 00:05:37,653
+And so that is literally gonna pull
+
+126
+00:05:37,653 --> 00:05:41,274
+out of that complex
+structure, that will pull
+
+127
+00:05:41,274 --> 00:05:43,726
+the latitude out and
+then in the next line,
+
+128
+00:05:43,726 --> 00:05:46,137
+pull the longitude out, so we can pull
+
+129
+00:05:46,137 --> 00:05:49,590
+the latitude and longitude
+out and then we print it out.
+
+130
+00:05:49,590 --> 00:05:52,641
+We can go into results of
+zero formatted address.
+
+131
+00:05:52,641 --> 00:05:58,205
+And that goes into results
+zero formatted address
+
+132
+00:05:58,205 --> 00:05:59,833
+and that pulls this little bit out.
+
+133
+00:05:59,833 --> 00:06:01,738
+Now, it takes a little
+while to write this stuff,
+
+134
+00:06:01,738 --> 00:06:03,461
+and you have to put a lot of debug
+
+135
+00:06:03,461 --> 00:06:05,327
+and you don't necessarily figure out
+
+136
+00:06:05,327 --> 00:06:07,564
+this complex bit here at the end,
+
+137
+00:06:07,564 --> 00:06:10,059
+but you know, you print it,
+you don't get what you want,
+
+138
+00:06:10,059 --> 00:06:11,672
+you say, oh wait a
+second that wasn't a ray,
+
+139
+00:06:11,672 --> 00:06:14,504
+so I gotta add a sub zero
+there to get the first one
+
+140
+00:06:14,504 --> 00:06:16,938
+out of the ray but
+eventually you figure it out.
+
+141
+00:06:16,938 --> 00:06:19,005
+And it's not all that difficult.
+
+142
+00:06:19,005 --> 00:06:21,249
+The first few times you do it,
+
+143
+00:06:21,249 --> 00:06:22,391
+you're like what am I doing?
+
+144
+00:06:22,391 --> 00:06:24,118
+But after a while, you
+realize, oh I'm just sort of
+
+145
+00:06:24,118 --> 00:06:27,105
+tearing this apart and
+digging deeper and deeper
+
+146
+00:06:27,105 --> 00:06:30,237
+into this data structure
+which I just retrieved
+
+147
+00:06:30,237 --> 00:06:32,938
+over the internet from
+Google and I learned
+
+148
+00:06:32,938 --> 00:06:36,061
+something good from that.
+
+149
+00:06:36,061 --> 00:06:38,903
+So up next, we're gonna
+talk about how sometimes
+
+150
+00:06:38,903 --> 00:06:41,515
+these APIs protect themselves with keys
+
+151
+00:06:41,515 --> 00:06:45,013
+or signatures and why that happens
+
+152
+00:06:45,013 --> 00:06:47,930
+and how to solve those problems.
+
+153
+00:06:47,930 --> 00:06:50,847
+(slow piano music)
+

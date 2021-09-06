@@ -1,0 +1,912 @@
+1
+00:00:00,582 --> 00:00:07,929
+("Soul and Mind" by E's Jammy Jams)
+
+2
+00:00:07,929 --> 00:00:09,237
+- [Charles] Hello,
+everybody and welcome to
+
+3
+00:00:09,237 --> 00:00:11,452
+Python for Everybody.
+
+4
+00:00:11,452 --> 00:00:13,106
+We're going to do some code walk-through
+
+5
+00:00:13,106 --> 00:00:14,661
+and if you want to follow
+through with the code,
+
+6
+00:00:14,661 --> 00:00:20,930
+you can download the sample
+code from Python for Everybody.
+
+7
+00:00:20,930 --> 00:00:22,178
+And so the code that we're gonna play with
+
+8
+00:00:22,178 --> 00:00:25,591
+is the Twitter spider code
+that is both talking to
+
+9
+00:00:25,591 --> 00:00:29,958
+the Twitter API and
+talking to the database.
+
+10
+00:00:29,958 --> 00:00:33,108
+So what we're going to be
+doing is we're going to
+
+11
+00:00:33,108 --> 00:00:35,130
+run code that's going
+to hit the Twitter API,
+
+12
+00:00:35,130 --> 00:00:37,294
+much like we did in a previous chapter.
+
+13
+00:00:37,294 --> 00:00:38,778
+And we're gonna retrieve
+the data, but we're gonna
+
+14
+00:00:38,778 --> 00:00:42,703
+remember the data so we don't
+have to retrieve it again.
+
+15
+00:00:42,703 --> 00:00:45,279
+Okay, and so we're going to
+keep track of peoples' friends.
+
+16
+00:00:45,279 --> 00:00:49,377
+And what we're doing here is
+sort of illicitly pulling down,
+
+17
+00:00:49,377 --> 00:00:52,361
+slowly but surely, based
+subject to our rate limit,
+
+18
+00:00:52,361 --> 00:00:55,975
+we're pulling down who our friends are.
+
+19
+00:00:55,975 --> 00:00:57,380
+And so let's take a look.
+
+20
+00:00:57,380 --> 00:01:00,071
+We're gonna use urllib and urllib.error,
+
+21
+00:01:00,071 --> 00:01:03,657
+the Twitter URL, which was
+code that augments my URL
+
+22
+00:01:03,657 --> 00:01:06,160
+to do all OAuth calculation.
+
+23
+00:01:06,160 --> 00:01:07,647
+We're gonna get json data back.
+
+24
+00:01:07,647 --> 00:01:10,340
+We're gonna make a database,
+and we have to import SQL
+
+25
+00:01:10,340 --> 00:01:14,679
+because of the way Python
+doesn't trust any certificates
+
+26
+00:01:14,679 --> 00:01:17,009
+no matter how good they are.
+
+27
+00:01:17,009 --> 00:01:19,507
+So this is our URL to
+talk to the Twitter API.
+
+28
+00:01:19,507 --> 00:01:21,004
+We're going to make a database.
+
+29
+00:01:21,004 --> 00:01:24,523
+And again, the way sqlite
+works is if this spider.sqlite
+
+30
+00:01:24,523 --> 00:01:28,697
+doesn't exist, it creates it.
+
+31
+00:01:28,697 --> 00:01:30,570
+And we get ourself a cursor.
+
+32
+00:01:30,570 --> 00:01:32,893
+And we're gonna do a create table.
+
+33
+00:01:32,893 --> 00:01:37,565
+This if not exists, some
+SQLs, but sqlite3 does this.
+
+34
+00:01:37,565 --> 00:01:39,103
+Create table if it doesn't exist.
+
+35
+00:01:39,103 --> 00:01:40,665
+And you wanna start this over and over,
+
+36
+00:01:40,665 --> 00:01:43,737
+unlike the tracks example,
+I wanna start this
+
+37
+00:01:43,737 --> 00:01:46,806
+over and over and not lose data.
+
+38
+00:01:46,806 --> 00:01:48,182
+This is a spidering process.
+
+39
+00:01:48,182 --> 00:01:49,512
+And we'll see a lot of these.
+
+40
+00:01:49,512 --> 00:01:53,247
+We want a restartable process
+where we use a database.
+
+41
+00:01:53,247 --> 00:01:54,491
+So if we're starting with nothing,
+
+42
+00:01:54,491 --> 00:01:57,161
+and there's no file spider.sqlite,
+
+43
+00:01:57,161 --> 00:01:58,164
+it creates this table.
+
+44
+00:01:58,164 --> 00:01:59,870
+And it's the name of the person,
+
+45
+00:01:59,870 --> 00:02:01,295
+whether we retrieved it or not,
+
+46
+00:02:01,295 --> 00:02:03,315
+and how many friends this person has
+
+47
+00:02:03,315 --> 00:02:05,022
+that we know of in our database.
+
+48
+00:02:05,022 --> 00:02:06,752
+Now this little bit is to deal with
+
+49
+00:02:06,752 --> 00:02:08,728
+the SSL certificate errors.
+
+50
+00:02:08,728 --> 00:02:10,220
+The certificates are totally fine,
+
+51
+00:02:10,220 --> 00:02:13,738
+but Python doesn't trust
+any certificates by default,
+
+52
+00:02:13,738 --> 00:02:15,771
+which is frustrating, but whatever.
+
+53
+00:02:15,771 --> 00:02:17,222
+So here we're gonna have a loop.
+
+54
+00:02:17,222 --> 00:02:19,416
+We're gonna ask for a Twitter account.
+
+55
+00:02:19,416 --> 00:02:20,999
+We have to type quit to quit.
+
+56
+00:02:20,999 --> 00:02:22,456
+If we hit enter in this case,
+
+57
+00:02:22,456 --> 00:02:25,514
+we're going to actually
+read from the database
+
+58
+00:02:25,514 --> 00:02:27,975
+an unretrieved Twitter person,
+
+59
+00:02:27,975 --> 00:02:30,513
+and then grab all that person's friends.
+
+60
+00:02:30,513 --> 00:02:33,208
+Okay?
+
+61
+00:02:33,208 --> 00:02:38,855
+And so then we're gonna
+do a fetchone, get one,
+
+62
+00:02:38,855 --> 00:02:40,452
+and that's going to get the name
+
+63
+00:02:40,452 --> 00:02:42,802
+of the first person, the sub zero.
+
+64
+00:02:42,802 --> 00:02:44,648
+If we had more things than name here,
+
+65
+00:02:44,648 --> 00:02:47,515
+sub zero is the first of those.
+
+66
+00:02:47,515 --> 00:02:49,671
+Fetchone means get one
+row from the database,
+
+67
+00:02:49,671 --> 00:02:52,799
+and sub zero means the first
+column of that first row.
+
+68
+00:02:52,799 --> 00:02:54,450
+And if this fails then we've
+
+69
+00:02:54,450 --> 00:02:59,488
+retrieved all the Twitter accounts.
+
+70
+00:02:59,488 --> 00:03:02,064
+We're gonna augment this
+Twitter URL using this makes,
+
+71
+00:03:02,064 --> 00:03:06,435
+you can look at the twurl.py code.
+
+72
+00:03:06,435 --> 00:03:10,958
+This basically requires
+the hidden.py file,
+
+73
+00:03:10,958 --> 00:03:13,287
+which has your keys and secrets in it.
+
+74
+00:03:13,287 --> 00:03:15,358
+You gotta get hidden.py updated.
+
+75
+00:03:15,358 --> 00:03:16,900
+I've got it updated, but
+I'm not going to show you
+
+76
+00:03:16,900 --> 00:03:19,007
+because it has my keys and secrets in it.
+
+77
+00:03:19,007 --> 00:03:21,437
+And so we're only gonna
+take the first five,
+
+78
+00:03:21,437 --> 00:03:22,850
+which means we're
+probably not going to find
+
+79
+00:03:22,850 --> 00:03:24,439
+friends of friends of friends.
+
+80
+00:03:24,439 --> 00:03:26,456
+It's only the most five recent ones.
+
+81
+00:03:26,456 --> 00:03:30,008
+We could run this with
+a much higher number,
+
+82
+00:03:30,008 --> 00:03:31,761
+so we have more than one friend.
+
+83
+00:03:31,761 --> 00:03:34,171
+We'll show the URL while we retrieve it.
+
+84
+00:03:34,171 --> 00:03:36,718
+We will do our urlopen, we'll do a read,
+
+85
+00:03:36,718 --> 00:03:40,178
+and then we'll do a decode
+to make sure that this utf.
+
+86
+00:03:40,178 --> 00:03:42,177
+This will give us data in utf-8,
+
+87
+00:03:42,177 --> 00:03:44,978
+and then decode will
+give us data in Unicode,
+
+88
+00:03:44,978 --> 00:03:47,726
+which is what we need inside of Python.
+
+89
+00:03:47,726 --> 00:03:52,478
+We will ask for the headers
+from the connection.
+
+90
+00:03:52,478 --> 00:03:53,558
+We'll say give me the headers,
+
+91
+00:03:53,558 --> 00:03:54,889
+give me a dictionary of the headers,
+
+92
+00:03:54,889 --> 00:03:59,124
+and the x-rate-limiting
+header from the Twitter API
+
+93
+00:03:59,124 --> 00:04:01,204
+tells us when we're going to get told
+
+94
+00:04:01,204 --> 00:04:02,869
+we can't use this API anymore.
+
+95
+00:04:02,869 --> 00:04:05,119
+Because this is one of those things.
+
+96
+00:04:05,119 --> 00:04:06,838
+And then we're gonna
+parse and load the data
+
+97
+00:04:06,838 --> 00:04:12,650
+that we got from Twitter and get a,
+
+98
+00:04:12,650 --> 00:04:16,607
+I think it's a list, yeah it's a list.
+
+99
+00:04:16,607 --> 00:04:18,488
+And then we could dump this, if you want,
+
+100
+00:04:18,488 --> 00:04:21,735
+in yours you can undo that.
+
+101
+00:04:21,735 --> 00:04:25,171
+And then what we're going
+to do is we just retrieved
+
+102
+00:04:25,171 --> 00:04:28,484
+this person's screen
+name and their friends.
+
+103
+00:04:28,484 --> 00:04:31,772
+And so the first thing we want
+to do is update the database
+
+104
+00:04:31,772 --> 00:04:33,620
+and change the retrieve from zero to one.
+
+105
+00:04:33,620 --> 00:04:35,044
+And that's because we want,
+
+106
+00:04:35,044 --> 00:04:37,414
+we're going to use this
+to know about unretrieved.
+
+107
+00:04:37,414 --> 00:04:40,777
+So retrieved being one means
+we've already retrieved it.
+
+108
+00:04:40,777 --> 00:04:41,672
+And we did retrieve it,
+
+109
+00:04:41,672 --> 00:04:44,217
+so for that account we've retrieved it.
+
+110
+00:04:44,217 --> 00:04:45,129
+And then what we're going to do is
+
+111
+00:04:45,129 --> 00:04:46,231
+we're going to parse that.
+
+112
+00:04:46,231 --> 00:04:48,242
+And so this is similar to the Twitter code
+
+113
+00:04:48,242 --> 00:04:50,916
+we did previously in Web Services chapter.
+
+114
+00:04:50,916 --> 00:04:52,229
+We're gonna go through all the users,
+
+115
+00:04:52,229 --> 00:04:53,364
+we're gonna find their screen name,
+
+116
+00:04:53,364 --> 00:04:55,607
+we're gonna print their screen name out,
+
+117
+00:04:55,607 --> 00:04:58,607
+okay?
+
+118
+00:04:58,607 --> 00:05:01,498
+And then what we're going to do is
+
+119
+00:05:01,498 --> 00:05:05,011
+see if, let's see,
+
+120
+00:05:05,011 --> 00:05:07,010
+so we're going through all the users
+
+121
+00:05:07,010 --> 00:05:10,847
+who are friends of this
+person and we're gonna say
+
+122
+00:05:10,847 --> 00:05:14,378
+oh, okay, let's select
+the friends from Twitter
+
+123
+00:05:14,378 --> 00:05:19,440
+where the name is the friend person.
+
+124
+00:05:19,440 --> 00:05:22,751
+And what we're gonna do is
+
+125
+00:05:22,751 --> 00:05:27,972
+we're going to do a
+cur.fetchone of this Twitter,
+
+126
+00:05:27,972 --> 00:05:29,672
+the name of the friend's,
+
+127
+00:05:29,672 --> 00:05:32,860
+this is the friend's screen name, right?
+
+128
+00:05:32,860 --> 00:05:35,459
+So, we're going to say oh, okay.
+
+129
+00:05:35,459 --> 00:05:38,955
+If we get this, we're going to
+get the friend's screen name
+
+130
+00:05:38,955 --> 00:05:41,408
+and we're going to get how many friends
+
+131
+00:05:41,408 --> 00:05:43,684
+this particular screen name has.
+
+132
+00:05:43,684 --> 00:05:47,852
+If we find a URL, we find it in there,
+
+133
+00:05:47,852 --> 00:05:49,256
+we're going to do an update statement
+
+134
+00:05:49,256 --> 00:05:51,381
+and add one to their friend count,
+
+135
+00:05:51,381 --> 00:05:52,790
+how many friends they have.
+
+136
+00:05:52,790 --> 00:05:54,604
+And then keep track.
+
+137
+00:05:54,604 --> 00:05:56,178
+This count here is not in the database,
+
+138
+00:05:56,178 --> 00:05:58,143
+it's just so I can
+print it out at the end.
+
+139
+00:05:58,143 --> 00:06:02,431
+If there is no record for
+this particular friend,
+
+140
+00:06:02,431 --> 00:06:04,988
+we're going to insert them into with new,
+
+141
+00:06:04,988 --> 00:06:07,217
+and we're going to say
+here is the new person
+
+142
+00:06:07,217 --> 00:06:09,249
+that we just saw.
+
+143
+00:06:09,249 --> 00:06:10,863
+Here, that's their name.
+
+144
+00:06:10,863 --> 00:06:12,901
+We're going to set retrieve to zero.
+
+145
+00:06:12,901 --> 00:06:15,613
+And we're going to say
+that they have one friend.
+
+146
+00:06:15,613 --> 00:06:17,236
+Okay?
+
+147
+00:06:17,236 --> 00:06:20,208
+And then we're gonna
+commmit the transaction,
+
+148
+00:06:20,208 --> 00:06:22,678
+and then we're gonna close
+this at the end, okay?
+
+149
+00:06:22,678 --> 00:06:24,739
+So, let's go ahead and run this.
+
+150
+00:06:24,739 --> 00:06:28,574
+The first time it's gonna
+create an empty database.
+
+151
+00:06:28,574 --> 00:06:32,059
+So I'm gonna say python3 twspider.
+
+152
+00:06:32,059 --> 00:06:37,234
+So, ls *sqlite...
+
+153
+00:06:37,234 --> 00:06:38,531
+Nothing there.
+
+154
+00:06:38,531 --> 00:06:42,291
+Python3, oops, that's
+because I removed it.
+
+155
+00:06:42,291 --> 00:06:47,074
+Python3 twspider.py.
+
+156
+00:06:47,074 --> 00:06:48,140
+Okay.
+
+157
+00:06:48,140 --> 00:06:53,650
+So I'm gonna start with a
+Twitter account, drchuck.
+
+158
+00:06:53,650 --> 00:06:54,956
+So its doing its retrieval,
+
+159
+00:06:54,956 --> 00:06:56,974
+and don't worry, showing the token
+
+160
+00:06:56,974 --> 00:06:59,904
+and the signature is not dangerous,
+
+161
+00:06:59,904 --> 00:07:01,341
+because you don't have
+the keys or the token.
+
+162
+00:07:01,341 --> 00:07:02,976
+I mean the secrets and the token secrets.
+
+163
+00:07:02,976 --> 00:07:04,301
+So don't get all too worried.
+
+164
+00:07:04,301 --> 00:07:08,577
+So I have 11 calls left, so
+I gotta hope this all works.
+
+165
+00:07:08,577 --> 00:07:10,611
+One of my friends is Stephanie Teasley,
+
+166
+00:07:10,611 --> 00:07:12,492
+and I do, these are in reverse order,
+
+167
+00:07:12,492 --> 00:07:20,988
+so let's grab Stephanie and
+ask for Stephanie's friends.
+
+168
+00:07:20,988 --> 00:07:23,027
+So now we've just retrieved
+Stephanie's friends
+
+169
+00:07:23,027 --> 00:07:26,543
+and here are Stephanie's
+most recent friends.
+
+170
+00:07:26,543 --> 00:07:30,310
+And then I can just hit enter
+and it will randomly pick.
+
+171
+00:07:30,310 --> 00:07:34,050
+Let's see if I can in the
+database, let's open this up.
+
+172
+00:07:34,050 --> 00:07:35,780
+File, open database.
+
+173
+00:07:35,780 --> 00:07:36,880
+Hope I don't lock myself.
+
+174
+00:07:36,880 --> 00:07:41,745
+Sometimes it's a little scary
+when you look at the database
+
+175
+00:07:41,745 --> 00:07:43,233
+and you're just checking.
+
+176
+00:07:43,233 --> 00:07:45,769
+So this is what my database looks like.
+
+177
+00:07:45,769 --> 00:07:50,680
+We retrieved Stephanie and she has,
+
+178
+00:07:50,680 --> 00:07:51,588
+this is how many people,
+
+179
+00:07:51,588 --> 00:07:56,231
+so these are the friends
+of Stephanie and me,
+
+180
+00:07:56,231 --> 00:07:58,141
+and these are how many, I'm not in there.
+
+181
+00:07:58,141 --> 00:08:00,907
+So we've retrieved Stephanie,
+which was a friend.
+
+182
+00:08:00,907 --> 00:08:04,547
+So let's go grab, oh I don't know,
+
+183
+00:08:04,547 --> 00:08:07,508
+let's grab Tim McKay and get that one.
+
+184
+00:08:07,508 --> 00:08:10,013
+Remaining 10, I don't
+have too many of these!
+
+185
+00:08:10,013 --> 00:08:13,898
+Tim McKay, alright, so there we go.
+
+186
+00:08:13,898 --> 00:08:16,284
+Remaining nine.
+
+187
+00:08:16,284 --> 00:08:18,999
+And so if I do a refresh on this,
+
+188
+00:08:18,999 --> 00:08:21,213
+then you see I've got some more folks.
+
+189
+00:08:21,213 --> 00:08:23,654
+If I hit enter here, it will retrieve,
+
+190
+00:08:23,654 --> 00:08:27,451
+it will pick one randomly based
+on the retrieve being zero.
+
+191
+00:08:27,451 --> 00:08:29,618
+So it won't pick Stephanie
+or Tim because they're zero
+
+192
+00:08:29,618 --> 00:08:32,580
+but we have lots of other
+folks to pick randomly.
+
+193
+00:08:32,580 --> 00:08:36,964
+And we'll hit enter, so it
+picked, who did it pick?
+
+194
+00:08:36,964 --> 00:08:42,116
+It picked screen name
+liveedutv, which is ironic
+
+195
+00:08:42,116 --> 00:08:45,152
+because I'm recording this
+on liveedutv right now.
+
+196
+00:08:45,152 --> 00:08:47,445
+And so we can keep hitting refresh,
+
+197
+00:08:47,445 --> 00:08:48,278
+and away we go.
+
+198
+00:08:48,278 --> 00:08:52,164
+So I'm gonna stop now because
+I only have eight remaining.
+
+199
+00:08:52,164 --> 00:08:54,699
+And so I'm gonna type quit
+
+200
+00:08:54,699 --> 00:08:58,165
+and so we will see how that works.
+
+201
+00:08:58,165 --> 00:08:59,257
+So that's how it works.
+
+202
+00:08:59,257 --> 00:09:03,660
+Now, remember that you've got to
+
+203
+00:09:03,660 --> 00:09:05,963
+edit the hidden.py file to make this work
+
+204
+00:09:05,963 --> 00:09:09,760
+because we're talking to the Twitter API.
+
+205
+00:09:09,760 --> 00:09:14,334
+If you don't edit that file,
+
+206
+00:09:14,334 --> 00:09:15,352
+it won't work for you.
+
+207
+00:09:15,352 --> 00:09:16,185
+Okay?
+
+208
+00:09:16,185 --> 00:09:17,452
+So I hope you find this useful.
+
+209
+00:09:17,452 --> 00:09:18,443
+Cheers.
+
+210
+00:09:18,443 --> 00:09:22,610
+("Soul and Mind" by E's Jammy Jams)
+

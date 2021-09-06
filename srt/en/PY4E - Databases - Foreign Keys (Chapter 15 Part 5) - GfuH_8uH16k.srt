@@ -1,0 +1,1104 @@
+1
+00:00:00,375 --> 00:00:01,749
+- So now that we know what a primary key,
+
+2
+00:00:01,749 --> 00:00:03,468
+logical key, and a foreign key are,
+
+3
+00:00:03,468 --> 00:00:04,991
+we're going to actually start putting
+
+4
+00:00:04,991 --> 00:00:06,750
+these together and creating tables
+
+5
+00:00:06,750 --> 00:00:09,885
+that have these kinds of values in them.
+
+6
+00:00:09,885 --> 00:00:11,677
+So, when we were done,
+we drew this picture
+
+7
+00:00:11,677 --> 00:00:13,101
+that was sort of a logical model
+
+8
+00:00:13,101 --> 00:00:15,533
+of how our data would be spread across
+
+9
+00:00:15,533 --> 00:00:18,308
+four tables and how those
+tables are connected.
+
+10
+00:00:18,308 --> 00:00:20,200
+Now we have to take this
+and we have to map it
+
+11
+00:00:20,200 --> 00:00:23,172
+in a way that leads to the columns
+
+12
+00:00:23,172 --> 00:00:25,402
+and the needed columns in each
+
+13
+00:00:25,402 --> 00:00:27,142
+of our database tables.
+
+14
+00:00:27,142 --> 00:00:28,809
+So here's what we do.
+
+15
+00:00:28,809 --> 00:00:32,378
+We basically have to take,
+and for each of these,
+
+16
+00:00:32,378 --> 00:00:35,042
+when we're gonna build a track table,
+
+17
+00:00:35,042 --> 00:00:36,602
+and we're gonna build a track table,
+
+18
+00:00:36,602 --> 00:00:38,140
+we add a primary key.
+
+19
+00:00:38,140 --> 00:00:41,094
+So we just added an id field
+to every one of these things,
+
+20
+00:00:41,094 --> 00:00:42,854
+and that's so we have a place to store
+
+21
+00:00:42,854 --> 00:00:46,079
+the sequence number of
+this particular row.
+
+22
+00:00:46,079 --> 00:00:47,745
+We have logical keys,
+we've just marked those.
+
+23
+00:00:47,745 --> 00:00:49,832
+Those are strings, and
+then we have things like
+
+24
+00:00:49,832 --> 00:00:51,335
+rating, length, and count, they just kinda
+
+25
+00:00:51,335 --> 00:00:55,946
+go in here, and now we have
+to model a relationship.
+
+26
+00:00:55,946 --> 00:01:00,027
+In the table, the
+relationship starts from,
+
+27
+00:01:00,027 --> 00:01:02,547
+we put one more column
+in, and this is the one
+
+28
+00:01:02,547 --> 00:01:04,700
+I will name "album id" and that just is
+
+29
+00:01:04,700 --> 00:01:06,639
+an integer column that's going to record
+
+30
+00:01:06,639 --> 00:01:10,320
+the album id, so this might be 16,
+
+31
+00:01:10,320 --> 00:01:12,020
+and then 16 goes in here.
+
+32
+00:01:12,020 --> 00:01:13,001
+So there's one of these columns
+
+33
+00:01:13,001 --> 00:01:15,671
+that's a foreign key that points to this.
+
+34
+00:01:15,671 --> 00:01:16,908
+And that's why it's foreign,
+
+35
+00:01:16,908 --> 00:01:18,737
+this is a key that's
+not in the track table.
+
+36
+00:01:18,737 --> 00:01:20,996
+This is a key in the album table
+
+37
+00:01:20,996 --> 00:01:24,386
+that we're pointing to, so
+there's the foreign key.
+
+38
+00:01:24,386 --> 00:01:25,653
+That's what we have to do, and we just
+
+39
+00:01:25,653 --> 00:01:28,011
+do that over and over and over again
+
+40
+00:01:28,011 --> 00:01:30,871
+and we quickly convert that picture
+
+41
+00:01:30,871 --> 00:01:32,695
+that was a logical picture,
+
+42
+00:01:32,695 --> 00:01:35,843
+to having every table has a primary key,
+
+43
+00:01:35,843 --> 00:01:37,954
+and every time we have a starting point,
+
+44
+00:01:37,954 --> 00:01:39,813
+we have a foreign key, foreign key,
+
+45
+00:01:39,813 --> 00:01:40,951
+and then foreign key.
+
+46
+00:01:40,951 --> 00:01:42,669
+And then we mark these
+things as logical key,
+
+47
+00:01:42,669 --> 00:01:45,472
+logical key, logical key,
+and we'll see how we do that.
+
+48
+00:01:45,472 --> 00:01:46,890
+And so that's the picture.
+
+49
+00:01:46,890 --> 00:01:49,135
+Now we have a picture of exactly how
+
+50
+00:01:49,135 --> 00:01:50,672
+we're gonna lay these tables out,
+
+51
+00:01:50,672 --> 00:01:53,385
+and the fields that we
+need in these tables.
+
+52
+00:01:53,385 --> 00:02:02,686
+So, we're going to do a
+create table statement.
+
+53
+00:02:02,686 --> 00:02:09,658
+And I've got this create
+table statement sitting there.
+
+54
+00:02:09,658 --> 00:02:12,659
+And so this one's going to
+be a little bit different.
+
+55
+00:02:12,659 --> 00:02:15,279
+We're gonna say create table "artist"
+
+56
+00:02:15,279 --> 00:02:19,144
+and the id field is integer,
+
+57
+00:02:19,144 --> 00:02:21,966
+and we're gonna add all of this stuff.
+
+58
+00:02:21,966 --> 00:02:26,424
+This is adding to the column
+to tell it additional stuff.
+
+59
+00:02:26,424 --> 00:02:27,678
+It's a primary key, which means we're
+
+60
+00:02:27,678 --> 00:02:29,606
+gonna use it to look up a lot.
+
+61
+00:02:29,606 --> 00:02:31,046
+It's automatically
+incremented, which means
+
+62
+00:02:31,046 --> 00:02:32,236
+the database is actually gonna provide
+
+63
+00:02:32,236 --> 00:02:35,460
+this number for us as we insert records.
+
+64
+00:02:35,460 --> 00:02:36,652
+It's not allowed to be null,
+
+65
+00:02:36,652 --> 00:02:38,179
+it's not allowed to be empty,
+
+66
+00:02:38,179 --> 00:02:39,899
+and it's supposed to be unique.
+
+67
+00:02:39,899 --> 00:02:45,109
+And then the artist is
+gonna have a name column,
+
+68
+00:02:45,109 --> 00:02:47,083
+a name column that's just text.
+
+69
+00:02:47,083 --> 00:02:50,808
+So let's do that.
+
+70
+00:02:50,808 --> 00:02:52,086
+We already have our users.
+
+71
+00:02:52,086 --> 00:02:55,053
+Now we're gonna do a
+create table in this SQL,
+
+72
+00:02:55,053 --> 00:02:57,507
+and you can do that, that's
+okay, that's totally fine.
+
+73
+00:02:57,507 --> 00:03:00,515
+And we have to get this
+right, and we say away we go.
+
+74
+00:03:00,515 --> 00:03:03,701
+And so now if I take a
+look at database structure,
+
+75
+00:03:03,701 --> 00:03:06,187
+I've got a users table, that users table
+
+76
+00:03:06,187 --> 00:03:10,049
+we were playing with before,
+and this artist table.
+
+77
+00:03:10,049 --> 00:03:12,854
+Let me go ahead and
+delete this users table
+
+78
+00:03:12,854 --> 00:03:15,159
+just to say goodbye.
+
+79
+00:03:15,159 --> 00:03:16,244
+So now we have the artist table,
+
+80
+00:03:16,244 --> 00:03:18,067
+and we take a look and it's got an id,
+
+81
+00:03:18,067 --> 00:03:22,602
+and it knows all about this stuff, 'kay?
+
+82
+00:03:22,602 --> 00:03:25,288
+So, that created the table.
+
+83
+00:03:25,288 --> 00:03:27,012
+We're going to keep doing this.
+
+84
+00:03:27,012 --> 00:03:28,620
+The next thing that
+we're going to show here
+
+85
+00:03:28,620 --> 00:03:31,753
+is we're going to show
+the foreign key, right,
+
+86
+00:03:31,753 --> 00:03:34,127
+so artist id is just an integer.
+
+87
+00:03:34,127 --> 00:03:37,067
+In some database languages,
+like MySQL and Oracle,
+
+88
+00:03:37,067 --> 00:03:37,900
+you would put more stuff here to say
+
+89
+00:03:37,900 --> 00:03:39,740
+this is a foreign key, blah blah blah,
+
+90
+00:03:39,740 --> 00:03:41,515
+but in SQLite, we keep it simple
+
+91
+00:03:41,515 --> 00:03:43,558
+and just say that is an integer column,
+
+92
+00:03:43,558 --> 00:03:45,769
+that's a foreign key, the album table
+
+93
+00:03:45,769 --> 00:03:47,847
+has a primary key and a foreign key,
+
+94
+00:03:47,847 --> 00:03:55,207
+and then the title.
+
+95
+00:03:55,207 --> 00:03:57,841
+So we'll go back and we'll grab that text
+
+96
+00:03:57,841 --> 00:04:02,671
+out of my little page, this create table.
+
+97
+00:04:02,671 --> 00:04:11,259
+Go back to Execute SQL, and then run that.
+
+98
+00:04:11,259 --> 00:04:17,829
+And we'll continue, the
+genre table has an id on it.
+
+99
+00:04:17,829 --> 00:04:20,099
+Just copy and paste
+these, that whole thing,
+
+100
+00:04:20,099 --> 00:04:21,795
+you do that over and over and over again,
+
+101
+00:04:21,795 --> 00:04:26,108
+so we'll go in here and run that one.
+
+102
+00:04:26,108 --> 00:04:32,325
+And so the last one we're going to do
+
+103
+00:04:32,325 --> 00:04:33,985
+is the track table, and the only thing
+
+104
+00:04:33,985 --> 00:04:35,557
+that's kinda weird about the track table
+
+105
+00:04:35,557 --> 00:04:37,474
+is it's got two foreign keys, right.
+
+106
+00:04:37,474 --> 00:04:39,471
+It's got album id and genre id.
+
+107
+00:04:39,471 --> 00:04:40,638
+Once you draw the
+picture, you just sort of
+
+108
+00:04:40,638 --> 00:04:42,878
+literally translate these things.
+
+109
+00:04:42,878 --> 00:04:44,857
+It's got two foreign
+keys and a primary key
+
+110
+00:04:44,857 --> 00:04:51,342
+that's pretty much just like
+all those other primary keys.
+
+111
+00:04:51,342 --> 00:04:54,231
+Integer counts and integer lengths and
+
+112
+00:04:54,231 --> 00:04:57,215
+integer all that stuff,
+and now we've got it.
+
+113
+00:04:57,215 --> 00:04:58,627
+We take a look at our database structure,
+
+114
+00:04:58,627 --> 00:05:01,550
+we're gonna see that our
+album, genre, and track
+
+115
+00:05:01,550 --> 00:05:04,216
+are all set up, and these are new columns
+
+116
+00:05:04,216 --> 00:05:12,211
+that we just made with those
+create statements, kay?
+
+117
+00:05:12,211 --> 00:05:13,945
+So now let's insert some data.
+
+118
+00:05:13,945 --> 00:05:15,535
+This first insert statement is
+
+119
+00:05:15,535 --> 00:05:17,720
+kind of important to take a look at.
+
+120
+00:05:17,720 --> 00:05:19,657
+So insert into, by the way the keywords
+
+121
+00:05:19,657 --> 00:05:22,810
+can be upper or lower
+case, table name, columns.
+
+122
+00:05:22,810 --> 00:05:26,025
+Now, this table has two
+columns, it has id and name,
+
+123
+00:05:26,025 --> 00:05:28,088
+but we told the database that id
+
+124
+00:05:28,088 --> 00:05:30,471
+was auto-increment, so it's gonna actually
+
+125
+00:05:30,471 --> 00:05:33,678
+give us the number, it's
+gonna assign the number
+
+126
+00:05:33,678 --> 00:05:34,897
+rather than make us assign.
+
+127
+00:05:34,897 --> 00:05:36,447
+We could make it be one two three,
+
+128
+00:05:36,447 --> 00:05:37,501
+but we say, "Hey, database, you're good
+
+129
+00:05:37,501 --> 00:05:40,318
+"at this, why don't you
+make it one two three?"
+
+130
+00:05:40,318 --> 00:05:41,960
+And so there is going to be a record
+
+131
+00:05:41,960 --> 00:05:50,272
+that it adds Led Zeppelin,
+so let's take a look at that.
+
+132
+00:05:50,272 --> 00:05:56,918
+We'll insert Led Zeppelin, oops,
+
+133
+00:05:56,918 --> 00:06:01,568
+over to SQL, insert Led
+Zeppelin and run it.
+
+134
+00:06:01,568 --> 00:06:04,047
+So now if I look at database structure,
+
+135
+00:06:04,047 --> 00:06:06,711
+let's look at browse data, and look
+
+136
+00:06:06,711 --> 00:06:08,429
+at the artist database, you will see
+
+137
+00:06:08,429 --> 00:06:11,186
+that I put Led Zeppelin
+in, but this id field
+
+138
+00:06:11,186 --> 00:06:13,821
+here was auto-incremented, and so
+
+139
+00:06:13,821 --> 00:06:16,533
+it was put there by the database.
+
+140
+00:06:16,533 --> 00:06:18,600
+Now when we do the next insert,
+
+141
+00:06:18,600 --> 00:06:26,478
+which is AC/DC,
+
+142
+00:06:26,478 --> 00:06:30,059
+and we take a look at the data,
+
+143
+00:06:30,059 --> 00:06:32,497
+we'll see that AC/DC is 2.
+
+144
+00:06:32,497 --> 00:06:35,173
+Now, if you're writing this in a program,
+
+145
+00:06:35,173 --> 00:06:37,641
+if you're gonna write this in a program,
+
+146
+00:06:37,641 --> 00:06:38,659
+you can get these numbers back
+
+147
+00:06:38,659 --> 00:06:40,949
+from the database in your program,
+
+148
+00:06:40,949 --> 00:06:42,076
+but I'm not writing this in a program
+
+149
+00:06:42,076 --> 00:06:45,007
+so I have to remember that 1 is Zeppelin
+
+150
+00:06:45,007 --> 00:06:47,297
+and 2 is AC/DC.
+
+151
+00:06:47,297 --> 00:06:48,862
+I'm gonna keep myself a
+little cheat sheet here
+
+152
+00:06:48,862 --> 00:06:52,273
+to remember that, because everywhere else
+
+153
+00:06:52,273 --> 00:06:53,929
+in the program that we
+wanna say Led Zeppelin,
+
+154
+00:06:53,929 --> 00:06:57,145
+I gotta say 1 now, because the artist id
+
+155
+00:06:57,145 --> 00:07:00,364
+of 1 means Led Zeppelin in those rows.
+
+156
+00:07:00,364 --> 00:07:02,194
+Now we're going to go back and we're
+
+157
+00:07:02,194 --> 00:07:04,954
+gonna take a look at the next one.
+
+158
+00:07:04,954 --> 00:07:07,354
+Now we're gonna put the genre in.
+
+159
+00:07:07,354 --> 00:07:08,488
+If you think about it, we're working
+
+160
+00:07:08,488 --> 00:07:10,722
+from the leaves out, the track will
+
+161
+00:07:10,722 --> 00:07:12,308
+be the last table that we'll update
+
+162
+00:07:12,308 --> 00:07:13,985
+because we'll have to define the keys
+
+163
+00:07:13,985 --> 00:07:15,268
+for things like rock and metal
+
+164
+00:07:15,268 --> 00:07:17,962
+and Led Zeppelin and
+all those other things.
+
+165
+00:07:17,962 --> 00:07:19,814
+And again, even though the genre table
+
+166
+00:07:19,814 --> 00:07:22,153
+has two columns, id and name,
+
+167
+00:07:22,153 --> 00:07:23,272
+we're only gonna specify the name
+
+168
+00:07:23,272 --> 00:07:28,909
+and let the database assign the value.
+
+169
+00:07:28,909 --> 00:07:30,350
+So I'm gonna insert both of these
+
+170
+00:07:30,350 --> 00:07:34,111
+and use the semicolon trick.
+
+171
+00:07:34,111 --> 00:07:39,080
+Put a semicolon here
+and a semicolon there,
+
+172
+00:07:39,080 --> 00:07:41,445
+and run that.
+
+173
+00:07:41,445 --> 00:07:43,873
+So if I take a look at my browse data
+
+174
+00:07:43,873 --> 00:07:46,038
+and I look at the genre, it's assigned
+
+175
+00:07:46,038 --> 00:07:48,408
+1 to rock and 2 to metal.
+
+176
+00:07:48,408 --> 00:07:50,398
+I'm gonna write that down.
+
+177
+00:07:50,398 --> 00:07:54,837
+1 rock, 2 metal.
+
+178
+00:07:54,837 --> 00:07:56,145
+I shoulda done something
+like rock and country
+
+179
+00:07:56,145 --> 00:07:57,243
+'cause I can't even tell the difference
+
+180
+00:07:57,243 --> 00:07:59,849
+between rock and metal, but whatever.
+
+181
+00:07:59,849 --> 00:08:04,794
+My musical skill is not
+what's at issue in this class.
+
+182
+00:08:04,794 --> 00:08:08,202
+So now, we're going to put an album in.
+
+183
+00:08:08,202 --> 00:08:10,337
+The album is the first thing
+that has a foreign key,
+
+184
+00:08:10,337 --> 00:08:13,995
+so if you remember,
+album points to artist,
+
+185
+00:08:13,995 --> 00:08:16,968
+and so that means it has a
+foreign key of artist id.
+
+186
+00:08:16,968 --> 00:08:18,878
+We have to explicitly say this
+
+187
+00:08:18,878 --> 00:08:21,478
+'cause the system doesn't know
+
+188
+00:08:21,478 --> 00:08:23,406
+which artist Who Made Who is,
+
+189
+00:08:23,406 --> 00:08:27,417
+but we know that Who Made
+Who is AC/DC and that's 2,
+
+190
+00:08:27,417 --> 00:08:29,627
+and so we know to put artist id in,
+
+191
+00:08:29,627 --> 00:08:32,431
+so we'll say insert into
+album, title, artist id,
+
+192
+00:08:32,431 --> 00:08:35,080
+and so we have to know
+what this 2 number is.
+
+193
+00:08:35,080 --> 00:08:36,566
+And of course, because we have our
+
+194
+00:08:36,566 --> 00:08:42,666
+handy little cheat sheet.
+
+195
+00:08:42,666 --> 00:08:45,929
+We can go over to execute and run that,
+
+196
+00:08:45,929 --> 00:08:47,350
+and I'll put a semicolon there and
+
+197
+00:08:47,350 --> 00:08:50,979
+a semicolon there and run it.
+
+198
+00:08:50,979 --> 00:08:56,584
+So now we have,
+
+199
+00:08:56,584 --> 00:08:58,428
+in the album field,
+
+200
+00:08:58,428 --> 00:09:01,504
+we now have this, and
+so this was assigned,
+
+201
+00:09:01,504 --> 00:09:02,898
+and so Who Made Who-
+
+202
+00:09:02,898 --> 00:09:06,207
+Still have to write down that
+
+203
+00:09:06,207 --> 00:09:10,338
+Who Made Who is album 1,
+
+204
+00:09:10,338 --> 00:09:13,602
+and album 2 is Led Zeppelin IV.
+
+205
+00:09:13,602 --> 00:09:14,745
+That makes it even more complex
+
+206
+00:09:14,745 --> 00:09:17,681
+'cause the name of the album
+is a Roman numeral four.
+
+207
+00:09:17,681 --> 00:09:19,453
+I'm sure I can figure that out.
+
+208
+00:09:19,453 --> 00:09:22,574
+Okay, so, the next thing that we're
+
+209
+00:09:22,574 --> 00:09:25,663
+going to do is we're gonna
+insert the track record.
+
+210
+00:09:25,663 --> 00:09:27,302
+Now if you think about the track record,
+
+211
+00:09:27,302 --> 00:09:32,246
+the track has two foreign keys
+
+212
+00:09:32,246 --> 00:09:33,229
+and it's got a lot of stuff.
+
+213
+00:09:33,229 --> 00:09:34,288
+It's got the title, it's got the rating,
+
+214
+00:09:34,288 --> 00:09:35,600
+length, count, but then we've got
+
+215
+00:09:35,600 --> 00:09:36,813
+the two foreign keys, and so we
+
+216
+00:09:36,813 --> 00:09:41,299
+have to know these numbers, so this 2, 1,
+
+217
+00:09:41,299 --> 00:09:45,409
+this 2, 1, this 1, 2 is the genre.
+
+218
+00:09:45,409 --> 00:09:46,989
+We're specifying the genre and the album
+
+219
+00:09:46,989 --> 00:09:50,867
+that this track is from by those numbers.
+
+220
+00:09:50,867 --> 00:09:53,485
+Now, again, we have to
+use this cheat sheet,
+
+221
+00:09:53,485 --> 00:09:54,882
+but if this was a program, the program
+
+222
+00:09:54,882 --> 00:09:59,887
+would know that 1 was Zeppelin,
+
+223
+00:09:59,887 --> 00:10:02,622
+and 1 was Who Made Who
+and 2 was Led Zeppelin IV.
+
+224
+00:10:02,622 --> 00:10:04,374
+And so the programs, this kind of stuff
+
+225
+00:10:04,374 --> 00:10:07,578
+is easier for the program to understand
+
+226
+00:10:07,578 --> 00:10:09,638
+than for us to keep
+track of and understand,
+
+227
+00:10:09,638 --> 00:10:12,831
+but just so we can get
+through these few records,
+
+228
+00:10:12,831 --> 00:10:16,093
+and that's why I rely so
+heavily on my cheat sheet.
+
+229
+00:10:16,093 --> 00:10:19,009
+So here we are, with all these numbers,
+
+230
+00:10:19,009 --> 00:10:21,540
+the foreign keys are the tricky part here,
+
+231
+00:10:21,540 --> 00:10:23,798
+everything else is really
+quite straightforward.
+
+232
+00:10:23,798 --> 00:10:33,921
+So now I'm gonna insert four
+records into my track table.
+
+233
+00:10:33,921 --> 00:10:37,126
+And then run that.
+
+234
+00:10:37,126 --> 00:10:41,526
+Okay, so I go to browse data
+and I look at my track table.
+
+235
+00:10:41,526 --> 00:10:43,489
+This column here, this id, that's
+
+236
+00:10:43,489 --> 00:10:44,934
+the primary key to the track table,
+
+237
+00:10:44,934 --> 00:10:46,908
+then here are the two foreign keys.
+
+238
+00:10:46,908 --> 00:10:48,705
+Now the interesting thing is now
+
+239
+00:10:48,705 --> 00:10:51,741
+there is replication in these columns,
+
+240
+00:10:51,741 --> 00:10:53,723
+but the numbers are
+what's being replicated,
+
+241
+00:10:53,723 --> 00:10:55,099
+and that's okay.
+
+242
+00:10:55,099 --> 00:10:57,891
+We (laughs) went a long time just
+
+243
+00:10:57,891 --> 00:11:00,729
+not to put Led Zeppelin IV in twice.
+
+244
+00:11:00,729 --> 00:11:02,295
+We could have made this a string,
+
+245
+00:11:02,295 --> 00:11:03,644
+but by making this an integer,
+
+246
+00:11:03,644 --> 00:11:06,324
+it saves tons of storage
+and makes it super fast.
+
+247
+00:11:06,324 --> 00:11:09,217
+That turns out to be one of the key things
+
+248
+00:11:09,217 --> 00:11:11,382
+that makes databases super fast
+
+249
+00:11:11,382 --> 00:11:15,347
+is using these integers.
+
+250
+00:11:15,347 --> 00:11:16,549
+So we take a look at all this stuff.
+
+251
+00:11:16,549 --> 00:11:18,073
+We see that in a sense, by using
+
+252
+00:11:18,073 --> 00:11:21,190
+these little numbers, we are pointing
+
+253
+00:11:21,190 --> 00:11:22,926
+to rows in other tables.
+
+254
+00:11:22,926 --> 00:11:24,528
+The foreign keys are always pointing,
+
+255
+00:11:24,528 --> 00:11:26,208
+they always point to their id.
+
+256
+00:11:26,208 --> 00:11:27,758
+So these foreign keys are out here,
+
+257
+00:11:27,758 --> 00:11:29,499
+this is the primary key up here,
+
+258
+00:11:29,499 --> 00:11:31,602
+and they always point
+to a row in the table.
+

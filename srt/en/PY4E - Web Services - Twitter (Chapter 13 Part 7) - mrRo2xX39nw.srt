@@ -1,0 +1,962 @@
+1
+00:00:00,636 --> 00:00:02,366
+Now we're gonna talk
+about API rate limiting
+
+2
+00:00:02,366 --> 00:00:06,453
+and security, the key thing
+is that the Google API
+
+3
+00:00:06,453 --> 00:00:09,271
+and the Google data is super valuable.
+
+4
+00:00:09,271 --> 00:00:10,734
+And you could build a
+website that did nothing
+
+5
+00:00:10,734 --> 00:00:13,334
+but sort of like asked
+the person for something
+
+6
+00:00:13,334 --> 00:00:14,940
+and then showed them that place
+
+7
+00:00:14,940 --> 00:00:16,714
+and make them be a map searcher.
+
+8
+00:00:16,714 --> 00:00:18,241
+And you added so little value and
+
+9
+00:00:18,241 --> 00:00:20,303
+Google did all the hard work.
+
+10
+00:00:20,303 --> 00:00:22,538
+And so they protect these somewhat.
+
+11
+00:00:22,538 --> 00:00:23,940
+Sometimes, they'll say you can only do 50
+
+12
+00:00:23,940 --> 00:00:27,208
+of these a day or 500 a day or whatever.
+
+13
+00:00:27,208 --> 00:00:29,206
+That's called rate
+limiting, and sometimes they
+
+14
+00:00:29,206 --> 00:00:30,827
+say you've got to login, you've
+
+15
+00:00:30,827 --> 00:00:33,359
+got to create an account
+and get a key with us.
+
+16
+00:00:33,359 --> 00:00:34,676
+And then present your key so that means
+
+17
+00:00:34,676 --> 00:00:36,889
+that your account only gets so many.
+
+18
+00:00:36,889 --> 00:00:38,791
+And they keep track of
+whose using their service
+
+19
+00:00:38,791 --> 00:00:40,846
+and how much they're using it.
+
+20
+00:00:40,846 --> 00:00:42,621
+Google gives you even sort of a dashboard
+
+21
+00:00:42,621 --> 00:00:46,491
+that tells you some of this
+stuff, it's kinda nice.
+
+22
+00:00:46,491 --> 00:00:51,401
+And so, the other thing
+is that sometimes and API
+
+23
+00:00:51,401 --> 00:00:53,381
+is free and then it becomes popular
+
+24
+00:00:53,381 --> 00:00:55,007
+and they decide they're gonna put a key
+
+25
+00:00:55,007 --> 00:00:56,581
+on it or a rate limit on it.
+
+26
+00:00:56,581 --> 00:00:58,724
+So you gotta kinda play
+this game with them.
+
+27
+00:00:58,724 --> 00:01:02,302
+And the rules kinda
+change as things progress.
+
+28
+00:01:02,302 --> 00:01:05,206
+So that geo coding API
+that we were talking about
+
+29
+00:01:05,206 --> 00:01:10,029
+has at one point in time
+2,500 requests a day.
+
+30
+00:01:10,029 --> 00:01:13,598
+You can get more request if you get a key.
+
+31
+00:01:13,598 --> 00:01:15,627
+Now, another API that we can talk
+
+32
+00:01:15,627 --> 00:01:18,129
+about, is the Twitter API, now Twitter API
+
+33
+00:01:18,129 --> 00:01:20,945
+started out as a free public API.
+
+34
+00:01:20,945 --> 00:01:22,439
+But then Twitter realized that people are
+
+35
+00:01:22,439 --> 00:01:24,835
+making more money off of
+Twitter's data than Twitter
+
+36
+00:01:24,835 --> 00:01:27,173
+was making off of Twitter's data.
+
+37
+00:01:27,173 --> 00:01:29,016
+And so Twitter makes is so
+that you have to have an
+
+38
+00:01:29,016 --> 00:01:32,660
+account, you can only
+request data from their API
+
+39
+00:01:32,660 --> 00:01:36,922
+if you use your account key to sign that.
+
+40
+00:01:36,922 --> 00:01:38,910
+And so, there's a whole series of getting
+
+41
+00:01:38,910 --> 00:01:42,136
+and issuing keys and
+then using those keys.
+
+42
+00:01:42,136 --> 00:01:45,048
+And I'll just give you
+a short summary of the
+
+43
+00:01:45,048 --> 00:01:47,112
+kinda code that it takes to build those
+
+44
+00:01:47,112 --> 00:01:52,405
+requests up that have to be signed.
+
+45
+00:01:52,405 --> 00:01:55,527
+So you'll look through
+the Twitter documentation
+
+46
+00:01:55,527 --> 00:02:00,123
+and it'll say oh, this url
+to get the tweets, etc., etc.
+
+47
+00:02:00,123 --> 00:02:02,838
+And it says do a get request to this url
+
+48
+00:02:02,838 --> 00:02:04,656
+and that url and maybe
+substitute a little bit
+
+49
+00:02:04,656 --> 00:02:06,576
+of things here for the screen name you're
+
+50
+00:02:06,576 --> 00:02:09,179
+looking for or how many tweets you want.
+
+51
+00:02:09,179 --> 00:02:14,565
+And they tell you how to
+carefully construct these urls.
+
+52
+00:02:14,565 --> 00:02:16,217
+And so here's an example
+bit of code that talks
+
+53
+00:02:16,217 --> 00:02:21,441
+to the Twitter, for now I'll
+ignore the security bit.
+
+54
+00:02:21,441 --> 00:02:23,912
+And that's all hidden in this twurl, so
+
+55
+00:02:23,912 --> 00:02:26,233
+it looks a lot like the last
+one, we're gonna use json
+
+56
+00:02:26,233 --> 00:02:30,561
+and urllib and we have found
+that this is the API name,
+
+57
+00:02:30,561 --> 00:02:32,978
+blah, blah, blah, blah, blah, list.json.
+
+58
+00:02:32,978 --> 00:02:35,975
+Getting a friend list
+for a particular person.
+
+59
+00:02:35,975 --> 00:02:40,421
+And so that is the base
+url that we're going to do.
+
+60
+00:02:40,421 --> 00:02:44,233
+And we're going to ask a
+person for a Twitter account.
+
+61
+00:02:44,233 --> 00:02:45,980
+If we hit enter, we're gonna break out.
+
+62
+00:02:45,980 --> 00:02:48,276
+And twurl augment, we're
+gonna say give me the
+
+63
+00:02:48,276 --> 00:02:51,497
+first five friends of this
+particular screen name,
+
+64
+00:02:51,497 --> 00:02:53,639
+the one we just read in from input.
+
+65
+00:02:53,639 --> 00:02:56,372
+And this twurl, you'll
+see in a second, it adds
+
+66
+00:02:56,372 --> 00:02:59,675
+a bunch of stuff to prove
+that you are who you are.
+
+67
+00:02:59,675 --> 00:03:02,764
+It's signing that url, so
+you're sending a signed url.
+
+68
+00:03:02,764 --> 00:03:04,590
+Which is nothing more
+than a whole bunch of
+
+69
+00:03:04,590 --> 00:03:07,060
+crazy characters, we'll
+see that in a second.
+
+70
+00:03:07,060 --> 00:03:09,694
+We retrieve it and this is
+pretty straight forward.
+
+71
+00:03:09,694 --> 00:03:13,959
+We can just, you know, open
+the url, read it and decode it.
+
+72
+00:03:13,959 --> 00:03:17,342
+Decode solves the utf8
+thing, makes it all so that
+
+73
+00:03:17,342 --> 00:03:20,410
+data is a real string and it's
+in the Unicode internally.
+
+74
+00:03:20,410 --> 00:03:22,198
+Now we can actually get the headers.
+
+75
+00:03:22,198 --> 00:03:26,659
+Remember I told you earlier
+that url open bypasses
+
+76
+00:03:26,659 --> 00:03:28,946
+the headers, but it stored them for later.
+
+77
+00:03:28,946 --> 00:03:30,262
+We can say hey, give
+me back those headers.
+
+78
+00:03:30,262 --> 00:03:33,618
+And it gives us back a
+dictionary of headers.
+
+79
+00:03:33,618 --> 00:03:35,365
+And the headers if you
+go all the way back,
+
+80
+00:03:35,365 --> 00:03:38,911
+are a bunch of key value pairs.
+
+81
+00:03:38,911 --> 00:03:42,371
+Key:value in the headers
+and in Twitter, if you
+
+82
+00:03:42,371 --> 00:03:45,357
+read the documentation, there's
+this x-rate-limit-remaining
+
+83
+00:03:45,357 --> 00:03:48,205
+that tells you each time
+it returns to the API,
+
+84
+00:03:48,205 --> 00:03:50,865
+response to the API call that you made.
+
+85
+00:03:50,865 --> 00:03:53,026
+It says, look, you've got
+12 left, you've got 11 left,
+
+86
+00:03:53,026 --> 00:03:55,886
+you've got 10 so you can print that out.
+
+87
+00:03:55,886 --> 00:03:58,407
+So this prints out how
+many you've got left.
+
+88
+00:03:58,407 --> 00:04:00,860
+Then we parse the json data.
+
+89
+00:04:00,860 --> 00:04:03,325
+We're gonna print it so we can debug it.
+
+90
+00:04:03,325 --> 00:04:07,042
+This dumps, dump to
+string and then print it.
+
+91
+00:04:07,042 --> 00:04:09,920
+Indent=4, this is called pretty printing
+
+92
+00:04:09,920 --> 00:04:12,662
+and it's indenting things really nicely
+
+93
+00:04:12,662 --> 00:04:15,492
+so that you can make more sense of it.
+
+94
+00:04:15,492 --> 00:04:17,512
+Whereas when these things
+are talking, when programs
+
+95
+00:04:17,512 --> 00:04:19,307
+are talking to each
+other, they don't really
+
+96
+00:04:19,307 --> 00:04:24,164
+make the output look particularly pretty.
+
+97
+00:04:24,164 --> 00:04:27,585
+And then if you, we're
+gonna go through and we have
+
+98
+00:04:27,585 --> 00:04:30,178
+the outer thing of users
+and we're gonna print out
+
+99
+00:04:30,178 --> 00:04:34,341
+the screen name and go grab
+for each user and users,
+
+100
+00:04:34,341 --> 00:04:35,650
+we're gonna print their
+screen name, we're gonna
+
+101
+00:04:35,650 --> 00:04:38,491
+grab their status text and print that out.
+
+102
+00:04:38,491 --> 00:04:41,756
+And so this is what that data looks like.
+
+103
+00:04:41,756 --> 00:04:44,680
+Kinda chopped a bit,
+so the thing we get is
+
+104
+00:04:44,680 --> 00:04:51,244
+an outer layer, we get users
+and then we get a list.
+
+105
+00:04:51,244 --> 00:04:53,045
+And here's the first user,
+now if you look at the
+
+106
+00:04:53,045 --> 00:04:55,184
+actual data, it's much larger than this.
+
+107
+00:04:55,184 --> 00:04:58,226
+Here's a second user and
+then we have status text,
+
+108
+00:04:58,226 --> 00:05:02,493
+status text and the screen name, right.
+
+109
+00:05:02,493 --> 00:05:05,668
+And so those are the bits that
+we're extracting from that.
+
+110
+00:05:05,668 --> 00:05:08,145
+If you look, we are going
+to grab the screen name,
+
+111
+00:05:08,145 --> 00:05:10,472
+we're gonna grab the status
+text and away you go.
+
+112
+00:05:10,472 --> 00:05:17,185
+So, you can start with
+this, but you realize
+
+113
+00:05:17,185 --> 00:05:19,289
+that once you're looking
+at this and you're printing
+
+114
+00:05:19,289 --> 00:05:21,046
+this out with pretty
+printing, you can sort of
+
+115
+00:05:21,046 --> 00:05:22,916
+work you way in knowing that it's
+
+116
+00:05:22,916 --> 00:05:25,399
+either a dictionary or a list.
+
+117
+00:05:25,399 --> 00:05:26,998
+Cause the dictionary you look up the key.
+
+118
+00:05:26,998 --> 00:05:29,354
+If it's a list, you say
+which position it is.
+
+119
+00:05:29,354 --> 00:05:31,561
+And then you get more
+dictionaries within dictionaries
+
+120
+00:05:31,561 --> 00:05:33,440
+within dictionaries and away you go.
+
+121
+00:05:33,440 --> 00:05:37,099
+And so this code, actually,
+you know, when it runs,
+
+122
+00:05:37,099 --> 00:05:39,876
+it prints out the screen
+name and then that status.
+
+123
+00:05:39,876 --> 00:05:42,643
+And then the next person
+so it's my first five.
+
+124
+00:05:42,643 --> 00:05:45,419
+In that case, my first
+five friends and their
+
+125
+00:05:45,419 --> 00:05:48,751
+most recent status, the first five people.
+
+126
+00:05:48,751 --> 00:05:52,245
+Now, let's talk a little bit
+about how the security works.
+
+127
+00:05:52,245 --> 00:05:54,264
+And so you have to go to the website,
+
+128
+00:05:54,264 --> 00:05:55,920
+you have to have a Twitter account.
+
+129
+00:05:55,920 --> 00:05:58,746
+You can't talk to Twitter API
+without a Twitter account.
+
+130
+00:05:58,746 --> 00:06:03,108
+And then you go to this website
+and then you set up a key.
+
+131
+00:06:03,108 --> 00:06:06,049
+You say, I'm going to build
+an application that is
+
+132
+00:06:06,049 --> 00:06:08,350
+gonna consume the Twitter API.
+
+133
+00:06:08,350 --> 00:06:10,272
+And then you go in, you
+have to work through.
+
+134
+00:06:10,272 --> 00:06:12,833
+There's documentation on
+how all this stuff works.
+
+135
+00:06:12,833 --> 00:06:14,957
+You set up an API key,
+you set the application.
+
+136
+00:06:14,957 --> 00:06:19,595
+So I made a key called
+python on my laptop.
+
+137
+00:06:19,595 --> 00:06:22,204
+And it gives us some values,
+it gives us a consumer
+
+138
+00:06:22,204 --> 00:06:25,901
+key, a consumer secret, a
+token key, and token secret.
+
+139
+00:06:25,901 --> 00:06:27,318
+And you get to regenerate these.
+
+140
+00:06:27,318 --> 00:06:30,743
+And there's this file called hidden.py.
+
+141
+00:06:30,743 --> 00:06:33,032
+And you edit them and copy
+and paste all the stuff
+
+142
+00:06:33,032 --> 00:06:38,328
+from those pages, those four
+values into these strings.
+
+143
+00:06:38,328 --> 00:06:41,038
+Now, if you download my
+code, I don't have my keys
+
+144
+00:06:41,038 --> 00:06:43,680
+in there, I've got some
+place holders for this stuff.
+
+145
+00:06:43,680 --> 00:06:47,042
+So you've gotta get to this
+webpage that's on Twitter,
+
+146
+00:06:47,042 --> 00:06:49,620
+copy these things in and then
+
+147
+00:06:49,620 --> 00:06:53,310
+the twurl code will start to work.
+
+148
+00:06:53,310 --> 00:06:56,346
+It uses a technology
+called OAuth which is a way
+
+149
+00:06:56,346 --> 00:07:00,766
+to sign a url in a way
+that proves you have
+
+150
+00:07:00,766 --> 00:07:04,388
+the key and a secret and the tokens
+
+151
+00:07:04,388 --> 00:07:06,977
+and it can't be modified in the middle.
+
+152
+00:07:06,977 --> 00:07:09,200
+So once you send this url, they can check
+
+153
+00:07:09,200 --> 00:07:10,815
+the key and the secret to make sure that
+
+154
+00:07:10,815 --> 00:07:12,377
+you've truly signed it without
+
+155
+00:07:12,377 --> 00:07:14,403
+actually sending the key and the secret.
+
+156
+00:07:14,403 --> 00:07:16,179
+It's actually kinda cool and fascinating.
+
+157
+00:07:16,179 --> 00:07:17,755
+But we won't go into it
+in great detail here.
+
+158
+00:07:17,755 --> 00:07:24,396
+And so if you look at
+the code in twurl.py,
+
+159
+00:07:24,396 --> 00:07:25,877
+this is the code that does it.
+
+160
+00:07:25,877 --> 00:07:28,469
+It actually pulls in an OAuth library,
+
+161
+00:07:28,469 --> 00:07:33,358
+that hidden.py, that is
+that code that you've got.
+
+162
+00:07:33,358 --> 00:07:37,473
+And it's got the consumer
+key, the consumer secret,
+
+163
+00:07:37,473 --> 00:07:42,915
+secrets, and this is
+pulling that from hidden.py.
+
+164
+00:07:42,915 --> 00:07:46,138
+This is a lot of stuff that's
+using this OAuth library.
+
+165
+00:07:46,138 --> 00:07:47,859
+Don't worry too much about that.
+
+166
+00:07:47,859 --> 00:07:49,466
+Eventually, it produces a
+url that looks like this.
+
+167
+00:07:49,466 --> 00:07:52,045
+And what happens is, this is the base url
+
+168
+00:07:52,045 --> 00:07:55,091
+you were told to use,
+then you have count=2
+
+169
+00:07:55,091 --> 00:07:57,553
+and screen_name=drchuck,
+those parts are your
+
+170
+00:07:57,553 --> 00:08:01,931
+parameters to that web service call.
+
+171
+00:08:01,931 --> 00:08:05,327
+And then all this OAuth stuff is produced
+
+172
+00:08:05,327 --> 00:08:10,216
+by this OAuth code and the
+consumer key and the secret.
+
+173
+00:08:10,216 --> 00:08:13,027
+What happens is a key gets
+sent, the key gets sent
+
+174
+00:08:13,027 --> 00:08:16,881
+and the secret does not get sent.
+
+175
+00:08:16,881 --> 00:08:20,047
+But they send this signature
+which is based on the secret.
+
+176
+00:08:20,047 --> 00:08:22,452
+And then what it does is
+it rechecks the signature
+
+177
+00:08:22,452 --> 00:08:25,017
+on the far end, signature's a long string.
+
+178
+00:08:25,017 --> 00:08:28,248
+By regenerating the
+signature because the secrets
+
+179
+00:08:28,248 --> 00:08:32,171
+aren't available to both you
+to generate the signature
+
+180
+00:08:32,171 --> 00:08:33,849
+and to them to check the signature.
+
+181
+00:08:33,849 --> 00:08:37,065
+So it's kinda like a hash, etc., etc.
+
+182
+00:08:37,065 --> 00:08:38,503
+You don't have to worry about all this.
+
+183
+00:08:38,503 --> 00:08:41,549
+These urls get really long and your values
+
+184
+00:08:41,549 --> 00:08:44,235
+that you need are in,
+the name of the url's in.
+
+185
+00:08:44,235 --> 00:08:46,781
+And you call this routine,
+that's called augment,
+
+186
+00:08:46,781 --> 00:08:48,545
+that takes a url and then parameters
+
+187
+00:08:48,545 --> 00:08:51,608
+and then augments it by
+adding all this OAuth stuff.
+
+188
+00:08:51,608 --> 00:08:55,346
+And so that's why it's called
+augment, to augment the url.
+
+189
+00:08:55,346 --> 00:08:57,095
+And once you've got this
+set up and hidden working,
+
+190
+00:08:57,095 --> 00:09:01,014
+then you sort of just augment
+the url and then hit it.
+
+191
+00:09:01,014 --> 00:09:03,118
+Now, you know, if you
+don't have the right keys
+
+192
+00:09:03,118 --> 00:09:04,778
+or secrets or you don't
+have an account on Twitter,
+
+193
+00:09:04,778 --> 00:09:07,036
+then it's gonna blow up,
+but if you get it set up,
+
+194
+00:09:07,036 --> 00:09:11,066
+you will be able to talk to
+the Twitter API with this.
+
+195
+00:09:11,066 --> 00:09:13,082
+So this whole web services section,
+
+196
+00:09:13,082 --> 00:09:15,604
+we've done quite a bit of stuff right.
+
+197
+00:09:15,604 --> 00:09:20,046
+We've looked at how instead
+of reading html or flat text,
+
+198
+00:09:20,046 --> 00:09:23,471
+we are creating structured data according
+
+199
+00:09:23,471 --> 00:09:26,176
+to contracts whether it be xml or json.
+
+200
+00:09:26,176 --> 00:09:28,202
+We can retrieve and
+parse that information in
+
+201
+00:09:28,202 --> 00:09:30,407
+a deterministic way,
+we talked about schemas
+
+202
+00:09:30,407 --> 00:09:34,248
+that define the contracts
+so that you know if the
+
+203
+00:09:34,248 --> 00:09:36,163
+data you're getting is
+wrong, you know who to blame
+
+204
+00:09:36,163 --> 00:09:38,661
+because the schema gets violated.
+
+205
+00:09:38,661 --> 00:09:41,643
+And we've played with
+APIs, where you're talking
+
+206
+00:09:41,643 --> 00:09:44,502
+to someone else, whose
+defining what the rules are
+
+207
+00:09:44,502 --> 00:09:46,706
+and how to read their documentation.
+
+208
+00:09:46,706 --> 00:09:49,504
+And even if they have an API key or need
+
+209
+00:09:49,504 --> 00:09:55,384
+signed urls, showed a little
+bit about how to do that.
+
+210
+00:09:55,384 --> 00:09:57,884
+(piano music)
+

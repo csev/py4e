@@ -1,0 +1,858 @@
+1
+00:00:00,848 --> 00:00:02,068
+- So, now we're going to take a look at
+
+2
+00:00:02,068 --> 00:00:04,778
+how we deal with more than
+one table, multiple tables,
+
+3
+00:00:04,778 --> 00:00:06,958
+because the real power of SQL
+
+4
+00:00:06,958 --> 00:00:08,638
+and the power of database performance
+
+5
+00:00:08,638 --> 00:00:11,059
+has to do with when you start
+connecting tables together.
+
+6
+00:00:11,059 --> 00:00:12,890
+If you go back to that
+original mathematics,
+
+7
+00:00:12,890 --> 00:00:14,719
+it models data at the intersections
+
+8
+00:00:14,719 --> 00:00:16,388
+between the row and the columns,
+
+9
+00:00:16,388 --> 00:00:21,718
+and these intersections
+are the magical bits.
+
+10
+00:00:21,718 --> 00:00:24,117
+Breaking an application
+to use multiple tables
+
+11
+00:00:24,117 --> 00:00:26,538
+is an art form, it takes a while.
+
+12
+00:00:26,538 --> 00:00:29,699
+There are some simple basic
+things that you can learn,
+
+13
+00:00:29,699 --> 00:00:31,458
+and we'll teach you here.
+
+14
+00:00:31,458 --> 00:00:33,317
+It's not to hard to learn the basics,
+
+15
+00:00:33,317 --> 00:00:38,756
+but then it's much more complex
+to be super skilled at it.
+
+16
+00:00:38,756 --> 00:00:40,879
+In general, advanced
+databases, in my mind,
+
+17
+00:00:40,879 --> 00:00:43,835
+it's hard to teach advanced databases
+
+18
+00:00:43,835 --> 00:00:48,371
+because they're always
+so contextually grounded.
+
+19
+00:00:48,371 --> 00:00:51,727
+Something like a Twitter or Google,
+
+20
+00:00:51,727 --> 00:00:55,620
+the databases are so specialized.
+
+21
+00:00:55,620 --> 00:00:57,347
+Everyone can do
+small-to-medium sized databases
+
+22
+00:00:57,347 --> 00:00:59,548
+using the basic techniques,
+but at some point,
+
+23
+00:00:59,548 --> 00:01:01,936
+once you escape medium sized databases,
+
+24
+00:01:01,936 --> 00:01:03,739
+you end up in these sort-of narrow things,
+
+25
+00:01:03,739 --> 00:01:06,778
+and optimize each
+database very separately.
+
+26
+00:01:06,778 --> 00:01:10,176
+I just tell people, learn the
+basics really, really well,
+
+27
+00:01:10,176 --> 00:01:14,395
+write programs, and then go do real work.
+
+28
+00:01:14,395 --> 00:01:20,753
+But, database design is
+the act of figuring out
+
+29
+00:01:20,753 --> 00:01:23,394
+the data that your application
+is going to want to store,
+
+30
+00:01:23,394 --> 00:01:25,626
+and spreading that across multiple tables.
+
+31
+00:01:25,626 --> 00:01:26,744
+But, we don't just do it randomly,
+
+32
+00:01:26,744 --> 00:01:28,893
+we do it very much cleverly.
+
+33
+00:01:28,893 --> 00:01:31,846
+If you look at a data model,
+this is what it looks like.
+
+34
+00:01:31,846 --> 00:01:34,714
+What we're showing here
+in this data model,
+
+35
+00:01:34,714 --> 00:01:38,594
+is we are showing five tables,
+
+36
+00:01:38,594 --> 00:01:41,555
+and this is a calendar system.
+
+37
+00:01:41,555 --> 00:01:44,694
+We're seeing the columns that
+are in each of the tables,
+
+38
+00:01:44,694 --> 00:01:47,822
+and then we're seeing the
+relationships between the tables.
+
+39
+00:01:47,822 --> 00:01:49,145
+And, even in these relationships,
+
+40
+00:01:49,145 --> 00:01:51,135
+there's a little bit of code,
+
+41
+00:01:51,135 --> 00:01:52,973
+and when you have an arrow
+that looks like that,
+
+42
+00:01:52,973 --> 00:01:54,416
+there's many of those to one,
+
+43
+00:01:54,416 --> 00:01:57,982
+and this is a many-to-one relationship.
+
+44
+00:01:57,982 --> 00:01:58,950
+Many-to-one relationship.
+
+45
+00:01:58,950 --> 00:02:01,012
+We'll talk all about that stuff, but--
+
+46
+00:02:01,012 --> 00:02:02,424
+If you go into an organization,
+
+47
+00:02:02,424 --> 00:02:05,553
+and you have a really large
+and complex data application,
+
+48
+00:02:05,553 --> 00:02:07,233
+they might have something
+printed out on the wall
+
+49
+00:02:07,233 --> 00:02:08,532
+that looks about like this,
+
+50
+00:02:08,532 --> 00:02:12,546
+which shows the database tables
+and the connections, etc.
+
+51
+00:02:12,546 --> 00:02:13,379
+And, they might say,
+
+52
+00:02:13,379 --> 00:02:15,618
+"Oh, you're job is to go
+down into this little corner
+
+53
+00:02:15,618 --> 00:02:17,660
+"and add one column field
+there, and then do this,
+
+54
+00:02:17,660 --> 00:02:19,896
+"and then connect it with
+this thing over there,
+
+55
+00:02:19,896 --> 00:02:22,249
+"and then make a screen
+that shows all these things
+
+56
+00:02:22,249 --> 00:02:25,417
+"that pulls from this table,
+this table, and that table,"
+
+57
+00:02:25,417 --> 00:02:27,880
+and that's your job if you're a programmer
+
+58
+00:02:27,880 --> 00:02:30,938
+on a large software development project.
+
+59
+00:02:30,938 --> 00:02:34,840
+These database models
+become the core backbone
+
+60
+00:02:34,840 --> 00:02:40,217
+of the knowledge that applications
+are managing and using.
+
+61
+00:02:40,217 --> 00:02:43,170
+So, the idea is that you
+take your application,
+
+62
+00:02:43,170 --> 00:02:44,369
+we're gonna start really simple.
+
+63
+00:02:44,369 --> 00:02:45,826
+We're going to take your application,
+
+64
+00:02:45,826 --> 00:02:48,830
+and you have to draw a
+picture, and the basic rule--
+
+65
+00:02:48,830 --> 00:02:52,528
+And, literally, you could
+spend course upon course
+
+66
+00:02:52,528 --> 00:02:54,644
+learning about database normalization,
+
+67
+00:02:54,644 --> 00:02:57,375
+but I'm going to distill
+it into one basic rule,
+
+68
+00:02:57,375 --> 00:03:01,726
+and that is, never put the
+same string data in twice.
+
+69
+00:03:01,726 --> 00:03:06,176
+So, my name, Charles Severance,
+if I build a database well,
+
+70
+00:03:06,176 --> 00:03:08,123
+you should go into that
+database, and you'd say,
+
+71
+00:03:08,123 --> 00:03:09,615
+"Okay, the words Charles Severance,
+
+72
+00:03:09,615 --> 00:03:12,654
+"which is the name of a
+person, me, in that database,
+
+73
+00:03:12,654 --> 00:03:14,404
+"only shows up once."
+
+74
+00:03:14,404 --> 00:03:17,303
+And, what we do instead is
+we connect things together
+
+75
+00:03:17,303 --> 00:03:20,125
+and model my name as
+connection to the record
+
+76
+00:03:20,125 --> 00:03:21,904
+that has my actual name in it,
+
+77
+00:03:21,904 --> 00:03:24,222
+rather than putting my name
+all these other places.
+
+78
+00:03:24,222 --> 00:03:27,106
+So, the idea is to pull
+duplicate data out,
+
+79
+00:03:27,106 --> 00:03:28,584
+and make only one copy of it.
+
+80
+00:03:28,584 --> 00:03:32,226
+So, there is the users, and
+in there is the user's name,
+
+81
+00:03:32,226 --> 00:03:34,954
+and the username shows up only here,
+
+82
+00:03:34,954 --> 00:03:38,385
+and everything else points
+to the particular user entry.
+
+83
+00:03:38,385 --> 00:03:41,574
+So, that's the idea.
+
+84
+00:03:41,574 --> 00:03:44,036
+Here's our first application.
+
+85
+00:03:44,036 --> 00:03:48,204
+We are working as a start-up,
+we just quit all of our jobs,
+
+86
+00:03:48,204 --> 00:03:51,736
+and we are going to build a
+music management application.
+
+87
+00:03:51,736 --> 00:03:52,865
+I mean, what a great idea.
+
+88
+00:03:52,865 --> 00:03:55,115
+Don't you think that
+will be quite successful?
+
+89
+00:03:55,115 --> 00:03:56,354
+And, so we have mocked up,
+
+90
+00:03:56,354 --> 00:03:58,035
+and we have figured out that this
+
+91
+00:03:58,035 --> 00:04:00,275
+is what our music management application--
+
+92
+00:04:00,275 --> 00:04:04,173
+We wanna track people's
+tracks, know something about
+
+93
+00:04:04,173 --> 00:04:06,545
+what artists and albums
+and genre they are,
+
+94
+00:04:06,545 --> 00:04:07,415
+we're going to have ratings,
+
+95
+00:04:07,415 --> 00:04:09,714
+and how many times we've played
+them, and how long they are.
+
+96
+00:04:09,714 --> 00:04:13,125
+That's the data that our
+application needs to represent.
+
+97
+00:04:13,125 --> 00:04:15,693
+And, we've done testing
+on this, and wire-frames,
+
+98
+00:04:15,693 --> 00:04:18,535
+and everyone loves this,
+a great user interface.
+
+99
+00:04:18,535 --> 00:04:21,005
+And, so this is how it's gotta look.
+
+100
+00:04:21,005 --> 00:04:23,675
+But, we're going to have
+billions and billions of tracks
+
+101
+00:04:23,675 --> 00:04:25,524
+in these things, and so
+we want to come up with
+
+102
+00:04:25,524 --> 00:04:28,096
+an efficient database to handle this.
+
+103
+00:04:28,096 --> 00:04:29,715
+We're going to take a look at this,
+
+104
+00:04:29,715 --> 00:04:31,416
+and look at each of the columns
+
+105
+00:04:31,416 --> 00:04:32,975
+and we're going to ask ourselves,
+
+106
+00:04:32,975 --> 00:04:37,826
+"Is this column part of one
+of our existing objects,
+
+107
+00:04:37,826 --> 00:04:41,663
+"our existing tables, or is this object--
+
+108
+00:04:41,663 --> 00:04:43,372
+"have to create a new table."
+
+109
+00:04:43,372 --> 00:04:45,561
+And then, once we've defined
+those different objects,
+
+110
+00:04:45,561 --> 00:04:48,443
+we connect the tables together
+and model the connections.
+
+111
+00:04:48,443 --> 00:04:52,044
+Now, a little trick to make it
+a little easier on ourselves,
+
+112
+00:04:52,044 --> 00:04:54,172
+is we can look in these columns
+
+113
+00:04:54,172 --> 00:04:55,234
+and look in the columns that have
+
+114
+00:04:55,234 --> 00:04:58,633
+duplicate information vertically
+that's string information.
+
+115
+00:04:58,633 --> 00:05:01,602
+So, rating is just a number like 0-5,
+
+116
+00:05:01,602 --> 00:05:04,104
+so we don't worry too much
+about integers and numbers,
+
+117
+00:05:04,104 --> 00:05:07,453
+and that kind of stuff,
+but we do look for strings.
+
+118
+00:05:07,453 --> 00:05:11,203
+And the problem here, is these
+strings occur many times.
+
+119
+00:05:11,203 --> 00:05:12,691
+And so, these are the problems,
+
+120
+00:05:12,691 --> 00:05:14,823
+and so we have to put these things
+
+121
+00:05:14,823 --> 00:05:17,023
+where there is replication of string data
+
+122
+00:05:17,023 --> 00:05:18,924
+in the vertical dimension.
+
+123
+00:05:18,924 --> 00:05:22,314
+We have to put those in different tables.
+
+124
+00:05:22,314 --> 00:05:24,053
+We'll start out.
+
+125
+00:05:24,053 --> 00:05:26,372
+Now, the first question that
+you have to ask yourself
+
+126
+00:05:26,372 --> 00:05:27,524
+when you're going to draw this picture
+
+127
+00:05:27,524 --> 00:05:29,382
+of how this data is in multiple tables
+
+128
+00:05:29,382 --> 00:05:30,812
+and connected together,
+
+129
+00:05:30,812 --> 00:05:33,953
+is what is the first one that
+you're going to write down.
+
+130
+00:05:33,953 --> 00:05:35,474
+And, this is an interesting debate,
+
+131
+00:05:35,474 --> 00:05:37,024
+and often people are sitting
+in a conference room,
+
+132
+00:05:37,024 --> 00:05:39,874
+and people who have experience
+kinda know what to do.
+
+133
+00:05:39,874 --> 00:05:42,643
+Usually, if it's a multi-user system,
+
+134
+00:05:42,643 --> 00:05:44,491
+like a learning management system,
+
+135
+00:05:44,491 --> 00:05:46,913
+the users might be central concept.
+
+136
+00:05:46,913 --> 00:05:49,372
+Perhaps the courses might
+be the central concept.
+
+137
+00:05:49,372 --> 00:05:52,114
+This is a single-user
+system, and so you can think,
+
+138
+00:05:52,114 --> 00:05:54,819
+"Well, what is really
+this application about."
+
+139
+00:05:54,819 --> 00:05:57,423
+It's not about people, it's one person.
+
+140
+00:05:57,423 --> 00:06:00,073
+But it is about tracks.
+
+141
+00:06:00,073 --> 00:06:01,412
+And so, we can say,
+
+142
+00:06:01,412 --> 00:06:05,490
+"Okay, we'll take the track is probably
+
+143
+00:06:05,490 --> 00:06:09,784
+"the most foundational
+notion of this application."
+
+144
+00:06:09,784 --> 00:06:11,343
+And then, we can take and say,
+
+145
+00:06:11,343 --> 00:06:12,423
+"Okay, now that we've decided
+
+146
+00:06:12,423 --> 00:06:15,723
+"that tracks are the foundational notion,
+
+147
+00:06:15,723 --> 00:06:18,855
+"which of these columns are simply
+
+148
+00:06:18,855 --> 00:06:22,320
+"an attribute of the track."
+
+149
+00:06:22,320 --> 00:06:23,882
+The cheapie, the cheating
+way, the easy way
+
+150
+00:06:23,882 --> 00:06:26,189
+in this particular one
+is like these numbers.
+
+151
+00:06:26,189 --> 00:06:29,301
+All these numbers, like this
+number and these numbers,
+
+152
+00:06:29,301 --> 00:06:31,435
+not that one (laughs) --
+
+153
+00:06:31,435 --> 00:06:32,861
+they just go along with track,
+
+154
+00:06:32,861 --> 00:06:33,701
+and so we'll put that in.
+
+155
+00:06:33,701 --> 00:06:36,530
+We've got the track title,
+rating, length, and count,
+
+156
+00:06:36,530 --> 00:06:39,973
+and we put that in.
+
+157
+00:06:39,973 --> 00:06:41,111
+And then, the question is, we've got--
+
+158
+00:06:41,111 --> 00:06:43,502
+The remaining things are,
+we've got the artist,
+
+159
+00:06:43,502 --> 00:06:46,261
+we've got the album,
+and we've got the genre,
+
+160
+00:06:46,261 --> 00:06:47,419
+and so, we can say,
+
+161
+00:06:47,419 --> 00:06:50,680
+"Okay, we've got some
+vertical duplication,"
+
+162
+00:06:50,680 --> 00:06:51,513
+so we're going to say,
+
+163
+00:06:51,513 --> 00:06:54,570
+"Okay, this track probably
+belongs to an album,
+
+164
+00:06:54,570 --> 00:07:02,874
+"so let's pull out the
+album into its own table."
+
+165
+00:07:02,874 --> 00:07:18,089
+Pull the album out into its own table.
+
+166
+00:07:18,089 --> 00:07:20,571
+Pull the album out into its own table.
+
+167
+00:07:20,571 --> 00:07:22,421
+And, so, that pulls that
+out, and then you say,
+
+168
+00:07:22,421 --> 00:07:23,854
+"Okay, what would be the next thing
+
+169
+00:07:23,854 --> 00:07:24,931
+"that we're going to pull out."
+
+170
+00:07:24,931 --> 00:07:26,411
+So, we've pulled out the track,
+
+171
+00:07:26,411 --> 00:07:27,721
+we've got this taken care of,
+
+172
+00:07:27,721 --> 00:07:28,972
+this taken care of, that taken--
+
+173
+00:07:28,972 --> 00:07:30,932
+Now, we've got the album.
+
+174
+00:07:30,932 --> 00:07:32,510
+Well, albums belong to artists,
+
+175
+00:07:32,510 --> 00:07:36,169
+so let's take out the artist.
+
+176
+00:07:36,169 --> 00:07:38,651
+And then, we'll pick
+where the genre belongs,
+
+177
+00:07:38,651 --> 00:07:40,783
+and we'll just say that the
+genre belongs to the track,
+
+178
+00:07:40,783 --> 00:07:42,602
+because there might be albums
+
+179
+00:07:42,602 --> 00:07:44,582
+with more than one different genre.
+
+180
+00:07:44,582 --> 00:07:46,463
+So, each album is not
+necessarily a rock album,
+
+181
+00:07:46,463 --> 00:07:50,219
+it could have a rock track,
+and a country track, etc.
+
+182
+00:07:50,219 --> 00:07:53,010
+Now, what we've got is,
+we've got four tables, right?
+
+183
+00:07:53,010 --> 00:07:55,024
+We've got a track table,
+we've got an album table,
+
+184
+00:07:55,024 --> 00:07:56,449
+an artist table, and a genre table,
+
+185
+00:07:56,449 --> 00:07:58,768
+and if we double-check, all of the columns
+
+186
+00:07:58,768 --> 00:08:00,886
+that had vertical duplication in them
+
+187
+00:08:00,886 --> 00:08:04,737
+now have their own little table.
+
+188
+00:08:04,737 --> 00:08:07,328
+So, we can eliminate,
+the next thing we'll do
+
+189
+00:08:07,328 --> 00:08:09,827
+is to show how we're going to eliminate
+
+190
+00:08:09,827 --> 00:08:14,835
+this vertical data replication
+
+191
+00:08:14,835 --> 00:08:16,888
+by showing how you represent
+these relationships
+
+192
+00:08:16,888 --> 00:08:20,554
+that we just created
+inside of the database.
+

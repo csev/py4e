@@ -1,0 +1,936 @@
+1
+00:00:00,446 --> 00:00:01,449
+- So now we're gonna talk to you
+
+2
+00:00:01,449 --> 00:00:04,627
+about one of the common
+applications of dictionaries
+
+3
+00:00:04,627 --> 00:00:06,587
+and that is making histograms.
+
+4
+00:00:06,587 --> 00:00:09,014
+It's counting the frequency of things.
+
+5
+00:00:09,014 --> 00:00:11,314
+And so if you think of a histogram as
+
+6
+00:00:11,314 --> 00:00:12,535
+you know, it's a little graph
+
+7
+00:00:12,535 --> 00:00:16,653
+and there is A, how
+many A's, how many B's,
+
+8
+00:00:16,653 --> 00:00:18,608
+and now many C's, and there's
+a histogram that says,
+
+9
+00:00:18,608 --> 00:00:20,788
+oh there's this many of
+that and this many of that.
+
+10
+00:00:20,788 --> 00:00:23,014
+And these are like buckets,
+these are frequencies
+
+11
+00:00:23,014 --> 00:00:24,536
+and this is how many times it happens.
+
+12
+00:00:24,536 --> 00:00:25,619
+So a histogram.
+
+13
+00:00:25,619 --> 00:00:26,767
+But we're gonna do this thing
+
+14
+00:00:26,767 --> 00:00:28,691
+where we're gonna count people's names
+
+15
+00:00:28,691 --> 00:00:31,081
+and we're gonna kinda
+count how many that we see.
+
+16
+00:00:31,081 --> 00:00:33,213
+The interesting thing
+that we're gonna solve,
+
+17
+00:00:33,213 --> 00:00:35,525
+just like many of the
+things in the computer,
+
+18
+00:00:35,525 --> 00:00:36,996
+is we can't just sort of look at the data,
+
+19
+00:00:36,996 --> 00:00:38,750
+we gotta look at the data iteratively,
+
+20
+00:00:38,750 --> 00:00:41,323
+one piece of data at a time.
+
+21
+00:00:41,323 --> 00:00:43,935
+So I'm gonna give you a little problem.
+
+22
+00:00:43,935 --> 00:00:46,996
+I'm gonna show you a series
+of names, one at a time,
+
+23
+00:00:46,996 --> 00:00:50,724
+and I want you to count, for each name,
+
+24
+00:00:50,724 --> 00:00:52,519
+make a little bucket,
+and then keep counting
+
+25
+00:00:52,519 --> 00:00:54,626
+how many things for each
+of the different names.
+
+26
+00:00:54,626 --> 00:00:56,956
+You'll notice that you
+have to start with one
+
+27
+00:00:56,956 --> 00:00:58,044
+and then you move across.
+
+28
+00:00:58,044 --> 00:01:04,429
+So just watch this and tell me how many,
+
+29
+00:01:04,429 --> 00:01:05,786
+how many, what's the most common name
+
+30
+00:01:05,786 --> 00:01:07,467
+of the set of names I'm about to show you
+
+31
+00:01:07,467 --> 00:01:10,508
+and how many do we see.
+
+32
+00:01:10,508 --> 00:01:44,313
+(classical music)
+
+33
+00:01:44,313 --> 00:01:46,414
+So how many, what was the most common name
+
+34
+00:01:46,414 --> 00:01:48,369
+and how many times did you see it?
+
+35
+00:01:48,369 --> 00:01:50,259
+That's the question.
+
+36
+00:01:50,259 --> 00:01:52,198
+Now, here comes the reveal.
+
+37
+00:01:52,198 --> 00:01:54,237
+So for humans, it's so much easier for you
+
+38
+00:01:54,237 --> 00:01:55,478
+to just look at this, and you think
+
+39
+00:01:55,478 --> 00:01:57,650
+how did my brain look at
+that, and you're like,
+
+40
+00:01:57,650 --> 00:01:59,679
+okay what is pretty common?
+
+41
+00:01:59,679 --> 00:02:02,412
+Oh, maybe...
+
+42
+00:02:02,412 --> 00:02:03,859
+Maybe cwen is common.
+
+43
+00:02:03,859 --> 00:02:07,390
+Oh, cwen, cwen, cwen, no.
+
+44
+00:02:07,390 --> 00:02:09,232
+Maybe zhen is common.
+
+45
+00:02:09,232 --> 00:02:12,477
+Do one, two, three, four, yeah.
+
+46
+00:02:12,477 --> 00:02:14,937
+Anybody else, marquard's got three,
+
+47
+00:02:14,937 --> 00:02:15,909
+csev...
+
+48
+00:02:15,909 --> 00:02:19,584
+So you'll notice how our
+minds, without computers,
+
+49
+00:02:19,584 --> 00:02:23,525
+we just sort of bounce, branch and bound.
+
+50
+00:02:23,525 --> 00:02:27,706
+We have hypothesis and then
+we decide, oh, it's zhen.
+
+51
+00:02:27,706 --> 00:02:29,579
+That's it, and there's four of them.
+
+52
+00:02:29,579 --> 00:02:32,399
+Now, how did your brain think about this
+
+53
+00:02:32,399 --> 00:02:35,342
+as we were going through
+them one at a time?
+
+54
+00:02:35,342 --> 00:02:38,363
+Well, my guess is if you
+really had to do this a lot,
+
+55
+00:02:38,363 --> 00:02:40,415
+you would make a little picture like this.
+
+56
+00:02:40,415 --> 00:02:43,852
+Then what you would do
+is if you saw a new name,
+
+57
+00:02:43,852 --> 00:02:46,259
+XYZ, you'd add it to the list
+
+58
+00:02:46,259 --> 00:02:47,683
+and give it a tick mark of one,
+
+59
+00:02:47,683 --> 00:02:49,990
+and then if you saw csev again,
+
+60
+00:02:49,990 --> 00:02:52,367
+you'd give that a tick mark,
+and if you saw XYZ again,
+
+61
+00:02:52,367 --> 00:02:54,229
+you'd make a tick mark,
+and then you'd make,
+
+62
+00:02:54,229 --> 00:02:56,482
+you keep adding to
+these tick marks, right?
+
+63
+00:02:56,482 --> 00:02:57,662
+And that's how you would do it,
+
+64
+00:02:57,662 --> 00:03:00,467
+and you wouldn't, like many
+of the things we do in a loop,
+
+65
+00:03:00,467 --> 00:03:02,524
+you wouldn't really know
+what the most common was one
+
+66
+00:03:02,524 --> 00:03:04,236
+until the end, and then you'd sorta
+
+67
+00:03:04,236 --> 00:03:06,290
+take a look at these
+numbers, and you say, okay,
+
+68
+00:03:06,290 --> 00:03:11,025
+that's the most common number,
+and then you'd be done.
+
+69
+00:03:11,025 --> 00:03:13,419
+But you have to watch 'em one at a time.
+
+70
+00:03:13,419 --> 00:03:16,278
+You can't just bounce around.
+
+71
+00:03:16,278 --> 00:03:20,087
+And so that's how we're
+gonna use dictionaries
+
+72
+00:03:20,087 --> 00:03:21,564
+to achieve that.
+
+73
+00:03:21,564 --> 00:03:23,954
+Again, instinctively as humans,
+we just look at the stuff,
+
+74
+00:03:23,954 --> 00:03:25,350
+but if you had a million things,
+
+75
+00:03:25,350 --> 00:03:26,859
+you'd probably wanna
+write a Python program
+
+76
+00:03:26,859 --> 00:03:28,013
+and use dictionaries.
+
+77
+00:03:28,013 --> 00:03:29,279
+And so this is the idea,
+
+78
+00:03:29,279 --> 00:03:30,700
+and there's two basic things that happen.
+
+79
+00:03:30,700 --> 00:03:32,390
+One is the first time you see a name,
+
+80
+00:03:32,390 --> 00:03:35,017
+you gotta say, is this name there already?
+
+81
+00:03:35,017 --> 00:03:38,175
+If it's there already, you
+really just wanna add one to it.
+
+82
+00:03:38,175 --> 00:03:39,926
+That's the adding of a tick.
+
+83
+00:03:39,926 --> 00:03:42,533
+Or, you wanna see for the first time,
+
+84
+00:03:42,533 --> 00:03:44,760
+you know, blah blah blah
+blah blah, and give it a one.
+
+85
+00:03:44,760 --> 00:03:49,081
+And so you can use the name as the key,
+
+86
+00:03:49,081 --> 00:03:51,758
+and then one is the value, and
+then first time you see cwen,
+
+87
+00:03:51,758 --> 00:03:52,951
+you stick one in there.
+
+88
+00:03:52,951 --> 00:03:55,146
+And so at this point,
+inside the dictionary,
+
+89
+00:03:55,146 --> 00:03:58,231
+sorta dynamically adding as
+soon as it sees a new name,
+
+90
+00:03:58,231 --> 00:04:00,651
+it adds another slot in here.
+
+91
+00:04:00,651 --> 00:04:03,120
+But then if you see the same
+name again, like cwen again,
+
+92
+00:04:03,120 --> 00:04:06,203
+then you end up with a one,
+add one to it and so it's two,
+
+93
+00:04:06,203 --> 00:04:07,892
+and so at that point, cwen is two.
+
+94
+00:04:07,892 --> 00:04:11,456
+And so you can see how you
+can both extend the dictionary
+
+95
+00:04:11,456 --> 00:04:13,200
+by encountering a new name,
+
+96
+00:04:13,200 --> 00:04:16,219
+or adding when you see a name
+
+97
+00:04:16,219 --> 00:04:19,019
+that you've already seen before.
+
+98
+00:04:19,019 --> 00:04:22,327
+The problem with dictionaries
+is, like everything in Python,
+
+99
+00:04:22,327 --> 00:04:24,717
+there are rules about
+what you can and can't do,
+
+100
+00:04:24,717 --> 00:04:26,706
+and one of the, I think,
+kinda frustrating things
+
+101
+00:04:26,706 --> 00:04:29,811
+about dictionaries is that you can't just
+
+102
+00:04:29,811 --> 00:04:31,152
+look for a key that doesn't exist.
+
+103
+00:04:31,152 --> 00:04:32,757
+So this is a fresh, brand new dictionary.
+
+104
+00:04:32,757 --> 00:04:34,089
+We do a constructor there,
+
+105
+00:04:34,089 --> 00:04:36,510
+and we print out sub-csev, and boom,
+
+106
+00:04:36,510 --> 00:04:38,617
+it blows up, and that's bad.
+
+107
+00:04:38,617 --> 00:04:41,091
+But we can solve this by the in operator.
+
+108
+00:04:41,091 --> 00:04:42,952
+The in operator we've
+used in the for loops,
+
+109
+00:04:42,952 --> 00:04:45,318
+we've used it in the lists,
+we've used it in strings.
+
+110
+00:04:45,318 --> 00:04:46,888
+So that is a question.
+
+111
+00:04:46,888 --> 00:04:49,257
+It's saying, is csev in ccc?
+
+112
+00:04:49,257 --> 00:04:52,808
+Well, this is this empty one,
+and so it is, no it is not.
+
+113
+00:04:52,808 --> 00:04:54,547
+Csev is not in ccc.
+
+114
+00:04:54,547 --> 00:04:56,565
+And so not using this in operator,
+
+115
+00:04:56,565 --> 00:04:57,910
+we can avoid the traceback.
+
+116
+00:04:57,910 --> 00:05:00,729
+We can say, if it's not there, put it in.
+
+117
+00:05:00,729 --> 00:05:02,499
+If it is there, add one to it.
+
+118
+00:05:02,499 --> 00:05:06,033
+And that leads us to this bit of code.
+
+119
+00:05:06,033 --> 00:05:09,503
+And that is the kind of
+code that we're gonna build,
+
+120
+00:05:09,503 --> 00:05:12,566
+this is a histogram code, okay?
+
+121
+00:05:12,566 --> 00:05:15,265
+And so this is gonna have
+name as our iterator.
+
+122
+00:05:15,265 --> 00:05:17,578
+Names, sorry, I made
+them singular and plural.
+
+123
+00:05:17,578 --> 00:05:19,227
+That's nice, but...
+
+124
+00:05:19,227 --> 00:05:21,496
+So name is gonna be
+csev, cwen, csev, zqian.
+
+125
+00:05:21,496 --> 00:05:23,282
+Now normally we'll be
+reading this form a file,
+
+126
+00:05:23,282 --> 00:05:25,828
+but for now we'll keep it easy.
+
+127
+00:05:25,828 --> 00:05:26,977
+We're gonna go through this.
+
+128
+00:05:26,977 --> 00:05:28,985
+And we're gonna have
+counts as our dictionary.
+
+129
+00:05:28,985 --> 00:05:31,735
+So that starts out empty,
+and we're gonna do a simple
+
+130
+00:05:31,735 --> 00:05:33,636
+if then else every time through the loop.
+
+131
+00:05:33,636 --> 00:05:34,883
+If the name we're looking at
+
+132
+00:05:34,883 --> 00:05:37,612
+is not in the dictionary
+already as the key,
+
+133
+00:05:37,612 --> 00:05:39,444
+then set it to be one.
+
+134
+00:05:39,444 --> 00:05:44,346
+If it's not, go get the
+old value, counts of name,
+
+135
+00:05:44,346 --> 00:05:46,612
+and then add one to it
+and stick it back in.
+
+136
+00:05:46,612 --> 00:05:49,903
+So this is, this line right here, is new,
+
+137
+00:05:49,903 --> 00:05:52,087
+adding a new thing, and
+this line right here
+
+138
+00:05:52,087 --> 00:05:54,953
+is adding some things to existing things.
+
+139
+00:05:54,953 --> 00:05:57,418
+And you do this long enough,
+you start with an empty one,
+
+140
+00:05:57,418 --> 00:05:58,587
+and you do this long enough,
+
+141
+00:05:58,587 --> 00:06:02,798
+at the very end it will
+print out the histogram
+
+142
+00:06:02,798 --> 00:06:05,293
+that you're looking for,
+histogram you're lookin' for.
+
+143
+00:06:05,293 --> 00:06:07,455
+And so you say, oh we've seen csev twice,
+
+144
+00:06:07,455 --> 00:06:09,045
+zqian once and cwen twice.
+
+145
+00:06:09,045 --> 00:06:10,681
+And so that's the idea.
+
+146
+00:06:10,681 --> 00:06:17,457
+And so this can run a
+million times if you want.
+
+147
+00:06:17,457 --> 00:06:22,020
+Now, this notion of checking
+to see if a key exists,
+
+148
+00:06:22,020 --> 00:06:24,150
+and doing one thing if it doesn't exist
+
+149
+00:06:24,150 --> 00:06:26,374
+and doing another thing if it does exist
+
+150
+00:06:26,374 --> 00:06:32,209
+is such a common practice
+that the dictionary object
+
+151
+00:06:32,209 --> 00:06:34,529
+has this method called get,
+
+152
+00:06:34,529 --> 00:06:39,081
+that collapses these
+four lines into one line.
+
+153
+00:06:39,081 --> 00:06:41,098
+And so the idea is,
+you're gonna do one thing
+
+154
+00:06:41,098 --> 00:06:42,681
+if it's in there, and
+you're gonna retrieve
+
+155
+00:06:42,681 --> 00:06:45,217
+the current thing,
+otherwise you're gonna pick
+
+156
+00:06:45,217 --> 00:06:46,126
+a default value.
+
+157
+00:06:46,126 --> 00:06:47,305
+In this case we'll pick one.
+
+158
+00:06:47,305 --> 00:06:48,753
+I mean, pick zero.
+
+159
+00:06:48,753 --> 00:06:52,701
+This is like the default, right,
+meaning what is not there.
+
+160
+00:06:52,701 --> 00:06:55,241
+And if you say counts, now
+counts is a dictionary,
+
+161
+00:06:55,241 --> 00:06:58,521
+.get, that's like
+string.upper, that's a method,
+
+162
+00:06:58,521 --> 00:07:01,472
+you give it a key and then a default,
+
+163
+00:07:01,472 --> 00:07:03,894
+and if the key exists, you
+get back what's in the key,
+
+164
+00:07:03,894 --> 00:07:07,331
+if the key doesn't exist,
+you get the default, okay?
+
+165
+00:07:07,331 --> 00:07:08,760
+And with no traceback.
+
+166
+00:07:08,760 --> 00:07:14,147
+This works, so the best
+way to think about this is,
+
+167
+00:07:14,147 --> 00:07:17,182
+those four lines are
+equal to that one line,
+
+168
+00:07:17,182 --> 00:07:19,658
+cause x is either gonna be
+whatever was in there before,
+
+169
+00:07:19,658 --> 00:07:22,154
+if it exists, or it's going to be zero.
+
+170
+00:07:22,154 --> 00:07:23,704
+Now the nice thing about zero
+
+171
+00:07:23,704 --> 00:07:24,581
+is the next thing we're gonna do
+
+172
+00:07:24,581 --> 00:07:27,168
+is we're gonna add one to it,
+so that's gonna get us to one.
+
+173
+00:07:27,168 --> 00:07:33,615
+So, collapsing that
+loop that we saw before,
+
+174
+00:07:33,615 --> 00:07:37,124
+collapsing that loop, we can
+make it just a one line loop,
+
+175
+00:07:37,124 --> 00:07:39,460
+and this will become an idiom.
+
+176
+00:07:39,460 --> 00:07:41,667
+This will become something
+that you will get used to
+
+177
+00:07:41,667 --> 00:07:44,325
+and you will use over
+and over and over again,
+
+178
+00:07:44,325 --> 00:07:46,154
+and after a while, right
+now you're looking at it,
+
+179
+00:07:46,154 --> 00:07:47,939
+boy-o-boy, that's a lot of syntax
+
+180
+00:07:47,939 --> 00:07:50,031
+and semi-colons and whatever.
+
+181
+00:07:50,031 --> 00:07:51,439
+After a while, you just type this
+
+182
+00:07:51,439 --> 00:07:52,378
+and not even think about it.
+
+183
+00:07:52,378 --> 00:07:53,814
+It's an idiom.
+
+184
+00:07:53,814 --> 00:07:55,989
+It's basically, included in this idiom,
+
+185
+00:07:55,989 --> 00:07:58,968
+is how to both create new
+entries in dictionaries
+
+186
+00:07:58,968 --> 00:08:02,578
+and update existing entries
+by adding one to them.
+
+187
+00:08:02,578 --> 00:08:05,086
+So, everything else in this is the same.
+
+188
+00:08:05,086 --> 00:08:07,106
+Name is gonna go through
+these five values,
+
+189
+00:08:07,106 --> 00:08:09,360
+and we're gonna say counts of name equals
+
+190
+00:08:09,360 --> 00:08:12,976
+counts.get(name, 0)+1.
+
+191
+00:08:12,976 --> 00:08:15,787
+And so if, for example, this
+already has a one in it,
+
+192
+00:08:15,787 --> 00:08:19,045
+then this is gonna be
+one plus one becomes two.
+
+193
+00:08:19,045 --> 00:08:22,094
+If it's not, it's gonna be
+zero plus one equals two,
+
+194
+00:08:22,094 --> 00:08:26,408
+and so this is the idea of, if
+new, set it to one, not zero,
+
+195
+00:08:26,408 --> 00:08:28,751
+set it to one, 'cause the
+first time you see something,
+
+196
+00:08:28,751 --> 00:08:30,785
+the count should be one, not zero.
+
+197
+00:08:30,785 --> 00:08:32,568
+So that's why we make this default.
+
+198
+00:08:32,568 --> 00:08:34,414
+Now the get can be used for anything.
+
+199
+00:08:34,414 --> 00:08:37,246
+It just so happens that
+zero is a common default,
+
+200
+00:08:37,246 --> 00:08:39,504
+because it's really common
+that we're using this
+
+201
+00:08:39,504 --> 00:08:41,467
+to basically make a histogram, right?
+
+202
+00:08:41,467 --> 00:08:44,086
+A little histogram of A, B, C, right?
+
+203
+00:08:44,086 --> 00:08:45,938
+And so we need to make a D,
+
+204
+00:08:45,938 --> 00:08:48,030
+but then the histogram
+has to start at one.
+
+205
+00:08:48,030 --> 00:08:52,669
+So that's basically the
+simplified counting with get,
+
+206
+00:08:52,669 --> 00:08:55,599
+and there's a lot of things
+that we're going to do
+
+207
+00:08:55,599 --> 00:09:00,389
+inside of Python that do
+have to do with frequencies
+
+208
+00:09:00,389 --> 00:09:02,705
+and how many times have
+certain things happened
+
+209
+00:09:02,705 --> 00:09:05,975
+and this pattern is a really good pattern
+
+210
+00:09:05,975 --> 00:09:07,681
+to absolutely know.
+
+211
+00:09:07,681 --> 00:09:10,514
+(classical music)
+

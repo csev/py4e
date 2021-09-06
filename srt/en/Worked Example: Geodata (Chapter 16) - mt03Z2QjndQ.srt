@@ -1,0 +1,1255 @@
+1
+00:00:08,036 --> 00:00:09,059
+- [Narrator] Hello everybody, welcome to
+
+2
+00:00:09,059 --> 00:00:10,069
+Python for everybody.
+
+3
+00:00:10,069 --> 00:00:12,175
+This is another worked coding sample,
+
+4
+00:00:12,175 --> 00:00:15,136
+you can download the sample code zip file,
+
+5
+00:00:15,136 --> 00:00:17,502
+if you want to follow along.
+
+6
+00:00:17,502 --> 00:00:19,717
+And the code that we're working on today
+
+7
+00:00:19,717 --> 00:00:22,118
+is what I call the "Geodata Code"
+
+8
+00:00:22,118 --> 00:00:28,339
+and that is a code that
+is going to pull some
+
+9
+00:00:28,339 --> 00:00:31,114
+some locations from this file,
+
+10
+00:00:31,114 --> 00:00:36,225
+we're simulating or using
+the Google Places API
+
+11
+00:00:36,225 --> 00:00:39,324
+to look places up and so we
+can visualize them on a map.
+
+12
+00:00:39,324 --> 00:00:41,297
+And so this is the basic picture,
+
+13
+00:00:41,297 --> 00:00:43,456
+if we take a look at this where.data file,
+
+14
+00:00:43,456 --> 00:00:47,357
+it's just a flat file that
+has a list of organizations,
+
+15
+00:00:47,357 --> 00:00:51,827
+and this actually was pulled
+from one of my moot surveys,
+
+16
+00:00:51,827 --> 00:00:55,313
+we just let people type in
+where they went to school,
+
+17
+00:00:55,313 --> 00:00:58,064
+and this is just a sample of them.
+
+18
+00:00:58,064 --> 00:01:02,652
+So this data is read in
+by this program geoload.py
+
+19
+00:01:02,652 --> 00:01:06,258
+and if you recall, this Google
+geodata has rate limits,
+
+20
+00:01:06,258 --> 00:01:09,516
+it also has API keys which
+we'll talk about in a bit too.
+
+21
+00:01:09,516 --> 00:01:10,913
+And so the idea is this is a
+
+22
+00:01:10,913 --> 00:01:13,983
+restartable, spider-like process.
+
+23
+00:01:13,983 --> 00:01:15,780
+And so we want to be able to run this
+
+24
+00:01:15,780 --> 00:01:17,543
+and have it blow up,
+and run it and start it
+
+25
+00:01:17,543 --> 00:01:19,753
+and not lose what we've got, right?
+
+26
+00:01:19,753 --> 00:01:22,448
+And so this is unlike, so we're now using
+
+27
+00:01:22,448 --> 00:01:25,337
+a database as well as an API,
+
+28
+00:01:25,337 --> 00:01:28,052
+but in order to work around
+the rate limits of this API,
+
+29
+00:01:28,052 --> 00:01:31,598
+we're going to use the database
+with a restartable process.
+
+30
+00:01:31,598 --> 00:01:33,102
+And then we'll make some sense of this,
+
+31
+00:01:33,102 --> 00:01:34,495
+and then we'll visualize this,
+
+32
+00:01:34,495 --> 00:01:36,182
+but in the short term,
+
+33
+00:01:36,182 --> 00:01:40,429
+let's start with the geoload.py code.
+
+34
+00:01:40,429 --> 00:01:42,842
+Geoload.py, take a look here.
+
+35
+00:01:42,842 --> 00:01:45,203
+So, a lot of this hopefully, by now,
+
+36
+00:01:45,203 --> 00:01:48,171
+is somewhat familiar to you,
+
+37
+00:01:48,171 --> 00:01:52,654
+urllib, json, sqlite,
+
+38
+00:01:52,654 --> 00:01:55,050
+and so I mentioned that the Google APIs,
+
+39
+00:01:55,050 --> 00:01:56,871
+these used to be free,
+
+40
+00:01:56,871 --> 00:01:58,661
+and did not require an API key,
+
+41
+00:01:58,661 --> 00:02:01,639
+but increasingly they're
+making you do API keys
+
+42
+00:02:01,639 --> 00:02:04,435
+for, especially, new ones.
+
+43
+00:02:04,435 --> 00:02:06,859
+So what happens, you can
+go to your Google Places,
+
+44
+00:02:06,859 --> 00:02:10,877
+I mean, go to Google
+APIs and get an API key
+
+45
+00:02:10,877 --> 00:02:11,921
+and you can put it in here,
+
+46
+00:02:11,921 --> 00:02:14,850
+it'll be this long, big long
+thing that looks like that.
+
+47
+00:02:14,850 --> 00:02:16,749
+And then if you have an API key,
+
+48
+00:02:16,749 --> 00:02:18,990
+you can use the Places API
+
+49
+00:02:18,990 --> 00:02:21,261
+and I've got a copy of a subset,
+
+50
+00:02:21,261 --> 00:02:22,653
+not all of it, a subset,
+
+51
+00:02:22,653 --> 00:02:25,464
+of it here at this url.
+
+52
+00:02:25,464 --> 00:02:26,297
+As a matter of fact, you can
+
+53
+00:02:26,297 --> 00:02:32,432
+just go to this url in a browser,
+
+54
+00:02:32,432 --> 00:02:35,227
+and it will tell you a list
+of the data it knows about.
+
+55
+00:02:35,227 --> 00:02:36,462
+'Kay?
+
+56
+00:02:36,462 --> 00:02:39,419
+And I made it so that that does
+
+57
+00:02:39,419 --> 00:02:42,462
+the same basic protocol with the address,
+
+58
+00:02:42,462 --> 00:02:46,849
+you know, address equals
+as the Google Place's API.
+
+59
+00:02:46,849 --> 00:02:50,312
+So this will just change
+how we retrieve the data,
+
+60
+00:02:50,312 --> 00:02:51,936
+either retrieve it from myserver,
+
+61
+00:02:51,936 --> 00:02:52,925
+the nice thing about myserver,
+
+62
+00:02:52,925 --> 00:02:55,840
+it's got no rate limit, it's really fast,
+
+63
+00:02:55,840 --> 00:02:58,383
+and you're not fighting
+with Google all the time,
+
+64
+00:02:58,383 --> 00:03:00,391
+and it means that, perhaps,
+if you're in a country
+
+65
+00:03:00,391 --> 00:03:03,198
+that Google is not well supported,
+
+66
+00:03:03,198 --> 00:03:04,701
+you can use my API,
+
+67
+00:03:04,701 --> 00:03:06,136
+I mean, that's really strange that somehow
+
+68
+00:03:06,136 --> 00:03:10,053
+my API is more reliable and
+available than the Google one,
+
+69
+00:03:10,053 --> 00:03:11,923
+but it's true.
+
+70
+00:03:11,923 --> 00:03:14,214
+So we're gonna make a database,
+
+71
+00:03:14,214 --> 00:03:16,424
+we're gonna do a create
+table if not exists
+
+72
+00:03:16,424 --> 00:03:17,960
+and we'll have some address,
+
+73
+00:03:17,960 --> 00:03:20,666
+and we're really just caching
+the geographical data,
+
+74
+00:03:20,666 --> 00:03:22,436
+we're gonna cache the json.
+
+75
+00:03:22,436 --> 00:03:24,529
+One of the things we do when
+we build these processes
+
+76
+00:03:24,529 --> 00:03:26,951
+is we tend to simplify these things
+
+77
+00:03:26,951 --> 00:03:30,894
+and not do all the calculation
+in parsing the json
+
+78
+00:03:30,894 --> 00:03:32,366
+just load it and get it in
+
+79
+00:03:32,366 --> 00:03:33,959
+and load it and get it in
+
+80
+00:03:33,959 --> 00:03:35,854
+and fill the data up in this database,
+
+81
+00:03:35,854 --> 00:03:39,075
+and so that's what we're going to do.
+
+82
+00:03:39,075 --> 00:03:41,073
+Because Python doesn't ship
+
+83
+00:03:41,073 --> 00:03:42,777
+with any legitimate certificates,
+
+84
+00:03:42,777 --> 00:03:45,519
+we have to sort of ignore
+certificate errors.
+
+85
+00:03:45,519 --> 00:03:48,092
+We're gonna open the file,
+
+86
+00:03:48,092 --> 00:03:52,374
+and we're gonna loop through it
+
+87
+00:03:52,374 --> 00:03:55,415
+and pull out the address from the file,
+
+88
+00:03:55,415 --> 00:03:59,923
+and we're going to select from the geodata
+
+89
+00:03:59,923 --> 00:04:02,634
+where that address is the address.
+
+90
+00:04:02,634 --> 00:04:04,723
+Let's move this in a bit.
+
+91
+00:04:04,723 --> 00:04:07,324
+And so we're gonna do a select,
+
+92
+00:04:07,324 --> 00:04:09,415
+and pull out that address,
+
+93
+00:04:09,415 --> 00:04:12,778
+and the idea is is if it's
+already in the database,
+
+94
+00:04:12,778 --> 00:04:13,835
+we don't want to do it,
+
+95
+00:04:13,835 --> 00:04:16,488
+so we do fetchone and
+pull out that first thing
+
+96
+00:04:16,488 --> 00:04:19,209
+which is, that will be
+the json right there.
+
+97
+00:04:19,209 --> 00:04:21,216
+If we get that we'll continue up,
+
+98
+00:04:21,216 --> 00:04:23,934
+otherwise we'll keep going.
+
+99
+00:04:23,934 --> 00:04:25,702
+Pass just means "don't blow up"
+
+100
+00:04:25,702 --> 00:04:27,506
+so we accept and we just do a pass,
+
+101
+00:04:27,506 --> 00:04:29,334
+that's like a no-op.
+
+102
+00:04:29,334 --> 00:04:32,654
+And we're going to make a dictionary
+
+103
+00:04:32,654 --> 00:04:36,985
+because that's what we do
+for the key value pairs,
+
+104
+00:04:36,985 --> 00:04:38,349
+everything you've seen so far,
+
+105
+00:04:38,349 --> 00:04:39,497
+I've used constants here,
+
+106
+00:04:39,497 --> 00:04:42,704
+but because we may or
+may not have an API key
+
+107
+00:04:42,704 --> 00:04:44,732
+query equals and then that's the address,
+
+108
+00:04:44,732 --> 00:04:47,506
+and then the key equals
+and then the API key,
+
+109
+00:04:47,506 --> 00:04:51,281
+if you you recall
+urlencode adds the pluses
+
+110
+00:04:51,281 --> 00:04:54,555
+and question marks and
+all that nice stuff.
+
+111
+00:04:54,555 --> 00:04:56,641
+We're gonna retrieve it,
+
+112
+00:04:56,641 --> 00:04:58,333
+we're gonna read it and decode it,
+
+113
+00:04:58,333 --> 00:05:01,016
+print out how much data we've got,
+
+114
+00:05:01,016 --> 00:05:03,061
+and add a count,
+
+115
+00:05:03,061 --> 00:05:05,455
+and then we're gonna try
+to parse that json data
+
+116
+00:05:05,455 --> 00:05:08,645
+and print it if something goes wrong.
+
+117
+00:05:08,645 --> 00:05:11,377
+And as we've seen at this top level
+
+118
+00:05:11,377 --> 00:05:14,727
+of this json data from this
+geocoding API is an object,
+
+119
+00:05:14,727 --> 00:05:18,934
+which we'll see a little
+bit of it in a bit.
+
+120
+00:05:18,934 --> 00:05:20,731
+And it has a status field in it,
+
+121
+00:05:20,731 --> 00:05:24,515
+and the status is OK if things went well,
+
+122
+00:05:24,515 --> 00:05:26,997
+so if the status is not there,
+
+123
+00:05:26,997 --> 00:05:29,098
+that means our JavaScript
+is not well formed
+
+124
+00:05:29,098 --> 00:05:30,527
+or not how we expected,
+
+125
+00:05:30,527 --> 00:05:32,530
+if the status is not okay
+
+126
+00:05:32,530 --> 00:05:34,161
+or not equal to ZERO RESULTS,
+
+127
+00:05:34,161 --> 00:05:37,528
+then print out failure to
+retrieve and then quit,
+
+128
+00:05:37,528 --> 00:05:39,713
+and then we're simply going to insert
+
+129
+00:05:39,713 --> 00:05:42,244
+this new data that we just put in,
+
+130
+00:05:42,244 --> 00:05:43,822
+and then we're gonna commit it,
+
+131
+00:05:43,822 --> 00:05:46,584
+and every tenth one, this is count mod 10,
+
+132
+00:05:46,584 --> 00:05:48,928
+we're gonna pause for five seconds
+
+133
+00:05:48,928 --> 00:05:51,062
+and we can hit control C here,
+
+134
+00:05:51,062 --> 00:05:54,000
+and then we're going to do the geodump.
+
+135
+00:05:54,000 --> 00:05:54,833
+'Kay?
+
+136
+00:05:54,833 --> 00:05:56,925
+So let's just run this.
+
+137
+00:05:56,925 --> 00:06:00,158
+Geodata.
+
+138
+00:06:00,158 --> 00:06:04,216
+Python, so let's do an ls,
+
+139
+00:06:04,216 --> 00:06:06,054
+so we don't have, oh we do have.
+
+140
+00:06:06,054 --> 00:06:07,969
+Let's get rid of from a previous test,
+
+141
+00:06:07,969 --> 00:06:10,204
+geodata.sqlite,
+
+142
+00:06:10,204 --> 00:06:13,006
+so we'll start with a fresh,
+
+143
+00:06:13,006 --> 00:06:19,016
+a fresh set of data and
+run Python geoload.py.
+
+144
+00:06:19,016 --> 00:06:21,491
+Of course, I'm always
+forever making the mistake
+
+145
+00:06:21,491 --> 00:06:23,530
+of forgetting Python 3,
+
+146
+00:06:23,530 --> 00:06:25,199
+so you can see that it's running
+
+147
+00:06:25,199 --> 00:06:27,243
+and it's adding the query
+
+148
+00:06:27,243 --> 00:06:30,132
+and in this case I don't have the API key,
+
+149
+00:06:30,132 --> 00:06:31,204
+and it's putting the pluses in,
+
+150
+00:06:31,204 --> 00:06:33,705
+and that's this part
+here with all the pluses
+
+151
+00:06:33,705 --> 00:06:35,925
+that's the urlencode,
+
+152
+00:06:35,925 --> 00:06:37,397
+and you notice it's pausing a bit,
+
+153
+00:06:37,397 --> 00:06:39,339
+now depends on how fast
+your net connection,
+
+154
+00:06:39,339 --> 00:06:41,058
+this may or may not go so fast,
+
+155
+00:06:41,058 --> 00:06:42,375
+but this is not that much data,
+
+156
+00:06:42,375 --> 00:06:46,028
+so it should, it's like
+only 2000-3000 characters,
+
+157
+00:06:46,028 --> 00:06:47,449
+and so it's working,
+
+158
+00:06:47,449 --> 00:06:50,842
+and talking to my myserver.
+
+159
+00:06:50,842 --> 00:06:52,939
+And the interesting thing
+here is I can blow this up,
+
+160
+00:06:52,939 --> 00:06:55,948
+I'm gonna hit control C,
+
+161
+00:06:55,948 --> 00:06:57,470
+in Windows you'd hit control,
+
+162
+00:06:57,470 --> 00:06:58,845
+in Linux you'd hit control C,
+
+163
+00:06:58,845 --> 00:07:01,042
+and in Windows I think
+you'd hit control Z,
+
+164
+00:07:01,042 --> 00:07:02,691
+depending on what shell you're working in,
+
+165
+00:07:02,691 --> 00:07:04,324
+but I'm gonna hit control C,
+
+166
+00:07:04,324 --> 00:07:06,144
+and you see I sort of blew it up, right?
+
+167
+00:07:06,144 --> 00:07:07,921
+And that's, causes a trace back
+
+168
+00:07:07,921 --> 00:07:10,467
+at KeyboardInterrupt trace back.
+
+169
+00:07:10,467 --> 00:07:12,483
+We'll do an ls minus l,
+
+170
+00:07:12,483 --> 00:07:15,449
+you can see that now
+this geodata is there,
+
+171
+00:07:15,449 --> 00:07:17,184
+now, in the name of restarting,
+
+172
+00:07:17,184 --> 00:07:20,256
+I will restart this and you will see
+
+173
+00:07:20,256 --> 00:07:22,248
+that it checks and skips,
+
+174
+00:07:22,248 --> 00:07:28,493
+and so all, it runs this
+code here where it's...
+
+175
+00:07:28,493 --> 00:07:30,562
+Right here, it grabs it and
+finds it in the database,
+
+176
+00:07:30,562 --> 00:07:32,176
+so you'll see it say found in the database
+
+177
+00:07:32,176 --> 00:07:33,503
+really quick, chop, chop, chop.
+
+178
+00:07:33,503 --> 00:07:35,906
+And go really fast and then it'll go back
+
+179
+00:07:35,906 --> 00:07:38,181
+to catching up where it left off.
+
+180
+00:07:38,181 --> 00:07:39,853
+And so all those up there,
+
+181
+00:07:39,853 --> 00:07:41,916
+they did not actually re-retrieve it,
+
+182
+00:07:41,916 --> 00:07:43,777
+'cause it knew about those things.
+
+183
+00:07:43,777 --> 00:07:45,902
+And so now it's catching
+up, and doing some more,
+
+184
+00:07:45,902 --> 00:07:49,016
+and doing some more, and doing some more.
+
+185
+00:07:49,016 --> 00:07:50,733
+And then I'll hit control C,
+
+186
+00:07:50,733 --> 00:07:53,020
+it has a little counter
+in here that basically,
+
+187
+00:07:53,020 --> 00:07:55,893
+if it hits 200 it stops
+and you have to restart it.
+
+188
+00:07:55,893 --> 00:07:57,656
+You could obviously change this code,
+
+189
+00:07:57,656 --> 00:08:00,242
+you could make it so it didn't sleep,
+
+190
+00:08:00,242 --> 00:08:01,904
+doesn't hurt to sleep for like a second
+
+191
+00:08:01,904 --> 00:08:03,321
+after every 100 or so
+
+192
+00:08:03,321 --> 00:08:05,394
+if you want you can change that code,
+
+193
+00:08:05,394 --> 00:08:10,068
+and now let's just hit control C
+
+194
+00:08:10,068 --> 00:08:12,820
+and blow it up, ls minus l,
+
+195
+00:08:12,820 --> 00:08:14,485
+and there is another bit of code,
+
+196
+00:08:14,485 --> 00:08:15,953
+and this code, it's always good
+
+197
+00:08:15,953 --> 00:08:17,988
+to write these really simple things,
+
+198
+00:08:17,988 --> 00:08:20,328
+and so we're gonna, now
+we're going to import
+
+199
+00:08:20,328 --> 00:08:23,667
+sqlite and json, we're
+gonna connect ourselves up,
+
+200
+00:08:23,667 --> 00:08:28,138
+we're goin to open,
+except this is a utf-8,
+
+201
+00:08:28,138 --> 00:08:32,181
+because it's a utf we're
+gonna open this with utf-8
+
+202
+00:08:32,181 --> 00:08:36,849
+and we're going to read through,
+
+203
+00:08:36,849 --> 00:08:41,672
+and in this case we're going to decode.
+
+204
+00:08:41,672 --> 00:08:42,956
+Select star from locations,
+
+205
+00:08:42,956 --> 00:08:48,824
+and if you recall, locations
+has a location and a geodata.
+
+206
+00:08:48,824 --> 00:08:51,314
+And so the sub 0 will be the location
+
+207
+00:08:51,314 --> 00:08:55,008
+and the sub 1 will be the geodata
+
+208
+00:08:55,008 --> 00:08:57,832
+and we're going to parse it.
+
+209
+00:08:57,832 --> 00:08:59,657
+Convert it to a string and then parse it,
+
+210
+00:08:59,657 --> 00:09:01,353
+if something goes wrong with a json
+
+211
+00:09:01,353 --> 00:09:02,962
+we'll just keep skipping it.
+
+212
+00:09:02,962 --> 00:09:09,231
+We'll check to see if we
+have the status in our json.
+
+213
+00:09:09,231 --> 00:09:16,325
+Lemme run the sqlite browser here.
+
+214
+00:09:16,325 --> 00:09:18,570
+File, open databases, take a look
+
+215
+00:09:18,570 --> 00:09:22,049
+at what's in this database.
+
+216
+00:09:22,049 --> 00:09:24,799
+Oh, where are we, code3,
+
+217
+00:09:24,799 --> 00:09:27,390
+geodata, geodata sqlite.
+
+218
+00:09:27,390 --> 00:09:30,771
+So this is our, the data we've got,
+
+219
+00:09:30,771 --> 00:09:33,253
+so if you, I'll make this
+a little bigger if I can.
+
+220
+00:09:33,253 --> 00:09:34,534
+Can I make that bigger?
+
+221
+00:09:34,534 --> 00:09:36,234
+Yeah, it's not gonna show us much.
+
+222
+00:09:36,234 --> 00:09:38,946
+So you can see that these are
+the addresses and the geodata,
+
+223
+00:09:38,946 --> 00:09:41,309
+that's just the json,
+
+224
+00:09:41,309 --> 00:09:43,241
+so that's the json that we've got,
+
+225
+00:09:43,241 --> 00:09:44,074
+and it retrieves it,
+
+226
+00:09:44,074 --> 00:09:46,372
+and so this is a really simple database,
+
+227
+00:09:46,372 --> 00:09:48,521
+that's just a sort spidering process,
+
+228
+00:09:48,521 --> 00:09:49,770
+run, run, run.
+
+229
+00:09:49,770 --> 00:09:51,719
+But now we're gonna run the geodump code,
+
+230
+00:09:51,719 --> 00:09:54,043
+which is gonna read this
+and dump this stuff out,
+
+231
+00:09:54,043 --> 00:09:55,663
+and print where.js,
+
+232
+00:09:55,663 --> 00:09:57,883
+so it's gonna actually parse this stuff.
+
+233
+00:09:57,883 --> 00:10:02,056
+And that's a code we've seen before,
+
+234
+00:10:02,056 --> 00:10:03,317
+and so we're actually reading it,
+
+235
+00:10:03,317 --> 00:10:05,377
+and this line goes into the results,
+
+236
+00:10:05,377 --> 00:10:07,023
+results is an array,
+
+237
+00:10:07,023 --> 00:10:10,272
+so if we go into results,
+results is an array,
+
+238
+00:10:10,272 --> 00:10:13,571
+we're gonna go grab the
+0th item in that array,
+
+239
+00:10:13,571 --> 00:10:17,166
+and then we're gonna go find geometry
+
+240
+00:10:17,166 --> 00:10:20,186
+and then location and then lat and long
+
+241
+00:10:20,186 --> 00:10:22,136
+for the latitude and longitude,
+
+242
+00:10:22,136 --> 00:10:24,747
+and then we're also gonna
+take the actual address
+
+243
+00:10:24,747 --> 00:10:28,098
+out of the formatted address right here.
+
+244
+00:10:28,098 --> 00:10:31,622
+So in this, in this bit of code,
+
+245
+00:10:31,622 --> 00:10:33,690
+we're actually parsing the json
+
+246
+00:10:33,690 --> 00:10:36,668
+and we're gonna clean things up,
+
+247
+00:10:36,668 --> 00:10:38,840
+get rid of some single quotes,
+
+248
+00:10:38,840 --> 00:10:40,735
+this kind of data cleaning is just stuff
+
+249
+00:10:40,735 --> 00:10:42,068
+after you play with it for a while,
+
+250
+00:10:42,068 --> 00:10:44,426
+you realize, "Oh, my
+data's ugly or does this."
+
+251
+00:10:44,426 --> 00:10:47,631
+I'm gonna print it out, and
+I'm gonna write this out,
+
+252
+00:10:47,631 --> 00:10:51,587
+and I'm gonna write it
+into a JavaScript file,
+
+253
+00:10:51,587 --> 00:10:56,051
+and so the JavaScript
+file is this where.js
+
+254
+00:10:56,051 --> 00:10:59,588
+and this, I'll show
+you what it looks like,
+
+255
+00:10:59,588 --> 00:11:00,962
+it's gonna be overwritten,
+
+256
+00:11:00,962 --> 00:11:03,171
+this is the one that
+came out of the zip file.
+
+257
+00:11:03,171 --> 00:11:05,314
+It'll have the latitude, the longitude,
+
+258
+00:11:05,314 --> 00:11:08,432
+and we're gonna use
+JavaScript to read this
+
+259
+00:11:08,432 --> 00:11:10,522
+in this where.html file.
+
+260
+00:11:10,522 --> 00:11:13,551
+It's going to actually
+read this right there,
+
+261
+00:11:13,551 --> 00:11:15,816
+and pull that data in and that's
+how we're gonna visualize,
+
+262
+00:11:15,816 --> 00:11:17,010
+I'm not gonna go into great detail
+
+263
+00:11:17,010 --> 00:11:21,802
+on how the visualization happens,
+
+264
+00:11:21,802 --> 00:11:23,150
+but that's what's happening,
+
+265
+00:11:23,150 --> 00:11:24,441
+and so we're gonna write that.
+
+266
+00:11:24,441 --> 00:11:26,302
+We're gonna actually write this to a file,
+
+267
+00:11:26,302 --> 00:11:28,854
+so let's go ahead and run this code
+
+268
+00:11:28,854 --> 00:11:36,040
+and say python3 geodump.
+
+269
+00:11:36,040 --> 00:11:39,381
+Okay, so it wrote 120 records to where.js
+
+270
+00:11:39,381 --> 00:11:42,492
+so if we look at where.js
+this is now the new data
+
+271
+00:11:42,492 --> 00:11:45,065
+that I just downloaded moments ago
+
+272
+00:11:45,065 --> 00:11:57,393
+and it says open where.html in a browser.
+
+273
+00:11:57,393 --> 00:12:00,162
+Now this way you'll need
+the Google Maps API,
+
+274
+00:12:00,162 --> 00:12:01,686
+and you might not be able to see this
+
+275
+00:12:01,686 --> 00:12:03,043
+depending on where you're at,
+
+276
+00:12:03,043 --> 00:12:06,558
+but here you go with Google Maps locations
+
+277
+00:12:06,558 --> 00:12:08,543
+and I think if you hover over this,
+
+278
+00:12:08,543 --> 00:12:10,295
+you can see and you see the utf,
+
+279
+00:12:10,295 --> 00:12:12,131
+why we bear in that particular thing
+
+280
+00:12:12,131 --> 00:12:15,857
+why we had to use the utf-8
+
+281
+00:12:15,857 --> 00:12:17,620
+when we wrote the file so
+we that we didn't end up
+
+282
+00:12:17,620 --> 00:12:19,521
+with trouble writing the file out.
+
+283
+00:12:19,521 --> 00:12:20,418
+And so there you go.
+
+284
+00:12:20,418 --> 00:12:25,190
+And so that is a simple visualization
+
+285
+00:12:25,190 --> 00:12:29,923
+and just a simple visualization
+it wrote this where.js
+
+286
+00:12:29,923 --> 00:12:33,243
+if you are smart with html and JavaScript,
+
+287
+00:12:33,243 --> 00:12:37,316
+you can look at this where.html file,
+
+288
+00:12:37,316 --> 00:12:40,335
+it's really just reading
+through a bunch of data
+
+289
+00:12:40,335 --> 00:12:41,168
+and putting the points.
+
+290
+00:12:41,168 --> 00:12:42,485
+That's all there is,
+
+291
+00:12:42,485 --> 00:12:45,404
+but I'm not going to go through that.
+
+292
+00:12:45,404 --> 00:12:48,228
+So at least not in this.
+
+293
+00:12:48,228 --> 00:12:51,052
+And so I hope that this was useful to you,
+
+294
+00:12:51,052 --> 00:12:53,052
+and thanks for watching.
+

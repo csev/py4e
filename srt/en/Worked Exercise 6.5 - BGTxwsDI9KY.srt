@@ -1,0 +1,679 @@
+1
+00:00:00,235 --> 00:00:01,988
+- Hello and welcome to
+Python for Everybody,
+
+2
+00:00:01,988 --> 00:00:03,419
+my name is Charles Severance,
+
+3
+00:00:03,419 --> 00:00:07,527
+and I'm the author of the book
+and teacher of this class.
+
+4
+00:00:07,527 --> 00:00:11,252
+In this particular
+session, we are going to do
+
+5
+00:00:11,252 --> 00:00:15,030
+exercise 6.5 from the textbook.
+
+6
+00:00:15,030 --> 00:00:18,675
+It's an exercise in parsing text strings.
+
+7
+00:00:18,675 --> 00:00:23,876
+And so the basic idea is is
+we're going to see strings
+
+8
+00:00:23,876 --> 00:00:25,811
+of various kinds and various lengths
+
+9
+00:00:25,811 --> 00:00:29,234
+and we're gonna want to
+extract pieces of them, ok?
+
+10
+00:00:29,234 --> 00:00:31,845
+And so the idea is to
+somehow get this part out
+
+11
+00:00:31,845 --> 00:00:33,963
+and then convert it to
+a floating point number.
+
+12
+00:00:33,963 --> 00:00:36,217
+This is a proxy for later things
+
+13
+00:00:36,217 --> 00:00:37,850
+where we're actually reading files,
+
+14
+00:00:37,850 --> 00:00:39,458
+or reading stuff off the internet,
+
+15
+00:00:39,458 --> 00:00:44,699
+but parsing strings is an
+important thing for us to do, k?
+
+16
+00:00:44,699 --> 00:00:46,962
+And so let's take a look at a couple
+
+17
+00:00:46,962 --> 00:00:49,834
+of different ways to do this.
+
+18
+00:00:49,834 --> 00:00:51,482
+So let's go ahead and get started.
+
+19
+00:00:51,482 --> 00:00:53,597
+Let's go bring up our Atom
+
+20
+00:00:53,597 --> 00:00:58,036
+and I've got it open nicely
+to the right spot here,
+
+21
+00:00:58,036 --> 00:00:59,986
+and I'm gonna make a new folder.
+
+22
+00:00:59,986 --> 00:01:02,315
+Hopefully by now you're finding Atom,
+
+23
+00:01:02,315 --> 00:01:05,539
+Ex_06_05;
+
+24
+00:01:05,539 --> 00:01:07,761
+Atom or whatever your program or editor,
+
+25
+00:01:07,761 --> 00:01:11,702
+is a sort of a powerful tool.
+
+26
+00:01:11,702 --> 00:01:14,870
+I'll close this one, file, new file.
+
+27
+00:01:14,870 --> 00:01:16,750
+Powerful tool, that lets you sort of
+
+28
+00:01:16,750 --> 00:01:19,694
+save a lot of keystrokes, etc., etc.
+
+29
+00:01:19,694 --> 00:01:22,444
+Print,
+
+30
+00:01:22,444 --> 00:01:31,942
+exercise 6.5, just for yaks.
+
+31
+00:01:31,942 --> 00:01:34,570
+Ex-er-cise,
+
+32
+00:01:34,570 --> 00:01:37,679
+and file, save as, and
+again, until I save it,
+
+33
+00:01:37,679 --> 00:01:40,666
+it's not gonna have the pretty colors.
+
+34
+00:01:40,666 --> 00:01:43,192
+I'm gonna save it in
+
+35
+00:01:43,192 --> 00:01:45,821
+6_05,
+
+36
+00:01:45,821 --> 00:01:52,053
+Ex_06_05.py,
+
+37
+00:01:52,053 --> 00:01:54,293
+and now it has the pretty colors.
+
+38
+00:01:54,293 --> 00:01:55,884
+And here I am.
+
+39
+00:01:55,884 --> 00:01:58,108
+Now I've been doing these,
+
+40
+00:01:58,108 --> 00:02:00,396
+and so now I'm actually
+already in a directory.
+
+41
+00:02:00,396 --> 00:02:02,524
+So let me show you how to
+do relative directories.
+
+42
+00:02:02,524 --> 00:02:05,391
+So, I'm in this path right here,
+
+43
+00:02:05,391 --> 00:02:09,085
+and I can use, both in Windows
+and in Mac and in Linux,
+
+44
+00:02:09,085 --> 00:02:11,740
+I can use the command: cd ..
+
+45
+00:02:11,740 --> 00:02:14,708
+That sort of thinks of the one before,
+
+46
+00:02:14,708 --> 00:02:16,420
+the one that came before.
+
+47
+00:02:16,420 --> 00:02:19,549
+And so I'm up one directory.
+
+48
+00:02:19,549 --> 00:02:23,548
+And if I do an ls, I will
+see that this new ex_06_05
+
+49
+00:02:23,548 --> 00:02:25,764
+that I just created in this directory
+
+50
+00:02:25,764 --> 00:02:28,298
+from Atom is already there.
+
+51
+00:02:28,298 --> 00:02:34,053
+cd ex_06_05.
+
+52
+00:02:34,053 --> 00:02:36,060
+In the next chapter we'll
+be talking about files,
+
+53
+00:02:36,060 --> 00:02:39,149
+and this is where you really
+need to know this concept
+
+54
+00:02:39,149 --> 00:02:41,090
+of folders and files.
+
+55
+00:02:41,090 --> 00:02:49,817
+So ls, and I'm gonna
+run python3 ex_06_05.py.
+
+56
+00:02:49,817 --> 00:02:52,773
+There we go, exercise 6.5.
+
+57
+00:02:52,773 --> 00:02:54,996
+So we're sort of in the right
+spot, we've got this going,
+
+58
+00:02:54,996 --> 00:02:55,942
+and we got this going.
+
+59
+00:02:55,942 --> 00:02:58,516
+Pretty soon we'll be putting
+stuff in these directories
+
+60
+00:02:58,516 --> 00:03:01,236
+that need to be there,
+
+61
+00:03:01,236 --> 00:03:03,499
+and you'll see how all
+that'll work in a second.
+
+62
+00:03:03,499 --> 00:03:08,156
+Well, in the next chapter,
+we gotta know all this stuff.
+
+63
+00:03:08,156 --> 00:03:11,858
+Okay, so we'll just grab
+this first line here
+
+64
+00:03:11,858 --> 00:03:18,843
+and paste that in.
+
+65
+00:03:18,843 --> 00:03:27,179
+print str, so.
+
+66
+00:03:27,179 --> 00:03:32,476
+Let's run it, and there we go.
+
+67
+00:03:32,476 --> 00:03:34,635
+Actually there's supposed
+to be a space right there,
+
+68
+00:03:34,635 --> 00:03:37,115
+so I don't know why this space
+didn't get copied and pasted
+
+69
+00:03:37,115 --> 00:03:41,083
+from my copy and paste, so
+I'm gonna put that space in.
+
+70
+00:03:41,083 --> 00:03:43,827
+There's supposed to be
+a space right there.
+
+71
+00:03:43,827 --> 00:03:46,531
+I think, but we'll see.
+
+72
+00:03:46,531 --> 00:03:48,898
+So, the key thing is if you look at
+
+73
+00:03:48,898 --> 00:03:51,555
+the lectures from this section,
+
+74
+00:03:51,555 --> 00:03:54,594
+you can, like, look for things,
+and you look for a pattern.
+
+75
+00:03:54,594 --> 00:03:58,217
+And so what I'm gonna do is
+I'm going to look for a pattern
+
+76
+00:03:58,217 --> 00:04:00,691
+that says, find me a colon.
+
+77
+00:04:00,691 --> 00:04:05,757
+Okay, and I'm gonna say,
+
+78
+00:04:05,757 --> 00:04:15,085
+where is there a colon, equals str.find,
+
+79
+00:04:15,085 --> 00:04:21,022
+and then print out ipos.
+
+80
+00:04:21,022 --> 00:04:23,261
+So I'm gonna say, where in
+this string is there a colon?
+
+81
+00:04:23,261 --> 00:04:27,229
+Now that's gonna give me the
+position and offset of that.
+
+82
+00:04:27,229 --> 00:04:29,876
+So that says that the
+colon is in position 18.
+
+83
+00:04:29,876 --> 00:04:31,767
+Now, it's not always gonna be 18.
+
+84
+00:04:31,767 --> 00:04:35,318
+Sometimes these strings will
+be a little bit different, k?
+
+85
+00:04:35,318 --> 00:04:38,589
+So, the next thing I can do is I can say,
+
+86
+00:04:38,589 --> 00:04:44,410
+a small piece of this
+string is do str, and then,
+
+87
+00:04:44,410 --> 00:04:45,832
+starting from that position,
+
+88
+00:04:45,832 --> 00:04:48,438
+ipos through the end of the string.
+
+89
+00:04:48,438 --> 00:04:49,751
+And then we're gonna print that out.
+
+90
+00:04:49,751 --> 00:04:51,918
+Print out the piece.
+
+91
+00:04:51,918 --> 00:04:56,533
+And when I'm doing a string
+parsing, tearing strings apart,
+
+92
+00:04:56,533 --> 00:04:58,430
+I tend to have a lot of situations
+
+93
+00:04:58,430 --> 00:05:01,756
+where I print over and
+over and over again.
+
+94
+00:05:01,756 --> 00:05:04,820
+So now let's see if that
+piece is the right piece,
+
+95
+00:05:04,820 --> 00:05:07,382
+and the answer is it
+doesn't quite look right,
+
+96
+00:05:07,382 --> 00:05:09,628
+because, see, I've got that colon there,
+
+97
+00:05:09,628 --> 00:05:14,281
+and that's because, it says,
+start at 18, position 18,
+
+98
+00:05:14,281 --> 00:05:16,357
+where that is, and then keep on going.
+
+99
+00:05:16,357 --> 00:05:21,462
+And so I need to do
+ipos + 1, so let's see.
+
+100
+00:05:21,462 --> 00:05:25,508
+I'll just sort of advance past
+this little colon character
+
+101
+00:05:25,508 --> 00:05:29,144
+and get into that space, okay?
+
+102
+00:05:29,144 --> 00:05:30,213
+So let's run it.
+
+103
+00:05:30,213 --> 00:05:34,136
+So now I've got space 08475,
+
+104
+00:05:34,136 --> 00:05:38,383
+and, now I can just see, value,
+
+105
+00:05:38,383 --> 00:05:40,830
+equals float of piece.
+
+106
+00:05:40,830 --> 00:05:44,423
+'Cause piece is a string, it's a string.
+
+107
+00:05:44,423 --> 00:05:48,801
+And then I'm gonna say, print value,
+
+108
+00:05:48,801 --> 00:05:51,765
+to see if I got the value right.
+
+109
+00:05:51,765 --> 00:05:53,607
+And let's remember that
+there's a space here,
+
+110
+00:05:53,607 --> 00:05:55,225
+this might mess up float.
+
+111
+00:05:55,225 --> 00:05:57,263
+I don't think it's gonna mess up float,
+
+112
+00:05:57,263 --> 00:05:59,447
+cause float's trying to
+find a floating point number
+
+113
+00:05:59,447 --> 00:06:02,481
+and it kinda, well, let's
+just see if it works.
+
+114
+00:06:02,481 --> 00:06:04,862
+Let's just see if it works.
+
+115
+00:06:04,862 --> 00:06:07,183
+Okay, so the key is there,
+is it's in position,
+
+116
+00:06:07,183 --> 00:06:09,168
+the colon is in position 18,
+
+117
+00:06:09,168 --> 00:06:13,102
+the string we pulled out is blank 08475,
+
+118
+00:06:13,102 --> 00:06:17,212
+and the floating point number is 0.8475.
+
+119
+00:06:17,212 --> 00:06:18,828
+So we've sort of solved this.
+
+120
+00:06:18,828 --> 00:06:20,732
+Now, I can clean this up a little bit
+
+121
+00:06:20,732 --> 00:06:22,516
+by making that plus two, so let's just,
+
+122
+00:06:22,516 --> 00:06:24,421
+I'll just change that to plus two,
+
+123
+00:06:24,421 --> 00:06:27,661
+and you'll see how that
+changes what I'm doing.
+
+124
+00:06:27,661 --> 00:06:29,399
+And so now, this here is the string,
+
+125
+00:06:29,399 --> 00:06:30,613
+that one there is the string,
+
+126
+00:06:30,613 --> 00:06:32,126
+this is the actual floating point number,
+
+127
+00:06:32,126 --> 00:06:33,764
+they're the same thing other than the fact
+
+128
+00:06:33,764 --> 00:06:35,371
+that it's a floating point number,
+
+129
+00:06:35,371 --> 00:06:36,969
+and you can add something to it.
+
+130
+00:06:36,969 --> 00:06:41,479
+So I could do something
+like, print, you know,
+
+131
+00:06:41,479 --> 00:06:47,920
+value + 42.0, and that
+would actually work, right?
+
+132
+00:06:47,920 --> 00:06:57,576
+So 42 point, and if I did, print piece,
+
+133
+00:06:57,576 --> 00:07:01,136
+plus 42.0,
+
+134
+00:07:01,136 --> 00:07:04,333
+that will blow up, right?
+
+135
+00:07:04,333 --> 00:07:07,913
+Because piece is a
+string, and 42 is a float.
+
+136
+00:07:07,913 --> 00:07:10,859
+And it says, can't convert float object
+
+137
+00:07:10,859 --> 00:07:14,089
+to string implicitly, okay?
+
+138
+00:07:14,089 --> 00:07:31,378
+And so, other than sort of
+taking out this extra stuff,
+
+139
+00:07:31,378 --> 00:07:44,472
+I'm just commenting out a
+whole bunch of stuff here.
+
+140
+00:07:44,472 --> 00:07:46,471
+So I take out all those print statements,
+
+141
+00:07:46,471 --> 00:07:49,103
+these five lines are the lines
+
+142
+00:07:49,103 --> 00:07:51,359
+to do this particular assignment,
+
+143
+00:07:51,359 --> 00:07:54,199
+where we are tearing apart a string.
+
+144
+00:07:54,199 --> 00:07:56,695
+And in the future, the source,
+
+145
+00:07:56,695 --> 00:07:59,151
+this is just so that we
+can play with strings,
+
+146
+00:07:59,151 --> 00:08:01,967
+but later, we'll be taking this data
+
+147
+00:08:01,967 --> 00:08:03,208
+from all over the place.
+
+148
+00:08:03,208 --> 00:08:05,343
+Finally, we're gonna
+start opening some files
+
+149
+00:08:05,343 --> 00:08:07,487
+and then later in the
+course, we're gonna be
+
+150
+00:08:07,487 --> 00:08:09,391
+doing opening data from databases,
+
+151
+00:08:09,391 --> 00:08:11,679
+we'll be opening data from the internet.
+
+152
+00:08:11,679 --> 00:08:14,383
+And so there's all kind of data
+where we get these strings,
+
+153
+00:08:14,383 --> 00:08:16,409
+but for now, we're in chapter six,
+
+154
+00:08:16,409 --> 00:08:18,797
+and we're only focused on strings.
+
+155
+00:08:18,797 --> 00:08:20,463
+So I hope you found this useful,
+
+156
+00:08:20,463 --> 00:08:24,046
+and coming up soon,
+we'll be opening files.
+

@@ -1,0 +1,882 @@
+1
+00:00:00,345 --> 00:00:02,618
+- [Instructor] Hello, welcome
+to "Python for Everybody".
+
+2
+00:00:02,618 --> 00:00:04,892
+I'm Charles Severance, your instructor.
+
+3
+00:00:04,892 --> 00:00:09,292
+And in this short video, we're
+going to do exercise 3.2,
+
+4
+00:00:09,292 --> 00:00:13,038
+which is really just a
+rewrite of exercise 3.1.
+
+5
+00:00:13,038 --> 00:00:15,836
+We're going to deal with some
+error conditions using try
+
+6
+00:00:15,836 --> 00:00:17,432
+and accept.
+
+7
+00:00:17,432 --> 00:00:20,438
+So let's go ahead and get started.
+
+8
+00:00:20,438 --> 00:00:21,802
+But this is a good example of something
+
+9
+00:00:21,802 --> 00:00:24,438
+where you want to start with
+the previous assignment.
+
+10
+00:00:24,438 --> 00:00:27,163
+So let's open the file that I did before.
+
+11
+00:00:27,163 --> 00:00:31,485
+And so this happens to
+be right here, ex 03 01.
+
+12
+00:00:31,485 --> 00:00:35,564
+And there's my previous program
+
+13
+00:00:35,564 --> 00:00:38,060
+that I wrote for exercise 3.1.
+
+14
+00:00:38,060 --> 00:00:40,971
+And let me set myself up with Python,
+
+15
+00:00:40,971 --> 00:00:42,475
+so I can actually run it.
+
+16
+00:00:42,475 --> 00:00:47,275
+cd desktop, cd py4e.
+
+17
+00:00:47,275 --> 00:00:48,811
+These will get better.
+
+18
+00:00:48,811 --> 00:00:55,630
+cd ex_03_01 ls.
+
+19
+00:00:55,630 --> 00:01:01,394
+And I can say python3 ex 03 01 dot py
+
+20
+00:01:01,394 --> 00:01:04,177
+and you know it works fine
+if you give it the right data
+
+21
+00:01:04,177 --> 00:01:08,040
+but if you give it bad
+data, ten and T E N,
+
+22
+00:01:08,040 --> 00:01:10,306
+it blows up, right?
+
+23
+00:01:10,306 --> 00:01:12,960
+And like always, you're getting tracebacks
+
+24
+00:01:12,960 --> 00:01:14,241
+for all kinds of things.
+
+25
+00:01:14,241 --> 00:01:16,164
+But this one is pretty clear if you slowly
+
+26
+00:01:16,164 --> 00:01:17,429
+but surely don't get mad.
+
+27
+00:01:17,429 --> 00:01:21,037
+Just say, oh line four, what
+could be wrong in line four?
+
+28
+00:01:21,037 --> 00:01:24,368
+Could not convert string to float ten.
+
+29
+00:01:24,368 --> 00:01:28,234
+So what it's complaining
+about is on line four,
+
+30
+00:01:28,234 --> 00:01:31,845
+this variable 'sr' which
+is the string T E N,
+
+31
+00:01:31,845 --> 00:01:34,423
+the letters T E N,
+
+32
+00:01:34,423 --> 00:01:37,190
+is not working so this
+function is blowing up.
+
+33
+00:01:37,190 --> 00:01:38,604
+Okay?
+
+34
+00:01:38,604 --> 00:01:40,408
+So that's what it's complaining about.
+
+35
+00:01:40,408 --> 00:01:42,867
+And that's what we want to deal with.
+
+36
+00:01:42,867 --> 00:01:43,861
+Now when you're using try and accept,
+
+37
+00:01:43,861 --> 00:01:45,472
+you don't want to just put a try.
+
+38
+00:01:45,472 --> 00:01:48,550
+You want to limit how much
+data that you put in the try
+
+39
+00:01:48,550 --> 00:01:51,440
+and accept or how much go you
+put in the try and accept.
+
+40
+00:01:51,440 --> 00:01:53,834
+So, let's get started on assignment 3.2.
+
+41
+00:01:53,834 --> 00:01:56,357
+So the nice thing that we can do here,
+
+42
+00:01:56,357 --> 00:02:00,468
+is we can say File > Save As,
+
+43
+00:02:00,468 --> 00:02:04,198
+and go up a folder to py for everybody.
+
+44
+00:02:04,198 --> 00:02:10,426
+Make a new folder called ex 03 02.
+
+45
+00:02:10,426 --> 00:02:17,106
+And then save the file as ex 03 02 dot py.
+
+46
+00:02:17,106 --> 00:02:20,507
+Okay, so now make sure, get rid of that,
+
+47
+00:02:20,507 --> 00:02:21,994
+make sure this is different.
+
+48
+00:02:21,994 --> 00:02:23,719
+We're in a different
+folder, so we're not editing
+
+49
+00:02:23,719 --> 00:02:25,070
+that old file.
+
+50
+00:02:25,070 --> 00:02:26,858
+And the first thing I'm going to do is,
+
+51
+00:02:26,858 --> 00:02:27,863
+come on,
+
+52
+00:02:27,863 --> 00:02:31,455
+well I'm going to get rid of
+some of these print statements.
+
+53
+00:02:31,455 --> 00:02:34,548
+I mean the code's going to work.
+
+54
+00:02:34,548 --> 00:02:38,505
+Come on.
+
+55
+00:02:38,505 --> 00:02:41,667
+Okay, so the dangerous
+line of code is right here
+
+56
+00:02:41,667 --> 00:02:44,056
+and so the problem becomes
+
+57
+00:02:44,056 --> 00:02:46,284
+how are we going to deal with this?
+
+58
+00:02:46,284 --> 00:02:49,745
+And, and oh, let me do this as well.
+
+59
+00:02:49,745 --> 00:02:54,543
+So here's, if I do pwd, I'm in ex 03 01.
+
+60
+00:02:54,543 --> 00:02:57,920
+This could drive you crazy.
+
+61
+00:02:57,920 --> 00:03:00,171
+Oh wait, I'm in the wrong folder.
+
+62
+00:03:00,171 --> 00:03:02,971
+How come this is in the wrong folder?
+
+63
+00:03:02,971 --> 00:03:09,009
+I put the ex 03 01, oh.
+
+64
+00:03:09,009 --> 00:03:16,938
+Why is this in...
+
+65
+00:03:16,938 --> 00:03:18,656
+See, you got to watch this.
+
+66
+00:03:18,656 --> 00:03:20,765
+I think I'm in the wrong folder.
+
+67
+00:03:20,765 --> 00:03:27,921
+File > Open
+
+68
+00:03:27,921 --> 00:03:31,550
+ex 03 02
+
+69
+00:03:31,550 --> 00:03:33,249
+ex 03 02
+
+70
+00:03:33,249 --> 00:03:35,247
+Okay, so now I'm in the right spot.
+
+71
+00:03:35,247 --> 00:03:36,670
+I don't know why that
+wasn't showing up right.
+
+72
+00:03:36,670 --> 00:03:38,103
+But keep your eye on this,
+
+73
+00:03:38,103 --> 00:03:40,027
+especially when you're using file names
+
+74
+00:03:40,027 --> 00:03:41,458
+that are ...
+
+75
+00:03:41,458 --> 00:03:45,975
+So I'm going to, I'm in this ex 03 01.
+
+76
+00:03:45,975 --> 00:03:48,501
+So I'm going to use a command,
+
+77
+00:03:48,501 --> 00:03:51,497
+and you can use this both
+in Windows and in Linux
+
+78
+00:03:51,497 --> 00:03:52,662
+and in Macs,
+
+79
+00:03:52,662 --> 00:03:54,288
+c d dot dot.
+
+80
+00:03:54,288 --> 00:03:56,644
+And what that does is
+that goes up a folder.
+
+81
+00:03:56,644 --> 00:03:58,464
+Part of the goal of this
+course is to teach you
+
+82
+00:03:58,464 --> 00:04:00,116
+how to use things like this.
+
+83
+00:04:00,116 --> 00:04:01,345
+Just how to use these command lines
+
+84
+00:04:01,345 --> 00:04:03,575
+because to be a programmer,
+
+85
+00:04:03,575 --> 00:04:04,943
+even doing the simplest stuff,
+
+86
+00:04:04,943 --> 00:04:06,791
+you've got to manipulate files
+
+87
+00:04:06,791 --> 00:04:07,976
+and you've got to be
+able to use command line,
+
+88
+00:04:07,976 --> 00:04:09,785
+you've got to be able
+to use all these things.
+
+89
+00:04:09,785 --> 00:04:12,283
+Not every thing is a full
+screen clickety pointedy thing.
+
+90
+00:04:12,283 --> 00:04:13,116
+Okay?
+
+91
+00:04:13,116 --> 00:04:14,870
+And so what does c d do?
+
+92
+00:04:14,870 --> 00:04:16,613
+Well, it looks at this.
+
+93
+00:04:16,613 --> 00:04:18,552
+And it goes up one folder.
+
+94
+00:04:18,552 --> 00:04:20,224
+So it moved us up into here.
+
+95
+00:04:20,224 --> 00:04:23,591
+And you can see after the cd,
+my current working directory
+
+96
+00:04:23,591 --> 00:04:26,248
+is that and I could do
+ls to see the folders.
+
+97
+00:04:26,248 --> 00:04:29,082
+And now I see my new ex 03 02.
+
+98
+00:04:29,082 --> 00:04:35,015
+So say cd ex 03 02.
+
+99
+00:04:35,015 --> 00:04:37,727
+And part of the being a
+programmer is having a lot
+
+100
+00:04:37,727 --> 00:04:40,958
+of folders with weird names
+to organize your stuff.
+
+101
+00:04:40,958 --> 00:04:42,945
+So here we go.
+
+102
+00:04:42,945 --> 00:04:47,519
+Now we have this file and
+this file in the same place,
+
+103
+00:04:47,519 --> 00:04:51,615
+pwd, this matches this,
+that file matches this name
+
+104
+00:04:51,615 --> 00:05:02,090
+and I can say python3 ex 03 02 dot py,
+
+105
+00:05:02,090 --> 00:05:04,656
+10 10, okay, so.
+
+106
+00:05:04,656 --> 00:05:11,180
+Now I'm just nervous enough
+to want to double check this
+
+107
+00:05:11,180 --> 00:05:13,919
+and so I will do something like this.
+
+108
+00:05:13,919 --> 00:05:19,327
+I will say XYZ pay and save
+it and then run it again,
+
+109
+00:05:19,327 --> 00:05:26,879
+python3, I don't care about the numbers.
+
+110
+00:05:26,879 --> 00:05:28,071
+See the XYZ pay?
+
+111
+00:05:28,071 --> 00:05:29,894
+So now I know I'm in that file.
+
+112
+00:05:29,894 --> 00:05:31,637
+So I do stuff like this all the time
+
+113
+00:05:31,637 --> 00:05:34,783
+to triple check that I'm
+really working with the files.
+
+114
+00:05:34,783 --> 00:05:36,978
+So now I'm in this file.
+
+115
+00:05:36,978 --> 00:05:38,719
+And now let me make my mistake again.
+
+116
+00:05:38,719 --> 00:05:42,965
+Ten, ten, and now there's
+my failure, right?
+
+117
+00:05:42,965 --> 00:05:44,902
+So there's the mistake
+and that's the thing
+
+118
+00:05:44,902 --> 00:05:45,940
+we've got to fix.
+
+119
+00:05:45,940 --> 00:05:48,246
+So, we have these lines of code.
+
+120
+00:05:48,246 --> 00:05:50,016
+So what you do in Python, when you know
+
+121
+00:05:50,016 --> 00:05:52,302
+that there's a dangerous set of lines,
+
+122
+00:05:52,302 --> 00:05:54,702
+and you want to take
+out insurance on those,
+
+123
+00:05:54,702 --> 00:05:58,513
+you put them in a tri-catch
+block or tri-accept block.
+
+124
+00:05:58,513 --> 00:06:00,242
+And,
+
+125
+00:06:00,242 --> 00:06:06,514
+now what are we supposed
+to say when it blows up?
+
+126
+00:06:06,514 --> 00:06:08,831
+It says 'error, please
+enter numeric input'.
+
+127
+00:06:08,831 --> 00:06:10,925
+I'll just copy that and paste this.
+
+128
+00:06:10,925 --> 00:06:14,638
+Print 'error, please enter numeric input'.
+
+129
+00:06:14,638 --> 00:06:17,488
+Make that a little bit wider.
+
+130
+00:06:17,488 --> 00:06:20,295
+Print that out.
+
+131
+00:06:20,295 --> 00:06:22,171
+Now I want to put this
+print statement back in.
+
+132
+00:06:22,171 --> 00:06:25,228
+Okay?
+
+133
+00:06:25,228 --> 00:06:26,747
+So here we go.
+
+134
+00:06:26,747 --> 00:06:28,700
+So now what's going to
+happen is that we're going
+
+135
+00:06:28,700 --> 00:06:30,576
+to come in here, we're going to run these,
+
+136
+00:06:30,576 --> 00:06:33,820
+if they work, we'll skip the
+accept block and continue.
+
+137
+00:06:33,820 --> 00:06:37,384
+If they blow up, then it's
+going to run this accept block.
+
+138
+00:06:37,384 --> 00:06:40,525
+So let's run it.
+
+139
+00:06:40,525 --> 00:06:41,947
+Let's start with a working case.
+
+140
+00:06:41,947 --> 00:06:42,946
+That still works.
+
+141
+00:06:42,946 --> 00:06:43,953
+That's good.
+
+142
+00:06:43,953 --> 00:06:45,310
+It comes and does this extra print that
+
+143
+00:06:45,310 --> 00:06:46,718
+I've got on line nine.
+
+144
+00:06:46,718 --> 00:06:49,503
+Let's go in the bad case, 10, 10.
+
+145
+00:06:49,503 --> 00:06:54,702
+Okay, so we're going to
+parse this a little bit.
+
+146
+00:06:54,702 --> 00:06:59,742
+So it says 'error, please
+enter numeric input'
+
+147
+00:06:59,742 --> 00:07:01,022
+but then I still get a traceback.
+
+148
+00:07:01,022 --> 00:07:03,182
+And you're like 'I hate computers'.
+
+149
+00:07:03,182 --> 00:07:04,610
+Because doesn't this look beautiful?
+
+150
+00:07:04,610 --> 00:07:05,724
+I've got a try.
+
+151
+00:07:05,724 --> 00:07:06,723
+I've indented.
+
+152
+00:07:06,723 --> 00:07:08,302
+It looks just like what I saw, right?
+
+153
+00:07:08,302 --> 00:07:09,625
+It's so beautiful.
+
+154
+00:07:09,625 --> 00:07:11,866
+Why does this computer hate me so badly?
+
+155
+00:07:11,866 --> 00:07:16,053
+Well then take a step back
+and say you know what,
+
+156
+00:07:16,053 --> 00:07:19,107
+the computer is admitting
+that it's confused
+
+157
+00:07:19,107 --> 00:07:21,231
+by what you have given it.
+
+158
+00:07:21,231 --> 00:07:22,633
+And so just look.
+
+159
+00:07:22,633 --> 00:07:25,337
+What line are you mad
+about, dear computer?
+
+160
+00:07:25,337 --> 00:07:27,672
+Line nine, okay let's
+take a look at line nine.
+
+161
+00:07:27,672 --> 00:07:30,229
+It's always this line
+or the one before it.
+
+162
+00:07:30,229 --> 00:07:31,947
+Almost always.
+
+163
+00:07:31,947 --> 00:07:34,102
+Almost always or it gets it right.
+
+164
+00:07:34,102 --> 00:07:37,590
+It says name 'fr' is not defined.
+
+165
+00:07:37,590 --> 00:07:39,621
+Hmm, so let's just focus on this.
+
+166
+00:07:39,621 --> 00:07:41,897
+It's complaining about this.
+
+167
+00:07:41,897 --> 00:07:46,668
+And the problem is is
+that it came down here.
+
+168
+00:07:46,668 --> 00:07:50,875
+It ran through here.
+
+169
+00:07:50,875 --> 00:07:53,694
+Came down here, ran through here.
+
+170
+00:07:53,694 --> 00:07:54,913
+And this blew up.
+
+171
+00:07:54,913 --> 00:07:55,957
+That line never ran.
+
+172
+00:07:55,957 --> 00:07:57,103
+That's the line that blew up.
+
+173
+00:07:57,103 --> 00:07:58,975
+And then it ran this error.
+
+174
+00:07:58,975 --> 00:08:02,767
+So it never got a varible
+or a value in 'fr'.
+
+175
+00:08:02,767 --> 00:08:05,137
+And that's because in
+this particular case,
+
+176
+00:08:05,137 --> 00:08:08,110
+we either have to put a new
+statement in to make sure
+
+177
+00:08:08,110 --> 00:08:09,658
+the rest of this code
+or we can say you know,
+
+178
+00:08:09,658 --> 00:08:14,297
+if everything is just so bad in this thing
+
+179
+00:08:14,297 --> 00:08:16,461
+and I don't want to continue,
+
+180
+00:08:16,461 --> 00:08:19,209
+quit basically says do not continue.
+
+181
+00:08:19,209 --> 00:08:20,314
+Okay?
+
+182
+00:08:20,314 --> 00:08:22,684
+So when it comes in here, it runs this.
+
+183
+00:08:22,684 --> 00:08:23,689
+It blows up.
+
+184
+00:08:23,689 --> 00:08:24,691
+It come down to here.
+
+185
+00:08:24,691 --> 00:08:25,691
+It prints this.
+
+186
+00:08:25,691 --> 00:08:26,769
+And it quits.
+
+187
+00:08:26,769 --> 00:08:28,385
+And then it doesn't continue on.
+
+188
+00:08:28,385 --> 00:08:32,227
+So now I can run this again, 10, 10.
+
+189
+00:08:32,227 --> 00:08:33,226
+It works.
+
+190
+00:08:33,226 --> 00:08:40,745
+10 and T E N, and it fails
+exactly the same way.
+
+191
+00:08:40,745 --> 00:08:42,881
+This part here is exactly the same
+
+192
+00:08:42,881 --> 00:08:45,231
+as this part here.
+
+193
+00:08:45,231 --> 00:08:47,669
+The difference was as
+soon as we print this out,
+
+194
+00:08:47,669 --> 00:08:48,667
+we quit so we don't continue on.
+
+195
+00:08:48,667 --> 00:08:50,125
+Okay?
+
+196
+00:08:50,125 --> 00:08:53,555
+So if you're doing really
+simple sort of input checking,
+
+197
+00:08:53,555 --> 00:08:56,035
+sanity checking is one of
+the things we call this
+
+198
+00:08:56,035 --> 00:09:00,103
+where just does the data make
+sense then don't continue.
+
+199
+00:09:00,103 --> 00:09:02,932
+If the data doesn't make
+sense, if these two statements
+
+200
+00:09:02,932 --> 00:09:05,048
+don't work then whatever we've been given
+
+201
+00:09:05,048 --> 00:09:07,147
+is nonsensical data
+
+202
+00:09:07,147 --> 00:09:12,061
+that we're not capable of handling, okay?
+
+203
+00:09:12,061 --> 00:09:17,530
+So that is how to write exercise 3.2.
+
+204
+00:09:17,530 --> 00:09:21,231
+And I hope that you have found
+this little video useful.
+
+205
+00:09:21,231 --> 00:09:23,231
+And thanks for watching.
+

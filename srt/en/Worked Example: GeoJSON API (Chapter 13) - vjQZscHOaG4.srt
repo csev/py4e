@@ -1,0 +1,757 @@
+1
+00:00:00,721 --> 00:00:08,154
+(slow jazz music)
+
+2
+00:00:08,154 --> 00:00:09,988
+- [Instructor] Hello and
+welcome to Python For Everybody.
+
+3
+00:00:09,988 --> 00:00:12,326
+We are doing some code samples here.
+
+4
+00:00:12,326 --> 00:00:13,731
+If you wanna follow along,
+
+5
+00:00:13,731 --> 00:00:17,504
+you can download the sample
+code all in a big .zip file,
+
+6
+00:00:17,504 --> 00:00:19,154
+I've got it.
+
+7
+00:00:19,154 --> 00:00:23,460
+We are going to be working
+with the Google Maps API.
+
+8
+00:00:23,460 --> 00:00:26,307
+In the old days, this Maps API was free
+
+9
+00:00:26,307 --> 00:00:29,900
+and did 2,500 requests per day,
+
+10
+00:00:29,900 --> 00:00:30,965
+but now they've made it
+
+11
+00:00:30,965 --> 00:00:34,663
+so that parts of it are behind API keys
+
+12
+00:00:34,663 --> 00:00:36,930
+and you start having
+to use OAuth and stuff,
+
+13
+00:00:36,930 --> 00:00:38,675
+but not, they haven't put it all behind
+
+14
+00:00:38,675 --> 00:00:40,618
+this one address service
+that we've been using.
+
+15
+00:00:40,618 --> 00:00:43,362
+That continues to work.
+
+16
+00:00:43,362 --> 00:00:45,149
+And the basic idea of an API is,
+
+17
+00:00:45,149 --> 00:00:48,877
+you go read the
+documentation, you find a URL,
+
+18
+00:00:48,877 --> 00:00:50,770
+and this is going to Google servers,
+
+19
+00:00:50,770 --> 00:00:52,593
+and you pass in the address.
+
+20
+00:00:52,593 --> 00:00:54,357
+And we have to pass in the address
+
+21
+00:00:54,357 --> 00:00:56,581
+using what's called URL encoding,
+
+22
+00:00:56,581 --> 00:00:58,750
+so spaces are pluses,
+
+23
+00:00:58,750 --> 00:01:00,038
+that's a comma,
+
+24
+00:01:00,038 --> 00:01:01,531
+and then that's a space.
+
+25
+00:01:01,531 --> 00:01:03,557
+And so, we have to pass
+this in a certain way
+
+26
+00:01:03,557 --> 00:01:05,837
+but if we do it right, we hit this,
+
+27
+00:01:05,837 --> 00:01:07,634
+we're gonna get ourselves some JSON back,
+
+28
+00:01:07,634 --> 00:01:08,971
+and that's really cool.
+
+29
+00:01:08,971 --> 00:01:12,102
+And so deep inside here
+we get the real address,
+
+30
+00:01:12,102 --> 00:01:16,562
+you know, a good address,
+we get a geometry,
+
+31
+00:01:16,562 --> 00:01:19,368
+we have the location, we got
+the latitude and longitude,
+
+32
+00:01:19,368 --> 00:01:20,699
+and we can extract stuff outta here.
+
+33
+00:01:20,699 --> 00:01:21,883
+And so, we're talking,
+
+34
+00:01:21,883 --> 00:01:24,501
+and this one here's still
+rate limited to 2,500
+
+35
+00:01:24,501 --> 00:01:26,957
+but it's one of the few
+parts of the Google Maps API
+
+36
+00:01:26,957 --> 00:01:29,562
+that is not hidden behind an API key.
+
+37
+00:01:29,562 --> 00:01:32,033
+In a later chapter, we'll
+show you how to actually talk
+
+38
+00:01:32,033 --> 00:01:35,639
+with the API key in the geodata code,
+
+39
+00:01:35,639 --> 00:01:39,579
+the geoload shows you
+how to use an API key
+
+40
+00:01:39,579 --> 00:01:42,819
+if you want to jump ahead
+and take a look at that.
+
+41
+00:01:42,819 --> 00:01:45,100
+But for now, we're just
+gonna take a look at geojson
+
+42
+00:01:45,100 --> 00:01:48,191
+which is gonna retrieve
+one page and tear it apart.
+
+43
+00:01:48,191 --> 00:01:49,974
+So let's take a look.
+
+44
+00:01:49,974 --> 00:01:53,652
+So we're going to grab the
+urllib stuff and import json,
+
+45
+00:01:53,652 --> 00:01:55,155
+so now we're gonna use json,
+
+46
+00:01:55,155 --> 00:01:57,141
+but we're gonna actually pull the data
+
+47
+00:01:57,141 --> 00:02:00,251
+out of the Internet.
+
+48
+00:02:00,251 --> 00:02:03,570
+And so, I just take that
+serviceurl for Google Maps API,
+
+49
+00:02:03,570 --> 00:02:05,971
+I found that somewhere
+in the documentation,
+
+50
+00:02:05,971 --> 00:02:08,506
+and then I'm gonna have a
+loop that's gonna run forever,
+
+51
+00:02:08,506 --> 00:02:11,639
+I'm gonna add, for the, at the location,
+
+52
+00:02:11,639 --> 00:02:14,499
+and then if I hit enter,
+that's what this is saying,
+
+53
+00:02:14,499 --> 00:02:15,753
+get out of the loop.
+
+54
+00:02:15,753 --> 00:02:19,694
+And then what I'm gonna do
+is I'm gonna concatenate the,
+
+55
+00:02:19,694 --> 00:02:21,410
+the serviceurl, which is this,
+
+56
+00:02:21,410 --> 00:02:25,082
+and this urllib.parse.urlencode
+
+57
+00:02:25,082 --> 00:02:27,363
+gives a dictionary of address=,
+
+58
+00:02:27,363 --> 00:02:30,735
+and this, this bit right here,
+
+59
+00:02:30,735 --> 00:02:35,628
+gives me the string that leads
+to putting this address=,
+
+60
+00:02:35,628 --> 00:02:37,910
+but encoding these spaces the right way.
+
+61
+00:02:37,910 --> 00:02:39,520
+So if you type a space,
+
+62
+00:02:39,520 --> 00:02:41,811
+that bit of code turns it into the plus,
+
+63
+00:02:41,811 --> 00:02:43,298
+so that's important.
+
+64
+00:02:43,298 --> 00:02:44,621
+And I've got the question
+mark sitting here
+
+65
+00:02:44,621 --> 00:02:46,130
+at the end of that.
+
+66
+00:02:46,130 --> 00:02:46,963
+Then what we're going to do
+
+67
+00:02:46,963 --> 00:02:49,130
+is we're just going to do a urlopen,
+
+68
+00:02:49,130 --> 00:02:50,482
+to get a handle,
+
+69
+00:02:50,482 --> 00:02:52,412
+we're gonna read the whole document,
+
+70
+00:02:52,412 --> 00:02:55,233
+and because it's UTF-8,
+coming from the outside world,
+
+71
+00:02:55,233 --> 00:02:57,959
+I'm gonna turn it into unicode
+inside our application,
+
+72
+00:02:57,959 --> 00:02:59,585
+we say .decode.
+
+73
+00:02:59,585 --> 00:03:02,068
+We can ask how many characters we got,
+
+74
+00:03:02,068 --> 00:03:04,390
+and we put our json.loads.
+
+75
+00:03:04,390 --> 00:03:05,329
+Now, up 'til now,
+
+76
+00:03:05,329 --> 00:03:07,370
+we've just been doing loads's
+from internal strings,
+
+77
+00:03:07,370 --> 00:03:12,673
+but this is now a string that
+came from the outside world,
+
+78
+00:03:12,673 --> 00:03:14,874
+and we'll put a try-except in,
+
+79
+00:03:14,874 --> 00:03:16,319
+and we'll set js to be none,
+
+80
+00:03:16,319 --> 00:03:17,875
+and that'll be our little trigger.
+
+81
+00:03:17,875 --> 00:03:20,438
+Now, we can look for,
+
+82
+00:03:20,438 --> 00:03:22,533
+they give us, take a look at the output,
+
+83
+00:03:22,533 --> 00:03:25,637
+they give us this OK, and
+that status can be a problem,
+
+84
+00:03:25,637 --> 00:03:27,393
+and it can complain about things.
+
+85
+00:03:27,393 --> 00:03:31,597
+So we have to check to see if
+we got a good status, and so,
+
+86
+00:03:31,597 --> 00:03:34,266
+at this point, if you look
+at the outer bit of this,
+
+87
+00:03:34,266 --> 00:03:36,089
+the outer bit that we get
+
+88
+00:03:36,089 --> 00:03:38,933
+is a curly brace, so it's a dictionary,
+
+89
+00:03:38,933 --> 00:03:41,325
+then there is within that
+dictionary key results,
+
+90
+00:03:41,325 --> 00:03:44,336
+which is a list,
+
+91
+00:03:44,336 --> 00:03:47,059
+but then the second thing in
+the outer dictionary is status.
+
+92
+00:03:47,059 --> 00:03:48,912
+And so we can ask,
+
+93
+00:03:48,912 --> 00:03:54,457
+if, the word, the um,
+
+94
+00:03:54,457 --> 00:03:55,978
+(clears throat)
+
+95
+00:03:55,978 --> 00:04:00,171
+If we got a false, if we got
+nothing, that we'll quit.
+
+96
+00:04:00,171 --> 00:04:05,347
+If we don't have a status key
+in that job, in that object,
+
+97
+00:04:05,347 --> 00:04:08,494
+or that dictionary, or
+it's not equal to OK,
+
+98
+00:04:08,494 --> 00:04:10,031
+any number of those things,
+
+99
+00:04:10,031 --> 00:04:11,177
+like this,
+
+100
+00:04:11,177 --> 00:04:13,467
+or this,
+
+101
+00:04:13,467 --> 00:04:14,444
+or this,
+
+102
+00:04:14,444 --> 00:04:17,737
+are all, either of those are
+true, we're going to quit,
+
+103
+00:04:17,737 --> 00:04:19,988
+failure to retrieve,
+and print the data out.
+
+104
+00:04:19,988 --> 00:04:21,515
+And when you're starting
+to read stuff off the 'Net,
+
+105
+00:04:21,515 --> 00:04:23,418
+you often have to put
+debugging in here like this,
+
+106
+00:04:23,418 --> 00:04:25,458
+like, oh, something
+quit, I gotta figure out,
+
+107
+00:04:25,458 --> 00:04:27,913
+something, so debugging it.
+
+108
+00:04:27,913 --> 00:04:30,344
+Next thing we're gonna
+do is call json.dumps,
+
+109
+00:04:30,344 --> 00:04:31,675
+which is the opposite of loads,
+
+110
+00:04:31,675 --> 00:04:35,612
+which takes this array that includes,
+
+111
+00:04:35,612 --> 00:04:37,095
+uh, dictionary that includes arrays,
+
+112
+00:04:37,095 --> 00:04:39,513
+and we're gonna pretty print
+it, with an indent of 4.
+
+113
+00:04:39,513 --> 00:04:40,833
+and then we're going to print that out,
+
+114
+00:04:40,833 --> 00:04:42,481
+and so, if you look at my code,
+
+115
+00:04:42,481 --> 00:04:45,142
+you'll see that the first
+thing we do, once we parsed it,
+
+116
+00:04:45,142 --> 00:04:47,018
+is we print it back out so we can see it.
+
+117
+00:04:47,018 --> 00:04:49,567
+And then we're going to dig into it.
+
+118
+00:04:49,567 --> 00:04:51,593
+So let's go ahead and run this code.
+
+119
+00:04:51,593 --> 00:04:55,842
+python geojson.py.
+
+120
+00:04:55,842 --> 00:04:58,472
+Arrgh!
+
+121
+00:04:58,472 --> 00:05:01,839
+One of these days I will
+always type python3.
+
+122
+00:05:01,839 --> 00:05:05,205
+Ann Arbor, comma, Michigan.
+
+123
+00:05:05,205 --> 00:05:06,666
+Okay, so it ran,
+
+124
+00:05:06,666 --> 00:05:08,810
+and so you see that it retrieved this URL.
+
+125
+00:05:08,810 --> 00:05:13,249
+This URL was constructed, and
+it retrieved 1736 characters,
+
+126
+00:05:13,249 --> 00:05:16,203
+and it's JSON pretty
+printed with an indent of 4,
+
+127
+00:05:16,203 --> 00:05:18,985
+and this is that, this is that json.dumps,
+
+128
+00:05:18,985 --> 00:05:20,821
+all the way down to here.
+
+129
+00:05:20,821 --> 00:05:22,912
+So that's just json.dumps,
+
+130
+00:05:22,912 --> 00:05:24,721
+and then it starts extracting.
+
+131
+00:05:24,721 --> 00:05:26,632
+So it's gonna pull things out.
+
+132
+00:05:26,632 --> 00:05:27,924
+Now when I, when you write this code,
+
+133
+00:05:27,924 --> 00:05:29,382
+it's really easy to look at this and say,
+
+134
+00:05:29,382 --> 00:05:30,735
+oh, great, it's easy!
+
+135
+00:05:30,735 --> 00:05:32,383
+I tend to have to print this stuff out
+
+136
+00:05:32,383 --> 00:05:35,990
+over and over and over as I
+kinda construct this expression.
+
+137
+00:05:35,990 --> 00:05:38,284
+But if we look at it,
+
+138
+00:05:38,284 --> 00:05:40,181
+the outer dictionary,
+
+139
+00:05:40,181 --> 00:05:45,527
+the outer dictionary sub
+results leads to this array,
+
+140
+00:05:45,527 --> 00:05:46,955
+and if you go look at
+this array carefully,
+
+141
+00:05:46,955 --> 00:05:49,614
+you find there's only one thing in it,
+
+142
+00:05:49,614 --> 00:05:51,261
+and so that the results is an array.
+
+143
+00:05:51,261 --> 00:05:56,392
+Sub 0 gets us this, this dictionary,
+
+144
+00:05:56,392 --> 00:05:59,161
+I keep wanting to say object
+'cause that's what it's called,
+
+145
+00:05:59,161 --> 00:06:01,752
+and that goes all the way down to here,
+
+146
+00:06:01,752 --> 00:06:03,090
+so that's what we get there.
+
+147
+00:06:03,090 --> 00:06:06,747
+And then, within that,
+we now have an object,
+
+148
+00:06:06,747 --> 00:06:09,854
+and we look for,
+
+149
+00:06:09,854 --> 00:06:13,455
+geometry within that
+object, where is geometry?
+
+150
+00:06:13,455 --> 00:06:16,653
+Right there, geometry.
+
+151
+00:06:16,653 --> 00:06:20,842
+Geometry goes from there to there,
+
+152
+00:06:20,842 --> 00:06:22,583
+there's geometry in there.
+
+153
+00:06:22,583 --> 00:06:23,416
+Gotta get used to it,
+
+154
+00:06:23,416 --> 00:06:25,659
+that's why it's nice to
+have this stuff indented.
+
+155
+00:06:25,659 --> 00:06:29,463
+Geometry, sub lo--, whoops, come back.
+
+156
+00:06:29,463 --> 00:06:30,596
+Come back.
+
+157
+00:06:30,596 --> 00:06:33,316
+And then we go to location within that,
+
+158
+00:06:33,316 --> 00:06:35,305
+so location within geometry.
+
+159
+00:06:35,305 --> 00:06:38,437
+And then within location
+we have lat and lng.
+
+160
+00:06:38,437 --> 00:06:44,451
+So this is pulling out this 42 and 83.
+
+161
+00:06:44,451 --> 00:06:47,261
+And then, so we print that out,
+
+162
+00:06:47,261 --> 00:06:49,705
+take a look, (whooshes)
+and that prints that out,
+
+163
+00:06:49,705 --> 00:06:51,266
+pulls that right out of the JSON.
+
+164
+00:06:51,266 --> 00:06:53,829
+These are tricky to write,
+but after a while you'll win,
+
+165
+00:06:53,829 --> 00:06:57,650
+and you'll get it right,
+and it's just fine, 'kay?
+
+166
+00:06:57,650 --> 00:07:00,931
+And so we do the same thing, result sub 0,
+
+167
+00:07:00,931 --> 00:07:04,023
+formatted_address gets us this,
+
+168
+00:07:04,023 --> 00:07:07,206
+and so that's how we
+print the location out.
+
+169
+00:07:07,206 --> 00:07:11,741
+And so that's a real quick
+look at how we would do that
+
+170
+00:07:11,741 --> 00:07:17,595
+with the JSON talking to the,
+
+171
+00:07:17,595 --> 00:07:19,707
+the Google Maps API.
+
+172
+00:07:19,707 --> 00:07:20,540
+'Kay?
+
+173
+00:07:20,540 --> 00:07:22,014
+Hope this helps.
+
+174
+00:07:22,014 --> 00:07:24,931
+(slow jazzy piano)
+

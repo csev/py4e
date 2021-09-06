@@ -1,0 +1,599 @@
+1
+00:00:00,501 --> 00:00:08,194
+(piano music)
+
+2
+00:00:08,194 --> 00:00:09,936
+- [Charles] Hello and welcome
+to Python for Everybody.
+
+3
+00:00:09,936 --> 00:00:11,658
+We're doing some code walkthroughs
+
+4
+00:00:11,658 --> 00:00:13,360
+if you want to follow along.
+
+5
+00:00:13,360 --> 00:00:16,239
+We've got a sample code
+ZIP that you can download
+
+6
+00:00:16,239 --> 00:00:17,772
+and take a look at all the code.
+
+7
+00:00:17,772 --> 00:00:20,402
+And what we are in the middle of is
+
+8
+00:00:20,402 --> 00:00:23,188
+we're in the middle of the PageRank code
+
+9
+00:00:23,188 --> 00:00:25,214
+and we just done running the PageRank
+
+10
+00:00:25,214 --> 00:00:28,366
+and so we have spydered the code,
+
+11
+00:00:28,366 --> 00:00:30,757
+we've run PageRank a bunch of times.
+
+12
+00:00:30,757 --> 00:00:32,173
+Spreset allows us to restart
+
+13
+00:00:32,173 --> 00:00:34,067
+the PageRank algorithm if we want.
+
+14
+00:00:34,067 --> 00:00:35,373
+But we're not going to play with that.
+
+15
+00:00:35,373 --> 00:00:37,541
+We're just gonna play
+with spdump and spjson
+
+16
+00:00:37,541 --> 00:00:40,550
+and do the visualization,
+which is the fun part.
+
+17
+00:00:40,550 --> 00:00:44,439
+So, I'll go into spdump.
+
+18
+00:00:44,439 --> 00:00:46,733
+So this is simple code, because
+it's really just running
+
+19
+00:00:46,733 --> 00:00:50,068
+a SQL query and then
+printing stuff out, right?
+
+20
+00:00:50,068 --> 00:00:52,765
+So we connect to our data
+base, create a cursor,
+
+21
+00:00:52,765 --> 00:00:55,571
+and then just do a SELECT COUNT
+
+22
+00:00:55,571 --> 00:01:00,093
+and we're going to show
+the number of links,
+
+23
+00:01:00,093 --> 00:01:02,711
+we're gonna order by the number
+of inbound links descending,
+
+24
+00:01:02,711 --> 00:01:04,620
+so we see the most linked things,
+
+25
+00:01:04,620 --> 00:01:06,339
+and we'll see the top 50 of that,
+
+26
+00:01:06,339 --> 00:01:07,756
+so this is just a sample.
+
+27
+00:01:07,756 --> 00:01:10,182
+You'll tend to write
+little helpers like this
+
+28
+00:01:10,182 --> 00:01:11,383
+that make your life easier
+
+29
+00:01:11,383 --> 00:01:14,767
+just to show you the kinds
+of things that you want.
+
+30
+00:01:14,767 --> 00:01:17,421
+Spdump.py, and like that.
+
+31
+00:01:17,421 --> 00:01:18,326
+You just kinda test to make--
+
+32
+00:01:18,326 --> 00:01:20,782
+That's like, "Oh, is
+this looks right to me?"
+
+33
+00:01:20,782 --> 00:01:23,743
+You know, and so here is
+the number of inbound links,
+
+34
+00:01:23,743 --> 00:01:26,367
+so that's my blog that has
+the most inbound links,
+
+35
+00:01:26,367 --> 00:01:29,292
+followed by my uncategorized,
+whatever that is.
+
+36
+00:01:29,292 --> 00:01:32,918
+And these are the number of inbound links
+
+37
+00:01:32,918 --> 00:01:34,528
+within my own blog, somehow.
+
+38
+00:01:34,528 --> 00:01:36,964
+I don't know, because
+this is not looking at
+
+39
+00:01:36,964 --> 00:01:40,496
+whole internet at all.
+
+40
+00:01:40,496 --> 00:01:42,050
+So there we go.
+
+41
+00:01:42,050 --> 00:01:44,778
+So that's spdump, pretty straightforward.
+
+42
+00:01:44,778 --> 00:01:48,838
+And now we're going to go through
+the visualization process.
+
+43
+00:01:48,838 --> 00:01:51,368
+And so this is going to
+look at all that data
+
+44
+00:01:51,368 --> 00:01:54,520
+and produce a JavaScript file.
+
+45
+00:01:54,520 --> 00:01:56,489
+It's gonna write a JavaScript file
+
+46
+00:01:56,489 --> 00:02:00,616
+that will then be fed into
+my visualization using d3.
+
+47
+00:02:00,616 --> 00:02:08,625
+And spjson is going to do a big long join
+
+48
+00:02:08,625 --> 00:02:11,098
+that joins the links with the thing
+
+49
+00:02:11,098 --> 00:02:12,232
+WHERE html IS NOT NULL
+
+50
+00:02:12,232 --> 00:02:14,889
+and ERROR IS NOT NULL.
+
+51
+00:02:14,889 --> 00:02:16,690
+Ordered by the number of inbound links.
+
+52
+00:02:16,690 --> 00:02:17,927
+So we're looking at these,
+
+53
+00:02:17,927 --> 00:02:22,408
+the things that have the
+highest number of inbound links.
+
+54
+00:02:22,408 --> 00:02:26,199
+We're going to read all this stuff.
+
+55
+00:02:26,199 --> 00:02:29,250
+We're going to read through all those rows
+
+56
+00:02:29,250 --> 00:02:32,654
+and pull out the Pagerank for each one.
+
+57
+00:02:32,654 --> 00:02:35,688
+We're looking for the
+highest and lowest rank,
+
+58
+00:02:35,688 --> 00:02:38,145
+because these numbers
+can vary quite widely.
+
+59
+00:02:38,145 --> 00:02:42,667
+They go all the way from,
+you know, .000 to 20 or 30.
+
+60
+00:02:42,667 --> 00:02:46,949
+And so it asks how many do you want to do?
+
+61
+00:02:46,949 --> 00:02:49,406
+So it only does the top,
+like, 20 or something,
+
+62
+00:02:49,406 --> 00:02:53,423
+and you'll see why we need
+that in the visualization.
+
+63
+00:02:53,423 --> 00:02:56,169
+And so this is just checking.
+
+64
+00:02:56,169 --> 00:02:57,592
+And so we're gonna write out a file.
+
+65
+00:02:57,592 --> 00:02:59,135
+We'll see what the format of this is.
+
+66
+00:02:59,135 --> 00:03:02,375
+It's just a JavaScript file,
+
+67
+00:03:02,375 --> 00:03:05,446
+and we're going to write out--
+
+68
+00:03:05,446 --> 00:03:08,440
+We're basically normalizing the rank.
+
+69
+00:03:08,440 --> 00:03:10,311
+We're subtracting the minimum rank
+
+70
+00:03:10,311 --> 00:03:14,191
+and because we're going to
+turn this into line weight,
+
+71
+00:03:14,191 --> 00:03:15,280
+the thickness of the line,
+
+72
+00:03:15,280 --> 00:03:18,885
+and so we're dividing by--
+
+73
+00:03:18,885 --> 00:03:22,172
+We're normalizing the rank to
+be the thickness of the line,
+
+74
+00:03:22,172 --> 00:03:27,621
+and the size of the ball.
+
+75
+00:03:27,621 --> 00:03:28,941
+You'll see all this.
+
+76
+00:03:28,941 --> 00:03:30,605
+And so this is really just
+writing some JavaScript
+
+77
+00:03:30,605 --> 00:03:33,775
+with the little strings
+and stuff like that.
+
+78
+00:03:33,775 --> 00:03:36,116
+And then we're gonna
+finish the JavaScript.
+
+79
+00:03:36,116 --> 00:03:38,031
+And then we're gonna
+write all the links out.
+
+80
+00:03:38,031 --> 00:03:40,795
+So these are the balls that you'll see,
+
+81
+00:03:40,795 --> 00:03:42,554
+and this is showing--
+
+82
+00:03:42,554 --> 00:03:43,628
+This is drawing all the lines,
+
+83
+00:03:43,628 --> 00:03:46,484
+and this is again normalizing
+things for thickness
+
+84
+00:03:46,484 --> 00:03:48,028
+and printing these things out.
+
+85
+00:03:48,028 --> 00:03:51,284
+Now, I don't want to go through
+this in tremendous detail,
+
+86
+00:03:51,284 --> 00:03:59,892
+so I'll do python spjson.py.
+
+87
+00:03:59,892 --> 00:04:01,941
+Let's do the top 20 nodes,
+
+88
+00:04:01,941 --> 00:04:06,794
+and if I take a look
+at this file spider.js,
+
+89
+00:04:06,794 --> 00:04:08,287
+you can see that it's some objects
+
+90
+00:04:08,287 --> 00:04:11,891
+that basically put the PageRank in,
+
+91
+00:04:11,891 --> 00:04:14,313
+which i.d. it is, and that's a way for me
+
+92
+00:04:14,313 --> 00:04:16,321
+to be able to link back and forth,
+
+93
+00:04:16,321 --> 00:04:18,880
+weight is how big the little circle is
+
+94
+00:04:18,880 --> 00:04:19,874
+and then I have the links.
+
+95
+00:04:19,874 --> 00:04:22,666
+And I only asked for the top 20, right?
+
+96
+00:04:22,666 --> 00:04:26,937
+And then this is the
+thickness of the line,
+
+97
+00:04:26,937 --> 00:04:29,730
+where the line starts,
+where the line ends, okay?
+
+98
+00:04:29,730 --> 00:04:35,861
+So, this is read by this html file,
+
+99
+00:04:35,861 --> 00:04:43,728
+and it's going to read
+somewhere this force.js file
+
+100
+00:04:43,728 --> 00:04:46,328
+and my own spider.js code.
+
+101
+00:04:46,328 --> 00:04:49,158
+This is some JavaScript, I mean--
+
+102
+00:04:49,158 --> 00:04:52,185
+No, the force.js is
+the visualization code,
+
+103
+00:04:52,185 --> 00:04:55,442
+and this is d3, the visualization library,
+
+104
+00:04:55,442 --> 00:04:58,033
+so I'm using this d3.js,
+
+105
+00:04:58,033 --> 00:05:00,626
+which is a really great
+visualization library,
+
+106
+00:05:00,626 --> 00:05:02,883
+and this is just drawing the circles,
+
+107
+00:05:02,883 --> 00:05:04,722
+and making the circles colors,
+
+108
+00:05:04,722 --> 00:05:06,866
+and making the circles bigger and smaller,
+
+109
+00:05:06,866 --> 00:05:08,625
+and then connecting all
+the lines in between it.
+
+110
+00:05:08,625 --> 00:05:10,842
+So, this is just there.
+
+111
+00:05:10,842 --> 00:05:12,921
+This data feeds that thing,
+
+112
+00:05:12,921 --> 00:05:14,395
+and so when we're all done,
+
+113
+00:05:14,395 --> 00:05:15,762
+you simply say "open,"
+
+114
+00:05:15,762 --> 00:05:17,257
+you don't have to do anything,
+
+115
+00:05:17,257 --> 00:05:21,431
+open force.html.
+
+116
+00:05:21,431 --> 00:05:23,863
+And so all this beautiful JavaScript stuff
+
+117
+00:05:23,863 --> 00:05:26,097
+is like, "Oh, wow, that's really cool,
+
+118
+00:05:26,097 --> 00:05:27,519
+"'cause you can move these things around."
+
+119
+00:05:27,519 --> 00:05:29,039
+Whoa!
+
+120
+00:05:29,039 --> 00:05:31,495
+You can see the circles are bigger
+
+121
+00:05:31,495 --> 00:05:32,894
+if you hover over it for a while.
+
+122
+00:05:32,894 --> 00:05:35,872
+It shows you the big ones.
+
+123
+00:05:35,872 --> 00:05:38,045
+You can see these things,
+and it's kinda cool.
+
+124
+00:05:38,045 --> 00:05:41,574
+So I gave you all this
+force.js and force.html,
+
+125
+00:05:41,574 --> 00:05:44,511
+and so that kinda visualizes the PageRank.
+
+126
+00:05:44,511 --> 00:05:51,406
+And you could use this to
+visualize quite a bit of stuff.
+
+127
+00:05:51,406 --> 00:05:54,101
+It'll take you a while
+to pull down enough data
+
+128
+00:05:54,101 --> 00:05:56,487
+from a real website.
+
+129
+00:05:56,487 --> 00:05:58,865
+But after you've pulled
+down four or 500 pages,
+
+130
+00:05:58,865 --> 00:05:59,824
+if you have some time,
+
+131
+00:05:59,824 --> 00:06:02,269
+and then the visualization
+is quite interesting.
+
+132
+00:06:02,269 --> 00:06:04,359
+But you can see why we had to pull down
+
+133
+00:06:04,359 --> 00:06:06,192
+several hundred pages just to get
+
+134
+00:06:06,192 --> 00:06:11,017
+this much PageRank information.
+
+135
+00:06:11,017 --> 00:06:15,098
+So that gives you a sense of how
+
+136
+00:06:15,098 --> 00:06:20,355
+to run the PageRank code
+in Python for Everybody,
+
+137
+00:06:20,355 --> 00:06:22,597
+so thanks for listening.
+
+138
+00:06:22,597 --> 00:06:25,180
+(piano music)
+

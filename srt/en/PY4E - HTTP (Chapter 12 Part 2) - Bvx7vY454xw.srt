@@ -1,0 +1,980 @@
+1
+00:00:00,539 --> 00:00:02,078
+- So, now we have a socket.
+
+2
+00:00:02,078 --> 00:00:03,228
+We are going to talk
+
+3
+00:00:03,228 --> 00:00:04,609
+about what we're going
+to do with it, right.
+
+4
+00:00:04,609 --> 00:00:06,889
+So, the socket basically
+functions at this level:
+
+5
+00:00:06,889 --> 00:00:09,279
+your application is
+saying, "Make me a socket,"
+
+6
+00:00:09,279 --> 00:00:10,830
+which is sort of this end point,
+
+7
+00:00:10,830 --> 00:00:13,292
+and then the connect actually
+connects to an application
+
+8
+00:00:13,292 --> 00:00:15,591
+on the far side and
+there's a port involved,
+
+9
+00:00:15,591 --> 00:00:17,190
+so that might be port 80.
+
+10
+00:00:17,190 --> 00:00:18,796
+And, this is the far host
+
+11
+00:00:18,796 --> 00:00:25,139
+and that could be
+www.py4e.org or data.py4e.org,
+
+12
+00:00:25,139 --> 00:00:28,216
+okay, and so the socket is solving this
+
+13
+00:00:28,216 --> 00:00:31,732
+and the question, then, is
+
+14
+00:00:31,732 --> 00:00:32,893
+what are we gonna send
+
+15
+00:00:32,893 --> 00:00:34,542
+and what are we gonna expect to get back?
+
+16
+00:00:34,542 --> 00:00:36,713
+And, that's what we call
+the application protocol.
+
+17
+00:00:36,713 --> 00:00:39,122
+So, we know that these
+two have made a phone call
+
+18
+00:00:39,122 --> 00:00:40,973
+and it's no different
+than making the phone call
+
+19
+00:00:40,973 --> 00:00:43,985
+and saying, you know, "Hello," right?
+
+20
+00:00:43,985 --> 00:00:46,778
+And, everyone knows that
+when the phone rings
+
+21
+00:00:46,778 --> 00:00:49,177
+and you pick it up, you're
+supposed to say, "Hello,"
+
+22
+00:00:49,177 --> 00:00:50,606
+and that's part of our protocols.
+
+23
+00:00:50,606 --> 00:00:52,429
+So, who talks first, right?
+
+24
+00:00:52,429 --> 00:00:54,838
+So, the dominant protocol
+that we use on this,
+
+25
+00:00:54,838 --> 00:00:57,679
+in this section, is the HTTP protocol.
+
+26
+00:00:57,679 --> 00:01:00,984
+That's, the key is a
+Hypertext Transfer Protocol.
+
+27
+00:01:00,984 --> 00:01:01,817
+It's dominant.
+
+28
+00:01:01,817 --> 00:01:02,687
+It's really easy to use,
+
+29
+00:01:02,687 --> 00:01:04,036
+that's why I used it as an example,
+
+30
+00:01:04,036 --> 00:01:05,765
+but realize that there are many others
+
+31
+00:01:05,765 --> 00:01:08,955
+like mail and file
+transfer and remote login
+
+32
+00:01:08,955 --> 00:01:10,753
+and all kinds of other protocols;
+
+33
+00:01:10,753 --> 00:01:12,733
+each is a different application protocol.
+
+34
+00:01:12,733 --> 00:01:15,330
+They all use, sort of,
+sockets at their lower level,
+
+35
+00:01:15,330 --> 00:01:18,463
+but then on top of that, they
+layer the rules of the road
+
+36
+00:01:18,463 --> 00:01:22,123
+for retrieving HyperText web pages
+
+37
+00:01:22,123 --> 00:01:26,093
+and we have used these for
+all kinds of other things.
+
+38
+00:01:26,093 --> 00:01:27,341
+So, the protocol, like I said,
+
+39
+00:01:27,341 --> 00:01:28,883
+it's like who answers the phone first.
+
+40
+00:01:28,883 --> 00:01:30,043
+What do they say,
+
+41
+00:01:30,043 --> 00:01:31,991
+what happens if the person
+doesn't answer right,
+
+42
+00:01:31,991 --> 00:01:33,516
+can you hear me now?
+
+43
+00:01:33,516 --> 00:01:35,828
+Those kind of things, and
+it's a real simple thing,
+
+44
+00:01:35,828 --> 00:01:37,767
+and all you really need to do is,
+
+45
+00:01:37,767 --> 00:01:40,657
+so that both sides can agree,
+you have to just write a thing
+
+46
+00:01:40,657 --> 00:01:42,469
+that's like the rules in the middle
+
+47
+00:01:42,469 --> 00:01:43,319
+and say, "Okay, everybody,
+
+48
+00:01:43,319 --> 00:01:46,759
+"as long as we all do
+this, we'll be fine."
+
+49
+00:01:46,759 --> 00:01:48,500
+It's as simple as picking
+on which side of the road
+
+50
+00:01:48,500 --> 00:01:49,820
+the cars can drive on.
+
+51
+00:01:49,820 --> 00:01:53,986
+It works fine no matter which side,
+
+52
+00:01:53,986 --> 00:01:55,237
+but if each car randomly picked,
+
+53
+00:01:55,237 --> 00:01:58,194
+it would be, really, kind of a mess.
+
+54
+00:01:58,194 --> 00:01:59,924
+So, if you look at the typical URL
+
+55
+00:01:59,924 --> 00:02:01,095
+and this is one of the things
+
+56
+00:02:01,095 --> 00:02:05,044
+that the Web innovators
+in 1980 really invented
+
+57
+00:02:05,044 --> 00:02:08,225
+that was wonderful and it
+seems second nature, today,
+
+58
+00:02:08,225 --> 00:02:10,405
+but in 1990, it was rather revolutionary
+
+59
+00:02:10,405 --> 00:02:13,116
+in that these Uniform Resource Locators
+
+60
+00:02:13,116 --> 00:02:16,317
+encrypted and included
+in themselves a protocol,
+
+61
+00:02:16,317 --> 00:02:18,886
+the host to connect to and
+the document to retrieve.
+
+62
+00:02:18,886 --> 00:02:22,543
+So, this is one of the
+clever, clever ideas
+
+63
+00:02:22,543 --> 00:02:25,888
+that the Web came up with
+because we used to have to pick
+
+64
+00:02:25,888 --> 00:02:31,485
+a program, like FTP or
+Telnet or whatever, SMTP,
+
+65
+00:02:31,485 --> 00:02:33,408
+and then we had to go to the right host
+
+66
+00:02:33,408 --> 00:02:36,646
+and then we had to talk to
+that host a certain way.
+
+67
+00:02:36,646 --> 00:02:39,569
+So, in HTTP, it's a really simple protocol
+
+68
+00:02:39,569 --> 00:02:42,359
+invented in 1989 and 1990
+
+69
+00:02:42,359 --> 00:02:48,848
+by Tim Berners-Lee and
+Robert Cailliau at CERN
+
+70
+00:02:48,848 --> 00:02:50,928
+and they created a protocol
+
+71
+00:02:50,928 --> 00:02:53,429
+that we have grown to know and love
+
+72
+00:02:53,429 --> 00:02:55,807
+and used for way more
+than retrieving documents,
+
+73
+00:02:55,807 --> 00:02:58,468
+as we'll see in the upcoming chapters.
+
+74
+00:02:58,468 --> 00:03:00,128
+So, we're gonna talk a
+little bit about what happens
+
+75
+00:03:00,128 --> 00:03:02,425
+when you click on a page that has a link.
+
+76
+00:03:02,425 --> 00:03:04,467
+Now, there's all kind of
+fancy stuff that can go on,
+
+77
+00:03:04,467 --> 00:03:06,267
+but this is the basics.
+
+78
+00:03:06,267 --> 00:03:08,186
+And, so, lets just imagine for the moment
+
+79
+00:03:08,186 --> 00:03:10,406
+you just are sitting looking at a webpage,
+
+80
+00:03:10,406 --> 00:03:14,568
+Dr-Chuck.com/page1 and inside
+that there is a hyperlink.
+
+81
+00:03:14,568 --> 00:03:16,547
+It is a indication that says,
+
+82
+00:03:16,547 --> 00:03:20,268
+"When you click on this page,
+go to a different page,"
+
+83
+00:03:20,268 --> 00:03:23,598
+and, in that, you see the name of the page
+
+84
+00:03:23,598 --> 00:03:26,326
+that you're supposed to go to.
+
+85
+00:03:26,326 --> 00:03:30,607
+So, we click on this link
+and that is a browser.
+
+86
+00:03:30,607 --> 00:03:35,585
+This is an application, this is a process,
+
+87
+00:03:35,585 --> 00:03:37,034
+or an app
+(computer keys clicking)
+
+88
+00:03:37,034 --> 00:03:38,299
+that's running on your computer;
+
+89
+00:03:38,299 --> 00:03:39,788
+this is the browser, okay?
+
+90
+00:03:39,788 --> 00:03:42,948
+And, when the browser sees the
+click inside your computer,
+
+91
+00:03:42,948 --> 00:03:46,457
+then the browser make
+a connection to port 80
+
+92
+00:03:46,457 --> 00:03:51,659
+on the web server, Dr-Chuck.com
+and sends the request.
+
+93
+00:03:51,659 --> 00:03:55,647
+This request that it sends
+is precisely specified
+
+94
+00:03:55,647 --> 00:03:58,088
+by a standard, which we
+will see in a second.
+
+95
+00:03:58,088 --> 00:04:01,707
+Then, the web server some magic work,
+
+96
+00:04:01,707 --> 00:04:03,399
+oops, let's go back,
+
+97
+00:04:03,399 --> 00:04:05,698
+then, the web server does
+some magic work in here,
+
+98
+00:04:05,698 --> 00:04:08,098
+reads some files, runs
+some code, does whatever,
+
+99
+00:04:08,098 --> 00:04:12,719
+constructs an answer to our
+phone call and sends it back
+
+100
+00:04:12,719 --> 00:04:15,368
+and it sends, in this case, back a webpage
+
+101
+00:04:15,368 --> 00:04:19,245
+in the format of HTML, the
+Hypertext Markup Language,
+
+102
+00:04:19,245 --> 00:04:21,067
+which is different than HTTP,
+
+103
+00:04:21,067 --> 00:04:22,965
+which is the protocol
+that we're exchanging.
+
+104
+00:04:22,965 --> 00:04:25,483
+HTML is the format of the
+document we're getting back
+
+105
+00:04:25,483 --> 00:04:27,562
+and, in this, has an anchor tag,
+
+106
+00:04:27,562 --> 00:04:30,703
+href in then end of anchor
+tag and some highlighted text,
+
+107
+00:04:30,703 --> 00:04:33,251
+and now your browser gets this back
+
+108
+00:04:33,251 --> 00:04:36,903
+and then renders it according
+to the rules of HTML and CSS
+
+109
+00:04:36,903 --> 00:04:39,222
+and Javascript, et cetera, parses it
+
+110
+00:04:39,222 --> 00:04:40,754
+and then makes a pretty webpage
+
+111
+00:04:40,754 --> 00:04:41,944
+and this web page happens to have
+
+112
+00:04:41,944 --> 00:04:44,464
+a link back to the first
+page and if you click there,
+
+113
+00:04:44,464 --> 00:04:46,873
+it will do this over
+and over and over again.
+
+114
+00:04:46,873 --> 00:04:49,502
+And, that is the request-response cycle
+
+115
+00:04:49,502 --> 00:04:52,831
+and that's governed by a
+series of Internet standards.
+
+116
+00:04:52,831 --> 00:04:54,463
+These are standards that were built
+
+117
+00:04:54,463 --> 00:04:57,050
+and from the '60s, '70s, '80s and '90s
+
+118
+00:04:57,050 --> 00:04:59,311
+and continue to this day, by a group
+
+119
+00:04:59,311 --> 00:05:02,971
+called the Internet
+Engineering Task Force or IETF.
+
+120
+00:05:02,971 --> 00:05:06,057
+The documents they produce are called RFCs
+
+121
+00:05:06,057 --> 00:05:09,870
+which stands for Request For Comments.
+
+122
+00:05:09,870 --> 00:05:12,236
+The RFC, the word RFC is kind of like,
+
+123
+00:05:12,236 --> 00:05:14,549
+a sort of joke, as it were.
+
+124
+00:05:14,549 --> 00:05:18,830
+It's, they're trying to kind of funny
+
+125
+00:05:18,830 --> 00:05:21,309
+in that, ah, funny is not the right word,
+
+126
+00:05:21,309 --> 00:05:23,727
+they're, it's ironic in
+that they're trying say,
+
+127
+00:05:23,727 --> 00:05:25,481
+even some of the protocols of the Internet
+
+128
+00:05:25,481 --> 00:05:28,199
+that we've used for several decades,
+
+129
+00:05:28,199 --> 00:05:30,122
+they're always interested in improvements
+
+130
+00:05:30,122 --> 00:05:31,510
+and that's what the RFC stands for
+
+131
+00:05:31,510 --> 00:05:34,792
+and they're all named RFC dash whatever.
+
+132
+00:05:34,792 --> 00:05:36,211
+And, if we were gonna cruise around,
+
+133
+00:05:36,211 --> 00:05:38,365
+we could find some various RFCs
+
+134
+00:05:38,365 --> 00:05:40,518
+and this is RFC 2616.
+
+135
+00:05:40,518 --> 00:05:42,943
+It might have been revised since then,
+
+136
+00:05:42,943 --> 00:05:45,804
+but this is like a document and
+this is what they look like,
+
+137
+00:05:45,804 --> 00:05:48,453
+Hypertext Transfer Protocol, version one.
+
+138
+00:05:48,453 --> 00:05:49,493
+And so, you're reading this document,
+
+139
+00:05:49,493 --> 00:05:50,985
+you're gonna write a
+browser and you want to talk
+
+140
+00:05:50,985 --> 00:05:53,734
+to the application protocol that is HTTP,
+
+141
+00:05:53,734 --> 00:05:55,333
+this is one of many documents
+
+142
+00:05:55,333 --> 00:05:58,494
+that helps define what HTTP is.
+
+143
+00:05:58,494 --> 00:06:00,366
+So, if you look and you
+looked down and said,
+
+144
+00:06:00,366 --> 00:06:01,821
+"Oh, here's what a request looks like.
+
+145
+00:06:01,821 --> 00:06:04,303
+"This is how I'm gonna get
+a document from the server,"
+
+146
+00:06:04,303 --> 00:06:08,392
+and you keep reading and
+you keep reading and it says
+
+147
+00:06:08,392 --> 00:06:11,518
+you're supposed to have the
+request method with a space,
+
+148
+00:06:11,518 --> 00:06:14,659
+with a request URL, the
+request method with a space,
+
+149
+00:06:14,659 --> 00:06:16,928
+with a URI with a space, the HTTP version
+
+150
+00:06:16,928 --> 00:06:18,436
+and the carriage return and a line feed,
+
+151
+00:06:18,436 --> 00:06:19,790
+that's what it's saying.
+
+152
+00:06:19,790 --> 00:06:22,210
+And so, it looks kind of like this, right?
+
+153
+00:06:22,210 --> 00:06:25,327
+We say get the document,
+followed by a space.
+
+154
+00:06:25,327 --> 00:06:27,741
+They've got to be one
+space; you do two spaces
+
+155
+00:06:27,741 --> 00:06:30,749
+and it's going to be
+quite frustrating, okay.
+
+156
+00:06:30,749 --> 00:06:34,479
+And so, this is an
+example that you can run
+
+157
+00:06:34,479 --> 00:06:38,979
+on a number of,
+
+158
+00:06:38,979 --> 00:06:40,848
+on Linux operating systems
+
+159
+00:06:40,848 --> 00:06:43,736
+and Macintosh operating
+systems with no changes.
+
+160
+00:06:43,736 --> 00:06:46,208
+If you installed Telnet
+on your Windows box,
+
+161
+00:06:46,208 --> 00:06:48,716
+you should be able to run
+something like this, as well.
+
+162
+00:06:48,716 --> 00:06:53,426
+So, Telnet is a program that
+we used in the old days.
+
+163
+00:06:53,426 --> 00:06:55,025
+It used to be how we logged into servers,
+
+164
+00:06:55,025 --> 00:06:57,099
+but because it doesn't encrypt
+your data back and forth,
+
+165
+00:06:57,099 --> 00:06:58,617
+we don't use it anymore.
+
+166
+00:06:58,617 --> 00:07:00,509
+But, it basically is a program
+
+167
+00:07:00,509 --> 00:07:04,977
+that can open a socket to a host on a port
+
+168
+00:07:04,977 --> 00:07:07,854
+and I'm saying Telnet
+to this host on port 80
+
+169
+00:07:07,854 --> 00:07:09,417
+and at this point, I am connected
+
+170
+00:07:09,417 --> 00:07:11,535
+and whatever I type on my
+keyboard is gonna be sent
+
+171
+00:07:11,535 --> 00:07:12,704
+to that server.
+
+172
+00:07:12,704 --> 00:07:13,853
+Now, if you're doing
+this, you probably want
+
+173
+00:07:13,853 --> 00:07:16,061
+to cut and paste this really fast
+
+174
+00:07:16,061 --> 00:07:17,895
+because if you take too long,
+
+175
+00:07:17,895 --> 00:07:18,981
+most web servers will be, like,
+
+176
+00:07:18,981 --> 00:07:20,881
+"You're a human, I don't
+want to talk to humans;
+
+177
+00:07:20,881 --> 00:07:22,080
+"I want to talk to programs."
+
+178
+00:07:22,080 --> 00:07:24,442
+So, remember to type this fast enough
+
+179
+00:07:24,442 --> 00:07:27,200
+and then you have to hit Enter, twice,
+
+180
+00:07:27,200 --> 00:07:28,950
+so you have to have a blank line, here.
+
+181
+00:07:28,950 --> 00:07:31,181
+Just type this exactly as it's shown
+
+182
+00:07:31,181 --> 00:07:34,531
+and then you will get back,
+a server, if you do it right,
+
+183
+00:07:34,531 --> 00:07:37,102
+the server, and the server's
+properly configured,
+
+184
+00:07:37,102 --> 00:07:40,891
+the server will give you back some headers
+
+185
+00:07:40,891 --> 00:07:42,922
+and this is metadata about the
+document you're going to get.
+
+186
+00:07:42,922 --> 00:07:45,842
+For example, it's saying
+it's got text/html
+
+187
+00:07:45,842 --> 00:07:47,633
+which means that the
+remaining stuff is gonna be
+
+188
+00:07:47,633 --> 00:07:49,653
+in HTML, Hypertext Markup Language.
+
+189
+00:07:49,653 --> 00:07:52,501
+It has a blank line and
+then the actual document
+
+190
+00:07:52,501 --> 00:07:54,413
+and then the connection is closed.
+
+191
+00:07:54,413 --> 00:07:57,442
+And so, if you do this, you
+can set this up in a way
+
+192
+00:07:57,442 --> 00:08:00,102
+that you can run this on your own computer
+
+193
+00:08:00,102 --> 00:08:04,332
+and, in effect, hack through
+the back door, a web server.
+
+194
+00:08:04,332 --> 00:08:08,354
+Now, you can't hack the secure
+web servers and mail servers.
+
+195
+00:08:08,354 --> 00:08:09,892
+They used to be easy to hack,
+
+196
+00:08:09,892 --> 00:08:10,979
+but they're harder to hack, now,
+
+197
+00:08:10,979 --> 00:08:13,249
+because they challenge
+you for information,
+
+198
+00:08:13,249 --> 00:08:17,171
+but part of the reason I'm so
+obsessed with the command line
+
+199
+00:08:17,171 --> 00:08:18,811
+is this is how real hackers work
+
+200
+00:08:18,811 --> 00:08:19,972
+and they know how
+
+201
+00:08:19,972 --> 00:08:22,373
+to talk some of these
+protocols, more directly.
+
+202
+00:08:22,373 --> 00:08:24,089
+And so, we think of this beautiful,
+
+203
+00:08:24,089 --> 00:08:27,481
+sophisticated application
+talking to some other thing
+
+204
+00:08:27,481 --> 00:08:29,501
+and it's all pretty and we
+got wonderful clicky buttons
+
+205
+00:08:29,501 --> 00:08:32,340
+and nice usability, but the reality is,
+
+206
+00:08:32,340 --> 00:08:36,268
+like in The Matrix Reloaded,
+here, the kinds of things
+
+207
+00:08:36,268 --> 00:08:39,657
+that really talented hackers
+are doing use command lines
+
+208
+00:08:39,657 --> 00:08:41,539
+and they really know what's going on
+
+209
+00:08:41,539 --> 00:08:42,371
+and that's how they do it.
+
+210
+00:08:42,371 --> 00:08:45,359
+They understand what's going
+on better than the developers
+
+211
+00:08:45,359 --> 00:08:48,466
+of the computers that are trying
+to be resistant to hacking.
+
+212
+00:08:48,466 --> 00:08:51,499
+So, I come from a long line
+of using the command line
+
+213
+00:08:51,499 --> 00:08:54,039
+and that's why I encourage
+you to use the command line
+
+214
+00:08:54,039 --> 00:08:56,251
+in this course.
+
+215
+00:08:56,251 --> 00:08:57,477
+So, the next thing we're going to do is
+
+216
+00:08:57,477 --> 00:08:59,789
+we're going to go up into
+the application layer
+
+217
+00:08:59,789 --> 00:09:02,029
+and instead of typing
+those commands by hand,
+
+218
+00:09:02,029 --> 00:09:04,957
+we're going to actually
+send them from Python
+
+219
+00:09:04,957 --> 00:09:09,709
+and write a very simple
+Python web browser.
+
+220
+00:09:09,709 --> 00:09:13,291
+(sultry jazz piano music)
+

@@ -1,0 +1,723 @@
+1
+00:00:00,315 --> 00:00:01,923
+- The last visualization application
+
+2
+00:00:01,923 --> 00:00:03,178
+that we're going to take a look at
+
+3
+00:00:03,178 --> 00:00:05,012
+is mailing lists, and
+that's kind of ironic.
+
+4
+00:00:05,012 --> 00:00:06,655
+We started with the mailing lists,
+
+5
+00:00:06,655 --> 00:00:08,239
+and we're gonna end
+with the mailing lists.
+
+6
+00:00:08,239 --> 00:00:09,072
+The mailing lists, of course,
+
+7
+00:00:09,072 --> 00:00:11,713
+are from my open-source archive project,
+
+8
+00:00:11,713 --> 00:00:14,340
+which I love and am very proud of, and,
+
+9
+00:00:14,340 --> 00:00:16,302
+and so, what we're going to do
+
+10
+00:00:16,302 --> 00:00:18,486
+is we're going to crawl the
+archive of a mailing list,
+
+11
+00:00:18,486 --> 00:00:20,254
+and then we're going to
+do two visualizations.
+
+12
+00:00:20,254 --> 00:00:22,264
+One is a activity visualization,
+
+13
+00:00:22,264 --> 00:00:24,523
+and another is a word cloud.
+
+14
+00:00:24,523 --> 00:00:28,019
+So, probably the more important thing is,
+
+15
+00:00:28,019 --> 00:00:29,805
+when I do the demonstration
+of how the software works.
+
+16
+00:00:29,805 --> 00:00:34,527
+So, this is a large data
+set, so you gotta be careful.
+
+17
+00:00:34,527 --> 00:00:36,030
+This could spider gmane.org,
+
+18
+00:00:36,030 --> 00:00:38,594
+which is a very free and friendly archive.
+
+19
+00:00:38,594 --> 00:00:42,502
+This data originally came from gmane.org,
+
+20
+00:00:42,502 --> 00:00:44,048
+but I've got a copy of it.
+
+21
+00:00:44,048 --> 00:00:46,977
+And so, gmane.org is not rate-limited,
+
+22
+00:00:46,977 --> 00:00:49,705
+but if everyone who is watching this
+
+23
+00:00:49,705 --> 00:00:52,408
+starts spidering gmane.org
+at the same time,
+
+24
+00:00:52,408 --> 00:00:53,580
+you will crash it.
+
+25
+00:00:53,580 --> 00:00:55,812
+It just doesn't have the horsepower
+
+26
+00:00:55,812 --> 00:00:57,732
+to give you this data as fast.
+
+27
+00:00:57,732 --> 00:00:58,825
+And so, I've got something
+
+28
+00:00:58,825 --> 00:01:00,340
+that can give you the data super fast,
+
+29
+00:01:00,340 --> 00:01:03,238
+and has no rate limit on
+it, really good server,
+
+30
+00:01:03,238 --> 00:01:05,378
+and it's cached all around the world
+
+31
+00:01:05,378 --> 00:01:07,784
+using a technology called CloudFlare,
+
+32
+00:01:07,784 --> 00:01:11,326
+so please, please, please,
+don't point this at gmane.org,
+
+33
+00:01:11,326 --> 00:01:13,532
+point this at the URL here,
+
+34
+00:01:13,532 --> 00:01:16,091
+mbox.dr-chuck.net, et cetera et cetera.
+
+35
+00:01:16,091 --> 00:01:18,946
+And then you can run
+this as fast as you like.
+
+36
+00:01:18,946 --> 00:01:20,942
+Now, another thing to worry about
+
+37
+00:01:20,942 --> 00:01:23,828
+is if you,
+
+38
+00:01:23,828 --> 00:01:25,596
+have a metered connection,
+
+39
+00:01:25,596 --> 00:01:27,642
+so don't do this on a
+cell phone connection,
+
+40
+00:01:27,642 --> 00:01:30,841
+'cause you'll pay, thousands
+of dollars, perhaps.
+
+41
+00:01:30,841 --> 00:01:33,664
+Make sure you're on a no cost connection,
+
+42
+00:01:33,664 --> 00:01:34,726
+before you start running this,
+
+43
+00:01:34,726 --> 00:01:36,723
+'cause this is gonna
+pull a lot of data down.
+
+44
+00:01:36,723 --> 00:01:40,862
+If you just start this from
+scratch, and you let it run, it,
+
+45
+00:01:40,862 --> 00:01:44,584
+on a super fast connection,
+downloading the whole thing
+
+46
+00:01:44,584 --> 00:01:46,260
+is probably about four hours.
+
+47
+00:01:46,260 --> 00:01:50,602
+On a, on my home connection,
+
+48
+00:01:50,602 --> 00:01:53,459
+when I had like about 10 meg connection,
+
+49
+00:01:53,459 --> 00:01:55,296
+it took several days.
+
+50
+00:01:55,296 --> 00:01:58,055
+So just understand that, in this one,
+
+51
+00:01:58,055 --> 00:02:01,001
+it's both fun to deal with a ton of data
+
+52
+00:02:01,001 --> 00:02:03,553
+and it's scary to deal with a ton of data.
+
+53
+00:02:03,553 --> 00:02:05,458
+So this one is big, this one is,
+
+54
+00:02:05,458 --> 00:02:07,903
+you'll see the process in action
+
+55
+00:02:07,903 --> 00:02:10,401
+'cause it'll run for a while.
+
+56
+00:02:10,401 --> 00:02:13,168
+Everything you do, the
+things will take a long time.
+
+57
+00:02:13,168 --> 00:02:15,736
+So here's basically the flow of the data
+
+58
+00:02:15,736 --> 00:02:18,093
+in this particular one.
+
+59
+00:02:18,093 --> 00:02:20,598
+You are going to have
+the restartable spider
+
+60
+00:02:20,598 --> 00:02:23,920
+that talks to the API, mbox.dr-chuck.net,
+
+61
+00:02:23,920 --> 00:02:27,672
+which has a scalable copy
+of all this information.
+
+62
+00:02:27,672 --> 00:02:32,039
+And again, it's going to
+do kind of a raw database,
+
+63
+00:02:32,039 --> 00:02:34,766
+not very clean database,
+it's sort of a mess.
+
+64
+00:02:34,766 --> 00:02:37,009
+It's just, just enough
+columns to keep track
+
+65
+00:02:37,009 --> 00:02:39,146
+of whether or not we've
+got this page or not,
+
+66
+00:02:39,146 --> 00:02:41,491
+and so, so this has, you know,
+
+67
+00:02:41,491 --> 00:02:43,393
+the ones we've retrieved so far,
+
+68
+00:02:43,393 --> 00:02:46,259
+and so what gmane does
+is it sort of scans down
+
+69
+00:02:46,259 --> 00:02:48,659
+to see where to retrieve next, gets that,
+
+70
+00:02:48,659 --> 00:02:51,671
+and then starts scanning,
+and then adding things here.
+
+71
+00:02:51,671 --> 00:02:53,851
+So it just adds it, and then it blows up.
+
+72
+00:02:53,851 --> 00:02:55,410
+And then it comes in again, and says,
+
+73
+00:02:55,410 --> 00:02:57,719
+okay, I'll start here, and then
+it starts retrieving stuff,
+
+74
+00:02:57,719 --> 00:02:59,813
+and fills this in, fills
+this in, fills this in.
+
+75
+00:02:59,813 --> 00:03:01,998
+And sometimes you put
+like a delay in this,
+
+76
+00:03:01,998 --> 00:03:03,735
+so you don't overwhelm networks,
+
+77
+00:03:03,735 --> 00:03:05,012
+you don't overwhelm servers,
+
+78
+00:03:05,012 --> 00:03:06,669
+but basically this is pretty much
+
+79
+00:03:06,669 --> 00:03:10,348
+a raw retrieval of the email messages.
+
+80
+00:03:10,348 --> 00:03:12,242
+And this file can get rather large.
+
+81
+00:03:12,242 --> 00:03:14,355
+This is the one that's
+greater than a gigabyte.
+
+82
+00:03:14,355 --> 00:03:17,632
+Now this data is actually really nasty.
+
+83
+00:03:17,632 --> 00:03:20,513
+It's email data, the date formats change.
+
+84
+00:03:20,513 --> 00:03:27,775
+This is data that lasted from
+2004 to like, 2012 or 2013.
+
+85
+00:03:27,775 --> 00:03:28,791
+And so this,
+
+86
+00:03:28,791 --> 00:03:31,797
+this data has got a lot
+of things wrong with it.
+
+87
+00:03:31,797 --> 00:03:34,720
+It even has things where
+people's email addresses changed,
+
+88
+00:03:34,720 --> 00:03:36,103
+and so it has this mapping file,
+
+89
+00:03:36,103 --> 00:03:39,495
+this comes along with it,
+this mapping file, it says,
+
+90
+00:03:39,495 --> 00:03:42,391
+here's this one person, and
+here are the six email addresses
+
+91
+00:03:42,391 --> 00:03:46,005
+they used throughout
+the life of the project.
+
+92
+00:03:46,005 --> 00:03:49,555
+And so, there is a relatively complex,
+
+93
+00:03:49,555 --> 00:03:54,166
+and so this is, this
+part here, is super slow.
+
+94
+00:03:54,166 --> 00:03:56,008
+Very slow.
+
+95
+00:03:56,008 --> 00:04:00,043
+This part here is slow,
+but it'll take like,
+
+96
+00:04:00,043 --> 00:04:01,229
+depending on how fast your computer is,
+
+97
+00:04:01,229 --> 00:04:03,410
+somewhere between two
+minutes and ten minutes.
+
+98
+00:04:03,410 --> 00:04:06,755
+This'll, this first
+part'll take days, perhaps,
+
+99
+00:04:06,755 --> 00:04:08,587
+depending on the speed of
+your network connection.
+
+100
+00:04:08,587 --> 00:04:11,302
+And so what gmodel does
+is it reads through this,
+
+101
+00:04:11,302 --> 00:04:13,558
+it actually recreates it, wipes this out
+
+102
+00:04:13,558 --> 00:04:16,649
+and recreates index.sqlite
+every time it runs,
+
+103
+00:04:16,649 --> 00:04:18,267
+so that you can change any number things,
+
+104
+00:04:18,267 --> 00:04:21,714
+you can respider things,
+you can do whatever.
+
+105
+00:04:21,714 --> 00:04:23,156
+And often the cleanup,
+
+106
+00:04:23,156 --> 00:04:24,562
+this is one of those cleanup processes,
+
+107
+00:04:24,562 --> 00:04:26,377
+and you have to tweak the cleanup process.
+
+108
+00:04:26,377 --> 00:04:27,918
+You like, look at your data, like, oh!
+
+109
+00:04:27,918 --> 00:04:30,336
+The cleanup missed something,
+so I gotta run it again.
+
+110
+00:04:30,336 --> 00:04:33,641
+So this produces index.sqlite
+every time it runs,
+
+111
+00:04:33,641 --> 00:04:36,615
+so this is like two to ten minutes,
+
+112
+00:04:36,615 --> 00:04:38,371
+gmodel is two to ten minutes.
+
+113
+00:04:38,371 --> 00:04:40,196
+And it, like, maps names.
+
+114
+00:04:40,196 --> 00:04:41,918
+And when it's all said and done,
+
+115
+00:04:41,918 --> 00:04:45,678
+this is a very small, highly normalized,
+
+116
+00:04:45,678 --> 00:04:47,062
+it's a nice data model.
+
+117
+00:04:47,062 --> 00:04:48,104
+This one here had the,
+
+118
+00:04:48,104 --> 00:04:50,125
+content.sqlite has the ugly data model.
+
+119
+00:04:50,125 --> 00:04:52,574
+index.sqlite has a pretty data model.
+
+120
+00:04:52,574 --> 00:04:54,830
+It's got foreign keys,
+it's got all this stuff,
+
+121
+00:04:54,830 --> 00:04:56,593
+and all those things that we've
+talked about in the database
+
+122
+00:04:56,593 --> 00:04:58,394
+where, it's efficient.
+
+123
+00:04:58,394 --> 00:05:01,172
+And so, in your mind, keep
+track of how fast it is
+
+124
+00:05:01,172 --> 00:05:04,121
+to scan all the data in a
+database with a bad model,
+
+125
+00:05:04,121 --> 00:05:07,356
+and then watch when you run
+like gbasic, which is a scanner,
+
+126
+00:05:07,356 --> 00:05:09,456
+or gline, which produces
+line data, or gword,
+
+127
+00:05:09,456 --> 00:05:11,140
+and watch how fast they run.
+
+128
+00:05:11,140 --> 00:05:14,403
+They run in like, a couple
+of seconds, at the most.
+
+129
+00:05:14,403 --> 00:05:16,298
+And this runs in two to ten minutes.
+
+130
+00:05:16,298 --> 00:05:17,652
+And the, and the difference is,
+
+131
+00:05:17,652 --> 00:05:20,065
+is that's because the data
+is efficiently modeled
+
+132
+00:05:20,065 --> 00:05:21,709
+in index.sqlite.
+
+133
+00:05:21,709 --> 00:05:24,477
+So you can take a look at
+that using SQLite browser,
+
+134
+00:05:24,477 --> 00:05:25,676
+and take a look at the data model,
+
+135
+00:05:25,676 --> 00:05:27,957
+and you'll see it looks just
+like the stuff we talked about
+
+136
+00:05:27,957 --> 00:05:29,106
+in the database chapter.
+
+137
+00:05:29,106 --> 00:05:32,425
+It's got foreign keys,
+and, and all those things.
+
+138
+00:05:32,425 --> 00:05:34,052
+And so that runs, and you got this,
+
+139
+00:05:34,052 --> 00:05:36,858
+and then we do our
+visualizations and our analysis
+
+140
+00:05:36,858 --> 00:05:38,970
+from this clean version of all the data.
+
+141
+00:05:38,970 --> 00:05:41,476
+And so gbasic just loops through
+and prints some stuff out.
+
+142
+00:05:41,476 --> 00:05:44,114
+It's a great way to test things,
+
+143
+00:05:44,114 --> 00:05:45,901
+it's a pretty easy to understand program,
+
+144
+00:05:45,901 --> 00:05:47,102
+and you could take a look at it.
+
+145
+00:05:47,102 --> 00:05:50,584
+gline does some bucketing and
+makes a, makes some histograms
+
+146
+00:05:50,584 --> 00:05:52,489
+to produce a line graph.
+
+147
+00:05:52,489 --> 00:05:55,333
+And then gword does a different histogram,
+
+148
+00:05:55,333 --> 00:05:57,081
+it does a histogram of word frequency,
+
+149
+00:05:57,081 --> 00:05:58,268
+and then produces that
+
+150
+00:05:58,268 --> 00:06:00,629
+as the word frequency ends up in gword.js,
+
+151
+00:06:00,629 --> 00:06:03,016
+and then we have two HTML files
+
+152
+00:06:03,016 --> 00:06:06,359
+that use the d3.js,
+
+153
+00:06:06,359 --> 00:06:09,954
+visualization to produce
+a line and a word chart.
+
+154
+00:06:09,954 --> 00:06:11,521
+And so, you know, I'll,
+
+155
+00:06:11,521 --> 00:06:14,717
+in another video, I'll show
+you how this code works,
+
+156
+00:06:14,717 --> 00:06:17,727
+which is probably more
+useful than this picture.
+
+157
+00:06:17,727 --> 00:06:22,956
+But this is a whole bunch of good stuff
+
+158
+00:06:22,956 --> 00:06:25,876
+in this particular application, and,
+
+159
+00:06:25,876 --> 00:06:27,874
+if you really understand
+everything in here,
+
+160
+00:06:27,874 --> 00:06:29,735
+you can build a pretty sophisticated
+
+161
+00:06:29,735 --> 00:06:33,032
+data retrieval and analysis pipeline.
+
+162
+00:06:33,032 --> 00:06:35,621
+And so, so that's it.
+
+163
+00:06:35,621 --> 00:06:37,550
+Thank you for watching all these lectures,
+
+164
+00:06:37,550 --> 00:06:40,827
+and look forward to
+seeing you on the 'Net.
+
+165
+00:06:40,827 --> 00:06:44,994
+("Soul and Mind" by E's Jammy Jams)
+

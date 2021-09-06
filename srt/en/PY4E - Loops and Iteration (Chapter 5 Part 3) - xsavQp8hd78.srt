@@ -1,0 +1,906 @@
+1
+00:00:00,238 --> 00:00:02,321
+- So now we're gonna
+talk about Loop Idioms.
+
+2
+00:00:02,321 --> 00:00:06,153
+Loop Idioms are patterns that have to do
+
+3
+00:00:06,153 --> 00:00:07,781
+with how we construct loops.
+
+4
+00:00:07,781 --> 00:00:11,394
+We have the mechanics
+of "fors" and "whiles",
+
+5
+00:00:11,394 --> 00:00:14,074
+but ultimately we want
+to get something done.
+
+6
+00:00:14,074 --> 00:00:16,230
+We want to solve a problem with a loop.
+
+7
+00:00:16,230 --> 00:00:18,141
+And often what we have to do is,
+
+8
+00:00:18,141 --> 00:00:19,773
+if we have a set of things,
+
+9
+00:00:19,773 --> 00:00:22,951
+whether it's lines or strings
+or characters or numbers,
+
+10
+00:00:22,951 --> 00:00:25,590
+we're looking for something
+like the largest or the smallest
+
+11
+00:00:25,590 --> 00:00:28,270
+or we want to add them up
+or something like that.
+
+12
+00:00:28,270 --> 00:00:31,070
+So we can't just say, "Add 'em up",
+
+13
+00:00:31,070 --> 00:00:33,401
+we have to say, "Go through each one
+
+14
+00:00:33,401 --> 00:00:34,959
+"and do something to each one."
+
+15
+00:00:34,959 --> 00:00:37,239
+And somehow achieve adding them up.
+
+16
+00:00:37,239 --> 00:00:39,270
+The pattern that we're going to follow is
+
+17
+00:00:39,270 --> 00:00:42,122
+we're going to have this loop that gonna
+
+18
+00:00:42,122 --> 00:00:46,935
+run once for each thing
+in some chunk of data.
+
+19
+00:00:46,935 --> 00:00:49,132
+We're gonna set something at the beginning
+
+20
+00:00:49,132 --> 00:00:50,845
+and then we're going to
+do something to each one.
+
+21
+00:00:50,845 --> 00:00:53,169
+And then at the end we're
+gonna get the payoff.
+
+22
+00:00:53,169 --> 00:00:54,548
+We're gonna get the result.
+
+23
+00:00:54,548 --> 00:00:57,646
+So if we're summing things,
+
+24
+00:00:57,646 --> 00:00:59,761
+we're going to have a running total.
+
+25
+00:00:59,761 --> 00:01:02,277
+This will be like T equals zero.
+
+26
+00:01:02,277 --> 00:01:07,532
+And then this will be T
+equals T plus the thing value.
+
+27
+00:01:07,532 --> 00:01:08,811
+But this is not the real total.
+
+28
+00:01:08,811 --> 00:01:10,848
+It's the running total during the loop,
+
+29
+00:01:10,848 --> 00:01:13,700
+but at the end it is the real total.
+
+30
+00:01:13,700 --> 00:01:15,924
+So we're going to look at what you do
+
+31
+00:01:15,924 --> 00:01:17,880
+before the loop starts, during the loop,
+
+32
+00:01:17,880 --> 00:01:20,407
+and then what you get after the loop
+
+33
+00:01:20,407 --> 00:01:23,818
+and how you can use that.
+
+34
+00:01:23,818 --> 00:01:24,651
+We're gonna use this loop.
+
+35
+00:01:24,651 --> 00:01:25,747
+It's just going to loop through
+
+36
+00:01:25,747 --> 00:01:29,660
+a set of six numbers over
+and over and over again.
+
+37
+00:01:29,660 --> 00:01:30,892
+We're going to do
+something before the loop,
+
+38
+00:01:30,892 --> 00:01:31,955
+we're going to do
+something after the loop,
+
+39
+00:01:31,955 --> 00:01:34,438
+and we're going to run the
+loop some number of times.
+
+40
+00:01:34,438 --> 00:01:36,877
+In this case "thing" is
+our iteration variable
+
+41
+00:01:36,877 --> 00:01:40,619
+because I'm using
+unpneumonic variables now.
+
+42
+00:01:40,619 --> 00:01:45,283
+It's gonna run 9, 41, 12, 3, 74, and 15.
+
+43
+00:01:45,283 --> 00:01:47,271
+It's going to run and
+print these things out.
+
+44
+00:01:47,271 --> 00:01:49,708
+It runs its loop six times and away we go.
+
+45
+00:01:49,708 --> 00:01:52,475
+Now this loop does nothing
+except print stuff out.
+
+46
+00:01:52,475 --> 00:01:53,941
+Of course, I like to do that first.
+
+47
+00:01:53,941 --> 00:01:55,887
+I always print things out
+
+48
+00:01:55,887 --> 00:02:00,270
+to make sure that my brain is functioning.
+
+49
+00:02:00,270 --> 00:02:05,721
+So, to understand how these loops work
+
+50
+00:02:05,721 --> 00:02:08,527
+I'm gonna ask you to
+function as a program.
+
+51
+00:02:08,527 --> 00:02:11,214
+I'm gonna show you some
+numbers in succession
+
+52
+00:02:11,214 --> 00:02:14,795
+and I want you to mentally figure out
+
+53
+00:02:14,795 --> 00:02:16,055
+what the largest number is.
+
+54
+00:02:16,055 --> 00:02:17,736
+But more importantly, think about how
+
+55
+00:02:17,736 --> 00:02:19,569
+your brain is solving this problem
+
+56
+00:02:19,569 --> 00:02:21,041
+of what is the largest number,
+
+57
+00:02:21,041 --> 00:02:22,990
+given that I'm only
+going to show them to you
+
+58
+00:02:22,990 --> 00:02:24,337
+one at a time for a little while.
+
+59
+00:02:24,337 --> 00:02:25,558
+You brain has to do something.
+
+60
+00:02:25,558 --> 00:02:28,255
+Imagine I was going to show
+you thousands of numbers.
+
+61
+00:02:28,255 --> 00:02:29,928
+I'm not, but imagine I was.
+
+62
+00:02:29,928 --> 00:02:32,905
+How would you organize
+yourself in a way so that
+
+63
+00:02:32,905 --> 00:02:35,221
+for an hour and a half you could sit here
+
+64
+00:02:35,221 --> 00:02:37,703
+as I showed you numbers
+and you'd keep track
+
+65
+00:02:37,703 --> 00:02:41,775
+of the largest number that
+you've seen of all the numbers?
+
+66
+00:02:41,775 --> 00:02:43,078
+Okay, here we go.
+
+67
+00:02:43,078 --> 00:02:48,113
+Here's your first number.
+
+68
+00:02:48,113 --> 00:02:51,598
+Second number.
+
+69
+00:02:51,598 --> 00:02:54,078
+Third number.
+
+70
+00:02:54,078 --> 00:02:56,725
+Fourth number.
+
+71
+00:02:56,725 --> 00:02:58,775
+Fifth number.
+
+72
+00:02:58,775 --> 00:03:01,341
+Sixth and last number.
+
+73
+00:03:01,341 --> 00:03:06,901
+What was the largest number?
+
+74
+00:03:06,901 --> 00:03:08,299
+What was it?
+
+75
+00:03:08,299 --> 00:03:11,238
+Well, it wasn't too hard.
+
+76
+00:03:11,238 --> 00:03:13,318
+It was 74.
+
+77
+00:03:13,318 --> 00:03:15,148
+But that's not the question.
+
+78
+00:03:15,148 --> 00:03:19,616
+How did you brain arrive at 74?
+
+79
+00:03:19,616 --> 00:03:21,046
+Here's all the numbers.
+
+80
+00:03:21,046 --> 00:03:22,998
+If I was showing you all the numbers
+
+81
+00:03:22,998 --> 00:03:25,726
+and asked you, "What's
+the largest number?"
+
+82
+00:03:25,726 --> 00:03:27,351
+you're eyes would have sort of gone
+
+83
+00:03:27,351 --> 00:03:29,386
+(zooming of eyes moving around the screen)
+
+84
+00:03:29,386 --> 00:03:31,455
+and then you'd got to 74.
+
+85
+00:03:31,455 --> 00:03:34,058
+You wouldn't do it in
+any particular order.
+
+86
+00:03:34,058 --> 00:03:36,456
+Your eyes would just see the 74
+
+87
+00:03:36,456 --> 00:03:38,736
+and it would just throw
+the smaller numbers away
+
+88
+00:03:38,736 --> 00:03:41,180
+and it would move really
+quickly to what the answer is.
+
+89
+00:03:41,180 --> 00:03:44,309
+Even if there was several
+hundred numbers on the screen
+
+90
+00:03:44,309 --> 00:03:47,326
+your mind would sort of move fluidly
+
+91
+00:03:47,326 --> 00:03:50,336
+wherever it felt like moving
+and then arrive at it.
+
+92
+00:03:50,336 --> 00:03:51,963
+Probably what it would do is
+
+93
+00:03:51,963 --> 00:03:55,259
+it would do something like move like this,
+
+94
+00:03:55,259 --> 00:03:58,109
+find this, and then check
+to make sure that it's okay.
+
+95
+00:03:58,109 --> 00:04:00,390
+Then say, "Okay, I got 74.
+
+96
+00:04:00,390 --> 00:04:01,487
+"I'm done."
+
+97
+00:04:01,487 --> 00:04:03,565
+That's not how computers do it.
+
+98
+00:04:03,565 --> 00:04:05,595
+That is not how computers do it.
+
+99
+00:04:05,595 --> 00:04:07,383
+They do not move fluidly.
+
+100
+00:04:07,383 --> 00:04:09,904
+But they are highly dedicated.
+
+101
+00:04:09,904 --> 00:04:11,653
+They're gonna do something.
+
+102
+00:04:11,653 --> 00:04:13,927
+(buzzing imitating a computer)
+
+103
+00:04:13,927 --> 00:04:14,937
+(clicking)
+
+104
+00:04:14,937 --> 00:04:17,182
+74.
+
+105
+00:04:17,182 --> 00:04:19,673
+But how would you construct
+a loop to achieve this?
+
+106
+00:04:19,673 --> 00:04:21,947
+Let's take a look.
+
+107
+00:04:21,947 --> 00:04:24,270
+You could create a variable
+called "largest_so_far".
+
+108
+00:04:24,270 --> 00:04:27,237
+This is the largest
+value that you have seen
+
+109
+00:04:27,237 --> 00:04:28,369
+in the list so far.
+
+110
+00:04:28,369 --> 00:04:29,794
+Now I haven't shown you any number yet,
+
+111
+00:04:29,794 --> 00:04:32,241
+so we'll just set this
+to -1 to get us started.
+
+112
+00:04:32,241 --> 00:04:35,575
+Now we see 3 and we're like,
+
+113
+00:04:35,575 --> 00:04:37,493
+"Oh, that's better than -1."
+
+114
+00:04:37,493 --> 00:04:39,723
+It's our first number so it's probably
+
+115
+00:04:39,723 --> 00:04:41,113
+the largest we've seen so far, right?
+
+116
+00:04:41,113 --> 00:04:41,946
+Great.
+
+117
+00:04:41,946 --> 00:04:42,779
+41.
+
+118
+00:04:42,779 --> 00:04:44,610
+Oh, that's bigger than the
+largest we've seen so far,
+
+119
+00:04:44,610 --> 00:04:45,587
+so we'll keep it.
+
+120
+00:04:45,587 --> 00:04:48,196
+12 is not bigger than 41
+so we're not gonna keep it.
+
+121
+00:04:48,196 --> 00:04:50,721
+Notice this keeping thing.
+
+122
+00:04:50,721 --> 00:04:53,480
+9 is not bigger than 41 so
+there's no point to keeping it.
+
+123
+00:04:53,480 --> 00:04:56,210
+74 is bigger than 41, so we'll keep it.
+
+124
+00:04:56,210 --> 00:04:57,506
+Is this the largest number?
+
+125
+00:04:57,506 --> 00:04:58,339
+We don't know.
+
+126
+00:04:58,339 --> 00:04:59,630
+We don't know until we're done.
+
+127
+00:04:59,630 --> 00:05:01,870
+15, not better than 74.
+
+128
+00:05:01,870 --> 00:05:06,055
+So now we're all done and
+hooray, hooray, hooray,
+
+129
+00:05:06,055 --> 00:05:08,416
+we have the largest number.
+
+130
+00:05:08,416 --> 00:05:11,752
+We have this variable that
+we kept the largest number
+
+131
+00:05:11,752 --> 00:05:14,231
+that we'd seen up to this point.
+
+132
+00:05:14,231 --> 00:05:17,037
+Then when we know that
+we're done at the end,
+
+133
+00:05:17,037 --> 00:05:20,988
+that becomes the largest.
+
+134
+00:05:20,988 --> 00:05:22,213
+So if you look at all the numbers,
+
+135
+00:05:22,213 --> 00:05:23,474
+keeping track of the largest so far,
+
+136
+00:05:23,474 --> 00:05:26,725
+at the end of all the largest
+so far and the largest
+
+137
+00:05:26,725 --> 00:05:28,091
+are the same thing.
+
+138
+00:05:28,091 --> 00:05:30,547
+That's how you get this idea of
+
+139
+00:05:30,547 --> 00:05:32,943
+something you're doing during the loop
+
+140
+00:05:32,943 --> 00:05:34,452
+is not really the answer,
+
+141
+00:05:34,452 --> 00:05:36,371
+but by the time the loop is done
+
+142
+00:05:36,371 --> 00:05:38,621
+you will have the answer.
+
+143
+00:05:38,621 --> 00:05:40,697
+So here's a bit of code that does this.
+
+144
+00:05:40,697 --> 00:05:43,524
+Use it with our numbers.
+
+145
+00:05:43,524 --> 00:05:44,976
+Let's take a look.
+
+146
+00:05:44,976 --> 00:05:46,931
+I have this variable
+called "largest_so_far".
+
+147
+00:05:46,931 --> 00:05:49,257
+I set it to -1 before the loop.
+
+148
+00:05:49,257 --> 00:05:51,206
+Remember there's a loop
+before, and a loop after,
+
+149
+00:05:51,206 --> 00:05:52,344
+and a loop in the middle.
+
+150
+00:05:52,344 --> 00:05:53,444
+Before, it's -1.
+
+151
+00:05:53,444 --> 00:05:57,117
+Now "the_num", remember
+underscores are okay.
+
+152
+00:05:57,117 --> 00:05:58,827
+That's my iteration variable.
+
+153
+00:05:58,827 --> 00:06:01,979
+If 9 is greater than largest_so_far.
+
+154
+00:06:01,979 --> 00:06:04,013
+Well, largest_so_far is -1 so that's true,
+
+155
+00:06:04,013 --> 00:06:05,360
+so this code is gonna run.
+
+156
+00:06:05,360 --> 00:06:07,677
+We're gonna remember the new number.
+
+157
+00:06:07,677 --> 00:06:11,336
+This is 9, so 9 ends up in largest_so_far.
+
+158
+00:06:11,336 --> 00:06:12,477
+And then print it out.
+
+159
+00:06:12,477 --> 00:06:16,519
+So largest_so_far is 9
+after we saw the number 9.
+
+160
+00:06:16,519 --> 00:06:19,445
+Then we do it again.
+
+161
+00:06:19,445 --> 00:06:21,681
+So now 41 comes in.
+
+162
+00:06:21,681 --> 00:06:23,922
+Is 41 greater than 9?
+
+163
+00:06:23,922 --> 00:06:25,466
+The answer is, "Yes, it is."
+
+164
+00:06:25,466 --> 00:06:26,810
+So we're going to run this code,
+
+165
+00:06:26,810 --> 00:06:31,200
+copy 41 into largest_so_far
+and then print it out.
+
+166
+00:06:31,200 --> 00:06:37,173
+largest_so_far is 41 after
+we saw the number 41.
+
+167
+00:06:37,173 --> 00:06:39,736
+Now we're going to run
+the loop again with 12
+
+168
+00:06:39,736 --> 00:06:41,850
+and you get the idea, I hope.
+
+169
+00:06:41,850 --> 00:06:43,398
+Is 12 greater than 41,
+
+170
+00:06:43,398 --> 00:06:45,070
+which is the largest we've seen so far?
+
+171
+00:06:45,070 --> 00:06:46,903
+The answer is, "No, it is not."
+
+172
+00:06:46,903 --> 00:06:47,762
+So we skip.
+
+173
+00:06:47,762 --> 00:06:50,286
+The largest_so_far stays 41,
+
+174
+00:06:50,286 --> 00:06:51,812
+even though we saw 12.
+
+175
+00:06:51,812 --> 00:06:53,979
+Meaning we're sort of ratcheting up,
+
+176
+00:06:53,979 --> 00:06:56,260
+but we never ratchet back down.
+
+177
+00:06:56,260 --> 00:07:01,454
+We run it again with 3 and 41.
+
+178
+00:07:01,454 --> 00:07:02,436
+We skip this.
+
+179
+00:07:02,436 --> 00:07:04,723
+Then the largest_so_far is 41,
+
+180
+00:07:04,723 --> 00:07:07,129
+even though we just saw 3.
+
+181
+00:07:07,129 --> 00:07:09,287
+And now we see 74.
+
+182
+00:07:09,287 --> 00:07:11,403
+Is 74 greater than 41?
+
+183
+00:07:11,403 --> 00:07:13,521
+See, we never are looking
+at all the numbers.
+
+184
+00:07:13,521 --> 00:07:15,519
+We're only are looking at
+the window on the numbers
+
+185
+00:07:15,519 --> 00:07:18,694
+of the current number
+that we're looking at.
+
+186
+00:07:18,694 --> 00:07:21,212
+So is 74 greater than 41?
+
+187
+00:07:21,212 --> 00:07:23,406
+The answer is yes, so we run this code.
+
+188
+00:07:23,406 --> 00:07:25,812
+Then we capture the 74.
+
+189
+00:07:25,812 --> 00:07:29,723
+We just saw 74 and it
+is the largest_so_far.
+
+190
+00:07:29,723 --> 00:07:32,971
+And then we run it again with 15,
+
+191
+00:07:32,971 --> 00:07:36,750
+but 74 is our largest_so_far
+and so it skips.
+
+192
+00:07:36,750 --> 00:07:40,739
+So 74 remains largest so far after 15.
+
+193
+00:07:40,739 --> 00:07:41,961
+Now we're finished.
+
+194
+00:07:41,961 --> 00:07:43,386
+We just ran the last thing.
+
+195
+00:07:43,386 --> 00:07:45,419
+Our loop takes care of everything
+
+196
+00:07:45,419 --> 00:07:47,084
+and jumps to this print
+statement and says,
+
+197
+00:07:47,084 --> 00:07:49,568
+"Afterwards, largest_so_far is 74."
+
+198
+00:07:49,568 --> 00:07:53,552
+But at this point it's also the largest.
+
+199
+00:07:53,552 --> 00:07:56,742
+So largest_so_far became largest
+
+200
+00:07:56,742 --> 00:07:59,095
+when our loop finished.
+
+201
+00:07:59,095 --> 00:08:00,858
+So that sort of gives you this notion
+
+202
+00:08:00,858 --> 00:08:05,820
+of how we construct
+something at the beginning,
+
+203
+00:08:05,820 --> 00:08:07,528
+some kind of thing that we're going to do
+
+204
+00:08:07,528 --> 00:08:09,152
+over and over and over again,
+
+205
+00:08:09,152 --> 00:08:11,307
+and then something at the end.
+
+206
+00:08:11,307 --> 00:08:12,645
+We've put some print statements in
+
+207
+00:08:12,645 --> 00:08:16,994
+just so we can watch it
+and see what's going on.
+
+208
+00:08:16,994 --> 00:08:19,197
+Coming up next we're going to talk about
+
+209
+00:08:19,197 --> 00:08:20,743
+some more loop patterns.
+
+210
+00:08:20,743 --> 00:08:23,025
+Some counting, totalling, averaging,
+
+211
+00:08:23,025 --> 00:08:26,990
+and finding the smallest number.
+
+212
+00:08:26,990 --> 00:08:29,573
+(relaxed jazz)
+

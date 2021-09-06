@@ -1,0 +1,1242 @@
+1
+00:00:00,228 --> 00:00:03,014
+- So now we are going to
+write a search engine.
+
+2
+00:00:03,014 --> 00:00:04,965
+Doing some of the things
+we're gonna do page rank
+
+3
+00:00:04,965 --> 00:00:05,940
+and we're going to visualize it
+
+4
+00:00:05,940 --> 00:00:08,806
+in a web browser and show the weights.
+
+5
+00:00:08,806 --> 00:00:11,576
+We're really only going to
+do page rank on one page
+
+6
+00:00:11,576 --> 00:00:13,222
+because you want to have links that
+
+7
+00:00:13,222 --> 00:00:15,571
+more than one page that points to a page
+
+8
+00:00:15,571 --> 00:00:17,467
+so that you can figure out which pages
+
+9
+00:00:17,467 --> 00:00:19,969
+are more or less important
+and then visualize it.
+
+10
+00:00:19,969 --> 00:00:21,579
+We'll run the page rank algorithm
+
+11
+00:00:21,579 --> 00:00:23,093
+and we'll separately do all this.
+
+12
+00:00:23,093 --> 00:00:24,908
+So at this point we're going to do
+
+13
+00:00:24,908 --> 00:00:26,894
+pretty much the web
+crawling, the index building,
+
+14
+00:00:26,894 --> 00:00:28,653
+and the searching we're not
+really going to search it.
+
+15
+00:00:28,653 --> 00:00:30,227
+We're going to visualize the index
+
+16
+00:00:30,227 --> 00:00:32,723
+but you could write a simple program to do
+
+17
+00:00:32,723 --> 00:00:34,916
+searches for keywords
+and figure which page
+
+18
+00:00:34,916 --> 00:00:36,786
+was the most likely page for a keyword.
+
+19
+00:00:36,786 --> 00:00:39,692
+And that would be a fun
+additional thing to do.
+
+20
+00:00:39,692 --> 00:00:41,952
+So the web crawler is this program that
+
+21
+00:00:41,952 --> 00:00:45,760
+hits a page, pulls down
+the html, parses the page,
+
+22
+00:00:45,760 --> 00:00:48,108
+looks for links, make a
+queue of incoming links
+
+23
+00:00:48,108 --> 00:00:50,330
+that are as yet unretrieved.
+
+24
+00:00:50,330 --> 00:00:53,610
+And I'm going to do this in
+a simple SQLite database.
+
+25
+00:00:53,610 --> 00:00:56,179
+It starts out with the
+database basically starts
+
+26
+00:00:56,179 --> 00:00:57,875
+with one link as the starting point
+
+27
+00:00:57,875 --> 00:00:59,876
+and then it retrieves
+that page and then you see
+
+28
+00:00:59,876 --> 00:01:02,898
+the database ends up with
+lots of unretrieved pages.
+
+29
+00:01:02,898 --> 00:01:04,664
+And then it goes back in
+and picks a random page,
+
+30
+00:01:04,664 --> 00:01:08,267
+retrieves that one, and then
+it just expands and expands.
+
+31
+00:01:08,267 --> 00:01:09,561
+This code that I've built
+
+32
+00:01:09,561 --> 00:01:10,954
+that you're going to play with
+
+33
+00:01:10,954 --> 00:01:12,643
+only stays on one website.
+
+34
+00:01:12,643 --> 00:01:14,057
+Otherwise it would go crazy
+
+35
+00:01:14,057 --> 00:01:15,488
+and of course google doesn't use
+
+36
+00:01:15,488 --> 00:01:17,721
+a SQLite database running
+on your hard drive.
+
+37
+00:01:17,721 --> 00:01:19,081
+But you'll get the idea.
+
+38
+00:01:19,081 --> 00:01:23,165
+You'll see this thing
+exponentially gain links.
+
+39
+00:01:23,165 --> 00:01:24,665
+And you'll run it for a while,
+
+40
+00:01:24,665 --> 00:01:27,386
+pull down a thousand webpages or whatever.
+
+41
+00:01:27,386 --> 00:01:29,823
+But of course make sure that
+
+42
+00:01:29,823 --> 00:01:32,672
+you don't violate any terms or conditions
+
+43
+00:01:32,672 --> 00:01:36,936
+and again I've got some data
+sources that you can use.
+
+44
+00:01:36,936 --> 00:01:38,773
+And they're not rate limited,
+
+45
+00:01:38,773 --> 00:01:41,069
+but you can also use things like Wikipedia
+
+46
+00:01:41,069 --> 00:01:43,188
+which I think they sort of discourage you,
+
+47
+00:01:43,188 --> 00:01:45,237
+or dr-chuck.com which has no rate limit,
+
+48
+00:01:45,237 --> 00:01:47,128
+or who knows what, right?
+
+49
+00:01:47,128 --> 00:01:48,720
+So just be careful.
+
+50
+00:01:48,720 --> 00:01:50,066
+Don't do this on you facebook
+
+51
+00:01:50,066 --> 00:01:51,313
+and don't do this on google.
+
+52
+00:01:51,313 --> 00:01:52,864
+Don't get yourself into trouble.
+
+53
+00:01:52,864 --> 00:01:54,104
+And...
+
+54
+00:01:54,104 --> 00:01:58,399
+if you're using an internet connection
+
+55
+00:01:58,399 --> 00:02:01,135
+where you are paying with
+bandwidth be careful.
+
+56
+00:02:01,135 --> 00:02:03,022
+So this is the idea of the web crawler
+
+57
+00:02:03,022 --> 00:02:04,020
+and this isn't my picture.
+
+58
+00:02:04,020 --> 00:02:06,366
+This is a classic
+picture of a web crawler.
+
+59
+00:02:06,366 --> 00:02:09,860
+Read a page, parse it, take all the URLs
+
+60
+00:02:09,860 --> 00:02:13,622
+and stick them in a queue,
+grab again and again.
+
+61
+00:02:13,622 --> 00:02:15,625
+So for us the scheduler's going to do it
+
+62
+00:02:15,625 --> 00:02:18,048
+as long as... you say,
+"oh, do a hundred pages."
+
+63
+00:02:18,048 --> 00:02:19,883
+Or it runs until it blows up.
+
+64
+00:02:19,883 --> 00:02:22,240
+And again these processes that have
+
+65
+00:02:22,240 --> 00:02:24,400
+the network in the loop,
+it's really important
+
+66
+00:02:24,400 --> 00:02:26,532
+that they behave well when they blow up.
+
+67
+00:02:26,532 --> 00:02:28,164
+And that's why databases are so useful.
+
+68
+00:02:28,164 --> 00:02:30,109
+Because you can be writing
+along to the database
+
+69
+00:02:30,109 --> 00:02:34,420
+and some random thing
+happens and blow your data up
+
+70
+00:02:34,420 --> 00:02:35,412
+and you start over.
+
+71
+00:02:35,412 --> 00:02:36,724
+So you're reading these things,
+
+72
+00:02:36,724 --> 00:02:37,961
+you're storing each page,
+
+73
+00:02:37,961 --> 00:02:40,131
+building up your storage, etc. etc.
+
+74
+00:02:40,131 --> 00:02:41,890
+So you just keep on doing that.
+
+75
+00:02:41,890 --> 00:02:43,249
+And with this program,
+
+76
+00:02:43,249 --> 00:02:44,979
+you'll be able to retrieve some stuff
+
+77
+00:02:44,979 --> 00:02:46,889
+then run the page rank and
+then you can retrieve some more
+
+78
+00:02:46,889 --> 00:02:48,160
+and then you can run some more page rank
+
+79
+00:02:48,160 --> 00:02:50,825
+and you can kinda see how Google
+
+80
+00:02:50,825 --> 00:02:53,018
+sorta evolves its index over time.
+
+81
+00:02:53,018 --> 00:02:56,402
+Of course we're so much simpler.
+
+82
+00:02:56,402 --> 00:02:58,978
+And like I said be careful when you crawl.
+
+83
+00:02:58,978 --> 00:03:00,103
+You're going to run a crawler
+
+84
+00:03:00,103 --> 00:03:02,633
+that just goes as fast as it can.
+
+85
+00:03:02,633 --> 00:03:04,247
+But Google doesn't do that.
+
+86
+00:03:04,247 --> 00:03:07,016
+It's careful not to
+overwhelm any websites.
+
+87
+00:03:07,016 --> 00:03:08,671
+it's trying to be smart about the use
+
+88
+00:03:08,671 --> 00:03:11,784
+of your bandwidth on your website.
+
+89
+00:03:11,784 --> 00:03:14,457
+There is a file,
+
+90
+00:03:14,457 --> 00:03:19,175
+our code won't bother looking at this.
+
+91
+00:03:19,175 --> 00:03:20,964
+But there's a file called robots.txt
+
+92
+00:03:20,964 --> 00:03:22,494
+that real web crawlers look at
+
+93
+00:03:22,494 --> 00:03:23,974
+and it give a list of the things
+
+94
+00:03:23,974 --> 00:03:27,100
+you're allowed to look at,
+and not allowed to look at.
+
+95
+00:03:27,100 --> 00:03:29,393
+And so if you go to Google and
+you see a search that says,
+
+96
+00:03:29,393 --> 00:03:32,342
+"We're not allowed to
+show you the summary text
+
+97
+00:03:32,342 --> 00:03:35,263
+"of this page because of the robots.txt."
+
+98
+00:03:35,263 --> 00:03:40,317
+It's there and you can go
+and actually see a robot.txt.
+
+99
+00:03:40,317 --> 00:03:41,226
+Like on a...
+
+100
+00:03:41,226 --> 00:03:43,741
+Just go to any website,
+it's at the top root
+
+101
+00:03:43,741 --> 00:03:46,894
+blah blah blah blah blah /robot.txt.
+
+102
+00:03:46,894 --> 00:03:48,549
+It's not a path, it's not slash this,
+
+103
+00:03:48,549 --> 00:03:50,858
+slash that, slash something else robots
+
+104
+00:03:50,858 --> 00:03:54,312
+it's at the very very top of a website.
+
+105
+00:03:54,312 --> 00:03:56,822
+The index building uses
+the page rank algorithm
+
+106
+00:03:56,822 --> 00:04:00,882
+and the whole goal of the
+page rank algorithm is to
+
+107
+00:04:00,882 --> 00:04:07,079
+figure out which pages
+have the most best links.
+
+108
+00:04:07,079 --> 00:04:08,587
+So having the most links is really easy.
+
+109
+00:04:08,587 --> 00:04:10,476
+You can just say how many links go to this
+
+110
+00:04:10,476 --> 00:04:12,276
+but the problem is that
+you got to figure out
+
+111
+00:04:12,276 --> 00:04:13,564
+the value of those links.
+
+112
+00:04:13,564 --> 00:04:14,823
+And then you have to...
+how do you figure out
+
+113
+00:04:14,823 --> 00:04:16,321
+the value of those links?
+
+114
+00:04:16,321 --> 00:04:20,159
+By looking at how many
+good links comes to it.
+
+115
+00:04:20,159 --> 00:04:23,288
+So it turns out that
+it's an infinite problem.
+
+116
+00:04:23,288 --> 00:04:27,060
+It's an infinitely difficult
+problem to use page rank.
+
+117
+00:04:27,060 --> 00:04:28,617
+But you can approximate it
+
+118
+00:04:28,617 --> 00:04:30,723
+and what happens is after a while
+
+119
+00:04:30,723 --> 00:04:34,277
+it converges to a reasonable value.
+
+120
+00:04:34,277 --> 00:04:36,404
+And so we're going to run the search index
+
+121
+00:04:36,404 --> 00:04:39,359
+and each time it runs you're
+gonna see that it says,
+
+122
+00:04:39,359 --> 00:04:42,459
+"How much did these numbers
+change?" and what happens is
+
+123
+00:04:42,459 --> 00:04:44,078
+in the beginning they change very wildly
+
+124
+00:04:44,078 --> 00:04:46,745
+but quickly they flatten
+out. And it has...
+
+125
+00:04:46,745 --> 00:04:49,261
+The best way to think about...
+
+126
+00:04:49,261 --> 00:04:52,165
+the page rank...
+
+127
+00:04:52,165 --> 00:04:53,400
+is... (sighs)
+
+128
+00:04:53,400 --> 00:04:56,297
+think about how water runs.
+
+129
+00:04:56,297 --> 00:05:01,342
+Where you have a small little
+stream going by a house
+
+130
+00:05:01,342 --> 00:05:05,454
+and sometimes it rains,
+sometimes it's dry,
+
+131
+00:05:05,454 --> 00:05:08,008
+and sometimes...
+
+132
+00:05:08,008 --> 00:05:10,801
+And there's a little lake
+
+133
+00:05:10,801 --> 00:05:13,265
+and the streams always
+running and it doesn't
+
+134
+00:05:13,265 --> 00:05:14,505
+go up and it doesn't go down.
+
+135
+00:05:14,505 --> 00:05:16,322
+It might go up a little
+bit if it rains a lot
+
+136
+00:05:16,322 --> 00:05:18,851
+but in general there's
+sort of a steady state
+
+137
+00:05:18,851 --> 00:05:21,004
+meaning that whatever water coming in is
+
+138
+00:05:21,004 --> 00:05:23,717
+about the same as the water going out.
+
+139
+00:05:23,717 --> 00:05:26,132
+So we think about this
+in term of web pages
+
+140
+00:05:26,132 --> 00:05:30,067
+the value of the links
+coming in is roughly the same
+
+141
+00:05:30,067 --> 00:05:31,587
+as the value of the links going out.
+
+142
+00:05:31,587 --> 00:05:33,515
+So when that starts to balance the
+
+143
+00:05:33,515 --> 00:05:36,105
+in and the out value
+from each of the nodes
+
+144
+00:05:36,105 --> 00:05:38,897
+then you've got pretty stable.
+
+145
+00:05:38,897 --> 00:05:41,184
+And so what Google does is they have a
+
+146
+00:05:41,184 --> 00:05:43,138
+really relatively stable assessment
+
+147
+00:05:43,138 --> 00:05:45,489
+of goodness in value of pages
+
+148
+00:05:45,489 --> 00:05:47,346
+and they use that commute page rank.
+
+149
+00:05:47,346 --> 00:05:48,914
+And then they throw a few more pages in
+
+150
+00:05:48,914 --> 00:05:50,596
+and it kind of has to adjust for a while
+
+151
+00:05:50,596 --> 00:05:51,879
+but it reconverges.
+
+152
+00:05:51,879 --> 00:05:56,000
+And so this is a calculation
+that generally converges
+
+153
+00:05:56,000 --> 00:05:58,326
+and it does it very wildly
+
+154
+00:05:58,326 --> 00:06:00,387
+and that's why Google's pretty good at
+
+155
+00:06:00,387 --> 00:06:03,510
+kind of arriving at the
+true value of something.
+
+156
+00:06:03,510 --> 00:06:04,711
+So let's take a look at
+
+157
+00:06:04,711 --> 00:06:07,277
+what we're going to do
+in this application.
+
+158
+00:06:07,277 --> 00:06:10,433
+Again, we have a file
+
+159
+00:06:10,433 --> 00:06:13,876
+that is going to spider the web
+
+160
+00:06:13,876 --> 00:06:16,296
+and we only have one
+database again in this one.
+
+161
+00:06:16,296 --> 00:06:19,576
+We'll have two databases
+in the next one and so
+
+162
+00:06:19,576 --> 00:06:22,629
+this is spider... is the restartable part
+
+163
+00:06:22,629 --> 00:06:25,654
+and what we actually do
+is we put one URL in,
+
+164
+00:06:25,654 --> 00:06:29,038
+the starting URL, and then spider walks in
+
+165
+00:06:29,038 --> 00:06:31,720
+are asks, "Are there
+any unretrieved pages?"
+
+166
+00:06:31,720 --> 00:06:33,190
+And it does that randomly.
+
+167
+00:06:33,190 --> 00:06:35,054
+It sort of picks among
+the unretrieved pages
+
+168
+00:06:35,054 --> 00:06:37,822
+and says, "Okay, great.
+I'll go retrieve that page"
+
+169
+00:06:37,822 --> 00:06:39,286
+"and I'll parse that page
+
+170
+00:06:39,286 --> 00:06:42,525
+"and then I'll put in a bunch
+of new unretrieved pages."
+
+171
+00:06:42,525 --> 00:06:44,527
+Okay? As well as the text of that page
+
+172
+00:06:44,527 --> 00:06:46,471
+and then a bunch of unretrieved pages.
+
+173
+00:06:46,471 --> 00:06:48,862
+And then it'll go back up and it'll say,
+
+174
+00:06:48,862 --> 00:06:51,494
+"Oh give me one of the
+randomly non-retrieved pages."
+
+175
+00:06:51,494 --> 00:06:52,637
+and it will retrieve the next page
+
+176
+00:06:52,637 --> 00:06:54,877
+and pull that page down
+and then add to it.
+
+177
+00:06:54,877 --> 00:06:58,244
+So this is like there's a
+page and then a to do list.
+
+178
+00:06:58,244 --> 00:07:00,016
+And then this one becomes a page
+
+179
+00:07:00,016 --> 00:07:02,157
+and then adds a few more
+things to the to do list.
+
+180
+00:07:02,157 --> 00:07:04,451
+So the to do list, or
+the unretrieved URLs,
+
+181
+00:07:04,451 --> 00:07:08,429
+grows very rapidly.
+
+182
+00:07:08,429 --> 00:07:10,395
+And the retrieved ones grow sort of as
+
+183
+00:07:10,395 --> 00:07:11,755
+you would retrieve them one at a time.
+
+184
+00:07:11,755 --> 00:07:13,642
+But you've always got this long list.
+
+185
+00:07:13,642 --> 00:07:15,041
+If you have a really short site
+
+186
+00:07:15,041 --> 00:07:16,379
+that only has like two links,
+
+187
+00:07:16,379 --> 00:07:20,558
+if you start at dr-chuck.com/page1.htm
+
+188
+00:07:20,558 --> 00:07:22,371
+it will go to page two and
+then go back to page one
+
+189
+00:07:22,371 --> 00:07:23,204
+and it will be out of things.
+
+190
+00:07:23,204 --> 00:07:25,787
+It will have retrieved all of the pages.
+
+191
+00:07:25,787 --> 00:07:27,909
+So if you had a website
+that has no external links
+
+192
+00:07:27,909 --> 00:07:30,181
+or has a very few pages and
+they point to each other
+
+193
+00:07:30,181 --> 00:07:32,428
+this will run out of things to do.
+
+194
+00:07:32,428 --> 00:07:35,296
+But if you go to a page like my blog,
+
+195
+00:07:35,296 --> 00:07:37,877
+or the code... sample stuff
+
+196
+00:07:37,877 --> 00:07:40,084
+that I have up for you
+for spider for testing,
+
+197
+00:07:40,084 --> 00:07:42,538
+on dr-chuck.net.
+
+198
+00:07:42,538 --> 00:07:43,945
+It'll run for a very long time.
+
+199
+00:07:43,945 --> 00:07:46,098
+And you'll have far more pages to retrieve
+
+200
+00:07:46,098 --> 00:07:47,416
+than pages you have retrieved.
+
+201
+00:07:47,416 --> 00:07:50,823
+But that's okay, at some
+point you can stop this.
+
+202
+00:07:50,823 --> 00:07:52,693
+Maybe it stops because
+you ran out of bandwidth,
+
+203
+00:07:52,693 --> 00:07:55,600
+or maybe your computer went
+down, or who knows what, right?
+
+204
+00:07:55,600 --> 00:07:57,894
+But it's okay, this is
+a restartable process
+
+205
+00:07:57,894 --> 00:08:00,394
+because it always has some
+pages that are retrieved
+
+206
+00:08:00,394 --> 00:08:01,725
+and some unretrieved pages.
+
+207
+00:08:01,725 --> 00:08:02,688
+You start it back up,
+
+208
+00:08:02,688 --> 00:08:04,794
+it picks randomly from
+the unretrieved pages.
+
+209
+00:08:04,794 --> 00:08:08,958
+The database is sort of the
+persistent state of your spider
+
+210
+00:08:08,958 --> 00:08:10,721
+rather than a bunch of dictionaries
+
+211
+00:08:10,721 --> 00:08:12,033
+or lists inside the python
+
+212
+00:08:12,033 --> 00:08:15,071
+which go away when the program dies.
+
+213
+00:08:15,071 --> 00:08:17,335
+And so at some point you have...
+
+214
+00:08:17,335 --> 00:08:19,198
+Let's just say a few hundred pages in here
+
+215
+00:08:19,198 --> 00:08:21,248
+and a few thousand unretrieved pages.
+
+216
+00:08:21,248 --> 00:08:23,729
+You can run the page rank algorithm.
+
+217
+00:08:23,729 --> 00:08:24,919
+And what the page rank algorithm does
+
+218
+00:08:24,919 --> 00:08:26,329
+is that it loops through all of the pages
+
+219
+00:08:26,329 --> 00:08:28,945
+and figures out which pages
+are linked to which pages
+
+220
+00:08:28,945 --> 00:08:31,852
+and then reads the numbers
+and then updates the numbers.
+
+221
+00:08:31,852 --> 00:08:34,716
+And then does that some number of times.
+
+222
+00:08:34,716 --> 00:08:35,888
+And so this is where the numbers...
+
+223
+00:08:35,888 --> 00:08:39,231
+All the pages sorta start
+out with a goodness of one.
+
+224
+00:08:39,231 --> 00:08:41,645
+I think this printout is
+showing that goodness of one,
+
+225
+00:08:41,645 --> 00:08:43,254
+and then it changes...
+
+226
+00:08:43,254 --> 00:08:45,305
+and then the goodness goes to...
+
+227
+00:08:45,305 --> 00:08:46,721
+some of the goodness goes up to two,
+
+228
+00:08:46,721 --> 00:08:49,326
+some of it goes to seven, and whatever,
+
+229
+00:08:49,326 --> 00:08:50,792
+but then it does this over and over
+
+230
+00:08:50,792 --> 00:08:53,289
+and it uses these numbers
+and then they change again.
+
+231
+00:08:53,289 --> 00:08:55,374
+And so there's a number of time steps
+
+232
+00:08:55,374 --> 00:08:58,232
+that this page rank runs and you will see,
+
+233
+00:08:58,232 --> 00:09:01,136
+as the page rank runs,
+when I show you the code
+
+234
+00:09:01,136 --> 00:09:06,076
+you'll see the average sort
+of change in these numbers
+
+235
+00:09:06,076 --> 00:09:07,655
+across all these things
+and you'll see that
+
+236
+00:09:07,655 --> 00:09:10,806
+the average goes down very
+rapidly as you get through.
+
+237
+00:09:10,806 --> 00:09:13,685
+So usually with a few hundred
+or a few thousand pages
+
+238
+00:09:13,685 --> 00:09:16,767
+like a hundred plus times
+to run this algorithm
+
+239
+00:09:16,767 --> 00:09:18,990
+and these numbers have converged.
+
+240
+00:09:18,990 --> 00:09:21,740
+And that's when you sort of
+can begin to trust the numbers.
+
+241
+00:09:21,740 --> 00:09:24,259
+Now there's this one
+program called spreset
+
+242
+00:09:24,259 --> 00:09:26,903
+which sets all the pages back to one.
+
+243
+00:09:26,903 --> 00:09:28,535
+So you can start this over.
+
+244
+00:09:28,535 --> 00:09:30,660
+So if you were to spider for a while,
+
+245
+00:09:30,660 --> 00:09:32,773
+run sprank for a while, play around,
+
+246
+00:09:32,773 --> 00:09:34,799
+and then you wanted to spider some more
+
+247
+00:09:34,799 --> 00:09:36,436
+and start it over, you could say,
+
+248
+00:09:36,436 --> 00:09:38,468
+"Oh, let's start the page
+rank completely over."
+
+249
+00:09:38,468 --> 00:09:43,919
+Or you could simply take the
+new pages and watch it adapt.
+
+250
+00:09:43,919 --> 00:09:46,607
+Either way this is just a
+way to reset all the pages
+
+251
+00:09:46,607 --> 00:09:50,768
+to have sorta their initial
+value of a goodness of 1.0.
+
+252
+00:09:50,768 --> 00:09:52,368
+So at some point you run this,
+
+253
+00:09:52,368 --> 00:09:55,985
+this runs really... this
+part here runs really slow.
+
+254
+00:09:55,985 --> 00:09:58,698
+This part runs super fast
+like in a blink of an eye.
+
+255
+00:09:58,698 --> 00:10:01,791
+This one is pretty fast.
+
+256
+00:10:01,791 --> 00:10:04,814
+And then at some point you got these pages
+
+257
+00:10:04,814 --> 00:10:06,800
+that have numbers on them.
+
+258
+00:10:06,800 --> 00:10:08,437
+They have values on the pages.
+
+259
+00:10:08,437 --> 00:10:10,364
+And there's a couple programs
+
+260
+00:10:10,364 --> 00:10:12,505
+that allow us to visualize that.
+
+261
+00:10:12,505 --> 00:10:14,502
+One is the dump which just reads it
+
+262
+00:10:14,502 --> 00:10:16,575
+and checks to see that it shows up,
+
+263
+00:10:16,575 --> 00:10:19,500
+the new page rank, the old page rank,
+
+264
+00:10:19,500 --> 00:10:21,274
+and various of other things.
+
+265
+00:10:21,274 --> 00:10:22,728
+It shows just a way to dump it
+
+266
+00:10:22,728 --> 00:10:25,897
+and then there's this thing
+that read the whole thing.
+
+267
+00:10:25,897 --> 00:10:28,972
+You'd say you'd like to do
+25 of the top, the best,
+
+268
+00:10:28,972 --> 00:10:32,016
+it sorts it by page rank and
+it produces a java script file
+
+269
+00:10:32,016 --> 00:10:33,792
+that has just the numbers in it.
+
+270
+00:10:33,792 --> 00:10:35,969
+And then there is some HTML
+
+271
+00:10:35,969 --> 00:10:38,842
+and a visualization library called d3.js,
+
+272
+00:10:38,842 --> 00:10:40,131
+which you can read about,
+
+273
+00:10:40,131 --> 00:10:42,273
+that when the HTML starts it reads this
+
+274
+00:10:42,273 --> 00:10:46,104
+and has this nice force direct
+layout of the page rank.
+
+275
+00:10:46,104 --> 00:10:48,186
+And you can hover over
+things and you can see
+
+276
+00:10:48,186 --> 00:10:50,987
+what page rank you've got.
+
+277
+00:10:50,987 --> 00:10:52,263
+And so...
+
+278
+00:10:52,263 --> 00:10:55,171
+And so that is the page rank algorithm
+
+279
+00:10:55,171 --> 00:10:56,499
+that we are going to do.
+
+280
+00:10:56,499 --> 00:10:58,465
+And up next we'll do the largest
+
+281
+00:10:58,465 --> 00:10:59,947
+and most complex of these things
+
+282
+00:10:59,947 --> 00:11:01,764
+and that is the email.
+
+283
+00:11:01,764 --> 00:11:03,082
+We're going to spider some email
+
+284
+00:11:03,082 --> 00:11:07,497
+which is about a gigabyte of data. Okay?
+
+285
+00:11:07,497 --> 00:11:10,329
+(slow jazz music)
+

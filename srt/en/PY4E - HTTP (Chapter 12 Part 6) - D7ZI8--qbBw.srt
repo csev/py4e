@@ -1,0 +1,716 @@
+1
+00:00:00,413 --> 00:00:02,528
+- So now we're going to
+talk about what you would do
+
+2
+00:00:02,528 --> 00:00:04,322
+with a web page once you've retrieved it
+
+3
+00:00:04,322 --> 00:00:05,801
+in a Python program.
+
+4
+00:00:05,801 --> 00:00:08,328
+Call this web scraping.
+
+5
+00:00:08,328 --> 00:00:10,259
+And so web scraping or web spidering
+
+6
+00:00:10,259 --> 00:00:12,012
+is the act of retrieving a web page,
+
+7
+00:00:12,012 --> 00:00:13,668
+extracting the links from those web page,
+
+8
+00:00:13,668 --> 00:00:15,847
+making a queue of un-retrieved links,
+
+9
+00:00:15,847 --> 00:00:16,846
+and then moving on.
+
+10
+00:00:16,846 --> 00:00:19,092
+And eventually the idea
+is, if you had enough time,
+
+11
+00:00:19,092 --> 00:00:20,921
+energy, bandwidth, and storage,
+
+12
+00:00:20,921 --> 00:00:23,522
+you could find your way
+to most of the web pages
+
+13
+00:00:23,522 --> 00:00:25,565
+on the Internet that
+are pointing, that point
+
+14
+00:00:25,565 --> 00:00:30,038
+point to or are pointed
+to by other web pages.
+
+15
+00:00:30,038 --> 00:00:32,192
+And so, you might have
+all kinds of reasons
+
+16
+00:00:32,192 --> 00:00:33,093
+to scrape data.
+
+17
+00:00:33,093 --> 00:00:35,508
+You might have a blog that you posted.
+
+18
+00:00:35,508 --> 00:00:37,726
+You might have, who knows?
+
+19
+00:00:37,726 --> 00:00:39,729
+Maybe you put some data in a system.
+
+20
+00:00:39,729 --> 00:00:42,379
+Maybe, maybe the system's being shut down
+
+21
+00:00:42,379 --> 00:00:44,779
+because it's being retired.
+
+22
+00:00:44,779 --> 00:00:46,356
+You can do all kinds of things.
+
+23
+00:00:46,356 --> 00:00:47,554
+You can write a little thing.
+
+24
+00:00:47,554 --> 00:00:49,261
+I was talking to somebody who wrote
+
+25
+00:00:49,261 --> 00:00:51,358
+a thing to retrieve something and check
+
+26
+00:00:51,358 --> 00:00:53,643
+and then send a text
+when something changed.
+
+27
+00:00:53,643 --> 00:00:54,692
+All kinds of stuff.
+
+28
+00:00:54,692 --> 00:00:57,126
+Or you might make
+yourself a search engine.
+
+29
+00:00:57,126 --> 00:00:58,972
+But be careful.
+
+30
+00:00:58,972 --> 00:01:02,989
+Not all websites are happy
+about you using a robot
+
+31
+00:01:02,989 --> 00:01:04,644
+to retrieve their content.
+
+32
+00:01:04,644 --> 00:01:06,228
+Some of the websites as we'll see
+
+33
+00:01:06,228 --> 00:01:08,591
+demand that you log in
+and they track what you do
+
+34
+00:01:08,591 --> 00:01:10,245
+and if they think you're
+doing something bad,
+
+35
+00:01:10,245 --> 00:01:12,007
+they will shut your account off.
+
+36
+00:01:12,007 --> 00:01:14,489
+Other websites will
+track what you're doing
+
+37
+00:01:14,489 --> 00:01:18,016
+without you logging in but
+then shut your address off.
+
+38
+00:01:18,016 --> 00:01:19,938
+And so you have to be careful.
+
+39
+00:01:19,938 --> 00:01:20,838
+You should read up.
+
+40
+00:01:20,838 --> 00:01:23,968
+You should figure out what
+sites allow you to scrape them.
+
+41
+00:01:23,968 --> 00:01:25,507
+Now I have some sites that I've set up
+
+42
+00:01:25,507 --> 00:01:26,694
+that you can play with
+
+43
+00:01:26,694 --> 00:01:30,369
+to make it so that it's legit.
+
+44
+00:01:30,369 --> 00:01:33,854
+So, parsing HTML is difficult.
+
+45
+00:01:33,854 --> 00:01:36,245
+Some of the simple examples, you know,
+
+46
+00:01:36,245 --> 00:01:38,255
+you can probably write
+a regular expression
+
+47
+00:01:38,255 --> 00:01:41,689
+or you know, certainly some
+splitting and some whatever,
+
+48
+00:01:41,689 --> 00:01:44,605
+and what you would find is
+you would write that code
+
+49
+00:01:44,605 --> 00:01:46,741
+and you'd retrieve your
+first five web pages
+
+50
+00:01:46,741 --> 00:01:48,301
+and it would seem to work,
+and then it would encounter
+
+51
+00:01:48,301 --> 00:01:52,079
+some really weird but legitimate HTML.
+
+52
+00:01:52,079 --> 00:01:54,508
+Or maybe even sort of
+slightly broken HTML.
+
+53
+00:01:54,508 --> 00:01:56,941
+So the Web is full of broken HTML,
+
+54
+00:01:56,941 --> 00:01:58,489
+and your browsers just look at it and go,
+
+55
+00:01:58,489 --> 00:02:00,207
+"Oh, wow, more broken HTML."
+
+56
+00:02:00,207 --> 00:02:01,943
+But they don't put up error messages,
+
+57
+00:02:01,943 --> 00:02:05,068
+and so people just leave broken pages up.
+
+58
+00:02:05,068 --> 00:02:07,801
+But your Python proram's
+gonna see those broken pages.
+
+59
+00:02:07,801 --> 00:02:08,984
+So what you would do
+is, you would be like,
+
+60
+00:02:08,984 --> 00:02:12,310
+"Oh, here's a new weird
+way to do an anchor tag.
+
+61
+00:02:12,310 --> 00:02:13,943
+"I'll change my code."
+
+62
+00:02:13,943 --> 00:02:16,247
+And then run for another
+hundred pages and like,
+
+63
+00:02:16,247 --> 00:02:18,940
+"Oh no, here's a new weird
+way to do an anchor tag."
+
+64
+00:02:18,940 --> 00:02:21,140
+And the problem is is
+that you're gonna find
+
+65
+00:02:21,140 --> 00:02:23,834
+a lot of different ways
+to mess up an anchor tag.
+
+66
+00:02:23,834 --> 00:02:25,640
+And someone's already done that.
+
+67
+00:02:25,640 --> 00:02:28,093
+There's a software called Beautiful Soup.
+
+68
+00:02:28,093 --> 00:02:30,909
+And we have installation
+instructions on how to use it.
+
+69
+00:02:30,909 --> 00:02:33,949
+And really what it is is
+it's, somebody just spent
+
+70
+00:02:33,949 --> 00:02:37,115
+months figuring out all the
+nasty things that could happen
+
+71
+00:02:37,115 --> 00:02:38,247
+and compensated for it
+
+72
+00:02:38,247 --> 00:02:42,026
+and gave you a nice, wrapped
+interface that just says,
+
+73
+00:02:42,026 --> 00:02:43,385
+"Look, you give me the HTML
+
+74
+00:02:43,385 --> 00:02:45,763
+"and I'll give you back the tags. Okay?"
+
+75
+00:02:45,763 --> 00:02:48,108
+And so it's called Beautiful Soup.
+
+76
+00:02:48,108 --> 00:02:49,983
+And so you have to install this.
+
+77
+00:02:49,983 --> 00:02:52,783
+There's a couple of ways
+that you can install this.
+
+78
+00:02:52,783 --> 00:02:54,704
+If you're good at extending your Python,
+
+79
+00:02:54,704 --> 00:02:58,342
+you can just, you know, extend
+and install Beautiful Soup
+
+80
+00:02:58,342 --> 00:02:59,933
+for all Python programs.
+
+81
+00:02:59,933 --> 00:03:04,010
+If you can't change your
+computer's configuration
+
+82
+00:03:04,010 --> 00:03:06,341
+because you're on a school computer
+
+83
+00:03:06,341 --> 00:03:09,437
+or you're using a USB stick or something,
+
+84
+00:03:09,437 --> 00:03:12,352
+then there's a way to download
+this file that I've created
+
+85
+00:03:12,352 --> 00:03:14,446
+called BS4.zip and so what you do
+
+86
+00:03:14,446 --> 00:03:19,851
+is you end up with your
+file called URLlinks.py
+
+87
+00:03:19,851 --> 00:03:22,188
+and then a little folder called BS4,
+
+88
+00:03:22,188 --> 00:03:24,676
+which is a folder that
+has a bunch of files in it
+
+89
+00:03:24,676 --> 00:03:26,137
+from the zip file.
+
+90
+00:03:26,137 --> 00:03:29,325
+And then you can run it,
+and so it'll pull it in
+
+91
+00:03:29,325 --> 00:03:32,272
+and you'll import from
+BS4, Beautiful Soup,
+
+92
+00:03:32,272 --> 00:03:34,892
+and that's either gonna pull
+it in from the folder you do
+
+93
+00:03:34,892 --> 00:03:39,301
+or if you have installed it
+using the Python installer,
+
+94
+00:03:39,301 --> 00:03:42,702
+it will also just, you don't
+have to put this file in.
+
+95
+00:03:42,702 --> 00:03:43,641
+So it's up to you.
+
+96
+00:03:43,641 --> 00:03:46,376
+You can either do it one of two ways.
+
+97
+00:03:46,376 --> 00:03:48,316
+So this is a little bit of code.
+
+98
+00:03:48,316 --> 00:03:50,818
+Now, Beautiful Soup is a complex library
+
+99
+00:03:50,818 --> 00:03:52,923
+and so just because this looks easy,
+
+100
+00:03:52,923 --> 00:03:54,846
+doing things in Beautiful Soup,
+
+101
+00:03:54,846 --> 00:03:56,872
+you might have to actually read a bit more
+
+102
+00:03:56,872 --> 00:03:58,068
+to figure it out.
+
+103
+00:03:58,068 --> 00:04:00,274
+But we're going to just read this.
+
+104
+00:04:00,274 --> 00:04:04,528
+We're going to
+
+105
+00:04:04,528 --> 00:04:05,760
+import Beautiful Soup,
+
+106
+00:04:05,760 --> 00:04:08,250
+we're gonna ask for a URL right here.
+
+107
+00:04:08,250 --> 00:04:10,648
+We're going to take that
+URL, we're gonna open it.
+
+108
+00:04:10,648 --> 00:04:14,233
+URL open, give the URL
+and read the whole thing.
+
+109
+00:04:14,233 --> 00:04:15,400
+That means we're not writing a loop.
+
+110
+00:04:15,400 --> 00:04:16,399
+We've read the whole thing.
+
+111
+00:04:16,399 --> 00:04:17,781
+That's okay as long as you know
+
+112
+00:04:17,781 --> 00:04:20,416
+that the file's not so large.
+
+113
+00:04:20,416 --> 00:04:23,720
+And then we're going to
+pass the data we got back
+
+114
+00:04:23,720 --> 00:04:24,817
+and this is gonna be bytes,
+
+115
+00:04:24,817 --> 00:04:26,420
+but Beautiful Soup knows all about bytes
+
+116
+00:04:26,420 --> 00:04:27,894
+and all about UTF8
+
+117
+00:04:27,894 --> 00:04:29,781
+and it figures that out, and you just say,
+
+118
+00:04:29,781 --> 00:04:32,265
+"Hey, take that stuff I just got
+
+119
+00:04:32,265 --> 00:04:34,393
+"and tear it apart using HTML.
+
+120
+00:04:34,393 --> 00:04:37,484
+"And give me back an
+object, a Soup object."
+
+121
+00:04:37,484 --> 00:04:39,138
+Now, the Soup object is something
+
+122
+00:04:39,138 --> 00:04:40,729
+that you can run queries against.
+
+123
+00:04:40,729 --> 00:04:43,491
+So it parses it, it deals
+with all the imperfections
+
+124
+00:04:43,491 --> 00:04:49,100
+and inconsistencies in
+this HTML byte array.
+
+125
+00:04:49,100 --> 00:04:50,471
+And it fixes that.
+
+126
+00:04:50,471 --> 00:04:51,304
+It gives that back.
+
+127
+00:04:51,304 --> 00:04:52,491
+And so there's various things you can do,
+
+128
+00:04:52,491 --> 00:04:54,570
+and you got to go look at the
+Beautiful Soup documentation.
+
+129
+00:04:54,570 --> 00:04:57,426
+It could be a whole
+class on Beautiful Soup.
+
+130
+00:04:57,426 --> 00:05:00,961
+So here's a thing you
+can do is this object,
+
+131
+00:05:00,961 --> 00:05:03,207
+you can sort of call it like a function
+
+132
+00:05:03,207 --> 00:05:05,947
+and say, "Hey, give me
+back the anchor tags."
+
+133
+00:05:05,947 --> 00:05:07,536
+And anchor tags, of course, are the tags
+
+134
+00:05:07,536 --> 00:05:13,100
+that say href equals
+blah, blah, blah slash-a.
+
+135
+00:05:13,100 --> 00:05:15,619
+So all of this is an anchor tag.
+
+136
+00:05:15,619 --> 00:05:17,260
+And then we're gonna
+loop through the tags,
+
+137
+00:05:17,260 --> 00:05:19,416
+because there could be more
+than one of those anchor tags
+
+138
+00:05:19,416 --> 00:05:20,638
+in the file.
+
+139
+00:05:20,638 --> 00:05:22,498
+And then we're going
+to pull out that href,
+
+140
+00:05:22,498 --> 00:05:23,511
+and that's what this does.
+
+141
+00:05:23,511 --> 00:05:24,483
+We're gonna loop through all the tags
+
+142
+00:05:24,483 --> 00:05:26,010
+and print out the href.
+
+143
+00:05:26,010 --> 00:05:28,123
+So if you tell it to go to dr-chuck.com
+
+144
+00:05:28,123 --> 00:05:33,504
+it will tell you the one
+external link in dr-chuck.com.
+
+145
+00:05:33,504 --> 00:05:36,241
+And so, I've got an assignment
+that sort of goes into that
+
+146
+00:05:36,241 --> 00:05:38,199
+in some more detail.
+
+147
+00:05:38,199 --> 00:05:41,354
+But this chapter has been
+
+148
+00:05:41,354 --> 00:05:42,854
+a whole bunch of interesting stuff.
+
+149
+00:05:42,854 --> 00:05:45,621
+We started with the TCP/IP model
+
+150
+00:05:45,621 --> 00:05:47,596
+and talked about sockets
+that are phone calls
+
+151
+00:05:47,596 --> 00:05:49,139
+between computers.
+
+152
+00:05:49,139 --> 00:05:50,952
+And then how applications
+
+153
+00:05:50,952 --> 00:05:52,954
+protocols are developed
+
+154
+00:05:52,954 --> 00:05:55,020
+to say what we say on those phone calls
+
+155
+00:05:55,020 --> 00:05:57,981
+And we've explored then the HTTP protocol,
+
+156
+00:05:57,981 --> 00:06:01,406
+which is probably the most
+likely thing you're going to see.
+
+157
+00:06:01,406 --> 00:06:03,473
+And then we played with
+all this in Python,
+
+158
+00:06:03,473 --> 00:06:06,962
+and saw that Python is
+really good at this.
+
+159
+00:06:06,962 --> 00:06:10,178
+You can write extremely
+simple and small programs
+
+160
+00:06:10,178 --> 00:06:13,955
+to do some extremely
+complex and powerful things.
+
+161
+00:06:13,955 --> 00:06:16,377
+And again, that's why people like Python,
+
+162
+00:06:16,377 --> 00:06:22,583
+is because it makes the complex simple.
+
+163
+00:06:22,583 --> 00:06:25,083
+(light music)
+

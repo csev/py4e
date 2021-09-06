@@ -1,0 +1,1405 @@
+1
+00:00:00,576 --> 00:00:01,982
+- So our last major topic is called
+
+2
+00:00:01,982 --> 00:00:03,567
+many to many relationships.
+
+3
+00:00:03,567 --> 00:00:05,604
+So up to now everything that we've done
+
+4
+00:00:05,604 --> 00:00:07,741
+is what's called a one
+to many relationship,
+
+5
+00:00:07,741 --> 00:00:10,915
+and that is there are many tracks
+
+6
+00:00:10,915 --> 00:00:12,377
+associated with one album.
+
+7
+00:00:12,377 --> 00:00:14,963
+There are many albums
+associated with one artist.
+
+8
+00:00:14,963 --> 00:00:18,115
+There are many tracks
+associated with one genre,
+
+9
+00:00:18,115 --> 00:00:20,228
+and you can think of labeling and as
+
+10
+00:00:20,228 --> 00:00:21,839
+you look at data models they put
+
+11
+00:00:21,839 --> 00:00:24,011
+little labels on each arrow that
+
+12
+00:00:24,011 --> 00:00:25,203
+tell you which end of the arrow
+
+13
+00:00:25,203 --> 00:00:26,856
+is the many and which end of the
+
+14
+00:00:26,856 --> 00:00:29,196
+arrow is the one, and so in this
+
+15
+00:00:29,196 --> 00:00:31,368
+case the Foreign key is pointing to.
+
+16
+00:00:31,368 --> 00:00:33,492
+There are many of these rows over here,
+
+17
+00:00:33,492 --> 00:00:36,038
+many rows that point to one row over here.
+
+18
+00:00:36,038 --> 00:00:38,118
+So it's a many to one relationship.
+
+19
+00:00:38,118 --> 00:00:39,715
+There are various ways, sometimes
+
+20
+00:00:39,715 --> 00:00:42,013
+they'll put two arrows at this end
+
+21
+00:00:42,013 --> 00:00:43,517
+and one arrow at that end, but
+
+22
+00:00:43,517 --> 00:00:45,700
+whatever it is, this kind of thing we've
+
+23
+00:00:45,700 --> 00:00:48,028
+been showing is the many
+to one relationship,
+
+24
+00:00:48,028 --> 00:00:49,874
+and that's probably the most common thing,
+
+25
+00:00:49,874 --> 00:00:53,384
+but there are times when you just can't
+
+26
+00:00:53,384 --> 00:00:57,726
+model things with the
+one to many relationship.
+
+27
+00:00:57,726 --> 00:00:59,962
+So like if you have a mother and children
+
+28
+00:00:59,962 --> 00:01:02,202
+well that's a many to one relationship,
+
+29
+00:01:02,202 --> 00:01:04,605
+and it's just fine and it works fine,
+
+30
+00:01:04,605 --> 00:01:07,950
+but sometimes you have a
+many to many relationship
+
+31
+00:01:07,950 --> 00:01:11,002
+in that there might be many books.
+
+32
+00:01:11,002 --> 00:01:12,483
+One book has many authors and
+
+33
+00:01:12,483 --> 00:01:15,026
+each author has many books so you
+
+34
+00:01:15,026 --> 00:01:17,939
+don't have the one side, there's no one.
+
+35
+00:01:17,939 --> 00:01:20,268
+So you have to end up building
+
+36
+00:01:20,268 --> 00:01:22,147
+a table that what we call, I'll call it
+
+37
+00:01:22,147 --> 00:01:24,296
+a connector table, they
+call it a junction table,
+
+38
+00:01:24,296 --> 00:01:26,739
+on Wikipedia, but we need a little table
+
+39
+00:01:26,739 --> 00:01:29,955
+that allows us to break a
+many to many relationship
+
+40
+00:01:29,955 --> 00:01:32,813
+into into an effect, two
+many to one relationships
+
+41
+00:01:32,813 --> 00:01:34,918
+in a connector table, and so this
+
+42
+00:01:34,918 --> 00:01:36,278
+is a connector table.
+
+43
+00:01:36,278 --> 00:01:38,235
+So you could think of this as, you know,
+
+44
+00:01:38,235 --> 00:01:40,126
+there are many, many links here,
+
+45
+00:01:40,126 --> 00:01:42,408
+but we don't have a way to model
+
+46
+00:01:42,408 --> 00:01:45,346
+the Many over here to here so
+
+47
+00:01:45,346 --> 00:01:47,157
+what you do is you basically say
+
+48
+00:01:47,157 --> 00:01:48,879
+oh there's a lot of these things.
+
+49
+00:01:48,879 --> 00:01:50,633
+There's many that go to the one.
+
+50
+00:01:50,633 --> 00:01:52,253
+The many that go to the one, and
+
+51
+00:01:52,253 --> 00:01:53,984
+then in here you'd sort of create
+
+52
+00:01:53,984 --> 00:01:56,596
+that manyness that you want to create.
+
+53
+00:01:56,596 --> 00:01:58,035
+So it's probably just as easy
+
+54
+00:01:58,035 --> 00:02:00,868
+to look at a sample of this.
+
+55
+00:02:00,868 --> 00:02:04,763
+So let's imagine a
+learning management system
+
+56
+00:02:04,763 --> 00:02:06,505
+where you're taking a class and
+
+57
+00:02:06,505 --> 00:02:08,274
+there's some people that are teachers
+
+58
+00:02:08,274 --> 00:02:09,727
+and som people that are students
+
+59
+00:02:09,727 --> 00:02:13,012
+and many students are
+members of many classes.
+
+60
+00:02:13,012 --> 00:02:15,253
+A student can be part of many classes
+
+61
+00:02:15,253 --> 00:02:17,726
+and a class has many students in it
+
+62
+00:02:17,726 --> 00:02:19,682
+so you can't really find the one end,
+
+63
+00:02:19,682 --> 00:02:21,493
+and so what we do is
+we make a table called
+
+64
+00:02:21,493 --> 00:02:23,392
+membership and in that table
+
+65
+00:02:23,392 --> 00:02:25,397
+of membership we actually often
+
+66
+00:02:25,397 --> 00:02:27,298
+don't put a primary key at all.
+
+67
+00:02:27,298 --> 00:02:30,049
+We simply put in two foreign keys,
+
+68
+00:02:30,049 --> 00:02:31,443
+and if we're going to put a uniqueness
+
+69
+00:02:31,443 --> 00:02:34,502
+constraint, we put a combination of
+
+70
+00:02:34,502 --> 00:02:38,129
+the two foreign keys as
+the uniqueness constraint.
+
+71
+00:02:38,129 --> 00:02:40,963
+So we say there could be duplicate
+
+72
+00:02:40,963 --> 00:02:42,583
+user id's and duplicate course id's
+
+73
+00:02:42,583 --> 00:02:44,452
+but there can only be, you know,
+
+74
+00:02:44,452 --> 00:02:46,443
+user id, course id combinations.
+
+75
+00:02:46,443 --> 00:02:47,523
+That has to be unique.
+
+76
+00:02:47,523 --> 00:02:52,494
+So you can make unique
+be more than one column.
+
+77
+00:02:52,494 --> 00:02:54,528
+And so if you imagine a course table
+
+78
+00:02:54,528 --> 00:02:56,463
+and a user table, there's a user id,
+
+79
+00:02:56,463 --> 00:02:57,984
+the name and email, and the course has
+
+80
+00:02:57,984 --> 00:02:59,602
+a title and an id, and then we
+
+81
+00:02:59,602 --> 00:03:01,076
+have this little table that's just
+
+82
+00:03:01,076 --> 00:03:03,944
+is the connector table that shows the,
+
+83
+00:03:03,944 --> 00:03:07,398
+it points out so we can
+expand this membership.
+
+84
+00:03:07,398 --> 00:03:09,581
+So let's take a look at how that works.
+
+85
+00:03:09,581 --> 00:03:18,413
+So we're going to create some tables...
+
+86
+00:03:18,413 --> 00:03:19,727
+and these are very classic tables
+
+87
+00:03:19,727 --> 00:03:22,404
+because these are the one end of it.
+
+88
+00:03:22,404 --> 00:03:23,901
+So these are the one end of it.
+
+89
+00:03:23,901 --> 00:03:25,847
+So it has a primary key, a title,
+
+90
+00:03:25,847 --> 00:03:28,691
+a logical key, email,
+there's a primary key
+
+91
+00:03:28,691 --> 00:03:30,326
+here for course, and then there's text.
+
+92
+00:03:30,326 --> 00:03:32,192
+So we add this unique to kind of indicate
+
+93
+00:03:32,192 --> 00:03:33,428
+that it is a logical key.
+
+94
+00:03:33,428 --> 00:03:34,723
+We're not even going to allow ourselves
+
+95
+00:03:34,723 --> 00:03:36,851
+to put any duplicates in here.
+
+96
+00:03:36,851 --> 00:03:39,425
+Now that the connector database here
+
+97
+00:03:39,425 --> 00:03:42,500
+is a table member, and it has
+
+98
+00:03:42,500 --> 00:03:45,297
+two foreign keys, user id and course id,
+
+99
+00:03:45,297 --> 00:03:47,591
+and you can model some data here.
+
+100
+00:03:47,591 --> 00:03:49,359
+So I'm going to model role which
+
+101
+00:03:49,359 --> 00:03:50,853
+is going to be zero equals student
+
+102
+00:03:50,853 --> 00:03:53,916
+and one equals instructor, and then
+
+103
+00:03:53,916 --> 00:03:55,027
+I'm going to indicate that the
+
+104
+00:03:55,027 --> 00:03:56,827
+primary key, or uniqueness constraint
+
+105
+00:03:56,827 --> 00:04:00,565
+is the combination of the
+user id and a course id.
+
+106
+00:04:00,565 --> 00:04:02,161
+Now when we say the primary key
+
+107
+00:04:02,161 --> 00:04:05,499
+it both limits our ability to
+
+108
+00:04:05,499 --> 00:04:07,427
+insert duplicates but it also
+
+109
+00:04:07,427 --> 00:04:09,081
+allows the database to optimize it
+
+110
+00:04:09,081 --> 00:04:10,937
+scanning because it knows that that
+
+111
+00:04:10,937 --> 00:04:12,964
+combination is always unique and so
+
+112
+00:04:12,964 --> 00:04:15,449
+it can organize its disk structure
+
+113
+00:04:15,449 --> 00:04:18,238
+and storage structure to understand
+
+114
+00:04:18,238 --> 00:04:20,353
+how to look things up more efficiently
+
+115
+00:04:20,353 --> 00:04:21,962
+and knowing that once it's found
+
+116
+00:04:21,962 --> 00:04:23,524
+a user id, course id combination
+
+117
+00:04:23,524 --> 00:04:24,741
+it doesn't have to look any farther
+
+118
+00:04:24,741 --> 00:04:25,833
+because they're unique, and so
+
+119
+00:04:25,833 --> 00:04:27,587
+all of these contracts that we add
+
+120
+00:04:27,587 --> 00:04:30,252
+speed things up, save storage, and
+
+121
+00:04:30,252 --> 00:04:31,874
+makes things more efficient, but in ways
+
+122
+00:04:31,874 --> 00:04:34,426
+we don't always know
+exactly how they happen,
+
+123
+00:04:34,426 --> 00:04:38,286
+and so let's go ahead and make these.
+
+124
+00:04:38,286 --> 00:04:40,559
+Let's go ahead and make these guys.
+
+125
+00:04:40,559 --> 00:04:43,621
+I think I will start with a new database.
+
+126
+00:04:43,621 --> 00:04:49,010
+I'm going to call it LMS for
+Learning Management System.
+
+127
+00:04:49,010 --> 00:04:52,226
+No I don't really want to do that one,
+
+128
+00:04:52,226 --> 00:04:55,051
+and so I'm going to not create the table.
+
+129
+00:04:55,051 --> 00:04:57,402
+I'm going to do everything in SQL,
+
+130
+00:04:57,402 --> 00:04:59,666
+and so let me see if
+it's in my cheat sheet.
+
+131
+00:04:59,666 --> 00:05:01,520
+No that's not in my cheat sheet,
+
+132
+00:05:01,520 --> 00:05:03,377
+so I'll have to fix the
+cheat sheet again for you.
+
+133
+00:05:03,377 --> 00:05:04,637
+By the time you see the cheat sheet
+
+134
+00:05:04,637 --> 00:05:06,313
+all these things will be in there.
+
+135
+00:05:06,313 --> 00:05:07,819
+So I'm going to go in here and
+
+136
+00:05:07,819 --> 00:05:12,521
+I'm going to grab create table user.
+
+137
+00:05:12,521 --> 00:05:14,256
+Actually, I'm going to grab them all.
+
+138
+00:05:14,256 --> 00:05:17,000
+Watch this.
+
+139
+00:05:17,000 --> 00:05:19,026
+Grab them all.
+
+140
+00:05:19,026 --> 00:05:20,903
+Highlight all of these.
+
+141
+00:05:20,903 --> 00:05:23,120
+Go over to my SQL browser.
+
+142
+00:05:23,120 --> 00:05:25,100
+Blast them all in, and then I'll
+
+143
+00:05:25,100 --> 00:05:27,193
+put a semicolon at the end of
+
+144
+00:05:27,193 --> 00:05:31,258
+each one of the statements,
+
+145
+00:05:31,258 --> 00:05:35,691
+and I want to run them.
+
+146
+00:05:35,691 --> 00:05:38,620
+So did I, does it look good?
+
+147
+00:05:38,620 --> 00:05:39,768
+Yep, yep, yep.
+
+148
+00:05:39,768 --> 00:05:41,331
+So I've got a course.
+
+149
+00:05:41,331 --> 00:05:43,269
+I've got membership, two foreign keys,
+
+150
+00:05:43,269 --> 00:05:46,416
+and I've got user, so that all looks good.
+
+151
+00:05:46,416 --> 00:05:47,484
+Okay?
+
+152
+00:05:47,484 --> 00:05:53,236
+So now we're going to have
+to insert some data in.
+
+153
+00:05:53,236 --> 00:05:55,518
+Now we're going to insert
+from the outside in,
+
+154
+00:05:55,518 --> 00:05:56,406
+and so we're just going to put
+
+155
+00:05:56,406 --> 00:05:57,926
+the name and email, the id will
+
+156
+00:05:57,926 --> 00:06:00,580
+be automatically assigned for the users,
+
+157
+00:06:00,580 --> 00:06:02,043
+and we're going to do the same thing
+
+158
+00:06:02,043 --> 00:06:03,754
+and the id and the courses
+
+159
+00:06:03,754 --> 00:06:05,531
+will be automatically assigned.
+
+160
+00:06:05,531 --> 00:06:09,919
+So let me just grab all of this stuff.
+
+161
+00:06:09,919 --> 00:06:12,126
+Go into SQL, that has the semicolons
+
+162
+00:06:12,126 --> 00:06:13,373
+at the end already for me.
+
+163
+00:06:13,373 --> 00:06:14,779
+Thank you very much.
+
+164
+00:06:14,779 --> 00:06:17,229
+Now I'm going to run it, and if
+
+165
+00:06:17,229 --> 00:06:18,930
+I take a look at my data, now
+
+166
+00:06:18,930 --> 00:06:20,851
+I've got primary keys for the courses
+
+167
+00:06:20,851 --> 00:06:24,926
+and I've got primary keys for the users,
+
+168
+00:06:24,926 --> 00:06:27,200
+and I've got nothing in
+the membership table,
+
+169
+00:06:27,200 --> 00:06:29,425
+and I have course have to remember
+
+170
+00:06:29,425 --> 00:06:31,225
+what these values are because Jane
+
+171
+00:06:31,225 --> 00:06:34,208
+is one, and Ed is two,
+and Sue is three, right?
+
+172
+00:06:34,208 --> 00:06:38,101
+And Python is one,
+SQL's two, PHP is three,
+
+173
+00:06:38,101 --> 00:06:40,103
+and so when I go into membership
+
+174
+00:06:40,103 --> 00:06:41,534
+I've got two foreign keys here
+
+175
+00:06:41,534 --> 00:06:43,467
+and role and they just have to be
+
+176
+00:06:43,467 --> 00:06:45,875
+for the course, person combination,
+
+177
+00:06:45,875 --> 00:06:48,486
+and so it's a little tricky to
+
+178
+00:06:48,486 --> 00:06:50,509
+figure all of this stuff out, but again
+
+179
+00:06:50,509 --> 00:06:52,198
+these are just numbers and if you
+
+180
+00:06:52,198 --> 00:06:55,123
+look at these numbers,
+user id, course id, role.
+
+181
+00:06:55,123 --> 00:06:57,225
+Well user id one is in course one.
+
+182
+00:06:57,225 --> 00:06:59,477
+User id is in course as the teacher.
+
+183
+00:06:59,477 --> 00:07:02,222
+User id is in course one as the student,
+
+184
+00:07:02,222 --> 00:07:03,378
+et cetera, et cetera, et cetera.
+
+185
+00:07:03,378 --> 00:07:04,573
+So I'm making these connections
+
+186
+00:07:04,573 --> 00:07:06,879
+by just putting these little numbers in
+
+187
+00:07:06,879 --> 00:07:08,974
+and once again, conveniently,
+
+188
+00:07:08,974 --> 00:07:11,921
+I have all of my semicolons
+perfectly in place.
+
+189
+00:07:11,921 --> 00:07:15,020
+So I go to SQL...
+
+190
+00:07:15,020 --> 00:07:17,566
+and then I run that...
+
+191
+00:07:17,566 --> 00:07:19,626
+and then I take, and I look at my
+
+192
+00:07:19,626 --> 00:07:21,548
+membership data and there it is.
+
+193
+00:07:21,548 --> 00:07:23,582
+So two foreign keys and a bit of data
+
+194
+00:07:23,582 --> 00:07:24,900
+modeled at the connection.
+
+195
+00:07:24,900 --> 00:07:26,181
+That's the way we say that.
+
+196
+00:07:26,181 --> 00:07:29,196
+The role is modeled at the connection.
+
+197
+00:07:29,196 --> 00:07:30,792
+So now that we've built
+all of this stuff up
+
+198
+00:07:30,792 --> 00:07:32,574
+we can write some queries that
+
+199
+00:07:32,574 --> 00:07:35,655
+take a look at this, and so what
+
+200
+00:07:35,655 --> 00:07:37,386
+we're going to do is look at who's
+
+201
+00:07:37,386 --> 00:07:40,504
+in what course and what role are they
+
+202
+00:07:40,504 --> 00:07:43,891
+and we're going to sort
+this in a nice way.
+
+203
+00:07:43,891 --> 00:07:45,615
+So let's just take a quick look
+
+204
+00:07:45,615 --> 00:07:47,415
+at the code we're writing.
+
+205
+00:07:47,415 --> 00:07:48,765
+We're going to do a select from
+
+206
+00:07:48,765 --> 00:07:50,768
+three tables, the user name, the
+
+207
+00:07:50,768 --> 00:07:53,760
+member role, the course title.
+
+208
+00:07:53,760 --> 00:07:55,627
+So in effect we're not showing any
+
+209
+00:07:55,627 --> 00:07:57,746
+of the foreign keys or the primary keys.
+
+210
+00:07:57,746 --> 00:07:59,541
+We're going to go from the user table
+
+211
+00:07:59,541 --> 00:08:01,544
+joined to the member table
+joined to the course table.
+
+212
+00:08:01,544 --> 00:08:03,626
+This is pretty easy to write.
+
+213
+00:08:03,626 --> 00:08:04,772
+You know there are three tables
+
+214
+00:08:04,772 --> 00:08:05,809
+you want to go across.
+
+215
+00:08:05,809 --> 00:08:09,555
+The on clause is also
+very easy to write, right?
+
+216
+00:08:09,555 --> 00:08:12,166
+The on clause models
+each of these connections
+
+217
+00:08:12,166 --> 00:08:16,039
+where the member's user id...
+
+218
+00:08:16,039 --> 00:08:17,639
+is equal
+
+219
+00:08:17,639 --> 00:08:21,239
+to the user's id and where the member's
+
+220
+00:08:21,239 --> 00:08:24,344
+course id is equal to the course id.
+
+221
+00:08:24,344 --> 00:08:26,517
+So we're going to concatenate all
+
+222
+00:08:26,517 --> 00:08:27,910
+three of these tables together
+
+223
+00:08:27,910 --> 00:08:30,566
+but we're only going to
+keep rows where it matters.
+
+224
+00:08:30,566 --> 00:08:33,715
+Now this role doesn't participate,
+
+225
+00:08:33,715 --> 00:08:35,480
+but we're going to print that out,
+
+226
+00:08:35,480 --> 00:08:37,226
+and we're going to order it by
+
+227
+00:08:37,226 --> 00:08:39,860
+the course title, first, and then
+
+228
+00:08:39,860 --> 00:08:42,008
+the member role, second, and the
+
+229
+00:08:42,008 --> 00:08:56,476
+the name, third, and so let's run that.
+
+230
+00:08:56,476 --> 00:08:57,625
+So we've reconnected it.
+
+231
+00:08:57,625 --> 00:08:59,513
+So Ed's the teacher of the PHP class.
+
+232
+00:08:59,513 --> 00:09:00,944
+Sue is the student in the PHP class.
+
+233
+00:09:00,944 --> 00:09:02,843
+Jane is the teacher in the Python class.
+
+234
+00:09:02,843 --> 00:09:05,265
+Ed's a student and Sue's a
+student in the Python class.
+
+235
+00:09:05,265 --> 00:09:07,355
+Ed's the teacher in the SQL class
+
+236
+00:09:07,355 --> 00:09:10,279
+and Jane is the student in the SQL class,
+
+237
+00:09:10,279 --> 00:09:13,430
+and so we have many people, there
+
+238
+00:09:13,430 --> 00:09:15,093
+are many students in many classes
+
+239
+00:09:15,093 --> 00:09:17,413
+and so we have modeled that, but
+
+240
+00:09:17,413 --> 00:09:19,967
+we have modeled that
+with this sort of table,
+
+241
+00:09:19,967 --> 00:09:21,215
+and if you look at a piece of
+
+242
+00:09:21,215 --> 00:09:22,495
+software that I've written called
+
+243
+00:09:22,495 --> 00:09:24,735
+Tsugi which is a stand alone learning
+
+244
+00:09:24,735 --> 00:09:26,332
+management system, that's built
+
+245
+00:09:26,332 --> 00:09:27,864
+with learning tools, you will see
+
+246
+00:09:27,864 --> 00:09:29,720
+in anything we're in membership
+
+247
+00:09:29,720 --> 00:09:32,717
+or we have a...
+
+248
+00:09:32,717 --> 00:09:33,879
+we have a user table.
+
+249
+00:09:33,879 --> 00:09:36,056
+We have a context which
+is also the course table,
+
+250
+00:09:36,056 --> 00:09:37,396
+and then we have a membership table,
+
+251
+00:09:37,396 --> 00:09:39,173
+and look, here's these foreign keys.
+
+252
+00:09:39,173 --> 00:09:40,636
+It's kind of like that's the many side,
+
+253
+00:09:40,636 --> 00:09:42,604
+that's the one side, many to one,
+
+254
+00:09:42,604 --> 00:09:45,471
+and so this, you know, this is now
+
+255
+00:09:45,471 --> 00:09:48,504
+in effect a many to many between
+
+256
+00:09:48,504 --> 00:09:50,045
+these two but then it's modeled
+
+257
+00:09:50,045 --> 00:09:53,272
+as a series of many to one, many to one,
+
+258
+00:09:53,272 --> 00:09:54,896
+relationships, and you see this
+
+259
+00:09:54,896 --> 00:09:56,987
+all of the time in all kinds of things
+
+260
+00:09:56,987 --> 00:09:59,507
+where membership or other kinds of things
+
+261
+00:09:59,507 --> 00:10:03,985
+are necessary in many
+to one or many to many.
+
+262
+00:10:03,985 --> 00:10:07,605
+So, with all of that,
+there's so much to learn.
+
+263
+00:10:07,605 --> 00:10:10,589
+It's both easy and
+complex at the same time.
+
+264
+00:10:10,589 --> 00:10:11,814
+It's easy when someone shows you
+
+265
+00:10:11,814 --> 00:10:13,311
+how to do it, but at some point
+
+266
+00:10:13,311 --> 00:10:15,064
+you will learn how to
+build database models
+
+267
+00:10:15,064 --> 00:10:16,914
+and you'll realize oh it wasn't so bad.
+
+268
+00:10:16,914 --> 00:10:18,452
+It takes a while to get used to them.
+
+269
+00:10:18,452 --> 00:10:22,478
+This really just is quick walk.
+
+270
+00:10:22,478 --> 00:10:26,161
+The bottom line is, what we just did
+
+271
+00:10:26,161 --> 00:10:29,972
+seems like it was, while that's nice,
+
+272
+00:10:29,972 --> 00:10:31,277
+do you really have to do that?
+
+273
+00:10:31,277 --> 00:10:32,919
+And the answer is, if you're going to
+
+274
+00:10:32,919 --> 00:10:34,934
+scale at all, you absolutely have to
+
+275
+00:10:34,934 --> 00:10:36,676
+because you simply can't read
+
+276
+00:10:36,676 --> 00:10:38,433
+and write data sequentially.
+
+277
+00:10:38,433 --> 00:10:40,525
+You can't read through, update one
+
+278
+00:10:40,525 --> 00:10:42,212
+little piece of data in a file
+
+279
+00:10:42,212 --> 00:10:43,338
+by reading all the way through
+
+280
+00:10:43,338 --> 00:10:44,798
+and then writing a new copy of the file.
+
+281
+00:10:44,798 --> 00:10:47,793
+That could take seconds in a system
+
+282
+00:10:47,793 --> 00:10:49,457
+like an online system you get a
+
+283
+00:10:49,457 --> 00:10:51,472
+hundredth of a second to
+do something like that
+
+284
+00:10:51,472 --> 00:10:53,260
+and the databases make it so that happens
+
+285
+00:10:53,260 --> 00:10:54,779
+at a thousandth of a second.
+
+286
+00:10:54,779 --> 00:10:56,917
+So ultimately you simply have to
+
+287
+00:10:56,917 --> 00:10:57,952
+take advantage of this.
+
+288
+00:10:57,952 --> 00:11:00,448
+You just can't, if you're
+going to modify data,
+
+289
+00:11:00,448 --> 00:11:01,968
+you can read data from flat files,
+
+290
+00:11:01,968 --> 00:11:03,530
+but even if you're going
+to read a lot of data,
+
+291
+00:11:03,530 --> 00:11:05,670
+if it's big, it slows it down terribly.
+
+292
+00:11:05,670 --> 00:11:09,033
+So it might seem like there's a trade off,
+
+293
+00:11:09,033 --> 00:11:10,686
+that you could debate
+whether this is worth it,
+
+294
+00:11:10,686 --> 00:11:12,892
+but if you're going to
+deal with a lot of data,
+
+295
+00:11:12,892 --> 00:11:14,661
+you've got no choice.
+
+296
+00:11:14,661 --> 00:11:17,742
+It's really not as much
+a trade off as you think.
+
+297
+00:11:17,742 --> 00:11:21,556
+So this has been a quick
+run up through databases.
+
+298
+00:11:21,556 --> 00:11:23,717
+We talked a little bit about indexes.
+
+299
+00:11:23,717 --> 00:11:24,896
+There are constraints.
+
+300
+00:11:24,896 --> 00:11:26,673
+We talked a little bit
+about the not, null stuff.
+
+301
+00:11:26,673 --> 00:11:27,909
+We've talked about that,
+
+302
+00:11:27,909 --> 00:11:29,870
+the uniqueness, that's a constraint.
+
+303
+00:11:29,870 --> 00:11:32,390
+Another whole area is what's called
+
+304
+00:11:32,390 --> 00:11:34,387
+transactions, and that's the locking
+
+305
+00:11:34,387 --> 00:11:36,615
+a little area so you can read an area,
+
+306
+00:11:36,615 --> 00:11:38,178
+then lock it, and update it to
+
+307
+00:11:38,178 --> 00:11:39,763
+make sure nobody else reads it,
+
+308
+00:11:39,763 --> 00:11:41,452
+and so they make sure they either
+
+309
+00:11:41,452 --> 00:11:45,051
+get the version before you looked at it,
+
+310
+00:11:45,051 --> 00:11:47,099
+or before you changed it,
+or after you change it.
+
+311
+00:11:47,099 --> 00:11:49,799
+So that's how you make sure you can't
+
+312
+00:11:49,799 --> 00:11:53,973
+do things, having to do with bank account
+
+313
+00:11:53,973 --> 00:11:56,933
+balances, and get yourself in trouble.
+
+314
+00:11:56,933 --> 00:11:58,542
+So these are a lot of SQL.
+
+315
+00:11:58,542 --> 00:11:59,517
+It's really fascinating.
+
+316
+00:11:59,517 --> 00:12:01,894
+SQL is a fascinating thing to use
+
+317
+00:12:01,894 --> 00:12:05,345
+and learn and performance tune and enjoy.
+
+318
+00:12:05,345 --> 00:12:08,811
+So relational databases are cool.
+
+319
+00:12:08,811 --> 00:12:10,082
+This gets us started.
+
+320
+00:12:10,082 --> 00:12:14,033
+The big thing is don't allow replication
+
+321
+00:12:14,033 --> 00:12:15,359
+vertically of string data.
+
+322
+00:12:15,359 --> 00:12:16,798
+Pull that out into a separate table,
+
+323
+00:12:16,798 --> 00:12:18,510
+establish a primary key, and then
+
+324
+00:12:18,510 --> 00:12:21,088
+have foreign keys that
+point to that primary key.
+
+325
+00:12:21,088 --> 00:12:23,641
+It is not just how much data you store,
+
+326
+00:12:23,641 --> 00:12:25,407
+it's sort of a compression way
+
+327
+00:12:25,407 --> 00:12:26,597
+as a way of compressing data.
+
+328
+00:12:26,597 --> 00:12:29,841
+You might think strings
+take no data but they do.
+
+329
+00:12:29,841 --> 00:12:31,752
+Numbers take a lot less data and it's
+
+330
+00:12:31,752 --> 00:12:33,440
+both how much data that's stored
+
+331
+00:12:33,440 --> 00:12:35,331
+but also how much data has to be scanned,
+
+332
+00:12:35,331 --> 00:12:38,334
+and that way joins work.
+
+333
+00:12:38,334 --> 00:12:39,740
+That's part of the magic of why
+
+334
+00:12:39,740 --> 00:12:42,373
+Oracle's such a successful company.
+
+335
+00:12:42,373 --> 00:12:44,047
+It's a bit of an art form and it's
+
+336
+00:12:44,047 --> 00:12:46,164
+something that you can
+work your whole life
+
+337
+00:12:46,164 --> 00:12:51,292
+and always get better at.
+
+338
+00:12:51,292 --> 00:12:53,792
+(Metal music)
+
