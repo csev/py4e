@@ -4,8 +4,9 @@ Things left to do:
 1. book.php
 2. srts
 3. tools/pythonauto/
-4. book3/
-5. Quizs
+4. code3/
+5. book3/
+6. Quizs
 
 if can be changed:
 -----------------
