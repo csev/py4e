@@ -95,7 +95,7 @@
                                         <a href="https://py4e.pl/translations/PL/py4e-pl-latest.epub" target="_blank">EPUB</a>,
                                         <a href="https://py4e.pl/translations/PL/py4e-pl-latest.mobi" target="_blank">MOBI</a>
                                 </li>
-                                <li class="menu-text"><a href="https://github.com/andre-wojtowicz/py4e-pl" target="_blank">Github Repository</a> /li>
+                                <li class="menu-text"><a href="https://github.com/andre-wojtowicz/py4e-pl" target="_blank">Github Repository</a> </li>
                                 <li>
                                         Contributors: <a href="https://github.com/andre-wojtowicz" target="_blank">Andrzej Wójtowicz</a> 
                                         (Adam Mickiewicz University in Poznań, Poland)</li>
