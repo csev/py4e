@@ -3,11 +3,15 @@ Things left to do:
 
 1. [book.php](book.php)
 2. srts
-   * [Chapter 1 part 2](../srt/gr/PY4E - Introduction (Chapter 1 Part 2) - VQZTZsXk8sA.srt)
-   * [Chapter 1 Part 3](../srt/gr/PY4E - Introduction (Chapter 1 Part 3) - LLzFNlCjTSo.srt)  
-   * [Chapter 1 Part 4](../srt/gr/PY4E - Introduction (Chapter 1 Part 4) - gsry2SYOFCw.srt)
-   * [Chapter 2 Part 1](../srt/gr/PY4E - Introduction (Chapter 2 Part 1) - 7KHdV6FSpo8.srt)
-   * [Chapter_2_Part_2](../srt/gr/PY4E - Introduction (Chapter 2 Part 2) - kefrGMAglGs)
+   [Chapter 1 part 2](../srt/gr/PY4E - Introduction (Chapter 1 Part 2) - VQZTZsXk8sA.srt)
+   
+   [Chapter 1 Part 3](../srt/gr/PY4E - Introduction (Chapter 1 Part 3) - LLzFNlCjTSo.srt)  
+   
+   [Chapter 1 Part 4](../srt/gr/PY4E - Introduction (Chapter 1 Part 4) - gsry2SYOFCw.srt)
+   
+   [Chapter 2 Part 1](../srt/gr/PY4E - Introduction (Chapter 2 Part 1) - 7KHdV6FSpo8.srt)
+   
+   [Chapter_2_Part_2](../srt/gr/PY4E - Introduction (Chapter 2 Part 2) - kefrGMAglGs)
 5. tools/pythonauto/
 6. code3/
 7. book3/
