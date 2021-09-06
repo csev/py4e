@@ -1,7 +1,7 @@
 Things left to do:
 =================
 
-1. [book.php](book.php)
+1. ~~[book.php](book.php)~~
 2. **srts**
 5. tools/pythonauto/
 6. code3/
