@@ -26,7 +26,7 @@
         <p>
         Άλλα περιβάλλοντα Python που παρέχονται από cloud περιλαμβάνουν
             <a href="http://trinket.io">Trinket</a>,
-            <a href="http://c9.io">Cloud9</a>, or
+            <a href="http://c9.io">Cloud9</a>, ή
             <a href="http://codeanywhere.com">CodeAnywhere</a>.
         </p>
 
