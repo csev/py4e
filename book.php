@@ -18,11 +18,14 @@
                 Μεταφράσεις του Βιβλίου:
         </p>
         <ul>
-                <li>Ελληνικά - Σε εξέλιξη
+                <li>Ελληνικά - Python για Ολους
                         <ul>
                                 <li>
                                         <a href="lectures3/gr" target="_blank">Ελληνική έκδοση των διαφανειών</a> από την 
                                         <a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kirourtidou</a>
+                                </li>
+                                <li>
+                                        Βιβλίο, βαθμολογητές, πόροι και ιστότοπος - Σε εξέλιξη
                                 </li>
                         </ul>
                 </li>
