@@ -17,6 +17,7 @@ if can be changed:
    3. "Check Code"
    4. "Reset Code"
    5. Text in *i*
+
 2. On lessons screen the words:
    1. videos
    2. slides
@@ -26,5 +27,6 @@ if can be changed:
    6. Previous
    7. Next
    8. All
+
 3.Login screen 
    
