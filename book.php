@@ -18,17 +18,6 @@
                 Μεταφράσεις του Βιβλίου:
         </p>
         <ul>
-                <li>Ελληνικά - Python για Ολους
-                        <ul>
-                                <li>
-                                        <a href="lectures3/gr" target="_blank">Ελληνική έκδοση των διαφανειών</a> από την 
-                                        <a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kirourtidou</a>
-                                </li>
-                                <li>
-                                        Βιβλίο, βαθμολογητές, πόροι και ιστότοπος - Σε εξέλιξη
-                                </li>
-                        </ul>
-                </li>
                 <li>
                         Αγγλικά - <a href="https://amzn.to/29w0lsX" target="_blank">Python for Everbody: Exploring Data in Python3</a>
                         <ul class="menu vertical nested is-active">
@@ -49,6 +38,17 @@
        <li class="menu-text"><a href="trinket3" target="_blank">Interactive HTML from Trinket.io</a></li>
 -->
                                 <li class="menu-text"><a href="https://books.trinket.io/pfe/index.html" target="_blank">Διαδραστικό HTML από Trinket.io</a></li>
+                        </ul>
+                </li>
+                <li>Ελληνικά - Python για Ολους
+                        <ul>
+                                <li>
+                                        <a href="lectures3/gr" target="_blank">Ελληνική έκδοση των διαφανειών</a> από την 
+                                        <a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kirourtidou</a>
+                                </li>
+                                <li>
+                                        Βιβλίο, βαθμολογητές, πόροι και ιστότοπος - Σε εξέλιξη
+                                </li>
                         </ul>
                 </li>
                 <li> Ισπανικά - <a href="https://amzn.to/3axKzHv" target="_blank">Python para todos: Explorando la información con Python 3</a>
