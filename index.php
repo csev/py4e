@@ -41,6 +41,7 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] ==
 </center>
 <?php
     return;
+?>
 }
 
 <?php
