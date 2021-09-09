@@ -91,10 +91,9 @@ Polish -
 <a href="https://amzn.to/38M2zjt" target="_blank">Python dla wszystkich: Odkrywanie danych z Python 3</a>
 (<a href="https://www.amazon.pl/gp/product/8396017603" target="_blank">from Amazon.pl</a> and
 <a href="https://www.amazon.de/gp/product/8396017603" target="_blank">from Amazon.de</a>)
-     <ul class="menu vertical nested is-active">
+<ul>
 <li>
-Translated book, autograders, resources, and web site at
-<a href="https://py4e.pl/" target="blank">https://py4e.pl</a>
+<a href="https://py4e.pl/" target="blank">Polish verson of web site - py4e.pl</a>
 </li>
             <li class="menu-text">
                 <a href="https://py4e.pl/html3">HTML</a>,
@@ -108,6 +107,47 @@ Translated book, autograders, resources, and web site at
     </li>
 </ul>
 </li>
+<li>
+Greek
+<ul>
+<li>
+<a href="https://gr.py4e.com/">Greek version of the web site - gr.py4e.org</a>
+</li>
+<li>
+<a href="https://github.com/csev-gr/py4e" target="_blank">Github repository</a>
+</li>
+<li>
+Thanks to:
+<a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kirourtidou</a>
+</li>
+</ul>
+</li>
+<li> German
+<ul>
+<li>
+       Free: <a href="http://do1.dr-chuck.com/pythonlearn/DE_de/pythonlearn.pdf" target="_blank">PDF</a>,
+       <a href="http://do1.dr-chuck.com/pythonlearn/DE_de/pythonlearn.epub" target="_blank">EPUB</a>
+</li>
+<li>
+<a href="https://github.com/fh-swf-hgi/py4e/" target="_blank">Book source on github</a>,
+(Thanks to
+<a href="https://github.com/hgiefers" target="_blank">Heiner Giefers</a>
+and
+<a href="https://github.com/feberts" target="_blank">feberts</a>)
+</li>
+     </ul>
+  </li>
+  <li>
+    Russian 
+    <ul>
+<li><a href="https://dmkpress.com" target="_blank">DMK Press</a>
+is working on a commercial translation of the book and will provide a free PDF for this site when it is completed.</li>
+    <li><a href="lectures3/ru/index.htm" target="_blank">Russian versions of the slides</a> from
+<a href="https://www.linkedin.com/in/violetta-fomkina-9451372/" target="_blank">Violetta Fomkina</a>.
+</li>
+</ul>
+</li>
+
   <li> Korean (commercial translation)
 <a href="http://www.yes24.com/Product/Goods/77401048?Acode=101" target="_blank">데이터를 다루며 배우는 파이썬</a>
   </li>
@@ -128,24 +168,6 @@ https://www.bilibili.com/video/av46649799</a>
   </li>
      </ul>
   </li>
-  <li>
-    Russian - In progress
-    <ul>
-<li><a href="https://dmkpress.com" target="_blank">DMK Press</a>
-is working on a commercial translation of the book and will provide a free PDF for this site when it is completed.</li>
-    <li><a href="lectures3/ru/index.htm" target="_blank">Russian versions of the slides</a> from
-<a href="https://www.linkedin.com/in/violetta-fomkina-9451372/" target="_blank">Violetta Fomkina</a>.
-</li>
-</ul>
-
-<li>
-Greek - In progress
-<ul>
-<li>
-<a href="lectures3/gr" target="_blank">Greek versions of the slides</a> from 
-<a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kirourtidou</a></li>
-</ul>
-</li>
 </ul>
 <p>
 If you are insterested in starting a translation of the book, I have some
