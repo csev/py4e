@@ -39,7 +39,7 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] ==
         <a href="https://www.cc4e.com" target="_blank">CC4e</a>
     </p>
     <p style="font-size:70%">
-        Οποιαδήποτε πρόταση-διόρθωση είναι καλοδεχούμενη και μπορείτε να επικοινωνήσετε μαζί μου στο <a href="mailto:dinakiourtidou1@gmail.com">Κωνσταντία Κιουρτίδου</a>.
+        Οποιαδήποτε πρόταση-διόρθωση είναι καλοδεχούμενη και μπορείτε να επικοινωνήσετε μαζί μου στο <a href="mailto:dinakiourtidou1@gmail.com?subject = Feedback&body = Message">Κωνσταντία Κιουρτίδου</a>.
     </p>
 </div>
 <script language="javascript">
