@@ -18,8 +18,8 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] ==
         του Charles R. Severance, γνωστού και ως <br><a href="http://www.dr-chuck.com/" target="_blank">Dr-Chuck</a>.
     </p>
     <p style="font-size: 18; color: red;">
-        <img src="undercon.jpg" alt="developer typing by a \'under constraction\' sign" width="300" height="150"
-        Προς το παρόν τελεί υπό κατασκευή
+        <img src="undercon.jpg" alt="developer typing by a \'under constraction\' sign" width="300" height="150"><br>
+        <b>Προς το παρόν τελεί υπό κατασκευή</b>
     </p>
     <p>
         Αν θέλετε να περιηγηθείτε στην υπό κατασκευή σελίδα θα πρέπει να πληκτρολογήσετε έναν <b>κωδικό</b>!
