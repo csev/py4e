@@ -1,4 +1,52 @@
 <?php
+if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] == 'py4e') ) {
+    setCookie('secret', '42', time() + 15 * 3600 * 24);
+    header("Location: index.php");
+    return;
+} else if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
+?>
+<body style="font-family: sans-serif,Courier,monospace; width: 80%; max-width:650px;margin-left: auto; margin-right: auto;">
+<center>
+<h1 style="color:#0D47A1;">py4e - GR<br/>Python για Όλους</h1>
+<form method="post">
+    <input type="text" name="secret">
+    <input type="submit" value="Unlock">
+</form>
+<div style="padding: bottom 10px; line-height: 1.6; letter-spacing: 0.1em;">
+    <p>
+        Η παρούσα σελίδα αποτελεί μετάφραση του επιτυχυμένου μαθήματος <a href="https://www.py4e.com" target=target="_blank">Python for Everybody</a>
+        του Charles R. Severance, γνωστού και ως <br><a href="http://www.dr-chuck.com/" target="_blank">Dr-Chuck</a>.
+    </p>
+    <p style="font-size: 18; color: red;">
+        <img src="undercon.jpg" alt="developer typing by a \'under constraction\' sign" width="300" height="150"
+        Προς το παρόν τελεί υπό κατασκευή
+    </p>
+    <p>
+        Αν θέλετε να περιηγηθήτε στην υποκατασκευή σελίδα θα πρέπει να πληκτρολογήσετε έναν <b>κωδικό</b>!
+        (βλέπε <a href="https://www.cc4e.com" target="_blank">CC4e</a>).<br>
+        Ο κωδικός είναι σχετικός με τη σελίδα (δυό γράμματα, όλα κι όλα ή εναλλακτικά τέσσερα).
+    </p>
+    <p>
+        <strong>Προσέξτε λίγο τον τίτλο!!</strong>
+    </p>
+        Αν πάλι βαριέστε τις δοκιμές μπορείτε να απολαύσετε μαθήματα του Dr. Chuck (στα αγγλικά)
+        στους παρακάτω συνδέσμου: <br>
+        <a href="https://www.py4e.com" target="_blank">Python</a>,
+        <a href="https://www.dj4e.com" target="_blank">Django</a>,
+        <a href="https://www.wa4e.com" target="_blank">PHP</a>, and
+        <a href="https://www.pg4e.com" target="_blank">PostgreSQL</a>).<br>
+        ή να ρίξετε μια ματιά στο <b>νέο μάθημά</b> του (επίσης υπο κατασκευή) το
+        <a href="https://www.cc4e.com" target="_blank">CC4e</a>
+    </p>
+</div>
+<script language="javascript">
+    console.log('Ο κωδικός είναι σχετικός με τη γλώσσα της παρούσας σελίδας');
+    console.log('αλλά και με το περιεχόμενο του μαθήματος');
+</script>
+</center>
+<?php
+    return;
+}
 use \Tsugi\Core\LTIX;
 use \Tsugi\UI\Output;
 
