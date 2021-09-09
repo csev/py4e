@@ -14,7 +14,7 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] ==
 </form>
 <div style="padding: bottom 10px; line-height: 1.6; letter-spacing: 0.1em;">
     <p>
-        Η παρούσα σελίδα αποτελεί μετάφραση του επιτυχυμένου μαθήματος <a href="https://www.py4e.com" target=target="_blank">Python for Everybody</a>
+        Η παρούσα σελίδα αποτελεί μετάφραση του επιτυχημένου μαθήματος <a href="https://www.py4e.com" target=target="_blank">Python for Everybody</a>
         του Charles R. Severance, γνωστού και ως <br><a href="http://www.dr-chuck.com/" target="_blank">Dr-Chuck</a>.
     </p>
     <p style="font-size: 18; color: red;">
@@ -22,7 +22,7 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] ==
         Προς το παρόν τελεί υπό κατασκευή
     </p>
     <p>
-        Αν θέλετε να περιηγηθήτε στην υποκατασκευή σελίδα θα πρέπει να πληκτρολογήσετε έναν <b>κωδικό</b>!
+        Αν θέλετε να περιηγηθείτε στην υπό κατασκευή σελίδα θα πρέπει να πληκτρολογήσετε έναν <b>κωδικό</b>!
         (βλέπε <a href="https://www.cc4e.com" target="_blank">CC4e</a>).<br>
         Ο κωδικός είναι σχετικός με τη σελίδα (δυό γράμματα, όλα κι όλα ή εναλλακτικά τέσσερα).
     </p>
@@ -35,7 +35,7 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] ==
         <a href="https://www.dj4e.com" target="_blank">Django</a>,
         <a href="https://www.wa4e.com" target="_blank">PHP</a>, and
         <a href="https://www.pg4e.com" target="_blank">PostgreSQL</a>).<br>
-        ή να ρίξετε μια ματιά στο <b>νέο μάθημά</b> του (επίσης υπο κατασκευή) το
+        ή να ρίξετε μια ματιά στο <b>νέο μάθημά</b> του (επίσης υπό κατασκευή) το
         <a href="https://www.cc4e.com" target="_blank">CC4e</a>
     </p>
     <p style="font-size:70%;padding-top: 20px;letter-spacing: normal">
