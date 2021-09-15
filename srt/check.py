@@ -23,7 +23,18 @@ checkfile = language + '/_index.json'
 chkstr = open(checkfile).read()
 chks = json.loads(chkstr)
 
+newsrts = list()
+for filename in os.listdir(language):
+    f = os.path.join(language, filename)
+    # checking if it is a file
+    if f.find('_index.json') >= 0  : continue
+    if os.path.isfile(f):
+        if f not in chks:
+            print('NEW', f)
+            newsrts.append(f) 
+
 chksum = dict()
+updates = list()
 same = 0
 diff = 0
 
@@ -54,9 +65,11 @@ for (vid, chk) in chks.items() :
     # {'text': "one of Python for Everybody. I'm Charles", 'start': 1.89, 'duration': 1.92}
 
     print()
-    print('Need to upload',filename) 
+    print('UPDATE',filename) 
     chksum[filename] = ymd
+    updates.append(filename)
 
 print()
-print("To upload", diff)
-print("Unchanged", same)
+print('Unchanged', same)
+print('New files', len(newsrts))
+print('Updated files', len(updates))
