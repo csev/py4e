@@ -29,8 +29,12 @@ for item in playlist_item_by_playlist.items :
     title = item.snippet.title
     videoId = item.snippet.resourceId.videoId
 
+    # transcript_list = YouTubeTranscriptApi.list_transcripts(videoId)
+    # for transcript in transcript_list:
+        # print(transcript.video_id, transcript.language, transcript.language_code)
+
     try:
-        captions = YouTubeTranscriptApi.get_transcript(videoId)
+        captions = YouTubeTranscriptApi.get_transcript(videoId, languages=[language])
     except:
         print('No Captions for', videoId, title)
         continue
