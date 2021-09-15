@@ -2,15 +2,18 @@
 # https://pypi.org/project/python-youtube/
 
 import math
+import json
+import hashlib
 from youtube_transcript_api import YouTubeTranscriptApi
 from pyyoutube import Api
 from secret import api_key
 
-api = Api(api_key=api_key());
+api = Api(api_key=api_key())
+language = 'en'
 
 # 1.89 -> 00:00:01,890
 def time2str(ticks) :
-    frac = int( ticks * 1000 ) % 1000;
+    frac = int( ticks * 1000 ) % 1000
     ticks = int(math.floor(ticks))
     hh = int(math.floor(ticks / (60*60)))
     ticks = ticks - (hh*60*60)
@@ -21,20 +24,28 @@ def time2str(ticks) :
 
 playlist_item_by_playlist = api.get_playlist_items(playlist_id="PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p", count=None)
 
+chksum = dict()
+
 for item in playlist_item_by_playlist.items :
     title = item.snippet.title
     videoId = item.snippet.resourceId.videoId
     print(videoId, title)
-    filename = 'en/' + title.replace('/','-') + ' - ' + videoId + '.srt'
-    print(filename) 
 
     try:
         captions = YouTubeTranscriptApi.get_transcript(videoId)
     except:
         continue
 
+    jsonstr = json.dumps(captions)
+    md = hashlib.md5(jsonstr.encode()).hexdigest()
+
+
     # {'text': 'Hello everybody and welcome to chapter', 'start': 0.0, 'duration': 1.89}
     # {'text': "one of Python for Everybody. I'm Charles", 'start': 1.89, 'duration': 1.92}
+
+    filename = language + '/' + title.replace('/','-') + ' - ' + videoId + '.srt'
+    print(filename, md) 
+    chksum[filename] = md
 
     with open(filename, "w") as f:
         for i in range(len(captions)):
@@ -62,3 +73,8 @@ for item in playlist_item_by_playlist.items :
     # 00:00:01,890 --> 00:00:03,810
     # one of Python for Everybody. I'm Charles
 
+checkfile = language + '/_index.json'
+chk = json.dumps(chksum,  indent=4)
+text_file = open(checkfile, "w")
+n = text_file.write(chk)
+text_file.close()
