@@ -27,3 +27,7 @@ https://pypi.org/project/python-youtube/
 
 https://www.geeksforgeeks.org/download-youtube-videos-or-whole-playlist-with-python/
 
+https://developers.google.com/youtube/v3/docs/captions/update#usage
+
+https://github.com/youtube/api-samples/blob/master/python/captions.py
+
