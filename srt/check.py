@@ -32,6 +32,8 @@ for (vid, chk) in chks.items() :
     if len(pieces) < 2 : continue
     videoId = pieces[len(pieces)-1]
     filename = vid
+    filestr = open(filename).read()
+    filemd = hashlib.md5(filestr.encode()).hexdigest()
 
     try:
         captions = YouTubeTranscriptApi.get_transcript(videoId)
@@ -39,9 +41,9 @@ for (vid, chk) in chks.items() :
         print('No Captions for', videoId, vid)
         continue
 
-    jsonstr = json.dumps(captions)
-    md = hashlib.md5(jsonstr.encode()).hexdigest()
-    if md == chk : 
+    output = util.caption2srt(captions)
+    ymd = hashlib.md5(output.encode()).hexdigest()
+    if ymd == filemd : 
         same = same + 1
         chksum[filename] = chk
         print('.', end='', flush=True)
@@ -53,10 +55,10 @@ for (vid, chk) in chks.items() :
 
     print()
     print(filename) 
-    chksum[filename] = md
+    chksum[filename] = ymd
 
     with open(filename, "w") as f:
-        f.write(util.caption2srt(captions))
+        f.write(output)
 
     # 1
     # 00:00:00,000 --> 00:00:01,890

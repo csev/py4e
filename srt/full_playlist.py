@@ -35,18 +35,17 @@ for item in playlist_item_by_playlist.items :
         print('No Captions for', videoId, title)
         continue
 
-    jsonstr = json.dumps(captions)
-    md = hashlib.md5(jsonstr.encode()).hexdigest()
-
     # {'text': 'Hello everybody and welcome to chapter', 'start': 0.0, 'duration': 1.89}
     # {'text': "one of Python for Everybody. I'm Charles", 'start': 1.89, 'duration': 1.92}
 
+    output = util.caption2srt(captions)
+    md = hashlib.md5(output.encode()).hexdigest()
     filename = language + '/' + title.replace('/','-') + ' - ' + videoId + '.srt'
     print(filename, md) 
     chksum[filename] = md
 
     with open(filename, "w") as f:
-        f.write(util.caption2srt(captions))
+        f.write(output)
 
     # 1
     # 00:00:00,000 --> 00:00:01,890
