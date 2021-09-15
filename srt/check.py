@@ -45,7 +45,7 @@ for (vid, chk) in chks.items() :
     ymd = hashlib.md5(output.encode()).hexdigest()
     if ymd == filemd : 
         same = same + 1
-        chksum[filename] = chk
+        chksum[filename] = ymd
         print('.', end='', flush=True)
         continue
     diff = diff + 1
@@ -54,26 +54,9 @@ for (vid, chk) in chks.items() :
     # {'text': "one of Python for Everybody. I'm Charles", 'start': 1.89, 'duration': 1.92}
 
     print()
-    print(filename) 
+    print('Need to upload',filename) 
     chksum[filename] = ymd
 
-    with open(filename, "w") as f:
-        f.write(output)
-
-    # 1
-    # 00:00:00,000 --> 00:00:01,890
-    # Hello everybody and welcome to chapter
-    #
-    # 2
-    # 00:00:01,890 --> 00:00:03,810
-    # one of Python for Everybody. I'm Charles
-
-checkfile = language + '/_index.json'
-chk = json.dumps(chksum,  indent=4)
-text_file = open(checkfile, "w")
-n = text_file.write(chk)
-text_file.close()
-
 print()
-print("Changed", diff)
+print("To upload", diff)
 print("Unchanged", same)
