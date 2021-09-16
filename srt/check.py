@@ -9,6 +9,7 @@ import os
 from youtube_transcript_api import YouTubeTranscriptApi
 from pyyoutube import Api
 import util
+import string
 
 if len(sys.argv) != 2 : 
     print('Please add the language')
@@ -32,16 +33,17 @@ for filename in os.listdir(language):
     if len(pieces) < 2 : continue
     videoId = pieces[len(pieces)-1]
     filestr = open(f).read()
-    filemd = hashlib.md5(filestr.encode()).hexdigest()
+    filemd = util.hash_srt(filestr)
 
     try:
         captions = YouTubeTranscriptApi.get_transcript(videoId, languages=[language])
+        # print(captions)
     except:
         newsrts.append(f)
         continue
 
     output = util.caption2srt(captions)
-    ymd = hashlib.md5(output.encode()).hexdigest()
+    ymd = util.hash_srt(output)
     if ymd == filemd : 
         same = same + 1
         print('.', end='', flush=True)

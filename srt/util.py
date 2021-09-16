@@ -2,6 +2,9 @@
 # https://pypi.org/project/python-youtube/
 
 import math
+import sys
+import re
+import hashlib
 
 # 1.89 -> 00:00:01,890
 def time2str(ticks) :
@@ -41,3 +44,22 @@ def caption2srt(captions) :
         retval = retval + "\n"
 
     return retval
+
+# https://stackoverflow.com/questions/92438/stripping-non-printable-characters-from-a-string-in-python
+# build a table mapping all non-printable characters to None
+
+def make_printable(a_string):
+    """Replace non-printable characters in a string."""
+
+    filtered_characters = list(s for s in a_string if s.isprintable())
+    filtered_string = ''.join(filtered_characters)
+    return filtered_string
+
+
+def hash_srt(srt) :
+    srt = make_printable(srt)
+    srt = srt.replace(' ', '')
+    srt = re.sub(r':[0-9][0-9],[0-9]+', '', srt)
+    hval = hashlib.md5(srt.encode()).hexdigest()
+    return hval
+
