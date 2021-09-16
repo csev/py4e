@@ -55,7 +55,6 @@ def make_printable(a_string):
     filtered_string = ''.join(filtered_characters)
     return filtered_string
 
-
 def hash_srt(srt) :
     srt = make_printable(srt)
     srt = srt.replace(' ', '')
@@ -63,3 +62,8 @@ def hash_srt(srt) :
     hval = hashlib.md5(srt.encode()).hexdigest()
     return hval
 
+def get_videoid(f) :
+    pieces = f.replace('.srt', '').split()
+    if len(pieces) < 2 : return ''
+    videoId = pieces[len(pieces)-1]
+    return videoId

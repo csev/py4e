@@ -29,9 +29,8 @@ for filename in os.listdir(language):
     if f.find('_index.json') >= 0  : continue
     if not os.path.isfile(f) : continue
 
-    pieces = f.replace('.srt', '').split()
-    if len(pieces) < 2 : continue
-    videoId = pieces[len(pieces)-1]
+    videoId = util.get_videoid(f)
+    if len(videoId) < 5 : continue
     filestr = open(f).read()
     filemd = util.hash_srt(filestr)
 
@@ -58,5 +57,11 @@ print()
 print('Unchanged', same)
 for filename in newsrts:
     print('NEW', filename)
+    videoId = util.get_videoid(filename)
+    print('open https://studio.youtube.com/video/'+videoId+'/translations');
+    print()
 for filename in updates:
     print('UPDATE', filename)
+    videoId = util.get_videoid(filename)
+    print('open https://studio.youtube.com/video/'+videoId+'/translations');
+    print()
