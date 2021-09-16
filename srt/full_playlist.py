@@ -23,8 +23,6 @@ if not os.path.isdir(language) :
 
 playlist_item_by_playlist = api.get_playlist_items(playlist_id="PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p", count=None)
 
-chksum = dict()
-
 for item in playlist_item_by_playlist.items :
     title = item.snippet.title
     videoId = item.snippet.resourceId.videoId
@@ -46,7 +44,6 @@ for item in playlist_item_by_playlist.items :
     md = hashlib.md5(output.encode()).hexdigest()
     filename = language + '/' + title.replace('/','-') + ' - ' + videoId + '.srt'
     print(filename, md) 
-    chksum[filename] = md
 
     with open(filename, "w") as f:
         f.write(output)
@@ -59,8 +56,3 @@ for item in playlist_item_by_playlist.items :
     # 00:00:01,890 --> 00:00:03,810
     # one of Python for Everybody. I'm Charles
 
-checkfile = language + '/_index.json'
-chk = json.dumps(chksum,  indent=4)
-text_file = open(checkfile, "w")
-n = text_file.write(chk)
-text_file.close()
