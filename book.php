@@ -118,7 +118,7 @@ Greek
 </li>
 <li>
 Thanks to:
-<a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kirourtidou</a>
+<a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kiourtidou</a>
 </li>
 </ul>
 </li>
