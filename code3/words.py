@@ -1,6 +1,6 @@
 όνομα = input('Εισάγετε αρχείο:')
 handle = open(όνομα, 'r')
-counts = dict()
+πλήθη = dict()
 
 for γραμμή in handle:
     λέξεις = γραμμή.split()
