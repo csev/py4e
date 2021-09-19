@@ -10,7 +10,7 @@ for γραμμή in handle:
 maxπλήθος = None
 maxλέξη = None
 for λέξη, πλήθος in list(πλήθη.items()):
-    if bigcount is None or πλήθος > maxπλήθος:
+    if maxπλήθος is None or πλήθος > maxπλήθος:
         maxλέξη = λέξη
         maxπλήθος = πλήθος
 
