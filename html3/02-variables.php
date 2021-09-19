@@ -154,75 +154,75 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="variables-expressions-and-statements">Variables, expressions, and statements</h1>
-<h2 id="values-and-types">Values and types</h2>
-<p>  </p>
-<p>A <em>value</em> is one of the basic things a program works with, like a letter or a number. The values we have seen so far are 1, 2, and “Hello, World!”</p>
-<p>These values belong to different <em>types</em>: 2 is an integer, and “Hello, World!” is a <em>string</em>, so called because it contains a “string” of letters. You (and the interpreter) can identify strings because they are enclosed in quotation marks.</p>
+<h1 id="μεταβλητές-εκφράσεις-και-εντολές">Μεταβλητές, εκφράσεις και εντολές</h1>
+<h2 id="τιμές-και-τύποι">Τιμές και τύποι</h2>
+<p>   </p>
+<p>Μια <em>τιμή</em>, όπως ένα γράμμα ή ένας αριθμός, είναι ένα από τα βασικά στοιχεία με τα οποία λειτουργεί ένα πρόγραμμα. Οι τιμές που έχουμε δει μέχρι τώρα είναι 1, 2 και “Γειά σου κόσμε!”</p>
+<p>Αυτές οι τιμές ανήκουν σε διαφορετικούς <em>τύπους</em>: το 2 είναι ένας ακέραιος αριθμός και το “Γειά σου κόσμε!” είναι μια <em>συμβολοσειρά</em>, που ονομάζεται επειδή περιέχει μια “σειρά” συμβόλων και γραμμάτων. Μπορείτε (εσείς αλλά και ο διερμηνέας) να εντοπίσετε συμβολοσειρές επειδή περικλείονται σε εισαγωγικά.</p>
 <p></p>
-<p>The <code>print</code> statement also works for integers. We use the <code>python</code> command to start the interpreter.</p>
+<p>Η εντολή <code>print</code> λειτουργεί και για ακέραιους αριθμούς. Χρησιμοποιούμε την εντολή <code>python</code> για να ξεκινήσουμε τον διερμηνέα.</p>
 <pre class="python"><code>python
 &gt;&gt;&gt; print(4)
 4</code></pre>
-<p>If you are not sure what type a value has, the interpreter can tell you.</p>
+<p>Εάν δεν είστε σίγουροι τι τύπου είναι μια τιμή, ο διερμηνέας μπορεί να σας πει.</p>
 <pre class="python trinket" height="160"><code>&gt;&gt;&gt; type(&#39;Hello, World!&#39;)
 &lt;class &#39;str&#39;&gt;
 &gt;&gt;&gt; type(17)
 &lt;class &#39;int&#39;&gt;</code></pre>
-<p>Not surprisingly, strings belong to the type <code>str</code> and integers belong to the type <code>int</code>. Less obviously, numbers with a decimal point belong to a type called <code>float</code>, because these numbers are represented in a format called <em>floating point</em>.</p>
+<p>Δεν αποτελεί έκπληξη το γεγονός ότι οι συμβολοσειρές ανήκουν στον τύπο <code>str</code> και οι ακέραιοι στον τύπο<code>int</code>. Λιγότερο προφανώς, οι αριθμοί με υποδιαστολή ανήκουν σε έναν τύπο που ονομάζεται <code>float</code>, επειδή αυτοί οι αριθμοί αντιπροσωπεύονται από μια μορφή που ονομάζεται <em>floating point</em>.</p>
 <p>      </p>
 <pre class="python trinket" height="120"><code>&gt;&gt;&gt; type(3.2)
 &lt;class &#39;float&#39;&gt;</code></pre>
-<p>What about values like “17” and “3.2”? They look like numbers, but they are in quotation marks like strings.</p>
+<p>Τι γίνεται με τις τιμές όπως το “17” και το “3.2”; Μοιάζουν με αριθμούς, αλλά περικλείονται με εισαγωγικά σαν συμβολοσειρές.</p>
 <p></p>
 <pre class="python trinket" height="160"><code>&gt;&gt;&gt; type(&#39;17&#39;)
 &lt;class &#39;str&#39;&gt;
 &gt;&gt;&gt; type(&#39;3.2&#39;)
 &lt;class &#39;str&#39;&gt;</code></pre>
-<p>They’re strings.</p>
-<p>When you type a large integer, you might be tempted to use commas between groups of three digits, as in 1,000,000. This is not a legal integer in Python, but it is legal:</p>
+<p>Είναι συμβολοσειρές.</p>
+<p>Όταν πληκτρολογείτε έναν μεγάλο ακέραιο, μπορεί να μπείτε στον πειρασμό να χρησιμοποιήσετε διαχωριστικά χιλιάδων, όπως στο 1.000.000. Αυτός δεν είναι ένας έγκυρος ακέραιος αριθμός στην Python, αποδεκτό είναι το:</p>
 <pre class="python trinket" height="120"><code>&gt;&gt;&gt; print(1,000,000)
 1 0 0</code></pre>
-<p>Well, that’s not what we expected at all! Python interprets 1,000,000 as a comma-separated sequence of integers, which it prints with spaces between.</p>
+<p>Ε, αυτό δεν το περιμέναμε καθόλου! Η Python ερμηνεύει το 1,000,000 ως μια ακολουθία ακέραιων διαχωρισμένων με κόμμα, την οποία εκτυπώνει με κενά μεταξύ τους.</p>
 <p>  </p>
-<p>This is the first example we have seen of a semantic error: the code runs without producing an error message, but it doesn’t do the “right” thing.</p>
-<h2 id="variables">Variables</h2>
+<p>Αυτό είναι το πρώτο παράδειγμα που έχουμε δει για ένα σημασιολογικό σφάλμα: ο κώδικας τρέχει χωρίς να παράγει μήνυμα σφάλματος, αλλά δεν κάνει το “σωστό”.</p>
+<h2 id="μεταβλητές">Μεταβλητές</h2>
 <p>  </p>
-<p>One of the most powerful features of a programming language is the ability to manipulate <em>variables</em>. A variable is a name that refers to a value.</p>
-<p>An <em>assignment statement</em> creates new variables and gives them values:</p>
-<pre class="python"><code>&gt;&gt;&gt; message = &#39;And now for something completely different&#39;
+<p>Ένα από τα πιο ισχυρά χαρακτηριστικά μιας γλώσσας προγραμματισμού είναι η δυνατότητα χειρισμού <em>μεταβλητών</em>. Μια μεταβλητή είναι ένα όνομα που αναφέρεται σε μια τιμή.</p>
+<p>Μια <em>εντολή εκχώρησης</em> δημιουργεί νέες μεταβλητές και τους δίνει τιμές:</p>
+<pre class="python"><code>&gt;&gt;&gt; message = &#39;Και τώρα κάτι εντελώς διαφορετικό&#39;
 &gt;&gt;&gt; n = 17
 &gt;&gt;&gt; pi = 3.1415926535897931</code></pre>
-<p>This example makes three assignments. The first assigns a string to a new variable named <code>message</code>; the second assigns the integer 17 to <code>n</code>; the third assigns the (approximate) value of <span class="math inline"><em>π</em></span> to <code>pi</code>.</p>
-<p>To display the value of a variable, you can use a print statement:</p>
+<p>Αυτό το παράδειγμα υλοποιεί τρεις αναθέσεις. Η πρώτη αναθέτει μια συμβολοσειρά σε μια νέα μεταβλητή με το όνομα <code>message</code>, η δεύτερη αναθέτει τον ακέραιο 17 στο <code>n</code> και η τρίτη αναθέτει την τιμή (κατά προσέγγιση) του <em>π</em> στο <code>pi</code>.</p>
+<p>Για να εμφανίσετε την τιμή μιας μεταβλητής, μπορείτε να χρησιμοποιήσετε μια εντολή print:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(n)
 17
 &gt;&gt;&gt; print(pi)
 3.141592653589793</code></pre>
-<p>The type of a variable is the type of the value it refers to.</p>
+<p>Ο τύπος μιας μεταβλητής είναι ο τύπος της τιμής στην οποία αναφέρεται.</p>
 <pre class="python"><code>&gt;&gt;&gt; type(message)
 &lt;class &#39;str&#39;&gt;
 &gt;&gt;&gt; type(n)
 &lt;class &#39;int&#39;&gt;
 &gt;&gt;&gt; type(pi)
 &lt;class &#39;float&#39;&gt;</code></pre>
-<h2 id="variable-names-and-keywords">Variable names and keywords</h2>
+<h2 id="ονόματα-μεταβλητών-και-δεσμευμένες-λέξεις">Ονόματα μεταβλητών και δεσμευμένες λέξεις</h2>
 <p></p>
-<p>Programmers generally choose names for their variables that are meaningful and document what the variable is used for.</p>
-<p>Variable names can be arbitrarily long. They can contain both letters and numbers, but they cannot start with a number. It is legal to use uppercase letters, but it is a good idea to begin variable names with a lowercase letter (you’ll see why later).</p>
-<p>The underscore character ( _ ) can appear in a name. It is often used in names with multiple words, such as <code>my_name</code> or <code>airspeed_of_unladen_swallow</code>. Variable names can start with an underscore character, but we generally avoid doing this unless we are writing library code for others to use.</p>
-<p></p>
-<p>If you give a variable an illegal name, you get a syntax error:</p>
+<p>Οι προγραμματιστές επιλέγουν, γενικά, ονόματα για τις μεταβλητές τους που έχουν νόημα και δηλώνουν τον λόγο για τον οποίο χρησιμοποιείται η μεταβλητή.</p>
+<p>Τα ονόματα των μεταβλητών μπορεί να είναι αυθαίρετα μεγάλα. Μπορούν να περιέχουν γράμματα και αριθμούς, αλλά δεν μπορούν να ξεκινήσουν με αριθμό. Είναι αποδεκτό να χρησιμοποιείτε κεφαλαία γράμματα, αλλά είναι καλή ιδέα να αρχίζετε τα ονόματα μεταβλητών με πεζό γράμμα (θα δείτε το γιατί αργότερα).</p>
+<p>Σε ένα όνομα μπορεί να χρησιμοποιηθεί και ο χαρακτήρας υπογράμμισης (_) ή κάτω παύλα. Συχνά χρησιμοποιείται σε ονόματα με πολλές λέξεις, όπως <code>my_name</code> ή <code>airspeed_of_unladen_swallow</code>. Τα ονόματα μεταβλητών μπορούν να ξεκινούν με χαρακτήρα υπογράμμισης, αλλά γενικά αποφεύγουμε να το κάνουμε αυτό, εκτός εάν γράφουμε κώδικα βιβλιοθήκης για χρήση από άλλους.</p>
+<p> </p>
+<p>Εάν δώσετε σε μια μεταβλητή ένα μη αποδεκτό όνομα, προκύπτει σφάλμα σύνταξης:</p>
 <pre class="python trinket" height="450"><code>&gt;&gt;&gt; 76trombones = &#39;big parade&#39;
 SyntaxError: invalid syntax
 &gt;&gt;&gt; more@ = 1000000
 SyntaxError: invalid syntax
 &gt;&gt;&gt; class = &#39;Advanced Theoretical Zymurgy&#39;
 SyntaxError: invalid syntax</code></pre>
-<p><code>76trombones</code> is illegal because it begins with a number. <code>more@</code> is illegal because it contains an illegal character, @. But what’s wrong with <code>class</code>?</p>
-<p>It turns out that <code>class</code> is one of Python’s <em>keywords</em>. The interpreter uses keywords to recognize the structure of the program, and they cannot be used as variable names.</p>
+<p>Το <code>76trombones</code> είναι μη αποδεκτό επειδή αρχίζει με αριθμό. Το <code>more@</code> είναι μη αποδεκτό επειδή περιέχει έναν μη αποδεκτό χαρακτήρα, @. Αλλά ποιο το πρόβλημα με το <code>class</code>;</p>
+<p>Αποδεικνύεται ότι το <code>class</code> είναι μία από τις <em>δεσμευμένες λέξεις</em> της Python. Ο διερμηνέας χρησιμοποιεί δεσμευμένες λέξεις για να αναγνωρίσει τη δομή του προγράμματος και δεν μπορούν να χρησιμοποιηθούν ως ονόματα μεταβλητών.</p>
 <p></p>
-<p>Python reserves 35 keywords:</p>
+<p>Η Python διαθέτει 35 δεσμευμένες λέξεις:</p>
 <pre><code>and       del       from      None      True
 as        elif      global    nonlocal  try
 assert    else      if        not       while
@@ -230,51 +230,51 @@ break     except    import    or        with
 class     False     in        pass      yield
 continue  finally   is        raise     async
 def       for       lambda    return    await</code></pre>
-<p>You might want to keep this list handy. If the interpreter complains about one of your variable names and you don’t know why, see if it is on this list.</p>
-<h2 id="statements">Statements</h2>
-<p>A <em>statement</em> is a unit of code that the Python interpreter can execute. We have seen two kinds of statements: print being an expression statement and assignment.</p>
+<p>Ίσως θα ήταν χρήσιμο να κρατήσετε αυτήν τη λίστα εύκαιρη. Εάν ο διερμηνέας παραπονιέται για ένα από τα ονόματα μεταβλητών σας και δεν ξέρετε γιατί, ελέγξτε αν βρίσκεται σε αυτήν τη λίστα.</p>
+<h2 id="εντολές">Εντολές</h2>
+<p>Μια <em>εντολή</em> είναι μια μονάδα κώδικα που μπορεί να εκτελέσει ο διερμηνέας της Python. Έχουμε συναντήσει δύο είδη εντωλών: την εντολή print και την ανάθεση τιμής.</p>
 <p>  </p>
-<p>When you type a statement in interactive mode, the interpreter executes it and displays the result, if there is one.</p>
-<p>A script usually contains a sequence of statements. If there is more than one statement, the results appear one at a time as the statements execute.</p>
-<p>For example, the script</p>
+<p>Όταν πληκτρολογείτε μια δήλωση σε διαδραστική λειτουργία, ο διερμηνέας την εκτελεί και εμφανίζει το αποτέλεσμα, εάν προκύπτει κάποιο.</p>
+<p>Ένα σενάριο/script περιέχει συνήθως μια ακολουθία εντολών. Εάν υπάρχουν περισσότερες από μία εντολές, τα αποτελέσματα εμφανίζονται ένα κάθε φορά, καθώς εκτελούνται οι εντολές.</p>
+<p>Για παράδειγμα, το script</p>
 <pre class="python"><code>print(1)
 x = 2
 print(x)</code></pre>
-<p>produces the output</p>
+<p>παράγει την έξοδο</p>
 <pre><code>1
 2</code></pre>
-<p>The assignment statement produces no output.</p>
-<h2 id="operators-and-operands">Operators and operands</h2>
+<p>Η εντολή εκχώρησης δεν παράγει έξοδο.</p>
+<h2 id="τελεστές-και-τελεστέοι">Τελεστές και τελεστέοι</h2>
 <p>   </p>
-<p><em>Operators</em> are special symbols that represent computations like addition and multiplication. The values the operator is applied to are called <em>operands</em>.</p>
-<p>The operators <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, and <code>**</code> perform addition, subtraction, multiplication, division, and exponentiation, as in the following examples:</p>
+<p>Οι <em>τελεστές</em> είναι ειδικά σύμβολα που αναπαριστούν υπολογισμούς, όπως της πρόσθεσης και του πολλαπλασιασμού. Οι τιμές στις οποίες εφαρμόζεται ο τελεστής καλούνται <em>τελεστέοι</em>.</p>
+<p>Οι τελεστές <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> και <code>**</code> εκτελούν πρόσθεση, αφαίρεση, πολλαπλασιασμό, διαίρεση και ύψωση σε δύναμη, όπως στα παρακάτω παραδείγματα:</p>
 <pre class="python"><code>20+32
 hour-1
 hour*60+minute
 minute/60
 5**2
 (5+9)*(15-7)</code></pre>
-<p>There has been a change in the division operator between Python 2.x and Python 3.x. In Python 3.x, the result of this division is a floating point result:</p>
+<p>Υπήρξε μια αλλαγή στον τελεστή της διαίρεσης, μεταξύ Python 2.x και Python 3.x. Στην Python 3.x, το αποτέλεσμα αυτής της διαίρεσης είναι float:</p>
 <pre class="python trinket" height="160"><code>&gt;&gt;&gt; minute = 59
 &gt;&gt;&gt; minute/60
 0.9833333333333333</code></pre>
-<p>The division operator in Python 2.0 would divide two integers and truncate the result to an integer:</p>
+<p>Ο τελεστής διαίρεσης στην Python 2.0, όταν διαιρεί δύο ακέραιους αριθμούς περικόπτει το αποτέλεσμα σε ακέραιο:</p>
 <pre class="python"><code>&gt;&gt;&gt; minute = 59
 &gt;&gt;&gt; minute/60
 0</code></pre>
-<p>To obtain the same answer in Python 3.0 use floored ( <code>//</code> integer) division.</p>
+<p>Για να λάβετε την ίδια απάντηση στην Python 3.0, χρησιμοποιήστε τη ευκλείδεια διαίρεση (<code>//</code> integer).</p>
 <pre class="python trinket" height="160"><code>&gt;&gt;&gt; minute = 59
 &gt;&gt;&gt; minute//60
 0</code></pre>
-<p>In Python 3.0 integer division functions much more as you would expect if you entered the expression on a calculator.</p>
-<p>   </p>
-<h2 id="expressions">Expressions</h2>
-<p>An <em>expression</em> is a combination of values, variables, and operators. A value all by itself is considered an expression, and so is a variable, so the following are all legal expressions (assuming that the variable <code>x</code> has been assigned a value):</p>
+<p>Στην Python 3.0, η ακέραιη διαίρεση λειτουργεί πολύ καλύτερα από ό,τι θα περιμένατε εάν εισαγάγατε την έκφραση σε μια αριθμομηχανή.</p>
+<p>     </p>
+<h2 id="εκφράσεις">Εκφράσεις</h2>
+<p>Μια <em>έκφραση</em> είναι ένας συνδυασμός τιμών, μεταβλητών και τελεστών. Μια τιμή, από μόνη της, θεωρείται ως μία έκφραση και το ίδιο και μια μεταβλητή. Έτσι, τα παρακάτω είναι αποδεκτές μορφές εκφράσεων (υποθέτοντας ότι στη μεταβλητή <code>x</code> έχει εκχωρηθεί μία τιμή):</p>
 <p> </p>
 <pre class="python"><code>17
 x
 x + 17</code></pre>
-<p>If you type an expression in interactive mode, the interpreter <em>evaluates</em> it and displays the result:</p>
+<p>Εάν πληκτρολογήσετε μια έκφραση σε διαδραστική λειτουργία, ο διερμηνέας την <em>υπολογίζει</em> και εμφανίζει το αποτέλεσμα:</p>
 <pre class="python"><code>&gt;&gt;&gt; 1 + 1
 2</code></pre>
 <p>But in a script, an expression all by itself doesn’t do anything! This is a common source of confusion for beginners.</p>
