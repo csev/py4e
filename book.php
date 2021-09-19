@@ -108,7 +108,7 @@
                                 </li>
                                 <li class="menu-text"><a href="https://github.com/andre-wojtowicz/py4e-pl" target="_blank">Github Repository</a> </li>
                                 <li>
-                                        Contributors: <a href="https://github.com/andre-wojtowicz" target="_blank">Andrzej Wójtowicz</a> 
+                                        Συντελεστές: <a href="https://github.com/andre-wojtowicz" target="_blank">Andrzej Wójtowicz</a> 
                                         (Adam Mickiewicz University in Poznań, Poland)</li>
                         </ul>
                 </li>
@@ -119,9 +119,22 @@
                                         <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.pdf" target="_blank">PDF</a>,
                                         <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.epub" target="_blank">EPUB</a>
                                 </li>
-                                <li> <a href="https://github.com/RodenLuo/py4e-cn" target="_blank">Ο κώδικάς του βιβλίου στο  github</a> - (Χάρη σε Deng Luo)</li>
+                                <li> <a href="https://github.com/RodenLuo/py4e-cn" target="_blank">Ο κώδικας του βιβλίου στο  github</a> - (Χάρη σε Deng Luo)</li>
                                 <li> Υπάρχει ένα αντίγραφο στην Κίνα των βίντεο διαθέσιμο στη διεύθυνση 
                                         <a href="https://www.bilibili.com/video/av46649799" target="_new">https://www.bilibili.com/video/av46649799</a>
+                                </li>
+                        </ul>
+                </li>
+                <li> German
+                        <ul>
+                                <li>
+                                        Δωρεάν: <a href="http://do1.dr-chuck.com/pythonlearn/DE_de/pythonlearn.pdf" target="_blank">PDF</a>,
+                                         <a href="http://do1.dr-chuck.com/pythonlearn/DE_de/pythonlearn.epub" target="_blank">EPUB</a>
+                                </li>
+                                <li>
+                                        <a href="https://github.com/fh-swf-hgi/py4e/" target="_blank">Ο κώδικας του Βιβλίου στο github</a>,
+                                        (Χάρη στον <a href="https://github.com/hgiefers" target="_blank">Heiner Giefers</a> και
+                                        <a href="https://github.com/feberts" target="_blank">feberts</a>)
                                 </li>
                         </ul>
                 </li>
