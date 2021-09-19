@@ -1,17 +1,17 @@
-name = input('Enter file:')
-handle = open(name, 'r')
+όνομα = input('Εισάγετε αρχείο:')
+handle = open(όνομα, 'r')
 counts = dict()
 
-for line in handle:
-    words = line.split()
-    for word in words:
-        counts[word] = counts.get(word, 0) + 1
+for γραμμή in handle:
+    λέξεις = γραμμή.split()
+    for λέξη in λέξεις:
+        πλήθη[λέξη] = πλήθη.get(λέξη, 0) + 1
 
-bigcount = None
-bigword = None
-for word, count in list(counts.items()):
-    if bigcount is None or count > bigcount:
-        bigword = word
-        bigcount = count
+maxπλήθος = None
+maxλέξη = None
+for λέξη, πλήθος in list(πλήθη.items()):
+    if bigcount is None or πλήθος > maxπλήθος:
+        maxλέξη = λέξη
+        maxπλήθος = πλήθος
 
-print(bigword, bigcount)
+print(maxλέξη, maxπλήθος)
