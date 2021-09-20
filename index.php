@@ -96,7 +96,7 @@ IMS Common Cartridge®, ή να κάνετε αίτηση για
 <li><a href="https://www.edx.org/bio/charles-severance" target="_blank">edX: Python for Everybody</a></li>
 <li><a href="https://www.futurelearn.com/courses/programming-for-everybody-python" target="_blank">FutureLearn: Programming for Everybody (Getting Started with Python)</a></li>
 <li><a href="https://www.youtube.com/watch?v=8DvywoWv6fI" target="_blank">FreeCodeCamp</a></li>
-<li><a href="https://online.umich.edu/series/python-for-everybody/" target="_blank">Free certificates for University of Michgan students and staff</a></li>
+<li><a href="https://online.umich.edu/series/python-for-everybody/" target="_blank">Δωρεάν πιστοποιητικά για φοιτητές και προσωπικό του Πανεπιστημίου του Μίσιγκαν</a></li>
 </ul>
 <p>
 Εάν <a href="tsugi/login.php">συνδεθείτε</a> σε αυτόν τον ιστότοπο
