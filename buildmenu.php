@@ -51,7 +51,7 @@ function buildMenu() {
 
     $imenu = new \Tsugi\UI\Menu();
 
-    $imenu->addLink('Εκπαιδευτής', 'http://www.dr-chuck.com');
+    $imenu->addLink('Εκπαιδευτής', 'http://online.dr-chuck.com');
     $imenu->addLink('Office Hours', 'http://www.dr-chuck.com/office/');
     $set->addRight('Βιβλίο', $R . 'book');
     $set->addRight('Εκπαιδευτής', $imenu);
