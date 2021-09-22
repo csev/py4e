@@ -169,7 +169,7 @@
 &lt;class &#39;str&#39;&gt;
 &gt;&gt;&gt; type(17)
 &lt;class &#39;int&#39;&gt;</code></pre>
-<p>Δεν αποτελεί έκπληξη το γεγονός ότι οι συμβολοσειρές ανήκουν στον τύπο <code>str</code> και οι ακέραιοι στον τύπο<code>int</code>. Λιγότερο προφανώς, οι αριθμοί με υποδιαστολή ανήκουν σε έναν τύπο που ονομάζεται <code>float</code>, επειδή αυτοί οι αριθμοί αντιπροσωπεύονται από μια μορφή που ονομάζεται <em>floating point</em>.</p>
+<p>Δεν αποτελεί έκπληξη το γεγονός ότι οι συμβολοσειρές ανήκουν στον τύπο <code>str</code> και οι ακέραιοι στον τύπο <code>int</code>. Λιγότερο προφανώς, οι αριθμοί με υποδιαστολή ανήκουν σε έναν τύπο που ονομάζεται <code>float</code>, επειδή αυτοί οι αριθμοί αντιπροσωπεύονται από μια μορφή που ονομάζεται <em>floating point</em>.</p>
 <p>      </p>
 <pre class="python trinket" height="120"><code>&gt;&gt;&gt; type(3.2)
 &lt;class &#39;float&#39;&gt;</code></pre>
@@ -223,7 +223,7 @@ SyntaxError: invalid syntax</code></pre>
 <p>Αποδεικνύεται ότι το <code>class</code> είναι μία από τις <em>δεσμευμένες λέξεις</em> της Python. Ο διερμηνέας χρησιμοποιεί δεσμευμένες λέξεις για να αναγνωρίσει τη δομή του προγράμματος και δεν μπορούν να χρησιμοποιηθούν ως ονόματα μεταβλητών.</p>
 <p></p>
 <p>Η Python διαθέτει 35 δεσμευμένες λέξεις:</p>
-<pre><code>and       del       from      None      True
+<pre class="python"><code>and       del       from      None      True
 as        elif      global    nonlocal  try
 assert    else      if        not       while
 break     except    import    or        with
@@ -241,7 +241,7 @@ def       for       lambda    return    await</code></pre>
 x = 2
 print(x)</code></pre>
 <p>παράγει την έξοδο</p>
-<pre><code>1
+<pre class="python"><code>1
 2</code></pre>
 <p>Η εντολή εκχώρησης δεν παράγει έξοδο.</p>
 <h2 id="τελεστές-και-τελεστέοι">Τελεστές και τελεστέοι</h2>
@@ -277,139 +277,137 @@ x + 17</code></pre>
 <p>Εάν πληκτρολογήσετε μια έκφραση σε διαδραστική λειτουργία, ο διερμηνέας την <em>υπολογίζει</em> και εμφανίζει το αποτέλεσμα:</p>
 <pre class="python"><code>&gt;&gt;&gt; 1 + 1
 2</code></pre>
-<p>But in a script, an expression all by itself doesn’t do anything! This is a common source of confusion for beginners.</p>
-<p><strong>Exercise 1: Type the following statements in the Python interpreter to see what they do:</strong></p>
+<p>Αλλά σε ένα script, μια έκαφραση από μόνη της δεν κάνει κάτι! Αυτή είναι μια συνήθης πηγή σύγχυσης για αρχάριους.</p>
+<p><strong>Άσκηση 1: Πληκτρολογήστε τις ακόλουθες εντολές στον διερμηνέα της Python για να δείτε τι κάνουν:</strong></p>
 <pre class="python"><code>5
 x = 5
 x + 1</code></pre>
-<h2 id="order-of-operations">Order of operations</h2>
+<h2 id="προτεραιότητα-τελεστών">Προτεραιότητα τελεστών</h2>
 <p>  </p>
-<p>When more than one operator appears in an expression, the order of evaluation depends on the <em>rules of precedence</em>. For mathematical operators, Python follows mathematical convention. The acronym <em>PEMDAS</em> is a useful way to remember the rules:</p>
+<p>Όταν περισσότεροι από ένας τελεστές εμφανίζονται σε μία έκφραση, η σειρά εκτέλεσης εξαρτάται από τους <em>κανόνες προτεραιότητας</em> των πράξεων. Για τους μαθηματικούς τελεστές, αριθμητικούς, η Python ακολουθεί τη μαθηματική σύμβαση. Το ακρωνύμιο <em>PEMDAS</em> είναι ένας τρόπος για να θυμάστε τον κανόνα:</p>
 <p></p>
 <ul>
-<li><p><em>P</em>arentheses have the highest precedence and can be used to force an expression to evaluate in the order you want. Since expressions in parentheses are evaluated first, <code>2 *     (3-1)</code> is 4, and <code>(1+1)**(5-2)</code> is 8. You can also use parentheses to make an expression easier to read, as in <code>(minute * 100) / 60</code>, even if it doesn’t change the result.</p></li>
-<li><p><em>E</em>xponentiation has the next highest precedence, so <code>2**1+1</code> is 3, not 4, and <code>3*1**3</code> is 3, not 27.</p></li>
-<li><p><em>M</em>ultiplication and <em>D</em>ivision have the same precedence, which is higher than <em>A</em>ddition and <em>S</em>ubtraction, which also have the same precedence. So <code>2*3-1</code> is 5, not 4, and <code>6+4/2</code> is 8, not 5.</p></li>
-<li><p>Operators with the same precedence are evaluated from left to right. So the expression <code>5-3-1</code> is 1, not 3, because the <code>5-3</code> happens first and then <code>1</code> is subtracted from 2.</p></li>
+<li><p><em>P</em>arentheses/Παρενθέσεις, έχουν την υψηλότερη προτεραιότητα και μπορούν να χρησιμοποιηθούν για να αναγκάσετε μια έκφραση να υπολογιστεί με βάση τη σειρά που εσείς επιθυμείτε. Δεδομένου ότι οι εκφράσεις στις παρενθέσεις αξιολογούνται πρώτες, το <code>2*(3-1)</code> είναι 4 και το <code>(1+1) ** (5-2)</code> είναι 8. Μπορείτε επίσης να χρησιμοποιήσετε παρενθέσεις για να κάνετε μια έκφραση πιο εύκολα κατανοητή, όπως στο <code>(λεπτό * 100) / 60</code>, ακόμα κι αν δεν αλλάζει το αποτέλεσμα.</p></li>
+<li><p><em>E</em>xponentiation/Ύψωση σε δύναμη, έχει την επόμενη υψηλότερη προτεραιότητα, οπότε <code>2 ** 1+1</code> κάνει 3, όχι 4, και <code>3*1 ** 3</code> κάνει 3 και όχι 27.</p></li>
+<li><p><em>M</em>ultiplication/Πολλαπλασιασμός και <em>D</em>ivision/Διαίρεση, έχουν την ίδια προτεραιότητα, που είναι υψηλότερη από την <em>A</em>ddition/Πρόσθεση και την <em>S</em>ubtraction/Αφαίρεση, που έχουν επίσης την ίδια προτεραιότητα. Άρα το <code>2*3-1</code> είναι 5, όχι 4, και το <code>6+4/2</code> είναι 8 και όχι 5.</p></li>
+<li><p>Οι τελεστές με την ίδια προτεραιότητα εκτελούνται από αριστερά προς τα δεξιά. Άρα η έκφραση <code>5-3-1</code> κάνει 1 και όχι 3, γιατί το <code>5-3</code> εκτελείται πρώτο και μετά το <code>1</code> αφαιρείται από το 2.</p></li>
 </ul>
-<p>When in doubt, always put parentheses in your expressions to make sure the computations are performed in the order you intend.</p>
-<h2 id="modulus-operator">Modulus operator</h2>
-<p> </p>
-<p>The <em>modulus operator</em> works on integers and yields the remainder when the first operand is divided by the second. In Python, the modulus operator is a percent sign (<code>%</code>). The syntax is the same as for other operators:</p>
-<pre class="python trinket" height="240"><code>&gt;&gt;&gt; quotient = 7 // 3
-&gt;&gt;&gt; print(quotient)
+<p>Όταν έχετε αμφιβολίες, βάζετε πάντα παρενθέσεις στις εκφράσεις σας για να βεβαιωθείτε ότι οι υπολογισμοί εκτελούνται με τη σειρά που θέλετε.</p>
+<h2 id="τελεστής-modulusακέραιο-υπόλοιπο">Τελεστής Modulus/Ακέραιο Υπόλοιπο</h2>
+<p>  </p>
+<p>Ο <em>τελεστής του ακεραίου υπολοίπου</em> εφαρμόζεται σε ακεραίους και επιστρέφει το υπόλοιπο του προκύπτει όταν πρώτος τελεστέος διαιρεθεί με τον δεύτερο. Στην Python, ο τελεστής του ακεραίου υπολοίπου είναι το σύμβολο επί τοις εκατό (<code>%</code>). Η σύνταξη είναι η ίδια όπως και στους υπόλοιπους τελεστές:</p>
+<pre class="python trinket" height="240"><code>&gt;&gt;&gt; πηλίκο = 7 // 3
+&gt;&gt;&gt; print(πηλίκο)
 2
-&gt;&gt;&gt; remainder = 7 % 3
-&gt;&gt;&gt; print(remainder)
+&gt;&gt;&gt; υπόλοιπο = 7 % 3
+&gt;&gt;&gt; print(υπόλοιπο)
 1</code></pre>
-<p>So 7 divided by 3 is 2 with 1 left over.</p>
-<p>The modulus operator turns out to be surprisingly useful. For example, you can check whether one number is divisible by another: if <code>x % y</code> is zero, then <code>x</code> is divisible by <code>y</code>.</p>
+<p>Άρα το 7 διαιρούμενο με το 3 είναι 2 με 1 να περισσεύει.</p>
+<p>Ο τελεστής υπολοίπου αποδεικνύεται εκπληκτικά χρήσιμος. Για παράδειγμα, μπορείτε να ελέγξετε εάν ένας αριθμός διαιρείται με έναν άλλο: αν <code>x % y</code> είναι μηδέν, τότε το <code>x</code> διαιρείται με το <code>y</code>.</p>
 <p></p>
-<p>You can also extract the right-most digit or digits from a number. For example, <code>x % 10</code> yields the right-most digit of <code>x</code> (in base 10). Similarly, <code>x % 100</code> yields the last two digits.</p>
-<h2 id="string-operations">String operations</h2>
+<p>Μπορείτε επίσης να εξαγάγετε το τελευταίο ψηφίο ή τα τελευταίο ψηφία ενός αριθμού. Για παράδειγμα, το <code>x % 10</code> δίνει το τελευταίο ψηφίο του <code>x</code> (στη βάση 10). Ομοίως, το <code>x % 100</code> δίνει τα δύο τελευταία του ψηφία.</p>
+<h2 id="τελεστές-συμβολοσειρών">Τελεστές συμβολοσειρών</h2>
 <p> </p>
-<p>The <code>+</code> operator works with strings, but it is not addition in the mathematical sense. Instead it performs <em>concatenation</em>, which means joining the strings by linking them end to end. For example:</p>
+<p>TΟ τελεστής <code>+</code> λειτουργεί στις συμβολοσειρές, αλλά δεν είναι η πρόσθεση με τη μαθηματική της έννοια. Αντ’ αυτού, εκτελεί <em>συνένωση</em>, που σημαίνει ότι ενώνει τις συμβολοσειρές συνδέοντάς τες την μία μετά την άλλη. Για παράδειγμα:</p>
 <p></p>
-<pre class="python"><code>&gt;&gt;&gt; first = 10
-&gt;&gt;&gt; second = 15
-&gt;&gt;&gt; print(first+second)
+<pre class="python"><code>&gt;&gt;&gt; πρώτο = 10
+&gt;&gt;&gt; δεύτερο = 15
+&gt;&gt;&gt; print(πρώτο+δεύτερο)
 25
-&gt;&gt;&gt; first = &#39;100&#39;
-&gt;&gt;&gt; second = &#39;150&#39;
-&gt;&gt;&gt; print(first + second)
+&gt;&gt;&gt; πρώτο = &#39;100&#39;
+&gt;&gt;&gt; δεύτερο = &#39;150&#39;
+&gt;&gt;&gt; print(πρώτο + δεύτερο)
 100150</code></pre>
-<p>The <code>*</code> operator also works with strings by multiplying the content of a string by an integer. For example:</p>
-<pre class="python"><code>&gt;&gt;&gt; first = &#39;Test &#39;
-&gt;&gt;&gt; second = 3
-&gt;&gt;&gt; print(first * second)
-Test Test Test</code></pre>
-<h2 id="asking-the-user-for-input">Asking the user for input</h2>
+<p>Ο τελεστής <code>*</code> λειτουργεί επίσης με συμβολοσειρές πολλαπλασιάζοντας το περιεχόμενο μιας συμβολοσειράς με έναν ακέραιο. Για παράδειγμα:</p>
+<pre class="python"><code>&gt;&gt;&gt; πρώτο = &#39;Τεστ &#39;
+&gt;&gt;&gt; δεύτερο = 3
+&gt;&gt;&gt; print(πρώτο * δεύτερο)
+Τεστ Τεστ Τεστ</code></pre>
+<h2 id="ζητώντας-είσοδο-από-το-χρήστη">Ζητώντας είσοδο από το χρήστη</h2>
 <p></p>
-<p>Sometimes we would like to take the value for a variable from the user via their keyboard. Python provides a built-in function called <code>input</code> that gets input from the keyboard<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. When this function is called, the program stops and waits for the user to type something. When the user presses <code>Return</code> or <code>Enter</code>, the program resumes and <code>input</code> returns what the user typed as a string.</p>
+<p>Μερικές φορές θέλουμε να πάρουμε την τιμή μιας μεταβλητής από τον χρήστη, μέσω του πληκτρολογίου του. Η Python περιέχει μια ενσωματωμένη συνάρτηση που ονομάζεται <code>input</code> και λαμβάνει είσοδο από το πληκτρολόγιο^[[Στην Python 2.0, αυτή η συνάρτηση ονομαζόταν <code>raw_input</code>.]. Όταν καλείτε αυτή η συνάρτηση, το πρόγραμμα σταματά και περιμένει τον χρήστη να πληκτρολογήσει κάτι. Όταν ο χρήστης πατήσει <code>Return</code> ή <code>Enter</code>, το πρόγραμμα συνεχίζει την εκτέλεσή του και η <code>input</code> επιστρέφει αυτό που ο χρήστης πληκτρολόγησε ως συμβολοσειρά.</p>
 <p></p>
 <pre class="python"><code>&gt;&gt;&gt; inp = input()
 Some silly stuff
 &gt;&gt;&gt; print(inp)
 Some silly stuff</code></pre>
-<p>Before getting input from the user, it is a good idea to print a prompt telling the user what to input. You can pass a string to <code>input</code> to be displayed to the user before pausing for input:</p>
-<p></p>
-<pre class="python"><code>&gt;&gt;&gt; name = input(&#39;What is your name?\n&#39;)
-What is your name?
+<p>Πριν ζητήσουμε είσοδο από τον χρήστη, καλό θα ήταν να εκτυπώσουμε μια προτροπή προς το χρήστη, που να του λέει τι να εισάγει. Μπορείτε να δώσετε μια συμβολοσειρά στο <code>input</code> για να εμφανιστεί στον χρήστη πριν γίνει η παύση για την εισαγωγή:</p>
+<p> </p>
+<pre class="python"><code>&gt;&gt;&gt; όνομα = input(&#39;Πώς σε λένε;\n&#39;)
+Πώς σε λένε;
 Chuck
 &gt;&gt;&gt; print(name)
 Chuck</code></pre>
-<p>The sequence <code>\n</code> at the end of the prompt represents a <em>newline</em>, which is a special character that causes a line break. That’s why the user’s input appears below the prompt.</p>
-<p></p>
-<p>If you expect the user to type an integer, you can try to convert the return value to <code>int</code> using the <code>int()</code> function:</p>
-<pre class="python"><code>&gt;&gt;&gt; prompt = &#39;What...is the airspeed velocity of an unladen swallow?\n&#39;
-&gt;&gt;&gt; speed = input(prompt)
-What...is the airspeed velocity of an unladen swallow?
-17
-&gt;&gt;&gt; int(speed)
-17
-&gt;&gt;&gt; int(speed) + 5
-22</code></pre>
-<p>But if the user types something other than a string of digits, you get an error:</p>
-<pre class="python"><code>&gt;&gt;&gt; speed = input(prompt)
-What...is the airspeed velocity of an unladen swallow?
-What do you mean, an African or a European swallow?
-&gt;&gt;&gt; int(speed)
-ValueError: invalid literal for int() with base 10:</code></pre>
-<p>We will see how to handle this kind of error later.</p>
+<p>Η ακολουθία <code>\n</code> στο τέλος της προτροπής αντιπροσωπεύει μια <em>νέα γραμμή</em>, η οποία είναι ένας ειδικός χαρακτήρας, που προκαλεί αλλαγή γραμμής. Αυτός είναι ο λόγος για τον οποίο η εισαγωγή του χρήστη εμφανίζεται κάτω από την προτροπή.</p>
 <p> </p>
-<h2 id="comments">Comments</h2>
+<p>Εάν ο χρήστης θα πρέπει να πληκτρολογήσει έναν ακέραιο, μπορείτε να δοκιμάσετε να μετατρέψετε την τιμή επιστροφής σε <code>int</code> χρησιμοποιώντας τη συνάρτηση <code>int()</code>:</p>
+<pre class="python"><code>&gt;&gt;&gt; προτροπή = &#39;Με τί...ταχύτητα πετάει ένα χελιδόνι;\n&#39;
+&gt;&gt;&gt; speed = input(προτροπή)
+Με τί...ταχύτητα πετάει ένα χελιδόνι;
+17
+&gt;&gt;&gt; int(ταχύτητα)
+17
+&gt;&gt;&gt; int(ταχύτητα) + 5
+22</code></pre>
+<p>Αλλά αν ο χρήστης πληκτρολογήσει κάτι άλλο, εκτός από μια σειρά ψηφίων, λαμβάνετε μήνυμα λάθους:</p>
+<pre class="python"><code>&gt;&gt;&gt; speed = input(προτροπή)
+Με τί...ταχύτητα πετάει ένα χελιδόνι;
+Τί εννοείς, ένα Αφρικανικό ή Ευρωπαϊκό χελιδόνι;
+&gt;&gt;&gt; int(ταχύτητα)
+ValueError: invalid literal for int() with base 10:</code></pre>
+<p>Θα μάθουμε πως να χειριζόμαστε αυτά τα λάθη αργότερα.</p>
+<p>  </p>
+<h2 id="σχόλια">Σχόλια</h2>
 <p></p>
-<p>As programs get bigger and more complicated, they get more difficult to read. Formal languages are dense, and it is often difficult to look at a piece of code and figure out what it is doing, or why.</p>
-<p>For this reason, it is a good idea to add notes to your programs to explain in natural language what the program is doing. These notes are called <em>comments</em>, and in Python they start with the <code>#</code> symbol:</p>
-<pre class="python"><code># compute the percentage of the hour that has elapsed
-percentage = (minute * 100) / 60</code></pre>
-<p>In this case, the comment appears on a line by itself. You can also put comments at the end of a line:</p>
-<pre class="python"><code>percentage = (minute * 100) / 60     # percentage of an hour</code></pre>
-<p>Everything from the <code>#</code> to the end of the line is ignored; it has no effect on the program.</p>
-<p>Comments are most useful when they document non-obvious features of the code. It is reasonable to assume that the reader can figure out <em>what</em> the code does; it is much more useful to explain <em>why</em>.</p>
-<p>This comment is redundant with the code and useless:</p>
-<pre class="python"><code>v = 5     # assign 5 to v</code></pre>
-<p>This comment contains useful information that is not in the code:</p>
-<pre class="python"><code>v = 5     # velocity in meters/second.</code></pre>
-<p>Good variable names can reduce the need for comments, but long names can make complex expressions hard to read, so there is a trade-off.</p>
-<h2 id="choosing-mnemonic-variable-names">Choosing mnemonic variable names</h2>
+<p>Καθώς τα προγράμματα γίνονται μεγαλύτερα και πιο περίπλοκα, γίνονται πιο δύσκολο να διαβαστούν. Οι επίσημες γλώσσες είναι πυκνές και συχνά είναι δύσκολο να κοιτάξουμε ένα κομμάτι κώδικα και να καταλάβουμε τι κάνει ή γιατί.</p>
+<p>Για το λόγο αυτό, είναι καλή ιδέα να προσθέτετε σημειώσεις στα προγράμματά σας για να εξηγήτε σε φυσική γλώσσα τι κάνει το πρόγραμμα. Αυτές οι σημειώσεις ονομάζονται <em>σχόλια</em> και στην Python ξεκινούν με το σύμβολο <code>#</code>:</p>
+<pre class="python"><code># υπολογίζει το ποσοστό της ώρας που έχει παρέλθει
+ποσοστό = (λεπτά * 100) / 60</code></pre>
+<p>Σε αυτήν την περίπτωση, το σχόλιο εμφανίζεται μόνο του σε μια γραμμή. Μπορείτε επίσης να βάλετε σχόλια στο τέλος μιας γραμμής:</p>
+<pre class="python"><code>ποσοστό = (λεπτά * 100) / 60     # ποσοστό της ώρας</code></pre>
+<p>Ότι γράψετε από το <code>#</code> έως το τέλος της γραμμής αγνοείται, δεν έχει καμία επίδραση στο πρόγραμμα.</p>
+<p>Τα σχόλια είναι πιο χρήσιμα όταν τεκμηριώνουν μη προφανή χαρακτηριστικά του κώδικα. Είναι λογικό να υποθέσουμε ότι ο αναγνώστης μπορεί να καταλάβει <em>τι</em> κάνει ο κώδικας. Είναι πολύ πιο χρήσιμο να εξηγήσουμε το <em>γιατί</em>.</p>
+<p>Αυτό το σχόλιο είναι περιττό και άχρηστο για τον κώδικα:</p>
+<pre class="python"><code>v = 5     # αναθέτει το 5 στο v</code></pre>
+<p>Αυτό το σχόλιο περιέχει χρήσιμες πληροφορίες που δεν περιέχονται στον κώδικα:</p>
+<pre class="python"><code>v = 5     # ταχύτητα σε μέτρα/δευτερόλεπτο.</code></pre>
+<p>Η σωστή επιλογή ονομάτων μεταβλητών μπορεί να μειώσει την ανάγκη για σχόλια, αλλά τα μεγάλα ονόματα μπορούν να κάνουν τις σύνθετες εκφράσεις δυσανάγνωστες, οπότε συμβιβαζόμαστε κατά περίπτωση.</p>
+<h2 id="επιλογή-μνημονικών-ονομάτων-μεταβλητών">Επιλογή μνημονικών ονομάτων μεταβλητών</h2>
 <p></p>
-<p>As long as you follow the simple rules of variable naming, and avoid reserved words, you have a lot of choice when you name your variables. In the beginning, this choice can be confusing both when you read a program and when you write your own programs. For example, the following three programs are identical in terms of what they accomplish, but very different when you read them and try to understand them.</p>
+<p>Εφόσον ακολουθείτε τους απλούς κανόνες ονοματοδοσίας μεταβλητών και αποφεύγετε τις δεσμευμένες λέξεις, έχετε πολλές επιλογές όταν ονομάζετε τις μεταβλητές σας. Στην αρχή, αυτή η επιλογή μπορεί να προκαλέσει σύγχυση, τόσο όταν διαβάζετε ένα πρόγραμμα, όσο και όταν γράφετε τα δικά σας προγράμματα. Για παράδειγμα, τα ακόλουθα τρία προγράμματα είναι πανομοιότυπα ως προς το τι επιτυγχάνουν, αλλά πολύ διαφορετικά όταν τα διαβάζετε και προσπαθείτε να τα καταλάβετε.</p>
 <pre class="python"><code>a = 35.0
 b = 12.50
 c = a * b
 print(c)</code></pre>
-<pre class="python"><code>hours = 35.0
-rate = 12.50
-pay = hours * rate
-print(pay)</code></pre>
+<pre class="python"><code>ώρες = 35.0
+ωρομίσθιο = 12.50
+μισθός = ώρες * ωρομίσθιο
+print(μισθός)</code></pre>
 <pre class="python"><code>x1q3z9ahd = 35.0
 x1q3z9afd = 12.50
 x1q3p9afd = x1q3z9ahd * x1q3z9afd
 print(x1q3p9afd)</code></pre>
-<p>The Python interpreter sees all three of these programs as <em>exactly the same</em> but humans see and understand these programs quite differently. Humans will most quickly understand the <em>intent</em> of the second program because the programmer has chosen variable names that reflect their intent regarding what data will be stored in each variable.</p>
-<p>We call these wisely chosen variable names “mnemonic variable names”. The word <em>mnemonic</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> means “memory aid”. We choose mnemonic variable names to help us remember why we created the variable in the first place.</p>
-<p>While this all sounds great, and it is a very good idea to use mnemonic variable names, mnemonic variable names can get in the way of a beginning programmer’s ability to parse and understand code. This is because beginning programmers have not yet memorized the reserved words (there are only 33 of them) and sometimes variables with names that are too descriptive start to look like part of the language and not just well-chosen variable names.</p>
-<p>Take a quick look at the following Python sample code which loops through some data. We will cover loops soon, but for now try to just puzzle through what this means:</p>
+<p>Ο διερμηνέας της Python βλέπει και τα τρία αυτά προγράμματα <em>ακριβώς τα ίδια</em> αλλά οι άνθρωποι βλέπουν και κατανοούν αυτά τα προγράμματα εντελώς διαφορετικά. Οι άνθρωποι θα καταλάβουν πιο γρήγορα την <em>πρόθεση</em> του δεύτερου προγράμματος, επειδή ο προγραμματιστής έχει επιλέξει ονόματα μεταβλητών που αντικατοπτρίζουν την πρόθεσή του, σχετικά με τα δεδομένα που θα αποθηκευτούν σε κάθε μεταβλητή.</p>
+<p>Ονομάζουμε, αυτά τα σοφά επιλεγμένα ονόματα μεταβλητών, “μνημονικά ονόματα μεταβλητών”. Η λέξη <em>μνημονική</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Σημαίνει “βοήθημα μνήμης”. Επιλέγουμε μνημονικά ονόματα μεταβλητών για να μας βοηθήσουν να θυμηθούμε γιατί δημιουργήσαμε τη μεταβλητή εξαρχής.</p>
+<p>Παρόλο που όλα αυτά ακούγονται υπέροχα και είναι πολύ καλή ιδέα να χρησιμοποιείτε μνημονικά ονόματα μεταβλητών, τα μνημονικά ονόματα μεταβλητών μπορούν να εμποδίσουν την ικανότητα ενός αρχάριου προγραμματιστή να αναλύσει και να κατανοήσει τον κώδικα. Αυτό συμβαίνει επειδή οι αρχάριοι προγραμματιστές δεν έχουν απομνημονεύσει ακόμη τις δεσμευμένες λέξεις (υπάρχουν μόνο 33) και μερικές φορές μεταβλητές με πολύ περιγραφικά ονόματα αρχίζουν να μοιάζουν με μέρος της γλώσσας και όχι μόνο με καλά επιλεγμένα ονόματα μεταβλητών.</p>
+<p>Ρίξτε μια γρήγορη ματιά στον ακόλουθο δείγμα κώδικα Python, το οποίο λειτουργεί επαναληπτικά. Θα καλύψουμε τους βρόχους σύντομα, αλλά προς το παρόν προσπαθήστε να κατανοήσετε τι σημαίνει αυτό:</p>
 <pre class="python"><code>for word in words:
     print(word)</code></pre>
-<p>What is happening here? Which of the tokens (for, word, in, etc.) are reserved words and which are just variable names? Does Python understand at a fundamental level the notion of words? Beginning programmers have trouble separating what parts of the code <em>must</em> be the same as this example and what parts of the code are simply choices made by the programmer.</p>
-<p>The following code is equivalent to the above code:</p>
+<p>Τι συμβαινει εδω? Ποιες από τις λέξεις (for, word, in, κ.λπ.) είναι δεσμευμένες λέξεις και ποιες είναι απλά ονόματα μεταβλητών; Κατανοεί η Python σε θεμελιώδες επίπεδο την έννοια των λέξεων; Οι αρχάριοι προγραμματιστές έχουν πρόβλημα να διαχωρίσουν ποια μέρη του κώδικα <em>πρέπει</em> να παραμείνουν ίδια με αυτό το παράδειγμα και ποια μέρη του κώδικα είναι απλώς επιλογές που γίνονται από τον προγραμματιστή.</p>
+<p>Ο παρακάτω κωδικός είναι ισοδύναμος με τον παραπάνω κωδικό:</p>
 <pre class="python"><code>for slice in pizza:
     print(slice)</code></pre>
-<p>It is easier for the beginning programmer to look at this code and know which parts are reserved words defined by Python and which parts are simply variable names chosen by the programmer. It is pretty clear that Python has no fundamental understanding of pizza and slices and the fact that a pizza consists of a set of one or more slices.</p>
-<p>But if our program is truly about reading data and looking for words in the data, <code>pizza</code> and <code>slice</code> are very un-mnemonic variable names. Choosing them as variable names distracts from the meaning of the program.</p>
-<p>After a pretty short period of time, you will know the most common reserved words and you will start to see the reserved words jumping out at you:</p>
-<pre>
-<b>for</b> word <b>in</b> words<b>:</b>
-    <b>print</b>(word)
-</pre>
-<p>The parts of the code that are defined by Python (<code>for</code>, <code>in</code>, <code>print</code>, and <code>:</code>) are in bold and the programmer-chosen variables (<code>word</code> and <code>words</code>) are not in bold. Many text editors are aware of Python syntax and will color reserved words differently to give you clues to keep your variables and reserved words separate. After a while you will begin to read Python and quickly determine what is a variable and what is a reserved word.</p>
-<h2 id="debugging">Debugging</h2>
+<p>Είναι ευκολότερο για τον αρχάριο προγραμματιστή να κοιτάξει αυτόν τον κώδικα και να καταλάβει ποια μέρη είναι δεσμευμένες λέξεις, που ορίζονται από την Python και ποια μέρη είναι απλά ονόματα μεταβλητών που επιλέγονται από τον προγραμματιστή. Είναι αρκετά σαφές ότι η Python δεν έχει θεμελιώδη κατανόηση της πίτσας (pizza) και των φέτων (slice) και το γεγονός ότι μια πίτσα αποτελείται από ένα σύνολο από μία ή περισσότερες φέτες.</p>
+<p>Αλλά αν το πρόγραμμά μας έχει να κάνει πραγματικά για την ανάγνωση δεδομένων και την αναζήτηση λέξεων στα δεδομένα, η «πίτσα» και η «φέτα» είναι πολύ μη μνημονικά ονόματα μεταβλητών. Η επιλογή τους ως ονόματα μεταβλητών αποσπά την προσοχή από το νόημα του προγράμματος.</p>
+<p>Μετά από ένα αρκετά σύντομο χρονικό διάστημα, θα γνωρίζετε τις πιο συνηθισμένες δεσμευμένες λέξεις και θα αρχίσετε να βλέπετε τις δεσμευμένες λέξεις να ξεπηδάνε αυθόρμητα από μέσα σας:</p>
+<pre class="python"><code>for word in words:
+    print(word)</code></pre>
+<p>Τα μέρη του κώδικα που ορίζονται από την Python (<code>for</code>, <code>in</code>, <code>print</code> και <code>:</code>) είναι με έντονα γράμματα και οι μεταβλητές που επιλέγονται από τον προγραμματιστή (<code>word</code> και <code>words</code>) δεν είναι έντονες. Πολλοί συντάκτες κειμένου γνωρίζουν τη σύνταξη της Python και θα χρωματίσουν τις δεσμευμένες λέξεις διαφορετικά, για να σας δώσουν κάποιες ενδείξεις, ώστε να διαχωρήσετε τις μεταβλητές από τις δεσμευμένες λέξεις. Μετά από λίγο θα αρχίσετε να διαβάζετε Python και θα προσδιορίζετε γρήγορα τι είναι μεταβλητή και τι είναι δεσμευμένη λέξη.</p>
+<h2 id="εκσφαλμάτωση">Εκσφαλμάτωση</h2>
 <p></p>
-<p>At this point, the syntax error you are most likely to make is an illegal variable name, like <code>class</code> and <code>yield</code>, which are keywords, or <code>odd~job</code> and <code>US$</code>, which contain illegal characters.</p>
-<p> </p>
-<p>If you put a space in a variable name, Python thinks it is two operands without an operator:</p>
+<p>Σε αυτό το σημείο, το σφάλμα σύνταξης που πιθανότατα θα κάνετε είναι ένα μη αποδεκτό όνομα μεταβλητής, όπως <code>class</code> και <code>yield</code>, οι οποίες είναι δεδμευμένες λέξεις, ή <code>odd~job</code> και <code>US$</code>, που περιέχουν μη αποδεκτούς χαρακτήρες.</p>
+<p>   </p>
+<p>Εάν βάλετε ένα κενό σε ένα όνομα μεταβλητής, η Python θα πιστεψει ότι είναι δύο τελεστέοι χωρίς τελεστή:</p>
 <pre class="python"><code>&gt;&gt;&gt; bad name = 5
 SyntaxError: invalid syntax</code></pre>
 <pre class="python"><code>&gt;&gt;&gt; month = 09
@@ -417,101 +415,100 @@ SyntaxError: invalid syntax</code></pre>
     month = 09
              ^
 SyntaxError: invalid token</code></pre>
-<p>For syntax errors, the error messages don’t help much. The most common messages are <code>SyntaxError: invalid syntax</code> and <code>SyntaxError: invalid token</code>, neither of which is very informative.</p>
+<p>Για σφάλματα σύνταξης, τα μηνύματα σφάλματος δεν βοηθούν πολύ. Τα πιο συνηθισμένα μηνύματα είναι <code>SyntaxError: invalid syntax</code> και <code>SyntaxError: invalid token</code>, κανένα από τα οποία δεν είναι πολύ κατατοπιστικό.</p>
 <p>    </p>
-<p>The runtime error you are most likely to make is a “use before def;” that is, trying to use a variable before you have assigned a value. This can happen if you spell a variable name wrong:</p>
+<p>Το σφάλμα χρόνου εκτέλεσης που είναι πιο πιθανό να κάνετε είναι “χρήση πριν από τον ορισμό” δηλαδή, το να προσπαθήσετε να χρησιμοποιήσετε μια μεταβλητή προτού της εκχωρήσετε μια τιμή. Αυτό μπορεί να συμβεί αν γράψετε λάθος ένα όνομα μεταβλητής:</p>
 <pre class="python"><code>&gt;&gt;&gt; principal = 327.68
 &gt;&gt;&gt; interest = principle * rate
 NameError: name &#39;principle&#39; is not defined</code></pre>
-<p>Variables names are case sensitive, so <code>LaTeX</code> is not the same as <code>latex</code>.</p>
+<p>Τα ονόματα των μεταβλητών κάνουν διάκριση πεζών-κεφαλαίων (case sensitive), οπότε το <code>LaTeX</code> δεν είναι το ίδιο με το <code>laTeX</code>.</p>
 <p>  </p>
-<p>At this point, the most likely cause of a semantic error is the order of operations. For example, to evaluate <span class="math inline">1/2<em>π</em></span>, you might be tempted to write</p>
+<p>Σε αυτό το σημείο, η πιο πιθανή αιτία σημασιολογικού σφάλματος είναι η σειρά των λειτουργιών. Για παράδειγμα, για να αξιολογήσετετο <span class="math inline">1/2<em>π</em></span>, μπορεί να μπείτε στον πειρασμό να γράψετε</p>
 <pre class="python"><code>&gt;&gt;&gt; 1.0 / 2.0 * pi</code></pre>
-<p>But the division happens first, so you would get <span class="math inline"><em>π</em>/2</span>, which is not the same thing! There is no way for Python to know what you meant to write, so in this case you don’t get an error message; you just get the wrong answer.</p>
+<p>Αλλά η διαίρεση εκτελείτε πρώτη, οπότε θα πάρετε το <span class="math inline"><em>π</em>/2</span>, το οποίο δεν είναι το ίδιο! Δεν υπάρχει τρόπος για την Python να γνωρίζει τι θέλατε να γράψετε, οπότε σε αυτήν την περίπτωση δεν λαμβάνετε μήνυμα σφάλματος. Απλά παίρνετε λάθος απάντηση.</p>
 <p></p>
-<h2 id="glossary">Glossary</h2>
+<h2 id="γλωσσάριο">Γλωσσάριο</h2>
 <dl>
-<dt>assignment</dt>
-<dd>A statement that assigns a value to a variable.
+<dt>ανάθεση - εκχώρηση τιμής</dt>
+<dd>Μια εντολή που αναθέτει μια τιμή σε μια μεταβλητή.
 </dd>
-<dt>concatenate</dt>
-<dd>To join two operands end to end.
+<dt>συνένωση (concatenate)</dt>
+<dd>Η ένωση δύο τελεστέων από άκρο σε άκρο.
 </dd>
-<dt>comment</dt>
-<dd>Information in a program that is meant for other programmers (or anyone reading the source code) and has no effect on the execution of the program.
+<dt>σχόλιο</dt>
+<dd>Πληροφορίες σε ένα πρόγραμμα που προορίζονται για άλλους προγραμματιστές (ή οποιονδήποτε διαβάζει τον πηγαίο κώδικα) και δεν έχουν καμία επίδραση στην εκτέλεση του προγράμματος.
 </dd>
-<dt>evaluate</dt>
-<dd>To simplify an expression by performing the operations in order to yield a single value.
+<dt>αξιολόγηση (evaluate)</dt>
+<dd>Το να απλοποιήσουμε μια παράσταση, εκτελώντας τις πράξεις, για να αποδώσουμε μια ενιαία τιμή.
 </dd>
-<dt>expression</dt>
-<dd>A combination of variables, operators, and values that represents a single result value.
+<dt>έκφραση</dt>
+<dd>Ένας συνδυασμός μεταβλητών, τελεστών και τιμών που ως αποτέλεσμα έχει μία και μοναδική τιμή.
 </dd>
-<dt>floating point</dt>
-<dd>A type that represents numbers with fractional parts.
+<dt>κινητής υποδιαστολής (floating point)</dt>
+<dd>Ένας τύπος που αναπαριστά αριθμούς με δεκαδικό μέρος.
 </dd>
-<dt>integer</dt>
-<dd>A type that represents whole numbers.
+<dt>ακέραιος (integer)</dt>
+<dd>Ένας τύπος που αναπαριστά αριθμούς χωρίς δεκαδικό μέρος.
 </dd>
-<dt>keyword</dt>
-<dd>A reserved word that is used by the compiler to parse a program; you cannot use keywords like <code>if</code>, <code>def</code>, and <code>while</code> as variable names.
+<dt>δεσμευμένη λέξη</dt>
+<dd>Μία λέξη, η οποία έχει δεσμευθεί από τον μεταγλωττιστής για την ανάλυση του προγράμματος. Δεν επιτρέπεται η χρήση δεσμευμένων λέξεων όπως <code>if</code>, <code>def</code> και <code>while</code>, ως ονόματα μεταβλητών.
 </dd>
-<dt>mnemonic</dt>
-<dd>A memory aid. We often give variables mnemonic names to help us remember what is stored in the variable.
+<dt>μνημονικό</dt>
+<dd>Ένα βοήθημα μνήμης. Συχνά δίνουμε στις μεταβλητές μνημονικά ονόματα για να μας βοηθήσουν να θυμηθούμε τι έχουμε αποθηκεύσει στη μεταβλητή.
 </dd>
-<dt>modulus operator</dt>
-<dd>An operator, denoted with a percent sign (<code>%</code>), that works on integers and yields the remainder when one number is divided by another.
+<dt>τελεστής ακεραίου υπολοίπου (modulus)</dt>
+<dd>Ένας τελεστής, που συμβολίζεται με το σύμβολο ποσοστού (<code>%</code>), λειτουργεί σε ακέραιους αριθμούς και δίνει το υπόλοιπο της ευκλείδειας διαίρεσης του ενός αριθμός με έναν άλλο.
 </dd>
-<dt>operand</dt>
-<dd>One of the values on which an operator operates.
+<dt>τελεστέος</dt>
+<dd>Μία από τις τιμές στις οποίες εφαρμόζεται ένας τελεστής.
 </dd>
-<dt>operator</dt>
-<dd>A special symbol that represents a simple computation like addition, multiplication, or string concatenation.
+<dt>τελεστής</dt>
+<dd>Ένα ειδικό σύμβολο που αντιπροσωπεύει έναν απλό υπολογισμό όπως η πρόσθεση, ο πολλαπλασιασμός ή η συνένωση συμβολοσειρών.
 </dd>
-<dt>rules of precedence</dt>
-<dd>The set of rules governing the order in which expressions involving multiple operators and operands are evaluated.
+<dt>κανόνες προτεραιότητας</dt>
+<dd>Το σύνολο των κανόνων που διέπουν τη σειρά αξιολόγησης εκφράσεων, που περιλαμβάνουν πολλαπλούς τελεστές και τελεστέους.
 </dd>
-<dt>statement</dt>
-<dd>A section of code that represents a command or action. So far, the statements we have seen are assignments and print expression statement.
+<dt>εντολή - δήλωση</dt>
+<dd>Ένα τμήμα κώδικα που αντιπροσωπεύει μια εντολή ή ενέργεια. Μέχρι στιγμής, οι δηλώσεις που είδαμε είναι εκχωρήσεις τιμών και δηλώσεις εκτύπωσης εκφράσεων.
 </dd>
-<dt>string</dt>
-<dd>A type that represents sequences of characters.
+<dt>συμβολοσειρά</dt>
+<dd>Ένας τύπος που αντιπροσωπεύει ακολουθίες χαρακτήρων.
 </dd>
-<dt>type</dt>
-<dd>A category of values. The types we have seen so far are integers (type <code>int</code>), floating-point numbers (type <code>float</code>), and strings (type <code>str</code>).
+<dt>τύπος</dt>
+<dd>Μια κατηγορία τιμών. Οι τύποι που έχουμε δει μέχρι τώρα είναι ακέραιοι (τύπος <code>int</code>), αριθμοί κυμαινόμενης υποδιαστολής (τύπος<code>float</code>) και συμβολοσειρές (τύπος <code>str</code>).
 </dd>
-<dt>value</dt>
-<dd>One of the basic units of data, like a number or string, that a program manipulates.
+<dt>τιμή</dt>
+<dd>Μία από τις βασικές μονάδες δεδομένων, που χειρίζεται ένα πρόγραμμα, όπως ένας αριθμός ή μια συμβολοσειρά.
 </dd>
-<dt>variable</dt>
-<dd>A name that refers to a value.
+<dt>μεταβλητή</dt>
+<dd>Ένα όνομα που αναφέρεται σε μία τιμή.
 </dd>
 </dl>
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 2: Write a program that uses <code>input</code> to prompt a user for their name and then welcomes them.</strong></p>
-<pre><code>Enter your name: Chuck
-Hello Chuck</code></pre>
-<p><strong>Exercise 3: Write a program to prompt the user for hours and rate per hour to compute gross pay.</strong></p>
-<pre><code>Enter Hours: 35
-Enter Rate: 2.75
-Pay: 96.25</code></pre>
-<p>We won’t worry about making sure our pay has exactly two digits after the decimal place for now. If you want, you can play with the built-in Python <code>round</code> function to properly round the resulting pay to two decimal places.</p>
-<p><strong>Exercise 4: Assume that we execute the following assignment statements:</strong></p>
-<pre><code>width = 17
-height = 12.0</code></pre>
-<p>For each of the following expressions, write the value of the expression and the type (of the value of the expression).</p>
+<h2 id="ασκήσεις">Ασκήσεις</h2>
+<p><strong>Άσκηση 2: Γράψτε ένα πρόγραμμα που χρησιμοποιεί <code>input</code> για να ζητά από το χρήστη το όνομά του και στη συνέχεια τον καλωσορίζει.</strong></p>
+<pre class="python"><code>Εισάγετε το όνομά σας: Chuck
+Γειά σου Chuck</code></pre>
+<p><strong>Άσκηση 3: Γράψτε ένα πρόγραμμα που προτρέπει τον χρήστη να εισάγει ώρες και ωρομίσθιο και να υπολογίζει τον ακαθάριστο μισθό του.</strong></p>
+<pre class="python"><code>Εισάγετε τις Ώρες: 35
+Εισάγετε το Ωρομίσθιο: 2.75
+Μισθός: 96.25</code></pre>
+<p>Δεν ασχολούμαστε με τι να βεβαιωθούμε ότι η αμοιβή μας έχει ακριβώς δύο ψηφία μετά την υποδιαστολή προς το παρόν. Αν θέλετε, μπορείτε να παίξετε με την ενσωματωμένη συνάρτηση της Python, την <code>round</code> για να στρογγυλοποιήσετε σωστά την αμοιβή που προκύπτει, σε δύο δεκαδικά ψηφία.</p>
+<p><strong>Άσκηση 4: Ας υποθέσουμε ότι εκτελούμε τις ακόλουθες εντολές εκχώρησης:</strong></p>
+<pre class="python"><code>πλάτος = 17
+ύψος = 12.0</code></pre>
+<p>Για καθεμία από τις παρακάτω εκφράσεις, γράψτε την τιμή της έκφρασης και τον τύπο (της τιμής της έκφρασης).</p>
 <ol type="1">
-<li><p><code>width//2</code></p></li>
-<li><p><code>width/2.0</code></p></li>
-<li><p><code>height/3</code></p></li>
+<li><p><code>πλάτος//2</code></p></li>
+<li><p><code>πλάτος/2.0</code></p></li>
+<li><p><code>ύψος/3</code></p></li>
 <li><p><code>1 + 2 * 5</code></p></li>
 </ol>
-<p>Use the Python interpreter to check your answers.</p>
-<p><strong>Exercise 5: Write a program which prompts the user for a Celsius temperature, convert the temperature to Fahrenheit, and print out the converted temperature.</strong></p>
+<p>Χρησιμοποιήστε τον διερμηνέα της Python για να ελέγξετε τις απαντήσεις σας.</p>
+<p><strong>Άσκηση 5: Γράψτε ένα πρόγραμμα που ζητά από τον χρήστη μια θερμοκρασία σε βαθμούς Κελσίου, μετατρέψτε τη θερμοκρασία σε βαθμούς Φαρενάιτ και εκτυπώστε την θερμοκρασία που προκύπτει.</strong></p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>In Python 2.0, this function was named <code>raw_input</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>See <a href="https://en.wikipedia.org/wiki/Mnemonic" class="uri">https://en.wikipedia.org/wiki/Mnemonic</a> for an extended description of the word “mnemonic”.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Βλ. <a href="Https://en.wikipedia.org/wiki/Mnemonic" class="uri">Https://en.wikipedia.org/wiki/Mnemonic</a> για εκτεταμένη περιγραφή της λέξης “μνημονική”.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>

@@ -345,23 +345,23 @@ $ python hello.py
 and the tent fell down on the clown and the car</code></pre>
 <p>Στη συνέχεια, φανταστείτε ότι κάνετε αυτήν την δουλειά κοιτάζοντας εκατομμύρια γραμμές κειμένου. Ειλικρινά θα ήταν πιο γρήγορο για εσάς να μάθετε Python και να γράψετε ένα πρόγραμμα Python, για να μετρήσετε τις λέξεις από ό,τι θα ήταν να σαρώσετε τις λέξεις με το χέρι.</p>
 <p>Τα ακόμη καλύτερα νέα είναι ότι ετοίμασα ήδη ένα απλό πρόγραμμα, για να βρω την πιο κοινή λέξη σε ένα αρχείο κειμένου. Το έγραψα, το δοκίμασα και τώρα σας το δίνω για να το χρησιμοποιήσετε και να εξοικονομήσετε χρόνο.</p>
-<pre class="python"><code>name = input(&#39;Enter file:&#39;)
-handle = open(name, &#39;r&#39;)
-counts = dict()
+<pre class="python"><code>όνομα = input(&#39;Εισάγετε αρχείο:&#39;)
+handle = open(όνομα, &#39;r&#39;)
+πλήθη = dict()
 
-for line in handle:
-    words = line.split()
-    for word in words:
-        counts[word] = counts.get(word, 0) + 1
+for γραμμή in handle:
+    λέξεις = γραμμή.split()
+    for λέξη in λέξεις:
+        πλήθη[λέξη] = πλήθη.get(λέξη, 0) + 1
 
-bigcount = None
-bigword = None
-for word, count in list(counts.items()):
-    if bigcount is None or count &gt; bigcount:
-        bigword = word
-        bigcount = count
+maxπλήθος = None
+maxλέξη = None
+for λέξη, πλήθος in list(πλήθη.items()):
+    if maxπλήθος is None or πλήθος &gt; maxπλήθος:
+        maxλέξη = λέξη
+        maxπλήθος = πλήθος
 
-print(bigword, bigcount)
+print(maxλέξη, maxπλήθος)
 
 # Code: http://www.py4e.com/code3/words.py</code></pre>
 <p>Δεν χρειάζεται καν να γνωρίζετε την Python για να χρησιμοποιήσετε αυτό το πρόγραμμα. Θα χρειαστεί να ανατρέξετε στο Κεφάλαιο 10 αυτού του βιβλίου, για να κατανοήσετε πλήρως τις εκπληκτικές τεχνικές Python που χρησιμοποιήθηκαν για τη δημιουργία του προγράμματος. Είστε ο τελικός χρήστης, απλά χρησιμοποιείτε το πρόγραμμα και θαυμάζετε την εξυπνάδα του και πώς σας γλίτωσε από τόσο πολύ χειρωνακτική προσπάθεια. Απλώς πληκτρολογείτε τον κώδικα σε ένα αρχείο που ονομάζεται <em>words.py</em> και το εκτελείτε ή κατεβάζετε τον πηγαίο κώδικα από το <a href="http://www.py4e.com/code3/" class="uri">http://www.py4e.com/code3/</a> και το εκτελείτε.</p>
