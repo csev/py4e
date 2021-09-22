@@ -36,33 +36,33 @@ prinq("hello world")',
 "desired" => "Γειά σου Άννα",
 "code" => '# Ο παρακάτω κώδικας σχεδόν λειτουργεί
 
-name = input("Enter your name")
-print("Howdy")',
+name = input("Εισάγετε το όνομά σας")
+print("Γειά σου ")',
 "checks" => Array(
-"input" => "You must prompt for the user's name using the input() function.",
-"!Sarah" => "You must actually prompt for the user's name",
-"print" => "You must use the print statement to print the line of output."
+"input" => "Πρέπει να ζητήσετε το όνομα του χρήστη χρησιμοποιώντας τη συνάρτηση input().",
+"!Άννα" => "Πρέπει πραγματικά να ζητήσετε το όνομα του χρήστη",
+"print" => "Πρέπει να χρησιμοποιήσετε την εντολή print για να εκτυπώσετε τη σωστή έξοδο στο output."
 )),
 
 "2.3" => Array(
-"qtext" => "<b>2.3</b> Write a program to prompt the user for
-hours and rate per hour using input
-to compute gross pay.  Use 35 hours and a rate of 2.75 per hour to test the
-program (the pay should be 96.25).  You should use <b>input</b> to
-read a string and <b>float()</b> to convert the string to a number.
-Do not worry about error checking or bad user data.",
-"desired" => "Pay: 96.25",
-"code" => '# This first line is provided for you
+"qtext" => "<b>2.3</b> Γράψτε ένα πρόγραμμα που προτρέπει τον χρήστη
+να εισάγει ώρες και ωρομίσθιο και να υπολογίζει τον ακαθάριστο μισθό του.
+Εισάγετε 35 ώρες και ωρομίσθιο 2.75 για να ελέγξετε το πρόγραμμα
+(ο μισθός θα πρέπει να είναι 96.25).  Θα πρέπει να χρησιμοποιήσετε το <b>input</b>
+για να διαβάσετε τη συμβολοσειρά και <b>float()</b> για να μετατρέψετε τη συμβολοσειρά σε έναν αριθμό.
+Μην ασχοληθείτε με τον έλεγχο σφαλμάτων ή με λάθος δεδομένα χρήστη.",
+"desired" => "Μισθός: 96.25",
+"code" => '# Η πρώτη γραμμή του προγράμματος σας δίνεται έτοιμη
 
-hrs = input("Enter Hours:")',
+ώρες = input("Εισάγετε τις Ώρες:")',
 "checks" => Array(
-"input" => "You must prompt the pay and rate using the input() function.",
-"print" => "You must use the print statement to print the output.",
-"float" => "You should use the built-in float() function to convert from a string to a float.",
-"*" => "To multiply the pay and rate after you read them use the '*' operator.",
-"!35" => "You should not include the input data in your source code. You must read the values for the rate and pay using input().",
-"!2.75" => "You should not include the input data in your source code. You must read the values for the rate and pay using input().",
-"!96.25" => "You must actually calculate the pay.")),
+"input" => "Πρέπει να ζητήσετε την εισαγωγή των ωρών και του ωρομισθίου χρησιμοποιώντας την συνάρτηση input().",
+"print" => "Πρέπει να χρησιμοποιήσετε την εντολή print για να εκτυπώσετε τη σωστή έξοδο στο output.",
+"float" => "Πρέπει να χρησιμοποιήσετε την ενσωματωμένη συνάρτηση float() για να μετατρέψετε τη συμβολοσειρά σε έναν αριθμό.",
+"*" => "Για να πολλαπλασιάσετε τις ώρες με το ωρομίσθιο, μετά την ανάγνωσή τους, χρησιμοποιήστε τον τελεστή '*'.",
+"!35" => "Δεν πρέπει να συμπεριλάβετε τα δεδομένα εισόδου στον κώδικά σας. Πρέπει να διαβάσετε τις τιμές για τις ώρες και το ωρομίσθιο χρησιμοποιώντας το input().",
+"!2.75" => "Δεν πρέπει να συμπεριλάβετε τα δεδομένα εισόδου στον κώδικά σας. Πρέπει να διαβάσετε τις τιμές για τις ώρες και το ωρομίσθιο χρησιμοποιώντας το input().",
+"!96.25" => "Πρέπει πραγματικά να υπολογίσετε την αμοιβή.")),
 
 
 "3.1" => Array(
