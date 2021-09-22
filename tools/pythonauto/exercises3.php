@@ -21,18 +21,20 @@ prinq("hello world")',
 "checks" => Array(
 "for" => "Πρέπει να παράγετε τους αριθμούς χρησιμοποιώντας έναν βρόχο for.",
 "print" => "Πρέπει να χρησιμοποιήσετε μια δήλωση print εντός του βρόχου.",
-"range" => "Θα πρέπει να χρησιμοποιήσετε τη συνάρτηση range για να δημιουργήσετε τη λίστα αριθμών στη δήλωση for.",
-":" => "Η δήλωση for πρέπει να τελειώνει με άνω κάτω τελεία (:) και η επόμενη γραμμή πρέπει να έχει εσοχή"
+"range" => "Θα πρέπει να χρησιμοποιήσετε τη συνάρτηση range για να 
+δημιουργήσετε τη λίστα αριθμών στη δήλωση for.",
+":" => "Η δήλωση for πρέπει να τελειώνει με άνω κάτω τελεία (:) και η 
+επόμενη γραμμή πρέπει να έχει εσοχή"
 )),
 
 "2.2" => Array (
-"qtext" => "<b>2.2</b> Write a program that uses <b>input</b>
-to prompt a user for their name and then
-welcomes them.  Note that <b>input</b> will pop up a dialog box.
-Enter <b>Sarah</b> in the pop-up box when you are prompted so your
-output will match the desired output.",
-"desired" => "Hello Sarah",
-"code" => '# The code below almost works
+"qtext" => "<b>2.2</b> Γράψτε ένα πρόγραμμα που χρησιμοποιεί <b>input</b>
+για να ζητά από το χρήστη το όνομά του και στη συνέχεια τον καλωσορίζει.
+Λάβετε υπόψη ότι η <b>input</b> θα εμφανιστεί ένα παράθυρο διαλόγου.
+Εισαγάγετε <b> Άννα </b> στο αναδυόμενο πλαίσιο όταν σας ζητηθεί,
+ώστε η έξοδός σας να ταιριάζει με την επιθυμητή έξοδο. ",
+"desired" => "Γειά σου Άννα",
+"code" => '# Ο παρακάτω κώδικας σχεδόν λειτουργεί
 
 name = input("Enter your name")
 print("Howdy")',
