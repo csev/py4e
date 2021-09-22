@@ -56,12 +56,12 @@ Do not worry about error checking or bad user data.",
 
 hrs = input("Enter Hours:")',
 "checks" => Array(
-"input" => "You must prompt the pay and rate using the input() function.",
+"input" => "You must prompt the hours and rate using the input() function.",
 "print" => "You must use the print statement to print the output.",
 "float" => "You should use the built-in float() function to convert from a string to a float.",
-"*" => "To multiply the pay and rate after you read them use the '*' operator.",
-"!35" => "You should not include the input data in your source code. You must read the values for the rate and pay using input().",
-"!2.75" => "You should not include the input data in your source code. You must read the values for the rate and pay using input().",
+"*" => "To multiply the hours and rate after you read them use the '*' operator.",
+"!35" => "You should not include the input data in your source code. You must read the values for the hours and rate using input().",
+"!2.75" => "You should not include the input data in your source code. You must read the values for the hours and rate using input().",
 "!96.25" => "You must actually calculate the pay.")),
 
 
