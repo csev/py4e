@@ -154,200 +154,200 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="conditional-execution">Conditional execution</h1>
-<h2 id="boolean-expressions">Boolean expressions</h2>
+<h1 id="δομή-επιλογής">Δομή Επιλογής</h1>
+<h2 id="λογικές-εκφράσεις">Λογικές εκφράσεις</h2>
 <p>   </p>
-<p>A <em>boolean expression</em> is an expression that is either true or false. The following examples use the operator <code>==</code>, which compares two operands and produces <code>True</code> if they are equal and <code>False</code> otherwise:</p>
+<p>Μια <em>λογική έκφραση</em> είναι μια παράσταση, η τιμή της οποίας είναι είτε αληθής/true είτε ψευδής/false. Τα επόμενα παραδείγματα χρησιμοποιούν τον τελεστή <code>==</code>, ο οποίος συγκρίνει δύο τελεστέους και επιστρέφει <code>True</code> αν είναι ίσοι και <code>False</code> σε διαφορετική περίπτωση:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; 5 == 5
 True
 &gt;&gt;&gt; 5 == 6
 False</code></pre>
-<p><code>True</code> and <code>False</code> are special values that belong to the class <code>bool</code>; they are not strings:</p>
+<p><code>True</code> και <code>False</code> είναι ειδικές τιμές που ανήκουν στην κλάση <code>bool</code>, δεν είναι συμβολοσειρές:</p>
 <p>     </p>
 <pre class="python"><code>&gt;&gt;&gt; type(True)
 &lt;class &#39;bool&#39;&gt;
 &gt;&gt;&gt; type(False)
 &lt;class &#39;bool&#39;&gt;</code></pre>
-<p>The <code>==</code> operator is one of the <em>comparison operators</em>; the others are:</p>
-<pre class="python"><code>x != y               # x is not equal to y
-x &gt; y                # x is greater than y
-x &lt; y                # x is less than y
-x &gt;= y               # x is greater than or equal to y
-x &lt;= y               # x is less than or equal to y
-x is y               # x is the same as y
-x is not y           # x is not the same as y</code></pre>
-<p>Although these operations are probably familiar to you, the Python symbols are different from the mathematical symbols for the same operations. A common error is to use a single equal sign (<code>=</code>) instead of a double equal sign (<code>==</code>). Remember that <code>=</code> is an assignment operator and <code>==</code> is a comparison operator. There is no such thing as <code>=&lt;</code> or <code>=&gt;</code>.</p>
+<p>Ο τελεστής <code>==</code> είναι ένας από τους <em>συγκριτικούς τελεστές</em>, οι υπόλοιποι είναι:</p>
+<pre class="python"><code>x != y               # το x δεν είναι ίσο με το y
+x &gt; y                # το x είναι μεγαλύτεο του y
+x &lt; y                # το x είναι μικρότερο του y
+x &gt;= y               # το x είναι μεγαλύτερο ή ίσο του y
+x &lt;= y               # το x είναι μικρότερο ή ίσο του y
+x is y               # το x είναι ίδιο με το y
+x is not y           # το x δεν είναι ίδιο με το y</code></pre>
+<p>Αν και αυτές οι πράξεις σας είναι πιθανώς γνωστές, τα σύμβολα της Python διαφέρουν από τα αντίστοιχα μαθηματικά σύμβολα. Ένα συνηθισμένο λάθος είναι το να χρησιμοποιήσετε ένα μόνο σύμβολο ίσου (<code>=</code>) αντί για ένα διπλό ίσο (<code>==</code>). Θυμηθείτε ότι το <code>=</code> είναι τελεστής εκχώρησης τιμής και το <code>==</code> είναι τελεστής σύγκρισης. Δεν έχουν νόημα τα <code>=&lt;</code> ή <code>=&gt;</code>.</p>
 <p> </p>
-<h2 id="logical-operators">Logical operators</h2>
+<h2 id="λογικοί-τελεστές">Λογικοί τελεστές</h2>
 <p> </p>
-<p>There are three <em>logical operators</em>: <code>and</code>, <code>or</code>, and <code>not</code>. The semantics (meaning) of these operators is similar to their meaning in English. For example,</p>
+<p>Υπάρχουν τρεις <em>λογικοί τελεστές</em>: <code>and</code>, <code>or</code> και <code>not</code>. Η σημασιολογία (έννοια) αυτών των τελεστών είναι παρόμοια με τη σημασία τους στα αγγλικά (και, ή και όχι αντίστοιχα). Για παράδειγμα το</p>
 <p><code>x &gt; 0 and x &lt; 10</code></p>
-<p>is true only if <code>x</code> is greater than 0 <em>and</em> less than 10.</p>
+<p>είναι αληθές μόνο αν το <code>x</code> είναι μεγαλύτερο του 0 <em>και</em> μικρότερο του 10.</p>
 <p>     </p>
-<p><code>n%2 == 0 or n%3 == 0</code> is true if <em>either</em> of the conditions is true, that is, if the number is divisible by 2 <em>or</em> 3.</p>
-<p>Finally, the <code>not</code> operator negates a boolean expression, so <code>not (x &gt; y)</code> is true if <code>x &gt; y</code> is false; that is, if <code>x</code> is less than or equal to <code>y</code>.</p>
-<p>Strictly speaking, the operands of the logical operators should be boolean expressions, but Python is not very strict. Any nonzero number is interpreted as “true.”</p>
+<p>Το <code>n%2 == 0 or n%3 == 0</code> είναι αληθές αν <em>τουλάχιστον μία</em> από τις συνθήκες είναι αληθής, δηλαδή αν ο αριθμός διαιρείτεαι με το 2 <em>ή</em> το 3.</p>
+<p>Τέλος, ο τελεστής <code>not</code> είναι η άρνηση μιας λογικής έκφρασης, έτσι το <code>not (x &gt; y)</code> είναι αληθές αν το <code>x &gt; y</code> είναι ψευδές, δηλαδή αν το <code>x</code> είναι μικρότερο ή ίσο του <code>y</code>.</p>
+<p>Αυστηρά μιλώντας, οι τελεστέοι των λογικών τελεστών πρέπει να είναι λογικές εκφράσεις, αλλά η Python δεν είναι πολύ αυστηρή. Κάθε μη μηδενικός αριθμός ερμηνεύεται ως “αληθές”.</p>
 <pre class="python"><code>&gt;&gt;&gt; 17 and True
 True</code></pre>
-<p>This flexibility can be useful, but there are some subtleties to it that might be confusing. You might want to avoid it until you are sure you know what you are doing.</p>
-<h2 id="conditional-execution-1">Conditional execution</h2>
+<p>Αυτή η ευελιξία μπορεί να είναι χρήσιμη, αλλά υπάρχουν κάποιες λεπτόμέρειες σε αυτό, που μπορεί να προκαλέσουν σύγχυση. Ίσως θα ήταν καλύτερα να το αποφύγετε μέχρι να είστε σίγουροι ότι ξέρετε τι κάνετε.</p>
+<h2 id="απλή-επιλογή">Απλή επιλογή</h2>
 <p>    </p>
-<p>In order to write useful programs, we almost always need the ability to check conditions and change the behavior of the program accordingly. <em>Conditional statements</em> give us this ability. The simplest form is the <code>if</code> statement:</p>
+<p>Για να γράψουμε χρήσιμα προγράμματα, χρειαζόμαστε σχεδόν πάντα τη δυνατότητα να ελέγξουμε τις συνθήκες και να αλλάξουμε ανάλογα τη συμπεριφορά του προγράμματος. Οι <em>εντολές επιλογής</em> μας δίνουν αυτή τη δυνατότητα. Η πιο απλή μορφή τους είναι η εντολή <code>if</code>:</p>
 <pre class="python"><code>if x &gt; 0 :
-    print(&#39;x is positive&#39;)</code></pre>
-<p>The boolean expression after the <code>if</code> statement is called the <em>condition</em>. We end the <code>if</code> statement with a colon character (:) and the line(s) after the if statement are indented.</p>
+    print(&#39;το x είναι θετικό&#39;)</code></pre>
+<p>Η λογική έκφραση που ακοουθεί την εντολή <code>if</code> ονομάζεται <em>συνθήκη</em>. Τελειώνουμε την γραμμή της εντολής <code>if</code> με τον χαρακτήρα άνω κάτω τελεία (:) και στη γραμμή(ές) μετά το if δημιουργούμε εσοχή.</p>
 <figure>
-<img src="../images/if.svg" alt="If Logic" style="height: 1.5in;"/>
+<img src="../images/if.svg" alt="if Λογικό Διάγραμμα" style="height: 1.5in;"/>
 <figcaption>
-If Logic
+if Λογικό Διάγραμμα
 </figcaption>
 </figure>
-<p>If the logical condition is true, then the indented statement gets executed. If the logical condition is false, the indented statement is skipped.</p>
+<p>Εάν η λογική συνθήκη είναι αληθής, τότε οι εντολές με εσοχή εκτελούνται. Εάν η λογική συνθήκη είναι ψευδής, οι εντολές με εσοχή παραλείπονται.</p>
 <p>  </p>
-<p><code>if</code> statements have the same structure as function definitions or <code>for</code> loops<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The statement consists of a header line that ends with the colon character (:) followed by an indented block. Statements like this are called <em>compound statements</em> because they stretch across more than one line.</p>
-<p>There is no limit on the number of statements that can appear in the body, but there must be at least one. Occasionally, it is useful to have a body with no statements (usually as a place holder for code you haven’t written yet). In that case, you can use the <code>pass</code> statement, which does nothing.</p>
+<p>Η εντολή <code>if</code> έχει την ίδια δομή με τους ορισμούς συνάρτησης ή τους βρόχους <code>for</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Η εντολή αποτελείται από μια γραμμή κεφαλίδας που τελειώνει με τνν άνω και κάτω τελεία (:) ακολουθούμενη από ένα μπλοκ εντολών με εσοχή. Τέτοιες εντολές ονομάζονται <em>σύνθετες εντολές</em> επειδή εκτείνονται σε περισσότερες από μία γραμμές.</p>
+<p>Δεν υπάρχει όριο στον αριθμό των εντολών που μπορούν να εμφανιστούν στο μπλοκ των εντολών, αλλά πρέπει να υπάρχει τουλάχιστον μία. Περιστασιακά, είναι χρήσιμο να έχετε ένα μπλοκ χωρίς εντολές (συνήθως ως δέσμευση θέσης για κάποιον κώδικα, που δεν έχετε γράψει ακόμα). Σε αυτή την περίπτωση, μπορείτε να χρησιμοποιήσετε τη δήλωση <code>pass</code>, η οποία δεν κάνει τίποτα.</p>
 <p> </p>
 <pre class="python"><code>if x &lt; 0 :
-    pass          # need to handle negative values!</code></pre>
-<p>If you enter an <code>if</code> statement in the Python interpreter, the prompt will change from three chevrons to three dots to indicate you are in the middle of a block of statements, as shown below:</p>
+    pass          # πρέπει να χειριστώ τις αρνητικές τιμές!</code></pre>
+<p>Εάν εισαγάγετε μια εντολή <code>if</code> στον διερμηνέα της Python, η προτροπή θα αλλάξει από <code>&gt;&gt;&gt;</code> σε τρεις τελείες για να υποδείξει ότι βρίσκεστε στη μέση ενός μπλοκ δηλώσεων, όπως φαίνεται παρακάτω:</p>
 <pre class="python"><code>&gt;&gt;&gt; x = 3
 &gt;&gt;&gt; if x &lt; 10:
-...    print(&#39;Small&#39;)
+...    print(&#39;Μικρό&#39;)
 ...
-Small
+Μικρό
 &gt;&gt;&gt;</code></pre>
-<p>When using the Python interpreter, you must leave a blank line at the end of a block, otherwise Python will return an error:</p>
+<p>Όταν χρησιμοποιείτε τον διερμηνέα της Python, πρέπει να αφήσετε μια κενή γραμμή στο τέλος του μπλοκ, διαφορετικά η Python θα επιστρέψει σφάλμα:</p>
 <pre class="python"><code>&gt;&gt;&gt; x = 3
 &gt;&gt;&gt; if x &lt; 10:
-...    print(&#39;Small&#39;)
-... print(&#39;Done&#39;)
+...    print(&#39;Μικρό&#39;)
+... print(&#39;Τέλος&#39;)
   File &quot;&lt;stdin&gt;&quot;, line 3
-    print(&#39;Done&#39;)
+    print(&#39;Τέλος&#39;)
         ^
 SyntaxError: invalid syntax</code></pre>
-<p>A blank line at the end of a block of statements is not necessary when writing and executing a script, but it may improve readability of your code.</p>
-<h2 id="alternative-execution">Alternative execution</h2>
+<p>Η κενή γραμμή στο τέλος ενός μπλοκ δηλώσεων δεν είναι απαραίτητη όταν γράφετε και εκτελείτε σενάριο, μπορεί όμως να βελτιώσει την αναγνωσιμότητα του κώδικα σας.</p>
+<h2 id="σύνθετη-επιλογή">Σύνθετη επιλογή</h2>
 <p>  </p>
-<p>A second form of the <code>if</code> statement is <em>alternative execution</em>, in which there are two possibilities and the condition determines which one gets executed. The syntax looks like this:</p>
+<p>Η δεύτερη μορφή της εντολής <code>if</code> είναι η <em>σύνθετη επιλογή</em>, στην οποία υπάρχουν δύο περιπτώσεις και η συνθήκη καθορίζει ποια θα εκτελεστεί. Η σύνταξη μοιάζει με αυτήν:</p>
 <pre class="python"><code>if x%2 == 0 :
-    print(&#39;x is even&#39;)
+    print(&#39;το x είναι άρτιος&#39;)
 else :
-    print(&#39;x is odd&#39;)</code></pre>
-<p>If the remainder when <code>x</code> is divided by 2 is 0, then we know that <code>x</code> is even, and the program displays a message to that effect. If the condition is false, the second set of statements is executed.</p>
+    print(&#39;το x είναι περιττός&#39;)</code></pre>
+<p>Εάν το υπόλοιπο, όταν το <code>x</code> διαιρεθεί με το 2 είναι 0, τότε ξέρουμε ότι το <code>x</code> είναι άρτιος και το πρόγραμμα εμφανίζει σχετικό μήνυμα. Εάν η συνθήκη είναι ψευδής εκτελείτε το δεύτερο μπλοκ εντολών.</p>
 <figure>
-<img src="../images/if-else.svg" alt="If-Then-Else Logic" style="height: 1.5in;"/>
+<img src="../images/if-else.svg" alt="If-Then-Else Λογικό Διάγραμμα" style="height: 1.5in;"/>
 <figcaption>
-If-Then-Else Logic
+If-Then-Else Λογικό Διάγραμμα
 </figcaption>
 </figure>
-<p>Since the condition must either be true or false, exactly one of the alternatives will be executed. The alternatives are called <em>branches</em>, because they are branches in the flow of execution.</p>
+<p>Δεδομένου ότι η συνθήκη πρέπει να είναι αληθής ή ψευδής, θα εκτελεστεί ακριβώς μία από τις εναλλακτικές περιπτώσεις. Οι εναλλακτικές περιπτώσεις ονομάζονται <em>κλάδοι</em>, επειδή αποτελούν διακλαδώσεις στη ροή εκτέλεσης.</p>
 <p></p>
-<h2 id="chained-conditionals">Chained conditionals</h2>
+<h2 id="πολλαπλή-επιλογή">Πολλαπλή επιλογή</h2>
 <p> </p>
-<p>Sometimes there are more than two possibilities and we need more than two branches. One way to express a computation like that is a <em>chained conditional</em>:</p>
+<p>Μερικές φορές υπάρχουν περισσότερες από δύο δυνατότητες και χρειαζόμαστε περισσότερους από δύο κλάδους. Ένας τρόπος για να εκφράσετε έναν τέτοιο υπολογισμό είναι μια <em>πολλαπλή επιλογή</em>:</p>
 <pre class="python"><code>if x &lt; y:
-    print(&#39;x is less than y&#39;)
+    print(&#39;το x είναι μικρότερο από το y&#39;)
 elif x &gt; y:
-    print(&#39;x is greater than y&#39;)
+    print(&#39;το x είναι μεγαλύτερο από το y&#39;)
 else:
-    print(&#39;x and y are equal&#39;)</code></pre>
-<p><code>elif</code> is an abbreviation of “else if.” Again, exactly one branch will be executed.</p>
+    print(&#39;τα x και y είναι ίσα&#39;)</code></pre>
+<p>Το <code>elif</code> είναι μια συντομογραφία του “else if”. Και πάλι, θα εκτελεστεί ακριβώς ένας κλάδος.</p>
 <figure>
-<img src="../images/elif.svg" alt="If-Then-ElseIf Logic" style="height: 2.0in;"/>
+<img src="../images/elif.svg" alt="If-Then-ElseIf Λογικό Διάγραμμα" style="height: 2.0in;"/>
 <figcaption>
-If-Then-ElseIf Logic
+If-Then-ElseIf Λογικό Διάγραμμα
 </figcaption>
 </figure>
-<p>There is no limit on the number of <code>elif</code> statements. If there is an <code>else</code> clause, it has to be at the end, but there doesn’t have to be one.</p>
+<p>Δεν υπάρχει όριο στον αριθμό των δηλώσεων <code>elif</code>. Εάν υπάρχει ο όρος <code>else</code>, πρέπει να είναι στο τέλος, αλλά δεν είναι απαραίτητο να υπάρχει.</p>
 <p> </p>
 <pre class="python"><code>if choice == &#39;a&#39;:
-    print(&#39;Bad guess&#39;)
+    print(&#39;Μάντεψες Λάθος&#39;)
 elif choice == &#39;b&#39;:
-    print(&#39;Good guess&#39;)
+    print(&#39;Μάντεψες Σωστά&#39;)
 elif choice == &#39;c&#39;:
-    print(&#39;Close, but not correct&#39;)</code></pre>
-<p>Each condition is checked in order. If the first is false, the next is checked, and so on. If one of them is true, the corresponding branch executes, and the statement ends. Even if more than one condition is true, only the first true branch executes.</p>
-<h2 id="nested-conditionals">Nested conditionals</h2>
+    print(&#39;Πλησίασες, αλλά όχι σωστό&#39;)</code></pre>
+<p>Κάθε συνθήκη ελέγχεται με τη σειρά. Εάν η πρώτη είναι ψευδής, ελέγχεται η επόμενη και ούτω καθεξής. Εάν μία από αυτές είναι αληθής, ο αντίστοιχος κλάδος εκτελείται και η εντολή τελειώνει. Ακόμα κι αν περισσότερες από μία συνθήκες είναι αληθείς, εκτελείται μόνο ο πρώτος αληθής κλάδος.</p>
+<h2 id="εμφωλευμένη-επιλογή">Εμφωλευμένη επιλογή</h2>
 <p> </p>
-<p>One conditional can also be nested within another. We could have written the three-branch example like this:</p>
+<p>Μια εντολή επιλογής μπορεί να εμφωλευτεί σε άλλη. Θα μπορούσαμε να γράψουμε το παράδειγμα των τριών-κλάδων και έτσι:</p>
 <pre class="python"><code>if x == y:
-    print(&#39;x and y are equal&#39;)
+    print(&#39;τα x και y είναι ίσα&#39;)
 else:
     if x &lt; y:
-        print(&#39;x is less than y&#39;)
+        print(&#39;το x είναι μικρότερο από το y&#39;)
     else:
-        print(&#39;x is greater than y&#39;)</code></pre>
-<p>The outer conditional contains two branches. The first branch contains a simple statement. The second branch contains another <code>if</code> statement, which has two branches of its own. Those two branches are both simple statements, although they could have been conditional statements as well.</p>
+        print(&#39;το x είναι μεγαλύτερο από το y&#39;)</code></pre>
+<p>Η εξωτερική επιλογή περιέχει δύο κλάδους. Ο πρώτος κλάδος περιέχει μια απλή εντολή. Ο δεύτερος κλάδος περιέχει άλλη μια εντολή <code>if</code>, η οποία έχει δύο δικούς της κλάδους. Αυτοί οι δύο κλάδοι περιέχουν και οι δύο απλές εντολές, αν και θα μπορούσαν να ήταν και νέες εντολές επιλογής.</p>
 <figure>
-<img src="../images/nested.svg" alt="Nested If Statements" style="height: 2.0in;"/>
+<img src="../images/nested.svg" alt="Εμφωλευμένες Εντολές If" style="height: 2.0in;"/>
 <figcaption>
-Nested If Statements
+Εμφωλευμένες Εντολές If
 </figcaption>
 </figure>
-<p>Although the indentation of the statements makes the structure apparent, <em>nested conditionals</em> become difficult to read very quickly. In general, it is a good idea to avoid them when you can.</p>
-<p>Logical operators often provide a way to simplify nested conditional statements. For example, we can rewrite the following code using a single conditional:</p>
+<p>Αν και η χρήση εσοχών καθιστά εμφανή τη δομή, οι <em>εμφωλευμένες επιλογές</em> είναι δύσκολο να διαβαστούν πολύ γρήγορα. Γενικά, είναι καλή ιδέα να τις αποφεύγετε όταν μπορείτε.</p>
+<p>Οι λογικοί τελεστές παρέχουν συχνά έναν τρόπο απλοποίησης των εμφωλευμένων επιλογών. Για παράδειγμα, μπορούμε να ξαναγράψουμε τον ακόλουθο κώδικα χρησιμοποιώντας μία μόνο εντολή επιλογής:</p>
 <pre class="python"><code>if 0 &lt; x:
     if x &lt; 10:
-        print(&#39;x is a positive single-digit number.&#39;)</code></pre>
-<p>The <code>print</code> statement is executed only if we make it past both conditionals, so we can get the same effect with the <code>and</code> operator:</p>
+        print(&#39;το x είναι ένας θετικός μονοψήφιος αριθμός.&#39;)</code></pre>
+<p>Η δήλωση <code>print</code> εκτελείται μόνο αν ικανοποιούνται και οι δύο συνθήκες, οπότε μπορούμε να έχουμε το ίδιο αποτέλεσμα χρησιμοποιώντας τον τελεστή <code>and</code>:</p>
 <pre class="python"><code>if 0 &lt; x and x &lt; 10:
-    print(&#39;x is a positive single-digit number.&#39;)</code></pre>
-<h2 id="catching-exceptions-using-try-and-except">Catching exceptions using try and except</h2>
-<p>Earlier we saw a code segment where we used the <code>input</code> and <code>int</code> functions to read and parse an integer number entered by the user. We also saw how treacherous doing this could be:</p>
-<pre class="python"><code>&gt;&gt;&gt; prompt = &quot;What is the air velocity of an unladen swallow?\n&quot;
-&gt;&gt;&gt; speed = input(prompt)
-What is the air velocity of an unladen swallow?
-What do you mean, an African or a European swallow?
-&gt;&gt;&gt; int(speed)
+    print(&#39;το x είναι ένας θετικός μονοψήφιος αριθμός.&#39;)</code></pre>
+<h2 id="εντοπισμός-εξαιρέσεων-χρησιμοποιώντας-το-try-και-except">Εντοπισμός εξαιρέσεων χρησιμοποιώντας το try και except</h2>
+<p>Νωρίτερα είδαμε ένα τμήμα κώδικα όπου χρησιμοποιήσαμε τις συναρτήσεις <code>input</code> και <code>int</code> για να διαβάσουμε και να αναλύσουμε έναν ακέραιο αριθμό που εισήγαγε ο χρήστης. Είδαμε επίσης πόσο εύκολα μπορεί να οδηγήσει σε σφάλματα:</p>
+<pre class="python"><code>&gt;&gt;&gt; μήνυμα = &quot;Με τί ταχύτητα πετάει ένα χελιδόνι;\n&quot;
+&gt;&gt;&gt; ταχύτητα = input(μήνυμα)
+Με τί ταχύτητα πετάει ένα χελιδόνι;
+Τί εννοείς, ένα Αφρικανικό ή Ευρωπαϊκό χελιδόνι;
+&gt;&gt;&gt; int(ταχύτητα)
 ValueError: invalid literal for int() with base 10:
 &gt;&gt;&gt;</code></pre>
-<p>When we are executing these statements in the Python interpreter, we get a new prompt from the interpreter, think “oops”, and move on to our next statement.</p>
-<p>However if you place this code in a Python script and this error occurs, your script immediately stops in its tracks with a traceback. It does not execute the following statement.</p>
+<p>Όταν εκτελούμε αυτές τις εντολές στον διερμηνέα της Python, λαμβάνουμε ένα νέο μήνυμα από τον διερμηνέα, σκεφτόμαστε “ωχ” και προχωράμε στην επόμενη εντολή μας.</p>
+<p>Ωστόσο, εάν γράψετε αυτόν τον κώδικα σε ένα σενάριο Python και παρουσιαστεί αυτό το σφάλμα, το σενάριό σας σταματά αμέσως γιατί εντοπίζει το πρόβλημα με ιχνηλάτηση/traceback. Δεν εκτελεί την ακόλουθη πρόταση.</p>
 <p></p>
-<p>Here is a sample program to convert a Fahrenheit temperature to a Celsius temperature:</p>
+<p>Ακολουθεί ένα δείγμα προγράμματος για τη μετατροπή θερμοκρασίας Φαρενάιτ σε θερμοκρασία Κελσίου:</p>
 <p>  </p>
-<pre class="python"><code>inp = input(&#39;Enter Fahrenheit Temperature: &#39;)
+<pre class="python"><code>inp = input(&#39;Εισαγάγετε τη θερμοκρασία Φαρενάιτ: &#39;)
 fahr = float(inp)
 cel = (fahr - 32.0) * 5.0 / 9.0
 print(cel)
 
 # Code: http://www.py4e.com/code3/fahren.py</code></pre>
-<p>If we execute this code and give it invalid input, it simply fails with an unfriendly error message:</p>
-<pre><code>python fahren.py
-Enter Fahrenheit Temperature:72
+<p>Εάν εκτελέσουμε αυτόν τον κώδικα και του δώσουμε μη έγκυρη είσοδο, απλώς αποτυγχάνει με ένα όχι και τόσο φιλικό μήνυμα σφάλματος:</p>
+<pre class="python trinket"><code>python fahren.py
+Εισαγάγετε τη θερμοκρασία Φαρενάιτ:72
 22.22222222222222</code></pre>
-<pre><code>python fahren.py
-Enter Fahrenheit Temperature:fred
+<pre class="python trinket"><code>python fahren.py
+Εισαγάγετε τη θερμοκρασία Φαρενάιτ:fred
 Traceback (most recent call last):
   File &quot;fahren.py&quot;, line 2, in &lt;module&gt;
     fahr = float(inp)
 ValueError: could not convert string to float: &#39;fred&#39;</code></pre>
-<p>There is a conditional execution structure built into Python to handle these types of expected and unexpected errors called “try / except”. The idea of <code>try</code> and <code>except</code> is that you know that some sequence of instruction(s) may have a problem and you want to add some statements to be executed if an error occurs. These extra statements (the except block) are ignored if there is no error.</p>
-<p>You can think of the <code>try</code> and <code>except</code> feature in Python as an “insurance policy” on a sequence of statements.</p>
-<p>We can rewrite our temperature converter as follows:</p>
-<pre class="python"><code>inp = input(&#39;Enter Fahrenheit Temperature:&#39;)
+<p>Υπάρχει μια δομή εκτέλεσης υπό όρους ενσωματωμένη στην Python για να χειρίζεται αυτούς τους τύπους αναμενόμενων και/ή απροσδόκητων σφαλμάτων που ονομάζονται “try / except”. Η βάση των <code>try</code> και <code>except</code> είναι ότι γνωρίζετε ότι κάποια ακολουθία οδηγιών μπορεί να προκαλέσει πρόβλημα και θέλετε να προσθέσετε ορισμένες προτάσεις που θα εκτελεστούν σε περίπτωση σφάλματος. Αυτές οι πρόσθετες προτάσεις (το μπλοκ except) αγνοούνται εάν δεν προκληθεί σφάλμα.</p>
+<p>Μπορείτε να θεωρήσετε τη λειτουργία <code>try</code> και <code>except</code> στην Python ως μια «δικλείδα ασφαλείας» για μια ακολουθία εντολών.</p>
+<p>Μπορούμε να ξαναγράψουμε τον μετατροπέα θερμοκρασίας μας ως εξής:</p>
+<pre class="python"><code>inp = input(&#39;Εισαγάγετε τη θερμοκρασία Φαρενάιτ:&#39;)
 try:
     fahr = float(inp)
     cel = (fahr - 32.0) * 5.0 / 9.0
     print(cel)
 except:
-    print(&#39;Please enter a number&#39;)
+    print(&#39;Παρακαλώ εισάγετε έναν αριθμό&#39;)
 
 # Code: http://www.py4e.com/code3/fahren2.py</code></pre>
-<p>Python starts by executing the sequence of statements in the <code>try</code> block. If all goes well, it skips the <code>except</code> block and proceeds. If an exception occurs in the <code>try</code> block, Python jumps out of the <code>try</code> block and executes the sequence of statements in the <code>except</code> block.</p>
-<pre><code>python fahren2.py
-Enter Fahrenheit Temperature:72
+<p>Η Python ξεκινά εκτελώντας την ακολουθία εντολών που περιπεχονται στο μπλοκ <code>try</code>. Αν όλα πάνε καλά, παραλείπει το μπλοκ <code>except</code> και προχωρά. Εάν προκύψει πρόβλημα στο μπλοκ <code>try</code>, η Python βγαίνει από το μπλοκ <code>try</code> και εκτελεί την ακολουθία εντολών του μπλοκ <code>except</code>.</p>
+<pre class="python trinket"><code>python fahren2.py
+Εισαγάγετε τη θερμοκρασία Φαρενάιτ:72
 22.22222222222222</code></pre>
-<pre><code>python fahren2.py
-Enter Fahrenheit Temperature:fred
-Please enter a number</code></pre>
-<p>Handling an exception with a <code>try</code> statement is called <em>catching</em> an exception. In this example, the <code>except</code> clause prints an error message. In general, catching an exception gives you a chance to fix the problem, or try again, or at least end the program gracefully.</p>
-<h2 id="short-circuit-evaluation-of-logical-expressions">Short-circuit evaluation of logical expressions</h2>
-<p></p>
-<p>When Python is processing a logical expression such as <code>x &gt;= 2 and (x/y) &gt; 2</code>, it evaluates the expression from left to right. Because of the definition of <code>and</code>, if <code>x</code> is less than 2, the expression <code>x &gt;= 2</code> is <code>False</code> and so the whole expression is <code>False</code> regardless of whether <code>(x/y) &gt; 2</code> evaluates to <code>True</code> or <code>False</code>.</p>
-<p>When Python detects that there is nothing to be gained by evaluating the rest of a logical expression, it stops its evaluation and does not do the computations in the rest of the logical expression. When the evaluation of a logical expression stops because the overall value is already known, it is called <em>short-circuiting</em> the evaluation.</p>
-<p> </p>
-<p>While this may seem like a fine point, the short-circuit behavior leads to a clever technique called the <em>guardian pattern</em>. Consider the following code sequence in the Python interpreter:</p>
+<pre class="python trinket"><code>python fahren2.py
+Εισαγάγετε τη θερμοκρασία Φαρενάιτ:fred
+Παρακαλώ εισάγετε έναν αριθμό</code></pre>
+<p>Η διαχείριση μιας εξαίρεσης με την εντολή <code>try</code> ονομάζεται <em>σύλληψη</em> της εξαίρεσης. Σε αυτό το παράδειγμα, ο όρος <code>except</code> εκτυπώνει ένα φιλικό μήνυμα σφάλματος. Σε γενικές γραμμές, η σύλληψη μιας εξαίρεσης σας δίνει την ευκαιρία να διορθώσετε το πρόβλημα ή να προσπαθήσετε ξανά ή τουλάχιστον να το πρόγραμμα τερματίσει χωρίς μήνυμα σφάλματος.</p>
+<h2 id="ελαχιστοποίηση-αξιολόγησης-λογικών-εκφράσεων">Ελαχιστοποίηση αξιολόγησης λογικών εκφράσεων</h2>
+<p>  </p>
+<p>Όταν η Python επεξεργάζεται μια λογική έκφραση όπως η <code>x &gt;= 2 and (x/y) &gt; 2</code>, αξιολογεί την έκφραση από αριστερά προς τα δεξιά. Λόγω του ορισμού του <code>and</code>, αν το <code>x</code> είναι μικρότερο του 2, η έκφραση <code>x &gt;= 2</code> είναι <code>False</code> και έτσι συνολικά η έφραση είναι <code>False</code> ανεξάρτητα από το αν το <code>(x/y) &gt; 2</code> έχει ως αποτέλεσμα <code>True</code> ή <code>False</code>.</p>
+<p>Όταν η Python διαπιστώσει ότι δεν θα να κερδίσει τίποτα με την αξιολόγηση της υπόλοιπης λογικής έκφρασης, σταματά την αξιολόγησή της και δεν κάνει τους υπολογισμούς στην υπόλοιπη λογική έκφραση. Όταν σταματήσει η αξιολόγηση μιας λογικής έκφρασης επειδή η συνολική τιμή είναι ήδη γνωστή, ονομάζεται <em>short-circuiting/βραχυκύκλωμα</em> της αξιολόγηση.</p>
+<p>  </p>
+<p>Ενώ αυτό μπορεί να φαίνεται σαν μια καλή τεχνική, η συμπεριφορά βραχυκυκλώματος οδηγεί σε μια εξυπνότερη τεχνική που ονομάζεται <em>τιμή φρουρός/guardian pattern</em>. Εξετάστε το ακόλουθο τμήμα κώδικα στον διερμηνέα της Python:</p>
 <pre class="python"><code>&gt;&gt;&gt; x = 6
 &gt;&gt;&gt; y = 2
 &gt;&gt;&gt; x &gt;= 2 and (x/y) &gt; 2
@@ -363,8 +363,8 @@ Traceback (most recent call last):
   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
 ZeroDivisionError: division by zero
 &gt;&gt;&gt;</code></pre>
-<p>The third calculation failed because Python was evaluating <code>(x/y)</code> and <code>y</code> was zero, which causes a runtime error. But the first and the second examples did <em>not</em> fail because in the first calculation <code>y</code> was non zero and in the second one the first part of these expressions <code>x &gt;= 2</code> evaluated to <code>False</code> so the <code>(x/y)</code> was not ever executed due to the <em>short-circuit</em> rule and there was no error.</p>
-<p>We can construct the logical expression to strategically place a <em>guard</em> evaluation just before the evaluation that might cause an error as follows:</p>
+<p>Ο τρίτος υπολογισμός απέτυχε επειδή η Python αξιολόγησε το <code>(x/y)</code> και το <code>y</code> ήταν μηδέν, γεγονός που προκάλεσε σφάλμα χρόνου εκτέλεσης. Αλλά το πρώτο και το δεύτερο παράδειγμα <em>δεν</em> απέτυχαν, επειδή στον πρώτο υπολογισμό το <code>y</code> ήταν μηδέν και στο δεύτερο, το πρώτο μέρος της έκφρασης, το <code>x &gt;= 2</code> αξιολογήθηκε ως <code>False</code> οπότε το <code>(x /y)</code> δεν εκτελέστηκε ποτέ λόγω του κανόνα <em>short-circuiting</em> και δεν προέκυψε σφάλμα.</p>
+<p>Μπορούμε να κατασκευάσουμε τη λογική έκφραση με τέτοιο τρόπο ώστε να τοποθετήσουμε στρατηγικά έναν <em>φύλακα</em> αξιολόγηση, ακριβώς πριν από την αξιολόγηση που μπορεί να προκαλέσει σφάλμα ως εξής:</p>
 <pre class="python"><code>&gt;&gt;&gt; x = 1
 &gt;&gt;&gt; y = 0
 &gt;&gt;&gt; x &gt;= 2 and y != 0 and (x/y) &gt; 2
@@ -378,101 +378,101 @@ Traceback (most recent call last):
   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
 ZeroDivisionError: division by zero
 &gt;&gt;&gt;</code></pre>
-<p>In the first logical expression, <code>x &gt;= 2</code> is <code>False</code> so the evaluation stops at the <code>and</code>. In the second logical expression, <code>x &gt;= 2</code> is <code>True</code> but <code>y != 0</code> is <code>False</code> so we never reach <code>(x/y)</code>.</p>
-<p>In the third logical expression, the <code>y != 0</code> is <em>after</em> the <code>(x/y)</code> calculation so the expression fails with an error.</p>
-<p>In the second expression, we say that <code>y != 0</code> acts as a <em>guard</em> to insure that we only execute <code>(x/y)</code> if <code>y</code> is non-zero.</p>
-<h2 id="debugging">Debugging</h2>
+<p>Στην πρώτη λογική έκφραση, το <code>x &gt;= 2</code> είναι <code>False</code>, έτσι η αξιολόγηση σταματά στο <code>and</code>. Στη δεύτερη λογική έκφραση, το <code>x &gt;= 2</code> είναι <code>True</code> αλλά το <code>y != 0</code> είναι <code>False</code> οπότε δεν φτάνουμε ποτέ στο <code>(x/y)</code>.</p>
+<p>Στην τρίτη λογική έκφραση, το <code>y != 0</code> βρίσκεται <em>μετά</em> τον υπολογισμό <code>(x/y)</code> έτσι η έκφραση αποτυγχάνει με συνέπεια ένα σφάλμα.</p>
+<p>Στη δεύτερη έκφραση, λέμε ότι το <code>y != 0</code> λειτουργεί ως <em>φρουρός</em> για να διασφαλίσει ότι εκτελούμε το <code>(x/y)</code> μόνο αν το <code>y</code> είναι μη μηδενικό.</p>
+<h2 id="εκσφαλμάτωση">Εκσφαλμάτωση</h2>
 <p> </p>
-<p>The traceback Python displays when an error occurs contains a lot of information, but it can be overwhelming. The most useful parts are usually:</p>
+<p>Το traceback της Python εμφανίζεται όταν προκύψει ένα σφάλμα και περιέχει πολλές πληροφορίες, αλλά αυτές μπορεί να είναι υπερβολικές. Τα πιο χρήσιμα μέρη είναι συνήθως τα:</p>
 <ul>
-<li><p>What kind of error it was, and</p></li>
-<li><p>Where it occurred.</p></li>
+<li><p>Τι είδους λάθος ήταν και</p></li>
+<li><p>Πού συνέβη.</p></li>
 </ul>
-<p>Syntax errors are usually easy to find, but there are a few gotchas. Whitespace errors can be tricky because spaces and tabs are invisible and we are used to ignoring them.</p>
-<p></p>
+<p>Τα σφάλματα σύνταξης είναι συνήθως εύκολο να βρεθούν, αλλά υπάρχουν μερικές παγίδες. Τα σφάλματα στους λευκούς χαρακτήρες μπορεί να είναι δύσκολα επειδή τα κενά και τα tab είναι αόρατα και έχουμε συνηθίσει να τα αγνοούμε.</p>
+<p> </p>
 <pre class="python"><code>&gt;&gt;&gt; x = 5
 &gt;&gt;&gt;  y = 6
   File &quot;&lt;stdin&gt;&quot;, line 1
     y = 6
     ^
 IndentationError: unexpected indent</code></pre>
-<p>In this example, the problem is that the second line is indented by one space. But the error message points to <code>y</code>, which is misleading. In general, error messages indicate where the problem was discovered, but the actual error might be earlier in the code, sometimes on a previous line.</p>
-<p>In general, error messages tell you where the problem was discovered, but that is often not where it was caused.</p>
-<h2 id="glossary">Glossary</h2>
+<p>Σε αυτό το παράδειγμα, το πρόβλημα είναι ότι στη δεύτερη γραμμή έχει δημιουργηθεί εσοχή ενός διαστήματος. Αλλά το μήνυμα σφάλματος δείχνει το <code>y</code>, το οποίο είναι παραπλανητικό. Σε γενικές γραμμές, τα μηνύματα σφάλματος υποδεικνύουν πού εντοπίστηκε το πρόβλημα, αλλά το πραγματικό σφάλμα μπορεί να είναι νωρίτερα στον κώδικα, μερικές φορές σε προηγούμενη γραμμή.</p>
+<p>Σε γενικές γραμμές, τα μηνύματα σφάλματος σας λένε πού ανακαλύφθηκε το πρόβλημα, αλλά συχνά δεν προκλήθηκε εκεί.</p>
+<h2 id="γλωσσάριο">Γλωσσάριο</h2>
 <dl>
-<dt>body</dt>
-<dd>The sequence of statements within a compound statement.
-</dd>
-<dt>boolean expression</dt>
-<dd>An expression whose value is either <code>True</code> or <code>False</code>.
-</dd>
-<dt>branch</dt>
-<dd>One of the alternative sequences of statements in a conditional statement.
-</dd>
-<dt>chained conditional</dt>
-<dd>A conditional statement with a series of alternative branches.
-</dd>
-<dt>comparison operator</dt>
-<dd>One of the operators that compares its operands: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, and <code>&lt;=</code>.
-</dd>
-<dt>conditional statement</dt>
-<dd>A statement that controls the flow of execution depending on some condition.
-</dd>
-<dt>condition</dt>
-<dd>The boolean expression in a conditional statement that determines which branch is executed.
-</dd>
-<dt>compound statement</dt>
-<dd>A statement that consists of a header and a body. The header ends with a colon (:). The body is indented relative to the header.
-</dd>
-<dt>guardian pattern</dt>
-<dd>Where we construct a logical expression with additional comparisons to take advantage of the short-circuit behavior.
-</dd>
-<dt>logical operator</dt>
-<dd>One of the operators that combines boolean expressions: <code>and</code>, <code>or</code>, and <code>not</code>.
-</dd>
-<dt>nested conditional</dt>
-<dd>A conditional statement that appears in one of the branches of another conditional statement.
-</dd>
 <dt>traceback</dt>
-<dd>A list of the functions that are executing, printed when an exception occurs.
+<dd>Μια λίστα με τις λειτουργίες που εκτελούνται, που εκτυπώνονται όταν προκύψει ένα σφάλμα.
 </dd>
-<dt>short circuit</dt>
-<dd>When Python is part-way through evaluating a logical expression and stops the evaluation because Python knows the final value for the expression without needing to evaluate the rest of the expression.
+<dt>short circuit - βραχυκύκλωμα</dt>
+<dd>Όταν η Python αξιολογεί εν μέρει μια λογική έκφραση και σταματά την αξιολόγηση επειδή γνωρίζει την τελική τιμή για την έκφραση χωρίς να χρειάζεται να αξιολογήσει την υπόλοιπη έκφραση.
+</dd>
+<dt>εμφωλευμένη επιλογή</dt>
+<dd>Μια εντολή επιλογής που εμφανίζεται σε έναν από τους κλάδους μιας άλλης εντολής επιλογής.
+</dd>
+<dt>εντολή επιλογής</dt>
+<dd>Μια εντολή που διαφοροποιεί την ροή της εκτέλεσης ανάλογα με κάποια συνθήκη.
+</dd>
+<dt>κλάδος</dt>
+<dd>Μία από τις εναλλακτικές ακολουθίες εντολών σε μια εντολή επιλογής.
+</dd>
+<dt>λογική έκφραση</dt>
+<dd>Μια έκφραση της οποίας η τιμή είναι είτε <code>True</code> είτε <code>False</code>.
+</dd>
+<dt>λογικός τελεστής</dt>
+<dd>Ένας από τους τελεστές που συνδυάζουν λογικές εκφράσεις: <code>and</code>, <code>or</code> και <code>not</code>.
+</dd>
+<dt>πολλαπλή επιλογή</dt>
+<dd>Μια εντολή επιλογής με μια σειρά εναλλακτικών κλάδων.
+</dd>
+<dt>σύνθετη εντολή/compound statement</dt>
+<dd>Μια εντολή που αποτελείτε από κεφαλίδα και σώμα. Η κεφαλίδα τελειώνει με άνω κάτω τελεία (:). Το σώμα τοποθετείται σε εσοχή, σε σχέση με την κεφαλίδα
+</dd>
+<dt>συνθήκη</dt>
+<dd>Η λογική έκφραση σε μια εντολή επιλογής, που καθορίζει ποιος κλάδος θα εκτελεστεί.
+</dd>
+<dt>συγκριτικός τελεστής</dt>
+<dd>Ένας από τους τελεστές που συγκρίνουν τους τελεστέους τους: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, and <code>&lt;=</code>.
+</dd>
+<dt>σώμα</dt>
+<dd>Το μπλοκ των εντολών μέσα σε μια σύνθετη εντολή.
+</dd>
+<dt>τιμή φρουρός</dt>
+<dd>Όπου κατασκευάζουμε μια λογική έκφραση με πρόσθετες συγκρίσεις για να επωφεληθούμε από τη συμπεριφορά short-circuit/βραχυκυκλώματος.
 </dd>
 </dl>
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Rewrite your pay computation to give the employee 1.5 times the hourly rate for hours worked above 40 hours.</strong></p>
-<pre><code>Enter Hours: 45
-Enter Rate: 10
+<h2 id="ασκήσεις">Ασκήσεις</h2>
+<p><strong>Άσκηση 1: </strong> Άσκηση 1: Ξαναγράψτε τον υπολογισμό της αμοιβής για να δώσετε στον υπάλληλο 1,5 φορές το ωρομίσθιο για τις ώρες εργασίας πέραν των 40 ωρών.**</p>
+<pre class="python trinket"><code>Δώστε Ώρες: 45
+Δώστε Ποσό/Ώρα: 10
 Pay: 475.0</code></pre>
-<p><strong>Exercise 2: Rewrite your pay program using <code>try</code> and <code>except</code> so that your program handles non-numeric input gracefully by printing a message and exiting the program. The following shows two executions of the program:</strong></p>
-<pre><code>Enter Hours: 20
-Enter Rate: nine
-Error, please enter numeric input</code></pre>
-<pre><code>Enter Hours: forty
-Error, please enter numeric input</code></pre>
-<p><strong>Exercise 3: Write a program to prompt for a score between 0.0 and 1.0. If the score is out of range, print an error message. If the score is between 0.0 and 1.0, print a grade using the following table:</strong></p>
-<pre><code> Score   Grade
+<p><strong>Άσκηση 2: Ξαναγράψτε το πρόγραμμα πληρωμών χρησιμοποιώντας το <code>try</code> και <code>except</code> έτσι ώστε το πρόγραμμά σας να χειρίζεται μη αριθμητικές τιμές εισόδου σωστά, εκτυπώνοντας ένα μήνυμα και τερματίζοντας την εκτέλεση. Παρακάτω φαίνεται το αποτέλεσμα δύο εκτελέσεων του προγράμματος:</strong></p>
+<pre class="python trinket"><code>Δώστε Ώρες: 20
+Δώστε Ποσό/Ώρα: εννιά
+Σφάλμα, παρακαλώ δώστε αριθμητική είσοδο</code></pre>
+<pre class="python trinket"><code>Δώστε Ώρες: σαράντα
+Σφάλμα, παρακαλώ δώστε αριθμητική είσοδο</code></pre>
+<p>**Άσκηση 3: Γράψτε ένα πρόγραμμα για να ζητήσετε βαθμολογία μεταξύ 0,0 και 1,0. Εάν η βαθμολογία είναι εκτός εμβέλειας, να εκτυπώνετε ένα μήνυμα σφάλματος. Εάν η βαθμολογία είναι μεταξύ 0,0 και 1,0, να εκτυπώνετε μια αξιολόγηση με βάση τον ακόλουθο πίνακα:</p>
+<pre class="python trinket"><code>Βαθμός   Αξιολόγηση
 &gt;= 0.9     A
 &gt;= 0.8     B
 &gt;= 0.7     C
 &gt;= 0.6     D
  &lt; 0.6     F</code></pre>
-<pre><code>Enter score: 0.95
+<pre class="text"><code>Εισάγετε βαθμολογία: 0.95
 A</code></pre>
-<pre><code>Enter score: perfect
-Bad score</code></pre>
-<pre><code>Enter score: 10.0
-Bad score</code></pre>
-<pre><code>Enter score: 0.75
+<pre class="text"><code>Εισάγετε βαθμολογία: τέλεια
+Άκυρη βαθμολογία</code></pre>
+<pre class="text"><code>Εισάγετε βαθμολογία: 10.0
+Άκυρη βαθμολογία</code></pre>
+<pre class="text"><code>Εισάγετε βαθμολογία: 0.75
 C</code></pre>
-<pre><code>Enter score: 0.5
+<pre class="text"><code>Εισάγετε βαθμολογία: 0.5
 F</code></pre>
-<p>Run the program repeatedly as shown above to test the various different values for input.</p>
+<p>Εκτελέστε το πρόγραμμα επανειλημμένα όπως φαίνεται παραπάνω για να δοκιμάσετε τις διαφορετικές τιμές εισόδου.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>We will learn about functions in Chapter 4 and loops in Chapter 5.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Θα μάθουμε για τις συναρτήσεις στο Κεφάλαιο 4 και τους βρόχους στο Κεφάλαιο 5.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>
