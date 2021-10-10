@@ -1,12 +1,12 @@
 try:
-    inp = input('Enter Hours: ')
-    hours = float(inp)
-    inp = input('Enter Rate: ')
-    rate = float(inp)
-    if hours > 40:
-        pay = hours * rate + (hours - 40) * rate * 1.5
+    inp = input('Δώστε Ώρες: ')
+    ώρες = float(inp)
+    inp = input('Δώστε Ποσό/Ώρα: ')
+    ωρομίσθιο = float(inp)
+    if ώρες > 40:
+        μισθός = ώρες * ωρομίσθιο + (ώρες - 40) * ωρομίσθιο * 1.5
     else:
-        pay = hours * rate
-    print('Pay:', pay)
+        μισθός = ώρες * ωρομίσθιο
+    print('Μισθός:', μισθός)
 except:
-    print('Error, please enter numeric input')
+    print('Σφάλμα, παρακαλώ δώστε αριθμητική είσοδο')
