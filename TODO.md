@@ -7,6 +7,7 @@ Things left to do:
 6. code3/
 7. **book3/**
 8. Quizs
+9. images 
 
 
 if can be changed:
