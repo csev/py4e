@@ -88,7 +88,8 @@
     </li>
     <li>
         Όλο το περιεχόμενο του μαθήματος και το λογισμικό αυτόματης βαθμολόγησης είναι διαθέσιμα στο <a href="https://github.com/csev/py4e" target="_blank">
-        Github</a> υπό άδεια Creative Commons ή Apache 2.0.
+        Github (πρωτότυπο στα Αγγλικά)</a> και στο <a href="https://github.com/csev-gr/py4e" target="_blank">
+        Github (μεταφρασμένο στα Ελληνικά)</a> υπό άδεια Creative Commons ή Apache 2.0.
     </li>
 </ul>
 <p>
