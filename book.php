@@ -47,7 +47,10 @@
                                         <a href="https://twitter.com/KonstantiaQ" target="_blank">Konstantia Kiourtidou</a>
                                 </li>
                                 <li>
-                                        Βιβλίο, βαθμολογητές, πόροι και ιστότοπος - Σε εξέλιξη
+                                        Βιβλίο, βαθμολογητές, πόροι και ιστότοπος - Σε εξέλιξη <a href="https://gr.py4e.com/"target="_blank"> https://gr.py4e.com/</a>
+                                </li>
+                                <li>
+                                         <a href="https://github.com/csev-gr/py4e" target="_blank">Github repo</a>
                                 </li>
                         </ul>
                 </li>
