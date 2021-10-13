@@ -20,14 +20,15 @@ if can be changed:
    5. Text in *i*
 
 2. On lessons screen the words:
-   1. videos
-   2. slides
-   3. references
-   4. discussions
-   5. tools
-   6. Previous
-   7. Next
-   8. All
+   1. ~~videos~~
+   2. ~~slides~~
+   3. ~~references~~
+   4. ~~discussions~~
+   5. ~~tools~~
+   6. ~~Previous~~
+   7. ~~Next~~
+   8. ~~All~~
+   9. ~~page per pages in All~~
 
 3.Login screen 
    
