@@ -1,13 +1,23 @@
 <?php
 
 require_once "rate_limit.php";
+require_once "opengeo_api.php";
 
-$serviceurl = 'https://nominatim.openstreetmap.org/search.php?';
+/* opengeo_api.php
+
+<?php
+global $OPENGEO_KEY;
+$OPENGEO_KEY = "5b1e........................5239";
+
+*/
+
+$serviceurl = 'https://nominatim.openstreetmap.org/search.php?format=geojson&limit=1&addressdetais=1&accept-language-en&q=';
+$serviceurl = 'https://api.geoapify.com/v1/geocode/search?apiKey='.$OPENGEO_KEY.'&format=geojson&limit=1&addressdetais=1&accept-language-en&text=';
 
 $q = \Tsugi\Util\U::get($_GET, 'q', false);
 if ( ! $q ) {
 ?>
-<h1>Python For Everybody Open StreetMap Proxy Server</h1>
+<h1>Python For Everybody Open StreetMap / GeoAPIfProxy Server</h1>
 <p>
 This server is used in the Python for Everybody
 (<a href="https://www.py4e.com">www.py4e.com</a>)
@@ -19,18 +29,22 @@ miss the CloudFlare cache once.
 </p>
 <p>
 If a request makes it past the CloudFlare cache, it will be delayed
-by 5 seconds in this proxy before being forwarded to the OpenStreetMap server
+by 5 seconds in this proxy before being forwarded to the actual server
 in order not to trigger its rate limit.
 This server also has its own rate limiting to keep users
-from bypassing the CloudFlare cache and triggering OpenStreetMap's rate limit.
+from bypassing the CloudFlare cache and triggering the actual server's rate limit.
 </p>
+<!--
 <p>
-This service acts as a caching proxy for the free
+This service acts as a caching proxy for the API and is
 <a href="https://wiki.openstreetmap.org/wiki/Nominatim">Nominatim</a>
 server provided by the
 <a href="https://operations.osmfoundation.org/policies/nominatim/">
 Open Street Map Foundation
-</a>.   We make every effort to use this service in an efficient
+</a>.
+-->
+Powered by <a href="https://www.geoapify.com/">Geoapify</a> at the free level.
+We make every effort to use this service in an efficient
 and respectful way.
 </p>
 <p>
@@ -41,28 +55,30 @@ This server is maintained by
 	return;
 }
 
+$known_sites = file_get_contents("where.data");
+
+$known = strpos($known_sites, $q."\n") !== false;
+
 $ipaddr = \Tsugi\Util\Net::getIP();
-
-if ( filter_bad_things($q, $ipaddr) ) return;
-
-$delta = check_rate_limit('/tmp/opengeo.db', $ipaddr, $q);
-
-error_log("opengeo $q $ipaddr $delta");
-
-if ( $delta < 3 ) {
-    sleep(20);
+if ( $known ) {
+  error_log("opengeo $q $ipaddr known");
+  sleep(2);
 } else {
-    sleep(7);
+
+  if ( filter_bad_things($q, $ipaddr) ) return;
+
+  $delta = check_rate_limit('/tmp/opengeo.db', $ipaddr, $q);
+
+  error_log("opengeo $q $ipaddr $delta");
+
+  if ( $delta < 3 ) {
+      sleep(20);
+  } else {
+      sleep(7);
+  }
 }
 
-$parms = array();
-$parms['q'] = $q;
-$parms['format'] = 'geojson';
-$parms['limit'] = 1;
-$parms['addressdetails'] = 1;
-$parms['accept-language'] = 'en';
-
-$url = $serviceurl . http_build_query($parms);
+$url = $serviceurl . urlencode($q);
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -84,10 +100,11 @@ if ( ! is_string($contents) ) {
     $retval->code = curl_errno($ch);
     $retval->error = curl_error($ch);
     error_log("Failed opengeo $retval->code $retval->error $url");
-    $retval->note = "Something went wrong when talking to the Open Street Map API";
+    $retval->note = "Something went wrong when talking to GeoAPIify";
     echo(json_encode($retval));
     return;
 }
 
+$contents = str_replace('"name":', '"display_name":', $contents);
 echo($contents);
 
