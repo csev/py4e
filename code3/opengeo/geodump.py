@@ -16,10 +16,15 @@ for row in cur :
 
     if len(js['features']) == 0: continue
 
-    lat = js['features'][0]['geometry']['coordinates'][1]
-    lng = js['features'][0]['geometry']['coordinates'][0]
-    where = js['features'][0]['properties']['display_name']
-    where = where.replace("'", "")
+    try:
+        lat = js['features'][0]['geometry']['coordinates'][1]
+        lng = js['features'][0]['geometry']['coordinates'][0]
+        where = js['features'][0]['properties']['display_name']
+        where = where.replace("'", "")
+    except:
+        print('Unexpected format')
+        print(js)
+
     try :
         print(where, lat, lng)
 
