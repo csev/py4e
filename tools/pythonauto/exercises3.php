@@ -82,8 +82,8 @@ h = float(hrs)',
 "print" => "You must use the print statement to print the output.",
 "if" => "You should use an if statement to decide to to the overtime computation or not.",
 "float" => "You should use the built-in float() function to convert from a string to a float.",
-"!45" => "You must read the data using input() and then convert it. The number '45' should not appear in your program.",
-"!10.5" => "You must read the data using input() and then convert it.",
+"!45" => "You must read the hours using input() and then convert it. The number '45' should not appear in your program.",
+"!10.5" => "You must read the rate using input() and then convert it.",
 "!498" => "You must actually calculate the pay.")),
 
 "3.3" => Array(
