@@ -140,8 +140,10 @@ and
   <li>
     Russian 
     <ul>
+<!--
 <li><a href="https://dmkpress.com" target="_blank">DMK Press</a>
 is working on a commercial translation of the book and will provide a free PDF for this site when it is completed.</li>
+-->
     <li><a href="lectures3/ru/index.htm" target="_blank">Russian versions of the slides</a> from
 <a href="https://www.linkedin.com/in/violetta-fomkina-9451372/" target="_blank">Violetta Fomkina</a>.
 </li>
