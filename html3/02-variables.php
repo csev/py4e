@@ -507,7 +507,7 @@ height = 12.0</code></pre>
 </ol>
 <p>Use the Python interpreter to check your answers.</p>
 <p><strong>Exercise 5: Write a program which prompts the user for a Celsius temperature, convert the temperature to Fahrenheit, and print out the converted temperature.</strong></p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>In Python 2.0, this function was named <code>raw_input</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

@@ -486,7 +486,7 @@ print (list.__getitem__(stuff,0))
 <dd>The class which is being extended to create a new child class. The parent class contributes all of its methods and attributes to the new child class.
 </dd>
 </dl>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>https://docs.python.org/3/library/html.parser.html<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

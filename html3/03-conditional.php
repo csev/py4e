@@ -469,7 +469,7 @@ C</code></pre>
 <pre><code>Enter score: 0.5
 F</code></pre>
 <p>Run the program repeatedly as shown above to test the various different values for input.</p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>We will learn about functions in Chapter 4 and loops in Chapter 5.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

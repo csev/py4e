@@ -398,6 +398,19 @@ for key, val in lst[:10]:
 </ol>
 <p>Because tuples are immutable, they don’t provide methods like <code>sort</code> and <code>reverse</code>, which modify existing lists. However Python provides the built-in functions <code>sorted</code> and <code>reversed</code>, which take any sequence as a parameter and return a new sequence with the same elements in a different order.</p>
 <p>   </p>
+<h2 id="list-comprehension">List comprehension</h2>
+<p>Sometimes you want to create a sequence by using data from another sequence. You can achieve this by writing a for loop and appending one item at a time. For example, if you wanted to convert a list of strings – each string storing digits – into numbers that you can sum up, you would write:</p>
+<pre class="python"><code>list_of_ints_in_strings = [&#39;42&#39;, &#39;65&#39;, &#39;12&#39;]
+list_of_ints = []
+for x in list_of_ints_in_strings:
+    list_of_ints.append(int(x))
+
+print(sum(list_of_ints))</code></pre>
+<p>With list comprehension, the above code can be written in a more compact manner:</p>
+<pre class="python"><code>list_of_ints_in_strings = [&#39;42&#39;, &#39;65&#39;, &#39;12&#39;]
+list_of_ints = [ int(x) for x in list_of_ints_in_strings ]
+print(sum(list_of_ints))</code></pre>
+<p></p>
 <h2 id="debugging">Debugging</h2>
 <p>   </p>
 <p>Lists, dictionaries and tuples are known generically as <em>data structures</em>; in this chapter we are starting to see compound data structures, like lists of tuples, and dictionaries that contain tuples as keys and lists as values. Compound data structures are useful, but they are prone to what I call <em>shape errors</em>; that is, errors caused when a data structure has the wrong type, size, or composition, or perhaps you write some code and forget the shape of your data and introduce an error. For example, if you are expecting a list with one integer and I give you a plain old integer (not in a list), it won’t work.</p>
@@ -462,7 +475,7 @@ Enter a file name: mbox-short.txt
 19 1</code></pre>
 <p><strong>Exercise 3: Write a program that reads a file and prints the <em>letters</em> in decreasing order of frequency. Your program should convert all the input to lower case and only count the letters a-z. Your program should not count spaces, digits, punctuation, or anything other than the letters a-z. Find text samples from several different languages and see how letter frequency varies between languages. Compare your results with the tables at <a href="https://wikipedia.org/wiki/Letter_frequencies" class="uri">https://wikipedia.org/wiki/Letter_frequencies</a>.</strong></p>
 <p> </p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>Fun fact: The word “tuple” comes from the names given to sequences of numbers of varying lengths: single, double, triple, quadruple, quintuple, sextuple, septuple, etc.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

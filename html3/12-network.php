@@ -585,7 +585,7 @@ Attrs: [(&#39;href&#39;, &#39;http://www.dr-chuck.com/page2.htm&#39;)]</code></p
 <p><strong>Exercise 3: Use <code>urllib</code> to replicate the previous exercise of (1) retrieving the document from a URL, (2) displaying up to 3000 characters, and (3) counting the overall number of characters in the document. Don’t worry about the headers for this exercise, simply show the first 3000 characters of the document contents.</strong></p>
 <p><strong>Exercise 4: Change the <code>urllinks.py</code> program to extract and count paragraph (p) tags from the retrieved HTML document and display the count of the paragraphs as the output of your program. Do not display the paragraph text, only count them. Test your program on several small web pages as well as some larger web pages.</strong></p>
 <p><strong>Exercise 5: (Advanced) Change the socket program so that it only shows data after the headers and a blank line have been received. Remember that <code>recv</code> receives characters (newlines and all), not lines.</strong></p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>The XML format is described in the next chapter.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

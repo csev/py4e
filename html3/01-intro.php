@@ -560,7 +560,7 @@ c) x + 1<br />
 d) Error because x = x + 1 is not possible mathematically</p>
 <p><strong>Exercise 8: Explain each of the following using an example of a human capability: (1) Central processing unit, (2) Main Memory, (3) Secondary Memory, (4) Input Device, and (5) Output Device. For example, “What is the human equivalent to a Central Processing Unit”?</strong></p>
 <p><strong>Exercise 9: How do you fix a “Syntax Error”?</strong></p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p><a href="http://xkcd.com/231/" class="uri">http://xkcd.com/231/</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

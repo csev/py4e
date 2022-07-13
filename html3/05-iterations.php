@@ -373,7 +373,7 @@ Enter a number: 7
 Enter a number: done
 16 3 5.333333333333333</code></pre>
 <p><strong>Exercise 2: Write another program that prompts for a list of numbers as above and at the end prints out both the maximum and minimum of the numbers instead of the average.</strong></p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>We will examine lists in more detail in a later chapter.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

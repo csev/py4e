@@ -296,7 +296,7 @@ False</code></pre>
 &gt;&gt;&gt; print(x)
 b</code></pre>
 <p><code>pop</code> modifies the list and returns the element that was removed. If you don’t provide an index, it deletes and returns the last element.</p>
-<p>If you don’t need the removed value, you can use the <code>del</code> operator:</p>
+<p>If you don’t need the removed value, you can use the <code>del</code> statement:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; del t[1]

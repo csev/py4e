@@ -186,7 +186,7 @@ www.dr-chuck.com<br />
 Ann Arbor, MI, USA<br />
 September 9, 2013</p>
 <p>Charles Severance is a Clinical Associate Professor at the University of Michigan School of Information.</p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>Except, of course, for this line.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

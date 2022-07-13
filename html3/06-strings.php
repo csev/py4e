@@ -193,7 +193,7 @@ TypeError: string indices must be integers</code></pre>
 <pre class="python"><code>&gt;&gt;&gt; length = len(fruit)
 &gt;&gt;&gt; last = fruit[length]
 IndexError: string index out of range</code></pre>
-<p>The reason for the <code>IndexError</code> is that there is no letter in “banana” with the index 6. Since we started counting at zero, the six letters are numbered 0 to 5. To get the last character, you have to subtract 1 from <code>length</code>:</p>
+<p>The reason for the <code>IndexError</code> is that there is no letter in “fruit” with the index 5. Since we started counting at zero, the six letters are numbered 0 to 4. To get the last character, you have to subtract 1 from <code>length</code>:</p>
 <pre class="python"><code>&gt;&gt;&gt; last = fruit[length-1]
 &gt;&gt;&gt; print(last)
 a</code></pre>
@@ -497,7 +497,7 @@ IndexError: string index out of range</code></pre>
 <p> </p>
 <p><strong>Exercise 6: Read the documentation of the string methods at <a href="https://docs.python.org/library/stdtypes.html#string-methods" class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a> You might want to experiment with some of them to make sure you understand how they work. <code>strip</code> and <code>replace</code> are particularly useful.</strong></p>
 <p><strong>The documentation uses a syntax that might be confusing. For example, in <code>find(sub[, start[, end]])</code>, the brackets indicate optional arguments. So <code>sub</code> is required, but <code>start</code> is optional, and if you include <code>start</code>, then <code>end</code> is optional.</strong></p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>A tuple is a sequence of comma-separated values inside a pair of parenthesis. We will cover tuples in Chapter 10<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
