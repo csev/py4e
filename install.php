@@ -5,9 +5,13 @@
     <div class="small-12 columns">
         <h2>Setting up your Python Development Environment</h2>
         <p>
-            We have separate pages for each of the commonly used Operating Systems:
+            We have separate pages for each of the commonly used Systems:
         </p>
         <ul>
+            <li>
+                <a href="software-replit.php">Using Python on Replit</a> 
+                    (Cloud / browser based - no installation required)
+            </li>
             <li>
                 <a href="software-pyaw.php">Using Python on PythonAnywhere</a> 
                     (Cloud / browser based - no installation required)
