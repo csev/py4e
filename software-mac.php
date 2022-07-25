@@ -7,10 +7,9 @@ Getting started with Python on a Macintosh
 is a programmer text editor.
 </p>
 <b>Installing the Atom Text Editor</b>
-<p>Please download and install Atom from this site:
-</p>
-<p><a href="http://atom.io" target="_blank">http://atom.io</a>
-</p>
+<p>Please download and install VS-Code from this site:
+<p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a>
+
 <h1>Writing a Python 3 program with Atom on Macintosh</h1>
 <p>
 We have a short

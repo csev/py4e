@@ -9,10 +9,9 @@ If you have a version of Python 3.x on your computer already you should be able 
 <p>As you install Python, make sure to check the "Add Python 3.5 to PATH" so that you can 
 type <b>python</b> at the command line prompt to run Python.
 </p>
-<b>Installing the Atom Text Editor</b>
-<p>Please download and install Atom from this site:
-</p>
-<p><a href="http://atom.io" target="_blank">http://atom.io</a></p>
+<b>Installing A Programming Text Editor</b>
+<p>Please download and install VS-Code from this site:
+<p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a>
 
 <h1>Writing a Python 3 program with Atom on Windows-10</h1>
 <p>
