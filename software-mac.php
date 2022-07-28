@@ -6,15 +6,18 @@ Getting started with Python on a Macintosh
 <p>Python 2 and Python 3 are already installed on Macintosh OS/X operating system so all you need to add
 is a programmer text editor.
 </p>
-<b>Installing the Atom Text Editor</b>
+<b>Installing A Programmer Text Editor</b>
 <p>Please download and install VS-Code from this site:
 <p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a>
 
-<h1>Writing a Python 3 program with Atom on Macintosh</h1>
+<h1>Writing a Python 3 program on Macintosh</h1>
 <p>
 We have a short
 <a href="https://www.youtube.com/watch?v=aIcLCww_kQM" target="_blank">
-step-by-step video</a> showing how to use Atom and write your first Python 3 program.</p>
+step-by-step video</a> showing how to use a programmer editor and write your first Python 3 program.
+This video uses the Atom editor - we suggest you install and use VS-Code if you don't already have
+a programming text editor.
+</p>
 <p>
 <h1>Starting Terminal on Macintosh OS/X</h1>
 <p>

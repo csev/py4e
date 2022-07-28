@@ -13,11 +13,11 @@ type <b>python</b> at the command line prompt to run Python.
 <p>Please download and install VS-Code from this site:
 <p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a>
 
-<h1>Writing a Python 3 program with Atom on Windows-10</h1>
+<h1>Writing a Python 3 program Windows-10</h1>
 <p>
 We have a short 
 <a href="https://www.youtube.com/watch?v=uZbaYeYGYRQ&index=1&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
-step-by-step video</a> showing how to install Python 3 and Atom and write your first program.
+step-by-step video</a> showing how to install Python 3 and write your first program.
 </p>
 <h1>Windows Command Line Notes</h1>
 <p>
