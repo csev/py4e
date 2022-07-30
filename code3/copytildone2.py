@@ -1,8 +1,8 @@
 while True:
-    line = input('> ')
-    if line[0] == '#':
+    γραμμή = input('> ')
+    if γραμμή[0] == '#':
         continue
-    if line == 'done':
+    if γραμμή == 'τέλος':
         break
-    print(line)
+    print(γραμμή)
 print('Done!')

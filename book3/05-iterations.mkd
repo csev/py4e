@@ -1,28 +1,27 @@
 
-Iteration
+Επανάληψη
 =========
 
-\index{iteration}
+\index{επανάληψη}
 
-Updating variables
-------------------
+Ενημέρωση μεταβλητών
+--------------------
 
-\index{update}
-\index{variable!updating}
+\index{ενημέρωση}
+\index{μεταβλητή!ενημέρωση}
 
-A common pattern in assignment statements is an assignment statement
-that updates a variable, where the new value of the variable depends on
-the old.
+Ένα συνηθισμένο μοτίβο στις εντολές εκχώρησης είναι μια εντολή εκχώρησης που
+ενημερώνει μια μεταβλητή και η νέα τιμή της μεταβλητής εξαρτάται από την παλιά.
 
 ~~~~ {.python}
 x = x + 1
 ~~~~
 
-This means "get the current value of `x`, add 1, and then
-update `x` with the new value."
+Αυτό σημαίνει "πάρε την τρέχουσα τιμή του `x`, πρόσθεσε 1 και μετά
+ενημερώστε το `x` με τη νέα τιμή."
 
-If you try to update a variable that doesn't exist, you get an error,
-because Python evaluates the right side before it assigns a value to
+Εάν προσπαθήσετε να ενημερώσετε μια μεταβλητή που δεν υπάρχει, λαμβάνετε ένα
+σφάλμα, επειδή η Python αξιολογεί το δεξί μέλος πριν εκχωρήσει μια τιμή στο
 `x`:
 
 ~~~~ {.python}
@@ -30,38 +29,40 @@ because Python evaluates the right side before it assigns a value to
 NameError: name 'x' is not defined
 ~~~~
 
-Before you can update a variable, you have to
-*initialize* it, usually with a simple assignment:
+Πριν μπορέσετε να ενημερώσετε μια μεταβλητή, θα πρέπει να την
+*αρχικοποιήσετε*, συνήθως με μια απλή εκχώρηση:
 
-\index{initialization (before update)}
+\index{αρχικοποίηση (πριν την ενημέρωση)}
 
 ~~~~ {.python}
 >>> x = 0
 >>> x = x + 1
 ~~~~
 
-Updating a variable by adding 1 is called an *increment*;
-subtracting 1 is called a *decrement*.
+Η ενημέρωση μιας μεταβλητής προσθέτοντας 1 ονομάζεται *αύξηση (increment)*,
+ενώ η αφαίρεση του 1 ονομάζεται *μείωση (decrement)*.
 
 \index{increment}
 \index{decrement}
+\index{αύξηση}
+\index{μείωση}
 
-The `while` statement
---------------------------------
+Η εντολή `while`
+----------------
 
-\index{statement!while}
-\index{while loop}
-\index{loop!while}
-\index{iteration}
+\index{εντολή!while}
+\index{while βρόχος}
+\index{βρόχος!while}
+\index{επανάληψη}
 
-Computers are often used to automate repetitive tasks. Repeating
-identical or similar tasks without making errors is something that
-computers do well and people do poorly. Because iteration is so common,
-Python provides several language features to make it easier.
+Οι υπολογιστές χρησιμοποιούνται συχνά για την αυτοματοποίηση επαναλαμβανόμενων
+εργασιών. Η επανάληψη ίδιων ή παρόμοιων εργασιών χωρίς σφάλματα είναι κάτι που
+οι υπολογιστές κάνουν καλά και οι άνθρωποι όχι και τόσο καλά. Επειδή η
+επανάληψη είναι τόσο συνηθισμένη, η Python παρέχει πολλές γλωσσικές δυνατότητες
+για να το διευκολύνει.
 
-One form of iteration in Python is the `while` statement.
-Here is a simple program that counts down from five and then says
-"Blastoff!".
+Μια μορφή επανάληψης στην Python είναι η εντολή `while`. Εδώ έχουμε ένα απλό
+πρόγραμμα που μετρά αντίστροφα από το πέντε και μετά λέει "Blastoff!".
 
 ~~~~ {.python}
 n = 5
@@ -71,238 +72,229 @@ while n > 0:
 print('Blastoff!')
 ~~~~
 
-You can almost read the `while` statement as if it were
-English. It means, "While `n` is greater than 0, display the
-value of `n` and then reduce the value of `n` by
-1. When you get to 0, exit the `while` statement and display
-the word `Blastoff!`"
+Μπορείτε σχεδόν να διαβάσετε τη δήλωση `while` σαν να ήταν Αγγλικά. Σημαίνει,
+"Όσο το `n` είναι μεγαλύτερο από 0, εμφανίστε την τιμή του `n` και στη έπειτα
+μειώστε την τιμή του `n` κατά 1. Όταν φτάσει στο 0, βγες από την εντολή `while`
+και εμφανίστε τη λέξη `Blastoff` !"
 
-\index{flow of execution}
+\index{ροή εκτέλεσης}
 
-More formally, here is the flow of execution for a `while`
-statement:
+Πιο επίσημα, αυτή είναι η ροή της εκτέλεσης για μια εντολή `while`:
 
-1.  Evaluate the condition, yielding `True` or
-    `False`.
+1.  Αξιολογήστε τη συνθήκη, δίνοντας `True (Αληθής)` ή `False (Ψευδής)`.
 
-2.  If the condition is false, exit the `while` statement and
-    continue execution at the next statement.
+2.  Εάν η συνθήκη είναι ψευδής, βγες από την ενολή `while` και συνέχισε
+    την εκτέλεση με την επόμενη εντολή.
 
-3.  If the condition is true, execute the body and then go back to
-    step 1.
+3.  Εάν η συνθήκη είναι αληθής, εκτέλεσε τις εντολές μέσα στη `while` και στη
+    συνέχεια πήγαινε πίσω στο βήμα 1.
 
-This type of flow is called a *loop* because the third
-step loops back around to the top. We call each time we execute the body
-of the loop an *iteration*. For the above loop, we would
-say, "It had five iterations", which means that the body of the loop was
-executed five times.
+Αυτός ο τύπος ροής ονομάζεται *βρόχος (loop)* επειδή το τρίτο βήμα επαναφέρει
+την εκτέλεση και πάλι στην αρχή. Καλούμε, κάθε εκτέλεση του σώματος του βρόχου,
+*επανάληψη*. Για τον παραπάνω βρόχο, θα λέγαμε, "Πραγματοποιεί πέντε επαναλήψεις",
+που σημαίνει ότι το σώμα του βρόχου εκτελέστηκε πέντε φορές.
 
-\index{condition}
-\index{loop}
-\index{body}
+\index{συνθήκη}
+\index{βρόχος}
+\index{σώμα}
 
-The body of the loop should change the value of one or more variables so
-that eventually the condition becomes false and the loop terminates. We
-call the variable that changes each time the loop executes and controls
-when the loop finishes the *iteration variable*. If there
-is no iteration variable, the loop will repeat forever, resulting in an
-*infinite loop*.
+Στο σώμα του βρόχου θα πρέπει να αλλάξει την τιμή μιας ή περισσότερων
+μεταβλητών έτσι ώστε τελικά η συνθήκη να γίνει ψευδής και ο βρόχος να
+τερματιστεί. Καλούμε τη μεταβλητή που αλλάζει κάθε φορά που εκτελείται ο
+βρόχος και ελέγχει πότε θα τερματίσει ο βρόχος *μεταβλητή επανάληψης*. Εάν
+δεν υπάρχει μεταβλητή επανάληψης, ο βρόχος θα επαναλαμβάνεται επ' άπειρον,
+με αποτέλεσμα έναν *ατέρμων βρόχο*.
 
-Infinite loops
---------------
+Ατέρμονες βρόχοι
+----------------
 
-An endless source of amusement for programmers is the observation that
-the directions on shampoo, "Lather, rinse, repeat," are an infinite loop
-because there is no *iteration variable* telling you how
-many times to execute the loop.
+Μια ατελείωτη πηγή διασκέδασης για τους προγραμματιστές είναι η παρατήρηση ότι
+οι οδηγίες στα σαμπουάν, "Σαπουνίστε, ξεπλύνετε, επαναλάβετε", είναι ένας
+ατέρμων βρόχος, επειδή δεν υπάρχει *μεταβλητή επανάληψης* που να σας λέει πόσες
+φορές να εκτελέσετε τον βρόχο.
 
-\index{infinite loop}
-\index{loop!infinite}
+index{ατέρμων βρόχος}
+\index{βρόχος!ατέρμων}
 
-In the case of `countdown`, we can prove that the loop
-terminates because we know that the value of `n` is finite,
-and we can see that the value of `n` gets smaller each time
-through the loop, so eventually we have to get to 0. Other times a loop
-is obviously infinite because it has no iteration variable at all.
+Στην περίπτωση της `αντίστροφης μέτρησης`, μπορούμε να αποδείξουμε ότι ο βρόχος
+τερματίζεται επειδή γνωρίζουμε ότι η τιμή του `n` είναι πεπερασμένη και
+μπορούμε να δούμε ότι η τιμή του `n` ελαττώνεται κάθε φορά που εκτελείται ο
+βρόχος, οπότε τελικά πρέπει να φτάσει στο 0. Άλλες φορές ένας βρόχος είναι
+προφανώς άπειρος επειδή δεν έχει καμία μεταβλητή επανάληψης.
 
-\index{break statement}
-\index{statement!break}
+\index{break εντολή}
+\index{εντολή!break}
 
-Sometimes you don't know it's time to end a loop until you get half way
-through the body. In that case you can write an infinite loop on purpose
-and then use the `break` statement to jump out of the loop.
+Μερικές φορές δεν γνωρίζεται ότι είναι ώρα να τερματίσετε έναν βρόχο παρά μόνο
+όταν έχετε φτάσει στα μισά του σώματος. Σε αυτήν την περίπτωση, μπορείτε να
+γράψετε εσκεμμένα έναν ατέρνων βρόχο και στη συνέχεια να χρησιμοποιήσετε την
+εντολή `break` για να βγείτε από τον βρόχο.
 
-This loop is obviously an *infinite loop* because the
-logical expression on the `while` statement is simply the
-logical constant `True`:
+Αυτός ο βρόχος είναι προφανώς ένας *ατέρνων βρόχος* επειδή η λογική έκφραση
+στην `while` είναι απλώς η λογική σταθερά `True`:
 
 ~~~~ {.python}
 n = 10
 while True:
     print(n, end=' ')
     n = n - 1
-print('Done!')
+print('Τέλος!')
 ~~~~
 
-If you make the mistake and run this code, you will learn quickly how to
-stop a runaway Python process on your system or find where the power-off
-button is on your computer. This program will run forever or until your
-battery runs out because the logical expression at the top of the loop
-is always true by virtue of the fact that the expression is the constant
-value `True`.
+Εάν κάνετε το λάθος και εκτελέσετε αυτόν τον κώδικα, θα μάθετε γρήγορα πώς να
+διακόψετε μια εκτρεπόμενη διαδικασία Python στο σύστημά σας ή θα βρείτε πού
+βρίσκεται το κουμπί απενεργοποίησης στον υπολογιστή σας. Αυτό το πρόγραμμα
+θα λειτουργεί επ' άπειρον ή τουλάχιστον μέχρι να εξαντληθεί η μπαταρία σας
+επειδή η λογική έκφραση στην αρχή του βρόχου είναι πάντα αληθής, λόγω του ότι
+η έκφραση είναι η σταθερή τιμή `True`.
 
-While this is a dysfunctional infinite loop, we can still use this
-pattern to build useful loops as long as we carefully add code to the
-body of the loop to explicitly exit the loop using `break`
-when we have reached the exit condition.
+Αν και πρόκειται για έναν δυσλειτουργικό ατέρμων βρόχο, μπορούμε να
+χρησιμοποιήσουμε αυτό το μοτίβο για να δημιουργήσουμε χρήσιμους βρόχους, αρκεί
+να προσθέσουμε προσεκτικά κώδικα στο σώμα του βρόχου για να βγούμε ρητά από τον
+βρόχο χρησιμοποιώντας `break` όταν έχουμε φτάσει στην κατάσταση εξόδου.
 
-For example, suppose you want to take input from the user until they
-type `done`. You could write:
+Για παράδειγμα, ας υποθέσουμε ότι θέλετε να λαμβάνετε είσοδο από τον χρήστη
+μέχρι να πληκτρολογήσει `τέλος`. Θα μπορούσατε να γράψετε:
 
 \VerbatimInput{../code3/copytildone1.py}
 
-The loop condition is `True`, which is always true, so the
-loop runs repeatedly until it hits the break statement.
+Η συνθήκη βρόχου είναι `True`, η οποία είναι πάντα αληθής, επομένως ο βρόχος
+εκτελείται επανειλημμένα μέχρι να συναντήσει στην εντολή break.
 
-Each time through, it prompts the user with an angle bracket. If the
-user types `done`, the `break` statement exits the
-loop. Otherwise the program echoes whatever the user types and goes back
-to the top of the loop. Here's a sample run:
+Κάθε φορά που εκτελείται, προτρέπει τον χρήστη με ένα σύμβολο μεγαλύτερου.
+Εάν ο χρήστης πληκτρολογήσει `τέλος`, η εντολή `break` διακόπτει
+την εκτέλεση του βρόχου. Διαφορετικά, το πρόγραμμα επαναλαμβάνει ό,τι
+πληκτρολογεί ο χρήστης και επιστρέφει στην αρχή του βρόχου. Εδώ είναι
+ένα δείγμα εκτέλεσης:
 
-~~~~
+~~~~{text}
 > hello there
 hello there
 > finished
 finished
-> done
-Done!
+> τέλος
+Τέλος!
 ~~~~
 
-This way of writing `while` loops is common because you can
-check the condition anywhere in the loop (not just at the top) and you
-can express the stop condition affirmatively ("stop when this happens")
-rather than negatively ("keep going until that happens.").
+Αυτός ο τρόπος γραφής των βρόχων `while` είναι συνηθισμένος επειδή μπορείτε
+να ελέγξετε τη συνθήκη οπουδήποτε στον βρόχο (όχι μόνο στην αρχή) και μπορείτε
+να εκφράσετε τη συνθήκη διακοπής καταφατικά ("σταμάτα όταν συμβεί αυτό") και
+όχι αρνητικά ("συνεχισε μέχρι να συμβεί αυτό.").
 
-Finishing iterations with `continue`
------------------------------------------------
+Ολοκλήρωση επαναλήψεων με `continue`
+------------------------------------
 
-\index{continue statement}
-\index{statement!continue}
+\index{continue εντολή}
+\index{εντολή!continue}
 
-Sometimes you are in an iteration of a loop and want to finish the
-current iteration and immediately jump to the next iteration. In that
-case you can use the `continue` statement to skip to the next
-iteration without finishing the body of the loop for the current
-iteration.
+Μερικές φορές βρίσκεστε σε μια επανάληψη ενός βρόχου και θέλετε να ολοκληρώσετε
+την τρέχουσα εκτέλεσή της και να μεταβείτε άμεσα στην επόμενη εκτέλεση. Σε
+αυτήν την περίπτωση, μπορείτε να χρησιμοποιήσετε την εντολή `continue` για να
+μεταβείτε στην επόμενη εκτέλεση χωρίς να ολοκληρώσετε το σώμα του βρόχου για
+την τρέχουσα εκτέλεση.
 
-Here is an example of a loop that copies its input until the user types
-"done", but treats lines that start with the hash character as lines not
-to be printed (kind of like Python comments).
+Ακολουθεί ένα παράδειγμα βρόχου που αντιγράφει την είσοδό του έως ότου ο
+χρήστης πληκτρολογήσει `τέλος`, αλλά αντιμετωπίζει τις γραμμές που ξεκινούν
+με τον χαρακτήρα # (Αριθμός - hash), ως γραμμές που δεν πρέπει να εκτυπωθούν
+(κάπως σαν σχόλια της Python).
 
 \VerbatimInput{../code3/copytildone2.py}
 
-Here is a sample run of this new program with `continue`
-added.
+Ακολουθεί ένα δείγμα εκτέλεσης αυτού του νέου προγράμματος με την προσθήκη του
+`continue`.
 
-~~~~ 
+~~~~{text}
 > hello there
 hello there
 > # don't print this
 > print this!
 print this!
-> done
+> τέλος
+Τέλος!
+~~~~
+
+Όλες οι γραμμές εκτυπώνονται εκτός από αυτή που ξεκινά με το σύμβολο αριθμού,
+επειδή όταν εκτελεστεί η `continue`, τερματίζει την τρέχουσα εκτέλεση και
+μεταπηδά πίσω στην αρχή της εντολής `while` για να ξεκινήσει η επόμενη
+εκτέλεση, παρακάμπτοντας έτσι την εντολή `print`.
+
+Ορισμός βρόχων με χρήση της `for`
+---------------------------------
+
+\index{for εντολή}
+\index{εντολή!for}
+
+Μερικές φορές θέλουμε να κάνουμε να διατρέξουμε ένα *σύνολο* πραγμάτων, όπως
+μια λίστα λέξεων, τις γραμμές ενός αρχείου ή μια λίστα αριθμών. Όταν έχουμε
+να διατρέξουμε μια λίστα πραγμάτων, μπορούμε να κατασκευάσουμε έναν βρόχο
+*καθορισμένο* χρησιμοποιώντας μια εντολή `for`. Ονομάζουμε την `while`
+*αόριστο* βρόχο επειδή απλώς επαναλαμβάνεται μέχρις ότου κάποια συνθήκη γίνει
+`Ψευδής - False`, ενώ ο βρόχος `for` διατρέχει ένα γνωστό σύνολο στοιχείων,
+επομένως εκτελεί τόσες επαναλήψεις όσα και τα στοιχεία του συνόλου.
+
+Η σύνταξη ενός βρόχου `for` είναι παρόμοια με του βρόχου `while`, καθώς και
+στε αυτόν υπάρχει μια δήλωση `for` και ένα σώμα βρόχου:
+
+~~~~ {.python}
+φίλοι = ['Δημήτρης', 'Σοφία', 'Άρης']
+for φίλος in φίλοι:
+    print('Καλή χρονιά:', φίλος)
+print('Τέλος!')
+~~~~
+
+Στην ορολογία της Python, η μεταβλητή `φίλοι` είναι μια λίστα^[Θα εξετάσουμε
+λεπτομερέστερα τις λίστες σε επόμενο κεφάλαιο.] τριών συμβολοσειρών και ο
+βρόχος `for` περνάει από τη λίστα και εκτελεί το σώμα μία φορά για καθεμιά από
+τις τρεις συμβολοσειρές στη λίστα, καταλήγοντας αυτήν την έξοδο:
+
+~~~~ {.python}
+Καλή χρονιά: Δημήτρης
+Καλή χρονιά: Σοφία
+Καλή χρονιά: Άρης
 Done!
 ~~~~
 
-All the lines are printed except the one that starts with the hash sign
-because when the `continue` is executed, it ends the current
-iteration and jumps back to the `while` statement to start
-the next iteration, thus skipping the `print` statement.
+Η μετάφραση αυτού του βρόχου `for` στα Αγγλικά δεν είναι τόσο άμεση όσο του
+`while`, αλλά αν σκεφτείτε τους φίλους ως ένα *σύνολο*, έχει ως εξής:
+"Εκτελέστε τις εντολές στο σώμα του βρόχου for μία φορά για κάθε φίλο *που
+ανήκει (in)* στο σετ με όνομα φίλοι."
 
-Definite loops using `for` 
---------------------------------------
-
-\index{for statement}
-\index{statement!for}
-
-Sometimes we want to loop through a *set* of things such
-as a list of words, the lines in a file, or a list of numbers. When we
-have a list of things to loop through, we can construct a *definite*
-loop using a `for` statement. We call the `while`
-statement an *indefinite* loop because it simply loops until some
-condition becomes `False`, whereas the `for` loop
-is looping through a known set of items so it runs through as many
-iterations as there are items in the set.
-
-The syntax of a `for` loop is similar to the
-`while` loop in that there is a `for` statement
-and a loop body:
+Κοιτάζοντας τον βρόχο `for`, το *for* και το *in* είναι δεσμευμένες λέξεις
+της Python και τα `φίλος` και `φίλοι` είναι μεταβλητές.
 
 ~~~~ {.python}
-friends = ['Joseph', 'Glenn', 'Sally']
-for friend in friends:
-    print('Happy New Year:', friend)
-print('Done!')
+for φίλος in φίλοι:
+    print('Καλή χρονιά:', φίλος)
 ~~~~
 
-In Python terms, the variable `friends` is a list^[We will examine lists 
-in more detail in a later chapter.] of
-three strings and the `for` loop goes through the list and
-executes the body once for each of the three strings in the list
-resulting in this output:
+Συγκεκριμένα, το `φίλος` είναι η *μεταβλητή επανάληψης* για τον βρόχο for.
+Η μεταβλητή `φίλος` αλλάζει σε κάθε επανάληψη του βρόχου και ελέγχει την
+ολοκλήρωση ο βρόχος `for`. Η *μεταβλητή επανάληψης* πέρνει διαδοχικά τις
+τιμές των τριών συμβολοσειρών που είναι αποθηκευμένες στη μεταβλητή `φίλοι`.
 
-~~~~ {.python}
-Happy New Year: Joseph
-Happy New Year: Glenn
-Happy New Year: Sally
-Done!
-~~~~
-
-Translating this `for` loop to English is not as direct as
-the `while`, but if you think of friends as a
-*set*, it goes like this: "Run the statements in the body
-of the for loop once for each friend *in* the set named friends."
-
-Looking at the `for` loop, *for* and
-*in* are reserved Python keywords, and
-`friend` and `friends` are variables.
-
-~~~~ {.python}
-for friend in friends:
-    print('Happy New Year:', friend)
-~~~~
-
-In particular, `friend` is the *iteration
-variable* for the for loop. The variable `friend`
-changes for each iteration of the loop and controls when the
-`for` loop completes. The *iteration variable*
-steps successively through the three strings stored in the
-`friends` variable.
-
-Loop patterns
+Μοτίβα βρόχων
 -------------
 
-Often we use a `for` or `while` loop to go through
-a list of items or the contents of a file and we are looking for
-something such as the largest or smallest value of the data we scan
-through.
+Συχνά χρησιμοποιούμε έναν βρόχο `for` ή `while` για να διατρέξουμε μια λίστα
+αντικειμένων ή τα περιεχόμενα ενός αρχείου και αναζητούμε κάτι όπως τη
+μεγαλύτερη ή τη μικρότερη τιμή των δεδομένων που σαρώνουμε.
 
-These loops are generally constructed by:
+Αυτοί οι βρόχοι κατασκευάζονται γενικά ως εξής:
 
--   Initializing one or more variables before the loop starts
+- Αρχικοποίηση μιας ή περισσότερων μεταβλητών πριν από την έναρξη του βρόχου
 
--   Performing some computation on each item in the loop body, possibly
-    changing the variables in the body of the loop
+- Εκτέλεση ορισμένων υπολογισμών σε κάθε στοιχείο στο σώμα του βρόχου, πιθανώς
+    αλλάζοντας τις μεταβλητές στο σώμα του βρόχου
 
--   Looking at the resulting variables when the loop completes
+- Εξέταση των μεταβλητών που προκύπτουν όταν ολοκληρωθεί ο βρόχος
 
-We will use a list of numbers to demonstrate the concepts and
-construction of these loop patterns.
+Θα χρησιμοποιήσουμε μια λίστα αριθμών για να δείξουμε τις έννοιες και τον τρόπο
+κατασκευή αυτών των μοτίβων βρόχων.
 
-### Counting and summing loops
+### Βρόχοι μέτρησης και άθροισης
 
-For example, to count the number of items in a list, we would write the
-following `for` loop:
+Για παράδειγμα, για να μετρήσουμε τον αριθμό των στοιχείων σε μια λίστα, θα
+γράφαμε τον ακόλουθο βρόχο `for`:
 
 ~~~~ {.python}
 count = 0
@@ -311,25 +303,24 @@ for itervar in [3, 41, 12, 9, 74, 15]:
 print('Count: ', count)
 ~~~~
 
-We set the variable `count` to zero before the loop starts,
-then we write a `for` loop to run through the list of
-numbers. Our *iteration* variable is named
-`itervar` and while we do not use `itervar` in the
-loop, it does control the loop and cause the loop body to be executed
-once for each of the values in the list.
+Αρχικοποιούμε τη μεταβλητή `count` με το μηδέν πριν ξεκινήσει ο βρόχος,
+και, στη συνέχεια, γράφουμε έναν βρόχο `for` για να διατρέξει τη λίστα των
+αριθμών. Η μεταβλητή *επανάληψης* ονομάζεται `itervar` και ενώ δεν
+χρησιμοποιούμε το `itervar` μέσα στον βρόχο, ελέγχει τον βρόχο και προκαλεί
+την εκτέλεση του σώματος του βρόχου μία φορά για καθεμία από τις τιμές στη
+λίστα.
 
-In the body of the loop, we add 1 to the current value of
-`count` for each of the values in the list. While the loop is
-executing, the value of `count` is the number of values we
-have seen "so far".
+Στο σώμα του βρόχου, προσθέτουμε 1 στην τρέχουσα τιμή του `count` για καθεμία
+από τις τιμές στη λίστα. Ενώ εκτελείται ο βρόχος, η τιμή του `count` είναι το
+πλήθος των τιμών που έχουμε δει «μέχρι στιγμής».
 
-Once the loop completes, the value of `count` is the total
-number of items. The total number "falls in our lap" at the end of the
-loop. We construct the loop so that we have what we want when the loop
-finishes.
+Μόλις ολοκληρωθεί ο βρόχος, η τιμή του `count` είναι ο συνολικός αριθμός των
+στοιχείων. Ο συνολικός αριθμός «πέφτει στην αγκαλιά μας» στο τέλος του βρόχου.
+Κατασκευάζουμε τον βρόχο έτσι ώστε να έχουμε αυτό που θέλουμε όταν τελειώσει ο
+βρόχος.
 
-Another similar loop that computes the total of a set of numbers is as
-follows:
+Άλλος ένας, παρόμοιος βρόχος, που υπολογίζει το άθροισμα ενός συνόλου αριθμών
+είναι ο εξής:
 
 ~~~~ {.python}
 total = 0
@@ -338,109 +329,104 @@ for itervar in [3, 41, 12, 9, 74, 15]:
 print('Total: ', total)
 ~~~~
 
-In this loop we *do* use the *iteration variable*.
-Instead of simply adding one to the `count` as in the
-previous loop, we add the actual number (3, 41, 12, etc.) to the running
-total during each loop iteration. If you think about the variable
-`total`, it contains the "running total of the values so
-far". So before the loop starts `total` is zero because we
-have not yet seen any values, during the loop `total` is the
-running total, and at the end of the loop `total` is the
-overall total of all the values in the list.
+Σε αυτόν τον βρόχο *χρησιμοποιούμε* τη *μεταβλητή επανάληψης*. Αντί απλώς να
+προσθέσουμε ένα στο `count` όπως στον προηγούμενο βρόχο, προσθέτουμε τον
+πραγματικό αριθμό (3, 41, 12, κ.λπ.) στο τρέχον σύνολο κατά τη διάρκεια κάθε
+επανάληψης του βρόχου. Αν σκεφτείτε τη μεταβλητή `total`, περιέχει το «τρέχον
+σύνολο των μέχρι στιγμής τιμών». Έτσι, πριν ξεκινήσει ο βρόχος, το `total`
+είναι μηδέν, επειδή δεν έχουμε δει ακόμη τιμές, κατά τη διάρκεια του βρόχου το
+`total` είναι το τρέχον σύνολο και στο τέλος του βρόχου το `total` είναι το
+γενικό σύνολο όλων των τιμών στο λίστα.
 
-As the loop executes, `total` accumulates the sum of the
-elements; a variable used this way is sometimes called an
-*accumulator*.
+Καθώς εκτελείται ο βρόχος, στο `total` συσσωρεύεται το άθροισμα των στοιχείων.
+Μια μεταβλητή που χρησιμοποιείται με αυτόν τον τρόπο μερικές φορές ονομάζεται
+*αθροιστής - accumulator*.
 
 \index{accumulator!sum}
+\index{αθροιστής!sum}
 
-Neither the counting loop nor the summing loop are particularly useful
-in practice because there are built-in functions `len()` and
-`sum()` that compute the number of items in a list and the
-total of the items in the list respectively.
+Ούτε ο βρόχος μέτρησης ούτε ο βρόχος άθροισης είναι ιδιαίτερα χρήσιμοι στην
+πράξη επειδή υπάρχουν οι ενσωματωμένες συναρτήσεις `len()` και `sum()` που
+υπολογίζουν τον αριθμό των στοιχείων σε μια λίστα και το σύνολο των στοιχείων
+στη λίστα αντίστοιχα.
 
-### Maximum and minimum loops
+### Βρόχοι μέγιστου και ελάχιστου
 
-\index{loop!maximum}
-\index{loop!minimum}
-\index{None special value}
-\index{special value!None}
+\index{βρόχος!μέγιστο}
+\index{βρόχος!ελάχιστο}
+\index{None ειδική τιμή}
+\index{ειδική τιμή!None}
 
-To find the largest value in a list or sequence, we
-construct the following loop:
-
-~~~~ {.python}
-largest = None
-print('Before:', largest)
-for itervar in [3, 41, 12, 9, 74, 15]:
-    if largest is None or itervar > largest :
-        largest = itervar
-    print('Loop:', itervar, largest)
-print('Largest:', largest)
-~~~~
-
-When the program executes, the output is as follows:
-
-~~~~
-Before: None
-Loop: 3 3
-Loop: 41 41
-Loop: 12 41
-Loop: 9 41
-Loop: 74 74
-Loop: 15 74
-Largest: 74
-~~~~
-
-The variable `largest` is best thought of as the "largest
-value we have seen so far". Before the loop, we set `largest`
-to the constant `None`. `None` is a special
-constant value which we can store in a variable to mark the variable as
-"empty".
-
-Before the loop starts, the largest value we have seen so far is
-`None` since we have not yet seen any values. While the loop
-is executing, if `largest` is `None` then we take
-the first value we see as the largest so far. You can see in the first
-iteration when the value of `itervar` is 3, since
-`largest` is `None`, we immediately set
-`largest` to be 3.
-
-After the first iteration, `largest` is no longer
-`None`, so the second part of the compound logical expression
-that checks `itervar > largest` triggers only when we see a
-value that is larger than the "largest so far". When we see a new "even
-larger" value we take that new value for `largest`. You can
-see in the program output that `largest` progresses from 3 to
-41 to 74.
-
-At the end of the loop, we have scanned all of the values and the
-variable `largest` now does contain the largest value in the
-list.
-
-To compute the smallest number, the code is very similar with one small
-change:
+Για να βρούμε τη μεγαλύτερη τιμή σε μια λίστα ή ακολουθία, κατασκευάζουμε
+τον ακόλουθο βρόχο:
 
 ~~~~ {.python}
-smallest = None
-print('Before:', smallest)
-for itervar in [3, 41, 12, 9, 74, 15]:
-    if smallest is None or itervar < smallest:
-        smallest = itervar
-    print('Loop:', itervar, smallest)
-print('Smallest:', smallest)
+μέγιστο = None
+print('Πριν:', μέγιστο)
+for αριθμό in [3, 41, 12, 9, 74, 15]:
+    if μέγιστο is None or αριθμό > μέγιστο :
+        μέγιστο = αριθμό
+    print('Εκτέλεση:', αριθμό, μέγιστο)
+print('Μέγιστο:', μέγιστο)
 ~~~~
 
-Again, `smallest` is the "smallest so far" before, during,
-and after the loop executes. When the loop has completed,
-`smallest` contains the minimum value in the list.
+Όταν το πρόγραμμα εκτελείται, η έξοδος είναι η εξής:
 
-Again as in counting and summing, the built-in functions
-`max()` and `min()` make writing these exact loops
-unnecessary.
+~~~~{text}
+Πριν: None
+Εκτέλεση: 3 3
+Εκτέλεση: 41 41
+Εκτέλεση: 12 41
+Εκτέλεση: 9 41
+Εκτέλεση: 74 74
+Εκτέλεση: 15 74
+Μέγιστο: 74
+~~~~
 
-The following is a simple version of the Python built-in
-`min()` function:
+Τη μεταβλητή `μέγιστο` είναι καλύτερα να τη σκέφτεστε ως τη «μεγαλύτερη τιμή
+που έχουμε δει μέχρι τώρα». Πριν από τον βρόχο, αρχικοποιήσαμε το `μέγιστο` με
+τη σταθερά `None`. Το `None` είναι μια ειδική σταθερή τιμή την οποία μπορούμε
+να αποθηκεύσουμε σε μια μεταβλητή για να επισημάνουμε τη μεταβλητή ως «κενή».
+
+Πριν ξεκινήσει ο βρόχος, η μεγαλύτερη τιμή που έχουμε δει μέχρι στιγμής είναι
+`None`, καθώς δεν έχουμε δει ακόμη τιμές. Ενώ εκτελείται ο βρόχος, εάν το
+`μέγιστο` είναι `None`, τότε παίρνουμε την πρώτη τιμή που βλέπουμε ως τη
+μεγαλύτερη μέχρι στιγμής. Μπορείτε να δείτε στην πρώτη επανάληψη πότε η τιμή
+του `αριθμό` είναι 3, αφού το `μέγιστο` είναι `None`, ορίσαμε αμέσως το
+`μέγιστο` σε 3.
+
+Μετά την πρώτη επανάληψη, το `μέγιστο` δεν είναι πλέον `None`, επομένως
+ενεργοποιείται το δεύτερο μέρος της σύνθετης λογικής έκφρασης που ελέγχει
+το `αριθμό > μέγιστο`, μόνο όταν βλέπουμε μια τιμή μεγαλύτερη από τη
+«μεγαλύτερη μέχρι τώρα». Όταν βλέπουμε μια νέα τιμή "ακόμη μεγαλύτερη",
+παίρνουμε αυτή τη νέα τιμή για `μέγιστο`. Μπορείτε να δείτε στην έξοδο του
+προγράμματος ότι το `μέγιστο` προχωρά από 3 σε 41 σε 74.
+
+Στο τέλος του βρόχου, έχουμε σαρώσει όλες τις τιμές και η μεταβλητή `μέγιστο`
+περιέχει τώρα τη μεγαλύτερη τιμή στη λίστα.
+
+Για τον υπολογισμό του μικρότερου αριθμού, ο κώδικας είναι παρόμοιος με μια
+μικρή αλλαγή:
+
+~~~~ {.python}
+ελάχιστο = None
+print('Πριν:', ελάχιστο)
+for αριθμό in [3, 41, 12, 9, 74, 15]:
+    if ελάχιστο is None or αριθμό < smallest:
+        ελάχιστο = αριθμό
+    print('Εκτέλεση:', αριθμό, ελάχιστο)
+print('Ελάχιστο:', ελάχιστο)
+~~~~
+
+Και πάλι, το `ελάχιστο` είναι το "μικρότερο μέχρι στιγμής" πριν, κατά τη
+διάρκεια και μετά την εκτέλεση του βρόχου. Όταν ολοκληρωθεί ο βρόχος, το
+`ελάχιστο` περιέχει την ελάχιστη τιμή στη λίστα.
+
+Και πάλι, όπως και στην καταμέτρηση και την άθροιση, οι ενσωματωμένες
+συναρτήσεις `max()` και `min()` καθιστούν περιττή τη γραφή των παραπάνω βρόχων.
+
+Το ακόλουθο είναι μια απλή έκδοση της ενσωματωμένης συνάρτησης `min()` της
+Python:
 
 ~~~~ {.python}
 def min(values):
@@ -451,100 +437,103 @@ def min(values):
     return smallest
 ~~~~
 
-In the function version of the smallest code, we removed all of the
-`print` statements so as to be equivalent to the
-`min` function which is already built in to Python.
+Στην εκδοχή της συνάρτησης του μικρότερου κώδικα, αφαιρέσαμε όλες τις εντολές
+`print` και χρησιμοποιήσαμε τα αντίστοιχα αγγλικά ονόματα μεταβλητών, ώστε να
+είναι ισοδύναμη με τη συνάρτηση `min` που είναι ήδη ενσωματωμένη στην Python.
 
-Debugging
+Εκσφαλμάτωση
+------------
+
+Καθώς αρχίζετε να γράφετε μεγαλύτερα προγράμματα, μπορεί να χριαστεί να
+ξοδέψετε περισσότερος χρόνος εκσφαλμάτωσης. Περισσότερος κώδικας σημαίνει
+περισσότερες πιθανότητες να κάνετε λάθος και περισσότερα μέρη που κρύβουν
+σφάλματα.
+
+\index{εκσφαλμάτωση!με διχοτόμηση}
+\index{διχοτόμηση, εκσφαλμάτωση}
+
+Ένας τρόπος για να μειώσετε το χρόνο εντοπισμού και διόρθωσης σφαλμάτων είναι η
+"εκσφαλμάτωση με διχοτόμηση". Για παράδειγμα, εάν υπάρχουν 100 γραμμές στο
+πρόγραμμά σας και τις ελέγξετε μία κάθε φορά, θα χρειαστείτε 100 βήματα.
+
+Αντίθετα, προσπαθήστε να σπάσετε το πρόβλημα στο μισό. Κοιτάξτε στη μέση του
+προγράμματος ή κοντά σε αυτήν, για μια ενδιάμεση τιμή που μπορείτε να ελέγξετε.
+Προσθέστε μια εντολή `print` (ή κάτι άλλο που έχει επαληθεύσιμο αποτέλεσμα) και
+εκτελέστε το πρόγραμμα.
+
+Εάν ο έλεγχος στο μέσο σημείο είναι λανθασμένος, το πρόβλημα πρέπει να
+βρίσκεται στο πρώτο μισό του προγράμματος. Αν είναι σωστός, το πρόβλημα
+βρίσκεται στο δεύτερο μισό.
+
+Κάθε φορά που εκτελείτε έναν έλεγχο όπως αυτόν, μειώνετε στο μισό τον αριθμό
+των γραμμών που πρέπει να ελέγξετε. Μετά από έξι βήματα (τα οποία είναι πολύ
+λιγότερα από 100), θα καταλήξετε σε μία ή δύο γραμμές κώδικα, τουλάχιστον
+θεωρητικά.
+
+Στην πράξη δεν είναι πάντα σαφές ποιο είναι το "μέσο του προγράμματος" και δεν
+είναι πάντα δυνατό να το ελέγξουμε. Δεν έχει νόημα να μετράμε γραμμές και να
+βρίσκουμε το ακριβές μέσο. Αντίθετα, σκεφτείτε μέρη στο πρόγραμμα όπου μπορεί
+να υπάρχουν σφάλματα και μέρη στα οποία είναι εύκολο να βάλετε έναν έλεγχο.
+Στη συνέχεια, επιλέξτε ένα σημείο όπου πιστεύετε ότι οι πιθανότητες είναι
+περίπου οι ίσες για τις περιπτώσεις το σφάλμα να είναι πριν ή μετά τον έλεγχο.
+
+Γλωσσάριο
 ---------
 
-As you start writing bigger programs, you might find yourself spending
-more time debugging. More code means more chances to make an error and
-more places for bugs to hide.
+αθροιστής
+:   Μια μεταβλητή που χρησιμοποιείται σε έναν βρόχο για να υπολογίσει ένα
+    άθροισμα
+\index{αθροιστής}
 
-\index{debugging!by bisection}
-\index{bisection, debugging by}
+αρχικοποίηση
+:   Μια εκχώρηση που δίνει μια αρχική τιμή σε μια μεταβλητή που θα ενημερωθεί.
+\index{αρχικοποίηση}
 
-One way to cut your debugging time is "debugging by bisection." For
-example, if there are 100 lines in your program and you check them one
-at a time, it would take 100 steps.
+ατρέρμων βρόχος
+:   Ένας βρόχος στον οποίο η συνθήκη τερματισμού δεν ικανοποιείται ποτέ ή για
+    τον οποίο δεν υπάρχει τερματική συνθήκη.
+\index{ατρέρμων βρόχος}
 
-Instead, try to break the problem in half. Look at the middle of the
-program, or near it, for an intermediate value you can check. Add a
-`print` statement (or something else that has a verifiable
-effect) and run the program.
-
-If the mid-point check is incorrect, the problem must be in the first
-half of the program. If it is correct, the problem is in the second
-half.
-
-Every time you perform a check like this, you halve the number of lines
-you have to search. After six steps (which is much less than 100), you
-would be down to one or two lines of code, at least in theory.
-
-In practice it is not always clear what the "middle of the program" is
-and not always possible to check it. It doesn't make sense to count
-lines and find the exact midpoint. Instead, think about places in the
-program where there might be errors and places where it is easy to put a
-check. Then choose a spot where you think the chances are about the same
-that the bug is before or after the check.
-
-Glossary
---------
-
-accumulator
-:   A variable used in a loop to add up or accumulate a result.
-\index{accumulator}
-
-counter
-:   A variable used in a loop to count the number of times something
-    happened. We initialize a counter to zero and then increment the
-    counter each time we want to "count" something.
-\index{counter}
-
-decrement
-:   An update that decreases the value of a variable.
-\index{decrement}
-
-initialize
-:   An assignment that gives an initial value to a variable that will be
-    updated.
-
-increment
-:   An update that increases the value of a variable (often by one).
+αύξηση
+:   Μια ενημέρωση που αυξάνει την τιμή μιας μεταβλητής (συχνά κατά ένα).
+\index{αύξηση}
 \index{increment}
 
-infinite loop
-:   A loop in which the terminating condition is never satisfied or for
-    which there is no terminating condition.
-\index{infinite loop}
+επανάληψη
+:   Επαναλαμβανόμενη εκτέλεση ενός συνόλου εντολών χρησιμοποιώντας είτε μια
+    συνάρτηση που καλεί τον εαυτό της είτε έναν βρόχο.
+\index{επανάληψη}
 
-iteration
-:   Repeated execution of a set of statements using either a function
-    that calls itself or a loop.
-\index{iteration}
+μείωση
+:   Μια ενημέρωση που μειώνει την τιμή μιας μεταβλητής.
+\index{μείωση}
+\index{decrement}
 
-Exercises
----------
+μετρητής
+:   Μια μεταβλητή που χρησιμοποιείται σε έναν βρόχο για να μετρήσει πόσες
+    φορές συνέβη κάτι. Αρχικοποιούμε έναν μετρητή με το μηδέν και μετά
+    αυξάνουμε τον μετρητή κάθε φορά που θέλουμε να "μετρήσουμε" κάτι.
+\index{μετρητής}
 
-**Exercise 1: Write a program which repeatedly reads numbers until the
-user enters "done". Once "done" is entered, print out the total, count,
-and average of the numbers. If the user enters anything other than a
-number, detect their mistake using `try` and
-`except` and print an error message and skip to the next
-number.**
+Ασκήσεις
+--------
 
-~~~~
-Enter a number: 4
-Enter a number: 5
-Enter a number: bad data
-Invalid input
-Enter a number: 7
-Enter a number: done
+**Άσκηση 1: Γράψτε ένα πρόγραμμα, το οποίο διαβάζει επαναληπτικά αριθμούς μέχρι
+ο χρήστης να εισάγει `τέλος`. Όταν εισαχθεί `τέλος`, εκτυπώνει το άθροισμα, το
+πλήθος και τον μέσο όρο των αριθμών. Εάν ο χρήστης εισάγει οτιδήποτε άλλο εκτός
+από αριθμούς, εντοπίζει το λάθος με χρήση των `try` και `except`, εκτυπώνει ένα
+μήνυμα λάθους και ζητά τον επόμενο αριθμό.**
+
+~~~~{text}
+Εισάγετε έναν αριθμό: 4
+Εισάγετε έναν αριθμό: 5
+Εισάγετε έναν αριθμό: bad data
+Μη έγκυρη είσοδος
+Εισάγετε έναν αριθμό: 7
+Εισάγετε έναν αριθμό: τέλος
 16 3 5.333333333333333
 ~~~~
 
-**Exercise 2: Write another program that prompts for a list of numbers as
-above and at the end prints out both the maximum and minimum of the
-numbers instead of the average.**
-
+**Άσκηση 2: Γράψτε ένα άλλο πρόγραμμα, το οποίο ζητά μια λίστα αριθμών, όπως
+και παραπάνω και στο τέλος εκτυπώνει το μέγιστο και το ελάχιστο όλων των
+αριθμών αντί για τον μέσο όρο.**

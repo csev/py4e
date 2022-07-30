@@ -4,10 +4,10 @@ Things left to do:
 1. ~~[book.php](book.php)~~
 2. **srts**
 5. tools/pythonauto/
-6. code3/
+6. ~~code3/~~
 7. **book3/**
 8. Quizs
-9. images 
+9. images
 
 
 if can be changed:
@@ -30,5 +30,4 @@ if can be changed:
    8. ~~All~~
    9. ~~page per pages in All~~
 
-3.Login screen 
-   
+3.Login screen
