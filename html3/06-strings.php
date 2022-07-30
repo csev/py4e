@@ -193,7 +193,7 @@ TypeError: string indices must be integers</code></pre>
 <pre class="python"><code>&gt;&gt;&gt; length = len(fruit)
 &gt;&gt;&gt; last = fruit[length]
 IndexError: string index out of range</code></pre>
-<p>The reason for the <code>IndexError</code> is that there is no letter in “fruit” with the index 5. Since we started counting at zero, the six letters are numbered 0 to 4. To get the last character, you have to subtract 1 from <code>length</code>:</p>
+<p>The reason for the <code>IndexError</code> is that there is no letter in “banana” with the index 6. Since we started counting at zero, the six letters are numbered 0 to 5. To get the last character, you have to subtract 1 from <code>length</code>:</p>
 <pre class="python"><code>&gt;&gt;&gt; last = fruit[length-1]
 &gt;&gt;&gt; print(last)
 a</code></pre>
@@ -437,7 +437,7 @@ IndexError: string index out of range</code></pre>
 <p>One possibility is to simply use the <code>startswith</code> method which returns <code>False</code> if the string is empty.</p>
 <pre class="python"><code>if line.startswith(&#39;#&#39;):</code></pre>
 <p> </p>
-<p>Another way is to safely write the <code>if</code> statement using the <em>guardian</em> pattern and make sure the second logical expression is evaluated only where there is at least one character in the string.:</p>
+<p>Another way is to safely write the <code>if</code> statement using the <em>guardian</em> pattern and make sure the second logical expression is evaluated only where there is at least one character in the string:</p>
 <pre class="python"><code>if len(line) &gt; 0 and line[0] == &#39;#&#39;:</code></pre>
 <h2 id="glossary">Glossary</h2>
 <dl>
