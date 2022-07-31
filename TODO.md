@@ -13,11 +13,11 @@ Things left to do:
 if can be changed:
 -----------------
 1. In autograder: 
-   1. "Your Output"
-   2. "Desired Output"
-   3. "Check Code"
-   4. "Reset Code"
-   5. Text in *i*
+   1. ~~"Your Output"
+   2. ~~"Desired Output"
+   3. ~~"Check Code"
+   4. ~~"Reset Code"
+   5. ~~Text in *i*
 
 2. On lessons screen the words:
    1. ~~videos~~
