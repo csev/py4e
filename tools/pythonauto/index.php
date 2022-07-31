@@ -57,8 +57,8 @@ if ( $LAUNCH->link && $LAUNCH->user && $LAUNCH->user->instructor ) {
 $OUTPUT->header();
 
 // Defaults
-$QTEXT = 'You can write any code you like in the window below.  There are three files
-loaded and ready for you to open if you want to do file processing:
+$QTEXT = 'Μπορείτε να γράψετε όποιον κωδικό θέλετε στο παρακάτω παράθυρο. Υπάρχουν τρία
+αρχεία φορτωμένα και έτοιμα για να τα ανοίξετε εάν θέλετε να κάνετε επεξεργασία αρχείων:
 "mbox-short.txt", "romeo.txt", and "words.txt".';
 $DESIRED = false;
 $CODE = 'fh = open("romeo.txt", "r")
@@ -221,12 +221,12 @@ function load_files() {
         var output = document.getElementById("output");
         oldtext = output.innerHTML;
         if ( oldtext.trim().length < 1 ) {
-            alert('Your program does not have any output');
+            alert('Το πρόγραμμά σας δεν έχει έξοδο');
             window.GLOBAL_ERROR = true;
         }
         window.console && console.log('finalcheck oldtext='+oldtext);
         if ( oldtext.indexOf('42<span') === 0 ) {
-            alert('Although 42 is the answer to the ultimate question of life, the universe, and everything, it appears not to be the correct answer for this assignment.');
+            alert('Αν και το 42 είναι η απάντηση στο ύστατο ερώτημα της ζωής, του σύμπαντος και των πάντων, φαίνεται να μην είναι η σωστή απάντηση για αυτήν την εργασία.');
         }
         $("#spinner").hide();
         var prog = document.getElementById("code").value;
@@ -356,7 +356,7 @@ function outf(text) {
         window.console && console.log('code');
         window.console && console.log(prog);
         if ( prog.length < 1 ) {
-            alert("You do not have any Python code");
+            alert("Δεν έχετε εισάγει κώδικα Python");
             return false;
         }
         $("#spinner").show();
@@ -374,9 +374,9 @@ function outf(text) {
                 },
                 data: toSend
             }).done( function (data) {
-                console.log("Code updated on server.");
+                console.log("Ο κώδικας ενημερώθηκε στον διακομιστή.");
             }).error( function() {
-                console.log("Sendcode disabled due to error");
+                console.log("Η αποστολή κώδικα ακυρώθηκε λόγω σφάλματος");
                 sendCodeFail = true;
             });
         }
@@ -432,7 +432,7 @@ function outf(text) {
         var oldgrade = <?php echo($row && isset($row['grade']) ? $row['grade'] : '0.0'); ?>;
         var grade = 1.0 - <?php echo( $dueDate->penalty); ?>;
         if ( oldgrade > grade ) grade = oldgrade;  // Never go down
-        window.console && console.log("Sending grade="+grade);
+        window.console && console.log("Αποστολή βαθμολογίας = "+grade);
 
         if ( window.CM_EDITOR !== false ) window.CM_EDITOR.save();
         var code = document.getElementById("code").value;
@@ -448,7 +448,7 @@ function outf(text) {
             },
             data: toSend
         }).done( function (data) {
-            window.console && console.log("Grade response received...");
+            window.console && console.log("Λήφθηκε απάντηση βαθμού...");
             window.console && console.log(data);
             $("#spinner").hide();
             if ( data.status == "success") {
@@ -458,7 +458,7 @@ function outf(text) {
                 $("#gradebad").show();
             }
         }).error( function(data) {;
-            window.console && console.log("Grade response received...");
+            window.console && console.log("Λήφθηκε απάντηση βαθμού...");
             window.console && console.log(data);
             $("#spinner").hide();
             $("#gradebad").show();
@@ -523,47 +523,53 @@ if ( isset($LINK->title) ) {
       </div>
       <div class="modal-body">
 <?php if ( $EX === false ) { ?>
-        <p>This is an open-ended space for you to write and execute Python programs.
-        This page does not check our output and it does not send a grade back.  It is
-        here as a place for you to develop small programs and test things out.
+        <p>
+            Αυτός είναι ένας ελεύθερος χώρος για να γράψετε και να εκτελέσετε προγράμματα Python.
+            Αυτή η σελίδα δεν ελέγχει τα αποτελέσματά μας και δεν βαθμολογεί. Είναι 
+            εδώ ως ένα μέρος για να αναπτύξετε μικρά προγράμματα και να δοκιμάσετε πράγματα.
         </p>
 <?php if ( $RESULT->id !== false ) { ?>
         <p>
-        Whatever code you type will be saved and restored when you come back to this
-        page.</p>
+            Όποιον κώδικα πληκτρολογήσετε θα αποθηκευτεί και θα αποκατασταθεί όταν επιστρέψετε 
+            σε αυτήν τη σελίδα.</p>
 <?php } ?>
         <p>
-        Remember that this is an in-browser Python emulator and as your programs get
-        more sophisticated, you may encounter situations where this Python emulator
-        gives <i>different</i> results than the real Python 
-        running on your laptop, desktop, or server.  It is intended to be used
-        for simple programs being developed by beginning programmers while they
-        are learning to program.
+            Να θυμάστε ότι πρόκειται για έναν εξομοιωτή Python εντός του προγράμματος περιήγησης 
+            και καθώς τα προγράμματά σας γίνονται πιο εξελιγμένα, μπορεί να αντιμετωπίσετε 
+            καταστάσεις όπου αυτός ο εξομοιωτής Python θα δίνει <i>διαφορετικά</i> αποτελέσματα 
+            από την πραγματική Python, που εκτελείται στον φορητό υπολογιστή, τον επιτραπέζιο 
+            υπολογιστή ή τον διακομιστή σας. Προορίζεται να χρησιμοποιηθεί για απλά προγράμματα 
+            που αναπτύσσονται από αρχάριους προγραμματιστές ενώ μαθαίνουν να προγραμματίζουν.
         </p> <p>
-        There are three files loaded into this environment from the
-        <a href="http://www.py4e.com/" target="_blank">Python for Everybody</a>
-        web site and ready for you to open if you want to
-        do file processing: "mbox-short.txt", "romeo.txt", and "words.txt".
+          Υπάρχουν τρία αρχεία φορτωμένα σε αυτό το περιβάλλον από τον ιστότοπο 
+          <a href="http://www.py4e.com/" target="_blank">Python for Everybody</a> και είναι 
+          έτοιμα για να τα ανοίξετε αν θέλετε για να κάνετε επεξεργασία αρχείων:
+          "mbox-short.txt", "romeo.txt", and "words.txt".
         </p>
 <?php } else { ?>
 <?php if ( isset($LTI['grade']) ) { ?>
-        <p style="border: blue 1px solid">Your current grade in this
-        exercise is <span id="curgrade"><?php echo($LTI['grade']); ?></span>.</p>
+        <p style="border: blue 1px solid">
+            Ο τρέχων βαθμός σας σε αυτήν την άσκηση είναι
+            <span id="curgrade"><?php echo($LTI['grade']); ?></span>.
+          </p>
 <?php } ?>
-        <p>Your goal in this auto grader is to write or paste in a program that implements the specifications
-        of the assignment.  You run the program by pressing "Check Code".
-        The output of your program is displayed in the "Your Output" section of the screen.
-        If your output does not match the "Desired Output", you will not get a score.
-        </p><p>
-        Even if "Your Output" matches "Desired Output" exactly,
-        the autograder still does a few checks of your source code to make sure that you
-        implemented the assignment using the expected techniques from the chapter. These messages
-        can also help struggling students with clues as to what might be missing.
+        <p>
+            Ο στόχος σας σε αυτόν τον αυτόματο βαθμολογητή είναι να γράψετε ή να επικολλήσετε σε ένα 
+            πρόγραμμα που υλοποιεί τις προδιαγραφές της εργασίας. Εκτελείτε το πρόγραμμα πατώντας 
+            «Έλεγχος κώδικα». Η έξοδος του προγράμματός σας εμφανίζεται στην ενότητα "Η έξοδός σας" της οθόνης. 
+            Εάν η παραγωγή σας δεν ταιριάζει με την "Επιθυμητή έξοδο", δεν θα λάβετε βαθμολογία.
         </p>
         <p>
-        This autograder keeps your highest score, not your last score.  You either get full credit (1.0) or
-        no credit (0.0) when you run your code - but if you have a 1.0 score and you do a failed run,
-        your score will not be changed.
+            Ακόμα κι αν η "Έξοδός σας" ταιριάζει ακριβώς με την "Επιθυμητή Έξοδο", το πρόγραμμα αυτόματης 
+            βαθμολόγησης εξακολουθεί να κάνει μερικούς ελέγχους στον πηγαίο κώδικα για να βεβαιωθεί ότι 
+            ολοκληρώσατε την εργασία χρησιμοποιώντας τις αναμενόμενες τεχνικές από το κεφάλαιο. Αυτά τα 
+            μηνύματα μπορούν επίσης να βοηθήσουν τους μαθητές που πασχίζουν να βρουν στοιχεία για το τι
+            μπορεί να λείπει.
+        </p>
+        <p>
+            Αυτός ο Autograder κρατά την υψηλότερη βαθμολογία σας, όχι την τελευταία σας βαθμολογία. Είτε 
+            λαμβάνετε πλήρη πίστωση (1,0) είτε χωρίς πίστωση (0,0) όταν εκτελείτε τον κώδικά σας - αλλά εάν 
+            έχετε βαθμολογία 1,0 και κάνετε μια αποτυχημένη εκτέλεση, η βαθμολογία σας δεν θα αλλάξει.
         </p>
 <?php } ?>
 <?php
@@ -595,21 +601,21 @@ if ( $dueDate->message ) {
 <form id="forminput">
 <?php
     if ( $EX !== false ) {
-         echo('<button onclick="runit()" class="btn btn-primary" type="button">Check Code</button>'."\n");
+         echo('<button onclick="runit()" class="btn btn-primary" type="button">Έλεγχος Κώδικα</button>'."\n");
     } else {
-        echo('<button onclick="runit()" class="btn btn-warning" type="button">Run Python</button>'."\n");
+        echo('<button onclick="runit()" class="btn btn-warning" type="button">Εκτέλεση</button>'."\n");
     }
     if ( strlen($CODE) > 0 ) {
-        echo('<button onclick="resetcode()" class="btn btn-default" type="button">Reset Code</button> ');
+        echo('<button onclick="resetcode()" class="btn btn-default" type="button">Επαναφορά κώδικα</button> ');
     }
     echo('<button onclick="$(\'#info\').modal();return false;" class="btn btn-default" type="button"><span class="glyphicon glyphicon-info-sign"></span></button>'."\n");
 ?>
 <img id="spinner" src="static/spinner.gif" style="vertical-align: middle;display: none">
-<span id="redo" style="color:red;display:none"> Please correct your code and re-run. </span>
-<span id="complete" style="color:green;display:none"> Execution complete. </span>
-<span id="gradegood" style="color:green;display:none"> Grade updated on server. </span>
-<span id="gradelow" style="color:green;display:none"> Grade updated on server. </span>
-<span id="gradebad" style="color:red;display:none"> Error storing grade on server. </span>
+<span id="redo" style="color:red;display:none"> Διορθώστε τον κωδικό σας και εκτελέστε ξανά. </span>
+<span id="complete" style="color:green;display:none"> Η εκτέλεση ολοκληρώθηκε. </span>
+<span id="gradegood" style="color:green;display:none"> Η βαθμολογία ενημερώθηκε στο διακομιστή. </span>
+<span id="gradelow" style="color:green;display:none"> Η βαθμολογία ενημερώθηκε στο διακομιστή. </span>
+<span id="gradebad" style="color:red;display:none"> Σφάλμα κατά την αποθήκευση της βαθμολογίας στον διακομιστή. </span>
 <br/>
 &nbsp;<br/>
 <div id="textarea" class="inputarea">
@@ -626,13 +632,13 @@ if ( $OLDCODE !== false ) {
 </div>
 <div id="outputs">
 <div id="left">
-<b>Your Output</b>
+<b>Η έξοδός σας</b>
 <pre id="output" class="inputarea"></pre>
 </pre>
 </div>
 <?php if ( $EX !== false ) { ?>
 <div id="right">
-<b>Desired Output</b>
+<b>Επιθυμητή Έξοδος</b>
 <pre id="desired" class="inputarea"><?php echo($DESIRED); echo("\n"); ?></pre>
 <span id="desired2" style="display:none"><?php echo($DESIRED2); echo("\n"); ?></span>
 </div>
@@ -653,10 +659,10 @@ Setting:
     }
     echo('<a href="'.$editurl.'">'.$textval.'</a>');
 ?>
-This software is based on <a href="http://skulpt.org/" target="_blank">Skulpt</a>
+Αυτό το λογισμικό βασίζεται στο <a href="http://skulpt.org/" target="_blank">Skulpt</a>
 and <a href="http://codemirror.net/" target="_blank">CodeMirror</a>.
-The source code for this auto-grader is available on
-<a href="https://github.com/csev/tsugi" target="_blank">on GitHub</a>.
+Ο πηγαίος κώδικας για αυτόν τον αυτόματο βαθμολογητή είναι διαθέσιμος στο
+<a href="https://github.com/csev/tsugi" target="_blank">GitHub</a>.
 <textarea id="resetcode" cols="80" style="display:none">
 <?php   echo(htmlentities($CODE)); ?>
 </textarea>
