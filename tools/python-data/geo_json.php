@@ -97,7 +97,7 @@ properly URL encoded using the <b>urllib.parse.urlencode()</b> function as shown
 target="_blank">http://www.py4e.com/code3/geojson.py</a>
 </p>
 <p>
-Make sure to check that your code is using the API endpoint is as shown above.
+Make sure to check that your code is using the API endpoint as shown above.
 You will get <em>different</em> results from the <b>geojson</b> and <b>json</b>
 endpoints so make sure you are using the same end point as this autograder is using.
 <p>

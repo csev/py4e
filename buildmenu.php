@@ -49,12 +49,8 @@ function buildMenu() {
         $set->addRight('Σύνδεση', $R.'login');
     }
 
-    $imenu = new \Tsugi\UI\Menu();
-
-    $imenu->addLink('Εκπαιδευτής', 'https://online.dr-chuck.com');
-    $imenu->addLink('Office Hours', 'http://www.dr-chuck.com/office/');
     $set->addRight('Βιβλίο', $R . 'book');
-    $set->addRight('Εκπαιδευτής', $imenu);
+    $set->addRight('Εκπαιδευτής', 'https://online.dr-chuck.com');
 
     return($set);
 }
