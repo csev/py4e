@@ -212,7 +212,7 @@ print(&#39;Τέλος!&#39;)</code></pre>
     print(γραμμή)
 print(&#39;Done!&#39;)
 
-# Code: http://www.py4e.com/code3/copytildone1.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/copytildone1.py</code></pre>
 <p>Η συνθήκη βρόχου είναι <code>True</code>, η οποία είναι πάντα αληθής, επομένως ο βρόχος εκτελείται επανειλημμένα μέχρι να συναντήσει στην εντολή break.</p>
 <p>Κάθε φορά που εκτελείται, προτρέπει τον χρήστη με ένα σύμβολο μεγαλύτερου. Εάν ο χρήστης πληκτρολογήσει <code>τέλος</code>, η εντολή <code>break</code> διακόπτει την εκτέλεση του βρόχου. Διαφορετικά, το πρόγραμμα επαναλαμβάνει ό,τι πληκτρολογεί ο χρήστης και επιστρέφει στην αρχή του βρόχου. Εδώ είναι ένα δείγμα εκτέλεσης:</p>
 <pre class="{text}"><code>&gt; hello there
@@ -235,7 +235,7 @@ finished
     print(γραμμή)
 print(&#39;Done!&#39;)
 
-# Code: http://www.py4e.com/code3/copytildone2.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/copytildone2.py</code></pre>
 <p>Ακολουθεί ένα δείγμα εκτέλεσης αυτού του νέου προγράμματος με την προσθήκη του <code>continue</code>.</p>
 <pre class="{text}"><code>&gt; hello there
 hello there

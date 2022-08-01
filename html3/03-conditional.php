@@ -311,7 +311,7 @@ fahr = float(inp)
 cel = (fahr - 32.0) * 5.0 / 9.0
 print(cel)
 
-# Code: http://www.py4e.com/code3/fahren.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/fahren.py</code></pre>
 <p>Εάν εκτελέσουμε αυτόν τον κώδικα και του δώσουμε μη έγκυρη είσοδο, απλώς αποτυγχάνει με ένα όχι και τόσο φιλικό μήνυμα σφάλματος:</p>
 <pre class="python trinket"><code>python fahren.py
 Εισαγάγετε τη θερμοκρασία Φαρενάιτ:72
@@ -333,7 +333,7 @@ try:
 except:
     print(&#39;Παρακαλώ εισάγετε έναν αριθμό&#39;)
 
-# Code: http://www.py4e.com/code3/fahren2.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/fahren2.py</code></pre>
 <p>Η Python ξεκινά εκτελώντας την ακολουθία εντολών που περιπεχονται στο μπλοκ <code>try</code>. Αν όλα πάνε καλά, παραλείπει το μπλοκ <code>except</code> και προχωρά. Εάν προκύψει πρόβλημα στο μπλοκ <code>try</code>, η Python βγαίνει από το μπλοκ <code>try</code> και εκτελεί την ακολουθία εντολών του μπλοκ <code>except</code>.</p>
 <pre class="python trinket"><code>python fahren2.py
 Εισαγάγετε τη θερμοκρασία Φαρενάιτ:72
@@ -444,7 +444,7 @@ IndentationError: unexpected indent</code></pre>
 <p><strong>Άσκηση 1: </strong> Άσκηση 1: Ξαναγράψτε τον υπολογισμό της αμοιβής για να δώσετε στον υπάλληλο 1,5 φορές το ωρομίσθιο για τις ώρες εργασίας πέραν των 40 ωρών.**</p>
 <pre class="python trinket"><code>Δώστε Ώρες: 45
 Δώστε Ποσό/Ώρα: 10
-Pay: 475.0</code></pre>
+Μισθός: 475.0</code></pre>
 <p><strong>Άσκηση 2: Ξαναγράψτε το πρόγραμμα πληρωμών χρησιμοποιώντας το <code>try</code> και <code>except</code> έτσι ώστε το πρόγραμμά σας να χειρίζεται μη αριθμητικές τιμές εισόδου σωστά, εκτυπώνοντας ένα μήνυμα και τερματίζοντας την εκτέλεση. Παρακάτω φαίνεται το αποτέλεσμα δύο εκτελέσεων του προγράμματος:</strong></p>
 <pre class="python trinket"><code>Δώστε Ώρες: 20
 Δώστε Ποσό/Ώρα: εννιά
