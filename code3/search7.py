@@ -1,11 +1,11 @@
-fname = input('Enter the file name: ')
+fname = input('Εισαγάγετε το όνομα του αρχείου: ')
 try:
     fhand = open(fname)
 except:
-    print('File cannot be opened:', fname)
+    print('Δεν είναι δυνατό το άνοιγμα του αρχείου:', fname)
     exit()
-count = 0
-for line in fhand:
-    if line.startswith('Subject:'):
-        count = count + 1
-print('There were', count, 'subject lines in', fname)
+πλήθος = 0
+for γραμμή in fhand:
+    if γραμμή.startswith('Subject:'):
+        πλήθος = πλήθος + 1
+print('Υπάρχουν ', πλήθος, ' γραμμές θέματος στο ', fname)

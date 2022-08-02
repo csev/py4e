@@ -1,8 +1,8 @@
 fhand = open('mbox-short.txt')
-for line in fhand:
-    line = line.rstrip()
-    # Skip 'uninteresting lines'
-    if not line.startswith('From:'):
+for γραμμή in fhand:
+    γραμμή = γραμμή.rstrip()
+    # Παράκαμψη `αδιάφορων` γραμμών
+    if not γραμμή.startswith('From:'):
         continue
-    # Process our 'interesting' line
-    print(line)
+    # Επεξεργασία 'ενδιαφερόντων' γραμμών
+    print(γραμμή)

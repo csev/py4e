@@ -1,5 +1,5 @@
 fhand = open('mbox-short.txt')
-for line in fhand:
-    line = line.rstrip()
-    if line.find('@uct.ac.za') == -1: continue
-    print(line)
+for γραμμή in fhand:
+    γραμμή = γραμμή.rstrip()
+    if γραμμή.find('@uct.ac.za') == -1: continue
+    print(γραμμή)
