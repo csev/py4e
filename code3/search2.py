@@ -1,5 +1,5 @@
 fhand = open('mbox-short.txt')
-for line in fhand:
-    line = line.rstrip()
-    if line.startswith('From:'):
-        print(line)
+for γραμμή in fhand:
+    γραμμή = γραμμή.rstrip()
+    if γραμμή.startswith('From:'):
+        print(γραμμή)
