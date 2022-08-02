@@ -195,10 +195,8 @@ From: stephen.marquard@uct.ac.za
 Subject: [sakai] svn commit: r39772 - content/branches/
 Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772
 ...</code></pre>
-<p>Ολόκληρο το αρχείο αλληλεπιδράσεων αλληλογραφίας είναι διαθέσιμο στο</p>
-<p><a href="http://www.gr.py4e.com/code3/mbox.txt">www.gr.py4e.com/code3/mbox.txt</a></p>
-<p>και μια μικρότερη έκδοση του αρχείου είναι διαθέσιμη στο</p>
-<p><a href="http://www.gr.py4e.com/code3/mbox-short.txt">www.gr.py4e.com/code3/mbox-short.txt</a></p>
+<p>Ολόκληρο το αρχείο αλληλεπιδράσεων αλληλογραφίας είναι διαθέσιμο στο <a href="http://www.gr.py4e.com/code3/mbox.txt">www.gr.py4e.com/code3/mbox.txt</a></p>
+<p>και μια μικρότερη έκδοση του αρχείου είναι διαθέσιμη στο <a href="http://www.gr.py4e.com/code3/mbox-short.txt">www.gr.py4e.com/code3/mbox-short.txt</a></p>
 <p>Αυτά τα αρχεία είναι σε τυπική μορφή αρχείου που περιέχει πολλά μηνύματα αλληλογραφίας. Οι γραμμές που ξεκινούν με “From (Από)” διαχωρίζουν τα μηνύματα και οι γραμμές που ξεκινούν με “From:” αποτελούν μέρος των μηνυμάτων. Για περισσότερες πληροφορίες σχετικά με τη μορφή mbox, ανατρέξτε στο <a href="https://en.wikipedia.org/wiki/Mbox" class="uri">https://en.wikipedia.org/wiki/Mbox</a>.</p>
 <p>Για να χωρίσετε το αρχείο σε γραμμές, υπάρχει ένας ειδικός χαρακτήρας που αντιπροσωπεύει το “τέλος της γραμμής” που ονομάζεται χαρακτήρας <em>newline</em>.</p>
 <p> </p>
