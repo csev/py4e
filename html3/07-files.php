@@ -154,43 +154,40 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="files">Files</h1>
+<h1 id="αρχεία">Αρχεία</h1>
+<p>   </p>
+<h2 id="επιμονή">Επιμονή</h2>
 <p> </p>
-<h2 id="persistence">Persistence</h2>
-<p> </p>
-<p>So far, we have learned how to write programs and communicate our intentions to the <em>Central Processing Unit</em> using conditional execution, functions, and iterations. We have learned how to create and use data structures in the <em>Main Memory</em>. The CPU and memory are where our software works and runs. It is where all of the “thinking” happens.</p>
-<p>But if you recall from our hardware architecture discussions, once the power is turned off, anything stored in either the CPU or main memory is erased. So up to now, our programs have just been transient fun exercises to learn Python.</p>
+<p>Μέχρι στιγμής, μάθαμε πώς να γράφουμε προγράμματα και να επικοινωνούμε τις προθέσεις μας στην <em>Κεντρική Μονάδα Επεξεργασίας</em> χρησιμοποιώντας δομή επιλογής, συναρτήσεις και δομή επανάληψης. Μάθαμε πώς να δημιουργούμε και να χρησιμοποιούμε δομές δεδομένων στην <em>Κύρια μνήμη</em>. Η CPU και η μνήμη είναι εκεί όπου λειτουργεί και εκτελείται το λογισμικό μας. Εκεί συμβαίνει όλη η «σκέψη».</p>
+<p>Αλλά αν θυμάστε από τις συζητήσεις μας για την αρχιτεκτονική υλικού, μόλις απενεργοποιηθεί η τροφοδοσία, ό,τι είναι αποθηκευμένο είτε στην CPU είτε στην κύρια μνήμη διαγράφεται. Έτσι, μέχρι τώρα, τα προγράμματά μας ήταν απλώς παροδική διασκέδαση, ασκήσεις για την εκμάθηση Python.</p>
 <figure>
-<img src="../images/arch.svg" alt="Secondary Memory" style="height: 2.5in;"/>
+<img src="../images/arch.svg" alt="Δευτερεύουσα Μνήμη" style="height: 2.5in;"/>
 <figcaption>
-Secondary Memory
+Δευτερεύουσα Μνήμη
 </figcaption>
 </figure>
-<p>In this chapter, we start to work with <em>Secondary Memory</em> (or files). Secondary memory is not erased when the power is turned off. Or in the case of a USB flash drive, the data we write from our programs can be removed from the system and transported to another system.</p>
-<p>We will primarily focus on reading and writing text files such as those we create in a text editor. Later we will see how to work with database files which are binary files, specifically designed to be read and written through database software.</p>
-<h2 id="opening-files">Opening files</h2>
-<p>  </p>
-<p>When we want to read or write a file (say on your hard drive), we first must <em>open</em> the file. Opening the file communicates with your operating system, which knows where the data for each file is stored. When you open a file, you are asking the operating system to find the file by name and make sure the file exists. In this example, we open the file <em>mbox.txt</em>, which should be stored in the same folder that you are in when you start Python. You can download this file from <a href="http://www.py4e.com/code3/mbox.txt">www.py4e.com/code3/mbox.txt</a></p>
+<p>Σε αυτό το κεφάλαιο, αρχίζουμε να εργαζόμαστε με τη <em>Δευτερεύουσα μνήμη</em> (ή με αρχεία). Η δευτερεύουσα μνήμη δεν διαγράφεται όταν η τροφοδοσία ρεύματος σταματήσει. Επίσης, στην περίπτωση μιας μονάδας flash USB, τα δεδομένα που γράφουμε με τα προγράμματά μας μπορούν να αφαιρεθούν από το σύστημά μας και να μεταφερθούν σε άλλο σύστημα.</p>
+<p>Θα επικεντρωθούμε κυρίως στην ανάγνωση και τη σύνταξη αρχείων κειμένου όπως αυτά που δημιουργούμε σε ένα πρόγραμμα επεξεργασίας κειμένου. Αργότερα θα δούμε πώς δουλεύουμε με αρχεία βάσης δεδομένων που είναι δυαδικά αρχεία, ειδικά σχεδιασμένα για ανάγνωση και εγγραφή μέσω λογισμικού βάσης δεδομένων.</p>
+<h2 id="άνοιγμα-αρχείων">Άνοιγμα αρχείων</h2>
+<p>   </p>
+<p>Όταν θέλουμε να διαβάσουμε ή να γράψουμε ένα αρχείο (ας πούμε στον σκληρό δίσκο), πρέπει πρώτα να <em>ανοίξουμε (open)</em> το αρχείο. Το άνοιγμα του αρχείου επικοινωνεί με το λειτουργικό σας σύστημα, το οποίο γνωρίζει πού αποθηκεύονται τα δεδομένα του κάθε αρχείου. Όταν ανοίγετε ένα αρχείο, ζητάτε από το λειτουργικό σύστημα να βρει το αρχείο βάση ονόματος και να βεβαιωθεί ότι το αρχείο υπάρχει. Σε αυτό το παράδειγμα, ανοίγουμε το αρχείο <em>mbox.txt</em>, το οποίο θα πρέπει να είναι αποθηκευμένο στον ίδιο φάκελο, στον οποίο βρίσκεστε όταν ξεκινάτε την Python. Μπορείτε να κάνετε λήψη αυτού του αρχείου από το <a href="http://www.gr.py4e.com/code3/mbox.txt">www.gr.py4e.com/code3/mbox.txt</a></p>
 <pre class="python"><code>&gt;&gt;&gt; fhand = open(&#39;mbox.txt&#39;)
 &gt;&gt;&gt; print(fhand)
 &lt;_io.TextIOWrapper name=&#39;mbox.txt&#39; mode=&#39;r&#39; encoding=&#39;cp1252&#39;&gt;</code></pre>
-<p></p>
-<p>If the <code>open</code> is successful, the operating system returns us a <em>file handle</em>. The file handle is not the actual data contained in the file, but instead it is a “handle” that we can use to read the data. You are given a handle if the requested file exists and you have the proper permissions to read the file.</p>
+<p> </p>
+<p>Εάν το <code>open</code> ολοκληρωθεί με επιτυχία, το λειτουργικό σύστημα μας επιστρέφει έναν <em>περιγραφέα αρχείου (file handle)</em>. Ο περιγραφέας αρχείου δεν είναι τα πραγματικά δεδομένα που περιέχονται στο αρχείο, αλλά αντίθετα είναι μια “λαβή” που μπορούμε να χρησιμοποιήσουμε για να διαβάσουμε τα δεδομένα. Σας δίνεται ένας περιγραφέας εάν υπάρχει το ζητούμενο αρχείο και έχετε τα κατάλληλα δικαιώματα για να διαβάσετε το αρχείο.</p>
 <figure>
-<img src="../images/handle.svg" alt="A File Handle" style="height: 2.0in;"/>
-<figcaption>
-A File Handle
-</figcaption>
+<img src="height=2.0in@../images/handle.svg" alt="Ένας Περιγραφέας Αρχείου (File Handle)" /><figcaption aria-hidden="true">Ένας Περιγραφέας Αρχείου (File Handle)</figcaption>
 </figure>
-<p>If the file does not exist, <code>open</code> will fail with a traceback and you will not get a handle to access the contents of the file:</p>
+<p>Εάν το αρχείο δεν υπάρχει, το <code>open</code> θα αποτύχει με ένα traceback και δεν θα δημιουργηθεί περιγραφέας για πρόσβαση στα περιεχόμενα του αρχείου:</p>
 <pre class="python"><code>&gt;&gt;&gt; fhand = open(&#39;stuff.txt&#39;)
 Traceback (most recent call last):
 File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
 FileNotFoundError: [Errno 2] No such file or directory: &#39;stuff.txt&#39;</code></pre>
-<p>Later we will use <code>try</code> and <code>except</code> to deal more gracefully with the situation where we attempt to open a file that does not exist.</p>
-<h2 id="text-files-and-lines">Text files and lines</h2>
-<p>A text file can be thought of as a sequence of lines, much like a Python string can be thought of as a sequence of characters. For example, this is a sample of a text file which records mail activity from various individuals in an open source project development team:</p>
-<pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+<p>Αργότερα θα χρησιμοποιήσουμε τα <code>try</code> και <code>except</code> για να αντιμετωπίσουμε, πιο χαριτωμένα, την κατάσταση όπου επιχειρούμε να ανοίξουμε ένα αρχείο που δεν υπάρχει.</p>
+<h2 id="αρχεία-κειμένου-και-γραμμές">Αρχεία κειμένου και γραμμές</h2>
+<p>Ένα αρχείο κειμένου μπορούν να θεωρηθεί ως μια ακολουθία γραμμών, όπως μια συμβολοσειρά Python μπορεί να θεωρηθεί ως μια ακολουθία χαρακτήρων. Για παράδειγμα, αυτό είναι ένα δείγμα αρχείου κειμένου που καταγράφει τη δραστηριότητα αλληλογραφίας από διάφορα άτομα σε μια ομάδα ανάπτυξης έργου ανοιχτού κώδικα:</p>
+<pre class="{text}"><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 Return-Path: &lt;postmaster@collab.sakaiproject.org&gt;
 Date: Sat, 5 Jan 2008 09:12:18 -0500
 To: source@collab.sakaiproject.org
@@ -198,14 +195,14 @@ From: stephen.marquard@uct.ac.za
 Subject: [sakai] svn commit: r39772 - content/branches/
 Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772
 ...</code></pre>
-<p>The entire file of mail interactions is available from</p>
-<p><a href="http://www.py4e.com/code3/mbox.txt">www.py4e.com/code3/mbox.txt</a></p>
-<p>and a shortened version of the file is available from</p>
-<p><a href="http://www.py4e.com/code3/mbox-short.txt">www.py4e.com/code3/mbox-short.txt</a></p>
-<p>These files are in a standard format for a file containing multiple mail messages. The lines which start with “From” separate the messages and the lines which start with “From:” are part of the messages. For more information about the mbox format, see <a href="https://en.wikipedia.org/wiki/Mbox" class="uri">https://en.wikipedia.org/wiki/Mbox</a>.</p>
-<p>To break the file into lines, there is a special character that represents the “end of the line” called the <em>newline</em> character.</p>
-<p></p>
-<p>In Python, we represent the <em>newline</em> character as a backslash-n in string constants. Even though this looks like two characters, it is actually a single character. When we look at the variable by entering “stuff” in the interpreter, it shows us the <code>\n</code> in the string, but when we use <code>print</code> to show the string, we see the string broken into two lines by the newline character.</p>
+<p>Ολόκληρο το αρχείο αλληλεπιδράσεων αλληλογραφίας είναι διαθέσιμο στο</p>
+<p><a href="http://www.gr.py4e.com/code3/mbox.txt">www.gr.py4e.com/code3/mbox.txt</a></p>
+<p>και μια μικρότερη έκδοση του αρχείου είναι διαθέσιμη στο</p>
+<p><a href="http://www.gr.py4e.com/code3/mbox-short.txt">www.gr.py4e.com/code3/mbox-short.txt</a></p>
+<p>Αυτά τα αρχεία είναι σε τυπική μορφή αρχείου που περιέχει πολλά μηνύματα αλληλογραφίας. Οι γραμμές που ξεκινούν με “From (Από)” διαχωρίζουν τα μηνύματα και οι γραμμές που ξεκινούν με “From:” αποτελούν μέρος των μηνυμάτων. Για περισσότερες πληροφορίες σχετικά με τη μορφή mbox, ανατρέξτε στο <a href="https://en.wikipedia.org/wiki/Mbox" class="uri">https://en.wikipedia.org/wiki/Mbox</a>.</p>
+<p>Για να χωρίσετε το αρχείο σε γραμμές, υπάρχει ένας ειδικός χαρακτήρας που αντιπροσωπεύει το “τέλος της γραμμής” που ονομάζεται χαρακτήρας <em>newline</em>.</p>
+<p> </p>
+<p>Στην Python, σε σταθερές συμβολοσειρών, αντιπροσωπεύουμε τον χαρακτήρα <em>newline</em> ως ανάστροφη κάθετο-n (). Παρόλο που αυτό μοιάζει με δύο χαρακτήρες, είναι στην πραγματικότητα ένας μόνο χαρακτήρας. Όταν εξετάζουμε τη μεταβλητή πληκτρολογώντας “stuff” στον διερμηνέα, μας δείχνει το <code>\n</code> στη συμβολοσειρά, αλλά όταν χρησιμοποιούμε την <code>print</code> για να εμφανίσουμε τη συμβολοσειρά, βλέπουμε τη συμβολοσειρά σπασμένη σε δύο γραμμές από τον χαρακτήρα νέας γραμμής.</p>
 <pre class="python"><code>&gt;&gt;&gt; stuff = &#39;Hello\nWorld!&#39;
 &gt;&gt;&gt; stuff
 &#39;Hello\nWorld!&#39;
@@ -218,51 +215,50 @@ X
 Y
 &gt;&gt;&gt; len(stuff)
 3</code></pre>
-<p>You can also see that the length of the string <code>X\nY</code> is <em>three</em> characters because the newline character is a single character.</p>
-<p>So when we look at the lines in a file, we need to <em>imagine</em> that there is a special invisible character called the newline at the end of each line that marks the end of the line.</p>
-<p>So the newline character separates the characters in the file into lines.</p>
-<h2 id="reading-files">Reading files</h2>
+<p>Μπορείτε επίσης να δείτε ότι το μήκος της συμβολοσειράς <code>X\nY</code> είναι <em>τρεις</em> χαρακτήρες, επειδή ο χαρακτήρας νέας γραμμής είναι ένας χαρακτήρας.</p>
+<p>Έτσι, όταν κοιτάμε τις γραμμές σε ένα αρχείο, πρέπει να <em>φανταστούμε</em> ότι υπάρχει ένας ειδικός, αόρατος χαρακτήρας, που ονομάζεται νέα γραμμή, στο τέλος κάθε γραμμής, που σηματοδοτεί το τέλος της γραμμής.</p>
+<p>Ο χαρακτήρας νέας γραμμής, λοιπόν, διαχωρίζει τους χαρακτήρες του αρχείου σε γραμμές.</p>
+<h2 id="ανάγνωση-αρχείων">Ανάγνωση αρχείων</h2>
 <p> </p>
-<p>While the <em>file handle</em> does not contain the data for the file, it is quite easy to construct a <code>for</code> loop to read through and count each of the lines in a file:</p>
+<p>Ενώ ο <em>περιγραφέας αρχείου</em> δεν περιέχει τα δεδομένα για το αρχείο, είναι πολύ εύκολο να τον χρησιμοποιήσετε και να δημιουργήσετε έναν βρόχο <code>for</code> για να διαβάσετε και να μετρήσετε κάθε μία από τις γραμμές σε ένα αρχείο:</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-count = 0
-for line in fhand:
-    count = count + 1
-print(&#39;Line Count:&#39;, count)
+πλήθος = 0
+for γραμμή in fhand:
+    πλήθος = πλήθος + 1
+print(&#39;Πλήθος γραμμών:&#39;, πλήθος)
 
 # Code: http://www.gr.py4e.com/code3/open.py</code></pre>
-<p>We can use the file handle as the sequence in our <code>for</code> loop. Our <code>for</code> loop simply counts the number of lines in the file and prints them out. The rough translation of the <code>for</code> loop into English is, “for each line in the file represented by the file handle, add one to the <code>count</code> variable.”</p>
-<p>The reason that the <code>open</code> function does not read the entire file is that the file might be quite large with many gigabytes of data. The <code>open</code> statement takes the same amount of time regardless of the size of the file. The <code>for</code> loop actually causes the data to be read from the file.</p>
-<p>When the file is read using a <code>for</code> loop in this manner, Python takes care of splitting the data in the file into separate lines using the newline character. Python reads each line through the newline and includes the newline as the last character in the <code>line</code> variable for each iteration of the <code>for</code> loop.</p>
-<p>Because the <code>for</code> loop reads the data one line at a time, it can efficiently read and count the lines in very large files without running out of main memory to store the data. The above program can count the lines in any size file using very little memory since each line is read, counted, and then discarded.</p>
-<p>If you know the file is relatively small compared to the size of your main memory, you can read the whole file into one string using the <code>read</code> method on the file handle.</p>
+<p>Μπορούμε να χρησιμοποιήσουμε τον περιγραφέα αρχείου ως μια ακολουθία στον βρόχο <code>for</code>. Ο παραπάνω βρόχος <code>for</code>, απλώς μετράει τον αριθμό των γραμμών στο αρχείο και τις εκτυπώνει. Η κατά προσέγγιση μετάφραση του βρόχου <code>for</code> στα αγγλικά είναι, “για κάθε γραμμή στο αρχείο που αντιπροσωπεύεται από τον περιγραφέα του αρχείου, προσθέστε ένα στη μεταβλητή <code>count</code>.</p>
+<p>Ο λόγος που η συνάρτηση <code>open</code> δεν διαβάζει ολόκληρο το αρχείο είναι ότι το αρχείο μπορεί να είναι αρκετά μεγάλο, με πολλά gigabyte δεδομένων. Η δήλωση <code>open</code> χρειάζεται τον ίδιο χρόνο ανεξάρτητα από το μέγεθος του αρχείου. Ο βρόχος <code>for</code> είναι αυτός που προκαλεί, στην πραγματικότητα, την ανάγνωση των δεδομένων από το αρχείο.</p>
+<p>Όταν διαβάζεται το αρχείο χρησιμοποιώντας έναν βρόχο <code>for</code>, με αυτόν τον τρόπο, η Python φροντίζει να διασπάσει τα δεδομένα του αρχείου σε ξεχωριστές γραμμές χρησιμοποιώντας τον χαρακτήρα νέας γραμμής. Η Python διαβάζει κάθε γραμμή μέσω του χαρακτήρα νέας γραμμής και περιλαμβάνει το χαρακτήρα νέας γραμμής, ως τον τελευταίο χαρακτήρα, στη μεταβλητή <code>γραμμή</code> σε κάθε επανάληψη του βρόχου <code>for</code>.</p>
+<p>Επειδή ο βρόχος <code>for</code> διαβάζει τα δεδομένα μία γραμμή τη φορά, μπορεί να διαβάσει και να μετρήσει αποτελεσματικά τις γραμμές σε πολύ μεγάλα αρχεία χωρίς να εξαντληθεί η κύρια μνήμη για την αποθήκευση των δεδομένων. Το παραπάνω πρόγραμμα μπορεί να μετρήσει τις γραμμές σε αρχείο οποιουδήποτε μεγέθους χρησιμοποιώντας πολύ λίγη μνήμη, αφού κάθε γραμμή διαβάζεται, μετράται και στη συνέχεια απορρίπτεται.</p>
+<p>Εάν γνωρίζετε ότι το αρχείο είναι σχετικά μικρό σε σύγκριση με το μέγεθος της κύριας μνήμης σας, μπορείτε να διαβάσετε ολόκληρο το αρχείο σε μία συμβολοσειρά, χρησιμοποιώντας τη μέθοδο <code>read</code> στον περιγραφέα του αρχείου.</p>
 <pre class="python"><code>&gt;&gt;&gt; fhand = open(&#39;mbox-short.txt&#39;)
 &gt;&gt;&gt; inp = fhand.read()
 &gt;&gt;&gt; print(len(inp))
 94626
 &gt;&gt;&gt; print(inp[:20])
 From stephen.marquar</code></pre>
-<p>In this example, the entire contents (all 94,626 characters) of the file <em>mbox-short.txt</em> are read directly into the variable <code>inp</code>. We use string slicing to print out the first 20 characters of the string data stored in <code>inp</code>.</p>
-<p>When the file is read in this manner, all the characters including all of the lines and newline characters are one big string in the variable <code>inp</code>. It is a good idea to store the output of <code>read</code> as a variable because each call to <code>read</code> exhausts the resource:</p>
+<p>Σε αυτό το παράδειγμα, ολόκληρο το περιεχόμενο (και οι 94.626 χαρακτήρες) του αρχείου <em>mbox-short.txt</em> διαβάζονται απευθείας στη μεταβλητή <code>inp</code>. Χρησιμοποιούμε διαμέριση συμβολοσειράς για να εκτυπώσουμε τους πρώτους 20 χαρακτήρες των δεδομένων συμβολοσειράς που είναι αποθηκευμένα στο <code>inp</code>.</p>
+<p>Όταν το αρχείο διαβάζεται με αυτόν τον τρόπο, όλοι οι χαρακτήρες, συμπεριλαμβανομένων όλων των γραμμών και χαρακτήρων νέας γραμμής, είναι μια μεγάλη συμβολοσειρά στη μεταβλητή <code>inp</code>. Είναι καλή ιδέα να αποθηκεύεται η έξοδος του <code>read</code> ως μεταβλητή, επειδή κάθε κλήση της <code>read</code> εξαντλεί τους πόρους:</p>
 <pre class="python"><code>&gt;&gt;&gt; fhand = open(&#39;mbox-short.txt&#39;)
 &gt;&gt;&gt; print(len(fhand.read()))
 94626
 &gt;&gt;&gt; print(len(fhand.read()))
 0</code></pre>
-<p>Remember that this form of the <code>open</code> function should only be used if the file data will fit comfortably in the main memory of your computer. If the file is too large to fit in main memory, you should write your program to read the file in chunks using a <code>for</code> or <code>while</code> loop.</p>
-<h2 id="searching-through-a-file">Searching through a file</h2>
-<p>When you are searching through data in a file, it is a very common pattern to read through a file, ignoring most of the lines and only processing lines which meet a particular condition. We can combine the pattern for reading a file with string methods to build simple search mechanisms.</p>
+<p>Θυμηθείτε ότι αυτή η μορφή της συνάρτησης <code>open</code> θα πρέπει να χρησιμοποιείται μόνο εάν τα δεδομένα του αρχείου χωράνε άνετα στην κύρια μνήμη του υπολογιστή σας. Εάν το αρχείο είναι πολύ μεγάλο για να χωρέσει στην κύρια μνήμη, θα πρέπει να γράψετε το πρόγραμμά σας έτσι ώστε να διαβάσει το αρχείο σε κομμάτια, χρησιμοποιώντας έναν βρόχο <code>for</code> ή <code>while</code>.</p>
+<h2 id="φιλτράρισμα-αρχείου">Φιλτράρισμα αρχείου</h2>
+<p>Όταν κάνετε φιλτράρισμα δεδομένων σε ένα αρχείο, ένα πολύ συνηθισμένο μοτίβο είναι να διαβάζετε το αρχείο, αγνοώντας τις περισσότερες γραμμές και να επεξεργάζεστε μόνο τις γραμμές που πληρούν μια συγκεκριμένη συνθήκη. Μπορούμε να συνδυάσουμε την ανάγνωση ενός αρχείου με μεθόδους συμβολοσειράς, για να δημιουργήσουμε απλούς μηχανισμούς φιλτραρίσματος.</p>
 <p> </p>
-<p>For example, if we wanted to read a file and only print out lines which started with the prefix “From:”, we could use the string method <em>startswith</em> to select only those lines with the desired prefix:</p>
+<p>Για παράδειγμα, αν θέλαμε να διαβάσουμε ένα αρχείο και να εκτυπώσουμε μόνο τις γραμμές που αρχίζουν με το πρόθεμα “From:”, θα μπορούσαμε να χρησιμοποιήσουμε τη μέθοδο συμβολοσειράς <em>startswith</em> για να επιλέξουμε μόνο τις γραμμές με το επιθυμητό πρόθεμα:</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-count = 0
-for line in fhand:
-    if line.startswith(&#39;From:&#39;):
-        print(line)
+for γραμμή in fhand:
+    if γραμμή.startswith(&#39;From:&#39;):
+        print(γραμμή)
 
 # Code: http://www.gr.py4e.com/code3/search1.py</code></pre>
-<p>When this program runs, we get the following output:</p>
-<pre><code>From: stephen.marquard@uct.ac.za
+<p>Όταν εκτελείται αυτό το πρόγραμμα, έχουμε την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>From: stephen.marquard@uct.ac.za
 
 From: louis@media.berkeley.edu
 
@@ -270,17 +266,17 @@ From: zqian@umich.edu
 
 From: rjlowe@iupui.edu
 ...</code></pre>
-<p>The output looks great since the only lines we are seeing are those which start with “From:”, but why are we seeing the extra blank lines? This is due to that invisible <em>newline</em> character. Each of the lines ends with a newline, so the <code>print</code> statement prints the string in the variable <em>line</em> which includes a newline and then <code>print</code> adds <em>another</em> newline, resulting in the double spacing effect we see.</p>
-<p>We could use line slicing to print all but the last character, but a simpler approach is to use the <em>rstrip</em> method which strips whitespace from the right side of a string as follows:</p>
+<p>Η έξοδος φαίνεται υπέροχη αφού οι μόνες γραμμές που βλέπουμε είναι αυτές που ξεκινούν με “From:”, αλλά γιατί βλέπουμε τις επιπλέον κενές γραμμές; Αυτό οφείλεται στον αόρατο χαρακτήρα <em>newline</em>. Κάθε μία από τις γραμμές τελειώνει με έναν χαρακτήρα νέας γραμμής, επομένως η δήλωση <code>print</code> εκτυπώνει τη συμβολοσειρά της μεταβλητή <em>γραμμή</em>, που όμως περιλαμβάνει έναν χαρακτήρα νέας γραμμής και στη συνέχεια η <code>print</code> προσθέτει <em>άλλη μία</em> νέα γραμμή, με αποτέλεσμα το εφέ διπλού διαστήματος που βλέπουμε.</p>
+<p>Θα μπορούσαμε να χρησιμοποιήσουμε την διαμέριση γραμμής, για να εκτυπώσουμε τους χαρακτήρες εκτός από τον τελευταίο, αλλά μια απλούστερη προσέγγιση είναι να χρησιμοποιήσουμε τη μέθοδο <em>rstrip</em> που αφαιρεί τους λευκούς χαρακτήρες από τη δεξιά πλευρά μιας συμβολοσειράς ως εξής:</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-for line in fhand:
-    line = line.rstrip()
-    if line.startswith(&#39;From:&#39;):
-        print(line)
+for γραμμή in fhand:
+    γραμμή = γραμμή.rstrip()
+    if γραμμή.startswith(&#39;From:&#39;):
+        print(γραμμή)
 
 # Code: http://www.gr.py4e.com/code3/search2.py</code></pre>
-<p>When this program runs, we get the following output:</p>
-<pre><code>From: stephen.marquard@uct.ac.za
+<p>Όταν εκτελείται αυτό το πρόγραμμα, έχουμε την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>From: stephen.marquard@uct.ac.za
 From: louis@media.berkeley.edu
 From: zqian@umich.edu
 From: rjlowe@iupui.edu
@@ -288,29 +284,29 @@ From: zqian@umich.edu
 From: rjlowe@iupui.edu
 From: cwen@iupui.edu
 ...</code></pre>
-<p>As your file processing programs get more complicated, you may want to structure your search loops using <code>continue</code>. The basic idea of the search loop is that you are looking for “interesting” lines and effectively skipping “uninteresting” lines. And then when we find an interesting line, we do something with that line.</p>
-<p>We can structure the loop to follow the pattern of skipping uninteresting lines as follows:</p>
+<p>Καθώς τα προγράμματα επεξεργασίας αρχείων σας γίνονται πιο περίπλοκα, μπορεί να θελήσετε να δομήσετε τους βρόχους αναζήτησης χρησιμοποιώντας το <code>continue</code>. Η βασική ιδέα του βρόχου αναζήτησης είναι ότι ψάχνετε για “ενδιαφέρουσες” γραμμές και ουσιαστικά παρακάμπτετε τις “αδιάφορες” γραμμές. Και μετά, όταν βρίσκουμε μια ενδιαφέρουσα γραμμή, κάνουμε κάτι με αυτή τη γραμμή.</p>
+<p>Μπορούμε να δομήσουμε τον βρόχο για να ακολουθήσουμε το μοτίβο της παράκαμψης αδιάφορων γραμμών ως εξής:</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-for line in fhand:
-    line = line.rstrip()
-    # Skip &#39;uninteresting lines&#39;
-    if not line.startswith(&#39;From:&#39;):
+for γραμμή in fhand:
+    γραμμή = γραμμή.rstrip()
+    # Παράκαμψη `αδιάφορων` γραμμών
+    if not γραμμή.startswith(&#39;From:&#39;):
         continue
-    # Process our &#39;interesting&#39; line
-    print(line)
+    # Επεξεργασία &#39;ενδιαφερόντων&#39; γραμμών
+    print(γραμμή)
 
 # Code: http://www.gr.py4e.com/code3/search3.py</code></pre>
-<p>The output of the program is the same. In English, the uninteresting lines are those which do not start with “From:”, which we skip using <code>continue</code>. For the “interesting” lines (i.e., those that start with “From:”) we perform the processing on those lines.</p>
-<p>We can use the <code>find</code> string method to simulate a text editor search that finds lines where the search string is anywhere in the line. Since <code>find</code> looks for an occurrence of a string within another string and either returns the position of the string or -1 if the string was not found, we can write the following loop to show lines which contain the string “<span class="citation" data-cites="uct.ac.za">@uct.ac.za</span>” (i.e., they come from the University of Cape Town in South Africa):</p>
+<p>Η έξοδος του προγράμματος είναι η ίδια. Στα αγγλικά, οι αδιάφορες γραμμές είναι εκείνες που δεν ξεκινούν με “From:”, τις οποίες παραλείπουμε χρησιμοποιώντας το <code>continue</code>. Για τις “ενδιαφέρουσες” γραμμές (δηλαδή αυτές που ξεκινούν με “From:”) εκτελούμε την επεξεργασία σε αυτές τις γραμμές.</p>
+<p>Μπορούμε να χρησιμοποιήσουμε τη μέθοδο συμβολοσειράς <code>find</code> για να προσομοιώσουμε την αναζήτηση των προγραμμάτων επεξεργασίας κειμένου, που βρίσκει γραμμές στις οποίες περιλαμβάνεται, οπουδήποτε, η συμβολοσειρά αναζήτησης. Μιας και το <code>find</code> αναζητά την εμφάνιση μιας συμβολοσειράς μέσα σε μια άλλη συμβολοσειρά και είτε επιστρέφει τη θέση της συμβολοσειράς είτε -1, εάν η συμβολοσειρά δεν βρέθηκε, μπορούμε να γράψουμε τον ακόλουθο βρόχο για να εμφανίσουμε τις γραμμές που περιέχουν τη συμβολοσειρά “<span class="citation" data-cites="uct.ac">@uct.ac</span> .za” (δηλαδή, προέρχονται από το Πανεπιστήμιο του Κέιπ Τάουν στη Νότια Αφρική):</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-for line in fhand:
-    line = line.rstrip()
-    if line.find(&#39;@uct.ac.za&#39;) == -1: continue
-    print(line)
+for γραμμή in fhand:
+    γραμμή = γραμμή.rstrip()
+    if γραμμή.find(&#39;@uct.ac.za&#39;) == -1: continue
+    print(γραμμή)
 
 # Code: http://www.gr.py4e.com/code3/search4.py</code></pre>
-<p>Which produces the following output:</p>
-<pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+<p>Ο οποίος παράγει την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 X-Authentication-Warning: set sender to stephen.marquard@uct.ac.za using -f
 From: stephen.marquard@uct.ac.za
 Author: stephen.marquard@uct.ac.za
@@ -319,159 +315,159 @@ X-Authentication-Warning: set sender to david.horwitz@uct.ac.za using -f
 From: david.horwitz@uct.ac.za
 Author: david.horwitz@uct.ac.za
 ...</code></pre>
-<p>Here we also use the contracted form of the <code>if</code> statement where we put the <code>continue</code> on the same line as the <code>if</code>. This contracted form of the <code>if</code> functions the same as if the <code>continue</code> were on the next line and indented.</p>
-<h2 id="letting-the-user-choose-the-file-name">Letting the user choose the file name</h2>
-<p>We really do not want to have to edit our Python code every time we want to process a different file. It would be more usable to ask the user to enter the file name string each time the program runs so they can use our program on different files without changing the Python code.</p>
-<p>This is quite simple to do by reading the file name from the user using <code>input</code> as follows:</p>
-<pre class="python"><code>fname = input(&#39;Enter the file name: &#39;)
+<p>Εδώ χρησιμοποιούμε επίσης τη σύντομη μορφή της εντολής <code>if</code>, όπου βάζουμε το <code>continue</code> στην ίδια γραμμή με το <code>if</code>. Αυτή η σύντομη μορφή του <code>if</code> λειτουργεί το ίδιο όπως αν το <code>continue</code> να ήταν στην επόμενη γραμμή και με εσοχή.</p>
+<h2 id="επιτρέποντας-στον-χρήστη-να-επιλέξει-το-όνομα-του-αρχείου">Επιτρέποντας στον χρήστη να επιλέξει το όνομα του αρχείου</h2>
+<p>Πραγματικά, δεν θέλουμε να πρέπει να επεξεργαζόμαστε τον κώδικά μας σε Python κάθε φορά που θέλουμε να επεξεργαστούμε ένα διαφορετικό αρχείο. Θα ήταν πιο βολικό να ζητάμε από τον χρήστη να εισάγει τη συμβολοσειρά ονόματος αρχείου, κάθε φορά που εκτελείται το πρόγραμμα, ώστε να μπορεί να χρησιμοποιήσει το πρόγραμμά μας σε διαφορετικά αρχεία, χωρίς να αλλάξει τον κώδικα της Python.</p>
+<p>Αυτό είναι πολύ απλό να υλοποιηθεί, διαβάζοντας το όνομα του αρχείου από τον χρήστη, χρησιμοποιώντας την <code>input</code> ως εξής:</p>
+<pre class="python"><code>fname = input(&#39;Εισαγάγετε το όνομα του αρχείου: &#39;)
 fhand = open(fname)
-count = 0
-for line in fhand:
-    if line.startswith(&#39;Subject:&#39;):
-        count = count + 1
-print(&#39;There were&#39;, count, &#39;subject lines in&#39;, fname)
+πλήθος = 0
+for γραμμή in fhand:
+    if γραμμή.startswith(&#39;Subject:&#39;):
+        πλήθος = πλήθος + 1
+print(&#39;Υπάρχουν &#39;, πλήθος, &#39; γραμμές θέματος στο &#39;, fname)
 
 # Code: http://www.gr.py4e.com/code3/search6.py</code></pre>
-<p>We read the file name from the user and place it in a variable named <code>fname</code> and open that file. Now we can run the program repeatedly on different files.</p>
-<pre><code>python search6.py
-Enter the file name: mbox.txt
-There were 1797 subject lines in mbox.txt
+<p>Διαβάζουμε το όνομα του αρχείου από τον χρήστη και το τοποθετούμε σε μια μεταβλητή με το όνομα <code>fname</code> και ανοίγουμε αυτό το αρχείο. Τώρα μπορούμε να εκτελέσουμε το πρόγραμμα, επανειλημμένα, για διαφορετικά αρχεία.</p>
+<pre class="{text}"><code>python search6.py
+Εισαγάγετε το όνομα του αρχείου: mbox.txt
+Υπάρχουν 1797 γραμμές θέματος στο mbox.txt
 
 python search6.py
-Enter the file name: mbox-short.txt
-There were 27 subject lines in mbox-short.txt</code></pre>
-<p>Before peeking at the next section, take a look at the above program and ask yourself, “What could go possibly wrong here?” or “What might our friendly user do that would cause our nice little program to ungracefully exit with a traceback, making us look not-so-cool in the eyes of our users?”</p>
-<h2 id="using-try-except-and-open">Using <code>try, except,</code> and <code>open</code></h2>
-<p>I told you not to peek. This is your last chance.</p>
-<p>What if our user types something that is not a file name?</p>
-<pre><code>python search6.py
-Enter the file name: missing.txt
+Εισαγάγετε το όνομα του αρχείου: mbox-short.txt
+Υπάρχουν 27 γραμμές θέματος στο mbox-short.txt</code></pre>
+<p>Πριν κρυφοκοιτάξετε την επόμενη ενότητα, ρίξτε μια ματιά στο παραπάνω πρόγραμμα και αναρωτηθείτε, “Τι θα μπορούσε να πάει στραβά εδώ;” ή “Τι μπορεί να κάνει ο φιλικός χρήστης μας, που θα έκανε το όμορφο μικρό μας πρόγραμμα να σταματήσει, άχαρα, την εκτέλεσή του με ένα traceback, κάνοντάς μας να φαινόμαστε όχι και τόσο καλοί στα μάτια των χρηστών μας;”</p>
+<h2 id="χρήση-try-except-και-open">Χρήση <code>try, except,</code> και <code>open</code></h2>
+<p>Σας είπα να μην κρυφοκοιτάξετε. Αυτή είναι η τελευταία σας ευκαιρία.</p>
+<p>Τι γίνεται αν ο χρήστης μας πληκτρολογήσει κάτι που δεν είναι όνομα αρχείου;</p>
+<pre class="{text}"><code>python search6.py
+Εισαγάγετε το όνομα του αρχείου: missing.txt
 Traceback (most recent call last):
   File &quot;search6.py&quot;, line 2, in &lt;module&gt;
     fhand = open(fname)
 FileNotFoundError: [Errno 2] No such file or directory: &#39;missing.txt&#39;
 
 python search6.py
-Enter the file name: na na boo boo
+Εισαγάγετε το όνομα του αρχείου: na na boo boo
 Traceback (most recent call last):
   File &quot;search6.py&quot;, line 2, in &lt;module&gt;
     fhand = open(fname)
 FileNotFoundError: [Errno 2] No such file or directory: &#39;na na boo boo&#39;</code></pre>
-<p>Do not laugh. Users will eventually do every possible thing they can do to break your programs, either on purpose or with malicious intent. As a matter of fact, an important part of any software development team is a person or group called <em>Quality Assurance</em> (or QA for short) whose very job it is to do the craziest things possible in an attempt to break the software that the programmer has created.</p>
-<p> </p>
-<p>The QA team is responsible for finding the flaws in programs before we have delivered the program to the end users who may be purchasing the software or paying our salary to write the software. So the QA team is the programmer’s best friend.</p>
+<p>Μην γελάτε. Οι χρήστες θα κάνουν τελικά ό,τι είναι δυνατό για να κολλήσουν τα προγράμματά σας, είτε κατά λάθος είτε με κακόβουλη πρόθεση. Στην πραγματικότητα, ένα σημαντικό μέρος οποιασδήποτε ομάδας ανάπτυξης λογισμικού είναι ένα άτομο ή μια ομάδα ατόμων, που ονομάζεται <em>Quality Assurance (Διασφάλιση Ποιότητας)</em> (ή QA για συντομία), των οποίων η ίδια δουλειά είναι να κάνουν τα πιο τρελά πράγματα σε μια προσπάθεια να “σπάσουν” το λογισμικό που ο προγραμματιστής δημιούργησε.</p>
+<p>  </p>
+<p>Η ομάδα QA είναι υπεύθυνη για την εύρεση των ελαττωμάτων στα προγράμματα προτού παραδώσουμε το πρόγραμμα στους τελικούς χρήστες, που μπορεί να αγοράσουν το λογισμικό ή να πληρώσουν το μισθό μας για τη σύνταξη του λογισμικού. Έτσι, η ομάδα QA είναι ο καλύτερος φίλος του προγραμματιστή.</p>
 <p>     </p>
-<p>So now that we see the flaw in the program, we can elegantly fix it using the <code>try</code>/<code>except</code> structure. We need to assume that the <code>open</code> call might fail and add recovery code when the <code>open</code> fails as follows:</p>
-<pre class="python"><code>fname = input(&#39;Enter the file name: &#39;)
+<p>Τώρα λοιπόν που βλέπουμε το ψεγάδι στο πρόγραμμα, μπορούμε να το διορθώσουμε, κομψά, χρησιμοποιώντας τη δομή <code>try</code>/<code>except</code>. Πρέπει να αντιληφθούμε ότι η κλήση της <code>open</code> ενδέχεται να αποτύχει και να προσθέσουμε κατάλληλο κώδικα ανάκτησης όταν η <code>open</code> αποτύχει ως εξής:</p>
+<pre class="python"><code>fname = input(&#39;Εισαγάγετε το όνομα του αρχείου: &#39;)
 try:
     fhand = open(fname)
 except:
-    print(&#39;File cannot be opened:&#39;, fname)
+    print(&#39;Δεν είναι δυνατό το άνοιγμα του αρχείου:&#39;, fname)
     exit()
-count = 0
-for line in fhand:
-    if line.startswith(&#39;Subject:&#39;):
-        count = count + 1
-print(&#39;There were&#39;, count, &#39;subject lines in&#39;, fname)
+πλήθος = 0
+for γραμμή in fhand:
+    if γραμμή.startswith(&#39;Subject:&#39;):
+        πλήθος = πλήθος + 1
+print(&#39;Υπάρχουν &#39;, πλήθος, &#39; γραμμές θέματος στο &#39;, fname)
 
 # Code: http://www.gr.py4e.com/code3/search7.py</code></pre>
-<p>The <code>exit</code> function terminates the program. It is a function that we call that never returns. Now when our user (or QA team) types in silliness or bad file names, we “catch” them and recover gracefully:</p>
-<pre><code>python search7.py
-Enter the file name: mbox.txt
-There were 1797 subject lines in mbox.txt
+<p>Η συνάρτηση <code>exit</code> τερματίζει το πρόγραμμα. Είναι μια συνάρτηση που καλούμε και δεν επιστρέφει ποτέ. Τώρα, όταν ο χρήστης μας (ή η ομάδα QA) πληκτρολογεί ανόητα ή λάθος ονόματα αρχείων, τα “πιάνουμε” και τα ξεπερνάμε με χάρη:</p>
+<pre class="{text}"><code>python search7.py
+Εισαγάγετε το όνομα του αρχείου: mbox.txt
+Υπάρχουν 1797 γραμμές θέματος στο mbox.txt
 
 python search7.py
-Enter the file name: na na boo boo
-File cannot be opened: na na boo boo</code></pre>
+Εισαγάγετε το όνομα του αρχείου: na na boo boo
+Δεν είναι δυνατό το άνοιγμα του αρχείου: na na boo boo</code></pre>
 <p></p>
-<p>Protecting the <code>open</code> call is a good example of the proper use of <code>try</code> and <code>except</code> in a Python program. We use the term “Pythonic” when we are doing something the “Python way”. We might say that the above example is the Pythonic way to open a file.</p>
-<p>Once you become more skilled in Python, you can engage in repartee with other Python programmers to decide which of two equivalent solutions to a problem is “more Pythonic”. The goal to be “more Pythonic” captures the notion that programming is part engineering and part art. We are not always interested in just making something work, we also want our solution to be elegant and to be appreciated as elegant by our peers.</p>
-<h2 id="writing-files">Writing files</h2>
-<p></p>
-<p>To write a file, you have to open it with mode “w” as a second parameter:</p>
+<p>Η προστασία της κλήσης <code>open</code> είναι ένα καλό παράδειγμα της σωστής χρήσης των <code>try</code> και <code>except</code> σε ένα πρόγραμμα Python. Χρησιμοποιούμε τον όρο “Pythonic” όταν κάνουμε κάτι με τον “τρόπο της Python”. Θα μπορούσαμε να πούμε ότι το παραπάνω παράδειγμα είναι ο Pythonic τρόπος για να ανοίξετε ένα αρχείο.</p>
+<p>Μόλις γίνετε πιο ειδικοί στην Python, μπορείτε να συμμετάσχετε σε μονομαχίες με άλλους προγραμματιστές Python για να αποφασίσετε ποια από τις δύο ισοδύναμες λύσεις σε ένα πρόβλημα είναι “πιο Python”. Ο στόχος να είσαι «πιο Pythonic» αντικατοπτρίζει την ιδέα ότι ο προγραμματισμός είναι εν μέρει μηχανική και εν μέρει τέχνη. Δεν μας ενδιαφέρει πάντα να κάνουμε κάτι που λειτουργεί, θέλουμε επίσης η λύση μας να είναι κομψή και να εκτιμάται ως κομψή από τους ομοτίμους μας.</p>
+<h2 id="γραφή-σε-αρχεία">Γραφή σε αρχεία</h2>
+<p> </p>
+<p>Για να γράψετε ένα αρχείο, πρέπει να το ανοίξετε με τη λειτουργία “w” ως δεύτερη παράμετρο:</p>
 <pre class="python"><code>&gt;&gt;&gt; fout = open(&#39;output.txt&#39;, &#39;w&#39;)
 &gt;&gt;&gt; print(fout)
 &lt;_io.TextIOWrapper name=&#39;output.txt&#39; mode=&#39;w&#39; encoding=&#39;cp1252&#39;&gt;</code></pre>
-<p>If the file already exists, opening it in write mode clears out the old data and starts fresh, so be careful! If the file doesn’t exist, a new one is created.</p>
-<p>The <code>write</code> method of the file handle object puts data into the file, returning the number of characters written. The default write mode is text for writing (and reading) strings.</p>
-<pre class="python"><code>&gt;&gt;&gt; line1 = &quot;This here&#39;s the wattle,\n&quot;
-&gt;&gt;&gt; fout.write(line1)
-24</code></pre>
+<p>Εάν το αρχείο υπάρχει ήδη, το άνοιγμα του σε λειτουργία εγγραφής διαγράφει τα προηγούμενα δεδομένα και τα αντικαθιστά με τα καινούρια, οπότε να είστε προσεκτικοί! Εάν το αρχείο δεν υπάρχει, δημιουργείται ένα νέο.</p>
+<p>Η μέθοδος <code>write</code> του αντικειμένου χειρισμού αρχείου τοποθετεί δεδομένα στο αρχείο, επιστρέφοντας τον αριθμό των χαρακτήρων που γράφτηκαν. Η προεπιλεγμένη λειτουργία εγγραφής είναι κείμενο για εγγραφή (και ανάγνωση) συμβολοσειρών.</p>
+<pre class="python"><code>&gt;&gt;&gt; γραμμή1 = &quot;Αυτό το κλαδί, είναι\n&quot;
+&gt;&gt;&gt; fout.write(γραμμή1)
+21</code></pre>
 <p></p>
-<p>Again, the file object keeps track of where it is, so if you call <code>write</code> again, it adds the new data to the end.</p>
-<p>We must make sure to manage the ends of lines as we write to the file by explicitly inserting the newline character when we want to end a line. The <code>print</code> statement automatically appends a newline, but the <code>write</code> method does not add the newline automatically.</p>
-<pre class="python"><code>&gt;&gt;&gt; line2 = &#39;the emblem of our land.\n&#39;
-&gt;&gt;&gt; fout.write(line2)
-24</code></pre>
-<p>When you are done writing, you have to close the file to make sure that the last bit of data is physically written to the disk so it will not be lost if the power goes off.</p>
+<p>Και πάλι, το αντικείμενο αρχείου παρακολουθεί τη θέση του, οπότε αν καλέσετε ξανά την <code>write</code>, προσθέτει τα νέα δεδομένα στο τέλος.</p>
+<p>Πρέπει να φροντίσουμε να διαχειριζόμαστε τα άκρα των γραμμών, καθώς γράφουμε στο αρχείο, εισάγοντας ρητά τον χαρακτήρα νέας γραμμής όταν θέλουμε να τερματίσουμε μια γραμμή. Η εντολή <code>print</code> προσθέτει αυτόματα μια νέα γραμμή, αλλά η μέθοδος <code>write</code> δεν προσθέτει τη νέα γραμμή αυτόματα.</p>
+<pre class="python"><code>&gt;&gt;&gt; γραμμή2 = &#39;το έμβλημα του τόπου μας.\n&#39;
+&gt;&gt;&gt; fout.write(γραμμή2)
+26</code></pre>
+<p>Όταν ολοκληρώσετε τη σύνταξη, πρέπει να κλείσετε το αρχείο για να βεβαιωθείτε ότι και το τελευταίο bit δεδομένων είναι φυσικά γραμμένο στο δίσκο, ώστε να μην χαθεί εάν διακοπεί η τροφοδοσία ρεύμετος.</p>
 <pre class="python"><code>&gt;&gt;&gt; fout.close()</code></pre>
-<p>We could close the files which we open for read as well, but we can be a little sloppy if we are only opening a few files since Python makes sure that all open files are closed when the program ends. When we are writing files, we want to explicitly close the files so as to leave nothing to chance.</p>
+<p>Θα μπορούσαμε να κλείσουμε και τα αρχεία που ανοίγουμε για ανάγνωση, αλλά μπορεί να είμαστε και λίγο απρόσεκτοι αν μόνο ανοίγουμε κάποια αρχεία, καθώς η Python φροντίζει ώστε όλα τα ανοιχτά αρχεία να κλείνουν όταν τελειώνει το πρόγραμμα. Όταν γράφουμε όμως σε αρχεία, θέλουμε να τα κλείνουμε ξεκάθαρα, για να μην αφήνουμε τίποτα στην τύχη.</p>
 <p> </p>
-<h2 id="debugging">Debugging</h2>
+<h2 id="εκσφαλμάτωση">Εκσφαλμάτωση</h2>
 <p> </p>
-<p>When you are reading and writing files, you might run into problems with whitespace. These errors can be hard to debug because spaces, tabs, and newlines are normally invisible:</p>
+<p>Όταν διαβάζετε και γράφετε αρχεία, ενδέχεται να αντιμετωπίσετε προβλήματα με τους λευκούς χαρακτήρες. Αυτά τα σφάλματα μπορεί να είναι δύσκολο να εντοπιστούν, επειδή τα κενά, τα tab και οι νέες γραμμές είναι συνήθως αόρατα:</p>
 <pre class="python"><code>&gt;&gt;&gt; s = &#39;1 2\t 3\n 4&#39;
 &gt;&gt;&gt; print(s)
 1 2  3
  4</code></pre>
 <p>  </p>
-<p>The built-in function <code>repr</code> can help. It takes any object as an argument and returns a string representation of the object. For strings, it represents whitespace characters with backslash sequences:</p>
+<p>Η ενσωματωμένη συνάρτηση <code>repr</code> μπορεί να βοηθήσει. Λαμβάνει οποιοδήποτε αντικείμενο ως όρισμα και επιστρέφει μια παράσταση συμβολοσειράς του αντικειμένου. Για συμβολοσειρές, αναπαρηστά τους χαρακτήρες κενού διαστήματος με ακολουθίες ανάστροφης κάθετης:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(repr(s))
 &#39;1 2\t 3\n 4&#39;</code></pre>
-<p>This can be helpful for debugging.</p>
-<p>One other problem you might run into is that different systems use different characters to indicate the end of a line. Some systems use a newline, represented <code>\n</code>. Others use a return character, represented <code>\r</code>. Some use both. If you move files between different systems, these inconsistencies might cause problems.</p>
+<p>Αυτό μπορεί να είναι χρήσιμο για τον εντοπισμό σφαλμάτων.</p>
+<p>Ένα άλλο πρόβλημα που μπορεί να αντιμετωπίσετε είναι ότι διαφορετικά συστήματα χρησιμοποιούν διαφορετικούς χαρακτήρες για να υποδείξουν το τέλος μιας γραμμής. Ορισμένα συστήματα χρησιμοποιούν μια νέα γραμμή, που αναπαρίσταται με “”. Άλλα χρησιμοποιούν έναν χαρακτήρα επιστροφής, που αναπαρίσταται με «. Κάποια χρησιμοποιούν και τα δύο. Εάν μετακινείτε αρχεία μεταξύ διαφορετικών συστημάτων, αυτές οι ασυνέπειες ενδέχεται να προκαλέσουν προβλήματα.</p>
 <p></p>
-<p>For most systems, there are applications to convert from one format to another. You can find them (and read more about this issue) at <a href="https://wikipedia.org/wiki/Newline">https://www.wikipedia.org/wiki/Newline</a>. Or, of course, you could write one yourself.</p>
-<h2 id="glossary">Glossary</h2>
+<p>Για τα περισσότερα συστήματα, υπάρχουν εφαρμογές για μετατροπή από τη μια μορφή στην άλλη. Μπορείτε να τα βρείτε (και να διαβάσετε περισσότερα για αυτό το ζήτημα) στη διεύθυνση <a href="https://wikipedia.org/wiki/Newline">https://www.wikipedia.org/wiki/Newline</a>. Ή, φυσικά, θα μπορούσατε να γράψετε μία μόνοι σας.</p>
+<h2 id="γλωσσάριο">Γλωσσάριο</h2>
 <dl>
 <dt>catch</dt>
-<dd>To prevent an exception from terminating a program using the <code>try</code> and <code>except</code> statements.
-</dd>
-<dt>newline</dt>
-<dd>A special character used in files and strings to indicate the end of a line.
+<dd>Για να αποτρέψετε μια εξαίρεση από τον τερματισμό ενός προγράμματος χρησιμοποιώντας την εντολή <code>try</code> και <code>except</code>.
 </dd>
 <dt>Pythonic</dt>
-<dd>A technique that works elegantly in Python. “Using try and except is the <em>Pythonic</em> way to recover from missing files”.
+<dd>Μια τεχνική που λειτουργεί κομψά στην Python. “Η χρήση του try και except είναι ο <em>Pythonic</em> τρόπος ανάκτησης από αρχεία που λείπουν”.
 </dd>
-<dt>Quality Assurance</dt>
-<dd>A person or team focused on insuring the overall quality of a software product. QA is often involved in testing a product and identifying problems before the product is released.
+<dt>Quality Assurance - Διασφάλιση Ποιότητας</dt>
+<dd>Ένα άτομο ή μια ομάδα που επικεντρώνεται στη διασφάλιση της συνολικής ποιότητας ενός προϊόντος λογισμικού. Το QA συχνά εμπλέκεται στη δοκιμή ενός προϊόντος και στον εντοπισμό προβλημάτων πριν από την κυκλοφορία του προϊόντος.
 </dd>
-<dt>text file</dt>
-<dd>A sequence of characters stored in permanent storage like a hard drive.
+<dt>αρχείο κειμένου</dt>
+<dd>Μια ακολουθία χαρακτήρων που είναι αποθηκευμένοι σε μονάδα μόνιμη αποθήκευση, όπως ένας σκληρός δίσκος.
+</dd>
+<dt>νέα γραμμή</dt>
+<dd>Ένας ειδικός χαρακτήρας που χρησιμοποιείται σε αρχεία και συμβολοσειρές για να υποδείξει το τέλος μιας γραμμής.
 </dd>
 </dl>
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Write a program to read through a file and print the contents of the file (line by line) all in upper case. Executing the program will look as follows:</strong></p>
-<pre><code>python shout.py
-Enter a file name: mbox-short.txt
+<h2 id="ασκήσεις">Ασκήσεις</h2>
+<p><strong>Άσκηση 1: Γράψτε ένα πρόγραμμα για να διαβάσετε ένα αρχείο και να εκτυπώσετε τα περιεχόμενα του αρχείου (γραμμή προς γραμμή) όλα με κεφαλαία. Η εκτέλεση του προγράμματος θα έχει ως εξής:</strong></p>
+<pre class="{text}"><code>python shout.py
+Εισαγάγετε το όνομα του αρχείου: mbox-short.txt
 FROM STEPHEN.MARQUARD@UCT.AC.ZA SAT JAN  5 09:14:16 2008
 RETURN-PATH: &lt;POSTMASTER@COLLAB.SAKAIPROJECT.ORG&gt;
 RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
      BY FRANKENSTEIN.MAIL.UMICH.EDU (CYRUS V2.3.8) WITH LMTPA;
      SAT, 05 JAN 2008 09:14:16 -0500</code></pre>
-<p><strong>You can download the file from</strong> <a href="http://www.py4e.com/code3/mbox-short.txt">www.py4e.com/code3/mbox-short.txt</a></p>
-<p><strong>Exercise 2: Write a program to prompt for a file name, and then read through the file and look for lines of the form:</strong></p>
-<pre><code>X-DSPAM-Confidence: 0.8475</code></pre>
-<p><strong>When you encounter a line that starts with “X-DSPAM-Confidence:” pull apart the line to extract the floating-point number on the line. Count these lines and then compute the total of the spam confidence values from these lines. When you reach the end of the file, print out the average spam confidence.</strong></p>
-<pre><code>Enter the file name: mbox.txt
-Average spam confidence: 0.894128046745
+<p><strong>Μπορείτε να κατεβάσετε το αρχείο από</strong> <a href="http://www.gr.py4e.com/code3/mbox-short.txt">www.gr.py4e.com/code3/mbox-short.txt</a></p>
+<p><strong>Άσκηση 2: Γράψτε ένα πρόγραμμα που να δέχεται ένα όνομα αρχείου και, στη συνέχεια, να διαβάζει το αρχείο αυτό και να αναζητά γραμμές της μορφής:</strong></p>
+<pre class="{text}"><code>X-DSPAM-Confidence: 0.8475</code></pre>
+<p><strong>Όταν συναντήσετε μια γραμμή που ξεκινά με “X-DSPAM-Confidence:” διασπάστε τη γραμμή για να εξαγάγετε τον αριθμό κινητής υποδιαστολής στη γραμμή. Μετρήστε αυτές τις γραμμές και στη συνέχεια υπολογίστε το σύνολο των τιμών “spam confidence” από αυτές τις γραμμές. Όταν φτάσετε στο τέλος του αρχείου, εκτυπώστε τη μέση τιμή των τιμών “spam confidence”.</strong></p>
+<pre class="{text}"><code>Εισαγάγετε το όνομα του αρχείου: mbox.txt
+Μέσο spam confidence: 0.894128046745
 
-Enter the file name: mbox-short.txt
-Average spam confidence: 0.750718518519</code></pre>
-<p><strong>Test your file on the <em>mbox.txt</em> and <em>mbox-short.txt</em> files.</strong></p>
-<p><strong>Exercise 3: Sometimes when programmers get bored or want to have a bit of fun, they add a harmless <em>Easter Egg</em> to their program. Modify the program that prompts the user for the file name so that it prints a funny message when the user types in the exact file name “na na boo boo”. The program should behave normally for all other files which exist and don’t exist. Here is a sample execution of the program:</strong></p>
-<pre><code>python egg.py
+Εισαγάγετε το όνομα του αρχείου: mbox-short.txt
+Μέσο spam confidence: 0.750718518519</code></pre>
+<p><strong>Δοκιμάστε το αρχείο σας στα αρχεία <em>mbox.txt</em> και <em>mbox-short.txt</em>.</strong></p>
+<p><strong>Άσκηση 3: Μερικές φορές, όταν οι προγραμματιστές βαριούνται ή θέλουν να διασκεδάσουν λίγο, προσθέτουν ένα αβλαβές <em>Πασχαλινό Αυγό (Easter Egg)</em> στο πρόγραμμά τους. Τροποποιήστε το πρόγραμμα που ζητά από τον χρήστη το όνομα του αρχείου, έτσι ώστε να εκτυπώνει ένα αστείο μήνυμα όταν ο χρήστης πληκτρολογεί το ακριβές όνομα αρχείου “na na boo boo”. Το πρόγραμμα θα πρέπει να συμπεριφέρεται κανονικά για όλα τα άλλα αρχεία που υπάρχουν και δεν υπάρχουν. Ακολουθεί ένα δείγμα εκτέλεσης του προγράμματος:</strong></p>
+<pre class="{text}"><code>python egg.py
 Enter the file name: mbox.txt
 There were 1797 subject lines in mbox.txt
 
 python egg.py
-Enter the file name: missing.tyxt
-File cannot be opened: missing.tyxt
+Εισαγάγετε το όνομα του αρχείου: missing.tyxt
+Δεν είναι δυνατό το άνοιγμα του αρχείου: missing.tyxt
 
 python egg.py
-Enter the file name: na na boo boo
+Εισαγάγετε το όνομα του αρχείου: na na boo boo
 NA NA BOO BOO TO YOU - You have been punk&#39;d!</code></pre>
-<p><strong>We are not encouraging you to put Easter Eggs in your programs; this is just an exercise.</strong></p>
+<p><strong>Δεν σας ενθαρρύνουμε να βάλετε τα “Easter Eggs” στα προγράμματά σας. Aυτό είναι απλώς μια άσκηση.</strong></p>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

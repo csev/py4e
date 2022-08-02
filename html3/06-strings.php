@@ -172,9 +172,9 @@ a</code></pre>
 b</code></pre>
 <p>Έτσι το “b” είναι το 0ό γράμμα (“μηδεκικ-ό”) του “banana”, το “a” είναι το 1ο γράμμα (“πρώτ-ο”), και το “n” είναι το 2ο (“δεύτερ-ο”) γράμμα.</p>
 <figure>
-<img src="../images/string.svg" alt="String Indexes" style="height: 0.75in;"/>
+<img src="../images/string.svg" alt="Δείκτες Συμβολοσειρών" style="height: 0.75in;"/>
 <figcaption>
-String Indexes
+Δείκτες Συμβολοσειρών
 </figcaption>
 </figure>
 <p> </p>
