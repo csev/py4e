@@ -230,7 +230,7 @@ for line in fhand:
     count = count + 1
 print(&#39;Line Count:&#39;, count)
 
-# Code: http://www.py4e.com/code3/open.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/open.py</code></pre>
 <p>We can use the file handle as the sequence in our <code>for</code> loop. Our <code>for</code> loop simply counts the number of lines in the file and prints them out. The rough translation of the <code>for</code> loop into English is, “for each line in the file represented by the file handle, add one to the <code>count</code> variable.”</p>
 <p>The reason that the <code>open</code> function does not read the entire file is that the file might be quite large with many gigabytes of data. The <code>open</code> statement takes the same amount of time regardless of the size of the file. The <code>for</code> loop actually causes the data to be read from the file.</p>
 <p>When the file is read using a <code>for</code> loop in this manner, Python takes care of splitting the data in the file into separate lines using the newline character. Python reads each line through the newline and includes the newline as the last character in the <code>line</code> variable for each iteration of the <code>for</code> loop.</p>
@@ -260,7 +260,7 @@ for line in fhand:
     if line.startswith(&#39;From:&#39;):
         print(line)
 
-# Code: http://www.py4e.com/code3/search1.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/search1.py</code></pre>
 <p>When this program runs, we get the following output:</p>
 <pre><code>From: stephen.marquard@uct.ac.za
 
@@ -278,7 +278,7 @@ for line in fhand:
     if line.startswith(&#39;From:&#39;):
         print(line)
 
-# Code: http://www.py4e.com/code3/search2.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/search2.py</code></pre>
 <p>When this program runs, we get the following output:</p>
 <pre><code>From: stephen.marquard@uct.ac.za
 From: louis@media.berkeley.edu
@@ -299,7 +299,7 @@ for line in fhand:
     # Process our &#39;interesting&#39; line
     print(line)
 
-# Code: http://www.py4e.com/code3/search3.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/search3.py</code></pre>
 <p>The output of the program is the same. In English, the uninteresting lines are those which do not start with “From:”, which we skip using <code>continue</code>. For the “interesting” lines (i.e., those that start with “From:”) we perform the processing on those lines.</p>
 <p>We can use the <code>find</code> string method to simulate a text editor search that finds lines where the search string is anywhere in the line. Since <code>find</code> looks for an occurrence of a string within another string and either returns the position of the string or -1 if the string was not found, we can write the following loop to show lines which contain the string “<span class="citation" data-cites="uct.ac.za">@uct.ac.za</span>” (i.e., they come from the University of Cape Town in South Africa):</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
@@ -308,7 +308,7 @@ for line in fhand:
     if line.find(&#39;@uct.ac.za&#39;) == -1: continue
     print(line)
 
-# Code: http://www.py4e.com/code3/search4.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/search4.py</code></pre>
 <p>Which produces the following output:</p>
 <pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 X-Authentication-Warning: set sender to stephen.marquard@uct.ac.za using -f
@@ -331,7 +331,7 @@ for line in fhand:
         count = count + 1
 print(&#39;There were&#39;, count, &#39;subject lines in&#39;, fname)
 
-# Code: http://www.py4e.com/code3/search6.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/search6.py</code></pre>
 <p>We read the file name from the user and place it in a variable named <code>fname</code> and open that file. Now we can run the program repeatedly on different files.</p>
 <pre><code>python search6.py
 Enter the file name: mbox.txt
@@ -374,7 +374,7 @@ for line in fhand:
         count = count + 1
 print(&#39;There were&#39;, count, &#39;subject lines in&#39;, fname)
 
-# Code: http://www.py4e.com/code3/search7.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/search7.py</code></pre>
 <p>The <code>exit</code> function terminates the program. It is a function that we call that never returns. Now when our user (or QA team) types in silliness or bad file names, we “catch” them and recover gracefully:</p>
 <pre><code>python search7.py
 Enter the file name: mbox.txt
