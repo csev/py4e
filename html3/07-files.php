@@ -177,7 +177,7 @@
 <p> </p>
 <p>Εάν το <code>open</code> ολοκληρωθεί με επιτυχία, το λειτουργικό σύστημα μας επιστρέφει έναν <em>περιγραφέα αρχείου (file handle)</em>. Ο περιγραφέας αρχείου δεν είναι τα πραγματικά δεδομένα που περιέχονται στο αρχείο, αλλά αντίθετα είναι μια “λαβή” που μπορούμε να χρησιμοποιήσουμε για να διαβάσουμε τα δεδομένα. Σας δίνεται ένας περιγραφέας εάν υπάρχει το ζητούμενο αρχείο και έχετε τα κατάλληλα δικαιώματα για να διαβάσετε το αρχείο.</p>
 <figure>
-<img src="height=2.0in@../images/handle.svg" alt="Ένας Περιγραφέας Αρχείου (File Handle)" /><figcaption aria-hidden="true">Ένας Περιγραφέας Αρχείου (File Handle)</figcaption>
+<img src="../images/handle.svg" alt="Ένας Περιγραφέας Αρχείου (File Handle)" style="height=2.0in" /><figcaption aria-hidden="true">Ένας Περιγραφέας Αρχείου (File Handle)</figcaption>
 </figure>
 <p>Εάν το αρχείο δεν υπάρχει, το <code>open</code> θα αποτύχει με ένα traceback και δεν θα δημιουργηθεί περιγραφέας για πρόσβαση στα περιεχόμενα του αρχείου:</p>
 <pre class="python"><code>&gt;&gt;&gt; fhand = open(&#39;stuff.txt&#39;)
@@ -195,10 +195,8 @@ From: stephen.marquard@uct.ac.za
 Subject: [sakai] svn commit: r39772 - content/branches/
 Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772
 ...</code></pre>
-<p>Ολόκληρο το αρχείο αλληλεπιδράσεων αλληλογραφίας είναι διαθέσιμο στο</p>
-<p><a href="http://www.gr.py4e.com/code3/mbox.txt">www.gr.py4e.com/code3/mbox.txt</a></p>
-<p>και μια μικρότερη έκδοση του αρχείου είναι διαθέσιμη στο</p>
-<p><a href="http://www.gr.py4e.com/code3/mbox-short.txt">www.gr.py4e.com/code3/mbox-short.txt</a></p>
+<p>Ολόκληρο το αρχείο αλληλεπιδράσεων αλληλογραφίας είναι διαθέσιμο στο <a href="http://www.gr.py4e.com/code3/mbox.txt">www.gr.py4e.com/code3/mbox.txt</a></p>
+<p>και μια μικρότερη έκδοση του αρχείου είναι διαθέσιμη στο <a href="http://www.gr.py4e.com/code3/mbox-short.txt">www.gr.py4e.com/code3/mbox-short.txt</a></p>
 <p>Αυτά τα αρχεία είναι σε τυπική μορφή αρχείου που περιέχει πολλά μηνύματα αλληλογραφίας. Οι γραμμές που ξεκινούν με “From (Από)” διαχωρίζουν τα μηνύματα και οι γραμμές που ξεκινούν με “From:” αποτελούν μέρος των μηνυμάτων. Για περισσότερες πληροφορίες σχετικά με τη μορφή mbox, ανατρέξτε στο <a href="https://en.wikipedia.org/wiki/Mbox" class="uri">https://en.wikipedia.org/wiki/Mbox</a>.</p>
 <p>Για να χωρίσετε το αρχείο σε γραμμές, υπάρχει ένας ειδικός χαρακτήρας που αντιπροσωπεύει το “τέλος της γραμμής” που ονομάζεται χαρακτήρας <em>newline</em>.</p>
 <p> </p>
