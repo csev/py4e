@@ -5,4 +5,4 @@ while True:
     if γραμμή == 'τέλος':
         break
     print(γραμμή)
-print('Done!')
+print('Τέλος!')
