@@ -1,16 +1,16 @@
-total = 0
-count = 0
+σύνολο = 0
+πλήθος = 0
 while (True):
-    inp = input('Enter a number: ')
-    if inp == 'done':
+    είσοδος = input('Εισαγάγετε έναν αριθμό: ')
+    if είσοδος == 'τέλος':
         break
     try:
-        value = float(inp)
+        τιμή = float(είσοδος)
     except:
         print('Invalid input')
         continue
-    total = total + value
-    count = count + 1
+    σύνολο = σύνολο + τιμή
+    πλήθος = πλήθος + 1
 
-average = total / count
-print('Average:', average)
+μέσοςΌρος = σύνολο / πλήθος
+print('Μέσος Όρος:', μέσοςΌρος)
