@@ -154,94 +154,94 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="lists">Lists</h1>
-<p> </p>
-<h2 id="a-list-is-a-sequence">A list is a sequence</h2>
-<p>Like a string, a <em>list</em> is a sequence of values. In a string, the values are characters; in a list, they can be any type. The values in list are called <em>elements</em> or sometimes <em>items</em>.</p>
-<p>  </p>
-<p>There are several ways to create a new list; the simplest is to enclose the elements in square brackets (“[” and ”]”):</p>
+<h1 id="λίστες">Λίστες</h1>
+<p>   </p>
+<h2 id="μια-λίστα-είναι-μια-ακολουθία">Μια λίστα είναι μια ακολουθία</h2>
+<p>Όπως και μια συμβολοσειρά, μια <em>list</em> είναι μια ακολουθία τιμών. Σε μια συμβολοσειρά, οι τιμές είναι χαρακτήρες ενώ σε μια λίστα, μπορούν να είναι οποιουδήποτε τύπου. Οι τιμές στη λίστα ονομάζονται <em>στοιχεία</em> (<em>elements</em> ή μερικές φορές <em>items</em>).</p>
+<p>   </p>
+<p>Υπάρχουν διάφοροι τρόποι για να δημιουργήσετε μια νέα λίστα. Ο πιο απλός είναι να περικλείσετε τα στοιχεία σε αγκύλες (“[” και ”]”):</p>
 <pre class="python"><code>[10, 20, 30, 40]
 [&#39;crunchy frog&#39;, &#39;ram bladder&#39;, &#39;lark vomit&#39;]</code></pre>
-<p>The first example is a list of four integers. The second is a list of three strings. The elements of a list don’t have to be the same type. The following list contains a string, a float, an integer, and (lo!) another list:</p>
+<p>Το πρώτο παράδειγμα είναι μια λίστα τεσσάρων ακεραίων αριθμών. Η δεύτερη είναι μια λίστα τριών συμβολοσειρών. Τα στοιχεία μιας λίστας δεν χρειάζεται να είναι του ίδιου τύπου. Η ακόλουθη λίστα περιέχει μια συμβολοσειρά, ένα δεκαδικό, έναν ακέραιο, και (ορίστε!) μια νέα λίστα:</p>
 <pre class="python"><code>[&#39;spam&#39;, 2.0, 5, [10, 20]]</code></pre>
-<p>A list within another list is <em>nested</em>.</p>
+<p>Μια λίστα σε μια άλλη λίστα είναι <em>εμφωλευμένη</em>.</p>
 <p> </p>
-<p>A list that contains no elements is called an empty list; you can create one with empty brackets, <code>[]</code>.</p>
+<p>Μια λίστα που δεν περιέχει στοιχεία ονομάζεται κενή λίστα. Μπορείτε να δημιουργήσετε μία με κενές αγκύλες, <code>[]</code>.</p>
 <p> </p>
-<p>As you might expect, you can assign list values to variables:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; cheeses = [&#39;Cheddar&#39;, &#39;Edam&#39;, &#39;Gouda&#39;]
-&gt;&gt;&gt; numbers = [17, 123]
-&gt;&gt;&gt; empty = []
-&gt;&gt;&gt; print(cheeses, numbers, empty)
+<p>Όπως θα περίμενε κανείς, μπορείτε να εκχωρήσετε τιμές λίστας σε μεταβλητές:</p>
+<pre class="python trinket"><code>&gt;&gt;&gt; τυριά = [&#39;Cheddar&#39;, &#39;Edam&#39;, &#39;Gouda&#39;]
+&gt;&gt;&gt; αριθμοί = [17, 123]
+&gt;&gt;&gt; κενή = []
+&gt;&gt;&gt; print(τυριά, αριθμοί, κενή)
 [&#39;Cheddar&#39;, &#39;Edam&#39;, &#39;Gouda&#39;] [17, 123] []</code></pre>
 <p></p>
-<h2 id="lists-are-mutable">Lists are mutable</h2>
-<p>     </p>
-<p>The syntax for accessing the elements of a list is the same as for accessing the characters of a string: the bracket operator. The expression inside the brackets specifies the index. Remember that the indices start at 0:</p>
-<pre class="python"><code>&gt;&gt;&gt; print(cheeses[0])
+<h2 id="οι-λίστες-είναι-μεταβαλόμενες">Οι λίστες είναι μεταβαλόμενες</h2>
+<p>    </p>
+<p>Η σύνταξη, για την πρόσβαση στα στοιχεία μιας λίστας, είναι η ίδια με αυτήν της πρόσβασης στους χαρακτήρες μιας συμβολοσειράς: ο τελεστής αγκύλης. Η έκφραση μέσα στις αγκύλες καθορίζει το δείκτη. Θυμηθείτε ότι οι δείκτες ξεκινούν από το 0:</p>
+<pre class="python"><code>&gt;&gt;&gt; print(τυριά[0])
 Cheddar</code></pre>
-<p>Unlike strings, lists are mutable because you can change the order of items in a list or reassign an item in a list. When the bracket operator appears on the left side of an assignment, it identifies the element of the list that will be assigned.</p>
-<p></p>
+<p>Σε αντίθεση με τις συμβολοσειρές, οι λίστες είναι μεταβλητές, μπορείτε δηλαδή να αλλάξετε τη σειρά των στοιχείων μιας λίστας ή να εκχωρήσετε εκ νέου ένα στοιχείο σε μια λίστα. Όταν ο τελεστής αγκύλης εμφανίζεται στην αριστερή πλευρά μιας ανάθεσης, προσδιορίζει το στοιχείο της λίστας που θα τροποποιηθεί.</p>
+<p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; numbers = [17, 123]
 &gt;&gt;&gt; numbers[1] = 5
 &gt;&gt;&gt; print(numbers)
 [17, 5]</code></pre>
-<p>The one-th element of <code>numbers</code>, which used to be 123, is now 5.</p>
+<p>Το στοιχείο στη θέση ένα της <code>numbers</code>, που ήταν 123, είναι τώρα 5.</p>
 <p> </p>
-<p>You can think of a list as a relationship between indices and elements. This relationship is called a <em>mapping</em>; each index “maps to” one of the elements.</p>
+<p>Μπορείτε να σκεφτείτε μια λίστα ως μια σχέση μεταξύ δεικτών και στοιχείων. Αυτή η σχέση ονομάζεται <em>χαρτογράφηση (mapping)</em>. Κάθε δείκτης “αντιστοιχίζεται” σε ένα από τα στοιχεία.</p>
 <p> </p>
-<p>List indices work the same way as string indices:</p>
+<p>Οι δείκτες λιστών λειτουργούν με τον ίδιο τρόπο όπως οι δείκτες συμβολοσειρών:</p>
 <ul>
-<li><p>Any integer expression can be used as an index.</p></li>
-<li><p>If you try to read or write an element that does not exist, you get an <code>IndexError</code>.</p></li>
+<li><p>Οποιαδήποτε ακέραια έκφραση μπορεί να χρησιμοποιηθεί ως ευρετήριο.</p></li>
+<li><p>Εάν προσπαθήσετε να διαβάσετε ή να γράψετε ένα στοιχείο που δεν υπάρχει, λαμβάνετε ένα <code>IndexError</code>.</p></li>
 </ul>
 <p> </p>
 <ul>
-<li>If an index has a negative value, it counts backward from the end of the list.</li>
+<li>Εάν ένας δείκτης έχει αρνητική τιμή, μετράει αντίστροφα από το τέλος της λίστας.</li>
 </ul>
 <p>    </p>
-<p>The <code>in</code> operator also works on lists.</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; cheeses = [&#39;Cheddar&#39;, &#39;Edam&#39;, &#39;Gouda&#39;]
-&gt;&gt;&gt; &#39;Edam&#39; in cheeses
+<p>Ο τελεστής <code>in</code> λειτουργεί και σε λίστες.</p>
+<pre class="python trinket"><code>&gt;&gt;&gt; τυριά = [&#39;Cheddar&#39;, &#39;Edam&#39;, &#39;Gouda&#39;]
+&gt;&gt;&gt; &#39;Edam&#39; in τυριά
 True
-&gt;&gt;&gt; &#39;Brie&#39; in cheeses
+&gt;&gt;&gt; &#39;Brie&#39; in τυριά
 False</code></pre>
-<h2 id="traversing-a-list">Traversing a list</h2>
+<h2 id="διάσχιση-λίστα">Διάσχιση λίστα</h2>
 <p>    </p>
-<p>The most common way to traverse the elements of a list is with a <code>for</code> loop. The syntax is the same as for strings:</p>
-<pre class="python"><code>for cheese in cheeses:
-    print(cheese)</code></pre>
-<p>This works well if you only need to read the elements of the list. But if you want to write or update the elements, you need the indices. A common way to do that is to combine the functions <code>range</code> and <code>len</code>:</p>
+<p>Ο πιο συνηθισμένος τρόπος για να διασχίσετε τα στοιχεία μιας λίστας είναι με έναν βρόχο <code>for</code>. Η σύνταξη είναι η ίδια με τις συμβολοσειρές:</p>
+<pre class="python"><code>for τυρί in τυριά:
+    print(τυρί)</code></pre>
+<p>Αυτή η μορφή λειτουργεί καλά εάν χρειάζεται μόνο να διαβάσετε τα στοιχεία της λίστας. Αλλά αν θέλετε να γράψετε ή να ενημερώσετε τα στοιχεία, χρειάζεστε τους δείκτες. Ένας συνηθισμένος τρόπος για να γίνει αυτό είναι ο συνδυασμός των συναρτήσεων <code>range</code> και <code>len</code>:</p>
 <p> </p>
-<pre class="python"><code>for i in range(len(numbers)):
-    numbers[i] = numbers[i] * 2</code></pre>
-<p>This loop traverses the list and updates each element. <code>len</code> returns the number of elements in the list. <code>range</code> returns a list of indices from 0 to <span class="math inline"><em>n</em> − 1</span>, where <span class="math inline"><em>n</em></span> is the length of the list. Each time through the loop, <code>i</code> gets the index of the next element. The assignment statement in the body uses <code>i</code> to read the old value of the element and to assign the new value.</p>
+<pre class="python"><code>for i in range(len(αριθμοί)):
+    αριθμοί[i] = αριθμοί[i] * 2</code></pre>
+<p>Αυτός ο βρόχος διασχίζει τη λίστα και ενημερώνει κάθε στοιχείο. Το <code>len</code> επιστρέφει το πλήθος των στοιχείων της λίστας. Το <code>range</code> επιστρέφει μια λίστα δεικτών από 0 έως <span class="math inline"><em>n</em> − 1</span>, όπου το <span class="math inline"><em>n</em></span> είναι το μήκος της λίστας. Κάθε φορά μέσω του βρόχου, το <code>i</code> λαμβάνει τον δείκτη του επόμενου στοιχείου. Η δήλωση ανάθεσης στο σώμα χρησιμοποιεί το <code>i</code> για να διαβάσει την παλιά τιμή του στοιχείου και να εκχωρήσει τη νέα τιμή.</p>
 <p> </p>
-<p>A <code>for</code> loop over an empty list never executes the body:</p>
-<pre class="python"><code>for x in empty:
-    print(&#39;This never happens.&#39;)</code></pre>
-<p>Although a list can contain another list, the nested list still counts as a single element. The length of this list is four:</p>
+<p>Ένας βρόχος <code>for</code> σε μια κενή λίστα δεν εκτελεί ποτέ το σώμα:</p>
+<pre class="python"><code>for x in κενή:
+    print(&#39;Αυτό δεν εκτελείται ποτέ.&#39;)</code></pre>
+<p>Αν και μια λίστα μπορεί να περιέχει μια άλλη λίστα, η ένθετη λίστα εξακολουθεί να υπολογίζεται ως ένα μεμονωμένο στοιχείο. Το μήκος της λίστας, στο παρακάτω παράδειγμα, είναι τέσσερα:</p>
 <p> </p>
 <pre class="python"><code>[&#39;spam&#39;, 1, [&#39;Brie&#39;, &#39;Roquefort&#39;, &#39;Pol le Veq&#39;], [1, 2, 3]]</code></pre>
-<h2 id="list-operations">List operations</h2>
+<h2 id="λειτουργίες-λίστας">Λειτουργίες λίστας</h2>
 <p></p>
-<p>The <code>+</code> operator concatenates lists:</p>
+<p>Ο τελεστής <code>+</code> συνενώνει λίστες:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; a = [1, 2, 3]
 &gt;&gt;&gt; b = [4, 5, 6]
 &gt;&gt;&gt; c = a + b
 &gt;&gt;&gt; print(c)
 [1, 2, 3, 4, 5, 6]</code></pre>
-<p>Similarly, the <code>*</code> operator repeats a list a given number of times:</p>
+<p>Ομοίως, ο τελεστής <code>*</code> επαναλαμβάνει μια λίστα πολλές φορές:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; [0] * 4
 [0, 0, 0, 0]
 &gt;&gt;&gt; [1, 2, 3] * 3
 [1, 2, 3, 1, 2, 3, 1, 2, 3]</code></pre>
-<p>The first example repeats four times. The second example repeats the list three times.</p>
-<h2 id="list-slices">List slices</h2>
+<p>Το πρώτο παράδειγμα επαναλαμβάνεται την πρώτη λίστα τέσσερις φορές και το δεύτερο τρεις φορές.</p>
+<h2 id="διαμέριση-λίστας">Διαμέριση λίστας</h2>
 <p>    </p>
-<p>The slice operator also works on lists:</p>
+<p>Ο τελεστής διαμέρισης λειτουργεί και σε λίστες:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]
 &gt;&gt;&gt; t[1:3]
 [&#39;b&#39;, &#39;c&#39;]
@@ -249,45 +249,45 @@ False</code></pre>
 [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]
 &gt;&gt;&gt; t[3:]
 [&#39;d&#39;, &#39;e&#39;, &#39;f&#39;]</code></pre>
-<p>If you omit the first index, the slice starts at the beginning. If you omit the second, the slice goes to the end. So if you omit both, the slice is a copy of the whole list.</p>
+<p>Εάν παραλείψετε τον πρώτο δείκτη, το τμήμα ξεκινά από την αρχή της λίστας. Αν παραλείψετε τον δεύτερο, το τμήμα φτάνει μέχρι το τέλος της λίστας. Έτσι, εαν παραλείψετε και τους δύο, το τμήμα είναι αντίγραφο ολόκληρης της λίστας.</p>
 <p>  </p>
 <pre class="python"><code>&gt;&gt;&gt; t[:]
 [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]</code></pre>
-<p>Since lists are mutable, it is often useful to make a copy before performing operations that fold, spindle, or mutilate lists.</p>
+<p>Δεδομένου ότι οι λίστες είναι μεταβαλλόμενες, είναι συχνά χρήσιμο να δημιουργείτε ένα αντίγραφο πριν εκτελέσετε λειτουργίες που “ανακατεύουν”, “σπάνε” ή τροποποιούν τις λίστες.</p>
 <p></p>
-<p>A slice operator on the left side of an assignment can update multiple elements:</p>
+<p>Ένας τελεστής διαμέρισης στο αριστερό μέλος μιας ανάθεσης μπορεί να ενημερώσει πολλά στοιχεία ταυτόχρονα:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]
 &gt;&gt;&gt; t[1:3] = [&#39;x&#39;, &#39;y&#39;]
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;x&#39;, &#39;y&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]</code></pre>
-<h2 id="list-methods">List methods</h2>
+<h2 id="μέθοδοι-λίστας">Μέθοδοι λίστας</h2>
 <p> </p>
-<p>Python provides methods that operate on lists. For example, <code>append</code> adds a new element to the end of a list:</p>
+<p>Η Python παρέχει μεθόδους που λειτουργούν σε λίστες. Για παράδειγμα, η <code>append</code> προσθέτει ένα νέο στοιχείο στο τέλος μιας λίστας:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; t.append(&#39;d&#39;)
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]</code></pre>
-<p><code>extend</code> takes a list as an argument and appends all of the elements:</p>
+<p>Η <code>extend</code> παίρνει μια λίστα ως όρισμα και προσθέτει όλα τα στοιχεία της στην λίστα στην οποία εφαρμόστηκε:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t1 = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; t2 = [&#39;d&#39;, &#39;e&#39;]
 &gt;&gt;&gt; t1.extend(t2)
 &gt;&gt;&gt; print(t1)
 [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;]</code></pre>
-<p>This example leaves <code>t2</code> unmodified.</p>
-<p><code>sort</code> arranges the elements of the list from low to high:</p>
+<p>Αυτό το παράδειγμα δεν τροποποιεί το <code>t2</code>.</p>
+<p>Η <code>sort</code> ταξινομεί τα στοιχεία της λίστας από το μικρότερο προς το μεγαλύτερο:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;d&#39;, &#39;c&#39;, &#39;e&#39;, &#39;b&#39;, &#39;a&#39;]
 &gt;&gt;&gt; t.sort()
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;]</code></pre>
-<p>Most list methods are void; they modify the list and return <code>None</code>. If you accidentally write <code>t = t.sort()</code>, you will be disappointed with the result.</p>
+<p>Οι περισσότερες μέθοδοι λίστας είναι κενές. Τροποποιούν τη λίστα και επιστρέφουν <code>None</code>. Αν κατά λάθος γράψετε <code>t = t.sort()</code>, θα απογοητευτείτε με το αποτέλεσμα.</p>
 <p>   </p>
-<h2 id="deleting-elements">Deleting elements</h2>
+<h2 id="διαγραφή-στοιχείων">Διαγραφή στοιχείων</h2>
 <p> </p>
-<p>There are several ways to delete elements from a list. If you know the index of the element you want, you can use <code>pop</code>:</p>
+<p>Υπάρχουν διάφοροι τρόποι για να διαγράψετε στοιχεία από μια λίστα. Εάν γνωρίζετε το ευρετήριο του στοιχείου που θέλετε ν διαγράψετε, μπορείτε να χρησιμοποιήσετε την <code>pop</code>:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; x = t.pop(1)
@@ -295,29 +295,29 @@ False</code></pre>
 [&#39;a&#39;, &#39;c&#39;]
 &gt;&gt;&gt; print(x)
 b</code></pre>
-<p><code>pop</code> modifies the list and returns the element that was removed. If you don’t provide an index, it deletes and returns the last element.</p>
-<p>If you don’t need the removed value, you can use the <code>del</code> operator:</p>
+<p>Η <code>pop</code> τροποποιεί τη λίστα και επιστρέφει το στοιχείο που αφαιρέθηκε. Εάν δεν δώσετε κάποιον δείκτη, διαγράφει και επιστρέφει το τελευταίο στοιχείο.</p>
+<p>Εάν δεν χρειάζεστε την καταργημένη τιμή, μπορείτε να χρησιμοποιήσετε την εντολή <code>del</code>:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; del t[1]
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;c&#39;]</code></pre>
-<p>If you know the element you want to remove (but not the index), you can use <code>remove</code>:</p>
+<p>Εάν γνωρίζετε το στοιχείο που θέλετε να αφαιρέσετε (αλλά όχι το δείκτη του), μπορείτε να χρησιμοποιήσετε το <code>remove</code>:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; t.remove(&#39;b&#39;)
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;c&#39;]</code></pre>
-<p>The return value from <code>remove</code> is <code>None</code>.</p>
+<p>Η επιστρεφόμενη τιμή του <code>remove</code> είναι <code>None</code>.</p>
 <p> </p>
-<p>To remove more than one element, you can use <code>del</code> with a slice index:</p>
+<p>Για να αφαιρέσετε περισσότερα από ένα στοιχεία, μπορείτε να χρησιμοποιήσετε το <code>del</code> με ένα δείκτη διαμέρισης:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]
 &gt;&gt;&gt; del t[1:5]
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;f&#39;]</code></pre>
-<p>As usual, the slice selects all the elements up to, but not including, the second index.</p>
-<h2 id="lists-and-functions">Lists and functions</h2>
-<p>There are a number of built-in functions that can be used on lists that allow you to quickly look through a list without writing your own loops:</p>
+<p>Ως συνήθως, το τμήμα, που θα διαγραφεί περιλαμβάνει όλα τα στοιχεία μέχρικαι πριν το δεύτερο δείκτη.</p>
+<h2 id="λίστες-και-συναρτήσεις">Λίστες και συναρτήσεις</h2>
+<p>Υπάρχει ένα πλήθος ενσωματωμένων συναρτήσεων που μπορούν να χρησιμοποιηθούν σε λίστες και που σας επιτρέπουν να εξετάζεται γρήγορα μια λίστα, χωρίς να γράφετε τους δικούς σας βρόχους:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; nums = [3, 41, 12, 9, 74, 15]
 &gt;&gt;&gt; print(len(nums))
 6
@@ -329,46 +329,46 @@ b</code></pre>
 154
 &gt;&gt;&gt; print(sum(nums)/len(nums))
 25</code></pre>
-<p>The <code>sum()</code> function only works when the list elements are numbers. The other functions (<code>max()</code>, <code>len()</code>, etc.) work with lists of strings and other types that can be comparable.</p>
-<p>We could rewrite an earlier program that computed the average of a list of numbers entered by the user using a list.</p>
-<p>First, the program to compute an average without a list:</p>
-<pre class="python"><code>total = 0
-count = 0
+<p>Η συνάρτηση <code>sum()</code> λειτουργεί μόνο όταν τα στοιχεία της λίστας είναι αριθμοί. Οι άλλες δύο συναρτήσεις (<code>max()</code>, <code>len()</code>, etc.) λειτουργούν και με λίστες συμβολοσειρών και άλλους τύπους, που μπορούν να είναι συγκρίσιμοι.</p>
+<p>Θα μπορούσαμε να ξαναγράψουμε ένα προηγούμενο πρόγραμμα, που υπολόγιζε τον μέσο όρο μιας λίστας αριθμών που εισήγαγε ο χρήστης, χρησιμοποιώντας μια λίστα.</p>
+<p>Πρώτα, το πρόγραμμα για τον υπολογισμό ενός μέσου όρου χωρίς λίστα:</p>
+<pre class="python"><code>σύνολο = 0
+πλήθος = 0
 while (True):
-    inp = input(&#39;Enter a number: &#39;)
-    if inp == &#39;done&#39;: break
-    value = float(inp)
-    total = total + value
-    count = count + 1
+    είσοδος = input(&#39;Enter a number: &#39;)
+    if είσοδος == &#39;τέλος&#39;: break
+    τιμή = float(είσοδος)
+    σύνολο = σύνολο + τιμή
+    πλήθος = πλήθος + 1
 
-average = total / count
-print(&#39;Average:&#39;, average)
+μέσοςΌρος = σύνολο / πλήθος
+print(&#39;Μέσος Όρος:&#39;, μέσοςΌρος)
 
-# Code: http://www.py4e.com/code3/avenum.py</code></pre>
-<p>In this program, we have <code>count</code> and <code>total</code> variables to keep the number and running total of the user’s numbers as we repeatedly prompt the user for a number.</p>
-<p>We could simply remember each number as the user entered it and use built-in functions to compute the sum and count at the end.</p>
+# Code: http://www.gr.py4e.com/code3/avenum.py</code></pre>
+<p>Σε αυτό το πρόγραμμα, έχουμε τις μεταβλητές <code>πλήθος</code> και <code>σύνολο</code> για να κρατήσουμε τον πλήθος και το τρέχον σύνολο των αριθμών που εισάγονται, καθώς ζητάμε επανειλημμένα από τον χρήστη την εισαγωγή ενόν αριθμού.</p>
+<p>Θα μπορούσαμε απλά να αποθηκεύουμε κάθε αριθμό καθώς τον εισαγάγει ο χρήστης και να χρησιμοποιήσουμε ενσωματωμένες συναρτήσεις για να υπολογίσουμε το άθροισμα και το πλήθος, στο τέλος.</p>
 <pre class="python"><code>numlist = list()
 while (True):
-    inp = input(&#39;Enter a number: &#39;)
-    if inp == &#39;done&#39;: break
-    value = float(inp)
-    numlist.append(value)
+    είσοδος = input(&#39;Enter a number: &#39;)
+    if είσοδος == &#39;τέλος&#39;: break
+    τιμή = float(είσοδος)
+    numlist.append(τιμή)
 
-average = sum(numlist) / len(numlist)
-print(&#39;Average:&#39;, average)
+μέσοςΌρος = sum(numlist) / len(numlist)
+print(&#39;Μέσος Όρος:&#39;, μέσοςΌρος)
 
-# Code: http://www.py4e.com/code3/avelist.py</code></pre>
-<p>We make an empty list before the loop starts, and then each time we have a number, we append it to the list. At the end of the program, we simply compute the sum of the numbers in the list and divide it by the count of the numbers in the list to come up with the average.</p>
-<h2 id="lists-and-strings">Lists and strings</h2>
+# Code: http://www.gr.py4e.com/code3/avelist.py</code></pre>
+<p>Δημιουργούμε μια κενή λίστα πριν ξεκινήσει ο βρόχος και, στη συνέχεια, κάθε φορά που έχουμε έναν αριθμό, τον προσθέτουμε στη λίστα. Στο τέλος του προγράμματος, απλά υπολογίζουμε το άθροισμα των αριθμών στη λίστα και το διαιρούμε με το πλήθος των αριθμών στη λίστα για να καταλήξουμε στον μέσο όρο.</p>
+<h2 id="λίστες-και-συμβολοσειρές">Λίστες και συμβολοσειρές</h2>
 <p>  </p>
-<p>A string is a sequence of characters and a list is a sequence of values, but a list of characters is not the same as a string. To convert from a string to a list of characters, you can use <code>list</code>:</p>
+<p>Μια συμβολοσειρά είναι μια ακολουθία χαρακτήρων και μια λίστα είναι μια ακολουθία τιμών, αλλά μια λίστα χαρακτήρων δεν είναι ίδια με μια συμβολοσειρά. Για να μετατρέψετε μια συμβολοσειρά σε μια λίστα χαρακτήρων, μπορείτε να χρησιμοποιήσετε τη <code>list</code>:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; s = &#39;spam&#39;
 &gt;&gt;&gt; t = list(s)
 &gt;&gt;&gt; print(t)
 [&#39;s&#39;, &#39;p&#39;, &#39;a&#39;, &#39;m&#39;]</code></pre>
-<p>Because <code>list</code> is the name of a built-in function, you should avoid using it as a variable name. I also avoid the letter “l” because it looks too much like the number “1”. So that’s why I use “t”.</p>
-<p>The <code>list</code> function breaks a string into individual letters. If you want to break a string into words, you can use the <code>split</code> method:</p>
+<p>Επειδή το <code>list</code> είναι το όνομα μιας ενσωματωμένης συνάρτησης, θα πρέπει να αποφύγετε τη χρήση της ως όνομα μεταβλητής. Επίσης αποφεύγω το γράμμα “l’ γιατί μοιάζει πάρα πολύ με τον αριθμό”1”. Γι’ αυτό λοιπόν χρησιμοποιώ το “t”.</p>
+<p>Η συνάρτηση <code>list</code> σπάει μια συμβολοσειρά σε μεμονωμένα γράμματα. Εάν θέλετε να χωρίσετε μια συμβολοσειρά σε λέξεις, μπορείτε να χρησιμοποιήσετε τη μέθοδο <code>split</code>:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; s = &#39;pining for the fjords&#39;
 &gt;&gt;&gt; t = s.split()
@@ -376,103 +376,103 @@ print(&#39;Average:&#39;, average)
 [&#39;pining&#39;, &#39;for&#39;, &#39;the&#39;, &#39;fjords&#39;]
 &gt;&gt;&gt; print(t[2])
 the</code></pre>
-<p>Once you have used <code>split</code> to break the string into a list of words, you can use the index operator (square bracket) to look at a particular word in the list.</p>
-<p>You can call <code>split</code> with an optional argument called a <em>delimiter</em> that specifies which characters to use as word boundaries. The following example uses a hyphen as a delimiter:</p>
+<p>Αφού χρησιμοποιήσετε το <code>split</code> για να σπάσετε τη συμβολοσειρά σε μια λίστα λέξεων, μπορείτε να χρησιμοποιήσετε τον τελεστή ευρετηρίου (τετράγωνη αγκύλη) για να δείτε μια συγκεκριμένη λέξη στη λίστα.</p>
+<p>Μπορείτε να καλέσετε το <code>split</code> με ένα προαιρετικό όρισμα, που ονομάζεται <em>οριοθέτης (delimiter)</em> που καθορίζει ποιοι χαρακτήρες θα χρησιμοποιηθούν ως διαχωριστικά λέξεων. Το ακόλουθο παράδειγμα χρησιμοποιεί μια παύλα ως οριοθέτη:</p>
 <p>  </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; s = &#39;spam-spam-spam&#39;
-&gt;&gt;&gt; delimiter = &#39;-&#39;
-&gt;&gt;&gt; s.split(delimiter)
+&gt;&gt;&gt; οριοθέτης = &#39;-&#39;
+&gt;&gt;&gt; s.split(οριοθέτης)
 [&#39;spam&#39;, &#39;spam&#39;, &#39;spam&#39;]</code></pre>
-<p><code>join</code> is the inverse of <code>split</code>. It takes a list of strings and concatenates the elements. <code>join</code> is a string method, so you have to invoke it on the delimiter and pass the list as a parameter:</p>
+<p>Η <code>join</code> είναι το αντίστροφο του <code>split</code>. Παίρνει μια λίστα με συμβολοσειρές και συνενώνει τα στοιχεία της. Το <code>join</code> είναι μια μέθοδος συμβολοσειράς, επομένως πρέπει να την καλέσετε στον οριοθέτη και να μεταβιβάσετε τη λίστα ως παράμετρο:</p>
 <p>  </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;pining&#39;, &#39;for&#39;, &#39;the&#39;, &#39;fjords&#39;]
-&gt;&gt;&gt; delimiter = &#39; &#39;
-&gt;&gt;&gt; delimiter.join(t)
+&gt;&gt;&gt; οριοθέτης = &#39; &#39;
+&gt;&gt;&gt; οριοθέτης.join(t)
 &#39;pining for the fjords&#39;</code></pre>
-<p>In this case the delimiter is a space character, so <code>join</code> puts a space between words. To concatenate strings without spaces, you can use the empty string, ““, as a delimiter.</p>
+<p>Σε αυτήν την περίπτωση, ο οριοθέτης είναι ένας χαρακτήρας διαστήματος, επομένως η <code>join</code> βάζει ένα διάστημα μεταξύ των λέξεων. Για να συνδέσετε συμβολοσειρές χωρίς κενά, μπορείτε να χρησιμοποιήσετε την κενή συμβολοσειρά ““, ως οριοθέτη.</p>
 <p> </p>
-<h2 id="parsing-lines">Parsing lines</h2>
-<p>Usually when we are reading a file we want to do something to the lines other than just printing the whole line. Often we want to find the “interesting lines” and then <em>parse</em> the line to find some interesting <em>part</em> of the line. What if we wanted to print out the day of the week from those lines that start with “From”?</p>
-<pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
-<p>The <code>split</code> method is very effective when faced with this kind of problem. We can write a small program that looks for lines where the line starts with “From”, <code>split</code> those lines, and then print out the third word in the line:</p>
+<h2 id="ανάλυση-γραμμών">Ανάλυση γραμμών</h2>
+<p>Συνήθως όταν διαβάζουμε ένα αρχείο θέλουμε να κάνουμε κάτι στις γραμμέςτου, πέρα από την απλή εκτύπωση ολόκληρης της γραμμής. Συχνά θέλουμε να βρούμε τις “ενδιαφέρουσες γραμμές” και μετά <em>να αναλύσουμε</em> την κάθε μία από αυτές, για να βρούμε κάποιο ενδιαφέρον <em>μέρος</em> της γραμμής. Τι θα γινόταν αν θέλαμε να εκτυπώσουμε την ημέρα της εβδομάδας από αυτές τις γραμμές που ξεκινούν με “From”;</p>
+<pre class="{text}"><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
+<p>Η μέθοδος <code>split</code> είναι πολύ αποτελεσματική, όταν αντιμετωπίζετε τέτοιου είδους προβλήματα. Μπορούμε να γράψουμε ένα μικρό πρόγραμμα που αναζητά γραμμές, που ξεκινούν με “From”, να <code>διαχωρίσουμε (split)</code> αυτές τις γραμμές και, στη συνέχεια, να εκτυπώσουμε την τρίτη λέξη στη γραμμή:</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-for line in fhand:
-    line = line.rstrip()
-    if not line.startswith(&#39;From &#39;): continue
-    words = line.split()
-    print(words[2])
+for γραμμή in fhand:
+    γραμμή = γραμμή.rstrip()
+    if not γραμμή.startswith(&#39;From &#39;): continue
+    λέξεις = γραμμή.split()
+    print(λέξεις[2])
 
-# Code: http://www.py4e.com/code3/search5.py</code></pre>
-<p>The program produces the following output:</p>
-<pre><code>Sat
-Fri
-Fri
-Fri
-...</code></pre>
-<p>Later, we will learn increasingly sophisticated techniques for picking the lines to work on and how we pull those lines apart to find the exact bit of information we are looking for.</p>
-<h2 id="objects-and-values">Objects and values</h2>
+# Code: http://www.gr.py4e.com/code3/search5.py</code></pre>
+<p>Το πρόγραμμα παράγει την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>    Sat
+    Fri
+    Fri
+    Fri
+    ...</code></pre>
+<p>Αργότερα, θα μάθουμε όλο και πιο εξελιγμένες τεχνικές, για να επιλέγουμε τις γραμμές στις οποίες θα δουλέψουμε και πώς θα ξεχωρίσουμε αυτές τις γραμμές για να βρούμε το ακριβές κομμάτι των πληροφοριών που αναζητούμε.</p>
+<h2 id="αντικείμενα-και-τιμές">Αντικείμενα και τιμές</h2>
 <p> </p>
-<p>If we execute these assignment statements:</p>
+<p>Εάν εκτελέσουμε αυτές τις εντολές ανάθεσης:</p>
 <pre class="python"><code>a = &#39;banana&#39;
 b = &#39;banana&#39;</code></pre>
-<p>we know that <code>a</code> and <code>b</code> both refer to a string, but we don’t know whether they refer to the <em>same</em> string. There are two possible states:</p>
+<p>Γνωρίζουμε ότι το <code>a</code> και το <code>b</code> αναφέρονται και τα δύο σε μια συμβολοσειρά, αλλά δεν ξέρουμε αν αναφέρονται στην <em>ίδια</em> συμβολοσειρά. Υπάρχουν δύο πιθανές καταστάσεις:</p>
 <p></p>
 <figure>
-<img src="../images/list1.svg" alt="Variables and Objects" style="height: 0.5in;"/>
+<img src="../images/list1.svg" alt="Μεταβλητές και Αντικείμενα" style="height: 0.5in;"/>
 <figcaption>
-Variables and Objects
+Μεταβλητές και Αντικείμενα
 </figcaption>
 </figure>
-<p>In one case, <code>a</code> and <code>b</code> refer to two different objects that have the same value. In the second case, they refer to the same object.</p>
+<p>Στο πρώτο σχήμα, τα <code>a</code> και <code>b</code> αναφέρονται σε δύο διαφορετικά αντικείμενα, που έχουν την ίδια τιμή. Στο δεύτερο σχήμα αναφέρονται στο ίδιο αντικείμενο.</p>
 <p> </p>
-<p>To check whether two variables refer to the same object, you can use the <code>is</code> operator.</p>
+<p>Για να ελέγξετε αν δύο μεταβλητές αναφέρονται στο ίδιο αντικείμενο, μπορείτε να χρησιμοποιήσετε τον τελεστή <code>is</code>.</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; a = &#39;banana&#39;
 &gt;&gt;&gt; b = &#39;banana&#39;
 &gt;&gt;&gt; a is b
 True</code></pre>
-<p>In this example, Python only created one string object, and both <code>a</code> and <code>b</code> refer to it.</p>
-<p>But when you create two lists, you get two objects:</p>
+<p>Σε αυτό το παράδειγμα, η Python δημιούργησε μόνο ένα αντικείμενο συμβολοσειράς και το <code>a</code> και το <code>b</code> αναφέρονται σε αυτό.</p>
+<p>Αλλά όταν δημιουργείτε δύο λίστες, δημιουργούνται δύο αντικείμενα:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; a = [1, 2, 3]
 &gt;&gt;&gt; b = [1, 2, 3]
 &gt;&gt;&gt; a is b
 False</code></pre>
-<p>In this case we would say that the two lists are <em>equivalent</em>, because they have the same elements, but not <em>identical</em>, because they are not the same object. If two objects are identical, they are also equivalent, but if they are equivalent, they are not necessarily identical.</p>
+<p>Σε αυτή την περίπτωση θα λέγαμε ότι οι δύο λίστες είναι <em>ισοδύναμες</em>, γιατί έχουν τα ίδια στοιχεία, αλλά όχι <em>ταυτόσημες</em>, μιας και είναι δύο διαφορετικά αντικείμενα. Αν δύο αντικείμενα είναι ταυτόσημα, είναι επίσης ισοδύναμα, αλλά αν είναι ισοδύναμα, δεν είναι απαραίτητα ταυτόσημα.</p>
 <p> </p>
-<p>Until now, we have been using “object” and “value” interchangeably, but it is more precise to say that an object has a value. If you execute <code>a = [1,2,3]</code>, <code>a</code> refers to a list object whose value is a particular sequence of elements. If another list has the same elements, we would say it has the same value.</p>
+<p>Μέχρι τώρα, χρησιμοποιούσαμε το “αντικείμενο” και την “τιμή” εναλλακτικά, αλλά είναι πιο ακριβές να πούμε ότι ένα αντικείμενο έχει μια τιμή. Εάν <code>a = [1,2,3]</code>, το <code>a</code> αναφέρεται σε ένα αντικείμενο λίστας του οποίου η τιμή είναι μια συγκεκριμένη ακολουθία στοιχείων. Εάν μια άλλη λίστα έχει τα ίδια στοιχεία, θα λέγαμε ότι έχει την ίδια τιμή.</p>
 <p> </p>
-<h2 id="aliasing">Aliasing</h2>
+<h2 id="ψευδωνυμία">ψευδωνυμία</h2>
 <p> </p>
-<p>If <code>a</code> refers to an object and you assign <code>b = a</code>, then both variables refer to the same object:</p>
+<p>Εάν το <code>a</code> αναφέρεται σε ένα αντικείμενο και εκτελέσετε <code>b = a</code>, τότε και οι δύο μεταβλητές αναφέρονται στο ίδιο αντικείμενο:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; a = [1, 2, 3]
 &gt;&gt;&gt; b = a
 &gt;&gt;&gt; b is a
 True</code></pre>
-<p>The association of a variable with an object is called a <em>reference</em>. In this example, there are two references to the same object.</p>
+<p>Ο συσχετισμός μιας μεταβλητής με ένα αντικείμενο ονομάζεται <em>αναφορά</em>. Σε αυτό το παράδειγμα, υπάρχουν δύο αναφορές στο ίδιο αντικείμενο.</p>
 <p></p>
-<p>An object with more than one reference has more than one name, so we say that the object is <em>aliased</em>.</p>
+<p>Ένα αντικείμενο με περισσότερες από μία αναφορές, έχει περισσότερα από ένα ονόματα, οπότε λέμε ότι το αντικείμενο έχει <em>ψευδώνυμα</em>.</p>
 <p></p>
-<p>If the aliased object is mutable, changes made with one alias affect the other:</p>
+<p>Εάν το αντικείμενο με ψευδώνυμα είναι μεταβαλλόμενο, οι αλλαγές που γίνονται με το ένα ψευδώνυμο επηρεάζουν το άλλο:</p>
 <pre class="python"><code>&gt;&gt;&gt; b[0] = 17
 &gt;&gt;&gt; print(a)
 [17, 2, 3]</code></pre>
-<p>Although this behavior can be useful, it is error-prone. In general, it is safer to avoid aliasing when you are working with mutable objects.</p>
+<p>Αν και αυτή η συμπεριφορά μπορεί να είναι χρήσιμη, είναι επιρρεπής σε σφάλματα. Γενικά, είναι ασφαλέστερο να αποφεύγετε τη ψευδωνυμία όταν εργάζεστε με μεταβαλλόμενα αντικείμενα.</p>
 <p></p>
-<p>For immutable objects like strings, aliasing is not as much of a problem. In this example:</p>
+<p>Για αμετάβλητα αντικείμενα όπως οι συμβολοσειρές, η ψευδωνυμία δεν είναι τόσο σοβαρό πρόβλημα. Σε αυτό το παράδειγμα:</p>
 <pre class="python"><code>a = &#39;banana&#39;
 b = &#39;banana&#39;</code></pre>
-<p>it almost never makes a difference whether <code>a</code> and <code>b</code> refer to the same string or not.</p>
-<h2 id="list-arguments">List arguments</h2>
+<p>Σχεδόν ποτέ δεν έχει διαφορά εάν το <code>a</code> και το <code>b</code> αναφέρονται στην ίδια συμβολοσειρά ή όχι.</p>
+<h2 id="ορίσματα-λίστας">Ορίσματα λίστας</h2>
 <p>    </p>
-<p>When you pass a list to a function, the function gets a reference to the list. If the function modifies a list parameter, the caller sees the change. For example, <code>delete_head</code> removes the first element from a list:</p>
+<p>Όταν μεταβιβάζετε μια λίστα σε μια συνάρτηση, η συνάρτηση λαμβάνει μια αναφορά στη λίστα. Εάν η συνάρτηση τροποποιήσει μια παράμετρο λίστας, η αλλαγή πραγματοποιείται και στην λίστα που μεταβιβάστηκε ως όρισμα. Για παράδειγμα, το <code>delete_head</code> αφαιρεί το πρώτο στοιχείο από μια λίστα:</p>
 <pre class="python"><code>def delete_head(t):
     del t[0]</code></pre>
-<p>Here’s how it is used:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; letters = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
-&gt;&gt;&gt; delete_head(letters)
-&gt;&gt;&gt; print(letters)
+<p>Δείτε πώς χρησιμοποιείται:</p>
+<pre class="python trinket"><code>&gt;&gt;&gt; γράμματα = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+&gt;&gt;&gt; delete_head(γράμματα)
+&gt;&gt;&gt; print(γράμματα)
 [&#39;b&#39;, &#39;c&#39;]</code></pre>
-<p>The parameter <code>t</code> and the variable <code>letters</code> are aliases for the same object.</p>
-<p>It is important to distinguish between operations that modify lists and operations that create new lists. For example, the <code>append</code> method modifies a list, but the <code>+</code> operator creates a new list:</p>
+<p>Η παράμετρος <code>t</code> και η μεταβλητή <code>γράμματα</code> είναι ψευδώνυμα για το ίδιο αντικείμενο.</p>
+<p>Είναι σημαντικό να γίνεται διάκριση μεταξύ λειτουργιών που τροποποιούν λίστες και λειτουργιών που δημιουργούν νέες λίστες. Για παράδειγμα, η μέθοδος <code>append</code> τροποποιεί μια λίστα, αλλά ο τελεστής <code>+</code> δημιουργεί μια νέα λίστα:</p>
 <p>   </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t1 = [1, 2]
 &gt;&gt;&gt; t2 = t1.append(3)
@@ -486,184 +486,182 @@ None
 [1, 2, 3]
 &gt;&gt;&gt; t2 is t3
 False</code></pre>
-<p>This difference is important when you write functions that are supposed to modify lists. For example, this function <em>does not</em> delete the head of a list:</p>
+<p>Αυτή η διαφορά είναι σημαντική όταν γράφετε συναρτήσεις που υποτίθεται ότι τροποποιούν λίστες. Για παράδειγμα, αυτή η συνάρτηση <em>δεν</em> διαγράφει το πρώτο στοιχείο (θέση 0) μιας λίστας:</p>
 <pre class="python"><code>def bad_delete_head(t):
     t = t[1:]              # WRONG!</code></pre>
-<p>The slice operator creates a new list and the assignment makes <code>t</code> refer to it, but none of that has any effect on the list that was passed as an argument.</p>
+<p>Ο τελεστής διαμέρισης δημιουργεί μια νέα λίστα και η ανάθεση κάνει το <code>t</code> να αναφέρεται σε αυτήν, αλλά τίποτα από αυτά δεν έχει καμία επίδραση στη λίστα που μεταβιβάστηκε ως όρισμα.</p>
 <p> </p>
-<p>An alternative is to write a function that creates and returns a new list. For example, <code>tail</code> returns all but the first element of a list:</p>
+<p>Μια εναλλακτική είναι να γράψετε μια συνάρτηση που δημιουργεί και επιστρέφει μια νέα λίστα. Για παράδειγμα, η <code>tail</code> επιστρέφει όλα εκτός από το πρώτο στοιχείο μιας λίστας:</p>
 <pre class="python"><code>def tail(t):
     return t[1:]</code></pre>
-<p>This function leaves the original list unmodified. Here’s how it is used:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; letters = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
-&gt;&gt;&gt; rest = tail(letters)
-&gt;&gt;&gt; print(rest)
+<p>Αυτή η συνάρτηση αφήνει την αρχική λίστα χωρίς αμετάβλητη. Δείτε πώς χρησιμοποιείται:</p>
+<pre class="python trinket"><code>&gt;&gt;&gt; γράμματα = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+&gt;&gt;&gt; υπόλοιπο = tail(γράμματα)
+&gt;&gt;&gt; print(υπόλοιπο)
 [&#39;b&#39;, &#39;c&#39;]</code></pre>
-<p><strong>Exercise 1: Write a function called <code>chop</code> that takes a list and modifies it, removing the first and last elements, and returns <code>None</code>. Then write a function called <code>middle</code> that takes a list and returns a new list that contains all but the first and last elements.</strong></p>
-<h2 id="debugging">Debugging</h2>
+<p><strong>Άσκηση 1: Γράψτε μια συνάρτηση με όνομα <code>chop</code>, που δέχεται μια λίστα και την τροποποιεί, αφαιρώντας το πρώτο και το τελευταίο στοιχείο και επιστρέφει <code>None</code>. Στη συνέχεια, γράψτε μια συνάρτηση που ονομάζεται <code>middle</code>, που δέχεται μια λίστα και επιστρέφει μια νέα λίστα που περιέχει όλα τα στοιχεία της αρχική, εκτός από το πρώτο και το τελευταίο.</strong></p>
+<h2 id="εκσφαλμάτωση">Εκσφαλμάτωση</h2>
 <p></p>
-<p>Careless use of lists (and other mutable objects) can lead to long hours of debugging. Here are some common pitfalls and ways to avoid them:</p>
+<p>Η απρόσεκτη χρήση λιστών (και άλλων μεταβαλλόμενων αντικειμένων) μπορεί να οδηγήσει σε πολύωρη εκσφαλμάτωση. Ακολουθούν μερικές συνήθεις παγίδες και τρόποι για να τις αποφύγετε:</p>
 <ol type="1">
-<li><p>Don’t forget that most list methods modify the argument and return <code>None</code>. This is the opposite of the string methods, which return a new string and leave the original alone.</p>
-<p>If you are used to writing string code like this:</p>
+<li><p>Μην ξεχνάτε ότι οι περισσότερες μέθοδοι λίστας τροποποιούν το όρισμα και επιστρέφουν <code>None</code>, αντίθετα από τις μεθόδους συμβολοσειράς, οι οποίες επιστρέφουν μια νέα συμβολοσειρά και αφήνουν το πρωτότυπο αναλλοίωτο.</p>
+<p>Εάν έχετε συνηθίσει να γράφετε κώδικα για συμβολοσειρές ως εξής:</p>
 <pre class="python"><code>word = word.strip()</code></pre>
-<p>It is tempting to write list code like this:</p>
-<pre class="python"><code>t = t.sort()           # WRONG!</code></pre>
+<p>Είναι, συχνά, δελεαστικό να γράψετε αντίστοιχο κώδικα και για λίστες:</p>
+<pre class="python"><code>t = t.sort()           # ΛΑΘΟΣ!</code></pre>
 <p> </p>
-<p>Because <code>sort</code> returns <code>None</code>, the next operation you perform with <code>t</code> is likely to fail.</p>
-<p>Before using list methods and operators, you should read the documentation carefully and then test them in interactive mode. The methods and operators that lists share with other sequences (like strings) are documented at:</p>
+<p>Επειδή η <code>sort</code> επιστρέφει <code>None</code>, η επόμενη λειτουργία που θα εκτελέσετε με το <code>t</code> είναι πιθανό να αποτύχει. Πριν χρησιμοποιήσετε μεθόδους λίστας και τελεστές, θα πρέπει να διαβάσετε προσεκτικά την τεκμηρίωση και στη συνέχεια να κάνετε δοκιμές σε διαδραστική λειτουργία. Οι μέθοδοι και οι τελεστές που είναι κοινές σε λίστες με άλλες ακολουθίες (όπως συμβολοσειρές) τεκμηριώνονται στη διεύθυνση:</p>
 <p><a href="https://docs.python.org/library/stdtypes.html#common-sequence-operations">docs.python.org/library/stdtypes.html#common-sequence-operations</a></p>
-<p>The methods and operators that only apply to mutable sequences are documented at:</p>
+<p>Οι μέθοδοι και οι τελεστές που ισχύουν μόνο για μεταβαλλόμενες ακολουθίες τεκμηριώνονται στη διεύθυνση:</p>
 <p><a href="https://docs.python.org/library/stdtypes.html#mutable-sequence-types">docs.python.org/library/stdtypes.html#mutable-sequence-types</a></p></li>
-<li><p>Pick an idiom and stick with it.</p>
-<p></p>
-<p>Part of the problem with lists is that there are too many ways to do things. For example, to remove an element from a list, you can use <code>pop</code>, <code>remove</code>, <code>del</code>, or even a slice assignment.</p>
-<p>To add an element, you can use the <code>append</code> method or the <code>+</code> operator. But don’t forget that these are right:</p>
+<li><p>Διάλεξε ένα ιδίωμα και μείνε με αυτό.</p>
+<p> </p>
+<p>Μέρος του προβλήματος με τις λίστες είναι ότι υπάρχουν πάρα πολλοί τρόποι για να κάνετε πράγματα. Για παράδειγμα, για να αφαιρέσετε ένα στοιχείο από μια λίστα, μπορείτε να χρησιμοποιήσετε τις <code>pop</code>, <code>remove</code>, <code>del</code> ή ακόμα και μια εκχώρηση με τον τελεστή διαμέρισης.</p>
+<p>Για να προσθέσετε ένα στοιχείο, μπορείτε να χρησιμοποιήσετε τη μέθοδο <code>append</code> ή τον τελεστή <code>+</code>. Αλλά μην ξεχνάτε ότι αυτό είναι το σωστά:</p>
 <pre class="python"><code>t.append(x)
 t = t + [x]</code></pre>
-<p>And these are wrong:</p>
-<pre class="python"><code>t.append([x])          # WRONG!
-t = t.append(x)        # WRONG!
-t + [x]                # WRONG!
-t = t + x              # WRONG!</code></pre>
-<p>Try out each of these examples in interactive mode to make sure you understand what they do. Notice that only the last one causes a runtime error; the other three are legal, but they do the wrong thing.</p></li>
-<li><p>Make copies to avoid aliasing.</p>
+<p>Και αυτό είναι λάθος:</p>
+<pre class="python"><code>t.append([x])          # ΛΑΘΟΣ!
+t = t.append(x)        # ΛΑΘΟΣ!
+t + [x]                # ΛΑΘΟΣ!
+t = t + x              # ΛΑΘΟΣ!</code></pre>
+<p>Δοκιμάστε καθένα από αυτά τα παραδείγματα σε διαδραστική λειτουργία για να βεβαιωθείτε ότι καταλαβαίνετε τι κάνουν. Σημειώστε ότι μόνο το τελευταίο προκαλεί σφάλμα χρόνου εκτέλεσης, τα άλλα τρία είναι συντακτικά σωστά, αλλά δεν έχουν το επιθυμητό αποτέλεσμα.</p></li>
+<li><p>Δημιουργήστε αντίγραφα για να αποφύγετε τη ψευδωνυμία</p>
 <p> </p>
-<p>If you want to use a method like <code>sort</code> that modifies the argument, but you need to keep the original list as well, you can make a copy.</p>
+<p>Εάν θέλετε να χρησιμοποιήσετε μια μέθοδο όπως η <code>sort</code>, που τροποποιεί το όρισμα, αλλά πρέπει να διατηρήσετε και την αρχική λίστα, μπορείτε να δημιουργήσετε ένα αντίγραφο.</p>
 <pre class="python"><code>orig = t[:]
 t.sort()</code></pre>
-<p>In this example you could also use the built-in function <code>sorted</code>, which returns a new, sorted list and leaves the original alone. But in that case you should avoid using <code>sorted</code> as a variable name!</p></li>
-<li><p>Lists, <code>split</code>, and files</p>
-<p>When we read and parse files, there are many opportunities to encounter input that can crash our program so it is a good idea to revisit the <em>guardian</em> pattern when it comes writing programs that read through a file and look for a “needle in the haystack”.</p>
-<p>Let’s revisit our program that is looking for the day of the week on the from lines of our file:</p>
-<pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
-<p>Since we are breaking this line into words, we could dispense with the use of <code>startswith</code> and simply look at the first word of the line to determine if we are interested in the line at all. We can use <code>continue</code> to skip lines that don’t have “From” as the first word as follows:</p>
+<p>Σε αυτό το παράδειγμα, θα μπορούσατε επίσης να χρησιμοποιήσετε την ενσωματωμένη συνάρτηση <code>sorted</code>, η οποία επιστρέφει μια νέα, ταξινομημένη λίστα και αφήνει το πρωτότυπο αναλλοίωτο. Σε αυτήν όμως την περίπτωση, θα πρέπει να αποφύγετε τη χρήση του <code>sorted</code> ως όνομα μεταβλητής!</p></li>
+<li><p>Λίστες, <code>split</code> και αρχεία</p>
+<p>Όταν διαβάζουμε και αναλύουμε αρχεία, υπάρχουν πολλές πιθανότητες να συναντήσουμε είσοδο που ενδέχεται να διακόψει το πρόγραμμά μας, επομένως είναι καλή ιδέα να επανεξετάσουμε το μοτίβο <em>guardian (κηδεμονίας)</em> όταν πρόκειται να γράψουμε προγράμματα που διαβάζουν από ένα αρχείο και να αναζητήσουμε μια “βελόνα στο άχυρα”.</p>
+<p>Ας δούμε ξανά το πρόγραμμά μας, που αναζητά την ημέρα της εβδομάδας στις γραμμές του αρχείου μας:</p>
+<pre class="{text}"><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
+<p>Εφόσον χωρίζουμε αυτή τη γραμμή σε λέξεις, θα μπορούσαμε να παραιτηθούμε από τη χρήση του <code>startswith</code> και απλώς να δούμε την πρώτη λέξη της γραμμής για να προσδιορίσουμε αν μας ενδιαφέρει αυτή η γραμμή ή όχι. Μπορούμε να χρησιμοποιήσουμε το <code>continue</code> για να παραλείψουμε τις γραμμές που δεν έχουν το “From” ως πρώτη λέξη ως εξής:</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-for line in fhand:
-    words = line.split()
-    if words[0] != &#39;From&#39; : continue
-    print(words[2])</code></pre>
-<p>This looks much simpler and we don’t even need to do the <code>rstrip</code> to remove the newline at the end of the file. But is it better?</p>
-<pre><code>python search8.py
+for γραμμή in fhand:
+    λέξεις = γραμμή.split()
+    if λέξεις[0] != &#39;From&#39; : continue
+    print(λέξεις[2])</code></pre>
+<p>Αυτό φαίνεται πολύ πιο απλό και δεν χρειάζεται καν να χρησιμοποιήσουμε το <code>rstrip</code> για να αφαιρέσουμε το χαρακτήρα νέας γραμμής από το τέλος του αρχείου. Είναι όμως καλύτερο;</p>
+<pre class="{text}"><code>python search8.py
 Sat
 Traceback (most recent call last):
   File &quot;search8.py&quot;, line 5, in &lt;module&gt;
-    if words[0] != &#39;From&#39; : continue
+    if λέξεις[0] != &#39;From&#39; : continue
 IndexError: list index out of range</code></pre>
-<p>It kind of works and we see the day from the first line (Sat), but then the program fails with a traceback error. What went wrong? What messed-up data caused our elegant, clever, and very Pythonic program to fail?</p>
-<p>You could stare at it for a long time and puzzle through it or ask someone for help, but the quicker and smarter approach is to add a <code>print</code> statement. The best place to add the print statement is right before the line where the program failed and print out the data that seems to be causing the failure.</p>
-<p>Now this approach may generate a lot of lines of output, but at least you will immediately have some clue as to the problem at hand. So we add a print of the variable <code>words</code> right before line five. We even add a prefix “Debug:” to the line so we can keep our regular output separate from our debug output.</p>
-<pre class="python"><code>for line in fhand:
-    words = line.split()
-    print(&#39;Debug:&#39;, words)
-    if words[0] != &#39;From&#39; : continue
-    print(words[2])</code></pre>
-<p>When we run the program, a lot of output scrolls off the screen but at the end, we see our debug output and the traceback so we know what happened just before the traceback.</p>
-<pre><code>Debug: [&#39;X-DSPAM-Confidence:&#39;, &#39;0.8475&#39;]
+<p>Λειτουργεί αρχικά και βλέπουμε την ημέρα από την πρώτη γραμμή (Sat), αλλά μετά το πρόγραμμα αποτυγχάνει με ένα σφάλμα traceback. Τι πήγε στραβά; Ποια μπερδεμένα δεδομένα προκάλεσαν την αποτυχία του κομψό, έξυπνου και πολύ Pythonic προγράμματός μας;</p>
+<p>Θα μπορούσατε να το ελέγχετε για πολλή ώρα και να μπερδευτείτε ή να ζητήσετε βοήθεια από κάποιον, αλλά η πιο γρήγορη και έξυπνη προσέγγιση είναι να προσθέσετε μια εντολή <code>print</code>. Το καλύτερο μέρος για να προσθέσετε την εντολή εκτύπωσης είναι ακριβώς πριν από τη γραμμή όπου το πρόγραμμα απέτυχε και να εκτυπώσετε τα δεδομένα που φαίνεται να προκαλούν την αποτυχία.</p>
+<p>Τώρα αυτή η προσέγγιση μπορεί να παράξει πολλές γραμμές εξόδου, αλλά τουλάχιστον θα έχετε αμέσως κάποιες ενδείξεις για το πρόβλημα που αντιμετωπίζετε. Έτσι, προσθέτουμε μια εκτύπωση της μεταβλητής <code>words</code>, ακριβώς πριν από τη γραμμή πέντε. Προσθέτουμε ακόμη και ένα πρόθεμα “Εντοπισμός σφαλμάτων:” στη γραμμή, ώστε να μπορούμε να διατηρήσουμε την κανονική μας έξοδο ξεχωριστά από την έξοδο εντοπισμού σφαλμάτων.</p>
+<pre class="python"><code>for γραμμή in fhand:
+    λέξεις = γραμμή.split()
+    print(&#39;Εντοπισμός σφαλμάτων:&#39;, λέξεις)
+    if λέξεις[0] != &#39;From&#39; : continue
+    print(λέξεις[2])</code></pre>
+<p>Όταν εκτελούμε το πρόγραμμα, πολλές εξόδοι κυλούν στο πάνω μέρος της οθόνης, αλλά στο τέλος, βλέπουμε την έξοδο εντοπισμού σφαλμάτων και την σφάλμα traceback, ώστε να γνωρίζουμε τι συνέβη λίγο πριν από το σφάλμα.</p>
+<pre class="{text}"><code>Debug: [&#39;X-DSPAM-Confidence:&#39;, &#39;0.8475&#39;]
 Debug: [&#39;X-DSPAM-Probability:&#39;, &#39;0.0000&#39;]
 Debug: []
 Traceback (most recent call last):
   File &quot;search9.py&quot;, line 6, in &lt;module&gt;
-    if words[0] != &#39;From&#39; : continue
+    if λέξεις[0] != &#39;From&#39; : continue
 IndexError: list index out of range</code></pre>
-<p>Each debug line is printing the list of words which we get when we <code>split</code> the line into words. When the program fails, the list of words is empty <code>[]</code>. If we open the file in a text editor and look at the file, at that point it looks as follows:</p>
-<pre><code>X-DSPAM-Result: Innocent
+<p>Κάθε γραμμή εντοπισμού σφαλμάτων εκτυπώνει τη λίστα των λέξεων που λαμβάνουμε από τη <code>split</code>, όταν διαχωρίζουμε τη γραμμή σε λέξεις. Το πρόγραμμα αποτυγχάνει, όταν η λίστα των λέξεων είναι κενή <code>[]</code>. Αν ανοίξουμε το αρχείο σε ένα πρόγραμμα επεξεργασίας κειμένου και το ελέγξουμε, σε εκείνο το σημείο φαίνεται ως εξής:</p>
+<pre class="{text}"><code>X-DSPAM-Result: Innocent
 X-DSPAM-Processed: Sat Jan  5 09:14:16 2008
 X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000
 
 Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772</code></pre>
-<p>The error occurs when our program encounters a blank line! Of course there are “zero words” on a blank line. Why didn’t we think of that when we were writing the code? When the code looks for the first word (<code>word[0]</code>) to check to see if it matches “From”, we get an “index out of range” error.</p>
-<p>This of course is the perfect place to add some <em>guardian</em> code to avoid checking the first word if the first word is not there. There are many ways to protect this code; we will choose to check the number of words we have before we look at the first word:</p>
+<p>Το σφάλμα παρουσιάζεται όταν το πρόγραμμά μας συναντήσει μια κενή γραμμή! Φυσικά, υπάρχουν <code>μηδέν λέξεις</code> σε μια κενή γραμμή. Γιατί δεν το σκεφτήκαμε όταν γράφαμε τον κώδικα; Όταν ο κώδικας αναζητά την πρώτη λέξη (<code>λέξη[0]</code>) για να ελέγξει αν ταιριάζει με το “From”, λαμβάνουμε το σφάλμα “index out of range”.</p>
+<p>Αυτό φυσικά είναι το τέλειο μέρος για να προσθέσετε κάποιον κώδικα <em>κηδεμόνα</em>, για να αποφύγετε τον έλεγχο της πρώτης λέξης εάν δεν υπάρχει πρώτη λέξη. Υπάρχουν πολλοί τρόποι προστασίας αυτού του κώδικα. θα επιλέξουμε να ελέγξουμε τον αριθμό των λέξεων που έχουμε πριν επιχειρήσουμε να προσπελάσουμε την πρώτη λέξη:</p>
 <pre class="python"><code>fhand = open(&#39;mbox-short.txt&#39;)
-count = 0
-for line in fhand:
-    words = line.split()
-    # print(&#39;Debug:&#39;, words)
-    if len(words) == 0 : continue
-    if words[0] != &#39;From&#39; : continue
-    print(words[2])</code></pre>
-<p>First we commented out the debug print statement instead of removing it, in case our modification fails and we need to debug again. Then we added a guardian statement that checks to see if we have zero words, and if so, we use <code>continue</code> to skip to the next line in the file.</p>
-<p>We can think of the two <code>continue</code> statements as helping us refine the set of lines which are “interesting” to us and which we want to process some more. A line which has no words is “uninteresting” to us so we skip to the next line. A line which does not have “From” as its first word is uninteresting to us so we skip it.</p>
-<p>The program as modified runs successfully, so perhaps it is correct. Our guardian statement does make sure that the <code>words[0]</code> will never fail, but perhaps it is not enough. When we are programming, we must always be thinking, “What might go wrong?”</p></li>
+for γραμμή in fhand:
+    λέξεις = γραμμή.split()
+    # print(&#39;Εντοπισμός σφαλμάτων:&#39;, λέξεις)
+    if len(λέξεις) == 0 : continue
+    if λέξεις[0] != &#39;From&#39; : continue
+    print(λέξεις[2])</code></pre>
+<p>Πρώτα μετατρέψαμε σε σχόλιο την εντολή εκτύπωσης εντοπισμού σφαλμάτων, αντί να την αφαιρέσουμε, σε περίπτωση που η τροποποίησή μας αποτύχει και χρειαστεί εκσφαλμάτωση ξανά. Στη συνέχεια, προσθέσαμε μια δήλωση κηδεμόνα, που ελέγχει αν έχουμε μηδενικές λέξεις και, αν ναι, χρησιμοποιούμε το <code>continue</code> για να μεταβούμε στην επόμενη γραμμή του αρχείου.</p>
+<p>Οι δύο δηλώσεις <code>continue</code> μας βοηθούν να φιλτράρουμε το σύνολο των γραμμών που μας “ενδιαφέρουν” και τις οποίες θέλουμε να επεξεργαστούμε λίγο περισσότερο. Μια γραμμή που δεν έχει λέξεις μας είναι “αδιάφορη”, οπότε την αγνοούμε και μεταβαίνουμε στην επόμενη γραμμή. Μια γραμμή που δεν έχει ως πρώτη λέξη το “From” δεν μας ενδιαφέρει, οπότε την παρακάμπτουμε κι αυτήν.</p>
+<p>Το πρόγραμμα όπως τροποποιήθηκε εκτελείται με επιτυχία, οπότε ίσως είναι σωστό. Η δήλωση του κηδεμόνα μας διασφαλίζει ότι το <code>λέξεις[0]</code> δεν θα αποτύχει ποτέ, αλλά ίσως δεν είναι αρκετό. Όταν προγραμματίζουμε, πρέπει πάντα να σκεφτόμαστε, “Τι μπορεί να πάει στραβά;”</p></li>
 </ol>
-<p><strong>Exercise 2: Figure out which line of the above program is still not properly guarded. See if you can construct a text file which causes the program to fail and then modify the program so that the line is properly guarded and test it to make sure it handles your new text file.</strong></p>
-<p><strong>Exercise 3: Rewrite the guardian code in the above example without two <code>if</code> statements. Instead, use a compound logical expression using the <code>or</code> logical operator with a single <code>if</code> statement.</strong></p>
-<h2 id="glossary">Glossary</h2>
+<p><strong>Άσκηση 2: Εντοπίστε ποια γραμμή, του παραπάνω προγράμματος, εξακολουθεί να μην προστατεύεται σωστά. Δείτε εάν μπορείτε να δημιουργήσετε ένα αρχείο κειμένου που προκαλεί την αποτυχία προγράμματός μας και, στη συνέχεια, τροποποιήστε το πρόγραμμα έτσι ώστε η γραμμή να προστατεύεται σωστά και δοκιμάστε το για να βεβαιωθείτε ότι χειρίζεται χωρίς σφάλματα το νέο αρχείο κειμένου σας.</strong></p>
+<p><strong>Άσκηση 3: Ξαναγράψτε τον κώδικα κηδεμόνα του παραπάνω παραδείγματος, χωρίς τις δύο εντολές <code>if</code>. Αντ’ αυτών, χρησιμοποιήστε μια σύνθετη λογική έκφραση, χρησιμοποιώντας τον λογικό τελεστή <code>or</code> με μία μόνο εντολή <code>if</code>.</strong></p>
+<h2 id="γλωσσάριο">Γλωσσάριο</h2>
 <dl>
-<dt>aliasing</dt>
-<dd>A circumstance where two or more variables refer to the same object.
+<dt>αναφορά</dt>
+<dd>Η συσχέτιση μεταξύ μιας μεταβλητής και της τιμής της.
 </dd>
-<dt>delimiter</dt>
-<dd>A character or string used to indicate where a string should be split.
+<dt>αντικείμενο</dt>
+<dd>Κάτι στο οποίο μπορεί να αναφέρεται μια μεταβλητή. Ένα αντικείμενο έχει έναν τύπο και μια τιμή.
 </dd>
-<dt>element</dt>
-<dd>One of the values in a list (or other sequence); also called items.
+<dt>δείκτης</dt>
+<dd>Μια ακέραια τιμή που υποδεικνύει ένα στοιχείο σε μια λίστα.
 </dd>
-<dt>equivalent</dt>
-<dd>Having the same value.
+<dt>διάσχιση λίστας (list traversal)</dt>
+<dd>Η διαδοχική πρόσβαση σε κάθε στοιχείο μιας λίστας.
 </dd>
-<dt>index</dt>
-<dd>An integer value that indicates an element in a list.
+<dt>εμφωλευμένη λίστα</dt>
+<dd>Μια λίστα που είναι στοιχείο μιας άλλης λίστας.
 </dd>
-<dt>identical</dt>
-<dd>Being the same object (which implies equivalence).
+<dt>ισοδύναμο</dt>
+<dd>Έχει την ίδια τιμή.
 </dd>
-<dt>list</dt>
-<dd>A sequence of values.
+<dt>λίστα</dt>
+<dd>Μία ακολουθία τιμών.
 </dd>
-<dt>list traversal</dt>
-<dd>The sequential accessing of each element in a list.
+<dt>οριοθέτης</dt>
+<dd>Ένας χαρακτήρας ή συμβολοσειρά που χρησιμοποιείται για να υποδείξει πού πρέπει να χωριστεί μια συμβολοσειρά.
 </dd>
-<dt>nested list</dt>
-<dd>A list that is an element of another list.
+<dt>στοιχείο</dt>
+<dd>Μία από τις τιμές σε μια λίστα (ή άλλη ακολουθία).
 </dd>
-<dt>object</dt>
-<dd>Something a variable can refer to. An object has a type and a value.
+<dt>ταυτόσημο</dt>
+<dd>Είναι το ίδιο αντικείμενο (που συνεπάγεται ισοδύναμο).
 </dd>
-<dt>reference</dt>
-<dd>The association between a variable and its value.
+<dt>ψευδωνυμία</dt>
+<dd>Μια περίσταση όπου δύο ή περισσότερες μεταβλητές αναφέρονται στο ίδιο αντικείμενο.
 </dd>
 </dl>
-<h2 id="exercises">Exercises</h2>
+<h2 id="ασκήσεις">Ασκήσεις</h2>
 <p></p>
-<p><strong>Exercise 4: Find all unique words in a file</strong></p>
-<p><strong>Shakespeare used over 20,000 words in his works. But how would you determine that? How would you produce the list of all the words that Shakespeare used? Would you download all his work, read it and track all unique words by hand?</strong></p>
-<p><strong>Let’s use Python to achieve that instead. List all unique words, sorted in alphabetical order, that are stored in a file <code>romeo.txt</code> containing a subset of Shakespeare’s work.</strong></p>
-<p><strong>To get started, download a copy of the file</strong> <a href="http://www.py4e.com/code3/romeo.txt"><strong>www.py4e.com/code3/romeo.txt</strong></a><strong>. Create a list of unique words, which will contain the final result. Write a program to open the file <code>romeo.txt</code> and read it line by line. For each line, split the line into a list of words using the <code>split</code> function. For each word, check to see if the word is already in the list of unique words. If the word is not in the list of unique words, add it to the list. When the program completes, sort and print the list of unique words in alphabetical order.</strong></p>
-<pre><code>Enter file: romeo.txt
+<p><strong>Άσκηση 4: Βρείτε όλες τις μοναδικές λέξεις σε ένα αρχείο</strong></p>
+<p><strong>Ο Σαίξπηρ χρησιμοποίησε πάνω από 20.000 λέξεις στα έργα του. Πώς όμως θα το υπολόγιζες αυτό; Πώς θα δημιουργήσατε τη λίστα με όλες τις λέξεις που χρησιμοποίησε ο Σαίξπηρ; Θα κατεβάζατε όλο το έργο του, θα το διαβάσατε και θα εντοπίζατε όλες τις μοναδικές λέξεις με το χέρι;</strong></p>
+<p><strong>Ας χρησιμοποιήσουμε την Python για να το πετύχουμε αυτό. Καταγράψτε όλες τις μοναδικές λέξεις, ταξινομημένες με αλφαβητική σειρά, που είναι αποθηκευμένες στο αρχείο <code>romeo.txt</code>, που περιέχει ένα υποσύνολο του έργου του Σαίξπηρ.</strong></p>
+<p><strong>Για να ξεκινήσετε, κατεβάστε ένα αντίγραφο του αρχείου</strong> <a href="http://www.gr.py4e.com/code3/romeo.txt"><strong>www.gr.py4e.com/code3/romeo.txt</strong></a><strong>. Δημιουργήστε μια λίστα,στην οποία να εμφανίζεται κάθε λέξη μία μόνο φορά, η οποία θα περιέχει το τελικό αποτέλεσμα. Γράψτε ένα πρόγραμμα για να ανοίξετε το αρχείο <code>romeo.txt</code> και να το διαβάσετε γραμμή προς γραμμή. Για κάθε γραμμή, χωρίστε την σε μια λίστα λέξεων χρησιμοποιώντας τη συνάρτηση <code>split</code>. Για κάθε λέξη, ελέγξτε αν η λέξη περιέχεται ήδη στη λίστα με τις μοναδικές λέξεις. Εάν η λέξη δεν περιέχεται στη λίστα με τις μοναδικές λέξεις, προσθέστε τη στη λίστα. Όταν ολοκληρωθεί το πρόγραμμα, ταξινομήστε και εκτυπώστε τη λίστα με τις μοναδικές λέξεις, σε αλφαβητική σειρά.</strong></p>
+<pre class="{text}"><code>Enter file: romeo.txt
 [&#39;Arise&#39;, &#39;But&#39;, &#39;It&#39;, &#39;Juliet&#39;, &#39;Who&#39;, &#39;already&#39;,
 &#39;and&#39;, &#39;breaks&#39;, &#39;east&#39;, &#39;envious&#39;, &#39;fair&#39;, &#39;grief&#39;,
 &#39;is&#39;, &#39;kill&#39;, &#39;light&#39;, &#39;moon&#39;, &#39;pale&#39;, &#39;sick&#39;, &#39;soft&#39;,
 &#39;sun&#39;, &#39;the&#39;, &#39;through&#39;, &#39;what&#39;, &#39;window&#39;,
 &#39;with&#39;, &#39;yonder&#39;]</code></pre>
-<p><strong>Exercise 5: Minimalist Email Client.</strong></p>
-<p><strong>MBOX (mail box) is a popular file format to store and share a collection of emails. This was used by early email servers and desktop apps. Without getting into too many details, MBOX is a text file, which stores emails consecutively. Emails are separated by a special line which starts with <code>From</code> (notice the space). Importantly, lines starting with <code>From:</code> (notice the colon) describes the email itself and does not act as a separator. Imagine you wrote a minimalist email app, that lists the email of the senders in the user’s Inbox and counts the number of emails.</strong></p>
-<p><strong>Write a program to read through the mail box data and when you find line that starts with “From”, you will split the line into words using the <code>split</code> function. We are interested in who sent the message, which is the second word on the From line.</strong></p>
-<pre><code>From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008</code></pre>
-<p><strong>You will parse the From line and print out the second word for each From line, then you will also count the number of From (not From:) lines and print out a count at the end. This is a good sample output with a few lines removed:</strong></p>
-<pre><code>python fromcount.py
-Enter a file name: mbox-short.txt
+<p><strong>Άσκηση 5: Μινιμαλιστικός Εξυπηρετητής Email (Email Client).</strong></p>
+<p><strong>Το MBOX (mail box) είναι μια δημοφιλής μορφή αρχείου για αποθήκευση και κοινή χρήση μιας συλλογής email. Αυτό χρησιμοποιήθηκε από πρώιμους διακομιστές email και εφαρμογές επιτραπέζιου υπολογιστή. Χωρίς να μπαίνουμε σε πάρα πολλές λεπτομέρειες, το MBOX είναι ένα αρχείο κειμένου, στο οποίο αποθηκεύονται διαδοχικά email. Τα email διαχωρίζονται από μια ειδική γραμμή που ξεκινά με <code>From</code> (προσέξτε το διάστημα). Είναι σημαντικό ότι οι γραμμές που ξεκινούν με <code>From:</code> (προσέξτε την άνω και κάτω τελεία) περιγράφουν το ίδιο το email και δεν λειτουργούν ως διαχωριστικά. Φανταστείτε ότι έχετε γράψει μια μινιμαλιστική εφαρμογή email, η οποία αναφέρει τα email των αποστολέων στα Εισερχόμενα του χρήστη και μετράει τον αριθμό των email.</strong></p>
+<p><strong>Γράψτε ένα πρόγραμμα που διαβάζει τα δεδομένα του γραμματοκιβωτίου και όταν εντοπίσει γραμμή που ξεκινά με “From”, χωρίζει τη γραμμή σε λέξεις, χρησιμοποιώντας τη συνάρτηση <code>split</code>. Μας ενδιαφέρει ποιος έστειλε το μήνυμα, που είναι η δεύτερη λέξη στη γραμμή From”</strong>.</p>
+<pre class="{text}"><code>From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008</code></pre>
+<p><strong>Θα αναλύει τη γραμμή From και θα εκτυπώνει τη δεύτερη λέξη κάθε γραμμής From, στη συνέχεια θα μετράει τον αριθμό των γραμμών From (όχι From:) και θα εκτυπώνει, στο τέλος, το πλήθος τους. Αυτό είναι ένα καλό δείγμα εξόδου με μερικές γραμμές που έχουν αφαιρεθεί:</strong></p>
+<pre class="{text}"><code>python fromcount.py
+Εισαγάγετε ένα όνομα αρχείου: mbox-short.txt
 stephen.marquard@uct.ac.za
 louis@media.berkeley.edu
 zqian@umich.edu
 
-[...some output removed...]
+[...κάποια έξοδος αφαιρέθηκε...]
 
 ray@media.berkeley.edu
 cwen@iupui.edu
 cwen@iupui.edu
 cwen@iupui.edu
-There were 27 lines in the file with From as the first word</code></pre>
-<p><strong>Exercise 6: Rewrite the program that prompts the user for a list of numbers and prints out the maximum and minimum of the numbers at the end when the user enters “done”. Write the program to store the numbers the user enters in a list and use the <code>max()</code> and <code>min()</code> functions to compute the maximum and minimum numbers after the loop completes.</strong></p>
-<pre><code>Enter a number: 6
-Enter a number: 2
-Enter a number: 9
-Enter a number: 3
-Enter a number: 5
-Enter a number: done
-Maximum: 9.0
-Minimum: 2.0</code></pre>
+Βρέθηκαν 27 γραμμές στο αρχείο με πρώτη λέξη το From</code></pre>
+<p><strong>Άσκηση 6: Ξαναγράψτε το πρόγραμμα που ζητά από τον χρήστη μια λίστα με αριθμούς και εκτυπώνει το μέγιστο και το ελάχιστο των αριθμών, στο τέλος, όταν ο χρήστης εισάγει “τέλος”. Τροποποιήστε το πρόγραμμα ώστε να αποθηκεύει τους αριθμούς, που εισάγει ο χρήστης, σε μια λίστα και χρησιμοποιήστε τις συναρτήσεις <code>max()</code> και <code>min()</code> για να υπολογίσετε τον μέγιστο και τον ελάχιστο αριθμή μετά την ολοκλήρωση του βρόχου.</strong></p>
+<pre class="{text}"><code>Εισαγάγετε έναν αριθμό: 6
+Εισαγάγετε έναν αριθμό: 2
+Εισαγάγετε έναν αριθμό: 9
+Εισαγάγετε έναν αριθμό: 3
+Εισαγάγετε έναν αριθμό: 5
+Εισαγάγετε έναν αριθμό: τέλος
+Μέγιστο: 9.0
+Ελάχιστο: 2.0</code></pre>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {
