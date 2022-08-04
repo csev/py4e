@@ -1,6 +1,6 @@
 numlist = list()
 while (True):
-    είσοδος = input('Enter a number: ')
+    είσοδος = input('Εισαγάγετε έναν αριθμό: ')
     if είσοδος == 'τέλος': break
     τιμή = float(είσοδος)
     numlist.append(τιμή)
