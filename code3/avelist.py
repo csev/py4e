@@ -1,9 +1,9 @@
 numlist = list()
 while (True):
-    inp = input('Enter a number: ')
-    if inp == 'done': break
-    value = float(inp)
-    numlist.append(value)
+    είσοδος = input('Enter a number: ')
+    if είσοδος == 'τέλος': break
+    τιμή = float(είσοδος)
+    numlist.append(τιμή)
 
-average = sum(numlist) / len(numlist)
-print('Average:', average)
+μέσοςΌρος = sum(numlist) / len(numlist)
+print('Μέσος Όρος:', μέσοςΌρος)

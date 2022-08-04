@@ -1,9 +1,8 @@
 fhand = open('mbox-short.txt')
-count = 0
-for line in fhand:
-    words = line.split()
-    print('Debug:', words)
-    if len(words) > 0:
-        if words[0] != 'From':
+for γραμμή in fhand:
+    λέξεις = γραμμή.split()
+    print('Εντοπισμός σφαλμάτων:', λέξεις)
+    if len(λέξεις) > 0:
+        if λέξεις[0] != 'From':
             continue
-        print(words[2])
+        print(λέξεις[2])
