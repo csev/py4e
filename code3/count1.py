@@ -1,17 +1,17 @@
-fname = input('Enter the file name: ')
+fname = input('Εισαγάγετε το όνομα του αρχείου: ')
 try:
     fhand = open(fname)
 except:
-    print('File cannot be opened:', fname)
+    print('Δεν είναι δυνατό το άνοιγμα του αρχείου:', fname)
     exit()
 
-counts = dict()
-for line in fhand:
-    words = line.split()
-    for word in words:
-        if word not in counts:
-            counts[word] = 1
+πλήθη = dict()
+for γραμμή in fhand:
+    λέξεις = γραμμή.split()
+    for λέξη in λέξεις:
+        if λέξη not in πλήθη:
+            πλήθη[λέξη] = 1
         else:
-            counts[word] += 1
+            πλήθη[λέξη] += 1
 
-print(counts)
+print(πλήθη)
