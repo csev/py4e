@@ -236,7 +236,7 @@ for length, word in t:
 
 print(res)
 
-# Code: http://www.py4e.com/code3/soft.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/soft.py</code></pre>
 <p>The first loop builds a list of tuples, where each tuple is a word preceded by its length.</p>
 <p><code>sort</code> compares the first element, length, first, and only considers the second element to break ties. The keyword argument <code>reverse=True</code> tells <code>sort</code> to go in decreasing order.</p>
 <p>  </p>
@@ -358,7 +358,7 @@ lst.sort(reverse=True)
 for key, val in lst[:10]:
     print(key, val)
 
-# Code: http://www.py4e.com/code3/count3.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/count3.py</code></pre>
 <p>The first part of the program which reads the file and computes the dictionary that maps each word to the count of words in the document is unchanged. But instead of simply printing out <code>counts</code> and ending the program, we construct a list of <code>(val, key)</code> tuples and then sort the list in reverse order.</p>
 <p>Since the value is first, it will be used for the comparisons. If there is more than one tuple with the same value, it will look at the second element (the key), so tuples where the value is the same will be further sorted by the alphabetical order of the key.</p>
 <p>At the end we write a nice <code>for</code> loop which does a multiple assignment iteration and prints out the ten most common words by iterating through a slice of the list (<code>lst[:10]</code>).</p>
@@ -398,6 +398,19 @@ for key, val in lst[:10]:
 </ol>
 <p>Because tuples are immutable, they don’t provide methods like <code>sort</code> and <code>reverse</code>, which modify existing lists. However Python provides the built-in functions <code>sorted</code> and <code>reversed</code>, which take any sequence as a parameter and return a new sequence with the same elements in a different order.</p>
 <p>   </p>
+<h2 id="list-comprehension">List comprehension</h2>
+<p>Sometimes you want to create a sequence by using data from another sequence. You can achieve this by writing a for loop and appending one item at a time. For example, if you wanted to convert a list of strings – each string storing digits – into numbers that you can sum up, you would write:</p>
+<pre class="python"><code>list_of_ints_in_strings = [&#39;42&#39;, &#39;65&#39;, &#39;12&#39;]
+list_of_ints = []
+for x in list_of_ints_in_strings:
+    list_of_ints.append(int(x))
+
+print(sum(list_of_ints))</code></pre>
+<p>With list comprehension, the above code can be written in a more compact manner:</p>
+<pre class="python"><code>list_of_ints_in_strings = [&#39;42&#39;, &#39;65&#39;, &#39;12&#39;]
+list_of_ints = [ int(x) for x in list_of_ints_in_strings ]
+print(sum(list_of_ints))</code></pre>
+<p></p>
 <h2 id="debugging">Debugging</h2>
 <p>   </p>
 <p>Lists, dictionaries and tuples are known generically as <em>data structures</em>; in this chapter we are starting to see compound data structures, like lists of tuples, and dictionaries that contain tuples as keys and lists as values. Compound data structures are useful, but they are prone to what I call <em>shape errors</em>; that is, errors caused when a data structure has the wrong type, size, or composition, or perhaps you write some code and forget the shape of your data and introduce an error. For example, if you are expecting a list with one integer and I give you a plain old integer (not in a list), it won’t work.</p>

@@ -154,9 +154,12 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="dictionaries">Dictionaries</h1>
-<p> </p>
-<p>    </p>
+<h1 id="λεξικά">Λεξικά</h1>
+<p>       </p>
+<p>Ένα <em>λεξικό (dictionary)</em> είναι σαν μια λίστα, αλλά πιο γενικό. Σε μια λίστα, οι δείκτες πρέπει να είναι ακέραιοι, ενώ σε ένα λεξικό, οι δείκτες μπορούν να είναι (σχεδόν) οποιουδήποτε τύπου.</p>
+<p>Μπορείτε να σκεφτείτε ένα λεξικό ως μια αντιστοίχιση μεταξύ ενός συνόλου δεικτών (που ονομάζονται <em>κλειδιά</em>) και ενός συνόλου τιμών. Κάθε κλειδί αντιστοιχίζεται σε μια τιμή. Η συσχέτιση ενός κλειδιού και μιας τιμής ονομάζεται <em>ζεύγος κλειδιού-τιμής</em> ή μερικές φορές <em>στοιχείο</em>.</p>
+<p>Για παράδειγμα, θα δημιουργήσουμε ένα λεξικό που αντιστοιχίζει λέξεις από αγγλικά σε ισπανικά, έτσι ώστε τα πλήκτρα και οι τιμές να είναι όλες συμβολοσειρές.</p>
+<p>Η συνάρτηση <code>dict</code> δημιουργεί ένα νέο λεξικό χωρίς στοιχεία. Επειδή το «dict» είναι το όνομα μιας ενσωματωμένης συνάρτησης, θα πρέπει να αποφύγετε τη χρήση της ως όνομα μεταβλητής.</p>
 <p>A <em>dictionary</em> is like a list, but more general. In a list, the index positions have to be integers; in a dictionary, the indices can be (almost) any type.</p>
 <p>You can think of a dictionary as a mapping between a set of indices (which are called <em>keys</em>) and a set of values. Each key maps to a value. The association of a key and a value is called a <em>key-value pair</em> or sometimes an <em>item</em>.</p>
 <p>As an example, we’ll build a dictionary that maps from English to Spanish words, so the keys and the values are all strings.</p>
@@ -276,7 +279,7 @@ for line in fhand:
 
 print(counts)
 
-# Code: http://www.py4e.com/code3/count1.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/count1.py</code></pre>
 <p>In our <code>else</code> statement, we use the more compact alternative for incrementing a variable. <code>counts[word] += 1</code> is equivalent to <code>counts[word] = counts[word] + 1</code>. Either method can be used to change the value of a variable by any desired amount. Similar alternatives exist for <code>-=</code>, <code>*=</code>, and <code>/=</code>.</p>
 <p>When we run the program, we see a raw dump of all of the counts in unsorted hash order. (the <em>romeo.txt</em> file is available at <a href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a>)</p>
 <pre><code>python count1.py
@@ -364,7 +367,7 @@ for line in fhand:
 
 print(counts)
 
-# Code: http://www.py4e.com/code3/count2.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/count2.py</code></pre>
 <p>Part of learning the “Art of Python” or “Thinking Pythonically” is realizing that Python often has built-in capabilities for many common data analysis problems. Over time, you will see enough example code and read enough of the documentation to know where to look to see if someone has already written something that makes your job much easier.</p>
 <p>The following is an abbreviated version of the output:</p>
 <pre><code>Enter the file name: romeo-full.txt
