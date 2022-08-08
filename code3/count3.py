@@ -1,22 +1,22 @@
 import string
 fhand = open('romeo-full.txt')
-counts = dict()
-for line in fhand:
-    line = line.translate(str.maketrans('', '', string.punctuation))
-    line = line.lower()
-    words = line.split()
-    for word in words:
-        if word not in counts:
-            counts[word] = 1
+πλήθη = dict()
+for γραμμή in fhand:
+    γραμμή = γραμμή.translate(str.maketrans('', '', string.punctuation))
+    γραμμή = γραμμή.lower()
+    λέξεις = γραμμή.split()
+    for λέξη in λέξεις:
+        if λέξη not in πλήθη:
+            πλήθη[λέξη] = 1
         else:
-            counts[word] += 1
+            πλήθη[λέξη] += 1
 
 # Sort the dictionary by value
-lst = list()
-for key, val in list(counts.items()):
-    lst.append((val, key))
+λίστα = list()
+for κλειδί, τιμή in list(πλήθη.items()):
+    λίστα.append((τιμή, κλειδί))
 
-lst.sort(reverse=True)
+λίστα.sort(reverse=True)
 
-for key, val in lst[:10]:
-    print(key, val)
+for κλειδί, τιμή in λίστα[:10]:
+    print(κλειδί, τιμή)

@@ -1,13 +1,13 @@
-txt = 'but soft what light in yonder window breaks'
-words = txt.split()
+κείμενο = 'but soft what light in yonder window breaks'
+λέξεις = κείμενο.split()
 t = list()
-for word in words:
-    t.append((len(word), word))
+for λέξη in λέξεις:
+    t.append((len(λέξη), λέξη))
 
 t.sort(reverse=True)
 
 res = list()
-for length, word in t:
-    res.append(word)
+for μήκος, λέξη in t:
+    res.append(λέξη)
 
 print(res)
