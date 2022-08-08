@@ -234,9 +234,10 @@ Undecorate - Αφαιρώ τη διακόσμηση
 >>>
 ~~~~
 
-It is not magic, Python *roughly* translates the tuple assignment syntax
-to be the following:^[Python does not translate the syntax literally. For example, if
-you try this with a dictionary, it will not work as you might expect.]
+    Δεν είναι μαγικό, η Python *χονδρικά* μεταφράζει τη σύνταξη της πολλαπλής
+    ανάθεσης ως εξής: ^[Η Python δεν μεταφράζει τη σύνταξη κυριολεκτικά. Για
+    παράδειγμα, εάν το δοκιμάσετε με ένα λεξικό, δεν θα λειτουργήσει όπως θα
+    περιμένατε.]
 
 ~~~~ {.python .trinket}
 >>> m = [ 'have', 'fun' ]
@@ -249,9 +250,9 @@ you try this with a dictionary, it will not work as you might expect.]
 >>>
 ~~~~
 
-Stylistically when we use a tuple on the left side of the assignment
-statement, we omit the parentheses, but the following is an equally
-valid syntax:
+Στυλιστικά, όταν χρησιμοποιούμε πλειάδα στο αριστερό μέλος της εντολής
+εκχώρησης, παραλείπουμε τις παρενθέσεις, αλλά το ακόλουθο αποτελεί μια εξίσου
+έγκυρη σύνταξη:
 
 ~~~~ {.python}
 >>> m = [ 'have', 'fun' ]
@@ -263,21 +264,21 @@ valid syntax:
 >>>
 ~~~~
 
-A particularly clever application of tuple assignment allows us to
-*swap* the values of two variables in a single statement:
+Μια ιδιαίτερα έξυπνη εφαρμογή της εκχώρησης σε πλειάδα μας επιτρέπει να
+*αντιμεταθέσουμε* τις τιμές δύο μεταβλητών σε μια μόνο πρόταση:
 
 ~~~~ {.python}
 >>> a, b = b, a
 ~~~~
 
-Both sides of this statement are tuples, but the left side is a tuple of
-variables; the right side is a tuple of expressions. Each value on the
-right side is assigned to its respective variable on the left side. All
-the expressions on the right side are evaluated before any of the
-assignments.
+Και στα δύο μέλη αυτής της εντολής έχουμε πλειάδες, αλλά στο αριστερό μέλος
+είναι μια πλειάδα μεταβλητών. Στο δεξί μέλος έχουμε μια πλειάδα εκφράσεων. Κάθε
+τιμή στο δεξί μέλος εκχωρείται στην αντίστοιχη μεταβλητή του αριστερού μέλους.
+Όλες οι εκφράσεις στη δεξιά πλευρά αξιολογούνται πριν από οποιαδήποτε από τις
+εκχωρήσεις.
 
-The number of variables on the left and the number of values on the
-right must be the same:
+Ο αριθμός των μεταβλητών στα αριστερά και ο αριθμός των τιμών στα δεξιά πρέπει
+να είναι ο ίδιος:
 
 \index{exception!ValueError}
 \index{ValueError}
@@ -287,22 +288,22 @@ right must be the same:
 ValueError: too many values to unpack
 ~~~~
 
-More generally, the right side can be any kind of sequence (string,
-list, or tuple). For example, to split an email address into a user name
-and a domain, you could write:
+Γενικότερα, στο δεξί μέλος μπορεί να υπάρχει κάθε είδους ακολουθία
+(συμβολοσειρά, λίστα ή πλειάδα). Για παράδειγμα, για να χωρίσετε μια διεύθυνση
+email σε όνομα χρήστη και τομέα, θα μπορούσατε να γράψετε:
 
-\index{split method}
-\index{method!split}
+\index{split μέθοδος}
+\index{μέθοδος!split}
 \index{email address}
+\index{διεύθυνση ηλεκτρονικού ταχυδρομείου}
 
 ~~~~ {.python}
 >>> addr = 'monty@python.org'
 >>> uname, domain = addr.split('@')
 ~~~~
 
-The return value from `split` is a list with two elements;
-the first element is assigned to `uname`, the second to
-`domain`.
+Η επιστρεφόμενη τιμή από το `split` είναι μια λίστα με δύο στοιχεία. Το πρώτο
+στοιχείο εκχωρείται στο `uname`, το δεύτερο στο `domain`.
 
 ~~~~ {.python}
 >>> print(uname)
@@ -311,16 +312,16 @@ monty
 python.org
 ~~~~
 
-Dictionaries and tuples
------------------------
+Λεξικά και πλειάδες
+-------------------
 
-\index{dictionary}
-\index{items method}
-\index{method!items}
-\index{key-value pair}
+\index{λεξικό}
+\index{items μέθοδος}
+\index{μέθοδος!items}
+\index{ζεύγος κλειδιού-τιμής}
 
-Dictionaries have a method called `items` that returns a list
-of tuples, where each tuple is a key-value pair:
+Τα λεξικά έχουν μια μέθοδο που ονομάζεται `items`, που επιστρέφει μια λίστα
+πλειάδων, όπου κάθε πλειάδα είναι ένα ζεύγος κλειδιού-τιμής:
 
 ~~~~ {.python .trinket}
 >>> d = {'a':10, 'b':1, 'c':22}
@@ -329,13 +330,12 @@ of tuples, where each tuple is a key-value pair:
 [('b', 1), ('a', 10), ('c', 22)]
 ~~~~
 
-As you should expect from a dictionary, the items are in no particular
-order.
+Όπως θα έπρεπε να περιμένετε από ένα λεξικό, τα στοιχεία δεν είναι σε σειρά.
 
-However, since the list of tuples is a list, and tuples are comparable,
-we can now sort the list of tuples. Converting a dictionary to a list of
-tuples is a way for us to output the contents of a dictionary sorted by
-key:
+Ωστόσο, δεδομένου ότι η λίστα των πλειάδων είναι μια λίστα και οι πλειάδες
+είναι συγκρίσιμες, μπορούμε τώρα να ταξινομήσουμε τη λίστα των πλειάδων. Η
+μετατροπή ενός λεξικού σε λίστα πλειάδων είναι ένας τρόπος για να εξάγουμε τα
+περιεχόμενα ενός λεξικού ταξινομημένα κατά κλειδί:
 
 ~~~~ {.python}
 >>> d = {'a':10, 'b':1, 'c':22}
@@ -347,33 +347,31 @@ key:
 [('a', 10), ('b', 1), ('c', 22)]
 ~~~~
 
-The new list is sorted in ascending alphabetical order by the key value.
+Η νέα λίστα ταξινομείται με αύξουσα αλφαβητική σειρά με βάση την τιμή κλειδιού.
 
-Multiple assignment with dictionaries
--------------------------------------
+Πολλαπλές εκχωρήσεις με λεξικά
+------------------------------
 
-\index{traverse!dictionary}
-\index{dictionary!traversal}
+\index{διάσχιση!λεξικό}
+\index{λεξικό!διάσχιση}
 
-Combining `items`, tuple assignment, and `for`,
-you can see a nice code pattern for traversing the keys and values of a
-dictionary in a single loop:
+Συνδυάζοντας `items`, εκχώρηση σε πλειάδα και `for`, μπορείτε να δημιουργήσετε
+ένα ωραίο μοτίβο κώδικα για τη προσπέλαση των κλειδιών και των τιμών ενός
+λεξικού με έναν μόνο βρόχο:
 
 ~~~~ {.python}
-for key, val in list(d.items()):
-    print(val, key)
+for κλειδί, τιμή in list(d.items()):
+    print(τιμή, κλειδί)
 ~~~~
 
-This loop has two *iteration variables* because
-`items` returns a list of tuples and `key, val` is
-a tuple assignment that successively iterates through each of the
-key-value pairs in the dictionary.
+Αυτός ο βρόχος έχει δύο *μεταβλητές επανάληψης* επειδή το `items` επιστρέφει
+μια λίστα πλειάδων και το `key, val` είναι μια ανάθεση πλειάδας, που
+επαναλαμβάνεται διαδοχικά μέσω καθενός από τα ζεύγη κλειδιού-τιμής στο λεξικό.
 
-For each iteration through the loop, both `key` and
-`value` are advanced to the next key-value pair in the
-dictionary (still in hash order).
+Για κάθε επανάληψη του βρόχου, τόσο στο `key` όσο και στη `value` ανατίθεται το
+επόμενο ζεύγος κλειδιού-τιμής του λεξικό (με τη σειρά κατακερματισμού).
 
-The output of this loop is:
+Η έξοδος αυτού του βρόχου είναι:
 
 ~~~~{text}
 10 a
@@ -381,17 +379,19 @@ The output of this loop is:
 1 b
 ~~~~
 
-Again, it is in hash key order (i.e., no particular order).
+Και πάλι, είναι σε σειρά κατακερματισμού κλειδιών (δηλαδή, χωρίς συγκεκριμένη
+σειρά).
 
-If we combine these two techniques, we can print out the contents of a
-dictionary sorted by the *value* stored in each key-value pair.
+Εάν συνδυάσουμε αυτές τις δύο τεχνικές, μπορούμε να εκτυπώσουμε τα περιεχόμενα
+ενός λεξικού ταξινομημένα με βάση την *τιμή* που είναι αποθηκευμένη σε κάθε
+ζεύγος κλειδιού-τιμής.
 
-To do this, we first make a list of tuples where each tuple is
-`(value, key)`. The `items` method would give us a
-list of `(key, value)` tuples, but this time we want to sort
-by value, not key. Once we have constructed the list with the value-key
-tuples, it is a simple matter to sort the list in reverse order and
-print out the new, sorted list.
+Για να γίνει αυτό, φτιάχνουμε πρώτα μια λίστα με πλειάδες, όπου κάθε πλειάδα
+είναι `(value, key)`. Η μέθοδος `items` θα μας έδινε μια λίστα με πλειάδες
+`(key, value)`, αλλά αυτή τη φορά θέλουμε να ταξινομήσουμε κατά τιμή και όχι
+κατά κλειδί. Αφού δημιουργήσουμε τη λίστα με τις πλειάδες της τιμής - κλειδιού,
+είναι απλό να ταξινομήσουμε τη λίστα με αντίστροφη σειρά και να εκτυπώσουμε τη
+νέα, ταξινομημένη λίστα.
 
 ~~~~ {.python}
 >>> d = {'a':10, 'b':1, 'c':22}
@@ -407,41 +407,45 @@ print out the new, sorted list.
 >>>
 ~~~~
 
-By carefully constructing the list of tuples to have the value as the
-first element of each tuple, we can sort the list of tuples and get our
-dictionary contents sorted by value.
+Κατασκευάζοντας προσεκτικά τη λίστα των πλειάδων ώστε να έχει την τιμή ως το
+πρώτο στοιχείο κάθε πλειάδας, μπορούμε να ταξινομήσουμε τη λίστα των πλειάδων
+και να πάρουμε τα περιεχόμενα του λεξικού μας ταξινομημένα κατά τιμή.
+
+Οι πιο συνηθισμένες λέξεις
 
 The most common words
 ---------------------
 
 \index{Romeo and Juliet}
+\index{Ρωμαίος και Ιουλιέτα}
 
-Coming back to our running example of the text from *Romeo and Juliet*
-Act 2, Scene 2, we can augment our program to use this technique to
-print the ten most common words in the text as follows:
+Επιστρέφοντας στο προηγούμενο παράδειγμα του κειμένου από το *Ρωμαίος και
+Ιουλιέτα* Πράξη 2, Σκηνή 2, μπορούμε να επεκτείνουμε το πρόγραμμά μας για να
+χρησιμοποιήσουμε αυτήν την τεχνική για να εκτυπώσουμε τις δέκα πιο συνηθισμένες
+λέξεις στο κείμενο ως εξής:
 
-\VerbatimInput{../code3/count3.py} 
+\VerbatimInput{../code3/count3.py}
 \begin{trinketfiles}
 ../code3/romeo-full.txt
 \end{trinketfiles}
 
-The first part of the program which reads the file and computes the
-dictionary that maps each word to the count of words in the document is
-unchanged. But instead of simply printing out `counts` and
-ending the program, we construct a list of `(val, key)`
-tuples and then sort the list in reverse order.
+Το πρώτο μέρος του προγράμματος που διαβάζει το αρχείο και δημιουργεί το
+λεξικό, που αντιστοιχίζει κάθε λέξη με το πλήθος εμφάνισης των λέξεων στο
+έγγραφο, δεν έχει αλλάξει. Αλλά, αντί να εκτυπώνουμε απλώς το `πληθη` και να
+τερματίζουμε το πρόγραμμα, κατασκευάζουμε μια λίστα με πλειάδες
+`(τιμή, κλειδί)` και στη συνέχεια ταξινομούμε τη λίστα με αντίστροφη σειρά.
 
-Since the value is first, it will be used for the comparisons. If there
-is more than one tuple with the same value, it will look at the second
-element (the key), so tuples where the value is the same will be further
-sorted by the alphabetical order of the key.
+Από τη στιγμή που η τιμή είναι πρώτη, θα χρησιμοποιηθεί για τις συγκρίσεις.
+Εάν υπάρχουν περισσότερες από μία πλειάδες με την ίδια τιμή, θα κοιτάξει το
+δεύτερο στοιχείο (το κλειδί), επομένως οι πλειάδες των οποίων η τιμή είναι ίδια
+θα ταξινομηθούν περαιτέρω σε αλφαβητική σειρά του κλειδιού.
 
-At the end we write a nice `for` loop which does a multiple
-assignment iteration and prints out the ten most common words by
-iterating through a slice of the list (`lst[:10]`).
+Στο τέλος γράφουμε έναν ωραίο βρόχο `for` που κάνει μια επανάληψη πολλαπλής
+εκχώρησης και εκτυπώνει τις δέκα πιο συνηθισμένες λέξεις, διατρέχοντας ένα
+τμήμα της λίστας (`lst[:10]`).
 
-So now the output finally looks like what we want for our word frequency
-analysis.
+Έτσι τώρα η έξοδος μοιάζει, τελικά, με αυτό που θέλαμε για την ανάλυση
+συχνότητας λέξεων.
 
 ~~~~{text}
 61 i
@@ -456,103 +460,103 @@ analysis.
 24 thee
 ~~~~
 
-The fact that this complex data parsing and analysis can be done with an
-easy-to-understand 19-line Python program is one reason why Python is a
-good choice as a language for exploring information.
+Το γεγονός ότι αυτή η περίπλοκη ανάλυση δεδομένων μπορεί να γίνει με ένα εύκολο
+στην κατανόηση πρόγραμμα Python, 19 γραμμών, είναι ένας λόγος για τον οποίο η
+Python είναι μια καλή επιλογή ως γλώσσα για την εξερεύνηση πληροφοριών.
 
-Using tuples as keys in dictionaries
-------------------------------------
+Χρήση πλειάδων ως κλειδιών στα λεξικά
+-------------------------------------
 
-\index{tuple!as key in dictionary}
+\index{πλειάδα!ως κλειδί λεξικού}
 \index{hashable}
+\index{κατακερματιζόμενος}
 
-Because tuples are *hashable* and lists are not, if we
-want to create a *composite* key to use in a dictionary
-we must use a tuple as the key.
+Επειδή οι πλειάδες είναι *κατακερματίσιμες* και οι λίστες όχι, αν θέλουμε να
+δημιουργήσουμε ένα *σύνθετο* κλειδί για χρήση σε ένα λεξικό, πρέπει να
+χρησιμοποιήσουμε ως κλειδί μια πλειάδα.
 
-We would encounter a composite key if we wanted to create a telephone
-directory that maps from last-name, first-name pairs to telephone
-numbers. Assuming that we have defined the variables `last`,
-`first`, and `number`, we could write a dictionary
-assignment statement as follows:
-
-~~~~ {.python}
-directory[last,first] = number
-~~~~
-
-The expression in brackets is a tuple. We could use tuple assignment in
-a `for` loop to traverse this dictionary.
-
-\index{tuple!in brackets}
+Θα χρειαζόμασταν ένα σύνθετο κλειδί εάν θέλαμε να δημιουργήσουμε έναν
+τηλεφωνικό κατάλογο, που αντιστοιχίζει ζεύγη επωνύμων, ονομάτων σε αριθμούς
+τηλεφώνου. Υποθέτοντας ότι έχουμε ορίσει τις μεταβλητές `επώνυμο`, `όνομα` και
+`αριθμός`, θα μπορούσαμε να γράψουμε μια εντολή εκχώρησης στο λεξικό ως εξής:
 
 ~~~~ {.python}
-for last, first in directory:
-    print(first, last, directory[last,first])
+ευρετήριο[επώνυμο,όνομα] = αριθμός
 ~~~~
 
-This loop traverses the keys in `directory`, which are
-tuples. It assigns the elements of each tuple to `last` and
-`first`, then prints the name and corresponding telephone
-number.
+Η έκφραση μέσα στις αγκύλες είναι πλειάδα. Θα μπορούσαμε να χρησιμοποιήσουμε
+την ανάθεση πλειάδας σε έναν βρόχο `for`, για να διασχίσουμε αυτό το λεξικό.
 
-Sequences: strings, lists, and tuples - Oh My!
---------------------------------------------
+\index{πλειάδα!μέσα σε αγκύλες}
 
-\index{sequence}
+~~~~ {.python}
+for επώνυμο, όνομα in ευρετήριο:
+    print(όνομα, επώνυμο, ευρετήριο[επώνυμο,όνομα])
+~~~~
 
-I have focused on lists of tuples, but almost all of the examples in
-this chapter also work with lists of lists, tuples of tuples, and tuples
-of lists. To avoid enumerating the possible combinations, it is
-sometimes easier to talk about sequences of sequences.
+Αυτός ο βρόχος διασχίζει τα κλειδιά στο `ευρετήριο`, τα οποία είναι πλειάδες.
+Εκχωρεί τα στοιχεία κάθε πλειάδας στα `επώνυμο` και `όνομα` και στη συνέχεια
+εκτυπώνει το όνομα και τον αντίστοιχο αριθμό τηλεφώνου.
 
-In many contexts, the different kinds of sequences (strings, lists, and
-tuples) can be used interchangeably. So how and why do you choose one
-over the others?
+Ακολουθίες: συμβολοσειρές, λίστες και πλειάδες (- Oh My!)
+-------------------------------------------------------
 
-\index{string}
-\index{list}
-\index{tuple}
-\index{mutability}
-\index{immutability}
+\index{ακολουθία}
 
-To start with the obvious, strings are more limited than other sequences
-because the elements have to be characters. They are also immutable. If
-you need the ability to change the characters in a string (as opposed to
-creating a new string), you might want to use a list of characters
-instead.
+Έχω επικεντρωθεί σε λίστες πλειάδων, αλλά σχεδόν όλα τα παραδείγματα σε αυτό
+το κεφάλαιο λειτουργούν επίσης με λίστες λιστών, πλειάδες πλειάδων και
+πλειάδες λιστών. Για να αποφευχθεί η απαρίθμηση των πιθανών συνδυασμών, μερικές
+φορές είναι πιο εύκολο να μιλάμε για ακολουθίες ακολουθιών.
 
-Lists are more common than tuples, mostly because they are mutable. But
-there are a few cases where you might prefer tuples:
+Σε πολλά περιβάλλοντα, τα διαφορετικά είδη ακολουθιών (συμβολοσειρές, λίστες
+και πλειάδες) μπορούν να χρησιμοποιηθούν εναλλακτικά. Λοιπόν, πώς και γιατί
+επιλέγετε κάποιο αντί του άλλου ;
 
-1.  In some contexts, like a `return` statement, it is
-    syntactically simpler to create a tuple than a list. In other
-    contexts, you might prefer a list.
+\index{συμβολοσειρά}
+\index{λίστα}
+\index{πλειάδα}
+\index{μεταβλητότητα}
+\index{αμεταβλητότητα}
 
-2.  If you want to use a sequence as a dictionary key, you have to use
-    an immutable type like a tuple or string.
+Για να ξεκινήσουμε με το προφανές, οι συμβολοσειρές είναι πιο περιορισμένες από
+τις άλλες ακολουθίες, επειδή τα στοιχεία πρέπει να είναι χαρακτήρες. Είναι
+επίσης αμετάβλητες. Εάν χρειάζεστε τη δυνατότητα να αλλάξετε τους χαρακτήρες
+μιας συμβολοσειράς (αντί για τη δημιουργία μιας νέας συμβολοσειράς), ίσως
+θελήσετε να χρησιμοποιήσετε μια λίστα χαρακτήρων.
 
-3.  If you are passing a sequence as an argument to a function, using
-    tuples reduces the potential for unexpected behavior due to
-    aliasing.
+Οι λίστες είναι πιο συχνά σρησιμοποιούμενες από τις πλειάδες, κυρίως επειδή
+είναι μεταβλητές. Αλλά υπάρχουν μερικές περιπτώσεις όπου μπορεί να προτιμήσετε
+τις πλειάδες:
 
-Because tuples are immutable, they don't provide methods like
-`sort` and `reverse`, which modify existing lists.
-However Python provides the built-in functions `sorted` and
-`reversed`, which take any sequence as a parameter and return
-a new sequence with the same elements in a different order.
+1. Σε ορισμένες περιπτώσεις, όπως μια δήλωση `return`, είναι συντακτικά πιο
+    απλό να δημιουργήσετε μια πλειάδα παρά μια λίστα. Σε άλλες περιπτώσεις,
+    μπορεί να προτιμήσετε μια λίστα.
 
-\index{sorted function}
-\index{function!sorted}
-\index{reversed function}
-\index{function!reversed}
+2. Εάν θέλετε να χρησιμοποιήσετε μια ακολουθία ως κλειδί λεξικού, πρέπει να
+    χρησιμοποιήσετε έναν αμετάβλητο τύπο όπως πλειάδα ή συμβολοσειρά.
 
-List comprehension
-------------------
+3. Εάν μεταβιβάζετε μια ακολουθία ως όρισμα σε μια συνάρτηση, η χρήση πλειάδων
+    μειώνει την πιθανότητα απροσδόκητης συμπεριφοράς λόγω ψευδωνυμίας.
 
-Sometimes you want to create a sequence by using data from another sequence.
-You can achieve this by writing a for loop and appending one item at a time.
-For example, if you wanted to convert a list of strings -- each string storing digits
--- into numbers that you can sum up, you would write:
+Επειδή οι πλειάδες είναι αμετάβλητες, δεν παρέχουν μεθόδους όπως `sort` και
+`reverse`, οι οποίες τροποποιούν τις υπάρχουσες λίστες. Ωστόσο, η Python
+παρέχει τις ενσωματωμένες συναρτήσεις `sorted` και `reversed`, οι οποίες
+λαμβάνουν οποιαδήποτε ακολουθία ως παράμετρο και επιστρέφουν μια νέα ακολουθία
+με τα ίδια στοιχεία με διαφορετική σειρά.
+
+\index{sorted συνάρτηση}
+\index{συνάρτηση!sorted}
+\index{reversed συνάρτηση}
+\index{συνάρτηση!reversed}
+
+List comprehension (Κατανόηση λίστας)
+-------------------------------------
+
+Μερικές φορές θέλετε να δημιουργήσετε μια ακολουθία χρησιμοποιώντας δεδομένα
+από μια άλλη ακολουθία. Μπορείτε να το πετύχετε γράφοντας έναν βρόχο for και
+προσαρτώντας ένα στοιχείο κάθε φορά. Για παράδειγμα, αν θέλατε να μετατρέψετε
+μια λίστα συμβολοσειρών -- κάθε συμβολοσειρά αποθηκεύει ψηφία -- σε αριθμούς
+που μπορείτε να αθροίσετε, θα γράφατε:
 
 ~~~~ {.python}
 list_of_ints_in_strings = ['42', '65', '12']
@@ -563,7 +567,8 @@ for x in list_of_ints_in_strings:
 print(sum(list_of_ints))
 ~~~~
 
-With list comprehension, the above code can be written in a more compact manner:
+Με την list comprehension, ο παραπάνω κώδικας μπορεί να γραφτεί με πιο συμπαγή
+τρόπο:
 
 ~~~~ {.python}
 list_of_ints_in_strings = ['42', '65', '12']
@@ -573,108 +578,111 @@ print(sum(list_of_ints))
 
 \index{list comprehension}
 
-Debugging
+Εκσφαλμάτωση
+------------
+
+\index{εκσφαλμάτωση}
+\index{δομή δεδομένων}
+\index{shape σφάλμα}
+\index{σφάλμα!σχήματος}
+\index{σχήματος σφάλμα}
+
+Οι λίστες, τα λεξικά και οι πλειάδες είναι γνωστά γενικά ως *δομές δεδομένων*.
+Σε αυτό το κεφάλαιο αρχίζουμε να βλέπουμε σύνθετες δομές δεδομένων, όπως
+λίστες πλειάδων και λεξικά που περιέχουν πλειάδες ως κλειδιά και λίστες ως
+τιμές. Οι σύνθετες δομές δεδομένων είναι χρήσιμες, αλλά είναι επιρρεπείς σε
+αυτό που αποκαλώ *σφάλματα σχήματος*. Δηλαδή, σφάλματα που προκαλούνται όταν
+μια δομή δεδομένων έχει λάθος τύπο, μέγεθος ή σύνθεση ή ίσως γράψετε κάποιον
+κώδικα και ξεχάσετε το σχήμα των δεδομένων σας και προκαλέσετε ένα σφάλμα. Για
+παράδειγμα, αν περιμένετε μια λίστα με έναν ακέραιο και σας δώσω έναν απλό
+ακέραιο (όχι σε λίστα), δεν θα λειτουργήσει.
+
+Γλωσσάριο
 ---------
-
-\index{debugging}
-\index{data structure}
-\index{shape error}
-\index{error!shape}
-
-Lists, dictionaries and tuples are known generically as *data
-structures*; in this chapter we are starting to see compound
-data structures, like lists of tuples, and dictionaries that contain
-tuples as keys and lists as values. Compound data structures are useful,
-but they are prone to what I call *shape errors*; that
-is, errors caused when a data structure has the wrong type, size, or
-composition, or perhaps you write some code and forget the shape of your
-data and introduce an error. For example, if you are expecting a list with one integer and I give you a plain old integer (not in a list), it won't work.
-
-Glossary
---------
-
-comparable
-:   A type where one value can be checked to see if it is greater than,
-    less than, or equal to another value of the same type. Types which
-    are comparable can be put in a list and sorted.
-\index{comparable}
-
-data structure
-:   A collection of related values, often organized in lists,
-    dictionaries, tuples, etc.
-\index{data structure}
 
 DSU
-:   Abbreviation of "decorate-sort-undecorate", a pattern that involves
-    building a list of tuples, sorting, and extracting part of the
-    result.
-\index{DSU pattern}
+: Συντομογραφία του "decorate-sort-undecorate", ένα μοτίβο που περιλαμβάνει τη δημιουργία μιας λίστας πλειάδων, την ταξινόμηση 
+και την εξαγωγή μέρους του αποτελέσματος.
+\index{μοτίβο DSU}
 
 gather
-:   The operation of assembling a variable-length argument tuple.
+: Η λειτουργία της συναρμολόγησης μιας πλειάδας ορίσματος μεταβλητού μήκους.
 \index{gather}
 
-hashable
-:   A type that has a hash function. Immutable types like integers,
-    floats, and strings are hashable; mutable types like lists and
-    dictionaries are not.
-\index{hashable}
-
 scatter
-:   The operation of treating a sequence as a list of arguments.
+: Η λειτουργία της αντιμετώπισης μιας ακολουθίας ως λίστας ορισμάτων.
 \index{scatter}
 
-shape (of a data structure)
-:   A summary of the type, size, and composition of a data structure.
-\index{shape}
-
-singleton
-:   A list (or other sequence) with a single element.
+singleton - μεμονωμένο
+: Μια λίστα (ή άλλη ακολουθία) με ένα μόνο στοιχείο.
 \index{singleton}
 
-tuple
-:   An immutable sequence of elements.
-\index{tuple}
+δομή δεδομένων
+: Μια συλλογή σχετικών τιμών, συχνά οργανωμένη σε λίστες, λεξικά, πλειάδες κ.λπ.
+\index{δομή δεδομένων}
 
-tuple assignment
-:   An assignment with a sequence on the right side and a tuple of
-    variables on the left. The right side is evaluated and then its
-    elements are assigned to the variables on the left.
-\index{tuple assignment}
-\index{assignment!tuple}
+κατακερματιζόμενος - hashable
+: Ένας τύπος που έχει συνάρτηση κατακερματισμού. Οι αμετάβλητοι τύποι όπως
+    ακέραιοι, κινητής υποδιαστολής (float) και συμβολοσειρές μπορούν να
+    κατακερματιστούν, μεταβλητοί τύποι όπως λίστες και λεξικά όχι.
+\index{hashable}
+\index{κατακερματιζόμενος}
 
-Exercises
----------
+πλειάδα
+: Μια αμετάβλητη ακολουθία στοιχείων.
+\index{πλειάδα}
 
-**Exercise 1: Revise a previous program as follows: Read and parse the
-"From " lines and pull out the addresses from the line. Count the number
-of messages from each person using a dictionary.**
+πλειάδα σε ανάθεση
+: Μια εκχώρηση με μια ακολουθία στο δεξί μέλος και μια πλειάδα μεταβλητών στο
+    αριστερό. Το δεξί μέλος αξιολογείται και στη συνέχεια τα στοιχεία του
+    αντιστοιχίζονται στις μεταβλητές στα αριστερά.
+\index{πλειάδα σε ανάθεση}
+\index{ανάθεση!πλειάδα}
 
-**After all the data has been read, print the person with the most commits
-by creating a list of (count, email) tuples from the dictionary. Then
-sort the list in reverse order and print out the person who has the most
-commits.**
+συγκρίσιμος
+: Ένας τύπος όπου μια τιμή μπορεί να ελεγχθεί για να διαπιστωθεί εάν είναι
+    μεγαλύτερη από, μικρότερη από ή ίση με μια άλλη τιμή του ίδιου τύπου. Οι
+    τύποι που είναι συγκρίσιμοι μπορούν να τοποθετηθούν σε μια λίστα και να
+    ταξινομηθούν.
+\index{συγκρίσιμος}
+
+σχήμα (μιας δομής δεδομένων) - shape
+: Σύνοψη του τύπου, του μεγέθους και της σύνθεσης μιας δομής δεδομένων.
+\index{σχήμα}
+\index{shape}
+
+Ασκήσεις
+--------
+
+**Άσκηση 1: Αναθεωρήστε ένα προηγούμενο πρόγραμμα ως εξής: Διαβάστε και
+αναλύστε τις γραμμές "From " και ανακτήστε τις διευθύνσεις από την κάθε γραμμή.
+Μετρήστε τον αριθμό των μηνυμάτων από κάθε άτομο χρησιμοποιώντας ένα λεξικό.**
+
+** Αφού διαβάσετε όλα τα δεδομένα, δημιουργήστε μια λίστα με πλειάδες
+(πλήθος, email) από το λεξικό. Στη συνέχεια, ταξινομήστε τη λίστα με αντίστροφη
+σειρά και εκτυπώστε το άτομο με τα περισσότερα μηνύματα.**
 
 ~~~~{text}
-Sample Line:
+Δείγμα γραμμής:
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 
-Enter a file name: mbox-short.txt
+Εισαγάγετε ένα όνομα αρχείου: mbox-short.txt
 cwen@iupui.edu 5
 
-Enter a file name: mbox.txt
+Εισαγάγετε ένα όνομα αρχείου: mbox.txt
 zqian@umich.edu 195
 ~~~~
 
-**Exercise 2: This program counts the distribution of the hour of the day
-for each of the messages. You can pull the hour from the "From " line by
-finding the time string and then splitting that string into parts using
-the colon character. Once you have accumulated the counts for each hour,
-print out the counts, one per line, sorted by hour as shown below.**
+**Άσκηση 2: Αυτό το πρόγραμμα μετράει την κατανομή της ώρας της ημέρας για κάθε
+ένα από τα μηνύματα. Μπορείτε να τραβήξετε την ώρα από τη γραμμή "From ",
+βρίσκοντας τη συμβολοσειρά χρόνου και, στη συνέχεια, χωρίζοντας τη συμβολοσειρά
+σε μέρη, χρησιμοποιώντας τον χαρακτήρα άνω και κάτω τελείας. Αφού υπολογίσετε
+τα πλήθη για κάθε ώρα, εκτυπώστε τα, ένα ανά γραμμή, ταξινομημένα ανά ώρα, όπως
+φαίνεται παρακάτω.**
 
 ~~~~{text}
 python timeofday.py
-Enter a file name: mbox-short.txt
+Εισαγάγετε ένα όνομα αρχείου: mbox-short.txt
 04 3
 06 1
 07 1
@@ -689,14 +697,14 @@ Enter a file name: mbox-short.txt
 19 1
 ~~~~
 
-**Exercise 3: Write a program that reads a file and prints the
-*letters* in decreasing order of frequency. Your program
-should convert all the input to lower case and only count the letters
-a-z. Your program should not count spaces, digits, punctuation, or
-anything other than the letters a-z. Find text samples from several
-different languages and see how letter frequency varies between
-languages. Compare your results with the tables at
+**Άσκηση 3: Γράψτε ένα πρόγραμμα που διαβάζει ένα αρχείο και τυπώνει τα
+*γράμματα* με φθίνουσα σειρά συχνότητας. Το πρόγραμμά σας θα πρέπει να
+μετατρέψει όλη την είσοδο σε πεζά και να μετράει μόνο τα γράμματα a-z. Το
+πρόγραμμά σας δεν πρέπει να μετράει κενά, ψηφία, σημεία στίξης ή οτιδήποτε άλλο
+εκτός από τα γράμματα a-z. Βρείτε δείγματα κειμένου από πολλές διαφορετικές
+γλώσσες και δείτε πώς η συχνότητα των γραμμάτων ποικίλλει μεταξύ των γλωσσών.
+Συγκρίνετε τα αποτελέσματά σας με τους πίνακες στο
 <https://wikipedia.org/wiki/Letter_frequencies>.**
 
-\index{letter frequency}
-\index{frequency!letter}
+\index{γράμματα συχνότητα}
+\index{συχνότητα!γράμματα}
