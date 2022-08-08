@@ -156,68 +156,64 @@
 <body>
 <h1 id="λεξικά">Λεξικά</h1>
 <p>       </p>
-<p>Ένα <em>λεξικό (dictionary)</em> είναι σαν μια λίστα, αλλά πιο γενικό. Σε μια λίστα, οι δείκτες πρέπει να είναι ακέραιοι, ενώ σε ένα λεξικό, οι δείκτες μπορούν να είναι (σχεδόν) οποιουδήποτε τύπου.</p>
-<p>Μπορείτε να σκεφτείτε ένα λεξικό ως μια αντιστοίχιση μεταξύ ενός συνόλου δεικτών (που ονομάζονται <em>κλειδιά</em>) και ενός συνόλου τιμών. Κάθε κλειδί αντιστοιχίζεται σε μια τιμή. Η συσχέτιση ενός κλειδιού και μιας τιμής ονομάζεται <em>ζεύγος κλειδιού-τιμής</em> ή μερικές φορές <em>στοιχείο</em>.</p>
-<p>Για παράδειγμα, θα δημιουργήσουμε ένα λεξικό που αντιστοιχίζει λέξεις από αγγλικά σε ισπανικά, έτσι ώστε τα πλήκτρα και οι τιμές να είναι όλες συμβολοσειρές.</p>
-<p>Η συνάρτηση <code>dict</code> δημιουργεί ένα νέο λεξικό χωρίς στοιχεία. Επειδή το «dict» είναι το όνομα μιας ενσωματωμένης συνάρτησης, θα πρέπει να αποφύγετε τη χρήση της ως όνομα μεταβλητής.</p>
-<p>A <em>dictionary</em> is like a list, but more general. In a list, the index positions have to be integers; in a dictionary, the indices can be (almost) any type.</p>
-<p>You can think of a dictionary as a mapping between a set of indices (which are called <em>keys</em>) and a set of values. Each key maps to a value. The association of a key and a value is called a <em>key-value pair</em> or sometimes an <em>item</em>.</p>
-<p>As an example, we’ll build a dictionary that maps from English to Spanish words, so the keys and the values are all strings.</p>
-<p>The function <code>dict</code> creates a new dictionary with no items. Because <code>dict</code> is the name of a built-in function, you should avoid using it as a variable name.</p>
+<p>Ένα <em>λεξικό (dictionary)</em> είναι σαν μια λίστα, αλλά πιο γενικό. Σε μια λίστα, οι δείκτες θέσης πρέπει να είναι ακέραιοι, ενώ σε ένα λεξικό, οι δείκτες μπορούν να είναι (σχεδόν) οποιουδήποτε τύπου.</p>
+<p>Μπορείτε να σκεφτείτε ένα λεξικό ως μια αντιστοίχιση μεταξύ ενός συνόλου δεικτών (που ονομάζονται <em>κλειδιά</em>) και ενός συνόλου τιμών. Κάθε κλειδί αντιστοιχίζεται σε μια τιμή. Η συσχέτιση ενός κλειδιού και μιας τιμής ονομάζεται <em>ζεύγος κλειδιού-τιμής (key-value pair)</em> ή μερικές φορές <em>στοιχείο</em>.</p>
+<p>Για παράδειγμα, θα δημιουργήσουμε ένα λεξικό που αντιστοιχίζει λέξεις από τα αγγλικά στα ισπανικά, έτσι ώστε τα κλειδιά και οι τιμές να είναι όλα συμβολοσειρές.</p>
+<p>Η συνάρτηση <code>dict</code> δημιουργεί ένα νέο λεξικό χωρίς στοιχεία. Επειδή το <code>dict</code> είναι το όνομα μιας ενσωματωμένης συνάρτησης, θα πρέπει να αποφύγετε τη χρήση του ως όνομα μεταβλητής.</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; eng2sp = dict()
 &gt;&gt;&gt; print(eng2sp)
 {}</code></pre>
-<p>The curly brackets, <code>{}</code>, represent an empty dictionary. To add items to the dictionary, you can use square brackets:</p>
+<p>Τα άγκυστρα, <code>{}</code>, αντιπροσωπεύουν ένα κενό λεξικό. Για να προσθέσετε στοιχεία στο λεξικό, μπορείτε να χρησιμοποιήσετε αγκύλες:</p>
 <p> </p>
 <pre class="python"><code>&gt;&gt;&gt; eng2sp[&#39;one&#39;] = &#39;uno&#39;</code></pre>
-<p>This line creates an item that maps from the key <code>'one'</code> to the value “uno”. If we print the dictionary again, we see a key-value pair with a colon between the key and value:</p>
+<p>Αυτή η γραμμή δημιουργεί ένα στοιχείο που αποτελείται από το κλειδί <code>'one'</code> και την τιμή “uno”. Εάν εκτυπώσουμε ξανά το λεξικό, βλέπουμε ένα ζεύγος κλειδιού-τιμής με άνω και κάτω τελεία μεταξύ του κλειδιού και της τιμής:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(eng2sp)
 {&#39;one&#39;: &#39;uno&#39;}</code></pre>
-<p>This output format is also an input format. For example, you can create a new dictionary with three items. But if you print <code>eng2sp</code>, you might be surprised:</p>
+<p>Αυτή η μορφή εξόδου είναι επίσης μια μορφή εισόδου. Για παράδειγμα, μπορείτε να δημιουργήσετε ένα νέο λεξικό με τρία στοιχεία. Αλλά αν εκτυπώσετε «eng2sp», ίσως εκπλαγείτε:</p>
 <pre class="python"><code>&gt;&gt;&gt; eng2sp = {&#39;one&#39;: &#39;uno&#39;, &#39;two&#39;: &#39;dos&#39;, &#39;three&#39;: &#39;tres&#39;}
 &gt;&gt;&gt; print(eng2sp)
 {&#39;one&#39;: &#39;uno&#39;, &#39;three&#39;: &#39;tres&#39;, &#39;two&#39;: &#39;dos&#39;}</code></pre>
-<p>The order of the key-value pairs is not the same. In fact, if you type the same example on your computer, you might get a different result. In general, the order of items in a dictionary is unpredictable.</p>
-<p>But that’s not a problem because the elements of a dictionary are never indexed with integer indices. Instead, you use the keys to look up the corresponding values:</p>
+<p>Η σειρά των ζευγών κλειδιού-τιμής δεν είναι η ίδια. Στην πραγματικότητα, αν πληκτρολογήσετε το ίδιο παράδειγμα στον υπολογιστή σας, ενδέχεται να έχετε διαφορετικό αποτέλεσμα. Γενικά, η σειρά των στοιχείων σε ένα λεξικό είναι απρόβλεπτη.</p>
+<p>Αλλά αυτό δεν είναι πρόβλημα γιατί τα στοιχεία ενός λεξικού δεν χρησιμοποιούν ποτέ ευρετήριο με ακέραιους δείκτες. Αντίθετα, χρησιμοποιείτε τα κλειδιά για να αναζητήσετε τις αντίστοιχες τιμές:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(eng2sp[&#39;two&#39;])
 &#39;dos&#39;</code></pre>
-<p>The key <code>'two'</code> always maps to the value “dos” so the order of the items doesn’t matter.</p>
-<p>If the key isn’t in the dictionary, you get an exception:</p>
-<p> </p>
+<p>Το κλειδί <code>'two'</code> αντιστοιχεί πάντα στην τιμή “dos”, οπότε η σειρά των στοιχείων δεν έχει σημασία.</p>
+<p>Εάν το κλειδί δεν υπάρχει στο λεξικό, λαμβάνετε μια εξαίρεση:</p>
+<p>  </p>
 <pre class="python"><code>&gt;&gt;&gt; print(eng2sp[&#39;four&#39;])
 KeyError: &#39;four&#39;</code></pre>
-<p>The <code>len</code> function works on dictionaries; it returns the number of key-value pairs:</p>
+<p>Η συνάρτηση <code>len</code> λειτουργεί σε λεξικά. Επιστρέφει το πλήθος των ζευγών κλειδιού-τιμής:</p>
 <p> </p>
 <pre class="python"><code>&gt;&gt;&gt; len(eng2sp)
 3</code></pre>
-<p>The <code>in</code> operator works on dictionaries; it tells you whether something appears as a <em>key</em> in the dictionary (appearing as a value is not good enough).</p>
+<p>Ο τελεστής <code>in</code> λειτουργεί σε λεξικά. Σας λέει εάν κάτι εμφανίζεται ως <em>κλειδί</em> στο λεξικό (η εμφάνιση ως τιμή δεν αρκεί).</p>
 <p>  </p>
 <pre class="python"><code>&gt;&gt;&gt; &#39;one&#39; in eng2sp
 True
 &gt;&gt;&gt; &#39;uno&#39; in eng2sp
 False</code></pre>
-<p>To see whether something appears as a value in a dictionary, you can use the method <code>values</code>, which returns the values as a type that can be converted to a list, and then use the <code>in</code> operator:</p>
+<p>Για να δείτε εάν κάτι εμφανίζεται ως τιμή σε ένα λεξικό, μπορείτε να χρησιμοποιήσετε τη μέθοδο <code>values</code>, η οποία επιστρέφει τις τιμές ως έναν τύπο dict_values, που μπορεί να μετατραπεί σε λίστα και, στη συνέχεια, μπορείτε να χρησιμοποιήσετε τον τελεστή <code>in</code> (την Python 2 η μέθοδος <code>values</code> επιστρέφει μία λίστα των τιμών):</p>
 <p> </p>
 <pre class="python"><code>&gt;&gt;&gt; vals = list(eng2sp.values())
 &gt;&gt;&gt; &#39;uno&#39; in vals
 True</code></pre>
-<p>The <code>in</code> operator uses different algorithms for lists and dictionaries. For lists, it uses a linear search algorithm. As the list gets longer, the search time gets longer in direct proportion to the length of the list. For dictionaries, Python uses an algorithm called a <em>hash table</em> that has a remarkable property: the <code>in</code> operator takes about the same amount of time no matter how many items there are in a dictionary. I won’t explain why hash functions are so magical, but you can read more about it at <a href="https://wikipedia.org/wiki/Hash_table">wikipedia.org/wiki/Hash_table</a>.</p>
-<p>  </p>
-<p><strong>Exercise 1: Download a copy of the file</strong> <a href="http://www.py4e.com/code3/words.txt">www.py4e.com/code3/words.txt</a></p>
-<p><strong>Write a program that reads the words in <em>words.txt</em> and stores them as keys in a dictionary. It doesn’t matter what the values are. Then you can use the <code>in</code> operator as a fast way to check whether a string is in the dictionary.</strong></p>
-<h2 id="dictionary-as-a-set-of-counters">Dictionary as a set of counters</h2>
+<p>Ο τελεστής <code>in</code> χρησιμοποιεί διαφορετικούς αλγόριθμους για λίστες και για λεξικά. Για λίστες, χρησιμοποιεί έναν αλγόριθμο γραμμικής αναζήτησης. Καθώς η λίστα μεγαλώνει, ο χρόνος αναζήτησης μεγαλώνει σε ευθεία αναλογία με το μήκος της λίστας. Για τα λεξικά, η Python χρησιμοποιεί έναν αλγόριθμο που ονομάζεται <em>πίνακες κατακερµατισµού (hash table)</em> που έχει μια αξιοσημείωτη ιδιότητα: ο τελεστής <code>in</code> χρειάζεται περίπου τον ίδιο χρόνο ανεξάρτητα από το πόσα στοιχεία περιέχονται σε ένα λεξικό. Δεν θα εξηγήσω γιατί οι συναρτήσεις κατακερματισμού είναι τόσο μαγικές, αλλά μπορείτε να διαβάσετε περισσότερα για αυτό στο <a href="https://wikipedia.org/wiki/Hash_table">wikipedia.org/wiki/Hash_table</a>.</p>
+<p>   </p>
+<p><strong>Άσκηση 1: Κατεβάστε ένα αντίγραφο του αρχείου</strong> <a href="http://www.gr.py4e.com/code3/words.txt">www.gr.py4e.com/code3/words.txt</a></p>
+<p><strong>Γράψτε ένα πρόγραμμα που να διαβάζει τις λέξεις στο <em>words.txt</em> και να τις αποθηκεύει ως κλειδιά σε ένα λεξικό. Δεν έχει σημασία ποιες είναι οι τιμές. Στη συνέχεια, μπορείτε να χρησιμοποιήσετε τον τελεστή <code>in</code> ως έναν γρήγορο τρόπο για να ελέγξετε εάν μια συμβολοσειρά υπάρχει στο λεξικό.</strong></p>
+<h2 id="το-λεξικό-ως-σύνολο-μετρητών">Το λεξικό ως σύνολο μετρητών</h2>
 <p></p>
-<p>Suppose you are given a string and you want to count how many times each letter appears. There are several ways you could do it:</p>
+<p>Ας υποθέσουμε ότι σας δίνεται μια συμβολοσειρά και θέλετε να μετρήσετε πόσες φορές εμφανίζεται κάθε γράμμα. Υπάρχουν διάφοροι τρόποι για να το κάνετε:</p>
 <ol type="1">
-<li><p>You could create 26 variables, one for each letter of the alphabet. Then you could traverse the string and, for each character, increment the corresponding counter, probably using a chained conditional.</p></li>
-<li><p>You could create a list with 26 elements. Then you could convert each character to a number (using the built-in function <code>ord</code>), use the number as an index into the list, and increment the appropriate counter.</p></li>
-<li><p>You could create a dictionary with characters as keys and counters as the corresponding values. The first time you see a character, you would add an item to the dictionary. After that you would increment the value of an existing item.</p></li>
+<li><p>Θα μπορούσατε να δημιουργήσετε 26 μεταβλητές, μία για κάθε γράμμα του αλφαβήτου. Στη συνέχεια, θα μπορούσατε να διασχίσετε τη συμβολοσειρά και, για κάθε χαρακτήρα, να αυξήσετε τον αντίστοιχο μετρητή, πιθανώς χρησιμοποιώντας μια πολλαπλή συνθήκη.</p></li>
+<li><p>Θα μπορούσατε να δημιουργήσετε μια λίστα με 26 στοιχεία. Στη εια, να μετατρέψετε κάθε χαρακτήρα σε έναν αριθμό (χρησιμοποιώντας την ενσωματωμένη συνάρτηση <code>ord</code>), να χρησιμοποιήσετε τον αριθμό ως δείκτη στη λίστα και να αυξήσετε τον κατάλληλο μετρητή.</p></li>
+<li><p>Θα μπορούσατε να δημιουργήσετε ένα λεξικό με χαρακτήρες ως κλειδιά και μετρητές ως τις αντίστοιχες τιμές. Την πρώτη φορά που εντοπίζετε έναν χαρακτήρα, προσθέτετε ένα στοιχείο στο λεξικό. Στη συνέχεια θα αυξάνετε την τιμή του υπάρχοντος στοιχείου.</p></li>
 </ol>
-<p>Each of these options performs the same computation, but each of them implements that computation in a different way.</p>
+<p>Κάθε μία από αυτές τις επιλογές εκτελεί τον ίδιο υπολογισμό, αλλά καθεμία από αυτές υλοποιεί τον υπολογισμό με διαφορετικό τρόπο.</p>
 <p></p>
-<p>An <em>implementation</em> is a way of performing a computation; some implementations are better than others. For example, an advantage of the dictionary implementation is that we don’t have to know ahead of time which letters appear in the string and we only have to make room for the letters that do appear.</p>
-<p>Here is what the code might look like:</p>
+<p>Μια <em>υλοποίηση</em> είναι ένας τρόπος εκτέλεσης ενός υπολογισμού. Ορισμένες υλοποιήσεις είναι καλύτερες από άλλες. Για παράδειγμα, ένα πλεονέκτημα της εφαρμογής του λεξικού είναι ότι δεν χρειάζεται να γνωρίζουμε εκ των προτέρων ποια γράμματα εμφανίζονται στη συμβολοσειρά και δημιουργούμε θέσεις μόνο για τα γράμματα που εμφανίζονται.</p>
+<p>Εδώ είναι µια πιθανή εκδοχή του κώδικα:</p>
 <pre class="python trinket"><code>word = &#39;brontosaurus&#39;
 d = dict()
 for c in word:
@@ -226,41 +222,41 @@ for c in word:
     else:
         d[c] = d[c] + 1
 print(d)</code></pre>
-<p>We are effectively computing a <em>histogram</em>, which is a statistical term for a set of counters (or frequencies).</p>
+<p>Υπολογίζουμε ουσιαστικά ένα <em>ιστόγραμμα</em>, το οποίο είναι ένας στατιστικός όρος για ένα σύνολο μετρητών (ή συχνοτήτων).</p>
 <p>  </p>
-<p>The <code>for</code> loop traverses the string. Each time through the loop, if the character <code>c</code> is not in the dictionary, we create a new item with key <code>c</code> and the initial value 1 (since we have seen this letter once). If <code>c</code> is already in the dictionary we increment <code>d[c]</code>.</p>
+<p>Ο βρόχος <code>for</code> διασχίζει τη συμβολοσειρά. Κάθε φορά μέσω του βρόχου, εάν ο χαρακτήρας <code>c</code> δεν υπάρχει στο λεξικό, δημιουργούμε ένα νέο στοιχείο με το κλειδί <code>c</code> και την αρχική τιμή 1 (αφού έχουμε δει αυτό το γράμμα μία φορά). Εάν το <code>c</code> είναι ήδη στο λεξικό, αυξάνουμε το <code>d[c]</code>.</p>
 <p></p>
-<p>Here’s the output of the program:</p>
-<pre><code>{&#39;a&#39;: 1, &#39;b&#39;: 1, &#39;o&#39;: 2, &#39;n&#39;: 1, &#39;s&#39;: 2, &#39;r&#39;: 2, &#39;u&#39;: 2, &#39;t&#39;: 1}</code></pre>
-<p>The histogram indicates that the letters “a” and “b” appear once; “o” appears twice, and so on.</p>
+<p>Ακολουθεί η έξοδος του προγράμματος:</p>
+<pre class="{text}"><code>{&#39;a&#39;: 1, &#39;b&#39;: 1, &#39;o&#39;: 2, &#39;n&#39;: 1, &#39;s&#39;: 2, &#39;r&#39;: 2, &#39;u&#39;: 2, &#39;t&#39;: 1}</code></pre>
+<p>Το ιστόγραμμα δείχνει ότι τα γράμματα “a” και “b” εμφανίζονται από μία φορά. Το “o” εμφανίζεται δύο φορές και ούτω καθεξής.</p>
 <p> </p>
-<p>Dictionaries have a method called <code>get</code> that takes a key and a default value. If the key appears in the dictionary, <code>get</code> returns the corresponding value; otherwise it returns the default value. For example:</p>
+<p>Τα λεξικά έχουν μια μέθοδο που ονομάζεται <code>get</code>, που παίρνει ένα κλειδί και μια προεπιλεγμένη τιμή. Εάν το κλειδί εμφανίζεται στο λεξικό, το <code>get</code> επιστρέφει την αντίστοιχη τιμή, διαφορετικά επιστρέφει την προεπιλεγμένη τιμή. Για παράδειγμα:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; counts = { &#39;chuck&#39; : 1 , &#39;annie&#39; : 42, &#39;jan&#39;: 100}
 &gt;&gt;&gt; print(counts.get(&#39;jan&#39;, 0))
 100
 &gt;&gt;&gt; print(counts.get(&#39;tim&#39;, 0))
 0</code></pre>
-<p>We can use <code>get</code> to write our histogram loop more concisely. Because the <code>get</code> method automatically handles the case where a key is not in a dictionary, we can reduce four lines down to one and eliminate the <code>if</code> statement.</p>
+<p>Μπορούμε να χρησιμοποιήσουμε την <code>get</code> για να γράψουμε πιο συνοπτικά τον βρόχο ιστογράμματος. Επειδή η μέθοδος <code>get</code> χειρίζεται αυτόματα την περίπτωση που ένα κλειδί δεν περιέχεται στο λεξικό, μπορούμε να αντικαταστήσουμε τέσσερις γραμμές με μία και να εξαλείψουμε την εντολή <code>if</code>.</p>
 <pre class="python"><code>word = &#39;brontosaurus&#39;
 d = dict()
 for c in word:
     d[c] = d.get(c,0) + 1
 print(d)</code></pre>
-<p>The use of the <code>get</code> method to simplify this counting loop ends up being a very commonly used “idiom” in Python and we will use it many times in the rest of the book. So you should take a moment and compare the loop using the <code>if</code> statement and <code>in</code> operator with the loop using the <code>get</code> method. They do exactly the same thing, but one is more succinct.</p>
+<p>Η χρήση της μεθόδου <code>get</code>, για την απλοποίηση αυτού του βρόχου μέτρησης καταλήγει σε ένα πολύ συχνά χρησιμοποιούμενο “ιδίωμα” στην Python που θα το χρησιμοποιήσουμε πολλές φορές στο υπόλοιπο βιβλίο. Θα πρέπει λοιπόν να αφιερώσετε λίγο χρόνο και να συγκρίνετε τον βρόχο που χρησιμοποιεί την εντολή <code>if</code> και τον τελεστή <code>in</code> με τον βρόχο που χρησιμοποιεί τη μέθοδο <code>get</code>. Κάνουν ακριβώς το ίδιο πράγμα, αλλά ο δεύτερος είναι συνοπτικότερος.</p>
 <p></p>
-<h2 id="dictionaries-and-files">Dictionaries and files</h2>
-<p>One of the common uses of a dictionary is to count the occurrence of words in a file with some written text. Let’s start with a very simple file of words taken from the text of <em>Romeo and Juliet</em>.</p>
-<p>For the first set of examples, we will use a shortened and simplified version of the text with no punctuation. Later we will work with the text of the scene with punctuation included.</p>
+<h2 id="λεξικά-και-αρχεία">Λεξικά και αρχεία</h2>
+<p>Μία από τις συνησμένες χρήσεις ενός λεξικού είναι να μετράει την εμφάνιση λέξεων σε ένα αρχείο, που περιέχει κείμενο. Ας ξεκινήσουμε με ένα πολύ απλό αρχείο λέξεων, βγαλμένών από το κείμενο του <em>Ρωμαίος και Ιουλιέτα (Romeo and Juliet)</em>.</p>
+<p>Για το πρώτο σύνολο παραδειγμάτων, θα χρησιμοποιήσουμε μια σύντομη και απλοποιημένη έκδοση του κειμένου, χωρίς σημεία στίξης. Αργότερα θα δουλέψουμε με το κείμενο της σκηνής με σημεία στίξης.</p>
 <pre><code>But soft what light through yonder window breaks
 It is the east and Juliet is the sun
 Arise fair sun and kill the envious moon
 Who is already sick and pale with grief</code></pre>
-<p>We will write a Python program to read through the lines of the file, break each line into a list of words, and then loop through each of the words in the line and count each word using a dictionary.</p>
+<p>Θα γράψουμε ένα πρόγραμμα Python για να διαβάσουμε τις γραμμές του αρχείου, θα διασπάσουμε κάθε γραμμή σε μια λίστα λέξεων και, στη συνέχεια, με βρόχο θα διατρέξουμε κάθε μία από τις λέξεις της γραμμής και θα μετρήσουμε κάθε λέξη χρησιμοποιώντας ένα λεξικό.</p>
 <p> </p>
-<p>You will see that we have two <code>for</code> loops. The outer loop is reading the lines of the file and the inner loop is iterating through each of the words on that particular line. This is an example of a pattern called <em>nested loops</em> because one of the loops is the <em>outer</em> loop and the other loop is the <em>inner</em> loop.</p>
-<p>Because the inner loop executes all of its iterations each time the outer loop makes a single iteration, we think of the inner loop as iterating “more quickly” and the outer loop as iterating more slowly.</p>
-<p></p>
-<p>The combination of the two nested loops ensures that we will count every word on every line of the input file.</p>
+<p>Θα δείτε ότι έχουμε δύο βρόχους <code>for</code>. Ο εξωτερικός βρόχος διαβάζει τις γραμμές του αρχείου και ο εσωτερικός βρόχος διατρέχει κάθε μία από τις λέξεις στη συγκεκριμένη γραμμή. Αυτό είναι ένα παράδειγμα ενός μοτίβου που ονομάζεται <em>εμφωλευμένοι βρόχοι</em> επειδή ένας από τους βρόχους είναι ο <em>εξωτερικός</em> βρόχος και ο άλλος βρόχος είναι ο <em>εσωτερικός</em>.</p>
+<p>Επειδή ο εσωτερικός βρόχος εκτελεί όλες τις επαναλήψεις του κάθε φορά που ο εξωτερικός βρόχος κάνει μία επανάληψη, θεωρούμε ότι ο εσωτερικός βρόχος επαναλαμβάνεται “πιο γρήγορα” και ο εξωτερικός βρόχος επαναλαμβάνεται πιο αργά.</p>
+<p> </p>
+<p>Ο συνδυασμός των δύο εμφψλευμένων βρόχων διασφαλίζει ότι θα μετράμε κάθε λέξη, σε κάθε γραμμή του αρχείου εισόδου.</p>
 <pre class="python"><code>fname = input(&#39;Enter the file name: &#39;)
 try:
     fhand = open(fname)
@@ -280,70 +276,70 @@ for line in fhand:
 print(counts)
 
 # Code: http://www.gr.py4e.com/code3/count1.py</code></pre>
-<p>In our <code>else</code> statement, we use the more compact alternative for incrementing a variable. <code>counts[word] += 1</code> is equivalent to <code>counts[word] = counts[word] + 1</code>. Either method can be used to change the value of a variable by any desired amount. Similar alternatives exist for <code>-=</code>, <code>*=</code>, and <code>/=</code>.</p>
-<p>When we run the program, we see a raw dump of all of the counts in unsorted hash order. (the <em>romeo.txt</em> file is available at <a href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a>)</p>
+<p>Στη δήλωση <code>else</code>, χρησιμοποιούμε την πιο συμπαγή εναλλακτική για την αύξηση μιας μεταβλητής. Το <code>counts[word] += 1</code> ισοδυναμεί με <code>counts[word] = counts[word] + 1</code>. Και οι δύο τρόποι μπορούν να χρησιμοποιηθούν για την αλλαγή της τιμής μιας μεταβλητής κατά οποιοδήποτε, επιθυμητό, ποσό. Παρόμοιες εναλλακτικές υπάρχουν για τα <code>-=</code>, <code>*=</code> και <code>/=</code>.</p>
+<p>Όταν εκτελούμε το πρόγραμμα, βλέπουμε μια ακατέργαστη έξοδο όλων των μετρήσεων, σε μη ταξινομημένη σειρά. (Το αρχείο <em>romeo.txt</em> είναι διαθέσιμο στη διεύθυνση <a href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a>)</p>
 <pre><code>python count1.py
-Enter the file name: romeo.txt
+Εισαγάγετε το όνομα του αρχείου: romeo.txt
 {&#39;and&#39;: 3, &#39;envious&#39;: 1, &#39;already&#39;: 1, &#39;fair&#39;: 1,
 &#39;is&#39;: 3, &#39;through&#39;: 1, &#39;pale&#39;: 1, &#39;yonder&#39;: 1,
 &#39;what&#39;: 1, &#39;sun&#39;: 2, &#39;Who&#39;: 1, &#39;But&#39;: 1, &#39;moon&#39;: 1,
 &#39;window&#39;: 1, &#39;sick&#39;: 1, &#39;east&#39;: 1, &#39;breaks&#39;: 1,
 &#39;grief&#39;: 1, &#39;with&#39;: 1, &#39;light&#39;: 1, &#39;It&#39;: 1, &#39;Arise&#39;: 1,
 &#39;kill&#39;: 1, &#39;the&#39;: 3, &#39;soft&#39;: 1, &#39;Juliet&#39;: 1}</code></pre>
-<p>It is a bit inconvenient to look through the dictionary to find the most common words and their counts, so we need to add some more Python code to get us the output that will be more helpful.</p>
-<h2 id="looping-and-dictionaries">Looping and dictionaries</h2>
+<p>Είναι λίγο άβολο να ψάξουμε μέσα στο λεξικό για να βρούμε τις πιο συχνά επαναλαμβανόμενες λέξεις και τον πλήθος των εμφανίσεών τους, γι’ αυτό πρέπει να προσθέσουμε λίγο ακόμα κώδικα Python για να έχουμε μια έξοδο που θα είναι πιο εύχρηστη.</p>
+<h2 id="βρόχοι-και-λεξικά">Βρόχοι και λεξικά</h2>
 <p>  </p>
-<p>If you use a dictionary as the sequence in a <code>for</code> statement, it traverses the keys of the dictionary. This loop prints each key and the corresponding value:</p>
+<p>Εάν χρησιμοποιείτε ένα λεξικό ως ακολουθία μιας εντολής <code>for</code>, τότε αυτή διασχίζει τα κλειδιά του λεξικού. Για παράδειγμα, αυτός ο βρόχος εκτυπώνει κάθε κλειδί και την αντίστοιχη τιμή:</p>
 <pre class="python"><code>counts = { &#39;chuck&#39; : 1 , &#39;annie&#39; : 42, &#39;jan&#39;: 100}
 for key in counts:
     print(key, counts[key])</code></pre>
-<p>Here’s what the output looks like:</p>
-<pre><code>jan 100
+<p>Δείτε τί παράγεται στην έξοδο:</p>
+<pre class="{text}"><code>jan 100
 chuck 1
 annie 42</code></pre>
-<p>Again, the keys are in no particular order.</p>
+<p>Και πάλι, τα κλειδιά δεν είναι ταξινομημένα.</p>
 <p></p>
-<p>We can use this pattern to implement the various loop idioms that we have described earlier. For example if we wanted to find all the entries in a dictionary with a value above ten, we could write the following code:</p>
+<p>Μπορούμε να χρησιμοποιήσουμε αυτό το μοτίβο για να εφαρμόσουμε τα διάφορα ιδιώματα βρόχου που περιγράψαμε νωρίτερα. Για παράδειγμα, αν θέλαμε να βρούμε όλες τις εγγραφές σε ένα λεξικό με τιμή πάνω από δέκα, θα μπορούσαμε να γράψουμε τον ακόλουθο κώδικα:</p>
 <pre class="python"><code>counts = { &#39;chuck&#39; : 1 , &#39;annie&#39; : 42, &#39;jan&#39;: 100}
 for key in counts:
     if counts[key] &gt; 10 :
         print(key, counts[key])</code></pre>
-<p>The <code>for</code> loop iterates through the <em>keys</em> of the dictionary, so we must use the index operator to retrieve the corresponding <em>value</em> for each key. Here’s what the output looks like:</p>
-<pre><code>jan 100
+<p>Ο βρόχος <code>for</code> επαναλαμβάνεται μέσω των <em>κλειδιών</em> του λεξικού, επομένως πρέπει να χρησιμοποιήσουμε τον τελεστή ευρετηρίου για να ανακτήσουμε την αντίστοιχη <em>τιμή</em> για κάθε κλειδί. Δείτε πώς φαίνεται η έξοδος:</p>
+<pre class="{text}"><code>jan 100
 annie 42</code></pre>
-<p>We see only the entries with a value above 10.</p>
+<p>Βλέπουμε μόνο τις εγγραφές με τιμή πάνω από 10.</p>
 <p> </p>
-<p>If you want to print the keys in alphabetical order, you first make a list of the keys in the dictionary using the <code>keys</code> method available in dictionary objects, and then sort that list and loop through the sorted list, looking up each key and printing out key-value pairs in sorted order as follows:</p>
+<p>Εάν θέλετε να εκτυπώσετε τα κλειδιά με αλφαβητική σειρά, πρέπει να κάνετε πρώτα μια λίστα με τα κλειδιά του λεξικού, χρησιμοποιώντας τη μέθοδο <code>keys</code>, που είναι διαθέσιμη για αντικείμενα λεξικού και, στη συνέχεια, να ταξινομήστε τη λίστα και να τη διασχίσετε, αναζητώντας κάθε κλειδί και να εκτυπώσετε ζεύγη κλειδιών-τιμών ταξινομημένα, ως εξής:</p>
 <pre class="python"><code>counts = { &#39;chuck&#39; : 1 , &#39;annie&#39; : 42, &#39;jan&#39;: 100}
 lst = list(counts.keys())
 print(lst)
 lst.sort()
 for key in lst:
     print(key, counts[key])</code></pre>
-<p>Here’s what the output looks like:</p>
+<p>Δείτε πώς φαίνεται η έξοδος:</p>
 <pre><code>[&#39;jan&#39;, &#39;chuck&#39;, &#39;annie&#39;]
 annie 42
 chuck 1
 jan 100</code></pre>
-<p>First you see the list of keys in unsorted order that we get from the <code>keys</code> method. Then we see the key-value pairs in order from the <code>for</code> loop.</p>
-<h2 id="advanced-text-parsing">Advanced text parsing</h2>
-<p></p>
-<p>In the above example using the file <em>romeo.txt</em>, we made the file as simple as possible by removing all punctuation by hand. The actual text has lots of punctuation, as shown below.</p>
-<pre><code>But, soft! what light through yonder window breaks?
+<p>Πρώτα βλέπετε τη λίστα των κλειδιών σε μη ταξινομημένη σειρά, όπως τη λαμβάνουμε από τη μέθοδο <code>keys</code>. Στη συνέχεια, βλέπουμε τα ζεύγη κλειδιού-τιμής ταξινομημένα από τον βρόχο <code>for</code>.</p>
+<h2 id="προχωρημένη-ανάλυση-κειμένου">Προχωρημένη ανάλυση κειμένου</h2>
+<p> </p>
+<p>Στο παραπάνω παράδειγμα, χρησιμοποιώντας το αρχείο <em>romeo.txt</em>, απλοποιήσαμε το αρχείο, αφαιρώντας όλα τα σημεία στίξης με το χέρι. Το πραγματικό κείμενο έχει πολλά σημεία στίξης, όπως φαίνεται παρακάτω.</p>
+<pre class="{text}"><code>But, soft! what light through yonder window breaks?
 It is the east, and Juliet is the sun.
 Arise, fair sun, and kill the envious moon,
 Who is already sick and pale with grief,</code></pre>
-<p>Since the Python <code>split</code> function looks for spaces and treats words as tokens separated by spaces, we would treat the words “soft!” and “soft” as <em>different</em> words and create a separate dictionary entry for each word.</p>
-<p>Also since the file has capitalization, we would treat “who” and “Who” as different words with different counts.</p>
-<p>We can solve both these problems by using the string methods <code>lower</code>, <code>punctuation</code>, and <code>translate</code>. The <code>translate</code> is the most subtle of the methods. Here is the documentation for <code>translate</code>:</p>
+<p>Μιας και η συνάρτηση <code>split</code>, της Python, αναζητά κενά και αντιμετωπίζει τις λέξεις ως διακριτικά που χωρίζονται με κενά, θα αντιμετωπίζαμε τις λέξεις “soft!” και “soft” ως <em>διαφορετικές</em> λέξεις και θα δημιουργούνταν μια ξεχωριστή καταχώρηση λεξικού για κάθε μια από αυτές τις λέξεις.</p>
+<p>Επίσης, δεδομένου ότι το αρχείο έχει κεφαλαία και πεζά γράμματα, θα αντιμετωπίζαμε το “who” και το “Who” ως διαφορετικές λέξεις, με διαφορετικές μετρήσεις.</p>
+<p>Μπορούμε να λύσουμε και τα δύο αυτά προβλήματα χρησιμοποιώντας τις μεθόδους συμβολοσειράς <code>lower</code>, <code>punctuation</code> και <code>translate</code>. Η <code>translate</code> είναι η πιο λεπτή από τις μεθόδους. Ακολουθεί η τεκμηρίωση για την <code>translate</code>:</p>
 <p><code>line.translate(str.maketrans(fromstr, tostr, deletestr))</code></p>
-<p><em>Replace the characters in <code>fromstr</code> with the character in the same position in <code>tostr</code> and delete all characters that are in <code>deletestr</code>. The <code>fromstr</code> and <code>tostr</code> can be empty strings and the <code>deletestr</code> parameter can be omitted.</em></p>
-<p>We will not specify the <code>tostr</code> but we will use the <code>deletestr</code> parameter to delete all of the punctuation. We will even let Python tell us the list of characters that it considers “punctuation”:</p>
+<p><em>Αντικαταστήστε τους χαρακτήρες που περιλαμβάνονται στο <code>fromstr</code> με τον αντίστοιχο χαρακτήρα του <code>tostr</code> και διαγράψτε όλους τους χαρακτήρες που βρίσκονται στο <code>deletestr</code>. Το <code>fromstr</code> και το <code>tostr</code> μπορεί να είναι κενές συμβολοσειρές και η παράμετρος <code>deletestr</code> μπορεί να παραλειφθεί.</em></p>
+<p>Δεν θα καθορίσουμε το <code>tostr</code>, αλλά θα χρησιμοποιήσουμε την παράμετρο <code>deletestr</code> για να διαγράψουμε όλα τα σημεία στίξης. Ακόμη, θα αφήσουμε την Python να μας πει τη λίστα των χαρακτήρων, που θεωρεί “σημεία στίξης”:</p>
 <pre class="python"><code>&gt;&gt;&gt; import string
 &gt;&gt;&gt; string.punctuation
 &#39;!&quot;#$%&amp;\&#39;()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~&#39;</code></pre>
-<p>The parameters used by <code>translate</code> were different in Python 2.0.</p>
-<p>We make the following modifications to our program:</p>
+<p>Οι παράμετροι της <code>translate</code> ήταν διαφορετικές στην Python 2.0.</p>
+<p>Κάνουμε τις ακόλουθες τροποποιήσεις στο πρόγραμμά μας:</p>
 <pre class="python"><code>import string
 
 fname = input(&#39;Enter the file name: &#39;)
@@ -368,97 +364,102 @@ for line in fhand:
 print(counts)
 
 # Code: http://www.gr.py4e.com/code3/count2.py</code></pre>
-<p>Part of learning the “Art of Python” or “Thinking Pythonically” is realizing that Python often has built-in capabilities for many common data analysis problems. Over time, you will see enough example code and read enough of the documentation to know where to look to see if someone has already written something that makes your job much easier.</p>
-<p>The following is an abbreviated version of the output:</p>
-<pre><code>Enter the file name: romeo-full.txt
+<p>Μέρος της εκμάθησης της “Τέχνης της Python” ή της “Python-ικής Σκέψης” είναι η συνειδητοποίηση ότι η Python έχει συχνά ενσωματωμένες δυνατότητες για πολλά κοινά προβλήματα ανάλυσης δεδομένων. Με τον καιρό, θα δείτε αρκετά παράδειγματα κώδικα και θα διαβάσετε αρκετά την τεκμηρίωση, για να ξέρετε πού να ψάξετε, προκειμένου να ελέγξετε εάν κάποιος έχει ήδη γράψει κάτι που κάνει τη δουλειά σας πολύ πιο εύκολη.</p>
+<p>Η παρακάτω είναι μια συντομευμένη έκδοση της εξόδου:</p>
+<pre class="{text}"><code>Εισαγάγετε το όνομα του αρχείου: romeo-full.txt
 {&#39;swearst&#39;: 1, &#39;all&#39;: 6, &#39;afeard&#39;: 1, &#39;leave&#39;: 2, &#39;these&#39;: 2,
 &#39;kinsmen&#39;: 2, &#39;what&#39;: 11, &#39;thinkst&#39;: 1, &#39;love&#39;: 24, &#39;cloak&#39;: 1,
 a&#39;: 24, &#39;orchard&#39;: 2, &#39;light&#39;: 5, &#39;lovers&#39;: 2, &#39;romeo&#39;: 40,
 &#39;maiden&#39;: 1, &#39;whiteupturned&#39;: 1, &#39;juliet&#39;: 32, &#39;gentleman&#39;: 1,
 &#39;it&#39;: 22, &#39;leans&#39;: 1, &#39;canst&#39;: 1, &#39;having&#39;: 1, ...}</code></pre>
-<p>Looking through this output is still unwieldy and we can use Python to give us exactly what we are looking for, but to do so, we need to learn about Python <em>tuples</em>. We will pick up this example once we learn about tuples.</p>
-<h2 id="debugging">Debugging</h2>
+<p>Η αναζήτηση σε αυτήν της εξόδου εξακολουθεί να είναι δυσκίνητη. Μπορούμε όμως να χρησιμοποιήσουμε την Python για να μας δώσει ακριβώς αυτό που ψάχνουμε, αλλά για να το κάνουμε αυτό, πρέπει να μάθουμε για τις <em>πλειάδες</em> της Python. Θα συνεχίσουμε αυτό το παράδειγμα μόλις μάθουμε για τις πλειάδες.</p>
+<h2 id="εκσφαλμάτωση">Εκσφαλμάτωση</h2>
 <p></p>
-<p>As you work with bigger datasets it can become unwieldy to debug by printing and checking data by hand. Here are some suggestions for debugging large datasets:</p>
+<p>Καθώς εργάζεστε με μεγαλύτερα σύνολα δεδομένων, ο εντοπισμός σφαλμάτων μπορεί να γίνει δύσκολος με την εκτύπωση και τον έλεγχο των δεδομένων με το χειροκίνητα. Ακολουθούν ορισμένες προτάσεις για τον εντοπισμό σφαλμάτων σε μεγάλα συνόλα δεδομένων:</p>
 <dl>
-<dt>Scale down the input</dt>
-<dd><p>If possible, reduce the size of the dataset. For example if the program reads a text file, start with just the first 10 lines, or with the smallest example you can find. You can either edit the files themselves, or (better) modify the program so it reads only the first <code>n</code> lines.</p>
-<p>If there is an error, you can reduce <code>n</code> to the smallest value that manifests the error, and then increase it gradually as you find and correct errors.</p>
+<dt>Μειώστε την είσοδο</dt>
+<dd><p>Εάν είναι δυνατόν, μειώστε το μέγεθος του συνόλου δεδομένων. Για παράδειγμα, εάν το πρόγραμμα διαβάζει ένα αρχείο κειμένου, ξεκινήστε μόνο με τις πρώτες 10 γραμμές ή με ένα μικρότερο παράδειγμα, που μπορεί να βρείτε. Μπορείτε είτε να επεξεργαστείτε τα ίδια τα αρχεία, είτε (καλύτερα) να τροποποιήσετε το πρόγραμμα ώστε να διαβάζει μόνο τις πρώτες <code>n</code> γραμμές.</p>
+<p>Εάν υπάρχει σφάλμα, μπορείτε να μειώσετε το <code>n</code> στη μικρότερη τιμή που εμφανίζει το σφάλμα και, στη συνέχεια, να το αυξήσετε σταδιακά, καθώς βρίσκετε και διορθώνετε τα σφάλματα.</p>
 </dd>
-<dt>Check summaries and types</dt>
-<dd><p>Instead of printing and checking the entire dataset, consider printing summaries of the data: for example, the number of items in a dictionary or the total of a list of numbers.</p>
-<p>A common cause of runtime errors is a value that is not the right type. For debugging this kind of error, it is often enough to print the type of a value.</p>
+<dt>Ελέγξτε τις περιλήψεις και τους τύπους</dt>
+<dd><p>Αντί να εκτυπώσετε και να ελέγξετε ολόκληρο το σύνολο δεδομένων, σκεφτείτε να εκτυπώσετε περιλήψεις των δεδομένων: για παράδειγμα, τον αριθμό των στοιχείων σε ένα λεξικό ή το σύνολο μιας λίστας αριθμών.</p>
+<p>Μια κοινή αιτία σφαλμάτων χρόνου εκτέλεσης είναι μια τιμή που δεν είναι του σωστού τύπου. Για τον εντοπισμό σφαλμάτων αυτού του είδους, συχνά αρκεί να εκτυπώσετε τον τύπο μιας τιμής.</p>
 </dd>
-<dt>Write self-checks</dt>
-<dd><p>Sometimes you can write code to check for errors automatically. For example, if you are computing the average of a list of numbers, you could check that the result is not greater than the largest element in the list or less than the smallest. This is called a “sanity check” because it detects results that are “completely illogical”.  </p>
-<p>Another kind of check compares the results of two different computations to see if they are consistent. This is called a “consistency check”.</p>
-</dd>
-<dt>Pretty print the output</dt>
-<dd>Formatting debugging output can make it easier to spot an error.
+<dt>Γράψτε αυτοελέγχους</dt>
+<dd>Μερικές φορές μπορείτε να γράψετε κώδικα για να ελέγξετε αυτόματα για σφάλματα. Για παράδειγμα, εάν υπολογίζετε τον μέσο όρο μιας λίστας αριθμών, μπορείτε να ελέγξετε ότι το αποτέλεσμα δεν είναι μεγαλύτερο από το μέγιστο στοιχείο στη λίστα ή μικρότερο από το ελάχιστο. Αυτό ονομάζεται “έλεγχος λογικής”, επειδή εντοπίζει αποτελέσματα που είναι “παράλογα”.
 </dd>
 </dl>
-<p>Again, time you spend building scaffolding can reduce the time you spend debugging. </p>
-<h2 id="glossary">Glossary</h2>
+<p>   </p>
+<pre><code>Ένα άλλο είδος ελέγχου συγκρίνει τα αποτελέσματα δύο διαφορετικών
+υπολογισμών για να δει αν είναι συνεπή. Αυτό ονομάζεται «έλεγχος
+συνέπειας».</code></pre>
 <dl>
-<dt>dictionary</dt>
-<dd>A mapping from a set of keys to their corresponding values.
-</dd>
-<dt>hashtable</dt>
-<dd>The algorithm used to implement Python dictionaries.
-</dd>
-<dt>hash function</dt>
-<dd>A function used by a hashtable to compute the location for a key.
-</dd>
-<dt>histogram</dt>
-<dd>A set of counters.
-</dd>
-<dt>implementation</dt>
-<dd>A way of performing a computation.
-</dd>
-<dt>item</dt>
-<dd>Another name for a key-value pair.
-</dd>
-<dt>key</dt>
-<dd>An object that appears in a dictionary as the first part of a key-value pair.
-</dd>
-<dt>key-value pair</dt>
-<dd>The representation of the mapping from a key to a value.
-</dd>
-<dt>lookup</dt>
-<dd>A dictionary operation that takes a key and finds the corresponding value.
-</dd>
-<dt>nested loops</dt>
-<dd>When there are one or more loops “inside” of another loop. The inner loop runs to completion each time the outer loop runs once.
-</dd>
-<dt>value</dt>
-<dd>An object that appears in a dictionary as the second part of a key-value pair. This is more specific than our previous use of the word “value”.
+<dt>Εκτυπώστε όμορφα το αποτέλεσμα (pprint)</dt>
+<dd>Η μορφοποίηση της εξόδου εντοπισμού σφαλμάτων μπορεί να διευκολύνει τον εντοπισμό ενός σφάλματος.
 </dd>
 </dl>
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 2: Write a program that categorizes each mail message by which day of the week the commit was done. To do this look for lines that start with “From”, then look for the third word and keep a running count of each of the days of the week. At the end of the program print out the contents of your dictionary (order does not matter).</strong></p>
-<p><strong>Sample Line:</strong></p>
-<pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
-<p><strong>Sample Execution:</strong></p>
-<pre><code>python dow.py
-Enter a file name: mbox-short.txt
+<p>Και πάλι, ο χρόνος που αφιερώνετε στην μελέτη της κατασκευής του σκελετού του προγράμματος μπορεί να μειώσει τον χρόνο που αφιερώνετε στην αποσφαλμάτωση. </p>
+<h2 id="γλωσσάριο">Γλωσσάριο</h2>
+<dl>
+<dt>αναζήτηση</dt>
+<dd>Μια λειτουργία λεξικού που παίρνει ένα κλειδί και βρίσκει την αντίστοιχη τιμή.
+</dd>
+<dt>εμφωλευμένοι βρόχοι</dt>
+<dd>Όταν υπάρχουν ένας ή περισσότεροι βρόχοι ο ένας “μέσα” στον άλλο βρόχο. Ο εσωτερικός βρόχος εκτελείτε μέχρι να ολοκληρωθεί σε κάθε εκτέλεση του εξωτερικού βρόχου.
+</dd>
+<dt>ζεύγος κλειδιού-τιμής</dt>
+<dd>Η αναπαράσταση της αντιστοίχισης ενός κλειδιού σε μια τιμή.
+</dd>
+<dt>ιστόγραμμα</dt>
+<dd>Ένα σύνολο μετρητών.
+</dd>
+<dt>κλειδί</dt>
+<dd>Ένα αντικείμενο που εμφανίζεται σε ένα λεξικό ως το πρώτο μέρος ενός ζεύγους κλειδιού-τιμής.
+</dd>
+<dt>λεξικό</dt>
+<dd>Μια αντιστοίχιση από ένα σύνολο κλειδιών στις αντίστοιχες τιμές τους.
+</dd>
+<dt>πίνακας κατακερματισμού - hashtable</dt>
+<dd>Ο αλγόριθμος που χρησιμοποιείται για την υλοποίηση λεξικών στην Python.
+</dd>
+<dt>στοιχείο</dt>
+<dd>Ένα άλλο όνομα για ένα ζεύγος κλειδιού-τιμής.
+</dd>
+<dt>συνάρτηση κατακερματισμού - hash function</dt>
+<dd>Μια συνάρτηση που χρησιμοποιείται από έναν πίνακα κατακερματισμού για τον υπολογισμό της θέσης ενός κλειδιού.
+</dd>
+<dt>τιμή</dt>
+<dd>Ένα αντικείμενο που εμφανίζεται σε ένα λεξικό ως το δεύτερο μέρος ενός ζεύγους κλειδιού-τιμής. Αυτό είναι πιο συγκεκριμένο από την προηγούμενη χρήση της λέξης “τιμή”.
+</dd>
+<dt>υλοποίηση</dt>
+<dd>Ένας τρόπος εκτέλεσης ενός υπολογισμού.
+</dd>
+</dl>
+<h2 id="ασκήσεις">Ασκήσεις</h2>
+<p><strong>Άσκηση 2: Γράψτε ένα πρόγραμμα που ταξινομεί κάθε μήνυμα αλληλογραφίας με βάση την ημέρα της εβδομάδας που ολοκληρώθηκε η παράδοση. Για να το κάνετε αυτό, αναζητήστε γραμμές που ξεκινούν με “From”, στη συνέχεια αναζητήστε την τρίτη λέξη και καταμετρήστε την κάθε μία από τις ημέρες της εβδομάδας. Στο τέλος του προγράμματος εκτυπώστε τα περιεχόμενα του λεξικού σας (η σειρά δεν έχει σημασία).</strong></p>
+<p><strong>Δείγμα Γραμμής:</strong></p>
+<pre class="{text}"><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
+<p><strong>Δείγμα Εκτέλεσης:</strong></p>
+<pre class="{text}"><code>python dow.py
+Εισαγάγετε το όνομα του αρχείου: mbox-short.txt
 {&#39;Fri&#39;: 20, &#39;Thu&#39;: 6, &#39;Sat&#39;: 1}</code></pre>
-<p><strong>Exercise 3: Write a program to read through a mail log, build a histogram using a dictionary to count how many messages have come from each email address, and print the dictionary.</strong></p>
-<pre><code>Enter file name: mbox-short.txt
+<p><strong>Άσκηση 3: Γράψτε ένα πρόγραμμα για να διαβάσετε ένα αρχείο καταγραφής αλληλογραφίας, δημιουργήστε ένα ιστόγραμμα χρησιμοποιώντας ένα λεξικό για να μετρήσετε πόσα μηνύματα έχουν προέλθει από κάθε διεύθυνση email και εκτυπώστε το λεξικό.</strong></p>
+<pre class="{text}"><code>Εισαγάγετε το όνομα του αρχείου: mbox-short.txt
 {&#39;gopal.ramasammycook@gmail.com&#39;: 1, &#39;louis@media.berkeley.edu&#39;: 3,
 &#39;cwen@iupui.edu&#39;: 5, &#39;antranig@caret.cam.ac.uk&#39;: 1,
 &#39;rjlowe@iupui.edu&#39;: 2, &#39;gsilver@umich.edu&#39;: 3,
 &#39;david.horwitz@uct.ac.za&#39;: 4, &#39;wagnermr@iupui.edu&#39;: 1,
 &#39;zqian@umich.edu&#39;: 4, &#39;stephen.marquard@uct.ac.za&#39;: 2,
 &#39;ray@media.berkeley.edu&#39;: 1}</code></pre>
-<p><strong>Exercise 4: Add code to the above program to figure out who has the most messages in the file. After all the data has been read and the dictionary has been created, look through the dictionary using a maximum loop (see Chapter 5: Maximum and minimum loops) to find who has the most messages and print how many messages the person has.</strong></p>
-<pre><code>Enter a file name: mbox-short.txt
+<p><strong>Άσκηση 4: Προσθέστε κώδικα στο προηγούμενο πρόγραμμα για να καταλάβετε ποιος έχει τα περισσότερα μηνύματα στο αρχείο. Αφού διαβάσετε όλα τα δεδομένα και το δημιουργήσετε το λεξικό, κοιτάξτε στο λεξικό χρησιμοποιώντας έναν βρόχο μέγιστου (βλ. Κεφάλαιο 5: Βρόχος μέγιστου και ελάχιστου), για να βρείτε ποιος έχει τα περισσότερα μηνύματα και να εκτυπώσετε πόσα μηνύματα έχει το άτομο αυτό.</strong></p>
+<pre class="{text}"><code>Εισαγάγετε το όνομα του αρχείου: mbox-short.txt
 cwen@iupui.edu 5
 
-Enter a file name: mbox.txt
+Εισαγάγετε το όνομα του αρχείου: mbox.txt
 zqian@umich.edu 195</code></pre>
-<p><strong>Exercise 5: This program records the domain name (instead of the address) where the message was sent from instead of who the mail came from (i.e., the whole email address). At the end of the program, print out the contents of your dictionary.</strong></p>
-<pre><code>python schoolcount.py
-Enter a file name: mbox-short.txt
+<p><strong>Άσκηση 5: Αυτό το πρόγραμμα καταγράφει το όνομα τομέα (αντί για τη διεύθυνση) από όπου στάλθηκε το μήνυμα, αντί από ποιον προήλθε το μήνυμα (δηλαδή ολόκληρη η διεύθυνση email) και μετρά το πλήθος των μηνυμάτων από τον τομέα αυτό. Στο τέλος του προγράμματος, εκτυπώστε τα περιεχόμενα του λεξικού σας.</strong></p>
+<pre class="{text}"><code>python schoolcount.py
+Εισαγάγετε το όνομα του αρχείου: mbox-short.txt
 {&#39;media.berkeley.edu&#39;: 4, &#39;uct.ac.za&#39;: 6, &#39;umich.edu&#39;: 7,
 &#39;gmail.com&#39;: 1, &#39;caret.cam.ac.uk&#39;: 1, &#39;iupui.edu&#39;: 8}</code></pre>
 </body>

@@ -154,74 +154,74 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="tuples">Tuples</h1>
-<h2 id="tuples-are-immutable">Tuples are immutable</h2>
+<h1 id="πλειάδες">Πλειάδες</h1>
+<h2 id="οι-πλειάδες-είναι-αμετάβλητες">Οι πλειάδες είναι αμετάβλητες</h2>
 <p>  </p>
-<p>A tuple<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> is a sequence of values much like a list. The values stored in a tuple can be any type, and they are indexed by integers. The important difference is that tuples are <em>immutable</em>. Tuples are also <em>comparable</em> and <em>hashable</em> so we can sort lists of them and use tuples as key values in Python dictionaries.</p>
-<p>   </p>
-<p>Syntactically, a tuple is a comma-separated list of values:</p>
+<p>Μια πλειάδα<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> είναι μια ακολουθία τιμών που μοιάζει πολύ με μια λίστα. Οι τιμές που είναι αποθηκευμένες σε μια πλειάδα μπορούν να είναι οποιουδήποτε τύπου και έχουν δείκτες ακέραιους αριθμούς. Η σημαντική διαφορά είναι ότι οι πλειάδες είναι <em>αμετάβλητες</em>. Οι πλειάδες είναι επίσης <em>συγκρίσιμες</em> και <em>κατακερματισμένες</em>, ώστε να μπορούμε να ταξινομήσουμε λίστες τους και να χρησιμοποιήσουμε πλειάδες ως κλειδιά - τιμές σε λεξικά της Python.</p>
+<p>    </p>
+<p>Συντακτικά, μια πλειάδα είναι μια λίστα τιμών διαχωρισμένη με κόμματα:</p>
 <pre class="python"><code>&gt;&gt;&gt; t = &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;</code></pre>
-<p>Although it is not necessary, it is common to enclose tuples in parentheses to help us quickly identify tuples when we look at Python code:</p>
+<p>Αν και δεν είναι απαραίτητο, είναι σύνηθες να περικλείουμε τις πλειάδες σε παρενθέσεις, για να βοηθηθούμε στο να αναγνωρίσουμε γρήγορα τις πλειάδες, όταν κοιτάμε τον κώδικα Python:</p>
 <p></p>
 <pre class="python"><code>&gt;&gt;&gt; t = (&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)</code></pre>
-<p>To create a tuple with a single element, you have to include the final comma:</p>
+<p>Για να δημιουργήσετε μια πλειάδα με ένα μόνο στοιχείο, πρέπει να συμπεριλάβετε το τελικό κόμμα:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t1 = (&#39;a&#39;,)
 &gt;&gt;&gt; type(t1)
 &lt;type &#39;tuple&#39;&gt;</code></pre>
-<p>Without the comma Python treats <code>('a')</code> as an expression with a string in parentheses that evaluates to a string:</p>
+<p>Χωρίς κόμμα, η Python αντιμετωπίζει το <code>('a')</code> ως έκφραση με μια συμβολοσειρά σε παρένθεση, που αποτιμάται σε μια συμβολοσειρά:</p>
 <pre class="python"><code>&gt;&gt;&gt; t2 = (&#39;a&#39;)
 &gt;&gt;&gt; type(t2)
 &lt;type &#39;str&#39;&gt;</code></pre>
-<p>Another way to construct a tuple is the built-in function <code>tuple</code>. With no argument, it creates an empty tuple:</p>
+<p>Ένας άλλος τρόπος κατασκευής πλειάδας είναι η ενσωματωμένη συνάρτηση <code>tuple</code>. Χωρίς όρισμα, δημιουργεί μια κενή πλειάδα:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = tuple()
 &gt;&gt;&gt; print(t)
 ()</code></pre>
-<p>If the argument is a sequence (string, list, or tuple), the result of the call to <code>tuple</code> is a tuple with the elements of the sequence:</p>
+<p>Εάν το όρισμα είναι μια ακολουθία (συμβολοσειρά, λίστα ή πλειάδα), το αποτέλεσμα της κλήσης της <code>tuple</code> είναι μια πλειάδα με τα στοιχεία της ακολουθίας:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = tuple(&#39;lupins&#39;)
 &gt;&gt;&gt; print(t)
 (&#39;l&#39;, &#39;u&#39;, &#39;p&#39;, &#39;i&#39;, &#39;n&#39;, &#39;s&#39;)</code></pre>
-<p>Because <code>tuple</code> is the name of a constructor, you should avoid using it as a variable name.</p>
-<p>Most list operators also work on tuples. The bracket operator indexes an element:</p>
+<p>Επειδή το <code>tuple</code> είναι το όνομα ενός κατασκευαστή, θα πρέπει να αποφύγετε τη χρήση του ως όνομα μεταβλητής.</p>
+<p>Οι περισσότεροι τελεστές λιστών λειτουργούν και σε πλειάδες. Ο τελεστής αγκύλης ευρετηριάζει ένα στοιχείο:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = (&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)
 &gt;&gt;&gt; print(t[0])
 &#39;a&#39;</code></pre>
-<p>And the slice operator selects a range of elements.</p>
+<p>Και ο τελεστής διαμέρισης επιλέγει μια σειρά στοιχείων.</p>
 <p>   </p>
 <pre class="python"><code>&gt;&gt;&gt; print(t[1:3])
 (&#39;b&#39;, &#39;c&#39;)</code></pre>
-<p>But if you try to modify one of the elements of the tuple, you get an error:</p>
+<p>Αλλά αν προσπαθήσετε να τροποποιήσετε ένα από τα στοιχεία της πλειάδας, λαμβάνετε ένα σφάλμα:</p>
 <p>   </p>
 <pre class="python"><code>&gt;&gt;&gt; t[0] = &#39;A&#39;
 TypeError: object doesn&#39;t support item assignment</code></pre>
-<p>You can’t modify the elements of a tuple, but you can replace one tuple with another:</p>
+<p>Δεν μπορείτε να τροποποιήσετε τα στοιχεία μιας πλειάδας, αλλά μπορείτε να αντικαταστήσετε μια πλειάδα με μια άλλη:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; t = (&#39;A&#39;,) + t[1:]
 &gt;&gt;&gt; print(t)
 (&#39;A&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)</code></pre>
-<h2 id="comparing-tuples">Comparing tuples</h2>
+<h2 id="σύγκριση-πλειάδων">Σύγκριση πλειάδων</h2>
 <p>   </p>
-<p>The comparison operators work with tuples and other sequences. Python starts by comparing the first element from each sequence. If they are equal, it goes on to the next element, and so on, until it finds elements that differ. Subsequent elements are not considered (even if they are really big).</p>
+<p>Οι τελεστές σύγκρισης λειτουργούν με πλειάδες και άλλες ακολουθίες. Η Python ξεκινά συγκρίνοντας το πρώτο στοιχείο από κάθε ακολουθία. Αν είναι ίσα, πηγαίνει στο επόμενο στοιχείο και ούτω καθεξής, μέχρι να βρει στοιχεία που διαφέρουν. Τα επόμενα στοιχεία δεν λαμβάνονται υπόψη (ακόμα και αν είναι πραγματικά μεγάλα).</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; (0, 1, 2) &lt; (0, 3, 4)
 True
 &gt;&gt;&gt; (0, 1, 2000000) &lt; (0, 3, 4)
 True</code></pre>
-<p>The <code>sort</code> function works the same way. It sorts primarily by first element, but in the case of a tie, it sorts by second element, and so on.</p>
-<p>This feature lends itself to a pattern called <em>DSU</em> for</p>
+<p>Η συνάρτηση <code>sort</code> λειτουργεί με τον ίδιο τρόπο. Ταξινομεί κυρίως κατά το πρώτο στοιχείο, αλλά στην περίπτωση ισοπαλίας, ταξινομεί κατά το δεύτερο στοιχείο και ούτω καθεξής.</p>
+<p>Αυτό το χαρακτηριστικό προσφέρεται σε ένα μοτίβο που ονομάζεται <em>DSU</em> for</p>
 <dl>
-<dt>Decorate</dt>
-<dd>a sequence by building a list of tuples with one or more sort keys preceding the elements from the sequence,
+<dt>Decorate - Διακοσμώ</dt>
+<dd>μια ακολουθία δημιουργώντας μια λίστα πλειάδων με ένα ή περισσότερα κλειδιά ταξινόμησης που προηγούνται των στοιχείων των πλειάδων,
 </dd>
-<dt>Sort</dt>
-<dd>the list of tuples using the Python built-in <code>sort</code>, and
+<dt>Sort - Ταξινομώ</dt>
+<dd>τη λίστα των πλειάδων, χρησιμοποιώντας την ενσωματωμένη <code>sort</code> της Python και
 </dd>
-<dt>Undecorate</dt>
-<dd>by extracting the sorted elements of the sequence.
+<dt>Undecorate - Αφαιρώ τη διακόσμηση</dt>
+<dd>εξάγοντας τα ταξινομημένα στοιχεία της ακολουθίας.
 </dd>
 </dl>
-<p>    </p>
-<p>For example, suppose you have a list of words and you want to sort them from longest to shortest:</p>
+<p>     </p>
+<p>Για παράδειγμα, ας υποθέσουμε ότι έχετε μια λίστα λέξεων και θέλετε να τις ταξινομήσετε από αυτή με το μεγαλύτερο μήκος προς στη συντομότερη:</p>
 <pre class="python"><code>txt = &#39;but soft what light in yonder window breaks&#39;
 words = txt.split()
 t = list()
@@ -237,18 +237,17 @@ for length, word in t:
 print(res)
 
 # Code: http://www.gr.py4e.com/code3/soft.py</code></pre>
-<p>The first loop builds a list of tuples, where each tuple is a word preceded by its length.</p>
-<p><code>sort</code> compares the first element, length, first, and only considers the second element to break ties. The keyword argument <code>reverse=True</code> tells <code>sort</code> to go in decreasing order.</p>
+<p>Ο πρώτος βρόχος δημιουργεί μια λίστα με πλειάδες, όπου κάθε πλειάδα είναι μια λέξη με προπορευόμενο το μήκος της.</p>
+<p>Η <code>sort</code> συγκρίνει τα πρώτα στοιχεία των πλειάδων, το μήκος. Το όρισμα δεμευμένης λέξης <code>reverse=True</code> λέει στην <code>sort</code> να λειτουργήσει με φθίνουσα σειρά.</p>
 <p>  </p>
-<p>The second loop traverses the list of tuples and builds a list of words in descending order of length. The four-character words are sorted in <em>reverse</em> alphabetical order, so “what” appears before “soft” in the following list.</p>
-<p>The output of the program is as follows:</p>
-<pre><code>[&#39;yonder&#39;, &#39;window&#39;, &#39;breaks&#39;, &#39;light&#39;, &#39;what&#39;,
-&#39;soft&#39;, &#39;but&#39;, &#39;in&#39;]</code></pre>
-<p>Of course the line loses much of its poetic impact when turned into a Python list and sorted in descending word length order.</p>
-<h2 id="tuple-assignment">Tuple assignment</h2>
+<p>Ο δεύτερος βρόχος διασχίζει τη λίστα των πλειάδων και δημιουργεί μια λίστα λέξεων με φθίνουσα σειρά μήκους. Οι λέξεις των τεσσάρων χαρακτήρων ταξινομούνται με <em>αντίστροφη</em> αλφαβητική σειρά, επομένως το “what” εμφανίζεται πριν από το “soft” στην παρακάτω λίστα.</p>
+<p>Η έξοδος του προγράμματος είναι η εξής:</p>
+<pre class="{text}"><code>[&#39;yonder&#39;, &#39;window&#39;, &#39;breaks&#39;, &#39;light&#39;, &#39;what&#39;, &#39;soft&#39;, &#39;but&#39;, &#39;in&#39;]</code></pre>
+<p>Φυσικά η γραμμή χάνει μεγάλο μέρος του ποιητικού της αντίκτυπου όταν μετατραπεί σε λίστα Python και ταξινομηθεί σε φθίνουσα σειρά μήκους λέξεων.</p>
+<h2 id="εκχώρηση-τιμής-σε-πλειάδα">Εκχώρηση τιμής σε πλειάδα</h2>
 <p>   </p>
-<p>One of the unique syntactic features of the Python language is the ability to have a tuple on the left side of an assignment statement. This allows you to assign more than one variable at a time when the left side is a sequence.</p>
-<p>In this example we have a two-element list (which is a sequence) and assign the first and second elements of the sequence to the variables <code>x</code> and <code>y</code> in a single statement.</p>
+<p>Ένα από τα μοναδικά συντακτικά χαρακτηριστικά της γλώσσας Python είναι η δυνατότητα να υπάρχει πλειάδα στην αριστερή πλευρά μιας δήλωσης ανάθεσης. Αυτό σας επιτρέπει να εκχωρήσετε τιμή σε περισσότερες από μία μεταβλητές τη φορά όταν το αριστερό μέλος είναι μια ακολουθία.</p>
+<p>Σε αυτό το παράδειγμα έχουμε μια λίστα δύο στοιχείων (η οποία είναι μια ακολουθία) και εκχωρούμε το πρώτο και το δεύτερο στοιχείο της ακολουθίας στις μεταβλητές <code>x</code> και <code>y</code> σε μία μόνο πρόταση.</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
 &gt;&gt;&gt; x, y = m
 &gt;&gt;&gt; x
@@ -256,7 +255,10 @@ print(res)
 &gt;&gt;&gt; y
 &#39;fun&#39;
 &gt;&gt;&gt;</code></pre>
-<p>It is not magic, Python <em>roughly</em> translates the tuple assignment syntax to be the following:<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<pre><code>Δεν είναι μαγικό, η Python *χονδρικά* μεταφράζει τη σύνταξη της πολλαπλής
+ανάθεσης ως εξής: ^[Η Python δεν μεταφράζει τη σύνταξη κυριολεκτικά. Για
+παράδειγμα, εάν το δοκιμάσετε με ένα λεξικό, δεν θα λειτουργήσει όπως θα
+περιμένατε.]</code></pre>
 <pre class="python trinket"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
 &gt;&gt;&gt; x = m[0]
 &gt;&gt;&gt; y = m[1]
@@ -265,7 +267,7 @@ print(res)
 &gt;&gt;&gt; y
 &#39;fun&#39;
 &gt;&gt;&gt;</code></pre>
-<p>Stylistically when we use a tuple on the left side of the assignment statement, we omit the parentheses, but the following is an equally valid syntax:</p>
+<p>Στυλιστικά, όταν χρησιμοποιούμε πλειάδα στο αριστερό μέλος της εντολής εκχώρησης, παραλείπουμε τις παρενθέσεις, αλλά το ακόλουθο αποτελεί μια εξίσου έγκυρη σύνταξη:</p>
 <pre class="python"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
 &gt;&gt;&gt; (x, y) = m
 &gt;&gt;&gt; x
@@ -273,31 +275,31 @@ print(res)
 &gt;&gt;&gt; y
 &#39;fun&#39;
 &gt;&gt;&gt;</code></pre>
-<p>A particularly clever application of tuple assignment allows us to <em>swap</em> the values of two variables in a single statement:</p>
+<p>Μια ιδιαίτερα έξυπνη εφαρμογή της εκχώρησης σε πλειάδα μας επιτρέπει να <em>αντιμεταθέσουμε</em> τις τιμές δύο μεταβλητών σε μια μόνο πρόταση:</p>
 <pre class="python"><code>&gt;&gt;&gt; a, b = b, a</code></pre>
-<p>Both sides of this statement are tuples, but the left side is a tuple of variables; the right side is a tuple of expressions. Each value on the right side is assigned to its respective variable on the left side. All the expressions on the right side are evaluated before any of the assignments.</p>
-<p>The number of variables on the left and the number of values on the right must be the same:</p>
+<p>Και στα δύο μέλη αυτής της εντολής έχουμε πλειάδες, αλλά στο αριστερό μέλος είναι μια πλειάδα μεταβλητών. Στο δεξί μέλος έχουμε μια πλειάδα εκφράσεων. Κάθε τιμή στο δεξί μέλος εκχωρείται στην αντίστοιχη μεταβλητή του αριστερού μέλους. Όλες οι εκφράσεις στη δεξιά πλευρά αξιολογούνται πριν από οποιαδήποτε από τις εκχωρήσεις.</p>
+<p>Ο αριθμός των μεταβλητών στα αριστερά και ο αριθμός των τιμών στα δεξιά πρέπει να είναι ο ίδιος:</p>
 <p> </p>
 <pre class="python"><code>&gt;&gt;&gt; a, b = 1, 2, 3
 ValueError: too many values to unpack</code></pre>
-<p>More generally, the right side can be any kind of sequence (string, list, or tuple). For example, to split an email address into a user name and a domain, you could write:</p>
-<p>  </p>
+<p>Γενικότερα, στο δεξί μέλος μπορεί να υπάρχει κάθε είδους ακολουθία (συμβολοσειρά, λίστα ή πλειάδα). Για παράδειγμα, για να χωρίσετε μια διεύθυνση email σε όνομα χρήστη και τομέα, θα μπορούσατε να γράψετε:</p>
+<p>   </p>
 <pre class="python"><code>&gt;&gt;&gt; addr = &#39;monty@python.org&#39;
 &gt;&gt;&gt; uname, domain = addr.split(&#39;@&#39;)</code></pre>
-<p>The return value from <code>split</code> is a list with two elements; the first element is assigned to <code>uname</code>, the second to <code>domain</code>.</p>
+<p>Η επιστρεφόμενη τιμή από το <code>split</code> είναι μια λίστα με δύο στοιχεία. Το πρώτο στοιχείο εκχωρείται στο <code>uname</code>, το δεύτερο στο <code>domain</code>.</p>
 <pre class="python"><code>&gt;&gt;&gt; print(uname)
 monty
 &gt;&gt;&gt; print(domain)
 python.org</code></pre>
-<h2 id="dictionaries-and-tuples">Dictionaries and tuples</h2>
+<h2 id="λεξικά-και-πλειάδες">Λεξικά και πλειάδες</h2>
 <p>   </p>
-<p>Dictionaries have a method called <code>items</code> that returns a list of tuples, where each tuple is a key-value pair:</p>
+<p>Τα λεξικά έχουν μια μέθοδο που ονομάζεται <code>items</code>, που επιστρέφει μια λίστα πλειάδων, όπου κάθε πλειάδα είναι ένα ζεύγος κλειδιού-τιμής:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; d = {&#39;a&#39;:10, &#39;b&#39;:1, &#39;c&#39;:22}
 &gt;&gt;&gt; t = list(d.items())
 &gt;&gt;&gt; print(t)
 [(&#39;b&#39;, 1), (&#39;a&#39;, 10), (&#39;c&#39;, 22)]</code></pre>
-<p>As you should expect from a dictionary, the items are in no particular order.</p>
-<p>However, since the list of tuples is a list, and tuples are comparable, we can now sort the list of tuples. Converting a dictionary to a list of tuples is a way for us to output the contents of a dictionary sorted by key:</p>
+<p>Όπως θα έπρεπε να περιμένετε από ένα λεξικό, τα στοιχεία δεν είναι σε σειρά.</p>
+<p>Ωστόσο, δεδομένου ότι η λίστα των πλειάδων είναι μια λίστα και οι πλειάδες είναι συγκρίσιμες, μπορούμε τώρα να ταξινομήσουμε τη λίστα των πλειάδων. Η μετατροπή ενός λεξικού σε λίστα πλειάδων είναι ένας τρόπος για να εξάγουμε τα περιεχόμενα ενός λεξικού ταξινομημένα κατά κλειδί:</p>
 <pre class="python"><code>&gt;&gt;&gt; d = {&#39;a&#39;:10, &#39;b&#39;:1, &#39;c&#39;:22}
 &gt;&gt;&gt; t = list(d.items())
 &gt;&gt;&gt; t
@@ -305,21 +307,21 @@ python.org</code></pre>
 &gt;&gt;&gt; t.sort()
 &gt;&gt;&gt; t
 [(&#39;a&#39;, 10), (&#39;b&#39;, 1), (&#39;c&#39;, 22)]</code></pre>
-<p>The new list is sorted in ascending alphabetical order by the key value.</p>
-<h2 id="multiple-assignment-with-dictionaries">Multiple assignment with dictionaries</h2>
+<p>Η νέα λίστα ταξινομείται με αύξουσα αλφαβητική σειρά με βάση την τιμή κλειδιού.</p>
+<h2 id="πολλαπλές-εκχωρήσεις-με-λεξικά">Πολλαπλές εκχωρήσεις με λεξικά</h2>
 <p> </p>
-<p>Combining <code>items</code>, tuple assignment, and <code>for</code>, you can see a nice code pattern for traversing the keys and values of a dictionary in a single loop:</p>
-<pre class="python"><code>for key, val in list(d.items()):
-    print(val, key)</code></pre>
-<p>This loop has two <em>iteration variables</em> because <code>items</code> returns a list of tuples and <code>key, val</code> is a tuple assignment that successively iterates through each of the key-value pairs in the dictionary.</p>
-<p>For each iteration through the loop, both <code>key</code> and <code>value</code> are advanced to the next key-value pair in the dictionary (still in hash order).</p>
-<p>The output of this loop is:</p>
-<pre><code>10 a
+<p>Συνδυάζοντας <code>items</code>, εκχώρηση σε πλειάδα και <code>for</code>, μπορείτε να δημιουργήσετε ένα ωραίο μοτίβο κώδικα για τη προσπέλαση των κλειδιών και των τιμών ενός λεξικού με έναν μόνο βρόχο:</p>
+<pre class="python"><code>for κλειδί, τιμή in list(d.items()):
+    print(τιμή, κλειδί)</code></pre>
+<p>Αυτός ο βρόχος έχει δύο <em>μεταβλητές επανάληψης</em> επειδή το <code>items</code> επιστρέφει μια λίστα πλειάδων και το <code>key, val</code> είναι μια ανάθεση πλειάδας, που επαναλαμβάνεται διαδοχικά μέσω καθενός από τα ζεύγη κλειδιού-τιμής στο λεξικό.</p>
+<p>Για κάθε επανάληψη του βρόχου, τόσο στο <code>key</code> όσο και στη <code>value</code> ανατίθεται το επόμενο ζεύγος κλειδιού-τιμής του λεξικό (με τη σειρά κατακερματισμού).</p>
+<p>Η έξοδος αυτού του βρόχου είναι:</p>
+<pre class="{text}"><code>10 a
 22 c
 1 b</code></pre>
-<p>Again, it is in hash key order (i.e., no particular order).</p>
-<p>If we combine these two techniques, we can print out the contents of a dictionary sorted by the <em>value</em> stored in each key-value pair.</p>
-<p>To do this, we first make a list of tuples where each tuple is <code>(value, key)</code>. The <code>items</code> method would give us a list of <code>(key, value)</code> tuples, but this time we want to sort by value, not key. Once we have constructed the list with the value-key tuples, it is a simple matter to sort the list in reverse order and print out the new, sorted list.</p>
+<p>Και πάλι, είναι σε σειρά κατακερματισμού κλειδιών (δηλαδή, χωρίς συγκεκριμένη σειρά).</p>
+<p>Εάν συνδυάσουμε αυτές τις δύο τεχνικές, μπορούμε να εκτυπώσουμε τα περιεχόμενα ενός λεξικού ταξινομημένα με βάση την <em>τιμή</em> που είναι αποθηκευμένη σε κάθε ζεύγος κλειδιού-τιμής.</p>
+<p>Για να γίνει αυτό, φτιάχνουμε πρώτα μια λίστα με πλειάδες, όπου κάθε πλειάδα είναι <code>(value, key)</code>. Η μέθοδος <code>items</code> θα μας έδινε μια λίστα με πλειάδες <code>(key, value)</code>, αλλά αυτή τη φορά θέλουμε να ταξινομήσουμε κατά τιμή και όχι κατά κλειδί. Αφού δημιουργήσουμε τη λίστα με τις πλειάδες της τιμής - κλειδιού, είναι απλό να ταξινομήσουμε τη λίστα με αντίστροφη σειρά και να εκτυπώσουμε τη νέα, ταξινομημένη λίστα.</p>
 <pre class="python"><code>&gt;&gt;&gt; d = {&#39;a&#39;:10, &#39;b&#39;:1, &#39;c&#39;:22}
 &gt;&gt;&gt; l = list()
 &gt;&gt;&gt; for key, val in d.items() :
@@ -331,10 +333,11 @@ python.org</code></pre>
 &gt;&gt;&gt; l
 [(22, &#39;c&#39;), (10, &#39;a&#39;), (1, &#39;b&#39;)]
 &gt;&gt;&gt;</code></pre>
-<p>By carefully constructing the list of tuples to have the value as the first element of each tuple, we can sort the list of tuples and get our dictionary contents sorted by value.</p>
+<p>Κατασκευάζοντας προσεκτικά τη λίστα των πλειάδων ώστε να έχει την τιμή ως το πρώτο στοιχείο κάθε πλειάδας, μπορούμε να ταξινομήσουμε τη λίστα των πλειάδων και να πάρουμε τα περιεχόμενα του λεξικού μας ταξινομημένα κατά τιμή.</p>
+<p>Οι πιο συνηθισμένες λέξεις</p>
 <h2 id="the-most-common-words">The most common words</h2>
-<p></p>
-<p>Coming back to our running example of the text from <em>Romeo and Juliet</em> Act 2, Scene 2, we can augment our program to use this technique to print the ten most common words in the text as follows:</p>
+<p> </p>
+<p>Επιστρέφοντας στο προηγούμενο παράδειγμα του κειμένου από το <em>Ρωμαίος και Ιουλιέτα</em> Πράξη 2, Σκηνή 2, μπορούμε να επεκτείνουμε το πρόγραμμά μας για να χρησιμοποιήσουμε αυτήν την τεχνική για να εκτυπώσουμε τις δέκα πιο συνηθισμένες λέξεις στο κείμενο ως εξής:</p>
 <pre class="python"><code>import string
 fhand = open(&#39;romeo-full.txt&#39;)
 counts = dict()
@@ -359,11 +362,11 @@ for key, val in lst[:10]:
     print(key, val)
 
 # Code: http://www.gr.py4e.com/code3/count3.py</code></pre>
-<p>The first part of the program which reads the file and computes the dictionary that maps each word to the count of words in the document is unchanged. But instead of simply printing out <code>counts</code> and ending the program, we construct a list of <code>(val, key)</code> tuples and then sort the list in reverse order.</p>
-<p>Since the value is first, it will be used for the comparisons. If there is more than one tuple with the same value, it will look at the second element (the key), so tuples where the value is the same will be further sorted by the alphabetical order of the key.</p>
-<p>At the end we write a nice <code>for</code> loop which does a multiple assignment iteration and prints out the ten most common words by iterating through a slice of the list (<code>lst[:10]</code>).</p>
-<p>So now the output finally looks like what we want for our word frequency analysis.</p>
-<pre><code>61 i
+<p>Το πρώτο μέρος του προγράμματος που διαβάζει το αρχείο και δημιουργεί το λεξικό, που αντιστοιχίζει κάθε λέξη με το πλήθος εμφάνισης των λέξεων στο έγγραφο, δεν έχει αλλάξει. Αλλά, αντί να εκτυπώνουμε απλώς το <code>πληθη</code> και να τερματίζουμε το πρόγραμμα, κατασκευάζουμε μια λίστα με πλειάδες <code>(τιμή, κλειδί)</code> και στη συνέχεια ταξινομούμε τη λίστα με αντίστροφη σειρά.</p>
+<p>Από τη στιγμή που η τιμή είναι πρώτη, θα χρησιμοποιηθεί για τις συγκρίσεις. Εάν υπάρχουν περισσότερες από μία πλειάδες με την ίδια τιμή, θα κοιτάξει το δεύτερο στοιχείο (το κλειδί), επομένως οι πλειάδες των οποίων η τιμή είναι ίδια θα ταξινομηθούν περαιτέρω σε αλφαβητική σειρά του κλειδιού.</p>
+<p>Στο τέλος γράφουμε έναν ωραίο βρόχο <code>for</code> που κάνει μια επανάληψη πολλαπλής εκχώρησης και εκτυπώνει τις δέκα πιο συνηθισμένες λέξεις, διατρέχοντας ένα τμήμα της λίστας (<code>lst[:10]</code>).</p>
+<p>Έτσι τώρα η έξοδος μοιάζει, τελικά, με αυτό που θέλαμε για την ανάλυση συχνότητας λέξεων.</p>
+<pre class="{text}"><code>61 i
 42 and
 40 romeo
 34 to
@@ -373,94 +376,94 @@ for key, val in lst[:10]:
 30 that
 29 my
 24 thee</code></pre>
-<p>The fact that this complex data parsing and analysis can be done with an easy-to-understand 19-line Python program is one reason why Python is a good choice as a language for exploring information.</p>
-<h2 id="using-tuples-as-keys-in-dictionaries">Using tuples as keys in dictionaries</h2>
-<p> </p>
-<p>Because tuples are <em>hashable</em> and lists are not, if we want to create a <em>composite</em> key to use in a dictionary we must use a tuple as the key.</p>
-<p>We would encounter a composite key if we wanted to create a telephone directory that maps from last-name, first-name pairs to telephone numbers. Assuming that we have defined the variables <code>last</code>, <code>first</code>, and <code>number</code>, we could write a dictionary assignment statement as follows:</p>
-<pre class="python"><code>directory[last,first] = number</code></pre>
-<p>The expression in brackets is a tuple. We could use tuple assignment in a <code>for</code> loop to traverse this dictionary.</p>
+<p>Το γεγονός ότι αυτή η περίπλοκη ανάλυση δεδομένων μπορεί να γίνει με ένα εύκολο στην κατανόηση πρόγραμμα Python, 19 γραμμών, είναι ένας λόγος για τον οποίο η Python είναι μια καλή επιλογή ως γλώσσα για την εξερεύνηση πληροφοριών.</p>
+<h2 id="χρήση-πλειάδων-ως-κλειδιών-στα-λεξικά">Χρήση πλειάδων ως κλειδιών στα λεξικά</h2>
+<p>  </p>
+<p>Επειδή οι πλειάδες είναι <em>κατακερματίσιμες</em> και οι λίστες όχι, αν θέλουμε να δημιουργήσουμε ένα <em>σύνθετο</em> κλειδί για χρήση σε ένα λεξικό, πρέπει να χρησιμοποιήσουμε ως κλειδί μια πλειάδα.</p>
+<p>Θα χρειαζόμασταν ένα σύνθετο κλειδί εάν θέλαμε να δημιουργήσουμε έναν τηλεφωνικό κατάλογο, που αντιστοιχίζει ζεύγη επωνύμων, ονομάτων σε αριθμούς τηλεφώνου. Υποθέτοντας ότι έχουμε ορίσει τις μεταβλητές <code>επώνυμο</code>, <code>όνομα</code> και <code>αριθμός</code>, θα μπορούσαμε να γράψουμε μια εντολή εκχώρησης στο λεξικό ως εξής:</p>
+<pre class="python"><code>ευρετήριο[επώνυμο,όνομα] = αριθμός</code></pre>
+<p>Η έκφραση μέσα στις αγκύλες είναι πλειάδα. Θα μπορούσαμε να χρησιμοποιήσουμε την ανάθεση πλειάδας σε έναν βρόχο <code>for</code>, για να διασχίσουμε αυτό το λεξικό.</p>
 <p></p>
-<pre class="python"><code>for last, first in directory:
-    print(first, last, directory[last,first])</code></pre>
-<p>This loop traverses the keys in <code>directory</code>, which are tuples. It assigns the elements of each tuple to <code>last</code> and <code>first</code>, then prints the name and corresponding telephone number.</p>
-<h2 id="sequences-strings-lists-and-tuples---oh-my">Sequences: strings, lists, and tuples - Oh My!</h2>
+<pre class="python"><code>for επώνυμο, όνομα in ευρετήριο:
+    print(όνομα, επώνυμο, ευρετήριο[επώνυμο,όνομα])</code></pre>
+<p>Αυτός ο βρόχος διασχίζει τα κλειδιά στο <code>ευρετήριο</code>, τα οποία είναι πλειάδες. Εκχωρεί τα στοιχεία κάθε πλειάδας στα <code>επώνυμο</code> και <code>όνομα</code> και στη συνέχεια εκτυπώνει το όνομα και τον αντίστοιχο αριθμό τηλεφώνου.</p>
+<h2 id="ακολουθίες-συμβολοσειρές-λίστες-και-πλειάδες---oh-my">Ακολουθίες: συμβολοσειρές, λίστες και πλειάδες (- Oh My!)</h2>
 <p></p>
-<p>I have focused on lists of tuples, but almost all of the examples in this chapter also work with lists of lists, tuples of tuples, and tuples of lists. To avoid enumerating the possible combinations, it is sometimes easier to talk about sequences of sequences.</p>
-<p>In many contexts, the different kinds of sequences (strings, lists, and tuples) can be used interchangeably. So how and why do you choose one over the others?</p>
+<p>Έχω επικεντρωθεί σε λίστες πλειάδων, αλλά σχεδόν όλα τα παραδείγματα σε αυτό το κεφάλαιο λειτουργούν επίσης με λίστες λιστών, πλειάδες πλειάδων και πλειάδες λιστών. Για να αποφευχθεί η απαρίθμηση των πιθανών συνδυασμών, μερικές φορές είναι πιο εύκολο να μιλάμε για ακολουθίες ακολουθιών.</p>
+<p>Σε πολλά περιβάλλοντα, τα διαφορετικά είδη ακολουθιών (συμβολοσειρές, λίστες και πλειάδες) μπορούν να χρησιμοποιηθούν εναλλακτικά. Λοιπόν, πώς και γιατί επιλέγετε κάποιο αντί του άλλου ;</p>
 <p>    </p>
-<p>To start with the obvious, strings are more limited than other sequences because the elements have to be characters. They are also immutable. If you need the ability to change the characters in a string (as opposed to creating a new string), you might want to use a list of characters instead.</p>
-<p>Lists are more common than tuples, mostly because they are mutable. But there are a few cases where you might prefer tuples:</p>
+<p>Για να ξεκινήσουμε με το προφανές, οι συμβολοσειρές είναι πιο περιορισμένες από τις άλλες ακολουθίες, επειδή τα στοιχεία πρέπει να είναι χαρακτήρες. Είναι επίσης αμετάβλητες. Εάν χρειάζεστε τη δυνατότητα να αλλάξετε τους χαρακτήρες μιας συμβολοσειράς (αντί για τη δημιουργία μιας νέας συμβολοσειράς), ίσως θελήσετε να χρησιμοποιήσετε μια λίστα χαρακτήρων.</p>
+<p>Οι λίστες είναι πιο συχνά σρησιμοποιούμενες από τις πλειάδες, κυρίως επειδή είναι μεταβλητές. Αλλά υπάρχουν μερικές περιπτώσεις όπου μπορεί να προτιμήσετε τις πλειάδες:</p>
 <ol type="1">
-<li><p>In some contexts, like a <code>return</code> statement, it is syntactically simpler to create a tuple than a list. In other contexts, you might prefer a list.</p></li>
-<li><p>If you want to use a sequence as a dictionary key, you have to use an immutable type like a tuple or string.</p></li>
-<li><p>If you are passing a sequence as an argument to a function, using tuples reduces the potential for unexpected behavior due to aliasing.</p></li>
+<li><p>Σε ορισμένες περιπτώσεις, όπως μια δήλωση <code>return</code>, είναι συντακτικά πιο απλό να δημιουργήσετε μια πλειάδα παρά μια λίστα. Σε άλλες περιπτώσεις, μπορεί να προτιμήσετε μια λίστα.</p></li>
+<li><p>Εάν θέλετε να χρησιμοποιήσετε μια ακολουθία ως κλειδί λεξικού, πρέπει να χρησιμοποιήσετε έναν αμετάβλητο τύπο όπως πλειάδα ή συμβολοσειρά.</p></li>
+<li><p>Εάν μεταβιβάζετε μια ακολουθία ως όρισμα σε μια συνάρτηση, η χρήση πλειάδων μειώνει την πιθανότητα απροσδόκητης συμπεριφοράς λόγω ψευδωνυμίας.</p></li>
 </ol>
-<p>Because tuples are immutable, they don’t provide methods like <code>sort</code> and <code>reverse</code>, which modify existing lists. However Python provides the built-in functions <code>sorted</code> and <code>reversed</code>, which take any sequence as a parameter and return a new sequence with the same elements in a different order.</p>
+<p>Επειδή οι πλειάδες είναι αμετάβλητες, δεν παρέχουν μεθόδους όπως <code>sort</code> και <code>reverse</code>, οι οποίες τροποποιούν τις υπάρχουσες λίστες. Ωστόσο, η Python παρέχει τις ενσωματωμένες συναρτήσεις <code>sorted</code> και <code>reversed</code>, οι οποίες λαμβάνουν οποιαδήποτε ακολουθία ως παράμετρο και επιστρέφουν μια νέα ακολουθία με τα ίδια στοιχεία με διαφορετική σειρά.</p>
 <p>   </p>
-<h2 id="list-comprehension">List comprehension</h2>
-<p>Sometimes you want to create a sequence by using data from another sequence. You can achieve this by writing a for loop and appending one item at a time. For example, if you wanted to convert a list of strings – each string storing digits – into numbers that you can sum up, you would write:</p>
+<h2 id="list-comprehension-κατανόηση-λίστας">List comprehension (Κατανόηση λίστας)</h2>
+<p>Μερικές φορές θέλετε να δημιουργήσετε μια ακολουθία χρησιμοποιώντας δεδομένα από μια άλλη ακολουθία. Μπορείτε να το πετύχετε γράφοντας έναν βρόχο for και προσαρτώντας ένα στοιχείο κάθε φορά. Για παράδειγμα, αν θέλατε να μετατρέψετε μια λίστα συμβολοσειρών – κάθε συμβολοσειρά αποθηκεύει ψηφία – σε αριθμούς που μπορείτε να αθροίσετε, θα γράφατε:</p>
 <pre class="python"><code>list_of_ints_in_strings = [&#39;42&#39;, &#39;65&#39;, &#39;12&#39;]
 list_of_ints = []
 for x in list_of_ints_in_strings:
     list_of_ints.append(int(x))
 
 print(sum(list_of_ints))</code></pre>
-<p>With list comprehension, the above code can be written in a more compact manner:</p>
+<p>Με την list comprehension, ο παραπάνω κώδικας μπορεί να γραφτεί με πιο συμπαγή τρόπο:</p>
 <pre class="python"><code>list_of_ints_in_strings = [&#39;42&#39;, &#39;65&#39;, &#39;12&#39;]
 list_of_ints = [ int(x) for x in list_of_ints_in_strings ]
 print(sum(list_of_ints))</code></pre>
 <p></p>
-<h2 id="debugging">Debugging</h2>
-<p>   </p>
-<p>Lists, dictionaries and tuples are known generically as <em>data structures</em>; in this chapter we are starting to see compound data structures, like lists of tuples, and dictionaries that contain tuples as keys and lists as values. Compound data structures are useful, but they are prone to what I call <em>shape errors</em>; that is, errors caused when a data structure has the wrong type, size, or composition, or perhaps you write some code and forget the shape of your data and introduce an error. For example, if you are expecting a list with one integer and I give you a plain old integer (not in a list), it won’t work.</p>
-<h2 id="glossary">Glossary</h2>
+<h2 id="εκσφαλμάτωση">Εκσφαλμάτωση</h2>
+<p>    </p>
+<p>Οι λίστες, τα λεξικά και οι πλειάδες είναι γνωστά γενικά ως <em>δομές δεδομένων</em>. Σε αυτό το κεφάλαιο αρχίζουμε να βλέπουμε σύνθετες δομές δεδομένων, όπως λίστες πλειάδων και λεξικά που περιέχουν πλειάδες ως κλειδιά και λίστες ως τιμές. Οι σύνθετες δομές δεδομένων είναι χρήσιμες, αλλά είναι επιρρεπείς σε αυτό που αποκαλώ <em>σφάλματα σχήματος</em>. Δηλαδή, σφάλματα που προκαλούνται όταν μια δομή δεδομένων έχει λάθος τύπο, μέγεθος ή σύνθεση ή ίσως γράψετε κάποιον κώδικα και ξεχάσετε το σχήμα των δεδομένων σας και προκαλέσετε ένα σφάλμα. Για παράδειγμα, αν περιμένετε μια λίστα με έναν ακέραιο και σας δώσω έναν απλό ακέραιο (όχι σε λίστα), δεν θα λειτουργήσει.</p>
+<h2 id="γλωσσάριο">Γλωσσάριο</h2>
 <dl>
-<dt>comparable</dt>
-<dd>A type where one value can be checked to see if it is greater than, less than, or equal to another value of the same type. Types which are comparable can be put in a list and sorted.
-</dd>
-<dt>data structure</dt>
-<dd>A collection of related values, often organized in lists, dictionaries, tuples, etc.
-</dd>
 <dt>DSU</dt>
-<dd>Abbreviation of “decorate-sort-undecorate”, a pattern that involves building a list of tuples, sorting, and extracting part of the result.
+<dd>Συντομογραφία του “decorate-sort-undecorate”, ένα μοτίβο που περιλαμβάνει τη δημιουργία μιας λίστας πλειάδων, την ταξινόμηση και την εξαγωγή μέρους του αποτελέσματος.
 </dd>
 <dt>gather</dt>
-<dd>The operation of assembling a variable-length argument tuple.
-</dd>
-<dt>hashable</dt>
-<dd>A type that has a hash function. Immutable types like integers, floats, and strings are hashable; mutable types like lists and dictionaries are not.
+<dd>Η λειτουργία της συναρμολόγησης μιας πλειάδας ορίσματος μεταβλητού μήκους.
 </dd>
 <dt>scatter</dt>
-<dd>The operation of treating a sequence as a list of arguments.
+<dd>Η λειτουργία της αντιμετώπισης μιας ακολουθίας ως λίστας ορισμάτων.
 </dd>
-<dt>shape (of a data structure)</dt>
-<dd>A summary of the type, size, and composition of a data structure.
+<dt>singleton - μεμονωμένο</dt>
+<dd>Μια λίστα (ή άλλη ακολουθία) με ένα μόνο στοιχείο.
 </dd>
-<dt>singleton</dt>
-<dd>A list (or other sequence) with a single element.
+<dt>δομή δεδομένων</dt>
+<dd>Μια συλλογή σχετικών τιμών, συχνά οργανωμένη σε λίστες, λεξικά, πλειάδες κ.λπ.
 </dd>
-<dt>tuple</dt>
-<dd>An immutable sequence of elements.
+<dt>κατακερματιζόμενος - hashable</dt>
+<dd>Ένας τύπος που έχει συνάρτηση κατακερματισμού. Οι αμετάβλητοι τύποι όπως ακέραιοι, κινητής υποδιαστολής (float) και συμβολοσειρές μπορούν να κατακερματιστούν, μεταβλητοί τύποι όπως λίστες και λεξικά όχι.
 </dd>
-<dt>tuple assignment</dt>
-<dd>An assignment with a sequence on the right side and a tuple of variables on the left. The right side is evaluated and then its elements are assigned to the variables on the left.
+<dt>πλειάδα</dt>
+<dd>Μια αμετάβλητη ακολουθία στοιχείων.
+</dd>
+<dt>πλειάδα σε ανάθεση</dt>
+<dd>Μια εκχώρηση με μια ακολουθία στο δεξί μέλος και μια πλειάδα μεταβλητών στο αριστερό. Το δεξί μέλος αξιολογείται και στη συνέχεια τα στοιχεία του αντιστοιχίζονται στις μεταβλητές στα αριστερά.
+</dd>
+<dt>συγκρίσιμος</dt>
+<dd>Ένας τύπος όπου μια τιμή μπορεί να ελεγχθεί για να διαπιστωθεί εάν είναι μεγαλύτερη από, μικρότερη από ή ίση με μια άλλη τιμή του ίδιου τύπου. Οι τύποι που είναι συγκρίσιμοι μπορούν να τοποθετηθούν σε μια λίστα και να ταξινομηθούν.
+</dd>
+<dt>σχήμα (μιας δομής δεδομένων) - shape</dt>
+<dd>Σύνοψη του τύπου, του μεγέθους και της σύνθεσης μιας δομής δεδομένων.
 </dd>
 </dl>
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Revise a previous program as follows: Read and parse the “From” lines and pull out the addresses from the line. Count the number of messages from each person using a dictionary.</strong></p>
-<p><strong>After all the data has been read, print the person with the most commits by creating a list of (count, email) tuples from the dictionary. Then sort the list in reverse order and print out the person who has the most commits.</strong></p>
-<pre><code>Sample Line:
+<h2 id="ασκήσεις">Ασκήσεις</h2>
+<p><strong>Άσκηση 1: Αναθεωρήστε ένα προηγούμενο πρόγραμμα ως εξής: Διαβάστε και αναλύστε τις γραμμές “From” και ανακτήστε τις διευθύνσεις από την κάθε γραμμή. Μετρήστε τον αριθμό των μηνυμάτων από κάθε άτομο χρησιμοποιώντας ένα λεξικό.</strong></p>
+<p>** Αφού διαβάσετε όλα τα δεδομένα, δημιουργήστε μια λίστα με πλειάδες (πλήθος, email) από το λεξικό. Στη συνέχεια, ταξινομήστε τη λίστα με αντίστροφη σειρά και εκτυπώστε το άτομο με τα περισσότερα μηνύματα.**</p>
+<pre class="{text}"><code>Δείγμα γραμμής:
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 
-Enter a file name: mbox-short.txt
+Εισαγάγετε ένα όνομα αρχείου: mbox-short.txt
 cwen@iupui.edu 5
 
-Enter a file name: mbox.txt
+Εισαγάγετε ένα όνομα αρχείου: mbox.txt
 zqian@umich.edu 195</code></pre>
-<p><strong>Exercise 2: This program counts the distribution of the hour of the day for each of the messages. You can pull the hour from the “From” line by finding the time string and then splitting that string into parts using the colon character. Once you have accumulated the counts for each hour, print out the counts, one per line, sorted by hour as shown below.</strong></p>
-<pre><code>python timeofday.py
-Enter a file name: mbox-short.txt
+<p><strong>Άσκηση 2: Αυτό το πρόγραμμα μετράει την κατανομή της ώρας της ημέρας για κάθε ένα από τα μηνύματα. Μπορείτε να τραβήξετε την ώρα από τη γραμμή “From”, βρίσκοντας τη συμβολοσειρά χρόνου και, στη συνέχεια, χωρίζοντας τη συμβολοσειρά σε μέρη, χρησιμοποιώντας τον χαρακτήρα άνω και κάτω τελείας. Αφού υπολογίσετε τα πλήθη για κάθε ώρα, εκτυπώστε τα, ένα ανά γραμμή, ταξινομημένα ανά ώρα, όπως φαίνεται παρακάτω.</strong></p>
+<pre class="{text}"><code>python timeofday.py
+Εισαγάγετε ένα όνομα αρχείου: mbox-short.txt
 04 3
 06 1
 07 1
@@ -473,13 +476,12 @@ Enter a file name: mbox-short.txt
 17 2
 18 1
 19 1</code></pre>
-<p><strong>Exercise 3: Write a program that reads a file and prints the <em>letters</em> in decreasing order of frequency. Your program should convert all the input to lower case and only count the letters a-z. Your program should not count spaces, digits, punctuation, or anything other than the letters a-z. Find text samples from several different languages and see how letter frequency varies between languages. Compare your results with the tables at <a href="https://wikipedia.org/wiki/Letter_frequencies" class="uri">https://wikipedia.org/wiki/Letter_frequencies</a>.</strong></p>
+<p><strong>Άσκηση 3: Γράψτε ένα πρόγραμμα που διαβάζει ένα αρχείο και τυπώνει τα <em>γράμματα</em> με φθίνουσα σειρά συχνότητας. Το πρόγραμμά σας θα πρέπει να μετατρέψει όλη την είσοδο σε πεζά και να μετράει μόνο τα γράμματα a-z. Το πρόγραμμά σας δεν πρέπει να μετράει κενά, ψηφία, σημεία στίξης ή οτιδήποτε άλλο εκτός από τα γράμματα a-z. Βρείτε δείγματα κειμένου από πολλές διαφορετικές γλώσσες και δείτε πώς η συχνότητα των γραμμάτων ποικίλλει μεταξύ των γλωσσών. Συγκρίνετε τα αποτελέσματά σας με τους πίνακες στο <a href="https://wikipedia.org/wiki/Letter_frequencies" class="uri">https://wikipedia.org/wiki/Letter_frequencies</a>.</strong></p>
 <p> </p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Fun fact: The word “tuple” comes from the names given to sequences of numbers of varying lengths: single, double, triple, quadruple, quintuple, sextuple, septuple, etc.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Python does not translate the syntax literally. For example, if you try this with a dictionary, it will not work as you might expect.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Ενδιαφέρουσα πληροφορία: Η λέξη “tuple (πλειάδα)” προέρχεται από τα ονόματα που δίνονται σε ακολουθίες αριθμών διαφορετικού μήκους: μονή, διπλή, τριπλή, τετραπλή, πενταπλή (quintuple), εξάπλη (sextuple), επταπλή (septuple), κ.λπ.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>
