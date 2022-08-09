@@ -155,8 +155,7 @@
 </head>
 <body>
 <h1 id="regular-expressions">Regular expressions</h1>
-<p>So far we have been reading through files, looking for patterns and extracting various bits of lines that we find interesting. We have been</p>
-<p>using string methods like <code>split</code> and <code>find</code> and using lists and string slicing to extract portions of the lines.</p>
+<p>So far we have been reading through files, looking for patterns and extracting various bits of lines that we find interesting. We have been using string methods like <code>split</code> and <code>find</code> and using lists and string slicing to extract portions of the lines.</p>
 <p>  </p>
 <p>This task of searching and extracting is so common that Python has a very powerful library called <em>regular expressions</em> that handles many of these tasks quite elegantly. The reason we have not introduced regular expressions earlier in the book is because while they are very powerful, they are a little complicated and their syntax takes some getting used to.</p>
 <p>Regular expressions are almost their own little programming language for searching and parsing strings. As a matter of fact, entire books have been written on the topic of regular expressions. In this chapter, we will only cover the basics of regular expressions. For more detail on regular expressions, see:</p>
