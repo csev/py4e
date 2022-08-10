@@ -1,151 +1,156 @@
-Regular expressions
-===================
+Κανονικές εκφράσεις (Regular expressions)
+=========================================
 
-So far we have been reading through files, looking for patterns and
-extracting various bits of lines that we find interesting. We have been
-
-using string methods like `split` and `find` and
-using lists and string slicing to extract portions of the lines.
+Μέχρι στιγμής διαβάζαμε αρχεία, αναζητούσαμε μοτίβα και εξαγάγαμε διάφορα
+κομμάτια γραμμών, που θεωρούσαμε ενδιαφέροντα. Χρησιμοποιήσαμε μεθόδους
+συμβολοσειρών, όπως `split` και `find` και χρησιμοποιούσαμε λίστες και
+διαμέριση συμβολοσειρών για να εξαγάγουμε τμήματα των γραμμών.
 
 \index{regular expressions}
+\index{κανονικές εκφράσεις}
 \index{regex}
-\index{re module}
+\index{re άρθρωμα}
 
-This task of searching and extracting is so common that Python has a
-very powerful library called *regular expressions* that
-handles many of these tasks quite elegantly. The reason we have not
-introduced regular expressions earlier in the book is because while they
-are very powerful, they are a little complicated and their syntax takes
-some getting used to.
+Αυτή η εργασία αναζήτησης και εξαγωγής είναι τόσο συνηθισμένη, που η Python
+έχει ένα πολύ ισχυρό άρθρωμα, που ονομάζεται *κανονικές εκφράσεις*, ή για
+συντομία *regex*, και χειρίζεται πολλές από αυτές τις εργασίες ιδιαίτερα
+έξυπνα. Ο λόγος που δεν έχουμε αναφερθεί στις κανονικές εκφράσεις νωρίτερα στο
+βιβλίο είναι επειδή, ενώ είναι πολύ ισχυρές, είναι λίγο περίπλοκες και η
+σύνταξή τους χρειάζεται μια κάποια εξοικείωση.
 
-Regular expressions are almost their own little programming language for
-searching and parsing strings. As a matter of fact, entire books have
-been written on the topic of regular expressions. In this chapter, we
-will only cover the basics of regular expressions. For more detail on
-regular expressions, see:
+Οι κανονικές εκφράσεις είναι σχεδόν, από μόνες τους, μικρή γλώσσα
+προγραμματισμού για αναζήτηση και ανάλυση συμβολοσειρών. Στην πραγματικότητα,
+έχουν γραφτεί ολόκληρα βιβλία με θέμα τις κανονικές εκφράσεις. Σε αυτό το
+κεφάλαιο, θα καλύψουμε μόνο τα βασικά των κανονικών εκφράσεων. Για περισσότερες
+λεπτομέρειες σχετικά με τις κανονικές εκφράσεις, δείτε:
 
 <https://en.wikipedia.org/wiki/Regular_expression>
 
 <https://docs.python.org/library/re.html>
 
-The regular expression library `re` must be imported into
-your program before you can use it. The simplest use of the regular
-expression library is the `search()` function. The following
-program demonstrates a trivial use of the search function.
+Το άρθρωμα κανονικών εκφράσεων `re` πρέπει να εισαχθεί στο πρόγραμμά σας για
+να μπορέσετε να τοη χρησιμοποιήσετε. Η απλούστερη χρήση του αρθρώματος
+κανονικών εκφράσεων είναι η συνάρτηση `search()`. Το παρακάτω πρόγραμμα δείχνει
+μια απλή χρήση της λειτουργίας αναζήτησης.
 
 \index{regex!search}
 
-\VerbatimInput{../code3/re01.py} 
+\VerbatimInput{../code3/re01.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-We open the file, loop through each line, and use the regular expression
-`search()` to only print out lines that contain the string
-"From:". This program does not use the real power of regular
-expressions, since we could have just as easily used
-`line.find()` to accomplish the same result.
+Ανοίγουμε το αρχείο, με βρόχο διατρέχουμε κάθε γραμμή και χρησιμοποιούμε την
+κανονική έκφραση `search()` για να εκτυπώνουμε μόνο τις γραμμές που περιέχουν
+τη συμβολοσειρά "From:". Αυτό το πρόγραμμα δεν χρησιμοποιεί την πραγματική ισχύ
+των κανονικών εκφράσεων, αφού θα μπορούσαμε να χρησιμοποιήσουμε εξίσου εύκολα
+το `line.find()` για να επιτύχουμε το ίδιο αποτέλεσμα.
 
-\index{string!find}
+\index{συμβολοσειρά!find}
 
-The power of the regular expressions comes when we add special
-characters to the search string that allow us to more precisely control
-which lines match the string. Adding these special characters to our
-regular expression allow us to do sophisticated matching and extraction
-while writing very little code.
+Η ισχύς των κανονικών εκφράσεων αποκαλύπτεται όταν προσθέτουμε ειδικούς
+χαρακτήρες στη συμβολοσειρά αναζήτησης, που μας επιτρέπουν να ελέγχουμε με
+μεγαλύτερη ακρίβεια ποιες γραμμές ταιριάζουν με τη συμβολοσειρά. Η προσθήκη
+αυτών των ειδικών χαρακτήρων στην κανονική μας έκφραση μας επιτρέπει να κάνουμε
+πολύπλοκη αντιστοίχιση και εξαγωγή ενώ γράφουμε πολύ λίγο κώδικα.
 
-For example, the caret character is used in regular expressions to match
-"the beginning" of a line. We could change our program to only match
-lines where "From:" was at the beginning of the line as follows:
+Για παράδειγμα, ο χαρακτήρας περίφλεξης (^) χρησιμοποιείται σε κανονικές
+εκφράσεις για να ταιριάζει με την "αρχή" μιας γραμμής. Μπορούσαμε να αλλάξουμε
+το πρόγραμμά μας ώστε να εντοπίζει μόνο τις γραμμές στις οποίες το "From:" ήταν
+στην αρχή της γραμμής ως εξής:
 
-\VerbatimInput{../code3/re02.py} 
+\VerbatimInput{../code3/re02.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Now we will only match lines that *start with* the string
-"From:". This is still a very simple example that we could have done
-equivalently with the `startswith()` method from the string
-library. But it serves to introduce the notion that regular expressions
-contain special action characters that give us more control as to what
-will match the regular expression.
+Με αυτόν τον τρόπο θα εντοπίσουμε μόνο γραμμές που *ξεκινούν με* τη
+συμβολοσειρά "From:". Αυτό είναι ένα ακόμη πολύ απλό παράδειγμα, που θα
+μπορούσαμε να είχαμε κάνει, ισοδύναμα, με τη μέθοδο `startswith()`, από τη
+βιβλιοθήκη συμβολοσειρών. Αλλά χρησιμεύει για να εμπεδώσουμε το γεγονός ότι οι
+κανονικές εκφράσεις περιέχουν ειδικούς χαρακτήρες ενεργειών, που μας δίνουν
+περισσότερο έλεγχο ως προς το τι θα ταιριάζει με την κανονική έκφραση.
 
-\index{string!startswith}
+\index{συμβολοσειρά!startswith}
 
-Character matching in regular expressions
------------------------------------------
+Ταίριασμα χαρακτήρων σε κανονικές εκφράσεις
+------------------------------------------
 
-There are a number of other special characters that let us build even
-more powerful regular expressions. The most commonly used special
-character is the period or full stop, which matches any character.
+Υπάρχει ένα πλήθος άλλων ειδικών χαρακτήρων, που μας επιτρέπουν να
+δημιουργήσουμε ακόμη πιο ισχυρές κανονικές εκφράσεις. Ο πιο συχνά
+χρησιμοποιούμενος ειδικός χαρακτήρας είναι η τελεία, που ταιριάζει με
+οποιονδήποτε χαρακτήρα.
 
-\index{wild card}
-\index{regex!wild card}
+\ευρετήριο{μπαλαντέρ}
+\index{regex!μπαλαντέρ}
 
-In the following example, the regular expression `F..m:` would match any
-of the strings "From:", "Fxxm:", "F12m:", or "F!@m:" since the period
-characters in the regular expression match any character.
+Στο ακόλουθο παράδειγμα, η κανονική έκφραση `F..m:` θα ταιριάζει με οποιαδήποτε
+από τις συμβολοσειρές "From:", "Fxxm:", "F12m:" ή "F!@m:" καθώς οι χαρακτήρες
+τελείας στην τυπική έκφραση ταιριάζουν με οποιονδήποτε χαρακτήρα.
 
-\VerbatimInput{../code3/re03.py} 
+\VerbatimInput{../code3/re03.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-This is particularly powerful when combined with the ability to indicate
-that a character can be repeated any number of times using the `*` or
-`+` characters in your regular expression. These special characters mean
-that instead of matching a single character in the search string, they
-match zero-or-more characters (in the case of the asterisk) or
-one-or-more of the characters (in the case of the plus sign).
+Το σύμβολο της τελείας είναι ιδιαίτερα ισχυρό όταν συνδυάζεται με τη δυνατότητα
+να υποδεικνύει ότι ένας χαρακτήρας μπορεί να επαναληφθεί όσες φορές χρειαστεί,
+χρησιμοποιώντας τους χαρακτήρες `*` ή `+` στην κανονική σας έκφραση. Αυτοί οι
+ειδικοί χαρακτήρες σημαίνουν ότι αντί να ταιριάζουν με έναν χαρακτήρα στη
+συμβολοσειρά αναζήτησης, ταιριάζουν με κανέναν ή περισσότερους χαρακτήρες (στην
+περίπτωση του αστερίσκου) ή έναν ή περισσότερους χαρακτήρες (στην περίπτωση του
+συμβόλου συν).
 
-We can further narrow down the lines that we match using a repeated
-*wild card* character in the following example:
+Μπορούμε να περιορίσουμε περαιτέρω τις γραμμές που ταιριάζουν χρησιμοποιώντας
+έναν επαναλαμβανόμενο χαρακτήρα *μπαλαντέρ* όπως στο ακόλουθο παράδειγμα:
 
-\VerbatimInput{../code3/re04.py} 
+\VerbatimInput{../code3/re04.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-The search string `^From:.+@` will successfully match lines that start
-with "From:", followed by one or more characters (`.+`), followed by an
-at-sign. So this will match the following line:
+Η συμβολοσειρά αναζήτησης `^From:.+@` θα ταιριάξει με επιτυχία με τις γραμμές
+που ξεκινούν με "From:", ακολουθούμενο από έναν ή περισσότερους χαρακτήρες
+(`.+`), ακολουθούμενων από ένα σύμβολο at. Άρα αυτό θα ταιριάξει με την
+ακόλουθη γραμμή:
 
-~~~~
+~~~~{text}
 From: stephen.marquard@uct.ac.za
 ~~~~
 
-You can think of the `.+` wildcard as expanding to match all the
-characters between the colon character and the at-sign.
+Μπορούμε να πούμε ότι ο χαρακτήρας μπαλαντέρ `.+` επεκτείνεται για να ταιριάζει
+με όλους τους χαρακτήρες μεταξύ του χαρακτήρα άνω και κάτω τελείας και του
+συμβόλου at.
 
-~~~~
+~~~~{text}
 From:.+@
 ~~~~
 
-It is good to think of the plus and asterisk characters as "pushy". For
-example, the following string would match the last at-sign in the string
-as the `.+` pushes outwards, as shown below:
+Είναι καλό να σκεφτόμαστε τους χαρακτήρες συν και αστερίσκο ως "άπληστους". Για
+παράδειγμα, η ακόλουθη συμβολοσειρά θα ταιριάζει με το τελευταίο στο σύμβολο at
+της συμβολοσειράς καθώς το `.+` ωθεί προς τα έξω, όπως φαίνεται παρακάτω:
 
-~~~~
+~~~~{text}
 From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen @iupui.edu
 ~~~~
 
-It is possible to tell an asterisk or plus sign not to be so "greedy" by
-adding another character. See the detailed documentation for information
-on turning off the greedy behavior.
+Είναι δυνατόν να πείτε σε έναν αστερίσκο ή ένα σύμβολο συν να μην είναι τόσο
+"άπληστο" προσθέτοντας έναν επιπλέον χαρακτήρα. Δείτε τη λεπτομερή τεκμηρίωση
+για πληροφορίες σχετικά με την απενεργοποίηση της άπληστης συμπεριφοράς.
 
-\index{greedy}
+\index{άπληστο}
 
-Extracting data using regular expressions
------------------------------------------
+Εξαγωγή δεδομένων με χρήση κανονικών εκφράσεων
+------------------------------------------
 
-If we want to extract data from a string in Python we can use the
-`findall()` method to extract all of the substrings which
-match a regular expression. Let's use the example of wanting to extract
-anything that looks like an email address from any line regardless of
-format. For example, we want to pull the email addresses from each of
-the following lines:
+Εάν θέλουμε να εξαγάγουμε δεδομένα από μια συμβολοσειρά στην Python, μπορούμε
+να χρησιμοποιήσουμε τη μέθοδο `findall()`, για να εξαγάγουμε όλες τις
+υποσυμβολοσειρές που ταιριάζουν με μια κανονική έκφραση. Ας χρησιμοποιήσουμε
+ως παράδειγμα το να εξαγάγουμε οτιδήποτε μοιάζει με διεύθυνση email, από
+οποιαδήποτε γραμμή, ανεξαρτήτως μορφής. Για παράδειγμα, θέλουμε να τραβήξουμε
+τις διευθύνσεις email από καθεμία από τις ακόλουθες γραμμές:
 
-~~~~
+~~~~{text}
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 Return-Path: <postmaster@collab.sakaiproject.org>
           for <source@collab.sakaiproject.org>;
@@ -153,57 +158,56 @@ Received: (from apache@localhost)
 Author: stephen.marquard@uct.ac.za
 ~~~~
 
-We don't want to write code for each of the types of lines, splitting
-and slicing differently for each line. This following program uses
-`findall()` to find the lines with email addresses in them
-and extract one or more addresses from each of those lines.
+Δεν θέλουμε να γράψουμε κώδικα για κάθε έναν από τους τύπους γραμμών,
+χωρίζοντας και τεμαχίζοντας διαφορετικά για κάθε γραμμή. Το πρόγραμμα που
+ακολουθεί χρησιμοποιεί το `findall()` για να βρει τις γραμμές με διευθύνσεις
+email και να εξαγάγει μία ή περισσότερες διευθύνσεις από καθεμία από αυτές
+τις γραμμές.
 
 \index{findall}
 \index{regex!findall}
 
-\VerbatimInput{../code3/re05.py} 
+\VerbatimInput{../code3/re05.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-The `findall()` method searches the string in the second
-argument and returns a list of all of the strings that look like email
-addresses. We are using a two-character sequence that matches a
-non-whitespace character (`\S`).
+Η μέθοδος `findall()` αναζητά τη συμβολοσειρά στο δεύτερο όρισμα και επιστρέφει
+μια λίστα με όλες τις συμβολοσειρές που μοιάζουν με διευθύνσεις email.
+Χρησιμοποιούμε μια ακολουθία δύο χαρακτήρων που ταιριάζει με έναν μη λευκό
+χαρακτήρα (`\S`).
 
-The output of the program would be:
+Η έξοδος του προγράμματος θα είναι:
 
-~~~~
+~~~~{text}
 ['csev@umich.edu', 'cwen@iupui.edu']
 ~~~~
 
-Translating the regular expression, we are looking for substrings that
-have at least one non-whitespace character, followed by an at-sign,
-followed by at least one more non-whitespace character. The
-`\S+` matches as many non-whitespace characters as
-possible.
+Μεταφράζοντας της κανονικής έκφρασης, λέμε, αναζητούμε υποσυμβολοσειρές που έχουν
+τουλάχιστον έναν μη λευκό χαρακτήρα, ακολουθούμενο από ένα σύμβολο at,
+ακολουθούμενο από τουλάχιστον έναν ακόμη μη λευκό χαρακτήρα. Το `\S+` ταιριάζει
+με όσο το δυνατόν περισσότερους μη κενούς χαρακτήρες.
 
-The regular expression would match twice (csev@umich.edu and
-cwen@iupui.edu), but it would not match the string "@2PM" because there
-are no non-blank characters *before* the at-sign. We can
-use this regular expression in a program to read all the lines in a file
-and print out anything that looks like an email address as follows:
+Η κανονική έκφραση θα ταιριάξει δύο φορές (csev@umich.edu και cwen@iupui.edu),
+αλλά δεν θα ταιριάξει με τη συμβολοσειρά "@2PM" επειδή δεν υπάρχουν μη κενοί
+χαρακτήρες *πριν* από το σύμβολο at. Μπορούμε να χρησιμοποιήσουμε αυτήν την
+κανονική έκφραση σε ένα πρόγραμμα για να διαβάσουμε όλες τις γραμμές ενός
+αρχείου και να εκτυπώσουμε οτιδήποτε μοιάζει με διεύθυνση email ως εξής:
 
-\VerbatimInput{../code3/re06.py} 
+\VerbatimInput{../code3/re06.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-We read each line and then extract all the substrings that match our
-regular expression. Since `findall()` returns a list, we
-simply check if the number of elements in our returned list is more than
-zero to print only lines where we found at least one substring that
-looks like an email address.
+Διαβάζουμε κάθε γραμμή και μετά εξάγουμε όλες τις υποσυμβολοσειρές που
+ταιριάζουν με την κανονική μας έκφραση. Μιας και το `findall()` επιστρέφει
+μια λίστα, απλώς ελέγχουμε εάν ο αριθμός των στοιχείων στη λίστα που
+επιστρέφεται είναι μεγαλύτερος από το μηδέν για να εκτυπώσουμε μόνο γραμμές
+όπου βρήκαμε τουλάχιστον μία υποσυμβολοσειρά που μοιάζει με διεύθυνση email.
 
-If we run the program on *mbox-short.txt* we get the following
-output:
+Αν τρέξουμε το πρόγραμμα στο *mbox-short.txt* θα έχουμε την ακόλουθη έξοδο:
 
-~~~~
+~~~~{text}
 ...
 ['<source@collab.sakaiproject.org>;']
 ['<source@collab.sakaiproject.org>;']
@@ -216,45 +220,46 @@ output:
 ['wagnermr@iupui.edu']
 ~~~~
 
-Some of our email addresses have incorrect characters like "<" or ";"
-at the beginning or end. Let's declare that we are only interested in
-the portion of the string that starts and ends with a letter or a
-number.
+Ορισμένες από τις διευθύνσεις ηλεκτρονικού ταχυδρομείου μας έχουν λανθασμένους
+χαρακτήρες, όπως "<" ή ";" στην αρχή ή στο τέλος. Ας δηλώσουμε ότι μας
+ενδιαφέρει μόνο το τμήμα της συμβολοσειράς που αρχίζει και τελειώνει με ένα
+γράμμα ή έναν αριθμό.
 
-To do this, we use another feature of regular expressions. Square
-brackets are used to indicate a set of multiple acceptable characters we
-are willing to consider matching. In a sense, the `\S` is
-asking to match the set of "non-whitespace characters". Now we will be a
-little more explicit in terms of the characters we will match.
+Για να το κάνουμε αυτό, χρησιμοποιούμε ένα άλλο χαρακτήρα των κανονικών
+εκφράσεων. Οι αγκύλες χρησιμοποιούνται για να υποδείξουν ένα σύνολο πολλών
+αποδεκτών χαρακτήρων. Κατά μία έννοια, το `\S` ζητά να ταιριάζει με το σύνολο
+των "μη λευκών χαρακτήρων". Τώρα θα είμαστε λίγο πιο σαφείς ως προς τους
+χαρακτήρες που θα ταιριάξουμε.
 
-Here is our new regular expression:
+Εδώ είναι η νέα μας κανονική έκφραση:
 
-~~~~
+~~~~{text}
 [a-zA-Z0-9]\S*@\S*[a-zA-Z]
 ~~~~
 
-This is getting a little complicated and you can begin to see why
-regular expressions are their own little language unto themselves.
-Translating this regular expression, we are looking for substrings that
-start with a *single* lowercase letter, uppercase letter,
-or number "[a-zA-Z0-9]", followed by zero or more non-blank characters
-(`\S*`), followed by an at-sign, followed by zero or more
-non-blank characters (`\S*`), followed by an uppercase or
-lowercase letter. Note that we switched from `+` to `*` to indicate
-zero or more non-blank characters since `[a-zA-Z0-9]` is already one
-non-blank character. Remember that the `*` or `+` applies to the single
-character immediately to the left of the plus or asterisk.
+Αυτό γίνεται λίγο περίπλοκο και μπορείτε να αρχίσετε να βλέπετε γιατί είπαμε
+ότι οι κανονικές εκφράσεις αποτελούν μια ξεχωριστή, μικρή γλώσσα. Μεταφράζοντας
+αυτήν την κανονική έκφραση, αναζητούμε υποσυμβολοσειρές που ξεκινούν με ένα
+*μόνο* πεζό γράμμα, κεφαλαίο γράμμα ή αριθμό "[a-zA-Z0-9]", ακολουθούμενο από
+κανέναν ή περισσότερους μη λευκούς χαρακτήρες (`\S *`), ακολουθούμενων από ένα
+σύμβολο at, ακολουθούμενο από κανέναν ή περισσότερους μη λευκούς χαρακτήρες
+(`\S*`), ακολουθούμενων από ένα κεφαλαίο ή πεζό γράμμα. Σημειώστε ότι αλλάξαμε
+από `+` σε `*` για να υποδείξουμε κανέναν ή περισσότερους μη λευκούς
+χαρακτήρες, καθώς το `[a-zA-Z0-9]` είναι ήδη ένας μη κενός χαρακτήρας.
+Θυμηθείτε ότι το `*` ή `+` ισχύει για τον μεμονωμένο χαρακτήρα που βρίσκεται
+ακριβώς στα αριστερά του συν ή του αστερίσκου.
 
-\index{regex!character sets(brackets)}
+\index{regex!σύνολο χαρακτήρων (αγκύλες)}
 
-If we use this expression in our program, our data is much cleaner:
+Εάν χρησιμοποιήσουμε αυτήν την έκφραση στο πρόγραμμά μας, τα δεδομένα που
+προκύπτουν είναι πολύ πιο καθαρά:
 
-\VerbatimInput{../code3/re07.py} 
+\VerbatimInput{../code3/re07.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-~~~~
+~~~~{text}
 ...
 ['wagnermr@iupui.edu']
 ['cwen@iupui.edu']
@@ -266,56 +271,57 @@ If we use this expression in our program, our data is much cleaner:
 ['apache@localhost']
 ~~~~
 
-Notice that on the `source@collab.sakaiproject.org` lines, our regular
-expression eliminated two letters at the end of the string (">;").
-This is because when we append `[a-zA-Z]` to the end of our regular
-expression, we are demanding that whatever string the regular expression
-parser finds must end with a letter. So when it sees the ">" at the end of
-"sakaiproject.org>;" it simply stops at the last "matching" letter it
-found (i.e., the "g" was the last good match).
+Παρατηρήστε ότι στις γραμμές `source@collab.sakaiproject.org`, η κανονική μας
+έκφραση απάλειψε δύο γράμματα στο τέλος της συμβολοσειράς (">;"). Αυτό
+συνέβει επειδή προσθέτοντας το `[a-zA-Z]` στο τέλος της κανονικής μας έκφρασης,
+απαιτούμε ότι οποιαδήποτε συμβολοσειρά βρίσκει ο αναλυτής κανονικής έκφρασης
+πρέπει να τελειώνει με ένα γράμμα. Έτσι, όταν βλέπει το ">" στο τέλος του
+"sakaiproject.org>;" απλά σταματά στο τελευταίο "ταιριαστό" γράμμα που βρήκε
+(δηλαδή, το "g" ήταν το τελευταίο καλό ταίριασμα).
 
-Also note that the output of the program is a Python list that has a
-string as the single element in the list.
+Σημειώστε επίσης ότι η έξοδος του προγράμματος είναι μια λίστα Python που έχει
+μια συμβολοσειρά ως μοναδικό στοιχείο στη λίστα.
 
-Combining searching and extracting
-----------------------------------
+Συνδυασμός αναζήτησης και εξαγωγής
+-----------------------------------
 
-If we want to find numbers on lines that start with the string "X-" such
-as:
+Αν θέλουμε να βρούμε αριθμούς σε γραμμές που ξεκινούν με τη συμβολοσειρά
+"X-", όπως:
 
-~~~~
+~~~~{text}
 X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000
 ~~~~
 
-we don't just want any floating-point numbers from any lines. We only
-want to extract numbers from lines that have the above syntax.
+δεν θέλουμε απλώς αριθμούς κινητής υποδιαστολής από οποιαδήποτε γραμμή. Θέλουμε
+να εξαγάγουμε αριθμούς μόνο από γραμμές που έχουν την παραπάνω σύνταξη.
 
-We can construct the following regular expression to select the lines:
+Μπορούμε να κατασκευάσουμε την ακόλουθη κανονική έκφραση για να επιλέξουμε τις
+γραμμές:
 
-~~~~
+~~~~{text}
 ^X-.*: [0-9.]+
 ~~~~
 
-Translating this, we are saying, we want lines that start with `X-`,
-followed by zero or more characters (`.*`), followed by a colon (`:`)
-and then a space. After the space we are looking for one or more
-characters that are either a digit (0-9) or a period `[0-9.]+`. Note
-that inside the square brackets, the period matches an actual period
-(i.e., it is not a wildcard between the square brackets).
+Μεταφράζοντάς το, λέμε, θέλουμε γραμμές που ξεκινούν με `X-`, ακολουθούμενο από
+κανέναν ή περισσότερους χαρακτήρες (`.*`), ακολουθούμενων από άνω και κάτω
+τελεία (`:`) και μετά ένα κενό. Μετά το κενό αναζητούμε έναν ή περισσότερους
+χαρακτήρες που είναι είτε ψηφίο (0-9) είτε τελεία `[0-9.]+`. Σημειώστε ότι μέσα
+στις αγκύλες, η τελεία ταιριάζει με μια πραγματική τελεία (δηλαδή, δεν είναι
+χαρακτήρας μπαλαντέρ μεταξύ των αγκύλων).
 
-This is a very tight expression that will pretty much match only the
-lines we are interested in as follows:
+Αυτή είναι μια πολύ αυστηρή έκφραση, που θα ταιριάξει μόνο με τις γραμμές που
+μας ενδιαφέρουν, ως εξής:
 
-\VerbatimInput{../code3/re10.py} 
+\VerbatimInput{../code3/re10.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-When we run the program, we see the data nicely filtered to show only
-the lines we are looking for.
+Όταν εκτελούμε το πρόγραμμα, βλέπουμε τα δεδομένα, όμορφα φιλτραρισμένα, για
+να εμφανιστούν μόνο τις γραμμές που αναζητούμε.
 
-~~~~
+~~~~{text}
 X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000
 X-DSPAM-Confidence: 0.6178
@@ -323,38 +329,38 @@ X-DSPAM-Probability: 0.0000
 ...
 ~~~~
 
-But now we have to solve the problem of extracting the numbers. While it
-would be simple enough to use `split`, we can use another
-feature of regular expressions to both search and parse the line at the
-same time.
+Αλλά τώρα πρέπει να λύσουμε άλλο ένα πρόβλημα, της εξαγωγής των αριθμών. Αν και
+θα ήταν αρκετά απλό να χρησιμοποιήσουμε το `split`, μπορούμε να
+χρησιμοποιήσουμε μια άλλη δυνατότητα κανονικών εκφράσεων, για αναζήτηση και
+ανάλυση της γραμμής, ταυτόχρονα.
 
-\index{string!split}
+\index{συμβολοσειρά!split}
 
-Parentheses are another special character in regular expressions. When
-you add parentheses to a regular expression, they are ignored when
-matching the string. But when you are using `findall()`,
-parentheses indicate that while you want the whole expression to match,
-you only are interested in extracting a portion of the substring that
-matches the regular expression.
+Οι παρενθέσεις είναι άλλος ένας ειδικός χαρακτήρας των κανονικών εκφράσεων.
+Όταν προσθέτετε παρενθέσεις σε μια κανονική έκφραση, αυτές αγνοούνται όταν
+ταιριάζουν με τη συμβολοσειρά. Αλλά όταν χρησιμοποιείτε `findall()`, οι
+παρενθέσεις υποδεικνύουν ότι, ενώ θέλετε να ταιριάζει ολόκληρη η έκφραση,
+σας ενδιαφέρει να εξαγάγετε μόνο το τμήμα της υποσυμβολοσειράς, που ταιριάζει
+με την κανονική έκφραση που περιέχεται στις παρενθέσεις.
 
-\index{regex!parentheses}
-\index{parentheses!regular expression}
+\index{regex!παρενθέσεις}
+\index{παρενθέσεις!κανονική έκφραση}
 
-So we make the following change to our program:
+Κάνουμε λοιπόν την εξής αλλαγή στο πρόγραμμά μας:
 
-\VerbatimInput{../code3/re11.py} 
+\VerbatimInput{../code3/re11.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Instead of calling `search()`, we add parentheses around the
-part of the regular expression that represents the floating-point number
-to indicate we only want `findall()` to give us back the
-floating-point number portion of the matching string.
+Αντί να καλέσουμε τη `search()`, προσθέτουμε παρενθέσεις γύρω από το τμήμα της
+κανονικής έκφρασης που αντιπροσωπεύει τον αριθμό κινητής υποδιαστολής, για να
+υποδείξουμε ότι θέλουμε το `findall()` να μας δώσει πίσω μόνο το τμήμα αριθμού
+κινητής υποδιαστολής, της συμβολοσειράς, που ταιριάζει .
 
-The output from this program is as follows:
+Η έξοδος από αυτό το πρόγραμμα είναι η εξής:
 
-~~~~
+~~~~{text}
 ['0.8475']
 ['0.0000']
 ['0.6178']
@@ -364,35 +370,37 @@ The output from this program is as follows:
 ...
 ~~~~
 
-The numbers are still in a list and need to be converted from strings to
-floating point, but we have used the power of regular expressions to
-both search and extract the information we found interesting.
+Οι αριθμοί εξακολουθούν να βρίσκονται σε μια λίστα και να πρέπει να μετατραπούν
+από συμβολοσειρές σε κινητή υποδιαστολή, αλλά χρησιμοποιήσαμε τη δύναμη των
+κανονικών εκφράσεων για αναζήτηση και εξαγωγή των πληροφοριών που θωρούμε
+ενδιαφέρουσες.
 
-As another example of this technique, if you look at the file there are
-a number of lines of the form:
+Ως ένα άλλο παράδειγμα αυτής της τεχνικής, αν κοιτάξετε το αρχείο, υπάρχει ένας
+αριθμός γραμμών της μορφής:
 
-~~~~
+~~~~{text}
 Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
 ~~~~
 
-If we wanted to extract all of the revision numbers (the integer number
-at the end of these lines) using the same technique as above, we could
-write the following program:
+Εάν θέλαμε να εξαγάγουμε όλους τους αριθμούς αναθεώρησης (τον ακέραιο αριθμό
+στο τέλος αυτών των γραμμών) χρησιμοποιώντας την ίδια τεχνική όπως παραπάνω,
+θα μπορούσαμε να γράψουμε το ακόλουθο πρόγραμμα:
 
-\VerbatimInput{../code3/re12.py} 
+\VerbatimInput{../code3/re12.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Translating our regular expression, we are looking for lines that start
-with `Details:`, followed by any number of characters (`.*`), followed
-by `rev=`, and then by one or more digits. We want to find lines that
-match the entire expression but we only want to extract the integer
-number at the end of the line, so we surround `[0-9]+` with parentheses.
+Μεταφράζοντας την κανονική μας έκφραση, αναζητούμε γραμμές που ξεκινούν με
+`Details:`, ακολουθούμενο από οποιονδήποτε αριθμό χαρακτήρων (`.*`),
+ακολουθούμενων από `rev=` και μετά από ένα ή περισσότερα ψηφία. Θέλουμε να
+βρούμε γραμμές που ταιριάζουν με ολόκληρη την έκφραση, αλλά θέλουμε να
+εξαγάγουμε μόνο τον ακέραιο αριθμό στο τέλος της γραμμής, επομένως περιβάλλουμε
+το `[0-9]+` με παρενθέσεις.
 
-When we run the program, we get the following output:
+Όταν εκτελούμε το πρόγραμμα, έχουμε την ακόλουθη έξοδο:
 
-~~~~
+~~~~{text}
 ['39772']
 ['39771']
 ['39770']
@@ -400,62 +408,62 @@ When we run the program, we get the following output:
 ...
 ~~~~
 
-Remember that the `[0-9]+` is "greedy" and it tries to make as large a
-string of digits as possible before extracting those digits. This
-"greedy" behavior is why we get all five digits for each number. The
-regular expression library expands in both directions until it
-encounters a non-digit, or the beginning or the end of a line.
+Θυμηθείτε ότι το `[0-9]+` είναι "άπληστο" και προσπαθεί να δημιουργήσει όσο το
+δυνατόν μεγαλύτερη σειρά ψηφίων πριν εξαγάγει αυτά τα ψηφία. Αυτή η "άπληστη"
+συμπεριφορά είναι ο λόγος που παίρνουμε και τα πέντε ψηφία για κάθε αριθμό. Η
+μονάδα κανονικής έκφρασης επεκτείνεται και προς τις δύο κατευθύνσεις μέχρι να
+συναντήσει ένα μη ψηφίο ή την αρχή ή το τέλος μιας γραμμής.
 
-Now we can use regular expressions to redo an exercise from earlier in
-the book where we were interested in the time of day of each mail
-message. We looked for lines of the form:
+Τώρα μπορούμε να χρησιμοποιήσουμε κανονικές εκφράσεις για να επαναλάβουμε μια
+άσκηση από προηγούμενη ενότητα του βιβλίου, όπου μας ενδιέφερε η ώρα της ημέρας
+κάθε μηνύματος αλληλογραφίας. Αναζητούσαμε γραμμές της μορφής:
 
-~~~~
+~~~~{text}
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 ~~~~
 
-and wanted to extract the hour of the day for each line. Previously we
-did this with two calls to `split`. First the line was split
-into words and then we pulled out the fifth word and split it again on
-the colon character to pull out the two characters we were interested
-in.
+και θέλαμε να εξαγάγουμε την ώρα της ημέρας από αυτές τις γραμμές. Προηγουμένως
+το υλοποιήσαμς με δύο κλήσεις του `split`. Πρώτα η γραμμή χωρίστηκε σε λέξεις
+και μετά βγάλαμε την πέμπτη λέξη και τη χωρίσαμε ξανά στον χαρακτήρα άνω και
+κάτω τελείας, για να βγάλουμε τους δύο χαρακτήρες που μας ενδιέφεραν.
 
-While this worked, it actually results in pretty brittle code that is
-assuming the lines are nicely formatted. If you were to add enough error
-checking (or a big try/except block) to insure that your program never
-failed when presented with incorrectly formatted lines, the code would
-balloon to 10-15 lines of code that was pretty hard to read.
+Ενώ αυτό λειτούργησε, στην πραγματικότητα οδηγεί σε αρκετά εύθραυστο κώδικα που
+υποθέτει ότι οι γραμμές είναι σωστά διαμορφωμένες. Εάν επρόκειτο να προσθέσετε
+έλεγχο σφαλμάτων (ή ένα μεγάλο μπλοκ try/except), για να διασφαλίσετε ότι
+το πρόγραμμά σας δεν αποτυγχάνει όταν αντιμετωπίσει εσφαλμένα μορφοποιημένες
+γραμμές, ο κώδικας θα μεταφερόταν σε 10-15 γραμμές κώδικα, που θα ήταν αρκετά
+δύσκολο να διαβαστούν.
 
-We can do this in a far simpler way with the following regular
-expression:
+Μπορούμε να το κάνουμε αυτό με πολύ πιο απλό τρόπο, με την ακόλουθη κανονική
+έκφραση:
 
-~~~~
+~~~~{text}
 ^From .* [0-9][0-9]:
 ~~~~
 
-The translation of this regular expression is that we are looking for
-lines that start with `From ` (note the space), followed by any number
-of characters (`.*`), followed by a space, followed by two digits
-`[0-9][0-9]`, followed by a colon character. This is the definition of
-the kinds of lines we are looking for.
+Η μετάφραση αυτής της κανονικής έκφρασης είναι ότι αναζητούμε γραμμές που
+ξεκινούν με `From ` (προσέξτε το κενό διάστημα), ακολουθούμενο από οποιονδήποτε
+αριθμό χαρακτήρων (`.*`), ακολουθούμενων από ένα κενό, ακολουθούμενο από δύο
+ψηφία `[0 -9][0-9]`, ακολουθούμενα από χαρακτήρα άνω και κάτω τελείας. Αυτός
+είναι ο ορισμός των ειδών γραμμών που αναζητούμε.
 
-In order to pull out only the hour using `findall()`, we add
-parentheses around the two digits as follows:
+Για να εξάγουμε μόνο την ώρα χρησιμοποιώντας το `findall()`, προσθέτουμε
+παρενθέσεις γύρω από τα δύο ψηφία ως εξής:
 
-~~~~
+~~~~{text}
 ^From .* ([0-9][0-9]):
 ~~~~
 
-This results in the following program:
+Αυτό έχει ως αποτέλεσμα το ακόλουθο πρόγραμμα:
 
-\VerbatimInput{../code3/re13.py} 
+\VerbatimInput{../code3/re13.py}
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-When the program runs, it produces the following output:
+Όταν το πρόγραμμα εκτελείται, παράγει την ακόλουθη έξοδο:
 
-~~~~
+~~~~{text}
 ['09']
 ['18']
 ['16']
@@ -463,110 +471,117 @@ When the program runs, it produces the following output:
 ...
 ~~~~
 
-Escape character
-----------------
+Χαρακτήρας διαφυγής
+-------------------
 
-Since we use special characters in regular expressions to match the
-beginning or end of a line or specify wild cards, we need a way to
-indicate that these characters are "normal" and we want to match the
-actual character such as a dollar sign or caret.
+Όταν χρησιμοποιούμε ειδικούς χαρακτήρες σε κανονικές εκφράσεις, όχι ως σύμβολα
+αλλά με την πραγματική τους αξία, για να ταιριάξουμε την αρχή ή το τέλος μιας
+γραμμής ή να καθορίσουμε μπαλαντέρ, χρειαζόμαστε έναν τρόπο για να υποδείξουμε
+ότι αυτοί οι χαρακτήρες είναι "κανονικοί" και θέλουμε να ταιριάξουμε τον
+πραγματικό χαρακτήρα, όπως ένα σύμβολο του δολαρίου ή έναν χαρακτήρα
+περίφλεξης (^) .
 
-We can indicate that we want to simply match a character by prefixing
-that character with a backslash. For example, we can find money amounts
-with the following regular expression.
+Μπορούμε να υποδείξουμε πως θέλουμε απλώς να ταιριάξουμε έναν χαρακτήρα
+προσθέτοντας ως πρόθεμα αυτού του χαρακτήρα μια ανάστροφη κάθετο. Για
+παράδειγμα, μπορούμε να βρούμε χρηματικά ποσά με την ακόλουθη κανονική
+έκφραση.
 
-~~~~ {.python}
+~~~ {.python}
 import re
 x = 'We just received $10.00 for cookies.'
 y = re.findall('\$[0-9.]+',x)
 ~~~~
 
-Since we prefix the dollar sign with a backslash, it actually matches
-the dollar sign in the input string instead of matching the "end of
-line", and the rest of the regular expression matches one or more digits
-or the period character. *Note:* Inside square brackets,
-characters are not "special". So when we say `[0-9.]`, it really means
-digits or a period. Outside of square brackets, a period is the
-"wild-card" character and matches any character. Inside square brackets,
-the period is a period.
+Εφόσον δίνουμε το πρόθεμα της ανάστροφης κάθετου πριν το σύμβολο του δολαρίου,
+η κανονική έκφραση το ταιριάζει με το σύμβολο του δολαρίου, στη συμβολοσειρά
+εισόδου, αντί να το ταιριάξει με το "τέλος γραμμής" και η υπόλοιπη τυπική
+έκφραση ταιριάζει με ένα ή περισσότερα ψηφία ή τον χαρακτήρα τελείας.
 
-Summary
--------
+*Σημείωση:* Μέσα στις αγκύλες, οι χαρακτήρες δεν είναι "ειδικοί". Έτσι, όταν
+λέμε `[0-9.]`, σημαίνει πραγματικά ψηφία ή τελεία. Έξω από αγκύλες, η τελεία
+είναι ο χαρακτήρας "μπαλαντέρ" και ταιριάζει με οποιονδήποτε χαρακτήρα. Μέσα
+σε αγκύλες, η τελεία είναι τελεία.
 
-While this only scratched the surface of regular expressions, we have
-learned a bit about the language of regular expressions. They are search
-strings with special characters in them that communicate your wishes to
-the regular expression system as to what defines "matching" and what is
-extracted from the matched strings. Here are some of those special
-characters and character sequences:
+Περίληψη
+--------
 
-`^` Matches the beginning of the line.
+Αν και αυτά που αναφέραμε αγκίζουν μόνο την επιφάνεια της ένοιας των κανονικών
+εκφράσεων, μάθαμε λίγα πράγματα για τη γλώσσα των κανονικών εκφράσεων. Είναι
+συμβολοσειρές αναζήτησης με ειδικούς χαρακτήρες μέσα τους που μεταφέρουν τις
+επιθυμίες σας στο σύστημα κανονικής έκφρασης, ως προς το τι πρέπει να
+"ταιριάξει" και τι να εξάγεται από τις αντιστοιχισμένες συμβολοσειρές.
+Ακολουθούν μερικοί από αυτούς τους ειδικούς χαρακτήρες και τις ακολουθίες
+χαρακτήρων:
 
-`$` Matches the end of the line.
+`^` Ταιριάζει την αρχή μιας γραμμής.
 
-`.` Matches any character (a wildcard).
+`$` Ταιριάζει το τέλος μιας γραμμής
 
-`\s` Matches a whitespace character.
+`.` Ταιριάζει οποιονδήποτε χαρακτήρα (ένα μπαλαντέρ).
 
-`\S` Matches a non-whitespace character (opposite of \\s).
+`\s` Ταιριάζει ένα λευκό χαρακτήρα (μη ορατό χαρακτήρα).
 
-`*` Applies to the immediately preceding character(s) and indicates to match
-zero or more times.
+`\S` Ταιριάζει ένα μη λευκό χαρακτήρα (ορατό χαρακτήρα) (αντίθετο του \\s).
 
-`*?` Applies to the immediately preceding character(s) and indicates to
-match zero or more times in "non-greedy mode".
+`*` Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες καμία ή
+περισσότερες φορές.
 
-`+` Applies to the immediately preceding character(s) and indicates to match
-one or more times.
+`*?` Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες καμία ή
+περισσότερες φορές "μη-άπληστα".
 
-`+?` Applies to the immediately preceding character(s) and indicates to
-match one or more times in "non-greedy mode".
+`+` Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες μία ή
+περισσότερες φορές.
 
-`?` Applies to the immediately preceding character(s) and indicates to match
-zero or one time.
+`+?` Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες μία ή
+περισσότερες φορές "μη-άπληστα".
 
-`??` Applies to the immediately preceding character(s) and indicates to
-match zero or one time in "non-greedy mode".
+`?` Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες καμία ή μία
+φορά.
 
-`[aeiou]` Matches a single character as long as that character is in the
-specified set. In this example, it would match "a", "e", "i", "o", or
-"u", but no other characters.
+`??` Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες καμία ή μία
+φορά "μη-άπληστα".
 
-`[a-z0-9]` You can specify ranges of characters using the minus sign. This
-example is a single character that must be a lowercase letter or a
-digit.
+`[aeiou]` Ταιριάζει έναν μόνο χαρακτήρα από το δοθέν σύνολο. Στο παράδειγμα, θα
+ταιριάξει κάποιο από τα "a", "e", "i", "o" ή "u", αλλά όχι κάποιον άλλο
+χαρακτήρα.
 
-`[^A-Za-z]` When the first character in the set notation is a caret, it
-inverts the logic. This example matches a single character that is
-anything *other than* an uppercase or lowercase letter.
+`[a-z0-9]` Μπορείτε να καθορίσετε εύρος χαρακτήρων χρησιμοποιώντας το σύμβολο
+μείον. Αυτό το παράδειγμα αντιπροσωπεύει έναν μεμονωμένο χαρακτήρα, που πρέπει
+να είναι πεζός ή ψηφίο.
 
-`( )` When parentheses are added to a regular expression, they are ignored
-for the purpose of matching, but allow you to extract a particular
-subset of the matched string rather than the whole string when using
-`findall()`.
+`[^A-Za-z]` Όταν ο πρώτος χαρακτήρας του συνόλου είναι η περίφλεξη, αντιστρέφει
+τη λογική. Αυτό το παράδειγμα ταιριάζει με έναν μεμονωμένο χαρακτήρα που είναι
+οτιδήποτε *εκτός* από ένα κεφαλαίο ή πεζό γράμμα.
 
-`\b` Matches the empty string, but only at the start or end of a word.
+`( )` Όταν προστίθενται παρενθέσεις σε μια κανονική έκφραση, αγνοούνται από την
+αντιστοίχιση, αλλά σας επιτρέπουν, όταν χρησιμοποιείτε το `findall()`, να
+εξαγάγετε ένα συγκεκριμένο υποσύνολο της αντιστοιχισμένης συμβολοσειράς αντί
+ολόκληρης της συμβολοσειράς .
 
-`\B` Matches the empty string, but not at the start or end of a word.
+`\b` Ταιριάζει με την κενή συμβολοσειρά, αλλά μόνο στην αρχή ή στο τέλος μιας
+λέξης.
 
-`\d` Matches any decimal digit; equivalent to the set [0-9].
+`\B` Ταιριάζει με την κενή συμβολοσειρά, αλλά όχι στην αρχή ή στο τέλος μιας
+λέξης.
 
-`\D` Matches any non-digit character; equivalent to the set [^0-9].
+`\d` Ταιριάζει με οποιοδήποτε δεκαδικό ψηφίο. Ισοδύναμο με το σύνολο [0-9].
 
-Bonus section for Unix / Linux users
-------------------------------------
+`\D` Ταιριάζει με οποιονδήποτε χαρακτήρα, μη-ψήφιο. Ισοδύναμο με το σύνολο [^0-9].
 
-Support for searching files using regular expressions was built into the
-Unix operating system since the 1960s and it is available in nearly all
-programming languages in one form or another.
+Μπόνους ενότητα για χρήστες Unix / Linux
+----------------------------------------
+
+Η υποστήριξη για αναζήτηση αρχείων με χρήση κανονικών εκφράσεων ενσωματώθηκε
+στο λειτουργικό σύστημα Unix από τη δεκαετία του 1960 και είναι διαθέσιμη σε
+όλες σχεδόν τις γλώσσες προγραμματισμού με τη μία ή την άλλη μορφή.
 
 \index{grep}
 
-As a matter of fact, there is a command-line program built into Unix
-called *grep* (Generalized Regular Expression Parser)
-that does pretty much the same as the `search()` examples in
-this chapter. So if you have a Macintosh or Linux system, you can try
-the following commands in your command-line window.
+Στην πραγματικότητα, υπάρχει ένα πρόγραμμα γραμμής εντολών, ενσωματωμένο στο
+Unix που ονομάζεται *grep* (Generalized Regular Expression Parser) που κάνει
+σχεδόν ότι και τα παραδείγματα με τη `search()` σε αυτό το κεφάλαιο. Επομένως,
+εάν έχετε σύστημα Macintosh ή Linux, μπορείτε να δοκιμάσετε τις ακόλουθες
+εντολές στο παράθυρο της γραμμής εντολών σας.
 
 ~~~~ {.bash}
 $ grep '^From:' mbox-short.txt
@@ -576,26 +591,25 @@ From: zqian@umich.edu
 From: rjlowe@iupui.edu
 ~~~~
 
-This tells `grep` to show you lines that start with the
-string "From:" in the file *mbox-short.txt*. If you
-experiment with the `grep` command a bit and read the
-documentation for `grep`, you will find some subtle
-differences between the regular expression support in Python and the
-regular expression support in `grep`. As an example,
-`grep` does not support the non-blank character
-`\S` so you will need to use the slightly more complex set
-notation `[^ ]`, which simply means match a character that is anything
-other than a space.
+Αυτό λέει στο `grep` να σας δείξει τις γραμμές που ξεκινούν με τη συμβολοσειρά
+"From:" στο αρχείο *mbox-short.txt*. Εάν πειραματιστείτε λίγο με την εντολή
+`grep` και διαβάσετε την τεκμηρίωση για το `grep`, θα βρείτε κάποιες
+ανεπαίσθητες διαφορές μεταξύ της υποστήριξης κανονικών εκφράσεων στην Python
+και της υποστήριξης κανονικών εκφράσεων στο `grep`. Για παράδειγμα, το `grep`
+δεν υποστηρίζει τον μη λευκό χαρακτήρα `\S`, επομένως θα χρειαστεί να
+χρησιμοποιήσετε τον ελαφρώς πιο περίπλοκο συμβολισμό συνόλου `[^[:space:]]`, που
+σημαίνει απλώς αντιστοίχιση ενός μη λευκού χαρακτήρα.
 
-Debugging
----------
+Εκσφαλμάτωση
+------------
 
-Python has some simple and rudimentary built-in documentation that can
-be quite helpful if you need a quick refresher to trigger your memory
-about the exact name of a particular method. This documentation can be
-viewed in the Python interpreter in interactive mode.
+Η Python έχει κάποια απλή και στοιχειώδη ενσωματωμένη τεκμηρίωση που μπορεί να
+είναι αρκετά χρήσιμη εάν χρειάζεστε ένα γρήγορο φρασκάρισμα της μνήμης σας,
+σχετικά με το ακριβές όνομα μιας συγκεκριμένης μεθόδου. Αυτή η τεκμηρίωση
+μπορεί να προβληθεί στον διερμηνέα Python σε διαδραστική λειτουργία.
 
-You can bring up an interactive help system using `help()`.
+Μπορείτε να εμφανίσετε ένα διαδραστικό σύστημα βοήθειας χρησιμοποιώντας το
+`help()`.
 
 ~~~~ {.python}
 >>> help()
@@ -603,8 +617,9 @@ You can bring up an interactive help system using `help()`.
 help> modules
 ~~~~
 
-If you know what module you want to use, you can use the
-`dir()` command to find the methods in the module as follows:
+Εάν γνωρίζετε ποιο άρθρωμα θέλετε να χρησιμοποιήσετε, μπορείτε να
+χρησιμοποιήσετε την εντολή `dir()` για να βρείτε τις μεθόδους στη
+λειτουργική μονάδα ως εξής:
 
 ~~~~ {.python .trinket}
 >>> import re
@@ -614,8 +629,8 @@ If you know what module you want to use, you can use the
 'sre_parse', 'sub', 'subn', 'sys', 'template']
 ~~~~
 
-You can also get a small amount of documentation on a particular method
-using the dir command.
+Μπορείτε επίσης να λάβετε μια μικρή τεκμηρίωσης για μια συγκεκριμένη μέθοδο
+χρησιμοποιώντας την εντολή dir.
 
 ~~~~ {.python .trinket}
 >>> help (re.search)
@@ -627,77 +642,83 @@ search(pattern, string, flags=0)
 >>>
 ~~~~
 
-The built-in documentation is not very extensive, but it can be helpful
-when you are in a hurry or don't have access to a web browser or search
-engine.
+Η ενσωματωμένη τεκμηρίωση δεν είναι ιδιαίτερα εκτενής, αλλά μπορεί να είναι
+χρήσιμη όταν βιάζεστε ή δεν έχετε πρόσβαση σε πρόγραμμα περιήγησης ιστού ή
+μηχανή αναζήτησης.
 
-Glossary
---------
-
-brittle code
-:   Code that works when the input data is in a particular format but is
-    prone to breakage if there is some deviation from the correct
-    format. We call this "brittle code" because it is easily broken.
-
-greedy matching
-:   The notion that the `+` and `*` characters in a regular expression
-    expand outward to match the largest possible string.
-\index{greedy}
-\index{greedy matching}
-
-grep
-:   A command available in most Unix systems that searches through text
-    files looking for lines that match regular expressions. The command
-    name stands for "Generalized Regular Expression Parser".
-\index{grep}
-
-regular expression
-:   A language for expressing more complex search strings. A regular
-    expression may contain special characters that indicate that a
-    search only matches at the beginning or end of a line or many other
-    similar capabilities.
-
-wild card
-:   A special character that matches any character. In regular
-    expressions the wild-card character is the period.
-\index{wild card}
-
-Exercises
+Γλωσσάριο
 ---------
 
-**Exercise 1: Write a simple program to simulate the operation of the
-`grep` command on Unix. Ask the user to enter a regular
-expression and count the number of lines that matched the regular
-expression:**
+brittle code - εύθραυστος κώδικας
+: Κωδικός που λειτουργεί όταν τα δεδομένα εισόδου είναι σε συγκεκριμένη μορφή,
+    αλλά είναι επιρρεπής σε σφάλματα εκτέλεσης, εάν υπάρχει κάποια απόκλιση από
+    τη σωστή μορφή. Αυτό το ονομάζουμε "εύθραυστος κώδικας" γιατί "σπάει" εύκολα.
 
-~~~~
+grep
+:   Μια εντολή διαθέσιμη στα περισσότερα συστήματα Unix, που αναζητά μέσα σε
+    αρχεία κειμένου γραμμές, που ταιριάζουν με κανονικές εκφράσεις. Το όνομα
+    της εντολής σημαίνει "Generalized Regular Expression Parser - Αναλυτής
+    Γενικοποιημένης Κανονική Έκφραση".
+\index{grep}
+
+άπληστο ταίριασμα
+:   Η έννοια ότι οι χαρακτήρες `+` και `*` σε μια κανονική έκφραση
+    επεκτείνονται προς τα έξω για να ταιριάζουν με τη μεγαλύτερη δυνατή
+    συμβολοσειρά.
+\index{άπληστος}
+\index{άπληστο ταίριασμα}
+
+κανονική έκφραση - regular expression
+:   Μια γλώσσα για την έκφραση πιο σύνθετων συμβολοσειρών αναζήτησης. Μια
+    κανονική έκφραση μπορεί να περιέχει ειδικούς χαρακτήρες, που υποδεικνύουν
+    ότι μια αναζήτηση ταιριάζει μόνο στην αρχή ή στο τέλος μιας γραμμής ή
+    πολλές άλλες παρόμοιες δυνατότητες.
+\index{κανονική έκφραση}
+\index{regular expression}
+\index{regex}
+
+μπαλαντέρ - wild card
+:   Ένας ειδικός χαρακτήρας, που ταιριάζει με κάθε χαρακτήρα. Στις κανονικές
+    εκφράσεις ο χαρακτήρας μπαλαντέρ είναι η τελεία.
+\index{wild card}
+\index{μπαλαντέρ}
+
+Ασκήσεις
+--------
+
+**Άσκηση 1: Γράψτε ένα απλό πρόγραμμα για την προσομοίωση της λειτουργίας της
+εντολής `grep` στο Unix. Ζητήστε από τον χρήστη να εισαγάγει μια κανονική
+έκφραση και μετρήστε τον αριθμό των γραμμών του αρχείου mbox.txt, που
+ταιριάζουν με την κανονική έκφραση:**
+
+~~~~{text}
 $ python grep.py
-Enter a regular expression: ^Author
+Εισαγάγετε μια κανονική έκφραση: ^Author
 mbox.txt had 1798 lines that matched ^Author
 
 $ python grep.py
-Enter a regular expression: ^X-
+Εισαγάγετε μια κανονική έκφραση: ^X-
 mbox.txt had 14368 lines that matched ^X-
 
 $ python grep.py
-Enter a regular expression: java$
+Εισαγάγετε μια κανονική έκφραση: java$
 mbox.txt had 4175 lines that matched java$
 ~~~~
 
-**Exercise 2: Write a program to look for lines of the form:**
+**Άσκηση 2: Γράψτε ένα πρόγραμμα για να αναζητήσετε γραμμές της μορφής:**
 
-~~~~
+~~~~{text}
 New Revision: 39772
 ~~~~
 
-**Extract the number from each of the lines using a regular expression
-and the `findall()` method. Compute the average of the
-numbers and print out the average as an integer.**
+** Εξάγετε τον αριθμό, από κάθε γραμμή, χρησιμοποιώντας μια κανονική έκφραση
+και τη μέθοδο `findall()`. Υπολογίστε τον μέσο όρο των αριθμών και εκτυπώστε
+τον μέσο όρο ως ακέραιο.**
 
-~~~~
-Enter file:mbox.txt
+~~~~{text}
+Εισαγάγετε το αρχείο:mbox.txt
 38549
 
-Enter file:mbox-short.txt
+Εισαγάγετε το αρχείο:mbox-short.txt
 39756
 ~~~~
