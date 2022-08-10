@@ -154,15 +154,14 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="regular-expressions">Regular expressions</h1>
-<p>So far we have been reading through files, looking for patterns and extracting various bits of lines that we find interesting. We have been</p>
-<p>using string methods like <code>split</code> and <code>find</code> and using lists and string slicing to extract portions of the lines.</p>
-<p>  </p>
-<p>This task of searching and extracting is so common that Python has a very powerful library called <em>regular expressions</em> that handles many of these tasks quite elegantly. The reason we have not introduced regular expressions earlier in the book is because while they are very powerful, they are a little complicated and their syntax takes some getting used to.</p>
-<p>Regular expressions are almost their own little programming language for searching and parsing strings. As a matter of fact, entire books have been written on the topic of regular expressions. In this chapter, we will only cover the basics of regular expressions. For more detail on regular expressions, see:</p>
+<h1 id="κανονικές-εκφράσεις-regular-expressions">Κανονικές εκφράσεις (Regular expressions)</h1>
+<p>Μέχρι στιγμής διαβάζαμε αρχεία, αναζητούσαμε μοτίβα και εξαγάγαμε διάφορα κομμάτια γραμμών, που θεωρούσαμε ενδιαφέροντα. Χρησιμοποιήσαμε μεθόδους συμβολοσειρών, όπως <code>split</code> και <code>find</code> και χρησιμοποιούσαμε λίστες και διαμέριση συμβολοσειρών για να εξαγάγουμε τμήματα των γραμμών.</p>
+<p>   </p>
+<p>Αυτή η εργασία αναζήτησης και εξαγωγής είναι τόσο συνηθισμένη, που η Python έχει ένα πολύ ισχυρό άρθρωμα, που ονομάζεται <em>κανονικές εκφράσεις</em>, ή για συντομία <em>regex</em>, και χειρίζεται πολλές από αυτές τις εργασίες ιδιαίτερα έξυπνα. Ο λόγος που δεν έχουμε αναφερθεί στις κανονικές εκφράσεις νωρίτερα στο βιβλίο είναι επειδή, ενώ είναι πολύ ισχυρές, είναι λίγο περίπλοκες και η σύνταξή τους χρειάζεται μια κάποια εξοικείωση.</p>
+<p>Οι κανονικές εκφράσεις είναι σχεδόν, από μόνες τους, μικρή γλώσσα προγραμματισμού για αναζήτηση και ανάλυση συμβολοσειρών. Στην πραγματικότητα, έχουν γραφτεί ολόκληρα βιβλία με θέμα τις κανονικές εκφράσεις. Σε αυτό το κεφάλαιο, θα καλύψουμε μόνο τα βασικά των κανονικών εκφράσεων. Για περισσότερες λεπτομέρειες σχετικά με τις κανονικές εκφράσεις, δείτε:</p>
 <p><a href="https://en.wikipedia.org/wiki/Regular_expression" class="uri">https://en.wikipedia.org/wiki/Regular_expression</a></p>
 <p><a href="https://docs.python.org/library/re.html" class="uri">https://docs.python.org/library/re.html</a></p>
-<p>The regular expression library <code>re</code> must be imported into your program before you can use it. The simplest use of the regular expression library is the <code>search()</code> function. The following program demonstrates a trivial use of the search function.</p>
+<p>Το άρθρωμα κανονικών εκφράσεων <code>re</code> πρέπει να εισαχθεί στο πρόγραμμά σας για να μπορέσετε να τοη χρησιμοποιήσετε. Η απλούστερη χρήση του αρθρώματος κανονικών εκφράσεων είναι η συνάρτηση <code>search()</code>. Το παρακάτω πρόγραμμα δείχνει μια απλή χρήση της λειτουργίας αναζήτησης.</p>
 <p></p>
 <pre class="python"><code># Search for lines that contain &#39;From&#39;
 import re
@@ -172,11 +171,11 @@ for line in hand:
     if re.search(&#39;From:&#39;, line):
         print(line)
 
-# Code: http://www.py4e.com/code3/re01.py</code></pre>
-<p>We open the file, loop through each line, and use the regular expression <code>search()</code> to only print out lines that contain the string “From:”. This program does not use the real power of regular expressions, since we could have just as easily used <code>line.find()</code> to accomplish the same result.</p>
+# Code: http://www.gr.py4e.com/code3/re01.py</code></pre>
+<p>Ανοίγουμε το αρχείο, με βρόχο διατρέχουμε κάθε γραμμή και χρησιμοποιούμε την κανονική έκφραση <code>search()</code> για να εκτυπώνουμε μόνο τις γραμμές που περιέχουν τη συμβολοσειρά “From:”. Αυτό το πρόγραμμα δεν χρησιμοποιεί την πραγματική ισχύ των κανονικών εκφράσεων, αφού θα μπορούσαμε να χρησιμοποιήσουμε εξίσου εύκολα το <code>line.find()</code> για να επιτύχουμε το ίδιο αποτέλεσμα.</p>
 <p></p>
-<p>The power of the regular expressions comes when we add special characters to the search string that allow us to more precisely control which lines match the string. Adding these special characters to our regular expression allow us to do sophisticated matching and extraction while writing very little code.</p>
-<p>For example, the caret character is used in regular expressions to match “the beginning” of a line. We could change our program to only match lines where “From:” was at the beginning of the line as follows:</p>
+<p>Η ισχύς των κανονικών εκφράσεων αποκαλύπτεται όταν προσθέτουμε ειδικούς χαρακτήρες στη συμβολοσειρά αναζήτησης, που μας επιτρέπουν να ελέγχουμε με μεγαλύτερη ακρίβεια ποιες γραμμές ταιριάζουν με τη συμβολοσειρά. Η προσθήκη αυτών των ειδικών χαρακτήρων στην κανονική μας έκφραση μας επιτρέπει να κάνουμε πολύπλοκη αντιστοίχιση και εξαγωγή ενώ γράφουμε πολύ λίγο κώδικα.</p>
+<p>Για παράδειγμα, ο χαρακτήρας περίφλεξης (^) χρησιμοποιείται σε κανονικές εκφράσεις για να ταιριάζει με την “αρχή” μιας γραμμής. Μπορούσαμε να αλλάξουμε το πρόγραμμά μας ώστε να εντοπίζει μόνο τις γραμμές στις οποίες το “From:” ήταν στην αρχή της γραμμής ως εξής:</p>
 <pre class="python"><code># Search for lines that start with &#39;From&#39;
 import re
 hand = open(&#39;mbox-short.txt&#39;)
@@ -185,13 +184,13 @@ for line in hand:
     if re.search(&#39;^From:&#39;, line):
         print(line)
 
-# Code: http://www.py4e.com/code3/re02.py</code></pre>
-<p>Now we will only match lines that <em>start with</em> the string “From:”. This is still a very simple example that we could have done equivalently with the <code>startswith()</code> method from the string library. But it serves to introduce the notion that regular expressions contain special action characters that give us more control as to what will match the regular expression.</p>
+# Code: http://www.gr.py4e.com/code3/re02.py</code></pre>
+<p>Με αυτόν τον τρόπο θα εντοπίσουμε μόνο γραμμές που <em>ξεκινούν με</em> τη συμβολοσειρά “From:”. Αυτό είναι ένα ακόμη πολύ απλό παράδειγμα, που θα μπορούσαμε να είχαμε κάνει, ισοδύναμα, με τη μέθοδο <code>startswith()</code>, από τη βιβλιοθήκη συμβολοσειρών. Αλλά χρησιμεύει για να εμπεδώσουμε το γεγονός ότι οι κανονικές εκφράσεις περιέχουν ειδικούς χαρακτήρες ενεργειών, που μας δίνουν περισσότερο έλεγχο ως προς το τι θα ταιριάζει με την κανονική έκφραση.</p>
 <p></p>
-<h2 id="character-matching-in-regular-expressions">Character matching in regular expressions</h2>
-<p>There are a number of other special characters that let us build even more powerful regular expressions. The most commonly used special character is the period or full stop, which matches any character.</p>
-<p> </p>
-<p>In the following example, the regular expression <code>F..m:</code> would match any of the strings “From:”, “Fxxm:”, “F12m:”, or “F!<span class="citation" data-cites="m">@m</span>:” since the period characters in the regular expression match any character.</p>
+<h2 id="ταίριασμα-χαρακτήρων-σε-κανονικές-εκφράσεις">Ταίριασμα χαρακτήρων σε κανονικές εκφράσεις</h2>
+<p>Υπάρχει ένα πλήθος άλλων ειδικών χαρακτήρων, που μας επιτρέπουν να δημιουργήσουμε ακόμη πιο ισχυρές κανονικές εκφράσεις. Ο πιο συχνά χρησιμοποιούμενος ειδικός χαρακτήρας είναι η τελεία, που ταιριάζει με οποιονδήποτε χαρακτήρα.</p>
+<p></p>
+<p>Στο ακόλουθο παράδειγμα, η κανονική έκφραση <code>F..m:</code> θα ταιριάζει με οποιαδήποτε από τις συμβολοσειρές “From:”, “Fxxm:”, “F12m:” ή “F!<span class="citation" data-cites="m">@m</span>:” καθώς οι χαρακτήρες τελείας στην τυπική έκφραση ταιριάζουν με οποιονδήποτε χαρακτήρα.</p>
 <pre class="python"><code># Search for lines that start with &#39;F&#39;, followed by
 # 2 characters, followed by &#39;m:&#39;
 import re
@@ -201,9 +200,9 @@ for line in hand:
     if re.search(&#39;^F..m:&#39;, line):
         print(line)
 
-# Code: http://www.py4e.com/code3/re03.py</code></pre>
-<p>This is particularly powerful when combined with the ability to indicate that a character can be repeated any number of times using the <code>*</code> or <code>+</code> characters in your regular expression. These special characters mean that instead of matching a single character in the search string, they match zero-or-more characters (in the case of the asterisk) or one-or-more of the characters (in the case of the plus sign).</p>
-<p>We can further narrow down the lines that we match using a repeated <em>wild card</em> character in the following example:</p>
+# Code: http://www.gr.py4e.com/code3/re03.py</code></pre>
+<p>Το σύμβολο της τελείας είναι ιδιαίτερα ισχυρό όταν συνδυάζεται με τη δυνατότητα να υποδεικνύει ότι ένας χαρακτήρας μπορεί να επαναληφθεί όσες φορές χρειαστεί, χρησιμοποιώντας τους χαρακτήρες <code>*</code> ή <code>+</code> στην κανονική σας έκφραση. Αυτοί οι ειδικοί χαρακτήρες σημαίνουν ότι αντί να ταιριάζουν με έναν χαρακτήρα στη συμβολοσειρά αναζήτησης, ταιριάζουν με κανέναν ή περισσότερους χαρακτήρες (στην περίπτωση του αστερίσκου) ή έναν ή περισσότερους χαρακτήρες (στην περίπτωση του συμβόλου συν).</p>
+<p>Μπορούμε να περιορίσουμε περαιτέρω τις γραμμές που ταιριάζουν χρησιμοποιώντας έναν επαναλαμβανόμενο χαρακτήρα <em>μπαλαντέρ</em> όπως στο ακόλουθο παράδειγμα:</p>
 <pre class="python"><code># Search for lines that start with From and have an at sign
 import re
 hand = open(&#39;mbox-short.txt&#39;)
@@ -212,35 +211,35 @@ for line in hand:
     if re.search(&#39;^From:.+@&#39;, line):
         print(line)
 
-# Code: http://www.py4e.com/code3/re04.py</code></pre>
-<p>The search string <code>^From:.+@</code> will successfully match lines that start with “From:”, followed by one or more characters (<code>.+</code>), followed by an at-sign. So this will match the following line:</p>
-<pre><code>From: stephen.marquard@uct.ac.za</code></pre>
-<p>You can think of the <code>.+</code> wildcard as expanding to match all the characters between the colon character and the at-sign.</p>
-<pre><code>From:.+@</code></pre>
-<p>It is good to think of the plus and asterisk characters as “pushy”. For example, the following string would match the last at-sign in the string as the <code>.+</code> pushes outwards, as shown below:</p>
-<pre><code>From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen @iupui.edu</code></pre>
-<p>It is possible to tell an asterisk or plus sign not to be so “greedy” by adding another character. See the detailed documentation for information on turning off the greedy behavior.</p>
+# Code: http://www.gr.py4e.com/code3/re04.py</code></pre>
+<p>Η συμβολοσειρά αναζήτησης <code>^From:.+@</code> θα ταιριάξει με επιτυχία με τις γραμμές που ξεκινούν με “From:”, ακολουθούμενο από έναν ή περισσότερους χαρακτήρες (<code>.+</code>), ακολουθούμενων από ένα σύμβολο at. Άρα αυτό θα ταιριάξει με την ακόλουθη γραμμή:</p>
+<pre class="{text}"><code>From: stephen.marquard@uct.ac.za</code></pre>
+<p>Μπορούμε να πούμε ότι ο χαρακτήρας μπαλαντέρ <code>.+</code> επεκτείνεται για να ταιριάζει με όλους τους χαρακτήρες μεταξύ του χαρακτήρα άνω και κάτω τελείας και του συμβόλου at.</p>
+<pre class="{text}"><code>From:.+@</code></pre>
+<p>Είναι καλό να σκεφτόμαστε τους χαρακτήρες συν και αστερίσκο ως “άπληστους”. Για παράδειγμα, η ακόλουθη συμβολοσειρά θα ταιριάζει με το τελευταίο στο σύμβολο at της συμβολοσειράς καθώς το <code>.+</code> ωθεί προς τα έξω, όπως φαίνεται παρακάτω:</p>
+<pre class="{text}"><code>From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen @iupui.edu</code></pre>
+<p>Είναι δυνατόν να πείτε σε έναν αστερίσκο ή ένα σύμβολο συν να μην είναι τόσο “άπληστο” προσθέτοντας έναν επιπλέον χαρακτήρα. Δείτε τη λεπτομερή τεκμηρίωση για πληροφορίες σχετικά με την απενεργοποίηση της άπληστης συμπεριφοράς.</p>
 <p></p>
-<h2 id="extracting-data-using-regular-expressions">Extracting data using regular expressions</h2>
-<p>If we want to extract data from a string in Python we can use the <code>findall()</code> method to extract all of the substrings which match a regular expression. Let’s use the example of wanting to extract anything that looks like an email address from any line regardless of format. For example, we want to pull the email addresses from each of the following lines:</p>
-<pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+<h2 id="εξαγωγή-δεδομένων-με-χρήση-κανονικών-εκφράσεων">Εξαγωγή δεδομένων με χρήση κανονικών εκφράσεων</h2>
+<p>Εάν θέλουμε να εξαγάγουμε δεδομένα από μια συμβολοσειρά στην Python, μπορούμε να χρησιμοποιήσουμε τη μέθοδο <code>findall()</code>, για να εξαγάγουμε όλες τις υποσυμβολοσειρές που ταιριάζουν με μια κανονική έκφραση. Ας χρησιμοποιήσουμε ως παράδειγμα το να εξαγάγουμε οτιδήποτε μοιάζει με διεύθυνση email, από οποιαδήποτε γραμμή, ανεξαρτήτως μορφής. Για παράδειγμα, θέλουμε να τραβήξουμε τις διευθύνσεις email από καθεμία από τις ακόλουθες γραμμές:</p>
+<pre class="{text}"><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 Return-Path: &lt;postmaster@collab.sakaiproject.org&gt;
           for &lt;source@collab.sakaiproject.org&gt;;
 Received: (from apache@localhost)
 Author: stephen.marquard@uct.ac.za</code></pre>
-<p>We don’t want to write code for each of the types of lines, splitting and slicing differently for each line. This following program uses <code>findall()</code> to find the lines with email addresses in them and extract one or more addresses from each of those lines.</p>
+<p>Δεν θέλουμε να γράψουμε κώδικα για κάθε έναν από τους τύπους γραμμών, χωρίζοντας και τεμαχίζοντας διαφορετικά για κάθε γραμμή. Το πρόγραμμα που ακολουθεί χρησιμοποιεί το <code>findall()</code> για να βρει τις γραμμές με διευθύνσεις email και να εξαγάγει μία ή περισσότερες διευθύνσεις από καθεμία από αυτές τις γραμμές.</p>
 <p> </p>
 <pre class="python"><code>import re
 s = &#39;A message from csev@umich.edu to cwen@iupui.edu about meeting @2PM&#39;
 lst = re.findall(&#39;\S+@\S+&#39;, s)
 print(lst)
 
-# Code: http://www.py4e.com/code3/re05.py</code></pre>
-<p>The <code>findall()</code> method searches the string in the second argument and returns a list of all of the strings that look like email addresses. We are using a two-character sequence that matches a non-whitespace character (<code>\S</code>).</p>
-<p>The output of the program would be:</p>
-<pre><code>[&#39;csev@umich.edu&#39;, &#39;cwen@iupui.edu&#39;]</code></pre>
-<p>Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-whitespace character. The <code>\S+</code> matches as many non-whitespace characters as possible.</p>
-<p>The regular expression would match twice (csev@umich.edu and cwen@iupui.edu), but it would not match the string “<span class="citation" data-cites="2PM">@2PM</span>” because there are no non-blank characters <em>before</em> the at-sign. We can use this regular expression in a program to read all the lines in a file and print out anything that looks like an email address as follows:</p>
+# Code: http://www.gr.py4e.com/code3/re05.py</code></pre>
+<p>Η μέθοδος <code>findall()</code> αναζητά τη συμβολοσειρά στο δεύτερο όρισμα και επιστρέφει μια λίστα με όλες τις συμβολοσειρές που μοιάζουν με διευθύνσεις email. Χρησιμοποιούμε μια ακολουθία δύο χαρακτήρων που ταιριάζει με έναν μη λευκό χαρακτήρα (<code>\S</code>).</p>
+<p>Η έξοδος του προγράμματος θα είναι:</p>
+<pre class="{text}"><code>[&#39;csev@umich.edu&#39;, &#39;cwen@iupui.edu&#39;]</code></pre>
+<p>Μεταφράζοντας της κανονικής έκφρασης, λέμε, αναζητούμε υποσυμβολοσειρές που έχουν τουλάχιστον έναν μη λευκό χαρακτήρα, ακολουθούμενο από ένα σύμβολο at, ακολουθούμενο από τουλάχιστον έναν ακόμη μη λευκό χαρακτήρα. Το <code>\S+</code> ταιριάζει με όσο το δυνατόν περισσότερους μη κενούς χαρακτήρες.</p>
+<p>Η κανονική έκφραση θα ταιριάξει δύο φορές (csev@umich.edu και cwen@iupui.edu), αλλά δεν θα ταιριάξει με τη συμβολοσειρά “<span class="citation" data-cites="2PM">@2PM</span>” επειδή δεν υπάρχουν μη κενοί χαρακτήρες <em>πριν</em> από το σύμβολο at. Μπορούμε να χρησιμοποιήσουμε αυτήν την κανονική έκφραση σε ένα πρόγραμμα για να διαβάσουμε όλες τις γραμμές ενός αρχείου και να εκτυπώσουμε οτιδήποτε μοιάζει με διεύθυνση email ως εξής:</p>
 <pre class="python"><code># Search for lines that have an at sign between characters
 import re
 hand = open(&#39;mbox-short.txt&#39;)
@@ -250,10 +249,10 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re06.py</code></pre>
-<p>We read each line and then extract all the substrings that match our regular expression. Since <code>findall()</code> returns a list, we simply check if the number of elements in our returned list is more than zero to print only lines where we found at least one substring that looks like an email address.</p>
-<p>If we run the program on <em>mbox-short.txt</em> we get the following output:</p>
-<pre><code>...
+# Code: http://www.gr.py4e.com/code3/re06.py</code></pre>
+<p>Διαβάζουμε κάθε γραμμή και μετά εξάγουμε όλες τις υποσυμβολοσειρές που ταιριάζουν με την κανονική μας έκφραση. Μιας και το <code>findall()</code> επιστρέφει μια λίστα, απλώς ελέγχουμε εάν ο αριθμός των στοιχείων στη λίστα που επιστρέφεται είναι μεγαλύτερος από το μηδέν για να εκτυπώσουμε μόνο γραμμές όπου βρήκαμε τουλάχιστον μία υποσυμβολοσειρά που μοιάζει με διεύθυνση email.</p>
+<p>Αν τρέξουμε το πρόγραμμα στο <em>mbox-short.txt</em> θα έχουμε την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>...
 [&#39;&lt;source@collab.sakaiproject.org&gt;;&#39;]
 [&#39;&lt;source@collab.sakaiproject.org&gt;;&#39;]
 [&#39;apache@localhost)&#39;]
@@ -263,13 +262,13 @@ for line in hand:
 [&#39;cwen@iupui.edu&#39;]
 [&#39;cwen@iupui.edu&#39;]
 [&#39;wagnermr@iupui.edu&#39;]</code></pre>
-<p>Some of our email addresses have incorrect characters like “&lt;” or “;” at the beginning or end. Let’s declare that we are only interested in the portion of the string that starts and ends with a letter or a number.</p>
-<p>To do this, we use another feature of regular expressions. Square brackets are used to indicate a set of multiple acceptable characters we are willing to consider matching. In a sense, the <code>\S</code> is asking to match the set of “non-whitespace characters”. Now we will be a little more explicit in terms of the characters we will match.</p>
-<p>Here is our new regular expression:</p>
-<pre><code>[a-zA-Z0-9]\S*@\S*[a-zA-Z]</code></pre>
-<p>This is getting a little complicated and you can begin to see why regular expressions are their own little language unto themselves. Translating this regular expression, we are looking for substrings that start with a <em>single</em> lowercase letter, uppercase letter, or number “[a-zA-Z0-9]”, followed by zero or more non-blank characters (<code>\S*</code>), followed by an at-sign, followed by zero or more non-blank characters (<code>\S*</code>), followed by an uppercase or lowercase letter. Note that we switched from <code>+</code> to <code>*</code> to indicate zero or more non-blank characters since <code>[a-zA-Z0-9]</code> is already one non-blank character. Remember that the <code>*</code> or <code>+</code> applies to the single character immediately to the left of the plus or asterisk.</p>
+<p>Ορισμένες από τις διευθύνσεις ηλεκτρονικού ταχυδρομείου μας έχουν λανθασμένους χαρακτήρες, όπως “&lt;” ή “;” στην αρχή ή στο τέλος. Ας δηλώσουμε ότι μας ενδιαφέρει μόνο το τμήμα της συμβολοσειράς που αρχίζει και τελειώνει με ένα γράμμα ή έναν αριθμό.</p>
+<p>Για να το κάνουμε αυτό, χρησιμοποιούμε ένα άλλο χαρακτήρα των κανονικών εκφράσεων. Οι αγκύλες χρησιμοποιούνται για να υποδείξουν ένα σύνολο πολλών αποδεκτών χαρακτήρων. Κατά μία έννοια, το <code>\S</code> ζητά να ταιριάζει με το σύνολο των “μη λευκών χαρακτήρων”. Τώρα θα είμαστε λίγο πιο σαφείς ως προς τους χαρακτήρες που θα ταιριάξουμε.</p>
+<p>Εδώ είναι η νέα μας κανονική έκφραση:</p>
+<pre class="{text}"><code>[a-zA-Z0-9]\S*@\S*[a-zA-Z]</code></pre>
+<p>Αυτό γίνεται λίγο περίπλοκο και μπορείτε να αρχίσετε να βλέπετε γιατί είπαμε ότι οι κανονικές εκφράσεις αποτελούν μια ξεχωριστή, μικρή γλώσσα. Μεταφράζοντας αυτήν την κανονική έκφραση, αναζητούμε υποσυμβολοσειρές που ξεκινούν με ένα <em>μόνο</em> πεζό γράμμα, κεφαλαίο γράμμα ή αριθμό “[a-zA-Z0-9]”, ακολουθούμενο από κανέναν ή περισσότερους μη λευκούς χαρακτήρες (<code>\S *</code>), ακολουθούμενων από ένα σύμβολο at, ακολουθούμενο από κανέναν ή περισσότερους μη λευκούς χαρακτήρες (<code>\S*</code>), ακολουθούμενων από ένα κεφαλαίο ή πεζό γράμμα. Σημειώστε ότι αλλάξαμε από <code>+</code> σε <code>*</code> για να υποδείξουμε κανέναν ή περισσότερους μη λευκούς χαρακτήρες, καθώς το <code>[a-zA-Z0-9]</code> είναι ήδη ένας μη κενός χαρακτήρας. Θυμηθείτε ότι το <code>*</code> ή <code>+</code> ισχύει για τον μεμονωμένο χαρακτήρα που βρίσκεται ακριβώς στα αριστερά του συν ή του αστερίσκου.</p>
 <p></p>
-<p>If we use this expression in our program, our data is much cleaner:</p>
+<p>Εάν χρησιμοποιήσουμε αυτήν την έκφραση στο πρόγραμμά μας, τα δεδομένα που προκύπτουν είναι πολύ πιο καθαρά:</p>
 <pre class="python"><code># Search for lines that have an at sign between characters
 # The characters must be a letter or number
 import re
@@ -280,8 +279,8 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re07.py</code></pre>
-<pre><code>...
+# Code: http://www.gr.py4e.com/code3/re07.py</code></pre>
+<pre class="{text}"><code>...
 [&#39;wagnermr@iupui.edu&#39;]
 [&#39;cwen@iupui.edu&#39;]
 [&#39;postmaster@collab.sakaiproject.org&#39;]
@@ -290,21 +289,23 @@ for line in hand:
 [&#39;source@collab.sakaiproject.org&#39;]
 [&#39;source@collab.sakaiproject.org&#39;]
 [&#39;apache@localhost&#39;]</code></pre>
-<p>Notice that on the <code>source@collab.sakaiproject.org</code> lines, our regular expression eliminated two letters at the end of the string (“&gt;;”). This is because when we append <code>[a-zA-Z]</code> to the end of our regular expression, we are demanding that whatever string the regular expression parser finds must end with a letter. So when it sees the “&gt;” at the end of “sakaiproject.org&gt;;” it simply stops at the last “matching” letter it found (i.e., the “g” was the last good match).</p>
-<p>Also note that the output of the program is a Python list that has a string as the single element in the list.</p>
-<h2 id="combining-searching-and-extracting">Combining searching and extracting</h2>
-<p>If we want to find numbers on lines that start with the string “X-” such as:</p>
-<pre><code>X-DSPAM-Confidence: 0.8475
+<p>Παρατηρήστε ότι στις γραμμές <code>source@collab.sakaiproject.org</code>, η κανονική μας έκφραση απάλειψε δύο γράμματα στο τέλος της συμβολοσειράς (“&gt;;”). Αυτό συνέβει επειδή προσθέτοντας το <code>[a-zA-Z]</code> στο τέλος της κανονικής μας έκφρασης, απαιτούμε ότι οποιαδήποτε συμβολοσειρά βρίσκει ο αναλυτής κανονικής έκφρασης πρέπει να τελειώνει με ένα γράμμα. Έτσι, όταν βλέπει το “&gt;” στο τέλος του “sakaiproject.org&gt;;” απλά σταματά στο τελευταίο “ταιριαστό” γράμμα που βρήκε (δηλαδή, το “g” ήταν το τελευταίο καλό ταίριασμα).</p>
+<p>Σημειώστε επίσης ότι η έξοδος του προγράμματος είναι μια λίστα Python που έχει μια συμβολοσειρά ως μοναδικό στοιχείο στη λίστα.</p>
+<h2 id="συνδυασμός-αναζήτησης-και-εξαγωγής">Συνδυασμός αναζήτησης και εξαγωγής</h2>
+<p>Αν θέλουμε να βρούμε αριθμούς σε γραμμές που ξεκινούν με τη συμβολοσειρά “X-”, όπως:</p>
+<pre class="{text}"><code>X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000</code></pre>
-<p>we don’t just want any floating-point numbers from any lines. We only want to extract numbers from lines that have the above syntax.</p>
-<p>We can construct the following regular expression to select the lines:</p>
-<pre><code>^X-.*: [0-9.]+</code></pre>
-<p>Translating this, we are saying, we want lines that start with <code>X-</code>, followed by zero or more characters (<code>.*</code>), followed by a colon (<code>:</code>) and then a space. After the space we are looking for one or more characters that are either a digit (0-9) or a period <code>[0-9.]+</code>. Note that inside the square brackets, the period matches an actual period (i.e., it is not a wildcard between the square brackets).</p>
-<p>This is a very tight expression that will pretty much match only the lines we are interested in as follows:</p>
-<pre class="python"><code># Search for lines that start with &#39;X&#39; followed by any non
-# whitespace characters and &#39;:&#39;
-# followed by a space and any number.
-# The number can include a decimal.
+<p>δεν θέλουμε απλώς αριθμούς κινητής υποδιαστολής από οποιαδήποτε γραμμή. Θέλουμε να εξαγάγουμε αριθμούς μόνο από γραμμές που έχουν την παραπάνω σύνταξη.</p>
+<p>Μπορούμε να κατασκευάσουμε την ακόλουθη κανονική έκφραση για να επιλέξουμε τις γραμμές:</p>
+<pre class="{text}"><code>^X-.*: [0-9.]+</code></pre>
+<p>Μεταφράζοντάς το, λέμε, θέλουμε γραμμές που ξεκινούν με <code>X-</code>, ακολουθούμενο από κανέναν ή περισσότερους χαρακτήρες (<code>.*</code>), ακολουθούμενων από άνω και κάτω τελεία (<code>:</code>) και μετά ένα κενό. Μετά το κενό αναζητούμε έναν ή περισσότερους χαρακτήρες που είναι είτε ψηφίο (0-9) είτε τελεία <code>[0-9.]+</code>. Σημειώστε ότι μέσα στις αγκύλες, η τελεία ταιριάζει με μια πραγματική τελεία (δηλαδή, δεν είναι χαρακτήρας μπαλαντέρ μεταξύ των αγκύλων).</p>
+<p>Αυτή είναι μια πολύ αυστηρή έκφραση, που θα ταιριάξει μόνο με τις γραμμές που μας ενδιαφέρουν, ως εξής:</p>
+<pre class="python"><code># Αναζητάμε τις γραμμές που ξεκινούν με `X`,
+# ακολουθούμενο από μη λευκούς χαρακτήρες,
+# &quot;:&quot;, ακολουθούμενο από ένα κενό και
+# οποιονδήποτε αριθμό.
+# Ο αριθμός μπορεί να περιλαμβάνει υποδιαστολή.
+
 import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
@@ -312,22 +313,24 @@ for line in hand:
     if re.search(&#39;^X\S*: [0-9.]+&#39;, line):
         print(line)
 
-# Code: http://www.py4e.com/code3/re10.py</code></pre>
-<p>When we run the program, we see the data nicely filtered to show only the lines we are looking for.</p>
-<pre><code>X-DSPAM-Confidence: 0.8475
+# Code: http://www.gr.py4e.com/code3/re10.py</code></pre>
+<p>Όταν εκτελούμε το πρόγραμμα, βλέπουμε τα δεδομένα, όμορφα φιλτραρισμένα, για να εμφανιστούν μόνο τις γραμμές που αναζητούμε.</p>
+<pre class="{text}"><code>X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000
 X-DSPAM-Confidence: 0.6178
 X-DSPAM-Probability: 0.0000
 ...</code></pre>
-<p>But now we have to solve the problem of extracting the numbers. While it would be simple enough to use <code>split</code>, we can use another feature of regular expressions to both search and parse the line at the same time.</p>
+<p>Αλλά τώρα πρέπει να λύσουμε άλλο ένα πρόβλημα, της εξαγωγής των αριθμών. Αν και θα ήταν αρκετά απλό να χρησιμοποιήσουμε το <code>split</code>, μπορούμε να χρησιμοποιήσουμε μια άλλη δυνατότητα κανονικών εκφράσεων, για αναζήτηση και ανάλυση της γραμμής, ταυτόχρονα.</p>
 <p></p>
-<p>Parentheses are another special character in regular expressions. When you add parentheses to a regular expression, they are ignored when matching the string. But when you are using <code>findall()</code>, parentheses indicate that while you want the whole expression to match, you only are interested in extracting a portion of the substring that matches the regular expression.</p>
+<p>Οι παρενθέσεις είναι άλλος ένας ειδικός χαρακτήρας των κανονικών εκφράσεων. Όταν προσθέτετε παρενθέσεις σε μια κανονική έκφραση, αυτές αγνοούνται όταν ταιριάζουν με τη συμβολοσειρά. Αλλά όταν χρησιμοποιείτε <code>findall()</code>, οι παρενθέσεις υποδεικνύουν ότι, ενώ θέλετε να ταιριάζει ολόκληρη η έκφραση, σας ενδιαφέρει να εξαγάγετε μόνο το τμήμα της υποσυμβολοσειράς, που ταιριάζει με την κανονική έκφραση που περιέχεται στις παρενθέσεις.</p>
 <p> </p>
-<p>So we make the following change to our program:</p>
-<pre class="python"><code># Search for lines that start with &#39;X&#39; followed by any
-# non whitespace characters and &#39;:&#39; followed by a space
-# and any number. The number can include a decimal.
-# Then print the number if it is greater than zero.
+<p>Κάνουμε λοιπόν την εξής αλλαγή στο πρόγραμμά μας:</p>
+<pre class="python"><code># Αναζητάμε τις γραμμές που ξεκινούν με `X`,
+# ακολουθούμενο από μη λευκούς χαρακτήρες,
+# &quot;:&quot;, ακολουθούμενο από ένα κενό και
+# οποιονδήποτε αριθμό.
+# Ο αριθμός μπορεί να περιλαμβάνει υποδιαστολή.
+
 import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
@@ -336,23 +339,23 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re11.py</code></pre>
-<p>Instead of calling <code>search()</code>, we add parentheses around the part of the regular expression that represents the floating-point number to indicate we only want <code>findall()</code> to give us back the floating-point number portion of the matching string.</p>
-<p>The output from this program is as follows:</p>
-<pre><code>[&#39;0.8475&#39;]
+# Code: http://www.gr.py4e.com/code3/re11.py</code></pre>
+<p>Αντί να καλέσουμε τη <code>search()</code>, προσθέτουμε παρενθέσεις γύρω από το τμήμα της κανονικής έκφρασης που αντιπροσωπεύει τον αριθμό κινητής υποδιαστολής, για να υποδείξουμε ότι θέλουμε το <code>findall()</code> να μας δώσει πίσω μόνο το τμήμα αριθμού κινητής υποδιαστολής, της συμβολοσειράς, που ταιριάζει .</p>
+<p>Η έξοδος από αυτό το πρόγραμμα είναι η εξής:</p>
+<pre class="{text}"><code>[&#39;0.8475&#39;]
 [&#39;0.0000&#39;]
 [&#39;0.6178&#39;]
 [&#39;0.0000&#39;]
 [&#39;0.6961&#39;]
 [&#39;0.0000&#39;]
 ...</code></pre>
-<p>The numbers are still in a list and need to be converted from strings to floating point, but we have used the power of regular expressions to both search and extract the information we found interesting.</p>
-<p>As another example of this technique, if you look at the file there are a number of lines of the form:</p>
-<pre><code>Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772</code></pre>
-<p>If we wanted to extract all of the revision numbers (the integer number at the end of these lines) using the same technique as above, we could write the following program:</p>
-<pre class="python"><code># Search for lines that start with &#39;Details: rev=&#39;
-# followed by numbers
-# Then print the number if one is found
+<p>Οι αριθμοί εξακολουθούν να βρίσκονται σε μια λίστα και να πρέπει να μετατραπούν από συμβολοσειρές σε κινητή υποδιαστολή, αλλά χρησιμοποιήσαμε τη δύναμη των κανονικών εκφράσεων για αναζήτηση και εξαγωγή των πληροφοριών που θωρούμε ενδιαφέρουσες.</p>
+<p>Ως ένα άλλο παράδειγμα αυτής της τεχνικής, αν κοιτάξετε το αρχείο, υπάρχει ένας αριθμός γραμμών της μορφής:</p>
+<pre class="{text}"><code>Details: http://source.sakaiproject.org/viewsvn/?view=rev&amp;rev=39772</code></pre>
+<p>Εάν θέλαμε να εξαγάγουμε όλους τους αριθμούς αναθεώρησης (τον ακέραιο αριθμό στο τέλος αυτών των γραμμών) χρησιμοποιώντας την ίδια τεχνική όπως παραπάνω, θα μπορούσαμε να γράψουμε το ακόλουθο πρόγραμμα:</p>
+<pre class="python"><code># Αναζητάμε τις γραμμές που ξεκινούν με &#39;Details: rev=&#39;
+# ακολουθούμενο από ψηφία.
+# Στη συνέχεια εκτυπώνουμε τον αριθμό, αν βρεθεί.
 import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
@@ -361,28 +364,28 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re12.py</code></pre>
-<p>Translating our regular expression, we are looking for lines that start with <code>Details:</code>, followed by any number of characters (<code>.*</code>), followed by <code>rev=</code>, and then by one or more digits. We want to find lines that match the entire expression but we only want to extract the integer number at the end of the line, so we surround <code>[0-9]+</code> with parentheses.</p>
-<p>When we run the program, we get the following output:</p>
-<pre><code>[&#39;39772&#39;]
+# Code: http://www.gr.py4e.com/code3/re12.py</code></pre>
+<p>Μεταφράζοντας την κανονική μας έκφραση, αναζητούμε γραμμές που ξεκινούν με <code>Details:</code>, ακολουθούμενο από οποιονδήποτε αριθμό χαρακτήρων (<code>.*</code>), ακολουθούμενων από <code>rev=</code> και μετά από ένα ή περισσότερα ψηφία. Θέλουμε να βρούμε γραμμές που ταιριάζουν με ολόκληρη την έκφραση, αλλά θέλουμε να εξαγάγουμε μόνο τον ακέραιο αριθμό στο τέλος της γραμμής, επομένως περιβάλλουμε το <code>[0-9]+</code> με παρενθέσεις.</p>
+<p>Όταν εκτελούμε το πρόγραμμα, έχουμε την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>[&#39;39772&#39;]
 [&#39;39771&#39;]
 [&#39;39770&#39;]
 [&#39;39769&#39;]
 ...</code></pre>
-<p>Remember that the <code>[0-9]+</code> is “greedy” and it tries to make as large a string of digits as possible before extracting those digits. This “greedy” behavior is why we get all five digits for each number. The regular expression library expands in both directions until it encounters a non-digit, or the beginning or the end of a line.</p>
-<p>Now we can use regular expressions to redo an exercise from earlier in the book where we were interested in the time of day of each mail message. We looked for lines of the form:</p>
-<pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
-<p>and wanted to extract the hour of the day for each line. Previously we did this with two calls to <code>split</code>. First the line was split into words and then we pulled out the fifth word and split it again on the colon character to pull out the two characters we were interested in.</p>
-<p>While this worked, it actually results in pretty brittle code that is assuming the lines are nicely formatted. If you were to add enough error checking (or a big try/except block) to insure that your program never failed when presented with incorrectly formatted lines, the code would balloon to 10-15 lines of code that was pretty hard to read.</p>
-<p>We can do this in a far simpler way with the following regular expression:</p>
-<pre><code>^From .* [0-9][0-9]:</code></pre>
-<p>The translation of this regular expression is that we are looking for lines that start with <code>From</code> (note the space), followed by any number of characters (<code>.*</code>), followed by a space, followed by two digits <code>[0-9][0-9]</code>, followed by a colon character. This is the definition of the kinds of lines we are looking for.</p>
-<p>In order to pull out only the hour using <code>findall()</code>, we add parentheses around the two digits as follows:</p>
-<pre><code>^From .* ([0-9][0-9]):</code></pre>
-<p>This results in the following program:</p>
-<pre class="python"><code># Search for lines that start with From and a character
-# followed by a two digit number between 00 and 99 followed by &#39;:&#39;
-# Then print the number if it is greater than zero
+<p>Θυμηθείτε ότι το <code>[0-9]+</code> είναι “άπληστο” και προσπαθεί να δημιουργήσει όσο το δυνατόν μεγαλύτερη σειρά ψηφίων πριν εξαγάγει αυτά τα ψηφία. Αυτή η “άπληστη” συμπεριφορά είναι ο λόγος που παίρνουμε και τα πέντε ψηφία για κάθε αριθμό. Η μονάδα κανονικής έκφρασης επεκτείνεται και προς τις δύο κατευθύνσεις μέχρι να συναντήσει ένα μη ψηφίο ή την αρχή ή το τέλος μιας γραμμής.</p>
+<p>Τώρα μπορούμε να χρησιμοποιήσουμε κανονικές εκφράσεις για να επαναλάβουμε μια άσκηση από προηγούμενη ενότητα του βιβλίου, όπου μας ενδιέφερε η ώρα της ημέρας κάθε μηνύματος αλληλογραφίας. Αναζητούσαμε γραμμές της μορφής:</p>
+<pre class="{text}"><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
+<p>και θέλαμε να εξαγάγουμε την ώρα της ημέρας από αυτές τις γραμμές. Προηγουμένως το υλοποιήσαμς με δύο κλήσεις του <code>split</code>. Πρώτα η γραμμή χωρίστηκε σε λέξεις και μετά βγάλαμε την πέμπτη λέξη και τη χωρίσαμε ξανά στον χαρακτήρα άνω και κάτω τελείας, για να βγάλουμε τους δύο χαρακτήρες που μας ενδιέφεραν.</p>
+<p>Ενώ αυτό λειτούργησε, στην πραγματικότητα οδηγεί σε αρκετά εύθραυστο κώδικα που υποθέτει ότι οι γραμμές είναι σωστά διαμορφωμένες. Εάν επρόκειτο να προσθέσετε έλεγχο σφαλμάτων (ή ένα μεγάλο μπλοκ try/except), για να διασφαλίσετε ότι το πρόγραμμά σας δεν αποτυγχάνει όταν αντιμετωπίσει εσφαλμένα μορφοποιημένες γραμμές, ο κώδικας θα μεταφερόταν σε 10-15 γραμμές κώδικα, που θα ήταν αρκετά δύσκολο να διαβαστούν.</p>
+<p>Μπορούμε να το κάνουμε αυτό με πολύ πιο απλό τρόπο, με την ακόλουθη κανονική έκφραση:</p>
+<pre class="{text}"><code>^From .* [0-9][0-9]:</code></pre>
+<p>Η μετάφραση αυτής της κανονικής έκφρασης είναι ότι αναζητούμε γραμμές που ξεκινούν με <code>From</code> (προσέξτε το κενό διάστημα), ακολουθούμενο από οποιονδήποτε αριθμό χαρακτήρων (<code>.*</code>), ακολουθούμενων από ένα κενό, ακολουθούμενο από δύο ψηφία <code>[0 -9][0-9]</code>, ακολουθούμενα από χαρακτήρα άνω και κάτω τελείας. Αυτός είναι ο ορισμός των ειδών γραμμών που αναζητούμε.</p>
+<p>Για να εξάγουμε μόνο την ώρα χρησιμοποιώντας το <code>findall()</code>, προσθέτουμε παρενθέσεις γύρω από τα δύο ψηφία ως εξής:</p>
+<pre class="{text}"><code>^From .* ([0-9][0-9]):</code></pre>
+<p>Αυτό έχει ως αποτέλεσμα το ακόλουθο πρόγραμμα:</p>
+<pre class="python"><code># Αναζητάμε τις γραμμές που ξεκινούν με &#39;From &#39; και ένα σύνολο χαρακτήρων
+# ακολουθούμενων από δύο ψηφία, ακολουθούμενα από &#39;:&#39;
+# Στη συνέχεια εκτυπώνουμε τα ψηφία, εάν βρεθούν
 import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
@@ -390,64 +393,65 @@ for line in hand:
     x = re.findall(&#39;^From .* ([0-9][0-9]):&#39;, line)
     if len(x) &gt; 0: print(x)
 
-# Code: http://www.py4e.com/code3/re13.py</code></pre>
-<p>When the program runs, it produces the following output:</p>
-<pre><code>[&#39;09&#39;]
+# Code: http://www.gr.py4e.com/code3/re13.py</code></pre>
+<p>Όταν το πρόγραμμα εκτελείται, παράγει την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>[&#39;09&#39;]
 [&#39;18&#39;]
 [&#39;16&#39;]
 [&#39;15&#39;]
 ...</code></pre>
-<h2 id="escape-character">Escape character</h2>
-<p>Since we use special characters in regular expressions to match the beginning or end of a line or specify wild cards, we need a way to indicate that these characters are “normal” and we want to match the actual character such as a dollar sign or caret.</p>
-<p>We can indicate that we want to simply match a character by prefixing that character with a backslash. For example, we can find money amounts with the following regular expression.</p>
+<h2 id="χαρακτήρας-διαφυγής">Χαρακτήρας διαφυγής</h2>
+<p>Όταν χρησιμοποιούμε ειδικούς χαρακτήρες σε κανονικές εκφράσεις, όχι ως σύμβολα αλλά με την πραγματική τους αξία, για να ταιριάξουμε την αρχή ή το τέλος μιας γραμμής ή να καθορίσουμε μπαλαντέρ, χρειαζόμαστε έναν τρόπο για να υποδείξουμε ότι αυτοί οι χαρακτήρες είναι “κανονικοί” και θέλουμε να ταιριάξουμε τον πραγματικό χαρακτήρα, όπως ένα σύμβολο του δολαρίου ή έναν χαρακτήρα περίφλεξης (^) .</p>
+<p>Μπορούμε να υποδείξουμε πως θέλουμε απλώς να ταιριάξουμε έναν χαρακτήρα προσθέτοντας ως πρόθεμα αυτού του χαρακτήρα μια ανάστροφη κάθετο. Για παράδειγμα, μπορούμε να βρούμε χρηματικά ποσά με την ακόλουθη κανονική έκφραση.</p>
 <pre class="python"><code>import re
 x = &#39;We just received $10.00 for cookies.&#39;
 y = re.findall(&#39;\$[0-9.]+&#39;,x)</code></pre>
-<p>Since we prefix the dollar sign with a backslash, it actually matches the dollar sign in the input string instead of matching the “end of line”, and the rest of the regular expression matches one or more digits or the period character. <em>Note:</em> Inside square brackets, characters are not “special”. So when we say <code>[0-9.]</code>, it really means digits or a period. Outside of square brackets, a period is the “wild-card” character and matches any character. Inside square brackets, the period is a period.</p>
-<h2 id="summary">Summary</h2>
-<p>While this only scratched the surface of regular expressions, we have learned a bit about the language of regular expressions. They are search strings with special characters in them that communicate your wishes to the regular expression system as to what defines “matching” and what is extracted from the matched strings. Here are some of those special characters and character sequences:</p>
-<p><code>^</code> Matches the beginning of the line.</p>
-<p><code>$</code> Matches the end of the line.</p>
-<p><code>.</code> Matches any character (a wildcard).</p>
-<p><code>\s</code> Matches a whitespace character.</p>
-<p><code>\S</code> Matches a non-whitespace character (opposite of \s).</p>
-<p><code>*</code> Applies to the immediately preceding character(s) and indicates to match zero or more times.</p>
-<p><code>*?</code> Applies to the immediately preceding character(s) and indicates to match zero or more times in “non-greedy mode”.</p>
-<p><code>+</code> Applies to the immediately preceding character(s) and indicates to match one or more times.</p>
-<p><code>+?</code> Applies to the immediately preceding character(s) and indicates to match one or more times in “non-greedy mode”.</p>
-<p><code>?</code> Applies to the immediately preceding character(s) and indicates to match zero or one time.</p>
-<p><code>??</code> Applies to the immediately preceding character(s) and indicates to match zero or one time in “non-greedy mode”.</p>
-<p><code>[aeiou]</code> Matches a single character as long as that character is in the specified set. In this example, it would match “a”, “e”, “i”, “o”, or “u”, but no other characters.</p>
-<p><code>[a-z0-9]</code> You can specify ranges of characters using the minus sign. This example is a single character that must be a lowercase letter or a digit.</p>
-<p><code>[^A-Za-z]</code> When the first character in the set notation is a caret, it inverts the logic. This example matches a single character that is anything <em>other than</em> an uppercase or lowercase letter.</p>
-<p><code>( )</code> When parentheses are added to a regular expression, they are ignored for the purpose of matching, but allow you to extract a particular subset of the matched string rather than the whole string when using <code>findall()</code>.</p>
-<p><code>\b</code> Matches the empty string, but only at the start or end of a word.</p>
-<p><code>\B</code> Matches the empty string, but not at the start or end of a word.</p>
-<p><code>\d</code> Matches any decimal digit; equivalent to the set [0-9].</p>
-<p><code>\D</code> Matches any non-digit character; equivalent to the set [^0-9].</p>
-<h2 id="bonus-section-for-unix-linux-users">Bonus section for Unix / Linux users</h2>
-<p>Support for searching files using regular expressions was built into the Unix operating system since the 1960s and it is available in nearly all programming languages in one form or another.</p>
+<p>Εφόσον δίνουμε το πρόθεμα της ανάστροφης κάθετου πριν το σύμβολο του δολαρίου, η κανονική έκφραση το ταιριάζει με το σύμβολο του δολαρίου, στη συμβολοσειρά εισόδου, αντί να το ταιριάξει με το “τέλος γραμμής” και η υπόλοιπη τυπική έκφραση ταιριάζει με ένα ή περισσότερα ψηφία ή τον χαρακτήρα τελείας.</p>
+<p><em>Σημείωση:</em> Μέσα στις αγκύλες, οι χαρακτήρες δεν είναι “ειδικοί”. Έτσι, όταν λέμε <code>[0-9.]</code>, σημαίνει πραγματικά ψηφία ή τελεία. Έξω από αγκύλες, η τελεία είναι ο χαρακτήρας “μπαλαντέρ” και ταιριάζει με οποιονδήποτε χαρακτήρα. Μέσα σε αγκύλες, η τελεία είναι τελεία.</p>
+<h2 id="περίληψη">Περίληψη</h2>
+<p>Αν και αυτά που αναφέραμε αγκίζουν μόνο την επιφάνεια της ένοιας των κανονικών εκφράσεων, μάθαμε λίγα πράγματα για τη γλώσσα των κανονικών εκφράσεων. Είναι συμβολοσειρές αναζήτησης με ειδικούς χαρακτήρες μέσα τους που μεταφέρουν τις επιθυμίες σας στο σύστημα κανονικής έκφρασης, ως προς το τι πρέπει να “ταιριάξει” και τι να εξάγεται από τις αντιστοιχισμένες συμβολοσειρές. Ακολουθούν μερικοί από αυτούς τους ειδικούς χαρακτήρες και τις ακολουθίες χαρακτήρων:</p>
+<p><code>^</code> Ταιριάζει την αρχή μιας γραμμής.</p>
+<p><code>$</code> Ταιριάζει το τέλος μιας γραμμής</p>
+<p><code>.</code> Ταιριάζει οποιονδήποτε χαρακτήρα (ένα μπαλαντέρ).</p>
+<p><code>\s</code> Ταιριάζει ένα λευκό χαρακτήρα (μη ορατό χαρακτήρα).</p>
+<p><code>\S</code> Ταιριάζει ένα μη λευκό χαρακτήρα (ορατό χαρακτήρα) (αντίθετο του \s).</p>
+<p><code>*</code> Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες καμία ή περισσότερες φορές.</p>
+<p><code>*?</code> Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες καμία ή περισσότερες φορές “μη-άπληστα”.</p>
+<p><code>+</code> Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες μία ή περισσότερες φορές.</p>
+<p><code>+?</code> Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες μία ή περισσότερες φορές “μη-άπληστα”.</p>
+<p><code>?</code> Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες καμία ή μία φορά.</p>
+<p><code>??</code> Επαναλαμβάνει τον/τους αμέσως προηγούμενο/ους χαρακτήρα/ες καμία ή μία φορά “μη-άπληστα”.</p>
+<p><code>[aeiou]</code> Ταιριάζει έναν μόνο χαρακτήρα από το δοθέν σύνολο. Στο παράδειγμα, θα ταιριάξει κάποιο από τα “a”, “e”, “i”, “o” ή “u”, αλλά όχι κάποιον άλλο χαρακτήρα.</p>
+<p><code>[a-z0-9]</code> Μπορείτε να καθορίσετε εύρος χαρακτήρων χρησιμοποιώντας το σύμβολο μείον. Αυτό το παράδειγμα αντιπροσωπεύει έναν μεμονωμένο χαρακτήρα, που πρέπει να είναι πεζός ή ψηφίο.</p>
+<p><code>[^A-Za-z]</code> Όταν ο πρώτος χαρακτήρας του συνόλου είναι η περίφλεξη, αντιστρέφει τη λογική. Αυτό το παράδειγμα ταιριάζει με έναν μεμονωμένο χαρακτήρα που είναι οτιδήποτε <em>εκτός</em> από ένα κεφαλαίο ή πεζό γράμμα.</p>
+<p><code>( )</code> Όταν προστίθενται παρενθέσεις σε μια κανονική έκφραση, αγνοούνται από την αντιστοίχιση, αλλά σας επιτρέπουν, όταν χρησιμοποιείτε το <code>findall()</code>, να εξαγάγετε ένα συγκεκριμένο υποσύνολο της αντιστοιχισμένης συμβολοσειράς αντί ολόκληρης της συμβολοσειράς .</p>
+<p><code>\b</code> Ταιριάζει με την κενή συμβολοσειρά, αλλά μόνο στην αρχή ή στο τέλος μιας λέξης.</p>
+<p><code>\B</code> Ταιριάζει με την κενή συμβολοσειρά, αλλά όχι στην αρχή ή στο τέλος μιας λέξης.</p>
+<p><code>\d</code> Ταιριάζει με οποιοδήποτε δεκαδικό ψηφίο. Ισοδύναμο με το σύνολο [0-9].</p>
+<p><code>\D</code> Ταιριάζει με οποιονδήποτε χαρακτήρα, μη-ψήφιο. Ισοδύναμο με το σύνολο [^0-9].</p>
+<h2 id="μπόνους-ενότητα-για-χρήστες-unix-linux">Μπόνους ενότητα για χρήστες Unix / Linux</h2>
+<p>Η υποστήριξη για αναζήτηση αρχείων με χρήση κανονικών εκφράσεων ενσωματώθηκε στο λειτουργικό σύστημα Unix από τη δεκαετία του 1960 και είναι διαθέσιμη σε όλες σχεδόν τις γλώσσες προγραμματισμού με τη μία ή την άλλη μορφή.</p>
 <p></p>
-<p>As a matter of fact, there is a command-line program built into Unix called <em>grep</em> (Generalized Regular Expression Parser) that does pretty much the same as the <code>search()</code> examples in this chapter. So if you have a Macintosh or Linux system, you can try the following commands in your command-line window.</p>
+<p>Στην πραγματικότητα, υπάρχει ένα πρόγραμμα γραμμής εντολών, ενσωματωμένο στο Unix που ονομάζεται <em>grep</em> (Generalized Regular Expression Parser) που κάνει σχεδόν ότι και τα παραδείγματα με τη <code>search()</code> σε αυτό το κεφάλαιο. Επομένως, εάν έχετε σύστημα Macintosh ή Linux, μπορείτε να δοκιμάσετε τις ακόλουθες εντολές στο παράθυρο της γραμμής εντολών σας.</p>
 <pre class="bash"><code>$ grep &#39;^From:&#39; mbox-short.txt
 From: stephen.marquard@uct.ac.za
 From: louis@media.berkeley.edu
 From: zqian@umich.edu
 From: rjlowe@iupui.edu</code></pre>
-<p>This tells <code>grep</code> to show you lines that start with the string “From:” in the file <em>mbox-short.txt</em>. If you experiment with the <code>grep</code> command a bit and read the documentation for <code>grep</code>, you will find some subtle differences between the regular expression support in Python and the regular expression support in <code>grep</code>. As an example, <code>grep</code> does not support the non-blank character <code>\S</code> so you will need to use the slightly more complex set notation <code>[^ ]</code>, which simply means match a character that is anything other than a space.</p>
-<h2 id="debugging">Debugging</h2>
-<p>Python has some simple and rudimentary built-in documentation that can be quite helpful if you need a quick refresher to trigger your memory about the exact name of a particular method. This documentation can be viewed in the Python interpreter in interactive mode.</p>
-<p>You can bring up an interactive help system using <code>help()</code>.</p>
+<p>Αυτό λέει στο <code>grep</code> να σας δείξει τις γραμμές που ξεκινούν με τη συμβολοσειρά “From:” στο αρχείο <em>mbox-short.txt</em>. Εάν πειραματιστείτε λίγο με την εντολή <code>grep</code> και διαβάσετε την τεκμηρίωση για το <code>grep</code>, θα βρείτε κάποιες ανεπαίσθητες διαφορές μεταξύ της υποστήριξης κανονικών εκφράσεων στην Python και της υποστήριξης κανονικών εκφράσεων στο <code>grep</code>. Για παράδειγμα, το <code>grep</code> δεν υποστηρίζει τον μη λευκό χαρακτήρα <code>\S</code>, επομένως θα χρειαστεί να χρησιμοποιήσετε τον ελαφρώς πιο περίπλοκο συμβολισμό συνόλου <code>[^[:space:]]</code>, που σημαίνει απλώς αντιστοίχιση ενός μη λευκού χαρακτήρα.</p>
+<h2 id="εκσφαλμάτωση">Εκσφαλμάτωση</h2>
+<p>Η Python έχει κάποια απλή και στοιχειώδη ενσωματωμένη τεκμηρίωση που μπορεί να είναι αρκετά χρήσιμη εάν χρειάζεστε ένα γρήγορο φρασκάρισμα της μνήμης σας, σχετικά με το ακριβές όνομα μιας συγκεκριμένης μεθόδου. Αυτή η τεκμηρίωση μπορεί να προβληθεί στον διερμηνέα Python σε διαδραστική λειτουργία.</p>
+<p>Μπορείτε να εμφανίσετε ένα διαδραστικό σύστημα βοήθειας χρησιμοποιώντας το <code>help()</code>.</p>
 <pre class="python"><code>&gt;&gt;&gt; help()
 
 help&gt; modules</code></pre>
-<p>If you know what module you want to use, you can use the <code>dir()</code> command to find the methods in the module as follows:</p>
+<p>Εάν γνωρίζετε ποιο άρθρωμα θέλετε να χρησιμοποιήσετε, μπορείτε να χρησιμοποιήσετε την εντολή <code>dir()</code> για να βρείτε τις μεθόδους στη λειτουργική μονάδα ως εξής:</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; import re
 &gt;&gt;&gt; dir(re)
 [.. &#39;compile&#39;, &#39;copy_reg&#39;, &#39;error&#39;, &#39;escape&#39;, &#39;findall&#39;,
 &#39;finditer&#39;, &#39;match&#39;, &#39;purge&#39;, &#39;search&#39;, &#39;split&#39;, &#39;sre_compile&#39;,
 &#39;sre_parse&#39;, &#39;sub&#39;, &#39;subn&#39;, &#39;sys&#39;, &#39;template&#39;]</code></pre>
-<p>You can also get a small amount of documentation on a particular method using the dir command.</p>
+<p>Μπορείτε επίσης να λάβετε μια μικρή τεκμηρίωσης για μια συγκεκριμένη μέθοδο χρησιμοποιώντας την εντολή dir.</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; help (re.search)
 Help on function search in module re:
 
@@ -455,45 +459,45 @@ search(pattern, string, flags=0)
     Scan through string looking for a match to the pattern, returning
     a match object, or None if no match was found.
 &gt;&gt;&gt;</code></pre>
-<p>The built-in documentation is not very extensive, but it can be helpful when you are in a hurry or don’t have access to a web browser or search engine.</p>
-<h2 id="glossary">Glossary</h2>
+<p>Η ενσωματωμένη τεκμηρίωση δεν είναι ιδιαίτερα εκτενής, αλλά μπορεί να είναι χρήσιμη όταν βιάζεστε ή δεν έχετε πρόσβαση σε πρόγραμμα περιήγησης ιστού ή μηχανή αναζήτησης.</p>
+<h2 id="γλωσσάριο">Γλωσσάριο</h2>
 <dl>
-<dt>brittle code</dt>
-<dd>Code that works when the input data is in a particular format but is prone to breakage if there is some deviation from the correct format. We call this “brittle code” because it is easily broken.
-</dd>
-<dt>greedy matching</dt>
-<dd>The notion that the <code>+</code> and <code>*</code> characters in a regular expression expand outward to match the largest possible string.
+<dt>brittle code - εύθραυστος κώδικας</dt>
+<dd>Κωδικός που λειτουργεί όταν τα δεδομένα εισόδου είναι σε συγκεκριμένη μορφή, αλλά είναι επιρρεπής σε σφάλματα εκτέλεσης, εάν υπάρχει κάποια απόκλιση από τη σωστή μορφή. Αυτό το ονομάζουμε “εύθραυστος κώδικας” γιατί “σπάει” εύκολα.
 </dd>
 <dt>grep</dt>
-<dd>A command available in most Unix systems that searches through text files looking for lines that match regular expressions. The command name stands for “Generalized Regular Expression Parser”.
+<dd>Μια εντολή διαθέσιμη στα περισσότερα συστήματα Unix, που αναζητά μέσα σε αρχεία κειμένου γραμμές, που ταιριάζουν με κανονικές εκφράσεις. Το όνομα της εντολής σημαίνει “Generalized Regular Expression Parser - Αναλυτής Γενικοποιημένης Κανονική Έκφραση”.
 </dd>
-<dt>regular expression</dt>
-<dd>A language for expressing more complex search strings. A regular expression may contain special characters that indicate that a search only matches at the beginning or end of a line or many other similar capabilities.
+<dt>άπληστο ταίριασμα</dt>
+<dd>Η έννοια ότι οι χαρακτήρες <code>+</code> και <code>*</code> σε μια κανονική έκφραση επεκτείνονται προς τα έξω για να ταιριάζουν με τη μεγαλύτερη δυνατή συμβολοσειρά.
 </dd>
-<dt>wild card</dt>
-<dd>A special character that matches any character. In regular expressions the wild-card character is the period.
+<dt>κανονική έκφραση - regular expression</dt>
+<dd>Μια γλώσσα για την έκφραση πιο σύνθετων συμβολοσειρών αναζήτησης. Μια κανονική έκφραση μπορεί να περιέχει ειδικούς χαρακτήρες, που υποδεικνύουν ότι μια αναζήτηση ταιριάζει μόνο στην αρχή ή στο τέλος μιας γραμμής ή πολλές άλλες παρόμοιες δυνατότητες.
+</dd>
+<dt>μπαλαντέρ - wild card</dt>
+<dd>Ένας ειδικός χαρακτήρας, που ταιριάζει με κάθε χαρακτήρα. Στις κανονικές εκφράσεις ο χαρακτήρας μπαλαντέρ είναι η τελεία.
 </dd>
 </dl>
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Write a simple program to simulate the operation of the <code>grep</code> command on Unix. Ask the user to enter a regular expression and count the number of lines that matched the regular expression:</strong></p>
-<pre><code>$ python grep.py
-Enter a regular expression: ^Author
+<h2 id="ασκήσεις">Ασκήσεις</h2>
+<p><strong>Άσκηση 1: Γράψτε ένα απλό πρόγραμμα για την προσομοίωση της λειτουργίας της εντολής <code>grep</code> στο Unix. Ζητήστε από τον χρήστη να εισαγάγει μια κανονική έκφραση και μετρήστε τον αριθμό των γραμμών του αρχείου mbox.txt, που ταιριάζουν με την κανονική έκφραση:</strong></p>
+<pre class="{text}"><code>$ python grep.py
+Εισαγάγετε μια κανονική έκφραση: ^Author
 mbox.txt had 1798 lines that matched ^Author
 
 $ python grep.py
-Enter a regular expression: ^X-
+Εισαγάγετε μια κανονική έκφραση: ^X-
 mbox.txt had 14368 lines that matched ^X-
 
 $ python grep.py
-Enter a regular expression: java$
+Εισαγάγετε μια κανονική έκφραση: java$
 mbox.txt had 4175 lines that matched java$</code></pre>
-<p><strong>Exercise 2: Write a program to look for lines of the form:</strong></p>
-<pre><code>New Revision: 39772</code></pre>
-<p><strong>Extract the number from each of the lines using a regular expression and the <code>findall()</code> method. Compute the average of the numbers and print out the average as an integer.</strong></p>
-<pre><code>Enter file:mbox.txt
+<p><strong>Άσκηση 2: Γράψτε ένα πρόγραμμα για να αναζητήσετε γραμμές της μορφής:</strong></p>
+<pre class="{text}"><code>New Revision: 39772</code></pre>
+<p>** Εξάγετε τον αριθμό, από κάθε γραμμή, χρησιμοποιώντας μια κανονική έκφραση και τη μέθοδο <code>findall()</code>. Υπολογίστε τον μέσο όρο των αριθμών και εκτυπώστε τον μέσο όρο ως ακέραιο.**</p>
+<pre class="{text}"><code>Εισαγάγετε το αρχείο:mbox.txt
 38549
 
-Enter file:mbox-short.txt
+Εισαγάγετε το αρχείο:mbox-short.txt
 39756</code></pre>
 </body>
 </html>
