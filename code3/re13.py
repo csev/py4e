@@ -1,6 +1,6 @@
-# Search for lines that start with From and a character
-# followed by a two digit number between 00 and 99 followed by ':'
-# Then print the number if it is greater than zero
+# Αναζητάμε τις γραμμές που ξεκινούν με 'From ' και ένα σύνολο χαρακτήρων
+# ακολουθούμενων από δύο ψηφία, ακολουθούμενα από ':'
+# Στη συνέχεια εκτυπώνουμε τα ψηφία, εάν βρεθούν
 import re
 hand = open('mbox-short.txt')
 for line in hand:
