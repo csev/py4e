@@ -154,21 +154,21 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="networked-programs">Networked programs</h1>
-<p>While many of the examples in this book have focused on reading files and looking for data in those files, there are many different sources of information when one considers the Internet.</p>
-<p>In this chapter we will pretend to be a web browser and retrieve web pages using the Hypertext Transfer Protocol (HTTP). Then we will read through the web page data and parse it.</p>
-<h2 id="hypertext-transfer-protocol---http">Hypertext Transfer Protocol - HTTP</h2>
-<p>The network protocol that powers the web is actually quite simple and there is built-in support in Python called <code>socket</code> which makes it very easy to make network connections and retrieve data over those sockets in a Python program.</p>
-<p>A <em>socket</em> is much like a file, except that a single socket provides a two-way connection between two programs. You can both read from and write to the same socket. If you write something to a socket, it is sent to the application at the other end of the socket. If you read from the socket, you are given the data which the other application has sent.</p>
-<p>But if you try to read a socket when the program on the other end of the socket has not sent any data, you just sit and wait. If the programs on both ends of the socket simply wait for some data without sending anything, they will wait for a very long time, so an important part of programs that communicate over the Internet is to have some sort of protocol.</p>
-<p>A protocol is a set of precise rules that determine who is to go first, what they are to do, and then what the responses are to that message, and who sends next, and so on. In a sense the two applications at either end of the socket are doing a dance and making sure not to step on each other’s toes.</p>
-<p>There are many documents that describe these network protocols. The Hypertext Transfer Protocol is described in the following document:</p>
+<h1 id="δικτυακά-προγράμματα">Δικτυακά προγράμματα</h1>
+<p>Ενώ πολλά από τα παραδείγματα αυτού του βιβλίου έχουν επικεντρωθεί στην ανάγνωση αρχείων και στην αναζήτηση δεδομένων σε αυτά τα αρχεία, υπάρχουν πολλές διαφορετικές πηγές πληροφοριών, αν λάβουμε υπόψιν μας και το Διαδίκτυο.</p>
+<p>Σε αυτό το κεφάλαιο θα προσποιηθούμε ότι είμαστε ένα πρόγραμμα περιήγησης ιστού και θα ανακτήσουμε ιστοσελίδες, χρησιμοποιώντας το πρωτόκολλο μεταφοράς υπερκειμένου (HTTP). Στη συνέχεια θα διαβάσουμε τα δεδομένα της ιστοσελίδας και θα τα αναλύσουμε.</p>
+<h2 id="πρωτόκολλο-μεταφοράς-υπερκειμένου---http">Πρωτόκολλο μεταφοράς υπερκειμένου - HTTP</h2>
+<p>Το πρωτόκολλο δικτύου, που κινεί τον Ιστό, είναι στην πραγματικότητα πολύ απλό και υπάρχει ενσωματωμένη υποστήριξη στην Python, που ονομάζεται <code>socket</code>, η οποία καθιστά πολύ εύκολη τη δημιουργία συνδέσεων δικτύου και την ανάκτηση δεδομένων μέσω αυτών των υποδοχών σε ένα πρόγραμμα Python.</p>
+<p>Μια <em>υποδοχή</em> μοιάζει πολύ με ένα αρχείο, εκτός από το ότι μια μεμονωμένη υποδοχή παρέχει αμφίδρομη σύνδεση μεταξύ δύο προγραμμάτων. Μπορείτε να διαβάζετε και να γράφετε στην ίδια υποδοχή. Εάν γράψετε κάτι σε μια υποδοχή, αποστέλλεται στην εφαρμογή στο άλλο άκρο της υποδοχής. Εάν διαβάζετε από την υποδοχή, σας δίνονται τα δεδομένα που έχει στείλει η άλλη εφαρμογή.</p>
+<p>Αλλά αν προσπαθήσετε να διαβάσετε μια υποδοχή όταν το πρόγραμμα στην άλλη άκρη της υποδοχής δεν έχει στείλει δεδομένα, απλά κάθεστε και περιμένετε. Εάν τα προγράμματα και στα δύο άκρα της υποδοχής απλώς περιμένουν κάποια δεδομένα χωρίς να στείλουν τίποτα, θα περιμένουν για πολύ μεγάλο χρονικό διάστημα, επομένως ένα σημαντικό μέρος των προγραμμάτων που επικοινωνούν μέσω Διαδικτύου είναι να έχουν κάποιο είδος πρωτοκόλλου.</p>
+<p>Ένα πρωτόκολλο είναι ένα σύνολο από ακριβείς κανόνες που καθορίζουν ποιος θα ξεκινήσει πρώτος, τι πρέπει να κάνουν και, στη συνέχεια, ποιες είναι οι απαντήσεις σε αυτό το μήνυμα και ποιος στέλνει στη συνέχεια και ούτω καθεξής. Κατά μία έννοια, οι δύο εφαρμογές σε κάθε άκρο της υποδοχής χορεύουν και φροντίζουν να μην πατούν η μία στα δάχτυλα των ποδιών της άλλης.</p>
+<p>Υπάρχουν πολλά έγγραφα που περιγράφουν αυτά τα πρωτόκολλα δικτύου. Το πρωτόκολλο μεταφοράς υπερκειμένου περιγράφεται στο ακόλουθο έγγραφο:</p>
 <p><a href="https://www.w3.org/Protocols/rfc2616/rfc2616.txt" class="uri">https://www.w3.org/Protocols/rfc2616/rfc2616.txt</a></p>
-<p>This is a long and complex 176-page document with a lot of detail. If you find it interesting, feel free to read it all. But if you take a look around page 36 of RFC2616 you will find the syntax for the GET request. To request a document from a web server, we make a connection to the <code>www.pr4e.org</code> server on port 80, and then send a line of the form</p>
+<p>Αυτό είναι ένα μεγάλο και περίπλοκο έγγραφο 176 σελίδων με πολλές λεπτομέρειες. Αν το βρίσκετε ενδιαφέρον, μη διστάσετε να το διαβάσετε όλο. Αλλά αν ρίξετε μια ματιά στη σελίδα 36 του RFC2616, θα βρείτε τη σύνταξη για το αίτημα GET. Για να ζητήσουμε ένα έγγραφο από έναν διακομιστή web, κάνουμε μια σύνδεση με τον διακομιστή <code>www.pr4e.org</code> στη θύρα 80 και, στη συνέχεια, στέλνουμε μια γραμμή της μορφής</p>
 <p><code>GET http://data.pr4e.org/romeo.txt HTTP/1.0</code></p>
-<p>where the second parameter is the web page we are requesting, and then we also send a blank line. The web server will respond with some header information about the document and a blank line followed by the document content.</p>
-<h2 id="the-worlds-simplest-web-browser">The world’s simplest web browser</h2>
-<p>Perhaps the easiest way to show how the HTTP protocol works is to write a very simple Python program that makes a connection to a web server and follows the rules of the HTTP protocol to request a document and display what the server sends back.</p>
+<p>όπου η δεύτερη παράμετρος είναι η ιστοσελίδα που ζητάμε και στη συνέχεια στέλνουμε και μια κενή γραμμή. Ο διακομιστής ιστού θα απαντήσει με ορισμένες πληροφορίες κεφαλίδας για το έγγραφο και μια κενή γραμμή ακολουθούμενη από το περιεχόμενο του εγγράφου.</p>
+<h2 id="το-απλούστερο-πρόγραμμα-περιήγησης-ιστού-στον-κόσμο">Το απλούστερο πρόγραμμα περιήγησης ιστού στον κόσμο</h2>
+<p>Ίσως ο ευκολότερος τρόπος για να σας δείξω πώς λειτουργεί το πρωτόκολλο HTTP είναι να γράψουμε ένα πολύ απλό πρόγραμμα Python, που πραγματοποιεί μια σύνδεση με έναν διακομιστή ιστού και ακολουθώντας τους κανόνες του πρωτοκόλλου HTTP ζητά ένα έγγραφο και εμφανίζει αυτό που του στέλνει ο διακομιστής.</p>
 <pre class="python"><code>import socket
 
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -184,17 +184,17 @@ while True:
 
 mysock.close()
 
-# Code: http://www.py4e.com/code3/socket1.py</code></pre>
-<p>First the program makes a connection to port 80 on the server <a href="http://www.py4e.com">www.py4e.com</a>. Since our program is playing the role of the “web browser”, the HTTP protocol says we must send the GET command followed by a blank line. <code>\r\n</code> signifies an EOL (end of line), so <code>\r\n\r\n</code> signifies nothing between two EOL sequences. That is the equivalent of a blank line.</p>
+# Code: http://www.gr.py4e.com/code3/socket1.py</code></pre>
+<p>Πρώτα το πρόγραμμα κάνει μια σύνδεση στη θύρα 80 του διακομιστή <a href="http://www.py4e.com">www.py4e.com</a>. Δεδομένου ότι το πρόγραμμά μας παίζει το ρόλο του “περιηγητή Ιστού”, το πρωτόκολλο HTTP λέει ότι πρέπει να στείλουμε την εντολή GET ακολουθούμενη από μια κενή γραμμή. Το <code>\r\n</code> σημαίνει EOL (τέλος γραμμής), οπότε το <code>\r\n\r\n</code> σημαίνει τίποτα ανάμεσα σε δύο ακολουθίες EOL. Αυτό είναι το ισοδύναμο μιας κενή γραμμής.</p>
 <figure>
 <img src="../images/socket.svg" alt="A Socket Connection" style="height: 2.0in;"/>
 <figcaption>
 A Socket Connection
 </figcaption>
 </figure>
-<p>Once we send that blank line, we write a loop that receives data in 512-character chunks from the socket and prints the data out until there is no more data to read (i.e., the recv() returns an empty string).</p>
-<p>The program produces the following output:</p>
-<pre><code>HTTP/1.1 200 OK
+<p>Μόλις στείλουμε αυτήν την κενή γραμμή, γράφουμε έναν βρόχο που λαμβάνει δεδομένα σε κομμάτια 512 χαρακτήρων από την υποδοχή και εκτυπώνει τα δεδομένα, μέχρι να μην υπάρχουν άλλα δεδομένα για ανάγνωση (δηλαδή, η recv() επιστρέφει μια κενή συμβολοσειρά).</p>
+<p>Το πρόγραμμα παράγει την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>HTTP/1.1 200 OK
 Date: Wed, 11 Apr 2018 18:52:55 GMT
 Server: Apache/2.4.7 (Ubuntu)
 Last-Modified: Sat, 13 May 2017 11:22:22 GMT
@@ -211,19 +211,19 @@ But soft what light through yonder window breaks
 It is the east and Juliet is the sun
 Arise fair sun and kill the envious moon
 Who is already sick and pale with grief</code></pre>
-<p>The output starts with headers which the web server sends to describe the document. For example, the <code>Content-Type</code> header indicates that the document is a plain text document (<code>text/plain</code>).</p>
-<p>After the server sends us the headers, it adds a blank line to indicate the end of the headers, and then sends the actual data of the file <em>romeo.txt</em>.</p>
-<p>This example shows how to make a low-level network connection with sockets. Sockets can be used to communicate with a web server or with a mail server or many other kinds of servers. All that is needed is to find the document which describes the protocol and write the code to send and receive the data according to the protocol.</p>
-<p>However, since the protocol that we use most commonly is the HTTP web protocol, Python has a special library specifically designed to support the HTTP protocol for the retrieval of documents and data over the web.</p>
-<p>One of the requirements for using the HTTP protocol is the need to send and receive data as bytes objects, instead of strings. In the preceding example, the <code>encode()</code> and <code>decode()</code> methods convert strings into bytes objects and back again.</p>
-<p>The next example uses <code>b''</code> notation to specify that a variable should be stored as a bytes object. <code>encode()</code> and <code>b''</code> are equivalent.</p>
-<pre><code>&gt;&gt;&gt; b&#39;Hello world&#39;
+<p>Η έξοδος ξεκινά με κεφαλίδες που στέλνει ο διακομιστής ιστού, για να περιγράψει το έγγραφο. Για παράδειγμα, η κεφαλίδα <code>Content-Type</code> υποδεικνύει ότι το έγγραφο είναι έγγραφο απλού κειμένου (<code>text/plain</code>).</p>
+<p>Αφού ο διακομιστής μας στείλει τις κεφαλίδες, προσθέτει μια κενή γραμμή, για να υποδείξει το τέλος των κεφαλίδων και, στη συνέχεια, στέλνει τα πραγματικά δεδομένα του αρχείου <em>romeo.txt</em>.</p>
+<p>Αυτό το παράδειγμα δείχνει πώς να κάνετε μια σύνδεση δικτύου χαμηλού επιπέδου με υποδοχές. Οι υποδοχές μπορούν να χρησιμοποιηθούν για την επικοινωνία με έναν διακομιστή ιστού ή με έναν διακομιστή αλληλογραφίας ή και με πολλά άλλα είδη διακομιστών. Το μόνο που χρειάζεται είναι να βρείτε το έγγραφο που περιγράφει το πρωτόκολλο και να γράψετε τον κώδικα για να στείλετε και να λάβετε τα δεδομένα σύμφωνα με το πρωτόκολλο αυτό.</p>
+<p>Ωστόσο, δεδομένου ότι το πρωτόκολλο που χρησιμοποιούμε πιο συχνά είναι το πρωτόκολλο ιστού HTTP, η Python έχει μια ειδική βιβλιοθήκη, ειδικά σχεδιασμένη ώστε να υποστηρίζει το πρωτόκολλο HTTP για την ανάκτηση εγγράφων και δεδομένων μέσω του ιστού.</p>
+<p>Μία από τις απαιτήσεις για τη χρήση του πρωτοκόλλου HTTP είναι η ανάγκη αποστολής και λήψης των δεδομένων ως αντικείμενα bytes, αντί των συμβολοσειρών. Στο προηγούμενο παράδειγμα, οι μέθοδοι <code>encode()</code> και <code>decode()</code> μετατρέπουν τις συμβολοσειρές σε αντικείμενα bytes και το αντίστροφο.</p>
+<p>Το επόμενο παράδειγμα χρησιμοποιεί τη σημείωση <code>b''</code> για να καθορίσει ότι μια μεταβλητή θα πρέπει να αποθηκευτεί ως αντικείμενο bytes. Το <code>encode()</code> και το <code>b''</code> είναι ισοδύναμα.</p>
+<pre class="{text}"><code>&gt;&gt;&gt; b&#39;Hello world&#39;
 b&#39;Hello world&#39;
 &gt;&gt;&gt; &#39;Hello world&#39;.encode()
 b&#39;Hello world&#39;</code></pre>
-<h2 id="retrieving-an-image-over-http">Retrieving an image over HTTP</h2>
+<h2 id="ανάκτηση-μιας-εικόνας-μέσω-http">Ανάκτηση μιας εικόνας μέσω HTTP</h2>
 <p>  </p>
-<p>In the above example, we retrieved a plain text file which had newlines in the file and we simply copied the data to the screen as the program ran. We can use a similar program to retrieve an image across using HTTP. Instead of copying the data to the screen as the program runs, we accumulate the data in a string, trim off the headers, and then save the image data to a file as follows:</p>
+<p>Στο παραπάνω παράδειγμα, ανακτήσαμε ένα απλό αρχείο κειμένου, που είχε νέες γραμμές στο αρχείο και απλώς αντιγράψαμε τα δεδομένα στην οθόνη, καθώς το πρόγραμμα εκτελούνταν. Μπορούμε να χρησιμοποιήσουμε ένα παρόμοιο πρόγραμμα για να ανακτήσουμε μια εικόνα, χρησιμοποιώντας το HTTP. Αντί να αντιγράψουμε τα δεδομένα στην οθόνη, καθώς εκτελείται το πρόγραμμα, συγκεντρώνουμε τα δεδομένα σε μια συμβολοσειρά, κόβουμε τις κεφαλίδες και, στη συνέχεια, αποθηκεύουμε τα δεδομένα εικόνας σε ένα αρχείο ως εξής:</p>
 <pre class="python"><code>import socket
 import time
 
@@ -245,20 +245,20 @@ while True:
 
 mysock.close()
 
-# Look for the end of the header (2 CRLF)
+# Αναζήτησε το τέλος της κεφαλίδας (2 CRLF)
 pos = picture.find(b&quot;\r\n\r\n&quot;)
 print(&#39;Header length&#39;, pos)
 print(picture[:pos].decode())
 
-# Skip past the header and save the picture data
+# Προσπέρασε την κεφαλίδα και αποθήκευσε τα δεδομένα της εικόνας
 picture = picture[pos+4:]
 fhand = open(&quot;stuff.jpg&quot;, &quot;wb&quot;)
 fhand.write(picture)
 fhand.close()
 
-# Code: http://www.py4e.com/code3/urljpeg.py</code></pre>
-<p>When the program runs, it produces the following output:</p>
-<pre><code>$ python urljpeg.py
+# Code: http://www.gr.py4e.com/code3/urljpeg.py</code></pre>
+<p>Όταν το πρόγραμμα εκτελείται, παράγει την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>$ python urljpeg.py
 5120 5120
 5120 10240
 4240 14480
@@ -283,12 +283,12 @@ Pragma: no-cache
 Expires: Wed, 11 Jan 1984 05:00:00 GMT
 Connection: close
 Content-Type: image/jpeg</code></pre>
-<p>You can see that for this url, the <code>Content-Type</code> header indicates that body of the document is an image (<code>image/jpeg</code>). Once the program completes, you can view the image data by opening the file <code>stuff.jpg</code> in an image viewer.</p>
-<p>As the program runs, you can see that we don’t get 5120 characters each time we call the <code>recv()</code> method. We get as many characters as have been transferred across the network to us by the web server at the moment we call <code>recv()</code>. In this example, we either get as few as 3200 characters each time we request up to 5120 characters of data.</p>
-<p>Your results may be different depending on your network speed. Also note that on the last call to <code>recv()</code> we get 3167 bytes, which is the end of the stream, and in the next call to <code>recv()</code> we get a zero-length string that tells us that the server has called <code>close()</code> on its end of the socket and there is no more data forthcoming.</p>
+<p>Μπορείτε να δείτε ότι για αυτήν τη διεύθυνση url, η κεφαλίδα <code>Content-Type</code> υποδεικνύει ότι το σώμα του εγγράφου είναι μια εικόνα (<code>image/jpeg</code>). Μόλις το πρόγραμμα ολοκληρωθεί, μπορείτε να προβάλετε τα δεδομένα της εικόνας ανοίγοντας το αρχείο <code>stuff.jpg</code> σε ένα πρόγραμμα προβολής εικόνων.</p>
+<p>Καθώς εκτελείται το πρόγραμμα, μπορείτε να δείτε ότι δεν λαμβάνουμε 5120 χαρακτήρες, κάθε φορά που καλούμε τη μέθοδο <code>recv()</code>. τη στιγμή που καλούμε <code>recv()</code> λαμβάνουμε όσους χαρακτήρες έχουν μεταφερθεί από τον διακομιστή ιστού, μέσω του δικτύου σε εμάς. Σε αυτό το παράδειγμα με κάθε μας αίτημα, λαμβάνουμε από μόλις 3200 χαρακτήρες έως και 5120 χαρακτήρες δεδομένων.</p>
+<p>Τα αποτελέσματά σας μπορεί να διαφέρουν ανάλογα με την ταχύτητα του δικτύου σας. Σημειώστε επίσης ότι στην τελευταία κλήση στο <code>recv()</code> λαμβάνουμε 3167 byte, που είναι το τέλος της ροής, και στην επόμενη κλήση στο <code>recv()</code> λαμβάνουμε μια συμβολοσειρά μηδενικού μήκους, που μας ενημερώνει ότι ο διακομιστής έχει καλέσει την <code>close()</code> στο δικό του άκρο της υποδοχής πράγμα που σημαίνει ότι δεν υπάρχουν άλλα δεδομένα.</p>
 <p> </p>
-<p>We can slow down our successive <code>recv()</code> calls by uncommenting the call to <code>time.sleep()</code>. This way, we wait a quarter of a second after each call so that the server can “get ahead” of us and send more data to us before we call <code>recv()</code> again. With the delay, in place the program executes as follows:</p>
-<pre><code>$ python urljpeg.py
+<p>Μπορούμε να επιβραδύνουμε τις διαδοχικές μας κλήσεις της <code>recv()</code> αφαιρώντας το σχολιασμό από την κλήση της <code>time.sleep()</code>. Με αυτόν τον τρόπο, περιμένουμε ένα τέταρτο του δευτερολέπτου μετά από κάθε κλήση, ώστε ο διακομιστής να μπορεί να μας “προλάβει” και να μας στείλει περισσότερα δεδομένα πριν καλέσουμε ξανά τη <code>recv()</code>. Προσθέτοντας την καθυστέρηση αυτή, το πρόγραμμα εκτελείται ως εξής:</p>
+<pre class="{text}"><code>$ python urljpeg.py
 5120 5120
 5120 10240
 5120 15360
@@ -310,44 +310,44 @@ Pragma: no-cache
 Expires: Wed, 11 Jan 1984 05:00:00 GMT
 Connection: close
 Content-Type: image/jpeg</code></pre>
-<p>Now other than the first and last calls to <code>recv()</code>, we now get 5120 characters each time we ask for new data.</p>
-<p>There is a buffer between the server making <code>send()</code> requests and our application making <code>recv()</code> requests. When we run the program with the delay in place, at some point the server might fill up the buffer in the socket and be forced to pause until our program starts to empty the buffer. The pausing of either the sending application or the receiving application is called “flow control.”</p>
-<p></p>
-<h2 id="retrieving-web-pages-with-urllib">Retrieving web pages with <code>urllib</code></h2>
-<p>While we can manually send and receive data over HTTP using the socket library, there is a much simpler way to perform this common task in Python by using the <code>urllib</code> library.</p>
-<p>Using <code>urllib</code>, you can treat a web page much like a file. You simply indicate which web page you would like to retrieve and <code>urllib</code> handles all of the HTTP protocol and header details.</p>
-<p>The equivalent code to read the <em>romeo.txt</em> file from the web using <code>urllib</code> is as follows:</p>
+<p>Τώρα, εκτός από την πρώτη και την τελευταία κλήση στο <code>recv()</code>, λαμβάνουμε πλέον 5120 χαρακτήρες, κάθε φορά που ζητάμε νέα δεδομένα.</p>
+<p>Υπάρχει ένα buffer μεταξύ του διακομιστή που κάνει αιτήματα <code>send()</code> και της εφαρμογής μας που κάνει το αιτήματα <code>recv()</code>. Όταν εκτελούμε το πρόγραμμα με ενεργοποιημένη την καθυστέρηση, κάποια στιγμή ο διακομιστής μπορεί να γεμίσει το buffer στην υποδοχή και να αναγκαστεί να σταματήσει μέχρι το πρόγραμμά μας να αρχίσει να αδειάζει το buffer. Η παύση είτε της εφαρμογής αποστολής είτε της εφαρμογής λήψης ονομάζεται “έλεγχος ροής”.</p>
+<p> </p>
+<h2 id="ανάκτηση-ιστοσελίδων-με-την-urllib">Ανάκτηση ιστοσελίδων με την <code>urllib</code></h2>
+<p>Ενώ μπορούμε να στείλουμε και να λάβουμε με μη αυτόματο τρόπο δεδομένα μέσω HTTP, χρησιμοποιώντας τη βιβλιοθήκη socket, υπάρχει ένας πολύ απλούστερος τρόπος για να εκτελέσετε αυτήν την κοινή εργασία στην Python, χρησιμοποιώντας τη βιβλιοθήκη <code>urllib</code>.</p>
+<p>Χρησιμοποιώντας το <code>urllib</code>, μπορείτε να μεταχειριστείτε μια ιστοσελίδα σαν αρχείο. Απλώς υποδεικνύετε ποια ιστοσελίδα θέλετε να ανακτήσετε και το <code>urllib</code> χειρίζεται όλα τα στοιχεία του πρωτοκόλλου HTTP και της κεφαλίδας.</p>
+<p>Ο ισοδύναμος κώδικας για την ανάγνωση του αρχείου <em>romeo.txt</em> από τον ιστό, χρησιμοποιώντας το <code>urllib</code> είναι ο εξής:</p>
 <pre class="python"><code>import urllib.request
 
 fhand = urllib.request.urlopen(&#39;http://data.pr4e.org/romeo.txt&#39;)
 for line in fhand:
     print(line.decode().strip())
 
-# Code: http://www.py4e.com/code3/urllib1.py</code></pre>
-<p>Once the web page has been opened with <code>urllib.urlopen</code>, we can treat it like a file and read through it using a <code>for</code> loop.</p>
-<p>When the program runs, we only see the output of the contents of the file. The headers are still sent, but the <code>urllib</code> code consumes the headers and only returns the data to us.</p>
-<pre><code>But soft what light through yonder window breaks
+# Code: http://www.gr.py4e.com/code3/urllib1.py</code></pre>
+<p>Μόλις ανοίξει η ιστοσελίδα με το <code>urllib.urlopen</code>, μπορούμε να την αντιμετωπίσουμε σαν αρχείο και να την διαβάσουμε χρησιμοποιώντας έναν βρόχο <code>for</code>.</p>
+<p>Όταν εκτελείται το πρόγραμμα, βλέπουμε μόνο την έξοδο των περιεχομένων του αρχείου. Οι κεφαλίδες εξακολουθούν να αποστέλλονται, αλλά ο κωδικός <code>urllib</code> δεσμέβει τις κεφαλίδες και επιστρέφει μόνο τα δεδομένα σε εμάς.</p>
+<pre class="{text}"><code>But soft what light through yonder window breaks
 It is the east and Juliet is the sun
 Arise fair sun and kill the envious moon
 Who is already sick and pale with grief</code></pre>
-<p>As an example, we can write a program to retrieve the data for <code>romeo.txt</code> and compute the frequency of each word in the file as follows:</p>
+<p>Για παράδειγμα, μπορούμε να γράψουμε ένα πρόγραμμα για να ανακτήσουμε τα δεδομένα για το «romeo.txt» και να υπολογίσουμε τη συχνότητα κάθε λέξης στο αρχείο ως εξής:</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
 
 fhand = urllib.request.urlopen(&#39;http://data.pr4e.org/romeo.txt&#39;)
 
-counts = dict()
-for line in fhand:
-    words = line.decode().split()
-    for word in words:
-        counts[word] = counts.get(word, 0) + 1
-print(counts)
+πλήθη = dict()
+for γραμμή in fhand:
+    λέξεις = γραμμή.decode().split()
+    for λέξη in λέξεις:
+        πλήθη[λέξη] = πλήθη.get(λέξη, 0) + 1
+print(πλήθη)
 
-# Code: http://www.py4e.com/code3/urlwords.py</code></pre>
-<p>Again, once we have opened the web page, we can read it like a local file.</p>
-<h2 id="reading-binary-files-using-urllib">Reading binary files using <code>urllib</code></h2>
-<p>Sometimes you want to retrieve a non-text (or binary) file such as an image or video file. The data in these files is generally not useful to print out, but you can easily make a copy of a URL to a local file on your hard disk using <code>urllib</code>.</p>
-<p></p>
-<p>The pattern is to open the URL and use <code>read</code> to download the entire contents of the document into a string variable (<code>img</code>) then write that information to a local file as follows:</p>
+# Code: http://www.gr.py4e.com/code3/urlwords.py</code></pre>
+<p>Και πάλι, μόλις ανοίξουμε την ιστοσελίδα, μπορούμε να τη διαβάσουμε σαν τοπικό αρχείο.</p>
+<h2 id="ανάγνωση-δυαδικών-αρχείων-χρησιμοποιώντας-το-urllib">Ανάγνωση δυαδικών αρχείων χρησιμοποιώντας το <code>urllib</code></h2>
+<p>Μερικές φορές θέλετε να ανακτήσετε ένα αρχείο μη-κειμένου (ή δυαδικό), όπως ένα αρχείο εικόνας ή βίντεο. Τα δεδομένα σε αυτά τα αρχεία γενικά δεν έχουν νόημα να εκτυπωθούν, αλλά με τη βοήθειά τους και χρησιμοποιώντας το <code>urllib</code> μπορείτε εύκολα να δημιουργήσετε ένα αντίγραφο μιας διεύθυνσης URL σε ένα τοπικό αρχείο, στον σκληρό σας δίσκο.</p>
+<p> </p>
+<p>Το μοτίβο είναι να ανοίξετε τη διεύθυνση URL και να χρησιμοποιήσετε το <code>read</code> για να κατεβάσετε ολόκληρο το περιεχόμενο του εγγράφου, σε μια μεταβλητή συμβολοσειράς (<code>img</code>) και στη συνέχεια να γράψετε αυτές τις πληροφορίες σε ένα τοπικό αρχείο ως εξής:</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
 
 img = urllib.request.urlopen(&#39;http://data.pr4e.org/cover3.jpg&#39;).read()
@@ -355,9 +355,9 @@ fhand = open(&#39;cover3.jpg&#39;, &#39;wb&#39;)
 fhand.write(img)
 fhand.close()
 
-# Code: http://www.py4e.com/code3/curl1.py</code></pre>
-<p>This program reads all of the data in at once across the network and stores it in the variable <code>img</code> in the main memory of your computer, then opens the file <code>cover.jpg</code> and writes the data out to your disk. The <code>wb</code> argument for <code>open()</code> opens a binary file for writing only. This program will work if the size of the file is less than the size of the memory of your computer.</p>
-<p>However if this is a large audio or video file, this program may crash or at least run extremely slowly when your computer runs out of memory. In order to avoid running out of memory, we retrieve the data in blocks (or buffers) and then write each block to your disk before retrieving the next block. This way the program can read any size file without using up all of the memory you have in your computer.</p>
+# Code: http://www.gr.py4e.com/code3/curl1.py</code></pre>
+<p>Αυτό το πρόγραμμα διαβάζει όλα τα δεδομένα ταυτόχρονα, μέσω του δικτύου, και τα αποθηκεύει στη μεταβλητή <code>img</code>, στην κύρια μνήμη του υπολογιστή σας, στη συνέχεια ανοίγει το αρχείο <code>cover.jpg</code> και εγγράφει τα δεδομένα στο δίσκο σας. Το όρισμα <code>wb</code>, στο <code>open()</code>, ανοίγει ένα δυαδικό αρχείο μόνο για εγγραφή. Αυτό το πρόγραμμα θα λειτουργήσει μόν εάν το μέγεθος του αρχείου είναι μικρότερο από το μέγεθος της μνήμης του υπολογιστή σας.</p>
+<p>Ωστόσο, εάν πρόκειται για μεγάλο αρχείο ήχου ή βίντεο, αυτό το πρόγραμμα ενδέχεται να διακοπεί ή τουλάχιστον να εκτελείται εξαιρετικά αργά όταν η μνήμη του υπολογιστή σας εξαντληθεί. Προκειμένου να αποφευχθεί η εξάντληση της μνήμης, ανακτούμε τα δεδομένα σε μπλοκ (ή buffers) και στη συνέχεια γράφουμε κάθε μπλοκ στον δίσκο μας, πριν ανακτήσουμε το επόμενο μπλοκ. Με αυτόν τον τρόπο το πρόγραμμα μπορεί να διαβάσει αρχεία οποιουδήποτε μεγέθους χωρίς να χρησιμοποιεί όλη τη μνήμη που έχει ο υπολογιστή σας.</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
 
 img = urllib.request.urlopen(&#39;http://data.pr4e.org/cover3.jpg&#39;)
@@ -369,55 +369,55 @@ while True:
     size = size + len(info)
     fhand.write(info)
 
-print(size, &#39;characters copied.&#39;)
+print(size, &#39;χαρακτήρες αντιγράφηκαν.&#39;)
 fhand.close()
 
-# Code: http://www.py4e.com/code3/curl2.py</code></pre>
-<p>In this example, we read only 100,000 characters at a time and then write those characters to the <code>cover.jpg</code> file before retrieving the next 100,000 characters of data from the web.</p>
-<p>This program runs as follows:</p>
-<pre><code>python curl2.py
-230210 characters copied.</code></pre>
-<h2 id="parsing-html-and-scraping-the-web">Parsing HTML and scraping the web</h2>
-<p> </p>
-<p>One of the common uses of the <code>urllib</code> capability in Python is to <em>scrape</em> the web. Web scraping is when we write a program that pretends to be a web browser and retrieves pages, then examines the data in those pages looking for patterns.</p>
-<p>As an example, a search engine such as Google will look at the source of one web page and extract the links to other pages and retrieve those pages, extracting links, and so on. Using this technique, Google <em>spiders</em> its way through nearly all of the pages on the web.</p>
-<p>Google also uses the frequency of links from pages it finds to a particular page as one measure of how “important” a page is and how high the page should appear in its search results.</p>
-<h2 id="parsing-html-using-regular-expressions">Parsing HTML using regular expressions</h2>
-<p>One simple way to parse HTML is to use regular expressions to repeatedly search for and extract substrings that match a particular pattern.</p>
-<p>Here is a simple web page:</p>
+# Code: http://www.gr.py4e.com/code3/curl2.py</code></pre>
+<p>Σε αυτό το παράδειγμα, διαβάζουμε μόνο 100.000 χαρακτήρες κάθε φορά και στη συνέχεια γράφουμε αυτούς τους χαρακτήρες στο αρχείο <code>cover.jpg</code>, πριν ανακτήσουμε τους επόμενους 100.000 χαρακτήρες δεδομένων από τον ιστό.</p>
+<p>Αυτό το πρόγραμμα εκτελείται ως εξής:</p>
+<pre class="{text}"><code>python curl2.py
+230210 χαρακτήρες αντιγράφηκαν.</code></pre>
+<h2 id="ανάλυση-html-και-web-scraping-ιστοσυγκομιδή">Ανάλυση HTML και web scraping (ιστοσυγκομιδή)</h2>
+<p>  </p>
+<p>Μία από τις κοινές χρήσεις της δυνατότητας <code>urllib</code> στην Python είναι η <em>ιστοσυγκομιδή (web scraping)</em>. Η ιστοσυγκομιδή είναι όταν γράφουμε ένα πρόγραμμα που προσποιείται ότι είναι πρόγραμμα περιήγησης ιστού, ανακτά σελίδες και, στη συνέχεια, εξετάζει τα δεδομένα σε αυτές τις σελίδες αναζητώντας μοτίβα.</p>
+<p>Για παράδειγμα, μια μηχανή αναζήτησης, όπως η Google θα εξετάσει την πηγή μιας ιστοσελίδας, θα εξαγάγει τους συνδέσμους προς άλλες σελίδες και θα ανακτήσει αυτές τις σελίδες, θα εξάγει συνδέσμους και ούτω καθεξής. Χρησιμοποιώντας αυτήν την τεχνική, το Google <em>ανιχνεύει</em>, περνάει, σχεδόν από όλες τις σελίδες του ιστού.</p>
+<p>Η Google χρησιμοποιεί επίσης τη συχνότητα των συνδέσμων, από σελίδες που βρίσκει προς μια συγκεκριμένη σελίδα, ως μέτρο του πόσο “σημαντική” είναι μια σελίδα και πόσο ψηλά πρέπει να εμφανίζεται η σελίδα αυτή στα αποτελέσματα αναζήτησής της.</p>
+<h2 id="ανάλυση-html-χρησιμοποιώντας-κανονικές-εκφράσεις">Ανάλυση HTML χρησιμοποιώντας κανονικές εκφράσεις</h2>
+<p>Ένας απλός τρόπος ανάλυσης HTML είναι η χρήση κανονικών εκφράσεων για επανειλημμένη αναζήτηση και εξαγωγή υποσυμβολοσειρών που ταιριάζουν με ένα συγκεκριμένο μοτίβο.</p>
+<p>Εδώ είναι μια απλή ιστοσελίδα:</p>
 <pre class="html"><code>&lt;h1&gt;The First Page&lt;/h1&gt;
 &lt;p&gt;
 If you like, you can switch to the
 &lt;a href=&quot;http://www.dr-chuck.com/page2.htm&quot;&gt;
 Second Page&lt;/a&gt;.
 &lt;/p&gt;</code></pre>
-<p>We can construct a well-formed regular expression to match and extract the link values from the above text as follows:</p>
-<pre><code>href=&quot;http[s]?://.+?&quot;</code></pre>
-<p>Our regular expression looks for strings that start with “href="http://” or “href="https://”, followed by one or more characters (<code>.+?</code>), followed by another double quote. The question mark behind the <code>[s]?</code> indicates to search for the string “http” followed by zero or one “s”.</p>
-<p>The question mark added to the <code>.+?</code> indicates that the match is to be done in a “non-greedy” fashion instead of a “greedy” fashion. A non-greedy match tries to find the <em>smallest</em> possible matching string and a greedy match tries to find the <em>largest</em> possible matching string.</p>
+<p>Μπορούμε να κατασκευάσουμε μια καλοσχηματισμένη κανονική έκφραση, για να ταιριάξουμε και να εξαγάγουμε τους συνδέσμου; από το παραπάνω κείμενο ως εξής:</p>
+<pre class="{text}"><code>href=&quot;http[s]?://.+?&quot;</code></pre>
+<p>Η κανονική έκφρασή μας αναζητά συμβολοσειρές που ξεκινούν με <em>href="http://</em> ή <em>href="https://</em>, ακολουθούμενες από έναν ή περισσότερους χαρακτήρες (<code>.+?</code>), ακολουθούμενες από ένα άλλο διπλό εισαγωγικό . Το ερωτηματικό πίσω από το <code>[s]?</code> υποδηλώνει αναζήτηση για τη συμβολοσειρά “http” ακολουθούμενη από κανένα ή ένα “s”.</p>
+<p>Το ερωτηματικό που προστέθηκε στο <code>.+?</code> υποδηλώνει ότι το ταίριασμα πρέπει να γίνει με “μη άπληστο” τρόπο και όχι με “άπληστο”. Ένα μη άπληστο ταίριασμα προσπαθεί να βρει τη <em>μικρότερη</em> δυνατή συμβολοσειρά που ταιριάζει και ένα άπληστο ταίριασμα προσπαθεί να βρει τη <em>μεγαλύτερη</em> δυνατή συμβολοσειρά.</p>
 <p> </p>
-<p>We add parentheses to our regular expression to indicate which part of our matched string we would like to extract, and produce the following program:</p>
+<p>Προσθέτουμε παρενθέσεις στην κανονική μας έκφραση για να υποδείξουμε ποιο τμήμα της αντιστοιχισμένης συμβολοσειράς θα θέλαμε να εξαγάγουμε και παράγουμε το ακόλουθο πρόγραμμα:</p>
 <p> </p>
-<pre class="python"><code># Search for link values within URL input
+<pre class="python"><code># Αναζήτηση συνδέσμων εντός του URL εισόδου
 import urllib.request, urllib.parse, urllib.error
 import re
 import ssl
 
-# Ignore SSL certificate errors
+# Αγνόηση των σφαλμάτων πιστοποιητικού SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-url = input(&#39;Enter - &#39;)
+url = input(&#39;Εισάγεται - &#39;)
 html = urllib.request.urlopen(url, context=ctx).read()
 links = re.findall(b&#39;href=&quot;(http[s]?://.*?)&quot;&#39;, html)
 for link in links:
     print(link.decode())
 
-# Code: http://www.py4e.com/code3/urlregex.py</code></pre>
-<p>The <code>ssl</code> library allows this program to access web sites that strictly enforce HTTPS. The <code>read</code> method returns HTML source code as a bytes object instead of returning an HTTPResponse object. The <code>findall</code> regular expression method will give us a list of all of the strings that match our regular expression, returning only the link text between the double quotes.</p>
-<p>When we run the program and input a URL, we get the following output:</p>
-<pre><code>Enter - https://docs.python.org
+# Code: http://www.gr.py4e.com/code3/urlregex.py</code></pre>
+<p>Η βιβλιοθήκη <code>ssl</code> επιτρέπει σε αυτό το πρόγραμμα να έχει πρόσβαση σε ιστότοπους που επιβάλλουν αυστηρά το HTTPS. Η μέθοδος <code>read</code> επιστρέφει τον πηγαίο κώδικα HTML ως αντικείμενο bytes αντί να επιστρέφει ένα αντικείμενο HTTPResponse. Η μέθοδος κανονικής έκφρασης <code>findall</code> θα μας δώσει μια λίστα με όλες τις συμβολοσειρές που ταιριάζουν με την κανονική μας έκφραση, επιστρέφοντας μόνο το κείμενο σύνδεσης μεταξύ των διπλών εισαγωγικών.</p>
+<p>Όταν εκτελούμε το πρόγραμμα και εισάγουμε μια διεύθυνση URL, έχουμε την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>Εισάγετε - https://docs.python.org
 https://docs.python.org/3/index.html
 https://www.python.org/
 https://docs.python.org/3.8/
@@ -432,44 +432,44 @@ https://www.python.org/doc/av/
 https://www.python.org/
 https://www.python.org/psf/donations/
 http://sphinx.pocoo.org/</code></pre>
-<p>Regular expressions work very nicely when your HTML is well formatted and predictable. But since there are a lot of “broken” HTML pages out there, a solution only using regular expressions might either miss some valid links or end up with bad data.</p>
-<p>This can be solved by using a robust HTML parsing library.</p>
-<h2 id="parsing-html-using-beautifulsoup">Parsing HTML using BeautifulSoup</h2>
+<p>Οι κανονικές εκφράσεις λειτουργούν πολύ καλά όταν το HTML σας είναι καλά μορφοποιημένο και προβλέψιμο. Αλλά επειδή υπάρχουν πολλές “σπασμένες” σελίδες HTML εκεί έξω, μια λύση που χρησιμοποιεί μόνο κανονικές εκφράσεις μπορεί είτε να χάσει ορισμένους έγκυρους συνδέσμους είτε να καταλήξει με κατεστραμένα δεδομένα.</p>
+<p>Αυτό μπορεί να λυθεί χρησιμοποιώντας μια ισχυρή βιβλιοθήκη ανάλυσης HTML.</p>
+<h2 id="ανάλυση-html-χρησιμοποιώντας-το-beautifulsoup">Ανάλυση HTML χρησιμοποιώντας το BeautifulSoup</h2>
 <p></p>
-<p>Even though HTML looks like XML<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and some pages are carefully constructed to be XML, most HTML is generally broken in ways that cause an XML parser to reject the entire page of HTML as improperly formed.</p>
-<p>There are a number of Python libraries which can help you parse HTML and extract data from the pages. Each of the libraries has its strengths and weaknesses and you can pick one based on your needs.</p>
-<p>As an example, we will simply parse some HTML input and extract links using the <em>BeautifulSoup</em> library. BeautifulSoup tolerates highly flawed HTML and still lets you easily extract the data you need. You can download and install the BeautifulSoup code from:</p>
+<p>Παρόλο που η HTML μοιάζει με την XML<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> και ορισμένες σελίδες έχουν κατασκευαστεί προσεκτικά ώστε να είναι XML, οι περισσότερες σελίδες HTML γενικά περιέχουν σφάλματα τέτοια που αναγκάζουν έναν αναλυτή XML να απορρίψει ολόκληρη τη σελίδα του HTML ως ακατάλληλα σχηματισμένη.</p>
+<p>Υπάρχει ένας αριθμός βιβλιοθηκών Python που μπορούν να σας βοηθήσουν να αναλύσετε HTML και να εξαγάγετε δεδομένα από σελίδες. Κάθε μία από αυτές τις βιβλιοθήκες έχει τα δυνατά και τα αδύνατα σημεία της και μπορείτε να επιλέξετε κάποια, με βάση τις ανάγκες σας.</p>
+<p>Ως παράδειγμα, θα χρησιμοποιήσουμε τη βιβλιοθήκη <em>BeautifulSoup</em> και απλώς θα αναλύσουμε ορισμένες εισόδους HTML και θα εξαγάγουμε συνδέσμους. Η BeautifulSoup ανέχεται εξαιρετικά ελαττωματικό HTML και εξακολουθεί να σας επιτρέπει να εξαγάγετε εύκολα τα δεδομένα που χρειάζεστε. Μπορείτε να κατεβάσετε και να εγκαταστήσετε τον κώδικα BeautifulSoup από:</p>
 <p><a href="https://pypi.python.org/pypi/beautifulsoup4" class="uri">https://pypi.python.org/pypi/beautifulsoup4</a></p>
-<p>Information on installing BeautifulSoup with the Python Package Index tool <code>pip</code> is available at:</p>
+<p>Πληροφορίες σχετικά με την εγκατάσταση του BeautifulSoup με το εργαλείο ευρετηρίου πακέτων <code>pip</code> της Python είναι διαθέσιμες στη διεύθυνση:</p>
 <p><a href="https://packaging.python.org/tutorials/installing-packages/" class="uri">https://packaging.python.org/tutorials/installing-packages/</a></p>
-<p>We will use <code>urllib</code> to read the page and then use <code>BeautifulSoup</code> to extract the <code>href</code> attributes from the anchor (<code>a</code>) tags.</p>
+<p>Θα χρησιμοποιήσουμε το <code>urllib</code> για να διαβάσουμε τη σελίδα και στη συνέχεια θα χρησιμοποιήσουμε τη <code>BeautifulSoup</code> για να εξαγάγουμε τα χαρακτηριστικά <code>href</code> από τις ετικέτες αγκύρωσης (<code>a</code>).</p>
 <p>  </p>
-<pre class="python"><code># To run this, download the BeautifulSoup zip file
-# http://www.py4e.com/code3/bs4.zip
-# and unzip it in the same directory as this file
+<pre class="python"><code># Για να το εκτελέσετε, κάντε λήψη του αρχείου zip BeautifulSoup
+# από  http://www.py4e.com/code3/bs4.zip
+# και αποσυμπιέστε το στον ίδιο κατάλογο με αυτό το αρχείο
 
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
 import ssl
 
-# Ignore SSL certificate errors
+# Αγνόηση των σφαλμάτων πιστοποιητικού SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-url = input(&#39;Enter - &#39;)
+url = input(&#39;Εισάγετε - &#39;)
 html = urllib.request.urlopen(url, context=ctx).read()
 soup = BeautifulSoup(html, &#39;html.parser&#39;)
 
-# Retrieve all of the anchor tags
+# Ανάκτηση όλων των ετικετών αγκύρωσης
 tags = soup(&#39;a&#39;)
 for tag in tags:
     print(tag.get(&#39;href&#39;, None))
 
-# Code: http://www.py4e.com/code3/urllinks.py</code></pre>
-<p>The program prompts for a web address, then opens the web page, reads the data and passes the data to the BeautifulSoup parser, and then retrieves all of the anchor tags and prints out the <code>href</code> attribute for each tag.</p>
-<p>When the program runs, it produces the following output:</p>
-<pre><code>Enter - https://docs.python.org
+# Code: http://www.gr.py4e.com/code3/urllinks.py</code></pre>
+<p>Το πρόγραμμα ζητά μια διεύθυνση ιστού, στη συνέχεια ανοίγει την ιστοσελίδα, διαβάζει τα δεδομένα και μεταβιβάζει τα δεδομένα στον αναλυτή BeautifulSoup και, στη συνέχεια, ανακτά όλες τις ετικέτες αγκύρωσης και εκτυπώνει το χαρακτηριστικό <code>href</code> για κάθε ετικέτα.</p>
+<p>Όταν το πρόγραμμα εκτελείται, παράγει την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>Εισάγετε - https://docs.python.org
 genindex.html
 py-modindex.html
 https://www.python.org/
@@ -513,82 +513,82 @@ copyright.html
 https://www.python.org/psf/donations/
 bugs.html
 http://sphinx.pocoo.org/</code></pre>
-<p>This list is much longer because some HTML anchor tags are relative paths (e.g., tutorial/index.html) or in-page references (e.g., ‘#’) that do not include “http://” or “https://”, which was a requirement in our regular expression.</p>
-<p>You can use also BeautifulSoup to pull out various parts of each tag:</p>
-<pre class="python"><code># To run this, download the BeautifulSoup zip file
-# http://www.py4e.com/code3/bs4.zip
-# and unzip it in the same directory as this file
+<p>Αυτή η λίστα είναι πολύ μεγάλη επειδή ορισμένες ετικέτες αγκύρωσης HTML είναι σχετικές διαδρομές (π.χ. tutorial/index.html) ή αναφορές στη σελίδα (π.χ. ‘#’), που δεν περιλαμβάνουν “http://” ή “https:// », που αποτελούσε απαίτησή μας όταν χρησιμοποιήσαμε κανονική έκφραση.</p>
+<p>Μπορείτε επίσης να χρησιμοποιήσετε το BeautifulSoup για να βγάλετε διάφορα μέρη κάθε ετικέτας:</p>
+<pre class="python"><code># Για να το εκτελέσετε, κάντε λήψη του αρχείου zip BeautifulSoup
+# από  http://www.py4e.com/code3/bs4.zip
+# και αποσυμπιέστε το στον ίδιο κατάλογο με αυτό το αρχείο
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import ssl
 
-# Ignore SSL certificate errors
+# Αγνόηση των σφαλμάτων πιστοποιητικού SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-url = input(&#39;Enter - &#39;)
+url = input(&#39;Εισάγετε - &#39;)
 html = urlopen(url, context=ctx).read()
 soup = BeautifulSoup(html, &quot;html.parser&quot;)
 
-# Retrieve all of the anchor tags
+# Ανάκτηση όλων των ετικετών αγκύρωσης
 tags = soup(&#39;a&#39;)
 for tag in tags:
-    # Look at the parts of a tag
+    # Εξέταση των μερών μιας ετικέτας
     print(&#39;TAG:&#39;, tag)
     print(&#39;URL:&#39;, tag.get(&#39;href&#39;, None))
     print(&#39;Contents:&#39;, tag.contents[0])
     print(&#39;Attrs:&#39;, tag.attrs)
 
-# Code: http://www.py4e.com/code3/urllink2.py</code></pre>
-<pre><code>python urllink2.py
-Enter - http://www.dr-chuck.com/page1.htm
+# Code: http://www.gr.py4e.com/code3/urllink2.py</code></pre>
+<pre class="{text}"><code>python urllink2.py
+Εισάγετε - http://www.dr-chuck.com/page1.htm
 TAG: &lt;a href=&quot;http://www.dr-chuck.com/page2.htm&quot;&gt;
 Second Page&lt;/a&gt;
 URL: http://www.dr-chuck.com/page2.htm
 Content: [&#39;\nSecond Page&#39;]
 Attrs: [(&#39;href&#39;, &#39;http://www.dr-chuck.com/page2.htm&#39;)]</code></pre>
-<p><code>html.parser</code> is the HTML parser included in the standard Python 3 library. Information on other HTML parsers is available at:</p>
+<p>Το <code>html.parser</code> είναι ο αναλυτής HTML που περιλαμβάνεται στην τυπική βιβλιοθήκη της Python 3. Πληροφορίες για άλλους αναλυτές HTML είναι διαθέσιμες στη διεύθυνση:</p>
 <p><a href="http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser" class="uri">http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser</a></p>
-<p>These examples only begin to show the power of BeautifulSoup when it comes to parsing HTML.</p>
-<h2 id="bonus-section-for-unix-linux-users">Bonus section for Unix / Linux users</h2>
-<p>If you have a Linux, Unix, or Macintosh computer, you probably have commands built in to your operating system that retrieves both plain text and binary files using the HTTP or File Transfer (FTP) protocols. One of these commands is <code>curl</code>:</p>
+<p>Αυτά τα παραδείγματα μόνο ενδεικτικά μας μυούν στη δύναμη της BeautifulSoup για την ανάλυση HTML.</p>
+<h2 id="μπόνους-ενότητα-για-χρήστες-unix-linux">Μπόνους ενότητα για χρήστες Unix / Linux</h2>
+<p>Εάν διαθέτετε υπολογιστή Linux, Unix ή Macintosh, πιθανότατα διαθέτετε ενσωματωμένες εντολές, στο λειτουργικό σας σύστημα, που ανακτούν τόσο απλό κείμενο όσο και δυαδικά αρχεία, χρησιμοποιώντας τα πρωτόκολλα HTTP ή File Transfer (FTP). Μία από αυτές τις εντολές είναι το <code>curl</code>:</p>
 <p></p>
 <pre class="bash"><code>$ curl -O http://www.py4e.com/cover.jpg</code></pre>
-<p>The command <code>curl</code> is short for “copy URL” and so the two examples listed earlier to retrieve binary files with <code>urllib</code> are cleverly named <code>curl1.py</code> and <code>curl2.py</code> on <a href="http://www.py4e.com/code3">www.py4e.com/code3</a> as they implement similar functionality to the <code>curl</code> command. There is also a <code>curl3.py</code> sample program that does this task a little more effectively, in case you actually want to use this pattern in a program you are writing.</p>
-<p>A second command that functions very similarly is <code>wget</code>:</p>
+<p>Η εντολή <code>curl</code> είναι συντομογραφία για το “copy URL” και έτσι τα δύο παραδείγματα που παρατέθηκαν προηγουμένως, για την ανάκτηση δυαδικών αρχείων με χρήση της <code>urllib</code> ονομάζονται έξυπνα <code>curl1.py</code> και <code>curl2.py</code> στο <a href="http://www.gr.py4e.com/code3">www.gr.py4e.com/code3</a>, καθώς υλοποιούν παρόμοια λειτουργικότητα με την εντολή <code>curl</code>. Υπάρχει επίσης ένα δείγμα προγράμματος <code>curl3.py</code>, που κάνει αυτήν την εργασία λίγο πιο αποτελεσματικά, σε περίπτωση που θέλετε πραγματικά να ενσωματώσετε αυτό το μοτίβο σε κάποιο πρόγραμμα που γράφετε.</p>
+<p>Μια δεύτερη εντολή που λειτουργεί πολύ παρόμοια είναι η <code>wget</code>:</p>
 <p></p>
 <pre class="bash"><code>$ wget http://www.py4e.com/cover.jpg</code></pre>
-<p>Both of these commands make retrieving webpages and remote files a simple task.</p>
-<h2 id="glossary">Glossary</h2>
+<p>Και οι δύο αυτές εντολές απλοποιούν την ανάκτηση ιστοσελίδων και απομακρυσμένων αρχείων.</p>
+<h2 id="γλωσσάριο">Γλωσσάριο</h2>
 <dl>
 <dt>BeautifulSoup</dt>
-<dd>A Python library for parsing HTML documents and extracting data from HTML documents that compensates for most of the imperfections in the HTML that browsers generally ignore. You can download the BeautifulSoup code from <a href="http://www.crummy.com">www.crummy.com</a>.
+<dd>Μια βιβλιοθήκη Python για την ανάλυση εγγράφων HTML και την εξαγωγή δεδομένων από έγγραφα HTML που αντισταθμίζει τις περισσότερες από τις ατέλειες στην HTML, που τα προγράμματα περιήγησης γενικά αγνοούν. Μπορείτε να κατεβάσετε τον κώδικα BeautifulSoup από <a href="http://www.crummy.com">www.crummy.com</a>.
 </dd>
-<dt>port</dt>
-<dd>A number that generally indicates which application you are contacting when you make a socket connection to a server. As an example, web traffic usually uses port 80 while email traffic uses port 25.
+<dt>θύρα - port</dt>
+<dd>Ένας αριθμός που γενικά υποδεικνύει με ποια εφαρμογή επικοινωνείτε όταν πραγματοποιείτε σύνδεση υποδοχής σε διακομιστή. Για παράδειγμα, η κυκλοφορία Ιστού χρησιμοποιεί συνήθως τη θύρα 80, ενώ η κυκλοφορία ηλεκτρονικού ταχυδρομείου χρησιμοποιεί τη θύρα 25.
 </dd>
-<dt>scrape</dt>
-<dd>When a program pretends to be a web browser and retrieves a web page, then looks at the web page content. Often programs are following the links in one page to find the next page so they can traverse a network of pages or a social network.
+<dt>ιστοσυγκομιδή</dt>
+<dd>Όταν ένα πρόγραμμα προσποιείται ότι είναι πρόγραμμα περιήγησης ιστού και ανακτά μια ιστοσελίδα και, στη συνέχεια, εξετάζει το περιεχόμενο της ιστοσελίδας. Συχνά τα προγράμματα αυτά ακολουθούν τους συνδέσμους σε μια σελίδα για να βρουν την επόμενη σελίδα, ώστε να μπορούν να διασχίσουν ένα δίκτυο σελίδων ή ένα κοινωνικό δίκτυο.
 </dd>
-<dt>socket</dt>
-<dd>A network connection between two applications where the applications can send and receive data in either direction.
+<dt>υποδοχή - socket</dt>
+<dd>Μια σύνδεση δικτύου μεταξύ δύο εφαρμογών, όπου οι εφαρμογές μπορούν να στέλνουν και να λαμβάνουν δεδομένα προς οποιαδήποτε κατεύθυνση.
 </dd>
-<dt>spider</dt>
-<dd>The act of a web search engine retrieving a page and then all the pages linked from a page and so on until they have nearly all of the pages on the Internet which they use to build their search index.
+<dt>ανίχνευση - spider</dt>
+<dd>Η πράξη μιας μηχανής αναζήτησης Ιστού, που ανακτά μια σελίδα και στη συνέχεια όλες τις σελίδες που συνδέονται με τη σελίδα αυτή και ούτω καθεξής μέχρι να έχουν σχεδόν όλες τις σελίδες στο Διαδίκτυο, τις οποίες χρησιμοποιούν για τη δημιουργία του ευρετηρίου αναζήτησής τους.
 </dd>
 </dl>
-<h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Change the socket program <code>socket1.py</code> to prompt the user for the URL so it can read any web page. You can use <code>split('/')</code> to break the URL into its component parts so you can extract the host name for the socket <code>connect</code> call. Add error checking using <code>try</code> and <code>except</code> to handle the condition where the user enters an improperly formatted or non-existent URL.</strong></p>
-<p><strong>Exercise 2: Change your socket program so that it counts the number of characters it has received and stops displaying any text after it has shown 3000 characters. The program should retrieve the entire document and count the total number of characters and display the count of the number of characters at the end of the document.</strong></p>
-<p><strong>Exercise 3: Use <code>urllib</code> to replicate the previous exercise of (1) retrieving the document from a URL, (2) displaying up to 3000 characters, and (3) counting the overall number of characters in the document. Don’t worry about the headers for this exercise, simply show the first 3000 characters of the document contents.</strong></p>
-<p><strong>Exercise 4: Change the <code>urllinks.py</code> program to extract and count paragraph (p) tags from the retrieved HTML document and display the count of the paragraphs as the output of your program. Do not display the paragraph text, only count them. Test your program on several small web pages as well as some larger web pages.</strong></p>
-<p><strong>Exercise 5: (Advanced) Change the socket program so that it only shows data after the headers and a blank line have been received. Remember that <code>recv</code> receives characters (newlines and all), not lines.</strong></p>
+<h2 id="ασκήσεις">Ασκήσεις</h2>
+<p><strong>Άσκηση 1: Αλλάξτε το πρόγραμμα υποδοχής <code>socket1.py</code> ώστε να ζητά από τον χρήστη τη διεύθυνση URL και να μπορεί να διαβάσει οποιαδήποτε ιστοσελίδα. Μπορείτε να χρησιμοποιήσετε το <code>split('/')</code> για να σπάσετε τη διεύθυνση URL στα συστατικά μέρη της, ώστε να μπορέσετε να εξαγάγετε το όνομα του κεντρικού υπολογιστή για την κλήση <code>connect</code> της υποδοχής. Προσθέστε τον έλεγχο σφαλμάτων χρησιμοποιώντας <code>try</code> και <code>except</code> για να χειριστείτε την κατάσταση όπου ο χρήστης εισάγει μια διεύθυνση URL με ακατάλληλη μορφή ή ανύπαρκτη.</strong></p>
+<p><strong>Άσκηση 2: Αλλάξτε το πρόγραμμα υποδοχής σας έτσι ώστε να μετράει τον αριθμό των χαρακτήρων που έχει λάβει και να σταματά να εμφανίζει οποιοδήποτε κείμενο όταν εμφανίσει 3000 χαρακτήρες. Το πρόγραμμα θα πρέπει να ανακτήσει ολόκληρο το έγγραφο και να μετρήσει τον συνολικό αριθμό χαρακτήρων και να εμφανίσει τον αριθμό των χαρακτήρων στο τέλος του εγγράφου.</strong></p>
+<p><strong>Άσκηση 3: Χρησιμοποιήστε το <code>urllib</code> για να αναπαραγάγετε την προηγούμενη άσκηση ώστε (1) να ανακτά το έγγραφο από μια διεύθυνση URL, (2) να εμφανίζει έως 3000 χαρακτήρες και (3) να μετρά τον συνολικό αριθμό χαρακτήρων στο έγγραφο. Μην ανησυχείτε για τις κεφαλίδες σε αυτήν την άσκηση, απλώς εμφανίστε τους πρώτους 3000 χαρακτήρες του περιεχομένου του εγγράφου.</strong></p>
+<p><strong>Άσκηση 4: Αλλάξτε το πρόγραμμα <code>urllinks.py</code> για να εξαγάγετε και να μετρήσετε τις ετικέτες παραγράφου (p) από το ανακτηθέν έγγραφο HTML και να εμφανίσετε την καταμέτρηση των παραγράφων ως έξοδο του προγράμματός σας. Μην εμφανίσετε το κείμενο των παραγράφων, μόνο μετρήστε τις. Δοκιμάστε το πρόγραμμά σας σε πολλές μικρές ιστοσελίδες καθώς και σε ορισμένες μεγαλύτερες ιστοσελίδες.</strong></p>
+<p><strong>Άσκηση 5: (Για προχωρημένους) Αλλάξτε το πρόγραμμα υποδοχής έτσι ώστε να εμφανίζει δεδομένα μόνο αφού ληφθούν οι κεφαλίδες και μια κενή γραμμή. Να θυμάστε ότι το <code>recv</code> λαμβάνει χαρακτήρες (νέες γραμμές και όλους), όχι γραμμές.</strong></p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>The XML format is described in the next chapter.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Η μορφή XML περιγράφεται στο επόμενο κεφάλαιο.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>

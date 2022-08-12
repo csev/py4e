@@ -9,5 +9,5 @@ while True:
     size = size + len(info)
     fhand.write(info)
 
-print(size, 'characters copied.')
+print(size, 'χαρακτήρες αντιγράφηκαν.')
 fhand.close()

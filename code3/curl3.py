@@ -1,20 +1,20 @@
 import os
 import urllib.request, urllib.parse, urllib.error
 
-print('Please enter a URL like http://data.pr4e.org/cover3.jpg')
+print('Παρακαλώ εισαγάγετε μια διεύθυνση URL όπωςhttp://data.pr4e.org/cover3.jpg')
 urlstr = input().strip()
 img = urllib.request.urlopen(urlstr)
 
-# Get the last "word"
+# Πάρε την τελευταία "λέξη"
 words = urlstr.split('/')
 fname = words[-1]
 
-# Don't overwrite the file
+# Μην αντικαταστήσεις το αρχείο
 if os.path.exists(fname):
-    if input('Replace ' + fname + ' (Y/n)?') != 'Y':
-        print('Data not copied')
+    if input('Να αντικατασταθεί το ' + fname + ' (Ν/ο)?') != 'Ν':
+        print('Τα δεδομένα δεν αντιγράφηκαν')
         exit()
-    print('Replacing', fname)
+    print('Αντικατάσταση του', fname)
 
 fhand = open(fname, 'wb')
 size = 0
@@ -24,5 +24,5 @@ while True:
     size = size + len(info)
     fhand.write(info)
 
-print(size, 'characters copied to', fname)
+print(size, 'χαρακτήρες αντιγράφηκαν στο ', fname)
 fhand.close()

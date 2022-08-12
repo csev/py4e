@@ -19,12 +19,12 @@ while True:
 
 mysock.close()
 
-# Look for the end of the header (2 CRLF)
+# Αναζήτησε το τέλος της κεφαλίδας (2 CRLF)
 pos = picture.find(b"\r\n\r\n")
 print('Header length', pos)
 print(picture[:pos].decode())
 
-# Skip past the header and save the picture data
+# Προσπέρασε την κεφαλίδα και αποθήκευσε τα δεδομένα της εικόνας
 picture = picture[pos+4:]
 fhand = open("stuff.jpg", "wb")
 fhand.write(picture)
