@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 import ssl
 
 api_key = False
-# If you have a Google Places API key, enter it here
+# Εάν διαθέτετε κλειδί API Google Places, πληκτρολογήστε το εδώ
 # api_key = 'AIzaSy___IDByT70'
 # https://developers.google.com/maps/documentation/geocoding/intro
 
@@ -13,24 +13,24 @@ if api_key is False:
 else :
     serviceurl = 'https://maps.googleapis.com/maps/api/geocode/xml?'
 
-# Ignore SSL certificate errors
+# Αγνόησε τα σφάλματα πιστοποιητικού SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 while True:
-    address = input('Enter location: ')
+    address = input('Εισαγάγετε τοποθεσία: ')
     if len(address) < 1: break
 
     parms = dict()
     parms['address'] = address
     if api_key is not False: parms['key'] = api_key
     url = serviceurl + urllib.parse.urlencode(parms)
-    print('Retrieving', url)
+    print('Ανάκτηση', url)
     uh = urllib.request.urlopen(url, context=ctx)
 
     data = uh.read()
-    print('Retrieved', len(data), 'characters')
+    print('Ανακτήθηκαν', len(data), 'χαρακτήρες')
     print(data.decode())
     tree = ET.fromstring(data)
 
@@ -39,5 +39,5 @@ while True:
     lng = results[0].find('geometry').find('location').find('lng').text
     location = results[0].find('formatted_address').text
 
-    print('lat', lat, 'lng', lng)
+    print('πλάτος', lat, 'μήκος', lng)
     print(location)

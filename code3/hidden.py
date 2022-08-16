@@ -1,7 +1,7 @@
-# Keep this file separate
+# Κρατήστε αυτό το αρχείο ξεχωριστά
 
 # https://apps.twitter.com/
-# Create new App and get the four strings
+# Δημιουργήστε νέο App και πάρτε τις τέσσερις συμβολοσειρές
 
 def oauth():
     return {"consumer_key": "h7Lu...Ng",
