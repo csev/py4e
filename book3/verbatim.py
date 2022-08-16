@@ -19,7 +19,8 @@ while True:
     except:
         break
     
-    x = re.findall(r'\\VerbatimInput{(.*)}', line)
+    # Use . instead of backslash to avoid regex weirdness across python versions
+    x = re.findall(r'^.VerbatimInput{(.*)}', line)
     if not x : 
         if trinket and files:
             trinketfilesstart = r"\begin{trinketfiles}" in line
