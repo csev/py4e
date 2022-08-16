@@ -1,4 +1,5 @@
-# Search for lines that start with From and have an at sign
+# Αναζητάμε τις γραμμές που αρχίζουν με 'From' 
+# και περιέχουν ένα σύμβολο at
 import re
 hand = open('mbox-short.txt')
 for line in hand:

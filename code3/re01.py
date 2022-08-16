@@ -1,4 +1,4 @@
-# Search for lines that contain 'From'
+# Αναζητάμε τις γραμμές που περιέχουν τη λέξη 'From'
 import re
 hand = open('mbox-short.txt')
 for line in hand:

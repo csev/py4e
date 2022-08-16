@@ -1,5 +1,5 @@
-# Search for lines that start with 'F', followed by
-# 2 characters, followed by 'm:'
+# Αναζητάμε τις γραμμές που αρχίζουν με 'F', ακολουθούμενο
+# από 2 χαρακτήρες, ακολουθούμενους από 'm:'
 import re
 hand = open('mbox-short.txt')
 for line in hand:

@@ -1,4 +1,4 @@
-# Search for lines that have an at sign between characters
+# Αναζητάμε τις γραμμές που περιέχουν ένα σύμβολο at μεταξύ χαρακτήρων
 import re
 hand = open('mbox-short.txt')
 for line in hand:
