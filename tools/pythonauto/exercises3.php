@@ -305,7 +305,8 @@ print("Average spam confidence:", tot/count)
 line.  For each line, split the line into a list of words using the <b>split()</b>
 method.   The program should build a list of words.  For each word on each line
 check to see if the word is already in the list and if not append it to the list.
-When the program completes, sort and print the resulting words in alphabetical order.
+When the program completes, sort and print the resulting words in python
+sort() order as shown in the desired output.
 <p>
 You can download the sample data at
 <a href="http://www.py4e.com/code3/romeo.txt" target="_blank">
