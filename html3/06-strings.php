@@ -419,7 +419,7 @@ TypeError: %d format: a number is required, not str</code></pre>
     if γραμμή == &#39;τέλος&#39;:
         break
     print(γραμμή)
-print(&#39;Done!&#39;)
+print(&#39;Τέλος!&#39;)
 
 # Code: http://www.gr.py4e.com/code3/copytildone2.py</code></pre>
 <p>Δείτε τι συμβαίνει όταν ο χρήστης εισάγει μια κενή γραμμή στην είσοδο:</p>
