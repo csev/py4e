@@ -2,7 +2,7 @@
 
 while True:
     try:
-        line = raw_input()
+        line = input()
     except:
         break
     
@@ -20,7 +20,7 @@ while True:
         if atsign < 0 : atsign=oparen
 
         if cparen < atsign or cparen < 1 or oparen < 1 or atsign < 1 :
-            print line
+            print(line)
             continue
 
         linktext = ''
@@ -45,13 +45,14 @@ while True:
 
   
         if attribs.get('height') :
-            print '<figure>'
-            print '<img src="'+fname+'" alt="'+linktext+'" style="height: '+attribs.get('height')+';"/>'
-            print '<figcaption>'+linktext+'</figcaption>'
-            print '</figure>'
+            print('<figure>')
+            print('<img src="'+fname+'" alt="'+linktext+'" style="height: '+attribs.get('height')+';"/>')
+            print('<figcaption>'+linktext+'</figcaption>')
+            print('</figure>')
         else :
-            print line[:oparen+1]+fname+')'
+            print(line[:oparen+1]+fname+')')
 
         continue
 
-    print line
+    print(line)
+
