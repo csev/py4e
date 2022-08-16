@@ -154,21 +154,21 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="copyright-detail">Copyright Detail</h1>
-<p>This work is licensed under a Creative Common Attribution-NonCommercial-ShareAlike 3.0 Unported License. This license is available at</p>
+<h1 id="λεπτομέρειες-πνευματικών-δικαιωμάτων">Λεπτομέρειες πνευματικών δικαιωμάτων</h1>
+<p>Αυτό το έργο χορηγείται με άδεια Creative Common Attribution-NonCommercial-ShareAlike 3.0 Unported License. Αυτή η άδεια είναι διαθέσιμη στη διεύθυνση</p>
 <p><a href="creativecommons.org/licenses/by-nc-sa/3.0/">creativecommons.org/licenses/by-nc-sa/3.0/</a>.</p>
-<p>I would have preferred to license the book under the less restrictive CC-BY-SA license. But unfortunately there are a few unscrupulous organizations who search for and find freely licensed books, and then publish and sell virtually unchanged copies of the books on a print on demand service such as LuLu or KDP. KDP has (thankfully) added a policy that gives the wishes of the actual copyright holder preference over a non-copyright holder attempting to publish a freely licensed work. Unfortunately there are many print-on-demand services and very few have as well-considered a policy as KDP.</p>
-<p>Regretfully, I added the NC element to the license this book to give me recourse in case someone tries to clone this book and sell it commercially. Unfortunately, adding NC limits uses of this material that I would like to permit. So I have added this section of the document to describe specific situations where I am giving my permission in advance to use the material in this book in situations that some might consider commercial.</p>
+<p>Θα προτιμούσα να αδειοδοτήσω το βιβλίο με τη λιγότερο περιοριστική άδεια CC-BY-SA. Όμως, δυστυχώς, υπάρχουν μερικοί αδίστακτοι οργανισμοί, που αναζητούν και βρίσκουν βιβλία με ελεύθερη άδεια και στη συνέχεια δημοσιεύουν και πωλούν σχεδόν αυτούσια αντίγραφα των βιβλίων σε κάποια υπηρεσία εκτύπωσης κατ’ απαίτηση, όπως η LuLu ή η KDP. Το KDP έχει προσθέσει (ευτυχώς) μια πολιτική που κατοχυρώνει στις επιθυμίες του πραγματικού κατόχου πνευματικών δικαιωμάτων έναντι ενός μη κατόχου πνευματικών δικαιωμάτων, που προσπαθεί να δημοσιεύσει ένα έργο με ελεύθερη άδεια. Δυστυχώς, υπάρχουν πολλές υπηρεσίες εκτύπωσης κατ’ απαίτηση και πολύ λίγες έχουν σκεφτεί τόσο καλά την πολιτική τους όσο το KDP.</p>
+<p>Δυστυχώς, πρόσθεσα το στοιχείο NC στην άδεια χρήσης αυτού του βιβλίου για να έχω διέξοδο, σε περίπτωση που κάποιος προσπαθήσει να αντιγράψει αυτό το βιβλίο και να το πουλήσει εμπορικά. Δυστυχώς, η προσθήκη NC περιορίζει τις χρήσεις αυτού του υλικού που θα ήθελα να επιτρέψω. Έτσι, έχω προσθέσει αυτήν την ενότητα του εγγράφου για να περιγράψω συγκεκριμένες καταστάσεις όπου δίνω εκ των προτέρων την άδειά μου να χρησιμοποιήθεί το υλικό αυτού του βιβλίου σε καταστάσεις που κάποιοι μπορεί να θεωρήσουν εμπορικές.</p>
 <ul>
-<li><p>If you are printing a limited number of copies of all or part of this book for use in a course (e.g., like a coursepack), then you are granted CC-BY license to these materials for that purpose.</p></li>
-<li><p>If you are a teacher at a university and you translate this book into a language other than English and teach using the translated book, then you can contact me and I will grant you a CC-BY-SA license to these materials with respect to the publication of your translation. In particular, you will be permitted to sell the resulting translated book commercially.</p></li>
+<li><p>Εάν εκτυπώνετε περιορισμένο αριθμό αντιγράφων ολόκληρου ή μέρους αυτού του βιβλίου για χρήση σε ένα μάθημα (π.χ., όπως ένα πακέτο μαθημάτων), τότε σας εκχωρείται άδεια CC-BY για αυτό το υλικό για αυτόν τον σκοπό.</p></li>
+<li><p>Εάν είστε καθηγητής σε πανεπιστήμιο και μεταφράζετε αυτό το βιβλίο σε άλλη γλώσσα, εκτός από τα αγγλικά και διδάσκετε χρησιμοποιώντας το μεταφρασμένο βιβλίο, τότε μπορείτε να επικοινωνήσετε μαζί μου και θα σας χορηγήσω άδεια CC-BY-SA για αυτό το υλικό, σε σχέση με τη δημοσίευση της μετάφρασής σας. Συγκεκριμένα, θα σας επιτραπεί να πουλήσετε εμπορικά το μεταφρασμένο βιβλίο που προκύπτει.</p></li>
 </ul>
-<p>If you are intending to translate the book, you may want to contact me so we can make sure that you have all of the related course materials so you can translate them as well.</p>
-<p>Of course, you are welcome to contact me and ask for permission if these clauses are not sufficient. In all cases, permission to reuse and remix this material will be granted as long as there is clear added value or benefit to students or teachers that will accrue as a result of the new work.</p>
+<p>Εάν σκοπεύετε να μεταφράσετε το βιβλίο, μπορεί να επικοινωνήσετε μαζί μου για να βεβαιωθούμε ότι έχετε όλο το σχετικό υλικό μαθημάτων ώστε να μπορέσετε να το μεταφράσετε και αυτό.</p>
+<p>Φυσικά, μπορείτε να επικοινωνήσετε μαζί μου και να ζητήσετε άδεια εάν αυτές οι ρήτρες δεν επαρκούν. Σε όλες τις περιπτώσεις, η άδεια επαναχρησιμοποίησης και αναμίξεως αυτού του υλικού θα χορηγείται εφόσον υπάρχει σαφής προστιθέμενη αξία ή όφελος για μαθητές ή καθηγητές που θα προκύψουν ως αποτέλεσμα της νέας εργασίας.</p>
 <p>Charles Severance<br />
 www.dr-chuck.com<br />
-Ann Arbor, MI, USA<br />
-September 9, 2013</p>
+Ann Arbor, MI, ΗΠΑ<br />
+9 Σεπτεμβρίου 2013</p>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

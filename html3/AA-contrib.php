@@ -154,52 +154,52 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="contributions">Contributions</h1>
-<h2 id="contributor-list-for-python-for-everybody">Contributor List for Python for Everybody</h2>
+<h1 id="συνεισφορές">Συνεισφορές</h1>
+<h2 id="λίστα-συνεισφερόντων-για-τo-python-for-everybody">Λίστα συνεισφερόντων για τo Python for Everybody</h2>
 <p>Andrzej Wójtowicz, Elliott Hauser, Stephen Catto, Sue Blumenberg, Tamara Brunnock, Mihaela Mack, Chris Kolosiwsky, Dustin Farley, Jens Leerssen, Naveen KT, Mirza Ibrahimovic, Naveen (<span class="citation" data-cites="togarnk">@togarnk</span>), Zhou Fangyi, Alistair Walsh, Erica Brody, Jih-Sheng Huang, Louis Luangkesorn, and Michael Fudge</p>
-<p>You can see contribution details at:</p>
+<p>Μπορείτε να δείτε λεπτομέρειες συνεισφερόντων στη διεύθυνση:</p>
 <p>https://github.com/csev/py4e/graphs/contributors</p>
-<h2 id="contributor-list-for-python-for-informatics">Contributor List for Python for Informatics</h2>
+<h2 id="λίστα-συνεισφερόντων-για-τo-python-for-informatics">Λίστα συνεισφερόντων για τo Python for Informatics</h2>
 <p>Bruce Shields for copy editing early drafts, Sarah Hegge, Steven Cherry, Sarah Kathleen Barbarow, Andrea Parker, Radaphat Chongthammakun, Megan Hixon, Kirby Urner, Sarah Kathleen Barbrow, Katie Kujala, Noah Botimer, Emily Alinder, Mark Thompson-Kular, James Perry, Eric Hofer, Eytan Adar, Peter Robinson, Deborah J. Nelson, Jonathan C. Anthony, Eden Rassette, Jeannette Schroeder, Justin Feezell, Chuanqi Li, Gerald Gordinier, Gavin Thomas Strassel, Ryan Clement, Alissa Talley, Caitlin Holman, Yong-Mi Kim, Karen Stover, Cherie Edmonds, Maria Seiferle, Romer Kristi D. Aranas (RK), Grant Boyer, Hedemarrie Dussan,</p>
-<h2 id="preface-for-think-python">Preface for “Think Python”</h2>
-<h3 id="the-strange-history-of-think-python">The strange history of “Think Python”</h3>
-<p>(Allen B. Downey)</p>
-<p>In January 1999 I was preparing to teach an introductory programming class in Java. I had taught it three times and I was getting frustrated. The failure rate in the class was too high and, even for students who succeeded, the overall level of achievement was too low.</p>
-<p>One of the problems I saw was the books. They were too big, with too much unnecessary detail about Java, and not enough high-level guidance about how to program. And they all suffered from the trap door effect: they would start out easy, proceed gradually, and then somewhere around Chapter 5 the bottom would fall out. The students would get too much new material, too fast, and I would spend the rest of the semester picking up the pieces.</p>
-<p>Two weeks before the first day of classes, I decided to write my own book. My goals were:</p>
+<h2 id="πρόλογος-για-το-think-python">Πρόλογος για το “Think Python”</h2>
+<h3 id="η-περίεργη-ιστορία-του-think-python">Η περίεργη ιστορία του “Think Python”</h3>
+<p>(Άλεν Μπ. Ντάουνι)</p>
+<p>Τον Ιανουάριο του 1999 ετοιμαζόμουν να διδάξω ένα εισαγωγικό μάθημα προγραμματισμού στην Java. Το είχα ήδη διδάξει τρεις φορές και είχα απογοητευτεί. Το ποσοστό αποτυχίας στην τάξη ήταν πολύ υψηλό αλλά, ακόμη και για τους φοιτητές που πέτυχαν, το συνολικό επίπεδο επίδοσης ήταν πολύ χαμηλό.</p>
+<p>Ένα από τα προβλήματα που εντόπισα ήταν τα βιβλία. Ήταν πολύ μεγάλα, με πάρα πολλές, περιττές λεπτομέρειες σχετικά με την Java και όχι αρκετή καθοδήγηση υψηλού επιπέδου σχετικά με τον τρόπο προγραμματισμού. Και όλοι υπέφεραν από το φαινόμενο της παγίδας: ξεκινούσαν εύκολα, προχωρούσαν σταδιακά και μετά κάπου γύρω στο Κεφάλαιο 5 έχανες τη γη κάτω από τα πόδια σου. Οι φοιτητές θα δεχόταν πολύ νέο υλικό, πολύ γρήγορα, και έπρεπε να περάσουν το υπόλοιπο του εξαμήνου μαζεύοντας τα κομμάτια.</p>
+<p>Δύο εβδομάδες πριν από την πρώτη μέρα των μαθημάτων, αποφάσισα να γράψω το δικό μου βιβλίο. Οι στόχοι μου ήταν:</p>
 <ul>
-<li><p>Keep it short. It is better for students to read 10 pages than not read 50 pages.</p></li>
-<li><p>Be careful with vocabulary. I tried to minimize the jargon and define each term at first use.</p></li>
-<li><p>Build gradually. To avoid trap doors, I took the most difficult topics and split them into a series of small steps.</p></li>
-<li><p>Focus on programming, not the programming language. I included the minimum useful subset of Java and left out the rest.</p></li>
+<li><p>Κράτα το σύντομο. Είναι καλύτερο για τους μαθητές να διαβάσουν 10 σελίδες παρά να μην διαβάσουν 50 σελίδες.</p></li>
+<li><p>Να είσαι προσεκτικός με το λεξιλόγιο. Προσπάθησα να ελαχιστοποιήσω την ορολογία και να ορίσω κάθε έννοια στην πρώτη χρήση της.</p></li>
+<li><p>Προχώρα βήμα βήμα. Για να αποφύγω τις παγίδες, πήρα τα πιο δύσκολα θέματα και τα χώρισα σε μια σειρά από μικρά βήματα.</p></li>
+<li><p>Εστίασε στον προγραμματισμό, όχι στη γλώσσα προγραμματισμού. Συμπεριέλαβα το ελάχιστο χρήσιμο υποσύνολο της Java και άφησα έξω τα υπόλοιπα.</p></li>
 </ul>
-<p>I needed a title, so on a whim I chose <em>How to Think Like a Computer Scientist</em>.</p>
-<p>My first version was rough, but it worked. Students did the reading, and they understood enough that I could spend class time on the hard topics, the interesting topics and (most important) letting the students practice.</p>
-<p>I released the book under the GNU Free Documentation License, which allows users to copy, modify, and distribute the book.</p>
-<p> </p>
-<p>What happened next is the cool part. Jeff Elkner, a high school teacher in Virginia, adopted my book and translated it into Python. He sent me a copy of his translation, and I had the unusual experience of learning Python by reading my own book.</p>
-<p>Jeff and I revised the book, incorporated a case study by Chris Meyers, and in 2001 we released <em>How to Think Like a Computer Scientist: Learning with Python</em>, also under the GNU Free Documentation License. As Green Tea Press, I published the book and started selling hard copies through Amazon.com and college book stores. Other books from Green Tea Press are available at <a href="greenteapress.com">greenteapress.com</a>.</p>
-<p>In 2003 I started teaching at Olin College and I got to teach Python for the first time. The contrast with Java was striking. Students struggled less, learned more, worked on more interesting projects, and generally had a lot more fun.</p>
-<p>Over the last five years I have continued to develop the book, correcting errors, improving some of the examples and adding material, especially exercises. In 2008 I started work on a major revision—at the same time, I was contacted by an editor at Cambridge University Press who was interested in publishing the next edition. Good timing!</p>
-<p>I hope you enjoy working with this book, and that it helps you learn to program and think, at least a little bit, like a computer scientist.</p>
-<h3 id="acknowledgements-for-think-python">Acknowledgements for “Think Python”</h3>
+<p>Χρειαζόμουν έναν τίτλο, οπότε από μια ιδιοτροπία επέλεξα το <em>How to Think Like a Computer Scientist</em>.</p>
+<p>Η πρώτη μου έκδοση ήταν άκομψη, αλλά λειτούργησε. Οι μαθητές διάβασαν και κατάλαβαν αρκετά ώστε μπορούσα να αφιερώσω χρόνο στην τάξη για τα δύσκολα θέματα, τα ενδιαφέροντα θέματα και (το πιο σημαντικό) μπορούσα να αφήσω τους φοιτητές να εξασκηθούν.</p>
+<p>Κυκλοφόρησα το βιβλίο με την άδεια GNU Free Documentation License, η οποία επιτρέπει στους χρήστες να αντιγράφουν, να τροποποιούν και να διανέμουν το βιβλίο.</p>
+<p>   </p>
+<p>Το καλύτερο είναι αυτό που συνέβη στη συνέχεια. Ο Jeff Elkner, καθηγητής γυμνασίου στη Βιρτζίνια, υιοθέτησε το βιβλίο μου και το μετέγραψε σε Python. Μου έστειλε ένα αντίγραφό του και είχα την ασυνήθιστη εμπειρία να μάθω Python διαβάζοντας το δικό μου βιβλίο.</p>
+<p>Ο Jeff και εγώ αναθεωρήσαμε το βιβλίο, ενσωματώσαμε μια μελέτη περίπτωσης από τον Chris Meyers και το 2001 κυκλοφορήσαμε το <em>How to Think Like a Computer Scientist Learning with Python</em>, επίσης υπό την άδεια GNU Free Documentation. Ως Green Tea Press, δημοσίευσα το βιβλίο και άρχισα να πουλάω έντυπα αντίτυπα μέσω του Amazon.com και των κολεγιακών βιβλιοπωλείων. Άλλα βιβλία από το Green Tea Press είναι διαθέσιμα στο <a href="greenteapress.com">greenteapress.com</a>.</p>
+<p>Το 2003 άρχισα να διδάσκω στο Olin College και διδάσκω για πρώτη φορά Python. Η σύγκριση με την Java ήταν εντυπωσιακή. Οι μαθητές δυσκολεύτηκαν λιγότερο, έμαθαν περισσότερα, δούλεψαν σε πιο ενδιαφέρουσες εργασίες και γενικά διασκέδασαν πολύ περισσότερο.</p>
+<p>Τα επόμενα πέντε χρόνια συνέχισα να αναπτύσσω το βιβλίο, διορθώνοντας λάθη, βελτιώνοντας ορισμένα από τα παραδείγματα και προσθέτοντας υλικό, ειδικά ασκήσεις. Το 2008 άρχισα να εργάζομαι σε μια σημαντική αναθεώρηση — την ίδια στιγμή, επικοινώνησε μαζί μου ένας συντάκτης του Cambridge University Press που ενδιαφερόταν να δημοσιεύσει την επόμενη έκδοση. Καλός συγχρονισμός!</p>
+<p>Ελπίζω να σας απολαύσετε τη δουλειά με αυτό το βιβλίο και να σας βοηθήσει να μάθετε να προγραμματίζετε και να σκέφτεστε, τουλάχιστον λίγο, σαν επιστήμονας υπολογιστών.</p>
+<h3 id="ευχαριστίες-για-το-think-python">Ευχαριστίες για το “Think Python”</h3>
 <p>(Allen B. Downey)</p>
-<p>First and most importantly, I thank Jeff Elkner, who translated my Java book into Python, which got this project started and introduced me to what has turned out to be my favorite language.</p>
-<p>I also thank Chris Meyers, who contributed several sections to <em>How to Think Like a Computer Scientist</em>.</p>
-<p>And I thank the Free Software Foundation for developing the GNU Free Documentation License, which helped make my collaboration with Jeff and Chris possible.</p>
-<p> </p>
-<p>I also thank the editors at Lulu who worked on <em>How to Think Like a Computer Scientist</em>.</p>
-<p>I thank all the students who worked with earlier versions of this book and all the contributors (listed in an Appendix) who sent in corrections and suggestions.</p>
-<p>And I thank my wife, Lisa, for her work on this book, and Green Tea Press, and everything else, too.</p>
+<p>Πρώτον και πιο σημαντικό, ευχαριστώ τον Jeff Elkner, ο οποίος μετέγραψε το Java βιβλίο μου σε Python, με το οποίο ξεκίνησε αυτό το έργο και με σύστησε σε αυτήν που αποδείχθηκε η αγαπημένη μου γλώσσα.</p>
+<p>Ευχαριστώ επίσης τον Chris Meyers, ο οποίος συνέβαλε σε πολλές ενότητες του <em>How to Think Like a Computer Scientist</em>.</p>
+<p>Και ευχαριστώ το Free Software Foundation για την ανάπτυξη της GNU Free Documentation License, η οποία βοήθησε να καταστεί δυνατή η συνεργασία μου με τον Jeff και τον Chris.</p>
+<p>   </p>
+<p>Ευχαριστώ επίσης τους συντάκτες του Lulu που εργάστηκαν στο <em>How to Think Like a Computer Scientist</em>.</p>
+<p>Ευχαριστώ όλους τους φοιτητές που εργάστηκαν με προηγούμενες εκδόσεις αυτού του βιβλίου και όλους τους συντελεστές (που αναφέρονται σε ένα Παράρτημα), που έστειλαν διορθώσεις και προτάσεις.</p>
+<p>Και ευχαριστώ τη σύζυγό μου, Lisa, για τη δουλειά της σε αυτό το βιβλίο, και το Green Tea Press, καθώς και οτιδήποτε άλλο.</p>
 <p>Allen B. Downey<br />
 Needham MA<br />
 </p>
-<p>Allen Downey is an Associate Professor of Computer Science at the Franklin W. Olin College of Engineering.</p>
-<h2 id="contributor-list-for-think-python">Contributor List for “Think Python”</h2>
+<p>Ο Allen Downey είναι Αναπληρωτής Καθηγητής Επιστήμης Υπολογιστών στο Franklin W. Olin College of Engineering.</p>
+<h2 id="λίστα-συνεισφερόντων-για-τo-think-python">Λίστα συνεισφερόντων για τo “Think Python”</h2>
 <p></p>
 <p>(Allen B. Downey)</p>
-<p>More than 100 sharp-eyed and thoughtful readers have sent in suggestions and corrections over the past few years. Their contributions, and enthusiasm for this project, have been a huge help.</p>
-<p>For the detail on the nature of each of the contributions from these individuals, see the “Think Python” text.</p>
+<p>Περισσότεροι από 100 οξυδερκείς και προσεκτικοί αναγνώστες έχουν στείλει προτάσεις και διορθώσεις τα τελευταία χρόνια. Η συνεισφορά τους και ο ενθουσιασμός τους για αυτό το έργο ήταν τεράστια βοήθεια.</p>
+<p>Για λεπτομέρειες σχετικά με τη φύση καθεμιάς από τις συνεισφορές από αυτά τα άτομα, δείτε το κείμενο “Think Python”.</p>
 <p>Lloyd Hugh Allen, Yvon Boulianne, Fred Bremmer, Jonah Cohen, Michael Conlon, Benoit Girard, Courtney Gleason and Katherine Smith, Lee Harr, James Kaylin, David Kershaw, Eddie Lam, Man-Yong Lee, David Mayo, Chris McAloon, Matthew J. Moelter, Simon Dicon Montford, John Ouzts, Kevin Parks, David Pool, Michael Schmitt, Robin Shaw, Paul Sleigh, Craig T. Snydal, Ian Thomas, Keith Verheyden, Peter Winstanley, Chris Wrobel, Moshe Zadka, Christoph Zwerschke, James Mayer, Hayden McAfee, Angel Arnal, Tauhidul Hoque and Lex Berezhny, Dr. Michele Alzetta, Andy Mitchell, Kalin Harvey, Christopher P. Smith, David Hutchins, Gregor Lingl, Julie Peters, Florin Oprina, D. J. Webre, Ken, Ivo Wever, Curtis Yanko, Ben Logan, Jason Armstrong, Louis Cordier, Brian Cain, Rob Black, Jean-Philippe Rey at Ecole Centrale Paris, Jason Mader at George Washington University made a number Jan Gundtofte-Bruun, Abel David and Alexis Dinno, Charles Thayer, Roger Sperberg, Sam Bull, Andrew Cheung, C. Corey Capel, Alessandra, Wim Champagne, Douglas Wright, Jared Spindor, Lin Peiheng, Ray Hagtvedt, Torsten Hübsch, Inga Petuhhov, Arne Babenhauserheide, Mark E. Casida, Scott Tyler, Gordon Shephard, Andrew Turner, Adam Hobart, Daryl Hammond and Sarah Zimmerman, George Sass, Brian Bingham, Leah Engelbert-Fenton, Joe Funke, Chao-chao Chen, Jeff Paine, Lubos Pintes, Gregg Lind and Abigail Heithoff, Max Hailperin, Chotipat Pornavalai, Stanislaw Antol, Eric Pashman, Miguel Azevedo, Jianhua Liu, Nick King, Martin Zuther, Adam Zimmerman, Ratnakar Tiwari, Anurag Goel, Kelli Kratzer, Mark Griffiths, Roydan Ongie, Patryk Wolowiec, Mark Chonofsky, Russell Coleman, Wei Huang, Karen Barber, Nam Nguyen, Stéphane Morin, Fernando Tardio, and Paul Stoop.</p>
 </body>
 </html>
