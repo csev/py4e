@@ -1,4 +1,12 @@
 #!/bin/bash
+
+# Pick your Python
+MY_PYTHON=python
+if which python3; then
+MY_PYTHON=python3
+fi
+echo Using python command: $MY_PYTHON
+
 # Clean directory
 [[ -d ../html3 ]] || mkdir ../html3
 rm ../html3/[0-9]*.php
@@ -9,16 +17,16 @@ for fn in *.mkd; do
     x=`basename $fn .mkd`
     echo $x
     cat $fn | \
-    python pre-html.py | \
+    $MY_PYTHON pre-html.py | \
     tee tmp.html.pre.$x | \
-    python verbatim.py --files | \
+    $MY_PYTHON verbatim.py --files | \
     tee tmp.html.verbatim.$x | \
     pandoc -s \
     -f markdown -t html \
     --no-highlight \
     --default-image-extension=svg | \
     tee tmp.html.post.$x | \
-    python post-html.py | \
+    $MY_PYTHON post-html.py | \
     cat > ../html3/$x.php
 done
 

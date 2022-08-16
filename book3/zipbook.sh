@@ -2,6 +2,13 @@
 # Testfile
 #cat trinket/test | python verbatim.py --trinket | pandoc -s -f markdown -t html --template=trinket/template --toc --default-image-extension=svg --css=../trinket/simplegrid.css -o html/test.html 
 
+# Pick your Python
+MY_PYTHON=python
+if which python3; then
+MY_PYTHON=python3
+fi
+echo Using python command: $MY_PYTHON
+
 # Clean directory
 find zipbook/. -type f -not -path '*/images/*' -not -path '*/fonts/*' | xargs rm
 
@@ -23,9 +30,9 @@ for fn in *.mkd; do
     echo $x
 
     cat $fn | \
-    python pre-html.py | \
+    $MY_PYTHON pre-html.py | \
     tee tmp.html.pre.$x | \
-    python verbatim.py --trinket --files | \
+    $MY_PYTHON verbatim.py --trinket --files | \
     tee tmp.html.verbatim.$x | \
     pandoc -s  \
     -f markdown -t html \
@@ -36,11 +43,11 @@ for fn in *.mkd; do
     && echo "Wrote zipbook/offline/$x.html"
 
     cat $fn | \
-    python pre-html.py | \
+    $MY_PYTHON pre-html.py | \
     tee tmp.html.pre.$x | \
-    python verbatim.py --trinket --files | \
+    $MY_PYTHON verbatim.py --trinket --files | \
     tee tmp.html.verbatim.$x | \
-    python consoles.py | \
+    $MY_PYTHON consoles3.py | \
     pandoc -s  \
     -f markdown -t html \
     --template=trinket/zip \

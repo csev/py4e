@@ -1,4 +1,3 @@
-#!/usr/bin/python
 import re
 import sys
 import os
@@ -20,7 +19,7 @@ while True:
     except:
         break
     
-    x = re.findall('\\verbatimInput{(.*)}', line)
+    x = re.findall('\\\VerbatimInput{(.*)}', line)
     if not x : 
         if trinket and files:
             trinketfilesstart = r"\begin{trinketfiles}" in line

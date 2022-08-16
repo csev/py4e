@@ -1,4 +1,3 @@
-#!/usr/bin/python
 
 first = True
 while True:

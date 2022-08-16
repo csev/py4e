@@ -556,7 +556,7 @@ add parentheses around the two digits as follows:</p>
 <p>This results in the following program:</p>
 <pre class="python"><code># Search for lines that start with From and a character
 # followed by a two digit number between 00 and 99 followed by &#39;:&#39;
-# Then print the number if it is greater than zero
+# Then print the number if one is found
 import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
