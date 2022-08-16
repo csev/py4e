@@ -16,37 +16,37 @@ if "--trinket" in sys.argv:
 
 while True:
     try:
-        line = raw_input()
+        line = input()
     except:
         break
     
-    x = re.findall('\\VerbatimInput{(.*)}', line)
+    x = re.findall('\\verbatimInput{(.*)}', line)
     if not x : 
         if trinket and files:
             trinketfilesstart = r"\begin{trinketfiles}" in line
             trinketfilesstop = r"\end{trinketfiles}" in line
             if trinketfilesstart:
                 # We've found extra trinket files to include
-                print '<--'
+                print('<--')
                 intrinketfiles = True
                 continue
             elif trinketfilesstop:
                 # We're at the end of this block
-                print '-->'
+                print('-->')
                 intrinketfiles = False
                 continue
             elif intrinketfiles:
                 # We're in a trinket files block; include the file
-                print "----{" + os.path.basename(line) + "}----"
+                print("----{" + os.path.basename(line) + "}----")
                 with open(line) as filetoinclude:
-                    print filetoinclude.read()
+                    print(filetoinclude.read())
                 continue
             else:
                 # Otherwise, move on
-                print line
+                print(line)
                 continue
         else:
-            print line
+            print(line)
             continue
     fn = x[0]
     
@@ -59,14 +59,14 @@ while True:
         # Open Wrapper
         if trinket:
             with open('trinket/trinket-script') as ts:
-                print ts.read()
+                print(ts.read())
         else:        
-            print '~~~~ {.python}'
+            print('~~~~ {.python}')
             blank = True
         
         # Code
         for ln in fh:
-            print ln.rstrip()
+            print(ln.rstrip())
             blank = len(ln.strip()) > 0 
         
         # Post Code
@@ -74,17 +74,17 @@ while True:
         # Cannonical URL
         if fn.startswith('../') :
             # Add a blank unless there is one at end of file
-            if blank : print 
+            if blank : print() 
             fu = fn.replace('../','http://www.gr.py4e.com/')
-            print '# Code:', fu
+            print('# Code:', fu)
             if trinket:
-                print "# Or select Download from this trinket's left-hand menu"
+                print("# Or select Download from this trinket's left-hand menu")
         
         # Close wrapper
         if trinket:
-            print '-->'
+            print('-->')
         else:
-            print '~~~~'
+            print('~~~~')
 
 if trinket:
     # Clean up
@@ -96,10 +96,10 @@ if trinket:
         with open(tmpfile, 'r') as f:
             cleanfile = re.sub('-->\s*?\n<--\s*?\n', '', f.read(), flags=re.MULTILINE)
         
-        print cleanfile
+        print(cleanfile)
         
     else:
         with open(tmpfile, 'r') as f:
-            print f.read()
+            print(f.read())
             
     os.remove(tmpfile)
