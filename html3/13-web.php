@@ -154,220 +154,217 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="using-web-services">Using Web Services</h1>
-<p>Once it became easy to retrieve documents and parse documents over HTTP using programs, it did not take long to develop an approach where we started producing documents that were specifically designed to be consumed by other programs (i.e., not HTML to be displayed in a browser).</p>
-<p>There are two common formats that we use when exchanging data across the web. eXtensible Markup Language (XML) has been in use for a very long time and is best suited for exchanging document-style data. When programs just want to exchange dictionaries, lists, or other internal information with each other, they use JavaScript Object Notation (JSON) (see <a href="http://www.json.org">www.json.org</a>). We will look at both formats.</p>
+<h1 id="χρήση-υπηρεσιών-ιστού">Χρήση Υπηρεσιών Ιστού</h1>
+<p>Από τη στιγμή που έγινε εύκολη η ανάκτηση και η ανάλυση εγγράφων μέσω HTTP, χρησιμοποιώντας προγράμματα, δεν χρειάστηκε πολύς χρόνος για να αναπτύξουμε μια προσέγγιση παραγωγής εγγράφων σχεδιασένων ειδικά για κατανάλωση από άλλα προγράμματα (δηλαδή, όχι HTML για εμφάνιση σε πρόγραμμα περιήγησης ).</p>
+<p>Υπάρχουν δύο κοινές μορφές που χρησιμοποιούμε κατά την ανταλλαγή δεδομένων στον ιστό. Η eXtensible Markup Language (XML) ή Επεκτάσιμη Γλώσσα Σήμανσης χρησιμοποιείται εδώ και πολύ καιρό και είναι η καταλληλότερη για έγγραφα τυποποιημένα για ανταλλαγή δεδομένων. Όταν τα προγράμματα θέλουν απλώς να ανταλλάξουν λεξικά, λίστες ή άλλες εσωτερικές πληροφορίες μεταξύ τους, χρησιμοποιούν JavaScript Object Notation (JSON) ή Σημειογραφία Αντικειμένου JavaScript (δείτε <a href="http://www.json.org">www.json.org</a>). Θα εξετάσουμε και τις δύο μορφές.</p>
 <h2 id="extensible-markup-language---xml">eXtensible Markup Language - XML</h2>
-<p>XML looks very similar to HTML, but XML is more structured than HTML. Here is a sample of an XML document:</p>
-<pre class="xml"><code>&lt;person&gt;
-  &lt;name&gt;Chuck&lt;/name&gt;
-  &lt;phone type=&quot;intl&quot;&gt;
+<p>Η XML μοιάζει πολύ με την HTML, αλλά η XML είναι πιο δομημένη. Ακολουθεί ένα δείγμα εγγράφου XML:</p>
+<pre class="xml"><code>&lt;άτομο&gt;
+  &lt;όνομα&gt;Chuck&lt;/όνομα&gt;
+  &lt;τηλέφωνο τύπος=&quot;εσωτερικό&quot;&gt;
     +1 734 303 4456
-  &lt;/phone&gt;
-  &lt;email hide=&quot;yes&quot; /&gt;
-&lt;/person&gt;</code></pre>
-<p>Each pair of opening (e.g., <code>&lt;person&gt;</code>) and closing tags (e.g., <code>&lt;/person&gt;</code>) represents a <em>element</em> or <em>node</em> with the same name as the tag (e.g., <code>person</code>). Each element can have some text, some attributes (e.g., <code>hide</code>), and other nested elements. If an XML element is empty (i.e., has no content), then it may be depicted by a self-closing tag (e.g., <code>&lt;email /&gt;</code>).</p>
-<p>Often it is helpful to think of an XML document as a tree structure where there is a top element (here: <code>person</code>), and other tags (e.g., <code>phone</code>) are drawn as <em>children</em> of their <em>parent</em> elements.</p>
+  &lt;/τηλέφωνο&gt;
+  &lt;email κρυφό=&quot;ναι&quot; /&gt;
+&lt;/άτομο&gt;</code></pre>
+<p>Κάθε ζεύγος ετικετών ανοίγματος (π.χ. <code>&lt;άτομο&gt;</code>) και κλεισίματος (π.χ. <code>&lt;/άτομο&gt;</code>) αντιπροσωπεύει ένα <em>στοιχείο</em> ή <em>κόμβο</em> με το ίδιο όνομα με αυτό της ετικέτας (π.χ. <code>άτομο</code>). Κάθε στοιχείο μπορεί να έχει κάποιο κείμενο, ορισμένα χαρακτηριστικά (π.χ. <code>κρυφό</code>) και άλλα εμφωλευμένα στοιχεία. Εάν ένα στοιχείο XML είναι κενό (δηλαδή, δεν έχει περιεχόμενο), μπορεί να απεικονίζεται από μια ετικέτα που κλείνει αυτόματα (π.χ. <code>&lt;email /&gt;</code>).</p>
+<p>Συχνά είναι χρήσιμο να σκεφτόμαστε ένα έγγραφο XML ως μια δομή δέντρου, όπου υπάρχει ένα κορυφαίο στοιχείο (εδώ το: <code>άτομο</code>) και οι άλλες ετικέτες (π.χ. <code>τηλέφωνο</code>) σχεδιάζονται ως <em>παιδιά</em> των στοιχείων <em>γονέα</em> τους.</p>
 <figure>
-<img src="../images/xml-tree.svg" alt="A Tree Representation of XML" style="height: 2.0in;"/>
+<img src="../images/xml-tree.svg" alt="Μια αναπαράσταση δέντρου της XML" style="height: 2.0in;"/>
 <figcaption>
-A Tree Representation of XML
+Μια αναπαράσταση δέντρου της XML
 </figcaption>
 </figure>
-<h2 id="parsing-xml">Parsing XML</h2>
+<h2 id="ανάλυση-xml">Ανάλυση XML</h2>
 <p>  </p>
-<p>Here is a simple application that parses some XML and extracts some data elements from the XML:</p>
+<p>Εδώ είναι μια απλή εφαρμογή, που αναλύει ορισμένα δεδομένα XML και εξάγει κάποια στοιχεία δεδομένων από το XML:</p>
 <pre class="python"><code>import xml.etree.ElementTree as ET
 
 data = &#39;&#39;&#39;
-&lt;person&gt;
-  &lt;name&gt;Chuck&lt;/name&gt;
-  &lt;phone type=&quot;intl&quot;&gt;
+&lt;άτομο&gt;
+  &lt;όνομα&gt;Chuck&lt;/όνομα&gt;
+  &lt;τηλέφωνο τύπος=&quot;εσωτερικό&quot;&gt;
     +1 734 303 4456
-  &lt;/phone&gt;
-  &lt;email hide=&quot;yes&quot; /&gt;
-&lt;/person&gt;&#39;&#39;&#39;
+  &lt;/τηλέφωνο&gt;
+  &lt;email κρυφό=&quot;ναι&quot; /&gt;
+&lt;/άτομο&gt;&#39;&#39;&#39;
 
 tree = ET.fromstring(data)
-print(&#39;Name:&#39;, tree.find(&#39;name&#39;).text)
-print(&#39;Attr:&#39;, tree.find(&#39;email&#39;).get(&#39;hide&#39;))
+print(&#39;Όνομα:&#39;, tree.find(&#39;όνομα&#39;).text)
+print(&#39;Χαρακτηριστικό:&#39;, tree.find(&#39;email&#39;).get(&#39;κρυφό&#39;))
 
-# Code: http://www.py4e.com/code3/xml1.py</code></pre>
-<p>The triple single quote (<code>'''</code>), as well as the triple double quote (<code>"""</code>), allow for the creation of strings that span multiple lines.</p>
-<p>Calling <code>fromstring</code> converts the string representation of the XML into a “tree” of XML elements. When the XML is in a tree, we have a series of methods we can call to extract portions of data from the XML string. The <code>find</code> function searches through the XML tree and retrieves the element that matches the specified tag.</p>
-<pre><code>Name: Chuck
-Attr: yes</code></pre>
-<p>Using an XML parser such as <code>ElementTree</code> has the advantage that while the XML in this example is quite simple, it turns out there are many rules regarding valid XML, and using <code>ElementTree</code> allows us to extract data from XML without worrying about the rules of XML syntax.</p>
-<h2 id="looping-through-nodes">Looping through nodes</h2>
+# Code: http://www.gr.py4e.com/code3/xml1.py</code></pre>
+<p>Το τριπλό μονό εισαγωγικό (<code>'''</code>), καθώς και το τριπλό διπλό εισαγωγικό (<code>"""</code>), επιτρέπουν τη δημιουργία συμβολοσειρών που εκτείνονται σε πολλές γραμμές.</p>
+<p>Η κλήση <code>fromstring</code> μετατρέπει την αναπαράσταση συμβολοσειράς του XML σε ένα “δέντρο” στοιχείων XML. Όταν το XML αναπαρασταθεί με δέντρο, έχουμε μια σειρά από μεθόδους που μπορούμε να καλέσουμε για να εξαγάγουμε τμήματα δεδομένων από τη συμβολοσειρά XML. Η συνάρτηση <code>find</code> πραγματοποιεί αναζήτηση στο δέντρο XML και ανακτά το στοιχείο που ταιριάζει με την καθορισμένη ετικέτα.</p>
+<pre class="{text}"><code>Όνομα: Chuck
+Χαρακτηριστικό:: yes</code></pre>
+<p>Το XML σε αυτό το παράδειγμα είναι αρκετά απλό, αποδεικνύεται όμως ότι υπάρχουν πολλοί κανόνες σχετικά με έγκυρη XML. Η χρήση ενός αναλυτή XML, όπως το <code>ElementTree</code>, μας επιτρέπει να εξαγάγουμε δεδομένα από το XML χωρίς να ανησυχούμε για τους περίπλοκους, σε κάποιες περιπτώσεις, κανόνες σύνταξης XML.</p>
+<h2 id="προσπέλαση-των-κόμβων-με-επανάληψη">Προσπέλαση των κόμβων με επανάληψη</h2>
 <p> </p>
 <p>Often the XML has multiple nodes and we need to write a loop to process all of the nodes. In the following program, we loop through all of the <code>user</code> nodes:</p>
 <pre class="python"><code>import xml.etree.ElementTree as ET
 
 input = &#39;&#39;&#39;
 &lt;stuff&gt;
-  &lt;users&gt;
-    &lt;user x=&quot;2&quot;&gt;
+  &lt;χρήστες&gt;
+    &lt;χρήστης x=&quot;2&quot;&gt;
       &lt;id&gt;001&lt;/id&gt;
-      &lt;name&gt;Chuck&lt;/name&gt;
-    &lt;/user&gt;
-    &lt;user x=&quot;7&quot;&gt;
+      &lt;όνομα&gt;Chuck&lt;/όνομα&gt;
+    &lt;/χρήστης&gt;
+    &lt;χρήστης x=&quot;7&quot;&gt;
       &lt;id&gt;009&lt;/id&gt;
-      &lt;name&gt;Brent&lt;/name&gt;
-    &lt;/user&gt;
-  &lt;/users&gt;
+      &lt;όνομα&gt;Brent&lt;/όνομα&gt;
+    &lt;/χρήστης&gt;
+  &lt;/χρήστες&gt;
 &lt;/stuff&gt;&#39;&#39;&#39;
 
 stuff = ET.fromstring(input)
-lst = stuff.findall(&#39;users/user&#39;)
-print(&#39;User count:&#39;, len(lst))
+lst = stuff.findall(&#39;χρήστες/χρήστης&#39;)
+print(&#39;Πλήθος χρηστών:&#39;, len(lst))
 
 for item in lst:
-    print(&#39;Name&#39;, item.find(&#39;name&#39;).text)
+    print(&#39;Όνομα&#39;, item.find(&#39;όνομα&#39;).text)
     print(&#39;Id&#39;, item.find(&#39;id&#39;).text)
-    print(&#39;Attribute&#39;, item.get(&#39;x&#39;))
+    print(&#39;Χαρακτηριστικό&#39;, item.get(&#39;x&#39;))
 
-# Code: http://www.py4e.com/code3/xml2.py</code></pre>
-<p>The <code>findall</code> method retrieves a Python list of subtrees that represent the <code>user</code> structures in the XML tree. Then we can write a <code>for</code> loop that looks at each of the user nodes, and prints the <code>name</code> and <code>id</code> text elements as well as the <code>x</code> attribute from the <code>user</code> node.</p>
-<pre><code>User count: 2
-Name Chuck
+# Code: http://www.gr.py4e.com/code3/xml2.py</code></pre>
+<p>Η μέθοδος <code>findall</code> ανακτά μια λίστα Python με υποδέντρα που αντιπροσωπεύουν τις δομές <code>χρήστης</code> στο δέντρο XML. Στη συνέχεια, μπορούμε να γράψουμε ένα βρόχο <code>for</code>, που εξετάζει κάθε κόμβο χρήστη και εκτυπώνει τα στοιχεία κειμένου <code>όνομα</code> και <code>id</code> καθώς και το χαρακτηριστικό <code>x</code> του κόμβου (<code>χρήστης</code>).</p>
+<pre class="{text}"><code>Πλήθος χρηστών: 2
+Όνομα Chuck
 Id 001
-Attribute 2
-Name Brent
+Χαρακτηριστικό 2
+Όνομα Brent
 Id 009
-Attribute 7</code></pre>
-<p>It is important to include all parent level elements in the <code>findall</code> statement except for the top level element (e.g., <code>users/user</code>). Otherwise, Python will not find any desired nodes.</p>
+Χαρακτηριστικό 7</code></pre>
+<p>Είναι σημαντικό να συμπεριληφθούν όλα τα στοιχεία γονικού επιπέδου στη δήλωση <code>findall</code>, εκτός από το στοιχείο ανώτατου επιπέδου (π.χ. <code>χρήστες/χρήστης</code>). Διαφορετικά, η Python δεν θα βρει κανέναν, επιθυμητό, κόμβο.</p>
 <pre class="python"><code>import xml.etree.ElementTree as ET
 
 input = &#39;&#39;&#39;
 &lt;stuff&gt;
-  &lt;users&gt;
-    &lt;user x=&quot;2&quot;&gt;
+  &lt;χρήστες&gt;
+    &lt;χρήστης x=&quot;2&quot;&gt;
       &lt;id&gt;001&lt;/id&gt;
-      &lt;name&gt;Chuck&lt;/name&gt;
-    &lt;/user&gt;
-    &lt;user x=&quot;7&quot;&gt;
+      &lt;όνομα&gt;Chuck&lt;/όνομα&gt;
+    &lt;/χρήστης&gt;
+    &lt;χρήστης x=&quot;7&quot;&gt;
       &lt;id&gt;009&lt;/id&gt;
-      &lt;name&gt;Brent&lt;/name&gt;
-    &lt;/user&gt;
-  &lt;/users&gt;
+      &lt;όνομα&gt;Brent&lt;/όνομα&gt;
+    &lt;/χρήστης&gt;
+  &lt;/χρήστες&gt;
 &lt;/stuff&gt;&#39;&#39;&#39;
 
 stuff = ET.fromstring(input)
 
-lst = stuff.findall(&#39;users/user&#39;)
-print(&#39;User count:&#39;, len(lst))
+lst = stuff.findall(&#39;χρήστες/χρήστης&#39;)
+print(&#39;Πλήθος χρηστών:&#39;, len(lst))
 
-lst2 = stuff.findall(&#39;user&#39;)
-print(&#39;User count:&#39;, len(lst2))</code></pre>
-<p><code>lst</code> stores all <code>user</code> elements that are nested within their <code>users</code> parent. <code>lst2</code> looks for <code>user</code> elements that are not nested within the top level <code>stuff</code> element where there are none.</p>
-<pre><code>User count: 2
+lst2 = stuff.findall(&#39;χρήστης&#39;)
+print(&#39;Πλήθος χρηστών:&#39;, len(lst2))</code></pre>
+<p><code>lst</code> αποθηκεύει όλα τα στοιχεία <code>user</code> τα οποία είναι εμφωλευμένα στον γονέα <code>users</code>. <code>lst2</code> αναζητά τα στοιχεία <code>user</code> τα οποία δεν είναι εμφωλευμένα, μέσα στο στοιχείο ανώτατου επιπέδου <code>stuff</code>, τα οποία δεν υπάρχουν.</p>
+<pre class="{text}"><code>User count: 2
 User count: 0</code></pre>
 <h2 id="javascript-object-notation---json">JavaScript Object Notation - JSON</h2>
 <p> </p>
-<p>The JSON format was inspired by the object and array format used in the JavaScript language. But since Python was invented before JavaScript, Python’s syntax for dictionaries and lists influenced the syntax of JSON. So the format of JSON is nearly identical to a combination of Python lists and dictionaries.</p>
-<p>Here is a JSON encoding that is roughly equivalent to the simple XML from above:</p>
+<p>Η μορφή JSON εμπνεύστηκε από τη μορφή αντικειμένου και πίνακα, που χρησιμοποιείται στη γλώσσα JavaScript. Αλλά δεδομένου ότι η Python επινοήθηκε πριν από την JavaScript, η σύνταξη της Python για λεξικά και λίστες επηρέασε τη σύνταξη του JSON. Έτσι, η μορφή του JSON είναι σχεδόν πανομοιότυπη με έναν συνδυασμό λιστών και λεξικών Python.</p>
+<p>Εδώ παραθέτω μια κωδικοποίηση JSON, που είναι περίπου ισοδύναμη με την απλή XML παραπάνω:</p>
 <pre class="json"><code>{
-  &quot;name&quot; : &quot;Chuck&quot;,
-  &quot;phone&quot; : {
-    &quot;type&quot; : &quot;intl&quot;,
-    &quot;number&quot; : &quot;+1 734 303 4456&quot;
+  &quot;όνομα&quot; : &quot;Chuck&quot;,
+  &quot;τηλέφωνο&quot; : {
+    &quot;τύπος&quot; : &quot;εσωτερικό&quot;,
+    &quot;αριθμός&quot; : &quot;+1 734 303 4456&quot;
    },
    &quot;email&quot; : {
-     &quot;hide&quot; : &quot;yes&quot;
+     &quot;κρυφό&quot; : &quot;ναι&quot;
    }
 }</code></pre>
-<p>You will notice some differences. First, in XML, we can add attributes like “intl” to the “phone” tag. In JSON, we simply have key-value pairs. Also the XML “person” tag is gone, replaced by a set of outer curly braces.</p>
-<p>In general, JSON structures are simpler than XML because JSON has fewer capabilities than XML. But JSON has the advantage that it maps <em>directly</em> to some combination of dictionaries and lists. And since nearly all programming languages have something equivalent to Python’s dictionaries and lists, JSON is a very natural format to have two cooperating programs exchange data.</p>
-<p>JSON is quickly becoming the format of choice for nearly all data exchange between applications because of its relative simplicity compared to XML.</p>
-<h2 id="parsing-json">Parsing JSON</h2>
-<p>We construct our JSON by nesting dictionaries and lists as needed. In this example, we represent a list of users where each user is a set of key-value pairs (i.e., a dictionary). So we have a list of dictionaries.</p>
-<p>In the following program, we use the built-in <code>json</code> library to parse the JSON and read through the data. Compare this closely to the equivalent XML data and code above. The JSON has less detail, so we must know in advance that we are getting a list and that the list is of users and each user is a set of key-value pairs. The JSON is more succinct (an advantage) but also is less self-describing (a disadvantage).</p>
+<p>Θα παρατηρήσετε κάποιες διαφορές. Αρχικά, στην XML, μπορούμε να προσθέσουμε χαρακτηριστικά, όπως το “εσωτερικό” στην ετικέτα “τηλέφωνο”. Στο JSON, έχουμε απλώς ζεύγη κλειδιού-τιμής. Επίσης, η ετικέτα “άτομο” της XML έχει ακυρωθεί και αντικαθίσταται από ένα ζεύγος εξωτερικών αγκίστρων.</p>
+<p>Γενικά, οι δομές JSON είναι απλούστερες από την XML επειδή το JSON έχει λιγότερες δυνατότητες από το XML. Αλλά το JSON έχει το πλεονέκτημα ότι αντιστοιχίζεται <em>απευθείας</em> σε κάποιο συνδυασμό λεξικών και λιστών. Και, δεδομένου ότι σχεδόν όλες οι γλώσσες προγραμματισμού έχουν κάτι αντίστοιχο με τα λεξικά και τις λίστες της Python, το JSON είναι μια πολύ φυσική μορφή για να ανταλλάσσουν δεδομένα δύο συνεργαζόμενα προγράμματα.</p>
+<p>Το JSON γίνεται ταχύτατα η μορφή που επιλέγεται, για σχεδόν το σύνολο των δεδομένων που ανταλλάσσονται μεταξύ εφαρμογών, λόγω της σχετικής απλότητάς του σε σύγκριση με την XML.</p>
+<h2 id="ανάλυση-json">Ανάλυση JSON</h2>
+<p>Κατασκευάζουμε το JSON μας με εμφωλευμένα λεξικά και λίστες όπως απαιτείται. Σε αυτό το παράδειγμα, αναπαριστούμε μια λίστα χρηστών, όπου κάθε χρήστης είναι ένα σύνολο ζευγών κλειδιών-τιμών (δηλαδή, ένα λεξικό). Έχουμε λοιπόν μια λίστα με λεξικά.</p>
+<p>Στο παρακάτω πρόγραμμα, χρησιμοποιούμε την ενσωματωμένη βιβλιοθήκη <code>json</code> για να αναλύσουμε το JSON και να διαβάσουμε τα δεδομένα. Συγκρίνετε προσεκτικά αυτό το πρόγραμμα και τα δεδομένα εισόδου του με τα ισοδύναμα δεδομένα και τον κώδικα XML παραπάνω. Το JSON έχει λιγότερες λεπτομέρειες, επομένως πρέπει να γνωρίζουμε εκ των προτέρων ότι λαμβάνουμε μια λίστα και ότι η λίστα είναι χρηστών και κάθε χρήστης είναι ένα σύνολο ζευγών κλειδιών-τιμών. Το JSON είναι πιο συνοπτικό (πλεονέκτημα) αλλά είναι επίσης λιγότερο αυτο-περιγραφικό (ένα μειονέκτημα).</p>
 <pre class="python"><code>import json
 
 data = &#39;&#39;&#39;
 [
   { &quot;id&quot; : &quot;001&quot;,
     &quot;x&quot; : &quot;2&quot;,
-    &quot;name&quot; : &quot;Chuck&quot;
+    &quot;όνομα&quot; : &quot;Chuck&quot;
   } ,
   { &quot;id&quot; : &quot;009&quot;,
     &quot;x&quot; : &quot;7&quot;,
-    &quot;name&quot; : &quot;Brent&quot;
+    &quot;όνομα&quot; : &quot;Brent&quot;
   }
 ]&#39;&#39;&#39;
 
 info = json.loads(data)
-print(&#39;User count:&#39;, len(info))
+print(&#39;Πλήθος χρηστών:&#39;, len(info))
 
 for item in info:
-    print(&#39;Name&#39;, item[&#39;name&#39;])
+    print(&#39;Όνομα&#39;, item[&#39;όνομα&#39;])
     print(&#39;Id&#39;, item[&#39;id&#39;])
-    print(&#39;Attribute&#39;, item[&#39;x&#39;])
+    print(&#39;Χαρακτηριστικό&#39;, item[&#39;x&#39;])
 
-# Code: http://www.py4e.com/code3/json2.py</code></pre>
-<p>If you compare the code to extract data from the parsed JSON and XML you will see that what we get from <code>json.loads()</code> is a Python list which we traverse with a <code>for</code> loop, and each item within that list is a Python dictionary. Once the JSON has been parsed, we can use the Python index operator to extract the various bits of data for each user. We don’t have to use the JSON library to dig through the parsed JSON, since the returned data is simply native Python structures.</p>
-<p>The output of this program is exactly the same as the XML version above.</p>
-<pre><code>User count: 2
-Name Chuck
+# Code: http://www.gr.py4e.com/code3/json2.py</code></pre>
+<p>Εάν συγκρίνετε τον κώδικα για την εξαγωγή δεδομένων από το αναλυμένο JSON και το XML, θα δείτε ότι αυτό που λαμβάνουμε από το <code>json.loads()</code> είναι μια λίστα Python, την οποία διασχίζουμε με έναν βρόχο <code>for</code> και κάθε στοιχείο σε αυτήν τη λίστα είναι ένα λεξικό Python. Αφού αναλυθεί το JSON, μπορούμε να χρησιμοποιήσουμε τον τελεστή ευρετηρίου Python για να εξαγάγουμε τα διάφορα bit δεδομένων για κάθε χρήστη. Δεν χρειάζεται να χρησιμοποιήσουμε τη βιβλιοθήκη JSON για να διερευνήσουμε το αναλυμένο JSON, καθώς τα δεδομένα που επιστρέφονται είναι απλώς εγγενείς δομές Python.</p>
+<p>Η έξοδος αυτού του προγράμματος είναι ακριβώς η ίδια με την παραπάνω έκδοση XML.</p>
+<pre class="{text}"><code>Πλήθος χρηστών: 2
+Όνομα Chuck
 Id 001
-Attribute 2
-Name Brent
+Χαρακτηριστικό 2
+Όνομα Brent
 Id 009
-Attribute 7</code></pre>
-<p>In general, there is an industry trend away from XML and towards JSON for web services. Because the JSON is simpler and more directly maps to native data structures we already have in programming languages, the parsing and data extraction code is usually simpler and more direct when using JSON. But XML is more self-descriptive than JSON and so there are some applications where XML retains an advantage. For example, most word processors store documents internally using XML rather than JSON.</p>
-<h2 id="application-programming-interfaces">Application Programming Interfaces</h2>
-<p>We now have the ability to exchange data between applications using HyperText Transport Protocol (HTTP) and a way to represent complex data that we are sending back and forth between these applications using eXtensible Markup Language (XML) or JavaScript Object Notation (JSON).</p>
-<p>The next step is to begin to define and document “contracts” between applications using these techniques. The general name for these application-to-application contracts is <em>Application Program Interfaces</em> (APIs). When we use an API, generally one program makes a set of <em>services</em> available for use by other applications and publishes the APIs (i.e., the “rules”) that must be followed to access the services provided by the program.</p>
-<p>When we begin to build our programs where the functionality of our program includes access to services provided by other programs, we call the approach a <em>Service-oriented architecture</em> (SOA). A SOA approach is one where our overall application makes use of the services of other applications. A non-SOA approach is where the application is a single standalone application which contains all of the code necessary to implement the application.</p>
-<p>We see many examples of SOA when we use the web. We can go to a single web site and book air travel, hotels, and automobiles all from a single site. The data for hotels is not stored on the airline computers. Instead, the airline computers contact the services on the hotel computers and retrieve the hotel data and present it to the user. When the user agrees to make a hotel reservation using the airline site, the airline site uses another web service on the hotel systems to actually make the reservation. And when it comes time to charge your credit card for the whole transaction, still other computers become involved in the process.</p>
+Χαρακτηριστικό 7</code></pre>
+<p>Σε γενικές γραμμές, υπάρχει μια τάση του κλάδου να απομακρύνεται από την XML και να υιοθετεί το JSON για τις υπηρεσίες Ιστού. Επειδή το JSON είναι απλούστερο και αντιστοιχίζεται πιο άμεσα σε εγγενείς δομές δεδομένων που έχουμε ήδη στις γλώσσες προγραμματισμού, ο κώδικας ανάλυσης και εξαγωγής δεδομένων είναι συνήθως απλούστερος και πιο άμεσος όταν χρησιμοποιείται JSON. Αλλά η XML είναι πιο αυτοπεριγραφική από την JSON και έτσι υπάρχουν ορισμένες εφαρμογές όπου η XML διατηρεί ένα πλεονέκτημα. Για παράδειγμα, οι περισσότεροι επεξεργαστές κειμένου αποθηκεύουν έγγραφα εσωτερικά χρησιμοποιώντας XML αντί JSON.</p>
+<h2 id="διεπαφές-προγραμματισμού-εφαρμογών">Διεπαφές προγραμματισμού εφαρμογών</h2>
+<p>Τώρα έχουμε τη δυνατότητα να ανταλλάσσουμε δεδομένα μεταξύ εφαρμογών, χρησιμοποιώντας το Πρωτόκολλο Μεταφοράς HyperText (HTTP) και έναν τρόπο να αναπαραστήσουμε σύνθετα δεδομένα, που ανταλλάσουμε μεταξύ αυτών των εφαρμογών χρησιμοποιώντας τη Γλώσσα Επεκτάσιμης Σήμανσης (XML) ή τη Σημειογραφία Αντικειμένων JavaScript (JSON).</p>
+<p>Το επόμενο βήμα είναι να αρχίσουμε να ορίζουμε και να τεκμηριώνουμε “συμβάσεις” μεταξύ εφαρμογών χρησιμοποιώντας αυτές τις τεχνικές. Η γενική ονομασία για αυτές τις από εφαρμογής σε εφαρμογή συμβάσεις είναι <em>Διεπαφές Προγράμματος Εφαρμογής ή Application Program Interfaces</em> (APIs). Όταν χρησιμοποιούμε ένα API, γενικά ένα πρόγραμμα καθιστά διαθέσιμο ένα σύνολο <em>υπηρεσιών</em>, για χρήση από άλλες εφαρμογές και δημοσιεύει τα API (δηλαδή τους “κανόνες”) που πρέπει να ακολουθούνται για την πρόσβαση στις υπηρεσίες που παρέχονται από αυτό.</p>
+<p>Όταν αρχίζουμε να χτίζουμε τα προγράμματά μας, όπου η λειτουργικότητα του προγράμματός μας περιλαμβάνει πρόσβαση σε υπηρεσίες που παρέχονται από άλλα προγράμματα, ονομάζουμε την προσέγγιση <em>Αρχιτεκτονική προσανατολισμένη στις υπηρεσίες ή Service-oriented architecture</em> (SOA). Μια προσέγγιση SOA είναι μια προσέγγιση όπου η συνολική μας εφαρμογή κάνει χρήση των υπηρεσιών άλλων εφαρμογών. Μια προσέγγιση που δεν είναι SOA είναι αυτή όπου η εφαρμογή είναι μια ενιαία, αυτόνομη εφαρμογή, που περιέχει όλο τον απαραίτητο κώδικα για την υλοποίηση της εφαρμογής.</p>
+<p>Βλέπουμε πολλά παραδείγματα SOA όταν χρησιμοποιούμε τον ιστό. Μπορούμε να μεταβούμε σε έναν ιστότοπο και να κάνουμε κράτηση για αεροπορικά εισιτήρια, ξενοδοχεία και αυτοκίνητα, όλα από έναν μόνο ιστότοπο. Τα δεδομένα για τα ξενοδοχεία δεν αποθηκεύονται στους υπολογιστές της αεροπορικής εταιρείας. Αντίθετα, οι υπολογιστές της αεροπορικής εταιρείας επικοινωνούν με τις υπηρεσίες στους υπολογιστές του ξενοδοχείου, ανακτούν τα δεδομένα του ξενοδοχείου και τα παρουσιάζουν στον χρήστη. Όταν ο χρήστης συμφωνεί να κάνει μια κράτηση ξενοδοχείου, χρησιμοποιώντας τον ιστότοπο της αεροπορικής εταιρείας, ο ιστότοπος της αεροπορικής εταιρείας χρησιμοποιεί μια άλλη υπηρεσία web, στα συστήματα του ξενοδοχείου, για να υλοποιήσει πραγματικά την κράτηση. Και όταν έρθει η ώρα να χρεώσετε την πιστωτική σας κάρτα για ολόκληρη τη συναλλαγή, και πάλι άλλοι υπολογιστές εμπλέκονται στη διαδικασία.</p>
 <figure>
-<img src="../images/soa.svg" alt="Service-oriented architecture" style="height: 3.0in;"/>
-<figcaption>
-Service-oriented architecture
-</figcaption>
+<img src="height=3.0in@../images/soa.svg" alt="Αρχιτεκτονική Προσανατολισμένη σις Υπηρεσίες (Service-oriented architecture)" /><figcaption aria-hidden="true">Αρχιτεκτονική Προσανατολισμένη σις Υπηρεσίες (Service-oriented architecture)</figcaption>
 </figure>
-<p>A Service-oriented architecture has many advantages, including: (1) we always maintain only one copy of data (this is particularly important for things like hotel reservations where we do not want to over-commit) and (2) the owners of the data can set the rules about the use of their data. With these advantages, an SOA system must be carefully designed to have good performance and meet the user’s needs.</p>
-<p>When an application makes a set of services in its API available over the web, we call these <em>web services</em>.</p>
-<h2 id="security-and-api-usage">Security and API usage</h2>
+<p>Μια αρχιτεκτονική προσανατολισμένη στις υπηρεσίες έχει πολλά πλεονεκτήματα, όπως: (1) διατηρούμε πάντα μόνο ένα αντίγραφο δεδομένων (αυτό είναι ιδιαίτερα σημαντικό για πράγματα όπως κρατήσεις ξενοδοχείων, όπου δεν θέλουμε να κάνουμε υπερβολική δέσμευση) και (2) οι κάτοχοι των δεδομένα μπορούν να ορίσουν τους κανόνες σχετικά με τη χρήση των δεδομένων τους. Με αυτά τα πλεονεκτήματα, ένα σύστημα SOA πρέπει να είναι προσεκτικά σχεδιασμένο ώστε να έχει καλή απόδοση και να καλύπτει τις ανάγκες του χρήστη.</p>
+<p>Όταν μια εφαρμογή διαθέτει ένα σύνολο υπηρεσιών στο API της μέσω του ιστού, την ονομάζουμε <em>υπηρεσίες Ιστού (web services)</em>.</p>
+<h2 id="ασφάλεια-και-χρήση-api">Ασφάλεια και χρήση API</h2>
 <p> </p>
-<p>It is quite common that you need an API key to make use of a vendor’s API. The general idea is that they want to know who is using their services and how much each user is using. Perhaps they have free and pay tiers of their services or have a policy that limits the number of requests that a single individual can make during a particular time period.</p>
-<p>Sometimes once you get your API key, you simply include the key as part of POST data or perhaps as a parameter on the URL when calling the API.</p>
-<p>Other times, the vendor wants increased assurance of the source of the requests and so they expect you to send cryptographically signed messages using shared keys and secrets. A very common technology that is used to sign requests over the Internet is called <em>OAuth</em>. You can read more about the OAuth protocol at <a href="http://www.oauth.net">www.oauth.net</a>.</p>
-<p>Thankfully there are a number of convenient and free OAuth libraries so you can avoid writing an OAuth implementation from scratch by reading the specification. These libraries are of varying complexity and have varying degrees of richness. The OAuth web site has information about various OAuth libraries.</p>
-<h2 id="glossary">Glossary</h2>
+<p>Είναι αρκετά συνηθισμένο να χρειάζεστε ένα κλειδί API για να χρησιμοποιήσετε το API ενός προμηθευτή. Η γενική ιδέα είναι ότι θέλουν να γνωρίζουν ποιος χρησιμοποιεί τις υπηρεσίες τους και πόσο τις χρησιμοποιεί ο κάθε χρήστης. Ίσως έχουν δωρεάν και επί πληρωμή επίπεδα των υπηρεσιών τους ή έχουν μια πολιτική που περιορίζει τον αριθμό των αιτημάτων που μπορεί να υποβάλει ένα άτομο κατά τη διάρκεια μιας συγκεκριμένης χρονικής περιόδου.</p>
+<p>Μερικές φορές, μόλις λάβετε το κλειδί API σας, απλώς συμπεριλάβετε το κλειδί ως μέρος των δεδομένων POST ή ίσως ως παράμετρο στη διεύθυνση URL κατά την κλήση του API.</p>
+<p>Άλλες φορές, ο πωλητής θέλει αυξημένη διασφάλιση της προέλευσης των αιτημάτων και έτσι περιμένει από εσάς να στείλετε κρυπτογραφικά υπογεγραμμένα μηνύματα χρησιμοποιώντας κοινόχρηστα κλειδιά και μυστικά. Μια πολύ κοινή τεχνολογία που χρησιμοποιείται για την υπογραφή αιτημάτων μέσω Διαδικτύου ονομάζεται <em>OAuth</em>. Μπορείτε να διαβάσετε περισσότερα για το πρωτόκολλο OAuth στο <a href="http://www.oauth.net">www.oauth.net</a>.</p>
+<p>Ευτυχώς, υπάρχουν πολλές βολικές και δωρεάν βιβλιοθήκες OAuth, ώστε να μπορείτε να αποφύγετε να γράψετε μια υλοποίηση OAuth, από την αρχή διαβάζοντας τις προδιαγραφές. Αυτές οι βιβλιοθήκες είναι ποικίλης πολυπλοκότητας και έχουν διαφορετικούς βαθμούς πλούτου. Ο ιστότοπος του OAuth έχει πληροφορίες σχετικά με διάφορες βιβλιοθήκες OAuth.</p>
+<h2 id="γλωσσάριο">Γλωσσάριο</h2>
 <dl>
 <dt>API</dt>
-<dd>Application Program Interface - A contract between applications that defines the patterns of interaction between two application components.
+<dd>Application Program Interface (Διεπαφές Προγράμματος Εφαρμογή) - Ένα συμβόλαιο μεταξύ εφαρμογών που ορίζει τα πρότυπα αλληλεπίδρασης μεταξύ δύο στοιχείων εφαρμογής.
 </dd>
 <dt>ElementTree</dt>
-<dd>A built-in Python library used to parse XML data.
+<dd>Μια ενσωματωμένη βιβλιοθήκη Python που χρησιμοποιείται για την ανάλυση δεδομένων XML.
 </dd>
 <dt>JSON</dt>
-<dd>JavaScript Object Notation - A format that allows for the markup of structured data based on the syntax of JavaScript Objects.
+<dd>JavaScript Object Notation (Σημειογραφία Αντικειμένου JavaScript) - Μια μορφή που επιτρέπει τη σήμανση δομημένων δεδομένων με βάση τη σύνταξη των αντικειμένων JavaScript.
 </dd>
 <dt>SOA</dt>
-<dd>Service-Oriented Architecture - When an application is made of components connected across a network.
+<dd>Service-Oriented Architecture (Αρχιτεκτονική προσανατολισμένη στις υπηρεσίες) - Όταν μια εφαρμογή αποτελείται από στοιχεία συνδεδεμένα σε ένα δίκτυο.
 </dd>
 <dt>XML</dt>
-<dd>eXtensible Markup Language - A format that allows for the markup of structured data.
+<dd>eXtensible Markup Language (Επεκτάσιμη Γλώσσα Σήμανσης) - Μια μορφή που επιτρέπει τη σήμανση δομημένων δεδομένων.
 </dd>
 </dl>
-<h2 id="application-1-google-geocoding-web-service">Application 1: Google geocoding web service</h2>
-<p>  </p>
-<p>Google has an excellent web service that allows us to make use of their large database of geographic information. We can submit a geographical search string like “Ann Arbor, MI” to their geocoding API and have Google return its best guess as to where on a map we might find our search string and tell us about the landmarks nearby.</p>
-<p>The geocoding service is free but rate limited so you cannot make unlimited use of the API in a commercial application. But if you have some survey data where an end user has entered a location in a free-format input box, you can use this API to clean up your data quite nicely.</p>
-<p><em>When you are using a free API like Google’s geocoding API, you need to be respectful in your use of these resources. If too many people abuse the service, Google might drop or significantly curtail its free service.</em></p>
-<p></p>
-<p>You can read the online documentation for this service, but it is quite simple and you can even test it using a browser by typing the following URL into your browser:</p>
+<h2 id="εφαρμογή-1-υπηρεσία-ιστού-γεωκωδικοποίησης-google">Εφαρμογή 1: Υπηρεσία ιστού γεωκωδικοποίησης Google</h2>
+<p>    </p>
+<p>Η Google διαθέτει μια εξαιρετική υπηρεσία ιστού που μας επιτρέπει να χρησιμοποιούμε τη μεγάλη βάση δεδομένων γεωγραφικών πληροφοριών της. Μπορούμε να υποβάλουμε μια συμβολοσειρά γεωγραφικής αναζήτησης όπως “Ann Arbor, MI” στο API γεωκωδικοποίησης της και να ζητήσουμε από την Google να επιστρέψει την καλύτερη εικασία για το πού θα βρούμε τη συμβολοσειρά αναζήτησής μας σε έναν χάρτη και να μας ενημερώσει για τα γειτονικά ορόσημα.</p>
+<p>Η υπηρεσία γεωκωδικοποίησης είναι δωρεάν αλλά περιορισμένης χρήση, επομένως δεν μπορείτε να κάνετε απεριόριστη χρήση του API σε μια εμπορική εφαρμογή. Ωστόσο, εάν έχετε κάποια δεδομένα έρευνας, όπου ένας τελικός χρήστης έχει εισαγάγει μια τοποθεσία σε ένα πλαίσιο εισαγωγής ελεύθερης μορφής, μπορείτε να χρησιμοποιήσετε αυτό το API για να καθαρίσετε τα δεδομένα σας αρκετά καλά.</p>
+<p><em>Όταν χρησιμοποιείτε ένα δωρεάν API, όπως το API γεωκωδικοποίησης της Google, θα πρέπει να δείχνετε σεβασμό στη χρήση αυτών των πόρων. Εάν πάρα πολλοί άνθρωποι κάνουν κατάχρηση της υπηρεσίας, η Google ενδέχεται να απορρίψει ή να περιορίσει σημαντικά τη δωρεάν υπηρεσία της.</em></p>
+<p> </p>
+<p>Μπορείτε να διαβάσετε την ηλεκτρονική τεκμηρίωση για αυτήν την υπηρεσία, αλλά είναι αρκετά απλή και μπορείτε ακόμη και να τη δοκιμάσετε χρησιμοποιώντας ένα πρόγραμμα περιήγησης πληκτρολογώντας την ακόλουθη διεύθυνση URL στο πρόγραμμα περιήγησής σας:</p>
 <p><a href="http://maps.googleapis.com/maps/api/geocode/json?address=Ann+Arbor%2C+MI">http://maps.googleapis.com/maps/api/geocode/json?address=Ann+Arbor%2C+MI</a></p>
-<p>Make sure to unwrap the URL and remove any spaces from the URL before pasting it into your browser.</p>
-<p>The following is a simple application to prompt the user for a search string, call the Google geocoding API, and extract information from the returned JSON.</p>
+<p>Φροντίστε να αφαιρέσετε τυχόν κενά από τη διεύθυνση URL προτού την επικολλήσετε στο πρόγραμμα περιήγησής σας.</p>
+<p>Η παρακάτω είναι μια απλή εφαρμογή, για να ζητήσει από τον χρήστη μια συμβολοσειρά αναζήτησης, να καλέσει το API γεωκωδικοποίησης της Google και να εξαγάγει πληροφορίες από το JSON που επιστράφηκε.</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
 import json
 import ssl
 
 api_key = False
-# If you have a Google Places API key, enter it here
+# Εάν διαθέτετε κλειδί API Google Places, πληκτρολογήστε το εδώ
 # api_key = &#39;AIzaSy___IDByT70&#39;
 # https://developers.google.com/maps/documentation/geocoding/intro
 
@@ -377,13 +374,13 @@ if api_key is False:
 else :
     serviceurl = &#39;https://maps.googleapis.com/maps/api/geocode/json?&#39;
 
-# Ignore SSL certificate errors
+# Αγνόησε τα σφάλματα πιστοποιητικού SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 while True:
-    address = input(&#39;Enter location: &#39;)
+    address = input(&#39;Εισαγάγετε τοποθεσία: &#39;)
     if len(address) &lt; 1: break
 
     parms = dict()
@@ -391,10 +388,10 @@ while True:
     if api_key is not False: parms[&#39;key&#39;] = api_key
     url = serviceurl + urllib.parse.urlencode(parms)
 
-    print(&#39;Retrieving&#39;, url)
+    print(&#39;Ανάκτηση&#39;, url)
     uh = urllib.request.urlopen(url, context=ctx)
     data = uh.read().decode()
-    print(&#39;Retrieved&#39;, len(data), &#39;characters&#39;)
+    print(&#39;Ανακτήθηκαν&#39;, len(data), &#39;χαρακτήρες&#39;)
 
     try:
         js = json.loads(data)
@@ -402,7 +399,7 @@ while True:
         js = None
 
     if not js or &#39;status&#39; not in js or js[&#39;status&#39;] != &#39;OK&#39;:
-        print(&#39;==== Failure To Retrieve ====&#39;)
+        print(&#39;==== Αποτυχία ανάκτησης ====&#39;)
         print(data)
         continue
 
@@ -410,18 +407,18 @@ while True:
 
     lat = js[&#39;results&#39;][0][&#39;geometry&#39;][&#39;location&#39;][&#39;lat&#39;]
     lng = js[&#39;results&#39;][0][&#39;geometry&#39;][&#39;location&#39;][&#39;lng&#39;]
-    print(&#39;lat&#39;, lat, &#39;lng&#39;, lng)
+    print(&#39;πλάτος&#39;, lat, &#39;μήκος&#39;, lng)
     location = js[&#39;results&#39;][0][&#39;formatted_address&#39;]
     print(location)
 
-# Code: http://www.py4e.com/code3/geojson.py</code></pre>
-<p>The program takes the search string and constructs a URL with the search string as a properly encoded parameter and then uses <code>urllib</code> to retrieve the text from the Google geocoding API. Unlike a fixed web page, the data we get depends on the parameters we send and the geographical data stored in Google’s servers.</p>
-<p>Once we retrieve the JSON data, we parse it with the <code>json</code> library and do a few checks to make sure that we received good data, then extract the information that we are looking for.</p>
-<p>The output of the program is as follows (some of the returned JSON has been removed):</p>
-<pre><code>$ python3 geojson.py
-Enter location: Ann Arbor, MI
-Retrieving http://py4e-data.dr-chuck.net/json?address=Ann+Arbor%2C+MI&amp;key=42
-Retrieved 1736 characters</code></pre>
+# Code: http://www.gr.py4e.com/code3/geojson.py</code></pre>
+<p>Το πρόγραμμα παίρνει τη συμβολοσειρά αναζήτησης και κατασκευάζει μια διεύθυνση URL με τη συμβολοσειρά αναζήτησης, ως σωστά κωδικοποιημένη παράμετρο, και στη συνέχεια χρησιμοποιεί το <code>urllib</code> για να ανακτήσει το κείμενο από το API γεωκωδικοποίησης της Google. Σε αντίθεση με μια σταθερή ιστοσελίδα, τα δεδομένα που λαμβάνουμε εξαρτώνται από τις παραμέτρους που στέλνουμε και τα γεωγραφικά δεδομένα που είναι αποθηκευμένα στους διακομιστές της Google.</p>
+<p>Μόλις ανακτήσουμε τα δεδομένα JSON, τα αναλύουμε με τη βιβλιοθήκη <code>json</code> και κάνουμε μερικούς ελέγχους για να βεβαιωθούμε ότι λάβαμε καλά δεδομένα και, στη συνέχεια, εξάγουμε τις πληροφορίες που αναζητούμε.</p>
+<p>Η έξοδος του προγράμματος είναι η εξής (μερικά από τα JSON που επιστράφηκαν έχουν αφαιρεθεί):</p>
+<pre class="{text}"><code>$ python3 geojson.py
+Εισαγάγετε τοποθεσία: Ann Arbor, MI
+Ανάκτηση http://py4e-data.dr-chuck.net/json?address=Ann+Arbor%2C+MI&amp;key=42
+Ανακτήθηκαν 1736 χαρακτήρες</code></pre>
 <pre class="json"><code>{
     &quot;results&quot;: [
         {
@@ -496,19 +493,19 @@ Retrieved 1736 characters</code></pre>
     ],
     &quot;status&quot;: &quot;OK&quot;
 }
-lat 42.2808256 lng -83.7430378
+πλάτος 42.2808256 μήκος -83.7430378
 Ann Arbor, MI, USA</code></pre>
-<pre><code>Enter location:</code></pre>
-<p>You can download <a href="http://www.py4e.com/code3/geoxml.py">www.py4e.com/code3/geoxml.py</a> to explore the XML variant of the Google geocoding API.</p>
-<p><strong>Exercise 1: Change either</strong> <a href="http://www.py4e.com/code3/geojson.py"><strong>geojson.py</strong></a> <strong>or</strong> <a href="http://www.py4e.com/code3/geoxml.py"><strong>geoxml.py</strong></a> <strong>to print out the two-character country code from the retrieved data. Add error checking so your program does not traceback if the country code is not there. Once you have it working, search for “Atlantic Ocean” and make sure it can handle locations that are not in any country.</strong></p>
-<h2 id="application-2-twitter">Application 2: Twitter</h2>
-<p>As the Twitter API became increasingly valuable, Twitter went from an open and public API to an API that required the use of OAuth signatures on each API request.</p>
-<p>For this next sample program, download the files <em>twurl.py</em>, <em>hidden.py</em>, <em>oauth.py</em>, and <em>twitter1.py</em> from <a href="http://www.py4e.com/code3">www.py4e.com/code</a> and put them all in a folder on your computer.</p>
-<p>To make use of these programs you will need to have a Twitter account, and authorize your Python code as an application, set up a key, secret, token and token secret. You will edit the file <em>hidden.py</em> and put these four strings into the appropriate variables in the file:</p>
-<pre class="python"><code># Keep this file separate
+<pre class="{text}"><code>Εισαγάγετε τοποθεσία:</code></pre>
+<p>Μπορείτε να κάνετε λήψη του <a href="http://www.gr.py4e.com/code3/geoxml.py">www.gr.py4e.com/code3/geoxml.py</a> για να εξερευνήσετε την παραλλαγή XML του API γεωκωδικοποίησης Google.</p>
+<p><strong>Άσκηση 1: Αλλάξτε είτε το</strong> <a href="http://www.py4e.com/code3/geojson.py"><strong>geojson.py</strong></a> <strong>είτε το</strong> <a href="http://www.py4e.com/code3/geoxml.py"><strong>geoxml.py</strong></a> <strong>για να εκτυπώσετε τον κωδικό χώρας δύο χαρακτήρων από τα δεδομένα που ανακτήθηκαν. Προσθέστε έλεγχο σφαλμάτων, ώστε το πρόγραμμά σας να μην ανιχνεύει εάν ο κωδικός χώρας δεν υπάρχει. Μόλις το θέσετε σε λειτουργία, αναζητήστε “Atlantic Ocean” και βεβαιωθείτε ότι μπορεί να χειριστεί τοποθεσίες που δεν βρίσκονται σε καμία χώρα.</strong></p>
+<h2 id="εφαρμογή-2-twitter">Εφαρμογή 2: Twitter</h2>
+<p>Καθώς το Twitter API γινόταν όλο και πιο πολύτιμο, το Twitter μετατράπηκε από ένα ανοιχτό και δημόσιο API σε ένα API που απαιτούσε τη χρήση υπογραφών OAuth σε κάθε αίτημα API.</p>
+<p>Για αυτό το επόμενο δείγμα προγράμματος, πραγματοποιήστε λήψη των αρχείων <em>twurl.py</em>, <em>hidden.py</em>, <em>oauth.py</em> και <em>twitter1.py</em> από <a href="http://www.gr.py4e.com/code3">www.gr.py4e.com/code</a> και αποθηκεύστε τα όλα σε ένα φάκελο στον υπολογιστή σας.</p>
+<p>Για να χρησιμοποιήσετε αυτά τα προγράμματα θα χρειαστεί να έχετε λογαριασμό Twitter και να εξουσιοδοτήσετε τον κώδικα Python ως εφαρμογή, να ένα κλειδί (key), ένα μυστικό (secret), ένα διακριτικό (token) και ένα μυστικό διακριτικού (token secret). Θα επεξεργαστείτε το αρχείο <em>hidden.py</em> και θα προσθέσετε αυτές τις τέσσερις συμβολοσειρές στις κατάλληλες μεταβλητές του αρχείου:</p>
+<pre class="python"><code># Κρατήστε αυτό το αρχείο ξεχωριστά
 
 # https://apps.twitter.com/
-# Create new App and get the four strings
+# Δημιουργήστε νέο App και πάρτε τις τέσσερις συμβολοσειρές
 
 def oauth():
     return {&quot;consumer_key&quot;: &quot;h7Lu...Ng&quot;,
@@ -516,18 +513,18 @@ def oauth():
             &quot;token_key&quot;: &quot;10185562-eibxCp9n2...P4GEQQOSGI&quot;,
             &quot;token_secret&quot;: &quot;H0ycCFemmC4wyf1...qoIpBo&quot;}
 
-# Code: http://www.py4e.com/code3/hidden.py</code></pre>
-<p>The Twitter web service are accessed using a URL like this:</p>
+# Code: http://www.gr.py4e.com/code3/hidden.py</code></pre>
+<p>Η πρόσβαση στην υπηρεσία ιστού Twitter γίνεται χρησιμοποιώντας μια διεύθυνση URL όπως αυτή:</p>
 <p><a href="https://api.twitter.com/1.1/statuses/user_timeline.json" class="uri">https://api.twitter.com/1.1/statuses/user_timeline.json</a></p>
-<p>But once all of the security information has been added, the URL will look more like:</p>
-<pre><code>https://api.twitter.com/1.1/statuses/user_timeline.json?count=2
+<p>Αλλά μόλις προστεθούν όλες οι πληροφορίες ασφαλείας, η διεύθυνση URL θα μοιάζει περισσότερο με:</p>
+<pre class="{text}"><code>https://api.twitter.com/1.1/statuses/user_timeline.json?count=2
 &amp;oauth_version=1.0&amp;oauth_token=101...SGI&amp;screen_name=drchuck
 &amp;oauth_nonce=09239679&amp;oauth_timestamp=1380395644
 &amp;oauth_signature=rLK...BoD&amp;oauth_consumer_key=h7Lu...GNg
 &amp;oauth_signature_method=HMAC-SHA1</code></pre>
-<p>You can read the OAuth specification if you want to know more about the meaning of the various parameters that are added to meet the security requirements of OAuth.</p>
-<p>For the programs we run with Twitter, we hide all the complexity in the files <em>oauth.py</em> and <em>twurl.py</em>. We simply set the secrets in <em>hidden.py</em> and then send the desired URL to the <em>twurl.augment()</em> function and the library code adds all the necessary parameters to the URL for us.</p>
-<p>This program retrieves the timeline for a particular Twitter user and returns it to us in JSON format in a string. We simply print the first 250 characters of the string:</p>
+<p>Μπορείτε να διαβάσετε την προδιαγραφή OAuth, εάν θέλετε να μάθετε περισσότερα σχετικά με τη σημασία των διαφόρων παραμέτρων που προστίθενται για την κάλυψη των απαιτήσεων ασφαλείας του OAuth.</p>
+<p>Για τα προγράμματα που εκτελούμε με το Twitter, αποκρύπτουμε όλη την πολυπλοκότητα στα αρχεία <em>oauth.py</em> και <em>twurl.py</em>. Απλώς ορίζουμε τα μυστικά στο <em>hidden.py</em> και μετά στέλνουμε το επιθυμητό URL στη συνάρτηση <em>twurl.augment()</em> και ο κώδικας της βιβλιοθήκης προσθέτει όλες τις απαραίτητες παραμέτρους στη διεύθυνση URL για εμάς.</p>
+<p>Αυτό το πρόγραμμα ανακτά το χρονοδιάγραμμα (timeline) για έναν συγκεκριμένο χρήστη του Twitter και μας το επιστρέφει σε μορφή JSON σε μια συμβολοσειρά. Εκτυπώνουμε απλώς τους πρώτους 250 χαρακτήρες της συμβολοσειράς:</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
 import twurl
 import ssl
@@ -556,9 +553,9 @@ while True:
     # print headers
     print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
 
-# Code: http://www.py4e.com/code3/twitter1.py</code></pre>
-<p>When the program runs it produces the following output:</p>
-<pre><code>Enter Twitter Account:drchuck
+# Code: http://www.gr.py4e.com/code3/twitter1.py</code></pre>
+<p>Όταν το πρόγραμμα εκτελείται, παράγει την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>Enter Twitter Account:drchuck
 Retrieving https://api.twitter.com/1.1/ ...
 [{&quot;created_at&quot;:&quot;Sat Sep 28 17:30:25 +0000 2013&quot;,&quot;
 id&quot;:384007200990982144,&quot;id_str&quot;:&quot;384007200990982144&quot;,
@@ -577,8 +574,8 @@ my wedding ring fits again! :)\n\nhttps:\/\/t.co\/2XmHPx7kgX&quot;,
 Remaining 177
 
 Enter Twitter Account:</code></pre>
-<p>Along with the returned timeline data, Twitter also returns metadata about the request in the HTTP response headers. One header in particular, <code>x-rate-limit-remaining</code>, informs us how many more requests we can make before we will be shut off for a short time period. You can see that our remaining retrievals drop by one each time we make a request to the API.</p>
-<p>In the following example, we retrieve a user’s Twitter friends, parse the returned JSON, and extract some of the information about the friends. We also dump the JSON after parsing and “pretty-print” it with an indent of four characters to allow us to pore through the data when we want to extract more fields.</p>
+<p>Μαζί με τα επιστρεφόμενα δεδομένα χρονοδιαγράμματος, το Twitter επιστρέφει επίσης μεταδεδομένα σχετικά με το αίτημα στις κεφαλίδες απόκρισης HTTP. Ειδικότερα, μια κεφαλίδα, <code>x-rate-limit-remaining</code>, μας ενημερώνει πόσα ακόμη αιτήματα μπορούμε να υποβάλουμε προτού απόκλειστουμε για ένα σύντομο χρονικό διάστημα. Μπορείτε να δείτε ότι οι ανακτήσεις που απομένουν μειώνονται κατά μία κάθε φορά που υποβάλλουμε ένα αίτημα στο API.</p>
+<p>Στο παρακάτω παράδειγμα, ανακτούμε τους φίλους Twitter ενός χρήστη, αναλύουμε το JSON που επιστράφηκε και εξάγουμε ορισμένες από τις πληροφορίες σχετικά με τους φίλους. Επίσης, απορρίπτουμε το JSON μετά την ανάλυση και το “εκτυπώνουμε όμορφα” με μια εσοχή τεσσάρων χαρακτήρων για να μας επιτρέψει να διαπεράσουμε τα δεδομένα όταν θέλουμε να εξαγάγουμε περισσότερα πεδία.</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
 import twurl
 import json
@@ -618,10 +615,10 @@ while True:
         s = u[&#39;status&#39;][&#39;text&#39;]
         print(&#39;  &#39;, s[:50])
 
-# Code: http://www.py4e.com/code3/twitter2.py</code></pre>
-<p>Since the JSON becomes a set of nested Python lists and dictionaries, we can use a combination of the index operation and <code>for</code> loops to wander through the returned data structures with very little Python code.</p>
-<p>The output of the program looks as follows (some of the data items are shortened to fit on the page):</p>
-<pre><code>Enter Twitter Account:drchuck
+# Code: http://www.gr.py4e.com/code3/twitter2.py</code></pre>
+<p>Εφόσον το JSON γίνεται ένα σύνολο από ένθετες λίστες και λεξικά Python, μπορούμε να χρησιμοποιήσουμε έναν συνδυασμό της λειτουργίας ευρετηρίου και των βρόχων <code>for</code> για να διατρέξουμε στις επιστρεφόμενες δομές δεδομένων με πολύ λίγο κώδικα Python.</p>
+<p>Η έξοδος του προγράμματος έχει ως εξής (ορισμένα από τα στοιχεία δεδομένων συντομεύονται για να χωρούν στη σελίδα):</p>
+<pre class="{text}"><code>Enter Twitter Account:drchuck
 Retrieving https://api.twitter.com/1.1/friends ...
 Remaining 14</code></pre>
 <pre class="json"><code>{
@@ -653,7 +650,7 @@ Remaining 14</code></pre>
   ],
  &quot;next_cursor_str&quot;: &quot;1444171224491980205&quot;
 }</code></pre>
-<pre><code>leahculver
+<pre class="{text}"><code>leahculver
    @jazzychad I just bought one .__.
 _valeriei
    RT @WSJ: Big employers like Google, AT&amp;amp;T are h
@@ -665,8 +662,8 @@ scweeker
    @DeviceLabDC love it! Now where so I get that &quot;etc
 
 Enter Twitter Account:</code></pre>
-<p>The last bit of the output is where we see the for loop reading the five most recent “friends” of the <em><span class="citation" data-cites="drchuck">@drchuck</span></em> Twitter account and printing the most recent status for each friend. There is a great deal more data available in the returned JSON. If you look in the output of the program, you can also see that the “find the friends” of a particular account has a different rate limitation than the number of timeline queries we are allowed to run per time period.</p>
-<p>These secure API keys allow Twitter to have solid confidence that they know who is using their API and data and at what level. The rate-limiting approach allows us to do simple, personal data retrievals but does not allow us to build a product that pulls data from their API millions of times per day.</p>
+<p>Το τελευταίο κομμάτι της εξόδου είναι αυτό όπου βλέπουμε τον βρόχο for να διαβάζει τους πέντε πιο πρόσφατους “φίλους” του λογαριασμού Twitter <em><span class="citation" data-cites="drchuck">@drchuck</span></em> και να εκτυπώνει το πιο πρόσφατο status του κάθε φίλου. Υπάρχουν πολλά περισσότερα διαθέσιμα δεδομένα στο JSON που επιστράφηκε. Αν κοιτάξετε στην έξοδο του προγράμματος, μπορείτε επίσης να δείτε ότι το “βρείτε τους φίλους (find the friends)” ενός συγκεκριμένου λογαριασμού έχει διαφορετικό όριο χρέωσης από τον αριθμό των ερωτημάτων χρονοδιαγράμματος, που επιτρέπεται να εκτελούμε ανά χρονική περίοδο.</p>
+<p>Αυτά τα ασφαλή κλειδιά API επιτρέπουν στο Twitter να είναι σίγουρο ότι γνωρίζει ποιος χρησιμοποιεί το API και τα δεδομένα του και σε ποιο επίπεδο. Η προσέγγιση περιορισμού πρόσβασης μάς επιτρέπει να κάνουμε απλές, ανακτήσεις προσωπικών δεδομένων, αλλά δεν μας επιτρέπει να δημιουργήσουμε ένα προϊόν που αντλεί δεδομένα από το API τους, εκατομμύρια φορές την ημέρα.</p>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {
