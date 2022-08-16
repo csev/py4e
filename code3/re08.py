@@ -1,6 +1,7 @@
-# Search for lines that have an at sign between characters
-# The characters must be a letter or number
-# The results will be slightly more accurate than re07.py for email addresses
+# Αναζητάμε τις γραμμές που περιέχουν ένα σύμβολο at μεταξύ χαρακτήρων.
+# Οι χαρακτήρες πρέπει να είναι γράμματα ή αριθμοί
+# Το αποτέλεσμα θα είναι ελαφρώς ακριβέστερο από το re07.py 
+# σε περίπτωση διευθύνσεων email
 import re
 hand = open('mbox-short.txt')
 for line in hand:

@@ -1,14 +1,14 @@
 import xml.etree.ElementTree as ET
 
 data = '''
-<person>
-  <name>Chuck</name>
-  <phone type="intl">
+<άτομο>
+  <όνομα>Chuck</όνομα>
+  <τηλέφωνο τύπος="εσωτερικό">
     +1 734 303 4456
-  </phone>
-  <email hide="yes" />
-</person>'''
+  </τηλέφωνο>
+  <email κρυφό="ναι" />
+</άτομο>'''
 
 tree = ET.fromstring(data)
-print('Name:', tree.find('name').text)
-print('Attr:', tree.find('email').get('hide'))
+print('Όνομα:', tree.find('όνομα').text)
+print('Χαρακτηριστικό:', tree.find('email').get('κρυφό'))

@@ -1,6 +1,6 @@
-# Search for lines that start 'X' followed by any non whitespace
-# characters and ':' then output the first group of non whitespace
-# characters that follows
+# Αναζητάμε τις γραμμές που αρχίζουν με 'X' ακολουθούμενο από οποιουσδήποτε
+# μη λευκούς χαρακτήρες και ':', στη συνέχεια εξάγουμε την πρώτη ομάδα 
+# μη λευκών χαρακτήρων που ακολουθούν
 import re
 hand = open('mbox-short.txt')
 for line in hand:
