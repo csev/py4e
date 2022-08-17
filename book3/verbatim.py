@@ -20,9 +20,8 @@ while True:
     except:
         break
     
-    pattern = re.compile("\\\VerbatimInput\{(.+)")
-    x= pattern.findall(line)
-    if len(x) == 0 : 
+    x = re.findall("\\\VerbatimInput\{(.+)\}", line)
+    if not x : 
                 
         if trinket and files:
             trinketfilesstart = r"\begin{trinketfiles}" in line
@@ -51,9 +50,7 @@ while True:
             print(line)
             continue
 
-    fn = x[0].rstrip()
-    #fn = fn.rstrip()
-    fn = fn[:-1]
+    fn = x[0]
     
     with open(fn) as fh:
         
