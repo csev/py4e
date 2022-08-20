@@ -468,7 +468,7 @@ cur.execute(&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;,(acct, ))</c
 <p>When we add <code>UNIQUE</code> clauses to our tables, we are communicating a set of rules that we are asking the database to enforce when we attempt to insert records. We are creating these rules as a convenience in our programs, as we will see in a moment. The rules both keep us from making mistakes and make it simpler to write some of our code.</p>
 <p>In essence, in creating this <code>Follows</code> table, we are modelling a “relationship” where one person “follows” someone else and representing it with a pair of numbers indicating that (a) the people are connected and (b) the direction of the relationship.</p>
 <figure>
-<img src="figs2/twitter.svg" alt="Relationships Between Tables" style="height: 3.5in;"/>
+<img src="/figs2/twitter.svg" alt="Relationships Between Tables" style="height: 3.5in;"/>
 <figcaption>
 Relationships Between Tables
 </figcaption>
