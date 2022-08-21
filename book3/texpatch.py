@@ -3,7 +3,7 @@
 
 while True:
     try:
-        line = raw_input()
+        line = input()
     except:
         break
 
