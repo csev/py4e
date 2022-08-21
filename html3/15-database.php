@@ -8,182 +8,45 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
-  <style>
-    html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 1em;
-      }
-    }
-    @media print {
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
-      font-size: 85%;
-      margin: 0;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <title>Untitled</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
-<h1 id="using-databases-and-sql">Using Databases and SQL</h1>
-<h2 id="what-is-a-database">What is a database?</h2>
+<h1 id="χρήση-βάσεων-δεδομένων-και-sql">Χρήση Βάσεων Δεδομένων και SQL</h1>
+<h2 id="τι-είναι-μια-βάση-δεδομένων">Τι είναι μια βάση δεδομένων;</h2>
 <p></p>
-<p>A <em>database</em> is a file that is organized for storing data. Most databases are organized like a dictionary in the sense that they map from keys to values. The biggest difference is that the database is on disk (or other permanent storage), so it persists after the program ends. Because a database is stored on permanent storage, it can store far more data than a dictionary, which is limited to the size of the memory in the computer.</p>
+<p>Μια <em>βάση δεδομένων</em> είναι ένα αρχείο που είναι οργανωμένο για την αποθήκευση δεδομένων. Οι περισσότερες βάσεις δεδομένων είναι οργανωμένες σαν λεξικό, με την έννοια ότι υπάρχει αντιστοίχιση ανάμεσα σε κλειδιά και τιμές. Η μεγαλύτερη διαφορά είναι ότι η βάση δεδομένων βρίσκεται στο δίσκο (ή σε άλλη μονάδα μόνιμης αποθήκευσης), επομένως παραμένει και μετά το τέλος του προγράμματος. Επειδή μια βάση δεδομένων αποθηκεύεται σε μονάδα μόνιμης αποθήκευσης, μπορεί να αποθηκεύσει πολύ περισσότερα δεδομένα από ένα λεξικό, το οποίο περιορίζεται στο μέγεθος της μνήμης στον υπολογιστή.</p>
 <p></p>
-<p>Like a dictionary, database software is designed to keep the inserting and accessing of data very fast, even for large amounts of data. Database software maintains its performance by building <em>indexes</em> as data is added to the database to allow the computer to jump quickly to a particular entry.</p>
-<p>There are many different database systems which are used for a wide variety of purposes including: Oracle, MySQL, Microsoft SQL Server, PostgreSQL, and SQLite. We focus on SQLite in this book because it is a very common database and is already built into Python. SQLite is designed to be <em>embedded</em> into other applications to provide database support within the application. For example, the Firefox browser also uses the SQLite database internally as do many other products.</p>
+<p>Όπως ένα λεξικό, το λογισμικό βάσης δεδομένων έχει σχεδιαστεί για να παρέχει πολύ γρήγορη εισαγωγή και πρόσβαση στα δεδομένα, ακόμη και για μεγάλες ποσότητες δεδομένων. Το λογισμικό βάσης δεδομένων διατηρεί την απόδοσή του δημιουργώντας <em>ευρετήρια</em>, καθώς τα δεδομένα προστίθενται στη βάση δεδομένων, για να επιτρέψουν στον υπολογιστή την γρήγορη προσπέλαση μιας συγκεκριμένης καταχώρησης.</p>
+<p>Υπάρχουν πολλά διαφορετικά συστήματα βάσεων δεδομένων, που χρησιμοποιούνται για μια μεγάλη ποικιλία σκοπών, όπως: Oracle, MySQL, Microsoft SQL Server, PostgreSQL και SQLite. Εστιάζουμε στο SQLite, σε αυτό το βιβλίο, επειδή είναι μια πολύ κοινή βάση δεδομένων και είναι ήδη ενσωματωμένη στην Python. Το SQLite έχει σχεδιαστεί για να <em>ενσωματώνεται</em> σε άλλες εφαρμογές και να παρέχει υποστήριξη βάσης δεδομένων εντός της εφαρμογής. Για παράδειγμα, το πρόγραμμα περιήγησης Firefox χρησιμοποιεί, κι αυτό, τη βάση δεδομένων SQLite, εσωτερικά, όπως και πολλά άλλα προϊόντα.</p>
 <p><a href="http://sqlite.org/" class="uri">http://sqlite.org/</a></p>
-<p>SQLite is well suited to some of the data manipulation problems that we see in Informatics such as the Twitter spidering application that we describe in this chapter.</p>
-<h2 id="database-concepts">Database concepts</h2>
-<p>When you first look at a database it looks like a spreadsheet with multiple sheets. The primary data structures in a database are: <em>tables</em>, <em>rows</em>, and <em>columns</em>.</p>
+<p>Το SQLite είναι κατάλληλο για ορισμένα από τα προβλήματα χειρισμού δεδομένων, που βλέπουμε στην Πληροφορική, όπως η εφαρμογή ιστοσυγκομιδής του Twitter, που περιγράφουμε σε αυτό το κεφάλαιο.</p>
+<h2 id="έννοιες-βάσης-δεδομένων">Έννοιες βάσης δεδομένων</h2>
+<p>Όταν κοιτάζετε για πρώτη φορά μια βάση δεδομένων, μοιάζει με υπολογιστικό φύλλο με πολλά φύλλα. Οι κύριες δομές δεδομένων σε μια βάση δεδομένων είναι: <em>πίνακες</em>, <em>γραμμές</em> και <em>στήλες</em>.</p>
 <figure>
-<img src="../images/relational.svg" alt="Relational Databases" style="height: 2.0in;"/>
+<img src="../images/relational.svg" alt="Σχεσιακές βάσεις δεδομένων" style="height: 2.0in;"/>
 <figcaption>
-Relational Databases
+Σχεσιακές βάσεις δεδομένων
 </figcaption>
 </figure>
-<p>In technical descriptions of relational databases the concepts of table, row, and column are more formally referred to as <em>relation</em>, <em>tuple</em>, and <em>attribute</em>, respectively. We will use the less formal terms in this chapter.</p>
-<h2 id="database-browser-for-sqlite">Database Browser for SQLite</h2>
-<p>While this chapter will focus on using Python to work with data in SQLite database files, many operations can be done more conveniently using software called the <em>Database Browser for SQLite</em> which is freely available from:</p>
+<p>Στις τεχνικές περιγραφές των σχεσιακών βάσεων δεδομένων, οι έννοιες του πίνακα, της γραμμής και της στήλης αναφέρονται και ως <em>σχέση</em>, <em>εγγραφή</em> και <em>χαρακτηριστικό</em>, αντίστοιχα. Θα χρησιμοποιήσουμε τους λιγότερο επίσημους όρους σε αυτό το κεφάλαιο.</p>
+<h2 id="πρόγραμμα-περιήγησης-βάσεων-δεδομένων-για-sqlite">Πρόγραμμα περιήγησης βάσεων δεδομένων για SQLite</h2>
+<p>Ενώ αυτό το κεφάλαιο θα επικεντρωθεί στη χρήση της Python για εργασία με δεδομένα σε αρχεία βάσης δεδομένων SQLite, πολλές λειτουργίες μπορούν να γίνουν πιο βολικά χρησιμοποιώντας το λογισμικό που ονομάζεται <em>Database Browser for SQLite (Πρόγραμμα περιήγησης βάσης δεδομένων για SQLite)</em> το οποίο διατίθεται δωρεάν από:</p>
 <p><a href="http://sqlitebrowser.org/" class="uri">http://sqlitebrowser.org/</a></p>
-<p>Using the browser you can easily create tables, insert data, edit data, or run simple SQL queries on the data in the database.</p>
-<p>In a sense, the database browser is similar to a text editor when working with text files. When you want to do one or very few operations on a text file, you can just open it in a text editor and make the changes you want. When you have many changes that you need to do to a text file, often you will write a simple Python program. You will find the same pattern when working with databases. You will do simple operations in the database manager and more complex operations will be most conveniently done in Python.</p>
-<h2 id="creating-a-database-table">Creating a database table</h2>
-<p>Databases require more defined structure than Python lists or dictionaries<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<p>When we create a database <em>table</em> we must tell the database in advance the names of each of the <em>columns</em> in the table and the type of data which we are planning to store in each <em>column</em>. When the database software knows the type of data in each column, it can choose the most efficient way to store and look up the data based on the type of data.</p>
-<p>You can look at the various data types supported by SQLite at the following url:</p>
+<p>Χρησιμοποιώντας το πρόγραμμα περιήγησης μπορείτε εύκολα να δημιουργήσετε πίνακες, να εισαγάγετε δεδομένα, να επεξεργαστείτε δεδομένα ή να εκτελέσετε απλά ερωτήματα SQL στα δεδομένα της βάσης δεδομένων.</p>
+<p>Κατά μία έννοια, το πρόγραμμα περιήγησης της βάσης δεδομένων είναι παρόμοιο με ένα πρόγραμμα επεξεργασίας κειμένου, όταν εργάζεστε με αρχεία κειμένου. Όταν θέλετε να κάνετε μία ή πολύ λίγες επεξεργασίες σε ένα αρχείο κειμένου, μπορείτε απλώς να το ανοίξετε σε ένα πρόγραμμα επεξεργασίας κειμένου και να κάνετε τις αλλαγές που θέλετε. Όταν έχετε πολλές αλλαγές που πρέπει να κάνετε σε ένα αρχείο κειμένου, συχνά γράφετε ένα απλό πρόγραμμα Python. Θα εντοπίσετε την ίδια λογική, όταν εργάζεστε με βάσεις δεδομένων. Θα υλοποιείται απλές λειτουργίες στον διαχειριστή βάσης δεδομένων και πιο σύνθετες λειτουργίες θα γίνονται πιο βολικά με την Python.</p>
+<h2 id="δημιουργία-πίνακα-βάσης-δεδομένων">Δημιουργία πίνακα βάσης δεδομένων</h2>
+<p>Οι βάσεις δεδομένων απαιτούν πιο καθορισμένη δομή από τις λίστες ή τα λεξικά Python<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<p>Όταν δημιουργούμε έναν <em>πίνακα</em> βάσης δεδομένων, πρέπει να πούμε εκ των προτέρων στη βάση δεδομένων τα ονόματα καθεμιάς από τις <em>στήλες</em> στον πίνακα και τον τύπο των δεδομένων που σκοπεύουμε να αποθηκεύσουμε σε κάθε <em>στήλη</em>. Όταν το λογισμικό της βάσης δεδομένων γνωρίζει τον τύπο των δεδομένων σε κάθε στήλη, μπορεί να επιλέξει τον πιο αποτελεσματικό τρόπο αποθήκευσης και αναζήτησης των δεδομένων, με βάση τον τύπο των δεδομένων.</p>
+<p>Μπορείτε να δείτε τους διάφορους τύπους δεδομένων που υποστηρίζονται από το SQLite στην ακόλουθη διεύθυνση url:</p>
 <p><a href="http://www.sqlite.org/datatypes.html" class="uri">http://www.sqlite.org/datatypes.html</a></p>
-<p>Defining structure for your data up front may seem inconvenient at the beginning, but the payoff is fast access to your data even when the database contains a large amount of data.</p>
-<p>The code to create a database file and a table named <code>Tracks</code> with two columns in the database is as follows:</p>
+<p>Ο καθορισμός της δομής για τα δεδομένα σας εκ των προτέρων μπορεί να φαίνεται άβολος στην αρχή, αλλά το αποτέλεσμα είναι η γρήγορη πρόσβαση στα δεδομένα σας, ακόμα και όταν η βάση δεδομένων περιέχει μεγάλο όγκο δεδομένων.</p>
+<p>Ο κώδικας για τη δημιουργία ενός αρχείου βάσης δεδομένων και ενός πίνακα με το όνομα <code>Tracks</code> με δύο στήλες στη βάση δεδομένων είναι ο εξής:</p>
 <p> </p>
 <pre class="python"><code>import sqlite3
 
@@ -195,26 +58,26 @@ cur.execute(&#39;CREATE TABLE Tracks (title TEXT, plays INTEGER)&#39;)
 
 conn.close()
 
-# Code: http://www.py4e.com/code3/db1.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/db1.py</code></pre>
 <p>   </p>
-<p>The <code>connect</code> operation makes a “connection” to the database stored in the file <code>music.sqlite</code> in the current directory. If the file does not exist, it will be created. The reason this is called a “connection” is that sometimes the database is stored on a separate “database server” from the server on which we are running our application. In our simple examples the database will just be a local file in the same directory as the Python code we are running.</p>
-<p>A <em>cursor</em> is like a file handle that we can use to perform operations on the data stored in the database. Calling <code>cursor()</code> is very similar conceptually to calling <code>open()</code> when dealing with text files.</p>
+<p>Η λειτουργία <code>connect</code> πραγματοποιεί μια “σύνδεση” με τη βάση δεδομένων, που είναι αποθηκευμένη στο αρχείο <code>music.sqlite</code>, στον τρέχοντα κατάλογο. Εάν το αρχείο δεν υπάρχει, θα δημιουργηθεί. Ο λόγος που αυτό ονομάζεται “σύνδεση” είναι ότι μερικές φορές η βάση δεδομένων αποθηκεύεται σε έναν ξεχωριστό “διακομιστή βάσης δεδομένων”, από τον διακομιστή στον οποίο εκτελούμε την εφαρμογή μας. Στα απλά παραδείγματά μας η βάση δεδομένων θα είναι απλώς ένα τοπικό αρχείο στον ίδιο κατάλογο με τον κώδικα Python που εκτελούμε.</p>
+<p>Ένας <em>κέρσορας (cursor)</em> είναι σαν ένας περιγραφέας αρχείου, που μπορούμε να χρησιμοποιήσουμε για να εκτελέσουμε λειτουργίες επί των δεδομένων, που είναι αποθηκευμένα στη βάση δεδομένων. Η κλήση του <code>cursor()</code> μοιάζει πολύ εννοιολογικά με την κλήση του <code>open()</code>, όταν πρόκειται για αρχεία κειμένου.</p>
 <figure>
-<img src="../images/cursor.svg" alt="A Database Cursor" style="height: 2.0in;"/>
+<img src="../images/cursor.svg" alt="Ένας Cursor Βάσης Δεδομένων" style="height: 2.0in;"/>
 <figcaption>
-A Database Cursor
+Ένας Cursor Βάσης Δεδομένων
 </figcaption>
 </figure>
-<p>Once we have the cursor, we can begin to execute commands on the contents of the database using the <code>execute()</code> method.</p>
-<p>Database commands are expressed in a special language that has been standardized across many different database vendors to allow us to learn a single database language. The database language is called <em>Structured Query Language</em> or <em>SQL</em> for short.</p>
+<p>Μόλις έχουμε τον κέρσορα, μπορούμε να αρχίσουμε να εκτελούμε εντολές προς τα περιεχόμενα της βάσης δεδομένων χρησιμοποιώντας τη μέθοδο <code>execute()</code>.</p>
+<p>Οι εντολές βάσης δεδομένων εκφράζονται σε μια ειδική γλώσσα, που έχει τυποποιηθεί σε πολλούς διαφορετικούς προμηθευτές βάσεων δεδομένων για να μας δώσουν τη συνατότηα να μάθουμε μια ενιαία γλώσσα βάσης δεδομένων. Η γλώσσα των βάσεων δεδομένων ονομάζεται <em>Γλώσσα Δομημένων Ερωταπαντήσεων - Structured Query Language</em> ή <em>SQL</em> για συντομία.</p>
 <p><a href="http://en.wikipedia.org/wiki/SQL" class="uri">http://en.wikipedia.org/wiki/SQL</a></p>
-<p>In our example, we are executing two SQL commands in our database. As a convention, we will show the SQL keywords in uppercase and the parts of the command that we are adding (such as the table and column names) will be shown in lowercase.</p>
-<p>The first SQL command removes the <code>Tracks</code> table from the database if it exists. This pattern is simply to allow us to run the same program to create the <code>Tracks</code> table over and over again without causing an error. Note that the <code>DROP TABLE</code> command deletes the table and all of its contents from the database (i.e., there is no “undo”).</p>
+<p>Στο παράδειγμά μας, εκτελούμε δύο εντολές SQL στη βάση δεδομένων μας. Κατά σύμβαση, θα γράφουμε τις δεσμευμένες λέξεις της SQL με κεφαλαία γράμματα και τα υπόλοιπα μέρη της εντολής, που προσθέτουμε (όπως τα ονόματα του πίνακα και των στηλών) θα εμφανίζονται με πεζά.</p>
+<p>Η πρώτη εντολή SQL διαγράφει τον πίνακα <code>Tracks</code> από τη βάση δεδομένων, εάν υπάρχει. Αυτό το μοτίβο χρησιμοποιείται απλώς για να μας επιτρέψει να εκτελέσουμε το ίδιο πρόγραμμα και να δημιουργήσουμε ξανά και ξανά τον πίνακα <code>Tracks</code> χωρίς να προκληθεί σφάλμα. Σημειώστε ότι η εντολή <code>DROP TABLE</code> διαγράφει τον πίνακα και όλα τα περιεχόμενά του από τη βάση δεδομένων (δηλαδή, δεν υπάρχει “αναίρεση”).</p>
 <pre class="python"><code>cur.execute(&#39;DROP TABLE IF EXISTS Tracks &#39;)</code></pre>
-<p>The second command creates a table named <code>Tracks</code> with a text column named <code>title</code> and an integer column named <code>plays</code>.</p>
+<p>Η δεύτερη εντολή δημιουργεί έναν πίνακα με όνομα <code>Tracks</code>, με μια στήλη κειμένου, που ονομάζεται <code>title</code> και μια στήλη ακεραίων, με το όνομα <code>plays</code>.</p>
 <pre class="python"><code>cur.execute(&#39;CREATE TABLE Tracks (title TEXT, plays INTEGER)&#39;)</code></pre>
-<p>Now that we have created a table named <code>Tracks</code>, we can put some data into that table using the SQL <code>INSERT</code> operation. Again, we begin by making a connection to the database and obtaining the <code>cursor</code>. We can then execute SQL commands using the cursor.</p>
-<p>The SQL <code>INSERT</code> command indicates which table we are using and then defines a new row by listing the fields we want to include <code>(title, plays)</code> followed by the <code>VALUES</code> we want placed in the new row. We specify the values as question marks <code>(?, ?)</code> to indicate that the actual values are passed in as a tuple <code>( 'My Way', 15 )</code> as the second parameter to the <code>execute()</code> call.</p>
+<p>Τώρα που δημιουργήσαμε έναν πίνακα με το όνομα <code>Tracks</code>, μπορούμε να εισάγουμε κάποια δεδομένα σε αυτόν τον πίνακα, χρησιμοποιώντας την εντολή SQL <code>INSERT</code>. Και πάλι, ξεκινάμε κάνοντας μια σύνδεση με τη βάση δεδομένων και αποκτώντας τον <code>cursor</code>. Στη συνέχεια, μπορούμε να εκτελέσουμε εντολές SQL, χρησιμοποιώντας τον κέρσορα.</p>
+<p>Η εντολή SQL <code>INSERT</code> υποδεικνύει ποιον πίνακα χρησιμοποιούμε και στη συνέχεια ορίζει μια νέα σειρά παραθέτοντας τα πεδία που θέλουμε να συμπεριλάβουμε <code>(title, plays)</code>, ακολουθούμενα από το <code>VALUES</code> και τις <code>τιμές</code>, που θέλουμε να τοποθετηθούν στη νέα σειρά. Καθορίζουμε τις τιμές ως ερωτηματικά <code>(?, ?)</code>, για να υποδείξουμε ότι οι πραγματικές τιμές μεταβιβάζονται ως η πλειάδα <code>( 'My Way', 15 )</code> και μάλιστα, ως η δεύτερη παράμετρος στην κλήση της <code>execute()</code>.</p>
 <pre class="python"><code>import sqlite3
 
 conn = sqlite3.connect(&#39;music.sqlite&#39;)
@@ -236,17 +99,17 @@ conn.commit()
 
 cur.close()
 
-# Code: http://www.py4e.com/code3/db2.py</code></pre>
-<p>First we <code>INSERT</code> two rows into our table and use <code>commit()</code> to force the data to be written to the database file.</p>
+# Code: http://www.gr.py4e.com/code3/db2.py</code></pre>
+<p>Πρώτα, με το <code>INSERT</code> εισαγάγουμε δύο γραμμές στον πίνακά μας και χρησιμοποιούμε την <code>commit()</code> για να αναγκάσουμε τα δεδομένα να εγγραφούν στο αρχείο της βάσης δεδομένων.</p>
 <figure>
-<img src="../images/tracks.svg" alt="Rows in a Table" style="height: 1.5in;"/>
+<img src="../images/tracks.svg" alt="Γραμμές σε έναν Πίνακα" style="height: 1.5in;"/>
 <figcaption>
-Rows in a Table
+Γραμμές σε έναν Πίνακα
 </figcaption>
 </figure>
 <p>Then we use the <code>SELECT</code> command to retrieve the rows we just inserted from the table. On the <code>SELECT</code> command, we indicate which columns we would like <code>(title, plays)</code> and indicate which table we want to retrieve the data from. After we execute the <code>SELECT</code> statement, the cursor is something we can loop through in a <code>for</code> statement. For efficiency, the cursor does not read all of the data from the database when we execute the <code>SELECT</code> statement. Instead, the data is read on demand as we loop through the rows in the <code>for</code> statement.</p>
 <p>The output of the program is as follows:</p>
-<pre><code>Tracks:
+<pre class="{text}"><code>Tracks:
 (&#39;Thunderstruck&#39;, 20)
 (&#39;My Way&#39;, 15)</code></pre>
 <p></p>
@@ -347,7 +210,7 @@ while True:
 
 cur.close()
 
-# Code: http://www.py4e.com/code3/twspider.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/twspider.py</code></pre>
 <p>Our database is stored in the file <code>spider.sqlite</code> and it has one table named <code>Twitter</code>. Each row in the <code>Twitter</code> table has a column for the account name, whether we have retrieved the friends of this account, and how many times this account has been “friended”.</p>
 <p>In the main loop of the program, we prompt the user for a Twitter account name or “quit” to exit the program. If the user enters a Twitter account, we retrieve the list of friends and statuses for that user and add each friend to the database if not already in the database. If the friend is already in the list, we add 1 to the <code>friends</code> field in the row in the database.</p>
 <p>If the user presses enter, we look in the database for the next Twitter account that we have not yet retrieved, retrieve the friends and statuses for that account, add them to the database or update them, and increase their <code>friends</code> count.</p>
@@ -392,7 +255,7 @@ for row in cur:
 print(count, &#39;rows.&#39;)
 cur.close()
 
-# Code: http://www.py4e.com/code3/twdump.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/twdump.py</code></pre>
 <p>This program simply opens the database and selects all of the columns of all of the rows in the table <code>Twitter</code>, then loops through the rows and prints out each row.</p>
 <p>If we run this program after the first execution of our Twitter spider above, its output will be as follows:</p>
 <pre><code>(&#39;opencontent&#39;, 0, 1)
@@ -468,7 +331,7 @@ cur.execute(&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;,(acct, ))</c
 <p>When we add <code>UNIQUE</code> clauses to our tables, we are communicating a set of rules that we are asking the database to enforce when we attempt to insert records. We are creating these rules as a convenience in our programs, as we will see in a moment. The rules both keep us from making mistakes and make it simpler to write some of our code.</p>
 <p>In essence, in creating this <code>Follows</code> table, we are modelling a “relationship” where one person “follows” someone else and representing it with a pair of numbers indicating that (a) the people are connected and (b) the direction of the relationship.</p>
 <figure>
-<img src="figs2/twitter.svg" alt="Relationships Between Tables" style="height: 3.5in;"/>
+<img src="../images/twitter1.svg" alt="Relationships Between Tables" style="height: 3.5in;"/>
 <figcaption>
 Relationships Between Tables
 </figcaption>
@@ -576,7 +439,7 @@ while True:
     conn.commit()
 cur.close()
 
-# Code: http://www.py4e.com/code3/twfriends.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/twfriends.py</code></pre>
 <p>This program is starting to get a bit complicated, but it illustrates the patterns that we need to use when we are using integer keys to link tables. The basic patterns are:</p>
 <ol type="1">
 <li><p>Create tables with primary keys and constraints.</p></li>
@@ -585,7 +448,7 @@ cur.close()
 </ol>
 <p>We will cover each of these in turn.</p>
 <h3 id="constraints-in-database-tables">Constraints in database tables</h3>
-<p>As we design our table structures, we can tell the database system that we would like it to enforce a few rules on us. These rules help us from making mistakes and introducing incorrect data into out tables. When we create our tables:</p>
+<p>As we design our table structures, we can tell the database system that we would like it to enforce a few rules on us. These rules help us from making mistakes and introducing incorrect data into our tables. When we create our tables:</p>
 <pre class="python"><code>cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS People
     (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)&#39;&#39;&#39;)
 cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS Follows
@@ -603,7 +466,7 @@ cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS Follows
 <p>When we prompt the user for a Twitter account, if the account exists, we must look up its <code>id</code> value. If the account does not yet exist in the <code>People</code> table, we must insert the record and get the <code>id</code> value from the inserted row.</p>
 <p>This is a very common pattern and is done twice in the program above. This code shows how we look up the <code>id</code> for a friend’s account when we have extracted a <code>screen_name</code> from a <code>user</code> node in the retrieved Twitter JSON.</p>
 <p>Since over time it will be increasingly likely that the account will already be in the database, we first check to see if the <code>People</code> record exists using a <code>SELECT</code> statement.</p>
-<p>If all goes well<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> inside the <code>try</code> section, we retrieve the record using <code>fetchone()</code> and then retrieve the first (and only) element of the returned tuple and store it in <code>friend_id</code>.</p>
+<p>If all goes well<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> inside the <code>try</code> section, we retrieve the record using <code>fetchone()</code> and then retrieve the first (and only) element of the returned tuple and store it in <code>friend_id</code>.</p>
 <p>If the <code>SELECT</code> fails, the <code>fetchone()[0]</code> code will fail and control will transfer into the <code>except</code> section.</p>
 <pre class="python"><code>    friend = u[&#39;screen_name&#39;]
     cur.execute(&#39;SELECT id FROM People WHERE name = ? LIMIT 1&#39;,
@@ -673,7 +536,7 @@ Follows:
     ON Follows.from_id = People.id WHERE People.id = 1</code></pre>
 <p>The <code>JOIN</code> clause indicates that the fields we are selecting cross both the <code>Follows</code> and <code>People</code> tables. The <code>ON</code> clause indicates how the two tables are to be joined: Take the rows from <code>Follows</code> and append the row from <code>People</code> where the field <code>from_id</code> in <code>Follows</code> is the same the <code>id</code> value in the <code>People</code> table.</p>
 <figure>
-<img src="figs2/join.svg" alt="Connecting Tables Using JOIN" style="height: 3.5in;"/>
+<img src="../images/join.svg" alt="Connecting Tables Using JOIN" style="height: 3.5in;"/>
 <figcaption>
 Connecting Tables Using JOIN
 </figcaption>
@@ -713,7 +576,7 @@ print(count, &#39;rows.&#39;)
 
 cur.close()
 
-# Code: http://www.py4e.com/code3/twjoin.py</code></pre>
+# Code: http://www.gr.py4e.com/code3/twjoin.py</code></pre>
 <p>In this program, we first dump out the <code>People</code> and <code>Follows</code> and then dump out a subset of the data in the tables joined together.</p>
 <p>Here is the output of the program:</p>
 <pre><code>python twjoin.py
@@ -785,11 +648,11 @@ Connections for id=2:
 </dd>
 </dl>
 <p></p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>SQLite actually does allow some flexibility in the type of data stored in a column, but we will keep our data types strict in this chapter so the concepts apply equally to other database systems such as MySQL.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>In general, when a sentence starts with “if all goes well” you will find that the code needs to use try/except.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Το SQLite στην πραγματικότητα επιτρέπει κάποια ευελιξία στον τύπο των δεδομένων που αποθηκεύονται σε μια στήλη, αλλά θα διατηρήσουμε τους τύπους δεδομένων μας αυστηρούς σε αυτό το κεφάλαιο, ώστε οι έννοιες να ισχύουν εξίσου και σε άλλα συστήματα βάσεων δεδομένων, όπως π.χ. MySQL.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>In general, when a sentence starts with “if all goes well” you will find that the code needs to use try/except.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 </body>
