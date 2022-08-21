@@ -171,8 +171,8 @@ cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
 `cursor`. Στη συνέχεια, μπορούμε να εκτελέσουμε εντολές SQL, χρησιμοποιώντας
 τον κέρσορα.
 
-Η εντολή SQL `INSERT` υποδεικνύει ποιον πίνακα χρησιμοποιούμε και στη συνέχεια
-ορίζει μια νέα σειρά παραθέτοντας τα πεδία που θέλουμε να συμπεριλάβουμε
+Η εντολή SQL `INSERT` δηλώνει ποιον πίνακα θα χρησιμοποιήσουμε και στη συνέχεια
+ορίζει μια νέα σειρά, παραθέτοντας τα πεδία που θέλουμε να συμπεριλάβουμε
 `(title, plays)`, ακολουθούμενα από το `VALUES` και τις `τιμές`, που θέλουμε να
 τοποθετηθούν στη νέα σειρά. Καθορίζουμε τις τιμές ως ερωτηματικά `(?, ?)`, για
 να υποδείξουμε ότι οι πραγματικές τιμές μεταβιβάζονται ως η πλειάδα
@@ -187,17 +187,17 @@ cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
 
 ![Γραμμές σε έναν Πίνακα](height=1.5in@../images/tracks)
 
-Then we use the `SELECT` command to retrieve the rows we just
-inserted from the table. On the `SELECT` command, we indicate
-which columns we would like `(title, plays)` and indicate
-which table we want to retrieve the data from. After we execute the
-`SELECT` statement, the cursor is something we can loop
-through in a `for` statement. For efficiency, the cursor does
-not read all of the data from the database when we execute the
-`SELECT` statement. Instead, the data is read on demand as we
-loop through the rows in the `for` statement.
+Στη συνέχεια, χρησιμοποιούμε την εντολή `SELECT`, για να ανακτήσουμε τις
+γραμμές που μόλις εισαγάγαμε από τον πίνακα. Στην εντολή `SELECT`,
+δηλώνουμε ποιες στήλες θέλουμε `(title, plays)` και δηλώνουμε επίσης από
+ποιον πίνακα θέλουμε να ανακτήσουμε τα δεδομένα. Αφού εκτελέσουμε την πρόταση
+`SELECT`, ο κέρσορας μπορεί να χρησιμοποιηθεί στο βρόχο `for` για να
+διατρέξουμε τις γραμμές που ανέκτησε η `SELECT`. Για λόγους
+αποτελεσματικότητας, ο κέρσορας δεν διαβάζει όλα τα δεδομένα από τη βάση
+δεδομένων όταν εκτελούμε την εντολή `SELECT`. Αντίθετα, τα δεδομένα διαβάζονται
+κατ' απαίτηση καθώς κάνουμε τις απαιτούμε μία μία, με το βρόχο`for`.
 
-The output of the program is as follows:
+Η έξοδος του προγράμματος είναι η εξής:
 
 ~~~~{text}
 Tracks:
@@ -207,148 +207,150 @@ Tracks:
 
 \index{Unicode}
 
-Our `for` loop finds two rows, and each row is a Python tuple
-with the first value as the `title` and the second value as
-the number of `plays`.
+Ο βρόχος `for` βρίσκει δύο γραμμές και κάθε γραμμή είναι μια πλειάδα Python με
+την πρώτη τιμή ως `title` και τη δεύτερη τιμή ως τον αριθμό των `plays`.
 
-*Note: You may see strings starting with `u'` in other books or on the Internet. 
-This was an indication in Python 2 that the strings are *Unicode* strings that are capable
-of storing non-Latin character sets. In Python 3, all strings are unicode
-strings by default.*
+*Σημείωση: Μπορεί να δείτε συμβολοσειρές που ξεκινούν με `u'` σε άλλα βιβλία ή
+στο Διαδίκτυο. Αυτό ήταν μια ένδειξη στην Python 2 ότι οι συγκεκριμένες
+συμβολοσειρές είναι συμβολοσειρές **Unicode**, που μπορούν να αποθηκεύουν
+σύνολα μη Λατινικών χαρακτήρων. Στην Python 3, όλες οι συμβολοσειρές είναι
+από προεπιλογή συμβολοσειρές unicode.*
 
-At the very end of the program, we execute an SQL command to
-`DELETE` the rows we have just created so we can run the
-program over and over. The `DELETE` command shows the use of
-a `WHERE` clause that allows us to express a selection
-criterion so that we can ask the database to apply the command to only
-the rows that match the criterion. In this example the criterion happens
-to apply to all the rows so we empty the table out so we can run the
-program repeatedly. After the `DELETE` is performed, we also
-call `commit()` to force the data to be removed from the
-database.
+Στο τέλος του προγράμματος, εκτελούμε μια εντολή SQL `DELETE` για διαγραφή των
+γραμμών που μόλις δημιουργήσαμε, ώστε να μπορούμε να τρέχουμε ξανά και ξανά το
+ίδιο πρόγραμμα. Η εντολή `DELETE` χρησιμοποιεί τον όρο `WHERE`, που μας
+επιτρέπει να εφαρμόσουμε ένα κριτήριο επιλογής, ώστε να μπορούμε να ζητήσουμε
+από τη βάση δεδομένων να εφαρμόσει την εντολή μόνο στις γραμμές που ταιριάζουν
+με το κριτήριο. Σε αυτό το παράδειγμα το κριτήριο συμβαίνει να ισχύει για όλες
+τις γραμμές, έτσι αδειάζουμε τον πίνακα, ώστε να μπορούμε να τρέξουμε το
+πρόγραμμα επανειλημμένα. Αφού εκτελεστεί η `DELETE`, καλούμε επίσης την
+`commit()`, για να κατοχυρώσουμε τις αλλαγές (διαγραφές) στη βάση δεδομένων.
 
-Structured Query Language summary
----------------------------------
+Σύνοψη γλώσσας δομημένων ερωταπαντήσεων
+---------------------------------------
 
-So far, we have been using the Structured Query Language in our Python
-examples and have covered many of the basics of the SQL commands. In
-this section, we look at the SQL language in particular and give an
-overview of SQL syntax.
+Μέχρι στιγμής, χρησιμοποιούσαμε τη γλώσσα δομημένων ερωταπαντήσεων μέσα στα
+παραδείγματα Python και έχουμε καλύψει πολλά από τα βασικά των εντολών SQL.
+Σε αυτήν την ενότητα, εξετάζουμε συγκεκριμένα τη γλώσσα SQL και δίνουμε μια
+επισκόπηση της σύνταξης SQL.
 
-Since there are so many different database vendors, the Structured Query
-Language (SQL) was standardized so we could communicate in a portable
-manner to database systems from multiple vendors.
+Δεδομένου ότι υπάρχουν τόσοι πολλοί διαφορετικοί προμηθευτές βάσεων δεδομένων,
+η γλώσσα δομημένων ερωταπαντήσεων (SQL) τυποποιήθηκε, ώστε να μπορούμε να
+επικοινωνούμε, με φορητό τρόπο, με συστήματα βάσεων δεδομένων από διαφορετικούς
+προμηθευτές.
 
-A relational database is made up of tables, rows, and columns. The
-columns generally have a type such as text, numeric, or date data. When
-we create a table, we indicate the names and types of the columns:
+Μια σχεσιακή βάση δεδομένων αποτελείται από πίνακες, γραμμές και στήλες. Οι
+στήλες έχουν γενικά έναν τύπο, όπως δεδομένα κειμένου, αριθμών ή ημερομηνίας.
+Όταν δημιουργούμε έναν πίνακα, δηλώνουμε τα ονόματα και τους τύπους των
+στηλών:
 
 ~~~~ {.sql}
 CREATE TABLE Tracks (title TEXT, plays INTEGER)
 ~~~~
 
-To insert a row into a table, we use the SQL `INSERT`
-command:
+Για να εισάγουμε μια γραμή σε έναν πίνακα, χρησιμοποιούμε την εντολή SQL
+`INSERT`:
 
 ~~~~ {.sql}
 INSERT INTO Tracks (title, plays) VALUES ('My Way', 15)
 ~~~~
 
-The `INSERT` statement specifies the table name, then a list
-of the fields/columns that you would like to set in the new row, and
-then the keyword `VALUES` and a list of corresponding values
-for each of the fields.
+Η εντολή `INSERT` καθορίζει το όνομα του πίνακα, στη συνέχεια μια λίστα με τα
+πεδία/στήλες που θέλετε να καταχωρήσετε στη νέα γραμμή και, στη συνέχεια, τη
+δεσμευμένη λέξη `VALUES` και μια λίστα με τις αντίστοιχες τιμές, για κάθε ένα
+από τα πεδία αυτά.
 
-The SQL `SELECT` command is used to retrieve rows and columns
-from a database. The `SELECT` statement lets you specify
-which columns you would like to retrieve as well as a `WHERE`
-clause to select which rows you would like to see. It also allows an
-optional `ORDER BY` clause to control the sorting of the
-returned rows.
+Η εντολή SQL `SELECT` χρησιμοποιείται για την ανάκτηση γραμμών και στηλών από
+μια βάση δεδομένων. Η εντολή `SELECT` σάς επιτρέπει να καθορίσετε ποιες στήλες
+θέλετε να ανακτήσετε όπως επίσης, η δήλωση `WHERE` σάς επιτρέπει να επιλέξετε
+ποιες γραμμές θέλετε να επιστραφούν. Μπορεί επίσης να περιέχει έναν προαιρετικό
+όρο `ORDER BY` για την ταξινόμηση των επιστρεφόμενων γραμμών.
 
 ~~~~ {.sql}
 SELECT * FROM Tracks WHERE title = 'My Way'
 ~~~~
 
-Using `*` indicates that you want the database to return all of the
-columns for each row that matches the `WHERE` clause.
+Η χρήση του `*` δηλώνει ότι θέλετε η βάση δεδομένων να επιστρέψει όλες τις
+στήλες, για κάθε γραμμή που ταιριάζει με την πρόταση `WHERE`.
 
-Note, unlike in Python, in a SQL `WHERE` clause we use a
-single equal sign to indicate a test for equality rather than a double
-equal sign. Other logical operations allowed in a `WHERE`
-clause include `<`, `>`, `<=`, `>=`, `!=`, as well as `AND`
-and `OR` and parentheses to build your logical expressions.
+Σημειώστε, σε αντίθεση με την Python, σε μια πρόταση SQL `WHERE` χρησιμοποιούμε
+ένα μόνο σύμβολο ίσου για να υποδείξουμε μια σύγκριση ισότητας, αντί για διπλό
+σύμβολο ίσου. Άλλοι συγκριτικοί και λογικοί τελεστές, που επιτρέπονται, σε μια
+πρόταση `WHERE` περιλαμβάνουν τα `<`, `>`, `<=`, `>=`, `!=`, καθώς και τα `AND`
+και `OR` και παρενθέσεις για τη δημιουργία των λογικών σας εκφράσεων.
 
-You can request that the returned rows be sorted by one of the fields as
-follows:
+Μπορείτε να ζητήσετε να ταξινομηθούν οι επιστρεφόμενες γραμμές, κατά ένα από τα
+πεδία, ως εξής:
 
 ~~~~ {.sql}
 SELECT title,plays FROM Tracks ORDER BY title
 ~~~~
 
-To remove a row, you need a `WHERE` clause on an SQL
-`DELETE` statement. The `WHERE` clause determines
-which rows are to be deleted:
+Για να διαγράψετε μια γραμμή, χρειάζεστε μια πρόταση `WHERE` σε συνδυασμό με
+μια εντολή SQL `DELETE`. Η πρόταση `WHERE` καθορίζει ποιες σειρές θα
+διαγραφούν:
 
 ~~~~ {.sql}
 DELETE FROM Tracks WHERE title = 'My Way'
 ~~~~
 
-It is possible to `UPDATE` a column or columns within one or
-more rows in a table using the SQL `UPDATE` statement as
-follows:
+Είναι δυνατό να "ενημερώσετε" μια ή περισσότερες στήλες σε μία ή περισσότερες
+γραμμές ενός πίνακα, χρησιμοποιώντας την εντολή SQL `UPDATE` ως εξής:
 
 ~~~~ {.sql}
 UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
 ~~~~
 
-The `UPDATE` statement specifies a table and then a list of
-fields and values to change after the `SET` keyword and then
-an optional `WHERE` clause to select the rows that are to be
-updated. A single `UPDATE` statement will change all of the
-rows that match the `WHERE` clause. If a `WHERE`
-clause is not specified, it performs the `UPDATE` on all of
-the rows in the table.
+Η εντολή `UPDATE` καθορίζει έναν πίνακα και, στη συνέχεια, μια λίστα πεδίων και
+τιμών που θα αλλάξουν, μετά τη δεσμευμένη λέξη `SET` και, στη συνέχεια, μια
+προαιρετική πρόταση `WHERE`, για να επιλέξετε τις γραμμές που πρόκειται να
+ενημερωθούν. Μια μεμονωμένη δήλωση `UPDATE` ενημερώνει όλες τις γραμμές που
+ταιριάζουν με την πρόταση `WHERE`. Εάν δεν έχει καθοριστεί η πρόταση `WHERE`,
+εκτελείται "ενημέρωση" όλων των γραμμών του πίνακα.
 
-These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow
-the four basic operations needed to create and maintain data.
+Αυτές οι τέσσερις βασικές εντολές SQL (INSERT, SELECT, UPDATE και DELETE)
+υλοποιούν τις τέσσερις βασικές λειτουργίες, που απαιτούνται για τη δημιουργία
+και τη συντήρηση των δεδομένων.
 
-Spidering Twitter using a database
-----------------------------------
+Ανίχνευση του Twitter με χρήση βάσης δεδομένων
+----------------------------------------------
 
-In this section, we will create a simple spidering program that will go
-through Twitter accounts and build a database of them. *Note: Be very
-careful when running this program. You do not want to pull too much data
-or run the program for too long and end up having your Twitter access
-shut off.*
+Σε αυτή την ενότητα, θα δημιουργήσουμε ένα απλό πρόγραμμα ανίχνευσης
+(spidering), που θα διατρέξει λογαριασμούς του Twitter και θα δημιουργήσει
+μια βάση δεδομένων με αυτούς.
+*Σημείωση: Να είστε πολύ προσεκτικοί όταν εκτελείτε αυτό το πρόγραμμα. Δεν
+θέλετε να τραβήξετε πάρα πολλά δεδομένα ή να εκτελέσετε το πρόγραμμα για πολύ
+μεγάλο χρονικό διάστημα και να καταλήξετε να τερματίσετε την πρόσβασή σας στο
+Twitter.*
 
-One of the problems of any kind of spidering program is that it needs to
-be able to be stopped and restarted many times and you do not want to
-lose the data that you have retrieved so far. You don't want to always
-restart your data retrieval at the very beginning so we want to store
-data as we retrieve it so our program can start back up and pick up
-where it left off.
+Ένα από τα προβλήματα κάθε είδους προγράμματος spidering είναι ότι πρέπει να
+μπορεί να διακοπεί και να επανεκκινηθεί πολλές φορές και δεν θέλετε να χάσετε
+τα δεδομένα που έχετε ανακτήσει μέχρι τώρα. Δεν θέλετε να επανεκκινείτε και η
+ανάκτηση των δεδομένων να αρχίζει στην αρχή, επομένως θέλουμε να αποθηκεύουμε
+τα δεδομένα καθώς τα ανακτούμε, ώστε το πρόγραμμά μας να μπορεί να δημιουργεί
+αντίγραφα ασφαλείας και να συνεχίζει από εκεί που σταμάτησε.
 
-We will start by retrieving one person's Twitter friends and their
-statuses, looping through the list of friends, and adding each of the
-friends to a database to be retrieved in the future. After we process
-one person's Twitter friends, we check in our database and retrieve one
-of the friends of the friend. We do this over and over, picking an
-"unvisited" person, retrieving their friend list, and adding friends we
-have not seen to our list for a future visit.
+Θα ξεκινήσουμε με την ανάκτηση των φίλων ενός ατόμου στο Twitter και της
+κατάστασής τους, διατρέχοντας επαναληπτικά τη λίστα των φίλων και προσθέτοντας
+κάθε έναν από τους φίλους σε μια βάση δεδομένων, την οποία θα προσπελάσουμε
+αργότερα. Αφού επεξεργαστούμε τους φίλους ενός ατόμου στο Twitter, ελέγχουμε
+τη βάση δεδομένων μας και ανακτούμε έναν από τους φίλους του φίλου. Το κάνουμε
+αυτό ξανά και ξανά, επιλέγοντας ένα άτομο που δεν έχει "επισκεφτεί", ανακτώντας
+τη λίστα φίλων του και προσθέτοντας φίλους, που δεν έχουμε δει στη λίστα μας
+για μελλοντική επίσκεψη.
 
-We also track how many times we have seen a particular friend in the
-database to get some sense of their "popularity".
+Παρακολουθούμε επίσης πόσες φορές έχουμε δει έναν συγκεκριμένο φίλο στη βάση
+δεδομένων για να σχηματίσουμε μια εικόνα της «δημοτικότητάς» του.
 
-By storing our list of known accounts and whether we have retrieved the
-account or not, and how popular the account is in a database on the disk
-of the computer, we can stop and restart our program as many times as we
-like.
+Αποθηκεύοντας τη λίστα των γνωστών λογαριασμών μας και εάν έχουμε ανακτήσει
+τον λογαριασμό ή όχι και πόσο δημοφιλής είναι ο λογαριασμός σε μια βάση
+δεδομένων, στο δίσκο του υπολογιστή, μπορούμε να σταματήσουμε και να
+επανεκκινήσουμε το πρόγραμμά μας όσες φορές θέλουμε.
 
-This program is a bit complex. It is based on the code from the exercise
-earlier in the book that uses the Twitter API.
+Αυτό το πρόγραμμα είναι λίγο περίπλοκο. Βασίζεται στον κώδικα από την άσκηση
+νωρίτερα στο βιβλίο, που χρησιμοποιεί το Twitter API.
 
-Here is the source code for our Twitter spidering application:
+Εδώ είναι ο πηγαίος κώδικας για την εφαρμογή ανίχνευσης του Twitter:
 
 \VerbatimInput{../code3/twspider.py}
 
