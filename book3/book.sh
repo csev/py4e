@@ -12,7 +12,7 @@ fi
 echo Using python command: $MY_PYTHON
 
 # For yucks make the epub
-cat epub-metadata.txt *.mkd | grep -v '^%' | $MY_PYTHON pre-html.py | $MY_PYTHON verbatim.py | pandoc --default-image-extension=svg --css=epub.css -o x.epub
+cat epub-metadata.txt *.mkd | grep -v '^%' | $MY_PYTHON pre-html.py | $MY_PYTHON verbatim.py | iconv -f utf8 -t ascii//TRANSLIT | pandoc --default-image-extension=svg --css=epub.css -o x.epub
 
 rm tmp.* *.tmp *.aux
 pandoc A0-preface.mkd -o tmp.prefacex.tex
