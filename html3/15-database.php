@@ -779,7 +779,7 @@ modelling a “relationship” where one person “follows” someone else and
 representing it with a pair of numbers indicating that (a) the people
 are connected and (b) the direction of the relationship.</p>
 <figure>
-<img src="figs2/twitter.svg" alt="Relationships Between Tables" style="height: 3.5in;"/>
+<img src="../images/twitter.svg" alt="Relationships Between Tables" style="height: 3.5in;"/>
 <figcaption>
 Relationships Between Tables
 </figcaption>
@@ -1089,7 +1089,7 @@ from <code>People</code> where the field <code>from_id</code> in
 <code>Follows</code> is the same the <code>id</code> value in the
 <code>People</code> table.</p>
 <figure>
-<img src="figs2/join.svg" alt="Connecting Tables Using JOIN" style="height: 3.5in;"/>
+<img src="../images/join.svg" alt="Connecting Tables Using JOIN" style="height: 3.5in;"/>
 <figcaption>
 Connecting Tables Using JOIN
 </figcaption>
