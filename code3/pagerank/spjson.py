@@ -3,8 +3,8 @@ import sqlite3
 conn = sqlite3.connect('spider.sqlite')
 cur = conn.cursor()
 
-print("Creating JSON output on spider.js...")
-howmany = int(input("How many nodes? "))
+print("Δημιουργία εξόδου JSON στο spider.js...")
+howmany = int(input("Πόσους κόμβους? "))
 
 cur.execute('''SELECT COUNT(from_id) AS inbound, old_rank, new_rank, id, url 
     FROM Pages JOIN Links ON Pages.id = Links.to_id
@@ -23,7 +23,7 @@ for row in cur :
     if len(nodes) > howmany : break
 
 if maxrank == minrank or maxrank is None or minrank is None:
-    print("Error - please run sprank.py to compute page rank")
+    print("Σφάλμα - εκτελέστε το sprank.py για να υπολογίσετε την κατάταξη σελίδας")
     quit()
 
 fhand.write('spiderJson = {"nodes":[\n')
@@ -32,7 +32,7 @@ map = dict()
 ranks = dict()
 for row in nodes :
     if count > 0 : fhand.write(',\n')
-    # print row
+    # print(row)
     rank = row[2]
     rank = 19 * ( (rank - minrank) / (maxrank - minrank) ) 
     fhand.write('{'+'"weight":'+str(row[0])+',"rank":'+str(rank)+',')
@@ -47,7 +47,7 @@ fhand.write('"links":[\n')
 
 count = 0
 for row in cur :
-    # print row
+    # print(row)
     if row[0] not in map or row[1] not in map : continue
     if count > 0 : fhand.write(',\n')
     rank = ranks[row[0]]
@@ -58,4 +58,4 @@ fhand.write(']};')
 fhand.close()
 cur.close()
 
-print("Open force.html in a browser to view the visualization")
+print("Ανοίξτε το force.html σε ένα πρόγραμμα περιήγησης για να δείτε την οπτικοποίηση")

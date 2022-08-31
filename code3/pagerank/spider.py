@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-# Ignore SSL certificate errors
+# Αγνόηση των σφαλμάτων πιστοποιητικού SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
@@ -23,13 +23,13 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Links
 
 cur.execute('''CREATE TABLE IF NOT EXISTS Webs (url TEXT UNIQUE)''')
 
-# Check to see if we are already in progress...
+# Έλεγχος για να δούμε αν είμαστε ήδη σε εξέλιξη...
 cur.execute('SELECT id,url FROM Pages WHERE html is NULL and error is NULL ORDER BY RANDOM() LIMIT 1')
 row = cur.fetchone()
 if row is not None:
-    print("Restarting existing crawl.  Remove spider.sqlite to start a fresh crawl.")
+    print("Επανεκκίνηση υπάρχουσας ανίχνευσης. Κατάργηση του spider.sqlite για να ξεκινήσει μια νέα ανίχνευση.")
 else :
-    starturl = input('Enter web url or enter: ')
+    starturl = input('Εισαγάγετε τη διεύθυνση url ιστού ή enter: ')
     if ( len(starturl) < 1 ) : starturl = 'http://www.dr-chuck.com/'
     if ( starturl.endswith('/') ) : starturl = starturl[:-1]
     web = starturl
@@ -42,7 +42,7 @@ else :
         cur.execute('INSERT OR IGNORE INTO Pages (url, html, new_rank) VALUES ( ?, NULL, 1.0 )', ( starturl, ) )
         conn.commit()
 
-# Get the current webs
+# Λήψη των τρέχοντων σελίδων
 cur.execute('''SELECT url FROM Webs''')
 webs = list()
 for row in cur:
@@ -53,7 +53,7 @@ print(webs)
 many = 0
 while True:
     if ( many < 1 ) :
-        sval = input('How many pages:')
+        sval = input('Πόσες σελίδες:')
         if ( len(sval) < 1 ) : break
         many = int(sval)
     many = many - 1
@@ -61,28 +61,28 @@ while True:
     cur.execute('SELECT id,url FROM Pages WHERE html is NULL and error is NULL ORDER BY RANDOM() LIMIT 1')
     try:
         row = cur.fetchone()
-        # print row
+        # print(row)
         fromid = row[0]
         url = row[1]
     except:
-        print('No unretrieved HTML pages found')
+        print('Δεν βρέθηκαν μη ανακτημένες σελίδες HTML')
         many = 0
         break
 
     print(fromid, url, end=' ')
 
-    # If we are retrieving this page, there should be no links from it
+    # Εάν ανακτούμε αυτήν τη σελίδα, δεν θα πρέπει να υπάρχουν σύνδεσμοι από αυτήν
     cur.execute('DELETE from Links WHERE from_id=?', (fromid, ) )
     try:
         document = urlopen(url, context=ctx)
 
         html = document.read()
         if document.getcode() != 200 :
-            print("Error on page: ",document.getcode())
+            print("Σφάλμα στη σελίδα: ",document.getcode())
             cur.execute('UPDATE Pages SET error=? WHERE url=?', (document.getcode(), url) )
 
         if 'text/html' != document.info().get_content_type() :
-            print("Ignore non text/html page")
+            print("Αγνόηση σελίδας χωρίς κείμενο/html")
             cur.execute('DELETE FROM Pages WHERE url=?', ( url, ) )
             conn.commit()
             continue
@@ -92,10 +92,10 @@ while True:
         soup = BeautifulSoup(html, "html.parser")
     except KeyboardInterrupt:
         print('')
-        print('Program interrupted by user...')
+        print('Το πρόγραμμα διακόπηκε από τον χρήστη...')
         break
     except:
-        print("Unable to retrieve or parse page")
+        print("Δεν είναι δυνατή η ανάκτηση ή η ανάλυση της σελίδας")
         cur.execute('UPDATE Pages SET error=-1 WHERE url=?', (url, ) )
         conn.commit()
         continue
@@ -104,13 +104,13 @@ while True:
     cur.execute('UPDATE Pages SET html=? WHERE url=?', (memoryview(html), url ) )
     conn.commit()
 
-    # Retrieve all of the anchor tags
+    # Ανάκτηση όλων των ετικετών αγκύρωσης
     tags = soup('a')
     count = 0
     for tag in tags:
         href = tag.get('href', None)
         if ( href is None ) : continue
-        # Resolve relative references like href="/contact"
+        # Επίλυση σχετικών παραπομπών όπως href="/contact"
         up = urlparse(href)
         if ( len(up.scheme) < 1 ) :
             href = urljoin(url, href)
@@ -118,10 +118,10 @@ while True:
         if ( ipos > 1 ) : href = href[:ipos]
         if ( href.endswith('.png') or href.endswith('.jpg') or href.endswith('.gif') ) : continue
         if ( href.endswith('/') ) : href = href[:-1]
-        # print href
+        # print(href)
         if ( len(href) < 1 ) : continue
 
-		# Check if the URL is in any of the webs
+		# Έλεγχος εάν η διεύθυνση URL βρίσκεται σε κάποιον από τους webs
         found = False
         for web in webs:
             if ( href.startswith(web) ) :
@@ -138,9 +138,9 @@ while True:
             row = cur.fetchone()
             toid = row[0]
         except:
-            print('Could not retrieve id')
+            print('Δεν ήταν δυνατή η ανάκτηση του αναγνωριστικού')
             continue
-        # print fromid, toid
+        # print(fromid, toid)
         cur.execute('INSERT OR IGNORE INTO Links (from_id, to_id) VALUES ( ?, ? )', ( fromid, toid ) )
 
 
