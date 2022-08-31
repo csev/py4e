@@ -1,81 +1,82 @@
-Using the OpenStreetMap API with the database and data visualization
-on OpenStreetMap.
+Χρήση του OpenStreetMap API με τη βάση δεδομένων και την οπτικοποίηση δεδομένων
+στο OpenStreetMap.
 
-In this project, we use the free OpenStreetMap API (Nominatim service) to 
-convert university names entered by users into geographical locations,
-and then we place the processed data on the OpenStreetMap map.
+Σε αυτό το έργο, χρησιμοποιούμε το δωρεάν OpenStreetMap API (υπηρεσία Nominatim),
+για να μετατρέψουμε τα ονόματα των πανεπιστημίων που έχουν καταχωρίσει οι χρήστες
+σε γεωγραφικές τοποθεσίες και, στη συνέχεια, τοποθετούμε τα επεξεργασμένα δεδομένα
+στον χάρτη OpenStreetMap.
 
-Note: After Windows, we recommend that you use the PowerShell terminal so that it doesn't 
-problems with displaying UTF-8 characters.
+Σημείωση: Μετά τα Windows, σας συνιστούμε να χρησιμοποιείτε το τερματικό PowerShell,
+ώστε να μην αντιμετωπίζει προβλήματα με την εμφάνιση χαρακτήρων UTF-8.
 
-The program must be installed to view and modify the database
-DB Browser for SQLite:
+Το πρόγραμμα πρέπει να εγκατασταθεί για να προβάλετε και να τροποποιήσετε
+τη βάση δεδομένων DB Browser για SQLite:
 
 https://sqlitebrowser.org/
 
-In the terms of using the Nominatim service there is an indication to agree to 
-a maximum of one query per second (the service is free, hence if we
-they generated a very large number of inquiries in a short time, probably quickly
-we would be blocked from accessing the API). We divide our task into two phases.
+Όσον αφορά τους όρους χρήσης της υπηρεσίας Nominatim, υπάρχει ένδειξη να συμφωνήσετε
+σε ένα ερώτημα το πολύ, ανά δευτερόλεπτο (η υπηρεσία είναι δωρεάν, επομένως, εάν
+δημιουργούσαμε πολύ μεγάλο αριθμό ερωτήσεων σε σύντομο χρονικό διάστημα, πιθανότατα
+γρήγορα θα αποκλειόμασταν από την πρόσβαση στο API).
+Χωρίζουμε την εργασία μας σε δύο φάσεις.
 
-In the first phase, we take our input from where.data and read it
-them line by line while reading the server's geocoded response
-Nominatim and store it in the database (opengeo.sqlite file). Before we use
-Geocoding API, we just check if we already have data for this particular one
-line, so we won't be able to restart the program
-they had to query the API a second time.
+Σε πρώτη φάση, παίρνουμε τα δεδομένα μας από το where.data και τα διαβάζουμε γραμμή
+προς γραμμή, ενώ διαβάζουμε τη γεωκωδικοποιημένη απάντηση του διακομιστή Nominatim
+και την αποθηκεύουμε στη βάση δεδομένων (αρχείο opengeo.sqlite).
+Προτού χρησιμοποιήσουμε το Geocoding API, απλώς ελέγχουμε αν έχουμε ήδη δεδομένα για
+τη συγκεκριμένη γραμμή, οπότε δεν θα μπορούμε να επανεκκινήσουμε το πρόγραμμα που
+χρειάστηκε για να ρωτήσουμε το API για δεύτερη φορά.
 
-At any time, you can start the entire process from scratch by simply deleting
-the generated opengeo.sqlite file.
+Ανά πάσα στιγμή, μπορείτε να ξεκινήσετε ολόκληρη τη διαδικασία από την αρχή,
+διαγράφοντας απλώς το αρχείο opengeo.sqlite που δημιουργήθηκε.
 
-Run the geoload.py program. This program will read input lines from the file
-where.data and check for each row to see if it's already in the database, and
-if we do not have data for the location being processed, it will trigger an API query
-geocoding to retrieve data and store it in SQLite.
+Εκτελέστε το πρόγραμμα geoload.py. Αυτό το πρόγραμμα θα διαβάσει γραμμές εισόδου
+από το αρχείο where.data και θα ελέγξει, για κάθε σειρά, για να δει αν βρίσκεται ήδη
+στη βάση δεδομένων και εάν δεν έχουμε δεδομένα για την τοποθεσία που υποβάλλεται σε
+επεξεργασία, θα ενεργοποιήσει ένα ερώτημα API γεωκωδικοποίησης, για την ανάκτηση
+δεδομένων και θα το αποθηκεύσει στο SQLite.
 
-Here is an example of a run after some are already in the database
-data:
+Ακολουθεί ένα παράδειγμα εκτέλεσης, αφού ορισμένα βρίσκονται ήδη στα δεδομένα της
+βάσης δεδομένων:
 
 python3 geoload.py 
 
-Found in database AGH University of Science and Technology
+Βρέθηκε στη βάση δεδομένων AGH University of Science and Technology
 
-Found in database Academy of Fine Arts Warsaw Poland
+Βρέθηκε στη βάση δεδομένων Academy of Fine Arts Warsaw Poland
 
-Found in database American University in Cairo
+Βρέθηκε στη βάση δεδομένων American University in Cairo
 
-Found in database Arizona State University
+Βρέθηκε στη βάση δεδομένων Arizona State University
 
-Found in database Athens Information Technology
+Βρέθηκε στη βάση δεδομένων Athens Information Technology
 
-Retrieving https://py4e-data.dr-chuck.net/opengeo?q=BITS+Pilani
-Retrieved 794 characters {"type":"FeatureColl
+Ανάκτηση του https://py4e-data.dr-chuck.net/opengeo?q=BITS+Pilani
+Ανακτήθηκαν 794 χαρακτήρες {"type":"FeatureColl
 
-Retrieving https://py4e-data.dr-chuck.net/opengeo?q=Babcock+University
-Retrieved 760 characters {"type":"FeatureColl
+Ανάκτηση του https://py4e-data.dr-chuck.net/opengeo?q=Babcock+University
+Ανακτήθηκαν 760 χαρακτήρες {"type":"FeatureColl
 
-Retrieving https://py4e-data.dr-chuck.net/opengeo?q=Banaras+Hindu+University
-Retrieved 866 characters {"type":"FeatureColl
+Ανάκτηση του https://py4e-data.dr-chuck.net/opengeo?q=Banaras+Hindu+University
+Ανακτήθηκαν 866 χαρακτήρες {"type":"FeatureColl
 
 ...
 
-The first five locations are already in the database, and so are they
-omitted. The program processes data until it finds unsaved
-locations and starts asking the API for them.
+Οι πρώτες πέντε τοποθεσίες βρίσκονται ήδη στη βάση δεδομένων, και έτσι παραλείπονται.
+Το πρόγραμμα επεξεργάζεται δεδομένα μέχρι να βρει μη αποθηκευμένες τοποθεσίες και να
+αρχίσει να τις ζητά από το API.
 
-The geoload.py file can be stopped at any time, plus the code
-contains a counter (the variable 'count') that can be used to limit the number
-connections to the geocoding API in a given program startup.
+Το αρχείο geoload.py μπορεί να διακοπεί ανά πάσα στιγμή, επιπλέον ο κώδικας περιέχει
+έναν μετρητή (τη μεταβλητή 'count') που μπορεί να χρησιμοποιηθεί για τον περιορισμό των
+αριθμητικών συνδέσεων στο API γεωκωδικοποίησης, σε μια δεδομένη εκκίνηση προγράμματος.
 
-After the data has been loaded into opengeo.sqlite, you can visualize it with
-geodump.py. This program reads the database and writes the where.js file
-containing locations, latitudes, and longitudes in the form
-JavaScript executable. The ZIP file you downloaded already contains
-where.js generated, but you can generate it again to check
-operation of the geodump.py program.
+Αφού φορτωθούν τα δεδομένα στο opengeo.sqlite, μπορείτε να τα οπτικοποιήσετε με το
+geodump.py. Αυτό το πρόγραμμα διαβάζει τη βάση δεδομένων και γράφει το αρχείο where.js,
+που περιέχει τοποθεσίες, γεωγραφικά πλάτη και μήκη με τη μορφή εκτελέσιμου JavaScript.
+Το αρχείο ZIP που κατεβάσατε περιέχει ήδη το Where.js που δημιουργήθηκε, αλλά μπορείτε
+να το δημιουργήσετε ξανά για να ελέγξετε τη λειτουργία του προγράμματος geodump.py.
 
-The geodump.py program is launched as follows:
-
+Το πρόγραμμα geodump.py ξεκινά ως εξής:
 
 
 python3 geodump.py
@@ -86,14 +87,14 @@ Academy of Fine Arts, Krakowskie Przedmieście, Northern Śródmieście,
 Śródmieście, Warsaw, Masovian Voivodeship, 00-046, Poland 52.2397515
 21.015564130658333
 ...
-260 lines were written to where.js
-Open the where.html file in a web browser to view the data.
+260 γραμμές γράφτηκαν στο where.js
+Ανοίξτε το where.html για να προβάλετε τα δεδομένα σε ένα πρόγραμμα περιήγησης.
 
 
-The where.html file consists of HTML and JavaScript that are used for visualization
-OpenStreetMap maps using the OpenLayers library. The page reads
-the most recent data from the where.js file to get the data necessary for
-visualization. Here is the format of the where.js file:
+Το αρχείο Where.html αποτελείται από HTML και JavaScript, που χρησιμοποιούνται για την
+οπτικοποίηση χαρτών OpenStreetMap, χρησιμοποιώντας τη βιβλιοθήκη OpenLayers. Η σελίδα
+διαβάζει τα πιο πρόσφατα δεδομένα από το αρχείο Where.js για να λάβει τα απαραίτητα
+δεδομένα για την οπτικοποίηση. Ακολουθεί η μορφή του αρχείου Where.js:
 
 
 myData = [
@@ -106,15 +107,14 @@ Poland'],
 ];
 
 
+Αυτή είναι μια λίστα με λίστες, γραμμένες σε JavaScript. Η γλώσσα σύνταξη λίστας της
+JavaScript είναι παρόμοια με τη σύνταξη της Python.
 
-This is a list of lists written in JavaScript. Language list syntax
-JavaScript is very similar to Python syntax.
-
-To see the locations on the map, open the where.html file in your browser
-website. You can hover over each map pin and click on it,
-so as to find the location that the encoding API returned for the input
-entered by the user. If you don't see the where.html file when you open it
-no data, check if JavaScript is enabled in the browser or in
-your browser's development console, check if there are any errors.
-
+Για να δείτε τις τοποθεσίες στον χάρτη, ανοίξτε το αρχείο where.html στον προγράμματος
+περιήγησής σας. Μπορείτε να τοποθετήσετε τον δείκτη του ποντικιού πάνω σε κάθε καρφίτσα
+του χάρτη και να κάνετε κλικ σε αυτήν, ώστε να βρείτε τη θέση που επέστρεψε το API
+κωδικοποίησης για την είσοδο που εισήγαγε ο χρήστης. Εάν δεν βλέπετε το αρχείο Where.html
+όταν το ανοίγετε, δεν υπάρχουν δεδομένα, ελέγξτε εάν η JavaScript είναι ενεργοποιημένη στο
+πρόγραμμα περιήγησής σας ή ελέγξτε εάν υπάρχουν σφάλματα στην κονσόλα ανάπτυξης του
+προγράμματος περιήγησής σας.
 
