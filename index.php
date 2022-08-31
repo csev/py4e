@@ -1,4 +1,4 @@
-<?php
+<!--<?php
 if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] == 'py4e') ) {
     setCookie('secret', '42', time() + 15 * 3600 * 24);
     header("Location: index.php");
@@ -45,7 +45,7 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] ==
 </center>
 <?php
     return;
-}
+} -->
 use \Tsugi\Core\LTIX;
 use \Tsugi\UI\Output;
 
