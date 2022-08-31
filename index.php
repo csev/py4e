@@ -46,13 +46,13 @@
 <?php
 #    return;
 #} 
--->
 use \Tsugi\Core\LTIX;
 use \Tsugi\UI\Output;
 
 require_once "top.php";
 require_once "nav.php";
 ?>
+-->
 <div id="container">
 <div style="margin-left: 10px; float:right">
 <iframe width="400" height="225" src="https://www.youtube.com/embed/UjeNA_JtXME?rel=0" frameborder="0" allowfullscreen></iframe>
@@ -89,7 +89,9 @@ IMS Learning Tools Interoperability® (LTI®) για να ξεκινήσετε �
 <ul>
 <li><a href="https://www.coursera.org/specializations/python" target="_blank">Coursera: Python for Everybody Specialization</a> </li>
 <li><a href="https://www.edx.org/bio/charles-severance" target="_blank">edX: Python for Everybody</a></li>
+<!--
 <li><a href="https://www.futurelearn.com/courses/programming-for-everybody-python" target="_blank">FutureLearn: Programming for Everybody (Getting Started with Python)</a></li>
+-->
 <li><a href="https://www.youtube.com/watch?v=8DvywoWv6fI" target="_blank">FreeCodeCamp</a></li>
 <li><a href="https://online.umich.edu/series/python-for-everybody/" target="_blank">Δωρεάν πιστοποιητικά για φοιτητές και προσωπικό του Πανεπιστημίου του Μίσιγκαν</a></li>
 </ul>
