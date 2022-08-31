@@ -45,7 +45,9 @@ You can take this course and receive a certificate at:
 <ul>
 <li><a href="https://www.coursera.org/specializations/python" target="_blank">Coursera: Python for Everybody Specialization</a> </li>
 <li><a href="https://www.edx.org/bio/charles-severance" target="_blank">edX: Python for Everybody</a></li>
+<!--
 <li><a href="https://www.futurelearn.com/courses/programming-for-everybody-python" target="_blank">FutureLearn: Programming for Everybody (Getting Started with Python)</a></li>
+-->
 <li><a href="https://www.youtube.com/watch?v=8DvywoWv6fI" target="_blank">FreeCodeCamp</a></li>
 <li><a href="https://online.umich.edu/series/python-for-everybody/" target="_blank">Free certificates for University of Michgan students and staff</a></li>
 </ul>
