@@ -63,9 +63,9 @@ conn.close()
 <p>Η λειτουργία <code>connect</code> πραγματοποιεί μια “σύνδεση” με τη βάση δεδομένων, που είναι αποθηκευμένη στο αρχείο <code>music.sqlite</code>, στον τρέχοντα κατάλογο. Εάν το αρχείο δεν υπάρχει, θα δημιουργηθεί. Ο λόγος που αυτό ονομάζεται “σύνδεση” είναι ότι μερικές φορές η βάση δεδομένων αποθηκεύεται σε έναν ξεχωριστό “διακομιστή βάσης δεδομένων”, από τον διακομιστή στον οποίο εκτελούμε την εφαρμογή μας. Στα απλά παραδείγματά μας η βάση δεδομένων θα είναι απλώς ένα τοπικό αρχείο στον ίδιο κατάλογο με τον κώδικα Python που εκτελούμε.</p>
 <p>Ένας <em>κέρσορας (cursor)</em> είναι σαν ένας περιγραφέας αρχείου, που μπορούμε να χρησιμοποιήσουμε για να εκτελέσουμε λειτουργίες επί των δεδομένων, που είναι αποθηκευμένα στη βάση δεδομένων. Η κλήση του <code>cursor()</code> μοιάζει πολύ εννοιολογικά με την κλήση του <code>open()</code>, όταν πρόκειται για αρχεία κειμένου.</p>
 <figure>
-<img src="../images/cursor.svg" alt="Ένας Cursor Βάσης Δεδομένων" style="height: 2.0in;"/>
+<img src="../images/cursor.svg" alt="Ένας Κέρσορας Βάσης Δεδομένων" style="height: 2.0in;"/>
 <figcaption>
-Ένας Cursor Βάσης Δεδομένων
+Ένας Κέρσορας Βάσης Δεδομένων
 </figcaption>
 </figure>
 <p>Μόλις έχουμε τον κέρσορα, μπορούμε να αρχίσουμε να εκτελούμε εντολές προς τα περιεχόμενα της βάσης δεδομένων χρησιμοποιώντας τη μέθοδο <code>execute()</code>.</p>
@@ -77,7 +77,7 @@ conn.close()
 <p>Η δεύτερη εντολή δημιουργεί έναν πίνακα με όνομα <code>Tracks</code>, με μια στήλη κειμένου, που ονομάζεται <code>title</code> και μια στήλη ακεραίων, με το όνομα <code>plays</code>.</p>
 <pre class="python"><code>cur.execute(&#39;CREATE TABLE Tracks (title TEXT, plays INTEGER)&#39;)</code></pre>
 <p>Τώρα που δημιουργήσαμε έναν πίνακα με το όνομα <code>Tracks</code>, μπορούμε να εισάγουμε κάποια δεδομένα σε αυτόν τον πίνακα, χρησιμοποιώντας την εντολή SQL <code>INSERT</code>. Και πάλι, ξεκινάμε κάνοντας μια σύνδεση με τη βάση δεδομένων και αποκτώντας τον <code>cursor</code>. Στη συνέχεια, μπορούμε να εκτελέσουμε εντολές SQL, χρησιμοποιώντας τον κέρσορα.</p>
-<p>Η εντολή SQL <code>INSERT</code> υποδεικνύει ποιον πίνακα χρησιμοποιούμε και στη συνέχεια ορίζει μια νέα σειρά παραθέτοντας τα πεδία που θέλουμε να συμπεριλάβουμε <code>(title, plays)</code>, ακολουθούμενα από το <code>VALUES</code> και τις <code>τιμές</code>, που θέλουμε να τοποθετηθούν στη νέα σειρά. Καθορίζουμε τις τιμές ως ερωτηματικά <code>(?, ?)</code>, για να υποδείξουμε ότι οι πραγματικές τιμές μεταβιβάζονται ως η πλειάδα <code>( 'My Way', 15 )</code> και μάλιστα, ως η δεύτερη παράμετρος στην κλήση της <code>execute()</code>.</p>
+<p>Η εντολή SQL <code>INSERT</code> δηλώνει ποιον πίνακα θα χρησιμοποιήσουμε και στη συνέχεια ορίζει μια νέα σειρά, παραθέτοντας τα πεδία που θέλουμε να συμπεριλάβουμε <code>(title, plays)</code>, ακολουθούμενα από το <code>VALUES</code> και τις <code>τιμές</code>, που θέλουμε να τοποθετηθούν στη νέα σειρά. Καθορίζουμε τις τιμές ως ερωτηματικά <code>(?, ?)</code>, για να υποδείξουμε ότι οι πραγματικές τιμές μεταβιβάζονται ως η πλειάδα <code>( 'My Way', 15 )</code> και μάλιστα, ως η δεύτερη παράμετρος στην κλήση της <code>execute()</code>.</p>
 <pre class="python"><code>import sqlite3
 
 conn = sqlite3.connect(&#39;music.sqlite&#39;)
@@ -107,43 +107,43 @@ cur.close()
 Γραμμές σε έναν Πίνακα
 </figcaption>
 </figure>
-<p>Then we use the <code>SELECT</code> command to retrieve the rows we just inserted from the table. On the <code>SELECT</code> command, we indicate which columns we would like <code>(title, plays)</code> and indicate which table we want to retrieve the data from. After we execute the <code>SELECT</code> statement, the cursor is something we can loop through in a <code>for</code> statement. For efficiency, the cursor does not read all of the data from the database when we execute the <code>SELECT</code> statement. Instead, the data is read on demand as we loop through the rows in the <code>for</code> statement.</p>
-<p>The output of the program is as follows:</p>
+<p>Στη συνέχεια, χρησιμοποιούμε την εντολή <code>SELECT</code>, για να ανακτήσουμε τις γραμμές που μόλις εισαγάγαμε από τον πίνακα. Στην εντολή <code>SELECT</code>, δηλώνουμε ποιες στήλες θέλουμε <code>(title, plays)</code> και δηλώνουμε επίσης από ποιον πίνακα θέλουμε να ανακτήσουμε τα δεδομένα. Αφού εκτελέσουμε την πρόταση <code>SELECT</code>, ο κέρσορας μπορεί να χρησιμοποιηθεί στο βρόχο <code>for</code> για να διατρέξουμε τις γραμμές που ανέκτησε η <code>SELECT</code>. Για λόγους αποτελεσματικότητας, ο κέρσορας δεν διαβάζει όλα τα δεδομένα από τη βάση δεδομένων όταν εκτελούμε την εντολή <code>SELECT</code>. Αντίθετα, τα δεδομένα διαβάζονται κατ’ απαίτηση καθώς κάνουμε τις απαιτούμε μία μία, με το βρόχο<code>for</code>.</p>
+<p>Η έξοδος του προγράμματος είναι η εξής:</p>
 <pre class="{text}"><code>Tracks:
 (&#39;Thunderstruck&#39;, 20)
 (&#39;My Way&#39;, 15)</code></pre>
 <p></p>
-<p>Our <code>for</code> loop finds two rows, and each row is a Python tuple with the first value as the <code>title</code> and the second value as the number of <code>plays</code>.</p>
-<p><em>Note: You may see strings starting with <code>u'</code> in other books or on the Internet. This was an indication in Python 2 that the strings are </em>Unicode* strings that are capable of storing non-Latin character sets. In Python 3, all strings are unicode strings by default.*</p>
-<p>At the very end of the program, we execute an SQL command to <code>DELETE</code> the rows we have just created so we can run the program over and over. The <code>DELETE</code> command shows the use of a <code>WHERE</code> clause that allows us to express a selection criterion so that we can ask the database to apply the command to only the rows that match the criterion. In this example the criterion happens to apply to all the rows so we empty the table out so we can run the program repeatedly. After the <code>DELETE</code> is performed, we also call <code>commit()</code> to force the data to be removed from the database.</p>
-<h2 id="structured-query-language-summary">Structured Query Language summary</h2>
-<p>So far, we have been using the Structured Query Language in our Python examples and have covered many of the basics of the SQL commands. In this section, we look at the SQL language in particular and give an overview of SQL syntax.</p>
-<p>Since there are so many different database vendors, the Structured Query Language (SQL) was standardized so we could communicate in a portable manner to database systems from multiple vendors.</p>
-<p>A relational database is made up of tables, rows, and columns. The columns generally have a type such as text, numeric, or date data. When we create a table, we indicate the names and types of the columns:</p>
+<p>Ο βρόχος <code>for</code> βρίσκει δύο γραμμές και κάθε γραμμή είναι μια πλειάδα Python με την πρώτη τιμή ως <code>title</code> και τη δεύτερη τιμή ως τον αριθμό των <code>plays</code>.</p>
+<p><em>Σημείωση: Μπορεί να δείτε συμβολοσειρές που ξεκινούν με <code>u'</code> σε άλλα βιβλία ή στο Διαδίκτυο. Αυτό ήταν μια ένδειξη στην Python 2 ότι οι συγκεκριμένες συμβολοσειρές είναι συμβολοσειρές <strong>Unicode</strong>, που μπορούν να αποθηκεύουν σύνολα μη Λατινικών χαρακτήρων. Στην Python 3, όλες οι συμβολοσειρές είναι από προεπιλογή συμβολοσειρές unicode.</em></p>
+<p>Στο τέλος του προγράμματος, εκτελούμε μια εντολή SQL <code>DELETE</code> για διαγραφή των γραμμών που μόλις δημιουργήσαμε, ώστε να μπορούμε να τρέχουμε ξανά και ξανά το ίδιο πρόγραμμα. Η εντολή <code>DELETE</code> χρησιμοποιεί τον όρο <code>WHERE</code>, που μας επιτρέπει να εφαρμόσουμε ένα κριτήριο επιλογής, ώστε να μπορούμε να ζητήσουμε από τη βάση δεδομένων να εφαρμόσει την εντολή μόνο στις γραμμές που ταιριάζουν με το κριτήριο. Σε αυτό το παράδειγμα το κριτήριο συμβαίνει να ισχύει για όλες τις γραμμές, έτσι αδειάζουμε τον πίνακα, ώστε να μπορούμε να τρέξουμε το πρόγραμμα επανειλημμένα. Αφού εκτελεστεί η <code>DELETE</code>, καλούμε επίσης την <code>commit()</code>, για να κατοχυρώσουμε τις αλλαγές (διαγραφές) στη βάση δεδομένων.</p>
+<h2 id="σύνοψη-γλώσσας-δομημένων-ερωταπαντήσεων">Σύνοψη γλώσσας δομημένων ερωταπαντήσεων</h2>
+<p>Μέχρι στιγμής, χρησιμοποιούσαμε τη γλώσσα δομημένων ερωταπαντήσεων μέσα στα παραδείγματα Python και έχουμε καλύψει πολλά από τα βασικά των εντολών SQL. Σε αυτήν την ενότητα, εξετάζουμε συγκεκριμένα τη γλώσσα SQL και δίνουμε μια επισκόπηση της σύνταξης SQL.</p>
+<p>Δεδομένου ότι υπάρχουν τόσοι πολλοί διαφορετικοί προμηθευτές βάσεων δεδομένων, η γλώσσα δομημένων ερωταπαντήσεων (SQL) τυποποιήθηκε, ώστε να μπορούμε να επικοινωνούμε, με φορητό τρόπο, με συστήματα βάσεων δεδομένων από διαφορετικούς προμηθευτές.</p>
+<p>Μια σχεσιακή βάση δεδομένων αποτελείται από πίνακες, γραμμές και στήλες. Οι στήλες έχουν γενικά έναν τύπο, όπως δεδομένα κειμένου, αριθμών ή ημερομηνίας. Όταν δημιουργούμε έναν πίνακα, δηλώνουμε τα ονόματα και τους τύπους των στηλών:</p>
 <pre class="sql"><code>CREATE TABLE Tracks (title TEXT, plays INTEGER)</code></pre>
-<p>To insert a row into a table, we use the SQL <code>INSERT</code> command:</p>
+<p>Για να εισάγουμε μια γραμή σε έναν πίνακα, χρησιμοποιούμε την εντολή SQL <code>INSERT</code>:</p>
 <pre class="sql"><code>INSERT INTO Tracks (title, plays) VALUES (&#39;My Way&#39;, 15)</code></pre>
-<p>The <code>INSERT</code> statement specifies the table name, then a list of the fields/columns that you would like to set in the new row, and then the keyword <code>VALUES</code> and a list of corresponding values for each of the fields.</p>
-<p>The SQL <code>SELECT</code> command is used to retrieve rows and columns from a database. The <code>SELECT</code> statement lets you specify which columns you would like to retrieve as well as a <code>WHERE</code> clause to select which rows you would like to see. It also allows an optional <code>ORDER BY</code> clause to control the sorting of the returned rows.</p>
+<p>Η εντολή <code>INSERT</code> καθορίζει το όνομα του πίνακα, στη συνέχεια μια λίστα με τα πεδία/στήλες που θέλετε να καταχωρήσετε στη νέα γραμμή και, στη συνέχεια, τη δεσμευμένη λέξη <code>VALUES</code> και μια λίστα με τις αντίστοιχες τιμές, για κάθε ένα από τα πεδία αυτά.</p>
+<p>Η εντολή SQL <code>SELECT</code> χρησιμοποιείται για την ανάκτηση γραμμών και στηλών από μια βάση δεδομένων. Η εντολή <code>SELECT</code> σάς επιτρέπει να καθορίσετε ποιες στήλες θέλετε να ανακτήσετε όπως επίσης, η δήλωση <code>WHERE</code> σάς επιτρέπει να επιλέξετε ποιες γραμμές θέλετε να επιστραφούν. Μπορεί επίσης να περιέχει έναν προαιρετικό όρο <code>ORDER BY</code> για την ταξινόμηση των επιστρεφόμενων γραμμών.</p>
 <pre class="sql"><code>SELECT * FROM Tracks WHERE title = &#39;My Way&#39;</code></pre>
-<p>Using <code>*</code> indicates that you want the database to return all of the columns for each row that matches the <code>WHERE</code> clause.</p>
-<p>Note, unlike in Python, in a SQL <code>WHERE</code> clause we use a single equal sign to indicate a test for equality rather than a double equal sign. Other logical operations allowed in a <code>WHERE</code> clause include <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>!=</code>, as well as <code>AND</code> and <code>OR</code> and parentheses to build your logical expressions.</p>
-<p>You can request that the returned rows be sorted by one of the fields as follows:</p>
+<p>Η χρήση του <code>*</code> δηλώνει ότι θέλετε η βάση δεδομένων να επιστρέψει όλες τις στήλες, για κάθε γραμμή που ταιριάζει με την πρόταση <code>WHERE</code>.</p>
+<p>Σημειώστε, σε αντίθεση με την Python, σε μια πρόταση SQL <code>WHERE</code> χρησιμοποιούμε ένα μόνο σύμβολο ίσου για να υποδείξουμε μια σύγκριση ισότητας, αντί για διπλό σύμβολο ίσου. Άλλοι συγκριτικοί και λογικοί τελεστές, που επιτρέπονται, σε μια πρόταση <code>WHERE</code> περιλαμβάνουν τα <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>!=</code>, καθώς και τα <code>AND</code> και <code>OR</code> και παρενθέσεις για τη δημιουργία των λογικών σας εκφράσεων.</p>
+<p>Μπορείτε να ζητήσετε να ταξινομηθούν οι επιστρεφόμενες γραμμές, κατά ένα από τα πεδία, ως εξής:</p>
 <pre class="sql"><code>SELECT title,plays FROM Tracks ORDER BY title</code></pre>
-<p>To remove a row, you need a <code>WHERE</code> clause on an SQL <code>DELETE</code> statement. The <code>WHERE</code> clause determines which rows are to be deleted:</p>
+<p>Για να διαγράψετε μια γραμμή, χρειάζεστε μια πρόταση <code>WHERE</code> σε συνδυασμό με μια εντολή SQL <code>DELETE</code>. Η πρόταση <code>WHERE</code> καθορίζει ποιες σειρές θα διαγραφούν:</p>
 <pre class="sql"><code>DELETE FROM Tracks WHERE title = &#39;My Way&#39;</code></pre>
-<p>It is possible to <code>UPDATE</code> a column or columns within one or more rows in a table using the SQL <code>UPDATE</code> statement as follows:</p>
+<p>Είναι δυνατό να “ενημερώσετε” μια ή περισσότερες στήλες σε μία ή περισσότερες γραμμές ενός πίνακα, χρησιμοποιώντας την εντολή SQL <code>UPDATE</code> ως εξής:</p>
 <pre class="sql"><code>UPDATE Tracks SET plays = 16 WHERE title = &#39;My Way&#39;</code></pre>
-<p>The <code>UPDATE</code> statement specifies a table and then a list of fields and values to change after the <code>SET</code> keyword and then an optional <code>WHERE</code> clause to select the rows that are to be updated. A single <code>UPDATE</code> statement will change all of the rows that match the <code>WHERE</code> clause. If a <code>WHERE</code> clause is not specified, it performs the <code>UPDATE</code> on all of the rows in the table.</p>
-<p>These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow the four basic operations needed to create and maintain data.</p>
-<h2 id="spidering-twitter-using-a-database">Spidering Twitter using a database</h2>
-<p>In this section, we will create a simple spidering program that will go through Twitter accounts and build a database of them. <em>Note: Be very careful when running this program. You do not want to pull too much data or run the program for too long and end up having your Twitter access shut off.</em></p>
-<p>One of the problems of any kind of spidering program is that it needs to be able to be stopped and restarted many times and you do not want to lose the data that you have retrieved so far. You don’t want to always restart your data retrieval at the very beginning so we want to store data as we retrieve it so our program can start back up and pick up where it left off.</p>
-<p>We will start by retrieving one person’s Twitter friends and their statuses, looping through the list of friends, and adding each of the friends to a database to be retrieved in the future. After we process one person’s Twitter friends, we check in our database and retrieve one of the friends of the friend. We do this over and over, picking an “unvisited” person, retrieving their friend list, and adding friends we have not seen to our list for a future visit.</p>
-<p>We also track how many times we have seen a particular friend in the database to get some sense of their “popularity”.</p>
-<p>By storing our list of known accounts and whether we have retrieved the account or not, and how popular the account is in a database on the disk of the computer, we can stop and restart our program as many times as we like.</p>
-<p>This program is a bit complex. It is based on the code from the exercise earlier in the book that uses the Twitter API.</p>
-<p>Here is the source code for our Twitter spidering application:</p>
+<p>Η εντολή <code>UPDATE</code> καθορίζει έναν πίνακα και, στη συνέχεια, μια λίστα πεδίων και τιμών που θα αλλάξουν, μετά τη δεσμευμένη λέξη <code>SET</code> και, στη συνέχεια, μια προαιρετική πρόταση <code>WHERE</code>, για να επιλέξετε τις γραμμές που πρόκειται να ενημερωθούν. Μια μεμονωμένη δήλωση <code>UPDATE</code> ενημερώνει όλες τις γραμμές που ταιριάζουν με την πρόταση <code>WHERE</code>. Εάν δεν έχει καθοριστεί η πρόταση <code>WHERE</code>, εκτελείται “ενημέρωση” όλων των γραμμών του πίνακα.</p>
+<p>Αυτές οι τέσσερις βασικές εντολές SQL (INSERT, SELECT, UPDATE και DELETE) υλοποιούν τις τέσσερις βασικές λειτουργίες, που απαιτούνται για τη δημιουργία και τη συντήρηση των δεδομένων.</p>
+<h2 id="ανίχνευση-του-twitter-με-χρήση-βάσης-δεδομένων">Ανίχνευση του Twitter με χρήση βάσης δεδομένων</h2>
+<p>Σε αυτή την ενότητα, θα δημιουργήσουμε ένα απλό πρόγραμμα ανίχνευσης (spidering), που θα διατρέξει λογαριασμούς του Twitter και θα δημιουργήσει μια βάση δεδομένων με αυτούς. <em>Σημείωση: Να είστε πολύ προσεκτικοί όταν εκτελείτε αυτό το πρόγραμμα. Δεν θέλετε να τραβήξετε πάρα πολλά δεδομένα ή να εκτελέσετε το πρόγραμμα για πολύ μεγάλο χρονικό διάστημα και να καταλήξετε να τερματίσετε την πρόσβασή σας στο Twitter.</em></p>
+<p>Ένα από τα προβλήματα κάθε είδους προγράμματος spidering είναι ότι πρέπει να μπορεί να διακοπεί και να επανεκκινηθεί πολλές φορές και δεν θέλετε να χάσετε τα δεδομένα που έχετε ανακτήσει μέχρι τώρα. Δεν θέλετε να επανεκκινείτε και η ανάκτηση των δεδομένων να αρχίζει στην αρχή, επομένως θέλουμε να αποθηκεύουμε τα δεδομένα καθώς τα ανακτούμε, ώστε το πρόγραμμά μας να μπορεί να δημιουργεί αντίγραφα ασφαλείας και να συνεχίζει από εκεί που σταμάτησε.</p>
+<p>Θα ξεκινήσουμε με την ανάκτηση των φίλων ενός ατόμου στο Twitter και της κατάστασής τους, διατρέχοντας επαναληπτικά τη λίστα των φίλων και προσθέτοντας κάθε έναν από τους φίλους σε μια βάση δεδομένων, την οποία θα προσπελάσουμε αργότερα. Αφού επεξεργαστούμε τους φίλους ενός ατόμου στο Twitter, ελέγχουμε τη βάση δεδομένων μας και ανακτούμε έναν από τους φίλους του φίλου. Το κάνουμε αυτό ξανά και ξανά, επιλέγοντας ένα άτομο που δεν έχει “επισκεφτεί”, ανακτώντας τη λίστα φίλων του και προσθέτοντας φίλους, που δεν έχουμε δει στη λίστα μας για μελλοντική επίσκεψη.</p>
+<p>Παρακολουθούμε επίσης πόσες φορές έχουμε δει έναν συγκεκριμένο φίλο στη βάση δεδομένων για να σχηματίσουμε μια εικόνα της «δημοτικότητάς» του.</p>
+<p>Αποθηκεύοντας τη λίστα των γνωστών λογαριασμών μας και εάν έχουμε ανακτήσει τον λογαριασμό ή όχι και πόσο δημοφιλής είναι ο λογαριασμός σε μια βάση δεδομένων, στο δίσκο του υπολογιστή, μπορούμε να σταματήσουμε και να επανεκκινήσουμε το πρόγραμμά μας όσες φορές θέλουμε.</p>
+<p>Αυτό το πρόγραμμα είναι λίγο περίπλοκο. Βασίζεται στον κώδικα από την άσκηση νωρίτερα στο βιβλίο, που χρησιμοποιεί το Twitter API.</p>
+<p>Εδώ είναι ο πηγαίος κώδικας για την εφαρμογή ανίχνευσης του Twitter:</p>
 <pre class="python"><code>from urllib.request import urlopen
 import urllib.error
 import twurl
@@ -160,31 +160,31 @@ cur.execute(&#39;&#39;&#39;
             CREATE TABLE IF NOT EXISTS Twitter
             (name TEXT, retrieved INTEGER, friends INTEGER)&#39;&#39;&#39;)
 
-# Ignore SSL certificate errors
+# Αγνοήστε τα σφάλματα πιστοποιητικού SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 while True:
-    acct = input(&#39;Enter a Twitter account, or quit: &#39;)
+    acct = input(&#39;Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit: &#39;)
     if (acct == &#39;quit&#39;): break
     if (len(acct) &lt; 1):
         cur.execute(&#39;SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1&#39;)
         try:
             acct = cur.fetchone()[0]
         except:
-            print(&#39;No unretrieved Twitter accounts found&#39;)
+            print(&#39;Δεν βρέθηκαν λογαριασμοί Twitter που δεν έχουν ήδη ανακτηθεί&#39;)
             continue
 
     url = twurl.augment(TWITTER_URL, {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;20&#39;})
-    print(&#39;Retrieving&#39;, url)
+    print(&#39;Ανάκτηση του&#39;, url)
     connection = urlopen(url, context=ctx)
     data = connection.read().decode()
     headers = dict(connection.getheaders())
 
-    print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
+    print(&#39;Απομένουν&#39;, headers[&#39;x-rate-limit-remaining&#39;])
     js = json.loads(data)
-    # Debugging
+    # Εκσφαλμάτωση
     # print json.dumps(js, indent=4)
 
     cur.execute(&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;, (acct, ))
@@ -205,16 +205,16 @@ while True:
             cur.execute(&#39;&#39;&#39;INSERT INTO Twitter (name, retrieved, friends)
                         VALUES (?, 0, 1)&#39;&#39;&#39;, (friend, ))
             countnew = countnew + 1
-    print(&#39;New accounts=&#39;, countnew, &#39; revisited=&#39;, countold)
+    print(&#39;Νέοι λογαριασμοί =&#39;, countnew, &#39; Επισκεύθηκαν εκ νέου =&#39;, countold)
     conn.commit()
 
 cur.close()
 
 # Code: http://www.gr.py4e.com/code3/twspider.py</code></pre>
-<p>Our database is stored in the file <code>spider.sqlite</code> and it has one table named <code>Twitter</code>. Each row in the <code>Twitter</code> table has a column for the account name, whether we have retrieved the friends of this account, and how many times this account has been “friended”.</p>
-<p>In the main loop of the program, we prompt the user for a Twitter account name or “quit” to exit the program. If the user enters a Twitter account, we retrieve the list of friends and statuses for that user and add each friend to the database if not already in the database. If the friend is already in the list, we add 1 to the <code>friends</code> field in the row in the database.</p>
-<p>If the user presses enter, we look in the database for the next Twitter account that we have not yet retrieved, retrieve the friends and statuses for that account, add them to the database or update them, and increase their <code>friends</code> count.</p>
-<p>Once we retrieve the list of friends and statuses, we loop through all of the <code>user</code> items in the returned JSON and retrieve the <code>screen_name</code> for each user. Then we use the <code>SELECT</code> statement to see if we already have stored this particular <code>screen_name</code> in the database and retrieve the friend count (<code>friends</code>) if the record exists.</p>
+<p>Η βάση δεδομένων μας είναι αποθηκευμένη στο αρχείο <code>spider.sqlite</code> και έχει έναν πίνακα με όνομα <code>Twitter</code>. Κάθε γραμμή του πίνακα <code>Twitter</code> έχει μια στήλη για το όνομα του λογαριασμού, μία για το εάν έχουμε ανακτήσει τους φίλους αυτού του λογαριασμού και μια τρίτη με το πόσες φορές αυτός ο λογαριασμός έχει γίνει “φίλος”.</p>
+<p>Στον κύριο βρόχο του προγράμματος, ζητάμε από τον χρήστη ένα όνομα λογαριασμού στο Twitter ή “quit” για έξοδο από το πρόγραμμα. Εάν ο χρήστης εισαγάγει έναν λογαριασμό Twitter, ανακτούμε τη λίστα φίλων και καταστάσεων (status) για αυτόν τον χρήστη και προσθέτουμε κάθε φίλο του στη βάση δεδομένων, εάν δεν βρίσκεται ήδη στη βάση δεδομένων. Εάν ο φίλος βρίσκεται ήδη στη λίστα, προσθέτουμε 1 στο πεδίο <code>friends</code> της γραμμής του, στη βάση δεδομένων.</p>
+<p>Εάν ο χρήστης πατήσει enter, αναζητούμε στη βάση δεδομένων τον επόμενο λογαριασμό Twitter που δεν έχουμε ανακτήσει ακόμη, ανακτούμε τους φίλους και τα status για αυτόν τον λογαριασμό, τα προσθέτουμε στη βάση δεδομένων ή τους ενημερώνουμε και αυξάνουμε τον αριθμό των <code>friends</code> τους, εάν είναι ήδη καταχωρημένοι στη βάση δεδομένων.</p>
+<p>Μόλις ανακτήσουμε τη λίστα των φίλων και των καταστάσεων, πραγματοποιούμε αναζήτηση σε όλα τα στοιχεία <code>user</code> στο επιστρεφόμενο JSON και ανακτούμε το <code>screen_name</code> για κάθε χρήστη. Στη συνέχεια, χρησιμοποιούμε τη δήλωση <code>SELECT</code> για να δούμε αν έχουμε ήδη αποθηκεύσει το συγκεκριμένο <code>screen_name</code> στη βάση δεδομένων και ανακτούμε τον αριθμό φίλων (<code>friends</code>) εάν υπάρχει η εγγραφή.</p>
 <pre class="python"><code>countnew = 0
 countold = 0
 for u in js[&#39;users&#39;] :
@@ -231,18 +231,18 @@ for u in js[&#39;users&#39;] :
         cur.execute(&#39;&#39;&#39;INSERT INTO Twitter (name, retrieved, friends)
             VALUES ( ?, 0, 1 )&#39;&#39;&#39;, ( friend, ) )
         countnew = countnew + 1
-print(&#39;New accounts=&#39;,countnew,&#39; revisited=&#39;,countold)
+print(&#39;Νέοι λογαριασμοί=&#39;,countnew,&#39; Επισκεύθηκαν εκ νέου=&#39;,countold)
 conn.commit()</code></pre>
-<p>Once the cursor executes the <code>SELECT</code> statement, we must retrieve the rows. We could do this with a <code>for</code> statement, but since we are only retrieving one row (<code>LIMIT 1</code>), we can use the <code>fetchone()</code> method to fetch the first (and only) row that is the result of the <code>SELECT</code> operation. Since <code>fetchone()</code> returns the row as a <em>tuple</em> (even though there is only one field), we take the first value from the tuple using to get the current friend count into the variable <code>count</code>.</p>
-<p>If this retrieval is successful, we use the SQL <code>UPDATE</code> statement with a <code>WHERE</code> clause to add 1 to the <code>friends</code> column for the row that matches the friend’s account. Notice that there are two placeholders (i.e., question marks) in the SQL, and the second parameter to the <code>execute()</code> is a two-element tuple that holds the values to be substituted into the SQL in place of the question marks.</p>
-<p>If the code in the <code>try</code> block fails, it is probably because no record matched the <code>WHERE name = ?</code> clause on the SELECT statement. So in the <code>except</code> block, we use the SQL <code>INSERT</code> statement to add the friend’s <code>screen_name</code> to the table with an indication that we have not yet retrieved the <code>screen_name</code> and set the friend count to one.</p>
-<p>So the first time the program runs and we enter a Twitter account, the program runs as follows:</p>
-<pre><code>Enter a Twitter account, or quit: drchuck
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 20  revisited= 0
-Enter a Twitter account, or quit: quit</code></pre>
-<p>Since this is the first time we have run the program, the database is empty and we create the database in the file <code>spider.sqlite</code> and add a table named <code>Twitter</code> to the database. Then we retrieve some friends and add them all to the database since the database is empty.</p>
-<p>At this point, we might want to write a simple database dumper to take a look at what is in our <code>spider.sqlite</code> file:</p>
+<p>Μόλις ο κέρσορας εκτελέσει την πρόταση <code>SELECT</code>, πρέπει να ανακτήσουμε τις γραμμές. Θα μπορούσαμε να το κάνουμε αυτό με μια δήλωση <code>for</code>, αλλά επειδή ανακτούμε μόνο μία γραμμή (<code>LIMIT 1</code>), μπορούμε να χρησιμοποιήσουμε τη μέθοδο <code>fetchone()</code> για να ανακτήσουμε την πρώτη (και μοναδική) σειρά που είναι το αποτέλεσμα τη λειτουργία <code>SELECT</code>. Επειδή το <code>fetchone()</code> επιστρέφει τη γραμμή ως <em>πλειάδα</em> (ακόμα και αν υπάρχει μόνο ένα πεδίο), χρησιμοποιούμε την πρώτη τιμή της πλειάδας για να εκχωρήσουμε τον τρέχοντα αριθμό φίλων στη μεταβλητή <code>count</code>.</p>
+<p>Εάν αυτή η ανάκτηση είναι επιτυχής, χρησιμοποιούμε την εντολή <code>UPDATE</code> της SQL με μια δήλωση <code>WHERE</code>, για να προσθέσουμε 1 στη στήλη <code>friends</code> της γραμμής που ταιριάζει με τον λογαριασμό του φίλου. Σημειώστε ότι υπάρχουν δύο σύμβολα κράτησης θέσης (δηλαδή, ερωτηματικά) στον κώδικα SQL και ότι η δεύτερη παράμετρος της <code>execute()</code> είναι μια πλειάδα δύο στοιχείων, που περιέχει τις τιμές, που πρέπει να αντικαταστήσουν στον κώδικα SQL, τα ερωτηματικά.</p>
+<p>Εάν ο κώδικας στο μπλοκ <code>try</code> αποτύχει, αυτό είναι πιθανό να συμβεί αν καμία εγγραφή δεν ταιριάζει με τον όρο <code>WHERE name = ?</code> στη δήλωση SELECT. Έτσι, στο μπλοκ <code>except</code>, χρησιμοποιούμε την εντολή SQL <code>INSERT</code>, για να προσθέσουμε το <code>screen_name</code> του φίλου στον πίνακα με ένδειξη ότι δεν έχουμε ακόμη ανακτήσει το <code>screen_name</code> και ορίζουμε τον αριθμό φίλων (<code>friends</code>) σε ένα.</p>
+<p>Έτσι την πρώτη φορά που τρέχει το πρόγραμμα και μπαίνουμε σε λογαριασμό Twitter, το πρόγραμμα εκτελείται ως εξής:</p>
+<pre class="{text}"><code>Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit: drchuck
+Ανάκτηση του http://api.twitter.com/1.1/friends ...
+Νέοι λογαριασμοί = 20  Επισκεύθηκαν εκ νέου = 0
+Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit: quit</code></pre>
+<p>Επειδή είναι η πρώτη φορά που τρέχουμε το πρόγραμμα, η βάση δεδομένων δεν υπάρχει, δημιουργούμε τη βάση στο αρχείο <code>spider.sqlite</code> και προσθέτουμε έναν πίνακα με το όνομα <code>Twitter</code> στη βάση δεδομένων. Στη συνέχεια ανακτούμε μερικούς φίλους και τους προσθέτουμε όλους στη βάση δεδομένων, αφού η βάση είναι άδεια.</p>
+<p>Σε αυτό το σημείο, μπορεί να θελήσουμε να γράψουμε ένα απλό πρόγραμμα για να ρίξουμε μια ματιά στο περιεχόμενο του αρχείου <code>spider.sqlite</code>:</p>
 <pre class="python"><code>import sqlite3
 
 conn = sqlite3.connect(&#39;spider.sqlite&#39;)
@@ -252,48 +252,48 @@ count = 0
 for row in cur:
     print(row)
     count = count + 1
-print(count, &#39;rows.&#39;)
+print(count, &#39;γραμμές.&#39;)
 cur.close()
 
 # Code: http://www.gr.py4e.com/code3/twdump.py</code></pre>
-<p>This program simply opens the database and selects all of the columns of all of the rows in the table <code>Twitter</code>, then loops through the rows and prints out each row.</p>
-<p>If we run this program after the first execution of our Twitter spider above, its output will be as follows:</p>
-<pre><code>(&#39;opencontent&#39;, 0, 1)
+<p>Αυτό το πρόγραμμα απλώς ανοίγει τη βάση δεδομένων και επιλέγει όλες τις στήλες, όλων των γραμμών του πίνακα <code>Twitter</code>, στη συνέχεια διατρέχει τις γραμμές και εκτυπώνει κάθε μία από αυτές.</p>
+<p>Εάν εκτελέσουμε αυτό το πρόγραμμα μετά την πρώτη εκτέλεση του Twitter spider παραπάνω, η έξοδος του θα είναι η εξής:</p>
+<pre class="{text}"><code>(&#39;opencontent&#39;, 0, 1)
 (&#39;lhawthorn&#39;, 0, 1)
 (&#39;steve_coppin&#39;, 0, 1)
 (&#39;davidkocher&#39;, 0, 1)
 (&#39;hrheingold&#39;, 0, 1)
 ...
-20 rows.</code></pre>
-<p>We see one row for each <code>screen_name</code>, that we have not retrieved the data for that <code>screen_name</code>, and everyone in the database has one friend.</p>
-<p>Now our database reflects the retrieval of the friends of our first Twitter account (<em>drchuck</em>). We can run the program again and tell it to retrieve the friends of the next “unprocessed” account by simply pressing enter instead of a Twitter account as follows:</p>
-<pre><code>Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 18  revisited= 2
-Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit: quit</code></pre>
-<p>Since we pressed enter (i.e., we did not specify a Twitter account), the following code is executed:</p>
+20 γραμμές.</code></pre>
+<p>Βλέπουμε μια σειρά για κάθε <code>screen_name</code>, ότι δεν έχουμε ανακτήσει τα δεδομένα για αυτό το <code>screen_name</code> (η δεύτερη τιμή της πλειάδας που αντιστοιχεί στη στήλη <code>retrieved</code> είναι 0) και όλοι στη βάση δεδομένων έχουν έναν φίλο.</p>
+<p>Τώρα η βάση δεδομένων μας αντικατοπτρίζει την ανάκτηση των φίλων του πρώτου μας λογαριασμού Twitter (<em>drchuck</em>). Μπορούμε να εκτελέσουμε ξανά το πρόγραμμα και να του πούμε να ανακτήσει τους φίλους του επόμενου “μη επεξεργασμένου” λογαριασμού πατώντας απλώς enter αντί για λογαριασμό Twitter ως εξής:</p>
+<pre class="{text}"><code>Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit:
+Ανάκτηση του http://api.twitter.com/1.1/friends ...
+Νέοι λογαριασμοί = 18  Επισκεύθηκαν εκ νέου = 2
+Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit:
+Ανάκτηση του http://api.twitter.com/1.1/friends ...
+Νέοι λογαριασμοί = 17  Επισκεύθηκαν εκ νέου = 3
+Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit: quit</code></pre>
+<p>Αφού πατήσαμε enter (δηλαδή, δεν καθορίσαμε λογαριασμό Twitter), εκτελείται ο ακόλουθος κώδικας:</p>
 <pre class="python"><code>if ( len(acct) &lt; 1 ) :
     cur.execute(&#39;SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1&#39;)
     try:
         acct = cur.fetchone()[0]
     except:
-        print(&#39;No unretrieved twitter accounts found&#39;)
+        print(&#39;Δεν βρέθηκαν λογαριασμοί Twitter που δεν έχουν ήδη ανακτηθεί&#39;)
         continue</code></pre>
-<p>We use the SQL <code>SELECT</code> statement to retrieve the name of the first (<code>LIMIT 1</code>) user who still has their “have we retrieved this user” value set to zero. We also use the <code>fetchone()[0]</code> pattern within a try/except block to either extract a <code>screen_name</code> from the retrieved data or put out an error message and loop back up.</p>
-<p>If we successfully retrieved an unprocessed <code>screen_name</code>, we retrieve their data as follows:</p>
+<p>Χρησιμοποιούμε την εντολή SQL <code>SELECT</code> για να ανακτήσουμε το όνομα του πρώτου (<code>LIMIT 1</code>) χρήστη, που εξακολουθεί να έχει μηδενική τιμή στο “έχουμε ανακτήσει αυτόν τον χρήστη”. Χρησιμοποιούμε επίσης το μοτίβο <code>fetchone()[0]</code>, σε ένα μπλοκ try/except, για να εξαγάγουμε ένα <code>screen_name</code> από τα δεδομένα που ανακτήθηκαν ή για να εμφανίσουμε ένα μήνυμα σφάλματος και να τερματίσουμε την τρέχουσα εκτέλεση του βρόχου.</p>
+<p>Εάν ανακτήσαμε με επιτυχία ένα μη επεξεργασμένο <code>screen_name</code>, ανακτούμε τα δεδομένα του ως εξής:</p>
 <pre class="python"><code>url=twurl.augment(TWITTER_URL,{&#39;screen_name&#39;: acct,&#39;count&#39;: &#39;20&#39;})
-print(&#39;Retrieving&#39;, url)
+print(&#39;Ανάκτηση του&#39;, url)
 connection = urllib.urlopen(url)
 data = connection.read()
 js = json.loads(data)
 
 cur.execute(&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;,(acct, ))</code></pre>
-<p>Once we retrieve the data successfully, we use the <code>UPDATE</code> statement to set the <code>retrieved</code> column to 1 to indicate that we have completed the retrieval of the friends of this account. This keeps us from retrieving the same data over and over and keeps us progressing forward through the network of Twitter friends.</p>
-<p>If we run the friend program and press enter twice to retrieve the next unvisited friend’s friends, then run the dumping program, it will give us the following output:</p>
-<pre><code>(&#39;opencontent&#39;, 1, 1)
+<p>Μόλις ανακτήσουμε τα δεδομένα επιτυχώς, χρησιμοποιούμε την εντολή <code>UPDATE</code> για να θέσουμε στη στήλη <code>retrieved</code> το 1, για να υποδείξουμε ότι έχουμε ολοκληρώσει την ανάκτηση των φίλων αυτού του λογαριασμού. Αυτό μας εμποδίζει από το να ανακτούμε τα ίδια δεδομένα ξανά και ξανά και μας επιτρέπει να προχωράμε στο δικτύο φίλων Twitter.</p>
+<p>Εάν τρέξουμε το πρόγραμμα φίλου και πατήσουμε το enter δύο φορές για να ανακτήσουμε τους επόμενους φίλους, που δεν έχουν επισκεφτεί και μετά εκτελέσουμε το πρόγραμμα εμφάνισης (twdump.py), θα μας δώσει την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>(&#39;opencontent&#39;, 1, 1)
 (&#39;lhawthorn&#39;, 1, 1)
 (&#39;steve_coppin&#39;, 0, 1)
 (&#39;davidkocher&#39;, 0, 1)
@@ -304,40 +304,40 @@ cur.execute(&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;,(acct, ))</c
 (&#39;kthanos&#39;, 0, 2)
 (&#39;LectureTools&#39;, 0, 1)
 ...
-55 rows.</code></pre>
-<p>We can see that we have properly recorded that we have visited <code>lhawthorn</code> and <code>opencontent</code>. Also the accounts <code>cnxorg</code> and <code>kthanos</code> already have two followers. Since we now have retrieved the friends of three people (<code>drchuck</code>, <code>opencontent</code>, and <code>lhawthorn</code>) our table has 55 rows of friends to retrieve.</p>
-<p>Each time we run the program and press enter it will pick the next unvisited account (e.g., the next account will be <code>steve_coppin</code>), retrieve their friends, mark them as retrieved, and for each of the friends of <code>steve_coppin</code> either add them to the end of the database or update their friend count if they are already in the database.</p>
-<p>Since the program’s data is all stored on disk in a database, the spidering activity can be suspended and resumed as many times as you like with no loss of data.</p>
-<h2 id="basic-data-modeling">Basic data modeling</h2>
-<p>The real power of a relational database is when we create multiple tables and make links between those tables. The act of deciding how to break up your application data into multiple tables and establishing the relationships between the tables is called <em>data modeling</em>. The design document that shows the tables and their relationships is called a <em>data model</em>.</p>
-<p>Data modeling is a relatively sophisticated skill and we will only introduce the most basic concepts of relational data modeling in this section. For more detail on data modeling you can start with:</p>
+55 γραμμές.</code></pre>
+<p>Μπορούμε να δούμε ότι έχουμε καταγράψει σωστά ότι έχουμε επισκεφτεί το <code>lhawthorn</code> και το <code>opencontent</code>. Επίσης οι λογαριασμοί <code>cnxorg</code> και <code>kthanos</code> έχουν ήδη δύο ακόλουθους. Εφόσον τώρα έχουμε ανακτήσει τους φίλους τριών ατόμων (<code>drchuck</code>, <code>opencontent</code> και <code>lhawthorn</code>), ο πίνακας μας έχει 52 (=55-3) γραμμές φίλων για ανάκτηση.</p>
+<p>Κάθε φορά που εκτελούμε το πρόγραμμα και πατάμε enter, θα επιλέγει τον επόμενο λογαριασμό, που δεν έχει επισκεφτεί (π.χ., ο επόμενος λογαριασμός θα είναι ο <code>steve_coppin</code>), θα ανακτά τους φίλους του, θα τον επισημαίνει ως ανακτημένο και κάθε έναν από τους φίλους του <code>steve_coppin</code> είτε τον προσθέτει στο τέλος της βάσης δεδομένων είτε ενημερώνει τον αριθμό των φίλων του, εάν βρίσκονται ήδη στη βάση δεδομένων.</p>
+<p>Μιας και τα δεδομένα του προγράμματος αποθηκεύονται όλα στο δίσκο, σε μια βάση δεδομένων, η δραστηριότητα spidering μπορεί να ανασταλεί και να συνεχιστεί όσες φορές θέλετε χωρίς απώλεια δεδομένων.</p>
+<h2 id="στοιχειώδης-μοντελοποίηση-δεδομένων">Στοιχειώδης μοντελοποίηση δεδομένων</h2>
+<p>Η πραγματική ισχύς μιας σχεσιακής βάσης δεδομένων φαίνεται όταν δημιουργούμε πολλούς πίνακες και τους συνδέουμε. Το να αποφασίσετε πώς να χωρίσετε τα δεδομένα της εφαρμογής σας σε πολλούς πίνακες και η δημιουργία των σχέσεων μεταξύ των πινάκων ονομάζεται <em>μοντελοποίηση δεδομένων</em>. Το έγγραφο με το σχεδιάγραμμα, που δείχνει τους πίνακες και τις σχέσεις μεταξύ τους, ονομάζεται <em>μοντέλο δεδομένων</em>.</p>
+<p>Η μοντελοποίηση δεδομένων είναι μια σχετικά περίπλοκη διαδικασία και θα αναφερθούμε μόνο στις πιο βασικές έννοιες της μοντελοποίησης σχεσιακών δεδομένων σε αυτήν την ενότητα. Για περισσότερες λεπτομέρειες σχετικά με τη μοντελοποίηση δεδομένων, μπορείτε να ξεκινήσετε από:</p>
 <p><a href="http://en.wikipedia.org/wiki/Relational_model" class="uri">http://en.wikipedia.org/wiki/Relational_model</a></p>
-<p>Let’s say for our Twitter spider application, instead of just counting a person’s friends, we wanted to keep a list of all of the incoming relationships so we could find a list of everyone who is following a particular account.</p>
-<p>Since everyone will potentially have many accounts that follow them, we cannot simply add a single column to our <code>Twitter</code> table. So we create a new table that keeps track of pairs of friends. The following is a simple way of making such a table:</p>
+<p>Ας πούμε ότι στην εφαρμογή αντίχνευσης του Twitter, αντί να μετράμε απλώς τους φίλους ενός ατόμου, θέλαμε να κρατήσουμε μια λίστα με όλες τις εισερχόμενες σχέσεις, ώστε να μπορούμε να δημιουργήσουμς μια λίστα με όλους όσους ακολουθούν έναν συγκεκριμένο λογαριασμό.</p>
+<p>Δεδομένου ότι όλοι θα έχουν, πιθανώς, πολλούς λογαριασμούς που τους ακολουθούν, δεν μπορούμε απλώς να προσθέσουμε μία στήλη στον πίνακα <code>Twitter</code>. Δημιουργούμε λοιπόν έναν νέο πίνακα που καταγράφει τα ζεύγη φίλων. Ο παρακάτω είναι ένας απλός τρόπος για να φτιάξετε έναν τέτοιο πίνακα:</p>
 <pre class="sql"><code>CREATE TABLE Pals (from_friend TEXT, to_friend TEXT)</code></pre>
-<p>Each time we encounter a person who <code>drchuck</code> is following, we would insert a row of the form:</p>
+<p>Κάθε φορά που συναντάμε ένα άτομο που ακολουθεί ο <code>drchuck</code>, εισάγουμε μια γραμμή της μορφής:</p>
 <pre class="sql"><code>INSERT INTO Pals (from_friend,to_friend) VALUES (&#39;drchuck&#39;, &#39;lhawthorn&#39;)</code></pre>
-<p>As we are processing the 20 friends from the <code>drchuck</code> Twitter feed, we will insert 20 records with “drchuck” as the first parameter so we will end up duplicating the string many times in the database.</p>
-<p>This duplication of string data violates one of the best practices for <em>database normalization</em> which basically states that we should never put the same string data in the database more than once. If we need the data more than once, we create a numeric <em>key</em> for the data and reference the actual data using this key.</p>
-<p>In practical terms, a string takes up a lot more space than an integer on the disk and in the memory of our computer, and takes more processor time to compare and sort. If we only have a few hundred entries, the storage and processor time hardly matters. But if we have a million people in our database and a possibility of 100 million friend links, it is important to be able to scan data as quickly as possible.</p>
-<p>We will store our Twitter accounts in a table named <code>People</code> instead of the <code>Twitter</code> table used in the previous example. The <code>People</code> table has an additional column to store the numeric key associated with the row for this Twitter user. SQLite has a feature that automatically adds the key value for any row we insert into a table using a special type of data column (<code>INTEGER PRIMARY KEY</code>).</p>
-<p>We can create the <code>People</code> table with this additional <code>id</code> column as follows:</p>
+<p>Καθώς επεξεργαζόμαστε τους 20 φίλους από τη ροή Twitter του <code>drchuck</code>, θα εισαγάγουμε 20 εγγραφές με το “drchuck” ως πρώτη παράμετρο, οπότε θα καταλήξουμε να αντιγράφουμε την ίδια συμβολοσειρά, πολλές φορές, στη βάση δεδομένων.</p>
+<p>Αυτή η αντιγραφή δεδομένων συμβολοσειράς παραβιάζει μία από τις βασικές πρακτικές της <em>κανονικοποίησης βάσων δεδομένων</em>, η οποία ουσιαστικά δηλώνει ότι δεν πρέπει, ποτέ, να αποθηκεύουμε τα ίδια δεδομένα συμβολοσειράς στη βάση δεδομένων, περισσότερες από μία φορές. Εάν χρειαζόμαστε τα δεδομένα περισσότερες από μία φορές, δημιουργούμε ένα αριθμητικό <em>κλειδί</em> για τα δεδομένα και αναφερόμαστε στα πραγματικά δεδομένα χρησιμοποιώντας αυτό το κλειδί.</p>
+<p>Πρακτικά, μια συμβολοσειρά καταλαμβάνει πολύ περισσότερο χώρο από έναν ακέραιο στο δίσκο και στη μνήμη του υπολογιστή μας και απαιτείται περισσότερος χρόνος από τον επεξεργαστή για σύγκριση και ταξινόμηση. Εάν έχουμε μόνο μερικές εκατοντάδες καταχωρήσεις, ο χρόνος αποθήκευσης και επεξεργασίας δεν έχουν σημασία. Ωστόσο, εάν έχουμε ένα εκατομμύριο άτομα στη βάση δεδομένων μας και την πιθανότητα 100 εκατομμυρίων συνδέσμων φίλων, είναι σημαντικό να μπορούμε να σαρώνουμε δεδομένα όσο το δυνατόν γρηγορότερα.</p>
+<p>Θα αποθηκεύσουμε τους λογαριασμούς μας στο Twitter σε έναν πίνακα με το όνομα <code>People</code>, αντί του πίνακα <code>Twitter</code>, που χρησιμοποιήθηκε στο προηγούμενο παράδειγμα. Ο πίνακας <code>People</code> έχει μια πρόσθετη στήλη, για την αποθήκευση του αριθμητικού κλειδιού που σχετίζεται με τη γραμμή αυτού του χρήστη του Twitter. Το SQLite έχει μια δυνατότητα που προσθέτει αυτόματα την τιμή κλειδιού σε κάθε γραμμή που εισάγουμε σε έναν πίνακα, χρησιμοποιώντας έναν ειδικό τύπο στήλης δεδομένων (<code>INTEGER PRIMARY KEY</code>).</p>
+<p>Μπορούμε να δημιουργήσουμε τον πίνακα <code>People</code> με αυτήν την πρόσθετη στήλη <code>id</code> ως εξής:</p>
 <pre class="sql"><code>CREATE TABLE People
     (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)</code></pre>
-<p>Notice that we are no longer maintaining a friend count in each row of the <code>People</code> table. When we select <code>INTEGER PRIMARY KEY</code> as the type of our <code>id</code> column, we are indicating that we would like SQLite to manage this column and assign a unique numeric key to each row we insert automatically. We also add the keyword <code>UNIQUE</code> to indicate that we will not allow SQLite to insert two rows with the same value for <code>name</code>.</p>
-<p>Now instead of creating the table <code>Pals</code> above, we create a table called <code>Follows</code> with two integer columns <code>from_id</code> and <code>to_id</code> and a constraint on the table that the <em>combination</em> of <code>from_id</code> and <code>to_id</code> must be unique in this table (i.e., we cannot insert duplicate rows) in our database.</p>
+<p>Παρατηρήστε ότι δεν διατηρούμε πλέον τον αριθμό φίλων, σε κάθε γραμμή του πίνακα <code>People</code>. Όταν επιλέγουμε το <code>INTEGER PRIMARY KEY</code> ως τον τύπο της στήλης <code>id</code>, υποδεικνύουμε ότι θα θέλαμε η SQLite να διαχειρίζεται αυτή τη στήλη και να εκχωρεί αυτόματα, σε κάθε γραμμή που εισάγουμε, ένα μοναδικό αριθμητικό κλειδί. Προσθέτουμε επίσης τη δεσμευμένη λέξη <code>UNIQUE</code> για να επιβάλλουμε έναν περιορισμό, να υποδείξουμε ότι δεν θα επιτρέψουμε στην SQLite να εισάγει δύο γραμμές με την ίδια τιμή για το <code>name</code>.</p>
+<p>Τώρα αντί να δημιουργήσουμε τον παραπάνω πίνακα <code>Pals</code>, δημιουργούμε έναν πίνακα που ονομάζεται <code>Follows</code>, με δύο στήλες ακεραίων, <code>from_id</code> και <code>to_id</code> και έναν περιορισμό στον πίνακα ότι ο <em>συνδυασμός</em> των <code>from_id</code> και <code>to_id</code> πρέπει να να είναι μοναδικός σε αυτόν τον πίνακα (δηλαδή, δεν μπορούμε να εισαγάγουμε διπλότυπες εγγραφές) στη βάση δεδομένων μας.</p>
 <pre class="sql"><code>CREATE TABLE Follows
     (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id) )</code></pre>
-<p>When we add <code>UNIQUE</code> clauses to our tables, we are communicating a set of rules that we are asking the database to enforce when we attempt to insert records. We are creating these rules as a convenience in our programs, as we will see in a moment. The rules both keep us from making mistakes and make it simpler to write some of our code.</p>
-<p>In essence, in creating this <code>Follows</code> table, we are modelling a “relationship” where one person “follows” someone else and representing it with a pair of numbers indicating that (a) the people are connected and (b) the direction of the relationship.</p>
+<p>Όταν προσθέτουμε περιορισμό <code>UNIQUE</code> στους πίνακές μας, επικοινωνούμε ένα σύνολο κανόνων που ζητάμε από τη βάση δεδομένων να τους επιβάλει, όταν προσπαθούμε να εισαγάγουμε εγγραφές. Δημιουργούμε αυτούς τους περιορισμούς στα προγράμματά μας για ευκολία, όπως θα δούμε σε λίγο. Οι περιορισμοί μας εμποδίζουν από το να κάνουμε λάθη και μας διευκολύνουν να γράψουμε μέρος του κώδικά μας.</p>
+<p>Στην ουσία, δημιουργώντας αυτόν τον πίνακα <code>Follows</code>, διαμορφώνουμε μια “σχέση”, όπου ένα άτομο “ακολουθεί” κάποιον άλλο και την αναπαριστάνουμε με ένα ζεύγος αριθμών που υποδεικνύουν ότι (α) τα άτομα είναι συνδεδεμένα και (β) την κατεύθυνση της σχέσης.</p>
 <figure>
-<img src="../images/twitter1.svg" alt="Relationships Between Tables" style="height: 3.5in;"/>
+<img src="../images/twitter1.svg" alt="Σχέσεις Μεταξύ Πινάκων" style="height: 3.5in;"/>
 <figcaption>
-Relationships Between Tables
+Σχέσεις Μεταξύ Πινάκων
 </figcaption>
 </figure>
-<h2 id="programming-with-multiple-tables">Programming with multiple tables</h2>
-<p>We will now redo the Twitter spider program using two tables, the primary keys, and the key references as described above. Here is the code for the new version of the program:</p>
+<h2 id="χρήση-πολλών-πινάκων">Χρήση πολλών πινάκων</h2>
+<p>Τώρα θα επαναλάβουμε το πρόγραμμα αντίχνευσης Twitter χρησιμοποιώντας δύο πίνακες, τα κύρια κλειδιά και τις αναφορές κλειδιών όπως περιγράφηκαν παραπάνω. Εδώ είναι ο κώδικας για τη νέα έκδοση του προγράμματος:</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
 import twurl
 import json
@@ -360,14 +360,14 @@ ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 while True:
-    acct = input(&#39;Enter a Twitter account, or quit: &#39;)
+    acct = input(&#39;Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit: &#39;)
     if (acct == &#39;quit&#39;): break
     if (len(acct) &lt; 1):
         cur.execute(&#39;SELECT id, name FROM People WHERE retrieved=0 LIMIT 1&#39;)
         try:
             (id, acct) = cur.fetchone()
         except:
-            print(&#39;No unretrieved Twitter accounts found&#39;)
+            print(&#39;Δεν βρέθηκαν λογαριασμοί Twitter που δεν έχουν ήδη ανακτηθεί&#39;)
             continue
     else:
         cur.execute(&#39;SELECT id FROM People WHERE name = ? LIMIT 1&#39;,
@@ -379,35 +379,35 @@ while True:
                         (name, retrieved) VALUES (?, 0)&#39;&#39;&#39;, (acct, ))
             conn.commit()
             if cur.rowcount != 1:
-                print(&#39;Error inserting account:&#39;, acct)
+                print(&#39;Σφάλμα κατά την εισαγωγή του λογαριασμού:&#39;, acct)
                 continue
             id = cur.lastrowid
 
     url = twurl.augment(TWITTER_URL, {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;100&#39;})
-    print(&#39;Retrieving account&#39;, acct)
+    print(&#39;Ανάκτηση του&#39;, acct)
     try:
         connection = urllib.request.urlopen(url, context=ctx)
     except Exception as err:
-        print(&#39;Failed to Retrieve&#39;, err)
+        print(&#39;Η ανάκτηση απέτυχε &#39;, err)
         break
 
     data = connection.read().decode()
     headers = dict(connection.getheaders())
 
-    print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
+    print(&#39;Απομένουν&#39;, headers[&#39;x-rate-limit-remaining&#39;])
 
     try:
         js = json.loads(data)
     except:
-        print(&#39;Unable to parse json&#39;)
+        print(&#39;Δεν είναι δυνατή η ανάλυση του json&#39;)
         print(data)
         break
 
-    # Debugging
+    # Εκσφαλμάτωση
     # print(json.dumps(js, indent=4))
 
     if &#39;users&#39; not in js:
-        print(&#39;Incorrect JSON received&#39;)
+        print(&#39;Λήφθηκε λάθος JSON&#39;)
         print(json.dumps(js, indent=4))
         continue
 
@@ -428,46 +428,49 @@ while True:
                         VALUES (?, 0)&#39;&#39;&#39;, (friend, ))
             conn.commit()
             if cur.rowcount != 1:
-                print(&#39;Error inserting account:&#39;, friend)
+                print(&#39;Σφάλμα κατά την εισαγωγή λογαριασμού&#39;, friend)
                 continue
             friend_id = cur.lastrowid
             countnew = countnew + 1
         cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Follows (from_id, to_id)
                     VALUES (?, ?)&#39;&#39;&#39;, (id, friend_id))
-    print(&#39;New accounts=&#39;, countnew, &#39; revisited=&#39;, countold)
-    print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
+    print(&#39;Νέοι λογαριασμοί =&#39;, countnew, &#39; Επισκεύθηκαν εκ νέου =&#39;, countold)
+    print(&#39;Απομένουν&#39;, headers[&#39;x-rate-limit-remaining&#39;])
     conn.commit()
 cur.close()
 
 # Code: http://www.gr.py4e.com/code3/twfriends.py</code></pre>
-<p>This program is starting to get a bit complicated, but it illustrates the patterns that we need to use when we are using integer keys to link tables. The basic patterns are:</p>
+<p>Αυτό το πρόγραμμα αρχίζει να γίνεται λίγο περίπλοκο, αλλά δείχνει τα μοτίβα που πρέπει να ακολουθούμε όταν χρησιμοποιούμε ακέραια κλειδιά για σύνδεση πινάκων. Τα βασικά σημεία είναι:</p>
 <ol type="1">
-<li><p>Create tables with primary keys and constraints.</p></li>
-<li><p>When we have a logical key for a person (i.e., account name) and we need the <code>id</code> value for the person, depending on whether or not the person is already in the <code>People</code> table we either need to: (1) look up the person in the <code>People</code> table and retrieve the <code>id</code> value for the person or (2) add the person to the <code>People</code> table and get the <code>id</code> value for the newly added row.</p></li>
-<li><p>Insert the row that captures the “follows” relationship.</p></li>
+<li><p>Δημιουργήστε πίνακες με πρωτεύοντα κλειδιά και περιορισμούς.</p></li>
+<li>Όταν έχουμε ένα λογικό κλειδί για ένα άτομο (π.χ. όνομα λογαριασμού) και χρειαζόμαστε την τιμή <code>id</code> για το άτομο, ανάλογα με το αν το άτομο βρίσκεται ήδη στον πίνακα <code>People</code> ή όχι, χρειάζεται: (1) να αναζητήστε το άτομο στον πίνακα <code>People</code> και να ανακτήστε την τιμή <code>id</code> για το άτομο ή
+<ol start="2" type="1">
+<li>να προσθέστε το άτομο στον πίνακα <code>People</code> και να κρατήσετε την τιμή <code>id</code> της νέας σειράς που προστέθηκε.</li>
+</ol></li>
+<li><p>Εισαγάγετε τη γραμμή που καταγράφει τη σχέση <code>Follows</code> (“ακολουθεί”).</p></li>
 </ol>
-<p>We will cover each of these in turn.</p>
-<h3 id="constraints-in-database-tables">Constraints in database tables</h3>
-<p>As we design our table structures, we can tell the database system that we would like it to enforce a few rules on us. These rules help us from making mistakes and introducing incorrect data into our tables. When we create our tables:</p>
+<p>Θα καλύψουμε καθένα από αυτά με τη σειρά του.</p>
+<h3 id="περιορισμοί-σε-πίνακες-βάσης-δεδομένων">Περιορισμοί σε πίνακες βάσης δεδομένων</h3>
+<p>Καθώς σχεδιάζουμε τις δομές των πινάκων μας, μπορούμε να πούμε στο σύστημα βάσης δεδομένων ότι θα θέλαμε να επιβάλει μερικούς περιορισμούς. Αυτοί οι περιορισμοί μας βοηθούν να αποφύγουμε λάθη και εισαγωγή εσφαλμένων δεδομένων στους πίνακές μας, όταν δημιουργούμε τους πίνακές μας:</p>
 <pre class="python"><code>cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS People
     (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)&#39;&#39;&#39;)
 cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS Follows
     (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))&#39;&#39;&#39;)</code></pre>
-<p>We indicate that the <code>name</code> column in the <code>People</code> table must be <code>UNIQUE</code>. We also indicate that the combination of the two numbers in each row of the <code>Follows</code> table must be unique. These constraints keep us from making mistakes such as adding the same relationship more than once.</p>
-<p>We can take advantage of these constraints in the following code:</p>
+<p>Υποδεικνύουμε ότι η στήλη <code>name</code> στον πίνακα <code>People</code> πρέπει να είναι <code>UNIQUE (ΜΟΝΑΔΙΚΗ)</code>. Υποδεικνύουμε επίσης ότι ο συνδυασμός των δύο αριθμών (<code>from_id</code> και <code>to_id</code>), σε κάθε γραμμή του πίνακα <code>Follows</code>, πρέπει να είναι μοναδικός. Αυτοί οι περιορισμοί μας εμποδίζουν να κάνουμε λάθη, όπως η προσθήκη της ίδιας σχέσης, περισσότερες από μία φορές.</p>
+<p>Μπορούμε να εκμεταλλευτούμε αυτούς τους περιορισμούς στον ακόλουθο κώδικα:</p>
 <pre class="python"><code>cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO People (name, retrieved)
     VALUES ( ?, 0)&#39;&#39;&#39;, ( friend, ) )</code></pre>
-<p>We add the <code>OR IGNORE</code> clause to our <code>INSERT</code> statement to indicate that if this particular <code>INSERT</code> would cause a violation of the “<code>name</code> must be unique” rule, the database system is allowed to ignore the <code>INSERT</code>. We are using the database constraint as a safety net to make sure we don’t inadvertently do something incorrect.</p>
-<p>Similarly, the following code ensures that we don’t add the exact same <code>Follows</code> relationship twice.</p>
+<p>Προσθέτουμε τον όρο <code>OR IGNORE</code> στην εντολή <code>INSERT</code> για να υποδείξουμε ότι εάν αυτό το συγκεκριμένο <code>INSERT</code> προκαλεί παραβίαση του περιορισμού “Το <code>name</code> πρέπει να είναι μοναδικό”, το σύστημα βάσης δεδομένων επιτρέπεται να αγνοήσει το <code>INSERT</code>. Χρησιμοποιούμε τον περιορισμό της βάσης δεδομένων ως δίχτυ ασφαλείας, για να βεβαιωθούμε ότι δεν θα κάνουμε άθελά μας κάτι λάθος.</p>
+<p>Ομοίως, ο ακόλουθος κώδικας διασφαλίζει ότι δεν θα προσθέσουμε την ίδια ακριβώς σχέση <code>Follows</code> δύο φορές.</p>
 <pre class="python"><code>cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Follows
     (from_id, to_id) VALUES (?, ?)&#39;&#39;&#39;, (id, friend_id) )</code></pre>
-<p>Again, we simply tell the database to ignore our attempted <code>INSERT</code> if it would violate the uniqueness constraint that we specified for the <code>Follows</code> rows.</p>
-<h3 id="retrieve-andor-insert-a-record">Retrieve and/or insert a record</h3>
-<p>When we prompt the user for a Twitter account, if the account exists, we must look up its <code>id</code> value. If the account does not yet exist in the <code>People</code> table, we must insert the record and get the <code>id</code> value from the inserted row.</p>
-<p>This is a very common pattern and is done twice in the program above. This code shows how we look up the <code>id</code> for a friend’s account when we have extracted a <code>screen_name</code> from a <code>user</code> node in the retrieved Twitter JSON.</p>
-<p>Since over time it will be increasingly likely that the account will already be in the database, we first check to see if the <code>People</code> record exists using a <code>SELECT</code> statement.</p>
-<p>If all goes well<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> inside the <code>try</code> section, we retrieve the record using <code>fetchone()</code> and then retrieve the first (and only) element of the returned tuple and store it in <code>friend_id</code>.</p>
-<p>If the <code>SELECT</code> fails, the <code>fetchone()[0]</code> code will fail and control will transfer into the <code>except</code> section.</p>
+<p>Και πάλι, απλώς λέμε στη βάση δεδομένων να αγνοήσει τo <code>INSERT (ΕΙΣΑΓΩΓΗ)</code>, εάν παραβιάζει τον περιορισμό μοναδικότητας, που καθορίσαμε για τις γραμμές του <code>Follows</code>.</p>
+<h3 id="ανάκτηση-καιή-εισαγωγή-εγγραφής">Ανάκτηση και/ή εισαγωγή εγγραφής</h3>
+<p>Όταν ζητάμε από τον χρήστη έναν λογαριασμό Twitter, εάν ο λογαριασμός υπάρχει, πρέπει να αναζητήσουμε την τιμή <code>id</code> του. Εάν ο λογαριασμός δεν υπάρχει ακόμα στον πίνακα <code>People</code>, πρέπει να εισαγάγουμε την εγγραφή και να λάβουμε την τιμή <code>id</code> της εισαγόμενης γραμμής.</p>
+<p>Αυτό είναι ένα πολύ κοινό μοτίβο και γίνεται δύο φορές στο παραπάνω πρόγραμμα. Αυτός ο κώδικας δείχνει πώς αναζητούμε το <code>id</code>, για τον λογαριασμό ενός φίλου, όταν έχουμε εξαγάγει ένα <code>screen_name</code> από έναν κόμβο <code>user</code> στο ανακτηθέν Twitter JSON.</p>
+<p>Δεδομένου ότι μετά από αρκετές εκτελέσεις, του παραπάνω κώδικα, θα είναι όλο και πιο πιθανό ο λογαριασμός να βρίσκεται ήδη στη βάση δεδομένων, πρώτα ελέγχουμε αν υπάρχει η εγγραφή στον <code>People</code>, χρησιμοποιώντας μια εντολή <code>SELECT</code>.</p>
+<p>Αν όλα πάνε καλά<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> μέσα στην ενότητα <code>try</code>, ανακτούμε την εγγραφή χρησιμοποιώντας το <code>fetchone()</code> και στη συνέχεια ανακτάμε το πρώτο (και μοναδικό) στοιχείο της πλειάδας που επιστράφηκε και το αποθηκεύουμε στο <code>friend_id</code>.</p>
+<p>Εάν το <code>SELECT</code> αποτύχει, ο κώδικας <code>fetchone()[0]</code> θα αποτύχει επίσης και ο έλεγχος θα μεταφερθεί στην ενότητα <code>except</code>.</p>
 <pre class="python"><code>    friend = u[&#39;screen_name&#39;]
     cur.execute(&#39;SELECT id FROM People WHERE name = ? LIMIT 1&#39;,
         (friend, ) )
@@ -483,66 +486,66 @@ cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS Follows
             continue
         friend_id = cur.lastrowid
         countnew = countnew + 1</code></pre>
-<p>If we end up in the <code>except</code> code, it simply means that the row was not found, so we must insert the row. We use <code>INSERT OR IGNORE</code> just to avoid errors and then call <code>commit()</code> to force the database to really be updated. After the write is done, we can check the <code>cur.rowcount</code> to see how many rows were affected. Since we are attempting to insert a single row, if the number of affected rows is something other than 1, it is an error.</p>
-<p>If the <code>INSERT</code> is successful, we can look at <code>cur.lastrowid</code> to find out what value the database assigned to the <code>id</code> column in our newly created row.</p>
-<h3 id="storing-the-friend-relationship">Storing the friend relationship</h3>
-<p>Once we know the key value for both the Twitter user and the friend in the JSON, it is a simple matter to insert the two numbers into the <code>Follows</code> table with the following code:</p>
+<p>Αν καταλήξουμε στον κώδικα του <code>except</code>, σημαίνει απλώς ότι η σειρά δεν βρέθηκε, επομένως πρέπει να εισαγάγουμε τη σειρά. Χρησιμοποιούμε <code>INSERT OR IGNORE</code> απλώς για να αποφύγουμε σφάλματα και στη συνέχεια καλούμε το <code>commit()</code>, για να αναγκάσουμε τη βάση δεδομένων να ενημερωθεί. Αφού ολοκληρωθεί η εγγραφή, μπορούμε να ελέγξουμε το <code>cur.rowcount</code> για να δούμε πόσες σειρές επηρεάστηκαν. Εφόσον προσπαθούμε να εισαγάγουμε μία μόνο σειρά, εάν ο αριθμός των επηρεαζόμενων σειρών είναι κάτι διαφορετικό από 1, είναι σφάλμα.</p>
+<p>Εάν το <code>INSERT</code> είναι επιτυχές, μπορούμε να κοιτάξουμε το <code>cur.lastrowid</code> για να ελέγξουμε ποια τιμή έχει εκχωρήσει η βάση δεδομένων στη στήλη <code>id</code>, στη νεοδημιουργηθήσα γραμμή.</p>
+<h3 id="αποθήκευση-της-σχέσης-φίλου">Αποθήκευση της σχέσης φίλου</h3>
+<p>Από τη στιγμή που ξέρετε την τιμή κλειδιού, τόσο για τον χρήστη του Twitter όσο και για τον φίλο, στο JSON, είναι απλό να εισαγάγετε τους δύο αριθμούς στον πίνακα `Follows με τον ακόλουθο κώδικα:</p>
 <pre class="python"><code>cur.execute(&#39;INSERT OR IGNORE INTO Follows (from_id, to_id) VALUES (?, ?)&#39;,
     (id, friend_id) )</code></pre>
-<p>Notice that we let the database take care of keeping us from “double-inserting” a relationship by creating the table with a uniqueness constraint and then adding <code>OR IGNORE</code> to our <code>INSERT</code> statement.</p>
-<p>Here is a sample execution of this program:</p>
-<pre><code>Enter a Twitter account, or quit:
-No unretrieved Twitter accounts found
-Enter a Twitter account, or quit: drchuck
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 20  revisited= 0
-Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit: quit</code></pre>
-<p>We started with the <code>drchuck</code> account and then let the program automatically pick the next two accounts to retrieve and add to our database.</p>
-<p>The following is the first few rows in the <code>People</code> and <code>Follows</code> tables after this run is completed:</p>
-<pre><code>People:
+<p>Σημειώστε ότι αφήνουμε τη βάση δεδομένων να φροντίσει για την αποφυγή “διπλής εισαγωγής” μιας σχέσης, δημιουργώντας τον πίνακα με έναν περιορισμό μοναδικότητας και, στη συνέχεια, προσθέτοντας <code>OR IGNORE</code> στην εντολή <code>INSERT</code>.</p>
+<p>Ακολουθεί ένα δείγμα εκτέλεσης αυτού του προγράμματος:</p>
+<pre class="{text}"><code>Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit:
+Δεν βρέθηκαν λογαριασμοί Twitter που δεν έχουν ήδη ανακτηθεί
+Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit: drchuck
+Ανάκτηση του http://api.twitter.com/1.1/friends ...
+Νέοι λογαριασμοί = 20  Επισκεύθηκαν εκ νέου = 0
+Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit:
+Ανάκτηση του http://api.twitter.com/1.1/friends ...
+Νέοι λογαριασμοί = 17  Επισκεύθηκαν εκ νέου = 3
+Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit:
+Ανάκτηση του http://api.twitter.com/1.1/friends ...
+Νέοι λογαριασμοί = 17  Επισκεύθηκαν εκ νέου = 3
+Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit: quit</code></pre>
+<p>Ξεκινήσαμε με τον λογαριασμό <code>drchuck</code> και μετά αφήσαμε το πρόγραμμα να επιλέξει αυτόματα τους επόμενους δύο λογαριασμούς για ανάκτηση και προσθήκη στη βάση δεδομένων μας.</p>
+<p>Ακολουθούν οι πρώτες λίγες σειρές στους πίνακες <code>People</code> και <code>Follows</code>, μετά την ολοκλήρωση αυτής της εκτέλεσης:</p>
+<pre class="{text}"><code>People:
 (1, &#39;drchuck&#39;, 1)
 (2, &#39;opencontent&#39;, 1)
 (3, &#39;lhawthorn&#39;, 1)
 (4, &#39;steve_coppin&#39;, 0)
 (5, &#39;davidkocher&#39;, 0)
-55 rows.
+55 γραμμές.
 Follows:
 (1, 2)
 (1, 3)
 (1, 4)
 (1, 5)
 (1, 6)
-60 rows.</code></pre>
-<p>You can see the <code>id</code>, <code>name</code>, and <code>visited</code> fields in the <code>People</code> table and you see the numbers of both ends of the relationship in the <code>Follows</code> table. In the <code>People</code> table, we can see that the first three people have been visited and their data has been retrieved. The data in the <code>Follows</code> table indicates that <code>drchuck</code> (user 1) is a friend to all of the people shown in the first five rows. This makes sense because the first data we retrieved and stored was the Twitter friends of <code>drchuck</code>. If you were to print more rows from the <code>Follows</code> table, you would see the friends of users 2 and 3 as well.</p>
-<h2 id="three-kinds-of-keys">Three kinds of keys</h2>
-<p>Now that we have started building a data model putting our data into multiple linked tables and linking the rows in those tables using <em>keys</em>, we need to look at some terminology around keys. There are generally three kinds of keys used in a database model.</p>
+60 γραμμές.</code></pre>
+<p>Μπορείτε να δείτε τα πεδία <code>id</code>, <code>name</code> και <code>visited</code> στον πίνακα <code>People</code> και βλέπετε τους αριθμούς και των δύο άκρων των σχέσεων στον πίνακα <code>Follows</code>. Στον πίνακα <code>People</code>, μπορούμε να δούμε ότι έχουμε επισκεφθεί τα τρία πρώτα άτομα και τα δεδομένα τους έχουν ανακτηθεί. Τα δεδομένα στον πίνακα <code>Follows</code> υποδεικνύουν ότι ο <code>drchuck</code> (χρήστης 1) είναι φίλος με όλα τα άτομα που εμφανίζονται στις πρώτες πέντε σειρές. Αυτό είναι λογικό, γιατί τα πρώτα δεδομένα που ανακτήσαμε και αποθηκεύσαμε ήταν οι φίλοι Twitter του <code>drchuck</code>. Εάν επρόκειτο να εκτυπώσετε περισσότερες σειρές από τον πίνακα <code>Follows</code>, θα βλέπατε και τους φίλους των χρηστών 2 και 3.</p>
+<h2 id="τριών-ειδών-κλειδιά">Τριών ειδών κλειδιά</h2>
+<p>Τώρα που αρχίσαμε να χτίζουμε ένα μοντέλο δεδομένων, τοποθετώντας τα δεδομένα μας σε πολλούς συνδεδεμένους πίνακες και συνδέοντας τις σειρές αυτών των πινάκων χρησιμοποιώντας <em>κλειδιά</em>, πρέπει να δούμε κάποια ορολογία γύρω από τα κλειδιά. Υπάρχουν γενικά τρία είδη κλειδιών που χρησιμοποιούνται σε ένα μοντέλο βάσης δεδομένων.</p>
 <ul>
-<li><p>A <em>logical key</em> is a key that the “real world” might use to look up a row. In our example data model, the <code>name</code> field is a logical key. It is the screen name for the user and we indeed look up a user’s row several times in the program using the <code>name</code> field. You will often find that it makes sense to add a <code>UNIQUE</code> constraint to a logical key. Since the logical key is how we look up a row from the outside world, it makes little sense to allow multiple rows with the same value in the table.</p></li>
-<li><p>A <em>primary key</em> is usually a number that is assigned automatically by the database. It generally has no meaning outside the program and is only used to link rows from different tables together. When we want to look up a row in a table, usually searching for the row using the primary key is the fastest way to find the row. Since primary keys are integer numbers, they take up very little storage and can be compared or sorted very quickly. In our data model, the <code>id</code> field is an example of a primary key.</p></li>
-<li><p>A <em>foreign key</em> is usually a number that points to the primary key of an associated row in a different table. An example of a foreign key in our data model is the <code>from_id</code>.</p></li>
+<li><p>Ένα <em>λογικό κλειδί (logical key)</em> είναι ένα κλειδί που μπορεί να χρησιμοποιηθεί στον “πραγματικό κόσμο” για την αναζήτηση μιας σειράς. Στο μοντέλο δεδομένων του παραδείγματός μας, το πεδίο <code>name</code> είναι ένα λογικό κλειδί. Είναι το όνομα με το οποίο εμφανίζεται ο χρήστης (screen name) και όντως αναζητούμε τη σειρά ενός χρήστη αρκετές φορές στο πρόγραμμα χρησιμοποιώντας το πεδίο <code>name</code>. Συχνά θα διαπιστώσετε ότι είναι λογικό να προσθέσετε έναν περιορισμό <code>UNIQUE</code> σε ένα λογικό κλειδί. Δεδομένου ότι το λογικό κλειδί είναι ο τρόπος με τον αποίο αναζητούμε μια σειρά στην πραγματική ζωή, δεν έχει νόημα να επιτρέπουμε πολλές σειρές με την ίδια τιμή στον πίνακα.</p></li>
+<li><p>Ένα <em>πρωτεύον κλειδί (primary key)</em> είναι συνήθως ένας αριθμός που εκχωρείται αυτόματα από τη βάση δεδομένων. Γενικά δεν έχει νόημα εκτός προγράμματος και χρησιμοποιείται μόνο για τη σύνδεση σειρών από διαφορετικούς πίνακες, μεταξύ τους. Όταν θέλουμε να αναζητήσουμε μια σειρά σε έναν πίνακα, συνήθως η αναζήτηση της σειράς, χρησιμοποιώντας το πρωτεύον κλειδί είναι ο πιο γρήγορος τρόπος για να βρείτε τη σειρά. Δεδομένου ότι τα πρωτεύοντα κλειδιά είναι ακέραιοι αριθμοί, καταλαμβάνουν πολύ λίγο χώρο αποθήκευσης και μπορούν να συγκριθούν ή να ταξινομηθούν πολύ γρήγορα. Στο μοντέλο δεδομένων μας, το πεδίο <code>id</code> είναι ένα παράδειγμα πρωτεύοντος κλειδιού.</p></li>
+<li><p>Ένα <em>ξένο κλειδί (foreign key)</em> είναι συνήθως ένας αριθμός που δείχνει το πρωτεύον κλειδί μιας συσχετισμένης σειράς σε διαφορετικό πίνακα. Ένα παράδειγμα ξένου κλειδιού στο μοντέλο δεδομένων μας είναι το <code>from_id</code>.</p></li>
 </ul>
-<p>We are using a naming convention of always calling the primary key field name <code>id</code> and appending the suffix <code>_id</code> to any field name that is a foreign key.</p>
-<h2 id="using-join-to-retrieve-data">Using JOIN to retrieve data</h2>
-<p>Now that we have followed the rules of database normalization and have data separated into two tables, linked together using primary and foreign keys, we need to be able to build a <code>SELECT</code> that reassembles the data across the tables.</p>
-<p>SQL uses the <code>JOIN</code> clause to reconnect these tables. In the <code>JOIN</code> clause you specify the fields that are used to reconnect the rows between the tables.</p>
-<p>The following is an example of a <code>SELECT</code> with a <code>JOIN</code> clause:</p>
+<p>Χρησιμοποιούμε μια σύμβαση ονομασίας που πάντα το όνομα πεδίου του πρωτεύοντος κλειδιού <code>id</code> και προσαρτάμε το επίθημα <code>_id</code> σε οποιοδήποτε όνομα πεδίου που είναι ξένο κλειδί.</p>
+<h2 id="χρήση-join-για-ανάκτηση-δεδομένων">Χρήση JOIN για ανάκτηση δεδομένων</h2>
+<p>Τώρα που έχουμε ακολουθήσει τους κανόνες κανονικοποίησης της βάσης δεδομένων και τα δεδομένα χωρίζονται σε δύο πίνακες, συνδεδεμένα μεταξύ τους χρησιμοποιώντας πρωτεύοντα και ξένα κλειδιά, πρέπει να είμαστε σε θέση να δημιουργήσουμε ένα <code>SELECT</code> που επανασυναρμολογεί τα δεδομένα στους πίνακες.</p>
+<p>Η SQL χρησιμοποιεί τον όρο <code>JOIN</code> για να επανασυνδέσει αυτούς τους πίνακες. Στον όρο <code>JOIN</code> καθορίζετε τα πεδία που χρησιμοποιούνται για την επανασύνδεση των σειρών των πινάκων.</p>
+<p>Το παρακάτω είναι ένα παράδειγμα <code>SELECT</code> με ρήτρα <code>JOIN</code>:</p>
 <pre class="sql"><code>SELECT * FROM Follows JOIN People
     ON Follows.from_id = People.id WHERE People.id = 1</code></pre>
-<p>The <code>JOIN</code> clause indicates that the fields we are selecting cross both the <code>Follows</code> and <code>People</code> tables. The <code>ON</code> clause indicates how the two tables are to be joined: Take the rows from <code>Follows</code> and append the row from <code>People</code> where the field <code>from_id</code> in <code>Follows</code> is the same the <code>id</code> value in the <code>People</code> table.</p>
+<p>Ο όρος <code>JOIN</code> υποδηλώνει ότι τα πεδία που επιλέγουμε διασχίζουν και τους πίνακες <code>Follows</code> και <code>People</code>. Η ρήτρα <code>ON</code> υποδεικνύει πώς θα ενωθούν οι δύο πίνακες: Πάρε τις σειρές από το <code>Follows</code> και προσθέστε τη σειρά του <code>People</code>, όπου το πεδίο <code>from_id</code> στο <code>Follows</code> είναι το ίδιο με την τιμή <code>id</code> του πίνακα <code>People</code>.</p>
 <figure>
-<img src="../images/join.svg" alt="Connecting Tables Using JOIN" style="height: 3.5in;"/>
+<img src="../images/join.svg" alt="Σύνδεση πινάκων με χρήση JOIN" style="height: 3.5in;"/>
 <figcaption>
-Connecting Tables Using JOIN
+Σύνδεση πινάκων με χρήση JOIN
 </figcaption>
 </figure>
-<p>The result of the JOIN is to create extra-long “metarows” which have both the fields from <code>People</code> and the matching fields from <code>Follows</code>. Where there is more than one match between the <code>id</code> field from <code>People</code> and the <code>from_id</code> from <code>People</code>, then JOIN creates a metarow for <em>each</em> of the matching pairs of rows, duplicating data as needed.</p>
-<p>The following code demonstrates the data that we will have in the database after the multi-table Twitter spider program (above) has been run several times.</p>
+<p>Το αποτέλεσμα του JOIN είναι να δημιουργηθούν πολύ μεγάλες “meta-γραμμές” οι οποίες έχουν και τα δύο πεδία από τον <code>People</code> και τα αντίστοιχα πεδία από τον <code>Follows</code>. Όπου υπάρχουν περισσότερες από μία αντιστοιχίσεις μεταξύ του πεδίου <code>id</code> από τον <code>People</code> και του <code>from_id</code> από τον <code>Follows</code>, τότε το JOIN δημιουργεί μια meta-γραμμή για <em>κάθε ένα</em> από τα αντίστοιχα ζεύγη σειρών, αντιγράφοντας δεδομένα όπως απαιτείται.</p>
+<p>Ο παρακάτω κώδικας δείχνει τα δεδομένα που θα έχουμε στη βάση δεδομένων μετά την εκτέλεση του προγράμματος πολλαπλών πινάκων Twitter spider (παραπάνω) πολλές φορές.</p>
 <pre class="python"><code>import sqlite3
 
 conn = sqlite3.connect(&#39;friends.sqlite&#39;)
@@ -554,7 +557,7 @@ print(&#39;People:&#39;)
 for row in cur:
     if count &lt; 5: print(row)
     count = count + 1
-print(count, &#39;rows.&#39;)
+print(count, &#39;γραμμές.&#39;)
 
 cur.execute(&#39;SELECT * FROM Follows&#39;)
 count = 0
@@ -562,97 +565,96 @@ print(&#39;Follows:&#39;)
 for row in cur:
     if count &lt; 5: print(row)
     count = count + 1
-print(count, &#39;rows.&#39;)
+print(count, &#39;γραμμές.&#39;)
 
 cur.execute(&#39;&#39;&#39;SELECT * FROM Follows JOIN People
             ON Follows.to_id = People.id
             WHERE Follows.from_id = 2&#39;&#39;&#39;)
 count = 0
-print(&#39;Connections for id=2:&#39;)
+print(&#39;Συνδέσεις για το id=2:&#39;)
 for row in cur:
     if count &lt; 5: print(row)
     count = count + 1
-print(count, &#39;rows.&#39;)
+print(count, &#39;γραμμές.&#39;)
 
 cur.close()
 
 # Code: http://www.gr.py4e.com/code3/twjoin.py</code></pre>
-<p>In this program, we first dump out the <code>People</code> and <code>Follows</code> and then dump out a subset of the data in the tables joined together.</p>
-<p>Here is the output of the program:</p>
-<pre><code>python twjoin.py
+<p>Σε αυτό το πρόγραμμα, καταργούμε πρώτα τους πίνακες <code>People</code> και <code>Follows</code> και, στη συνέχεια, απορρίπτουμε ένα υποσύνολο των δεδομένων στους πίνακες που είναι ενωμένοι μεταξύ τους.</p>
+<p>Εδώ είναι η έξοδος του προγράμματος:</p>
+<pre class="{text}"><code>python twjoin.py
 People:
 (1, &#39;drchuck&#39;, 1)
 (2, &#39;opencontent&#39;, 1)
 (3, &#39;lhawthorn&#39;, 1)
 (4, &#39;steve_coppin&#39;, 0)
 (5, &#39;davidkocher&#39;, 0)
-55 rows.
+55 γραμμές.
 Follows:
 (1, 2)
 (1, 3)
 (1, 4)
 (1, 5)
 (1, 6)
-60 rows.
-Connections for id=2:
+60 γραμμές.
+Συνδέσεις για το id=2:
 (2, 1, 1, &#39;drchuck&#39;, 1)
 (2, 28, 28, &#39;cnxorg&#39;, 0)
 (2, 30, 30, &#39;kthanos&#39;, 0)
 (2, 102, 102, &#39;SomethingGirl&#39;, 0)
 (2, 103, 103, &#39;ja_Pac&#39;, 0)
-20 rows.</code></pre>
-<p>You see the columns from the <code>People</code> and <code>Follows</code> tables and the last set of rows is the result of the <code>SELECT</code> with the <code>JOIN</code> clause.</p>
-<p>In the last select, we are looking for accounts that are friends of “opencontent” (i.e., <code>People.id=2</code>).</p>
-<p>In each of the “metarows” in the last select, the first two columns are from the <code>Follows</code> table followed by columns three through five from the <code>People</code> table. You can also see that the second column (<code>Follows.to_id</code>) matches the third column (<code>People.id</code>) in each of the joined-up “metarows”.</p>
-<h2 id="summary">Summary</h2>
-<p>This chapter has covered a lot of ground to give you an overview of the basics of using a database in Python. It is more complicated to write the code to use a database to store data than Python dictionaries or flat files so there is little reason to use a database unless your application truly needs the capabilities of a database. The situations where a database can be quite useful are: (1) when your application needs to make many small random updates within a large data set, (2) when your data is so large it cannot fit in a dictionary and you need to look up information repeatedly, or (3) when you have a long-running process that you want to be able to stop and restart and retain the data from one run to the next.</p>
-<p>You can build a simple database with a single table to suit many application needs, but most problems will require several tables and links/relationships between rows in different tables. When you start making links between tables, it is important to do some thoughtful design and follow the rules of database normalization to make the best use of the database’s capabilities. Since the primary motivation for using a database is that you have a large amount of data to deal with, it is important to model your data efficiently so your programs run as fast as possible.</p>
-<h2 id="debugging">Debugging</h2>
-<p>One common pattern when you are developing a Python program to connect to an SQLite database will be to run a Python program and check the results using the Database Browser for SQLite. The browser allows you to quickly check to see if your program is working properly.</p>
-<p>You must be careful because SQLite takes care to keep two programs from changing the same data at the same time. For example, if you open a database in the browser and make a change to the database and have not yet pressed the “save” button in the browser, the browser “locks” the database file and keeps any other program from accessing the file. In particular, your Python program will not be able to access the file if it is locked.</p>
-<p>So a solution is to make sure to either close the database browser or use the <em>File</em> menu to close the database in the browser before you attempt to access the database from Python to avoid the problem of your Python code failing because the database is locked.</p>
-<h2 id="glossary">Glossary</h2>
+20 γραμμές.</code></pre>
+<p>Βλέπετε τις στήλες από τους πίνακες <code>People</code> και <code>Follows</code> και το τελευταίο σύνολο σειρών είναι το αποτέλεσμα του <code>SELECT</code> με τον όρο <code>JOIN</code>.</p>
+<p>Στην τελευταία επιλογή, αναζητούμε λογαριασμούς που είναι φίλοι του “opencontent” (δηλαδή, <code>People.id=2</code>).</p>
+<p>Σε κάθε μία από τις “meta-γραμμές” στην τελευταία επιλογή, οι δύο πρώτες στήλες είναι από τον πίνακα <code>Follows</code> ακολουθούμενες από τις στήλες τρία έως πέντε του πίνακα <code>People</code>. Μπορείτε επίσης να δείτε ότι η δεύτερη στήλη (<code>Follows.to_id</code>) ταιριάζει με την τρίτη στήλη (<code>People.id</code>) σε κάθε μία από τις ενωμένες “meta-γραμμές”.</p>
+<h2 id="περίληψη">Περίληψη</h2>
+<p>Αυτό το κεφάλαιο έχει καλύψει πολλά, για να σας δώσει μια επισκόπηση των βασικών στοιχείων της χρήσης μιας βάσης δεδομένων στην Python. Είναι πιο περίπλοκο να γράψετε τον κώδικα για να χρησιμοποιήσετε μια βάση δεδομένων για την αποθήκευση δεδομένων, από τα λεξικά Python ή τα επίπεδα αρχεία, επομένως δεν υπάρχει λόγος να χρησιμοποιήσετε μια βάση δεδομένων, εκτός εάν η εφαρμογή σας χρειάζεται πραγματικά τις δυνατότητες μιας βάσης δεδομένων. Οι περιπτώσεις όπου μια βάση δεδομένων μπορεί να είναι αρκετά χρήσιμη είναι: (1) όταν η εφαρμογή σας χρειάζεται να κάνει πολλές μικρές τυχαίες ενημερώσεις μέσα σε ένα μεγάλο σύνολο δεδομένων, (2) όταν τα δεδομένα σας είναι τόσο μεγάλα που δεν χωρούν σε ένα λεξικό και πρέπει να αναζητήσετε πληροφορίες επαναληπτικά ή (3) όταν έχετε μια χρονοβόρα διαδικασία, που θέλετε να μπορείτε να σταματήσετε και να επανεκκινήσετε, και να διατηρήσετε τα δεδομένα από τη μια εκτέλεση στην άλλη.</p>
+<p>Μπορείτε να δημιουργήσετε μια απλή βάση δεδομένων με έναν μόνο πίνακα για να ταιριάζει σε πολλές ανάγκες εφαρμογών, αλλά τα περισσότερα προβλήματα απαιτούν πολλούς πίνακες και συνδέσμους/σχέσεις μεταξύ σειρών σε διαφορετικούς πίνακες. Όταν ξεκινάτε να δημιουργείτε σχέσεις μεταξύ πινάκων, είναι σημαντικό να τις σχεδιάσετε προσεκτικά και να ακολουθήσετε τους κανόνες κανονικοποίησης της βάσης δεδομένων, για να αξιοποιήσετε με τον καλύτερο τρόπο τις δυνατότητες της βάσης δεδομένων. Δεδομένου ότι το κύριο κίνητρο για τη χρήση μιας βάσης δεδομένων είναι ότι έχετε μεγάλο όγκο δεδομένων για επεξεργασία, είναι σημαντικό να μοντελοποιήσετε τα δεδομένα σας αποτελεσματικά, ώστε τα προγράμματά σας να εκτελούνται όσο το δυνατόν γρηγορότερα.</p>
+<h2 id="εκσφαλμάτωση">Εκσφαλμάτωση</h2>
+<p>Ένα κοινό μοτίβο, όταν αναπτύσσετε ένα πρόγραμμα Python για να συνδεθείτε σε μια βάση δεδομένων SQLite, θα είναι η εκτέλεση ενός προγράμματος Python και ο έλεγχος των αποτελεσμάτων χρησιμοποιώντας το πρόγραμμα περιήγησης βάσης δεδομένων για SQLite (Database Browser for SQLite). Το πρόγραμμα περιήγησης σάς επιτρέπει να ελέγχετε γρήγορα εάν το πρόγραμμά σας λειτουργεί σωστά.</p>
+<p>Πρέπει να είστε προσεκτικοί γιατί το SQLite φροντίζει να εμποδίζει την αλλαγή των ίδιων δεδομένων από δύο προγράμματα ταυτόχρονα. Για παράδειγμα, εάν ανοίξετε μια βάση δεδομένων στο πρόγραμμα περιήγησης και κάνετε μια αλλαγή στη βάση δεδομένων και δεν έχετε πατήσει ακόμη το κουμπί “αποθήκευση” στο πρόγραμμα περιήγησης, το πρόγραμμα περιήγησης “κλειδώνει” το αρχείο βάσης δεδομένων και εμποδίζει οποιοδήποτε άλλο πρόγραμμα να έχει πρόσβαση στο αρχείο. Συγκεκριμένα, το πρόγραμμα Python σας δεν θα μπορεί να έχει πρόσβαση στο αρχείο εάν είναι κλειδωμένο.</p>
+<p>Επομένως, μια λύση είναι να βεβαιωθείτε ότι είτε κλείσατε το πρόγραμμα περιήγησης της βάσης δεδομένων είτε χρησιμοποιήσετε το μενού <em>Αρχείο</em> για να κλείσετε τη βάση δεδομένων στο πρόγραμμα περιήγησης πριν επιχειρήσετε να αποκτήσετε πρόσβαση στη βάση δεδομένων από την Python, για να αποφύγετε το πρόβλημα της αποτυχίας του κώδικα Python, επειδή η βάση δεδομένων είναι κλειδωμένη.</p>
+<h2 id="γλωσσάριο">Γλωσσάριο</h2>
 <dl>
-<dt>attribute</dt>
-<dd>One of the values within a tuple. More commonly called a “column” or “field”.
+<dt>ευρετήριο</dt>
+<dd>Πρόσθετα δεδομένα, που το λογισμικό της βάσης δεδομένων διατηρεί ως γραμμές και τα εισάγει σε έναν πίνακα για να πραγματοποιεί τις αναζητήσεις πιο γρήγορα.
 </dd>
-<dt>constraint</dt>
-<dd>When we tell the database to enforce a rule on a field or a row in a table. A common constraint is to insist that there can be no duplicate values in a particular field (i.e., all the values must be unique).
+<dt>κανονικοποίηση</dt>
+<dd>Σχεδιασμός ενός μοντέλου δεδομένων έτσι ώστε να μην γίνεται αναπαραγωγή δεδομένων. Αποθηκεύουμε κάθε στοιχείο δεδομένων σε ένα σημείο της βάσης δεδομένων και το αναφέρουμε αλλού χρησιμοποιώντας ένα ξένο κλειδί.
 </dd>
-<dt>cursor</dt>
-<dd>A cursor allows you to execute SQL commands in a database and retrieve data from the database. A cursor is similar to a socket or file handle for network connections and files, respectively.
+<dt>κέρσορας</dt>
+<dd>Ένας κέρσορας σάς επιτρέπει να εκτελείτε εντολές SQL σε μια βάση δεδομένων και να ανακτάτε δεδομένα από τη βάση δεδομένων. Ο κέρσορας είναι παρόμοιος με μια υποδοχή ή έναν περιγραφέα αρχείου για συνδέσεις δικτύου και αρχεία, αντίστοιχα.
 </dd>
-<dt>database browser</dt>
-<dd>A piece of software that allows you to directly connect to a database and manipulate the database directly without writing a program.
+<dt>λογικό κλειδί</dt>
+<dd>Ένα κλειδί που χρησιμοποιεί ο “έξω κόσμος” για να αναζητήσει μια συγκεκριμένη σειρά. Για παράδειγμα, σε έναν πίνακα λογαριασμών χρηστών, η διεύθυνση email ενός ατόμου μπορεί να είναι καλός υποψήφιος ως λογικό κλειδί για τα δεδομένα του χρήστη.
 </dd>
-<dt>foreign key</dt>
-<dd>A numeric key that points to the primary key of a row in another table. Foreign keys establish relationships between rows stored in different tables.
+<dt>ξένο κλειδί - foreign key</dt>
+<dd>Ένα αριθμητικό κλειδί που δείχνει το πρωτεύον κλειδί μιας γραμμής ενός άλλου πίνακα. Τα ξένα κλειδιά δημιουργούν σχέσεις μεταξύ γραμμών, που είναι αποθηκευμένες σε διαφορετικούς πίνακες.
 </dd>
-<dt>index</dt>
-<dd>Additional data that the database software maintains as rows and inserts into a table to make lookups very fast.
+<dt>περιορισμός</dt>
+<dd>Όταν λέμε στη βάση δεδομένων να επιβάλει έναν περιορισμός σε ένα πεδίο ή μια γραμμή ενός πίνακα. Ένας κοινός περιορισμός είναι να επιμείνουμε ότι δεν μπορούν να υπάρχουν διπλότυπες τιμές σε ένα συγκεκριμένο πεδίο (δηλαδή, όλες οι τιμές πρέπει να είναι μοναδικές).
 </dd>
-<dt>logical key</dt>
-<dd>A key that the “outside world” uses to look up a particular row. For example in a table of user accounts, a person’s email address might be a good candidate as the logical key for the user’s data.
+<dt>πλειάδα</dt>
+<dd>Μια μεμονωμένη καταχώρηση σε έναν πίνακα βάσης δεδομένων, που είναι ένα σύνολο χαρακτηριστικών. Συνήθως αναφέρεται ως “γραμμή”.
 </dd>
-<dt>normalization</dt>
-<dd>Designing a data model so that no data is replicated. We store each item of data at one place in the database and reference it elsewhere using a foreign key.
+<dt>πρόγραμμα περιήγησης βάσης δεδομένων</dt>
+<dd>Ένα κομμάτι λογισμικού που σας επιτρέπει να συνδεθείτε απευθείας σε μια βάση δεδομένων και να χειριστείτε τη βάση δεδομένων απευθείας χωρίς να γράψετε πρόγραμμα.
 </dd>
-<dt>primary key</dt>
-<dd>A numeric key assigned to each row that is used to refer to one row in a table from another table. Often the database is configured to automatically assign primary keys as rows are inserted.
+<dt>πρωτεύων κλειδί</dt>
+<dd>Ένα αριθμητικό κλειδί, που εκχωρείται σε κάθε γραμμή και χρησιμοποιείται για να αναφερθούμε σε μια γραμμή ενός πίνακα από έναν άλλο πίνακα. Συχνά η βάση δεδομένων ρυθμίζεται ώστε να εκχωρεί αυτόματα πρωτεύοντα κλειδιά, καθώς εισάγονται γραμμές.
 </dd>
-<dt>relation</dt>
-<dd>An area within a database that contains tuples and attributes. More typically called a “table”.
+<dt>σχέση</dt>
+<dd>Μια περιοχή μέσα σε μια βάση δεδομένων που περιέχει πλειάδες και χαρακτηριστικά. Συνήθως ονομάζεται “πίνακας”.
 </dd>
-<dt>tuple</dt>
-<dd>A single entry in a database table that is a set of attributes. More typically called “row”.
+<dt>χαρακτηριστικό</dt>
+<dd>Μία από τις τιμές μέσα σε μια πλειάδα. Συνήθως ονομάζεται “στήλη” ή “πεδίο”.
 </dd>
 </dl>
-<p></p>
 <section class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p>Το SQLite στην πραγματικότητα επιτρέπει κάποια ευελιξία στον τύπο των δεδομένων που αποθηκεύονται σε μια στήλη, αλλά θα διατηρήσουμε τους τύπους δεδομένων μας αυστηρούς σε αυτό το κεφάλαιο, ώστε οι έννοιες να ισχύουν εξίσου και σε άλλα συστήματα βάσεων δεδομένων, όπως π.χ. MySQL.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>In general, when a sentence starts with “if all goes well” you will find that the code needs to use try/except.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Γενικά, όταν μια πρόταση ξεκινά με “αν όλα πάνε καλά” θα διαπιστώσετε ότι ο κώδικας πρέπει να χρησιμοποιεί το try/except.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 </body>
