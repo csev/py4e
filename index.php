@@ -3,8 +3,9 @@
     setCookie('secret', '42', time() + 15 * 3600 * 24);
     header("Location: index.php");
     return;
-} else if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
+} else if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {*/
 ?>
+/*
 <body style="font-family: sans-serif,Courier,monospace; width: 80%; max-width:650px;margin-left: auto; margin-right: auto;">
 <center>
 <h1 style="color:#0D47A1;">py4e - GR<br/>Python για Όλους</h1>
