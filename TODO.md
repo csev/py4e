@@ -4,20 +4,21 @@ Things left to do:
 1. ~~[book.php](book.php)~~
 2. **srts**
 5. tools/pythonauto/
-6. ~~code3/~~
+6. code3/
 7. **book3/**
 8. Quizs
 9. images
+10. README.md
 
 
 if can be changed:
 -----------------
 1. In autograder: 
-   1. ~~"Your Output"
-   2. ~~"Desired Output"
-   3. ~~"Check Code"
-   4. ~~"Reset Code"
-   5. ~~Text in *i*
+   1. ~~"Your Output"~~
+   2. ~~"Desired Output"~~
+   3. ~~"Check Code"~~
+   4. ~~"Reset Code"~~
+   5. ~~Text in *i*~~
 
 2. On lessons screen the words:
    1. ~~videos~~
