@@ -1,5 +1,5 @@
-<!--<?php
-if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] == 'py4e') ) {
+<!-- <?php
+/* if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] == 'py4e') ) {
     setCookie('secret', '42', time() + 15 * 3600 * 24);
     header("Location: index.php");
     return;
@@ -42,10 +42,11 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == 'gr' || $_POST['secret'] ==
     console.log('Ο κωδικός είναι σχετικός με τη γλώσσα της παρούσας σελίδας');
     console.log('αλλά και με το περιεχόμενο του μαθήματος');
 </script>
-</center>
+</center> */
 <?php
-    return;
-} -->
+#    return;
+#} 
+-->
 use \Tsugi\Core\LTIX;
 use \Tsugi\UI\Output;
 
