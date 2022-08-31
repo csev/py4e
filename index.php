@@ -44,6 +44,7 @@
     console.log('αλλά και με το περιεχόμενο του μαθήματος');
 </script>
 </center> */
+-->
 <?php
 #    return;
 #} 
@@ -53,7 +54,7 @@ use \Tsugi\UI\Output;
 require_once "top.php";
 require_once "nav.php";
 ?>
--->
+
 <div id="container">
 <div style="margin-left: 10px; float:right">
 <iframe width="400" height="225" src="https://www.youtube.com/embed/UjeNA_JtXME?rel=0" frameborder="0" allowfullscreen></iframe>
