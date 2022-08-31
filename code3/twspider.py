@@ -14,31 +14,31 @@ cur.execute('''
             CREATE TABLE IF NOT EXISTS Twitter
             (name TEXT, retrieved INTEGER, friends INTEGER)''')
 
-# Ignore SSL certificate errors
+# Αγνοήστε τα σφάλματα πιστοποιητικού SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 while True:
-    acct = input('Enter a Twitter account, or quit: ')
+    acct = input('Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit: ')
     if (acct == 'quit'): break
     if (len(acct) < 1):
         cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
         try:
             acct = cur.fetchone()[0]
         except:
-            print('No unretrieved Twitter accounts found')
+            print('Δεν βρέθηκαν λογαριασμοί Twitter που δεν έχουν ήδη ανακτηθεί')
             continue
 
     url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '20'})
-    print('Retrieving', url)
+    print('Ανάκτηση του', url)
     connection = urlopen(url, context=ctx)
     data = connection.read().decode()
     headers = dict(connection.getheaders())
 
-    print('Remaining', headers['x-rate-limit-remaining'])
+    print('Απομένουν', headers['x-rate-limit-remaining'])
     js = json.loads(data)
-    # Debugging
+    # Εκσφαλμάτωση
     # print json.dumps(js, indent=4)
 
     cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ))
@@ -59,7 +59,7 @@ while True:
             cur.execute('''INSERT INTO Twitter (name, retrieved, friends)
                         VALUES (?, 0, 1)''', (friend, ))
             countnew = countnew + 1
-    print('New accounts=', countnew, ' revisited=', countold)
+    print('Νέοι λογαριασμοί =', countnew, ' Επισκεύθηκαν εκ νέου =', countold)
     conn.commit()
 
 cur.close()

@@ -7,5 +7,5 @@ count = 0
 for row in cur:
     print(row)
     count = count + 1
-print(count, 'rows.')
+print(count, 'γραμμές.')
 cur.close()

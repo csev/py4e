@@ -3,7 +3,7 @@ import oauth
 import hidden
 
 # https://apps.twitter.com/
-# Create App and get the four strings, put them in hidden.py
+# Δημιουργήστε App και πάρτε τις τέσσερεις συμβολοσειρές, καταχωρήστε τις στο hidden.py
 
 def augment(url, parameters):
     secrets = hidden.oauth()
@@ -20,7 +20,7 @@ def augment(url, parameters):
 
 
 def test_me():
-    print('* Calling Twitter...')
+    print('* Κλήση του Twitter...')
     url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json',
                   {'screen_name': 'drchuck', 'count': '2'})
     print(url)

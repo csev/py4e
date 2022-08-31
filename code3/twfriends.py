@@ -20,14 +20,14 @@ ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 while True:
-    acct = input('Enter a Twitter account, or quit: ')
+    acct = input('Εισαγάγετε έναν λογαριασμό Twitter ή τερματίστε την εκτέλεση με quit: ')
     if (acct == 'quit'): break
     if (len(acct) < 1):
         cur.execute('SELECT id, name FROM People WHERE retrieved=0 LIMIT 1')
         try:
             (id, acct) = cur.fetchone()
         except:
-            print('No unretrieved Twitter accounts found')
+            print('Δεν βρέθηκαν λογαριασμοί Twitter που δεν έχουν ήδη ανακτηθεί')
             continue
     else:
         cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
@@ -39,35 +39,35 @@ while True:
                         (name, retrieved) VALUES (?, 0)''', (acct, ))
             conn.commit()
             if cur.rowcount != 1:
-                print('Error inserting account:', acct)
+                print('Σφάλμα κατά την εισαγωγή του λογαριασμού:', acct)
                 continue
             id = cur.lastrowid
 
     url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '100'})
-    print('Retrieving account', acct)
+    print('Ανάκτηση του', acct)
     try:
         connection = urllib.request.urlopen(url, context=ctx)
     except Exception as err:
-        print('Failed to Retrieve', err)
+        print('Η ανάκτηση απέτυχε ', err)
         break
 
     data = connection.read().decode()
     headers = dict(connection.getheaders())
 
-    print('Remaining', headers['x-rate-limit-remaining'])
+    print('Απομένουν', headers['x-rate-limit-remaining'])
 
     try:
         js = json.loads(data)
     except:
-        print('Unable to parse json')
+        print('Δεν είναι δυνατή η ανάλυση του json')
         print(data)
         break
 
-    # Debugging
+    # Εκσφαλμάτωση
     # print(json.dumps(js, indent=4))
 
     if 'users' not in js:
-        print('Incorrect JSON received')
+        print('Λήφθηκε λάθος JSON')
         print(json.dumps(js, indent=4))
         continue
 
@@ -88,13 +88,13 @@ while True:
                         VALUES (?, 0)''', (friend, ))
             conn.commit()
             if cur.rowcount != 1:
-                print('Error inserting account:', friend)
+                print('Σφάλμα κατά την εισαγωγή λογαριασμού', friend)
                 continue
             friend_id = cur.lastrowid
             countnew = countnew + 1
         cur.execute('''INSERT OR IGNORE INTO Follows (from_id, to_id)
                     VALUES (?, ?)''', (id, friend_id))
-    print('New accounts=', countnew, ' revisited=', countold)
-    print('Remaining', headers['x-rate-limit-remaining'])
+    print('Νέοι λογαριασμοί =', countnew, ' Επισκεύθηκαν εκ νέου =', countold)
+    print('Απομένουν', headers['x-rate-limit-remaining'])
     conn.commit()
 cur.close()
