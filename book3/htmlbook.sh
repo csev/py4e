@@ -8,15 +8,22 @@ find html/. -type f -not -name 'figs2' | xargs rm
 # Make a symlink to figs
 #(cd html && ln -s ../figs2/)
 
+# Pick your Python
+MY_PYTHON=python
+if which python3; then
+MY_PYTHON=python3
+fi
+echo Using python command: $MY_PYTHON
+
 # Convert all mkd into html
 for fn in *.mkd; do
     echo "the next file is $fn"
     x=`basename $fn .mkd`
     echo $x
     cat $fn | \
-    python pre-html.py | \
+    $MY_PYTHON pre-html.py | \
     tee tmp.html.pre.$x | \
-    python verbatim.py --files | \
+    $MY_PYTHON verbatim.py --files | \
     pandoc -s \
     --no-highlight \
     -f markdown -t html \
