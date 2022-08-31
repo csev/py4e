@@ -1,33 +1,35 @@
-Visualizing data
-================
+Οπτικοποίηση δεδομένων
+======================
 
-So far we have been learning the Python language and then learning how
-to use Python, the network, and databases to manipulate data.
+Μέχρι στιγμής μαθαίνουμε τη γλώσσα Python και πώς να χρησιμοποιούμε την Python,
+το δίκτυο και τις βάσεις δεδομένων, για να χειριζόμαστε δεδομένα.
 
-In this chapter, we take a look at three complete applications that
-bring all of these things together to manage and visualize data. You
-might use these applications as sample code to help get you started in
-solving a real-world problem.
+Σε αυτό το κεφάλαιο, ρίχνουμε μια ματιά σε τρεις ολοκληρωμένες εφαρμογές που
+συγκεντρώνουν όλα όσα μάθαμε, για τη διαχείριση και την οπτικοποίηση δεδομένων.
+Μπορείτε να χρησιμοποιήσετε αυτές τις εφαρμογές ως δείγμα κώδικα για να
+ξεκινήσετε την επίλυση ενός πραγματικού προβλήματος.
 
-Each of the applications is a ZIP file that you can download and extract
-onto your computer and execute.
+Κάθε μία από τις εφαρμογές είναι ένα αρχείο ZIP, που μπορείτε να κατεβάσετε και
+να εξαγάγετε στον υπολογιστή σας καθώς και να το εκτελέσετε.
 
-Building a OpenStreetMap from geocoded data
--------------------------------------------
+Δημιουργία ενός OpenStreetMap από γεωκωδικοποιημένα δεδομένα
+------------------------------------------------------------
 
 \index{Google!map}
+\index{Google!χάρτης}
 \index{OpenStreetMap}
-\index{Visualization!map}
+\index{Οπτικοποίηση!χάρτης}
 
-In this project, we are using the OpenStreetMap geocoding API to clean up some
-user-entered geographic locations of university names and then placing
-the data on an actual OpenStreetMap.
+Σε αυτό το πρότζεκτ, χρησιμοποιούμε το API γεωκωδικοποίησης OpenStreetMap για
+να καθαρίσουμε ορισμένες γεωγραφικές τοποθεσίες, που έχουν εισαχθεί από τους
+χρήστες με ονόματα πανεπιστημίων και, στη συνέχεια, να τοποθετήσουμε τα
+δεδομένα σε ένα πραγματικό OpenStreetMap.
 
-![An OpenStreetMap](../images/openstreet-map)
+![Ένα OpenStreetMap](../images/openstreet-map)
 
-To get started, download the application from:
+Για να ξεκινήσετε, κατεβάστε την εφαρμογή από:
 
-[www.py4e.com/code3/opengeo.zip](http://www.py4e.com/code3/opengeo.zip)
+[www.gr.py4e.com/code3/opengeo.zip](http://www.gr.py4e.com/code3/opengeo.zip)
 
 The first problem to solve is that these geocoding APIs are
 rate-limited to a certain number of requests per day. If you have a lot
@@ -56,7 +58,7 @@ it in the database.
 
 Here is a sample run after there is already some data in the database:
 
-~~~~
+~~~~{text}
 Found in database AGH University of Science and Technology
 
 Found in database Academy of Fine Arts Warsaw Poland
@@ -101,7 +103,7 @@ the form of executable JavaScript code.
 
 A run of the *geodump.py* program is as follows:
 
-~~~~
+~~~~{text}
 AGH University of Science and Technology, Czarnowiejska,
 Czarna Wieś, Krowodrza, Kraków, Lesser Poland
 Voivodeship, 31-126, Poland 50.0657 19.91895
@@ -171,7 +173,7 @@ can restart the process at any time by removing the
 *spider.sqlite* file and rerunning
 *spider.py*.
 
-~~~~
+~~~~{text}
 Enter web url or enter: http://www.dr-chuck.com/
 ['http://www.dr-chuck.com']
 How many pages:2
@@ -186,7 +188,7 @@ will not re-crawl any pages already in the database. Upon restart it
 goes to a random non-crawled page and starts there. So each successive
 run of *spider.py* is additive.
 
-~~~~
+~~~~{text}
 Enter web url or enter: http://www.dr-chuck.com/
 ['http://www.dr-chuck.com']
 How many pages:3
@@ -203,7 +205,7 @@ all non-visited links across all the webs as the next page to spider.
 If you want to dump the contents of the *spider.sqlite*
 file, you can run *spdump.py* as follows:
 
-~~~~
+~~~~{text}
 (5, None, 1.0, 3, 'http://www.dr-chuck.com/csev-blog')
 (3, None, 1.0, 4, 'http://www.dr-chuck.com/dr-chuck/resume/speaking.htm')
 (1, None, 1.0, 2, 'http://www.dr-chuck.com/csev-blog/')
@@ -220,7 +222,7 @@ Once you have a few pages in the database, you can run page rank on the
 pages using the *sprank.py* program. You simply tell it
 how many page rank iterations to run.
 
-~~~~
+~~~~{text}
 How many iterations:2
 1 0.546848992536
 2 0.226714939664
@@ -229,7 +231,7 @@ How many iterations:2
 
 You can dump the database again to see that page rank has been updated:
 
-~~~~
+~~~~{text}
 (5, 1.0, 0.985, 3, 'http://www.dr-chuck.com/csev-blog')
 (3, 1.0, 2.135, 4, 'http://www.dr-chuck.com/dr-chuck/resume/speaking.htm')
 (1, 1.0, 0.659, 2, 'http://www.dr-chuck.com/csev-blog/')
@@ -248,7 +250,7 @@ If you want to restart the page rank calculations without respidering
 the web pages, you can use *spreset.py* and then restart
 *sprank.py*.
 
-~~~~
+~~~~{text}
 How many iterations:50
 1 0.546848992536
 2 0.226714939664
@@ -281,7 +283,7 @@ run *spjson.py* to read the database and write the data
 for the most highly linked pages in JSON format to be viewed in a web
 browser.
 
-~~~~
+~~~~{text}
 Creating JSON output on spider.json...
 How many nodes? 30
 Open force.html in a browser to view the visualization
@@ -356,7 +358,7 @@ restart several times.
 Here is a run of *gmane.py* retrieving the last five
 messages of the Sakai developer list:
 
-~~~~
+~~~~{text}
 How many messages:10
 http://download.gmane.org/gmane.comp.cms.sakai.devel/51410/51411 9460
     nealcaidin@sakaifoundation.org 2013-04-05 re: [building ...
@@ -414,7 +416,7 @@ data cleaning process. This is a sample run of
 messages are processed so you can see some progress happening, as this
 program may run for a while processing nearly a Gigabyte of mail data.
 
-~~~~
+~~~~{text}
 Loaded allsenders 1588 and mapping 28 dns mapping 1
 1 2005-12-08T23:34:30-06:00 ggolden22@mac.com
 251 2005-12-22T10:03:20-08:00 tpamsler@ucdavis.edu
@@ -432,9 +434,10 @@ becomes umich.edu and caret.cam.ac.uk becomes cam.ac.uk. Email addresses
 are also forced to lower case, and some of the @gmane.org address like
 the following
 
-~~~~
+~~~~{text}
 arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
 ~~~~
+
 are converted to the real address whenever there is a matching real
 email address elsewhere in the message corpus.
 
@@ -444,7 +447,7 @@ that change over the lifetime of the email list. For example, Steve
 Githens used the following email addresses as he changed jobs over the
 life of the Sakai developer list:
 
-~~~~
+~~~~{text}
 s-githens@northwestern.edu
 sgithens@cam.ac.uk
 swgithen@mtu.edu
@@ -454,7 +457,7 @@ We can add two entries to the Mapping table in
 *mapping.sqlite* so *gmodel.py* will map
 all three to one address:
 
-~~~~
+~~~~{text}
 s-githens@northwestern.edu ->  swgithen@mtu.edu
 sgithens@cam.ac.uk -> swgithen@mtu.edu
 ~~~~
@@ -463,7 +466,7 @@ You can also make similar entries in the DNSMapping table if there are
 multiple DNS names you want mapped to a single DNS. The following
 mapping was added to the Sakai data:
 
-~~~~
+~~~~{text}
 iupui.edu -> indiana.edu
 ~~~~
 
@@ -480,7 +483,7 @@ The first, simplest data analysis is to determine "who sent the most
 mail?" and "which organization sent the most mail"? This is done using
 *gbasic.py*:
 
-~~~~
+~~~~{text}
 How many to dump? 5
 Loaded messages= 51330 subjects= 25033 senders= 1584
 
@@ -510,7 +513,7 @@ a lot of time when you really start to explore and visualize your data.
 You can produce a simple visualization of the word frequency in the
 subject lines in the file *gword.py*:
 
-~~~~
+~~~~{text}
 Range of counts: 33229 129
 Output written to gword.js
 ~~~~
@@ -522,7 +525,7 @@ one at the beginning of this section.
 A second visualization is produced by *gline.py*. It
 computes email participation by organizations over time.
 
-~~~~
+~~~~{text}
 Loaded messages= 51330 subjects= 25033 senders= 1584
 Top 10 Oranizations
 ['gmail.com', 'umich.edu', 'uct.ac.za', 'indiana.edu',

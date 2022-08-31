@@ -8,4 +8,4 @@ conn.commit()
 
 cur.close()
 
-print("All pages set to a rank of 1.0")
+print("Όλες οι σελίδες έχουν οριστεί σε κατάταξη 1.0")
