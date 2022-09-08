@@ -138,14 +138,14 @@ if ( $dueDate->message ) {
 ?>
 <p>
 <form name="myform" enctype="multipart/form-data" method="post" >
-To get credit for this assignment, perform the instructions below and 
+To get credit for this assignment, perform the instructions below and
 upload your SQLite3 database here:<br/>
 <input name="database" type="file"> 
 (Must have a .sqlite suffix)<br/>
 Hint: The top organizational count is <?= $answer['iupui.edu'] ?>.<br/>
 <input type="submit">
 <p>
-You do not need to export or convert the database -  simply upload 
+You do not need to export or convert the database -  simply upload
 the <b>.sqlite</b> file that your program creates.  See the example code for
 the use of the <b>connect()</b> statement.
 </p>
@@ -163,7 +163,7 @@ When you have run the program on <b>mbox.txt</b> upload the resulting
 database file above for grading.
 </p>
 <p>
-If you run the program multiple times in testing or with dfferent files, 
+If you run the program multiple times in testing or with different files,
 make sure to empty out the data before each run.
 <p>
 You can use this code as a starting point for your application:
