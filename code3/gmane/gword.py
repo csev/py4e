@@ -53,4 +53,4 @@ fhand.write( "\n];\n")
 fhand.close()
 
 print("Output written to gword.js")
-print("Open gword.htm in a browser to see the vizualization")
+print("Open gword.htm in a browser to see the visualization")
