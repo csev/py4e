@@ -34,7 +34,7 @@ fh = open("where.data")
 count = 0
 for line in fh:
     if count > 200 :
-        print('Retrieved 200 locations, restart to retrieve more')
+        print('Ανακτήθηκαν 200 τοποθεσίες, επανεκκινήστε για να ανακτήσετε περισσότερες')
         break
 
     address = line.strip()
@@ -44,7 +44,7 @@ for line in fh:
 
     try:
         data = cur.fetchone()[0]
-        print("Found in database ",address)
+        print("Βρέθηκε στη βάση δεδομένων ",address)
         continue
     except:
         pass
@@ -54,20 +54,20 @@ for line in fh:
     if api_key is not False: parms['key'] = api_key
     url = serviceurl + urllib.parse.urlencode(parms)
 
-    print('Retrieving', url)
+    print('Ανάκτηση της', url)
     uh = urllib.request.urlopen(url, context=ctx)
     data = uh.read().decode()
-    print('Retrieved', len(data), 'characters', data[:20].replace('\n', ' '))
+    print('Ανακτήθηκαν', len(data), 'χαρακτήρες', data[:20].replace('\n', ' '))
     count = count + 1
 
     try:
         js = json.loads(data)
     except:
-        print(data)  # We print in case unicode causes an error
+        print(data)  # Εκτυπώνουμε για την περίπτωση που το unicode θα προκαλέσει σφάλμα
         continue
 
     if 'status' not in js or (js['status'] != 'OK' and js['status'] != 'ZERO_RESULTS') :
-        print('==== Failure To Retrieve ====')
+        print('==== Αποτυχία Ανάκτησης ====')
         print(data)
         break
 
@@ -75,7 +75,7 @@ for line in fh:
             VALUES ( ?, ? )''', (memoryview(address.encode()), memoryview(data.encode()) ) )
     conn.commit()
     if count % 10 == 0 :
-        print('Pausing for a bit...')
+        print('Παύση για λίγο...')
         time.sleep(5)
 
-print("Run geodump.py to read the data from the database so you can vizualize it on a map.")
+print("Εκτελέστε το geodump.py για να διαβάσετε τα δεδομένα από τη βάση δεδομένων, ώστε να μπορέσετε να τα οπτικοποιήσετε σε έναν χάρτη.")

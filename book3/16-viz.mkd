@@ -31,77 +31,79 @@
 
 [www.gr.py4e.com/code3/opengeo.zip](http://www.gr.py4e.com/code3/opengeo.zip)
 
-The first problem to solve is that these geocoding APIs are
-rate-limited to a certain number of requests per day. If you have a lot
-of data, you might need to stop and restart the lookup process several
-times. So we break the problem into two phases.
+Το πρώτο πρόβλημα που πρέπει να λύσουμε είναι ότι αυτά τα API γεωκωδικοποίησης
+είναι περιορισμένου ρυθμού, με έναν ορισμένο αριθμό αιτημάτων ανά ημέρα. Εάν
+έχετε πολλά δεδομένα, ίσως χρειαστεί να διακόψετε και να επανεκκινήσετε τη
+διαδικασία αναζήτησης αρκετές φορές. Έτσι χωρίζουμε το πρόβλημα σε δύο φάσεις.
 
 \index{cache}
 
-In the first phase we take our input "survey" data in the file
-*where.data* and read it one line at a time, and retrieve
-the geocoded information from Google and store it in a database
-*geodata.sqlite*. Before we use the geocoding API for
-each user-entered location, we simply check to see if we already have
-the data for that particular line of input. The database is functioning
-as a local "cache" of our geocoding data to make sure we never ask
-Google for the same data twice.
+Σε πρώτη φάση παίρνουμε τα δεδομένα εισόδου τη "έρευνάς" μας από το αρχείο
+*where.data*, τα διαβάζουμε μία γραμμή τη φορά, ανακτούμε τις
+γεωκωδικοποιημένες πληροφορίες από την Google και τις αποθηκεύουμε σε μια βάση
+δεδομένων, τη *geodata.sqlite*. Προτού χρησιμοποιήσουμε το API γεωκωδικοποίησης,
+για κάθε τοποθεσία που έχει εισαγάγει ο χρήστης, απλώς ελέγχουμε να δούμε αν
+έχουμε ήδη αποθηκεύσει τα δεδομένα για τη συγκεκριμένη γραμμή εισαγωγής. Η βάση
+δεδομένων λειτουργεί ως τοπική "κρυφή μνήμη" των δεδομένων γεωκωδικοποίησής μας,
+για να διασφαλίσουμε ότι δεν θα ζητήσουμε ποτέ από την Google τα ίδια δεδομένα
+δύο φορές.
 
-You can restart the process at any time by removing the file
+Μπορείτε να επανεκκινήσετε τη διαδικασία ανά πάσα στιγμή, αφαιρώντας το αρχείο
 *geodata.sqlite*.
 
-Run the *geoload.py* program. This program will read the
-input lines in *where.data* and for each line check to
-see if it is already in the database. If we don't have the data for the
-location, it will call the geocoding API to retrieve the data and store
-it in the database.
+Εκτελέστε το πρόγραμμα *geoload.py*. Αυτό το πρόγραμμα θα διαβάσει τις γραμμές
+εισόδου στο *where.data* και για κάθε γραμμή θα ελέγξει αν βρίσκεται ήδη στη
+βάση δεδομένων. Εάν δεν έχουμε τα δεδομένα για την συγκεκριμένη τοποθεσία, θα
+καλέσει το API γεωκωδικοποίησης για να ανακτήσει τα δεδομένα και να τα
+αποθηκεύσει στη βάση δεδομένων.
 
-Here is a sample run after there is already some data in the database:
+Ακολουθεί ένα δείγμα εκτέλεσης, ενώ έχουν ήδη εισαχθει κάποια δεδομένα στη
+βάση δεδομένων:
 
 ~~~~{text}
-Found in database AGH University of Science and Technology
+Βρέθηκε στη βάση δεδομένων AGH University of Science and Technology
 
-Found in database Academy of Fine Arts Warsaw Poland
+Βρέθηκε στη βάση δεδομένων Academy of Fine Arts Warsaw Poland
 
-Found in database American University in Cairo
+Βρέθηκε στη βάση δεδομένων American University in Cairo
 
-Found in database Arizona State University
+Βρέθηκε στη βάση δεδομένων Arizona State University
 
-Found in database Athens Information Technology
+Βρέθηκε στη βάση δεδομένων Athens Information Technology
 
-Retrieving https://py4e-data.dr-chuck.net/
+Ανάκτηση της https://py4e-data.dr-chuck.net/
    opengeo?q=BITS+Pilani
-Retrieved 794 characters {"type":"FeatureColl
+Ανακτήθηκαν 794 χαρακτήρες {"type":"FeatureColl
 
-Retrieving https://py4e-data.dr-chuck.net/
+Ανάκτηση της https://py4e-data.dr-chuck.net/
    opengeo?q=Babcock+University
-Retrieved 760 characters {"type":"FeatureColl
+Ανακτήθηκαν 760 χαρακτήρες {"type":"FeatureColl
 
-Retrieving https://py4e-data.dr-chuck.net/
+Ανάκτηση της https://py4e-data.dr-chuck.net/
    opengeo?q=Banaras+Hindu+University
-Retrieved 866 characters {"type":"FeatureColl
+Ανακτήθηκαν 866 χαρακτήρες {"type":"FeatureColl
 ...
 ~~~~
 
-The first five locations are already in the database and so they are
-skipped. The program scans to the point where it finds new locations and
-starts retrieving them.
+Οι πρώτες πέντε τοποθεσίες βρίσκονται ήδη στη βάση δεδομένων και έτσι
+παραλείπονται. Το πρόγραμμα σαρώνει μέχρι το σημείο όπου βρίσκει νέες
+τοποθεσίες και ξεκινά την ανάκτησή τους.
 
-The *geoload.py* program can be stopped at any time, and
-there is a counter that you can use to limit the number of calls to the
-geocoding API for each run. Given that the *where.data*
-only has a few hundred data items, you should not run into the daily
-rate limit, but if you had more data it might take several runs over
-several days to get your database to have all of the geocoded data for
-your input.
+Το πρόγραμμα *geoload.py* μπορεί να διακοπεί ανά πάσα στιγμή και υπάρχει ένας
+μετρητής που μπορείτε να χρησιμοποιήσετε για να περιορίσετε τον αριθμό των
+κλήσεων στο API γεωκωδικοποίησης για κάθε εκτέλεση. Δεδομένου ότι το
+*where.data* έχει μόνο μερικές εκατοντάδες στοιχεία δεδομένων, δεν θα πρέπει να
+φτάσετε το ημερήσιο όριο ρυθμού, αλλά εάν είχατε περισσότερα δεδομένα,
+ενδέχεται να χρειαστούν αρκετές εκτελέσεις, σε αρκετές ημέρες, για να φτάσει η
+βάση δεδομένων σας να έχει όλα τα γεωκωδικοποιημένα δεδομένα για τα δεδομένα
+εισαγωγής σας.
 
-Once you have some data loaded into *geodata.sqlite*, you
-can visualize the data using the *geodump.py* program.
-This program reads the database and writes the file
-*where.js* with the location, latitude, and longitude in
-the form of executable JavaScript code.
+Αφού φορτώσετε ορισμένα δεδομένα στο *geodata.sqlite*, μπορείτε να
+οπτικοποιήσετε τα δεδομένα χρησιμοποιώντας το πρόγραμμα *geodump.py*. Αυτό το
+πρόγραμμα διαβάζει τη βάση δεδομένων και δημιουργεί το αρχείο *where.js* με τη
+θέση, το γεωγραφικό πλάτος και μήκος, με τη μορφή εκτελέσιμου κώδικα JavaScript.
 
-A run of the *geodump.py* program is as follows:
+Μια εκτέλεση του προγράμματος *geodump.py* είναι η εξής:
 
 ~~~~{text}
 AGH University of Science and Technology, Czarnowiejska,
@@ -112,14 +114,14 @@ Academy of Fine Arts, Krakowskie Przedmieście,
 Northern Śródmieście, Śródmieście, Warsaw, Masovian
 Voivodeship, 00-046, Poland 52.239 21.0155
 ...
-260 lines were written to where.js
-Open the where.html file in a web browser to view the data.
+Υπήρχαν 260 εγραφές στο where.js
+Ανοίξτε το where.html για να προβάλετε τα δεδομένα σε ένα πρόγραμμα περιήγησης
 ~~~~
 
-The file *where.html* consists of HTML and JavaScript to
-visualize a Google map. It reads the most recent data in
-*where.js* to get the data to be visualized. Here is the
-format of the *where.js* file:
+Το αρχείο *where.html* αποτελείται από HTML και JavaScript, για την
+οπτικοποίηση ενός χάρτη Google. Διαβάζει τα πιο πρόσφατα δεδομένα στο
+*where.js* για να οπτικοποιήσει τα δεδομένα. Ακολουθεί η μορφή του αρχείου
+*where.js*:
 
 ~~~~ {.js}
 myData = [
@@ -135,82 +137,85 @@ Masovian Voivodeship, 00-046, Poland'],
 ];
 ~~~~
 
-This is a JavaScript variable that contains a list of lists. The syntax
-for JavaScript list constants is very similar to Python, so the syntax
-should be familiar to you.
+Αυτή είναι μια μεταβλητή JavaScript που περιέχει μια λίστα λιστών. Η σύνταξη
+για τις σταθερές λίστας JavaScript είναι πολύ παρόμοια με την Python, επομένως
+η σύνταξη θα πρέπει να σας είναι οικεία.
 
-Simply open *where.html* in a browser to see the
-locations. You can hover over each map pin to find the location that the
-geocoding API returned for the user-entered input. If you cannot see any
-data when you open the *where.html* file, you might want
-to check the JavaScript or developer console for your browser.
+Απλώς ανοίξτε το *where.html*, σε ένα πρόγραμμα περιήγησης, για να δείτε τις
+τοποθεσίες. Μπορείτε να τοποθετήσετε τον δείκτη του ποντικιού πάνω από κάθε
+καρφίτσα του χάρτη, για να βρείτε την τοποθεσία που επέστρεψε το API
+γεωκωδικοποίησης για την είσοδο που εισήγαγε ο χρήστης. Εάν δεν μπορείτε να
+δείτε τα δεδομένα όταν ανοίγετε το αρχείο *where.html*, ίσως χρειαστεί να
+ελέγξετε το JavaScript ή την κονσόλα προγραμματιστή, για το πρόγραμμα
+περιήγησής σας.
 
-Visualizing networks and interconnections
+Οπτικοποίηση δικτύων και διασυνδέσεων
 -----------------------------------------
 
-\index{Google!page rank}
-\index{Visualization!networks}
-\index{Visualization!page rank}
+\index{Google!κατάταξη σελίδας}
+\index{Οπτικοποίηση!δίκτυα}
+\index{Οπτικοποίηση!κατάταξη σελίδας}
 
-In this application, we will perform some of the functions of a search
-engine. We will first spider a small subset of the web and run a
-simplified version of the Google page rank algorithm to determine which
-pages are most highly connected, and then visualize the page rank and
-connectivity of our small corner of the web. We will use the D3
-JavaScript visualization library <http://d3js.org/> to produce the
-visualization output.
+Σε αυτήν την εφαρμογή, θα εκτελέσουμε ορισμένες από τις λειτουργίες μιας
+μηχανής αναζήτησης. Αρχικά θα δημιουργήσουμε ένα μικρό υποσύνολο του ιστού και
+θα εκτελέσουμε μια απλοποιημένη έκδοση του αλγόριθμου κατάταξης σελίδων της
+Google, για να προσδιορίσουμε ποιες σελίδες είναι πιο συνδεδεμένες και, στη
+συνέχεια, θα οπτικοποιήσουμε την κατάταξη σελίδας και τη συνδεσιμότητα της
+μικρής μας γωνιάς του ιστού. Θα χρησιμοποιήσουμε τη βιβλιοθήκη οπτικοποίησης
+JavaScript D3 <http://d3js.org/>, για να παράγουμε την έξοδο οπτικοποίησης.
 
-You can download and extract this application from:
+Μπορείτε να κατεβάσετε και να εξαγάγετε αυτήν την εφαρμογή από:
 
-[www.py4e.com/code3/pagerank.zip](http://www.py4e.com/code3/pagerank.zip)
+[www.gr.py4e.com/code3/pagerank.zip](http://www.gr.py4e.com/code3/pagerank.zip)
 
-![A Page Ranking](height=3.5in@../images/pagerank)
+![Κατάταξη σελίδας](height=3.5in@../images/pagerank)
 
-The first program (*spider.py*) program crawls a web site
-and pulls a series of pages into the database
-(*spider.sqlite*), recording the links between pages. You
-can restart the process at any time by removing the
-*spider.sqlite* file and rerunning
-*spider.py*.
+Το πρώτο πρόγραμμα προγράμματος (*spider.py*) ανιχνεύει έναν ιστότοπο και
+καταχωρεί μια σειρά σελίδων στη βάση δεδομένων (*spider.sqlite*),
+καταγράφοντας τους συνδέσμους μεταξύ των σελίδων. Μπορείτε να επανεκκινήσετε τη
+διαδικασία ανά πάσα στιγμή, αφαιρώντας το αρχείο *spider.sqlite* και εκτελώντας
+ξανά το *spider.py*.
 
 ~~~~{text}
-Enter web url or enter: http://www.dr-chuck.com/
+Εισαγάγετε τη διεύθυνση url ιστού ή enter: http://www.dr-chuck.com/
 ['http://www.dr-chuck.com']
-How many pages:2
+Πόσες σελίδες:2
 1 http://www.dr-chuck.com/ 12
 2 http://www.dr-chuck.com/csev-blog/ 57
-How many pages:
+Πόσες σελίδες:
 ~~~~
 
-In this sample run, we told it to crawl a website and retrieve two
-pages. If you restart the program and tell it to crawl more pages, it
-will not re-crawl any pages already in the database. Upon restart it
-goes to a random non-crawled page and starts there. So each successive
-run of *spider.py* is additive.
+Σε αυτό το δείγμα εκτέλεσης, ζητήσαμε να ανιχνεύσει έναν ιστότοπο και να
+ανακτήσει δύο σελίδες. Εάν κάνετε επανεκκίνηση του προγράμματος και του πείτε
+να ανιχνεύσει περισσότερες σελίδες, δεν θα ανιχνεύσει ξανά καμία σελίδα που
+υπάρχει ήδη στη βάση δεδομένων. Με την επανεκκίνηση πηγαίνει σε μια τυχαία
+σελίδα που δεν ανιχνεύθηκε και ξεκινά από εκεί. Έτσι, κάθε διαδοχική εκτέλεση
+του *spider.py* λειτουργεί προσθετικά.
 
 ~~~~{text}
-Enter web url or enter: http://www.dr-chuck.com/
+Εισαγάγετε τη διεύθυνση url ιστού ή enter: http://www.dr-chuck.com/
 ['http://www.dr-chuck.com']
-How many pages:3
+Πόσες σελίδες:3
 3 http://www.dr-chuck.com/csev-blog 57
 4 http://www.dr-chuck.com/dr-chuck/resume/speaking.htm 1
 5 http://www.dr-chuck.com/dr-chuck/resume/index.htm 13
-How many pages:
+Πόσες σελίδες:
 ~~~~
 
-You can have multiple starting points in the same database—within the
-program, these are called "webs". The spider chooses randomly amongst
-all non-visited links across all the webs as the next page to spider.
+Μπορείτε να έχετε πολλαπλά σημεία εκκίνησης στην ίδια βάση δεδομένων — εντός
+του προγράμματος, αυτά ονομάζονται "ιστοί". Το spider επιλέγει τυχαία μεταξύ
+όλων των συνδέσμων που δεν έχουν επισκεφτεί, σε όλους τους ιστούς, για να
+καθορίσει την επόμενη σελίδα προς ανίχνευση.
 
-If you want to dump the contents of the *spider.sqlite*
-file, you can run *spdump.py* as follows:
+Εάν θέλετε να καταργήσετε τα περιεχόμενα του αρχείου *spider.sqlite*, μπορείτε
+να εκτελέσετε το *spdump.py* ως εξής:
 
 ~~~~{text}
 (5, None, 1.0, 3, 'http://www.dr-chuck.com/csev-blog')
 (3, None, 1.0, 4, 'http://www.dr-chuck.com/dr-chuck/resume/speaking.htm')
 (1, None, 1.0, 2, 'http://www.dr-chuck.com/csev-blog/')
 (1, None, 1.0, 5, 'http://www.dr-chuck.com/dr-chuck/resume/index.htm')
-4 rows.
+4 γραμμές.
 ~~~~
 
 This shows the number of incoming links, the old page rank, the new page
