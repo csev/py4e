@@ -3,14 +3,14 @@ import sqlite3
 conn = sqlite3.connect('spider.sqlite')
 cur = conn.cursor()
 
-# Find the ids that send out page rank - we only are interested
-# in pages in the SCC that have in and out links
+# Βρίσκει τα αναγνωριστικά που στέλνουν κατάταξη σελίδας - μας ενδιαφέρουν
+# μόνο σελίδες στο SCC που έχουν συνδέσμους εισόδου και εξόδου
 cur.execute('''SELECT DISTINCT from_id FROM Links''')
 from_ids = list()
 for row in cur: 
     from_ids.append(row[0])
 
-# Find the ids that receive page rank 
+# Βρίσκει τα αναγνωριστικά που λαμβάνουν κατάταξη σελίδας
 to_ids = list()
 links = list()
 cur.execute('''SELECT DISTINCT from_id, to_id FROM Links''')
@@ -23,23 +23,23 @@ for row in cur:
     links.append(row)
     if to_id not in to_ids : to_ids.append(to_id)
 
-# Get latest page ranks for strongly connected component
+# Λάβετε τις πιο πρόσφατες κατατάξεις σελίδων για ισχυρά συνδεδεμένα στοιχεία
 prev_ranks = dict()
 for node in from_ids:
     cur.execute('''SELECT new_rank FROM Pages WHERE id = ?''', (node, ))
     row = cur.fetchone()
     prev_ranks[node] = row[0]
 
-sval = input('How many iterations:')
+sval = input('Πόσες επαναλήψεις:')
 many = 1
 if ( len(sval) > 0 ) : many = int(sval)
 
 # Sanity check
 if len(prev_ranks) < 1 : 
-    print("Nothing to page rank.  Check data.")
+    print("Δεν υπάρχει κατάταξη της σελίδας. Ελέγξτε τα δεδομένα.")
     quit()
 
-# Lets do Page Rank in memory so it is really fast
+# Ας κάνουμε Page Rank στη μνήμη, ώστε να είναι πολύ γρήγορο
 for i in range(many):
     # print prev_ranks.items()[:5]
     next_ranks = dict();
@@ -49,7 +49,7 @@ for i in range(many):
         next_ranks[node] = 0.0
     # print total
 
-    # Find the number of outbound links and sent the page rank down each
+    # Εύρεση του αριθμού των εξερχόμενων συνδέσμων και αποστολή της κατάταξη της σελίδας προς τα κάτω
     for (node, old_rank) in list(prev_ranks.items()):
         # print node, old_rank
         give_ids = list()
@@ -79,8 +79,8 @@ for i in range(many):
     for (node, next_rank) in list(next_ranks.items()):
         newtot = newtot + next_rank
 
-    # Compute the per-page average change from old rank to new rank
-    # As indication of convergence of the algorithm
+    # Υπολογίστε τη μέση αλλαγή ανά σελίδα από την παλιά κατάταξη στη νέα κατάταξη
+    # Ως ένδειξη σύγκλισης του αλγορίθμου
     totdiff = 0
     for (node, old_rank) in list(prev_ranks.items()):
         new_rank = next_ranks[node]
@@ -90,10 +90,10 @@ for i in range(many):
     avediff = totdiff / len(prev_ranks)
     print(i+1, avediff)
 
-    # rotate
+    # αντικατάσταση
     prev_ranks = next_ranks
 
-# Put the final ranks back into the database
+# Τοποθέτηση των τελικών κατατάξεων στη βάση δεδομένων
 print(list(next_ranks.items())[:5])
 cur.execute('''UPDATE Pages SET old_rank=new_rank''')
 for (id, new_rank) in list(next_ranks.items()) :
