@@ -1,21 +1,21 @@
-Simple Python Search Spider, Page Ranker, and Visualizer
+Απλός Ανιχνευτής Ιστού με Python, Page Ranker και Οπτικοποιητής
 
-This is a set of programs that emulate some of the functions of a 
-search engine.  They store their data in a SQLITE3 database named
-'spider.sqlite'.  This file can be removed at any time to restart the
-process.   
+Αυτό είναι ένα σύνολο προγραμμάτων που μιμούνται ορισμένες από τις λειτουργίες
+μιας μηχανής αναζήτησης. Αποθηκεύουν τα δεδομένα τους σε μια βάση δεδομένων
+SQLITE3 που ονομάζεται 'spider.sqlite'. Αυτό το αρχείο μπορεί να αφαιρεθεί ανά
+πάσα στιγμή για να επανεκκινηθεί η διαδικασία.
 
-You should install the SQLite browser to view and modify 
-the databases from:
+Θα πρέπει να εγκαταστήσετε το πρόγραμμα περιήγησης SQLite, για να προβάλετε και
+να τροποποιήσετε τις βάσεις δεδομένων από:
 
 http://sqlitebrowser.org/
 
-This program crawls a web site and pulls a series of pages into the
-database, recording the links between pages.
+Αυτό το πρόγραμμα ανιχνεύει έναν ιστότοπο και τραβάει μια σειρά σελίδων στη βάση
+δεδομένων, καταγράφοντας τους συνδέσμους μεταξύ των σελίδων.
 
-Note: Windows has difficulty in displaying UTF-8 characters
-in the console so for each console window you open, you may need
-to type the following command before running this code:
+Σημείωση: Τα Windows δυσκολεύονται να εμφανίσουν χαρακτήρες UTF-8 στην κονσόλα,
+επομένως για κάθε παράθυρο κονσόλας που ανοίγετε, ίσως χρειαστεί να πληκτρολογήσετε
+την ακόλουθη εντολή πριν εκτελέσετε αυτόν τον κώδικα:
 
     chcp 65001
 
@@ -27,37 +27,38 @@ Mac: python3 spider.py
 Win: del spider.sqlite
 Win: spider.py
 
-Enter web url or enter: http://www.dr-chuck.com/
+Εισαγάγετε τη διεύθυνση url ιστού ή enter: http://www.dr-chuck.com/
 ['http://www.dr-chuck.com']
-How many pages:2
+Πόσες σελίδες:2
 1 http://www.dr-chuck.com/ 12
 2 http://www.dr-chuck.com/csev-blog/ 57
-How many pages:
+Πόσες σελίδες:
 
-In this sample run, we told it to crawl a website and retrieve two 
-pages.  If you restart the program again and tell it to crawl more
-pages, it will not re-crawl any pages already in the database.  Upon 
-restart it goes to a random non-crawled page and starts there.  So 
-each successive run of spider.py is additive.
+Σε αυτό το δείγμα εκτέλεσης, ζητήσαμε να ανιχνεύσει έναν ιστότοπο και να
+ανακτήσει δύο σελίδες. Εάν κάνετε επανεκκίνηση του προγράμματος και του πείτε
+να ανιχνεύσει περισσότερες σελίδες, δεν θα ανιχνεύσει ξανά καμία σελίδα που
+υπάρχει ήδη στη βάση δεδομένων. Με την επανεκκίνηση πηγαίνει σε μια τυχαία
+σελίδα που δεν ανιχνεύθηκε και ξεκινά από εκεί. Έτσι, κάθε διαδοχική εκτέλεση
+του spider.py λειτουργεί προσθετικά.
 
 Mac: python3 spider.py 
 Win: spider.py
 
-Enter web url or enter: http://www.dr-chuck.com/
+Εισαγάγετε τη διεύθυνση url ιστού ή enter: http://www.dr-chuck.com/
 ['http://www.dr-chuck.com']
-How many pages:3
+Πόσες σελίδες:3
 3 http://www.dr-chuck.com/csev-blog 57
 4 http://www.dr-chuck.com/dr-chuck/resume/speaking.htm 1
 5 http://www.dr-chuck.com/dr-chuck/resume/index.htm 13
-How many pages:
+Πόσες σελίδες:
 
-You can have multiple starting points in the same database - 
-within the program these are called "webs".   The spider
-chooses randomly amongst all non-visited links across all
-the webs.
+Μπορείτε να έχετε πολλαπλά σημεία εκκίνησης στην ίδια βάση δεδομένων — εντός
+του προγράμματος, αυτά ονομάζονται "ιστοί". Το spider επιλέγει τυχαία μεταξύ
+όλων των συνδέσμων που δεν έχουν επισκεφτεί, σε όλους τους ιστούς, για να
+καθορίσει την επόμενη σελίδα προς ανίχνευση.
 
-If you want to dump the contents of the spider.sqlite file, you can 
-run spdump.py as follows:
+Εάν θέλετε να καταργήσετε τα περιεχόμενα του αρχείου spider.sqlite, μπορείτε
+να εκτελέσετε το spdump.py ως εξής:
 
 Mac: python3 spdump.py 
 Win: spdump.py
@@ -66,25 +67,27 @@ Win: spdump.py
 (3, None, 1.0, 4, u'http://www.dr-chuck.com/dr-chuck/resume/speaking.htm')
 (1, None, 1.0, 2, u'http://www.dr-chuck.com/csev-blog/')
 (1, None, 1.0, 5, u'http://www.dr-chuck.com/dr-chuck/resume/index.htm')
-4 rows.
+4 γραμμές.
 
-This shows the number of incoming links, the old page rank, the new page
-rank, the id of the page, and the url of the page.  The spdump.py program
-only shows pages that have at least one incoming link to them.
+Αυτό δείχνει τον αριθμό των εισερχόμενων συνδέσμων, την παλιά κατάταξη της
+σελίδας, τη νέα κατάταξη της σελίδας, το αναγνωριστικό της σελίδας και τη
+διεύθυνση url της σελίδας. Το πρόγραμμα spdump.py εμφανίζει μόνο σελίδες που
+έχουν τουλάχιστον έναν εισερχόμενο σύνδεσμο προς αυτές.
 
-Once you have a few pages in the database, you can run Page Rank on the
-pages using the sprank.py program.  You simply tell it how many Page
-Rank iterations to run.
+Αφού έχετε μερικές σελίδες στη βάση δεδομένων, μπορείτε να εκτελέσετε το page
+rank στις σελίδες αυτές, χρησιμοποιώντας το πρόγραμμα sprank.py. Απλώς του
+λέτε πόσες επαναλήψεις κατάταξης σελίδων θα εκτελεστούν.
 
 Mac: python3 sprank.py 
 Win: sprank.py 
 
-How many iterations:2
+Πόσες επαναλήψεις:2
 1 0.546848992536
 2 0.226714939664
 [(1, 0.559), (2, 0.659), (3, 0.985), (4, 2.135), (5, 0.659)]
 
-You can dump the database again to see that page rank has been updated:
+Μπορείτε να διαγράψετε ξανά τη βάση δεδομένων, για να δείτε ότι η κατάταξη
+σελίδας ενημερώνεται:
 
 Mac: python3 spdump.py 
 Win: spdump.py 
@@ -93,25 +96,26 @@ Win: spdump.py
 (3, 1.0, 2.135, 4, u'http://www.dr-chuck.com/dr-chuck/resume/speaking.htm')
 (1, 1.0, 0.659, 2, u'http://www.dr-chuck.com/csev-blog/')
 (1, 1.0, 0.659, 5, u'http://www.dr-chuck.com/dr-chuck/resume/index.htm')
-4 rows.
+4 γραμμές.
 
-You can run sprank.py as many times as you like and it will simply refine
-the page rank the more times you run it.  You can even run sprank.py a few times
-and then go spider a few more pages sith spider.py and then run sprank.py
-to converge the page ranks.
+Μπορείτε να εκτελέσετε το sprank.py όσες φορές θέλετε και απλά αυτό θα,
+βελτιώνει την κατάταξη της σελίδας κάθε φορά που το εκτελείτε. Μπορείτε ακόμη
+και να εκτελέσετε το sprank.py μερικές φορές και, στη συνέχεια, να κάνετε
+spider μερικές ακόμα σελίδες με το spider.py και, στη συνέχεια, να εκτελέσετε
+το *sprank.py* για να επανασυγκλίνετε οι τιμές κατάταξης σελίδας.
 
-If you want to restart the Page Rank calculations without re-spidering the 
-web pages, you can use spreset.py
+Εάν θέλετε να επανεκκινήσετε τους υπολογισμούς κατάταξης σελίδας χωρίς να
+επαναφέρετε τις ιστοσελίδες, μπορείτε να χρησιμοποιήσετε το spreset.py.
 
 Mac: python3 spreset.py 
 Win: spreset.py 
 
-All pages set to a rank of 1.0
+Όλες οι σελίδες έχουν οριστεί σε κατάταξη 1.0
 
 Mac: python3 sprank.py 
 Win: sprank.py 
 
-How many iterations:50
+Πόσες επαναλήψεις:50
 1 0.546848992536
 2 0.226714939664
 3 0.0659516187242
@@ -130,32 +134,35 @@ How many iterations:50
 50 5.10410499467e-05
 [(512, 0.02963718031139026), (1, 12.790786721866658), (2, 28.939418898678284), (3, 6.808468390725946), (4, 13.469889092397006)]
 
-For each iteration of the page rank algorithm it prints the average
-change per page of the page rank.   The network initially is quite 
-unbalanced and so the individual page ranks are changing wildly.
-But in a few short iterations, the page rank converges.  You 
-should run prank.py long enough that the page ranks converge.
+Για κάθε επανάληψη του αλγορίθμου κατάταξης σελίδας εκτυπώνει τη μέση αλλαγή
+στην κατάταξη σελίδας ανά σελίδα. Το δίκτυο αρχικά είναι αρκετά ασταθές και
+έτσι οι μεμονωμένες τιμές κατάταξης σελίδας αλλάζουν δραματικά, ​​μεταξύ των
+επαναλήψεων. Αλλά μετά από μερικές επαναλήψεις, η κατάταξη σελίδας συγκλίνει.
+Θα πρέπει να εκτελέσετε το sprank.py αρκετές φορές, ώστε οι τιμές της
+κατάταξης σελίδας να συγκλίνουν.
 
-If you want to visualize the current top pages in terms of page rank,
-run spjson.py to write the pages out in JSON format to be viewed in a
-web browser.
+Εάν θέλετε να απεικονίσετε τις τρέχουσες κορυφαίες σελίδες, ως προς την
+κατάταξη σελίδων, εκτελέστε το spjson.py για να διαβάσει τη βάση δεδομένων
+και να εξάγει τα δεδομένα, για τις πιο συνδεδεμένες σελίδες, σε μορφή JSON για
+προβολή σε ένα πρόγραμμα περιήγησης ιστού.
 
 Mac: python3 spjson.py 
 Win: spjson.py 
 
-Creating JSON output on spider.js...
-How many nodes? 30
-Open force.html in a browser to view the visualization
+Δημιουργία εξόδου JSON στο spider.js...
+Πόσους κόμβους? 30
+Ανοίξτε το force.html σε ένα πρόγραμμα περιήγησης για να προβάλετε την οπτικοποίηση
 
-You can view this data by opening the file force.html in your web browser.  
-This shows an automatic layout of the nodes and links.  You can click and 
-drag any node and you can also double click on a node to find the URL
-that is represented by the node.
+Μπορείτε να δείτε αυτά τα δεδομένα ανοίγοντας το αρχείο force.html, στο
+πρόγραμμα περιήγησής σας. Αυτό δείχνει μια αυτόματη διάταξη των κόμβων και των
+συνδέσμων. Μπορείτε να κάνετε κλικ και να σύρετε οποιονδήποτε κόμβο και μπορείτε
+επίσης να κάνετε διπλό κλικ σε έναν κόμβο για να εντοπίσετε τη διεύθυνση URL που
+αντιπροσωπεύεται από τον κόμβο.
 
-This visualization is provided using the force layout from:
+Αυτή η απεικόνιση παρέχεται χρησιμοποιώντας τη δυναμική διάταξη του:
 
 http://mbostock.github.com/d3/
 
-If you rerun the other utilities and then re-run spjson.py - you merely
-have to press refresh in the browser to get the new data from spider.js.
-
+Εάν εκτελέσετε ξανά τα άλλα βοηθητικά προγράμματα, τότε εκτελέστε ξανά το
+spjson.py και πατήστε το refresh στο πρόγραμμα περιήγησης για να λάβετε τα
+νέα δεδομένα από το spider.json.
