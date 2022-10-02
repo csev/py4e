@@ -15,7 +15,7 @@ messages = dict()
 for message_row in cur :
     messages[message_row[0]] = (message_row[1],message_row[2],message_row[3],message_row[4])
 
-print("Loaded messages=",len(messages),"senders=",len(senders))
+print("Φορτωμένα μηνύματα=",len(messages),"αποστολείς=",len(senders))
 
 sendorgs = dict()
 for (message_id, message) in list(messages.items()):
@@ -28,7 +28,7 @@ for (message_id, message) in list(messages.items()):
 # pick the top schools
 orgs = sorted(sendorgs, key=sendorgs.get, reverse=True)
 orgs = orgs[:10]
-print("Top 10 Organizations")
+print("Κορυφαίοι 10 Οργανισμοί")
 print(orgs)
 
 counts = dict()
@@ -66,5 +66,5 @@ for month in months:
 fhand.write("\n];\n")
 fhand.close()
 
-print("Output written to gline.js")
-print("Open gline.htm to visualize the data")
+print("Έξοδος γραμμένη στο gline.js")
+print("Ανοίξτε το gline.htm σε ένα πρόγραμμα περιήγησης για να δείτε την οπτικοποίηση")

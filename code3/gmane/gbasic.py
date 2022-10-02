@@ -2,7 +2,7 @@ import sqlite3
 import time
 import zlib
 
-howmany = int(input("How many to dump? "))
+howmany = int(input("Πόσες διαγραφές; "))
 
 conn = sqlite3.connect('index.sqlite')
 cur = conn.cursor()
@@ -23,7 +23,7 @@ messages = dict()
 for message_row in cur :
     messages[message_row[0]] = (message_row[1],message_row[2],message_row[3],message_row[4])
 
-print("Loaded messages=",len(messages),"subjects=",len(subjects),"senders=",len(senders))
+print("Φορτωμένα μηνύματα=",len(messages),"θέματα=",len(subjects),"αποστολείς=",len(senders))
 
 sendcounts = dict()
 sendorgs = dict()
@@ -36,7 +36,7 @@ for (message_id, message) in list(messages.items()):
     sendorgs[dns] = sendorgs.get(dns,0) + 1
 
 print('')
-print('Top',howmany,'Email list participants')
+print('Κορυφαίοι',howmany,'συμμετέχοντες στη λίστα Email')
 
 x = sorted(sendcounts, key=sendcounts.get, reverse=True)
 for k in x[:howmany]:
@@ -44,7 +44,7 @@ for k in x[:howmany]:
     if sendcounts[k] < 10 : break
 
 print('')
-print('Top',howmany,'Email list organizations')
+print('Κορυφαίοι',howmany,'οργανισμοί στη λίστα Email')
 
 x = sorted(sendorgs, key=sendorgs.get, reverse=True)
 for k in x[:howmany]:
