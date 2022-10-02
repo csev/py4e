@@ -4,7 +4,7 @@ import re
 import zlib
 from datetime import datetime, timedelta
 
-# Not all systems have this
+# Δεν το έχουν όλα τα συστήματα αυτό
 try:
     import dateutil.parser as parser
 except:

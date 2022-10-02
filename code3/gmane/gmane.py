@@ -7,14 +7,14 @@ from urllib.parse import urlparse
 import re
 from datetime import datetime, timedelta
 
-# Not all systems have this so conditionally define parser
+# Δεν έχουν όλα τα συστήματα αυτόν τον τόσο υπό όρους ορισμένο αναλυτή
 try:
     import dateutil.parser as parser
 except:
     pass
 
 def parsemaildate(md) :
-    # See if we have dateutil
+    # Ελέγχει αν έχουμε dateutil
     try:
         pdate = parser.parse(tdate)
         test_at = pdate.isoformat()
@@ -22,12 +22,12 @@ def parsemaildate(md) :
     except:
         pass
 
-    # Non-dateutil version - we try our best
+    # Περίπτωση χωρίς dateutil - κάνουμε το καλύτερο δυνατό
 
     pieces = md.split()
     notz = " ".join(pieces[:4]).strip()
 
-    # Try a bunch of format variations - strptime() is *lame*
+    # Δοκιμή διαφόρων παραλλαγών του format - το strptime() *χωλαίνει*
     dnotz = None
     for form in [ '%d %b %Y %H:%M:%S', '%d %b %Y %H:%M:%S',
         '%d %b %Y %H:%M', '%d %b %Y %H:%M', '%d %b %y %H:%M:%S',
@@ -47,7 +47,7 @@ def parsemaildate(md) :
     tz = "+0000"
     try:
         tz = pieces[4]
-        ival = int(tz) # Only want numeric timezone values
+        ival = int(tz) # Δεχόμαστε μόνο αριθμητικές τιμές ζώνης ώρας
         if tz == '-0000' : tz = '+0000'
         tzh = tz[:3]
         tzm = tz[3:]
@@ -57,7 +57,7 @@ def parsemaildate(md) :
 
     return iso+tz
 
-# Ignore SSL certificate errors
+# Αγνοεί τα σφάλματα πιστοποιητικού SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
@@ -71,7 +71,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Messages
     (id INTEGER UNIQUE, email TEXT, sent_at TEXT,
      subject TEXT, headers TEXT, body TEXT)''')
 
-# Pick up where we left off
+# Συνεχίζουμε από εκεί που σταματήσαμε
 start = None
 cur.execute('SELECT max(id) FROM Messages' )
 try:
@@ -91,7 +91,7 @@ fail = 0
 while True:
     if ( many < 1 ) :
         conn.commit()
-        sval = input('How many messages:')
+        sval = input('Πόσα μηνύματα:')
         if ( len(sval) < 1 ) : break
         many = int(sval)
 
@@ -108,19 +108,19 @@ while True:
 
     text = "None"
     try:
-        # Open with a timeout of 30 seconds
+        # Άνοιγμα με τάιμ άουτ 30 δευτερολέπτων
         document = urllib.request.urlopen(url, None, 30, context=ctx)
         text = document.read().decode()
         if document.getcode() != 200 :
-            print("Error code=",document.getcode(), url)
+            print("Κωδικός λάθους=",document.getcode(), url)
             break
     except KeyboardInterrupt:
         print('')
-        print('Program interrupted by user...')
+        print('Το πρόγραμμα διακόπηκε από τον χρήστη...')
         break
     except Exception as e:
-        print("Unable to retrieve or parse page",url)
-        print("Error",e)
+        print("Δεν είναι δυνατή η ανάκτηση ή η ανάλυση της σελίδας",url)
+        print("Σφάλμα",e)
         fail = fail + 1
         if fail > 5 : break
         continue
@@ -130,7 +130,7 @@ while True:
 
     if not text.startswith("From "):
         print(text)
-        print("Did not find From ")
+        print("Δεν ξεκινά με From ")
         fail = fail + 1
         if fail > 5 : break
         continue
@@ -141,7 +141,7 @@ while True:
         body = text[pos+2:]
     else:
         print(text)
-        print("Could not find break between headers and body")
+        print("Δεν βρέθηκε διακοπή μεταξύ κεφαλίδων και σώματος")
         fail = fail + 1
         if fail > 5 : break
         continue
@@ -177,7 +177,7 @@ while True:
     z = re.findall('\Subject: (.*)\n', hdr)
     if len(z) == 1 : subject = z[0].strip().lower();
 
-    # Reset the fail counter
+    # Επαναφορά του μετρητή διακοπής
     fail = 0
     print("   ",email,sent_at,subject)
     cur.execute('''INSERT OR IGNORE INTO Messages (id, email, sent_at, subject, headers, body)

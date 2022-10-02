@@ -33,7 +33,7 @@ for k in x[:100]:
         highest = counts[k]
     if lowest is None or lowest > counts[k] :
         lowest = counts[k]
-print('Range of counts:',highest,lowest)
+print('Εύρος μετρήσεων:',highest,lowest)
 
 # Spread the font sizes across 20-100 based on the count
 bigsize = 80
@@ -52,5 +52,5 @@ for k in x[:100]:
 fhand.write( "\n];\n")
 fhand.close()
 
-print("Output written to gword.js")
-print("Open gword.htm in a browser to see the vizualization")
+print("Έξοδος γραμμένη στο gword.js")
+print("Ανοίξτε το word.htm σε ένα πρόγραμμα περιήγησης για να δείτε την οπτικοποίηση")
