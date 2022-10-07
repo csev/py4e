@@ -1,11 +1,14 @@
+# encoding: utf-8
 """Helper classes for tests."""
 
+# Use of this source code is governed by the MIT license.
 __license__ = "MIT"
 
 import pickle
 import copy
 import functools
 import unittest
+import warnings
 from unittest import TestCase
 from bs4 import BeautifulSoup
 from bs4.element import (
@@ -13,30 +16,70 @@ from bs4.element import (
     Comment,
     ContentMetaAttributeValue,
     Doctype,
+    PYTHON_SPECIFIC_ENCODINGS,
     SoupStrainer,
+    Script,
+    Stylesheet,
+    Tag
 )
 
 from bs4.builder import HTMLParserTreeBuilder
 default_builder = HTMLParserTreeBuilder
+
+BAD_DOCUMENT = """A bare string
+<!DOCTYPE xsl:stylesheet SYSTEM "htmlent.dtd">
+<!DOCTYPE xsl:stylesheet PUBLIC "htmlent.dtd">
+<div><![CDATA[A CDATA section where it doesn't belong]]></div>
+<div><svg><![CDATA[HTML5 does allow CDATA sections in SVG]]></svg></div>
+<div>A <meta> tag</div>
+<div>A <br> tag that supposedly has contents.</br></div>
+<div>AT&T</div>
+<div><textarea>Within a textarea, markup like <b> tags and <&<&amp; should be treated as literal</textarea></div>
+<div><script>if (i < 2) { alert("<b>Markup within script tags should be treated as literal.</b>"); }</script></div>
+<div>This numeric entity is missing the final semicolon: <x t="pi&#241ata"></div>
+<div><a href="http://example.com/</a> that attribute value never got closed</div>
+<div><a href="foo</a>, </a><a href="bar">that attribute value was closed by the subsequent tag</a></div>
+<! This document starts with a bogus declaration ><div>a</div>
+<div>This document contains <!an incomplete declaration <div>(do you see it?)</div>
+<div>This document ends with <!an incomplete declaration
+<div><a style={height:21px;}>That attribute value was bogus</a></div>
+<! DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">The doctype is invalid because it contains extra whitespace
+<div><table><td nowrap>That boolean attribute had no value</td></table></div>
+<div>Here's a nonexistent entity: &#foo; (do you see it?)</div>
+<div>This document ends before the entity finishes: &gt
+<div><p>Paragraphs shouldn't contain block display elements, but this one does: <dl><dt>you see?</dt></p>
+<b b="20" a="1" b="10" a="2" a="3" a="4">Multiple values for the same attribute.</b>
+<div><table><tr><td>Here's a table</td></tr></table></div>
+<div><table id="1"><tr><td>Here's a nested table:<table id="2"><tr><td>foo</td></tr></table></td></div>
+<div>This tag contains nothing but whitespace: <b>    </b></div>
+<div><blockquote><p><b>This p tag is cut off by</blockquote></p>the end of the blockquote tag</div>
+<div><table><div>This table contains bare markup</div></table></div>
+<div><div id="1">\n <a href="link1">This link is never closed.\n</div>\n<div id="2">\n <div id="3">\n   <a href="link2">This link is closed.</a>\n  </div>\n</div></div>
+<div>This document contains a <!DOCTYPE surprise>surprise doctype</div>
+<div><a><B><Cd><EFG>Mixed case tags are folded to lowercase</efg></CD></b></A></div>
+<div><our\u2603>Tag name contains Unicode characters</our\u2603></div>
+<div><a \u2603="snowman">Attribute name contains Unicode characters</a></div>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+"""
 
 
 class SoupTest(unittest.TestCase):
 
     @property
     def default_builder(self):
-        return default_builder()
+        return default_builder
 
     def soup(self, markup, **kwargs):
         """Build a Beautiful Soup object from markup."""
         builder = kwargs.pop('builder', self.default_builder)
         return BeautifulSoup(markup, builder=builder, **kwargs)
 
-    def document_for(self, markup):
+    def document_for(self, markup, **kwargs):
         """Turn an HTML fragment into a document.
 
         The details depend on the builder.
         """
-        return self.default_builder.test_fragment_to_document(markup)
+        return self.default_builder(**kwargs).test_fragment_to_document(markup)
 
     def assertSoupEquals(self, to_parse, compare_parsed_to=None):
         builder = self.default_builder
@@ -44,8 +87,22 @@ class SoupTest(unittest.TestCase):
         if compare_parsed_to is None:
             compare_parsed_to = to_parse
 
+        # Verify that the documents come out the same.
         self.assertEqual(obj.decode(), self.document_for(compare_parsed_to))
 
+        # Also run some checks on the BeautifulSoup object itself:
+
+        # Verify that every tag that was opened was eventually closed.
+
+        # There are no tags in the open tag counter.
+        assert all(v==0 for v in list(obj.open_tag_counter.values()))
+
+        # The only tag in the tag stack is the one for the root
+        # document.
+        self.assertEqual(
+            [obj.ROOT_TAG_NAME], [x.name for x in obj.tagStack]
+        )
+        
     def assertConnectedness(self, element):
         """Ensure that next_element and previous_element are properly
         set for all descendants of the given element.
@@ -57,7 +114,156 @@ class SoupTest(unittest.TestCase):
                 self.assertEqual(earlier, e.previous_element)
             earlier = e
 
-class HTMLTreeBuilderSmokeTest(object):
+    def linkage_validator(self, el, _recursive_call=False):
+        """Ensure proper linkage throughout the document."""
+        descendant = None
+        # Document element should have no previous element or previous sibling.
+        # It also shouldn't have a next sibling.
+        if el.parent is None:
+            assert el.previous_element is None,\
+                "Bad previous_element\nNODE: {}\nPREV: {}\nEXPECTED: {}".format(
+                    el, el.previous_element, None
+                )
+            assert el.previous_sibling is None,\
+                "Bad previous_sibling\nNODE: {}\nPREV: {}\nEXPECTED: {}".format(
+                    el, el.previous_sibling, None
+                )
+            assert el.next_sibling is None,\
+                "Bad next_sibling\nNODE: {}\nNEXT: {}\nEXPECTED: {}".format(
+                    el, el.next_sibling, None
+                )
+
+        idx = 0
+        child = None
+        last_child = None
+        last_idx = len(el.contents) - 1
+        for child in el.contents:
+            descendant = None
+
+            # Parent should link next element to their first child
+            # That child should have no previous sibling
+            if idx == 0:
+                if el.parent is not None:
+                    assert el.next_element is child,\
+                       "Bad next_element\nNODE: {}\nNEXT: {}\nEXPECTED: {}".format(
+                            el, el.next_element, child
+                        )
+                    assert child.previous_element is el,\
+                       "Bad previous_element\nNODE: {}\nPREV: {}\nEXPECTED: {}".format(
+                            child, child.previous_element, el
+                        )
+                    assert child.previous_sibling is None,\
+                       "Bad previous_sibling\nNODE: {}\nPREV {}\nEXPECTED: {}".format(
+                            child, child.previous_sibling, None
+                        )
+
+            # If not the first child, previous index should link as sibling to this index
+            # Previous element should match the last index or the last bubbled up descendant
+            else:
+                assert child.previous_sibling is el.contents[idx - 1],\
+                    "Bad previous_sibling\nNODE: {}\nPREV {}\nEXPECTED {}".format(
+                        child, child.previous_sibling, el.contents[idx - 1]
+                    )
+                assert el.contents[idx - 1].next_sibling is child,\
+                    "Bad next_sibling\nNODE: {}\nNEXT {}\nEXPECTED {}".format(
+                        el.contents[idx - 1], el.contents[idx - 1].next_sibling, child
+                    )
+
+                if last_child is not None:
+                    assert child.previous_element is last_child,\
+                        "Bad previous_element\nNODE: {}\nPREV {}\nEXPECTED {}\nCONTENTS {}".format(
+                            child, child.previous_element, last_child, child.parent.contents
+                        )
+                    assert last_child.next_element is child,\
+                        "Bad next_element\nNODE: {}\nNEXT {}\nEXPECTED {}".format(
+                            last_child, last_child.next_element, child
+                        )
+
+            if isinstance(child, Tag) and child.contents:
+                descendant = self.linkage_validator(child, True)
+                # A bubbled up descendant should have no next siblings
+                assert descendant.next_sibling is None,\
+                    "Bad next_sibling\nNODE: {}\nNEXT {}\nEXPECTED {}".format(
+                        descendant, descendant.next_sibling, None
+                    )
+
+            # Mark last child as either the bubbled up descendant or the current child
+            if descendant is not None:
+                last_child = descendant
+            else:
+                last_child = child
+
+            # If last child, there are non next siblings
+            if idx == last_idx:
+                assert child.next_sibling is None,\
+                    "Bad next_sibling\nNODE: {}\nNEXT {}\nEXPECTED {}".format(
+                        child, child.next_sibling, None
+                    )
+            idx += 1
+
+        child = descendant if descendant is not None else child
+        if child is None:
+            child = el
+
+        if not _recursive_call and child is not None:
+            target = el
+            while True:
+                if target is None:
+                    assert child.next_element is None, \
+                        "Bad next_element\nNODE: {}\nNEXT {}\nEXPECTED {}".format(
+                            child, child.next_element, None
+                        )
+                    break
+                elif target.next_sibling is not None:
+                    assert child.next_element is target.next_sibling, \
+                        "Bad next_element\nNODE: {}\nNEXT {}\nEXPECTED {}".format(
+                            child, child.next_element, target.next_sibling
+                        )
+                    break
+                target = target.parent
+
+            # We are done, so nothing to return
+            return None
+        else:
+            # Return the child to the recursive caller
+            return child
+
+
+class TreeBuilderSmokeTest(object):
+    # Tests that are common to HTML and XML tree builders.
+
+    def test_fuzzed_input(self):
+        # This test centralizes in one place the various fuzz tests
+        # for Beautiful Soup created by the oss-fuzz project.
+        
+        # These strings superficially resemble markup, but they
+        # generally can't be parsed into anything. The best we can
+        # hope for is that parsing these strings won't crash the
+        # parser.
+        #
+        # n.b. This markup is commented out because these fuzz tests
+        # _do_ crash the parser. However the crashes are due to bugs
+        # in html.parser, not Beautiful Soup -- otherwise I'd fix the
+        # bugs!
+        
+        bad_markup = [
+            # https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=28873
+            # https://github.com/guidovranken/python-library-fuzzers/blob/master/corp-html/519e5b4269a01185a0d5e76295251921da2f0700
+            # https://bugs.python.org/issue37747
+            #
+            #b'\n<![\xff\xfe\xfe\xcd\x00',
+
+            #https://github.com/guidovranken/python-library-fuzzers/blob/master/corp-html/de32aa55785be29bbc72a1a8e06b00611fb3d9f8
+            # https://bugs.python.org/issue34480
+            #
+            #b'<![n\x00'
+        ]
+        for markup in bad_markup:
+            with warnings.catch_warnings(record=False):
+                soup = self.soup(markup)
+        
+
+class HTMLTreeBuilderSmokeTest(TreeBuilderSmokeTest):
 
     """A basic test of a treebuilder's competence.
 
@@ -67,6 +273,34 @@ class HTMLTreeBuilderSmokeTest(object):
     markup in these tests, there's not much room for interpretation.
     """
 
+    def test_empty_element_tags(self):
+        """Verify that all HTML4 and HTML5 empty element (aka void element) tags
+        are handled correctly.
+        """
+        for name in [
+                'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr',
+                'spacer', 'frame'
+        ]:
+            soup = self.soup("")
+            new_tag = soup.new_tag(name)
+            self.assertEqual(True, new_tag.is_empty_element)
+
+    def test_special_string_containers(self):
+        soup = self.soup(
+            "<style>Some CSS</style><script>Some Javascript</script>"
+        )
+        assert isinstance(soup.style.string, Stylesheet)
+        assert isinstance(soup.script.string, Script)
+
+        soup = self.soup(
+            "<style><!--Some CSS--></style>"
+        )
+        assert isinstance(soup.style.string, Stylesheet)
+        # The contents of the style tag resemble an HTML comment, but
+        # it's not treated as a comment.
+        self.assertEqual("<!--Some CSS-->", soup.style.string)
+        assert isinstance(soup.style.string, Stylesheet)
+        
     def test_pickle_and_unpickle_identity(self):
         # Pickling a tree, then unpickling it, yields a tree identical
         # to the original.
@@ -84,18 +318,21 @@ class HTMLTreeBuilderSmokeTest(object):
         doctype = soup.contents[0]
         self.assertEqual(doctype.__class__, Doctype)
         self.assertEqual(doctype, doctype_fragment)
-        self.assertEqual(str(soup)[:len(doctype_str)], doctype_str)
+        self.assertEqual(
+            soup.encode("utf8")[:len(doctype_str)],
+            doctype_str
+        )
 
         # Make sure that the doctype was correctly associated with the
         # parse tree and that the rest of the document parsed.
         self.assertEqual(soup.p.contents[0], 'foo')
 
-    def _document_with_doctype(self, doctype_fragment):
+    def _document_with_doctype(self, doctype_fragment, doctype_string="DOCTYPE"):
         """Generate and parse a document with the given doctype."""
-        doctype = '<!DOCTYPE %s>' % doctype_fragment
+        doctype = '<!%s %s>' % (doctype_string, doctype_fragment)
         markup = doctype + '\n<p>foo</p>'
         soup = self.soup(markup)
-        return doctype, soup
+        return doctype.encode("utf8"), soup
 
     def test_normal_doctypes(self):
         """Make sure normal, everyday HTML doctypes are handled correctly."""
@@ -108,6 +345,27 @@ class HTMLTreeBuilderSmokeTest(object):
         doctype = soup.contents[0]
         self.assertEqual("", doctype.strip())
 
+    def test_mixed_case_doctype(self):
+        # A lowercase or mixed-case doctype becomes a Doctype.
+        for doctype_fragment in ("doctype", "DocType"):
+            doctype_str, soup = self._document_with_doctype(
+                "html", doctype_fragment
+            )
+
+            # Make sure a Doctype object was created and that the DOCTYPE
+            # is uppercase.
+            doctype = soup.contents[0]
+            self.assertEqual(doctype.__class__, Doctype)
+            self.assertEqual(doctype, "html")
+            self.assertEqual(
+                soup.encode("utf8")[:len(doctype_str)],
+                b"<!DOCTYPE html>"
+            )
+
+            # Make sure that the doctype was correctly associated with the
+            # parse tree and that the rest of the document parsed.
+            self.assertEqual(soup.p.contents[0], 'foo')
+        
     def test_public_doctype_with_url(self):
         doctype = 'html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"'
         self.assertDoctypeHandled(doctype)
@@ -136,7 +394,23 @@ class HTMLTreeBuilderSmokeTest(object):
             soup.encode("utf-8").replace(b"\n", b""),
             markup.replace(b"\n", b""))
 
+    def test_namespaced_html(self):
+        """When a namespaced XML document is parsed as HTML it should
+        be treated as HTML with weird tag names.
+        """
+        markup = b"""<ns1:foo>content</ns1:foo><ns1:foo/><ns2:foo/>"""
+        soup = self.soup(markup)
+        self.assertEqual(2, len(soup.find_all("ns1:foo")))
+        
     def test_processing_instruction(self):
+        # We test both Unicode and bytestring to verify that
+        # process_markup correctly sets processing_instruction_class
+        # even when the markup is already Unicode and there is no
+        # need to process anything.
+        markup = """<?PITarget PIContent?>"""
+        soup = self.soup(markup)
+        self.assertEqual(markup, soup.decode())
+
         markup = b"""<?PITarget PIContent?>"""
         soup = self.soup(markup)
         self.assertEqual(markup, soup.encode("utf8"))
@@ -215,9 +489,22 @@ Hello, world!
         self.assertEqual(comment, baz.previous_element)
 
     def test_preserved_whitespace_in_pre_and_textarea(self):
-        """Whitespace must be preserved in <pre> and <textarea> tags."""
-        self.assertSoupEquals("<pre>   </pre>")
-        self.assertSoupEquals("<textarea> woo  </textarea>")
+        """Whitespace must be preserved in <pre> and <textarea> tags,
+        even if that would mean not prettifying the markup.
+        """
+        pre_markup = "<pre>   </pre>"
+        textarea_markup = "<textarea> woo\nwoo  </textarea>"
+        self.assertSoupEquals(pre_markup)
+        self.assertSoupEquals(textarea_markup)
+
+        soup = self.soup(pre_markup)
+        self.assertEqual(soup.pre.prettify(), pre_markup)
+
+        soup = self.soup(textarea_markup)
+        self.assertEqual(soup.textarea.prettify(), textarea_markup)
+
+        soup = self.soup("<textarea></textarea>")
+        self.assertEqual(soup.textarea.prettify(), "<textarea></textarea>")
 
     def test_nested_inline_elements(self):
         """Inline elements can be nested indefinitely."""
@@ -257,6 +544,18 @@ Hello, world!
             "<tbody><tr><td>Bar</td></tr></tbody>"
             "<tfoot><tr><td>Baz</td></tr></tfoot></table>")
 
+    def test_multivalued_attribute_with_whitespace(self):
+        # Whitespace separating the values of a multi-valued attribute
+        # should be ignored.
+
+        markup = '<div class=" foo bar	 "></a>'
+        soup = self.soup(markup)
+        self.assertEqual(['foo', 'bar'], soup.div['class'])
+
+        # If you search by the literal name of the class it's like the whitespace
+        # wasn't there.
+        self.assertEqual(soup.div, soup.find('div', class_="foo bar"))
+        
     def test_deeply_nested_multivalued_attribute(self):
         # html5lib can set the attributes of the same tag many times
         # as it rearranges the tree. This has caused problems with
@@ -276,6 +575,32 @@ Hello, world!
     def test_angle_brackets_in_attribute_values_are_escaped(self):
         self.assertSoupEquals('<a b="<a>"></a>', '<a b="&lt;a&gt;"></a>')
 
+    def test_strings_resembling_character_entity_references(self):
+        # "&T" and "&p" look like incomplete character entities, but they are
+        # not.
+        self.assertSoupEquals(
+            "<p>&bull; AT&T is in the s&p 500</p>",
+            "<p>\u2022 AT&amp;T is in the s&amp;p 500</p>"
+        )
+
+    def test_apos_entity(self):
+        self.assertSoupEquals(
+            "<p>Bob&apos;s Bar</p>",
+            "<p>Bob's Bar</p>",
+        )
+        
+    def test_entities_in_foreign_document_encoding(self):
+        # &#147; and &#148; are invalid numeric entities referencing
+        # Windows-1252 characters. &#45; references a character common
+        # to Windows-1252 and Unicode, and &#9731; references a
+        # character only found in Unicode.
+        #
+        # All of these entities should be converted to Unicode
+        # characters.
+        markup = "<p>&#147;Hello&#148; &#45;&#9731;</p>"
+        soup = self.soup(markup)
+        self.assertEqual("“Hello” -☃", soup.p.string)
+        
     def test_entities_in_attributes_converted_to_unicode(self):
         expect = '<p id="pi\N{LATIN SMALL LETTER N WITH TILDE}ata"></p>'
         self.assertSoupEquals('<p id="pi&#241;ata"></p>', expect)
@@ -299,7 +624,7 @@ Hello, world!
         self.assertSoupEquals("&#10000000000000;", expect)
         self.assertSoupEquals("&#x10000000000000;", expect)
         self.assertSoupEquals("&#1000000000;", expect)
-
+       
     def test_multipart_strings(self):
         "Mostly to prevent a recurrence of a bug in the html5lib treebuilder."
         soup = self.soup("<html><h2>\nfoo</h2><p></p></html>")
@@ -307,6 +632,13 @@ Hello, world!
         self.assertEqual("p", soup.p.name)
         self.assertConnectedness(soup)
 
+    def test_empty_element_tags(self):
+        """Verify consistent handling of empty-element tags,
+        no matter how they come in through the markup.
+        """
+        self.assertSoupEquals('<br/><br/><br/>', "<br/><br/><br/>")
+        self.assertSoupEquals('<br /><br /><br />', "<br/><br/><br/>")
+        
     def test_head_tag_between_head_and_body(self):
         "Prevent recurrence of a bug in the html5lib treebuilder."
         content = """<html><head></head>
@@ -354,7 +686,7 @@ Hello, world!
         markup = b'<a class="foo bar">'
         soup = self.soup(markup)
         self.assertEqual(['foo', 'bar'], soup.a['class'])
-
+        
     #
     # Generally speaking, tests below this point are more tests of
     # Beautiful Soup than tests of the tree builders. But parsers are
@@ -480,7 +812,9 @@ Hello, world!
         hebrew_document = b'<html><head><title>Hebrew (ISO 8859-8) in Visual Directionality</title></head><body><h1>Hebrew (ISO 8859-8) in Visual Directionality</h1>\xed\xe5\xec\xf9</body></html>'
         soup = self.soup(
             hebrew_document, from_encoding="iso8859-8")
-        self.assertEqual(soup.original_encoding, 'iso8859-8')
+        # Some tree builders call it iso8859-8, others call it iso-8859-9.
+        # That's not a difference we really care about.
+        assert soup.original_encoding in ('iso8859-8', 'iso-8859-8')
         self.assertEqual(
             soup.encode('utf-8'),
             hebrew_document.decode("iso8859-8").encode("utf-8"))
@@ -537,12 +871,52 @@ Hello, world!
         # encoding.
         self.assertEqual('utf8', charset.encode("utf8"))
 
+    def test_python_specific_encodings_not_used_in_charset(self):
+        # You can encode an HTML document using a Python-specific
+        # encoding, but that encoding won't be mentioned _inside_ the
+        # resulting document. Instead, the document will appear to
+        # have no encoding.
+        for markup in [
+            b'<meta charset="utf8"></head>'
+            b'<meta id="encoding" charset="utf-8" />'
+        ]:
+            soup = self.soup(markup)
+            for encoding in PYTHON_SPECIFIC_ENCODINGS:
+                if encoding in (
+                    'idna', 'mbcs', 'oem', 'undefined',
+                    'string_escape', 'string-escape'
+                ):
+                    # For one reason or another, these will raise an
+                    # exception if we actually try to use them, so don't
+                    # bother.
+                    continue
+                encoded = soup.encode(encoding)
+                assert b'meta charset=""' in encoded
+                assert encoding.encode("ascii") not in encoded
+        
     def test_tag_with_no_attributes_can_have_attributes_added(self):
         data = self.soup("<a>text</a>")
         data.a['foo'] = 'bar'
         self.assertEqual('<a foo="bar">text</a>', data.a.decode())
 
-class XMLTreeBuilderSmokeTest(object):
+    def test_closing_tag_with_no_opening_tag(self):
+        # Without BeautifulSoup.open_tag_counter, the </span> tag will
+        # cause _popToTag to be called over and over again as we look
+        # for a <span> tag that wasn't there. The result is that 'text2'
+        # will show up outside the body of the document.
+        soup = self.soup("<body><div><p>text1</p></span>text2</div></body>")
+        self.assertEqual(
+            "<body><div><p>text1</p>text2</div></body>", soup.body.decode()
+        )
+        
+    def test_worst_case(self):
+        """Test the worst case (currently) for linking issues."""
+
+        soup = self.soup(BAD_DOCUMENT)
+        self.linkage_validator(soup)
+
+
+class XMLTreeBuilderSmokeTest(TreeBuilderSmokeTest):
 
     def test_pickle_and_unpickle_identity(self):
         # Pickling a tree, then unpickling it, yields a tree identical
@@ -563,6 +937,30 @@ class XMLTreeBuilderSmokeTest(object):
         soup = self.soup(markup)
         self.assertEqual(markup, soup.encode("utf8"))
 
+    def test_python_specific_encodings_not_used_in_xml_declaration(self):
+        # You can encode an XML document using a Python-specific
+        # encoding, but that encoding won't be mentioned _inside_ the
+        # resulting document.
+        markup = b"""<?xml version="1.0"?>\n<foo/>"""
+        soup = self.soup(markup)
+        for encoding in PYTHON_SPECIFIC_ENCODINGS:
+            if encoding in (
+                'idna', 'mbcs', 'oem', 'undefined',
+                'string_escape', 'string-escape'
+            ):
+                # For one reason or another, these will raise an
+                # exception if we actually try to use them, so don't
+                # bother.
+                continue
+            encoded = soup.encode(encoding)
+            assert b'<?xml version="1.0"?>' in encoded
+            assert encoding.encode("ascii") not in encoded
+
+    def test_processing_instruction(self):
+        markup = b"""<?xml version="1.0" encoding="utf8"?>\n<?PITarget PIContent?>"""
+        soup = self.soup(markup)
+        self.assertEqual(markup, soup.encode("utf8"))
+
     def test_real_xhtml_document(self):
         """A real XHTML document should come out *exactly* the same as it went in."""
         markup = b"""<?xml version="1.0" encoding="utf-8"?>
@@ -574,7 +972,18 @@ class XMLTreeBuilderSmokeTest(object):
         soup = self.soup(markup)
         self.assertEqual(
             soup.encode("utf-8"), markup)
-
+       
+    def test_nested_namespaces(self):
+        doc = b"""<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<parent xmlns="http://ns1/">
+<child xmlns="http://ns2/" xmlns:ns3="http://ns3/">
+<grandchild ns3:attr="value" xmlns="http://ns4/"/>
+</child>
+</parent>"""
+        soup = self.soup(doc)
+        self.assertEqual(doc, soup.encode())
+        
     def test_formatter_processes_script_tag_for_xml_documents(self):
         doc = """
   <script type="text/javascript">
@@ -638,6 +1047,46 @@ class XMLTreeBuilderSmokeTest(object):
         markup = '<foo xml:lang="fr">bar</foo>'
         soup = self.soup(markup)
         self.assertEqual(str(soup.foo), markup)
+
+    def test_find_by_prefixed_name(self):
+        doc = """<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns="http://example.com/ns0"
+    xmlns:ns1="http://example.com/ns1"
+    xmlns:ns2="http://example.com/ns2"
+    <ns1:tag>foo</ns1:tag>
+    <ns1:tag>bar</ns1:tag>
+    <ns2:tag key="value">baz</ns2:tag>
+</Document>
+"""
+        soup = self.soup(doc)
+
+        # There are three <tag> tags.
+        self.assertEqual(3, len(soup.find_all('tag')))
+
+        # But two of them are ns1:tag and one of them is ns2:tag.
+        self.assertEqual(2, len(soup.find_all('ns1:tag')))
+        self.assertEqual(1, len(soup.find_all('ns2:tag')))
+        
+        self.assertEqual(1, len(soup.find_all('ns2:tag', key='value')))
+        self.assertEqual(3, len(soup.find_all(['ns1:tag', 'ns2:tag'])))
+        
+    def test_copy_tag_preserves_namespace(self):
+        xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://example.com/ns0"/>"""
+    
+        soup = self.soup(xml)
+        tag = soup.document
+        duplicate = copy.copy(tag)
+
+        # The two tags have the same namespace prefix.
+        self.assertEqual(tag.prefix, duplicate.prefix)
+
+    def test_worst_case(self):
+        """Test the worst case (currently) for linking issues."""
+
+        soup = self.soup(BAD_DOCUMENT)
+        self.linkage_validator(soup)
+
 
 class HTML5TreeBuilderSmokeTest(HTMLTreeBuilderSmokeTest):
     """Smoke test for a tree builder that supports HTML5."""

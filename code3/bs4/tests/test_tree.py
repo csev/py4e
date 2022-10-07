@@ -25,14 +25,19 @@ from bs4.element import (
     Comment,
     Declaration,
     Doctype,
+    Formatter,
     NavigableString,
+    Script,
     SoupStrainer,
+    Stylesheet,
     Tag,
+    TemplateString,
 )
 from bs4.testing import (
     SoupTest,
     skipIf,
 )
+from soupsieve import SelectorSyntaxError
 
 XML_BUILDER_PRESENT = (builder_registry.lookup("xml") is not None)
 LXML_PRESENT = (builder_registry.lookup("lxml") is not None)
@@ -222,7 +227,19 @@ class TestFindAllByName(TreeTest):
         self.assertSelects(
             tree.find_all(id_matches_name), ["Match 1.", "Match 2."])
 
+    def test_find_with_multi_valued_attribute(self):
+        soup = self.soup(
+            "<div class='a b'>1</div><div class='a c'>2</div><div class='a d'>3</div>"
+        )
+        r1 = soup.find('div', 'a d');
+        r2 = soup.find('div', re.compile(r'a d'));
+        r3, r4 = soup.find_all('div', ['a b', 'a d']);
+        self.assertEqual('3', r1.string)
+        self.assertEqual('3', r2.string)
+        self.assertEqual('1', r3.string)
+        self.assertEqual('3', r4.string)
 
+        
 class TestFindAllByAttribute(TreeTest):
 
     def test_find_all_by_attribute_name(self):
@@ -294,10 +311,10 @@ class TestFindAllByAttribute(TreeTest):
         f = tree.find_all("gar", class_=re.compile("a"))
         self.assertSelects(f, ["Found it"])
 
-        # Since the class is not the string "foo bar", but the two
-        # strings "foo" and "bar", this will not find anything.
+        # If the search fails to match the individual strings "foo" and "bar",
+        # it will be tried against the combined string "foo bar".
         f = tree.find_all("gar", class_=re.compile("o b"))
-        self.assertSelects(f, [])
+        self.assertSelects(f, ["Found it"])
 
     def test_find_all_with_non_dictionary_for_attrs_finds_by_class(self):
         soup = self.soup("<a class='bar'>Found it</a>")
@@ -335,7 +352,7 @@ class TestFindAllByAttribute(TreeTest):
         strainer = SoupStrainer(attrs={'id' : 'first'})
         self.assertSelects(tree.find_all(strainer), ['Match.'])
 
-    def test_find_all_with_missing_atribute(self):
+    def test_find_all_with_missing_attribute(self):
         # You can pass in None as the value of an attribute to find_all.
         # This will match tags that do not have that attribute set.
         tree = self.soup("""<a id="1">ID present.</a>
@@ -404,6 +421,48 @@ class TestFindAllByAttribute(TreeTest):
         self.assertEqual([], soup.find_all(id=1, text="bar"))
 
 
+class TestSmooth(TreeTest):
+    """Test Tag.smooth."""
+
+    def test_smooth(self):
+        soup = self.soup("<div>a</div>")
+        div = soup.div
+        div.append("b")
+        div.append("c")
+        div.append(Comment("Comment 1"))
+        div.append(Comment("Comment 2"))
+        div.append("d")
+        builder = self.default_builder()
+        span = Tag(soup, builder, 'span')
+        span.append('1')
+        span.append('2')
+        div.append(span)
+
+        # At this point the tree has a bunch of adjacent
+        # NavigableStrings. This is normal, but it has no meaning in
+        # terms of HTML, so we may want to smooth things out for
+        # output.
+
+        # Since the <span> tag has two children, its .string is None.
+        self.assertEqual(None, div.span.string)
+
+        self.assertEqual(7, len(div.contents))
+        div.smooth()
+        self.assertEqual(5, len(div.contents))
+
+        # The three strings at the beginning of div.contents have been
+        # merged into on string.
+        #
+        self.assertEqual('abc', div.contents[0])
+
+        # The call is recursive -- the <span> tag was also smoothed.
+        self.assertEqual('12', div.span.string)
+
+        # The two comments have _not_ been merged, even though
+        # comments are strings. Merging comments would change the
+        # meaning of the HTML.
+        self.assertEqual('Comment 1', div.contents[1])
+        self.assertEqual('Comment 2', div.contents[2])
 
 
 class TestIndex(TreeTest):
@@ -592,7 +651,7 @@ class SiblingTest(TreeTest):
                     </html>'''
         # All that whitespace looks good but makes the tests more
         # difficult. Get rid of it.
-        markup = re.compile("\n\s*").sub("", markup)
+        markup = re.compile(r"\n\s*").sub("", markup)
         self.tree = self.soup(markup)
 
 
@@ -686,16 +745,40 @@ class TestPreviousSibling(SiblingTest):
         self.assertEqual(start.find_previous_sibling(text="nonesuch"), None)
 
 
+class TestTag(SoupTest):
+
+    # Test various methods of Tag.
+
+    def test__should_pretty_print(self):
+        # Test the rules about when a tag should be pretty-printed.
+        tag = self.soup("").new_tag("a_tag")
+
+        # No list of whitespace-preserving tags -> pretty-print
+        tag._preserve_whitespace_tags = None
+        self.assertEqual(True, tag._should_pretty_print(0))
+
+        # List exists but tag is not on the list -> pretty-print
+        tag.preserve_whitespace_tags = ["some_other_tag"]
+        self.assertEqual(True, tag._should_pretty_print(1))
+
+        # Indent level is None -> don't pretty-print
+        self.assertEqual(False, tag._should_pretty_print(None))
+        
+        # Tag is on the whitespace-preserving list -> don't pretty-print
+        tag.preserve_whitespace_tags = ["some_other_tag", "a_tag"]
+        self.assertEqual(False, tag._should_pretty_print(1))
+
+        
 class TestTagCreation(SoupTest):
     """Test the ability to create new tags."""
     def test_new_tag(self):
         soup = self.soup("")
-        new_tag = soup.new_tag("foo", bar="baz")
+        new_tag = soup.new_tag("foo", bar="baz", attrs={"name": "a name"})
         self.assertTrue(isinstance(new_tag, Tag))
         self.assertEqual("foo", new_tag.name)
-        self.assertEqual(dict(bar="baz"), new_tag.attrs)
+        self.assertEqual(dict(bar="baz", name="a name"), new_tag.attrs)
         self.assertEqual(None, new_tag.parent)
-
+        
     def test_tag_inherits_self_closing_rules_from_builder(self):
         if XML_BUILDER_PRESENT:
             xml_soup = BeautifulSoup("", "lxml-xml")
@@ -808,6 +891,26 @@ class TestTreeModification(SoupTest):
         soup = self.soup(text)
         self.assertRaises(ValueError, soup.a.insert, 0, soup.a)
 
+    def test_insert_beautifulsoup_object_inserts_children(self):
+        """Inserting one BeautifulSoup object into another actually inserts all
+        of its children -- you'll never combine BeautifulSoup objects.
+        """
+        soup = self.soup("<p>And now, a word:</p><p>And we're back.</p>")
+        
+        text = "<p>p2</p><p>p3</p>"
+        to_insert = self.soup(text)
+        soup.insert(1, to_insert)
+
+        for i in soup.descendants:
+            assert not isinstance(i, BeautifulSoup)
+        
+        p1, p2, p3, p4 = list(soup.children)
+        self.assertEqual("And now, a word:", p1.string)
+        self.assertEqual("p2", p2.string)
+        self.assertEqual("p3", p3.string)
+        self.assertEqual("And we're back.", p4.string)
+        
+        
     def test_replace_with_maintains_next_element_throughout(self):
         soup = self.soup('<p><a>one</a><b>three</b></p>')
         a = soup.a
@@ -864,7 +967,7 @@ class TestTreeModification(SoupTest):
         self.assertEqual(soup.a.contents[0].next_element, "bar")
 
     def test_insert_tag(self):
-        builder = self.default_builder
+        builder = self.default_builder()
         soup = self.soup(
             "<a><b>Find</b><c>lady!</c><d></d></a>", builder=builder)
         magic_tag = Tag(soup, builder, 'magictag')
@@ -899,6 +1002,22 @@ class TestTreeModification(SoupTest):
         soup.a.append(soup.b)
         self.assertEqual(data, soup.decode())
 
+    def test_extend(self):
+        data = "<a><b><c><d><e><f><g></g></f></e></d></c></b></a>"
+        soup = self.soup(data)
+        l = [soup.g, soup.f, soup.e, soup.d, soup.c, soup.b]
+        soup.a.extend(l)
+        self.assertEqual("<a><g></g><f></f><e></e><d></d><c></c><b></b></a>", soup.decode())
+
+    def test_extend_with_another_tags_contents(self):
+        data = '<body><div id="d1"><a>1</a><a>2</a><a>3</a><a>4</a></div><div id="d2"></div></body>'
+        soup = self.soup(data)
+        d1 = soup.find('div', id='d1')
+        d2 = soup.find('div', id='d2')
+        d2.extend(d1)
+        self.assertEqual('<div id="d1"></div>', d1.decode())
+        self.assertEqual('<div id="d2"><a>1</a><a>2</a><a>3</a><a>4</a></div>', d2.decode())
+        
     def test_move_tag_to_beginning_of_parent(self):
         data = "<a><b></b><c></c><d></d></a>"
         soup = self.soup(data)
@@ -925,6 +1044,29 @@ class TestTreeModification(SoupTest):
         self.assertEqual(
             soup.decode(), self.document_for("QUUX<b>bar</b><a>foo</a>BAZ"))
 
+        # Can't insert an element before itself.
+        b = soup.b
+        self.assertRaises(ValueError, b.insert_before, b)
+
+        # Can't insert before if an element has no parent.
+        b.extract()
+        self.assertRaises(ValueError, b.insert_before, "nope")
+
+        # Can insert an identical element
+        soup = self.soup("<a>")
+        soup.a.insert_before(soup.new_tag("a"))
+        
+    def test_insert_multiple_before(self):
+        soup = self.soup("<a>foo</a><b>bar</b>")
+        soup.b.insert_before("BAZ", " ", "QUUX")
+        soup.a.insert_before("QUUX", " ", "BAZ")
+        self.assertEqual(
+            soup.decode(), self.document_for("QUUX BAZ<a>foo</a>BAZ QUUX<b>bar</b>"))
+
+        soup.a.insert_before(soup.b, "FOO")
+        self.assertEqual(
+            soup.decode(), self.document_for("QUUX BAZ<b>bar</b>FOO<a>foo</a>BAZ QUUX"))
+
     def test_insert_after(self):
         soup = self.soup("<a>foo</a><b>bar</b>")
         soup.b.insert_after("BAZ")
@@ -934,6 +1076,28 @@ class TestTreeModification(SoupTest):
         soup.b.insert_after(soup.a)
         self.assertEqual(
             soup.decode(), self.document_for("QUUX<b>bar</b><a>foo</a>BAZ"))
+
+        # Can't insert an element after itself.
+        b = soup.b
+        self.assertRaises(ValueError, b.insert_after, b)
+
+        # Can't insert after if an element has no parent.
+        b.extract()
+        self.assertRaises(ValueError, b.insert_after, "nope")
+
+        # Can insert an identical element
+        soup = self.soup("<a>")
+        soup.a.insert_before(soup.new_tag("a"))
+        
+    def test_insert_multiple_after(self):
+        soup = self.soup("<a>foo</a><b>bar</b>")
+        soup.b.insert_after("BAZ", " ", "QUUX")
+        soup.a.insert_after("QUUX", " ", "BAZ")
+        self.assertEqual(
+            soup.decode(), self.document_for("<a>foo</a>QUUX BAZ<b>bar</b>BAZ QUUX"))
+        soup.b.insert_after(soup.a, "FOO ")
+        self.assertEqual(
+            soup.decode(), self.document_for("QUUX BAZ<b>bar</b><a>foo</a>FOO BAZ QUUX"))
 
     def test_insert_after_raises_exception_if_after_has_no_meaning(self):
         soup = self.soup("")
@@ -966,6 +1130,37 @@ class TestTreeModification(SoupTest):
         self.assertEqual(no.next_element, "no")
         self.assertEqual(no.next_sibling, " business")
 
+    def test_replace_with_errors(self):
+        # Can't replace a tag that's not part of a tree.
+        a_tag = Tag(name="a")
+        self.assertRaises(ValueError, a_tag.replace_with, "won't work")
+
+        # Can't replace a tag with its parent.
+        a_tag = self.soup("<a><b></b></a>").a
+        self.assertRaises(ValueError, a_tag.b.replace_with, a_tag)
+
+        # Or with a list that includes its parent.
+        self.assertRaises(ValueError, a_tag.b.replace_with,
+                          "string1", a_tag, "string2")
+        
+    def test_replace_with_multiple(self):
+        data = "<a><b></b><c></c></a>"
+        soup = self.soup(data)
+        d_tag = soup.new_tag("d")
+        d_tag.string = "Text In D Tag"
+        e_tag = soup.new_tag("e")
+        f_tag = soup.new_tag("f")
+        a_string = "Random Text"
+        soup.c.replace_with(d_tag, e_tag, a_string, f_tag)
+        self.assertEqual(
+            "<a><b></b><d>Text In D Tag</d><e></e>Random Text<f></f></a>",
+            soup.decode()
+        )
+        assert soup.b.next_element == d_tag
+        assert d_tag.string.next_element==e_tag
+        assert e_tag.next_element.string == a_string
+        assert e_tag.next_element.next_element == f_tag
+        
     def test_replace_first_child(self):
         data = "<a><b></b><c></c></a>"
         soup = self.soup(data)
@@ -1124,6 +1319,23 @@ class TestTreeModification(SoupTest):
         a.clear(decompose=True)
         self.assertEqual(0, len(em.contents))
 
+       
+    def test_decompose(self):
+        # Test PageElement.decompose() and PageElement.decomposed
+        soup = self.soup("<p><a>String <em>Italicized</em></a></p><p>Another para</p>")
+        p1, p2 = soup.find_all('p')
+        a = p1.a
+        text = p1.em.string
+        for i in [p1, p2, a, text]:
+            self.assertEqual(False, i.decomposed)
+
+        # This sets p1 and everything beneath it to decomposed.
+        p1.decompose()
+        for i in [p1, a, text]:
+            self.assertEqual(True, i.decomposed)
+        # p2 is unaffected.
+        self.assertEqual(False, p2.decomposed)
+            
     def test_string_set(self):
         """Tag.string = 'string'"""
         soup = self.soup("<a></a> <b><c></c></b>")
@@ -1173,7 +1385,7 @@ class TestElementObjects(SoupTest):
             tag = soup.bTag
         self.assertEqual(soup.b, tag)
         self.assertEqual(
-            '.bTag is deprecated, use .find("b") instead.',
+            '.bTag is deprecated, use .find("b") instead. If you really were looking for a tag called bTag, use .find("bTag")',
             str(w[0].message))
 
     def test_has_attr(self):
@@ -1240,7 +1452,7 @@ class TestElementObjects(SoupTest):
         self.assertEqual(soup.a.get_text(","), "a,r, , t ")
         self.assertEqual(soup.a.get_text(",", strip=True), "a,r,t")
 
-    def test_get_text_ignores_comments(self):
+    def test_get_text_ignores_special_string_containers(self):
         soup = self.soup("foo<!--IGNORE-->bar")
         self.assertEqual(soup.get_text(), "foobar")
 
@@ -1249,9 +1461,50 @@ class TestElementObjects(SoupTest):
         self.assertEqual(
             soup.get_text(types=None), "fooIGNOREbar")
 
-    def test_all_strings_ignores_comments(self):
+        soup = self.soup("foo<style>CSS</style><script>Javascript</script>bar")
+        self.assertEqual(soup.get_text(), "foobar")
+        
+    def test_all_strings_ignores_special_string_containers(self):
         soup = self.soup("foo<!--IGNORE-->bar")
         self.assertEqual(['foo', 'bar'], list(soup.strings))
+
+        soup = self.soup("foo<style>CSS</style><script>Javascript</script>bar")
+        self.assertEqual(['foo', 'bar'], list(soup.strings))
+
+    def test_string_methods_inside_special_string_container_tags(self):
+        # Strings inside tags like <script> are generally ignored by
+        # methods like get_text, because they're not what humans
+        # consider 'text'. But if you call get_text on the <script>
+        # tag itself, those strings _are_ considered to be 'text',
+        # because there's nothing else you might be looking for.
+        
+        style = self.soup("<div>a<style>Some CSS</style></div>")
+        template = self.soup("<div>a<template><p>Templated <b>text</b>.</p><!--With a comment.--></template></div>")
+        script = self.soup("<div>a<script><!--a comment-->Some text</script></div>")
+        
+        self.assertEqual(style.div.get_text(), "a")
+        self.assertEqual(list(style.div.strings), ["a"])
+        self.assertEqual(style.div.style.get_text(), "Some CSS")
+        self.assertEqual(list(style.div.style.strings),
+                         ['Some CSS'])
+        
+        # The comment is not picked up here. That's because it was
+        # parsed into a Comment object, which is not considered
+        # interesting by template.strings.
+        self.assertEqual(template.div.get_text(), "a")
+        self.assertEqual(list(template.div.strings), ["a"])
+        self.assertEqual(template.div.template.get_text(), "Templated text.")
+        self.assertEqual(list(template.div.template.strings),
+                         ["Templated ", "text", "."])
+
+        # The comment is included here, because it didn't get parsed
+        # into a Comment object--it's part of the Script string.
+        self.assertEqual(script.div.get_text(), "a")
+        self.assertEqual(list(script.div.strings), ["a"])
+        self.assertEqual(script.div.script.get_text(),
+                         "<!--a comment-->Some text")
+        self.assertEqual(list(script.div.script.strings),
+                         ['<!--a comment-->Some text'])
 
 class TestCDAtaListAttributes(SoupTest):
 
@@ -1273,6 +1526,10 @@ class TestCDAtaListAttributes(SoupTest):
         soup = self.soup("<a class='foo\tbar'>")
         self.assertEqual(b'<a class="foo bar"></a>', soup.a.encode())
 
+    def test_get_attribute_list(self):
+        soup = self.soup("<a id='abc def'>")
+        self.assertEqual(['abc def'], soup.a.get_attribute_list('id'))
+        
     def test_accept_charset(self):
         soup = self.soup('<form accept-charset="ISO-8859-1 UTF-8">')
         self.assertEqual(['ISO-8859-1', 'UTF-8'], soup.form['accept-charset'])
@@ -1328,6 +1585,38 @@ class TestPersistence(SoupTest):
         copied = copy.deepcopy(self.tree)
         self.assertEqual(copied.decode(), self.tree.decode())
 
+    def test_copy_preserves_encoding(self):
+        soup = BeautifulSoup(b'<p>&nbsp;</p>', 'html.parser')
+        encoding = soup.original_encoding
+        copy = soup.__copy__()
+        self.assertEqual("<p> </p>", str(copy))
+        self.assertEqual(encoding, copy.original_encoding)
+
+    def test_copy_preserves_builder_information(self):
+
+        tag = self.soup('<p></p>').p
+
+        # Simulate a tag obtained from a source file.
+        tag.sourceline = 10
+        tag.sourcepos = 33
+        
+        copied = tag.__copy__()
+
+        # The TreeBuilder object is no longer availble, but information
+        # obtained from it gets copied over to the new Tag object.
+        self.assertEqual(tag.sourceline, copied.sourceline)
+        self.assertEqual(tag.sourcepos, copied.sourcepos)
+        self.assertEqual(
+            tag.can_be_empty_element, copied.can_be_empty_element
+        )
+        self.assertEqual(
+            tag.cdata_list_attributes, copied.cdata_list_attributes
+        )
+        self.assertEqual(
+            tag.preserve_whitespace_tags, copied.preserve_whitespace_tags
+        )
+        
+        
     def test_unicode_pickle(self):
         # A tree containing Unicode characters can be pickled.
         html = "<b>\N{SNOWMAN}</b>"
@@ -1395,13 +1684,21 @@ class TestSubstitutions(SoupTest):
                 "<b>&lt;&lt;Sacr\N{LATIN SMALL LETTER E WITH ACUTE} bleu!&gt;&gt;</b>"))
 
     def test_formatter_html(self):
-        markup = "<b>&lt;&lt;Sacr\N{LATIN SMALL LETTER E WITH ACUTE} bleu!&gt;&gt;</b>"
+        markup = "<br><b>&lt;&lt;Sacr\N{LATIN SMALL LETTER E WITH ACUTE} bleu!&gt;&gt;</b>"
         soup = self.soup(markup)
         decoded = soup.decode(formatter="html")
         self.assertEqual(
             decoded,
-            self.document_for("<b>&lt;&lt;Sacr&eacute; bleu!&gt;&gt;</b>"))
+            self.document_for("<br/><b>&lt;&lt;Sacr&eacute; bleu!&gt;&gt;</b>"))
 
+    def test_formatter_html5(self):
+        markup = "<br><b>&lt;&lt;Sacr\N{LATIN SMALL LETTER E WITH ACUTE} bleu!&gt;&gt;</b>"
+        soup = self.soup(markup)
+        decoded = soup.decode(formatter="html5")
+        self.assertEqual(
+            decoded,
+            self.document_for("<br><b>&lt;&lt;Sacr&eacute; bleu!&gt;&gt;</b>"))
+        
     def test_formatter_minimal(self):
         markup = "<b>&lt;&lt;Sacr\N{LATIN SMALL LETTER E WITH ACUTE} bleu!&gt;&gt;</b>"
         soup = self.soup(markup)
@@ -1422,14 +1719,14 @@ class TestSubstitutions(SoupTest):
                           self.document_for("<b><<Sacr\N{LATIN SMALL LETTER E WITH ACUTE} bleu!>></b>"))
 
     def test_formatter_custom(self):
-        markup = "<b>&lt;foo&gt;</b><b>bar</b>"
+        markup = "<b>&lt;foo&gt;</b><b>bar</b><br/>"
         soup = self.soup(markup)
         decoded = soup.decode(formatter = lambda x: x.upper())
         # Instead of normal entity conversion code, the custom
         # callable is called on every string.
         self.assertEqual(
             decoded,
-            self.document_for("<b><FOO></b><b>BAR</b>"))
+            self.document_for("<b><FOO></b><b>BAR</b><br/>"))
 
     def test_formatter_is_run_on_attribute_values(self):
         markup = '<a href="http://a.com?a=b&c=é">e</a>'
@@ -1467,14 +1764,14 @@ class TestSubstitutions(SoupTest):
         self.assertTrue(b"< < hey > >" in encoded)
 
     def test_prettify_leaves_preformatted_text_alone(self):
-        soup = self.soup("<div>  foo  <pre>  \tbar\n  \n  </pre>  baz  ")
+        soup = self.soup("<div>  foo  <pre>  \tbar\n  \n  </pre>  baz  <textarea> eee\nfff\t</textarea></div>")
         # Everything outside the <pre> tag is reformatted, but everything
         # inside is left alone.
         self.assertEqual(
-            '<div>\n foo\n <pre>  \tbar\n  \n  </pre>\n baz\n</div>',
+            '<div>\n foo\n <pre>  \tbar\n  \n  </pre>\n baz\n <textarea> eee\nfff\t</textarea>\n</div>',
             soup.div.prettify())
 
-    def test_prettify_accepts_formatter(self):
+    def test_prettify_accepts_formatter_function(self):
         soup = BeautifulSoup("<html><body>foo</body></html>", 'html.parser')
         pretty = soup.prettify(formatter = lambda x: x.upper())
         self.assertTrue("FOO" in pretty)
@@ -1580,48 +1877,7 @@ class TestEncoding(SoupTest):
         else:
             self.assertEqual(b'<b>\\u2603</b>', repr(soup))
 
-class TestNavigableStringSubclasses(SoupTest):
-
-    def test_cdata(self):
-        # None of the current builders turn CDATA sections into CData
-        # objects, but you can create them manually.
-        soup = self.soup("")
-        cdata = CData("foo")
-        soup.insert(1, cdata)
-        self.assertEqual(str(soup), "<![CDATA[foo]]>")
-        self.assertEqual(soup.find(text="foo"), "foo")
-        self.assertEqual(soup.contents[0], "foo")
-
-    def test_cdata_is_never_formatted(self):
-        """Text inside a CData object is passed into the formatter.
-
-        But the return value is ignored.
-        """
-
-        self.count = 0
-        def increment(*args):
-            self.count += 1
-            return "BITTER FAILURE"
-
-        soup = self.soup("")
-        cdata = CData("<><><>")
-        soup.insert(1, cdata)
-        self.assertEqual(
-            b"<![CDATA[<><><>]]>", soup.encode(formatter=increment))
-        self.assertEqual(1, self.count)
-
-    def test_doctype_ends_in_newline(self):
-        # Unlike other NavigableString subclasses, a DOCTYPE always ends
-        # in a newline.
-        doctype = Doctype("foo")
-        soup = self.soup("")
-        soup.insert(1, doctype)
-        self.assertEqual(soup.encode(), b"<!DOCTYPE foo>\n")
-
-    def test_declaration(self):
-        d = Declaration("foo")
-        self.assertEqual("<?foo?>", d.output_ready())
-
+        
 class TestSoupSelector(TreeTest):
 
     HTML = """
@@ -1676,8 +1932,8 @@ class TestSoupSelector(TreeTest):
     def setUp(self):
         self.soup = BeautifulSoup(self.HTML, 'html.parser')
 
-    def assertSelects(self, selector, expected_ids):
-        el_ids = [el['id'] for el in self.soup.select(selector)]
+    def assertSelects(self, selector, expected_ids, **kwargs):
+        el_ids = [el['id'] for el in self.soup.select(selector, **kwargs)]
         el_ids.sort()
         expected_ids.sort()
         self.assertEqual(expected_ids, el_ids,
@@ -1720,11 +1976,18 @@ class TestSoupSelector(TreeTest):
         for selector in ('html div', 'html body div', 'body div'):
             self.assertSelects(selector, ['data1', 'main', 'inner', 'footer'])
 
+
+    def test_limit(self):
+        self.assertSelects('html div', ['main'], limit=1)
+        self.assertSelects('html body div', ['inner', 'main'], limit=2)
+        self.assertSelects('body div', ['data1', 'main', 'inner', 'footer'],
+                           limit=10)
+
     def test_tag_no_match(self):
         self.assertEqual(len(self.soup.select('del')), 0)
 
     def test_invalid_tag(self):
-        self.assertRaises(ValueError, self.soup.select, 'tag%t')
+        self.assertRaises(SelectorSyntaxError, self.soup.select, 'tag%t')
 
     def test_select_dashed_tag_ids(self):
         self.assertSelects('custom-dashed-tag', ['dash1', 'dash2'])
@@ -1902,13 +2165,20 @@ class TestSoupSelector(TreeTest):
             ('div[data-tag]', ['data1'])
         )
 
+    def test_quoted_space_in_selector_name(self):
+        html = """<div style="display: wrong">nope</div>
+        <div style="display: right">yes</div>
+        """
+        soup = BeautifulSoup(html, 'html.parser')
+        [chosen] = soup.select('div[style="display: right"]')
+        self.assertEqual("yes", chosen.string)
+
     def test_unsupported_pseudoclass(self):
         self.assertRaises(
             NotImplementedError, self.soup.select, "a:no-such-pseudoclass")
 
         self.assertRaises(
-            NotImplementedError, self.soup.select, "a:nth-of-type(a)")
-
+            SelectorSyntaxError, self.soup.select, "a:nth-of-type(a)")
 
     def test_nth_of_type(self):
         # Try to select first paragraph
@@ -1925,9 +2195,9 @@ class TestSoupSelector(TreeTest):
         els = self.soup.select('div#inner p:nth-of-type(4)')
         self.assertEqual(len(els), 0)
 
-        # Pass in an invalid value.
-        self.assertRaises(
-            ValueError, self.soup.select, 'div p:nth-of-type(0)')
+        # Zero will select no tags.
+        els = self.soup.select('div p:nth-of-type(0)')
+        self.assertEqual(len(els), 0)
 
     def test_nth_of_type_direct_descendant(self):
         els = self.soup.select('div#inner > p:nth-of-type(1)')
@@ -1964,7 +2234,7 @@ class TestSoupSelector(TreeTest):
         self.assertEqual([], self.soup.select('#inner ~ h2'))
 
     def test_dangling_combinator(self):
-        self.assertRaises(ValueError, self.soup.select, 'h1 >')
+        self.assertRaises(SelectorSyntaxError, self.soup.select, 'h1 >')
 
     def test_sibling_combinator_wont_select_same_tag_twice(self):
         self.assertSelects('p[lang] ~ p', ['lang-en-gb', 'lang-en-us', 'lang-fr'])
@@ -1995,8 +2265,8 @@ class TestSoupSelector(TreeTest):
         self.assertSelects('div x,y,  z', ['xid', 'yid', 'zida', 'zidb', 'zidab', 'zidac'])
 
     def test_invalid_multiple_select(self):
-        self.assertRaises(ValueError, self.soup.select, ',x, y')
-        self.assertRaises(ValueError, self.soup.select, 'x,,y')
+        self.assertRaises(SelectorSyntaxError, self.soup.select, ',x, y')
+        self.assertRaises(SelectorSyntaxError, self.soup.select, 'x,,y')
 
     def test_multiple_select_attrs(self):
         self.assertSelects('p[lang=en], p[lang=en-gb]', ['lang-en', 'lang-en-gb'])
@@ -2007,5 +2277,16 @@ class TestSoupSelector(TreeTest):
     def test_multiple_select_nested(self):
         self.assertSelects('body > div > x, y > z', ['xid', 'zidb'])
 
+    def test_select_duplicate_elements(self):
+        # When markup contains duplicate elements, a multiple select
+        # will find all of them.
+        markup = '<div class="c1"/><div class="c2"/><div class="c1"/>'
+        soup = BeautifulSoup(markup, 'html.parser')
+        selected = soup.select(".c1, .c2")
+        self.assertEqual(3, len(selected))
 
-
+        # Verify that find_all finds the same elements, though because
+        # of an implementation detail it finds them in a different
+        # order.
+        for element in soup.find_all(class_=['c1', 'c2']):
+            assert element in selected
