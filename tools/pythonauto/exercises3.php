@@ -136,25 +136,25 @@ hrs = input("Enter Hours:")
 p = computepay(10, 20)
 print("Pay", p)',
 "checks" => Array(
-"input" => "You must prompt the pay and rate using the input() function.",
-"print" => "You must use the print statement to print the output.",
-"!45" => "You must prompt for the data.",
-"!10.5" => "You must prompt for the data.",
-"if" => "You should use an if statement to decide to to the overtime computation or not.",
-"float" => "You should use the built-in float() function to convert from a string to a float.",
-"def" => "You must use a function called computepay to do the computation.",
-"!sum(" => "Do not use a variable named sum or a function named sum()",
-"return" => "You must use a return statement to pass the computed pay back to the main code.",
-"computepay" => "You must use a function called computepay to do the computation.",
-"!475" => "You must actually calculate the pay.")
+"input" => "Πρέπει να ζητήσετε τις ώρες και το ωρομίσθιο χρησιμοποιώντας τη συνάρτηση input().",
+"print" => "Πρέπει να χρησιμοποιήσετε τη συνάρτηση print για να εκτυπώσετε το αποτέλεσμα.",
+"!45" => "Πρέπει να ζητήσετε την πληκτρολόγηση των δεδομένων.",
+"!10.5" => "Πρέπει να ζητήσετε την πληκτρολόγηση των δεδομένων.",
+"if" => "Πρέπει να χρησιμοποιήσετε μια εντολή if για να αποφασίσετε αν θα υπολογίσετε υπερωρίες ή όχι.",
+"float" => "Πρέπει να χρησιμοποιήσετε την ενσωματωμένη συνάρτηση float() για να μετατρέψετε ένα string σε float.",
+"def" => "Πρέπει να χρησιμοποιήσετε μια συνάρτηση με όνομα computepay που θα κάνει τον υπολογισμό.",
+"!sum(" => "Μην χρησιμοποιείτε μεταβλητή με το όνομα sum ή συνάρτηση sum()",
+"return" => "Πρέπει να χρησιμοποιήσετε μια δήλωση return για να επιστρέψετε τον υπολογισμένο μισθό πίσω στο κυρίως πρόγραμμα.",
+"computepay" => "Πρέπει να χρησιμοποιήσετε μια συνάρτηση με το όνομα computepay για να κάνετε τον υπολογισμό.",
+"!475" => "Πρέπει πραγματικά να υπολογίσετε την αμοιβή.")
 ),
 
 "5.2" => Array(
-"qtext" => "<b>5.2</b> Write a program that repeatedly prompts a user for integer numbers
-until the user enters 'done'.  Once 'done' is entered, print out the largest and smallest
-of the numbers.  If the user enters anything other than a valid number catch it
-with a try/except and put out an appropriate message and ignore the number.
-Enter 7, 2, bob, 10,  and 4 and match the output below.
+"qtext" => "<b>5.2</b> Γράψτε ένα πρόγραμμα που προτρέπει για την εισαγωγή ακεραίων αριθμων
+μέχρι ο χρήστης να εισάγει 'done'.  Όταν εισαχθεί 'done', να εκτυπώνει τον μεγαλύτερο και τον μικρότερο
+από τους αριθμούς που δόθηκαν.  Αν ο χρήστης εισάγει οτιδήποτε άλλο εκτός από έγκυρο αριθμό, εντοπίστε το
+με ένα try/except, εμφανίστε το μήνυμα 'Invalid input' και αγνοήστε την είσοδο.
+Εισάγετε 7, 2, bob, 10,  και 4 και παράξτε την παρακάτω έξοδο.
 ",
 "desired" => "Invalid input
 Maximum is 10
@@ -169,29 +169,29 @@ while True:
 
 print("Maximum", largest)',
 "checks" => Array(
-"input" => "You must prompt for the numbers using the input() function.",
-"print" => "You must use the print statement to print the output.",
-"while" => "You should use a while statement to read the numbers.",
-"int" => "You should use the int() function to convert from a string to an integer.",
-"! 2" => "You should actually compute the maximum and minimum.",
-"!=2" => "You should actually compute the maximum and minimum.",
-"! 10" => "You should actually compute the maximum and minimum.",
-"!=10" => "You should actually compute the maximum and minimum.",
-"try" => "You should handle bad numbers using a try/except structure.",
-"except" => "You should handle bad numbers using a try/except structure.")
+"input" => "Πρέπει να ζητήσετε τους αριθμούς χρησιμοποιώντας τη συνάρτηση input().",
+"print" => "Πρέπει να χρησιμοποιήσετε τη συνάρτηση print για να εκτυπώσετε το αποτέλεσμα.",
+"while" => "Πρέπει να χρησιμοποιήσετε μια εντολή while για να διαβάσετε τους αριθμούς.",
+"int" => "Πρέπει να χρησιμοποιήσετε τη συνάρτηση int() για την μετατροπή από string σε integer.",
+"! 2" => "Πρέπει πραγματικά να υπολογίσετε το μέγιστο και το ελάχιστο.",
+"!=2" => "Πρέπει πραγματικά να υπολογίσετε το μέγιστο και το ελάχιστο.",
+"! 10" => "Πρέπει πραγματικά να υπολογίσετε το μέγιστο και το ελάχιστο.",
+"!=10" => "Πρέπει πραγματικά να υπολογίσετε το μέγιστο και το ελάχιστο.",
+"try" => "Πρέπει να διαχειριστείτε τους μη ακεραίους χρησιμοποιώντας μια δομή try/except.",
+"except" => "Πρέπει να διαχειριστείτε τους μη ακεραίους χρησιμοποιώντας μια δομή try/except.")
 ),
 
 "6.5" => Array(
-"qtext" => "<b>6.5</b> Write code using find() and string slicing (see section 6.10) to extract
-the number at the end of the line below.   Convert the extracted value to a floating point
-number and print it out.",
+"qtext" => "<b>6.5</b> Γράψτε ένα πρόγραμμα χρησιμοποιώντας την find() και τον τελεστή διαμέρισης (βλέπε ενότητα 6.10)
+για να εξάγετε τον αριθμό από το τέλος της παρακάτω γραμμής. Μετατρέψτε την εξαχθήσα τιμή σε αριθμό κινητής υποδιαστολής
+(float) και εκτυπώστε την.",
 "desired" => "0.8475",
 "code" => 'text = "X-DSPAM-Confidence:    0.8475"',
 "checks" => Array(
-"find" => "You should use the find function to get the position of the colon in the string.",
-":" => "You should use string slicing [n:m] to extract data from the string.",
-"float" => "You should use the float() function to convert from a string to an integer.",
-'!"0.8475"' =>  "You must actually pull the data from the string.")
+"find" => "Πρέπει να χρησιμοποιήσετε τη συνάρτηση find για να πάρετε τη θέση της υποδιαστολής μέσα στη συμβολοσειρά (string).",
+":" => "Πρέπει να χρησιμοποιήσετε διαμέριση συμβολοσειρών [n:m] για να εξάγετε τα δεδομένα από τη συμβολοσειρά.",
+"float" => "Πρέπει να χρησιμοποιήσετε τη συνάρτηση float() για να μετατρέψετε την string σε float.",
+'!"0.8475"' =>  "Πρέπει πραγματικά να εξάγετε τα δεδομένα από τη συμβολοσειρά.")
 ),
 
 "fopen" => Array(
@@ -209,13 +209,13 @@ print(count,"Lines")
 ),
 
 "7.1" => Array(
-"qtext" => "<b>7.1</b> Write a program that prompts for a file name, then opens that file
-and reads through the file, and print the contents of the file in upper case.  Use
-the file <b>words.txt</b> to produce the output below.".
+"qtext" => "<b>7.1</b> Γράψτε ένα πρόγραμμα που ζητά ένα όνομα αρχείου, έπειτα ανοίγει το αρχείο αυτό,
+διαβάζει το σύνολο του αρχείου και εκτυπώνει το περιεχόμενό του σε κεφαλαία. Χρησιμοποιήστε
+το αρχείο <b>words.txt</b> για να παράξετε την παρακάτω έξοδο.".
 '<p>
-You can download the sample data at
-<a href="http://www.py4e.com/code3/words.txt" target="_blank">
-http://www.py4e.com/code3/words.txt</a>',
+Μπορείτε να κατεβάσετε το δείγμα δεδομένων στο
+<a href="http://www.gr.py4e.com/code3/words.txt" target="_blank">
+http://www.gr.py4e.com/code3/words.txt</a>',
 "desired" => "WRITING PROGRAMS OR PROGRAMMING IS A VERY CREATIVE
 AND REWARDING ACTIVITY  YOU CAN WRITE PROGRAMS FOR
 MANY REASONS RANGING FROM MAKING YOUR LIVING TO SOLVING
@@ -259,19 +259,20 @@ print(text.upper())
 ),
 
 "7.2" => Array(
-"qtext" => '<b>7.2</b> Write a program that prompts for a file name, then opens that file
-and reads through the file, looking for lines of the form:
+"qtext" => '<b>7.2</b> Γράψτε ένα πρόγραμμα που ζητά ένα όνομα αρχείου, έπειτα ανοίγει το αρχείο αυτό,
+διαβάζει το σύνολο του αρχείου αναζητώντας τις γραμμές της μορφής:
 <pre>
 X-DSPAM-Confidence:    0.8475
 </pre>
-Count these lines and extract the floating point values from each
-of the lines and compute the average of those values and produce an output
-as shown below.  Do not use the sum() function or a variable named sum in your solution.
+Μετρήστε αυτές τις γραμμές, εξάγετε τις τιμές κινητής υποδιαστολής από καθεμία
+από τις γραμμές, υπολογίστε τον μέσο όρο αυτών των τιμών και δημιουργήστε μια έξοδο
+όπως φαίνεται παρακάτω. Μην χρησιμοποιήσετε τη συνάρτηση sum() ή μια μεταβλητή με
+όνομα sum στη λύση σας.
 <p>
-You can download the sample data at
-<a href="http://www.py4e.com/code3/mbox-short.txt" target="_blank">
-http://www.py4e.com/code3/mbox-short.txt</a> when you are testing
-below enter <b>mbox-short.txt</b> as the file name.',
+Μπορείτε να κατεβάσετε το δείγμα δεδομένων στο
+<a href="http://www.gr.py4e.com/code3/mbox-short.txt" target="_blank">
+http://www.gr.py4e.com/code3/mbox-short.txt</a> όταν εκτελέσετε τον κώδικα, εισάγετε
+ <b>mbox-short.txt</b> ως όνομα του αρχείου.',
 "desired" => "Average spam confidence: 0.7507185185185187",
 "code" => '# Use the file name mbox-short.txt as the file name
 fname = input("Enter file name: ")
@@ -295,12 +296,12 @@ for line in fh:
 print("Average spam confidence:", tot/count)
 ',
 "checks" => Array(
-"input" => "You must prompt for the file name using the input() function.",
-"open" => "You need to use open() to open the file.",
-"!sum" => "You should not use the sum() function and avoid using sum as a variable.",
-"float" => "You should use the float() function to convert from a string to an integer.",
-'!18518' =>  "You must actually pull the data from the strings and convert it.",
-"/" => "Average is usually a total / count.")
+"input" => "Πρέπει να ζητήσετε το όνομα αρχείου χρησιμοποιώντας τη συνάρτηση input().",
+"open" => "Πρέπει να χρησιμοποιήσετε την open() για να ανοίξετε το αρχείο.",
+"!sum" => "Δεν πρέπει να χρησιμοποιήσετε τη συνάρτηση sum() και αποφύγετε τη χρήση μεταβλητής με το όνομα sum.",
+"float" => "Πρέπει να χρησιμοποιήσετε τη συνάρτηση float() για να μετατρέψετε μια string σε float.",
+'!18518' =>  "Πρέπει πραγματικά να εξάγετε τα δεδομένα από τη συμβολοσειρά και να τα μετατρέψετε.",
+"/" => "Ο μέσος όρος ουσιαστικά είναι το σύνολο / πλήθος.")
 ),
 
 "8.4" => Array(
