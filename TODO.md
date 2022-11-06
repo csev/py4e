@@ -3,11 +3,11 @@ Things left to do:
 
 1. ~~[book.php](book.php)~~
 2. **srts**
-5. tools/pythonauto/
-6. code3/
-7. **book3/**
+5. ~~tools/pythonauto/
+6. ~~code3/
+7. ~~**book3/**
 8. Quizs
-9. images
+9. ~~images
 10. README.md
 
 
