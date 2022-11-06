@@ -305,16 +305,14 @@ print("Average spam confidence:", tot/count)
 ),
 
 "8.4" => Array(
-"qtext" => '<b>8.4</b> Open the file <b>romeo.txt</b> and read it line by
-line.  For each line, split the line into a list of words using the <b>split()</b>
-method.   The program should build a list of words.  For each word on each line
-check to see if the word is already in the list and if not append it to the list.
-When the program completes, sort and print the resulting words in python
-sort() order as shown in the desired output.
-<p>
-You can download the sample data at
-<a href="http://www.py4e.com/code3/romeo.txt" target="_blank">
-http://www.py4e.com/code3/romeo.txt</a>',
+"qtext" => '<b>8.4</b> Ανοίξτε το αρχείο <b>romeo.txt</b> και διαβάστε το γραμμή - γραμμή.
+Για κάθε γραμμή, χωρίστε την σε μια λίστα λέξεων χρησιμοποιώντας τη συνάρτηση <b>split</b>.
+Για κάθε λέξη, κάθε γραμμής, ελέγξτε αν η λέξη περιέχεται ήδη στη λίστα και αν όχι προσθέστε
+την στη λίστα. Όταν ολοκληρωθεί το πρόγραμμα, ταξινομήστε, τις λέξεις με τη sort(), και εκτυπώστε
+τις όπως εμφανίζονται στην επιθυμητή έξοσο.
+<p>Μπορείτε να κατεβάσετε το δείγμα δεδομένων στο
+<a href="http://www.gr.py4e.com/code3/romeo.txt" target="_blank">
+http://www.gr.py4e.com/code3/romeo.txt</a>',
 "desired" => "['Arise', 'But', 'It', 'Juliet', 'Who', 'already', 'and', 'breaks', 'east', 'envious', 'fair', 'grief', 'is', 'kill', 'light', 'moon', 'pale', 'sick', 'soft', 'sun', 'the', 'through', 'what', 'window', 'with', 'yonder']",
 "code" => 'fname = input("Enter file name: ")
 fh = open(fname)
@@ -334,32 +332,32 @@ lst.sort()
 print(lst)
 ',
 "checks" => Array(
-"split" => "You should use split() to break each line into words.",
-"append" => "You should use append() to add the word to the list if it is not there.",
-"!extend" => "You should not use extend() in this assignment.",
-"open" => "You need to use open() to open the file.",
-"sort" => "You need to use sort() to sort the list before you print it out.",
-"!'yonder'" => "You should not put the output data in strings",
-"!.remove(" => "You should not need to use the remove() method",
-"!.set(" => "You should not need to use the set() method",
-"for" => "You need two for loops. One for the lines and one for the words on each line.")
+"split" => "Πρέπει να χρησιμοποιήσετε την split() για να διασπάσετε τη γραμμή σε λέξεις.",
+"append" => "Πρέπει να χρησιμοποιήσετε την append() για να προσθέσετε τη λέξη στη λίστα, αν δεν περιέχεται ήδη.",
+"!extend" => "Δεν πρέπει να χρησιμοποιήσετε την extend() σε αυτή την εργασία.",
+"open" => "Πρέπει να χρησιμοποιήσετε την open() για να ανοίξετε το αρχείο.",
+"sort" => "Πρέπει να χρησιμοποιήσετε την sort() για να ταξινομήσετε τη λίστα, πριν την εμφανίσετε.",
+"!'yonder'" => "Δεν πρέπει να προσθέσετε εσείς τα δεδομένα εξόδου στη συμβολοσειρά.",
+"!.remove(" => "Δεν πρέπει να χρησιμοποιήσετε τη μέθοδο remove().",
+"!.set(" => "Δεν πρέπει να χρησιμοποιήσετε τη μέθοδο set().",
+"for" => "Χρειάζονται δύο βρόχοι for. Ένα για τις γραμμές και ένα γα τις λέξεις κάθε γραμμής.")
 ),
 
 "8.5" => Array(
-"qtext" => "<b>8.5</b> Open the file <b>mbox-short.txt</b> and read it line by
-line.  When you find a line that starts with 'From ' like the following line:
+"qtext" => "<b>8.5</b> Ανοίξτε το αρχεί <b>mbox-short.txt</b> και διαβάστε το γραμμή - γραμμή.
+Όταν βρείτε μία γραμμή που αρχίζει με 'From ' όπως η ακόλουθη γραμμή:
 <pre>
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 </pre>
-You will parse the From line using split() and print out the second word in the line
-(i.e. the entire address of the person who sent the message).  Then print out
-a count at the end.
+αναλύστε τη γραμμή του From χρησιμοποιώντας τη split() και εκτυπώστε τη δεύτερη λέξη της γραμμής
+(δηλ. ολόκληρη τη διεύθυνση του ατόμου που έστειλε το μήνυμα). Τέλος εκτυπώστε το πλήθος τους.
 <p>
-<b>Hint:</b> make sure not to include the lines that start with 'From:'. Also look at the last line of the sample output to see how to print the count.".
+<b>Βοήθεια:</b> φροντίστε να μην συμπεριλάβετε τις γραμμές που ξεκινούν με 'From:'. Δείτε επίσης την
+τελευταία γραμμή τhw ενδεικτικής εξόδου για να δείτε πώς να εκτυπώσετε το πλήθος.".
 '<p>
-You can download the sample data at
-<a href="http://www.py4e.com/code3/mbox-short.txt" target="_blank">
-http://www.py4e.com/code3/mbox-short.txt</a>',
+Μπορείτε να κατεβάσετε το δείγμα δεδομένων στο
+<a href="http://www.gr.py4e.com/code3/mbox-short.txt" target="_blank">
+http://www.gr.py4e.com/code3/mbox-short.txt</a>',
 "desired" => "stephen.marquard@uct.ac.za
 louis@media.berkeley.edu
 zqian@umich.edu
@@ -411,20 +409,20 @@ for line in fh:
 print("There were", count, "lines in the file with From as the first word")
 ',
 "checks" => Array(
-"for" => "You need a for loop to read the lines in the file.",
-"split" => "You should use split() to break each line into words.",
-"if" => "You need to use one or more if statements to skip the lines that do not start with 'From '.",
-"open" => "You need to use open() to open the file.")
+"for" => "Χρειάζεστε έναν βρόχο for για να διαβάσετε τις γραμμές του αρχείου.",
+"split" => "Θα πρέπει να χρησιμοποιήσετε τη split() για να σπάσετε κάθε γραμμή σε λέξεις.",
+"if" => "Πρέπει να χρησιμοποιήσετε μία ή περισσότερες προτάσεις if για να παραλείψετε τις γραμμές που δεν ξεκινούν με 'From '.",
+"open" => "Πρέπει να χρησιμοποιήσετε την open() για να ανοίξετε το αρχείο.")
 ),
 
 "9.4" => Array(
-"qtext" => "<b>9.4</b> Write a program to read through the <b>mbox-short.txt</b> and figure
-out who has sent the greatest number of mail messages.  The program looks
-for 'From ' lines and takes the second
-word of those lines as the person who sent the mail.  The program creates a Python
-dictionary that maps the sender's mail address to a count of the number of times
-they appear in the file.  After the dictionary is produced, the program reads through
-the dictionary using a maximum loop to find the most prolific committer.",
+"qtext" => "<b>9.4</b> Γράψτε ένα πρόγραμμα για να διαβάσετε το <b>mbox-short.txt</b> και
+εντοπίστε ποιος έχει στείλει τον μεγαλύτερο αριθμό μηνυμάτων αλληλογραφίας. Το πρόγραμμα
+πρέπει να αναζητά τις γραμμές 'From ' και παίρνει τη δεύτερη λέξη αυτών των γραμμών ως το
+άτομο που έστειλε το μήνυμα. Το πρόγραμμα δημιουργεί ένα λεξικό Python, που αντιστοιχίζει
+τη διεύθυνση αλληλογραφίας του αποστολέα με τη συχνότητα εμφάνισής του στο αρχείο.
+Μετά την παραγωγή του λεξικού, το πρόγραμμα διαβάζει το λεξικό αυτό, χρησιμοποιώντας έναν
+βρόχο μεγίστου, για να βρει τον πιο συχνά εμφανιζόμενο αποστολέα.",
 "desired" => "cwen@iupui.edu 5",
 "code" => 'name = input("Enter file:")
 if len(name) < 1:
@@ -452,23 +450,23 @@ for name,count in counts.items():
 print(bigname, bigcount)
 ',
 "checks" => Array(
-"for" => "You need a for loop to read the lines in the file.",
-"split" => "You should use split() to break each line into words.",
-"!cwen@iupui.edu" => "You need a for loop to read the data in the file.",
-"if" => "You need to use one or more if statements to skip the lines that do not start with 'From '.",
-"open" => "You need to use open() to open the file.")
+"for" => "Χρειάζεστε έναν βρόχο for για να διαβάσετε τις γραμμές του αρχείου.",
+"split" => "Θα πρέπει να χρησιμοποιήσετε τη split() για να διασπάσετε κάθε γραμμή σε λέξεις.",
+"!cwen@iupui.edu" => "Χρειάζεστε έναν βρόχο for για να διαβάσετε τα δεδομένα του αρχείου.",
+"if" => "Πρέπει να χρησιμοποιήσετε μία ή περισσότερες προτάσεις if για να παραλείψετε τις γραμμές που δεν ξεκινούν με 'From '.",
+"open" => "Πρέπει να χρησιμοποιήσετε την open() για να ανοίξετε το αρχείο.")
 ),
 
 "10.2" => Array(
-"qtext" => "<b>10.2</b> Write a program to read through the <b>mbox-short.txt</b> and figure
-out the distribution by hour of the day for each of the messages.  You can pull the hour
-out from the 'From ' line by finding the time and then splitting the string a second time
-using a colon.
+"qtext" => "<b>10.2</b> Γράψτε ένα πρόγραμμα για να διαβάσετε το <b>mbox-short.txt</b> και υπολογίστε
+την κατανομή ανά ώρα της ημέρας, για κάθε ένα από τα μηνύματα. Μπορείτε να εξάγετε την ώρα από τη γραμμή
+'From ', βρίσκοντας την ώρα και μετά χωρίζοντας τη συμβολοσειρά για δεύτερη φορά χρησιμοποιώντας την
+άνω και κάτω τελεία.
 <pre>
 From stephen.marquard@uct.ac.za Sat Jan  5 <b>09</b>:14:16 2008
 </pre>
-Once you have accumulated the counts for each hour, print out the counts, sorted by hour
-as shown below.",
+Αφού συγκεντρώσετε τις μετρήσεις για κάθε ώρα, εκτυπώστε τις μετρήσεις, ταξινομημένες ανά ώρα,
+όπως φαίνεται παρακάτω.",
 "desired" => "04 3
 06 1
 07 1
@@ -507,8 +505,8 @@ for key, val in lst :
     print(key, val)
 ',
 "checks" => Array(
-"for" => "You need a for loop to read the lines in the file.",
-"sort" => "You need to use list sort() method to sort the list of times.")
+"for" => "Χρειάζεστε έναν βρόχο for για να διαβάσετε τις γραμμές του αρχείου.",
+"sort" => "Πρέπει να χρησιμοποιήσετε τη μέθοδο sort() για να ταξινομήσετε τη λίστα των χρόνων.")
 ),
 
 "11.1" => Array (
