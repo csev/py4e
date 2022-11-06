@@ -158,7 +158,7 @@ Then add the following line to your `config.php`:
 At this point, you will need the "quiz unlock password" (also from Chuck) and at that point,
 you should be able to launch and load all the quizzes (one at a time) from the repository.  You
 need to load the quiz content for every course (context) separately.  But at least you don't have
-to ttype them all in.
+to type them all in.
 
 The other two LTI tools that are required are already part of the py4e repo and in `py4e/tools`
 folder.
@@ -228,7 +228,3 @@ record, setting "Role Override" to 1000 and saving the membership record.
 
 From that point forward regardless of the role sent by the LMS - that use will be seen as an instructor
 by Tsugi.
-
-
-
-   
