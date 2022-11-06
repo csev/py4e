@@ -8,7 +8,7 @@ Things left to do:
 7. ~~**book3/**~~
 8. Quizs
 9. ~~images~~
-10. README.md
+10. ~~README.md~~
 
 
 if can be changed:
