@@ -3,13 +3,13 @@
 $EXERCISES =
 Array(
 "hello" => Array (
-"qtext" => "Write a program that uses a <b>print</b> statement to say 'hello world'
+"qtext" => "Write a program that uses a <b>print</b> function to say 'hello world'
 as shown in 'Desired Output'.",
 "desired" => "hello world",
 "code" => '# the code below almost works
 prinq("hello world")',
 "checks" => Array(
-"print" => "You must use a print statement within the loop."
+"print" => "You must use a print function within the loop."
 )),
 
 "loop" => Array (
@@ -21,7 +21,7 @@ prinq("hello world")',
 "code" => 'print(range(3))',
 "checks" => Array(
 "for" => "You must produce the numbers using a for loop.",
-"print" => "You must use a print statement within the loop.",
+"print" => "You must use a print function within the loop.",
 "range" => "You should use the range function to generate the list of numbers on the for statement.",
 ":" => "Your for statement should end with a colon (:) and the following line should be indented"
 )),
@@ -40,7 +40,7 @@ print("Howdy")',
 "checks" => Array(
 "input" => "You must prompt for the user's name using the input() function.",
 "!Sarah" => "You must actually prompt for the user's name",
-"print" => "You must use the print statement to print the line of output."
+"print" => "You must use the print function to print the line of output."
 )),
 
 "2.3" => Array(
@@ -56,7 +56,7 @@ Do not worry about error checking or bad user data.",
 hrs = input("Enter Hours:")',
 "checks" => Array(
 "input" => "You must prompt the pay and rate using the input() function.",
-"print" => "You must use the print statement to print the output.",
+"print" => "You must use the print function to print the output.",
 "float" => "You should use the built-in float() function to convert from a string to a float.",
 "*" => "To multiply the pay and rate after you read them use the '*' operator.",
 "!35" => "You should not include the input data in your source code. You must read the values for the rate and pay using input().",
@@ -79,7 +79,7 @@ Do not worry about error checking the user input - assume the user types numbers
 h = float(hrs)',
 "checks" => Array(
 "input" => "You must prompt the pay and rate using the input() function.",
-"print" => "You must use the print statement to print the output.",
+"print" => "You must use the print function to print the output.",
 "if" => "You should use an if statement to decide to to the overtime computation or not.",
 "float" => "You should use the built-in float() function to convert from a string to a float.",
 "!45" => "You must read the hours using input() and then convert it. The number '45' should not appear in your program.",
@@ -104,7 +104,7 @@ For the test, enter a score of 0.85.
 "checks" => Array(
 "input" => "You must prompt for the score using the input() function.",
 "float" => "You should use the built-in float() function to convert from a string to a float.",
-"print" => "You must use the print statement to print the output.",
+"print" => "You must use the print function to print the output.",
 "if" => "You should use an if statement to check the value of the score.",
 "elif" => "One of the learning objectives of this assignment is to use an elif statement when checking the value of the score.")
 ),
@@ -133,11 +133,11 @@ hrs = input("Enter Hours:")
 p = computepay(10, 20)
 print("Pay", p)',
 "checks" => Array(
-"input" => "You must prompt the pay and rate using the input() function.",
-"print" => "You must use the print statement to print the output.",
+"input" => "You must prompt the hours and rate using the input() function.",
+"print" => "You must use the print function to print the output.",
 "!45" => "You must prompt for the data.",
 "!10.5" => "You must prompt for the data.",
-"if" => "You should use an if statement to decide to to the overtime computation or not.",
+"if" => "You should use an if statement to decide the overtime computation or not.",
 "float" => "You should use the built-in float() function to convert from a string to a float.",
 "def" => "You must use a function called computepay to do the computation.",
 "!sum(" => "Do not use a variable named sum or a function named sum()",
@@ -167,7 +167,7 @@ while True:
 print("Maximum", largest)',
 "checks" => Array(
 "input" => "You must prompt for the numbers using the input() function.",
-"print" => "You must use the print statement to print the output.",
+"print" => "You must use the print function to print the output.",
 "while" => "You should use a while statement to read the numbers.",
 "int" => "You should use the int() function to convert from a string to an integer.",
 "! 2" => "You should actually compute the maximum and minimum.",
@@ -187,7 +187,7 @@ number and print it out.",
 "checks" => Array(
 "find" => "You should use the find function to get the position of the colon in the string.",
 ":" => "You should use string slicing [n:m] to extract data from the string.",
-"float" => "You should use the float() function to convert from a string to an integer.",
+"float" => "You should use the float() function to convert from a string to a float.",
 '!"0.8475"' =>  "You must actually pull the data from the string.")
 ),
 
@@ -250,8 +250,8 @@ print(text.upper())
 "checks" => Array(
 "input" => "You must prompt for the file name using the input() function.",
 "open" => "You need to use open() to open the file.",
-"print" => "You must use the print statement to print the lines.",
-"strip" => "You should use strip() or rstrip() to avoid double newlines.  You may need to scroll down to see a mis-match of the output.",
+"print" => "You must use the print function to print the lines.",
+"strip" => "You should use strip() or rstrip() to avoid double newlines. You may need to scroll down to see a mis-match of the output.",
 "upper" => "You should use the upper() function to convert the lines to upper case.")
 ),
 
@@ -295,15 +295,15 @@ print("Average spam confidence:", tot/count)
 "input" => "You must prompt for the file name using the input() function.",
 "open" => "You need to use open() to open the file.",
 "!sum" => "You should not use the sum() function and avoid using sum as a variable.",
-"float" => "You should use the float() function to convert from a string to an integer.",
+"float" => "You should use the float() function to convert from a string to a float.",
 '!18518' =>  "You must actually pull the data from the strings and convert it.",
 "/" => "Average is usually a total / count.")
 ),
 
 "8.4" => Array(
 "qtext" => '<b>8.4</b> Open the file <b>romeo.txt</b> and read it line by
-line.  For each line, split the line into a list of words using the <b>split()</b>
-method.   The program should build a list of words.  For each word on each line
+line. For each line, split the line into a list of words using the <b>split()</b>
+method. The program should build a list of words. For each word on each line
 check to see if the word is already in the list and if not append it to the list.
 When the program completes, sort and print the resulting words in python
 sort() order as shown in the desired output.
@@ -343,7 +343,7 @@ print(lst)
 
 "8.5" => Array(
 "qtext" => "<b>8.5</b> Open the file <b>mbox-short.txt</b> and read it line by
-line.  When you find a line that starts with 'From ' like the following line:
+line. When you find a line that starts with 'From ' like the following line:
 <pre>
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 </pre>
@@ -516,7 +516,7 @@ Sample output is below.',
 "desired" => "42",
 "code" => '',
 "checks" => Array(
-"print" => "By now you should know that a print statement would be helpful here.",
+"print" => "By now you should know that a print function would be helpful here.",
 "*" => "I think that multiplication is involved..."
 )),
 
