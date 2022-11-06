@@ -226,5 +226,5 @@ It is pretty simple to do this in Tsugi.
 * Find the membership record (often searching on email address) and then edit the membership
 record, setting "Role Override" to 1000 and saving the membership record.
 
-From that point forward regardless of the role sent by the LMS - that use will be seen as an instructor
+From that point forward regardless of the role sent by the LMS - that user will be seen as an instructor
 by Tsugi.
