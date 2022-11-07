@@ -128,12 +128,12 @@ Thanks to:
        Free: <a href="http://do1.dr-chuck.com/pythonlearn/DE_de/pythonlearn.pdf" target="_blank">PDF</a>,
        <a href="http://do1.dr-chuck.com/pythonlearn/DE_de/pythonlearn.epub" target="_blank">EPUB</a>
 </li>
+</ul>
+</li>
+<li> Arabic
+<ul>
 <li>
-<a href="https://github.com/fh-swf-hgi/py4e/" target="_blank">Book source on github</a>,
-(Thanks to
-<a href="https://github.com/hgiefers" target="_blank">Heiner Giefers</a>
-and
-<a href="https://github.com/feberts" target="_blank">feberts</a>)
+       Draft: <a href="translations//AR/ar/book_ar_2022_11_02.pdf" target="_blank">PDF</a>
 </li>
      </ul>
   </li>
