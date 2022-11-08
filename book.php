@@ -121,19 +121,6 @@
                                         (Adam Mickiewicz University in Poznań, Poland)</li>
                         </ul>
                 </li>
-                <li> Κορεατικά (εμπορική μετάφραση)<a href="http://www.yes24.com/Product/Goods/77401048?Acode=101" target="_blank">데이터를 다루며 배우는 파이썬</a></li>
-                <li> Κινέζικα - Σε εξέλιξη
-                        <ul class="menu vertical nested is-active">
-                                <li class="menu-text">Δωρεάν:
-                                        <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.pdf" target="_blank">PDF</a>,
-                                        <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.epub" target="_blank">EPUB</a>
-                                </li>
-                                <li> <a href="https://github.com/RodenLuo/py4e-cn" target="_blank">Ο κώδικας του βιβλίου στο  github</a> - (Χάρη σε Deng Luo)</li>
-                                <li> Υπάρχει ένα αντίγραφο στην Κίνα των βίντεο διαθέσιμο στη διεύθυνση 
-                                        <a href="https://www.bilibili.com/video/av46649799" target="_new">https://www.bilibili.com/video/av46649799</a>
-                                </li>
-                        </ul>
-                </li>
                 <li> German
                         <ul>
                                 <li>
@@ -147,6 +134,13 @@
                                 </li>
                         </ul>
                 </li>
+                <li> Arabic
+                        <ul>
+                                <li>
+                                        Draft: <a href="translations//AR/ar/book_ar_2022_11_02.pdf" target="_blank">PDF</a>
+                                </li>
+                        </ul>
+                </li>
                 <li>Ρωσικά - Σε εξέλιξη
                         <ul>
                                 <li>
@@ -156,6 +150,19 @@
                                 <li>
                                         <a href="lectures3/ru/index.htm" target="_blank">Ρωσική έκδοση των διαφανειών</a> από την
                                         <a href="https://www.linkedin.com/in/violetta-fomkina-9451372/" target="_blank">Violetta Fomkina</a>.
+                                </li>
+                        </ul>
+                </li>
+                <li> Κορεατικά (εμπορική μετάφραση)<a href="http://www.yes24.com/Product/Goods/77401048?Acode=101" target="_blank">데이터를 다루며 배우는 파이썬</a></li>
+                <li> Κινέζικα - Σε εξέλιξη
+                        <ul class="menu vertical nested is-active">
+                                <li class="menu-text">Δωρεάν:
+                                        <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.pdf" target="_blank">PDF</a>,
+                                        <a href="http://do1.dr-chuck.com/pythonlearn/ZH_cn/pythonlearn.epub" target="_blank">EPUB</a>
+                                </li>
+                                <li> <a href="https://github.com/RodenLuo/py4e-cn" target="_blank">Ο κώδικας του βιβλίου στο  github</a> - (Χάρη σε Deng Luo)</li>
+                                <li> Υπάρχει ένα αντίγραφο στην Κίνα των βίντεο διαθέσιμο στη διεύθυνση 
+                                        <a href="https://www.bilibili.com/video/av46649799" target="_new">https://www.bilibili.com/video/av46649799</a>
                                 </li>
                         </ul>
                 </li>
