@@ -94,7 +94,7 @@ while True:
             countnew = countnew + 1
         cur.execute('''INSERT OR IGNORE INTO Follows (from_id, to_id)
                     VALUES (?, ?)''', (id, friend_id))
-    print('Νέοι λογαριασμοί =', countnew, ' Επισκεύθηκαν εκ νέου =', countold)
+    print('Νέοι λογαριασμοί =', countnew, ' Επισκέφθηκαν εκ νέου =', countold)
     print('Απομένουν', headers['x-rate-limit-remaining'])
     conn.commit()
 cur.close()

@@ -59,7 +59,7 @@ while True:
             cur.execute('''INSERT INTO Twitter (name, retrieved, friends)
                         VALUES (?, 0, 1)''', (friend, ))
             countnew = countnew + 1
-    print('Νέοι λογαριασμοί =', countnew, ' Επισκεύθηκαν εκ νέου =', countold)
+    print('Νέοι λογαριασμοί =', countnew, ' Επισκέφθηκαν εκ νέου =', countold)
     conn.commit()
 
 cur.close()
