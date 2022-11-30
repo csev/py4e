@@ -12,6 +12,9 @@ type <b>python</b> at the command line prompt to run Python.
 <b>Installing A Programming Text Editor</b>
 <p>Please download and install VS-Code from this site:
 <p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a>
+If you prefer a simpler text editor, you can install the Brackets editor from  this site:
+<p><a href="https://brackets.io/" target="_blank">https://brackets.io/</a>
+</p>
 
 <h1>Writing a Python 3 program Windows-10</h1>
 <p>
