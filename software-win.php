@@ -17,14 +17,17 @@
     <b>python</b> στη γραμμή εντολών για να εκτελέσετε Python.
 </p>
 <b>Εγκατάσταση του Συντάκτη Κειμένου Προγραμματισμού</b>
-<p>Κατεβάστε και εγκαταστήστε τον VS-Code από αυτόν τον ιστότοπο:
-<p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a>
+<p>Κατεβάστε και εγκαταστήστε τον VS-Code από αυτόν τον ιστότοπο:</p>
+<p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a></p>
 
-<h1>Γράφοντας ένα πρόγραμμα Python 3 με το Atom στα Windows-10</h1>
+<p>Αν προτιμάτε έναν πιο απλό επεξεργαστή κειμένου, μπορείτε να εγκαταστήσετε τον Brackets editor από αυτή τη σελίδα:</p>
+<p><a href="https://brackets.io/" target="_blank">https://brackets.io/</a></p>
+
+<h1>Γράφοντας ένα πρόγραμμα Python 3 στα Windows-10</h1>
 <p>
     Έχουμε ένα σύντομο 
-    <a href="https://www.youtube.com/watch?v=uZbaYeYGYRQ&index=1&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
-    βίντεο βήμα προς βήμα</a> που δείχνει πώς να εγκαταστήσετε την Python 3 και το Atom και να γράψετε το πρώτο σας πρόγραμμα.
+   <a href="https://www.youtube.com/watch?v=uZbaYeYGYRQ&index=1&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
+    βίντεο βήμα προς βήμα</a> που δείχνει πώς να εγκαταστήσετε την Python 3 και να γράψετε το πρώτο σας πρόγραμμα.
 </p>
 <h1>Σημειώσεις Γραμμής Εντολών των Windows</h1>
 <p>
