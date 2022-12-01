@@ -4,21 +4,29 @@
     Ξεκινώντας με την Python σε Macintosh
 </h1>
 <p>
-    Η Python 2 και η Python 3 είναι ήδη εγκατεστημένες στο λειτουργικό σύστημα Macintosh OS/X, οπότε το μόνο που χρειάζεται να 
+    Η Python 2 και η Python 3 είναι προεγκατεστημένες στο λειτουργικό σύστημα Macintosh OS/X, οπότε το μόνο που χρειάζεται να 
     προσθέσετε είναι ένας συντάκτης κειμένου προγραμματιστή.
 </p>
 <b>Εγκατάσταση του Συντάκτης Κειμένου Προγραμματισμού</b>
 <p>
     Κατεβάστε και εγκαταστήστε τον VS-Code από αυτόν τον ιστότοπο:
 </p>
-<p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a></p>
+<p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a>
+</p>
+<p>Αν προτιμάτε έναν πιο απλό επεξεργαστή κειμένου, μπορείτε να εγκαταστήσετε τον Brackets editor από αυτή τη σελίδα:
+<p><a href="https://brackets.io/" target="_blank">https://brackets.io/</a>
+</p>
 
 <h1>Γράφοντας ένα πρόγραμμα Python 3 με το Atom σε Macintosh</h1>
 <p>
     Έχουμε ένα σύντομο 
-    <a href="https://www.youtube.com/watch?v=uZbaYeYGYRQ&index=1&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
-    βίντεο βήμα προς βήμα</a> που δείχνει πώς να εγκαταστήσετε την Python 3 και το Atom και να γράψετε το πρώτο σας πρόγραμμα.
+    <a href="https://www.youtube.com/watch?v=aIcLCww_kQM" target="_blank">
+    βίντεο βήμα προς βήμα</a> που δείχνει πώς να χρησιμοποιήσετε έναν επεξεργαστή προγραμματισμού και να γράψετε το πρώτο σας
+    πρόγραμμα σε Python 3.
+    Σε αυτό το βίντεο χρησιμοποιείται ο επεξεργαστής Atom - προτείνουμε την εγκατάσταση και χρήση του VS-Code, αν δεν έχετε ήδη
+    κάποιο επεξεργαστή κειμένου κατάλληλο για προγραμματισμό.
 </p>
+
 <h1>Έναρξη Τερματικού σε Macintosh OS/X</h1>
 <p>
     Το πρόγραμμα Terminal στα Macintosh είναι κάπως θαμμένο κάτω από ή <b>Macintosh HD -> Applications -> Utilities -> Terminal</b>
