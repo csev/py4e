@@ -7,12 +7,14 @@ Getting started with Python on a Macintosh
 is a programmer text editor.
 </p>
 <b>Installing A Programmer Text Editor</b>
-<p>Please download and install VS-Code from this site:
-<p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a>
+<p>If you already have a programmer text editor like
+<a href="https://code.visualstudio.com/" target="_blank">VS-Code</a> installed you can use it in the class
+or you can install it on your system.
 </p>
 <p>
-If you prefer a simpler text editor, you can install the Brackets editor from  this site:
-<p><a href="https://brackets.io/" target="_blank">https://brackets.io/</a>
+If the installation for VSCode looks a little too complex, we recommend the free and open source
+<a href="https://brackets.io/" target="_blank">Brackets</a> text editor.  It is easy
+to install and is very capable for your needs in the course.
 </p>
 
 <h1>Writing a Python 3 program on Macintosh</h1>
