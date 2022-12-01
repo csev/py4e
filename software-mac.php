@@ -11,11 +11,10 @@
 <p>
     Κατεβάστε και εγκαταστήστε τον VS-Code από αυτόν τον ιστότοπο:
 </p>
-<p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a>
-</p>
-<p>Αν προτιμάτε έναν πιο απλό επεξεργαστή κειμένου, μπορείτε να εγκαταστήσετε τον Brackets editor από αυτή τη σελίδα:
-<p><a href="https://brackets.io/" target="_blank">https://brackets.io/</a>
-</p>
+<p><a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a></p>
+
+<p>Αν προτιμάτε έναν πιο απλό επεξεργαστή κειμένου, μπορείτε να εγκαταστήσετε τον Brackets editor από αυτή τη σελίδα:</p>
+<p><a href="https://brackets.io/" target="_blank">https://brackets.io/</a></p>
 
 <h1>Γράφοντας ένα πρόγραμμα Python 3 με το Atom σε Macintosh</h1>
 <p>
