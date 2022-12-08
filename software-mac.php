@@ -20,7 +20,7 @@ to install and is very capable for your needs in the course.
 <h1>Writing a Python 3 program on Macintosh</h1>
 <p>
 We have a short
-<a href="https://www.youtube.com/watch?v=aIcLCww_kQM" target="_blank">
+<a href="https://www.youtube.com/watch?v=9lOdVSNUKfY" target="_blank">
 step-by-step video</a> showing how to use a programmer editor and write your first Python 3 program.
 This video uses the Atom editor - we suggest you install and use VS-Code if you don't already have
 a programming text editor.
