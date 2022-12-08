@@ -22,7 +22,7 @@ to install and is very capable for your needs in the course.
 We have a short
 <a href="https://www.youtube.com/watch?v=9lOdVSNUKfY" target="_blank">
 step-by-step video</a> showing how to use a programmer editor and write your first Python 3 program.
-This video uses the Atom editor - we suggest you install and use VS-Code if you don't already have
+This video uses the Bracket editor - which we suggest you to install and use, or the VS-Code, if you don't already have
 a programming text editor.
 </p>
 <p>
@@ -31,7 +31,7 @@ a programming text editor.
 The Terminal program on Macintosh is kind of buried under <b>Macintosh HD -> Applications -> Utilities -> Terminal</b>
 </p>
 <p>
-There are several shortcuts that you might find helpful.   You can go into the upper-right of 
+There are several shortcuts that you might find helpful. You can go into the upper-right of 
 your screen and click on the Spotlight search button and type 
 <b>terminal</b> and you can execute Terminal from the pop-up 
 list of items.
