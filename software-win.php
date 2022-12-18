@@ -23,7 +23,7 @@ to install and is very capable for your needs in the course.
 <h1>Writing a Python 3 program Windows-10</h1>
 <p>
 We have a short 
-<a href="https://www.youtube.com/watch?v=uZbaYeYGYRQ&index=1&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
+<a href="https://www.youtube.com/watch?v=ARAL3ib5G6Q&index=1&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
 step-by-step video</a> showing how to install Python 3 and write your first program.
 </p>
 <h1>Windows Command Line Notes</h1>
