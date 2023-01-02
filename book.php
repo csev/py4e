@@ -130,15 +130,18 @@ Thanks to:
 </li>
 </ul>
 </li>
-<!--
 <li> Arabic
 <ul>
 <li>
-       Draft: <a href="translations//AR/ar/book_ar_2022_11_02.pdf" target="_blank">PDF</a>
+       <a href="translations/AR/ar/book_ar_2023_01_01.pdf" target="_blank">PDF Book</a>
+</li>
+<li>
+       Translation by: <a href="https://electronics-go.com/team/" target="_blank">Electronics Go</a>
+| 
+       <a href="translations/AR/ar/contributors_23_01_01.html" target="_blank">Team members</a>
 </li>
      </ul>
   </li>
--->
   <li>
     Russian 
     <ul>
