@@ -111,6 +111,9 @@ Polish -
 Greek
 <ul>
 <li>
+Free: <a href="translations/GR/gr/2022-01-04-Greek.pdf">PDF</a>
+</li>
+<li>
 <a href="https://gr.py4e.com/">Greek version of the web site - gr.py4e.org</a>
 </li>
 <li>
@@ -133,7 +136,7 @@ Thanks to:
 <li> Arabic
 <ul>
 <li>
-       <a href="translations/AR/ar/book_ar_2023_01_01.pdf" target="_blank">PDF Book</a>
+       Free: <a href="translations/AR/ar/book_ar_2023_01_01.pdf" target="_blank">PDF Book</a>
 </li>
 <li>
        Translation by: <a href="https://electronics-go.com/team/" target="_blank">Electronics Go</a>
