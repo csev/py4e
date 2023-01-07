@@ -111,7 +111,7 @@ Polish -
 Greek
 <ul>
 <li>
-Free: <a href="translations/GR/gr/2022-01-04-Greek.pdf">PDF</a>
+Free: <a href="translations/GR/gr/2022-01-07-Greek.pdf">PDF</a>
 </li>
 <li>
 <a href="https://gr.py4e.com/">Greek version of the web site - gr.py4e.org</a>
