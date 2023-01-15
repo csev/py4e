@@ -49,7 +49,7 @@
                 <li>Ελληνικά - Python για Ολους
                         <ul>
                                 <li>
-                                       Draft: <a href="https://github.com/csev-gr/py4e/blob/master/translations/EL/2023-01-15-Greek.pdf" target="_blank">PDF</a>
+                                       Draft: <a href="https://gr.py4e.com/translations/EL/2023-01-15-Greek.pdf" target="_blank">PDF</a>
                                 </li>
                                 <li>
                                         <a href="lectures3/gr" target="_blank">Ελληνική έκδοση των διαφανειών</a> από την 
