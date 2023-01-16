@@ -111,10 +111,10 @@ Polish -
 Greek
 <ul>
 <li>
-Free draft: <a href="https://gr.py4e.com/translations/EL/Latest_gr_py4e_book.pdf">PDF</a>
+<a href="https://gr.py4e.com/">Greek version of the web site - gr.py4e.org</a>
 </li>
 <li>
-<a href="https://gr.py4e.com/">Greek version of the web site - gr.py4e.org</a>
+Free PDF (in progress): <a href="https://gr.py4e.com/translations/EL/Latest_gr_py4e_book.pdf" target="_blank">PDF</a>
 </li>
 <li>
 <a href="https://github.com/csev-gr/py4e" target="_blank">Github repository</a>
