@@ -8,150 +8,13 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
-  <style>
-    html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 1em;
-      }
-    }
-    @media print {
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
-      font-size: 85%;
-      margin: 0;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <title>Untitled</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="κανονικές-εκφράσεις-regular-expressions">Κανονικές εκφράσεις (Regular expressions)</h1>
@@ -171,7 +34,8 @@ for line in hand:
     if re.search(&#39;From:&#39;, line):
         print(line)
 
-# Code: http://www.gr.py4e.com/code3/re01.py</code></pre>
+# Code: http://www.py4e.com/code3/re01.py</code></pre>
+
 <p>Ανοίγουμε το αρχείο, με βρόχο διατρέχουμε κάθε γραμμή και χρησιμοποιούμε την κανονική έκφραση <code>search()</code> για να εκτυπώνουμε μόνο τις γραμμές που περιέχουν τη συμβολοσειρά “From:”. Αυτό το πρόγραμμα δεν χρησιμοποιεί την πραγματική ισχύ των κανονικών εκφράσεων, αφού θα μπορούσαμε να χρησιμοποιήσουμε εξίσου εύκολα το <code>line.find()</code> για να επιτύχουμε το ίδιο αποτέλεσμα.</p>
 <p></p>
 <p>Η ισχύς των κανονικών εκφράσεων αποκαλύπτεται όταν προσθέτουμε ειδικούς χαρακτήρες στη συμβολοσειρά αναζήτησης, που μας επιτρέπουν να ελέγχουμε με μεγαλύτερη ακρίβεια ποιες γραμμές ταιριάζουν με τη συμβολοσειρά. Η προσθήκη αυτών των ειδικών χαρακτήρων στην κανονική μας έκφραση μας επιτρέπει να κάνουμε πολύπλοκη αντιστοίχιση και εξαγωγή ενώ γράφουμε πολύ λίγο κώδικα.</p>
@@ -184,11 +48,13 @@ for line in hand:
     if re.search(&#39;^From:&#39;, line):
         print(line)
 
-# Code: http://www.gr.py4e.com/code3/re02.py</code></pre>
+# Code: http://www.py4e.com/code3/re02.py</code></pre>
+
 <p>Με αυτόν τον τρόπο θα εντοπίσουμε μόνο γραμμές που <em>ξεκινούν με</em> τη συμβολοσειρά “From:”. Αυτό είναι ένα ακόμη πολύ απλό παράδειγμα, που θα μπορούσαμε να είχαμε κάνει, ισοδύναμα, με τη μέθοδο <code>startswith()</code>, από τη βιβλιοθήκη συμβολοσειρών. Αλλά χρησιμεύει για να εμπεδώσουμε το γεγονός ότι οι κανονικές εκφράσεις περιέχουν ειδικούς χαρακτήρες ενεργειών, που μας δίνουν περισσότερο έλεγχο ως προς το τι θα ταιριάζει με την κανονική έκφραση.</p>
 <p></p>
 <h2 id="ταίριασμα-χαρακτήρων-σε-κανονικές-εκφράσεις">Ταίριασμα χαρακτήρων σε κανονικές εκφράσεις</h2>
 <p>Υπάρχει ένα πλήθος άλλων ειδικών χαρακτήρων, που μας επιτρέπουν να δημιουργήσουμε ακόμη πιο ισχυρές κανονικές εκφράσεις. Ο πιο συχνά χρησιμοποιούμενος ειδικός χαρακτήρας είναι η τελεία, που ταιριάζει με οποιονδήποτε χαρακτήρα.</p>
+
 <p></p>
 <p>Στο ακόλουθο παράδειγμα, η κανονική έκφραση <code>F..m:</code> θα ταιριάζει με οποιαδήποτε από τις συμβολοσειρές “From:”, “Fxxm:”, “F12m:” ή “F!<span class="citation" data-cites="m">@m</span>:” καθώς οι χαρακτήρες τελείας στην τυπική έκφραση ταιριάζουν με οποιονδήποτε χαρακτήρα.</p>
 <pre class="python"><code># Αναζητάμε τις γραμμές που αρχίζουν με &#39;F&#39;, ακολουθούμενο
@@ -200,7 +66,8 @@ for line in hand:
     if re.search(&#39;^F..m:&#39;, line):
         print(line)
 
-# Code: http://www.gr.py4e.com/code3/re03.py</code></pre>
+# Code: http://www.py4e.com/code3/re03.py</code></pre>
+
 <p>Το σύμβολο της τελείας είναι ιδιαίτερα ισχυρό όταν συνδυάζεται με τη δυνατότητα να υποδεικνύει ότι ένας χαρακτήρας μπορεί να επαναληφθεί όσες φορές χρειαστεί, χρησιμοποιώντας τους χαρακτήρες <code>*</code> ή <code>+</code> στην κανονική σας έκφραση. Αυτοί οι ειδικοί χαρακτήρες σημαίνουν ότι αντί να ταιριάζουν με έναν χαρακτήρα στη συμβολοσειρά αναζήτησης, ταιριάζουν με κανέναν ή περισσότερους χαρακτήρες (στην περίπτωση του αστερίσκου) ή έναν ή περισσότερους χαρακτήρες (στην περίπτωση του συμβόλου συν).</p>
 <p>Μπορούμε να περιορίσουμε περαιτέρω τις γραμμές που ταιριάζουν χρησιμοποιώντας έναν επαναλαμβανόμενο χαρακτήρα <em>μπαλαντέρ</em> όπως στο ακόλουθο παράδειγμα:</p>
 <pre class="python"><code># Αναζητάμε τις γραμμές που αρχίζουν με &#39;From&#39;
@@ -212,7 +79,8 @@ for line in hand:
     if re.search(&#39;^From:.+@&#39;, line):
         print(line)
 
-# Code: http://www.gr.py4e.com/code3/re04.py</code></pre>
+# Code: http://www.py4e.com/code3/re04.py</code></pre>
+
 <p>Η συμβολοσειρά αναζήτησης <code>^From:.+@</code> θα ταιριάξει με επιτυχία με τις γραμμές που ξεκινούν με “From:”, ακολουθούμενο από έναν ή περισσότερους χαρακτήρες (<code>.+</code>), ακολουθούμενων από ένα σύμβολο at. Άρα αυτό θα ταιριάξει με την ακόλουθη γραμμή:</p>
 <pre class="{text}"><code>From: stephen.marquard@uct.ac.za</code></pre>
 <p>Μπορούμε να πούμε ότι ο χαρακτήρας μπαλαντέρ <code>.+</code> επεκτείνεται για να ταιριάζει με όλους τους χαρακτήρες μεταξύ του χαρακτήρα άνω και κάτω τελείας και του συμβόλου at.</p>
@@ -235,7 +103,8 @@ s = &#39;A message from csev@umich.edu to cwen@iupui.edu about meeting @2PM&#39;
 lst = re.findall(&#39;\S+@\S+&#39;, s)
 print(lst)
 
-# Code: http://www.gr.py4e.com/code3/re05.py</code></pre>
+# Code: http://www.py4e.com/code3/re05.py</code></pre>
+
 <p>Η μέθοδος <code>findall()</code> αναζητά τη συμβολοσειρά στο δεύτερο όρισμα και επιστρέφει μια λίστα με όλες τις συμβολοσειρές που μοιάζουν με διευθύνσεις email. Χρησιμοποιούμε μια ακολουθία δύο χαρακτήρων που ταιριάζει με έναν μη λευκό χαρακτήρα (<code>\S</code>).</p>
 <p>Η έξοδος του προγράμματος θα είναι:</p>
 <pre class="{text}"><code>[&#39;csev@umich.edu&#39;, &#39;cwen@iupui.edu&#39;]</code></pre>
@@ -250,7 +119,8 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.gr.py4e.com/code3/re06.py</code></pre>
+# Code: http://www.py4e.com/code3/re06.py</code></pre>
+
 <p>Διαβάζουμε κάθε γραμμή και μετά εξάγουμε όλες τις υποσυμβολοσειρές που ταιριάζουν με την κανονική μας έκφραση. Μιας και το <code>findall()</code> επιστρέφει μια λίστα, απλώς ελέγχουμε εάν ο αριθμός των στοιχείων στη λίστα που επιστρέφεται είναι μεγαλύτερος από το μηδέν για να εκτυπώσουμε μόνο γραμμές όπου βρήκαμε τουλάχιστον μία υποσυμβολοσειρά που μοιάζει με διεύθυνση email.</p>
 <p>Αν τρέξουμε το πρόγραμμα στο <em>mbox-short.txt</em> θα έχουμε την ακόλουθη έξοδο:</p>
 <pre class="{text}"><code>...
@@ -280,7 +150,8 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.gr.py4e.com/code3/re07.py</code></pre>
+# Code: http://www.py4e.com/code3/re07.py</code></pre>
+
 <pre class="{text}"><code>...
 [&#39;wagnermr@iupui.edu&#39;]
 [&#39;cwen@iupui.edu&#39;]
@@ -314,7 +185,8 @@ for line in hand:
     if re.search(&#39;^X\S*: [0-9.]+&#39;, line):
         print(line)
 
-# Code: http://www.gr.py4e.com/code3/re10.py</code></pre>
+# Code: http://www.py4e.com/code3/re10.py</code></pre>
+
 <p>Όταν εκτελούμε το πρόγραμμα, βλέπουμε τα δεδομένα, όμορφα φιλτραρισμένα, για να εμφανιστούν μόνο τις γραμμές που αναζητούμε.</p>
 <pre class="{text}"><code>X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000
@@ -340,7 +212,8 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.gr.py4e.com/code3/re11.py</code></pre>
+# Code: http://www.py4e.com/code3/re11.py</code></pre>
+
 <p>Αντί να καλέσουμε τη <code>search()</code>, προσθέτουμε παρενθέσεις γύρω από το τμήμα της κανονικής έκφρασης που αντιπροσωπεύει τον αριθμό κινητής υποδιαστολής, για να υποδείξουμε ότι θέλουμε το <code>findall()</code> να μας δώσει πίσω μόνο το τμήμα αριθμού κινητής υποδιαστολής, της συμβολοσειράς, που ταιριάζει .</p>
 <p>Η έξοδος από αυτό το πρόγραμμα είναι η εξής:</p>
 <pre class="{text}"><code>[&#39;0.8475&#39;]
@@ -365,7 +238,8 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.gr.py4e.com/code3/re12.py</code></pre>
+# Code: http://www.py4e.com/code3/re12.py</code></pre>
+
 <p>Μεταφράζοντας την κανονική μας έκφραση, αναζητούμε γραμμές που ξεκινούν με <code>Details:</code>, ακολουθούμενο από οποιονδήποτε αριθμό χαρακτήρων (<code>.*</code>), ακολουθούμενων από <code>rev=</code> και μετά από ένα ή περισσότερα ψηφία. Θέλουμε να βρούμε γραμμές που ταιριάζουν με ολόκληρη την έκφραση, αλλά θέλουμε να εξαγάγουμε μόνο τον ακέραιο αριθμό στο τέλος της γραμμής, επομένως περιβάλλουμε το <code>[0-9]+</code> με παρενθέσεις.</p>
 <p>Όταν εκτελούμε το πρόγραμμα, έχουμε την ακόλουθη έξοδο:</p>
 <pre class="{text}"><code>[&#39;39772&#39;]
@@ -394,7 +268,8 @@ for line in hand:
     x = re.findall(&#39;^From .* ([0-9][0-9]):&#39;, line)
     if len(x) &gt; 0: print(x)
 
-# Code: http://www.gr.py4e.com/code3/re13.py</code></pre>
+# Code: http://www.py4e.com/code3/re13.py</code></pre>
+
 <p>Όταν το πρόγραμμα εκτελείται, παράγει την ακόλουθη έξοδο:</p>
 <pre class="{text}"><code>[&#39;09&#39;]
 [&#39;18&#39;]

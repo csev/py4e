@@ -8,150 +8,13 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
-  <style>
-    html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 1em;
-      }
-    }
-    @media print {
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
-      font-size: 85%;
-      margin: 0;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <title>Untitled</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="χρήση-υπηρεσιών-ιστού">Χρήση Υπηρεσιών Ιστού</h1>
@@ -192,7 +55,7 @@ tree = ET.fromstring(data)
 print(&#39;Όνομα:&#39;, tree.find(&#39;όνομα&#39;).text)
 print(&#39;Χαρακτηριστικό:&#39;, tree.find(&#39;email&#39;).get(&#39;κρυφό&#39;))
 
-# Code: http://www.gr.py4e.com/code3/xml1.py</code></pre>
+# Code: http://www.py4e.com/code3/xml1.py</code></pre>
 <p>Το τριπλό μονό εισαγωγικό (<code>'''</code>), καθώς και το τριπλό διπλό εισαγωγικό (<code>"""</code>), επιτρέπουν τη δημιουργία συμβολοσειρών που εκτείνονται σε πολλές γραμμές.</p>
 <p>Η κλήση <code>fromstring</code> μετατρέπει την αναπαράσταση συμβολοσειράς του XML σε ένα “δέντρο” στοιχείων XML. Όταν το XML αναπαρασταθεί με δέντρο, έχουμε μια σειρά από μεθόδους που μπορούμε να καλέσουμε για να εξαγάγουμε τμήματα δεδομένων από τη συμβολοσειρά XML. Η συνάρτηση <code>find</code> πραγματοποιεί αναζήτηση στο δέντρο XML και ανακτά το στοιχείο που ταιριάζει με την καθορισμένη ετικέτα.</p>
 <pre class="{text}"><code>Όνομα: Chuck
@@ -226,7 +89,7 @@ for item in lst:
     print(&#39;Id&#39;, item.find(&#39;id&#39;).text)
     print(&#39;Χαρακτηριστικό&#39;, item.get(&#39;x&#39;))
 
-# Code: http://www.gr.py4e.com/code3/xml2.py</code></pre>
+# Code: http://www.py4e.com/code3/xml2.py</code></pre>
 <p>Η μέθοδος <code>findall</code> ανακτά μια λίστα Python με υποδέντρα που αντιπροσωπεύουν τις δομές <code>χρήστης</code> στο δέντρο XML. Στη συνέχεια, μπορούμε να γράψουμε ένα βρόχο <code>for</code>, που εξετάζει κάθε κόμβο χρήστη και εκτυπώνει τα στοιχεία κειμένου <code>όνομα</code> και <code>id</code> καθώς και το χαρακτηριστικό <code>x</code> του κόμβου (<code>χρήστης</code>).</p>
 <pre class="{text}"><code>Πλήθος χρηστών: 2
 Όνομα Chuck
@@ -304,7 +167,7 @@ for item in info:
     print(&#39;Id&#39;, item[&#39;id&#39;])
     print(&#39;Χαρακτηριστικό&#39;, item[&#39;x&#39;])
 
-# Code: http://www.gr.py4e.com/code3/json2.py</code></pre>
+# Code: http://www.py4e.com/code3/json2.py</code></pre>
 <p>Εάν συγκρίνετε τον κώδικα για την εξαγωγή δεδομένων από το αναλυμένο JSON και το XML, θα δείτε ότι αυτό που λαμβάνουμε από το <code>json.loads()</code> είναι μια λίστα Python, την οποία διασχίζουμε με έναν βρόχο <code>for</code> και κάθε στοιχείο σε αυτήν τη λίστα είναι ένα λεξικό Python. Αφού αναλυθεί το JSON, μπορούμε να χρησιμοποιήσουμε τον τελεστή ευρετηρίου Python για να εξαγάγουμε τα διάφορα bit δεδομένων για κάθε χρήστη. Δεν χρειάζεται να χρησιμοποιήσουμε τη βιβλιοθήκη JSON για να διερευνήσουμε το αναλυμένο JSON, καθώς τα δεδομένα που επιστρέφονται είναι απλώς εγγενείς δομές Python.</p>
 <p>Η έξοδος αυτού του προγράμματος είναι ακριβώς η ίδια με την παραπάνω έκδοση XML.</p>
 <pre class="{text}"><code>Πλήθος χρηστών: 2
@@ -321,7 +184,7 @@ Id 009
 <p>Όταν αρχίζουμε να χτίζουμε τα προγράμματά μας, όπου η λειτουργικότητα του προγράμματός μας περιλαμβάνει πρόσβαση σε υπηρεσίες που παρέχονται από άλλα προγράμματα, ονομάζουμε την προσέγγιση <em>Αρχιτεκτονική προσανατολισμένη στις υπηρεσίες ή Service-oriented architecture</em> (SOA). Μια προσέγγιση SOA είναι μια προσέγγιση όπου η συνολική μας εφαρμογή κάνει χρήση των υπηρεσιών άλλων εφαρμογών. Μια προσέγγιση που δεν είναι SOA είναι αυτή όπου η εφαρμογή είναι μια ενιαία, αυτόνομη εφαρμογή, που περιέχει όλο τον απαραίτητο κώδικα για την υλοποίηση της εφαρμογής.</p>
 <p>Βλέπουμε πολλά παραδείγματα SOA όταν χρησιμοποιούμε τον ιστό. Μπορούμε να μεταβούμε σε έναν ιστότοπο και να κάνουμε κράτηση για αεροπορικά εισιτήρια, ξενοδοχεία και αυτοκίνητα, όλα από έναν μόνο ιστότοπο. Τα δεδομένα για τα ξενοδοχεία δεν αποθηκεύονται στους υπολογιστές της αεροπορικής εταιρείας. Αντίθετα, οι υπολογιστές της αεροπορικής εταιρείας επικοινωνούν με τις υπηρεσίες στους υπολογιστές του ξενοδοχείου, ανακτούν τα δεδομένα του ξενοδοχείου και τα παρουσιάζουν στον χρήστη. Όταν ο χρήστης συμφωνεί να κάνει μια κράτηση ξενοδοχείου, χρησιμοποιώντας τον ιστότοπο της αεροπορικής εταιρείας, ο ιστότοπος της αεροπορικής εταιρείας χρησιμοποιεί μια άλλη υπηρεσία web, στα συστήματα του ξενοδοχείου, για να υλοποιήσει πραγματικά την κράτηση. Και όταν έρθει η ώρα να χρεώσετε την πιστωτική σας κάρτα για ολόκληρη τη συναλλαγή, και πάλι άλλοι υπολογιστές εμπλέκονται στη διαδικασία.</p>
 <figure>
-<img src="height=3.0in@../images/soa.svg" alt="Αρχιτεκτονική Προσανατολισμένη σις Υπηρεσίες (Service-oriented architecture)" /><figcaption aria-hidden="true">Αρχιτεκτονική Προσανατολισμένη σις Υπηρεσίες (Service-oriented architecture)</figcaption>
+<img src="height=3.0in@../images/soa.svg" alt="Αρχιτεκτονική Προσανατολισμένη στις Υπηρεσίες (Service-oriented architecture)" /><figcaption>Αρχιτεκτονική Προσανατολισμένη στις Υπηρεσίες (Service-oriented architecture)</figcaption>
 </figure>
 <p>Μια αρχιτεκτονική προσανατολισμένη στις υπηρεσίες έχει πολλά πλεονεκτήματα, όπως: (1) διατηρούμε πάντα μόνο ένα αντίγραφο δεδομένων (αυτό είναι ιδιαίτερα σημαντικό για πράγματα όπως κρατήσεις ξενοδοχείων, όπου δεν θέλουμε να κάνουμε υπερβολική δέσμευση) και (2) οι κάτοχοι των δεδομένα μπορούν να ορίσουν τους κανόνες σχετικά με τη χρήση των δεδομένων τους. Με αυτά τα πλεονεκτήματα, ένα σύστημα SOA πρέπει να είναι προσεκτικά σχεδιασμένο ώστε να έχει καλή απόδοση και να καλύπτει τις ανάγκες του χρήστη.</p>
 <p>Όταν μια εφαρμογή διαθέτει ένα σύνολο υπηρεσιών στο API της μέσω του ιστού, την ονομάζουμε <em>υπηρεσίες Ιστού (web services)</em>.</p>
@@ -411,7 +274,7 @@ while True:
     location = js[&#39;results&#39;][0][&#39;formatted_address&#39;]
     print(location)
 
-# Code: http://www.gr.py4e.com/code3/geojson.py</code></pre>
+# Code: http://www.py4e.com/code3/geojson.py</code></pre>
 <p>Το πρόγραμμα παίρνει τη συμβολοσειρά αναζήτησης και κατασκευάζει μια διεύθυνση URL με τη συμβολοσειρά αναζήτησης, ως σωστά κωδικοποιημένη παράμετρο, και στη συνέχεια χρησιμοποιεί το <code>urllib</code> για να ανακτήσει το κείμενο από το API γεωκωδικοποίησης της Google. Σε αντίθεση με μια σταθερή ιστοσελίδα, τα δεδομένα που λαμβάνουμε εξαρτώνται από τις παραμέτρους που στέλνουμε και τα γεωγραφικά δεδομένα που είναι αποθηκευμένα στους διακομιστές της Google.</p>
 <p>Μόλις ανακτήσουμε τα δεδομένα JSON, τα αναλύουμε με τη βιβλιοθήκη <code>json</code> και κάνουμε μερικούς ελέγχους για να βεβαιωθούμε ότι λάβαμε καλά δεδομένα και, στη συνέχεια, εξάγουμε τις πληροφορίες που αναζητούμε.</p>
 <p>Η έξοδος του προγράμματος είναι η εξής (μερικά από τα JSON που επιστράφηκαν έχουν αφαιρεθεί):</p>
@@ -513,7 +376,7 @@ def oauth():
             &quot;token_key&quot;: &quot;10185562-eibxCp9n2...P4GEQQOSGI&quot;,
             &quot;token_secret&quot;: &quot;H0ycCFemmC4wyf1...qoIpBo&quot;}
 
-# Code: http://www.gr.py4e.com/code3/hidden.py</code></pre>
+# Code: http://www.py4e.com/code3/hidden.py</code></pre>
 <p>Η πρόσβαση στην υπηρεσία ιστού Twitter γίνεται χρησιμοποιώντας μια διεύθυνση URL όπως αυτή:</p>
 <p><a href="https://api.twitter.com/1.1/statuses/user_timeline.json" class="uri">https://api.twitter.com/1.1/statuses/user_timeline.json</a></p>
 <p>Αλλά μόλις προστεθούν όλες οι πληροφορίες ασφαλείας, η διεύθυνση URL θα μοιάζει περισσότερο με:</p>
@@ -553,7 +416,8 @@ while True:
     # print headers
     print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
 
-# Code: http://www.gr.py4e.com/code3/twitter1.py</code></pre>
+# Code: http://www.py4e.com/code3/twitter1.py</code></pre>
+
 <p>Όταν το πρόγραμμα εκτελείται, παράγει την ακόλουθη έξοδο:</p>
 <pre class="{text}"><code>Enter Twitter Account:drchuck
 Retrieving https://api.twitter.com/1.1/ ...
@@ -615,7 +479,8 @@ while True:
         s = u[&#39;status&#39;][&#39;text&#39;]
         print(&#39;  &#39;, s[:50])
 
-# Code: http://www.gr.py4e.com/code3/twitter2.py</code></pre>
+# Code: http://www.py4e.com/code3/twitter2.py</code></pre>
+
 <p>Εφόσον το JSON γίνεται ένα σύνολο από ένθετες λίστες και λεξικά Python, μπορούμε να χρησιμοποιήσουμε έναν συνδυασμό της λειτουργίας ευρετηρίου και των βρόχων <code>for</code> για να διατρέξουμε στις επιστρεφόμενες δομές δεδομένων με πολύ λίγο κώδικα Python.</p>
 <p>Η έξοδος του προγράμματος έχει ως εξής (ορισμένα από τα στοιχεία δεδομένων συντομεύονται για να χωρούν στη σελίδα):</p>
 <pre class="{text}"><code>Enter Twitter Account:drchuck

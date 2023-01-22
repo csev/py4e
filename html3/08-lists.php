@@ -8,150 +8,13 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
-  <style>
-    html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 1em;
-      }
-    }
-    @media print {
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
-      font-size: 85%;
-      margin: 0;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <title>Untitled</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="λίστες">Λίστες</h1>
@@ -159,7 +22,7 @@
 <h2 id="μια-λίστα-είναι-μια-ακολουθία">Μια λίστα είναι μια ακολουθία</h2>
 <p>Όπως και μια συμβολοσειρά, μια <em>list</em> είναι μια ακολουθία τιμών. Σε μια συμβολοσειρά, οι τιμές είναι χαρακτήρες ενώ σε μια λίστα, μπορούν να είναι οποιουδήποτε τύπου. Οι τιμές στη λίστα ονομάζονται <em>στοιχεία</em> (<em>elements</em> ή μερικές φορές <em>items</em>).</p>
 <p>   </p>
-<p>Υπάρχουν διάφοροι τρόποι για να δημιουργήσετε μια νέα λίστα. Ο πιο απλός είναι να περικλείσετε τα στοιχεία σε αγκύλες (“[” και ”]”):</p>
+<p>Υπάρχουν διάφοροι τρόποι για να δημιουργήσετε μια νέα λίστα. Ο πιο απλός είναι να περικλείσετε τα στοιχεία σε αγκύλες (“[" και "]”):</p>
 <pre class="python"><code>[10, 20, 30, 40]
 [&#39;crunchy frog&#39;, &#39;ram bladder&#39;, &#39;lark vomit&#39;]</code></pre>
 <p>Το πρώτο παράδειγμα είναι μια λίστα τεσσάρων ακεραίων αριθμών. Η δεύτερη είναι μια λίστα τριών συμβολοσειρών. Τα στοιχεία μιας λίστας δεν χρειάζεται να είναι του ίδιου τύπου. Η ακόλουθη λίστα περιέχει μια συμβολοσειρά, ένα δεκαδικό, έναν ακέραιο, και (ορίστε!) μια νέα λίστα:</p>
@@ -344,7 +207,7 @@ while (True):
 μέσοςΌρος = σύνολο / πλήθος
 print(&#39;Μέσος Όρος:&#39;, μέσοςΌρος)
 
-# Code: http://www.gr.py4e.com/code3/avenum.py</code></pre>
+# Code: http://www.py4e.com/code3/avenum.py</code></pre>
 <p>Σε αυτό το πρόγραμμα, έχουμε τις μεταβλητές <code>πλήθος</code> και <code>σύνολο</code> για να κρατήσουμε τον πλήθος και το τρέχον σύνολο των αριθμών που εισάγονται, καθώς ζητάμε επανειλημμένα από τον χρήστη την εισαγωγή ενόν αριθμού.</p>
 <p>Θα μπορούσαμε απλά να αποθηκεύουμε κάθε αριθμό καθώς τον εισαγάγει ο χρήστης και να χρησιμοποιήσουμε ενσωματωμένες συναρτήσεις για να υπολογίσουμε το άθροισμα και το πλήθος, στο τέλος.</p>
 <pre class="python"><code>numlist = list()
@@ -357,7 +220,7 @@ while (True):
 μέσοςΌρος = sum(numlist) / len(numlist)
 print(&#39;Μέσος Όρος:&#39;, μέσοςΌρος)
 
-# Code: http://www.gr.py4e.com/code3/avelist.py</code></pre>
+# Code: http://www.py4e.com/code3/avelist.py</code></pre>
 <p>Δημιουργούμε μια κενή λίστα πριν ξεκινήσει ο βρόχος και, στη συνέχεια, κάθε φορά που έχουμε έναν αριθμό, τον προσθέτουμε στη λίστα. Στο τέλος του προγράμματος, απλά υπολογίζουμε το άθροισμα των αριθμών στη λίστα και το διαιρούμε με το πλήθος των αριθμών στη λίστα για να καταλήξουμε στον μέσο όρο.</p>
 <h2 id="λίστες-και-συμβολοσειρές">Λίστες και συμβολοσειρές</h2>
 <p>  </p>
@@ -367,7 +230,7 @@ print(&#39;Μέσος Όρος:&#39;, μέσοςΌρος)
 &gt;&gt;&gt; t = list(s)
 &gt;&gt;&gt; print(t)
 [&#39;s&#39;, &#39;p&#39;, &#39;a&#39;, &#39;m&#39;]</code></pre>
-<p>Επειδή το <code>list</code> είναι το όνομα μιας ενσωματωμένης συνάρτησης, θα πρέπει να αποφύγετε τη χρήση της ως όνομα μεταβλητής. Επίσης αποφεύγω το γράμμα “l’ γιατί μοιάζει πάρα πολύ με τον αριθμό”1”. Γι’ αυτό λοιπόν χρησιμοποιώ το “t”.</p>
+<p>Επειδή το <code>list</code> είναι το όνομα μιας ενσωματωμένης συνάρτησης, θα πρέπει να αποφύγετε τη χρήση της ως όνομα μεταβλητής. Επίσης αποφεύγω το γράμμα “l’ γιατί μοιάζει πάρα πολύ με τον αριθμό”1“. Γι’ αυτό λοιπόν χρησιμοποιώ το”t".</p>
 <p>Η συνάρτηση <code>list</code> σπάει μια συμβολοσειρά σε μεμονωμένα γράμματα. Εάν θέλετε να χωρίσετε μια συμβολοσειρά σε λέξεις, μπορείτε να χρησιμοποιήσετε τη μέθοδο <code>split</code>:</p>
 <p> </p>
 <pre class="python trinket"><code>&gt;&gt;&gt; s = &#39;pining for the fjords&#39;
@@ -389,7 +252,7 @@ the</code></pre>
 &gt;&gt;&gt; οριοθέτης = &#39; &#39;
 &gt;&gt;&gt; οριοθέτης.join(t)
 &#39;pining for the fjords&#39;</code></pre>
-<p>Σε αυτήν την περίπτωση, ο οριοθέτης είναι ένας χαρακτήρας διαστήματος, επομένως η <code>join</code> βάζει ένα διάστημα μεταξύ των λέξεων. Για να συνδέσετε συμβολοσειρές χωρίς κενά, μπορείτε να χρησιμοποιήσετε την κενή συμβολοσειρά ““, ως οριοθέτη.</p>
+<p>Σε αυτήν την περίπτωση, ο οριοθέτης είναι ένας χαρακτήρας διαστήματος, επομένως η <code>join</code> βάζει ένα διάστημα μεταξύ των λέξεων. Για να συνδέσετε συμβολοσειρές χωρίς κενά, μπορείτε να χρησιμοποιήσετε την κενή συμβολοσειρά "", ως οριοθέτη.</p>
 <p> </p>
 <h2 id="ανάλυση-γραμμών">Ανάλυση γραμμών</h2>
 <p>Συνήθως όταν διαβάζουμε ένα αρχείο θέλουμε να κάνουμε κάτι στις γραμμέςτου, πέρα από την απλή εκτύπωση ολόκληρης της γραμμής. Συχνά θέλουμε να βρούμε τις “ενδιαφέρουσες γραμμές” και μετά <em>να αναλύσουμε</em> την κάθε μία από αυτές, για να βρούμε κάποιο ενδιαφέρον <em>μέρος</em> της γραμμής. Τι θα γινόταν αν θέλαμε να εκτυπώσουμε την ημέρα της εβδομάδας από αυτές τις γραμμές που ξεκινούν με “From”;</p>
@@ -402,7 +265,8 @@ for γραμμή in fhand:
     λέξεις = γραμμή.split()
     print(λέξεις[2])
 
-# Code: http://www.gr.py4e.com/code3/search5.py</code></pre>
+# Code: http://www.py4e.com/code3/search5.py</code></pre>
+
 <p>Το πρόγραμμα παράγει την ακόλουθη έξοδο:</p>
 <pre class="{text}"><code>    Sat
     Fri
@@ -637,7 +501,7 @@ for γραμμή in fhand:
 &#39;with&#39;, &#39;yonder&#39;]</code></pre>
 <p><strong>Άσκηση 5: Μινιμαλιστικός Εξυπηρετητής Email (Email Client).</strong></p>
 <p><strong>Το MBOX (mail box) είναι μια δημοφιλής μορφή αρχείου για αποθήκευση και κοινή χρήση μιας συλλογής email. Αυτό χρησιμοποιήθηκε από πρώιμους διακομιστές email και εφαρμογές επιτραπέζιου υπολογιστή. Χωρίς να μπαίνουμε σε πάρα πολλές λεπτομέρειες, το MBOX είναι ένα αρχείο κειμένου, στο οποίο αποθηκεύονται διαδοχικά email. Τα email διαχωρίζονται από μια ειδική γραμμή που ξεκινά με <code>From</code> (προσέξτε το διάστημα). Είναι σημαντικό ότι οι γραμμές που ξεκινούν με <code>From:</code> (προσέξτε την άνω και κάτω τελεία) περιγράφουν το ίδιο το email και δεν λειτουργούν ως διαχωριστικά. Φανταστείτε ότι έχετε γράψει μια μινιμαλιστική εφαρμογή email, η οποία αναφέρει τα email των αποστολέων στα Εισερχόμενα του χρήστη και μετράει τον αριθμό των email.</strong></p>
-<p><strong>Γράψτε ένα πρόγραμμα που διαβάζει τα δεδομένα του γραμματοκιβωτίου και όταν εντοπίσει γραμμή που ξεκινά με “From”, χωρίζει τη γραμμή σε λέξεις, χρησιμοποιώντας τη συνάρτηση <code>split</code>. Μας ενδιαφέρει ποιος έστειλε το μήνυμα, που είναι η δεύτερη λέξη στη γραμμή From”</strong>.</p>
+<p><strong>Γράψτε ένα πρόγραμμα που διαβάζει τα δεδομένα του γραμματοκιβωτίου και όταν εντοπίσει γραμμή που ξεκινά με “From”, χωρίζει τη γραμμή σε λέξεις, χρησιμοποιώντας τη συνάρτηση <code>split</code>. Μας ενδιαφέρει ποιος έστειλε το μήνυμα, που είναι η δεύτερη λέξη στη γραμμή From"</strong>.</p>
 <pre class="{text}"><code>From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008</code></pre>
 <p><strong>Θα αναλύει τη γραμμή From και θα εκτυπώνει τη δεύτερη λέξη κάθε γραμμής From, στη συνέχεια θα μετράει τον αριθμό των γραμμών From (όχι From:) και θα εκτυπώνει, στο τέλος, το πλήθος τους. Αυτό είναι ένα καλό δείγμα εξόδου με μερικές γραμμές που έχουν αφαιρεθεί:</strong></p>
 <pre class="{text}"><code>python fromcount.py

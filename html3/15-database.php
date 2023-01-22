@@ -58,7 +58,7 @@ cur.execute(&#39;CREATE TABLE Tracks (title TEXT, plays INTEGER)&#39;)
 
 conn.close()
 
-# Code: http://www.gr.py4e.com/code3/db1.py</code></pre>
+# Code: http://www.py4e.com/code3/db1.py</code></pre>
 <p>   </p>
 <p>Η λειτουργία <code>connect</code> πραγματοποιεί μια “σύνδεση” με τη βάση δεδομένων, που είναι αποθηκευμένη στο αρχείο <code>music.sqlite</code>, στον τρέχοντα κατάλογο. Εάν το αρχείο δεν υπάρχει, θα δημιουργηθεί. Ο λόγος που αυτό ονομάζεται “σύνδεση” είναι ότι μερικές φορές η βάση δεδομένων αποθηκεύεται σε έναν ξεχωριστό “διακομιστή βάσης δεδομένων”, από τον διακομιστή στον οποίο εκτελούμε την εφαρμογή μας. Στα απλά παραδείγματά μας η βάση δεδομένων θα είναι απλώς ένα τοπικό αρχείο στον ίδιο κατάλογο με τον κώδικα Python που εκτελούμε.</p>
 <p>Ένας <em>κέρσορας (cursor)</em> είναι σαν ένας περιγραφέας αρχείου, που μπορούμε να χρησιμοποιήσουμε για να εκτελέσουμε λειτουργίες επί των δεδομένων, που είναι αποθηκευμένα στη βάση δεδομένων. Η κλήση του <code>cursor()</code> μοιάζει πολύ εννοιολογικά με την κλήση του <code>open()</code>, όταν πρόκειται για αρχεία κειμένου.</p>
@@ -99,7 +99,7 @@ conn.commit()
 
 cur.close()
 
-# Code: http://www.gr.py4e.com/code3/db2.py</code></pre>
+# Code: http://www.py4e.com/code3/db2.py</code></pre>
 <p>Πρώτα, με το <code>INSERT</code> εισαγάγουμε δύο γραμμές στον πίνακά μας και χρησιμοποιούμε την <code>commit()</code> για να αναγκάσουμε τα δεδομένα να εγγραφούν στο αρχείο της βάσης δεδομένων.</p>
 <figure>
 <img src="../images/tracks.svg" alt="Γραμμές σε έναν Πίνακα" style="height: 1.5in;"/>
@@ -205,12 +205,12 @@ while True:
             cur.execute(&#39;&#39;&#39;INSERT INTO Twitter (name, retrieved, friends)
                         VALUES (?, 0, 1)&#39;&#39;&#39;, (friend, ))
             countnew = countnew + 1
-    print(&#39;Νέοι λογαριασμοί =&#39;, countnew, &#39; Επισκεύθηκαν εκ νέου =&#39;, countold)
+    print(&#39;Νέοι λογαριασμοί =&#39;, countnew, &#39; Επισκέφθηκαν εκ νέου =&#39;, countold)
     conn.commit()
 
 cur.close()
 
-# Code: http://www.gr.py4e.com/code3/twspider.py</code></pre>
+# Code: http://www.py4e.com/code3/twspider.py</code></pre>
 <p>Η βάση δεδομένων μας είναι αποθηκευμένη στο αρχείο <code>spider.sqlite</code> και έχει έναν πίνακα με όνομα <code>Twitter</code>. Κάθε γραμμή του πίνακα <code>Twitter</code> έχει μια στήλη για το όνομα του λογαριασμού, μία για το εάν έχουμε ανακτήσει τους φίλους αυτού του λογαριασμού και μια τρίτη με το πόσες φορές αυτός ο λογαριασμός έχει γίνει “φίλος”.</p>
 <p>Στον κύριο βρόχο του προγράμματος, ζητάμε από τον χρήστη ένα όνομα λογαριασμού στο Twitter ή “quit” για έξοδο από το πρόγραμμα. Εάν ο χρήστης εισαγάγει έναν λογαριασμό Twitter, ανακτούμε τη λίστα φίλων και καταστάσεων (status) για αυτόν τον χρήστη και προσθέτουμε κάθε φίλο του στη βάση δεδομένων, εάν δεν βρίσκεται ήδη στη βάση δεδομένων. Εάν ο φίλος βρίσκεται ήδη στη λίστα, προσθέτουμε 1 στο πεδίο <code>friends</code> της γραμμής του, στη βάση δεδομένων.</p>
 <p>Εάν ο χρήστης πατήσει enter, αναζητούμε στη βάση δεδομένων τον επόμενο λογαριασμό Twitter που δεν έχουμε ανακτήσει ακόμη, ανακτούμε τους φίλους και τα status για αυτόν τον λογαριασμό, τα προσθέτουμε στη βάση δεδομένων ή τους ενημερώνουμε και αυξάνουμε τον αριθμό των <code>friends</code> τους, εάν είναι ήδη καταχωρημένοι στη βάση δεδομένων.</p>
@@ -255,7 +255,7 @@ for row in cur:
 print(count, &#39;γραμμές.&#39;)
 cur.close()
 
-# Code: http://www.gr.py4e.com/code3/twdump.py</code></pre>
+# Code: http://www.py4e.com/code3/twdump.py</code></pre>
 <p>Αυτό το πρόγραμμα απλώς ανοίγει τη βάση δεδομένων και επιλέγει όλες τις στήλες, όλων των γραμμών του πίνακα <code>Twitter</code>, στη συνέχεια διατρέχει τις γραμμές και εκτυπώνει κάθε μία από αυτές.</p>
 <p>Εάν εκτελέσουμε αυτό το πρόγραμμα μετά την πρώτη εκτέλεση του Twitter spider παραπάνω, η έξοδος του θα είναι η εξής:</p>
 <pre class="{text}"><code>(&#39;opencontent&#39;, 0, 1)
@@ -330,12 +330,35 @@ cur.execute(&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;,(acct, ))</c
     (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id) )</code></pre>
 <p>Όταν προσθέτουμε περιορισμό <code>UNIQUE</code> στους πίνακές μας, επικοινωνούμε ένα σύνολο κανόνων που ζητάμε από τη βάση δεδομένων να τους επιβάλει, όταν προσπαθούμε να εισαγάγουμε εγγραφές. Δημιουργούμε αυτούς τους περιορισμούς στα προγράμματά μας για ευκολία, όπως θα δούμε σε λίγο. Οι περιορισμοί μας εμποδίζουν από το να κάνουμε λάθη και μας διευκολύνουν να γράψουμε μέρος του κώδικά μας.</p>
 <p>Στην ουσία, δημιουργώντας αυτόν τον πίνακα <code>Follows</code>, διαμορφώνουμε μια “σχέση”, όπου ένα άτομο “ακολουθεί” κάποιον άλλο και την αναπαριστάνουμε με ένα ζεύγος αριθμών που υποδεικνύουν ότι (α) τα άτομα είναι συνδεδεμένα και (β) την κατεύθυνση της σχέσης.</p>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 <figure>
 <img src="../images/twitter1.svg" alt="Σχέσεις Μεταξύ Πινάκων" style="height: 3.5in;"/>
 <figcaption>
 Σχέσεις Μεταξύ Πινάκων
 </figcaption>
 </figure>
+=======
+<figure>
+<img src="../images/twitter1.svg" alt="Relationships Between Tables" style="height: 3.5in;"/>
+<figcaption>
+Relationships Between Tables
+</figcaption>
+</figure>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>c834b14395e3ef360b187da37b9345eeac9e9652</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <h2 id="χρήση-πολλών-πινάκων">Χρήση πολλών πινάκων</h2>
 <p>Τώρα θα επαναλάβουμε το πρόγραμμα αντίχνευσης Twitter χρησιμοποιώντας δύο πίνακες, τα κύρια κλειδιά και τις αναφορές κλειδιών όπως περιγράφηκαν παραπάνω. Εδώ είναι ο κώδικας για τη νέα έκδοση του προγράμματος:</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
@@ -434,12 +457,12 @@ while True:
             countnew = countnew + 1
         cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Follows (from_id, to_id)
                     VALUES (?, ?)&#39;&#39;&#39;, (id, friend_id))
-    print(&#39;Νέοι λογαριασμοί =&#39;, countnew, &#39; Επισκεύθηκαν εκ νέου =&#39;, countold)
+    print(&#39;Νέοι λογαριασμοί =&#39;, countnew, &#39; Επισκέφθηκαν εκ νέου =&#39;, countold)
     print(&#39;Απομένουν&#39;, headers[&#39;x-rate-limit-remaining&#39;])
     conn.commit()
 cur.close()
 
-# Code: http://www.gr.py4e.com/code3/twfriends.py</code></pre>
+# Code: http://www.py4e.com/code3/twfriends.py</code></pre>
 <p>Αυτό το πρόγραμμα αρχίζει να γίνεται λίγο περίπλοκο, αλλά δείχνει τα μοτίβα που πρέπει να ακολουθούμε όταν χρησιμοποιούμε ακέραια κλειδιά για σύνδεση πινάκων. Τα βασικά σημεία είναι:</p>
 <ol type="1">
 <li><p>Δημιουργήστε πίνακες με πρωτεύοντα κλειδιά και περιορισμούς.</p></li>
@@ -538,12 +561,35 @@ Follows:
 <pre class="sql"><code>SELECT * FROM Follows JOIN People
     ON Follows.from_id = People.id WHERE People.id = 1</code></pre>
 <p>Ο όρος <code>JOIN</code> υποδηλώνει ότι τα πεδία που επιλέγουμε διασχίζουν και τους πίνακες <code>Follows</code> και <code>People</code>. Η ρήτρα <code>ON</code> υποδεικνύει πώς θα ενωθούν οι δύο πίνακες: Πάρε τις σειρές από το <code>Follows</code> και προσθέστε τη σειρά του <code>People</code>, όπου το πεδίο <code>from_id</code> στο <code>Follows</code> είναι το ίδιο με την τιμή <code>id</code> του πίνακα <code>People</code>.</p>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 <figure>
 <img src="../images/join.svg" alt="Σύνδεση πινάκων με χρήση JOIN" style="height: 3.5in;"/>
 <figcaption>
 Σύνδεση πινάκων με χρήση JOIN
 </figcaption>
 </figure>
+=======
+<figure>
+<img src="../images/join.svg" alt="Connecting Tables Using JOIN" style="height: 3.5in;"/>
+<figcaption>
+Connecting Tables Using JOIN
+</figcaption>
+</figure>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>c834b14395e3ef360b187da37b9345eeac9e9652</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <p>Το αποτέλεσμα του JOIN είναι να δημιουργηθούν πολύ μεγάλες “meta-γραμμές” οι οποίες έχουν και τα δύο πεδία από τον <code>People</code> και τα αντίστοιχα πεδία από τον <code>Follows</code>. Όπου υπάρχουν περισσότερες από μία αντιστοιχίσεις μεταξύ του πεδίου <code>id</code> από τον <code>People</code> και του <code>from_id</code> από τον <code>Follows</code>, τότε το JOIN δημιουργεί μια meta-γραμμή για <em>κάθε ένα</em> από τα αντίστοιχα ζεύγη σειρών, αντιγράφοντας δεδομένα όπως απαιτείται.</p>
 <p>Ο παρακάτω κώδικας δείχνει τα δεδομένα που θα έχουμε στη βάση δεδομένων μετά την εκτέλεση του προγράμματος πολλαπλών πινάκων Twitter spider (παραπάνω) πολλές φορές.</p>
 <pre class="python"><code>import sqlite3
@@ -579,7 +625,7 @@ print(count, &#39;γραμμές.&#39;)
 
 cur.close()
 
-# Code: http://www.gr.py4e.com/code3/twjoin.py</code></pre>
+# Code: http://www.py4e.com/code3/twjoin.py</code></pre>
 <p>Σε αυτό το πρόγραμμα, καταργούμε πρώτα τους πίνακες <code>People</code> και <code>Follows</code> και, στη συνέχεια, απορρίπτουμε ένα υποσύνολο των δεδομένων στους πίνακες που είναι ενωμένοι μεταξύ τους.</p>
 <p>Εδώ είναι η έξοδος του προγράμματος:</p>
 <pre class="{text}"><code>python twjoin.py
