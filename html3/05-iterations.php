@@ -8,150 +8,13 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
-  <style>
-    html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 1em;
-      }
-    }
-    @media print {
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
-      font-size: 85%;
-      margin: 0;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <title>Untitled</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="δομή-επανάληψης">Δομή Επανάληψης</h1>
@@ -212,7 +75,7 @@ print(&#39;Τέλος!&#39;)</code></pre>
     print(γραμμή)
 print(&#39;Τέλος!&#39;)
 
-# Code: http://www.gr.py4e.com/code3/copytildone1.py</code></pre>
+# Code: http://www.py4e.com/code3/copytildone1.py</code></pre>
 <p>Η συνθήκη βρόχου είναι <code>True</code>, η οποία είναι πάντα αληθής, επομένως ο βρόχος εκτελείται επανειλημμένα μέχρι να συναντήσει στην εντολή break.</p>
 <p>Κάθε φορά που εκτελείται, προτρέπει τον χρήστη με ένα σύμβολο μεγαλύτερου. Εάν ο χρήστης πληκτρολογήσει <code>τέλος</code>, η εντολή <code>break</code> διακόπτει την εκτέλεση του βρόχου. Διαφορετικά, το πρόγραμμα επαναλαμβάνει ό,τι πληκτρολογεί ο χρήστης και επιστρέφει στην αρχή του βρόχου. Εδώ είναι ένα δείγμα εκτέλεσης:</p>
 <pre class="{text}"><code>&gt; hello there
@@ -235,7 +98,7 @@ finished
     print(γραμμή)
 print(&#39;Τέλος!&#39;)
 
-# Code: http://www.gr.py4e.com/code3/copytildone2.py</code></pre>
+# Code: http://www.py4e.com/code3/copytildone2.py</code></pre>
 <p>Ακολουθεί ένα δείγμα εκτέλεσης αυτού του νέου προγράμματος με την προσθήκη του <code>continue</code>.</p>
 <pre class="{text}"><code>&gt; hello there
 hello there
@@ -253,7 +116,7 @@ print this!
 for φίλος in φίλοι:
     print(&#39;Καλή χρονιά:&#39;, φίλος)
 print(&#39;Τέλος!&#39;)</code></pre>
-<p>Στην ορολογία της Python, η μεταβλητή <code>φίλοι</code> είναι μια λίστα<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> τριών συμβολοσειρών και ο βρόχος <code>for</code> περνάει από τη λίστα και εκτελεί το σώμα μία φορά για καθεμιά από τις τρεις συμβολοσειρές στη λίστα, καταλήγοντας αυτήν την έξοδο:</p>
+<p>Στην ορολογία της Python, η μεταβλητή <code>φίλοι</code> είναι μια λίστα<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> τριών συμβολοσειρών και ο βρόχος <code>for</code> περνάει από τη λίστα και εκτελεί το σώμα μία φορά για καθεμιά από τις τρεις συμβολοσειρές στη λίστα, καταλήγοντας αυτήν την έξοδο:</p>
 <pre class="python"><code>Καλή χρονιά: Δημήτρης
 Καλή χρονιά: Σοφία
 Καλή χρονιά: Άρης
@@ -373,10 +236,10 @@ print(&#39;Ελάχιστο:&#39;, ελάχιστο)</code></pre>
 Εισάγετε έναν αριθμό: τέλος
 16 3 5.333333333333333</code></pre>
 <p><strong>Άσκηση 2: Γράψτε ένα άλλο πρόγραμμα, το οποίο ζητά μια λίστα αριθμών, όπως και παραπάνω και στο τέλος εκτυπώνει το μέγιστο και το ελάχιστο όλων των αριθμών αντί για τον μέσο όρο.</strong></p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Θα εξετάσουμε λεπτομερέστερα τις λίστες σε επόμενο κεφάλαιο.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Θα εξετάσουμε λεπτομερέστερα τις λίστες σε επόμενο κεφάλαιο.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 </body>

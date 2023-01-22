@@ -10,149 +10,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Εξερεύνηση Δεδομένων Χρησιμοποιώντας την Python 3" />
   <title>Python για Όλους</title>
-  <style>
-    html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 1em;
-      }
-    }
-    @media print {
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
-      font-size: 85%;
-      margin: 0;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
@@ -227,7 +90,7 @@ to 16</code></pre>
 <h2 id="λέξεις-και-προτάσεις">Λέξεις και προτάσεις</h2>
 <p> </p>
 <p>Σε αντίθεση με τις ανθρώπινες γλώσσες, το λεξιλόγιο της Python είναι πραγματικά πολύ μικρό. Αυτό το «λεξιλόγιο» το αποκαλούμε «δεσμευμένες λέξεις». Αυτές είναι λέξεις που έχουν πολύ ιδιαίτερη σημασία για την Python. Όταν η Python βλέπει αυτές τις λέξεις σε ένα πρόγραμμα Python, έχουν μία και μοναδική σημασία. Αργότερα καθώς γράφετε προγράμματα θα φτιάξετε τις δικές σας λέξεις, που έχουν νόημα για εσάς και ονομάζονται <em>μεταβλητές</em>. Θα έχετε ένα μεγάλο εύρος επιλογών για την ονοματολογία των μεταβλητών σας, αλλά δεν μπορείτε να χρησιμοποιήσετε καμία από τις δεσμευμένες λέξεις της Python, ως όνομα μεταβλητής.</p>
-<p>Όταν εκπαιδεύουμε έναν σκύλο, χρησιμοποιούμε ειδικές λέξεις όπως “κάθισε”, “μείνε” και “φέρε”. Όταν μιλάτε σε ένα σκυλί και δεν χρησιμοποιείτε καμία από αυτές τις δεσμευμένες λέξεις, απλώς σας κοιτά με ένα ερωτηματικό βλέμμα στο πρόσωπό του μέχρι να πείτε μια δεσμευμένη λέξη. Για παράδειγμα, αν πείτε: “Μακάρι να περπατούσαν περισσότερο οι άνθρωποι, για να βελτιώσουν την υγεία τους”, αυτό που πιθανότατα ακούνε τα περισσότερα σκυλιά είναι “μπλα μπλα μπλα <em>περπάτα</em> μπλα μπλα μπλα μπλα.” Αυτό συμβαίνει επειδή το “περπάτημα” είναι μια δεσμευμένη λέξη στη γλώσσα του σκύλου. Πολλοί μπορεί να αντιτείνουν ότι η γλώσσα μεταξύ ανθρώπων και γατών δεν έχει δεσμευμένες λέξεις<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Όταν εκπαιδεύουμε έναν σκύλο, χρησιμοποιούμε ειδικές λέξεις όπως “κάθισε”, “μείνε” και “φέρε”. Όταν μιλάτε σε ένα σκυλί και δεν χρησιμοποιείτε καμία από αυτές τις δεσμευμένες λέξεις, απλώς σας κοιτά με ένα ερωτηματικό βλέμμα στο πρόσωπό του μέχρι να πείτε μια δεσμευμένη λέξη. Για παράδειγμα, αν πείτε: “Μακάρι να περπατούσαν περισσότερο οι άνθρωποι, για να βελτιώσουν την υγεία τους”, αυτό που πιθανότατα ακούνε τα περισσότερα σκυλιά είναι “μπλα μπλα μπλα <em>περπάτα</em> μπλα μπλα μπλα μπλα.” Αυτό συμβαίνει επειδή το “περπάτημα” είναι μια δεσμευμένη λέξη στη γλώσσα του σκύλου. Πολλοί μπορεί να αντιτείνουν ότι η γλώσσα μεταξύ ανθρώπων και γατών δεν έχει δεσμευμένες λέξεις<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
 <p>Κάποιες από τις δεσμευμένες λέξεις στη γλώσσα, που οι άνθρωποι μιλούν με την Python, είναι και οι ακόλουθες:</p>
 <pre><code>and       del       global      not       with
 as        elif      if          or        yield
@@ -363,7 +226,8 @@ for λέξη, πλήθος in list(πλήθη.items()):
 
 print(maxλέξη, maxπλήθος)
 
-# Code: http://www.gr.py4e.com/code3/words.py</code></pre>
+# Code: http://www.py4e.com/code3/words.py</code></pre>
+
 <p>Δεν χρειάζεται καν να γνωρίζετε την Python για να χρησιμοποιήσετε αυτό το πρόγραμμα. Θα χρειαστεί να ανατρέξετε στο Κεφάλαιο 10 αυτού του βιβλίου, για να κατανοήσετε πλήρως τις εκπληκτικές τεχνικές Python που χρησιμοποιήθηκαν για τη δημιουργία του προγράμματος. Είστε ο τελικός χρήστης, απλά χρησιμοποιείτε το πρόγραμμα και θαυμάζετε την εξυπνάδα του και πώς σας γλίτωσε από τόσο πολύ χειρωνακτική προσπάθεια. Απλώς πληκτρολογείτε τον κώδικα σε ένα αρχείο που ονομάζεται <em>words.py</em> και το εκτελείτε ή κατεβάζετε τον πηγαίο κώδικα από το <a href="http://www.gr.py4e.com/code3/" class="uri">http://www.gr.py4e.com/code3/</a> και το εκτελείτε.</p>
 <p></p>
 <p>Αυτό είναι ένα καλό παράδειγμα για το πώς η Python και η γλώσσα Python λειτουργούν ως ενδιάμεσος μεταξύ εσάς (του τελικού χρήστη) και εμένα (του προγραμματιστή). Η Python είναι ένας τρόπος για να ανταλλάξουμε χρήσιμες ακολουθίες οδηγιών (δηλ. προγράμματα) σε μια κοινή γλώσσα που μπορεί να χρησιμοποιηθεί από οποιονδήποτε εγκαταστήσει την Python στον υπολογιστή του. Κανείς μας λοιπόν δεν μιλάει <em>με την Python</em>, αλλά επικοινωνούμε μεταξύ μας <em>μέσω</em> της Python.</p>
@@ -566,10 +430,10 @@ c) x + 1<br />
 d) Σφάλμα επειδή το x = x + 1 δεν είναι μαθηματικά σωστό</p>
 <p><strong>Άσκηση 8: Εξηγήστε καθένα από τα παρακάτω χρησιμοποιώντας ως παράδειγμα μία ανθρώπινη ικανότητα: (1) Κεντρική μονάδα επεξεργασίας, (2) Κύρια μνήμη, (3) Δευτερεύουσα μνήμη, (4) Συσκευή εισόδου και (5) Συσκευή εξόδου. Για παράδειγμα, “Τι είναι το ανθρώπινο ισοδύναμο με μια κεντρική μονάδα επεξεργασίας”;</strong></p>
 <p><strong>Άσκηση 9: Πώς διορθώνετε ένα “Συντακτικό Λάθος”;</strong></p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p><a href="http://xkcd.com/231/" class="uri">http://xkcd.com/231/</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p><a href="http://xkcd.com/231/" class="uri">http://xkcd.com/231/</a><a href="#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 </body>

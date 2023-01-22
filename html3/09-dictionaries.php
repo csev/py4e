@@ -8,150 +8,13 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
-  <style>
-    html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 1em;
-      }
-    }
-    @media print {
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
-      font-size: 85%;
-      margin: 0;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <title>Untitled</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="λεξικά">Λεξικά</h1>
@@ -257,25 +120,26 @@ Who is already sick and pale with grief</code></pre>
 <p>Επειδή ο εσωτερικός βρόχος εκτελεί όλες τις επαναλήψεις του κάθε φορά που ο εξωτερικός βρόχος κάνει μία επανάληψη, θεωρούμε ότι ο εσωτερικός βρόχος επαναλαμβάνεται “πιο γρήγορα” και ο εξωτερικός βρόχος επαναλαμβάνεται πιο αργά.</p>
 <p> </p>
 <p>Ο συνδυασμός των δύο εμφψλευμένων βρόχων διασφαλίζει ότι θα μετράμε κάθε λέξη, σε κάθε γραμμή του αρχείου εισόδου.</p>
-<pre class="python"><code>fname = input(&#39;Enter the file name: &#39;)
+<pre class="python"><code>fname = input(&#39;Εισαγάγετε το όνομα του αρχείου: &#39;)
 try:
     fhand = open(fname)
 except:
-    print(&#39;File cannot be opened:&#39;, fname)
+    print(&#39;Δεν είναι δυνατό το άνοιγμα του αρχείου:&#39;, fname)
     exit()
 
-counts = dict()
-for line in fhand:
-    words = line.split()
-    for word in words:
-        if word not in counts:
-            counts[word] = 1
+πλήθη = dict()
+for γραμμή in fhand:
+    λέξεις = γραμμή.split()
+    for λέξη in λέξεις:
+        if λέξη not in πλήθη:
+            πλήθη[λέξη] = 1
         else:
-            counts[word] += 1
+            πλήθη[λέξη] += 1
 
-print(counts)
+print(πλήθη)
 
-# Code: http://www.gr.py4e.com/code3/count1.py</code></pre>
+# Code: http://www.py4e.com/code3/count1.py</code></pre>
+
 <p>Στη δήλωση <code>else</code>, χρησιμοποιούμε την πιο συμπαγή εναλλακτική για την αύξηση μιας μεταβλητής. Το <code>counts[word] += 1</code> ισοδυναμεί με <code>counts[word] = counts[word] + 1</code>. Και οι δύο τρόποι μπορούν να χρησιμοποιηθούν για την αλλαγή της τιμής μιας μεταβλητής κατά οποιοδήποτε, επιθυμητό, ποσό. Παρόμοιες εναλλακτικές υπάρχουν για τα <code>-=</code>, <code>*=</code> και <code>/=</code>.</p>
 <p>Όταν εκτελούμε το πρόγραμμα, βλέπουμε μια ακατέργαστη έξοδο όλων των μετρήσεων, σε μη ταξινομημένη σειρά. (Το αρχείο <em>romeo.txt</em> είναι διαθέσιμο στη διεύθυνση <a href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a>)</p>
 <pre><code>python count1.py
@@ -342,28 +206,29 @@ Who is already sick and pale with grief,</code></pre>
 <p>Κάνουμε τις ακόλουθες τροποποιήσεις στο πρόγραμμά μας:</p>
 <pre class="python"><code>import string
 
-fname = input(&#39;Enter the file name: &#39;)
+fname = input(&#39;Εισαγάγετε το όνομα του αρχείου: &#39;)
 try:
     fhand = open(fname)
 except:
-    print(&#39;File cannot be opened:&#39;, fname)
+    print(&#39;Δεν είναι δυνατό το άνοιγμα του αρχείου:&#39;, fname)
     exit()
 
-counts = dict()
-for line in fhand:
-    line = line.rstrip()
-    line = line.translate(line.maketrans(&#39;&#39;, &#39;&#39;, string.punctuation))
-    line = line.lower()
-    words = line.split()
-    for word in words:
-        if word not in counts:
-            counts[word] = 1
+πλήθη = dict()
+for γραμμή in fhand:
+    γραμμή = γραμμή.rstrip()
+    γραμμή = γραμμή.translate(γραμμή.maketrans(&#39;&#39;, &#39;&#39;, string.punctuation))
+    γραμμή = γραμμή.lower()
+    λέξεις = γραμμή.split()
+    for λέξη in λέξεις:
+        if λέξη not in πλήθη:
+            πλήθη[λέξη] = 1
         else:
-            counts[word] += 1
+            πλήθη[λέξη] += 1
 
-print(counts)
+print(πλήθη)
 
-# Code: http://www.gr.py4e.com/code3/count2.py</code></pre>
+# Code: http://www.py4e.com/code3/count2.py</code></pre>
+
 <p>Μέρος της εκμάθησης της “Τέχνης της Python” ή της “Python-ικής Σκέψης” είναι η συνειδητοποίηση ότι η Python έχει συχνά ενσωματωμένες δυνατότητες για πολλά κοινά προβλήματα ανάλυσης δεδομένων. Με τον καιρό, θα δείτε αρκετά παράδειγματα κώδικα και θα διαβάσετε αρκετά την τεκμηρίωση, για να ξέρετε πού να ψάξετε, προκειμένου να ελέγξετε εάν κάποιος έχει ήδη γράψει κάτι που κάνει τη δουλειά σας πολύ πιο εύκολη.</p>
 <p>Η παρακάτω είναι μια συντομευμένη έκδοση της εξόδου:</p>
 <pre class="{text}"><code>Εισαγάγετε το όνομα του αρχείου: romeo-full.txt

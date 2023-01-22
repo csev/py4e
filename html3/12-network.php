@@ -8,150 +8,13 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
-  <style>
-    html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 1em;
-      }
-    }
-    @media print {
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
-      font-size: 85%;
-      margin: 0;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <title>Untitled</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="δικτυακά-προγράμματα">Δικτυακά προγράμματα</h1>
@@ -184,7 +47,7 @@ while True:
 
 mysock.close()
 
-# Code: http://www.gr.py4e.com/code3/socket1.py</code></pre>
+# Code: http://www.py4e.com/code3/socket1.py</code></pre>
 <p>Πρώτα το πρόγραμμα κάνει μια σύνδεση στη θύρα 80 του διακομιστή <a href="http://www.py4e.com">www.py4e.com</a>. Δεδομένου ότι το πρόγραμμά μας παίζει το ρόλο του “περιηγητή Ιστού”, το πρωτόκολλο HTTP λέει ότι πρέπει να στείλουμε την εντολή GET ακολουθούμενη από μια κενή γραμμή. Το <code>\r\n</code> σημαίνει EOL (τέλος γραμμής), οπότε το <code>\r\n\r\n</code> σημαίνει τίποτα ανάμεσα σε δύο ακολουθίες EOL. Αυτό είναι το ισοδύναμο μιας κενή γραμμής.</p>
 <figure>
 <img src="../images/socket.svg" alt="Μια σύνδεση Υποδοχής - Socket" style="height: 2.0in;"/>
@@ -256,7 +119,7 @@ fhand = open(&quot;stuff.jpg&quot;, &quot;wb&quot;)
 fhand.write(picture)
 fhand.close()
 
-# Code: http://www.gr.py4e.com/code3/urljpeg.py</code></pre>
+# Code: http://www.py4e.com/code3/urljpeg.py</code></pre>
 <p>Όταν το πρόγραμμα εκτελείται, παράγει την ακόλουθη έξοδο:</p>
 <pre class="{text}"><code>$ python urljpeg.py
 5120 5120
@@ -323,8 +186,8 @@ fhand = urllib.request.urlopen(&#39;http://data.pr4e.org/romeo.txt&#39;)
 for line in fhand:
     print(line.decode().strip())
 
-# Code: http://www.gr.py4e.com/code3/urllib1.py</code></pre>
-<p>Μόλις ανοίξει η ιστοσελίδα με το <code>urllib.urlopen</code>, μπορούμε να την αντιμετωπίσουμε σαν αρχείο και να την διαβάσουμε χρησιμοποιώντας έναν βρόχο <code>for</code>.</p>
+# Code: http://www.py4e.com/code3/urllib1.py</code></pre>
+<p>Μόλις ανοίξει η ιστοσελίδα με το <code>urllib.request.urlopen</code>, μπορούμε να την αντιμετωπίσουμε σαν αρχείο και να την διαβάσουμε χρησιμοποιώντας έναν βρόχο <code>for</code>.</p>
 <p>Όταν εκτελείται το πρόγραμμα, βλέπουμε μόνο την έξοδο των περιεχομένων του αρχείου. Οι κεφαλίδες εξακολουθούν να αποστέλλονται, αλλά ο κωδικός <code>urllib</code> δεσμέβει τις κεφαλίδες και επιστρέφει μόνο τα δεδομένα σε εμάς.</p>
 <pre class="{text}"><code>But soft what light through yonder window breaks
 It is the east and Juliet is the sun
@@ -342,7 +205,7 @@ for γραμμή in fhand:
         πλήθη[λέξη] = πλήθη.get(λέξη, 0) + 1
 print(πλήθη)
 
-# Code: http://www.gr.py4e.com/code3/urlwords.py</code></pre>
+# Code: http://www.py4e.com/code3/urlwords.py</code></pre>
 <p>Και πάλι, μόλις ανοίξουμε την ιστοσελίδα, μπορούμε να τη διαβάσουμε σαν τοπικό αρχείο.</p>
 <h2 id="ανάγνωση-δυαδικών-αρχείων-χρησιμοποιώντας-το-urllib">Ανάγνωση δυαδικών αρχείων χρησιμοποιώντας το <code>urllib</code></h2>
 <p>Μερικές φορές θέλετε να ανακτήσετε ένα αρχείο μη-κειμένου (ή δυαδικό), όπως ένα αρχείο εικόνας ή βίντεο. Τα δεδομένα σε αυτά τα αρχεία γενικά δεν έχουν νόημα να εκτυπωθούν, αλλά με τη βοήθειά τους και χρησιμοποιώντας το <code>urllib</code> μπορείτε εύκολα να δημιουργήσετε ένα αντίγραφο μιας διεύθυνσης URL σε ένα τοπικό αρχείο, στον σκληρό σας δίσκο.</p>
@@ -355,8 +218,8 @@ fhand = open(&#39;cover3.jpg&#39;, &#39;wb&#39;)
 fhand.write(img)
 fhand.close()
 
-# Code: http://www.gr.py4e.com/code3/curl1.py</code></pre>
-<p>Αυτό το πρόγραμμα διαβάζει όλα τα δεδομένα ταυτόχρονα, μέσω του δικτύου, και τα αποθηκεύει στη μεταβλητή <code>img</code>, στην κύρια μνήμη του υπολογιστή σας, στη συνέχεια ανοίγει το αρχείο <code>cover.jpg</code> και εγγράφει τα δεδομένα στο δίσκο σας. Το όρισμα <code>wb</code>, στο <code>open()</code>, ανοίγει ένα δυαδικό αρχείο μόνο για εγγραφή. Αυτό το πρόγραμμα θα λειτουργήσει μόν εάν το μέγεθος του αρχείου είναι μικρότερο από το μέγεθος της μνήμης του υπολογιστή σας.</p>
+# Code: http://www.py4e.com/code3/curl1.py</code></pre>
+<p>Αυτό το πρόγραμμα διαβάζει όλα τα δεδομένα ταυτόχρονα, μέσω του δικτύου, και τα αποθηκεύει στη μεταβλητή <code>img</code>, στην κύρια μνήμη του υπολογιστή σας, στη συνέχεια ανοίγει το αρχείο <code>cover3.jpg</code> και εγγράφει τα δεδομένα στο δίσκο σας. Το όρισμα <code>wb</code>, στο <code>open()</code>, ανοίγει ένα δυαδικό αρχείο μόνο για εγγραφή. Αυτό το πρόγραμμα θα λειτουργήσει μόν εάν το μέγεθος του αρχείου είναι μικρότερο από το μέγεθος της μνήμης του υπολογιστή σας.</p>
 <p>Ωστόσο, εάν πρόκειται για μεγάλο αρχείο ήχου ή βίντεο, αυτό το πρόγραμμα ενδέχεται να διακοπεί ή τουλάχιστον να εκτελείται εξαιρετικά αργά όταν η μνήμη του υπολογιστή σας εξαντληθεί. Προκειμένου να αποφευχθεί η εξάντληση της μνήμης, ανακτούμε τα δεδομένα σε μπλοκ (ή buffers) και στη συνέχεια γράφουμε κάθε μπλοκ στον δίσκο μας, πριν ανακτήσουμε το επόμενο μπλοκ. Με αυτόν τον τρόπο το πρόγραμμα μπορεί να διαβάσει αρχεία οποιουδήποτε μεγέθους χωρίς να χρησιμοποιεί όλη τη μνήμη που έχει ο υπολογιστή σας.</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
 
@@ -372,8 +235,8 @@ while True:
 print(size, &#39;χαρακτήρες αντιγράφηκαν.&#39;)
 fhand.close()
 
-# Code: http://www.gr.py4e.com/code3/curl2.py</code></pre>
-<p>Σε αυτό το παράδειγμα, διαβάζουμε μόνο 100.000 χαρακτήρες κάθε φορά και στη συνέχεια γράφουμε αυτούς τους χαρακτήρες στο αρχείο <code>cover.jpg</code>, πριν ανακτήσουμε τους επόμενους 100.000 χαρακτήρες δεδομένων από τον ιστό.</p>
+# Code: http://www.py4e.com/code3/curl2.py</code></pre>
+<p>Σε αυτό το παράδειγμα, διαβάζουμε μόνο 100.000 χαρακτήρες κάθε φορά και στη συνέχεια γράφουμε αυτούς τους χαρακτήρες στο αρχείο <code>cover3.jpg</code>, πριν ανακτήσουμε τους επόμενους 100.000 χαρακτήρες δεδομένων από τον ιστό.</p>
 <p>Αυτό το πρόγραμμα εκτελείται ως εξής:</p>
 <pre class="{text}"><code>python curl2.py
 230210 χαρακτήρες αντιγράφηκαν.</code></pre>
@@ -414,7 +277,7 @@ links = re.findall(b&#39;href=&quot;(http[s]?://.*?)&quot;&#39;, html)
 for link in links:
     print(link.decode())
 
-# Code: http://www.gr.py4e.com/code3/urlregex.py</code></pre>
+# Code: http://www.py4e.com/code3/urlregex.py</code></pre>
 <p>Η βιβλιοθήκη <code>ssl</code> επιτρέπει σε αυτό το πρόγραμμα να έχει πρόσβαση σε ιστότοπους που επιβάλλουν αυστηρά το HTTPS. Η μέθοδος <code>read</code> επιστρέφει τον πηγαίο κώδικα HTML ως αντικείμενο bytes αντί να επιστρέφει ένα αντικείμενο HTTPResponse. Η μέθοδος κανονικής έκφρασης <code>findall</code> θα μας δώσει μια λίστα με όλες τις συμβολοσειρές που ταιριάζουν με την κανονική μας έκφραση, επιστρέφοντας μόνο το κείμενο σύνδεσης μεταξύ των διπλών εισαγωγικών.</p>
 <p>Όταν εκτελούμε το πρόγραμμα και εισάγουμε μια διεύθυνση URL, έχουμε την ακόλουθη έξοδο:</p>
 <pre class="{text}"><code>Εισάγετε - https://docs.python.org
@@ -436,7 +299,7 @@ http://sphinx.pocoo.org/</code></pre>
 <p>Αυτό μπορεί να λυθεί χρησιμοποιώντας μια ισχυρή βιβλιοθήκη ανάλυσης HTML.</p>
 <h2 id="ανάλυση-html-χρησιμοποιώντας-το-beautifulsoup">Ανάλυση HTML χρησιμοποιώντας το BeautifulSoup</h2>
 <p></p>
-<p>Παρόλο που η HTML μοιάζει με την XML<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> και ορισμένες σελίδες έχουν κατασκευαστεί προσεκτικά ώστε να είναι XML, οι περισσότερες σελίδες HTML γενικά περιέχουν σφάλματα τέτοια που αναγκάζουν έναν αναλυτή XML να απορρίψει ολόκληρη τη σελίδα του HTML ως ακατάλληλα σχηματισμένη.</p>
+<p>Παρόλο που η HTML μοιάζει με την XML<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> και ορισμένες σελίδες έχουν κατασκευαστεί προσεκτικά ώστε να είναι XML, οι περισσότερες σελίδες HTML γενικά περιέχουν σφάλματα τέτοια που αναγκάζουν έναν αναλυτή XML να απορρίψει ολόκληρη τη σελίδα του HTML ως ακατάλληλα σχηματισμένη.</p>
 <p>Υπάρχει ένας αριθμός βιβλιοθηκών Python που μπορούν να σας βοηθήσουν να αναλύσετε HTML και να εξαγάγετε δεδομένα από σελίδες. Κάθε μία από αυτές τις βιβλιοθήκες έχει τα δυνατά και τα αδύνατα σημεία της και μπορείτε να επιλέξετε κάποια, με βάση τις ανάγκες σας.</p>
 <p>Ως παράδειγμα, θα χρησιμοποιήσουμε τη βιβλιοθήκη <em>BeautifulSoup</em> και απλώς θα αναλύσουμε ορισμένες εισόδους HTML και θα εξαγάγουμε συνδέσμους. Η BeautifulSoup ανέχεται εξαιρετικά ελαττωματικό HTML και εξακολουθεί να σας επιτρέπει να εξαγάγετε εύκολα τα δεδομένα που χρειάζεστε. Μπορείτε να κατεβάσετε και να εγκαταστήσετε τον κώδικα BeautifulSoup από:</p>
 <p><a href="https://pypi.python.org/pypi/beautifulsoup4" class="uri">https://pypi.python.org/pypi/beautifulsoup4</a></p>
@@ -466,7 +329,7 @@ tags = soup(&#39;a&#39;)
 for tag in tags:
     print(tag.get(&#39;href&#39;, None))
 
-# Code: http://www.gr.py4e.com/code3/urllinks.py</code></pre>
+# Code: http://www.py4e.com/code3/urllinks.py</code></pre>
 <p>Το πρόγραμμα ζητά μια διεύθυνση ιστού, στη συνέχεια ανοίγει την ιστοσελίδα, διαβάζει τα δεδομένα και μεταβιβάζει τα δεδομένα στον αναλυτή BeautifulSoup και, στη συνέχεια, ανακτά όλες τις ετικέτες αγκύρωσης και εκτυπώνει το χαρακτηριστικό <code>href</code> για κάθε ετικέτα.</p>
 <p>Όταν το πρόγραμμα εκτελείται, παράγει την ακόλουθη έξοδο:</p>
 <pre class="{text}"><code>Εισάγετε - https://docs.python.org
@@ -513,7 +376,7 @@ copyright.html
 https://www.python.org/psf/donations/
 bugs.html
 http://sphinx.pocoo.org/</code></pre>
-<p>Αυτή η λίστα είναι πολύ μεγάλη επειδή ορισμένες ετικέτες αγκύρωσης HTML είναι σχετικές διαδρομές (π.χ. tutorial/index.html) ή αναφορές στη σελίδα (π.χ. ‘#’), που δεν περιλαμβάνουν “http://” ή “https:// », που αποτελούσε απαίτησή μας όταν χρησιμοποιήσαμε κανονική έκφραση.</p>
+<p>Αυτή η λίστα είναι πολύ μεγάλη επειδή ορισμένες ετικέτες αγκύρωσης HTML είναι σχετικές διαδρομές (π.χ. tutorial/index.html) ή αναφορές στη σελίδα (π.χ. ‘#’), που δεν περιλαμβάνουν “http://” ή "https:// », που αποτελούσε απαίτησή μας όταν χρησιμοποιήσαμε κανονική έκφραση.</p>
 <p>Μπορείτε επίσης να χρησιμοποιήσετε το BeautifulSoup για να βγάλετε διάφορα μέρη κάθε ετικέτας:</p>
 <pre class="python"><code># Για να το εκτελέσετε, κάντε λήψη του αρχείου zip BeautifulSoup
 # από  http://www.py4e.com/code3/bs4.zip
@@ -541,7 +404,7 @@ for tag in tags:
     print(&#39;Contents:&#39;, tag.contents[0])
     print(&#39;Attrs:&#39;, tag.attrs)
 
-# Code: http://www.gr.py4e.com/code3/urllink2.py</code></pre>
+# Code: http://www.py4e.com/code3/urllink2.py</code></pre>
 <pre class="{text}"><code>python urllink2.py
 Εισάγετε - http://www.dr-chuck.com/page1.htm
 TAG: &lt;a href=&quot;http://www.dr-chuck.com/page2.htm&quot;&gt;
@@ -585,10 +448,10 @@ Attrs: [(&#39;href&#39;, &#39;http://www.dr-chuck.com/page2.htm&#39;)]</code></p
 <p><strong>Άσκηση 3: Χρησιμοποιήστε το <code>urllib</code> για να αναπαραγάγετε την προηγούμενη άσκηση ώστε (1) να ανακτά το έγγραφο από μια διεύθυνση URL, (2) να εμφανίζει έως 3000 χαρακτήρες και (3) να μετρά τον συνολικό αριθμό χαρακτήρων στο έγγραφο. Μην ανησυχείτε για τις κεφαλίδες σε αυτήν την άσκηση, απλώς εμφανίστε τους πρώτους 3000 χαρακτήρες του περιεχομένου του εγγράφου.</strong></p>
 <p><strong>Άσκηση 4: Αλλάξτε το πρόγραμμα <code>urllinks.py</code> για να εξαγάγετε και να μετρήσετε τις ετικέτες παραγράφου (p) από το ανακτηθέν έγγραφο HTML και να εμφανίσετε την καταμέτρηση των παραγράφων ως έξοδο του προγράμματός σας. Μην εμφανίσετε το κείμενο των παραγράφων, μόνο μετρήστε τις. Δοκιμάστε το πρόγραμμά σας σε πολλές μικρές ιστοσελίδες καθώς και σε ορισμένες μεγαλύτερες ιστοσελίδες.</strong></p>
 <p><strong>Άσκηση 5: (Για προχωρημένους) Αλλάξτε το πρόγραμμα υποδοχής έτσι ώστε να εμφανίζει δεδομένα μόνο αφού ληφθούν οι κεφαλίδες και μια κενή γραμμή. Να θυμάστε ότι το <code>recv</code> λαμβάνει χαρακτήρες (νέες γραμμές και όλους), όχι γραμμές.</strong></p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Η μορφή XML περιγράφεται στο επόμενο κεφάλαιο.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Η μορφή XML περιγράφεται στο επόμενο κεφάλαιο.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 </body>

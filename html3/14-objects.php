@@ -8,171 +8,34 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
-  <style>
-    html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 1em;
-      }
-    }
-    @media print {
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
-      font-size: 85%;
-      margin: 0;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <title>Untitled</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
-<h1 id="object-oriented-programming">Object-oriented programming</h1>
-<h2 id="managing-larger-programs">Managing larger programs</h2>
-<p></p>
-<p>At the beginning of this book, we came up with four basic programming patterns which we use to construct programs:</p>
+<h1 id="αντικειμενοστραφής-προγραμματισμός">Αντικειμενοστραφής προγραμματισμός</h1>
+<h2 id="διαχείριση-μεγαλύτερων-προγραμμάτων">Διαχείριση μεγαλύτερων προγραμμάτων</h2>
+<p> </p>
+<p>Στην αρχή αυτού του βιβλίου, καταλήξαμε σε τέσσερα βασικά μοτίβα προγραμματισμού τα οποία χρησιμοποιούμε για την κατασκευή προγραμμάτων:</p>
 <ul>
-<li>Sequential code</li>
-<li>Conditional code (if statements)</li>
-<li>Repetitive code (loops)</li>
-<li>Store and reuse (functions)</li>
+<li>Δομή ακολουθίας</li>
+<li>Δομή επιλογής (εντολές if)</li>
+<li>Δομή επανάληψης (βρόχοι)</li>
+<li>Αποθήκευση και επαναχρησιμοποίηση (συναρτήσεις)</li>
 </ul>
-<p>In later chapters, we explored simple variables as well as collection data structures like lists, tuples, and dictionaries.</p>
-<p>As we build programs, we design data structures and write code to manipulate those data structures. There are many ways to write programs and by now, you probably have written some programs that are “not so elegant” and other programs that are “more elegant”. Even though your programs may be small, you are starting to see how there is a bit of art and aesthetic to writing code.</p>
-<p>As programs get to be millions of lines long, it becomes increasingly important to write code that is easy to understand. If you are working on a million-line program, you can never keep the entire program in your mind at the same time. We need ways to break large programs into multiple smaller pieces so that we have less to look at when solving a problem, fix a bug, or add a new feature.</p>
-<p>In a way, object oriented programming is a way to arrange your code so that you can zoom into 50 lines of the code and understand it while ignoring the other 999,950 lines of code for the moment.</p>
-<h2 id="getting-started">Getting started</h2>
-<p>Like many aspects of programming, it is necessary to learn the concepts of object oriented programming before you can use them effectively. You should approach this chapter as a way to learn some terms and concepts and work through a few simple examples to lay a foundation for future learning.</p>
-<p>The key outcome of this chapter is to have a basic understanding of how objects are constructed and how they function and most importantly how we make use of the capabilities of objects that are provided to us by Python and Python libraries.</p>
-<h2 id="using-objects">Using objects</h2>
-<p>As it turns out, we have been using objects all along in this book. Python provides us with many built-in objects. Here is some simple code where the first few lines should feel very simple and natural to you.</p>
+<p>Σε επόμενα κεφάλαια, εξερευνήσαμε απλές μεταβλητές καθώς και δομές δεδομένων συλλογής όπως λίστες, πλειάδες και λεξικά.</p>
+<p>Καθώς κατασκευάζουμε προγράμματα, σχεδιάζουμε δομές δεδομένων και γράφουμε κώδικα για να χειριστούμε αυτές τις δομές δεδομένων. Υπάρχουν πολλοί τρόποι για να γράψετε προγράμματα και μέχρι τώρα, πιθανότατα έχετε γράψει κάποια προγράμματα που “δεν ήταν τόσο κομψά” και άλλα προγράμματα που ήταν “πιο κομψά”. Παρόλο που τα προγράμματά σας μπορεί να είναι μικρά, αρχίζετε να βλέπετε πως η σύνταξη κώδικα εμπεριέχει και λίγη τέχνη και αισθητική.</p>
+<p>Καθώς τα προγράμματα φτάνουν το μήκος εκατομμυρίων γραμμών, γίνεται όλο και πιο σημαντικό να γράφουμε κώδικα που είναι εύκολο να κατανοηθεί. Εάν εργάζεστε σε ένα πρόγραμμα εκατομμυρίων γραμμών, δεν μπορείτε ποτέ να κρατήσετε ολόκληρο το πρόγραμμα στο μυαλό σας ταυτόχρονα. Χρειαζόμαστε τρόπους για να χωρίσουμε μεγάλα προγράμματα σε πολλά μικρότερα κομμάτια, ώστε να έχουμε λιγότερα να εξετάσουμε κατά την επίλυση ενός προβλήματος, τη διόρθωση ενός σφάλματος ή την προσθήκη μιας νέας δυνατότητας.</p>
+<p>Κατά κάποιον τρόπο, ο αντικειμενοστραφής προγραμματισμός είναι ένας τρόπος για να τακτοποιήσετε τον κώδικά σας έτσι ώστε να μπορείτε να εστιάσετε σε 50 γραμμές του κώδικα και να τον κατανοήσετε, ενώ αγνοείτε τις άλλες 999.950 γραμμές, προς το παρόν.</p>
+<h2 id="ξεκινώντας">Ξεκινώντας</h2>
+<p>Όπως και σε πολλές άλλες πτυχές του προγραμματισμού, είναι απαραίτητο να μάθετε τις έννοιες του αντικειμενοστρεφούς προγραμματισμού προτού μπορέσετε να τις χρησιμοποιήσετε αποτελεσματικά. Θα πρέπει να προσεγγίσετε αυτό το κεφάλαιο ως έναν τρόπο για να μάθετε ορισμένους όρους και έννοιες και να επεξεργαστείτε μερικά απλά παραδείγματα, για να θέσετε τα θεμέλια της μελλοντικής μάθησης.</p>
+<p>Το βασικό που πρέπει να αποκομήσετε από αυτό το κεφαλαίο είναι να αποκτήσετε μια στοιχειώδη κατανόηση του πώς κατασκευάζονται τα αντικείμενα και πώς λειτουργούν και κυρίως πώς χρησιμοποιούμε τις δυνατότητες των αντικειμένων, που μας παρέχονται από την Python και τις βιβλιοθήκες της Python.</p>
+<h2 id="χρήση-αντικειμένων">Χρήση αντικειμένων</h2>
+<p>Όπως αποδεικνύεται, χρησιμοποιούσαμε αντικείμενα σε αυτό το βιβλίο. Η Python μας παρέχει πολλά ενσωματωμένα αντικείμενα. Εδώ είναι ένας απλός κώδικας όπου οι πρώτες γραμμές θα πρέπει να σας φαίνονται πολύ απλές και φυσικές.</p>
 <p></p>
 <pre class="python"><code>stuff = list()
 stuff.append(&#39;python&#39;)
@@ -183,98 +46,98 @@ print (stuff.__getitem__(0))
 print (list.__getitem__(stuff,0))
 
 # Code: http://www.py4e.com/code3/party1.py</code></pre>
-<p>Instead of focusing on what these lines accomplish, let’s look at what is really happening from the point of view of object-oriented programming. Don’t worry if the following paragraphs don’t make any sense the first time you read them because we have not yet defined all of these terms.</p>
-<p>The first line <em>constructs</em> an object of type <code>list</code>, the second and third lines <em>call</em> the <code>append()</code> <em>method</em>, the fourth line calls the <code>sort()</code> method, and the fifth line <em>retrieves</em> the item at position 0.</p>
-<p>The sixth line calls the <code>__getitem__()</code> method in the <code>stuff</code> list with a parameter of zero.</p>
+<p>Αντί να εστιάσουμε στο τι επιτυγχάνουν αυτές οι γραμμές, ας δούμε τι πραγματικά συμβαίνει, από την άποψη του αντικειμενοστρεφούς προγραμματισμού. Μην ανησυχείτε εάν οι παρακάτω παράγραφοι δεν έχουν νόημα την πρώτη φορά που τις διαβάζετε, επειδή δεν έχουμε ορίσει ακόμη όλους αυτούς τους όρους.</p>
+<p>Η πρώτη γραμμή <em>κατασκευάζει</em> ένα αντικείμενο τύπου <code>list</code> (λίστα), η δεύτερη και η τρίτη γραμμή <em>καλούν</em> τη <em>μέθοδο</em> <code>append()</code>, η τέταρτη γραμμή καλεί τη μέθοδο <code>sort()</code> και η πέμπτη γραμμή <em>ανακτά</em> το στοιχείο στη θέση 0.</p>
+<p>Η έκτη γραμμή καλεί τη μέθοδο <code>__getitem__()</code> στη λίστα <code>stuff</code> με παράμετρο μηδέν.</p>
 <pre class="python"><code>print (stuff.__getitem__(0))</code></pre>
-<p>The seventh line is an even more verbose way of retrieving the 0th item in the list.</p>
+<p>Η έβδομη γραμμή είναι ένας ακόμη πιο αναλυτικός τρόπος ανάκτησης του 0ου στοιχείου στη λίστα.</p>
 <pre class="python"><code>print (list.__getitem__(stuff,0))</code></pre>
-<p>In this code, we call the <code>__getitem__</code> method in the <code>list</code> class and <em>pass</em> the list and the item we want retrieved from the list as parameters.</p>
-<p>The last three lines of the program are equivalent, but it is more convenient to simply use the square bracket syntax to look up an item at a particular position in a list.</p>
-<p>We can take a look at the capabilities of an object by looking at the output of the <code>dir()</code> function:</p>
-<pre><code>&gt;&gt;&gt; stuff = list()
-&gt;&gt;&gt; dir(stuff)
-[&#39;__add__&#39;, &#39;__class__&#39;, &#39;__contains__&#39;, &#39;__delattr__&#39;,
-&#39;__delitem__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;,
-&#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__getitem__&#39;,
-&#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__iadd__&#39;, &#39;__imul__&#39;, &#39;__init__&#39;,
-&#39;__iter__&#39;, &#39;__le__&#39;, &#39;__len__&#39;, &#39;__lt__&#39;, &#39;__mul__&#39;,
-&#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;,
-&#39;__repr__&#39;, &#39;__reversed__&#39;, &#39;__rmul__&#39;, &#39;__setattr__&#39;,
-&#39;__setitem__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;,
-&#39;append&#39;, &#39;clear&#39;, &#39;copy&#39;, &#39;count&#39;, &#39;extend&#39;, &#39;index&#39;,
-&#39;insert&#39;, &#39;pop&#39;, &#39;remove&#39;, &#39;reverse&#39;, &#39;sort&#39;]
-&gt;&gt;&gt;</code></pre>
-<p>The rest of this chapter will define all of the above terms so make sure to come back after you finish the chapter and re-read the above paragraphs to check your understanding.</p>
-<h2 id="starting-with-programs">Starting with programs</h2>
-<p>A program in its most basic form takes some input, does some processing, and produces some output. Our elevator conversion program demonstrates a very short but complete program showing all three of these steps.</p>
+<p>Σε αυτόν τον κώδικα, καλούμε τη μέθοδο <code>__getitem__</code> στην κλάση <code>list</code> και <em>περνάμε</em> τη λίστα και το στοιχείο, που θέλουμε να ανακτηθεί από τη λίστα, ως παραμέτρους.</p>
+<p>Οι τρεις τελευταίες γραμμές του προγράμματος είναι ισοδύναμες, αλλά είναι πιο βολικό να χρησιμοποιήσετε απλώς τη σύνταξη της αγκύλης, για να ζητήσετε ένα στοιχείο σε μια συγκεκριμένη θέση μιας λίστας.</p>
+<p>Μπορούμε να ρίξουμε μια ματιά στις δυνατότητες ενός αντικειμένου κοιτάζοντας την έξοδο της συνάρτησης <code>dir()</code>:</p>
+<pre class="{text}"><code>    &gt;&gt;&gt; stuff = list()
+    &gt;&gt;&gt; dir(stuff)
+    [&#39;__add__&#39;, &#39;__class__&#39;, &#39;__contains__&#39;, &#39;__delattr__&#39;,
+    &#39;__delitem__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;,
+    &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__getitem__&#39;,
+    &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__iadd__&#39;, &#39;__imul__&#39;, &#39;__init__&#39;,
+    &#39;__iter__&#39;, &#39;__le__&#39;, &#39;__len__&#39;, &#39;__lt__&#39;, &#39;__mul__&#39;,
+    &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;,
+    &#39;__repr__&#39;, &#39;__reversed__&#39;, &#39;__rmul__&#39;, &#39;__setattr__&#39;,
+    &#39;__setitem__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;,
+    &#39;append&#39;, &#39;clear&#39;, &#39;copy&#39;, &#39;count&#39;, &#39;extend&#39;, &#39;index&#39;,
+    &#39;insert&#39;, &#39;pop&#39;, &#39;remove&#39;, &#39;reverse&#39;, &#39;sort&#39;]
+    &gt;&gt;&gt;</code></pre>
+<p>Το υπόλοιπο αυτού του κεφαλαίου θα ορίσει όλους τους παραπάνω όρους, επομένως φροντίστε να επιστρέψετε αφού ολοκληρώσετε το κεφάλαιο και να διαβάσετε ξανά τις παραπάνω παραγράφους για να ελέγξετε την κατανόησή σας.</p>
+<h2 id="ξεκινώντας-με-προγράμματα">Ξεκινώντας με προγράμματα</h2>
+<p>Ένα πρόγραμμα στην πιο βασική του μορφή παίρνει κάποια είσοδο, κάνει κάποια επεξεργασία και παράγει κάποια έξοδο. Το πρόγραμμα μετατροπής ανελκυστήρα αποτελεί ένα πολύ σύντομο, αλλά πλήρες πρόγραμμα, που δείχνει και τα τρία αυτά βήματα.</p>
 <pre class="python"><code>usf = input(&#39;Enter the US Floor Number: &#39;)
 wf = int(usf) - 1
 print(&#39;Non-US Floor Number is&#39;,wf)
 
 # Code: http://www.py4e.com/code3/elev.py</code></pre>
-<p>If we think a bit more about this program, there is the “outside world” and the program. The input and output aspects are where the program interacts with the outside world. Within the program we have code and data to accomplish the task the program is designed to solve.</p>
+<p>Αν σκεφτούμε λίγο περισσότερο αυτό το πρόγραμμα, υπάρχει ο “έξω κόσμος” και το πρόγραμμα. Οι πτυχές εισόδου και εξόδου είναι εκεί όπου το πρόγραμμα αλληλεπιδρά με τον έξω κόσμο. Μέσα στο πρόγραμμα έχουμε κώδικα και δεδομένα για να ολοκληρώσουμε την εργασία, που έχει σχεδιαστεί για να λύσει το πρόγραμμα.</p>
 <figure>
-<img src="../images/program.svg" alt="A Program" style="height: 1.20in;"/>
+<img src="../images/program.svg" alt="Ένα Πρόγραμμα" style="height: 1.20in;"/>
 <figcaption>
-A Program
+Ένα Πρόγραμμα
 </figcaption>
 </figure>
-<p>One way to think about object-oriented programming is that it separates our program into multiple “zones.” Each zone contains some code and data (like a program) and has well defined interactions with the outside world and the other zones within the program.</p>
-<p>If we look back at the link extraction application where we used the BeautifulSoup library, we can see a program that is constructed by connecting different objects together to accomplish a task:</p>
+<p>Ένας τρόπος να αντιληφθούμε τον αντικειμενοστραφή προγραμματισμό είναι ότι διαχωρίζει το πρόγραμμά μας σε πολλαπλές “ζώνες”. Κάθε ζώνη περιέχει κάποιο κώδικα και δεδομένα (όπως ένα πρόγραμμα) και έχει καλά καθορισμένες αλληλεπιδράσεις με τον έξω κόσμο και τις άλλες ζώνες εντός του προγράμματος.</p>
+<p>Αν ξανά κοιτάξουμε την εφαρμογή εξαγωγής συνδέσμων στην οποία χρησιμοποιήσαμε τη βιβλιοθήκη BeautifulSoup, μπορούμε να δούμε ένα πρόγραμμα που κατασκευάζεται συνδέοντας διαφορετικά αντικείμενα μεταξύ τους για να ολοκληρώσει μια εργασία:</p>
 <p>  </p>
-<pre class="python"><code># To run this, download the BeautifulSoup zip file
-# http://www.py4e.com/code3/bs4.zip
-# and unzip it in the same directory as this file
+<pre class="python"><code># Για να το εκτελέσετε, κάντε λήψη του αρχείου zip BeautifulSoup
+# από  http://www.py4e.com/code3/bs4.zip
+# και αποσυμπιέστε το στον ίδιο κατάλογο με αυτό το αρχείο
 
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
 import ssl
 
-# Ignore SSL certificate errors
+# Αγνόηση των σφαλμάτων πιστοποιητικού SSL
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-url = input(&#39;Enter - &#39;)
+url = input(&#39;Εισάγετε - &#39;)
 html = urllib.request.urlopen(url, context=ctx).read()
 soup = BeautifulSoup(html, &#39;html.parser&#39;)
 
-# Retrieve all of the anchor tags
+# Ανάκτηση όλων των ετικετών αγκύρωσης
 tags = soup(&#39;a&#39;)
 for tag in tags:
     print(tag.get(&#39;href&#39;, None))
 
 # Code: http://www.py4e.com/code3/urllinks.py</code></pre>
-<p>We read the URL into a string and then pass that into <code>urllib</code> to retrieve the data from the web. The <code>urllib</code> library uses the <code>socket</code> library to make the actual network connection to retrieve the data. We take the string that <code>urllib</code> returns and hand it to BeautifulSoup for parsing. BeautifulSoup makes use of the object <code>html.parser</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and returns an object. We call the <code>tags()</code> method on the returned object that returns a dictionary of tag objects. We loop through the tags and call the <code>get()</code> method for each tag to print out the <code>href</code> attribute.</p>
-<p>We can draw a picture of this program and how the objects work together.</p>
+<p>Διαβάζουμε τη διεύθυνση URL σε μια συμβολοσειρά και στη συνέχεια τη περνάμε στο “urllib” για να ανακτήσουμε τα δεδομένα από τον ιστό. Η βιβλιοθήκη <code>urllib</code> χρησιμοποιεί τη βιβλιοθήκη <code>socket</code> για να πραγματοποιήσει την σύνδεση δικτύου, για την ανάκτηση των δεδομένων. Παίρνουμε τη συμβολοσειρά που επιστρέφει το <code>urllib</code> και τη δίνουμε στη BeautifulSoup για ανάλυση. Η BeautifulSoup χρησιμοποιεί το αντικείμενο <code>html.parser</code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> και επιστρέφει ένα αντικείμενο. Καλούμε τη μέθοδο <code>tags()</code> στο επιστρεφόμενο αντικείμενο, που επιστρέφει ένα λεξικό αντικειμένων ετικετών. Με βρόχο διατρέχουμε τις ετικέτες και καλούμε τη μέθοδο <code>get()</code> για κάθε ετικέτα, για να εκτυπώσουμε το χαρακτηριστικό <code>href</code>.</p>
+<p>Μπορούμε να σχεδιάσουμε μια εικόνα αυτού του προγράμματος και πώς συνεργάζονται τα αντικείμενα.</p>
 <figure>
-<img src="../images/program-oo.svg" alt="A Program as Network of Objects" style="height: 1.50in;"/>
+<img src="../images/program-oo.svg" alt="Ένα πρόγραμμα ως Δίκτυο Αντικειμένων" style="height: 1.50in;"/>
 <figcaption>
-A Program as Network of Objects
+Ένα πρόγραμμα ως Δίκτυο Αντικειμένων
 </figcaption>
 </figure>
-<p>The key here is not to understand perfectly how this program works but to see how we build a network of interacting objects and orchestrate the movement of information between the objects to create a program. It is also important to note that when you looked at that program several chapters back, you could fully understand what was going on in the program without even realizing that the program was “orchestrating the movement of data between objects.” It was just lines of code that got the job done.</p>
-<h2 id="subdividing-a-problem">Subdividing a problem</h2>
-<p>One of the advantages of the object-oriented approach is that it can hide complexity. For example, while we need to know how to use the <code>urllib</code> and BeautifulSoup code, we do not need to know how those libraries work internally. This allows us to focus on the part of the problem we need to solve and ignore the other parts of the program.</p>
+<p>Το κλειδί εδώ δεν είναι να κατανοήσουμε τέλεια πώς λειτουργεί αυτό το πρόγραμμα, αλλά και να δούμε πώς χτίζουμε ένα δίκτυο αλληλεπιδρώντων αντικειμένων και ενορχηστρώνουμε την κίνηση των πληροφοριών μεταξύ των αντικειμένων για να δημιουργήσουμε ένα πρόγραμμα. Είναι επίσης σημαντικό να σημειωθεί ότι όταν κοιτάξατε αυτό το πρόγραμμα αρκετά κεφάλαια πίσω, μπορούσατε να καταλάβετε πλήρως τι συνέβαινε στο πρόγραμμα χωρίς καν να συνειδητοποιήσετε ότι το πρόγραμμα “ενορχηστρώνει την κίνηση των δεδομένων μεταξύ αντικειμένων”. Ήταν απλώς γραμμές κώδικα που έκαναν τη δουλειά τους.</p>
+<h2 id="υποδιαιρώντας-ένα-πρόβλημα">Υποδιαιρώντας ένα πρόβλημα</h2>
+<p>Ένα από τα πλεονεκτήματα της αντικειμενοστρεφούς προσέγγισης είναι ότι μπορεί να κρύψει την πολυπλοκότητα. Για παράδειγμα, ενώ πρέπει να γνωρίζουμε πώς να χρησιμοποιήσουμε τον κώδικα <code>urllib</code> και BeautifulSoup, δεν χρειάζεται να γνωρίζουμε πώς λειτουργούν αυτές οι βιβλιοθήκες εσωτερικά. Αυτό μας επιτρέπει να εστιάσουμε στο μέρος του προβλήματος που πρέπει να λύσουμε και να αγνοήσουμε τα άλλα μέρη του προγράμματος.</p>
 <figure>
-<img src="../images/program-oo-code.svg" alt="Ignoring Detail When Using an Object" style="height: 1.50in;"/>
+<img src="../images/program-oo-code.svg" alt="Παράβλεψη Λεπτομερειών Κατά τη Χρήση Αντικειμένου" style="height: 1.50in;"/>
 <figcaption>
-Ignoring Detail When Using an Object
+Παράβλεψη Λεπτομερειών Κατά τη Χρήση Αντικειμένου
 </figcaption>
 </figure>
-<p>This ability to focus exclusively on the part of a program that we care about and ignore the rest is also helpful to the developers of the objects that we use. For example, the programmers developing BeautifulSoup do not need to know or care about how we retrieve our HTML page, what parts we want to read, or what we plan to do with the data we extract from the web page.</p>
+<p>Αυτή η ικανότητα να εστιάζουμε αποκλειστικά στο μέρος ενός προγράμματος που μας ενδιαφέρει και να αγνοούμε τα υπόλοιπα είναι επίσης χρήσιμη στους προγραμματιστές των αντικειμένων που χρησιμοποιούμε. Για παράδειγμα, οι προγραμματιστές που ανέπτυξαν το BeautifulSoup δεν χρειαζόταν να γνωρίζουν ή να ενδιαφερθούν για το πώς ανακτούμε τη σελίδα HTML, ποια μέρη θέλουμε να διαβάσουμε ή τι σκοπεύουμε να κάνουμε με τα δεδομένα που εξάγουμε από την ιστοσελίδα.</p>
 <figure>
-<img src="../images/program-oo-bs4.svg" alt="Ignoring Detail When Building an Object" style="height: 1.50in;"/>
+<img src="../images/program-oo-bs4.svg" alt="Αγνοώντας τις Λεπτομέρειες Κατά την Κατασκευή ενός Αντικειμένου" style="height: 1.50in;"/>
 <figcaption>
-Ignoring Detail When Building an Object
+Αγνοώντας τις Λεπτομέρειες Κατά την Κατασκευή ενός Αντικειμένου
 </figcaption>
 </figure>
-<h2 id="our-first-python-object">Our first Python object</h2>
-<p>At a basic level, an object is simply some code plus data structures that are smaller than a whole program. Defining a function allows us to store a bit of code and give it a name and then later invoke that code using the name of the function.</p>
-<p>An object can contain a number of functions (which we call <em>methods</em>) as well as data that is used by those functions. We call data items that are part of the object <em>attributes</em>.</p>
+<h2 id="το-πρώτο-μας-αντικείμενο-python">Το πρώτο μας αντικείμενο Python</h2>
+<p>Σε ένα στοιχειώδες επίπεδο, ένα αντικείμενο είναι απλώς κάποιος κώδικας συν κάποιες δομές δεδομένων, που είναι μικρότερες από ένα ολοκληρωμένο πρόγραμμα. Ο ορισμός μιας συνάρτησης μας επιτρέπει να αποθηκεύσουμε ένα κομμάτι κώδικα, να του δώσουμε ένα όνομα και στη συνέχεια να καλέσουμε αυτόν τον κωδικό, χρησιμοποιώντας το όνομα της συνάρτησης.</p>
+<p>Ένα αντικείμενο μπορεί να περιέχει έναν αριθμό συναρτήσεων (τις οποίες ονομάζουμε <em>μεθόδους</em>) καθώς και δεδομένα, που χρησιμοποιούνται από αυτές τις συναρτήσεις. Καλούμε <em>χαρακτηριστικά</em> τα στοιχεία δεδομένων, που αποτελούν μέρος του αντικειμένου.</p>
 <p></p>
-<p>We use the <code>class</code> keyword to define the data and code that will make up each of the objects. The class keyword includes the name of the class and begins an indented block of code where we include the attributes (data) and methods (code).</p>
+<p>Χρησιμοποιούμε τη δεσμευμένη λέξη <code>class</code> για να ορίσουμε τα δεδομένα και τον κώδικα που θα αποτελέσουν κάθε ένα από τα αντικείμενα. Η δεσμευμένη λέξη class ακολουθήτε από το όνομα της κλάσης και οριοθετεί ένα μπλοκ κώδικα, με εσοχή, όπου συμπεριλαμβάνουμε τα χαρακτηριστικά (δεδομένα) και τις μεθόδους (κώδικας).</p>
 <pre class="python"><code>class PartyAnimal:
    x = 0
 
@@ -289,38 +152,38 @@ an.party()
 PartyAnimal.party(an)
 
 # Code: http://www.py4e.com/code3/party2.py</code></pre>
-<p>Each method looks like a function, starting with the <code>def</code> keyword and consisting of an indented block of code. This object has one attribute (<code>x</code>) and one method (<code>party</code>). The methods have a special first parameter that we name by convention <code>self</code>.</p>
-<p>Just as the <code>def</code> keyword does not cause function code to be executed, the <code>class</code> keyword does not create an object. Instead, the <code>class</code> keyword defines a template indicating what data and code will be contained in each object of type <code>PartyAnimal</code>. The class is like a cookie cutter and the objects created using the class are the cookies<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. You don’t put frosting on the cookie cutter; you put frosting on the cookies, and you can put different frosting on each cookie.</p>
+<p>Στο παραπάνω παράδειγμα, κάθε μέθοδος μοιάζει με μια συνάρτηση, που ξεκινά με τη δεσμευμένη λέξη <code>def</code> και αποτελείται από ένα μπλοκ κώδικα με εσοχή. Αυτό το αντικείμενο έχει ένα χαρακτηριστικό (<code>x</code>) και μία μέθοδο (<code>party</code>). Οι μέθοδοι έχουν μια ειδική πρώτη παράμετρο που ονομάζουμε κατά σύμβαση <code>self</code>.</p>
+<p>Ακριβώς όπως η δεσμευμένη λέξη <code>def</code> δεν προκαλεί την εκτέλεση του κώδικα συνάρτησης, έτσι και η δεσμευμένη λέξη <code>class</code> δεν δημιουργεί κάποιο αντικείμενο. Αντίθετα, η δεσμευμένη λέξη <code>class</code> ορίζει ένα πρότυπο, που υποδεικνύει ποια δεδομένα και κώδικας θα περιέχονται σε κάθε αντικείμενο τύπου <code>PartyAnimal</code>. Η κλάση είναι σαν κόφτης (κουπάτ) μπισκότων και τα αντικείμενα που δημιουργούνται χρησιμοποιώντας την κλάση είναι τα μπισκότα<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. Δεν βάζετε γλάσο στον κόφτη μπισκότων, βάζετε γλάσο στα μπισκότα και μπορείτε να βάλετε διαφορετικό γλάσο σε κάθε μπισκότο.</p>
 <figure>
-<img src="../photos/cookie_cutter_flickr_Didriks.png" alt="A Class and Two Objects" style="height: 2.0in;"/>
+<img src="../photos/cookie_cutter_flickr_Didriks.png" alt="Μια Κλάση και Δύο Αντικείμενα" style="height: 2.0in;"/>
 <figcaption>
-A Class and Two Objects
+Μια Κλάση και Δύο Αντικείμενα
 </figcaption>
 </figure>
-<p>If we continue through this sample program, we see the first executable line of code:</p>
+<p>Εάν διατρέξουμε αυτό το δείγμα προγράμματος, εντοπίζουμε την πρώτη εκτελέσιμη γραμμή κώδικα:</p>
 <pre class="python"><code>an = PartyAnimal()</code></pre>
-<p>   </p>
-<p>This is where we instruct Python to construct (i.e., create) an <em>object</em> or <em>instance</em> of the class <code>PartyAnimal</code>. It looks like a function call to the class itself. Python constructs the object with the right data and methods and returns the object which is then assigned to the variable <code>an</code>. In a way this is quite similar to the following line which we have been using all along:</p>
-<pre class="python"><code>counts = dict()</code></pre>
-<p>Here we instruct Python to construct an object using the <code>dict</code> template (already present in Python), return the instance of dictionary, and assign it to the variable <code>counts</code>.</p>
-<p>When the <code>PartyAnimal</code> class is used to construct an object, the variable <code>an</code> is used to point to that object. We use <code>an</code> to access the code and data for that particular instance of the <code>PartyAnimal</code> class.</p>
-<p>Each Partyanimal object/instance contains within it a variable <code>x</code> and a method/function named <code>party</code>. We call the <code>party</code> method in this line:</p>
+<p>      </p>
+<p>Εδώ δίνουμε εντολή στην Python να κατασκευάσει (δηλαδή, να δημιουργήσει) ένα <em>αντικείμενο</em> ή <em>στιγμιότυπο</em> της κλάσης <code>PartyAnimal</code>. Μοιάζει με μια κλήση συνάρτησης, προς την ίδια την κλάση. Η Python κατασκευάζει το αντικείμενο με τα σωστά δεδομένα και μεθόδους και επιστρέφει το αντικείμενο το οποίο στη συνέχεια εκχωρείται στη μεταβλητή <code>an</code>. Κατά κάποιο τρόπο αυτό μοιάζει αρκετά με την ακόλουθη γραμμή που χρησιμοποιούσαμε όλο το προηγούμενο διάστημα:</p>
+<pre class="python"><code>πλήθη = dict()</code></pre>
+<p>Εδώ δίνουμε εντολή στην Python να κατασκευάσει ένα αντικείμενο, χρησιμοποιώντας το πρότυπο <code>dict</code> (που υπάρχει ήδη στην Python), να επιστρέψει το στιγμιότυπο του λεξικού και να το αναθέσει στη μεταβλητή <code>πλήθη</code>.</p>
+<p>Όταν η κλάση <code>PartyAnimal</code> χρησιμοποιήθηκε για την κατασκευή ενός αντικειμένου, η μεταβλητή <code>an</code> χρησιμοποιήθηκε για να δείξει σε αυτό το αντικείμενο. Χρησιμοποιούμε το <code>an</code> για πρόσβαση στον κώδικα και τα δεδομένα του συγκεκριμένου στιγμιότυπου της κλάσης <code>PartyAnimal</code>.</p>
+<p>Κάθε αντικείμενο/στιγμιότυπο Partyanimal περιέχει μέσα του μια μεταβλητή <code>x</code> και μια μέθοδο/συνάρτηση με το όνομα <code>party</code>. Καλούμε τη μέθοδο <code>party</code> σε αυτή τη γραμμή:</p>
 <pre class="python"><code>an.party()</code></pre>
-<p>When the <code>party</code> method is called, the first parameter (which we call by convention <code>self</code>) points to the particular instance of the PartyAnimal object that <code>party</code> is called from. Within the <code>party</code> method, we see the line:</p>
+<p>Όταν καλείται η μέθοδος <code>party</code>, η πρώτη παράμετρος (την οποία ονομάζουμε κατά σύμβαση <code>self</code>) δείχνει τη συγκεκριμένη περίπτωση του αντικειμένου PartyAnimal για την οποία καλείται το <code>party</code>. Στη μέθοδο <code>party</code>, βλέπουμε τη γραμμή:</p>
 <pre class="python"><code>self.x = self.x + 1</code></pre>
-<p>This syntax using the <em>dot</em> operator is saying ‘the x within self.’ Each time <code>party()</code> is called, the internal <code>x</code> value is incremented by 1 and the value is printed out.</p>
-<p>The following line is another way to call the <code>party</code> method within the <code>an</code> object:</p>
+<p>Αυτή η σύνταξη, που χρησιμοποιεί τον τελεστή <em>dot</em> λέει ‘το x μέσα στο self’. Κάθε φορά που καλείται η <code>party()</code>, η εσωτερική τιμή του <code>x</code> αυξάνεται κατά 1 και η τιμή εκτυπώνεται.</p>
+<p>Η ακόλουθη γραμμή είναι ένας άλλος τρόπος για να καλέσετε τη μέθοδο <code>party</code> στο αντικείμενο <code>an</code>:</p>
 <pre class="python"><code>PartyAnimal.party(an)</code></pre>
-<p>In this variation, we access the code from within the class and explicitly pass the object pointer <code>an</code> as the first parameter (i.e., <code>self</code> within the method). You can think of <code>an.party()</code> as shorthand for the above line.</p>
-<p>When the program executes, it produces the following output:</p>
-<pre><code>So far 1
+<p>Σε αυτήν την παραλλαγή, έχουμε πρόσβαση στον κώδικα μέσα από την κλάση και μεταβιβάζουμε ρητά τον δείκτη αντικειμένου <code>an</code> ως πρώτη παράμετρο (δηλαδή, <code>self</code> στη μέθοδο). Μπορείτε να σκεφτείτε το <code>an.party()</code> ως συντομογραφία για την παραπάνω γραμμή.</p>
+<p>Όταν το πρόγραμμα εκτελείται, παράγει την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>So far 1
 So far 2
 So far 3
 So far 4</code></pre>
-<p>The object is constructed, and the <code>party</code> method is called four times, both incrementing and printing the value for <code>x</code> within the <code>an</code> object.</p>
-<h2 id="classes-as-types">Classes as types</h2>
+<p>Το αντικείμενο κατασκευάζεται και η μέθοδος <code>party</code> καλείται τέσσερις φορές, αυξάνοντας και εκτυπώνοντας την τιμή του <code>x</code> μέσα στο αντικείμενο <code>an</code>.</p>
+<h2 id="οι-κλάσεις-ως-τύποι">Οι κλάσεις ως τύποι</h2>
 <p> </p>
-<p>As we have seen, in Python all variables have a type. We can use the built-in <code>dir</code> function to examine the capabilities of a variable. We can also use <code>type</code> and <code>dir</code> with the classes that we create.</p>
+<p>Όπως είδαμε, στην Python όλες οι μεταβλητές έχουν έναν τύπο. Μπορούμε να χρησιμοποιήσουμε την ενσωματωμένη συνάρτηση <code>dir</code> για να εξετάσουμε τις δυνατότητες μιας μεταβλητής. Μπορούμε επίσης να χρησιμοποιήσουμε τις <code>type</code> και <code>dir</code> με τις κλάσεις που δημιουργούμε.</p>
 <pre class="python"><code>class PartyAnimal:
    x = 0
 
@@ -335,18 +198,18 @@ print (&quot;Type&quot;, type(an.x))
 print (&quot;Type&quot;, type(an.party))
 
 # Code: http://www.py4e.com/code3/party3.py</code></pre>
-<p>When this program executes, it produces the following output:</p>
-<pre><code>Type &lt;class &#39;__main__.PartyAnimal&#39;&gt;
+<p>Όταν εκτελείται αυτό το πρόγραμμα, παράγει την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>Type &lt;class &#39;__main__.PartyAnimal&#39;&gt;
 Dir  [&#39;__class__&#39;, &#39;__delattr__&#39;, ...
 &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;,
 &#39;__weakref__&#39;, &#39;party&#39;, &#39;x&#39;]
 Type &lt;class &#39;int&#39;&gt;
 Type &lt;class &#39;method&#39;&gt;</code></pre>
-<p>You can see that using the <code>class</code> keyword, we have created a new type. From the <code>dir</code> output, you can see both the <code>x</code> integer attribute and the <code>party</code> method are available in the object.</p>
-<h2 id="object-lifecycle">Object lifecycle</h2>
-<p>  </p>
-<p>In the previous examples, we define a class (template), use that class to create an instance of that class (object), and then use the instance. When the program finishes, all of the variables are discarded. Usually, we don’t think much about the creation and destruction of variables, but often as our objects become more complex, we need to take some action within the object to set things up as the object is constructed and possibly clean things up as the object is discarded.</p>
-<p>If we want our object to be aware of these moments of construction and destruction, we add specially named methods to our object:</p>
+<p>Μπορείτε να δείτε ότι χρησιμοποιώντας τη δεσμευμένη λέξη <code>class</code>, δημιουργήσαμε έναν νέο τύπο. Από την έξοδο της <code>dir</code>, μπορείτε να δείτε ότι και το χαρακτηριστικό ακεραίου <code>x</code> και η μέθοδος <code>party</code> είναι διαθέσιμα στο αντικείμενο.</p>
+<h2 id="κύκλος-ζωής-αντικειμένου">Κύκλος ζωής αντικειμένου</h2>
+<p>    </p>
+<p>Στα προηγούμενα παραδείγματα, ορίζουμε μια κλάση (πρότυπο), χρησιμοποιούμε αυτήν την κλάση για να δημιουργήσουμε ένα στιγμιότυπο αυτής της κλάσης (αντικείμενο) και, στη συνέχεια, χρησιμοποιούμε το στιγμιότυπο. Όταν τελειώσει το πρόγραμμα, όλες οι μεταβλητές καταστρέφονται. Συνήθως, δεν σκεφτόμαστε πολύ τη δημιουργία και την καταστροφή μεταβλητών, αλλά συχνά, καθώς τα αντικείμενά μας γίνονται πιο περίπλοκα, πρέπει να ορίσουμε κάποια ενέργεια μέσα στο αντικείμενο, για να ρυθμίσουμε την κατασκευή του αντικειμένου και πιθανώς να καθαρίσουμε τα πράγματα όταν το αντικείμενο καταστρέφεται.</p>
+<p>Εάν θέλουμε το αντικείμενό μας “προετοιμασμένο” για αυτές τις στιγμές κατασκευής και καταστροφής, προσθέτουμε στο αντικείμενο μας ειδικές μεθόδους:</p>
 <pre class="python"><code>class PartyAnimal:
    x = 0
 
@@ -367,19 +230,19 @@ an = 42
 print(&#39;an contains&#39;,an)
 
 # Code: http://www.py4e.com/code3/party4.py</code></pre>
-<p>When this program executes, it produces the following output:</p>
-<pre><code>I am constructed
+<p>Όταν εκτελείται αυτό το πρόγραμμα, παράγει την ακόλουθη έξοδο:</p>
+<pre class="{text}"><code>I am constructed
 So far 1
 So far 2
 I am destructed 2
 an contains 42</code></pre>
-<p>As Python constructs our object, it calls our <code>__init__</code> method to give us a chance to set up some default or initial values for the object. When Python encounters the line:</p>
-<pre><code>an = 42</code></pre>
-<p>It actually “throws our object away” so it can reuse the <code>an</code> variable to store the value <code>42</code>. Just at the moment when our <code>an</code> object is being “destroyed” our destructor code (<code>__del__</code>) is called. We cannot stop our variable from being destroyed, but we can do any necessary cleanup right before our object no longer exists.</p>
-<p>When developing objects, it is quite common to add a constructor to an object to set up initial values for the object. It is relatively rare to need a destructor for an object.</p>
-<h2 id="multiple-instances">Multiple instances</h2>
-<p>So far, we have defined a class, constructed a single object, used that object, and then thrown the object away. However, the real power in object-oriented programming happens when we construct multiple instances of our class.</p>
-<p>When we construct multiple objects from our class, we might want to set up different initial values for each of the objects. We can pass data to the constructors to give each object a different initial value:</p>
+<p>Καθώς η Python κατασκευάζει το αντικείμενό μας, καλεί τη μέθοδο <code>__init__</code> για να μας δώσει την ευκαιρία να ορίσουμε κάποιες προεπιλεγμένες ή αρχικές τιμές για το αντικείμενο. Όταν η Python συναντά τη γραμμή:</p>
+<pre class="{text}"><code>an = 42</code></pre>
+<p>Στην πραγματικότητα “πετάει το αντικείμενό μας”, ώστε να μπορέσει να χρησιμοποιήσει ξανά τη μεταβλητή <code>an</code> για να αποθηκεύσει την τιμή <code>42</code>. Ακριβώς τη στιγμή που το αντικείμενό μας <code>an</code> “καταστρέφεται” καλείται ο κωδικός του καταστροφέα μας (<code>__del__</code>). Δεν μπορούμε να σταματήσουμε την καταστροφή της μεταβλητής μας, αλλά μπορούμε να κάνουμε οποιονδήποτε απαραίτητο καθαρισμό πριν το αντικείμενό μας πάψει να υπάρχει πλέον.</p>
+<p>Κατά την ανάπτυξη αντικειμένων, είναι αρκετά συνηθισμένο να προσθέτουμε έναν κατασκευαστή σε ένα αντικείμενο, για να ορίσουμε αρχικές τιμές για το αντικείμενο. Είναι σχετικά σπάνιο να χρειαστείτε καταστροφέα για ένα αντικείμενο.</p>
+<h2 id="πολλαπλά-στιγμιότυπα">Πολλαπλά στιγμιότυπα</h2>
+<p>Μέχρι στιγμής, ορίσαμε μια κλάση, κατασκευάσαμε ένα μεμονωμένο αντικείμενο, χρησιμοποιήσαμε αυτό το αντικείμενο και μετά το πετάξαμε. Ωστόσο, η πραγματική δύναμη του αντικειμενοστραφούς προγραμματισμού εκδηλώνεται όταν κατασκευάζουμε πολλαπλά στιγμιότυπο της κλάσης μας.</p>
+<p>Όταν κατασκευάζουμε πολλά αντικείμενα από την κλάση μας, ίσως θελήσουμε να ορίσουμε διαφορετικές αρχικές τιμές, σε καθένα από τα αντικείμενα. Μπορούμε να περάσουμε δεδομένα στους κατασκευαστές για να δώσουμε σε κάθε αντικείμενο διαφορετική αρχική τιμή:</p>
 <pre class="python"><code>class PartyAnimal:
    x = 0
    name = &#39;&#39;
@@ -399,19 +262,19 @@ j.party()
 s.party()
 
 # Code: http://www.py4e.com/code3/party5.py</code></pre>
-<p>The constructor has both a <code>self</code> parameter that points to the object instance and additional parameters that are passed into the constructor as the object is constructed:</p>
-<pre><code>s = PartyAnimal(&#39;Sally&#39;)</code></pre>
-<p>Within the constructor, the second line copies the parameter (<code>nam</code>) that is passed into the <code>name</code> attribute within the object instance.</p>
-<pre><code>self.name = nam</code></pre>
-<p>The output of the program shows that each of the objects (<code>s</code> and <code>j</code>) contain their own independent copies of <code>x</code> and <code>nam</code>:</p>
-<pre><code>Sally constructed
+<p>Ο κατασκευαστής έχει και μια παράμετρο <code>self</code>, που δείχνει στο στιγμιότυπο του αντικειμένου, και πρόσθετες παραμέτρους, που μεταβιβάζονται στον κατασκευαστή καθώς κατασκευάζεται το αντικείμενο:</p>
+<pre class="{text}"><code>s = PartyAnimal(&#39;Sally&#39;)</code></pre>
+<p>Εντός του κατασκευαστή, η δεύτερη γραμμή αντιγράφει την παράμετρο (<code>nam</code>), που μεταβιβάζεται στο χαρακτηριστικό <code>name</code> στο στιγμιότυπο του αντικειμένου.</p>
+<pre class="{text}"><code>self.name = nam</code></pre>
+<p>Η έξοδος του προγράμματος δείχνει ότι καθένα από τα αντικείμενα (<code>s</code> και <code>j</code>) περιέχει τα δικά του ανεξάρτητα αντίγραφα των <code>x</code> και <code>nam</code>:</p>
+<pre class="{text}"><code>Sally constructed
 Jim constructed
 Sally party count 1
 Jim party count 1
 Sally party count 2</code></pre>
-<h2 id="inheritance">Inheritance</h2>
-<p>Another powerful feature of object-oriented programming is the ability to create a new class by extending an existing class. When extending a class, we call the original class the <em>parent class</em> and the new class the <em>child class</em>.</p>
-<p>For this example, we move our <code>PartyAnimal</code> class into its own file. Then, we can ‘import’ the <code>PartyAnimal</code> class in a new file and extend it, as follows:</p>
+<h2 id="κληρονομικότητα">Κληρονομικότητα</h2>
+<p>Ένα άλλο ισχυρό χαρακτηριστικό του αντικειμενοστρεφούς προγραμματισμού είναι η δυνατότητα δημιουργίας μιας νέας κλάσης επεκτείνοντας μια υπάρχουσα κλάση. Όταν επεκτείνουμε μια κλάση, ονομάζουμε την αρχική κλάση <em>κλάση γονέας</em> και τη νέα κλάση <em>κλάση παιδί</em>.</p>
+<p>Για αυτό το παράδειγμα, μετακινούμε την κλάση <code>PartyAnimal</code> στο δικό της αρχείο. Στη συνέχεια, μπορούμε να ‘εισάγουμε - import’ την κλάση <code>PartyAnimal</code> σε ένα νέο αρχείο και να την επεκτείνουμε, ως εξής:</p>
 <pre class="python"><code>from party import PartyAnimal
 
 class CricketFan(PartyAnimal):
@@ -429,9 +292,9 @@ j.six()
 print(dir(j))
 
 # Code: http://www.py4e.com/code3/party6.py</code></pre>
-<p>When we define the <code>CricketFan</code> class, we indicate that we are extending the <code>PartyAnimal</code> class. This means that all of the variables (<code>x</code>) and methods (<code>party</code>) from the <code>PartyAnimal</code> class are <em>inherited</em> by the <code>CricketFan</code> class. For example, within the <code>six</code> method in the <code>CricketFan</code> class, we call the <code>party</code> method from the <code>PartyAnimal</code> class.</p>
-<p>As the program executes, we create <code>s</code> and <code>j</code> as independent instances of <code>PartyAnimal</code> and <code>CricketFan</code>. The <code>j</code> object has additional capabilities beyond the <code>s</code> object.</p>
-<pre><code>Sally constructed
+<p>Όταν ορίζουμε την κλάση <code>CricketFan</code>, υποδεικνύουμε ότι επεκτείνουμε την κλάση <code>PartyAnimal</code>. Αυτό σημαίνει ότι όλες οι μεταβλητές (<code>x</code>) και οι μέθοδοι (<code>party</code>) της κλάσης <code>PartyAnimal</code> <em>κληρονομούνται</em> από την κλάση <code>CricketFan</code>. Για παράδειγμα, στη μέθοδο <code>six</code>, της κλάσης <code>CricketFan</code>, καλούμε τη μέθοδο <code>party</code>, από την κλάση <code>PartyAnimal</code>.</p>
+<p>Καθώς εκτελείται το πρόγραμμα, δημιουργούμε τα <code>s</code> και <code>j</code>, ως ανεξάρτητα στιγμιότυπα των <code>PartyAnimal</code> και <code>CricketFan</code>. Το αντικείμενο <code>j</code> έχει πρόσθετες δυνατότητες πέρα από αυτές του αντικειμένου <code>s</code>.</p>
+<pre class="{text}"><code>Sally constructed
 Sally party count 1
 Jim constructed
 Jim party count 1
@@ -439,9 +302,9 @@ Jim party count 2
 Jim points 6
 [&#39;__class__&#39;, &#39;__delattr__&#39;, ... &#39;__weakref__&#39;,
 &#39;name&#39;, &#39;party&#39;, &#39;points&#39;, &#39;six&#39;, &#39;x&#39;]</code></pre>
-<p>In the <code>dir</code> output for the <code>j</code> object (instance of the <code>CricketFan</code> class), we see that it has the attributes and methods of the parent class, as well as the attributes and methods that were added when the class was extended to create the <code>CricketFan</code> class.</p>
-<h2 id="summary">Summary</h2>
-<p>This is a very quick introduction to object-oriented programming that focuses mainly on terminology and the syntax of defining and using objects. Let’s quickly review the code that we looked at in the beginning of the chapter. At this point you should fully understand what is going on.</p>
+<p>Στην έξοδο <code>dir</code>, για το αντικείμενο <code>j</code> (στιγμιότυπο της κλάσης <code>CricketFan</code>), βλέπουμε ότι έχει τα χαρακτηριστικά και τις μεθόδους της γονικής κλάσης, καθώς και τα χαρακτηριστικά και τις μεθόδους που προστέθηκαν όταν η κλάση επεκτάθηκε, για να δημιουργηθεί η κλάση <code>CricketFan</code>.</p>
+<h2 id="περίληψη">Περίληψη</h2>
+<p>Αυτή είναι μια πολύ γρήγορη εισαγωγή στον αντικειμενοστραφή προγραμματισμό, που εστιάζει κυρίως στην ορολογία, τον ορισμό και τη χρήσης αντικειμένων. Ας δούμε, γρήγορα, τον κώδικα που είδαμε στην αρχή του κεφαλαίου. Σε αυτό το σημείο θα πρέπει να καταλάβετε πλήρως τι συμβαίνει.</p>
 <pre class="python"><code>stuff = list()
 stuff.append(&#39;python&#39;)
 stuff.append(&#39;chuck&#39;)
@@ -451,47 +314,47 @@ print (stuff.__getitem__(0))
 print (list.__getitem__(stuff,0))
 
 # Code: http://www.py4e.com/code3/party1.py</code></pre>
-<p>The first line constructs a <code>list</code> <em>object</em>. When Python creates the <code>list</code> object, it calls the <em>constructor</em> method (named <code>__init__</code>) to set up the internal data attributes that will be used to store the list data. We have not passed any parameters to the <em>constructor</em>. When the constructor returns, we use the variable <code>stuff</code> to point to the returned instance of the <code>list</code> class.</p>
-<p>The second and third lines call the <code>append</code> method with one parameter to add a new item at the end of the list by updating the attributes within <code>stuff</code>. Then in the fourth line, we call the <code>sort</code> method with no parameters to sort the data within the <code>stuff</code> object.</p>
-<p>We then print out the first item in the list using the square brackets which are a shortcut to calling the <code>__getitem__</code> method within the <code>stuff</code>. This is equivalent to calling the <code>__getitem__</code> method in the <code>list</code> <em>class</em> and passing the <code>stuff</code> object as the first parameter and the position we are looking for as the second parameter.</p>
-<p>At the end of the program, the <code>stuff</code> object is discarded but not before calling the <em>destructor</em> (named <code>__del__</code>) so that the object can clean up any loose ends as necessary.</p>
-<p>Those are the basics of object-oriented programming. There are many additional details as to how to best use object-oriented approaches when developing large applications and libraries that are beyond the scope of this chapter.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
-<h2 id="glossary">Glossary</h2>
+<p>Η πρώτη γραμμή δημιουργεί ένα <em>αντικείμενο</em> <code>list (λίστα)</code>. Όταν η Python δημιουργεί το αντικείμενο <code>list</code>, καλεί τη μέθοδο <em>κατασκευαστή</em> (με το όνομα <code>__init__</code>), για να ρυθμίσει τα εσωτερικά χαρακτηριστικά δεδομένων, που θα χρησιμοποιηθούν για την αποθήκευση των δεδομένων της λίστας. Δεν έχουμε περάσει καμία παράμετρο στον <em>κατασκευαστή</em>. Όταν ο κατασκευαστής επιστρέφει, χρησιμοποιούμε τη μεταβλητή <code>stuff</code>, για να δείξουμε το επιστρεφόμενο στιγμιότυπο της κλάσης <code>list</code>.</p>
+<p>Η δεύτερη και η τρίτη γραμμή καλούν τη μέθοδο <code>append</code> με μία παράμετρο, για να προσθέσουν ένα νέο στοιχείο στο τέλος της λίστας, ενημερώνοντας τα χαρακτηριστικά μέσα στο <code>stuff</code>. Στη συνέχεια, στην τέταρτη γραμμή, καλούμε τη μέθοδο <code>sort</code> χωρίς παραμέτρους, για να ταξινομήσουμε τα δεδομένα μέσα στο αντικείμενο <code>stuff</code>.</p>
+<p>Στη συνέχεια, εκτυπώνουμε το πρώτο στοιχείο στη λίστα, χρησιμοποιώντας τις αγκύλες, που αποτελούν συντόμευση για την κλήση της μεθόδου <code>__getitem__</code> μέσα στο <code>stuff</code>. Αυτό ισοδυναμεί με την κλήση της μεθόδου <code>__getitem__</code> στη <em>κλάση</em> <code>list</code> και τη διαβίβαση του αντικειμένου <code>stuff</code> ως πρώτη παράμετρο και τη θέση που αναζητούμε ως δεύτερη παράμετρο.</p>
+<p>Στο τέλος του προγράμματος, το αντικείμενο <code>stuff</code> απορρίπτεται, αλλά όχι πριν καλέσετε τον <em>καταστροφέα</em> (με το όνομα <code>__del__</code>), έτσι ώστε το αντικείμενο να μπορεί να τακτοποιήσει τυχόν εκκρεμή ζητήματα όπως απαιτείται.</p>
+<p>Αυτά είναι τα βασικά του αντικειμενοστρεφούς προγραμματισμού. Υπάρχουν πολλές πρόσθετες λεπτομέρειες σχετικά με τον καλύτερο τρόπο χρήσης αντικειμενοστρεφών προσεγγίσεων κατά την ανάπτυξη μεγάλων εφαρμογών και βιβλιοθηκών, που δεν εμπίπτουν στο πεδίο αυτού του κεφαλαίου.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<h2 id="γλωσσάριο">Γλωσσάριο</h2>
 <dl>
-<dt>attribute</dt>
-<dd>A variable that is part of a class.
+<dt>attribute - χαρακτηριστικό ή ιδιότητα</dt>
+<dd>Μια μεταβλητή που είναι μέρος μιας κλάσης.
 </dd>
-<dt>class</dt>
-<dd>A template that can be used to construct an object. Defines the attributes and methods that will make up the object.
+<dt>αντικείμενο</dt>
+<dd>Ένα κατασκευασμένο στιγμιότυπο μιας κλάσης. Ένα αντικείμενο περιέχει όλα τα χαρακτηριστικά και τις μεθόδους, που ορίστηκαν από την κλάση. Κάποια αντικειμενοστραφή τεκμηρίωση χρησιμοποιεί τον όρο ‘στιγμιότυπο’ εναλλακτικά του ‘αντικείμενο’.
 </dd>
-<dt>child class</dt>
-<dd>A new class created when a parent class is extended. The child class inherits all of the attributes and methods of the parent class.
+<dt>κατασκευστής</dt>
+<dd>Μια προαιρετική μέθοδος με ειδική ονομασία (<code>__init__</code>), που καλείται τη στιγμή που μια κλάση χρησιμοποιείται για την κατασκευή ενός αντικειμένου. Συνήθως χρησιμοποιείται για τη ρύθμιση αρχικών τιμών του αντικειμένου.
 </dd>
-<dt>constructor</dt>
-<dd>An optional specially named method (<code>__init__</code>) that is called at the moment when a class is being used to construct an object. Usually this is used to set up initial values for the object.
+<dt>καταστροφέας</dt>
+<dd>Μια προαιρετική μέθοδος με ειδική ονομασία (<code>__del__</code>), που καλείται τη στιγμή ακριβώς πριν από την καταστροφή ενός αντικειμένου. Οι καταστροφείς χρησιμοποιούνται σπάνια.
 </dd>
-<dt>destructor</dt>
-<dd>An optional specially named method (<code>__del__</code>) that is called at the moment just before an object is destroyed. Destructors are rarely used.
+<dt>κλάση</dt>
+<dd>Ένα πρότυπο, που μπορεί να χρησιμοποιηθεί για την κατασκευή ενός αντικειμένου. Καθορίζει τα χαρακτηριστικά και τις μεθόδους που θα αποτελέσουν το αντικείμενο.
 </dd>
-<dt>inheritance</dt>
-<dd>When we create a new class (child) by extending an existing class (parent). The child class has all the attributes and methods of the parent class plus additional attributes and methods defined by the child class.
+<dt>κλάση γονέας</dt>
+<dd>Η κλάση που επεκτείνεται για τη δημιουργία μιας νέας θυγατρικής κλάσης. Η γονεϊκή κλάση συνεισφέρει όλες τις μεθόδους και τα χαρακτηριστικά της στη νέα θυγατρική κλάση.
 </dd>
-<dt>method</dt>
-<dd>A function that is contained within a class and the objects that are constructed from the class. Some object-oriented patterns use ‘message’ instead of ‘method’ to describe this concept.
+<dt>κλάση παιδί</dt>
+<dd>Μια νέα κλάση που δημιουργείται όταν επεκτείνεται μια γονεϊκή κλάση. Η κλάση παιδί κληρονομεί όλα τα χαρακτηριστικά και τις μεθόδους της γονεϊκής κλάσης.
 </dd>
-<dt>object</dt>
-<dd>A constructed instance of a class. An object contains all of the attributes and methods that were defined by the class. Some object-oriented documentation uses the term ‘instance’ interchangeably with ‘object’.
+<dt>κληρονομικότητα</dt>
+<dd>Όταν δημιουργούμε μια νέα κλάση (παιδί) επεκτείνοντας μια υπάρχουσα κλάση (γονέας). Η θυγατρική κλάση έχει όλα τα χαρακτηριστικά και τις μεθόδους της γονεϊκής κλάσης συν επιπλέον χαρακτηριστικά και μεθόδους που ορίζονται από τη θυγατρική κλάση.
 </dd>
-<dt>parent class</dt>
-<dd>The class which is being extended to create a new child class. The parent class contributes all of its methods and attributes to the new child class.
+<dt>μέθοδος</dt>
+<dd>Μια συνάρτηση που περιέχεται σε μια κλάση και στα αντικείμενα που κατασκευάζονται από αυτή την κλάση. Ορισμένα αντικειμενοστραφή μοτίβα χρησιμοποιούν τον όρο ‘μήνυμα’ αντί για ‘μέθοδο’ για να περιγράψουν αυτήν την έννοια.
 </dd>
 </dl>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>https://docs.python.org/3/library/html.parser.html<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Cookie image copyright CC-BY https://www.flickr.com/photos/dinnerseries/23570475099<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>If you are curious about where the <code>list</code> class is defined, take a look at (hopefully the URL won’t change) https://github.com/python/cpython/blob/master/Objects/listobject.c - the list class is written in a language called “C”. If you take a look at that source code and find it curious you might want to explore a few Computer Science courses.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>https://docs.python.org/3/library/html.parser.html<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Cookie image copyright CC-BY https://www.flickr.com/photos/dinnerseries/23570475099<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Εάν είστε περίεργοι για το πού ορίζεται η κλάση <code>list</code>, ρίξτε μια ματιά στο (ελπίζουμε ότι η διεύθυνση URL δεν θα αλλάξει) https://github.com/python/cpython/blob/master/Objects/listobject.c - η κλάση λίστας είναι γραμμένη σε μια γλώσσα που ονομάζεται “C”. Αν ρίξετε μια ματιά σε αυτόν τον πηγαίο κώδικα και τον βρείτε περίεργο, ίσως θέλετε να εξερευνήσετε μερικά μαθήματα Επιστήμης Υπολογιστών.<a href="#fnref3" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 </body>

@@ -8,156 +8,19 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
-  <style>
-    html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 1em;
-      }
-    }
-    @media print {
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
-      font-size: 85%;
-      margin: 0;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <title>Untitled</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="πλειάδες">Πλειάδες</h1>
 <h2 id="οι-πλειάδες-είναι-αμετάβλητες">Οι πλειάδες είναι αμετάβλητες</h2>
 <p>  </p>
-<p>Μια πλειάδα<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> είναι μια ακολουθία τιμών που μοιάζει πολύ με μια λίστα. Οι τιμές που είναι αποθηκευμένες σε μια πλειάδα μπορούν να είναι οποιουδήποτε τύπου και έχουν δείκτες ακέραιους αριθμούς. Η σημαντική διαφορά είναι ότι οι πλειάδες είναι <em>αμετάβλητες</em>. Οι πλειάδες είναι επίσης <em>συγκρίσιμες</em> και <em>κατακερματισμένες</em>, ώστε να μπορούμε να ταξινομήσουμε λίστες τους και να χρησιμοποιήσουμε πλειάδες ως κλειδιά - τιμές σε λεξικά της Python.</p>
+<p>Μια πλειάδα<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> είναι μια ακολουθία τιμών που μοιάζει πολύ με μια λίστα. Οι τιμές που είναι αποθηκευμένες σε μια πλειάδα μπορούν να είναι οποιουδήποτε τύπου και έχουν δείκτες ακέραιους αριθμούς. Η σημαντική διαφορά είναι ότι οι πλειάδες είναι <em>αμετάβλητες</em>. Οι πλειάδες είναι επίσης <em>συγκρίσιμες</em> και <em>κατακερματισμένες</em>, ώστε να μπορούμε να ταξινομήσουμε λίστες τους και να χρησιμοποιήσουμε πλειάδες ως κλειδιά - τιμές σε λεξικά της Python.</p>
 <p>    </p>
 <p>Συντακτικά, μια πλειάδα είναι μια λίστα τιμών διαχωρισμένη με κόμματα:</p>
 <pre class="python"><code>&gt;&gt;&gt; t = &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;</code></pre>
@@ -222,21 +85,21 @@ True</code></pre>
 </dl>
 <p>     </p>
 <p>Για παράδειγμα, ας υποθέσουμε ότι έχετε μια λίστα λέξεων και θέλετε να τις ταξινομήσετε από αυτή με το μεγαλύτερο μήκος προς στη συντομότερη:</p>
-<pre class="python"><code>txt = &#39;but soft what light in yonder window breaks&#39;
-words = txt.split()
+<pre class="python"><code>κείμενο = &#39;but soft what light in yonder window breaks&#39;
+λέξεις = κείμενο.split()
 t = list()
-for word in words:
-    t.append((len(word), word))
+for λέξη in λέξεις:
+    t.append((len(λέξη), λέξη))
 
 t.sort(reverse=True)
 
 res = list()
-for length, word in t:
-    res.append(word)
+for μήκος, λέξη in t:
+    res.append(λέξη)
 
 print(res)
 
-# Code: http://www.gr.py4e.com/code3/soft.py</code></pre>
+# Code: http://www.py4e.com/code3/soft.py</code></pre>
 <p>Ο πρώτος βρόχος δημιουργεί μια λίστα με πλειάδες, όπου κάθε πλειάδα είναι μια λέξη με προπορευόμενο το μήκος της.</p>
 <p>Η <code>sort</code> συγκρίνει τα πρώτα στοιχεία των πλειάδων, το μήκος. Το όρισμα δεμευμένης λέξης <code>reverse=True</code> λέει στην <code>sort</code> να λειτουργήσει με φθίνουσα σειρά.</p>
 <p>  </p>
@@ -246,7 +109,7 @@ print(res)
 <p>Φυσικά η γραμμή χάνει μεγάλο μέρος του ποιητικού της αντίκτυπου όταν μετατραπεί σε λίστα Python και ταξινομηθεί σε φθίνουσα σειρά μήκους λέξεων.</p>
 <h2 id="εκχώρηση-τιμής-σε-πλειάδα">Εκχώρηση τιμής σε πλειάδα</h2>
 <p>   </p>
-<p>Ένα από τα μοναδικά συντακτικά χαρακτηριστικά της γλώσσας Python είναι η δυνατότητα να υπάρχει πλειάδα στην αριστερή πλευρά μιας δήλωσης ανάθεσης. Αυτό σας επιτρέπει να εκχωρήσετε τιμή σε περισσότερες από μία μεταβλητές τη φορά όταν το αριστερό μέλος είναι μια ακολουθία.</p>
+<p>Ένα από τα μοναδικά συντακτικά χαρακτηριστικά της γλώσσας Python είναι η δυνατότητα να υπάρχει πλειάδα στην αριστερή πλευρά μιας δήλωσης ανάθεσης και μια ακολουθία τιμών στη δεξιά πλευρά. Αυτό σας επιτρέπει να αναθέσετε τιμή σε περισσότερες από μία μεταβλητές τη φορά, χρησιμοποιώντας τη δοθήσα ακολουθία.</p>
 <p>Σε αυτό το παράδειγμα έχουμε μια λίστα δύο στοιχείων (η οποία είναι μια ακολουθία) και εκχωρούμε το πρώτο και το δεύτερο στοιχείο της ακολουθίας στις μεταβλητές <code>x</code> και <code>y</code> σε μία μόνο πρόταση.</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
 &gt;&gt;&gt; x, y = m
@@ -340,28 +203,29 @@ python.org</code></pre>
 <p>Επιστρέφοντας στο προηγούμενο παράδειγμα του κειμένου από το <em>Ρωμαίος και Ιουλιέτα</em> Πράξη 2, Σκηνή 2, μπορούμε να επεκτείνουμε το πρόγραμμά μας για να χρησιμοποιήσουμε αυτήν την τεχνική για να εκτυπώσουμε τις δέκα πιο συνηθισμένες λέξεις στο κείμενο ως εξής:</p>
 <pre class="python"><code>import string
 fhand = open(&#39;romeo-full.txt&#39;)
-counts = dict()
-for line in fhand:
-    line = line.translate(str.maketrans(&#39;&#39;, &#39;&#39;, string.punctuation))
-    line = line.lower()
-    words = line.split()
-    for word in words:
-        if word not in counts:
-            counts[word] = 1
+πλήθη = dict()
+for γραμμή in fhand:
+    γραμμή = γραμμή.translate(str.maketrans(&#39;&#39;, &#39;&#39;, string.punctuation))
+    γραμμή = γραμμή.lower()
+    λέξεις = γραμμή.split()
+    for λέξη in λέξεις:
+        if λέξη not in πλήθη:
+            πλήθη[λέξη] = 1
         else:
-            counts[word] += 1
+            πλήθη[λέξη] += 1
 
 # Sort the dictionary by value
-lst = list()
-for key, val in list(counts.items()):
-    lst.append((val, key))
+λίστα = list()
+for κλειδί, τιμή in list(πλήθη.items()):
+    λίστα.append((τιμή, κλειδί))
 
-lst.sort(reverse=True)
+λίστα.sort(reverse=True)
 
-for key, val in lst[:10]:
-    print(key, val)
+for κλειδί, τιμή in λίστα[:10]:
+    print(κλειδί, τιμή)
 
-# Code: http://www.gr.py4e.com/code3/count3.py</code></pre>
+# Code: http://www.py4e.com/code3/count3.py</code></pre>
+
 <p>Το πρώτο μέρος του προγράμματος που διαβάζει το αρχείο και δημιουργεί το λεξικό, που αντιστοιχίζει κάθε λέξη με το πλήθος εμφάνισης των λέξεων στο έγγραφο, δεν έχει αλλάξει. Αλλά, αντί να εκτυπώνουμε απλώς το <code>πληθη</code> και να τερματίζουμε το πρόγραμμα, κατασκευάζουμε μια λίστα με πλειάδες <code>(τιμή, κλειδί)</code> και στη συνέχεια ταξινομούμε τη λίστα με αντίστροφη σειρά.</p>
 <p>Από τη στιγμή που η τιμή είναι πρώτη, θα χρησιμοποιηθεί για τις συγκρίσεις. Εάν υπάρχουν περισσότερες από μία πλειάδες με την ίδια τιμή, θα κοιτάξει το δεύτερο στοιχείο (το κλειδί), επομένως οι πλειάδες των οποίων η τιμή είναι ίδια θα ταξινομηθούν περαιτέρω σε αλφαβητική σειρά του κλειδιού.</p>
 <p>Στο τέλος γράφουμε έναν ωραίο βρόχο <code>for</code> που κάνει μια επανάληψη πολλαπλής εκχώρησης και εκτυπώνει τις δέκα πιο συνηθισμένες λέξεις, διατρέχοντας ένα τμήμα της λίστας (<code>lst[:10]</code>).</p>
@@ -478,10 +342,10 @@ zqian@umich.edu 195</code></pre>
 19 1</code></pre>
 <p><strong>Άσκηση 3: Γράψτε ένα πρόγραμμα που διαβάζει ένα αρχείο και τυπώνει τα <em>γράμματα</em> με φθίνουσα σειρά συχνότητας. Το πρόγραμμά σας θα πρέπει να μετατρέψει όλη την είσοδο σε πεζά και να μετράει μόνο τα γράμματα a-z. Το πρόγραμμά σας δεν πρέπει να μετράει κενά, ψηφία, σημεία στίξης ή οτιδήποτε άλλο εκτός από τα γράμματα a-z. Βρείτε δείγματα κειμένου από πολλές διαφορετικές γλώσσες και δείτε πώς η συχνότητα των γραμμάτων ποικίλλει μεταξύ των γλωσσών. Συγκρίνετε τα αποτελέσματά σας με τους πίνακες στο <a href="https://wikipedia.org/wiki/Letter_frequencies" class="uri">https://wikipedia.org/wiki/Letter_frequencies</a>.</strong></p>
 <p> </p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Ενδιαφέρουσα πληροφορία: Η λέξη “tuple (πλειάδα)” προέρχεται από τα ονόματα που δίνονται σε ακολουθίες αριθμών διαφορετικού μήκους: μονή, διπλή, τριπλή, τετραπλή, πενταπλή (quintuple), εξάπλη (sextuple), επταπλή (septuple), κ.λπ.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Ενδιαφέρουσα πληροφορία: Η λέξη “tuple (πλειάδα)” προέρχεται από τα ονόματα που δίνονται σε ακολουθίες αριθμών διαφορετικού μήκους: μονή, διπλή, τριπλή, τετραπλή, πενταπλή (quintuple), εξάπλη (sextuple), επταπλή (septuple), κ.λπ.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 </body>
