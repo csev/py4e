@@ -330,35 +330,13 @@ cur.execute(&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;,(acct, ))</c
     (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id) )</code></pre>
 <p>Όταν προσθέτουμε περιορισμό <code>UNIQUE</code> στους πίνακές μας, επικοινωνούμε ένα σύνολο κανόνων που ζητάμε από τη βάση δεδομένων να τους επιβάλει, όταν προσπαθούμε να εισαγάγουμε εγγραφές. Δημιουργούμε αυτούς τους περιορισμούς στα προγράμματά μας για ευκολία, όπως θα δούμε σε λίγο. Οι περιορισμοί μας εμποδίζουν από το να κάνουμε λάθη και μας διευκολύνουν να γράψουμε μέρος του κώδικά μας.</p>
 <p>Στην ουσία, δημιουργώντας αυτόν τον πίνακα <code>Follows</code>, διαμορφώνουμε μια “σχέση”, όπου ένα άτομο “ακολουθεί” κάποιον άλλο και την αναπαριστάνουμε με ένα ζεύγος αριθμών που υποδεικνύουν ότι (α) τα άτομα είναι συνδεδεμένα και (β) την κατεύθυνση της σχέσης.</p>
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 <figure>
 <img src="../images/twitter1.svg" alt="Σχέσεις Μεταξύ Πινάκων" style="height: 3.5in;"/>
 <figcaption>
 Σχέσεις Μεταξύ Πινάκων
 </figcaption>
 </figure>
-=======
-<figure>
-<img src="../images/twitter1.svg" alt="Relationships Between Tables" style="height: 3.5in;"/>
-<figcaption>
-Relationships Between Tables
-</figcaption>
-</figure>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>c834b14395e3ef360b187da37b9345eeac9e9652</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
+
 <h2 id="χρήση-πολλών-πινάκων">Χρήση πολλών πινάκων</h2>
 <p>Τώρα θα επαναλάβουμε το πρόγραμμα αντίχνευσης Twitter χρησιμοποιώντας δύο πίνακες, τα κύρια κλειδιά και τις αναφορές κλειδιών όπως περιγράφηκαν παραπάνω. Εδώ είναι ο κώδικας για τη νέα έκδοση του προγράμματος:</p>
 <pre class="python"><code>import urllib.request, urllib.parse, urllib.error
@@ -561,35 +539,12 @@ Follows:
 <pre class="sql"><code>SELECT * FROM Follows JOIN People
     ON Follows.from_id = People.id WHERE People.id = 1</code></pre>
 <p>Ο όρος <code>JOIN</code> υποδηλώνει ότι τα πεδία που επιλέγουμε διασχίζουν και τους πίνακες <code>Follows</code> και <code>People</code>. Η ρήτρα <code>ON</code> υποδεικνύει πώς θα ενωθούν οι δύο πίνακες: Πάρε τις σειρές από το <code>Follows</code> και προσθέστε τη σειρά του <code>People</code>, όπου το πεδίο <code>from_id</code> στο <code>Follows</code> είναι το ίδιο με την τιμή <code>id</code> του πίνακα <code>People</code>.</p>
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 <figure>
 <img src="../images/join.svg" alt="Σύνδεση πινάκων με χρήση JOIN" style="height: 3.5in;"/>
 <figcaption>
 Σύνδεση πινάκων με χρήση JOIN
 </figcaption>
 </figure>
-=======
-<figure>
-<img src="../images/join.svg" alt="Connecting Tables Using JOIN" style="height: 3.5in;"/>
-<figcaption>
-Connecting Tables Using JOIN
-</figcaption>
-</figure>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>c834b14395e3ef360b187da37b9345eeac9e9652</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
 <p>Το αποτέλεσμα του JOIN είναι να δημιουργηθούν πολύ μεγάλες “meta-γραμμές” οι οποίες έχουν και τα δύο πεδία από τον <code>People</code> και τα αντίστοιχα πεδία από τον <code>Follows</code>. Όπου υπάρχουν περισσότερες από μία αντιστοιχίσεις μεταξύ του πεδίου <code>id</code> από τον <code>People</code> και του <code>from_id</code> από τον <code>Follows</code>, τότε το JOIN δημιουργεί μια meta-γραμμή για <em>κάθε ένα</em> από τα αντίστοιχα ζεύγη σειρών, αντιγράφοντας δεδομένα όπως απαιτείται.</p>
 <p>Ο παρακάτω κώδικας δείχνει τα δεδομένα που θα έχουμε στη βάση δεδομένων μετά την εκτέλεση του προγράμματος πολλαπλών πινάκων Twitter spider (παραπάνω) πολλές φορές.</p>
 <pre class="python"><code>import sqlite3
