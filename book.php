@@ -114,7 +114,7 @@ Greek
 <a href="https://gr.py4e.com/">Greek version of the web site - gr.py4e.org</a>
 </li>
 <li>
-Free PDF (in progress): <a href="https://gr.py4e.com/translations/EL/Latest_gr_py4e_book.pdf" target="_blank">PDF</a>
+Free PDF (in progress): <a https://www.py4e.com/translations/GR/gr/2023-4-24-Greek.pdf " target="_blank">PDF</a>
 </li>
 <li>
 <a href="https://github.com/csev-gr/py4e" target="_blank">Github repository</a>
