@@ -45,6 +45,9 @@ else
     makeindex tmp
     latex tmp
     dvipdf tmp.dvi x.pdf
+    # dvips tmp.dvi
+    # ps2pdf13 -dProcessColorModel=/DeviceGray -sColorConversionStrategy=Gray -dPDFSETTINGS=/prepress -dEmbedAllFonts=true tmp.ps x13.pdf
+    # ps2pdf14 -dProcessColorModel=/DeviceGray -sColorConversionStrategy=Gray -dPDFSETTINGS=/prepress -dEmbedAllFonts=true tmp.ps x14.pdf
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
