@@ -11,9 +11,6 @@
   <title>-</title>
   <style>
     html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
@@ -32,13 +29,16 @@
     @media (max-width: 600px) {
       body {
         font-size: 0.9em;
-        padding: 1em;
+        padding: 12px;
       }
       h1 {
         font-size: 1.8em;
       }
     }
     @media print {
+      html {
+        background-color: white;
+      }
       body {
         background-color: transparent;
         color: black;
@@ -88,9 +88,10 @@
       color: #606060;
     }
     code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
+      hyphens: manual;
     }
     pre {
       margin: 1em 0;
@@ -153,7 +154,7 @@
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: 1;}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -732,7 +733,7 @@ parent class contributes all of its methods and attributes to the new
 child class.
 </dd>
 </dl>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -749,7 +750,7 @@ that source code and find it curious you might want to explore a few
 Computer Science courses.<a href="#fnref3" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

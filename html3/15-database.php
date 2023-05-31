@@ -11,9 +11,6 @@
   <title>-</title>
   <style>
     html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
@@ -32,13 +29,16 @@
     @media (max-width: 600px) {
       body {
         font-size: 0.9em;
-        padding: 1em;
+        padding: 12px;
       }
       h1 {
         font-size: 1.8em;
       }
     }
     @media print {
+      html {
+        background-color: white;
+      }
       body {
         background-color: transparent;
         color: black;
@@ -88,9 +88,10 @@
       color: #606060;
     }
     code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
+      hyphens: manual;
     }
     pre {
       margin: 1em 0;
@@ -153,7 +154,7 @@
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: 1;}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -571,9 +572,8 @@ but since we are only retrieving one row (<code>LIMIT 1</code>), we can
 use the <code>fetchone()</code> method to fetch the first (and only) row
 that is the result of the <code>SELECT</code> operation. Since
 <code>fetchone()</code> returns the row as a <em>tuple</em> (even though
-there is only one field), we take the first value from the tuple using
-to get the current friend count into the variable
-<code>count</code>.</p>
+there is only one field), we use the first value from the tuple to get
+the current friend count into the variable <code>count</code>.</p>
 <p>If this retrieval is successful, we use the SQL <code>UPDATE</code>
 statement with a <code>WHERE</code> clause to add 1 to the
 <code>friends</code> column for the row that matches the friend’s
@@ -586,19 +586,19 @@ because no record matched the <code>WHERE name = ?</code> clause on the
 SELECT statement. So in the <code>except</code> block, we use the SQL
 <code>INSERT</code> statement to add the friend’s
 <code>screen_name</code> to the table with an indication that we have
-not yet retrieved the <code>screen_name</code> and set the friend count
-to one.</p>
+not yet retrieved the <code>screen_name</code> and set the
+<code>friends</code> count to one.</p>
 <p>So the first time the program runs and we enter a Twitter account,
 the program runs as follows:</p>
 <pre><code>Enter a Twitter account, or quit: drchuck
 Retrieving http://api.twitter.com/1.1/friends ...
 New accounts= 20  revisited= 0
 Enter a Twitter account, or quit: quit</code></pre>
-<p>Since this is the first time we have run the program, the database is
-empty and we create the database in the file <code>spider.sqlite</code>
-and add a table named <code>Twitter</code> to the database. Then we
-retrieve some friends and add them all to the database since the
-database is empty.</p>
+<p>Since this is the first time we have run the program, the database
+does not exist, so we create the database in the file
+<code>spider.sqlite</code> and add a table named <code>Twitter</code> to
+the database. Then we retrieve some friends and add them all to the
+database since the database is empty.</p>
 <p>At this point, we might want to write a simple database dumper to
 take a look at what is in our <code>spider.sqlite</code> file:</p>
 <pre class="python"><code>import sqlite3
@@ -690,7 +690,7 @@ give us the following output:</p>
 <code>cnxorg</code> and <code>kthanos</code> already have two followers.
 Since we now have retrieved the friends of three people
 (<code>drchuck</code>, <code>opencontent</code>, and
-<code>lhawthorn</code>) our table has 55 rows of friends to
+<code>lhawthorn</code>) our table has 52 rows of friends to
 retrieve.</p>
 <p>Each time we run the program and press enter it will pick the next
 unvisited account (e.g., the next account will be
@@ -1098,7 +1098,7 @@ Connecting Tables Using JOIN
 both the fields from <code>People</code> and the matching fields from
 <code>Follows</code>. Where there is more than one match between the
 <code>id</code> field from <code>People</code> and the
-<code>from_id</code> from <code>People</code>, then JOIN creates a
+<code>from_id</code> from <code>Follows</code>, then JOIN creates a
 metarow for <em>each</em> of the matching pairs of rows, duplicating
 data as needed.</p>
 <p>The following code demonstrates the data that we will have in the
@@ -1276,7 +1276,7 @@ typically called “row”.
 </dd>
 </dl>
 <p></p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -1289,7 +1289,7 @@ role="doc-backlink">↩︎</a></p></li>
 well” you will find that the code needs to use try/except.<a
 href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

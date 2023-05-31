@@ -316,20 +316,15 @@ You can download this application from:
 
 [https://www.py4e.com/code3/gmane.zip](https://www.py4e.com/code3/gmane.zip)
 
-We will be using data from a free email list archiving service called
-[http://www.gmane.org](http://www.gmane.org). This service is very popular with open
-source projects because it provides a nice searchable archive of their
-email activity. They also have a very liberal policy regarding accessing
-their data through their API. They have no rate limits, but ask that you
-don't overload their service and take only the data you need. You can
-read gmane's terms and conditions at this page:
+We will be using data from a free email list archiving service that was called
+*gmane* - the service has since been shut down and for the purposes of this
+course, a partial archive has been kept
+at [http://mbox.dr-chuck.net](http://mbox.dr-chuck.net).
+The gmane service was very popular with open
+source projects because it provided a nice searchable archive of their
+email activity.
 
-[http://www.gmane.org/export.php](http://www.gmane.org/export.php)
-
-*It is very important that you make use of the gmane.org data
-responsibly by adding delays to your access of their services and
-spreading long-running jobs over a longer period of time. Do not abuse
-this free service and ruin it for the rest of us.*
+[http://mbox.dr-chuck.net/export.php](http://mbox.dr-chuck.net/export.php)
 
 When the Sakai email data was spidered using this software, it produced
 nearly a Gigabyte of data and took a number of runs on several days. The
@@ -340,7 +335,7 @@ corpus so you don't have to spider for five days just to run the
 programs. If you download the pre-spidered content, you should still run
 the spidering process to catch up with more recent messages.
 
-The first step is to spider the gmane repository. The base URL is
+The first step is to spider the repository. The base URL is
 hard-coded in the *gmane.py* and is hard-coded to the
 Sakai developer list. You can spider another repository by changing that
 base url. Make sure to delete the *content.sqlite* file
@@ -348,7 +343,7 @@ if you switch the base url.
 
 The *gmane.py* file operates as a responsible caching
 spider in that it runs slowly and retrieves one mail message per second
-so as to avoid getting throttled by gmane. It stores all of its data in
+so as to avoid getting throttled. It stores all of its data in
 a database and can be interrupted and restarted as often as needed. It
 may take many hours to pull all the data down. So you may need to
 restart several times.
@@ -358,17 +353,17 @@ messages of the Sakai developer list:
 
 ~~~~
 How many messages:10
-http://download.gmane.org/gmane.comp.cms.sakai.devel/51410/51411 9460
+http://mbox.dr-chuck.net/sakai.devel/51410/51411 9460
     nealcaidin@sakaifoundation.org 2013-04-05 re: [building ...
-http://download.gmane.org/gmane.comp.cms.sakai.devel/51411/51412 3379
+http://mbox.dr-chuck.net/sakai.devel/51411/51412 3379
     samuelgutierrezjimenez@gmail.com 2013-04-06 re: [building ...
-http://download.gmane.org/gmane.comp.cms.sakai.devel/51412/51413 9903
+http://mbox.dr-chuck.net/sakai.devel/51412/51413 9903
     da1@vt.edu 2013-04-05 [building sakai] melete 2.9 oracle ...
-http://download.gmane.org/gmane.comp.cms.sakai.devel/51413/51414 349265
+http://mbox.dr-chuck.net/sakai.devel/51413/51414 349265
     m.shedid@elraed-it.com 2013-04-07 [building sakai] ...
-http://download.gmane.org/gmane.comp.cms.sakai.devel/51414/51415 3481
+http://mbox.dr-chuck.net/sakai.devel/51414/51415 3481
     samuelgutierrezjimenez@gmail.com 2013-04-07 re: ...
-http://download.gmane.org/gmane.comp.cms.sakai.devel/51415/51416 0
+http://mbox.dr-chuck.net/sakai.devel/51415/51416 0
 
 Does not start with From
 ~~~~
@@ -379,7 +374,7 @@ message. It continues spidering until it has spidered the desired number
 of messages or it reaches a page that does not appear to be a properly
 formatted message.
 
-Sometimes __gmane.org__ is missing a message. Perhaps
+Sometimes the repository is missing a message. Perhaps
 administrators can delete messages or perhaps they get lost. If your
 spider stops, and it seems it has hit a missing message, go into the
 SQLite Manager and add a row with the missing id leaving all the other

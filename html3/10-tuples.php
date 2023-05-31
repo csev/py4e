@@ -11,9 +11,6 @@
   <title>-</title>
   <style>
     html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
@@ -32,13 +29,16 @@
     @media (max-width: 600px) {
       body {
         font-size: 0.9em;
-        padding: 1em;
+        padding: 12px;
       }
       h1 {
         font-size: 1.8em;
       }
     }
     @media print {
+      html {
+        background-color: white;
+      }
       body {
         background-color: transparent;
         color: black;
@@ -88,9 +88,10 @@
       color: #606060;
     }
     code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
+      hyphens: manual;
     }
     pre {
       margin: 1em 0;
@@ -153,7 +154,7 @@
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: 1;}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -298,9 +299,9 @@ Python list and sorted in descending word length order.</p>
 <h2 id="tuple-assignment">Tuple assignment</h2>
 <p> </p>
 <p>One of the unique syntactic features of the Python language is the
-ability to have a tuple on the left side of an assignment statement.
-This allows you to assign more than one variable at a time when the left
-side is a sequence.</p>
+ability to have a tuple on the left side and a sequence on the right
+side of an assignment statement. This allows you to assign more than one
+variable at a time to the given sequence.</p>
 <p>In this example we have a two-element list (which is a sequence) and
 assign the first and second elements of the sequence to the variables
 <code>x</code> and <code>y</code> in a single statement.</p>
@@ -362,17 +363,17 @@ python.org</code></pre>
 <p> </p>
 <p>Dictionaries have a method called <code>items</code> that returns a
 list of tuples, where each tuple is a key-value pair:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; d = {&#39;a&#39;:10, &#39;b&#39;:1, &#39;c&#39;:22}
+<pre class="python trinket"><code>&gt;&gt;&gt; d = {&#39;b&#39;:1, &#39;a&#39;:10, &#39;c&#39;:22}
 &gt;&gt;&gt; t = list(d.items())
 &gt;&gt;&gt; print(t)
 [(&#39;b&#39;, 1), (&#39;a&#39;, 10), (&#39;c&#39;, 22)]</code></pre>
-<p>As you should expect from a dictionary, the items are in no
-particular order.</p>
+<p>As you should expect from a dictionary, the items are in
+non-alphabetical order.</p>
 <p>However, since the list of tuples is a list, and tuples are
 comparable, we can now sort the list of tuples. Converting a dictionary
 to a list of tuples is a way for us to output the contents of a
 dictionary sorted by key:</p>
-<pre class="python"><code>&gt;&gt;&gt; d = {&#39;a&#39;:10, &#39;b&#39;:1, &#39;c&#39;:22}
+<pre class="python"><code>&gt;&gt;&gt; d = {&#39;b&#39;:1, &#39;a&#39;:10, &#39;c&#39;:22}
 &gt;&gt;&gt; t = list(d.items())
 &gt;&gt;&gt; t
 [(&#39;b&#39;, 1), (&#39;a&#39;, 10), (&#39;c&#39;, 22)]
@@ -387,7 +388,8 @@ dictionaries</h2>
 <p>Combining <code>items</code>, tuple assignment, and <code>for</code>,
 you can see a nice code pattern for traversing the keys and values of a
 dictionary in a single loop:</p>
-<pre class="python"><code>for key, val in list(d.items()):
+<pre class="python"><code>d = {&#39;a&#39;:10, &#39;b&#39;:1, &#39;c&#39;:22}
+for key, val in list(d.items()):
     print(val, key)</code></pre>
 <p>This loop has two <em>iteration variables</em> because
 <code>items</code> returns a list of tuples and <code>key, val</code> is
@@ -416,7 +418,7 @@ print out the new, sorted list.</p>
 ...     l.append( (val, key) )
 ...
 &gt;&gt;&gt; l
-[(10, &#39;a&#39;), (22, &#39;c&#39;), (1, &#39;b&#39;)]
+[(10, &#39;a&#39;), (1, &#39;b&#39;), (22, &#39;c&#39;)]
 &gt;&gt;&gt; l.sort(reverse=True)
 &gt;&gt;&gt; l
 [(22, &#39;c&#39;), (10, &#39;a&#39;), (1, &#39;b&#39;)]
@@ -662,7 +664,7 @@ results with the tables at <a
 href="https://wikipedia.org/wiki/Letter_frequencies"
 class="uri">https://wikipedia.org/wiki/Letter_frequencies</a>.</strong></p>
 <p> </p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -675,7 +677,7 @@ example, if you try this with a dictionary, it will not work as you
 might expect.<a href="#fnref2" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

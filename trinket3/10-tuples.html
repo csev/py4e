@@ -314,9 +314,9 @@ Python list and sorted in descending word length order.</p>
 <h2 id="tuple-assignment">Tuple assignment</h2>
 <p> </p>
 <p>One of the unique syntactic features of the Python language is the
-ability to have a tuple on the left side of an assignment statement.
-This allows you to assign more than one variable at a time when the left
-side is a sequence.</p>
+ability to have a tuple on the left side and a sequence on the right
+side of an assignment statement. This allows you to assign more than one
+variable at a time to the given sequence.</p>
 <p>In this example we have a two-element list (which is a sequence) and
 assign the first and second elements of the sequence to the variables
 <code>x</code> and <code>y</code> in a single statement.</p>
@@ -397,19 +397,19 @@ list of tuples, where each tuple is a key-value pair:</p>
 <iframe width="100%" height="200" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen class="lazy lazyload">
 </iframe>
 <!--
->>> d = {'a':10, 'b':1, 'c':22}
+>>> d = {'b':1, 'a':10, 'c':22}
 >>> t = list(d.items())
 >>> print(t)
 [('b', 1), ('a', 10), ('c', 22)]
 -->
-<p>As you should expect from a dictionary, the items are in no
-particular order.</p>
+<p>As you should expect from a dictionary, the items are in
+non-alphabetical order.</p>
 <p>However, since the list of tuples is a list, and tuples are
 comparable, we can now sort the list of tuples. Converting a dictionary
 to a list of tuples is a way for us to output the contents of a
 dictionary sorted by key:</p>
 <div class="sourceCode" id="cb12"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> {<span class="st">&#39;a&#39;</span>:<span class="dv">10</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;c&#39;</span>:<span class="dv">22</span>}</span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> {<span class="st">&#39;b&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;a&#39;</span>:<span class="dv">10</span>, <span class="st">&#39;c&#39;</span>:<span class="dv">22</span>}</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> t <span class="op">=</span> <span class="bu">list</span>(d.items())</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> t</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>[(<span class="st">&#39;b&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">10</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">22</span>)]</span>
@@ -425,8 +425,9 @@ dictionaries</h2>
 you can see a nice code pattern for traversing the keys and values of a
 dictionary in a single loop:</p>
 <div class="sourceCode" id="cb13"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, val <span class="kw">in</span> <span class="bu">list</span>(d.items()):</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(val, key)</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {<span class="st">&#39;a&#39;</span>:<span class="dv">10</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;c&#39;</span>:<span class="dv">22</span>}</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, val <span class="kw">in</span> <span class="bu">list</span>(d.items()):</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(val, key)</span></code></pre></div>
 <p>This loop has two <em>iteration variables</em> because
 <code>items</code> returns a list of tuples and <code>key, val</code> is
 a tuple assignment that successively iterates through each of the
@@ -455,7 +456,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a h
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>...     l.append( (val, key) )</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>...</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>[(<span class="dv">10</span>, <span class="st">&#39;a&#39;</span>), (<span class="dv">22</span>, <span class="st">&#39;c&#39;</span>), (<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>)]</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>[(<span class="dv">10</span>, <span class="st">&#39;a&#39;</span>), (<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>), (<span class="dv">22</span>, <span class="st">&#39;c&#39;</span>)]</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>[(<span class="dv">22</span>, <span class="st">&#39;c&#39;</span>), (<span class="dv">10</span>, <span class="st">&#39;a&#39;</span>), (<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>)]</span>
@@ -1103,7 +1104,7 @@ results with the tables at <a
 href="https://wikipedia.org/wiki/Letter_frequencies"
 class="uri">https://wikipedia.org/wiki/Letter_frequencies</a>.</strong></p>
 <p> </p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -1116,7 +1117,7 @@ example, if you try this with a dictionary, it will not work as you
 might expect.<a href="#fnref2" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
         </div>
       </div>
     </div>

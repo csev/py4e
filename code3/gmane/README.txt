@@ -2,26 +2,21 @@ Analyzing an EMAIL Archive from gmane and vizualizing the data
 using the D3 JavaScript library
 
 This is a set of tools that allow you to pull down an archive
-of a gmane repository using the instructions at:
+of an email repository (formerly called gmane.org) using the
+instructions at:
 
-http://gmane.org/export.php
+http://mbox.dr-chuck.net/export.php
 
-In order not to overwhelm the gmane.org server, I have put up 
-my own copy of the messages at: 
-
-http://mbox.dr-chuck.net/
-
-This server will be faster and take a lot of load off the 
-gmane.org server.
+This server contains a cache of a subset of the gmane.org data,
+which is no longer available.
 
 You should install the SQLite browser to view and modify the databases from:
 
 http://sqlitebrowser.org/
 
-The first step is to spider the gmane repository.  The base URL 
+The first step is to spider the repository.  The base URL 
 is hard-coded in the gmane.py and is hard-coded to the Sakai
-developer list.  You can spider another repository by changing that
-base url.   Make sure to delete the content.sqlite file if you 
+developer list.  Make sure to delete the content.sqlite file if you 
 switch the base url.  The gmane.py file operates as a spider in 
 that it runs slowly and retrieves one mail message per second so 
 as to avoid getting throttled by gmane.org.   It stores all of

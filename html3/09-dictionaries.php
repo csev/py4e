@@ -11,9 +11,6 @@
   <title>-</title>
   <style>
     html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
@@ -32,13 +29,16 @@
     @media (max-width: 600px) {
       body {
         font-size: 0.9em;
-        padding: 1em;
+        padding: 12px;
       }
       h1 {
         font-size: 1.8em;
       }
     }
     @media print {
+      html {
+        background-color: white;
+      }
       body {
         background-color: transparent;
         color: black;
@@ -88,9 +88,10 @@
       color: #606060;
     }
     code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
+      hyphens: manual;
     }
     pre {
       margin: 1em 0;
@@ -153,7 +154,7 @@
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: 1;}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -197,18 +198,15 @@ pair with a colon between the key and value:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(eng2sp)
 {&#39;one&#39;: &#39;uno&#39;}</code></pre>
 <p>This output format is also an input format. For example, you can
-create a new dictionary with three items. But if you print
-<code>eng2sp</code>, you might be surprised:</p>
+create a new dictionary with three items.</p>
 <pre class="python"><code>&gt;&gt;&gt; eng2sp = {&#39;one&#39;: &#39;uno&#39;, &#39;two&#39;: &#39;dos&#39;, &#39;three&#39;: &#39;tres&#39;}
 &gt;&gt;&gt; print(eng2sp)
-{&#39;one&#39;: &#39;uno&#39;, &#39;three&#39;: &#39;tres&#39;, &#39;two&#39;: &#39;dos&#39;}</code></pre>
-<p>The order of the key-value pairs is not the same. In fact, if you
-type the same example on your computer, you might get a different
-result. In general, the order of items in a dictionary is
-unpredictable.</p>
-<p>But that’s not a problem because the elements of a dictionary are
-never indexed with integer indices. Instead, you use the keys to look up
-the corresponding values:</p>
+{&#39;one&#39;: &#39;uno&#39;, &#39;two&#39;: &#39;dos&#39;, &#39;three&#39;: &#39;tres&#39;}</code></pre>
+<p>Since Python 3.7x the order of key-value pairs is the same as their
+input order, i.e. dictionaries are now ordered structures.</p>
+<p>But that doesn’t really matter because the elements of a dictionary
+are never indexed with integer indices. Instead, you use the keys to
+look up the corresponding values:</p>
 <pre class="python"><code>&gt;&gt;&gt; print(eng2sp[&#39;two&#39;])
 &#39;dos&#39;</code></pre>
 <p>The key <code>'two'</code> always maps to the value “dos” so the
@@ -386,12 +384,11 @@ unsorted hash order. (the <em>romeo.txt</em> file is available at <a
 href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a>)</p>
 <pre><code>python count1.py
 Enter the file name: romeo.txt
-{&#39;and&#39;: 3, &#39;envious&#39;: 1, &#39;already&#39;: 1, &#39;fair&#39;: 1,
-&#39;is&#39;: 3, &#39;through&#39;: 1, &#39;pale&#39;: 1, &#39;yonder&#39;: 1,
-&#39;what&#39;: 1, &#39;sun&#39;: 2, &#39;Who&#39;: 1, &#39;But&#39;: 1, &#39;moon&#39;: 1,
-&#39;window&#39;: 1, &#39;sick&#39;: 1, &#39;east&#39;: 1, &#39;breaks&#39;: 1,
-&#39;grief&#39;: 1, &#39;with&#39;: 1, &#39;light&#39;: 1, &#39;It&#39;: 1, &#39;Arise&#39;: 1,
-&#39;kill&#39;: 1, &#39;the&#39;: 3, &#39;soft&#39;: 1, &#39;Juliet&#39;: 1}</code></pre>
+{&#39;But&#39;: 1, &#39;soft&#39;: 1, &#39;what&#39;: 1, &#39;light&#39;: 1, &#39;through&#39;: 1, &#39;yonder&#39;: 1,
+&#39;window&#39;: 1, &#39;breaks&#39;: 1, &#39;It&#39;: 1, &#39;is&#39;: 3, &#39;the&#39;: 3, &#39;east&#39;: 1, &#39;and&#39;: 3,
+&#39;Juliet&#39;: 1, &#39;sun&#39;: 2, &#39;Arise&#39;: 1, &#39;fair&#39;: 1, &#39;kill&#39;: 1, &#39;envious&#39;: 1,
+&#39;moon&#39;: 1, &#39;Who&#39;: 1, &#39;already&#39;: 1, &#39;sick&#39;: 1, &#39;pale&#39;: 1, &#39;with&#39;: 1,
+&#39;grief&#39;: 1}</code></pre>
 <p>It is a bit inconvenient to look through the dictionary to find the
 most common words and their counts, so we need to add some more Python
 code to get us the output that will be more helpful.</p>
@@ -404,10 +401,10 @@ each key and the corresponding value:</p>
 for key in counts:
     print(key, counts[key])</code></pre>
 <p>Here’s what the output looks like:</p>
-<pre><code>jan 100
-chuck 1
-annie 42</code></pre>
-<p>Again, the keys are in no particular order.</p>
+<pre><code>chuck 1
+annie 42
+jan 100</code></pre>
+<p>Again, the keys are ordered.</p>
 <p></p>
 <p>We can use this pattern to implement the various loop idioms that we
 have described earlier. For example if we wanted to find all the entries
@@ -421,8 +418,8 @@ for key in counts:
 dictionary, so we must use the index operator to retrieve the
 corresponding <em>value</em> for each key. Here’s what the output looks
 like:</p>
-<pre><code>jan 100
-annie 42</code></pre>
+<pre><code>annie 42
+jan 100</code></pre>
 <p>We see only the entries with a value above 10.</p>
 <p> </p>
 <p>If you want to print the keys in alphabetical order, you first make a
@@ -437,13 +434,13 @@ lst.sort()
 for key in lst:
     print(key, counts[key])</code></pre>
 <p>Here’s what the output looks like:</p>
-<pre><code>[&#39;jan&#39;, &#39;chuck&#39;, &#39;annie&#39;]
+<pre><code>[&#39;chuck&#39;, &#39;annie&#39;, &#39;jan&#39;]
 annie 42
 chuck 1
 jan 100</code></pre>
-<p>First you see the list of keys in unsorted order that we get from the
-<code>keys</code> method. Then we see the key-value pairs in order from
-the <code>for</code> loop.</p>
+<p>First you see the list of keys in non-alphabetical order that we get
+from the <code>keys</code> method. Then we see the key-value pairs in
+alphabetical order from the <code>for</code> loop.</p>
 <h2 id="advanced-text-parsing">Advanced text parsing</h2>
 <p></p>
 <p>In the above example using the file <em>romeo.txt</em>, we made the
@@ -510,11 +507,11 @@ read enough of the documentation to know where to look to see if someone
 has already written something that makes your job much easier.</p>
 <p>The following is an abbreviated version of the output:</p>
 <pre><code>Enter the file name: romeo-full.txt
-{&#39;swearst&#39;: 1, &#39;all&#39;: 6, &#39;afeard&#39;: 1, &#39;leave&#39;: 2, &#39;these&#39;: 2,
-&#39;kinsmen&#39;: 2, &#39;what&#39;: 11, &#39;thinkst&#39;: 1, &#39;love&#39;: 24, &#39;cloak&#39;: 1,
-a&#39;: 24, &#39;orchard&#39;: 2, &#39;light&#39;: 5, &#39;lovers&#39;: 2, &#39;romeo&#39;: 40,
-&#39;maiden&#39;: 1, &#39;whiteupturned&#39;: 1, &#39;juliet&#39;: 32, &#39;gentleman&#39;: 1,
-&#39;it&#39;: 22, &#39;leans&#39;: 1, &#39;canst&#39;: 1, &#39;having&#39;: 1, ...}</code></pre>
+{&#39;romeo&#39;: 40, &#39;and&#39;: 42, &#39;juliet&#39;: 32, &#39;act&#39;: 1, &#39;2&#39;: 2, &#39;scene&#39;: 2,
+&#39;ii&#39;: 1, &#39;capulets&#39;: 1, &#39;orchard&#39;: 2, &#39;enter&#39;: 1, &#39;he&#39;: 5, &#39;jests&#39;: 1,
+&#39;at&#39;: 9, &#39;scars&#39;: 1, &#39;that&#39;: 30, &#39;never&#39;: 2, &#39;felt&#39;: 1, &#39;a&#39;: 24, &#39;wound&#39;: 1,
+&#39;appears&#39;: 1, &#39;above&#39;: 6, &#39;window&#39;: 2, &#39;but&#39;: 18, &#39;soft&#39;: 1, &#39;what&#39;: 11,
+&#39;light&#39;: 5, &#39;through&#39;: 2, &#39;yonder&#39;: 2, &#39;breaks&#39;: 1, ...}</code></pre>
 <p>Looking through this output is still unwieldy and we can use Python
 to give us exactly what we are looking for, but to do so, we need to
 learn about Python <em>tuples</em>. We will pick up this example once we

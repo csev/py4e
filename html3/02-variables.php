@@ -11,9 +11,6 @@
   <title>-</title>
   <style>
     html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
@@ -32,13 +29,16 @@
     @media (max-width: 600px) {
       body {
         font-size: 0.9em;
-        padding: 1em;
+        padding: 12px;
       }
       h1 {
         font-size: 1.8em;
       }
     }
     @media print {
+      html {
+        background-color: white;
+      }
       body {
         background-color: transparent;
         color: black;
@@ -88,9 +88,10 @@
       color: #606060;
     }
     code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
+      hyphens: manual;
     }
     pre {
       margin: 1em 0;
@@ -153,7 +154,7 @@
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: 1;}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -275,13 +276,13 @@ SyntaxError: invalid syntax</code></pre>
 structure of the program, and they cannot be used as variable names.</p>
 <p></p>
 <p>Python reserves 35 keywords:</p>
-<pre><code>and       del       from      None      True
-as        elif      global    nonlocal  try
-assert    else      if        not       while
-break     except    import    or        with
-class     False     in        pass      yield
-continue  finally   is        raise     async
-def       for       lambda    return    await</code></pre>
+<pre><code>and     continue  finally  is        raise
+as      def       for      lambda    return
+assert  del       from     None      True
+async   elif      global   nonlocal  try
+await   else      if       not       while
+break   except    import   or        with
+class   False     in       pass      yield</code></pre>
 <p>You might want to keep this list handy. If the interpreter complains
 about one of your variable names and you don’t know why, see if it is on
 this list.</p>
@@ -541,7 +542,7 @@ variable in the first place.</p>
 mnemonic variable names, mnemonic variable names can get in the way of a
 beginning programmer’s ability to parse and understand code. This is
 because beginning programmers have not yet memorized the reserved words
-(there are only 33 of them) and sometimes variables with names that are
+(there are only 35 of them) and sometimes variables with names that are
 too descriptive start to look like part of the language and not just
 well-chosen variable names.</p>
 <p>Take a quick look at the following Python sample code which loops
@@ -741,7 +742,7 @@ expression and the type (of the value of the expression).</p>
 <p><strong>Exercise 5: Write a program which prompts the user for a
 Celsius temperature, convert the temperature to Fahrenheit, and print
 out the converted temperature.</strong></p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -753,7 +754,7 @@ class="uri">https://en.wikipedia.org/wiki/Mnemonic</a> for an extended
 description of the word “mnemonic”.<a href="#fnref2"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

@@ -11,9 +11,6 @@
   <title>-</title>
   <style>
     html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
@@ -32,13 +29,16 @@
     @media (max-width: 600px) {
       body {
         font-size: 0.9em;
-        padding: 1em;
+        padding: 12px;
       }
       h1 {
         font-size: 1.8em;
       }
     }
     @media print {
+      html {
+        background-color: white;
+      }
       body {
         background-color: transparent;
         color: black;
@@ -88,9 +88,10 @@
       color: #606060;
     }
     code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
+      hyphens: manual;
     }
     pre {
       margin: 1em 0;
@@ -153,7 +154,7 @@
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: 1;}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -205,9 +206,9 @@ class="uri">https://www.w3.org/Protocols/rfc2616/rfc2616.txt</a></p>
 <p>This is a long and complex 176-page document with a lot of detail. If
 you find it interesting, feel free to read it all. But if you take a
 look around page 36 of RFC2616 you will find the syntax for the GET
-request. To request a document from a web server, we make a connection
-to the <code>www.pr4e.org</code> server on port 80, and then send a line
-of the form</p>
+request. To request a document from a web server, we make a connection,
+e.g. to the <code>www.pr4e.org</code> server on port 80, and then send a
+line of the form</p>
 <p><code>GET http://data.pr4e.org/romeo.txt HTTP/1.0</code></p>
 <p>where the second parameter is the web page we are requesting, and
 then we also send a blank line. The web server will respond with some
@@ -236,7 +237,7 @@ mysock.close()
 
 # Code: http://www.py4e.com/code3/socket1.py</code></pre>
 <p>First the program makes a connection to port 80 on the server <a
-href="http://www.py4e.com">www.py4e.com</a>. Since our program is
+href="http://www.pr4e.com">www.pr4e.com</a>. Since our program is
 playing the role of the “web browser”, the HTTP protocol says we must
 send the GET command followed by a blank line. <code>\r\n</code>
 signifies an EOL (end of line), so <code>\r\n\r\n</code> signifies
@@ -436,9 +437,9 @@ for line in fhand:
     print(line.decode().strip())
 
 # Code: http://www.py4e.com/code3/urllib1.py</code></pre>
-<p>Once the web page has been opened with <code>urllib.urlopen</code>,
-we can treat it like a file and read through it using a <code>for</code>
-loop.</p>
+<p>Once the web page has been opened with
+<code>urllib.request.urlopen</code>, we can treat it like a file and
+read through it using a <code>for</code> loop.</p>
 <p>When the program runs, we only see the output of the contents of the
 file. The headers are still sent, but the <code>urllib</code> code
 consumes the headers and only returns the data to us.</p>
@@ -510,7 +511,7 @@ fhand.close()
 
 # Code: http://www.py4e.com/code3/curl2.py</code></pre>
 <p>In this example, we read only 100,000 characters at a time and then
-write those characters to the <code>cover.jpg</code> file before
+write those characters to the <code>cover3.jpg</code> file before
 retrieving the next 100,000 characters of data from the web.</p>
 <p>This program runs as follows:</p>
 <pre><code>python curl2.py
@@ -832,14 +833,14 @@ several small web pages as well as some larger web pages.</strong></p>
 only shows data after the headers and a blank line have been received.
 Remember that <code>recv</code> receives characters (newlines and all),
 not lines.</strong></p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1"><p>The XML format is described in the next chapter.<a
 href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

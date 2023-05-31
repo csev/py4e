@@ -12,9 +12,6 @@
   <title>Python for Everybody</title>
   <style>
     html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
@@ -33,13 +30,16 @@
     @media (max-width: 600px) {
       body {
         font-size: 0.9em;
-        padding: 1em;
+        padding: 12px;
       }
       h1 {
         font-size: 1.8em;
       }
     }
     @media print {
+      html {
+        background-color: white;
+      }
       body {
         background-color: transparent;
         color: black;
@@ -89,9 +89,10 @@
       color: #606060;
     }
     code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
+      hyphens: manual;
     }
     pre {
       margin: 1em 0;
@@ -154,7 +155,7 @@
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: 1;}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -1033,10 +1034,10 @@ e) Output Devices</p>
 <p><strong>Exercise 7: What will the following program print
 out:</strong></p>
 <pre class="python"><code>x = 43
-x = x + 1
+x = x - 1
 print(x)</code></pre>
 <p>a) 43<br />
-b) 44<br />
+b) 42<br />
 c) x + 1<br />
 d) Error because x = x + 1 is not possible mathematically</p>
 <p><strong>Exercise 8: Explain each of the following using an example of
@@ -1045,7 +1046,7 @@ Secondary Memory, (4) Input Device, and (5) Output Device. For example,
 “What is the human equivalent to a Central Processing
 Unit”?</strong></p>
 <p><strong>Exercise 9: How do you fix a “Syntax Error”?</strong></p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -1053,7 +1054,7 @@ role="doc-endnotes">
 class="uri">http://xkcd.com/231/</a><a href="#fnref1"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {
