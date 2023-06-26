@@ -49,3 +49,6 @@ ps2pdf12 -dPDFSETTINGS=/prepress -dEmbedAllFonts=true tmp.ps tmp12.pdf
 ps2pdf13 -dPDFSETTINGS=/prepress -dEmbedAllFonts=true tmp.ps tmp13.pdf
 ps2pdf14 -dPDFSETTINGS=/prepress -dEmbedAllFonts=true tmp.ps tmp14.pdf
 
+
+https://community.adobe.com/t5/indesign-discussions/issue-exporting-pdf-for-amazon-kdp/m-p/11100542
+
