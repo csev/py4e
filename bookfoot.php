@@ -28,7 +28,7 @@ function onSelect() {
     console.log($('#chapters').val());
     window.location = $('#chapters').val();
 }
-</script>    
+</script>
 <div style="float:right">
 <select id="chapters" onchange="onSelect();">
   <option <?= x_sel("01-intro") ?>>Chapter 1: Introduction</option>
@@ -52,12 +52,39 @@ function onSelect() {
 
 <?php
 echo($body);
+
+$OUTPUT->footerStart();
 ?>
 <hr/>
 <p>
 If you find a mistake in this book, feel free to send me a fix using
 <a href="https://github.com/csev/py4e/tree/master/book3" target="_blank">Github</a>.
 </p>
+<script>
+function onSelectFooter() {
+    console.log($('#chapters_footer').val());
+    window.location = $('#chapters_footer').val();
+}
+</script>
+<div style="float:right">
+<select id="chapters_footer" onchange="onSelectFooter();">
+  <option <?= x_sel("01-intro") ?>>Chapter 1: Introduction</option>
+  <option <?= x_sel("02-variables") ?>>Chapter 2: Variables</option>
+  <option <?= x_sel("03-conditional") ?>>Chapter 3: Conditionals</option>
+  <option <?= x_sel("04-functions") ?>>Chapter 4: Functions</option>
+  <option <?= x_sel("05-iterations") ?>>Chapter 5: Iterations</option>
+  <option <?= x_sel("06-strings") ?>>Chapter 6: Strings</option>
+  <option <?= x_sel("07-files") ?>>Chapter 7: Files</option>
+  <option <?= x_sel("08-lists") ?>>Chapter 8: Lists</option>
+  <option <?= x_sel("09-dictionaries") ?>>Chapter 9: Dictionaries</option>
+  <option <?= x_sel("10-tuples") ?>>Chapter 10: Tuples</option>
+  <option <?= x_sel("11-regex") ?>>Chapter 11: Regex</option>
+  <option <?= x_sel("12-network") ?>>Chapter 12: Networked Programs</option>
+  <option <?= x_sel("13-web") ?>>Chapter 13: Python and Web Services</option>
+  <option <?= x_sel("14-objects") ?>>Chapter 14: Python Objects</option>
+  <option <?= x_sel("15-database") ?>>Chapter 15: Python and Databases</option>
+  <option <?= x_sel("16-viz") ?>>Chapter 16: Data Vizualization</option>
+</select>
+</div>
 <?php
-
-$OUTPUT->footer();
+$OUTPUT->footerEnd();
