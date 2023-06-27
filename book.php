@@ -49,7 +49,7 @@
                 <li>Ελληνικά - Python για Ολους
                         <ul>
                                 <li>
-                                       Draft: <a href="https://gr.py4e.com/translations/EL/Latest_gr_py4e_book.pdf" target="_blank">PDF</a>
+                                        <a href="https://gr.py4e.com/translations/EL/Latest_gr_py4e_book.pdf" target="_blank">PDF in A4 format</a>
                                 </li>
                                 <li>
                                         <a href="lectures3/gr" target="_blank">Ελληνική έκδοση των διαφανειών</a> από την 
