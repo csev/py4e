@@ -21,8 +21,6 @@ To produce the book run
 
 The output `bash book.sh` is in the file `x.pdf` and `x.epub`.
 
-*Note that the build scripts require Python 2*
-
 ## Build Server
 
 There is a continuous build server that I have on Digital Ocean that builds
@@ -66,7 +64,7 @@ script if you intend on contributing a new script.
 
 ## KindleGen
 
-The `book.sh` script will generate the `x.mobi` file is KindleGen is in the path:
+The `book.sh` script will generate the `x.mobi` file if KindleGen is in the path:
 
     https://www.amazon.com/gp/feature.html?docId=1000765211
 
@@ -75,6 +73,11 @@ For Linux:
     curl -O http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz
     tar xfv kindlegen_linux_2.6_i386_v2_9.tar.gz 
     cp kindlegen /usr/local/bin
+
+For MacOS you need to download from here:
+
+    https://github.com/andyljones/kindlegen-64
+    https://github.com/andyljones/kindlegen-64/raw/master/kindlegen
 
 ## Createspace
 
@@ -128,4 +131,3 @@ https://github.com/csev/py4e
 We can also use the issue tracker to coordinate if that helps.
 
 /Chuck
-
