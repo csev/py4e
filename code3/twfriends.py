@@ -10,9 +10,9 @@ conn = sqlite3.connect('friends.sqlite')
 cur = conn.cursor()
 
 cur.execute('''CREATE TABLE IF NOT EXISTS People
-            (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
+    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
 cur.execute('''CREATE TABLE IF NOT EXISTS Follows
-            (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
 
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
@@ -23,7 +23,9 @@ while True:
     acct = input('Enter a Twitter account, or quit: ')
     if (acct == 'quit'): break
     if (len(acct) < 1):
-        cur.execute('SELECT id, name FROM People WHERE retrieved=0 LIMIT 1')
+        cur.execute(
+           'SELECT id, name FROM People WHERE retrieved=0 LIMIT 1'
+        )
         try:
             (id, acct) = cur.fetchone()
         except:
@@ -43,7 +45,8 @@ while True:
                 continue
             id = cur.lastrowid
 
-    url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '100'})
+    url = twurl.augment(TWITTER_URL, 
+        {'screen_name': acct, 'count': '100'})
     print('Retrieving account', acct)
     try:
         connection = urllib.request.urlopen(url, context=ctx)

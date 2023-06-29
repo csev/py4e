@@ -24,7 +24,7 @@ if [ -f .chinese ] ; then
     pandoc -V mainfont='Noto Serif CJK SC' [A-Z][A-Z]*.mkd -o tmp.app.tex
 else
     cat [0-9]*.mkd | $MY_PYTHON verbatim.py | iconv -f utf8 -t ascii//TRANSLIT > tmp.verbatim 
-    pandoc -s -N -f markdown+definition_lists -t latex --toc --default-image-extension=eps -V fontsize:10pt -V documentclass:book --template=template.latex -o tmp.tex < tmp.verbatim 
+    pandoc -s -N -f markdown+definition_lists -t latex --toc --default-image-extension=jpg -V fontsize:10pt -V documentclass:book --template=template.latex -o tmp.tex < tmp.verbatim 
     pandoc [A-Z][A-Z]*.mkd -o tmp.app.tex
 fi
 
