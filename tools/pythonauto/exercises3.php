@@ -562,7 +562,46 @@ for key, val in lst :
 "checks" => Array(
 "for" => "You need a for loop to read the lines in the file.",
 "sort" => "You need to use list sort() method to sort the list of times.")
+),
+    
+"17.1" => Array(
+"qtext" => "<b>17.1</b> 1.	Να γραφεί πρόγραμμα σε Python που να ζητά από τον
+χρήστη δύο ακεραίους αριθμούς num1 και num2 και ένα σύμβολο πράξης (ένα από τα +, -, *, /),
+διασφαλίζοντας ότι δόθηκε σωστό σύμβολο, και αν η πράξη μεταξύ των αριθμών μπορεί
+να εκτελεστεί, να εμφανίζει το αποτέλεσμά της ή σε διαφορετική περίπτωση το
+μήνυμα <b>Μη αποδεκτές τιμές</b>. Εκτελέστε το πρόγραμμά σας για τις τιμές <b>3, 0, /</b>",
+"desired" => "Μη αποδεκτές τιμές",
+"code" => 'num1 = input("Πρώτος Αριθμός:")
+num2 = input("Δεύτερος Αριθμός:")
+oper = input("Σύμβολο Πράξης:")
+
+print num1, oper, num2, '=', apot
+
+',
+"xcode" => 'num1 = int(input("Πρώτος Αριθμός:"))
+num2 = int(input("Δεύτερος Αριθμός:"))
+oper = str(input("Σύμβολο Πράξης:"))
+while oper not in ['+','-','*','/']: oper = str(input("Σύμβολο Πράξης:"))
+if oper = '/':
+    if num2 != 0:
+        apot = num1 / num2
+        print num1, oper, num2, '=', apot
+    else:
+        print("Μη αποδεκτές τιμές")
+else:
+    if oper = '+':
+        apot = num1 + num2
+    elif oper = '-':
+        apot = num1 - num2
+    else:
+        apot = mun1 * num2
+    print num1, oper, num2, '=', apot
+',
+"checks" => Array(
+"while" => "Πρέπει να χρησιμοποιήσετε ένα βρόχο while για να διασφαλήσετε ότι δίνεται σωστός τελεστής πράξης.",
+"if" => "Πρέπει να χρησιμοποιήσετε if για να κάνετε τους απαραίτητους υπολογισμούς")
 )
+
 
 
 );
