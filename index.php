@@ -49,7 +49,7 @@ You can take this course and receive a certificate at:
 <li><a href="https://www.futurelearn.com/courses/programming-for-everybody-python" target="_blank">FutureLearn: Programming for Everybody (Getting Started with Python)</a></li>
 -->
 <li><a href="https://www.youtube.com/watch?v=8DvywoWv6fI" target="_blank">FreeCodeCamp</a></li>
-<li><a href="https://online.umich.edu/series/python-for-everybody/" target="_blank">Free certificates for University of Michgan students and staff</a></li>
+<li><a href="https://online.umich.edu/series/python-for-everybody/" target="_blank">Free certificates for University of Michigan students and staff</a></li>
 </ul>
 <p>
 If you <a href="tsugi/login.php">log in</a> to this site
