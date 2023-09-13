@@ -3,6 +3,7 @@ require_once "../config.php";
 \Tsugi\Core\LTIX::getConnection();
 
 use \Tsugi\Grades\GradeUtil;
+use \Tsugi\Util\U;
 
 session_start();
 
@@ -22,6 +23,12 @@ $OUTPUT->flashMessages();
 GradeUtil::gradeShowInfo($row, false);
 
 // Unique detail
+if ( U::isEmpty($row['json'])) {
+    echo("<p>No submission</p>\n");
+    $OUTPUT->footer();
+    return;
+}
+
 echo("<p>Submission:</p>\n");
 $json = json_decode($row['json']);
 if ( is_object($json) ) {
