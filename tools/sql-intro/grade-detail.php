@@ -34,7 +34,6 @@ $json = json_decode($row['json']);
 if ( is_object($json) ) {
     echo("<pre>\n");
     if ( isset($json->code)) {
-        echo("Code:\n");
         echo(htmlent_utf8($json->code));
         echo("\n");
         unset($json->code);
