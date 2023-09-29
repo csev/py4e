@@ -551,82 +551,52 @@ The documentation for the `find` method is available at
 
 <https://docs.python.org/library/stdtypes.html#string-methods>.
 
-Format operator
----------------
+Formatted String Literals
+-------------------------
 
-\index{format operator}
-\index{operator!format}
+\index{formatted string literals}
 
-The *format operator*, `%` allows us to
-construct strings, replacing parts of the strings with the data stored
-in variables. When applied to integers, `%` is the modulus
-operator. But when the first operand is a string, `%` is the
-format operator.
+A formatted string literal (often referred to simply as an f-string)
+allows Python expressions to be used within string literals. This is 
+accomplished by prepending an `f` to the string literal and enclosing 
+expressions in curly braces `{}`.
 
-\index{format string}
-
-The first operand is the *format string*, which contains
-one or more *format sequences* that specify how the
-second operand is formatted. The result is a string.
-
-\index{format sequence}
-
-For example, the format sequence `%d` means that the second operand
-should be formatted as an integer ("d" stands for "decimal"):
+For example, wrapping a variable name in curly braces inside an 
+f-string will cause it to be replaced by its value:
 
 ~~~~ {.python}
 >>> camels = 42
->>> '%d' % camels
+>>> f'{camels}'
 '42'
 ~~~~
 
 The result is the string '42', which is not to be confused with the
 integer value 42.
 
-A format sequence can appear anywhere in the string, so you can embed a
+An expression can appear anywhere in the string, so you can embed a
 value in a sentence:
 
 ~~~~ {.python}
 >>> camels = 42
->>> 'I have spotted %d camels.' % camels
+>>> f'I have spotted {camels} camels.'
 'I have spotted 42 camels.'
 ~~~~
 
-If there is more than one format sequence in the string, the second
-argument has to be a tuple^[A tuple is a sequence of comma-separated 
-values inside a pair of parenthesis. We will cover tuples in Chapter 10].
-Each format sequence is matched with an
-element of the tuple, in order.
-
-The following example uses `%d` to format an integer, `%g` to format
-a floating-point number (don't ask why), and `%s` to format a string:
+Several expressions can be included within a single string literal
+in order to create more complex strings.
 
 ~~~~ {.python}
->>> 'In %d years I have spotted %g %s.' % (3, 0.1, 'camels')
+>>> years = 3
+>>> count = .1
+>>> species = 'camels'
+>>> f'In {years} years I have spotted {count} {species}.'
 'In 3 years I have spotted 0.1 camels.'
 ~~~~
 
-The number of elements in the tuple must match the number of format
-sequences in the string. The types of the elements also must match the
-format sequences:
+Formatted string literals are powerful, and they can do even more than is covered 
+here. You can read more about them at
 
-\index{exception!TypeError}
-\index{TypeError}
-
-~~~~ {.python}
->>> '%d %d %d' % (1, 2)
-TypeError: not enough arguments for format string
->>> '%d' % 'dollars'
-TypeError: %d format: a number is required, not str
-~~~~
-
-In the first example, there aren't enough elements; in the second, the
-element is the wrong type.
-
-The format operator is powerful, but it can be difficult to use. You can
-read more about it at
-
-<https://docs.python.org/library/stdtypes.html#printf-style-string-formatting>.
+<https://docs.python.org/3/tutorial/inputoutput.html#formatted-string-literals>.
 
 Debugging
 ---------
