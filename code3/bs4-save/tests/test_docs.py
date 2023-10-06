@@ -1,7 +1,5 @@
 "Test harness for doctests."
 
-# TODO: Pretty sure this isn't used and should be deleted.
-
 # pylint: disable-msg=E0611,W0142
 
 __metaclass__ = type

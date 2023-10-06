@@ -63,7 +63,7 @@ while len(urls) > 0:
     print('RETRIEVING', cururl)
     data = tinyTable(cururl)
     visited.append(cururl)
-    soup = BeautifulSoup(data)
+    soup = BeautifulSoup(data, features="html.parser")
     tags = soup('a')
     # print 'Tags'
     for tag in tags:
