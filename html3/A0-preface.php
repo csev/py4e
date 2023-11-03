@@ -156,8 +156,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -174,6 +177,7 @@
 Cover Design: Aimee Andrion</code></pre>
 <h2 id="printing-history">Printing History</h2>
 <ul>
+<li>2023-Jun-29 Many errata included</li>
 <li>2016-Jul-05 First Complete Python 3.0 version</li>
 <li>2015-Dec-20 Initial Python 3.0 rough conversion</li>
 </ul>

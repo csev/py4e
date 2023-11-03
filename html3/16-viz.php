@@ -156,8 +156,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -423,7 +426,7 @@ href="https://www.py4e.com/code3/gmane.zip">https://www.py4e.com/code3/gmane.zip
 was called <em>gmane</em> - the service has since been shut down and for
 the purposes of this course, a partial archive has been kept at <a
 href="http://mbox.dr-chuck.net">http://mbox.dr-chuck.net</a>. The gmane
-service was very popular with open source projects because it provides a
+service was very popular with open source projects because it provided a
 nice searchable archive of their email activity.</p>
 <p><a
 href="http://mbox.dr-chuck.net/export.php">http://mbox.dr-chuck.net/export.php</a></p>

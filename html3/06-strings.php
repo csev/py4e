@@ -156,8 +156,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -506,55 +509,36 @@ at</p>
 <p><a
 href="https://docs.python.org/library/stdtypes.html#string-methods"
 class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a>.</p>
-<h2 id="format-operator">Format operator</h2>
-<p> </p>
-<p>The <em>format operator</em>, <code>%</code> allows us to construct
-strings, replacing parts of the strings with the data stored in
-variables. When applied to integers, <code>%</code> is the modulus
-operator. But when the first operand is a string, <code>%</code> is the
-format operator.</p>
+<h2 id="formatted-string-literals">Formatted String Literals</h2>
 <p></p>
-<p>The first operand is the <em>format string</em>, which contains one
-or more <em>format sequences</em> that specify how the second operand is
-formatted. The result is a string.</p>
-<p></p>
-<p>For example, the format sequence <code>%d</code> means that the
-second operand should be formatted as an integer (“d” stands for
-“decimal”):</p>
+<p>A formatted string literal (often referred to simply as an f-string)
+allows Python expressions to be used within string literals. This is
+accomplished by prepending an <code>f</code> to the string literal and
+enclosing expressions in curly braces <code>{}</code>.</p>
+<p>For example, wrapping a variable name in curly braces inside an
+f-string will cause it to be replaced by its value:</p>
 <pre class="python"><code>&gt;&gt;&gt; camels = 42
-&gt;&gt;&gt; &#39;%d&#39; % camels
+&gt;&gt;&gt; f&#39;{camels}&#39;
 &#39;42&#39;</code></pre>
 <p>The result is the string ‘42’, which is not to be confused with the
 integer value 42.</p>
-<p>A format sequence can appear anywhere in the string, so you can embed
-a value in a sentence:</p>
+<p>An expression can appear anywhere in the string, so you can embed a
+value in a sentence:</p>
 <pre class="python"><code>&gt;&gt;&gt; camels = 42
-&gt;&gt;&gt; &#39;I have spotted %d camels.&#39; % camels
+&gt;&gt;&gt; f&#39;I have spotted {camels} camels.&#39;
 &#39;I have spotted 42 camels.&#39;</code></pre>
-<p>If there is more than one format sequence in the string, the second
-argument has to be a tuple<a href="#fn1" class="footnote-ref"
-id="fnref1" role="doc-noteref"><sup>1</sup></a>. Each format sequence is
-matched with an element of the tuple, in order.</p>
-<p>The following example uses <code>%d</code> to format an integer,
-<code>%g</code> to format a floating-point number (don’t ask why), and
-<code>%s</code> to format a string:</p>
-<pre class="python"><code>&gt;&gt;&gt; &#39;In %d years I have spotted %g %s.&#39; % (3, 0.1, &#39;camels&#39;)
+<p>Several expressions can be included within a single string literal in
+order to create more complex strings.</p>
+<pre class="python"><code>&gt;&gt;&gt; years = 3
+&gt;&gt;&gt; count = .1
+&gt;&gt;&gt; species = &#39;camels&#39;
+&gt;&gt;&gt; f&#39;In {years} years I have spotted {count} {species}.&#39;
 &#39;In 3 years I have spotted 0.1 camels.&#39;</code></pre>
-<p>The number of elements in the tuple must match the number of format
-sequences in the string. The types of the elements also must match the
-format sequences:</p>
-<p> </p>
-<pre class="python"><code>&gt;&gt;&gt; &#39;%d %d %d&#39; % (1, 2)
-TypeError: not enough arguments for format string
-&gt;&gt;&gt; &#39;%d&#39; % &#39;dollars&#39;
-TypeError: %d format: a number is required, not str</code></pre>
-<p>In the first example, there aren’t enough elements; in the second,
-the element is the wrong type.</p>
-<p>The format operator is powerful, but it can be difficult to use. You
-can read more about it at</p>
+<p>Formatted string literals are powerful, and they can do even more
+than is covered here. You can read more about them at</p>
 <p><a
-href="https://docs.python.org/library/stdtypes.html#printf-style-string-formatting"
-class="uri">https://docs.python.org/library/stdtypes.html#printf-style-string-formatting</a>.</p>
+href="https://docs.python.org/3/tutorial/inputoutput.html#formatted-string-literals"
+class="uri">https://docs.python.org/3/tutorial/inputoutput.html#formatted-string-literals</a>.</p>
 <h2 id="debugging">Debugging</h2>
 <p></p>
 <p>A skill that you should cultivate as you program is always asking
@@ -684,7 +668,7 @@ floating point number.</strong></p>
 <p> </p>
 <p><strong>Exercise 6: Read the documentation of the string methods at
 <a href="https://docs.python.org/library/stdtypes.html#string-methods"
-class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a>
+class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a>.
 You might want to experiment with some of them to make sure you
 understand how they work. <code>strip</code> and <code>replace</code>
 are particularly useful.</strong></p>
@@ -693,15 +677,6 @@ example, in <code>find(sub[, start[, end]])</code>, the brackets
 indicate optional arguments. So <code>sub</code> is required, but
 <code>start</code> is optional, and if you include <code>start</code>,
 then <code>end</code> is optional.</strong></p>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>A tuple is a sequence of comma-separated values inside a
-pair of parenthesis. We will cover tuples in Chapter 10<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</aside>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

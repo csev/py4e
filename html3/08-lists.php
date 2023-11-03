@@ -156,8 +156,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -701,7 +704,7 @@ original alone. But in that case you should avoid using
 <li><p>Lists, <code>split</code>, and files</p>
 <p>When we read and parse files, there are many opportunities to
 encounter input that can crash our program so it is a good idea to
-revisit the <em>guardian</em> pattern when it comes writing programs
+revisit the <em>guardian</em> pattern when it comes to writing programs
 that read through a file and look for a “needle in the haystack”.</p>
 <p>Let’s revisit our program that is looking for the day of the week on
 the from lines of our file:</p>

@@ -156,8 +156,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -801,9 +804,9 @@ conn = sqlite3.connect(&#39;friends.sqlite&#39;)
 cur = conn.cursor()
 
 cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS People
-            (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)&#39;&#39;&#39;)
+    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)&#39;&#39;&#39;)
 cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS Follows
-            (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))&#39;&#39;&#39;)
+    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))&#39;&#39;&#39;)
 
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
@@ -814,7 +817,9 @@ while True:
     acct = input(&#39;Enter a Twitter account, or quit: &#39;)
     if (acct == &#39;quit&#39;): break
     if (len(acct) &lt; 1):
-        cur.execute(&#39;SELECT id, name FROM People WHERE retrieved=0 LIMIT 1&#39;)
+        cur.execute(
+           &#39;SELECT id, name FROM People WHERE retrieved=0 LIMIT 1&#39;
+        )
         try:
             (id, acct) = cur.fetchone()
         except:
@@ -834,7 +839,8 @@ while True:
                 continue
             id = cur.lastrowid
 
-    url = twurl.augment(TWITTER_URL, {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;100&#39;})
+    url = twurl.augment(TWITTER_URL,
+        {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;100&#39;})
     print(&#39;Retrieving account&#39;, acct)
     try:
         connection = urllib.request.urlopen(url, context=ctx)
@@ -991,8 +997,10 @@ relationship</h3>
 <p>Once we know the key value for both the Twitter user and the friend
 in the JSON, it is a simple matter to insert the two numbers into the
 <code>Follows</code> table with the following code:</p>
-<pre class="python"><code>cur.execute(&#39;INSERT OR IGNORE INTO Follows (from_id, to_id) VALUES (?, ?)&#39;,
-    (id, friend_id) )</code></pre>
+<pre class="python"><code>cur.execute(
+    &#39;INSERT OR IGNORE INTO Follows (from_id, to_id) VALUES (?, ?)&#39;,
+    (id, friend_id)
+)</code></pre>
 <p>Notice that we let the database take care of keeping us from
 “double-inserting” a relationship by creating the table with a
 uniqueness constraint and then adding <code>OR IGNORE</code> to our
