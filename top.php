@@ -8,3 +8,13 @@ if ( ! isset($CFG) ) {
 }
 
 $OUTPUT->header();
+?>
+<style>
+body {
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    line-height: 1.93rem;
+    color: var(--text);
+    background-color: var(--background-color);
+}
+</style>
