@@ -355,13 +355,13 @@ for the first time.</p>
 <h2 id="words-and-sentences">Words and sentences</h2>
 <p> </p>
 <p>Unlike human languages, the Python vocabulary is actually pretty
-small. We call this “vocabulary” the “reserved words”. These are words
-that have very special meaning to Python. When Python sees these words
-in a Python program, they have one and only one meaning to Python. Later
-as you write programs you will make up your own words that have meaning
-to you called <em>variables</em>. You will have great latitude in
-choosing your names for your variables, but you cannot use any of
-Python’s reserved words as a name for a variable.</p>
+small. We call this “vocabulary” the “reserved words” or “keywords”.
+These are words that have very special meaning to Python. When Python
+sees these words in a Python program, they have one and only one meaning
+to Python. Later as you write programs you will make up your own words
+that have meaning to you called <em>variables</em>. You will have great
+latitude in choosing your names for your variables, but you cannot use
+any of Python’s reserved words as a name for a variable.</p>
 <p>When we train a dog, we use special words like “sit”, “stay”, and
 “fetch”. When you talk to a dog and don’t use any of the reserved words,
 they just look at you with a quizzical look on their face until you say
@@ -374,13 +374,13 @@ class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>.</p>
 <p>The reserved words in the language where humans talk to Python
 include the following:</p>
-<pre><code>and       del       global      not       with
-as        elif      if          or        yield
-assert    else      import      pass
-break     except    in          raise
-class     finally   is          return
-continue  for       lambda      try
-def       from      nonlocal    while    </code></pre>
+<pre><code>False      await      else       import     pass
+None       break      except     in         raise
+True       class      finally    is         return
+and        continue   for        lambda     try
+as         def        from       nonlocal   while
+assert     del        global     not        with
+async      elif       if         or         yield</code></pre>
 <p>That is it, and unlike a dog, Python is already completely trained.
 When you say “try”, Python will try every time you say it without
 fail.</p>
@@ -411,8 +411,8 @@ terminal or command window and you will type <em>python</em> and the
 Python interpreter will start executing in interactive mode and appear
 somewhat as follows:</p>
 <p></p>
-<pre class="python"><code>Python 3.5.1 (v3.5.1:37a07cee5969, Dec  6 2015, 01:54:25)
-[MSC v.1900 64 bit (AMD64)] on win32
+<pre class="python"><code>Python 3.11.6 (main, Nov  2 2023, 04:39:43)
+   [Clang 14.0.3 (clang-1403.0.22.14.1)] on darwin
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more
 information.
 &gt;&gt;&gt;</code></pre>
@@ -426,8 +426,8 @@ that astronauts use when they land on a faraway planet and try to speak
 with the inhabitants of the planet:</p>
 <pre class="python"><code>&gt;&gt;&gt; I come in peace, please take me to your leader
 File &quot;&lt;stdin&gt;&quot;, line 1
-  I come in peace, please take me to your leader
-       ^
+    I come in peace take me tou your leader
+      ^^^^
 SyntaxError: invalid syntax
 &gt;&gt;&gt;</code></pre>
 <p>This is not going so well. Unless you think of something quickly, the
@@ -445,10 +445,10 @@ We have been waiting for you for a long time
 &gt;&gt;&gt; print(&#39;Our legend says you will be very tasty with mustard&#39;)
 Our legend says you will be very tasty with mustard
 &gt;&gt;&gt; print &#39;We will have a feast tonight unless you say
-File &quot;&lt;stdin&gt;&quot;, line 1
-  print &#39;We will have a feast tonight unless you say
-                                                   ^
-SyntaxError: Missing parentheses in call to &#39;print&#39;
+  File &quot;&lt;stdin&gt;&quot;, line 1
+    print &#39;We will have a feast tonight unless you say
+          ^
+SyntaxError: unterminated string literal (detected at line 1)
 &gt;&gt;&gt;</code></pre>
 <p>The conversation was going so well for a while and then you made the
 tiniest mistake using the Python language and Python brought the spears
@@ -468,13 +468,13 @@ you should probably know the proper way to say “good-bye” when
 interacting with the inhabitants of Planet Python:</p>
 <pre class="python"><code>&gt;&gt;&gt; good-bye
 Traceback (most recent call last):
-File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
 NameError: name &#39;good&#39; is not defined
 &gt;&gt;&gt; if you don&#39;t mind, I need to leave
-File &quot;&lt;stdin&gt;&quot;, line 1
-  if you don&#39;t mind, I need to leave
-           ^
-SyntaxError: invalid syntax
+  File &quot;&lt;stdin&gt;&quot;, line 1
+    if you don&#39;t mind, I need to leave
+              ^
+SyntaxError: unterminated string literal (detected at line 1)
 &gt;&gt;&gt; quit()</code></pre>
 <p>You will notice that the error is different for the first two
 incorrect attempts. The second error is different because <em>if</em> is
@@ -634,7 +634,7 @@ scan the words.</p>
 <p>The even better news is that I already came up with a simple program
 to find the most common word in a text file. I wrote it, tested it, and
 now I am giving it to you to use so you can save some time.</p>
-<pre class="python"><code>name = input(&#39;Enter file:&#39;)
+<pre class="python"><code>name = input(&#39;Enter file: &#39;)
 handle = open(name, &#39;r&#39;)
 counts = dict()
 
@@ -733,23 +733,24 @@ perfectly written programs and rejects them as “unfit” just to torment
 us.</p>
 <pre class="python"><code>&gt;&gt;&gt; primt &#39;Hello world!&#39;
 File &quot;&lt;stdin&gt;&quot;, line 1
-  primt &#39;Hello world!&#39;
-                     ^
+    primt &#39;Hello world!&#39;
+          ^^^^^^^^^^^^^^
 SyntaxError: invalid syntax
+
 &gt;&gt;&gt; primt (&#39;Hello world&#39;)
 Traceback (most recent call last):
-File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-NameError: name &#39;primt&#39; is not defined
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+NameError: name &#39;primt&#39; is not defined. Did you mean: &#39;print&#39;?
 
 &gt;&gt;&gt; I hate you Python!
 File &quot;&lt;stdin&gt;&quot;, line 1
-  I hate you Python!
-       ^
+    I hate you Python!
+      ^^^^
 SyntaxError: invalid syntax
 &gt;&gt;&gt; if you come out of there, I would teach you a lesson
 File &quot;&lt;stdin&gt;&quot;, line 1
-  if you come out of there, I would teach you a lesson
-            ^
+    if you come out of there, I would teach you a lesson
+           ^^^^
 SyntaxError: invalid syntax
 &gt;&gt;&gt;</code></pre>
 <p>There is little to be gained by arguing with Python. It is just a

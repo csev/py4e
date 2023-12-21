@@ -279,13 +279,13 @@ SyntaxError: invalid syntax</code></pre>
 structure of the program, and they cannot be used as variable names.</p>
 <p></p>
 <p>Python reserves 35 keywords:</p>
-<pre><code>and     continue  finally  is        raise
-as      def       for      lambda    return
-assert  del       from     None      True
-async   elif      global   nonlocal  try
-await   else      if       not       while
-break   except    import   or        with
-class   False     in       pass      yield</code></pre>
+<pre><code>False      await      else       import     pass
+None       break      except     in         raise
+True       class      finally    is         return
+and        continue   for        lambda     try
+as         def        from       nonlocal   while
+assert     del        global     not        with
+async      elif       if         or         yield</code></pre>
 <p>You might want to keep this list handy. If the interpreter complains
 about one of your variable names and you don’t know why, see if it is on
 this list.</p>
@@ -601,11 +601,11 @@ SyntaxError: invalid syntax</code></pre>
   File &quot;&lt;stdin&gt;&quot;, line 1
     month = 09
              ^
-SyntaxError: invalid token</code></pre>
+SyntaxError: leading zeros in decimal integer literals are not
+permitted; use an 0o prefix for octal integers</code></pre>
 <p>For syntax errors, the error messages don’t help much. The most
-common messages are <code>SyntaxError: invalid syntax</code> and
-<code>SyntaxError: invalid token</code>, neither of which is very
-informative.</p>
+common messages are <code>SyntaxError: invalid syntax</code> which is
+not very informative.</p>
 <p> </p>
 <p>The runtime error you are most likely to make is a “use before def;”
 that is, trying to use a variable before you have assigned a value. This

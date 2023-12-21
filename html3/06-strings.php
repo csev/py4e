@@ -380,7 +380,7 @@ methods.</p>
 &gt;&gt;&gt; type(stuff)
 &lt;class &#39;str&#39;&gt;
 &gt;&gt;&gt; dir(stuff)
-[&#39;capitalize&#39;, &#39;casefold&#39;, &#39;center&#39;, &#39;count&#39;, &#39;encode&#39;,
+[... &#39;capitalize&#39;, &#39;casefold&#39;, &#39;center&#39;, &#39;count&#39;, &#39;encode&#39;,
 &#39;endswith&#39;, &#39;expandtabs&#39;, &#39;find&#39;, &#39;format&#39;, &#39;format_map&#39;,
 &#39;index&#39;, &#39;isalnum&#39;, &#39;isalpha&#39;, &#39;isdecimal&#39;, &#39;isdigit&#39;,
 &#39;isidentifier&#39;, &#39;islower&#39;, &#39;isnumeric&#39;, &#39;isprintable&#39;,
@@ -392,11 +392,11 @@ methods.</p>
 &gt;&gt;&gt; help(str.capitalize)
 Help on method_descriptor:
 
-capitalize(...)
-    S.capitalize() -&gt; str
+capitalize(self, /)
+    Return a capitalized version of the string.
 
-    Return a capitalized version of S, i.e. make the first character
-    have upper case and the rest lower case.
+    More specifically, make the first character have upper
+    case and the rest lower case.
 &gt;&gt;&gt;</code></pre>
 <p>While the <code>dir</code> function lists the methods, and you can
 use <code>help</code> to get some simple documentation on a method, a

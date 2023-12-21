@@ -298,10 +298,10 @@ statistical term for a set of counters (or frequencies).</p>
 loop, if the character <code>c</code> is not in the dictionary, we
 create a new item with key <code>c</code> and the initial value 1 (since
 we have seen this letter once). If <code>c</code> is already in the
-dictionary we increment <code>d[c]</code>.</p>
+dictionary we increment <code>d['c']</code>.</p>
 <p></p>
 <p>Here’s the output of the program:</p>
-<pre><code>{&#39;a&#39;: 1, &#39;b&#39;: 1, &#39;o&#39;: 2, &#39;n&#39;: 1, &#39;s&#39;: 2, &#39;r&#39;: 2, &#39;u&#39;: 2, &#39;t&#39;: 1}</code></pre>
+<pre><code>{&#39;b&#39;: 1, &#39;r&#39;: 2, &#39;o&#39;: 2, &#39;n&#39;: 1, &#39;t&#39;: 1, &#39;s&#39;: 2, &#39;a&#39;: 1, &#39;u&#39;: 2}</code></pre>
 <p>The histogram indicates that the letters “a” and “b” appear once; “o”
 appears twice, and so on.</p>
 <p> </p>
@@ -438,8 +438,8 @@ for key in lst:
     print(key, counts[key])</code></pre>
 <p>Here’s what the output looks like:</p>
 <pre><code>[&#39;chuck&#39;, &#39;annie&#39;, &#39;jan&#39;]
-annie 42
 chuck 1
+annie 42
 jan 100</code></pre>
 <p>First you see the list of keys in non-alphabetical order that we get
 from the <code>keys</code> method. Then we see the key-value pairs in
