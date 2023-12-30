@@ -95,9 +95,13 @@ as you need to modify the program to store the <b>role</b> column
 in the <b>Member</b> table to complete the assignment.
 </p>
 <p>
-Each student gets their own file for the assignment.  Download 
-<a href="roster_data.php" target="_blank">this file</a> and save it
-as <code>roster_data.json</code>.  Move the downloaded file into the same
+Each student gets their own file for the assignment.  Download this file:
+<p>
+<ul>
+<li><a href="roster_data.php" target="_blank">Dowload your roster.json data</a></li>
+</ul>
+</p>
+And save it as <code>roster_data.json</code>.  Move the downloaded file into the same
 folder as your <code>roster.py</code> program.
 </p>
 <p>
