@@ -511,8 +511,7 @@ eXtensible Markup Language - A format that allows for the markup of
 structured data.
 </dd>
 </dl>
-<h2 id="application-1-google-geocoding-web-service">Application 1:
-Google geocoding web service</h2>
+<h2 id="google-geocoding-web-service">Google geocoding web service</h2>
 <p> </p>
 <p>Google has an excellent web service that allows us to make use of
 their large database of geographic information. We can submit a
@@ -601,6 +600,8 @@ send and the geographical data stored in Google’s servers.</p>
 <code>json</code> library and do a few checks to make sure that we
 received good data, then extract the information that we are looking
 for.</p>
+<p>Note that we use our own copy of some of the Google data to avoid
+rate limits and key requirements.</p>
 <p>The output of the program is as follows (some of the returned JSON
 has been removed):</p>
 <pre><code>$ python3 geojson.py
@@ -696,215 +697,6 @@ data. Add error checking so your program does not traceback if the
 country code is not there. Once you have it working, search for
 “Atlantic Ocean” and make sure it can handle locations that are not in
 any country.</strong></p>
-<h2 id="application-2-twitter">Application 2: Twitter</h2>
-<p>As the Twitter API became increasingly valuable, Twitter went from an
-open and public API to an API that required the use of OAuth signatures
-on each API request.</p>
-<p>For this next sample program, download the files <em>twurl.py</em>,
-<em>hidden.py</em>, <em>oauth.py</em>, and <em>twitter1.py</em> from <a
-href="http://www.py4e.com/code3">www.py4e.com/code</a> and put them all
-in a folder on your computer.</p>
-<p>To make use of these programs you will need to have a Twitter
-account, and authorize your Python code as an application, set up a key,
-secret, token and token secret. You will edit the file
-<em>hidden.py</em> and put these four strings into the appropriate
-variables in the file:</p>
-<pre class="python"><code># Keep this file separate
-
-# https://apps.twitter.com/
-# Create new App and get the four strings
-
-def oauth():
-    return {&quot;consumer_key&quot;: &quot;h7Lu...Ng&quot;,
-            &quot;consumer_secret&quot;: &quot;dNKenAC3New...mmn7Q&quot;,
-            &quot;token_key&quot;: &quot;10185562-eibxCp9n2...P4GEQQOSGI&quot;,
-            &quot;token_secret&quot;: &quot;H0ycCFemmC4wyf1...qoIpBo&quot;}
-
-# Code: http://www.py4e.com/code3/hidden.py</code></pre>
-<p>The Twitter web service are accessed using a URL like this:</p>
-<p><a href="https://api.twitter.com/1.1/statuses/user_timeline.json"
-class="uri">https://api.twitter.com/1.1/statuses/user_timeline.json</a></p>
-<p>But once all of the security information has been added, the URL will
-look more like:</p>
-<pre><code>https://api.twitter.com/1.1/statuses/user_timeline.json?count=2
-&amp;oauth_version=1.0&amp;oauth_token=101...SGI&amp;screen_name=drchuck
-&amp;oauth_nonce=09239679&amp;oauth_timestamp=1380395644
-&amp;oauth_signature=rLK...BoD&amp;oauth_consumer_key=h7Lu...GNg
-&amp;oauth_signature_method=HMAC-SHA1</code></pre>
-<p>You can read the OAuth specification if you want to know more about
-the meaning of the various parameters that are added to meet the
-security requirements of OAuth.</p>
-<p>For the programs we run with Twitter, we hide all the complexity in
-the files <em>oauth.py</em> and <em>twurl.py</em>. We simply set the
-secrets in <em>hidden.py</em> and then send the desired URL to the
-<em>twurl.augment()</em> function and the library code adds all the
-necessary parameters to the URL for us.</p>
-<p>This program retrieves the timeline for a particular Twitter user and
-returns it to us in JSON format in a string. We simply print the first
-250 characters of the string:</p>
-<pre class="python"><code>import urllib.request, urllib.parse, urllib.error
-import twurl
-import ssl
-
-# https://apps.twitter.com/
-# Create App and get the four strings, put them in hidden.py
-
-TWITTER_URL = &#39;https://api.twitter.com/1.1/statuses/user_timeline.json&#39;
-
-# Ignore SSL certificate errors
-ctx = ssl.create_default_context()
-ctx.check_hostname = False
-ctx.verify_mode = ssl.CERT_NONE
-
-while True:
-    print(&#39;&#39;)
-    acct = input(&#39;Enter Twitter Account:&#39;)
-    if (len(acct) &lt; 1): break
-    url = twurl.augment(TWITTER_URL,
-                        {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;2&#39;})
-    print(&#39;Retrieving&#39;, url)
-    connection = urllib.request.urlopen(url, context=ctx)
-    data = connection.read().decode()
-    print(data[:250])
-    headers = dict(connection.getheaders())
-    # print headers
-    print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
-
-# Code: http://www.py4e.com/code3/twitter1.py</code></pre>
-<p>When the program runs it produces the following output:</p>
-<pre><code>Enter Twitter Account:drchuck
-Retrieving https://api.twitter.com/1.1/ ...
-[{&quot;created_at&quot;:&quot;Sat Sep 28 17:30:25 +0000 2013&quot;,&quot;
-id&quot;:384007200990982144,&quot;id_str&quot;:&quot;384007200990982144&quot;,
-&quot;text&quot;:&quot;RT @fixpert: See how the Dutch handle traffic
-intersections: http:\/\/t.co\/tIiVWtEhj4\n#brilliant&quot;,
-&quot;source&quot;:&quot;web&quot;,&quot;truncated&quot;:false,&quot;in_rep
-Remaining 178
-
-Enter Twitter Account:fixpert
-Retrieving https://api.twitter.com/1.1/ ...
-[{&quot;created_at&quot;:&quot;Sat Sep 28 18:03:56 +0000 2013&quot;,
-&quot;id&quot;:384015634108919808,&quot;id_str&quot;:&quot;384015634108919808&quot;,
-&quot;text&quot;:&quot;3 months after my freak bocce ball accident,
-my wedding ring fits again! :)\n\nhttps:\/\/t.co\/2XmHPx7kgX&quot;,
-&quot;source&quot;:&quot;web&quot;,&quot;truncated&quot;:false,
-Remaining 177
-
-Enter Twitter Account:</code></pre>
-<p>Along with the returned timeline data, Twitter also returns metadata
-about the request in the HTTP response headers. One header in
-particular, <code>x-rate-limit-remaining</code>, informs us how many
-more requests we can make before we will be shut off for a short time
-period. You can see that our remaining retrievals drop by one each time
-we make a request to the API.</p>
-<p>In the following example, we retrieve a user’s Twitter friends, parse
-the returned JSON, and extract some of the information about the
-friends. We also dump the JSON after parsing and “pretty-print” it with
-an indent of four characters to allow us to pore through the data when
-we want to extract more fields.</p>
-<pre class="python"><code>import urllib.request, urllib.parse, urllib.error
-import twurl
-import json
-import ssl
-
-# https://apps.twitter.com/
-# Create App and get the four strings, put them in hidden.py
-
-TWITTER_URL = &#39;https://api.twitter.com/1.1/friends/list.json&#39;
-
-# Ignore SSL certificate errors
-ctx = ssl.create_default_context()
-ctx.check_hostname = False
-ctx.verify_mode = ssl.CERT_NONE
-
-while True:
-    print(&#39;&#39;)
-    acct = input(&#39;Enter Twitter Account:&#39;)
-    if (len(acct) &lt; 1): break
-    url = twurl.augment(TWITTER_URL,
-                        {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;5&#39;})
-    print(&#39;Retrieving&#39;, url)
-    connection = urllib.request.urlopen(url, context=ctx)
-    data = connection.read().decode()
-
-    js = json.loads(data)
-    print(json.dumps(js, indent=2))
-
-    headers = dict(connection.getheaders())
-    print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
-
-    for u in js[&#39;users&#39;]:
-        print(u[&#39;screen_name&#39;])
-        if &#39;status&#39; not in u:
-            print(&#39;   * No status found&#39;)
-            continue
-        s = u[&#39;status&#39;][&#39;text&#39;]
-        print(&#39;  &#39;, s[:50])
-
-# Code: http://www.py4e.com/code3/twitter2.py</code></pre>
-<p>Since the JSON becomes a set of nested Python lists and dictionaries,
-we can use a combination of the index operation and <code>for</code>
-loops to wander through the returned data structures with very little
-Python code.</p>
-<p>The output of the program looks as follows (some of the data items
-are shortened to fit on the page):</p>
-<pre><code>Enter Twitter Account:drchuck
-Retrieving https://api.twitter.com/1.1/friends ...
-Remaining 14</code></pre>
-<pre class="json"><code>{
-  &quot;next_cursor&quot;: 1444171224491980205,
-  &quot;users&quot;: [
-    {
-      &quot;id&quot;: 662433,
-      &quot;followers_count&quot;: 28725,
-      &quot;status&quot;: {
-        &quot;text&quot;: &quot;@jazzychad I just bought one .__.&quot;,
-        &quot;created_at&quot;: &quot;Fri Sep 20 08:36:34 +0000 2013&quot;,
-        &quot;retweeted&quot;: false,
-      },
-      &quot;location&quot;: &quot;San Francisco, California&quot;,
-      &quot;screen_name&quot;: &quot;leahculver&quot;,
-      &quot;name&quot;: &quot;Leah Culver&quot;,
-    },
-    {
-      &quot;id&quot;: 40426722,
-      &quot;followers_count&quot;: 2635,
-      &quot;status&quot;: {
-        &quot;text&quot;: &quot;RT @WSJ: Big employers like Google ...&quot;,
-        &quot;created_at&quot;: &quot;Sat Sep 28 19:36:37 +0000 2013&quot;,
-      },
-      &quot;location&quot;: &quot;Victoria Canada&quot;,
-      &quot;screen_name&quot;: &quot;_valeriei&quot;,
-      &quot;name&quot;: &quot;Valerie Irvine&quot;,
-    }
-  ],
- &quot;next_cursor_str&quot;: &quot;1444171224491980205&quot;
-}</code></pre>
-<pre><code>leahculver
-   @jazzychad I just bought one .__.
-_valeriei
-   RT @WSJ: Big employers like Google, AT&amp;amp;T are h
-ericbollens
-   RT @lukew: sneak peek: my LONG take on the good &amp;a
-halherzog
-   Learning Objects is 10. We had a cake with the LO,
-scweeker
-   @DeviceLabDC love it! Now where so I get that &quot;etc
-
-Enter Twitter Account:</code></pre>
-<p>The last bit of the output is where we see the for loop reading the
-five most recent “friends” of the <em><span class="citation"
-data-cites="drchuck">@drchuck</span></em> Twitter account and printing
-the most recent status for each friend. There is a great deal more data
-available in the returned JSON. If you look in the output of the
-program, you can also see that the “find the friends” of a particular
-account has a different rate limitation than the number of timeline
-queries we are allowed to run per time period.</p>
-<p>These secure API keys allow Twitter to have solid confidence that
-they know who is using their API and data and at what level. The
-rate-limiting approach allows us to do simple, personal data retrievals
-but does not allow us to build a product that pulls data from their API
-millions of times per day.</p>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {
