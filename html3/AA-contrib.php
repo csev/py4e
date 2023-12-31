@@ -173,11 +173,38 @@
 </head>
 <body>
 <h1 id="contributions">Contributions</h1>
+<h2 id="translations">Translations</h2>
+<p>This book hass been translated into a number of languages which can
+be found at https://www.py4e.com/book.</p>
+<ul>
+<li><p>Spanish - Python para todos: Explorando la información con Python
+3 - Translated book, autograders, resources, and web site at
+https://es.py4e.com Contributors: Juan Carlos Perez Castellanos, Juan
+Dougnac, Daniel Merino Echeverría, Jaime Bermeo Ramírez and Fernando
+Tardío.</p></li>
+<li><p>Italian Python per tutti: Esplorare dati con Python3
+Contributors: Alessandro Rossetti and Vittore Zen</p></li>
+<li><p>Portuguese - Python Para Todos: Explorando Dados com Python 3
+Translation: Yuri Loia de Medeiros</p></li>
+<li><p>Polish - Python dla wszystkich: Odkrywanie danych z Python 3
+Translated book, autograders, resources, and web site at https://py4e.pl
+Translation: Andrzej Wójtowicz (Adam Mickiewicz University in Poznań,
+Poland)</p></li>
+<li><p>Greek - Translated book, autograders, resources, and web site at
+https://gr.py4e.com Translation: Konstantia Kiourtidou</p></li>
+<li><p>Arabic - Translation: Electronics Go</p></li>
+</ul>
+<p>Anyone who is given permission to translate the book agrees to
+provide a free copy of the book online. Some of the books in print and
+avalailable for sale.</p>
 <h2 id="contributor-list-for-python-for-everybody">Contributor List for
 Python for Everybody</h2>
-<p>Andrzej Wójtowicz, Elliott Hauser, Stephen Catto, Sue Blumenberg,
-Tamara Brunnock, Mihaela Mack, Chris Kolosiwsky, Dustin Farley, Jens
-Leerssen, Naveen KT, Mirza Ibrahimovic, Naveen (<span class="citation"
+<p>Juan Carlos Perez Castellanos, Juan Dougnac, Daniel Merino
+Echeverría, Jaime Bermeo Ramírez, Fernando Tardío, Alessandro Rossetti,
+Vittore Zen, Yuri Loia de Medeiros, Konstantia Kiourtidou, Andrzej
+Wójtowicz, Elliott Hauser, Stephen Catto, Sue Blumenberg, Tamara
+Brunnock, Mihaela Mack, Chris Kolosiwsky, Dustin Farley, Jens Leerssen,
+Naveen KT, Mirza Ibrahimovic, Naveen (<span class="citation"
 data-cites="togarnk">@togarnk</span>), Zhou Fangyi, Alistair Walsh,
 Erica Brody, Jih-Sheng Huang, Louis Luangkesorn, and Michael Fudge</p>
 <p>You can see contribution details at:</p>

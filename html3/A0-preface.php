@@ -177,8 +177,10 @@
 Cover Design: Aimee Andrion</code></pre>
 <h2 id="printing-history">Printing History</h2>
 <ul>
-<li>2024-Jan-01 Update examples to Python 3.12</li>
-<li>2023-Jun-29 Many errata included</li>
+<li>2024-Jan-01 Update examples to Python 3.12, remove references to
+Twitter APIs, rewrite Databases chapter</li>
+<li>2023-Jun-29 Many errata included, switch from Google APIs to
+OpenStreetMap APIs</li>
 <li>2016-Jul-05 First Complete Python 3.0 version</li>
 <li>2015-Dec-20 Initial Python 3.0 rough conversion</li>
 </ul>

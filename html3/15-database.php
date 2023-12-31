@@ -198,8 +198,7 @@ browser also uses the SQLite database internally as do many other
 products.</p>
 <p><a href="http://sqlite.org/" class="uri">http://sqlite.org/</a></p>
 <p>SQLite is well suited to some of the data manipulation problems that
-we see in Informatics such as the Twitter spidering application that we
-describe in this chapter.</p>
+we see in Informatics.</p>
 <h2 id="database-concepts">Database concepts</h2>
 <p>When you first look at a database it looks like a spreadsheet with
 multiple sheets. The primary data structures in a database are:
@@ -249,15 +248,15 @@ class="uri">http://www.sqlite.org/datatypes.html</a></p>
 the beginning, but the payoff is fast access to your data even when the
 database contains a large amount of data.</p>
 <p>The code to create a database file and a table named
-<code>Tracks</code> with two columns in the database is as follows:</p>
+<code>Track</code> with two columns in the database is as follows:</p>
 <p> </p>
 <pre class="python"><code>import sqlite3
 
 conn = sqlite3.connect(&#39;music.sqlite&#39;)
 cur = conn.cursor()
 
-cur.execute(&#39;DROP TABLE IF EXISTS Tracks&#39;)
-cur.execute(&#39;CREATE TABLE Tracks (title TEXT, plays INTEGER)&#39;)
+cur.execute(&#39;DROP TABLE IF EXISTS Track&#39;)
+cur.execute(&#39;CREATE TABLE Track (title TEXT, plays INTEGER)&#39;)
 
 conn.close()
 
@@ -292,22 +291,22 @@ class="uri">http://en.wikipedia.org/wiki/SQL</a></p>
 a convention, we will show the SQL keywords in uppercase and the parts
 of the command that we are adding (such as the table and column names)
 will be shown in lowercase.</p>
-<p>The first SQL command removes the <code>Tracks</code> table from the
+<p>The first SQL command removes the <code>Track</code> table from the
 database if it exists. This pattern is simply to allow us to run the
-same program to create the <code>Tracks</code> table over and over again
+same program to create the <code>Track</code> table over and over again
 without causing an error. Note that the <code>DROP TABLE</code> command
 deletes the table and all of its contents from the database (i.e., there
 is no “undo”).</p>
-<pre class="python"><code>cur.execute(&#39;DROP TABLE IF EXISTS Tracks &#39;)</code></pre>
-<p>The second command creates a table named <code>Tracks</code> with a
+<pre class="python"><code>cur.execute(&#39;DROP TABLE IF EXISTS Track &#39;)</code></pre>
+<p>The second command creates a table named <code>Track</code> with a
 text column named <code>title</code> and an integer column named
 <code>plays</code>.</p>
-<pre class="python"><code>cur.execute(&#39;CREATE TABLE Tracks (title TEXT, plays INTEGER)&#39;)</code></pre>
-<p>Now that we have created a table named <code>Tracks</code>, we can
-put some data into that table using the SQL <code>INSERT</code>
-operation. Again, we begin by making a connection to the database and
-obtaining the <code>cursor</code>. We can then execute SQL commands
-using the cursor.</p>
+<pre class="python"><code>cur.execute(&#39;CREATE TABLE Track (title TEXT, plays INTEGER)&#39;)</code></pre>
+<p>Now that we have created a table named <code>Track</code>, we can put
+some data into that table using the SQL <code>INSERT</code> operation.
+Again, we begin by making a connection to the database and obtaining the
+<code>cursor</code>. We can then execute SQL commands using the
+cursor.</p>
 <p>The SQL <code>INSERT</code> command indicates which table we are
 using and then defines a new row by listing the fields we want to
 include <code>(title, plays)</code> followed by the <code>VALUES</code>
@@ -320,18 +319,18 @@ a tuple <code>( 'My Way', 15 )</code> as the second parameter to the
 conn = sqlite3.connect(&#39;music.sqlite&#39;)
 cur = conn.cursor()
 
-cur.execute(&#39;INSERT INTO Tracks (title, plays) VALUES (?, ?)&#39;,
+cur.execute(&#39;INSERT INTO Track (title, plays) VALUES (?, ?)&#39;,
     (&#39;Thunderstruck&#39;, 20))
-cur.execute(&#39;INSERT INTO Tracks (title, plays) VALUES (?, ?)&#39;,
+cur.execute(&#39;INSERT INTO Track (title, plays) VALUES (?, ?)&#39;,
     (&#39;My Way&#39;, 15))
 conn.commit()
 
-print(&#39;Tracks:&#39;)
-cur.execute(&#39;SELECT title, plays FROM Tracks&#39;)
+print(&#39;Track:&#39;)
+cur.execute(&#39;SELECT title, plays FROM Track&#39;)
 for row in cur:
      print(row)
 
-cur.execute(&#39;DELETE FROM Tracks WHERE plays &lt; 100&#39;)
+cur.execute(&#39;DELETE FROM Track WHERE plays &lt; 100&#39;)
 conn.commit()
 
 cur.close()
@@ -356,7 +355,7 @@ not read all of the data from the database when we execute the
 <code>SELECT</code> statement. Instead, the data is read on demand as we
 loop through the rows in the <code>for</code> statement.</p>
 <p>The output of the program is as follows:</p>
-<pre><code>Tracks:
+<pre><code>Track:
 (&#39;Thunderstruck&#39;, 20)
 (&#39;My Way&#39;, 15)</code></pre>
 <p></p>
@@ -366,7 +365,7 @@ value as the number of <code>plays</code>.</p>
 <p><em>Note: You may see strings starting with <code>u'</code> in other
 books or on the Internet. This was an indication in Python 2 that the
 strings are </em>Unicode* strings that are capable of storing non-Latin
-character sets. In Python 3, all strings are unicode strings by
+character sets. In Python 3, all strings are Unicode strings by
 default.*</p>
 <p>At the very end of the program, we execute an SQL command to
 <code>DELETE</code> the rows we have just created so we can run the
@@ -380,7 +379,7 @@ call <code>commit()</code> to force the data to be removed from the
 database.</p>
 <h2 id="structured-query-language-summary">Structured Query Language
 summary</h2>
-<p>So far, we have been using the Structured Query Language in our
+<p> So far, we have been using the Structured Query Language in our
 Python examples and have covered many of the basics of the SQL commands.
 In this section, we look at the SQL language in particular and give an
 overview of SQL syntax.</p>
@@ -390,10 +389,10 @@ portable manner to database systems from multiple vendors.</p>
 <p>A relational database is made up of tables, rows, and columns. The
 columns generally have a type such as text, numeric, or date data. When
 we create a table, we indicate the names and types of the columns:</p>
-<pre class="sql"><code>CREATE TABLE Tracks (title TEXT, plays INTEGER)</code></pre>
+<pre class="sql"><code>CREATE TABLE Track (title TEXT, plays INTEGER)</code></pre>
 <p>To insert a row into a table, we use the SQL <code>INSERT</code>
 command:</p>
-<pre class="sql"><code>INSERT INTO Tracks (title, plays) VALUES (&#39;My Way&#39;, 15)</code></pre>
+<pre class="sql"><code>INSERT INTO Track (title, plays) VALUES (&#39;My Way&#39;, 15)</code></pre>
 <p>The <code>INSERT</code> statement specifies the table name, then a
 list of the fields/columns that you would like to set in the new row,
 and then the keyword <code>VALUES</code> and a list of corresponding
@@ -404,7 +403,7 @@ specify which columns you would like to retrieve as well as a
 <code>WHERE</code> clause to select which rows you would like to see. It
 also allows an optional <code>ORDER BY</code> clause to control the
 sorting of the returned rows.</p>
-<pre class="sql"><code>SELECT * FROM Tracks WHERE title = &#39;My Way&#39;</code></pre>
+<pre class="sql"><code>SELECT * FROM Track WHERE title = &#39;My Way&#39;</code></pre>
 <p>Using <code>*</code> indicates that you want the database to return
 all of the columns for each row that matches the <code>WHERE</code>
 clause.</p>
@@ -416,15 +415,15 @@ clause include <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>,
 <code>OR</code> and parentheses to build your logical expressions.</p>
 <p>You can request that the returned rows be sorted by one of the fields
 as follows:</p>
-<pre class="sql"><code>SELECT title,plays FROM Tracks ORDER BY title</code></pre>
+<pre class="sql"><code>SELECT title,plays FROM Track ORDER BY title</code></pre>
 <p>To remove a row, you need a <code>WHERE</code> clause on an SQL
 <code>DELETE</code> statement. The <code>WHERE</code> clause determines
 which rows are to be deleted:</p>
-<pre class="sql"><code>DELETE FROM Tracks WHERE title = &#39;My Way&#39;</code></pre>
+<pre class="sql"><code>DELETE FROM Track WHERE title = &#39;My Way&#39;</code></pre>
 <p>It is possible to <code>UPDATE</code> a column or columns within one
 or more rows in a table using the SQL <code>UPDATE</code> statement as
 follows:</p>
-<pre class="sql"><code>UPDATE Tracks SET plays = 16 WHERE title = &#39;My Way&#39;</code></pre>
+<pre class="sql"><code>UPDATE Track SET plays = 16 WHERE title = &#39;My Way&#39;</code></pre>
 <p>The <code>UPDATE</code> statement specifies a table and then a list
 of fields and values to change after the <code>SET</code> keyword and
 then an optional <code>WHERE</code> clause to select the rows that are
@@ -432,280 +431,14 @@ to be updated. A single <code>UPDATE</code> statement will change all of
 the rows that match the <code>WHERE</code> clause. If a
 <code>WHERE</code> clause is not specified, it performs the
 <code>UPDATE</code> on all of the rows in the table.</p>
-<p>These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE)
-allow the four basic operations needed to create and maintain data.</p>
-<h2 id="spidering-twitter-using-a-database">Spidering Twitter using a
-database</h2>
-<p>In this section, we will create a simple spidering program that will
-go through Twitter accounts and build a database of them. <em>Note: Be
-very careful when running this program. You do not want to pull too much
-data or run the program for too long and end up having your Twitter
-access shut off.</em></p>
-<p>One of the problems of any kind of spidering program is that it needs
-to be able to be stopped and restarted many times and you do not want to
-lose the data that you have retrieved so far. You don’t want to always
-restart your data retrieval at the very beginning so we want to store
-data as we retrieve it so our program can start back up and pick up
-where it left off.</p>
-<p>We will start by retrieving one person’s Twitter friends and their
-statuses, looping through the list of friends, and adding each of the
-friends to a database to be retrieved in the future. After we process
-one person’s Twitter friends, we check in our database and retrieve one
-of the friends of the friend. We do this over and over, picking an
-“unvisited” person, retrieving their friend list, and adding friends we
-have not seen to our list for a future visit.</p>
-<p>We also track how many times we have seen a particular friend in the
-database to get some sense of their “popularity”.</p>
-<p>By storing our list of known accounts and whether we have retrieved
-the account or not, and how popular the account is in a database on the
-disk of the computer, we can stop and restart our program as many times
-as we like.</p>
-<p>This program is a bit complex. It is based on the code from the
-exercise earlier in the book that uses the Twitter API.</p>
-<p>Here is the source code for our Twitter spidering application:</p>
-<pre class="python"><code>from urllib.request import urlopen
-import urllib.error
-import twurl
-import json
-import sqlite3
-import ssl
-
-TWITTER_URL = &#39;https://api.twitter.com/1.1/friends/list.json&#39;
-
-conn = sqlite3.connect(&#39;spider.sqlite&#39;)
-cur = conn.cursor()
-
-cur.execute(&#39;&#39;&#39;
-            CREATE TABLE IF NOT EXISTS Twitter
-            (name TEXT, retrieved INTEGER, friends INTEGER)&#39;&#39;&#39;)
-
-# Ignore SSL certificate errors
-ctx = ssl.create_default_context()
-ctx.check_hostname = False
-ctx.verify_mode = ssl.CERT_NONE
-
-while True:
-    acct = input(&#39;Enter a Twitter account, or quit: &#39;)
-    if (acct == &#39;quit&#39;): break
-    if (len(acct) &lt; 1):
-        cur.execute(&#39;SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1&#39;)
-        try:
-            acct = cur.fetchone()[0]
-        except:
-            print(&#39;No unretrieved Twitter accounts found&#39;)
-            continue
-
-    url = twurl.augment(TWITTER_URL, {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;20&#39;})
-    print(&#39;Retrieving&#39;, url)
-    connection = urlopen(url, context=ctx)
-    data = connection.read().decode()
-    headers = dict(connection.getheaders())
-
-    print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
-    js = json.loads(data)
-    # Debugging
-    # print json.dumps(js, indent=4)
-
-    cur.execute(&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;, (acct, ))
-
-    countnew = 0
-    countold = 0
-    for u in js[&#39;users&#39;]:
-        friend = u[&#39;screen_name&#39;]
-        print(friend)
-        cur.execute(&#39;SELECT friends FROM Twitter WHERE name = ? LIMIT 1&#39;,
-                    (friend, ))
-        try:
-            count = cur.fetchone()[0]
-            cur.execute(&#39;UPDATE Twitter SET friends = ? WHERE name = ?&#39;,
-                        (count+1, friend))
-            countold = countold + 1
-        except:
-            cur.execute(&#39;&#39;&#39;INSERT INTO Twitter (name, retrieved, friends)
-                        VALUES (?, 0, 1)&#39;&#39;&#39;, (friend, ))
-            countnew = countnew + 1
-    print(&#39;New accounts=&#39;, countnew, &#39; revisited=&#39;, countold)
-    conn.commit()
-
-cur.close()
-
-# Code: http://www.py4e.com/code3/twspider.py</code></pre>
-<p>Our database is stored in the file <code>spider.sqlite</code> and it
-has one table named <code>Twitter</code>. Each row in the
-<code>Twitter</code> table has a column for the account name, whether we
-have retrieved the friends of this account, and how many times this
-account has been “friended”.</p>
-<p>In the main loop of the program, we prompt the user for a Twitter
-account name or “quit” to exit the program. If the user enters a Twitter
-account, we retrieve the list of friends and statuses for that user and
-add each friend to the database if not already in the database. If the
-friend is already in the list, we add 1 to the <code>friends</code>
-field in the row in the database.</p>
-<p>If the user presses enter, we look in the database for the next
-Twitter account that we have not yet retrieved, retrieve the friends and
-statuses for that account, add them to the database or update them, and
-increase their <code>friends</code> count.</p>
-<p>Once we retrieve the list of friends and statuses, we loop through
-all of the <code>user</code> items in the returned JSON and retrieve the
-<code>screen_name</code> for each user. Then we use the
-<code>SELECT</code> statement to see if we already have stored this
-particular <code>screen_name</code> in the database and retrieve the
-friend count (<code>friends</code>) if the record exists.</p>
-<pre class="python"><code>countnew = 0
-countold = 0
-for u in js[&#39;users&#39;] :
-    friend = u[&#39;screen_name&#39;]
-    print(friend)
-    cur.execute(&#39;SELECT friends FROM Twitter WHERE name = ? LIMIT 1&#39;,
-        (friend, ) )
-    try:
-        count = cur.fetchone()[0]
-        cur.execute(&#39;UPDATE Twitter SET friends = ? WHERE name = ?&#39;,
-            (count+1, friend) )
-        countold = countold + 1
-    except:
-        cur.execute(&#39;&#39;&#39;INSERT INTO Twitter (name, retrieved, friends)
-            VALUES ( ?, 0, 1 )&#39;&#39;&#39;, ( friend, ) )
-        countnew = countnew + 1
-print(&#39;New accounts=&#39;,countnew,&#39; revisited=&#39;,countold)
-conn.commit()</code></pre>
-<p>Once the cursor executes the <code>SELECT</code> statement, we must
-retrieve the rows. We could do this with a <code>for</code> statement,
-but since we are only retrieving one row (<code>LIMIT 1</code>), we can
-use the <code>fetchone()</code> method to fetch the first (and only) row
-that is the result of the <code>SELECT</code> operation. Since
-<code>fetchone()</code> returns the row as a <em>tuple</em> (even though
-there is only one field), we use the first value from the tuple to get
-the current friend count into the variable <code>count</code>.</p>
-<p>If this retrieval is successful, we use the SQL <code>UPDATE</code>
-statement with a <code>WHERE</code> clause to add 1 to the
-<code>friends</code> column for the row that matches the friend’s
-account. Notice that there are two placeholders (i.e., question marks)
-in the SQL, and the second parameter to the <code>execute()</code> is a
-two-element tuple that holds the values to be substituted into the SQL
-in place of the question marks.</p>
-<p>If the code in the <code>try</code> block fails, it is probably
-because no record matched the <code>WHERE name = ?</code> clause on the
-SELECT statement. So in the <code>except</code> block, we use the SQL
-<code>INSERT</code> statement to add the friend’s
-<code>screen_name</code> to the table with an indication that we have
-not yet retrieved the <code>screen_name</code> and set the
-<code>friends</code> count to one.</p>
-<p>So the first time the program runs and we enter a Twitter account,
-the program runs as follows:</p>
-<pre><code>Enter a Twitter account, or quit: drchuck
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 20  revisited= 0
-Enter a Twitter account, or quit: quit</code></pre>
-<p>Since this is the first time we have run the program, the database
-does not exist, so we create the database in the file
-<code>spider.sqlite</code> and add a table named <code>Twitter</code> to
-the database. Then we retrieve some friends and add them all to the
-database since the database is empty.</p>
-<p>At this point, we might want to write a simple database dumper to
-take a look at what is in our <code>spider.sqlite</code> file:</p>
-<pre class="python"><code>import sqlite3
-
-conn = sqlite3.connect(&#39;spider.sqlite&#39;)
-cur = conn.cursor()
-cur.execute(&#39;SELECT * FROM Twitter&#39;)
-count = 0
-for row in cur:
-    print(row)
-    count = count + 1
-print(count, &#39;rows.&#39;)
-cur.close()
-
-# Code: http://www.py4e.com/code3/twdump.py</code></pre>
-<p>This program simply opens the database and selects all of the columns
-of all of the rows in the table <code>Twitter</code>, then loops through
-the rows and prints out each row.</p>
-<p>If we run this program after the first execution of our Twitter
-spider above, its output will be as follows:</p>
-<pre><code>(&#39;opencontent&#39;, 0, 1)
-(&#39;lhawthorn&#39;, 0, 1)
-(&#39;steve_coppin&#39;, 0, 1)
-(&#39;davidkocher&#39;, 0, 1)
-(&#39;hrheingold&#39;, 0, 1)
-...
-20 rows.</code></pre>
-<p>We see one row for each <code>screen_name</code>, that we have not
-retrieved the data for that <code>screen_name</code>, and everyone in
-the database has one friend.</p>
-<p>Now our database reflects the retrieval of the friends of our first
-Twitter account (<em>drchuck</em>). We can run the program again and
-tell it to retrieve the friends of the next “unprocessed” account by
-simply pressing enter instead of a Twitter account as follows:</p>
-<pre><code>Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 18  revisited= 2
-Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit: quit</code></pre>
-<p>Since we pressed enter (i.e., we did not specify a Twitter account),
-the following code is executed:</p>
-<pre class="python"><code>if ( len(acct) &lt; 1 ) :
-    cur.execute(&#39;SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1&#39;)
-    try:
-        acct = cur.fetchone()[0]
-    except:
-        print(&#39;No unretrieved twitter accounts found&#39;)
-        continue</code></pre>
-<p>We use the SQL <code>SELECT</code> statement to retrieve the name of
-the first (<code>LIMIT 1</code>) user who still has their “have we
-retrieved this user” value set to zero. We also use the
-<code>fetchone()[0]</code> pattern within a try/except block to either
-extract a <code>screen_name</code> from the retrieved data or put out an
-error message and loop back up.</p>
-<p>If we successfully retrieved an unprocessed <code>screen_name</code>,
-we retrieve their data as follows:</p>
-<pre class="python"><code>url=twurl.augment(TWITTER_URL,{&#39;screen_name&#39;: acct,&#39;count&#39;: &#39;20&#39;})
-print(&#39;Retrieving&#39;, url)
-connection = urllib.urlopen(url)
-data = connection.read()
-js = json.loads(data)
-
-cur.execute(&#39;UPDATE Twitter SET retrieved=1 WHERE name = ?&#39;,(acct, ))</code></pre>
-<p>Once we retrieve the data successfully, we use the
-<code>UPDATE</code> statement to set the <code>retrieved</code> column
-to 1 to indicate that we have completed the retrieval of the friends of
-this account. This keeps us from retrieving the same data over and over
-and keeps us progressing forward through the network of Twitter
-friends.</p>
-<p>If we run the friend program and press enter twice to retrieve the
-next unvisited friend’s friends, then run the dumping program, it will
-give us the following output:</p>
-<pre><code>(&#39;opencontent&#39;, 1, 1)
-(&#39;lhawthorn&#39;, 1, 1)
-(&#39;steve_coppin&#39;, 0, 1)
-(&#39;davidkocher&#39;, 0, 1)
-(&#39;hrheingold&#39;, 0, 1)
-...
-(&#39;cnxorg&#39;, 0, 2)
-(&#39;knoop&#39;, 0, 1)
-(&#39;kthanos&#39;, 0, 2)
-(&#39;LectureTools&#39;, 0, 1)
-...
-55 rows.</code></pre>
-<p>We can see that we have properly recorded that we have visited
-<code>lhawthorn</code> and <code>opencontent</code>. Also the accounts
-<code>cnxorg</code> and <code>kthanos</code> already have two followers.
-Since we now have retrieved the friends of three people
-(<code>drchuck</code>, <code>opencontent</code>, and
-<code>lhawthorn</code>) our table has 52 rows of friends to
-retrieve.</p>
-<p>Each time we run the program and press enter it will pick the next
-unvisited account (e.g., the next account will be
-<code>steve_coppin</code>), retrieve their friends, mark them as
-retrieved, and for each of the friends of <code>steve_coppin</code>
-either add them to the end of the database or update their friend count
-if they are already in the database.</p>
-<p>Since the program’s data is all stored on disk in a database, the
-spidering activity can be suspended and resumed as many times as you
-like with no loss of data.</p>
-<h2 id="basic-data-modeling">Basic data modeling</h2>
-<p>The real power of a relational database is when we create multiple
+<p> These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE)
+allow the four basic operations needed to create and maintain data. We
+use “CRUD” (Create, Read, Update, and Delete) to capture all these
+concepts in a single term. <a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<h2 id="multiple-tables-and-basic-data-modeling">Multiple tables and
+basic data modeling</h2>
+<p> The real power of a relational database is when we create multiple
 tables and make links between those tables. The act of deciding how to
 break up your application data into multiple tables and establishing the
 relationships between the tables is called <em>data modeling</em>. The
@@ -716,472 +449,602 @@ introduce the most basic concepts of relational data modeling in this
 section. For more detail on data modeling you can start with:</p>
 <p><a href="http://en.wikipedia.org/wiki/Relational_model"
 class="uri">http://en.wikipedia.org/wiki/Relational_model</a></p>
-<p>Let’s say for our Twitter spider application, instead of just
-counting a person’s friends, we wanted to keep a list of all of the
-incoming relationships so we could find a list of everyone who is
-following a particular account.</p>
-<p>Since everyone will potentially have many accounts that follow them,
-we cannot simply add a single column to our <code>Twitter</code> table.
-So we create a new table that keeps track of pairs of friends. The
-following is a simple way of making such a table:</p>
-<pre class="sql"><code>CREATE TABLE Pals (from_friend TEXT, to_friend TEXT)</code></pre>
-<p>Each time we encounter a person who <code>drchuck</code> is
-following, we would insert a row of the form:</p>
-<pre class="sql"><code>INSERT INTO Pals (from_friend,to_friend) VALUES (&#39;drchuck&#39;, &#39;lhawthorn&#39;)</code></pre>
-<p>As we are processing the 20 friends from the <code>drchuck</code>
-Twitter feed, we will insert 20 records with “drchuck” as the first
-parameter so we will end up duplicating the string many times in the
-database.</p>
-<p>This duplication of string data violates one of the best practices
-for <em>database normalization</em> which basically states that we
-should never put the same string data in the database more than once. If
-we need the data more than once, we create a numeric <em>key</em> for
-the data and reference the actual data using this key.</p>
-<p>In practical terms, a string takes up a lot more space than an
-integer on the disk and in the memory of our computer, and takes more
-processor time to compare and sort. If we only have a few hundred
-entries, the storage and processor time hardly matters. But if we have a
-million people in our database and a possibility of 100 million friend
-links, it is important to be able to scan data as quickly as
-possible.</p>
-<p>We will store our Twitter accounts in a table named
-<code>People</code> instead of the <code>Twitter</code> table used in
-the previous example. The <code>People</code> table has an additional
-column to store the numeric key associated with the row for this Twitter
-user. SQLite has a feature that automatically adds the key value for any
-row we insert into a table using a special type of data column
-(<code>INTEGER PRIMARY KEY</code>).</p>
-<p>We can create the <code>People</code> table with this additional
-<code>id</code> column as follows:</p>
-<pre class="sql"><code>CREATE TABLE People
-    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)</code></pre>
-<p>Notice that we are no longer maintaining a friend count in each row
-of the <code>People</code> table. When we select
-<code>INTEGER PRIMARY KEY</code> as the type of our <code>id</code>
-column, we are indicating that we would like SQLite to manage this
-column and assign a unique numeric key to each row we insert
-automatically. We also add the keyword <code>UNIQUE</code> to indicate
-that we will not allow SQLite to insert two rows with the same value for
-<code>name</code>.</p>
-<p>Now instead of creating the table <code>Pals</code> above, we create
-a table called <code>Follows</code> with two integer columns
-<code>from_id</code> and <code>to_id</code> and a constraint on the
-table that the <em>combination</em> of <code>from_id</code> and
-<code>to_id</code> must be unique in this table (i.e., we cannot insert
-duplicate rows) in our database.</p>
-<pre class="sql"><code>CREATE TABLE Follows
-    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id) )</code></pre>
-<p>When we add <code>UNIQUE</code> clauses to our tables, we are
-communicating a set of rules that we are asking the database to enforce
-when we attempt to insert records. We are creating these rules as a
-convenience in our programs, as we will see in a moment. The rules both
-keep us from making mistakes and make it simpler to write some of our
-code.</p>
-<p>In essence, in creating this <code>Follows</code> table, we are
-modelling a “relationship” where one person “follows” someone else and
-representing it with a pair of numbers indicating that (a) the people
-are connected and (b) the direction of the relationship.</p>
+<p> Lets say for our tracks database we wanted to track the name of the
+<code>artist</code> for each track in addition to the <code>title</code>
+and number of plays for each track. A simple approach might be to simply
+add another column to the database called <code>artist</code> and put
+the name of the artist in the column as follows:</p>
+<pre class="python"><code>DROP TABLE IF EXISTS Track;
+CREATE TABLE Track (title TEXT, plays INTEGER, artist TEXT);</code></pre>
+<p>Then we could insert a few tracks into our table.</p>
+<pre class="sql"><code>INSERT INTO Track (title, plays, artist)
+    VALUES (&#39;My Way&#39;, 15, &#39;Frank Sinatra&#39;);
+INSERT INTO Track (title, plays, artist)
+    VALUES (&#39;New York&#39;, 25, &#39;Frank Sinatra&#39;);</code></pre>
+<p>If we were to look at our data with a
+<code>SELECT * FROM Track</code> statement, it looks like we have done a
+fine job.</p>
+<pre><code>sqlite&gt; SELECT * FROM Track;
+My Way|15|Frank Sinatra
+New York|25|Frank Sinatra
+sqlite&gt;</code></pre>
+<p>We have made a <em>very bad error</em> in our data modeling. We have
+violated the rules of <em>database normalization</em>.</p>
+<p><a href="https://en.wikipedia.org/wiki/Database_normalization"
+class="uri">https://en.wikipedia.org/wiki/Database_normalization</a></p>
+<p> While database normalization seems very complex on the surface and
+contains a lot of mathematical justifications, for now we can reduce it
+all into one simple rule that we will follow.</p>
+<p> We should never put the same string data in a column more than once.
+If we need the data more than once, we create a numeric <em>key</em> for
+the data and reference the actual data using this key. Especially if the
+multiple entries refer to the same object.</p>
+<p>To demonstrate the slippery slope we are going down by assigning
+string columns to out database model, think about how we would change
+the data model if we wanted to keep track of the eye color of our
+artists? Would we do this?</p>
+<pre class="sql"><code>DROP TABLE IF EXISTS Track;
+CREATE TABLE Track (title TEXT, plays INTEGER,
+    artist TEXT, eyes TEXT);
+INSERT INTO Track (title, plays, artist, eyes)
+    VALUES (&#39;My Way&#39;, 15, &#39;Frank Sinatra&#39;, &#39;Blue&#39;);
+INSERT INTO Track (title, plays, artist, eyes)
+    VALUES (&#39;New York&#39;, 25, &#39;Frank Sinatra&#39;, &#39;Blue&#39;);</code></pre>
+<p>Since Frank Sinatra recorded over 1200 songs, are we really going to
+put the string ‘Blue’ in 1200 rows in our <code>Track</code> table. And
+what would happen if we decided his eye color was ‘Light Blue’?
+Something just does not feel right. The right solution is to create a
+table for the each <code>Artist</code> and store all the data about the
+artist in that table. And then somehow we need to make a connection
+between a row in the <code>Track</code> table to a row in the
+<code>Artist</code> table. Perhaps we could call this “link” between two
+“tables” a “relationship” between two tables. And that is exactly what
+database experts decided to all these links.</p>
+<p>Lets make an <code>Artist</code> table as follows:</p>
+<pre class="sql"><code>DROP TABLE IF EXISTS Artist;
+CREATE TABLE Artist (name TEXT, eyes TEXT);
+INSERT INTO Artist (name, eyes)
+   VALUES (&#39;Frank Sinatra&#39;, &#39;blue&#39;);</code></pre>
+<p> Now we have two tables but we need a way to <em>link</em> rows in
+the two tables. To do this, we need why we call ‘keys’. These keys will
+just be integer numbers that we can use to lookup a row in different
+table. If we are going to make links to rows inside of a table, we need
+to add a <em>primary key</em> to the rows in the table. By convention we
+usually name the primary key column ‘id’. So our
+<code>Artist</code>table looks as follows:</p>
+<pre class="sql"><code>DROP TABLE IF EXISTS Artist;
+CREATE TABLE Artist (id INTEGER, name TEXT, eyes TEXT);
+INSERT INTO Artist (id, name, eyes)
+   VALUES (42, &#39;Frank Sinatra&#39;, &#39;blue&#39;);</code></pre>
+<p>Now we have a row in the table for ‘Frank Sinatra’ (and his eye
+color) and a primary key of ‘42’ to use to link our tracks to him. So we
+alter our Track table as follows:</p>
+<pre class="sql"><code>DROP TABLE IF EXISTS Track;
+CREATE TABLE Track (title TEXT, plays INTEGER,
+    artist_id INTEGER);
+INSERT INTO Track (title, plays, artist_id)
+    VALUES (&#39;My Way&#39;, 15, 42);
+INSERT INTO Track (title, plays, artist_id)
+    VALUES (&#39;New York&#39;, 25, 42);</code></pre>
+<p> The <code>artist_id</code> column is an integer, and by naming
+convention is a <em>foreign key</em> pointing at a <em>primary</em> key
+in the <code>Artist</code> table. We call it a foreign key because it is
+pointing to a row in a different table.</p>
+<p> Now we are following the rules of database normalization, but when
+we want to get data out of our database, we don’t want to see the 42, we
+want to see the name and eye color of the artist. To do this we use the
+<code>JOIN</code> keyword in our SELECT statement.</p>
+<pre class="sql"><code>SELECT title, plays, name, eyes
+FROM Track JOIN Artist
+ON Track.artist_id = Artist.id;</code></pre>
+<p>The <code>JOIN</code> clause includes an <code>ON</code> condition
+that defines how the rows are to to be connected. For each row in
+<code>Track</code> add the data from <code>Artist</code> from the row
+where <code>artist_id</code> <code>Track</code> table matches the
+<code>id</code> from the <code>Artist</code> table.</p>
+<p>The output would be:</p>
+<pre><code>My Way|15|Frank Sinatra|blue
+New York|25|Frank Sinatra|blue</code></pre>
+<p>While it might seem a little clunky and your instincts might tell you
+that it would be faster just to keep the data in one table, it turns out
+the the limit on database performance is how much data needs to be
+scanned when retrieving a query. While they details are very complex,
+integers are a lot smaller than strings (especially Unicode Strings) and
+far quicker to to move and compare.</p>
+<h2 id="data-model-diagrams">Data model diagrams</h2>
+<p> While out <code>Track</code> and <code>Artist</code> database
+design, is very simple with just two tables and a single one-to-many
+relationship, these data models can get complicated quickly and are
+easier to understand if we can make a graphical representation data
+model.</p>
 <figure>
-<img src="../images/twitter.svg" alt="Relationships Between Tables" style="height: 3.5in;"/>
+<img src="../images/one-to-many-verbose.png" alt="A Verbose One-to-Many Data Model\label{figvrbo2m}" style="height: 1.5in;"/>
 <figcaption>
-Relationships Between Tables
+A Verbose One-to-Many Data Model
 </figcaption>
 </figure>
-<h2 id="programming-with-multiple-tables">Programming with multiple
-tables</h2>
-<p>We will now redo the Twitter spider program using two tables, the
-primary keys, and the key references as described above. Here is the
-code for the new version of the program:</p>
-<pre class="python"><code>import urllib.request, urllib.parse, urllib.error
-import twurl
-import json
-import sqlite3
-import ssl
-
-TWITTER_URL = &#39;https://api.twitter.com/1.1/friends/list.json&#39;
-
-conn = sqlite3.connect(&#39;friends.sqlite&#39;)
-cur = conn.cursor()
-
-cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS People
-    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)&#39;&#39;&#39;)
-cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS Follows
-    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))&#39;&#39;&#39;)
-
-# Ignore SSL certificate errors
-ctx = ssl.create_default_context()
-ctx.check_hostname = False
-ctx.verify_mode = ssl.CERT_NONE
-
-while True:
-    acct = input(&#39;Enter a Twitter account, or quit: &#39;)
-    if (acct == &#39;quit&#39;): break
-    if (len(acct) &lt; 1):
-        cur.execute(
-           &#39;SELECT id, name FROM People WHERE retrieved=0 LIMIT 1&#39;
-        )
-        try:
-            (id, acct) = cur.fetchone()
-        except:
-            print(&#39;No unretrieved Twitter accounts found&#39;)
-            continue
-    else:
-        cur.execute(&#39;SELECT id FROM People WHERE name = ? LIMIT 1&#39;,
-                    (acct, ))
-        try:
-            id = cur.fetchone()[0]
-        except:
-            cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO People
-                        (name, retrieved) VALUES (?, 0)&#39;&#39;&#39;, (acct, ))
-            conn.commit()
-            if cur.rowcount != 1:
-                print(&#39;Error inserting account:&#39;, acct)
-                continue
-            id = cur.lastrowid
-
-    url = twurl.augment(TWITTER_URL,
-        {&#39;screen_name&#39;: acct, &#39;count&#39;: &#39;100&#39;})
-    print(&#39;Retrieving account&#39;, acct)
-    try:
-        connection = urllib.request.urlopen(url, context=ctx)
-    except Exception as err:
-        print(&#39;Failed to Retrieve&#39;, err)
-        break
-
-    data = connection.read().decode()
-    headers = dict(connection.getheaders())
-
-    print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
-
-    try:
-        js = json.loads(data)
-    except:
-        print(&#39;Unable to parse json&#39;)
-        print(data)
-        break
-
-    # Debugging
-    # print(json.dumps(js, indent=4))
-
-    if &#39;users&#39; not in js:
-        print(&#39;Incorrect JSON received&#39;)
-        print(json.dumps(js, indent=4))
-        continue
-
-    cur.execute(&#39;UPDATE People SET retrieved=1 WHERE name = ?&#39;, (acct, ))
-
-    countnew = 0
-    countold = 0
-    for u in js[&#39;users&#39;]:
-        friend = u[&#39;screen_name&#39;]
-        print(friend)
-        cur.execute(&#39;SELECT id FROM People WHERE name = ? LIMIT 1&#39;,
-                    (friend, ))
-        try:
-            friend_id = cur.fetchone()[0]
-            countold = countold + 1
-        except:
-            cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO People (name, retrieved)
-                        VALUES (?, 0)&#39;&#39;&#39;, (friend, ))
-            conn.commit()
-            if cur.rowcount != 1:
-                print(&#39;Error inserting account:&#39;, friend)
-                continue
-            friend_id = cur.lastrowid
-            countnew = countnew + 1
-        cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Follows (from_id, to_id)
-                    VALUES (?, ?)&#39;&#39;&#39;, (id, friend_id))
-    print(&#39;New accounts=&#39;, countnew, &#39; revisited=&#39;, countold)
-    print(&#39;Remaining&#39;, headers[&#39;x-rate-limit-remaining&#39;])
-    conn.commit()
-cur.close()
-
-# Code: http://www.py4e.com/code3/twfriends.py</code></pre>
-<p>This program is starting to get a bit complicated, but it illustrates
-the patterns that we need to use when we are using integer keys to link
-tables. The basic patterns are:</p>
-<ol type="1">
-<li><p>Create tables with primary keys and constraints.</p></li>
-<li><p>When we have a logical key for a person (i.e., account name) and
-we need the <code>id</code> value for the person, depending on whether
-or not the person is already in the <code>People</code> table we either
-need to: (1) look up the person in the <code>People</code> table and
-retrieve the <code>id</code> value for the person or (2) add the person
-to the <code>People</code> table and get the <code>id</code> value for
-the newly added row.</p></li>
-<li><p>Insert the row that captures the “follows” relationship.</p></li>
-</ol>
-<p>We will cover each of these in turn.</p>
-<h3 id="constraints-in-database-tables">Constraints in database
-tables</h3>
-<p>As we design our table structures, we can tell the database system
-that we would like it to enforce a few rules on us. These rules help us
-from making mistakes and introducing incorrect data into our tables.
-When we create our tables:</p>
-<pre class="python"><code>cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS People
-    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)&#39;&#39;&#39;)
-cur.execute(&#39;&#39;&#39;CREATE TABLE IF NOT EXISTS Follows
-    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))&#39;&#39;&#39;)</code></pre>
-<p>We indicate that the <code>name</code> column in the
-<code>People</code> table must be <code>UNIQUE</code>. We also indicate
-that the combination of the two numbers in each row of the
-<code>Follows</code> table must be unique. These constraints keep us
-from making mistakes such as adding the same relationship more than
-once.</p>
-<p>We can take advantage of these constraints in the following code:</p>
-<pre class="python"><code>cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO People (name, retrieved)
-    VALUES ( ?, 0)&#39;&#39;&#39;, ( friend, ) )</code></pre>
-<p>We add the <code>OR IGNORE</code> clause to our <code>INSERT</code>
-statement to indicate that if this particular <code>INSERT</code> would
-cause a violation of the “<code>name</code> must be unique” rule, the
-database system is allowed to ignore the <code>INSERT</code>. We are
-using the database constraint as a safety net to make sure we don’t
-inadvertently do something incorrect.</p>
-<p>Similarly, the following code ensures that we don’t add the exact
-same <code>Follows</code> relationship twice.</p>
-<pre class="python"><code>cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Follows
-    (from_id, to_id) VALUES (?, ?)&#39;&#39;&#39;, (id, friend_id) )</code></pre>
-<p>Again, we simply tell the database to ignore our attempted
-<code>INSERT</code> if it would violate the uniqueness constraint that
-we specified for the <code>Follows</code> rows.</p>
-<h3 id="retrieve-andor-insert-a-record">Retrieve and/or insert a
-record</h3>
-<p>When we prompt the user for a Twitter account, if the account exists,
-we must look up its <code>id</code> value. If the account does not yet
-exist in the <code>People</code> table, we must insert the record and
-get the <code>id</code> value from the inserted row.</p>
-<p>This is a very common pattern and is done twice in the program above.
-This code shows how we look up the <code>id</code> for a friend’s
-account when we have extracted a <code>screen_name</code> from a
-<code>user</code> node in the retrieved Twitter JSON.</p>
-<p>Since over time it will be increasingly likely that the account will
-already be in the database, we first check to see if the
-<code>People</code> record exists using a <code>SELECT</code>
-statement.</p>
-<p>If all goes well<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> inside the <code>try</code> section,
-we retrieve the record using <code>fetchone()</code> and then retrieve
-the first (and only) element of the returned tuple and store it in
-<code>friend_id</code>.</p>
-<p>If the <code>SELECT</code> fails, the <code>fetchone()[0]</code> code
-will fail and control will transfer into the <code>except</code>
-section.</p>
-<pre class="python"><code>    friend = u[&#39;screen_name&#39;]
-    cur.execute(&#39;SELECT id FROM People WHERE name = ? LIMIT 1&#39;,
-        (friend, ) )
-    try:
-        friend_id = cur.fetchone()[0]
-        countold = countold + 1
-    except:
-        cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO People (name, retrieved)
-            VALUES ( ?, 0)&#39;&#39;&#39;, ( friend, ) )
-        conn.commit()
-        if cur.rowcount != 1 :
-            print(&#39;Error inserting account:&#39;,friend)
-            continue
-        friend_id = cur.lastrowid
-        countnew = countnew + 1</code></pre>
-<p>If we end up in the <code>except</code> code, it simply means that
-the row was not found, so we must insert the row. We use
-<code>INSERT OR IGNORE</code> just to avoid errors and then call
-<code>commit()</code> to force the database to really be updated. After
-the write is done, we can check the <code>cur.rowcount</code> to see how
-many rows were affected. Since we are attempting to insert a single row,
-if the number of affected rows is something other than 1, it is an
-error.</p>
-<p>If the <code>INSERT</code> is successful, we can look at
-<code>cur.lastrowid</code> to find out what value the database assigned
-to the <code>id</code> column in our newly created row.</p>
-<h3 id="storing-the-friend-relationship">Storing the friend
-relationship</h3>
-<p>Once we know the key value for both the Twitter user and the friend
-in the JSON, it is a simple matter to insert the two numbers into the
-<code>Follows</code> table with the following code:</p>
-<pre class="python"><code>cur.execute(
-    &#39;INSERT OR IGNORE INTO Follows (from_id, to_id) VALUES (?, ?)&#39;,
-    (id, friend_id)
-)</code></pre>
-<p>Notice that we let the database take care of keeping us from
-“double-inserting” a relationship by creating the table with a
-uniqueness constraint and then adding <code>OR IGNORE</code> to our
-<code>INSERT</code> statement.</p>
-<p>Here is a sample execution of this program:</p>
-<pre><code>Enter a Twitter account, or quit:
-No unretrieved Twitter accounts found
-Enter a Twitter account, or quit: drchuck
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 20  revisited= 0
-Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit:
-Retrieving http://api.twitter.com/1.1/friends ...
-New accounts= 17  revisited= 3
-Enter a Twitter account, or quit: quit</code></pre>
-<p>We started with the <code>drchuck</code> account and then let the
-program automatically pick the next two accounts to retrieve and add to
-our database.</p>
-<p>The following is the first few rows in the <code>People</code> and
-<code>Follows</code> tables after this run is completed:</p>
-<pre><code>People:
-(1, &#39;drchuck&#39;, 1)
-(2, &#39;opencontent&#39;, 1)
-(3, &#39;lhawthorn&#39;, 1)
-(4, &#39;steve_coppin&#39;, 0)
-(5, &#39;davidkocher&#39;, 0)
-55 rows.
-Follows:
-(1, 2)
-(1, 3)
-(1, 4)
-(1, 5)
-(1, 6)
-60 rows.</code></pre>
-<p>You can see the <code>id</code>, <code>name</code>, and
-<code>visited</code> fields in the <code>People</code> table and you see
-the numbers of both ends of the relationship in the <code>Follows</code>
-table. In the <code>People</code> table, we can see that the first three
-people have been visited and their data has been retrieved. The data in
-the <code>Follows</code> table indicates that <code>drchuck</code> (user
-1) is a friend to all of the people shown in the first five rows. This
-makes sense because the first data we retrieved and stored was the
-Twitter friends of <code>drchuck</code>. If you were to print more rows
-from the <code>Follows</code> table, you would see the friends of users
-2 and 3 as well.</p>
-<h2 id="three-kinds-of-keys">Three kinds of keys</h2>
-<p>Now that we have started building a data model putting our data into
-multiple linked tables and linking the rows in those tables using
-<em>keys</em>, we need to look at some terminology around keys. There
-are generally three kinds of keys used in a database model.</p>
-<ul>
-<li><p>A <em>logical key</em> is a key that the “real world” might use
-to look up a row. In our example data model, the <code>name</code> field
-is a logical key. It is the screen name for the user and we indeed look
-up a user’s row several times in the program using the <code>name</code>
-field. You will often find that it makes sense to add a
-<code>UNIQUE</code> constraint to a logical key. Since the logical key
-is how we look up a row from the outside world, it makes little sense to
-allow multiple rows with the same value in the table.</p></li>
-<li><p>A <em>primary key</em> is usually a number that is assigned
-automatically by the database. It generally has no meaning outside the
-program and is only used to link rows from different tables together.
-When we want to look up a row in a table, usually searching for the row
-using the primary key is the fastest way to find the row. Since primary
-keys are integer numbers, they take up very little storage and can be
-compared or sorted very quickly. In our data model, the <code>id</code>
-field is an example of a primary key.</p></li>
-<li><p>A <em>foreign key</em> is usually a number that points to the
-primary key of an associated row in a different table. An example of a
-foreign key in our data model is the <code>from_id</code>.</p></li>
-</ul>
-<p>We are using a naming convention of always calling the primary key
-field name <code>id</code> and appending the suffix <code>_id</code> to
-any field name that is a foreign key.</p>
-<h2 id="using-join-to-retrieve-data">Using JOIN to retrieve data</h2>
-<p>Now that we have followed the rules of database normalization and
-have data separated into two tables, linked together using primary and
-foreign keys, we need to be able to build a <code>SELECT</code> that
-reassembles the data across the tables.</p>
-<p>SQL uses the <code>JOIN</code> clause to reconnect these tables. In
-the <code>JOIN</code> clause you specify the fields that are used to
-reconnect the rows between the tables.</p>
-<p>The following is an example of a <code>SELECT</code> with a
-<code>JOIN</code> clause:</p>
-<pre class="sql"><code>SELECT * FROM Follows JOIN People
-    ON Follows.from_id = People.id WHERE People.id = 1</code></pre>
-<p>The <code>JOIN</code> clause indicates that the fields we are
-selecting cross both the <code>Follows</code> and <code>People</code>
-tables. The <code>ON</code> clause indicates how the two tables are to
-be joined: Take the rows from <code>Follows</code> and append the row
-from <code>People</code> where the field <code>from_id</code> in
-<code>Follows</code> is the same the <code>id</code> value in the
-<code>People</code> table.</p>
+<p> While there are many graphical representations of data models, we
+will use one of the “classic” appraches, called “Crow’s Foot Diagrams”
+as shown in Figure . Each table is shown as a box with the name of the
+table and its columns. Then where there is a relationship between two
+tables a line is drawn connecting the tables with a notation added to
+the end of each line indicating the nature of the relationship.</p>
+<p><a href="https://en.wikipedia.org/wiki/Entity-relationship_model"
+class="uri">https://en.wikipedia.org/wiki/Entity-relationship_model</a></p>
+<p>In this case, “many” tracks can be associated with each artist. So
+the track end is shown with the crow’s foot spread out indicating it is
+the” “many” end. The artist end is shown with a vertical like that
+indicates “one”. There will be “many” artists in general, but the
+important aspect is that for each artist there will be many tracks.</p>
+<p> You will note that the column that holds the <em>foreign_key</em>
+like <code>artist_id</code> is on the “many” end and the <em>primary
+key</em> is at the “one” end.</p>
+<p>Since the pattern of foreign and primary key placement is so
+consistent and follows the “many” and “one” ends of the lines, in
+reality we never include either the primary or foreign key columns in
+our diagram of the data model as shown in the second diagram as showin
+in Figure . The columns are thought of as “implementation detail” to
+capture the nature of the relationship details and not an essential part
+of the data being modeled.</p>
 <figure>
-<img src="../images/join.svg" alt="Connecting Tables Using JOIN" style="height: 3.5in;"/>
+<img src="../images/one-to-many.png" alt="A Succinct One-to-Many Data Model\label{figo2m}" style="height: 1.5in;"/>
 <figcaption>
-Connecting Tables Using JOIN
+A Succinct One-to-Many Data Model
 </figcaption>
 </figure>
-<p>The result of the JOIN is to create extra-long “metarows” which have
-both the fields from <code>People</code> and the matching fields from
-<code>Follows</code>. Where there is more than one match between the
-<code>id</code> field from <code>People</code> and the
-<code>from_id</code> from <code>Follows</code>, then JOIN creates a
-metarow for <em>each</em> of the matching pairs of rows, duplicating
-data as needed.</p>
-<p>The following code demonstrates the data that we will have in the
-database after the multi-table Twitter spider program (above) has been
-run several times.</p>
+<h2 id="automatically-creating-primary-keys">Automatically creating
+primary keys</h2>
+<p> In the above example, we arbitrarily assigned Frank the primary key
+of 42. However when we are inserting millions or rows, it is nice to
+have the database automatically generate the values for the id column.
+We do this by declaring the <code>id</code> column as a
+<code>PRIMARY KEY</code> and leave out the <code>id</code> value when
+inserting the row:</p>
+<pre class="sql"><code>DROP TABLE IF EXISTS Artist;
+CREATE TABLE Artist (id INTEGER PRIMARY KEY,
+    name TEXT, eyes TEXT);
+INSERT INTO Artist (name, eyes)
+   VALUES (&#39;Frank Sinatra&#39;, &#39;blue&#39;);</code></pre>
+<p>Now we have instructed the database to auto-assign us a unique value
+to the Frank Sinatra row. But we then need a way to have the database
+tell us the <code>id</code> value for the recently inserted row:</p>
+<pre><code>sqlite&gt; DROP TABLE IF EXISTS Artist;
+sqlite&gt; CREATE TABLE Artist (id INTEGER PRIMARY KEY,
+   ...&gt;     name TEXT, eyes TEXT);
+sqlite&gt; INSERT INTO Artist (name, eyes)
+   ...&gt;    VALUES (&#39;Frank Sinatra&#39;, &#39;blue&#39;);
+sqlite&gt; select last_insert_rowid();
+1
+sqlite&gt; SELECT * FROM Artist;
+1|Frank Sinatra|blue
+sqlite&gt;</code></pre>
+<p>Once we know the <code>id</code> of our ‘Frank Sinatra’ row, we can
+use it when we <code>INSERT</code> the tracks into the
+<code>Track</code> table. As a general strategy, we add these
+<code>id</code> columns to any table we create:</p>
+<pre><code>sqlite&gt; DROP TABLE IF EXISTS Track;
+sqlite&gt; CREATE TABLE Track (id INTEGER PRIMARY KEY,
+   ...&gt;     title TEXT, plays INTEGER, artist_id INTEGER);</code></pre>
+<p>Note that the <code>artist_id</code> value is the new auto-assigned
+row in the <code>Artist</code> table and that while we added an
+<code>INTEGER PRIMARY KEY</code> to the the <code>Track</code> table, we
+did not include <code>id</code> in the list of fields on the
+<code>INSERT</code> statements into the <code>Track</code> table. Again
+this tells the database to choose a unique value for us for the
+<code>id</code> column.</p>
+<pre><code>sqlite&gt; INSERT INTO Track (title, plays, artist_id)
+   ...&gt;     VALUES (&#39;My Way&#39;, 15, 1);
+sqlite&gt; select last_insert_rowid();
+1
+sqlite&gt; INSERT INTO Track (title, plays, artist_id)
+   ...&gt;     VALUES (&#39;New York&#39;, 25, 1);
+sqlite&gt; select last_insert_rowid();
+2
+sqlite&gt;</code></pre>
+<p> You can call <code>SELECT last_insert_rowid();</code> after each of
+the inserts to retrieve the value that the database assigned to the
+<code>id</code> of each newly created row. Later when we are coding in
+Python, we can ask for the <code>id</code> value in our code and store
+it in a variable for later use.</p>
+<h2 id="logical-keys-for-fast-lookup">Logical keys for fast lookup</h2>
+<p> If we had a table full of artists and a table full of tracks, each
+with a foreign key link to a row in a table full of artists and we
+wanted to list all the tracks that were sung by ‘Frank Sinatra’ as
+follows:</p>
+<pre><code>SELECT title, plays, name, eyes
+FROM Track JOIN Artist
+ON Track.artist_id = Artist.id
+WHERE Artist.name = &#39;Frank Sinatra&#39;;</code></pre>
+<p>Since we have two tables and a foreign key between the two tables,
+our data is well-modeled, but if we are going to have millions of
+records in the <code>Artist</code> table and going to do a lot of
+lookups by artist name, we would benefit if we gave the database a hint
+about our intended use of the <code>name</code> column.</p>
+<p> We do this by adding an “index” to a text column that we intend to
+use in <code>WHERE</code> clauses:</p>
+<pre><code>CREATE INDEX artist_name ON Artist(name);</code></pre>
+<p>When the database has been told that an index is needed on a column
+in a table, it stores extra information to make it possible to look up a
+row more quickly using the indexed field (<code>name</code> in this
+example). Once you request that an index be created, there is nothing
+special that is needed in the SQL to access the table. The database
+keeps the index up to date as data is inserted, deleted, and updated,
+and uses it automatically if it will increase the performance of a
+database query.</p>
+<p>These text columns that are used to find rows based on some
+information in the “real world” like the name of an artist are called
+<em>Logical keys</em>.</p>
+<h2 id="adding-constraints-to-the-data-database">Adding constraints to
+the data database</h2>
+<p> We can also use an index to enforce a constraint (i.e. rules) on our
+database operations. The most common constraint is a <em>uniqueness
+constraint</em> which insists that all of the values in a column are
+unique. We can add the optional <code>UNIQUE</code> keyword, to the
+<code>CREATE INDEX</code> statement to tell the database that we would
+like it to enforce the constraint on our SQL. We can drop and re-create
+the <code>artist_name</code> index with a <code>UNIQUE</code> constraint
+as follows.</p>
+<pre><code>DROP INDEX artist_name;
+CREATE UNIQUE INDEX artist_name ON Artist(name);</code></pre>
+<p>If we try to insert ‘Frank Sinatra’ a second time, it will fail with
+an error.</p>
+<pre><code>sqlite&gt; SELECT * FROM Artist;
+1|Frank Sinatra|blue
+sqlite&gt; INSERT INTO Artist (name, eyes)
+   ...&gt;    VALUES (&#39;Frank Sinatra&#39;, &#39;blue&#39;);
+Runtime error: UNIQUE constraint failed: Artist.name (19)
+sqlite&gt;</code></pre>
+<p> We can tell the database to ignore any duplicate key errors by
+adding the <code>IGNORE</code> keyword to the <code>INSERT</code>
+statement as follows:</p>
+<pre><code>sqlite&gt; INSERT OR IGNORE INTO Artist (name, eyes)
+   ...&gt;     VALUES (&#39;Frank Sinatra&#39;, &#39;blue&#39;);
+sqlite&gt; SELECT id FROM Artist WHERE name=&#39;Frank Sinatra&#39;;
+1
+sqlite&gt;</code></pre>
+<p>By combining an <code>INSERT OR IGNORE</code> and a
+<code>SELECT</code> we can insert a new record if the name is not
+already there and whether or not the record is already there, retrieve
+the <em>primary</em> key of the record regardless of whether it was
+newly inserted or already present in the table.</p>
+<pre><code>sqlite&gt; INSERT OR IGNORE INTO Artist (name, eyes)
+   ...&gt;      VALUES (&#39;Elvis&#39;, &#39;blue&#39;);
+sqlite&gt; SELECT id FROM Artist WHERE name=&#39;Elvis&#39;;
+2
+sqlite&gt; SELECT * FROM Artist;
+1|Frank Sinatra|blue
+2|Elvis|blue
+sqlite&gt;</code></pre>
+<p>Since we have not added a uniqueness constraint to the eye color
+column, there is no problem having multiple ‘Blue’ values in the
+<code>eye</code> column.</p>
+<h2 id="sample-multi-table-application">Sample multi-table
+application</h2>
+<p>A sample application called <code>tracks_csv.py</code> shows how
+these ideas can be combined to parse textual data and load it into
+several tables using a proper data model with relational connections
+between the tables:</p>
+<p>This application reads and parses a comma-separated file
+<code>tracks.csv</code> based on an export from Dr. Chuck’s iTunes
+library.</p>
+<pre><code>Another One Bites The Dust,Queen,Greatest Hits,55,100,217103
+Asche Zu Asche,Rammstein,Herzeleid,79,100,231810
+Beauty School Dropout,Various,Grease,48,100,239960
+Black Dog,Led Zeppelin,IV,109,100,296620
+...</code></pre>
+<p>The columns in this file are: title, artist, album, number of plays,
+rating (0-100) and length in milliseconds.</p>
+<figure>
+<img src="../images/tracks-albums-artists.png" alt="Tracks, Albums, and Artists\label{figtaa}" style="height: 1.5in;"/>
+<figcaption>
+Tracks, Albums, and Artists
+</figcaption>
+</figure>
+<p>Our data model is shown in Figure and described in SQL as
+follows:</p>
+<pre class="sql"><code>DROP TABLE IF EXISTS Artist;
+DROP TABLE IF EXISTS Album;
+DROP TABLE IF EXISTS Track;
+
+CREATE TABLE Artist (
+    id INTEGER PRIMARY KEY,
+    name TEXT UNIQUE
+);
+
+CREATE TABLE Album (
+    id INTEGER PRIMARY KEY,
+    artist_id  INTEGER,
+    title TEXT UNIQUE
+);
+
+CREATE TABLE Track (
+    id INTEGER PRIMARY KEY,
+    title TEXT UNIQUE,
+    album_id INTEGER,
+    len INTEGER, rating INTEGER, count INTEGER
+);</code></pre>
+<p>We are adding the <code>UNIQUE</code> keyword to <code>TEXT</code>
+columns that we would like to have a uniqueness constraint that w will
+use in <code>INSERT IGNORE</code> statements. This is more succinct that
+separate <code>CREATE INDEX</code> statements but has the same
+effect.</p>
+<p>With these tables in place, we write the following code
+<code>tracks_csv.py</code> to parse the data and insert it into the
+tables:</p>
 <pre class="python"><code>import sqlite3
 
-conn = sqlite3.connect(&#39;friends.sqlite&#39;)
+conn = sqlite3.connect(&#39;trackdb.sqlite&#39;)
 cur = conn.cursor()
 
-cur.execute(&#39;SELECT * FROM People&#39;)
-count = 0
-print(&#39;People:&#39;)
-for row in cur:
-    if count &lt; 5: print(row)
-    count = count + 1
-print(count, &#39;rows.&#39;)
+handle = open(&#39;tracks.csv&#39;)
 
-cur.execute(&#39;SELECT * FROM Follows&#39;)
-count = 0
-print(&#39;Follows:&#39;)
-for row in cur:
-    if count &lt; 5: print(row)
-    count = count + 1
-print(count, &#39;rows.&#39;)
+for line in handle:
+    line = line.strip();
+    pieces = line.split(&#39;,&#39;)
+    if len(pieces) != 6 : continue
 
-cur.execute(&#39;&#39;&#39;SELECT * FROM Follows JOIN People
-            ON Follows.to_id = People.id
-            WHERE Follows.from_id = 2&#39;&#39;&#39;)
-count = 0
-print(&#39;Connections for id=2:&#39;)
-for row in cur:
-    if count &lt; 5: print(row)
-    count = count + 1
-print(count, &#39;rows.&#39;)
+    name = pieces[0]
+    artist = pieces[1]
+    album = pieces[2]
+    count = pieces[3]
+    rating = pieces[4]
+    length = pieces[5]
 
-cur.close()
+    print(name, artist, album, count, rating, length)
 
-# Code: http://www.py4e.com/code3/twjoin.py</code></pre>
-<p>In this program, we first dump out the <code>People</code> and
-<code>Follows</code> and then dump out a subset of the data in the
-tables joined together.</p>
-<p>Here is the output of the program:</p>
-<pre><code>python twjoin.py
-People:
-(1, &#39;drchuck&#39;, 1)
-(2, &#39;opencontent&#39;, 1)
-(3, &#39;lhawthorn&#39;, 1)
-(4, &#39;steve_coppin&#39;, 0)
-(5, &#39;davidkocher&#39;, 0)
-55 rows.
-Follows:
-(1, 2)
-(1, 3)
-(1, 4)
-(1, 5)
-(1, 6)
-60 rows.
-Connections for id=2:
-(2, 1, 1, &#39;drchuck&#39;, 1)
-(2, 28, 28, &#39;cnxorg&#39;, 0)
-(2, 30, 30, &#39;kthanos&#39;, 0)
-(2, 102, 102, &#39;SomethingGirl&#39;, 0)
-(2, 103, 103, &#39;ja_Pac&#39;, 0)
-20 rows.</code></pre>
-<p>You see the columns from the <code>People</code> and
-<code>Follows</code> tables and the last set of rows is the result of
-the <code>SELECT</code> with the <code>JOIN</code> clause.</p>
-<p>In the last select, we are looking for accounts that are friends of
-“opencontent” (i.e., <code>People.id=2</code>).</p>
-<p>In each of the “metarows” in the last select, the first two columns
-are from the <code>Follows</code> table followed by columns three
-through five from the <code>People</code> table. You can also see that
-the second column (<code>Follows.to_id</code>) matches the third column
-(<code>People.id</code>) in each of the joined-up “metarows”.</p>
+    cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Artist (name)
+        VALUES ( ? )&#39;&#39;&#39;, ( artist, ) )
+    cur.execute(&#39;SELECT id FROM Artist WHERE name = ? &#39;, (artist, ))
+    artist_id = cur.fetchone()[0]
+
+    cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Album (title, artist_id)
+        VALUES ( ?, ? )&#39;&#39;&#39;, ( album, artist_id ) )
+    cur.execute(&#39;SELECT id FROM Album WHERE title = ? &#39;, (album, ))
+    album_id = cur.fetchone()[0]
+
+    cur.execute(&#39;&#39;&#39;INSERT OR REPLACE INTO Track
+        (title, album_id, len, rating, count)
+        VALUES ( ?, ?, ?, ?, ? )&#39;&#39;&#39;,
+        ( name, album_id, length, rating, count ) )
+
+    conn.commit()</code></pre>
+<p>You can see that we are repeating the pattern of
+<code>INSERT OR IGNORE</code> followed by a <code>SELECT</code> to get
+the appropriate <code>artist_id</code> and <code>album_id</code> for use
+in later <code>INSERT</code> statements. We start from
+<code>Artist</code> because we need <code>artist_id</code> to insert the
+<code>Album</code> and need the <code>album_id</code> to insert the
+<code>Track</code>.</p>
+<p> If we look at the <code>Album</code> table, we can see that the
+entries were added and assigned a <em>primary</em> key as necessary as
+the data was parsed. We can also see the <em>foreign key</em> pointing
+to a row in the <code>Artist</code> table for each <code>Album</code>
+row.</p>
+<pre><code>sqlite&gt; .mode column
+sqlite&gt; SELECT * FROM Album LIMIT 5;
+id  artist_id  title
+--  ---------  -----------------
+1   1          Greatest Hits
+2   2          Herzeleid
+3   3          Grease
+4   4          IV
+5   5          The Wall [Disc 2]
+sqlite&gt;</code></pre>
+<p> We can reconstruct all of the <code>Track</code> data, following all
+the relations using <code>JOIN / ON</code> clauses. You can see both
+ends of each of the (2) relational connections in each row in the output
+below:</p>
+<pre><code>sqlite&gt; .mode line
+sqlite&gt; SELECT * FROM Track
+   ...&gt; JOIN Album ON Track.album_id = Album.id
+   ...&gt; JOIN Artist ON Album.artist_id = Artist.id
+   ...&gt; LIMIT 2;
+       id = 1
+    title = Another One Bites The Dust
+ album_id = 1
+      len = 217103
+   rating = 100
+    count = 55
+       id = 1
+artist_id = 1
+    title = Greatest Hits
+       id = 1
+     name = Queen
+
+       id = 2
+    title = Asche Zu Asche
+ album_id = 2
+      len = 231810
+   rating = 100
+    count = 79
+       id = 2
+artist_id = 2
+    title = Herzeleid
+       id = 2
+     name = Rammstein</code></pre>
+<p>This example shows three tables and two <em>one-to-many</em>
+relationships between the tables. It also shows how to use indexes and
+uniqueness constraints to programmatically construct the tables and
+their relationships.</p>
+<p><a href="https://en.wikipedia.org/wiki/One-to-many_(data_model)"
+class="uri">https://en.wikipedia.org/wiki/One-to-many_(data_model)</a></p>
+<p>Up next we will look at the many-to-many relationships in data
+models.</p>
+<h2 id="many-to-many-relationships-in-databases">Many to many
+relationships in databases</h2>
+<p> Some data relationships cannot be modeled by a simple one-to-many
+relationship. For example, lets say we are going to build a data model
+for a course management system. There will be courses, users, and
+rosters. A user can be on the roster for many courses and a course will
+have many users on its roster.</p>
+<figure>
+<img src="../images/many-to-many.png" alt="A Many to Many Relationship\label{figm2m}" style="height: 1.5in;"/>
+<figcaption>
+A Many to Many Relationship
+</figcaption>
+</figure>
+<p>It is pretty simple to <em>draw</em> a many-to-many relationship as
+shown in Figure . We simply draw two tables and connect them with a line
+that has the “many” indicator on both ends of the lines. The problem is
+how to <em>implement</em> the raltionship using primary keys and foreign
+keys.</p>
+<p>Before we explore how we implement many-to-many relationships, lets
+see if we could hack something up by extending a one-to many
+relationship.</p>
+<p>If SQL supported the notion of arrays, we might try to define
+this:</p>
+<pre class="sql"><code>CREATE TABLE Course (
+    id     INTEGER PRIMARY KEY,
+    title  TEXT UNIQUE
+    student_ids ARRAY OF INTEGER;
+);</code></pre>
+<p>Sadly, while this is a tempting idea, SQL does not support arrays.<a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a></p>
+<p>Or we could just make long string and concatenate all the
+<code>User</code> primary keys into a long string separated by
+commas.</p>
+<pre class="sql"><code>CREATE TABLE Course (
+    id     INTEGER PRIMARY KEY,
+    title  TEXT UNIQUE
+    student_ids ARRAY OF INTEGER;
+);
+
+INSERT INTO Course (title, student_ids)
+VALUES( &#39;si311&#39;, &#39;1,3,4,5,6,9,14&#39;);</code></pre>
+<p>This would be very inefficient because as the course roster grows in
+size and the number of courses increases it becomes quite expensive to
+figure out which courses have student 14 on their roster.</p>
+<figure>
+<img src="../images/many-to-many-verbose.png" alt="A Many to Many Connector Table\label{figm2mvrb}" style="height: 1.5in;"/>
+<figcaption>
+A Many to Many Connector Table
+</figcaption>
+</figure>
+<p> Instead of either of these approaches, we model a many-to-many
+relationship using an additional table that we call a “junction table”,
+“through table”, “connector table”, or “join table” as shown in Figure .
+The purpose of this table is to capture the <em>connection</em> between
+<em>a</em> course and <em>a</em> student.</p>
+<p>In a sense the table sits between the <code>Course</code> and
+<code>User</code> table and has a one-to-many relationship to both
+tables. By using an intermediate table we break a many-to-many
+relationship into two one-to-many relationships. Databases are very good
+at modeling and processing one-to-many relationships.</p>
+<p>An example <code>Member</code> table would be as follows:</p>
+<pre class="sql"><code>CREATE TABLE User (
+    id     INTEGER PRIMARY KEY,
+    name   TEXT UNIQUE
+);
+
+CREATE TABLE Course (
+    id     INTEGER PRIMARY KEY,
+    title  TEXT UNIQUE
+);
+
+CREATE TABLE Member (
+    user_id     INTEGER,
+    course_id   INTEGER,
+    PRIMARY KEY (user_id, course_id)
+);</code></pre>
+<p>Following our naming convention, <code>Member.user_id</code> and
+<code>Member.course_id</code> are foreign keys pointing at the
+corresponding rows in the <code>User</code> and <code>Course</code>
+tables. Each entry in the member table links a row in the
+<code>User</code> table to a row in the <code>Course</code> table by
+going <em>through</em> the <code>Member</code> table.</p>
+<p> We indicate that the <em>combination</em> of <code>course_id</code>
+and <code>user_id</code> is the <code>PRIMARY KEY</code> for the
+<code>Member</code> table, also creating an uniqueness constraint for a
+<code>course_id</code> / <code>user_id</code> combination.</p>
+<p>Now lets say we need to insert a number of students into the rosters
+of a number of courses. Lets assume the data comes to us in a
+JSON-formatted file with records like this:</p>
+<pre><code>[
+  [ &quot;Charley&quot;, &quot;si110&quot;],
+  [ &quot;Mea&quot;, &quot;si110&quot;],
+  [ &quot;Hattie&quot;, &quot;si110&quot;],
+  [ &quot;Keziah&quot;, &quot;si110&quot;],
+  [ &quot;Rosa&quot;, &quot;si106&quot;],
+  [ &quot;Mea&quot;, &quot;si106&quot;],
+  [ &quot;Mairin&quot;, &quot;si106&quot;],
+  [ &quot;Zendel&quot;, &quot;si106&quot;],
+  [ &quot;Honie&quot;, &quot;si106&quot;],
+  [ &quot;Rosa&quot;, &quot;si106&quot;],
+...
+]</code></pre>
+<p> We could write code as follows to read the JSON file and insert the
+members of each course roster into the database using the following
+code:</p>
+<pre class="python"><code>import json
+import sqlite3
+
+conn = sqlite3.connect(&#39;rosterdb.sqlite&#39;)
+cur = conn.cursor()
+
+str_data = open(&#39;roster_data_sample.json&#39;).read()
+json_data = json.loads(str_data)
+
+for entry in json_data:
+
+    name = entry[0]
+    title = entry[1]
+
+    print((name, title))
+
+    cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO User (name)
+        VALUES ( ? )&#39;&#39;&#39;, ( name, ) )
+    cur.execute(&#39;SELECT id FROM User WHERE name = ? &#39;, (name, ))
+    user_id = cur.fetchone()[0]
+
+    cur.execute(&#39;&#39;&#39;INSERT OR IGNORE INTO Course (title)
+        VALUES ( ? )&#39;&#39;&#39;, ( title, ) )
+    cur.execute(&#39;SELECT id FROM Course WHERE title = ? &#39;, (title, ))
+    course_id = cur.fetchone()[0]
+
+    cur.execute(&#39;&#39;&#39;INSERT OR REPLACE INTO Member
+        (user_id, course_id) VALUES ( ?, ? )&#39;&#39;&#39;,
+        ( user_id, course_id ) )
+
+    conn.commit()</code></pre>
+<p>Like in a previous example, we first make sure that we have an entry
+in the <code>User</code> table and know the primary key of the entry as
+well as an entry in the <code>Course</code> table and know its primary
+key. We use the ‘INSERT OR IGNORE’ and ‘SELECT’ patter so our code work
+regardless of whether the record is in the table or not.</p>
+<p>Our insert into the <code>Member</code> table is simply inserting the
+two integers as a new or existing row depending on the constraint to
+make sure we do not end up with duplicate entries in the
+<code>Member</code> table for a particular <code>user_id</code> /
+<code>course_id</code> combination.</p>
+<p> To reconstruct our data across all three tables, we again use
+<code>JOIN</code> / <code>ON</code> to construct a <code>SELECT</code>
+query;</p>
+<pre><code>sqlite&gt; SELECT * FROM Course
+   ...&gt; JOIN Member ON Course.id = Member.course_id
+   ...&gt; JOIN User ON Member.user_id = User.id;
++----+-------+---------+-----------+----+---------+
+| id | title | user_id | course_id | id |  name   |
++----+-------+---------+-----------+----+---------+
+| 1  | si110 | 1       | 1         | 1  | Charley |
+| 1  | si110 | 2       | 1         | 2  | Mea     |
+| 1  | si110 | 3       | 1         | 3  | Hattie  |
+| 1  | si110 | 4       | 1         | 4  | Lyena   |
+| 1  | si110 | 5       | 1         | 5  | Keziah  |
+| 1  | si110 | 6       | 1         | 6  | Ellyce  |
+| 1  | si110 | 7       | 1         | 7  | Thalia  |
+| 1  | si110 | 8       | 1         | 8  | Meabh   |
+| 2  | si106 | 2       | 2         | 2  | Mea     |
+| 2  | si106 | 10      | 2         | 10 | Mairin  |
+| 2  | si106 | 11      | 2         | 11 | Zendel  |
+| 2  | si106 | 12      | 2         | 12 | Honie   |
+| 2  | si106 | 9       | 2         | 9  | Rosa    |
++----+-------+---------+-----------+----+---------+
+sqlite&gt;</code></pre>
+<p>You can see the three tables from left to right -
+<code>Course</code>, <code>Member</code>, and <code>User</code> and you
+can see the connections between the primary keys and foreign keys in
+each row of output.</p>
 <h2 id="summary">Summary</h2>
 <p>This chapter has covered a lot of ground to give you an overview of
 the basics of using a database in Python. It is more complicated to
@@ -1293,9 +1156,17 @@ of data stored in a column, but we will keep our data types strict in
 this chapter so the concepts apply equally to other database systems
 such as MySQL.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>In general, when a sentence starts with “if all goes
-well” you will find that the code needs to use try/except.<a
-href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Yes there is a disconnect between “CRUD” term and the
+first letters of the four SQL statements that implement “CRUD”. A
+possible explanation might be to claim that “CRUD” is the “concept” and
+SQL is the implementation. Another possible explanation is that “CRUD”
+is more fun to say than “ISUD”.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Some SQL dialects support arrays but arrays do not scale
+well. NoSQL databases use arrays and data replication but at a cost of
+database integrity. NoSQL is a story for another course
+https://www.pg4e.com/ <a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>
 </body>
