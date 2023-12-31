@@ -98,7 +98,7 @@ Defining structure for your data up front may seem inconvenient at the
 beginning, but the payoff is fast access to your data even when the
 database contains a large amount of data.
 
-The code to create a database file and a table named `Tracks`
+The code to create a database file and a table named `Track`
 with two columns in the database is as follows:
 
 \index{sqlite3 module}
@@ -142,26 +142,26 @@ convention, we will show the SQL keywords in uppercase and the parts of
 the command that we are adding (such as the table and column names) will
 be shown in lowercase.
 
-The first SQL command removes the `Tracks` table from the
+The first SQL command removes the `Track` table from the
 database if it exists. This pattern is simply to allow us to run the
-same program to create the `Tracks` table over and over again
+same program to create the `Track` table over and over again
 without causing an error. Note that the `DROP TABLE` command
 deletes the table and all of its contents from the database (i.e., there
 is no "undo").
 
 ~~~~ {.python}
-cur.execute('DROP TABLE IF EXISTS Tracks ')
+cur.execute('DROP TABLE IF EXISTS Track ')
 ~~~~
 
-The second command creates a table named `Tracks` with a text
+The second command creates a table named `Track` with a text
 column named `title` and an integer column named
 `plays`.
 
 ~~~~ {.python}
-cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
+cur.execute('CREATE TABLE Track (title TEXT, plays INTEGER)')
 ~~~~
 
-Now that we have created a table named `Tracks`, we can put
+Now that we have created a table named `Track`, we can put
 some data into that table using the SQL `INSERT` operation.
 Again, we begin by making a connection to the database and obtaining the
 `cursor`. We can then execute SQL commands using the cursor.
@@ -195,7 +195,7 @@ loop through the rows in the `for` statement.
 The output of the program is as follows:
 
 ~~~~
-Tracks:
+Track:
 ('Thunderstruck', 20)
 ('My Way', 15)
 ~~~~
@@ -204,9 +204,9 @@ Tracks:
 
 Our `for` loop finds two rows, and each row is a Python tuple
 with the first value as the `title` and the second value as
-the number of `plays`. 
+the number of `plays`.
 
-*Note: You may see strings starting with `u'` in other books or on the Internet. 
+*Note: You may see strings starting with `u'` in other books or on the Internet.
 This was an indication in Python 2 that the strings are *Unicode* strings that are capable
 of storing non-Latin character sets. In Python 3, all strings are Unicode
 strings by default.*
@@ -239,14 +239,14 @@ columns generally have a type such as text, numeric, or date data. When
 we create a table, we indicate the names and types of the columns:
 
 ~~~~ {.sql}
-CREATE TABLE Tracks (title TEXT, plays INTEGER)
+CREATE TABLE Track (title TEXT, plays INTEGER)
 ~~~~
 
 To insert a row into a table, we use the SQL `INSERT`
 command:
 
 ~~~~ {.sql}
-INSERT INTO Tracks (title, plays) VALUES ('My Way', 15)
+INSERT INTO Track (title, plays) VALUES ('My Way', 15)
 ~~~~
 
 The `INSERT` statement specifies the table name, then a list
@@ -262,7 +262,7 @@ optional `ORDER BY` clause to control the sorting of the
 returned rows.
 
 ~~~~ {.sql}
-SELECT * FROM Tracks WHERE title = 'My Way'
+SELECT * FROM Track WHERE title = 'My Way'
 ~~~~
 
 Using `*` indicates that you want the database to return all of the
@@ -278,7 +278,7 @@ You can request that the returned rows be sorted by one of the fields as
 follows:
 
 ~~~~ {.sql}
-SELECT title,plays FROM Tracks ORDER BY title
+SELECT title,plays FROM Track ORDER BY title
 ~~~~
 
 To remove a row, you need a `WHERE` clause on an SQL
@@ -286,7 +286,7 @@ To remove a row, you need a `WHERE` clause on an SQL
 which rows are to be deleted:
 
 ~~~~ {.sql}
-DELETE FROM Tracks WHERE title = 'My Way'
+DELETE FROM Track WHERE title = 'My Way'
 ~~~~
 
 It is possible to `UPDATE` a column or columns within one or
@@ -294,7 +294,7 @@ more rows in a table using the SQL `UPDATE` statement as
 follows:
 
 ~~~~ {.sql}
-UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
+UPDATE Track SET plays = 16 WHERE title = 'My Way'
 ~~~~
 
 The `UPDATE` statement specifies a table and then a list of
@@ -331,27 +331,27 @@ column to the database called `artist` and put the name of the artist
 in the column as follows:
 
 ~~~~ {.python}
-DROP TABLE IF EXISTS Tracks;
-CREATE TABLE Tracks (title TEXT, plays INTEGER, artist TEXT);
+DROP TABLE IF EXISTS Track;
+CREATE TABLE Track (title TEXT, plays INTEGER, artist TEXT);
 ~~~~
 
 Then we could insert a few tracks into our table.
 
 ~~~~ {.sql}
-INSERT INTO Tracks (title, plays, artist) 
+INSERT INTO Track (title, plays, artist)
     VALUES ('My Way', 15, 'Frank Sinatra');
-INSERT INTO Tracks (title, plays, artist) 
+INSERT INTO Track (title, plays, artist)
     VALUES ('New York', 25, 'Frank Sinatra');
 ~~~~
 
-If we were to look at our data with a `SELECT * FROM Tracks` statement,
+If we were to look at our data with a `SELECT * FROM Track` statement,
 it looks like we have done a fine job.
 
 ~~~~
-sqlite> SELECT * FROM Tracks;
+sqlite> SELECT * FROM Track;
 My Way|15|Frank Sinatra
 New York|25|Frank Sinatra
-sqlite> 
+sqlite>
 ~~~~
 
 We have made a *very bad error* in our data modeling.   We have violated the rules
@@ -373,22 +373,22 @@ to out database model, think about how we would change the data model if we
 wanted to keep track of the eye color of our artists?  Would we do this?
 
 ~~~~ {.sql}
-DROP TABLE IF EXISTS Tracks;
-CREATE TABLE Tracks (title TEXT, plays INTEGER, 
-    artist TEXT, eyes TEXT); 
-INSERT INTO Tracks (title, plays, artist, eyes)  
-    VALUES ('My Way', 15, 'Frank Sinatra', 'Blue'); 
-INSERT INTO Tracks (title, plays, artist, eyes) 
-    VALUES ('New York', 25, 'Frank Sinatra', 'Blue'); 
+DROP TABLE IF EXISTS Track;
+CREATE TABLE Track (title TEXT, plays INTEGER,
+    artist TEXT, eyes TEXT);
+INSERT INTO Track (title, plays, artist, eyes)
+    VALUES ('My Way', 15, 'Frank Sinatra', 'Blue');
+INSERT INTO Track (title, plays, artist, eyes)
+    VALUES ('New York', 25, 'Frank Sinatra', 'Blue');
 ~~~~
 
 Since Frank Sinatra recorded over 1200 songs, are we really going
-to put the string 'Blue' in 1200 rows in our `Tracks` table.  And
+to put the string 'Blue' in 1200 rows in our `Track` table.  And
 what would happen if we decided his eye color was 'Light Blue'? Something
 just does not feel right.  The right solution is to create a table
 for the each `Artist` and store all the data about the artist in
 that table.  And then somehow we need to make a connection between
-a row in the `Tracks` table to a row in the `Artist` table.  Perhaps
+a row in the `Track` table to a row in the `Artist` table.  Perhaps
 we could call this "link" between two "tables" a "relationship" between
 two tables. And that is exactly what database experts decided to all these
 links.
@@ -396,9 +396,9 @@ links.
 Lets make an `Artist` table as follows:
 
 ~~~~ {.sql}
-DROP TABLE IF EXISTS Artists;
-CREATE TABLE Artists (name TEXT, eyes TEXT);
-INSERT INTO Artists (name, eyes)
+DROP TABLE IF EXISTS Artist;
+CREATE TABLE Artist (name TEXT, eyes TEXT);
+INSERT INTO Artist (name, eyes)
    VALUES ('Frank Sinatra', 'blue');
 ~~~~
 
@@ -407,26 +407,26 @@ To do this, we need why we call 'keys'.  These keys will just be integer numbers
 that we can use to lookup a row in different table.  If we are going to make
 links to rows inside of a table, we need to add a *primary key* to the rows in the
 table.  By convention we usually name the primary key column 'id'.  So our
-`Artists`table looks as follows:
+`Artist`table looks as follows:
 
 ~~~~ {.sql}
-DROP TABLE IF EXISTS Artists;
-CREATE TABLE Artists (id INTEGER, name TEXT, eyes TEXT);
-INSERT INTO Artists (id, name, eyes)
+DROP TABLE IF EXISTS Artist;
+CREATE TABLE Artist (id INTEGER, name TEXT, eyes TEXT);
+INSERT INTO Artist (id, name, eyes)
    VALUES (42, 'Frank Sinatra', 'blue');
 ~~~~
 
 Now we have a row in the table for 'Frank Sinatra' (and his eye color) and
 a primary key of '42' to use to link our tracks to him.  So we alter our
-Tracks table as follows:
+Track table as follows:
 
 ~~~~ {.sql}
-DROP TABLE IF EXISTS Tracks;
-CREATE TABLE Tracks (title TEXT, plays INTEGER,
+DROP TABLE IF EXISTS Track;
+CREATE TABLE Track (title TEXT, plays INTEGER,
     artist_id INTEGER);
-INSERT INTO Tracks (title, plays, artist_id)
+INSERT INTO Track (title, plays, artist_id)
     VALUES ('My Way', 15, 42);
-INSERT INTO Tracks (title, plays, artist_id)  
+INSERT INTO Track (title, plays, artist_id)
     VALUES ('New York', 25, 42);
 ~~~~
 
@@ -437,13 +437,13 @@ want to see the name and eye color of the artist.  To do this we use the
 
 ~~~~ {.sql}
 SELECT title, plays, name, eyes
-FROM Tracks JOIN Artists
-ON Tracks.artist_id = Artists.id;
+FROM Track JOIN Artist
+ON Track.artist_id = Artist.id;
 ~~~~
 
 The `JOIN` clause includes an `ON` condition that defines how the rows are to
-to be connected.  For each row in `Tracks` add the data from `Artists` from
-the row where `artist_id` `Tracks` table matches the `id` from the `Artists`
+to be connected.  For each row in `Track` add the data from `Artist` from
+the row where `artist_id` `Track` table matches the `id` from the `Artist`
 table.
 
 The output would be:
@@ -469,11 +469,11 @@ the `id` column as a `PRIMARY KEY` and leave out the `id` value when inserting t
 row:
 
 ~~~~ {.sql}
-DROP TABLE IF EXISTS Artists;
-CREATE TABLE Artists (id INTEGER PRIMARY KEY,
+DROP TABLE IF EXISTS Artist;
+CREATE TABLE Artist (id INTEGER PRIMARY KEY,
     name TEXT, eyes TEXT);
-INSERT INTO Artists (name, eyes)
-   VALUES ('Frank Sinatra', 'blue'); 
+INSERT INTO Artist (name, eyes)
+   VALUES ('Frank Sinatra', 'blue');
 ~~~~
 
 Now we have instructed the database to auto-assign us a unique value to
@@ -481,45 +481,45 @@ the Frank Sinatra row.  But we then need a way to have the database tell
 us the `id` value for the recently inserted row:
 
 ~~~~
-sqlite> DROP TABLE IF EXISTS Artists;
-sqlite> CREATE TABLE Artists (id INTEGER PRIMARY KEY, 
+sqlite> DROP TABLE IF EXISTS Artist;
+sqlite> CREATE TABLE Artist (id INTEGER PRIMARY KEY,
    ...>     name TEXT, eyes TEXT);
-sqlite> INSERT INTO Artists (name, eyes)
-   ...>    VALUES ('Frank Sinatra', 'blue');  
+sqlite> INSERT INTO Artist (name, eyes)
+   ...>    VALUES ('Frank Sinatra', 'blue');
 sqlite> select last_insert_rowid();
 1
-sqlite> SELECT * FROM Artists;
+sqlite> SELECT * FROM Artist;
 1|Frank Sinatra|blue
-sqlite> 
+sqlite>
 ~~~~
 
 Once we know the `id` of our 'Frank Sinatra' row, we can use it
-when we `INSERT` the tracks into the `Tracks` table.  As a general
+when we `INSERT` the tracks into the `Track` table.  As a general
 strategy, we add these `id` columns to any table we create:
 
 ~~~~
-sqlite> DROP TABLE IF EXISTS Tracks;
-sqlite> CREATE TABLE Tracks (id INTEGER PRIMARY KEY,
+sqlite> DROP TABLE IF EXISTS Track;
+sqlite> CREATE TABLE Track (id INTEGER PRIMARY KEY,
    ...>     title TEXT, plays INTEGER, artist_id INTEGER);
 ~~~~
 
 Note that the `artist_id` value is the new auto-assigned row in the
-`Artists` table and that while we added an `INTEGER PRIMARY KEY` to the
-the `Tracks` table, we did not include `id` in the list of fields
-on the `INSERT` statements into the `Tracks` table.  Again
+`Artist` table and that while we added an `INTEGER PRIMARY KEY` to the
+the `Track` table, we did not include `id` in the list of fields
+on the `INSERT` statements into the `Track` table.  Again
 this tells the database to choose a unique value for us for the
 `id` column.
 
 ~~~~
-sqlite> INSERT INTO Tracks (title, plays, artist_id)
+sqlite> INSERT INTO Track (title, plays, artist_id)
    ...>     VALUES ('My Way', 15, 1);
 sqlite> select last_insert_rowid();
 1
-sqlite> INSERT INTO Tracks (title, plays, artist_id)
+sqlite> INSERT INTO Track (title, plays, artist_id)
    ...>     VALUES ('New York', 25, 1);
 sqlite> select last_insert_rowid();
 2
-sqlite> 
+sqlite>
 ~~~~
 
 You can call `SELECT last_insert_rowid();` after each of the inserts
@@ -536,14 +536,14 @@ all the tracks that were sung buy 'Frank Sinatra' as follows:
 
 ~~~~
 SELECT title, plays, name, eyes
-FROM Tracks JOIN Artists
-ON Tracks.artist_id = Artists.id
-WHERE Artists.name = 'Frank Sinatra';
+FROM Track JOIN Artist
+ON Track.artist_id = Artist.id
+WHERE Artist.name = 'Frank Sinatra';
 ~~~~
 
 Since we have two tables and a foreign key between the two tables, our
 data is well-modeled, but if we are going to have millions of records
-in the `Artists` table and going to do a lot of lookups by artist name,
+in the `Artist` table and going to do a lot of lookups by artist name,
 we would benefit if we gave the database a hint about our intended use
 of the `name` column.
 
@@ -551,7 +551,7 @@ We do this by adding an "index" to a text column that we intend to use
 in `WHERE` clauses:
 
 ~~~~
-CREATE INDEX artist_name ON Artists(name);
+CREATE INDEX artist_name ON Artist(name);
 ~~~~
 
 When the database has been told that an index is needed on a column in
@@ -570,25 +570,25 @@ Adding constraints to the data database
 
 We can also use an index to enforce a constraint (i.e. rules) on our database
 operations.  The most common constraint is a *uniqueness constraint* which insists
-that all of the values in a column are unique.   We can add the optional 
+that all of the values in a column are unique.   We can add the optional
 `UNIQUE` keyword, to the `CREATE INDEX` statement to tell the database
 that we would like it to enforce the constraint on our SQL.  We can drop and
 re-create the `artist_name` index with a `UNIQUE` constraint as follows.
 
 ~~~~
 DROP INDEX artist_name;
-CREATE UNIQUE INDEX artist_name ON Artists(name);
+CREATE UNIQUE INDEX artist_name ON Artist(name);
 ~~~~
 
 If we try to insert 'Frank Sinatra' a second time, it will fail
 with an error.
 
 ~~~~
-sqlite> SELECT * FROM Artists;
+sqlite> SELECT * FROM Artist;
 1|Frank Sinatra|blue
-sqlite> INSERT INTO Artists (name, eyes)
+sqlite> INSERT INTO Artist (name, eyes)
    ...>    VALUES ('Frank Sinatra', 'blue');
-Runtime error: UNIQUE constraint failed: Artists.name (19)
+Runtime error: UNIQUE constraint failed: Artist.name (19)
 sqlite>
 ~~~~
 
@@ -596,9 +596,9 @@ We can tell the database to ignore any duplicate key errors
 by adding the `IGNORE` keyword to the `INSERT` statement as follows:
 
 ~~~~
-sqlite> INSERT OR IGNORE INTO Artists (name, eyes)
+sqlite> INSERT OR IGNORE INTO Artist (name, eyes)
    ...>     VALUES ('Frank Sinatra', 'blue');
-sqlite> SELECT id FROM Artists WHERE name='Frank Sinatra';
+sqlite> SELECT id FROM Artist WHERE name='Frank Sinatra';
 1
 sqlite>
 ~~~~
@@ -609,14 +609,14 @@ is already there, retrieve the *primary* key of the record regardless
 of whether it was newly inserted or already present in the table.
 
 ~~~~
-sqlite> INSERT OR IGNORE INTO Artists (name, eyes)
+sqlite> INSERT OR IGNORE INTO Artist (name, eyes)
    ...>      VALUES ('Elvis', 'blue');
-sqlite> SELECT id FROM Artists WHERE name='Elvis';
+sqlite> SELECT id FROM Artist WHERE name='Elvis';
 2
-sqlite> SELECT * FROM Artists;
+sqlite> SELECT * FROM Artist;
 1|Frank Sinatra|blue
 2|Elvis|blue
-sqlite> 
+sqlite>
 ~~~~
 
 Since we have not added a uniqueness constraint to the eye color
@@ -702,18 +702,18 @@ for line in handle:
 
     print(name, artist, album, count, rating, length)
 
-    cur.execute('''INSERT OR IGNORE INTO Artist (name) 
+    cur.execute('''INSERT OR IGNORE INTO Artist (name)
         VALUES ( ? )''', ( artist, ) )
     cur.execute('SELECT id FROM Artist WHERE name = ? ', (artist, ))
     artist_id = cur.fetchone()[0]
 
-    cur.execute('''INSERT OR IGNORE INTO Album (title, artist_id) 
+    cur.execute('''INSERT OR IGNORE INTO Album (title, artist_id)
         VALUES ( ?, ? )''', ( album, artist_id ) )
     cur.execute('SELECT id FROM Album WHERE title = ? ', (album, ))
     album_id = cur.fetchone()[0]
 
     cur.execute('''INSERT OR REPLACE INTO Track
-        (title, album_id, len, rating, count) 
+        (title, album_id, len, rating, count)
         VALUES ( ?, ?, ?, ?, ? )''',
         ( name, album_id, length, rating, count ) )
 
@@ -732,7 +732,7 @@ key* pointing to a row in the `Artist` table for each `Album` row.
 ~~~~
 sqlite> .mode column
 sqlite> SELECT * FROM Album LIMIT 5;
-id  artist_id  title            
+id  artist_id  title 
 --  ---------  -----------------
 1   1          Greatest Hits    
 2   2          Herzeleid        
@@ -742,7 +742,7 @@ id  artist_id  title
 sqlite>
 ~~~~
 
-We can reconstruct all of the `Track` data, following all the relations using 
+We can reconstruct all of the `Track` data, following all the relations using
 `JOIN / ON` clauses.   You can see both ends of each of the (2) relational connections
 in each row in the output below:
 
@@ -960,10 +960,10 @@ sqlite> SELECT * FROM Course
 | 2  | si106 | 12      | 2         | 12 | Honie   |
 | 2  | si106 | 9       | 2         | 9  | Rosa    |
 +----+-------+---------+-----------+----+---------+
-sqlite> 
+sqlite>
 ~~~~
 
-You can see the three tables from left to right - `Course`, `Member`, 
+You can see the three tables from left to right - `Course`, `Member`,
 and `User` and you can see the connections between the primary keys and
 foreign keys in each row of output.
 
