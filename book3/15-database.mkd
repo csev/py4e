@@ -34,8 +34,7 @@ uses the SQLite database internally as do many other products.
 <http://sqlite.org/>
 
 SQLite is well suited to some of the data manipulation problems that we
-see in Informatics such as the Twitter spidering application that we
-describe in this chapter.
+see in Informatics.
 
 Database concepts
 -----------------
@@ -209,7 +208,7 @@ the number of `plays`.
 
 *Note: You may see strings starting with `u'` in other books or on the Internet. 
 This was an indication in Python 2 that the strings are *Unicode* strings that are capable
-of storing non-Latin character sets. In Python 3, all strings are unicode
+of storing non-Latin character sets. In Python 3, all strings are Unicode
 strings by default.*
 
 At the very end of the program, we execute an SQL command to
@@ -369,7 +368,7 @@ we need the data more than once, we create a numeric *key* for the data and
 reference the actual data using this key. Especially if the multiple
 entries refer to the same object.
 
-To demonstrate the slippery slope we are going down by assing string columns
+To demonstrate the slippery slope we are going down by assigning string columns
 to out database model, think about how we would change the data model if we
 wanted to keep track of the eye color of our artists?  Would we do this?
 
@@ -432,7 +431,7 @@ INSERT INTO Tracks (title, plays, artist_id)
 ~~~~
 
 Now we are following the rules of database normalization, but when we
-want to get data out of our database, we don't wan't to see the 42, we
+want to get data out of our database, we don't want to see the 42, we
 want to see the name and eye color of the artist.  To do this we use the
 `JOIN` keyword in our SELECT statement.
 
@@ -457,7 +456,7 @@ While it might seem a little clunky and your instincts might tell you that
 it would be faster just to keep the data in one table, it turns out the
 the limit on database performance is how much data needs to be scanned
 when retrieving a query.  While they details are very complex, integers
-are a lot smaller than strings (especially Unicode Strings) and far qucker to
+are a lot smaller than strings (especially Unicode Strings) and far quicker to
 to move and compare.
 
 Automatically creating primary keys
@@ -543,7 +542,7 @@ WHERE Artists.name = 'Frank Sinatra';
 ~~~~
 
 Since we have two tables and a foreign key between the two tables, our
-data is well-modelled, but if we are going to have millions of records
+data is well-modeled, but if we are going to have millions of records
 in the `Artists` table and going to do a lot of lookups by artist name,
 we would benefit if we gave the database a hint about our intended use
 of the `name` column.
@@ -563,17 +562,17 @@ in the SQL to access the table.   The database keeps the index up to date
 as data is inserted, deleted, and updated, and uses it automatically if it will
 increase the performance of a database query.
 
-These text columns that are used to find rows bases eom some information
+These text columns that are used to find rows based on some information
 in the "real world" like the name of an artist are called *Logical keys*.
 
 Adding constraints to the data database
 ---------------------------------------
 
 We can also use an index to enforce a constraint (i.e. rules) on our database
-operations.  The most common constraint is a *uniqueness constraint* while insists
+operations.  The most common constraint is a *uniqueness constraint* which insists
 that all of the values in a column are unique.   We can add the optional 
 `UNIQUE` keyword, to the `CREATE INDEX` statement to tell the database
-that we would like it to inforce the constraint on our SQL.  We can drop and
+that we would like it to enforce the constraint on our SQL.  We can drop and
 re-create the `artist_name` index with a `UNIQUE` constraint as follows.
 
 ~~~~
@@ -621,7 +620,7 @@ sqlite>
 ~~~~
 
 Since we have not added a uniqueness constraint to the eye color
-column, there is no problem having mutiple 'Blue' values in the
+column, there is no problem having multiple 'Blue' values in the
 `eye` column.
 
 Sample multi-table application
@@ -789,7 +788,184 @@ Up next we will look at the many-to-many relationships in data models.
 Many to many relationships in databases
 ---------------------------------------
 
-TODO: Write this based on roster
+Some data relationships cannot be modeled by a simple one-to-many relationship.
+For example, lets say we are going to build a data model four a course management
+system.  There will be courses, users, and rosters.   A user can be on the roster
+for many courses and a course will have many users on its roster.  Before
+we explore how we represent many-to-many relationships, lets see if we could extend
+a one-to many relationship.
+
+If SQL supported the notion of arrays, we might try to define this:
+
+~~~~ {.sql}
+CREATE TABLE Course (
+    id     INTEGER PRIMARY KEY,
+    title  TEXT UNIQUE
+    student_ids ARRAY OF INTEGER;
+);
+~~~~
+
+Sadly, while this is a tempting idea, SQL does not support arrays.
+
+Or we could just make long string and concatenate all the `User`
+primary keys into a long string separated by commas.
+
+~~~~ {.sql}
+CREATE TABLE Course (
+    id     INTEGER PRIMARY KEY,
+    title  TEXT UNIQUE
+    student_ids ARRAY OF INTEGER;
+);
+
+INSERT INTO Course (title, student_ids)
+VALUES( 'si311', '1,3,4,5,6,9,14');
+~~~~
+
+This would be very inefficient because as the course roster grows in size
+and the number of courses increases it becomes quite expensive to figure out
+which courses have student 14 on their roster.
+
+Instead of either of these approaches, we model a many-to-many relationship
+using an additional table that we call a "junction table", "through table",
+"connector table", or "join table".  The purpose of this table is to
+capture the *connection* between *a* course and *a* student.
+
+In a sense the table sits between the
+`Course` and `User` table and has a one-to-many relationship to both tables.
+This way, by using an intermediate table we break a many-to-many relationship into
+two one-to-many relationships.  Databases are very good at modeling and processing
+one-to-many relationships.
+
+An example `Member` table would be as follows:
+
+~~~~ {.sql}
+CREATE TABLE User (
+    id     INTEGER PRIMARY KEY,
+    name   TEXT UNIQUE
+);
+
+CREATE TABLE Course (
+    id     INTEGER PRIMARY KEY,
+    title  TEXT UNIQUE
+);
+
+CREATE TABLE Member (
+    user_id     INTEGER,
+    course_id   INTEGER,
+    PRIMARY KEY (user_id, course_id)
+);
+~~~~
+
+Following our naming convention, `Member.user_id` and `Member.course_id` are foreign
+keys pointing at the corresponding rows in the `User` and `Course` tables.  Each entry
+in the member table links a row in the `User` table to a row in the `Course` table by
+going *through* the `Member` table.
+
+We indicate that the *combination* of `course_id` and `user_id` is the `PRIMARY KEY`
+for the `Member` table, also creating an uniqueness constraint for a `course_id` / `user_id`
+combination.
+
+Now lets say we need to insert a number of students into the rosters of a number of courses.
+Lets assume the data comes to us in a JSON-formatted file with records like this:
+
+~~~~
+[
+  [ "Charley", "si110"],
+  [ "Mea", "si110"],
+  [ "Hattie", "si110"],
+  [ "Lyena", "si110"],
+  [ "Keziah", "si110"],
+  [ "Ellyce", "si110"],
+  [ "Thalia", "si110"],
+  [ "Meabh", "si110"],
+  [ "Rosa", "si106"],
+  [ "Mea", "si106"],
+  [ "Mairin", "si106"],
+  [ "Zendel", "si106"],
+  [ "Honie", "si106"],
+  [ "Rosa", "si106"],
+...
+]
+~~~~
+
+We could write code as follows to read the JSON file and insert the members of each
+course roster into the database using the following code:
+
+~~~~ {.python}
+import json
+import sqlite3
+
+conn = sqlite3.connect('rosterdb.sqlite')
+cur = conn.cursor()
+
+str_data = open('roster_data_sample.json').read()
+json_data = json.loads(str_data)
+
+for entry in json_data:
+
+    name = entry[0]
+    title = entry[1]
+
+    print((name, title))
+
+    cur.execute('''INSERT OR IGNORE INTO User (name)
+        VALUES ( ? )''', ( name, ) )
+    cur.execute('SELECT id FROM User WHERE name = ? ', (name, ))
+    user_id = cur.fetchone()[0]
+
+    cur.execute('''INSERT OR IGNORE INTO Course (title)
+        VALUES ( ? )''', ( title, ) )
+    cur.execute('SELECT id FROM Course WHERE title = ? ', (title, ))
+    course_id = cur.fetchone()[0]
+
+    cur.execute('''INSERT OR REPLACE INTO Member
+        (user_id, course_id) VALUES ( ?, ? )''',
+        ( user_id, course_id ) )
+
+    conn.commit()
+~~~~
+
+Like in a previous example, we first make sure that we have an entry
+in the `User` table and know the primary key of the entry as well as
+an entry in the `Course` table and know its primary key.  We use the
+'INSERT OR IGNORE' and 'SELECT' patter so our code work regardless
+of whether the record is in the table or not.
+
+Our insert into the `Member` table is simply inserting the two integers
+as a new or existing row depending on the constraint to make sure we do not
+end up with duplicate entries in the `Member` table for a particular `user_id` /
+`course_id` combination.
+
+To reconstruct our data across all three tables, we again use `JOIN` / `ON` to
+construct a `SELECT` query;
+
+~~~~
+sqlite> SELECT * FROM Course
+   ...> JOIN Member ON Course.id = Member.course_id
+   ...> JOIN User ON Member.user_id = User.id;
++----+-------+---------+-----------+----+---------+
+| id | title | user_id | course_id | id |  name   |
++----+-------+---------+-----------+----+---------+
+| 1  | si110 | 1       | 1         | 1  | Charley |
+| 1  | si110 | 2       | 1         | 2  | Mea     |
+| 1  | si110 | 3       | 1         | 3  | Hattie  |
+| 1  | si110 | 4       | 1         | 4  | Lyena   |
+| 1  | si110 | 5       | 1         | 5  | Keziah  |
+| 1  | si110 | 6       | 1         | 6  | Ellyce  |
+| 1  | si110 | 7       | 1         | 7  | Thalia  |
+| 1  | si110 | 8       | 1         | 8  | Meabh   |
+| 2  | si106 | 2       | 2         | 2  | Mea     |
+| 2  | si106 | 10      | 2         | 10 | Mairin  |
+| 2  | si106 | 11      | 2         | 11 | Zendel  |
+| 2  | si106 | 12      | 2         | 12 | Honie   |
+| 2  | si106 | 9       | 2         | 9  | Rosa    |
++----+-------+---------+-----------+----+---------+
+sqlite> 
+~~~~
+
+You can see the three tables from left to right - `Course`, `Member`, 
+and `User` and you can see the connections between the primary keys and
+foreign keys in each row of output.
 
 
 Summary
