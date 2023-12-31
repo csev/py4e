@@ -225,6 +225,8 @@ database.
 Structured Query Language summary
 ---------------------------------
 
+\index{CRUD}
+\index{SQL!CRUD}
 So far, we have been using the Structured Query Language in our Python
 examples and have covered many of the basics of the SQL commands. In
 this section, we look at the SQL language in particular and give an
@@ -305,12 +307,22 @@ rows that match the `WHERE` clause. If a `WHERE`
 clause is not specified, it performs the `UPDATE` on all of
 the rows in the table.
 
+\index{CRUD}
+\index{SQL!CRUD}
 These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow
-the four basic operations needed to create and maintain data.
+the four basic operations needed to create and maintain data.  We use
+"CRUD" (Create, Read, Update, and Delete) to capture all these
+concepts in a single term. ^[Yes there is a disconnect between "CRUD"
+term and the first letters of the four SQL statements that implement
+"CRUD".  A possible explanation might be to claim that "CRUD" is the
+"concept" and SQL is the implementation.  Another possible explanation
+is that "CRUD" is more fun to say than "ISUD".]
 
 Multiple tables and basic data modeling
 ---------------------------------------
 
+\index{Data Modelling}
+\index{Relational Model}
 The real power of a relational database is when we create multiple
 tables and make links between those tables. The act of deciding how to
 break up your application data into multiple tables and establishing the
@@ -324,6 +336,7 @@ section. For more detail on data modeling you can start with:
 
 <http://en.wikipedia.org/wiki/Relational_model>
 
+\index{SQL!CREATE}
 Lets say for our tracks database we wanted to track the name of the
 `artist` for each track in addition to the `title` and number of
 plays for each track.  A simple approach might be to simply add another
@@ -359,10 +372,13 @@ of *database normalization*.
 
 <https://en.wikipedia.org/wiki/Database_normalization>
 
+\index{Database Normalization}
+\index{Data Normalization}
 While database normalization seems very complex on the surface and contains a lot
 of mathematical justifications, for now we can reduce it all into one simple rule that
 we will follow.
 
+\index{Data Replication}
 We should never put the same string data in a column more than once. If
 we need the data more than once, we create a numeric *key* for the data and
 reference the actual data using this key. Especially if the multiple
@@ -402,6 +418,7 @@ INSERT INTO Artist (name, eyes)
    VALUES ('Frank Sinatra', 'blue');
 ~~~~
 
+\index{primary key}
 Now we have two tables but we need a way to *link* rows in the two tables.
 To do this, we need why we call 'keys'.  These keys will just be integer numbers
 that we can use to lookup a row in different table.  If we are going to make
@@ -430,6 +447,14 @@ INSERT INTO Track (title, plays, artist_id)
     VALUES ('New York', 25, 42);
 ~~~~
 
+\index{Foreign key}
+The `artist_id` column is an integer, and by naming convention is 
+a *foreign key* pointing at a *primary* key in the `Artist` table.
+We call it a foreign key because it is pointing to a row in a different
+table.
+
+\index{SQL!JOIN}
+\index{SQL!ON}
 Now we are following the rules of database normalization, but when we
 want to get data out of our database, we don't want to see the 42, we
 want to see the name and eye color of the artist.  To do this we use the
@@ -447,6 +472,7 @@ the row where `artist_id` `Track` table matches the `id` from the `Artist`
 table.
 
 The output would be:
+
 ~~~~
 My Way|15|Frank Sinatra|blue
 New York|25|Frank Sinatra|blue
@@ -459,9 +485,54 @@ when retrieving a query.  While they details are very complex, integers
 are a lot smaller than strings (especially Unicode Strings) and far quicker to
 to move and compare.
 
+Data model diagrams
+-------------------
+
+\index{Data model diagrams}
+\index{Entity-Relationship diagrams}
+While out `Track` and `Artist` database design, is very simple
+with just two tables and a single
+one-to-many relationship, these data models can get complicated quickly
+and are easier to understand if we can make a graphical representation
+data model.
+
+![A Verbose One-to-Many Data Model\label{figvrbo2m}](height=1.5in@../images/one-to-many-verbose)
+
+\index{Crow's Foot diagrams}
+While there are many graphical representations of data models, we will use
+one of the "classic" appraches, called "Crow's Foot Diagrams" as shown in Figure \ref{figvrbo2m}.
+Each table is shown as a box with the name of the table and its columns.  Then where there
+is a relationship between two tables a line is drawn connecting the tables with
+a notation added to the end of each line indicating the nature of the relationship.
+
+<https://en.wikipedia.org/wiki/Entity-relationship_model>
+
+In this case, "many" tracks can be associated with each artist.  So the track end
+is shown with the crow's foot spread out indicating it is the" "many" end.  The
+artist end is shown with a vertical like that indicates "one".  There will be "many"
+artists in general, but the important aspect is that for each artist there will be
+many tracks.
+
+\index{foreign key}
+You will note that the column that holds the *foreign_key* like `artist_id` is on
+the "many" end and the *primary key* is at the "one" end.
+
+Since the pattern of foreign and primary key placement is so consistent and
+follows the "many" and "one" ends of the lines, in reality we never include
+either the primary or foreign key columns in our diagram of the data model
+as shown in the second diagram as showin in Figure \ref{figo2m}.
+The columns are thought of as "implementation detail" to capture the nature of
+the relationship details and not an essential part of the data being modeled.
+
+![A Succinct One-to-Many Data Model\label{figo2m}](height=1.5in@../images/one-to-many)
+
+
 Automatically creating primary keys
 -----------------------------------
 
+\index{Primary key}
+\index{Auto increment}
+\index{SQL!UNIQUE}
 In the above example, we arbitrarily assigned Frank the primary key of 42.
 However when we are inserting millions or rows, it is nice to have the database
 automatically generate the values for the id column.  We do this by declaring
@@ -522,6 +593,7 @@ sqlite> select last_insert_rowid();
 sqlite>
 ~~~~
 
+\index{Primary key retrieval}
 You can call `SELECT last_insert_rowid();` after each of the inserts
 to retrieve the value that the database assigned to the `id` of each newly
 created row.  Later when we are coding in Python, we can ask for the `id`
@@ -530,9 +602,11 @@ value in our code and store it in a variable for later use.
 Logical keys for fast lookup
 ----------------------------
 
+\index{Logical key}
+\index{SQL!INDEX}
 If we had a table full of artists and a table full of tracks, each with a
 foreign key link to a row in a table full of artists and we wanted to list
-all the tracks that were sung buy 'Frank Sinatra' as follows:
+all the tracks that were sung by 'Frank Sinatra' as follows:
 
 ~~~~
 SELECT title, plays, name, eyes
@@ -547,6 +621,7 @@ in the `Artist` table and going to do a lot of lookups by artist name,
 we would benefit if we gave the database a hint about our intended use
 of the `name` column.
 
+\index{CREATE INDEX}
 We do this by adding an "index" to a text column that we intend to use
 in `WHERE` clauses:
 
@@ -568,6 +643,8 @@ in the "real world" like the name of an artist are called *Logical keys*.
 Adding constraints to the data database
 ---------------------------------------
 
+\index{Constraint}
+\index{SQL!UNIQUE}
 We can also use an index to enforce a constraint (i.e. rules) on our database
 operations.  The most common constraint is a *uniqueness constraint* which insists
 that all of the values in a column are unique.   We can add the optional
@@ -592,6 +669,7 @@ Runtime error: UNIQUE constraint failed: Artist.name (19)
 sqlite>
 ~~~~
 
+\index{SQL!IGNORE}
 We can tell the database to ignore any duplicate key errors
 by adding the `IGNORE` keyword to the `INSERT` statement as follows:
 
@@ -644,7 +722,9 @@ Black Dog,Led Zeppelin,IV,109,100,296620
 The columns in this file are: title, artist, album, number of plays,
 rating (0-100) and length in milliseconds.
 
-We will create several connected tables as follows:
+![Tracks, Albums, and Artists\label{figtaa}](height=1.5in@../images/tracks-albums-artists)
+
+Our data model is shown in Figure \ref{figtaa} and described in SQL as follows:
 
 ~~~~ {.sql}
 DROP TABLE IF EXISTS Artist;
@@ -674,8 +754,6 @@ We are adding the `UNIQUE` keyword to `TEXT` columns that we would like
 to have a uniqueness constraint that w will use in `INSERT IGNORE` statements.
 This is more succinct that separate `CREATE INDEX` statements but has the
 same effect.
-
-TODO: Data Model Drawing
 
 With these tables in place, we write the following code `tracks_csv.py`
 to parse the data and insert it into the tables:
@@ -725,6 +803,8 @@ by a `SELECT` to get the appropriate `artist_id` and `album_id` for use in later
 `INSERT` statements.  We start from `Artist` because we need `artist_id` to insert
 the `Album` and need the `album_id` to insert the `Track`.
 
+\index{Primary key}
+\index{Foreign key}
 If we look at the `Album` table, we can see that the entries were added and assigned
 a *primary* key as necessary as the data was parsed.  We can also see the *foreign
 key* pointing to a row in the `Artist` table for each `Album` row.
@@ -742,6 +822,8 @@ id  artist_id  title
 sqlite>
 ~~~~
 
+\index{SQL!JOIN}
+\index{SQL!ON}
 We can reconstruct all of the `Track` data, following all the relations using
 `JOIN / ON` clauses.   You can see both ends of each of the (2) relational connections
 in each row in the output below:
@@ -788,12 +870,23 @@ Up next we will look at the many-to-many relationships in data models.
 Many to many relationships in databases
 ---------------------------------------
 
+\index{Data model}
+\index{Many to many relationship}
+\index{Crow's foot diagram}
 Some data relationships cannot be modeled by a simple one-to-many relationship.
-For example, lets say we are going to build a data model four a course management
+For example, lets say we are going to build a data model for a course management
 system.  There will be courses, users, and rosters.   A user can be on the roster
-for many courses and a course will have many users on its roster.  Before
-we explore how we represent many-to-many relationships, lets see if we could extend
-a one-to many relationship.
+for many courses and a course will have many users on its roster.
+
+![A Many to Many Relationship\label{figm2m}](height=1.5in@../images/many-to-many)
+
+It is pretty simple to *draw* a many-to-many relationship as shown in Figure \ref{figm2m}.
+We simply draw two tables and connect them with a line that has the "many" indicator on both
+ends of the lines.  The problem is how to *implement* the raltionship using primary keys and
+foreign keys.
+
+Before we explore how we implement many-to-many relationships, lets see if we could hack
+something up by extending a one-to many relationship.
 
 If SQL supported the notion of arrays, we might try to define this:
 
@@ -805,7 +898,10 @@ CREATE TABLE Course (
 );
 ~~~~
 
-Sadly, while this is a tempting idea, SQL does not support arrays.
+Sadly, while this is a tempting idea, SQL does not support arrays.^[Some SQL dialects
+support arrays but arrays do not scale well. NoSQL databases use arrays and
+data replication but at a cost of database integrity. NoSQL is a story for another course
+https://www.pg4e.com/ ]
 
 Or we could just make long string and concatenate all the `User`
 primary keys into a long string separated by commas.
@@ -825,14 +921,20 @@ This would be very inefficient because as the course roster grows in size
 and the number of courses increases it becomes quite expensive to figure out
 which courses have student 14 on their roster.
 
+![A Many to Many Connector Table\label{figm2mvrb}](height=1.5in@../images/many-to-many-verbose)
+
+\index{Through table}
+\index{Junction table}
+\index{Connector table}
+\index{Join table}
 Instead of either of these approaches, we model a many-to-many relationship
 using an additional table that we call a "junction table", "through table",
-"connector table", or "join table".  The purpose of this table is to
+"connector table", or "join table" as shown in Figure \ref{figm2mvrb}.  The purpose of this table is to
 capture the *connection* between *a* course and *a* student.
 
 In a sense the table sits between the
 `Course` and `User` table and has a one-to-many relationship to both tables.
-This way, by using an intermediate table we break a many-to-many relationship into
+By using an intermediate table we break a many-to-many relationship into
 two one-to-many relationships.  Databases are very good at modeling and processing
 one-to-many relationships.
 
@@ -861,6 +963,7 @@ keys pointing at the corresponding rows in the `User` and `Course` tables.  Each
 in the member table links a row in the `User` table to a row in the `Course` table by
 going *through* the `Member` table.
 
+\index{SQL!Constraint}
 We indicate that the *combination* of `course_id` and `user_id` is the `PRIMARY KEY`
 for the `Member` table, also creating an uniqueness constraint for a `course_id` / `user_id`
 combination.
@@ -873,11 +976,7 @@ Lets assume the data comes to us in a JSON-formatted file with records like this
   [ "Charley", "si110"],
   [ "Mea", "si110"],
   [ "Hattie", "si110"],
-  [ "Lyena", "si110"],
   [ "Keziah", "si110"],
-  [ "Ellyce", "si110"],
-  [ "Thalia", "si110"],
-  [ "Meabh", "si110"],
   [ "Rosa", "si106"],
   [ "Mea", "si106"],
   [ "Mairin", "si106"],
@@ -888,6 +987,7 @@ Lets assume the data comes to us in a JSON-formatted file with records like this
 ]
 ~~~~
 
+\index{JSON!parse}
 We could write code as follows to read the JSON file and insert the members of each
 course roster into the database using the following code:
 
@@ -936,6 +1036,7 @@ as a new or existing row depending on the constraint to make sure we do not
 end up with duplicate entries in the `Member` table for a particular `user_id` /
 `course_id` combination.
 
+\index{SQL!JOIN}
 To reconstruct our data across all three tables, we again use `JOIN` / `ON` to
 construct a `SELECT` query;
 
