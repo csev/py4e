@@ -18,39 +18,25 @@ rm tmp.* *.tmp *.aux
 pandoc A0-preface.mkd -o tmp.prefacex.tex
 sed < tmp.prefacex.tex 's/section{/section*{/' > tmp.preface.tex
 cat [0-9]*.mkd | $MY_PYTHON verbatim.py | iconv -f utf8 -t ascii//TRANSLIT > tmp.verbatim 
-pandoc -s -N -f markdown+definition_lists -t latex --toc --default-image-extension=jpg -V fontsize:10pt -V documentclass:book --template=template.latex -o tmp.tex < tmp.verbatim 
+pandoc -s -N -f markdown+definition_lists -t latex --toc --default-image-extension=png -V fontsize:10pt -V documentclass:book --template=template.latex -o tmp.tex < tmp.verbatim 
 pandoc [A-Z][A-Z]*.mkd -o tmp.app.tex
 
 sed < tmp.app.tex -e 's/subsubsection{/xyzzy{/' -e 's/subsection{/plugh{/' -e 's/section{/chapter{/' -e 's/xyzzy{/subsection{/' -e 's/plugh{/section{/'  > tmp.appendix.tex
 
 # For Amazon we stick with jpg
 # sed < tmp.tex '/includegraphics/s/jpg/eps/' | sed 's"includegraphics{../photos"includegraphics[height=3.0in]{../photos"' | iconv -f utf8 -t ascii//TRANSLIT > tmp.sed
+# sed < tmp.tex '/includegraphics/s/jpg/eps/' | sed 's"includegraphics{../photos"includegraphics[height=3.0in]{../photos"' | iconv -f utf8 -t ascii//TRANSLIT > tmp.sed
 sed < tmp.tex 's"includegraphics{../photos"includegraphics[height=3.0in]{../photos"' | iconv -f utf8 -t ascii//TRANSLIT > tmp.sed
 diff tmp.sed tmp.tex
+
 $MY_PYTHON texpatch.py < tmp.sed | iconv -f utf8 -t ascii//TRANSLIT > tmp.patch
 
 mv tmp.patch tmp.tex
-if [ -f .chinese ] ; then
-    xelatex tmp
-    makeindex tmp
-    xelatex tmp
-    mv tmp.pdf x.pdf
-else
-    latex tmp
-    makeindex tmp
-    latex tmp
-    dvipdf tmp.dvi x.pdf
-    # dvips tmp.dvi
-    # ps2pdf13 -dProcessColorModel=/DeviceGray -sColorConversionStrategy=Gray -dPDFSETTINGS=/prepress -dEmbedAllFonts=true tmp.ps x13.pdf
-    # ps2pdf14 -dProcessColorModel=/DeviceGray -sColorConversionStrategy=Gray -dPDFSETTINGS=/prepress -dEmbedAllFonts=true tmp.ps x14.pdf
-fi
+pdflatex tmp
+makeindex tmp
+pdflatex tmp
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  open x.pdf
-elif [[ "$OSTYPE" == "linux-gnu" && -n "$DISPLAY" ]]; then
-  xdg-open x.pdf
-else
-  echo "Output on x.pdf"
-fi
+mv tmp.pdf x.pdf
 
+open x.pdf
 rm tmp.*
