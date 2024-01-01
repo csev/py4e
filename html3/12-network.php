@@ -811,12 +811,12 @@ the Internet which they use to build their search index.
 </dl>
 <h2 id="exercises">Exercises</h2>
 <p><strong>Exercise 1: Change the socket program <code>socket1.py</code>
-to prompt the user for the URL so it can read any web page. You can use
-<code>split('/')</code> to break the URL into its component parts so you
-can extract the host name for the socket <code>connect</code> call. Add
-error checking using <code>try</code> and <code>except</code> to handle
-the condition where the user enters an improperly formatted or
-non-existent URL.</strong></p>
+to prompt the user for the URL so it can read any web page.</strong></p>
+<p>You can use <code>split('/')</code> to break the URL into its
+component parts so you can extract the host name for the socket
+<code>connect</code> call. Add error checking using <code>try</code> and
+<code>except</code> to handle the condition where the user enters an
+improperly formatted or non-existent URL.</p>
 <p><strong>Exercise 2: Change your socket program so that it counts the
 number of characters it has received and stops displaying any text after
 it has shown 3000 characters. The program should retrieve the entire

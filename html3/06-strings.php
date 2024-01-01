@@ -658,25 +658,26 @@ operation on each.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 5: Take the following Python code that stores a
-string:</strong></p>
-<p><code>str = 'X-DSPAM-Confidence:</code><strong><code>0.8475</code></strong><code>'</code></p>
-<p><strong>Use <code>find</code> and string slicing to extract the
-portion of the string after the colon character and then use the
-<code>float</code> function to convert the extracted string into a
-floating point number.</strong></p>
+<p><strong>Exercise 5: Slicing strings</strong></p>
+<p>Take the following Python code that stores a string:</p>
+<p><code>str = 'X-DSPAM-Confidence: 0.8475'</code></p>
+<p>Use <code>find</code> and string slicing to extract the portion of
+the string after the colon character and then use the <code>float</code>
+function to convert the extracted string into a floating point
+number.</p>
 <p> </p>
-<p><strong>Exercise 6: Read the documentation of the string methods at
-<a href="https://docs.python.org/library/stdtypes.html#string-methods"
+<p><strong>Exercise 6: String methods</strong></p>
+<p>Read the documentation of the string methods at <a
+href="https://docs.python.org/library/stdtypes.html#string-methods"
 class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a>.
 You might want to experiment with some of them to make sure you
 understand how they work. <code>strip</code> and <code>replace</code>
-are particularly useful.</strong></p>
-<p><strong>The documentation uses a syntax that might be confusing. For
-example, in <code>find(sub[, start[, end]])</code>, the brackets
-indicate optional arguments. So <code>sub</code> is required, but
+are particularly useful.</p>
+<p>The documentation uses a syntax that might be confusing. For example,
+in <code>find(sub[, start[, end]])</code>, the brackets indicate
+optional arguments. So <code>sub</code> is required, but
 <code>start</code> is optional, and if you include <code>start</code>,
-then <code>end</code> is optional.</strong></p>
+then <code>end</code> is optional.</p>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

@@ -858,23 +858,22 @@ The association between a variable and its value.
 <h2 id="exercises">Exercises</h2>
 <p></p>
 <p><strong>Exercise 4: Find all unique words in a file</strong></p>
-<p><strong>Shakespeare used over 20,000 words in his works. But how
-would you determine that? How would you produce the list of all the
-words that Shakespeare used? Would you download all his work, read it
-and track all unique words by hand?</strong></p>
-<p><strong>Let’s use Python to achieve that instead. List all unique
-words, sorted in alphabetical order, that are stored in a file
-<code>romeo.txt</code> containing a subset of Shakespeare’s
-work.</strong></p>
-<p><strong>To get started, download a copy of the file</strong> <a
-href="http://www.py4e.com/code3/romeo.txt"><strong>www.py4e.com/code3/romeo.txt</strong></a><strong>.
+<p>Shakespeare used over 20,000 words in his works. But how would you
+determine that? How would you produce the list of all the words that
+Shakespeare used? Would you download all his work, read it and track all
+unique words by hand?</p>
+<p>Let’s use Python to achieve that instead. List all unique words,
+sorted in alphabetical order, that are stored in a file
+<code>romeo.txt</code> containing a subset of Shakespeare’s work.</p>
+<p>To get started, download a copy of the file <a
+href="http://www.py4e.com/code3/romeo.txt">www.py4e.com/code3/romeo.txt</a>.
 Create a list of unique words, which will contain the final result.
 Write a program to open the file <code>romeo.txt</code> and read it line
 by line. For each line, split the line into a list of words using the
 <code>split</code> function. For each word, check to see if the word is
 already in the list of unique words. If the word is not in the list of
 unique words, add it to the list. When the program completes, sort and
-print the list of unique words in alphabetical order.</strong></p>
+print the list of unique words in alphabetical order.</p>
 <pre><code>Enter file: romeo.txt
 [&#39;Arise&#39;, &#39;But&#39;, &#39;It&#39;, &#39;Juliet&#39;, &#39;Who&#39;, &#39;already&#39;,
 &#39;and&#39;, &#39;breaks&#39;, &#39;east&#39;, &#39;envious&#39;, &#39;fair&#39;, &#39;grief&#39;,
@@ -882,7 +881,7 @@ print the list of unique words in alphabetical order.</strong></p>
 &#39;sun&#39;, &#39;the&#39;, &#39;through&#39;, &#39;what&#39;, &#39;window&#39;,
 &#39;with&#39;, &#39;yonder&#39;]</code></pre>
 <p><strong>Exercise 5: Minimalist Email Client.</strong></p>
-<p><strong>MBOX (mail box) is a popular file format to store and share a
+<p>MBOX (mail box) is a popular file format to store and share a
 collection of emails. This was used by early email servers and desktop
 apps. Without getting into too many details, MBOX is a text file, which
 stores emails consecutively. Emails are separated by a special line
@@ -890,17 +889,16 @@ which starts with <code>From</code> (notice the space). Importantly,
 lines starting with <code>From:</code> (notice the colon) describes the
 email itself and does not act as a separator. Imagine you wrote a
 minimalist email app, that lists the email of the senders in the user’s
-Inbox and counts the number of emails.</strong></p>
-<p><strong>Write a program to read through the mail box data and when
-you find line that starts with “From”, you will split the line into
-words using the <code>split</code> function. We are interested in who
-sent the message, which is the second word on the From
-line.</strong></p>
+Inbox and counts the number of emails.</p>
+<p>Write a program to read through the mail box data and when you find
+line that starts with “From”, you will split the line into words using
+the <code>split</code> function. We are interested in who sent the
+message, which is the second word on the From line.</p>
 <pre><code>From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008</code></pre>
-<p><strong>You will parse the From line and print out the second word
-for each From line, then you will also count the number of From (not
-From:) lines and print out a count at the end. This is a good sample
-output with a few lines removed:</strong></p>
+<p>You will parse the From line and print out the second word for each
+From line, then you will also count the number of From (not From:) lines
+and print out a count at the end. This is a good sample output with a
+few lines removed:</p>
 <pre><code>python fromcount.py
 Enter a file name: mbox-short.txt
 stephen.marquard@uct.ac.za
@@ -914,12 +912,13 @@ cwen@iupui.edu
 cwen@iupui.edu
 cwen@iupui.edu
 There were 27 lines in the file with From as the first word</code></pre>
-<p><strong>Exercise 6: Rewrite the program that prompts the user for a
-list of numbers and prints out the maximum and minimum of the numbers at
-the end when the user enters “done”. Write the program to store the
-numbers the user enters in a list and use the <code>max()</code> and
-<code>min()</code> functions to compute the maximum and minimum numbers
-after the loop completes.</strong></p>
+<p><strong>Exercise 6:</strong></p>
+<p>Rewrite the program that prompts the user for a list of numbers and
+prints out the maximum and minimum of the numbers at the end when the
+user enters “done”. Write the program to store the numbers the user
+enters in a list and use the <code>max()</code> and <code>min()</code>
+functions to compute the maximum and minimum numbers after the loop
+completes.</p>
 <pre><code>Enter a number: 6
 Enter a number: 2
 Enter a number: 9

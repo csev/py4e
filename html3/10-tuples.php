@@ -625,10 +625,10 @@ assigned to the variables on the left.
 <p><strong>Exercise 1: Revise a previous program as follows: Read and
 parse the “From” lines and pull out the addresses from the line. Count
 the number of messages from each person using a dictionary.</strong></p>
-<p><strong>After all the data has been read, print the person with the
-most commits by creating a list of (count, email) tuples from the
-dictionary. Then sort the list in reverse order and print out the person
-who has the most commits.</strong></p>
+<p>After all the data has been read, print the person with the most
+commits by creating a list of (count, email) tuples from the dictionary.
+Then sort the list in reverse order and print out the person who has the
+most commits.</p>
 <pre><code>Sample Line:
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 
@@ -658,14 +658,14 @@ Enter a file name: mbox-short.txt
 18 1
 19 1</code></pre>
 <p><strong>Exercise 3: Write a program that reads a file and prints the
-<em>letters</em> in decreasing order of frequency. Your program should
-convert all the input to lower case and only count the letters a-z. Your
-program should not count spaces, digits, punctuation, or anything other
-than the letters a-z. Find text samples from several different languages
-and see how letter frequency varies between languages. Compare your
-results with the tables at <a
+<em>letters</em> in decreasing order of frequency.</strong></p>
+<p>Your program should convert all the input to lower case and only
+count the letters a-z. Your program should not count spaces, digits,
+punctuation, or anything other than the letters a-z. Find text samples
+from several different languages and see how letter frequency varies
+between languages. Compare your results with the tables at <a
 href="https://wikipedia.org/wiki/Letter_frequencies"
-class="uri">https://wikipedia.org/wiki/Letter_frequencies</a>.</strong></p>
+class="uri">https://wikipedia.org/wiki/Letter_frequencies</a>.</p>
 <p> </p>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">

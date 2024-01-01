@@ -606,7 +606,8 @@ rate limits and key requirements.</p>
 has been removed):</p>
 <pre><code>$ python3 geojson.py
 Enter location: Ann Arbor, MI
-Retrieving http://py4e-data.dr-chuck.net/json?address=Ann+Arbor%2C+MI&amp;key=42
+Retrieving
+  http://py4e-data.dr-chuck.net/json?address=Ann+Arbor%2C+MI&amp;key=42
 Retrieved 1736 characters</code></pre>
 <pre class="json"><code>{
     &quot;results&quot;: [
@@ -688,15 +689,12 @@ Ann Arbor, MI, USA</code></pre>
 <p>You can download <a
 href="http://www.py4e.com/code3/geoxml.py">www.py4e.com/code3/geoxml.py</a>
 to explore the XML variant of the Google geocoding API.</p>
-<p><strong>Exercise 1: Change either</strong> <a
-href="http://www.py4e.com/code3/geojson.py"><strong>geojson.py</strong></a>
-<strong>or</strong> <a
-href="http://www.py4e.com/code3/geoxml.py"><strong>geoxml.py</strong></a>
-<strong>to print out the two-character country code from the retrieved
-data. Add error checking so your program does not traceback if the
-country code is not there. Once you have it working, search for
-“Atlantic Ocean” and make sure it can handle locations that are not in
-any country.</strong></p>
+<p><strong>Exercise 1: Geocoding</strong></p>
+<p>Change <a href="http://www.py4e.com/code3/geojson.py">geojson.py</a>
+to print out the two-character country code from the retrieved data. Add
+error checking so your program does not traceback if the country code is
+not there. Once you have it working, search for “Atlantic Ocean” and
+make sure it can handle locations that are not in any country.</p>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

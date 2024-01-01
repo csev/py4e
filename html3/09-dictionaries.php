@@ -512,9 +512,10 @@ has already written something that makes your job much easier.</p>
 <pre><code>Enter the file name: romeo-full.txt
 {&#39;romeo&#39;: 40, &#39;and&#39;: 42, &#39;juliet&#39;: 32, &#39;act&#39;: 1, &#39;2&#39;: 2, &#39;scene&#39;: 2,
 &#39;ii&#39;: 1, &#39;capulets&#39;: 1, &#39;orchard&#39;: 2, &#39;enter&#39;: 1, &#39;he&#39;: 5, &#39;jests&#39;: 1,
-&#39;at&#39;: 9, &#39;scars&#39;: 1, &#39;that&#39;: 30, &#39;never&#39;: 2, &#39;felt&#39;: 1, &#39;a&#39;: 24, &#39;wound&#39;: 1,
-&#39;appears&#39;: 1, &#39;above&#39;: 6, &#39;window&#39;: 2, &#39;but&#39;: 18, &#39;soft&#39;: 1, &#39;what&#39;: 11,
-&#39;light&#39;: 5, &#39;through&#39;: 2, &#39;yonder&#39;: 2, &#39;breaks&#39;: 1, ...}</code></pre>
+&#39;at&#39;: 9, &#39;scars&#39;: 1, &#39;that&#39;: 30, &#39;never&#39;: 2, &#39;felt&#39;: 1, &#39;a&#39;: 24,
+&#39;wound&#39;: 1, &#39;appears&#39;: 1, &#39;above&#39;: 6, &#39;window&#39;: 2, &#39;but&#39;: 18,
+&#39;soft&#39;: 1, &#39;what&#39;: 11, &#39;light&#39;: 5, &#39;through&#39;: 2, &#39;yonder&#39;: 2,
+&#39;breaks&#39;: 1, ...}</code></pre>
 <p>Looking through this output is still unwieldy and we can use Python
 to give us exactly what we are looking for, but to do so, we need to
 learn about Python <em>tuples</em>. We will pick up this example once we
@@ -615,21 +616,22 @@ pair. This is more specific than our previous use of the word “value”.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 2: Write a program that categorizes each mail
-message by which day of the week the commit was done. To do this look
-for lines that start with “From”, then look for the third word and keep
-a running count of each of the days of the week. At the end of the
-program print out the contents of your dictionary (order does not
-matter).</strong></p>
-<p><strong>Sample Line:</strong></p>
+<p><strong>Exercise 2: Parsing mail</strong></p>
+<p>Write a program that categorizes each mail message by which day of
+the week the commit was done. To do this look for lines that start with
+“From”, then look for the third word and keep a running count of each of
+the days of the week. At the end of the program print out the contents
+of your dictionary (order does not matter).</p>
+<p>Sample Line:</p>
 <pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
-<p><strong>Sample Execution:</strong></p>
+<p>Sample Execution:</p>
 <pre><code>python dow.py
 Enter a file name: mbox-short.txt
 {&#39;Fri&#39;: 20, &#39;Thu&#39;: 6, &#39;Sat&#39;: 1}</code></pre>
-<p><strong>Exercise 3: Write a program to read through a mail log, build
-a histogram using a dictionary to count how many messages have come from
-each email address, and print the dictionary.</strong></p>
+<p><strong>Exercise 3: Mail histogram</strong></p>
+<p>Write a program to read through a mail log, build a histogram using a
+dictionary to count how many messages have come from each email address,
+and print the dictionary.</p>
 <pre><code>Enter file name: mbox-short.txt
 {&#39;gopal.ramasammycook@gmail.com&#39;: 1, &#39;louis@media.berkeley.edu&#39;: 3,
 &#39;cwen@iupui.edu&#39;: 5, &#39;antranig@caret.cam.ac.uk&#39;: 1,
@@ -637,12 +639,12 @@ each email address, and print the dictionary.</strong></p>
 &#39;david.horwitz@uct.ac.za&#39;: 4, &#39;wagnermr@iupui.edu&#39;: 1,
 &#39;zqian@umich.edu&#39;: 4, &#39;stephen.marquard@uct.ac.za&#39;: 2,
 &#39;ray@media.berkeley.edu&#39;: 1}</code></pre>
-<p><strong>Exercise 4: Add code to the above program to figure out who
-has the most messages in the file. After all the data has been read and
-the dictionary has been created, look through the dictionary using a
-maximum loop (see Chapter 5: Maximum and minimum loops) to find who has
-the most messages and print how many messages the person
-has.</strong></p>
+<p><strong>Exercise 4: More histogram</strong></p>
+<p>Add code to the above program to figure out who has the most messages
+in the file. After all the data has been read and the dictionary has
+been created, look through the dictionary using a maximum loop (see
+Chapter 5: Maximum and minimum loops) to find who has the most messages
+and print how many messages the person has.</p>
 <pre><code>Enter a file name: mbox-short.txt
 cwen@iupui.edu 5
 

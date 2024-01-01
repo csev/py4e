@@ -435,12 +435,11 @@ def repeat_lyrics():
 repeat_lyrics()
 
 # Code: http://www.py4e.com/code3/lyrics.py</code></pre>
-<p>This program contains two function definitions:
-<code>print_lyrics</code> and <code>repeat_lyrics</code>. Function
-definitions get executed just like other statements, but the effect is
-to create function objects. The statements inside the function do not
-get executed until the function is called, and the function definition
-generates no output.</p>
+<p>This program has two function definitions: <code>print_lyrics</code>
+and <code>repeat_lyrics</code>. Function definitions get executed just
+like other statements, but the effect is to create function objects. The
+statements inside the function do not get executed until the function is
+called, and the function definition generates no output.</p>
 <p></p>
 <p>As you might expect, you have to create a function before you can
 execute it. In other words, the function definition has to be executed
