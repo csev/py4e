@@ -221,16 +221,21 @@ conditions is true, that is, if the number is divisible by 2 <em>or</em>
 3.</p>
 <p>Finally, the <code>not</code> operator negates a boolean expression,
 so <code>not (x &gt; y)</code> is true if <code>x &gt; y</code> is
-false; that is, if <code>x</code> is less than or equal to
-<code>y</code>.</p>
+false.</p>
+<pre class="python"><code>&gt;&gt;&gt; x = 1
+&gt;&gt;&gt; y = 2
+&gt;&gt;&gt; x &gt; y
+False
+&gt;&gt;&gt; not (x &gt; y)
+True</code></pre>
 <p>Strictly speaking, the operands of the logical operators should be
 boolean expressions, but Python is not very strict. Any nonzero number
 is interpreted as “true.”</p>
 <pre class="python"><code>&gt;&gt;&gt; 17 and True
 True</code></pre>
-<p>This flexibility can be useful, but there are some subtleties to it
-that might be confusing. You might want to avoid it until you are sure
-you know what you are doing.</p>
+<p>This flexibility can be useful in some situations, but there are some
+subtleties to it that might be confusing. You might want to avoid it
+until you are sure you know what you are doing.</p>
 <h2 id="conditional-execution-1">Conditional execution</h2>
 <p> </p>
 <p>In order to write useful programs, we almost always need the ability
@@ -259,17 +264,21 @@ id="fnref1" role="doc-noteref"><sup>1</sup></a>. The statement consists
 of a header line that ends with the colon character (:) followed by an
 indented block. Statements like this are called <em>compound
 statements</em> because they stretch across more than one line.</p>
+<pre class="python"><code>if x &gt; y:
+    print(x)
+    print(y)</code></pre>
 <p>There is no limit on the number of statements that can appear in the
 body, but there must be at least one. Occasionally, it is useful to have
 a body with no statements (usually as a place holder for code you
 haven’t written yet). In that case, you can use the <code>pass</code>
-statement, which does nothing.</p>
+statement to pass the Python interpreter check, which does nothing.</p>
 <p> </p>
 <pre class="python"><code>if x &lt; 0 :
-    pass          # need to handle negative values!</code></pre>
+    pass          # need to handle negative values, but we do nothing for now.</code></pre>
 <p>If you enter an <code>if</code> statement in the Python interpreter,
-the prompt will change from three chevrons to three dots to indicate you
-are in the middle of a block of statements, as shown below:</p>
+the prompt will change from three chevrons (&gt;&gt;&gt;) to three dots
+(…) to indicate you are in the middle of a block of statements, as shown
+below:</p>
 <pre class="python"><code>&gt;&gt;&gt; x = 3
 &gt;&gt;&gt; if x &lt; 10:
 ...    print(&#39;Small&#39;)
@@ -294,9 +303,9 @@ your code.</p>
 <p>A second form of the <code>if</code> statement is <em>alternative
 execution</em>, in which there are two possibilities and the condition
 determines which one gets executed. The syntax looks like this:</p>
-<pre class="python"><code>if x%2 == 0 :
+<pre class="python"><code>if x % 2 == 0:
     print(&#39;x is even&#39;)
-else :
+else:
     print(&#39;x is odd&#39;)</code></pre>
 <p>If the remainder when <code>x</code> is divided by 2 is 0, then we
 know that <code>x</code> is even, and the program displays a message to
@@ -377,9 +386,9 @@ single conditional:</p>
 <pre class="python"><code>if 0 &lt; x:
     if x &lt; 10:
         print(&#39;x is a positive single-digit number.&#39;)</code></pre>
-<p>The <code>print</code> statement is executed only if we make it past
-both conditionals, so we can get the same effect with the
-<code>and</code> operator:</p>
+<p>The <code>print</code> statement is executed only when we pass both
+conditionals. We can get the same effect with the <code>and</code>
+operator:</p>
 <pre class="python"><code>if 0 &lt; x and x &lt; 10:
     print(&#39;x is a positive single-digit number.&#39;)</code></pre>
 <h2 id="catching-exceptions-using-try-and-except">Catching exceptions
@@ -393,7 +402,7 @@ be:</p>
 What is the air velocity of an unladen swallow?
 What do you mean, an African or a European swallow?
 &gt;&gt;&gt; int(speed)
-ValueError: invalid literal for int() with base 10:
+ValueError: invalid literal for int() with base 10: &#39;What do you mean, an African or a European swallow?&#39;
 &gt;&gt;&gt;</code></pre>
 <p>When we are executing these statements in the Python interpreter, we
 get a new prompt from the interpreter, think “oops”, and move on to our
@@ -424,7 +433,7 @@ Traceback (most recent call last):
 ValueError: could not convert string to float: &#39;fred&#39;</code></pre>
 <p>There is a conditional execution structure built into Python to
 handle these types of expected and unexpected errors called “try /
-except”. The idea of <code>try</code> and <code>except</code> is that
+except”. The purpose of <code>try</code> and <code>except</code> is that
 you know that some sequence of instruction(s) may have a problem and you
 want to add some statements to be executed if an error occurs. These
 extra statements (the except block) are ignored if there is no

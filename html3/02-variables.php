@@ -597,12 +597,6 @@ contain illegal characters.</p>
 operands without an operator:</p>
 <pre class="python"><code>&gt;&gt;&gt; bad name = 5
 SyntaxError: invalid syntax</code></pre>
-<pre class="python"><code>&gt;&gt;&gt; month = 09
-  File &quot;&lt;stdin&gt;&quot;, line 1
-    month = 09
-             ^
-SyntaxError: leading zeros in decimal integer literals are not
-permitted; use an 0o prefix for octal integers</code></pre>
 <p>For syntax errors, the error messages don’t help much. The most
 common messages are <code>SyntaxError: invalid syntax</code> which is
 not very informative.</p>

@@ -177,7 +177,7 @@
 <h2 id="a-list-is-a-sequence">A list is a sequence</h2>
 <p>Like a string, a <em>list</em> is a sequence of values. In a string,
 the values are characters; in a list, they can be any type. The values
-in list are called <em>elements</em> or sometimes <em>items</em>.</p>
+in lists are called <em>elements</em> or sometimes <em>items</em>.</p>
 <p> </p>
 <p>There are several ways to create a new list; the simplest is to
 enclose the elements in square brackets (“[” and ”]”):</p>
