@@ -191,12 +191,13 @@ from and write to the same socket. If you write something to a socket,
 it is sent to the application at the other end of the socket. If you
 read from the socket, you are given the data which the other application
 has sent.</p>
-<p>But if you try to read a socket when the program on the other end of
-the socket has not sent any data, you just sit and wait. If the programs
-on both ends of the socket simply wait for some data without sending
-anything, they will wait for a very long time, so an important part of
-programs that communicate over the Internet is to have some sort of
-protocol.</p>
+<p>But if you try to read a socket<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> when the program on the
+other end of the socket has not sent any data, you just sit and wait. If
+the programs on both ends of the socket simply wait for some data
+without sending anything, they will wait for a very long time, so an
+important part of programs that communicate over the Internet is to have
+some sort of protocol.</p>
 <p>A protocol is a set of precise rules that determine who is to go
 first, what they are to do, and then what the responses are to that
 message, and who sends next, and so on. In a sense the two applications
@@ -611,8 +612,8 @@ valid links or end up with bad data.</p>
 <h2 id="parsing-html-using-beautifulsoup">Parsing HTML using
 BeautifulSoup</h2>
 <p></p>
-<p>Even though HTML looks like XML<a href="#fn1" class="footnote-ref"
-id="fnref1" role="doc-noteref"><sup>1</sup></a> and some pages are
+<p>Even though HTML looks like XML<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a> and some pages are
 carefully constructed to be XML, most HTML is generally broken in ways
 that cause an XML parser to reject the entire page of HTML as improperly
 formed.</p>
@@ -840,8 +841,12 @@ not lines.</strong></p>
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>The XML format is described in the next chapter.<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>If you want to learn more about sockets, protocols or
+how web servers are developed, you can explore the course at
+https://www.dj4e.com.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The XML format is described in the next chapter.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>
 </body>

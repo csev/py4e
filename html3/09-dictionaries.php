@@ -247,7 +247,9 @@ length of the list. For dictionaries, Python uses an algorithm called a
 operator takes about the same amount of time no matter how many items
 there are in a dictionary. I won’t explain why hash functions are so
 magical, but you can read more about it at <a
-href="https://wikipedia.org/wiki/Hash_table">wikipedia.org/wiki/Hash_table</a>.</p>
+href="https://wikipedia.org/wiki/Hash_table">wikipedia.org/wiki/Hash_table</a>.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
 <p> </p>
 <p><strong>Exercise 1: Download a copy of the file</strong> <a
 href="http://www.py4e.com/code3/words.txt">www.py4e.com/code3/words.txt</a></p>
@@ -658,6 +660,16 @@ print out the contents of your dictionary.</strong></p>
 Enter a file name: mbox-short.txt
 {&#39;media.berkeley.edu&#39;: 4, &#39;uct.ac.za&#39;: 6, &#39;umich.edu&#39;: 7,
 &#39;gmail.com&#39;: 1, &#39;caret.cam.ac.uk&#39;: 1, &#39;iupui.edu&#39;: 8}</code></pre>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>If you do want to learn more about hash tables, there is
+a course at https://www.cc4e.com that explores how the programming
+language C implements a Python dictionary.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {
