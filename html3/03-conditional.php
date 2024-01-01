@@ -419,7 +419,7 @@ fahr = float(inp)
 cel = (fahr - 32.0) * 5.0 / 9.0
 print(cel)
 
-# Code: http://www.py4e.com/code3/fahren.py</code></pre>
+# Code: https://www.py4e.com/code3/fahren.py</code></pre>
 <p>If we execute this code and give it invalid input, it simply fails
 with an unfriendly error message:</p>
 <pre><code>python fahren.py
@@ -449,7 +449,7 @@ try:
 except:
     print(&#39;Please enter a number&#39;)
 
-# Code: http://www.py4e.com/code3/fahren2.py</code></pre>
+# Code: https://www.py4e.com/code3/fahren2.py</code></pre>
 <p>Python starts by executing the sequence of statements in the
 <code>try</code> block. If all goes well, it skips the
 <code>except</code> block and proceeds. If an exception occurs in the
@@ -632,24 +632,24 @@ expression without needing to evaluate the rest of the expression.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Rewrite your pay computation to give the employee
-1.5 times the hourly rate for hours worked above 40 hours.</strong></p>
+<p><strong>Exercise 1:</strong> Rewrite your pay computation to give the
+employee 1.5 times the hourly rate for hours worked above 40 hours.</p>
 <pre><code>Enter Hours: 45
 Enter Rate: 10
 Pay: 475.0</code></pre>
-<p><strong>Exercise 2: Rewrite your pay program using <code>try</code>
-and <code>except</code> so that your program handles non-numeric input
-gracefully by printing a message and exiting the program. The following
-shows two executions of the program:</strong></p>
+<p><strong>Exercise 2:</strong> Rewrite your pay program using
+<code>try</code> and <code>except</code> so that your program handles
+non-numeric input gracefully by printing a message and exiting the
+program. The following shows two executions of the program:</p>
 <pre><code>Enter Hours: 20
 Enter Rate: nine
 Error, please enter numeric input</code></pre>
 <pre><code>Enter Hours: forty
 Error, please enter numeric input</code></pre>
-<p><strong>Exercise 3: Write a program to prompt for a score between 0.0
-and 1.0. If the score is out of range, print an error message. If the
-score is between 0.0 and 1.0, print a grade using the following
-table:</strong></p>
+<p><strong>Exercise 3:</strong> Write a program to prompt for a score
+between 0.0 and 1.0. If the score is out of range, print an error
+message. If the score is between 0.0 and 1.0, print a grade using the
+following table:</p>
 <pre><code> Score   Grade
 &gt;= 0.9     A
 &gt;= 0.8     B

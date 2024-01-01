@@ -218,9 +218,22 @@ One of the unique syntactic features of the Python language is the
 ability to have a tuple on the left side and a sequence on the right side of an assignment statement. 
 This allows you to assign more than one variable at a time to the given sequence.
 
-In this example we have a two-element list (which is a sequence) and
-assign the first and second elements of the sequence to the variables
+In this example we have a two-element tuple and
+assign the first and second elements of the tuple to the variables
 `x` and `y` in a single statement.
+
+~~~~ {.python .trinket}
+>>> m = ( 'have', 'fun' )
+>>> x, y = m
+>>> x
+'have'
+>>> y
+'fun'
+>>>
+~~~~
+
+This is more general than tuple-to-tuple assignment.  Both tuples and lists
+are sequences, so this syntax works with a two element list as well.
 
 ~~~~ {.python .trinket}
 >>> m = [ 'have', 'fun' ]
@@ -237,7 +250,7 @@ to be the following:^[Python does not translate the syntax literally. For exampl
 you try this with a dictionary, it will not work as you might expect.]
 
 ~~~~ {.python .trinket}
->>> m = [ 'have', 'fun' ]
+>>> m = ( 'have', 'fun' )
 >>> x = m[0]
 >>> y = m[1]
 >>> x
@@ -252,7 +265,7 @@ statement, we omit the parentheses, but the following is an equally
 valid syntax:
 
 ~~~~ {.python}
->>> m = [ 'have', 'fun' ]
+>>> m = ( 'have', 'fun' )
 >>> (x, y) = m
 >>> x
 'have'
@@ -359,7 +372,7 @@ dictionary in a single loop:
 
 ~~~~ {.python}
 d = {'a':10, 'b':1, 'c':22}
-for key, val in list(d.items()):
+for key, val in d.items():
     print(val, key)
 ~~~~
 
@@ -645,9 +658,9 @@ tuple assignment
 Exercises
 ---------
 
-**Exercise 1: Revise a previous program as follows: Read and parse the
+**Exercise 1:** Revise a previous program as follows: Read and parse the
 "From " lines and pull out the addresses from the line. Count the number
-of messages from each person using a dictionary.**
+of messages from each person using a dictionary.
 
 After all the data has been read, print the person with the most commits
 by creating a list of (count, email) tuples from the dictionary. Then
@@ -665,11 +678,11 @@ Enter a file name: mbox.txt
 zqian@umich.edu 195
 ~~~~
 
-**Exercise 2: This program counts the distribution of the hour of the day
+**Exercise 2:** This program counts the distribution of the hour of the day
 for each of the messages. You can pull the hour from the "From " line by
 finding the time string and then splitting that string into parts using
 the colon character. Once you have accumulated the counts for each hour,
-print out the counts, one per line, sorted by hour as shown below.**
+print out the counts, one per line, sorted by hour as shown below.
 
 ~~~~
 python timeofday.py
@@ -688,8 +701,8 @@ Enter a file name: mbox-short.txt
 19 1
 ~~~~
 
-**Exercise 3: Write a program that reads a file and prints the
-*letters* in decreasing order of frequency.**
+**Exercise 3:** Write a program that reads a file and prints the
+*letters* in decreasing order of frequency.
 
 Your program
 should convert all the input to lower case and only count the letters

@@ -224,7 +224,7 @@ print (stuff[0])
 print (stuff.__getitem__(0))
 print (list.__getitem__(stuff,0))
 
-# Code: http://www.py4e.com/code3/party1.py</code></pre>
+# Code: https://www.py4e.com/code3/party1.py</code></pre>
 <p>Instead of focusing on what these lines accomplish, let’s look at
 what is really happening from the point of view of object-oriented
 programming. Don’t worry if the following paragraphs don’t make any
@@ -274,7 +274,7 @@ these steps.</p>
 wf = int(usf) - 1
 print(&#39;Non-US Floor Number is&#39;,wf)
 
-# Code: http://www.py4e.com/code3/elev.py</code></pre>
+# Code: https://www.py4e.com/code3/elev.py</code></pre>
 <p>If we think a bit more about this program, there is the “outside
 world” and the program. The input and output aspects are where the
 program interacts with the outside world. Within the program we have
@@ -316,7 +316,7 @@ tags = soup(&#39;a&#39;)
 for tag in tags:
     print(tag.get(&#39;href&#39;, None))
 
-# Code: http://www.py4e.com/code3/urllinks.py</code></pre>
+# Code: https://www.py4e.com/code3/urllinks.py</code></pre>
 <p>We read the URL into a string and then pass that into
 <code>urllib</code> to retrieve the data from the web. The
 <code>urllib</code> library uses the <code>socket</code> library to make
@@ -396,7 +396,7 @@ an.party()
 an.party()
 PartyAnimal.party(an)
 
-# Code: http://www.py4e.com/code3/party2.py</code></pre>
+# Code: https://www.py4e.com/code3/party2.py</code></pre>
 <p>Each method looks like a function, starting with the <code>def</code>
 keyword and consisting of an indented block of code. This object has one
 attribute (<code>x</code>) and one method (<code>party</code>). The
@@ -484,7 +484,7 @@ print (&quot;Dir &quot;, dir(an))
 print (&quot;Type&quot;, type(an.x))
 print (&quot;Type&quot;, type(an.party))
 
-# Code: http://www.py4e.com/code3/party3.py</code></pre>
+# Code: https://www.py4e.com/code3/party3.py</code></pre>
 <p>When this program executes, it produces the following output:</p>
 <pre><code>Type &lt;class &#39;__main__.PartyAnimal&#39;&gt;
 Dir  [&#39;__class__&#39;, &#39;__delattr__&#39;, ...
@@ -526,7 +526,7 @@ an.party()
 an = 42
 print(&#39;an contains&#39;,an)
 
-# Code: http://www.py4e.com/code3/party4.py</code></pre>
+# Code: https://www.py4e.com/code3/party4.py</code></pre>
 <p>When this program executes, it produces the following output:</p>
 <pre><code>I am constructed
 So far 1
@@ -573,7 +573,7 @@ s.party()
 j.party()
 s.party()
 
-# Code: http://www.py4e.com/code3/party5.py</code></pre>
+# Code: https://www.py4e.com/code3/party5.py</code></pre>
 <p>The constructor has both a <code>self</code> parameter that points to
 the object instance and additional parameters that are passed into the
 constructor as the object is constructed:</p>
@@ -614,7 +614,7 @@ j.party()
 j.six()
 print(dir(j))
 
-# Code: http://www.py4e.com/code3/party6.py</code></pre>
+# Code: https://www.py4e.com/code3/party6.py</code></pre>
 <p>When we define the <code>CricketFan</code> class, we indicate that we
 are extending the <code>PartyAnimal</code> class. This means that all of
 the variables (<code>x</code>) and methods (<code>party</code>) from the
@@ -653,7 +653,7 @@ print (stuff[0])
 print (stuff.__getitem__(0))
 print (list.__getitem__(stuff,0))
 
-# Code: http://www.py4e.com/code3/party1.py</code></pre>
+# Code: https://www.py4e.com/code3/party1.py</code></pre>
 <p>The first line constructs a <code>list</code> <em>object</em>. When
 Python creates the <code>list</code> object, it calls the
 <em>constructor</em> method (named <code>__init__</code>) to set up the

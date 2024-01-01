@@ -322,24 +322,24 @@ hour*60+minute
 minute/60
 5**2
 (5+9)*(15-7)</code></pre>
-<p>There has been a change in the division operator between Python 2.x
-and Python 3.x. In Python 3.x, the result of this division is a floating
-point result:</p>
+<p>There has been a change in the division operator between Python 2 and
+Python 3. In Python 3, the result of this division is a floating point
+result:</p>
 <pre class="python trinket" height="160"><code>&gt;&gt;&gt; minute = 59
 &gt;&gt;&gt; minute/60
 0.9833333333333333</code></pre>
-<p>The division operator in Python 2.0 would divide two integers and
+<p>The division operator in Python 2 would divide two integers and
 truncate the result to an integer:</p>
 <pre class="python"><code>&gt;&gt;&gt; minute = 59
 &gt;&gt;&gt; minute/60
 0</code></pre>
-<p>To obtain the same answer in Python 3.0 use floored ( <code>//</code>
+<p>To obtain the same answer in Python 3 use floored ( <code>//</code>
 integer) division.</p>
 <pre class="python trinket" height="160"><code>&gt;&gt;&gt; minute = 59
 &gt;&gt;&gt; minute//60
 0</code></pre>
-<p>In Python 3.0 integer division functions much more as you would
-expect if you entered the expression on a calculator.</p>
+<p>In Python 3 integer division functions much more as you would expect
+if you entered the expression on a calculator.</p>
 <p> </p>
 <h2 id="expressions">Expressions</h2>
 <p>An <em>expression</em> is a combination of values, variables, and
@@ -356,8 +356,8 @@ x + 17</code></pre>
 2</code></pre>
 <p>But in a script, an expression all by itself doesn’t do anything!
 This is a common source of confusion for beginners.</p>
-<p><strong>Exercise 1: Type the following statements in the Python
-interpreter to see what they do:</strong></p>
+<p><strong>Exercise 1:</strong> Type the following statements in the
+Python interpreter to see what they do:</p>
 <pre class="python"><code>5
 x = 5
 x + 1</code></pre>
@@ -710,12 +710,13 @@ A name that refers to a value.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 2: Write a program that uses <code>input</code> to
-prompt a user for their name and then welcomes them.</strong></p>
+<p><strong>Exercise 2:</strong> Write a program that uses
+<code>input</code> to prompt a user for their name and then welcomes
+them.</p>
 <pre><code>Enter your name: Chuck
 Hello Chuck</code></pre>
-<p><strong>Exercise 3: Write a program to prompt the user for hours and
-rate per hour to compute gross pay.</strong></p>
+<p><strong>Exercise 3:</strong> Write a program to prompt the user for
+hours and rate per hour to compute gross pay.</p>
 <pre><code>Enter Hours: 35
 Enter Rate: 2.75
 Pay: 96.25</code></pre>
@@ -723,8 +724,8 @@ Pay: 96.25</code></pre>
 the decimal place for now. If you want, you can play with the built-in
 Python <code>round</code> function to properly round the resulting pay
 to two decimal places.</p>
-<p><strong>Exercise 4: Assume that we execute the following assignment
-statements:</strong></p>
+<p><strong>Exercise 4:</strong> Assume that we execute the following
+assignment statements:</p>
 <pre><code>width = 17
 height = 12.0</code></pre>
 <p>For each of the following expressions, write the value of the
@@ -736,14 +737,14 @@ expression and the type (of the value of the expression).</p>
 <li><p><code>1 + 2 * 5</code></p></li>
 </ol>
 <p>Use the Python interpreter to check your answers.</p>
-<p><strong>Exercise 5: Write a program which prompts the user for a
-Celsius temperature, convert the temperature to Fahrenheit, and print
-out the converted temperature.</strong></p>
+<p><strong>Exercise 5:</strong> Write a program which prompts the user
+for a Celsius temperature, convert the temperature to Fahrenheit, and
+print out the converted temperature.</p>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>In Python 2.0, this function was named
+<li id="fn1"><p>In Python 2, this function was named
 <code>raw_input</code>.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>See <a href="https://en.wikipedia.org/wiki/Mnemonic"

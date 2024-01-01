@@ -232,7 +232,7 @@ tree = ET.fromstring(data)
 print(&#39;Name:&#39;, tree.find(&#39;name&#39;).text)
 print(&#39;Attr:&#39;, tree.find(&#39;email&#39;).get(&#39;hide&#39;))
 
-# Code: http://www.py4e.com/code3/xml1.py</code></pre>
+# Code: https://www.py4e.com/code3/xml1.py</code></pre>
 <p>The triple single quote (<code>'''</code>), as well as the triple
 double quote (<code>"""</code>), allow for the creation of strings that
 span multiple lines.</p>
@@ -278,7 +278,7 @@ for item in lst:
     print(&#39;Id&#39;, item.find(&#39;id&#39;).text)
     print(&#39;Attribute&#39;, item.get(&#39;x&#39;))
 
-# Code: http://www.py4e.com/code3/xml2.py</code></pre>
+# Code: https://www.py4e.com/code3/xml2.py</code></pre>
 <p>The <code>findall</code> method retrieves a Python list of subtrees
 that represent the <code>user</code> structures in the XML tree. Then we
 can write a <code>for</code> loop that looks at each of the user nodes,
@@ -392,7 +392,7 @@ for item in info:
     print(&#39;Id&#39;, item[&#39;id&#39;])
     print(&#39;Attribute&#39;, item[&#39;x&#39;])
 
-# Code: http://www.py4e.com/code3/json2.py</code></pre>
+# Code: https://www.py4e.com/code3/json2.py</code></pre>
 <p>If you compare the code to extract data from the parsed JSON and XML
 you will see that what we get from <code>json.loads()</code> is a Python
 list which we traverse with a <code>for</code> loop, and each item
@@ -420,7 +420,7 @@ processors store documents internally using XML rather than JSON.</p>
 <h2 id="application-programming-interfaces">Application Programming
 Interfaces</h2>
 <p>We now have the ability to exchange data between applications using
-HyperText Transport Protocol (HTTP) and a way to represent complex data
+Hypertext Transport Protocol (HTTP) and a way to represent complex data
 that we are sending back and forth between these applications using
 eXtensible Markup Language (XML) or JavaScript Object Notation
 (JSON).</p>
@@ -523,18 +523,10 @@ unlimited use of the API in a commercial application. But if you have
 some survey data where an end user has entered a location in a
 free-format input box, you can use this API to clean up your data quite
 nicely.</p>
-<p><em>When you are using a free API like Google’s geocoding API, you
-need to be respectful in your use of these resources. If too many people
-abuse the service, Google might drop or significantly curtail its free
-service.</em></p>
+<p><em>When you are using a free API, you need to be respectful in your
+use of these resources. If too many people abuse the service, Google
+might drop or significantly curtail its free service.</em></p>
 <p></p>
-<p>You can read the online documentation for this service, but it is
-quite simple and you can even test it using a browser by typing the
-following URL into your browser:</p>
-<p><a
-href="http://maps.googleapis.com/maps/api/geocode/json?address=Ann+Arbor%2C+MI">http://maps.googleapis.com/maps/api/geocode/json?address=Ann+Arbor%2C+MI</a></p>
-<p>Make sure to unwrap the URL and remove any spaces from the URL before
-pasting it into your browser.</p>
 <p>The following is a simple application to prompt the user for a search
 string, call the Google geocoding API, and extract information from the
 returned JSON.</p>
@@ -590,7 +582,7 @@ while True:
     location = js[&#39;results&#39;][0][&#39;formatted_address&#39;]
     print(location)
 
-# Code: http://www.py4e.com/code3/geojson.py</code></pre>
+# Code: https://www.py4e.com/code3/geojson.py</code></pre>
 <p>The program takes the search string and constructs a URL with the
 search string as a properly encoded parameter and then uses
 <code>urllib</code> to retrieve the text from the Google geocoding API.
@@ -689,12 +681,12 @@ Ann Arbor, MI, USA</code></pre>
 <p>You can download <a
 href="http://www.py4e.com/code3/geoxml.py">www.py4e.com/code3/geoxml.py</a>
 to explore the XML variant of the Google geocoding API.</p>
-<p><strong>Exercise 1: Geocoding</strong></p>
-<p>Change <a href="http://www.py4e.com/code3/geojson.py">geojson.py</a>
-to print out the two-character country code from the retrieved data. Add
-error checking so your program does not traceback if the country code is
-not there. Once you have it working, search for “Atlantic Ocean” and
-make sure it can handle locations that are not in any country.</p>
+<p><strong>Exercise 1:</strong> Change <a
+href="http://www.py4e.com/code3/geojson.py">geojson.py</a> to print out
+the two-character country code from the retrieved data. Add error
+checking so your program does not traceback if the country code is not
+there. Once you have it working, search for “Atlantic Ocean” and make
+sure it can handle locations that are not in any country.</p>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

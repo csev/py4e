@@ -303,7 +303,7 @@ for line in fhand:
     count = count + 1
 print(&#39;Line Count:&#39;, count)
 
-# Code: http://www.py4e.com/code3/open.py</code></pre>
+# Code: https://www.py4e.com/code3/open.py</code></pre>
 <p>We can use the file handle as the sequence in our <code>for</code>
 loop. Our <code>for</code> loop simply counts the number of lines in the
 file and prints them out. The rough translation of the <code>for</code>
@@ -368,7 +368,7 @@ for line in fhand:
     if line.startswith(&#39;From:&#39;):
         print(line)
 
-# Code: http://www.py4e.com/code3/search1.py</code></pre>
+# Code: https://www.py4e.com/code3/search1.py</code></pre>
 <p>When this program runs, we get the following output:</p>
 <pre><code>From: stephen.marquard@uct.ac.za
 
@@ -394,7 +394,7 @@ for line in fhand:
     if line.startswith(&#39;From:&#39;):
         print(line)
 
-# Code: http://www.py4e.com/code3/search2.py</code></pre>
+# Code: https://www.py4e.com/code3/search2.py</code></pre>
 <p>When this program runs, we get the following output:</p>
 <pre><code>From: stephen.marquard@uct.ac.za
 From: louis@media.berkeley.edu
@@ -420,7 +420,7 @@ for line in fhand:
     # Process our &#39;interesting&#39; line
     print(line)
 
-# Code: http://www.py4e.com/code3/search3.py</code></pre>
+# Code: https://www.py4e.com/code3/search3.py</code></pre>
 <p>The output of the program is the same. In English, the uninteresting
 lines are those which do not start with “From:”, which we skip using
 <code>continue</code>. For the “interesting” lines (i.e., those that
@@ -439,7 +439,7 @@ for line in fhand:
     if line.find(&#39;@uct.ac.za&#39;) == -1: continue
     print(line)
 
-# Code: http://www.py4e.com/code3/search4.py</code></pre>
+# Code: https://www.py4e.com/code3/search4.py</code></pre>
 <p>Which produces the following output:</p>
 <pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 X-Authentication-Warning: set sender to stephen.marquard@uct.ac.za using -f
@@ -472,7 +472,7 @@ for line in fhand:
         count = count + 1
 print(&#39;There were&#39;, count, &#39;subject lines in&#39;, fname)
 
-# Code: http://www.py4e.com/code3/search6.py</code></pre>
+# Code: https://www.py4e.com/code3/search6.py</code></pre>
 <p>We read the file name from the user and place it in a variable named
 <code>fname</code> and open that file. Now we can run the program
 repeatedly on different files.</p>
@@ -533,7 +533,7 @@ for line in fhand:
         count = count + 1
 print(&#39;There were&#39;, count, &#39;subject lines in&#39;, fname)
 
-# Code: http://www.py4e.com/code3/search7.py</code></pre>
+# Code: https://www.py4e.com/code3/search7.py</code></pre>
 <p>The <code>exit</code> function terminates the program. It is a
 function that we call that never returns. Now when our user (or QA team)
 types in silliness or bad file names, we “catch” them and recover
@@ -650,9 +650,9 @@ A sequence of characters stored in permanent storage like a hard drive.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Write a program to read through a file and print
-the contents of the file (line by line) all in upper case. Executing the
-program will look as follows:</strong></p>
+<p><strong>Exercise 1:</strong> Write a program to read through a file
+and print the contents of the file (line by line) all in upper case.
+Executing the program will look as follows:</p>
 <pre><code>python shout.py
 Enter a file name: mbox-short.txt
 FROM STEPHEN.MARQUARD@UCT.AC.ZA SAT JAN  5 09:14:16 2008
@@ -662,8 +662,8 @@ RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
      SAT, 05 JAN 2008 09:14:16 -0500</code></pre>
 <p>You can download the file from <a
 href="http://www.py4e.com/code3/mbox-short.txt">www.py4e.com/code3/mbox-short.txt</a></p>
-<p>Exercise 2: Write a program to prompt for a file name, and then read
-through the file and look for lines of the form:</p>
+<p><strong>Exercise 2:</strong> Write a program to prompt for a file
+name, and then read through the file and look for lines of the form:</p>
 <pre><code>X-DSPAM-Confidence: 0.8475</code></pre>
 <p>When you encounter a line that starts with “X-DSPAM-Confidence:” pull
 apart the line to extract the floating-point number on the line. Count
@@ -677,13 +677,13 @@ Enter the file name: mbox-short.txt
 Average spam confidence: 0.750718518519</code></pre>
 <p>Test your file on the <em>mbox.txt</em> and <em>mbox-short.txt</em>
 files.</p>
-<p><strong>Exercise 3: Easter Eggs</strong> Sometimes when programmers
-get bored or want to have a bit of fun, they add a harmless <em>Easter
-Egg</em> to their program. Modify the program that prompts the user for
-the file name so that it prints a funny message when the user types in
-the exact file name “na na boo boo”. The program should behave normally
-for all other files which exist and don’t exist. Here is a sample
-execution of the program:</p>
+<p><strong>Exercise 3:</strong></p>
+<p>Sometimes when programmers get bored or want to have a bit of fun,
+they add a harmless <em>Easter Egg</em> to their program. Modify the
+program that prompts the user for the file name so that it prints a
+funny message when the user types in the exact file name “na na boo
+boo”. The program should behave normally for all other files which exist
+and don’t exist. Here is a sample execution of the program:</p>
 <pre><code>python egg.py
 Enter the file name: mbox.txt
 There were 1797 subject lines in mbox.txt

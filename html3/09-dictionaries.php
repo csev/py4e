@@ -251,12 +251,13 @@ href="https://wikipedia.org/wiki/Hash_table">wikipedia.org/wiki/Hash_table</a>.<
 href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a></p>
 <p> </p>
-<p><strong>Exercise 1: Download a copy of the file</strong> <a
+<p><strong>Exercise 1:</strong> Download a copy of the file</p>
+<p><a
 href="http://www.py4e.com/code3/words.txt">www.py4e.com/code3/words.txt</a></p>
-<p><strong>Write a program that reads the words in <em>words.txt</em>
-and stores them as keys in a dictionary. It doesn’t matter what the
-values are. Then you can use the <code>in</code> operator as a fast way
-to check whether a string is in the dictionary.</strong></p>
+<p>Write a program that reads the words in <em>words.txt</em> and stores
+them as keys in a dictionary. It doesn’t matter what the values are.
+Then you can use the <code>in</code> operator as a fast way to check
+whether a string is in the dictionary.</p>
 <h2 id="dictionary-as-a-set-of-counters">Dictionary as a set of
 counters</h2>
 <p></p>
@@ -377,7 +378,7 @@ for line in fhand:
 
 print(counts)
 
-# Code: http://www.py4e.com/code3/count1.py</code></pre>
+# Code: https://www.py4e.com/code3/count1.py</code></pre>
 <p>In our <code>else</code> statement, we use the more compact
 alternative for incrementing a variable. <code>counts[word] += 1</code>
 is equivalent to <code>counts[word] = counts[word] + 1</code>. Either
@@ -504,7 +505,7 @@ for line in fhand:
 
 print(counts)
 
-# Code: http://www.py4e.com/code3/count2.py</code></pre>
+# Code: https://www.py4e.com/code3/count2.py</code></pre>
 <p>Part of learning the “Art of Python” or “Thinking Pythonically” is
 realizing that Python often has built-in capabilities for many common
 data analysis problems. Over time, you will see enough example code and
@@ -618,22 +619,21 @@ pair. This is more specific than our previous use of the word “value”.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 2: Parsing mail</strong></p>
-<p>Write a program that categorizes each mail message by which day of
-the week the commit was done. To do this look for lines that start with
-“From”, then look for the third word and keep a running count of each of
-the days of the week. At the end of the program print out the contents
-of your dictionary (order does not matter).</p>
+<p><strong>Exercise 2:</strong> Write a program that categorizes each
+mail message by which day of the week the commit was done. To do this
+look for lines that start with “From”, then look for the third word and
+keep a running count of each of the days of the week. At the end of the
+program print out the contents of your dictionary (order does not
+matter).</p>
 <p>Sample Line:</p>
 <pre><code>From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008</code></pre>
 <p>Sample Execution:</p>
 <pre><code>python dow.py
 Enter a file name: mbox-short.txt
 {&#39;Fri&#39;: 20, &#39;Thu&#39;: 6, &#39;Sat&#39;: 1}</code></pre>
-<p><strong>Exercise 3: Mail histogram</strong></p>
-<p>Write a program to read through a mail log, build a histogram using a
-dictionary to count how many messages have come from each email address,
-and print the dictionary.</p>
+<p><strong>Exercise 3:</strong> Write a program to read through a mail
+log, build a histogram using a dictionary to count how many messages
+have come from each email address, and print the dictionary.</p>
 <pre><code>Enter file name: mbox-short.txt
 {&#39;gopal.ramasammycook@gmail.com&#39;: 1, &#39;louis@media.berkeley.edu&#39;: 3,
 &#39;cwen@iupui.edu&#39;: 5, &#39;antranig@caret.cam.ac.uk&#39;: 1,
@@ -641,21 +641,21 @@ and print the dictionary.</p>
 &#39;david.horwitz@uct.ac.za&#39;: 4, &#39;wagnermr@iupui.edu&#39;: 1,
 &#39;zqian@umich.edu&#39;: 4, &#39;stephen.marquard@uct.ac.za&#39;: 2,
 &#39;ray@media.berkeley.edu&#39;: 1}</code></pre>
-<p><strong>Exercise 4: More histogram</strong></p>
-<p>Add code to the above program to figure out who has the most messages
-in the file. After all the data has been read and the dictionary has
-been created, look through the dictionary using a maximum loop (see
-Chapter 5: Maximum and minimum loops) to find who has the most messages
-and print how many messages the person has.</p>
+<p><strong>Exercise 4:</strong> Add code to the above program to figure
+out who has the most messages in the file. After all the data has been
+read and the dictionary has been created, look through the dictionary
+using a maximum loop (see Chapter 5: Maximum and minimum loops) to find
+who has the most messages and print how many messages the person
+has.</p>
 <pre><code>Enter a file name: mbox-short.txt
 cwen@iupui.edu 5
 
 Enter a file name: mbox.txt
 zqian@umich.edu 195</code></pre>
-<p><strong>Exercise 5: This program records the domain name (instead of
-the address) where the message was sent from instead of who the mail
-came from (i.e., the whole email address). At the end of the program,
-print out the contents of your dictionary.</strong></p>
+<p><strong>Exercise 5:</strong> This program records the domain name
+(instead of the address) where the message was sent from instead of who
+the mail came from (i.e., the whole email address). At the end of the
+program, print out the contents of your dictionary.</p>
 <pre><code>python schoolcount.py
 Enter a file name: mbox-short.txt
 {&#39;media.berkeley.edu&#39;: 4, &#39;uct.ac.za&#39;: 6, &#39;umich.edu&#39;: 7,

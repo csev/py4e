@@ -254,10 +254,10 @@ when <code>index</code> is equal to the length of the string, the
 condition is false, and the body of the loop is not executed. The last
 character accessed is the one with the index <code>len(fruit)-1</code>,
 which is the last character in the string.</p>
-<p><strong>Exercise 1: Write a <code>while</code> loop that starts at
-the last character in the string and works its way backwards to the
-first character in the string, printing each letter on a separate line,
-except backwards.</strong></p>
+<p><strong>Exercise 1:</strong> Write a <code>while</code> loop that
+starts at the last character in the string and works its way backwards
+to the first character in the string, printing each letter on a separate
+line, except backwards.</p>
 <p>Another way to write a traversal is with a <code>for</code> loop:</p>
 <pre class="python"><code>for char in fruit:
     print(char)</code></pre>
@@ -292,8 +292,8 @@ is an <em>empty string</em>, represented by two quotation marks:</p>
 &#39;&#39;</code></pre>
 <p>An empty string contains no characters and has length 0, but other
 than that, it is the same as any other string.</p>
-<p><strong>Exercise 2: Given that <code>fruit</code> is a string, what
-does <code>fruit[:]</code> mean?</strong></p>
+<p><strong>Exercise 2:</strong> Given that <code>fruit</code> is a
+string, what does <code>fruit[:]</code> mean?</p>
 <p> </p>
 <h2 id="strings-are-immutable">Strings are immutable</h2>
 <p> </p>
@@ -333,9 +333,9 @@ print(count)</code></pre>
 and then incremented each time an “a” is found. When the loop exits,
 <code>count</code> contains the result: the total number of a’s.</p>
 <p></p>
-<p><strong>Exercise 3: Encapsulate this code in a function named
-<code>count</code>, and generalize it so that it accepts the string and
-the letter as arguments.</strong></p>
+<p><strong>Exercise 3:</strong> Encapsulate this code in a function
+named <code>count</code>, and generalize it so that it accepts the
+string and the letter as arguments.</p>
 <h2 id="the-in-operator">The <code>in</code> operator</h2>
 <p> </p>
 <p>The word <code>in</code> is a boolean operator that takes two strings
@@ -469,14 +469,14 @@ we use <code>startswith</code> to see if the resulting lowercase string
 starts with the letter “h”. As long as we are careful with the order, we
 can make multiple method calls in a single expression.</p>
 <p> </p>
-<p><strong>Exercise 4: There is a string method called
+<p><strong>Exercise 4:</strong> There is a string method called
 <code>count</code> that is similar to the function in the previous
-exercise. Read the documentation of this method at:</strong></p>
+exercise. Read the documentation of this method at:</p>
 <p><a
 href="https://docs.python.org/library/stdtypes.html#string-methods"
 class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a></p>
-<p><strong>Write an invocation that counts the number of times the
-letter a occurs in “banana”.</strong></p>
+<p>Write an invocation that counts the number of times the letter a
+occurs in “banana”.</p>
 <h2 id="parsing-strings">Parsing strings</h2>
 <p>Often, we want to look into a string and find a substring. For
 example if we were presented a series of lines formatted as follows:</p>
@@ -555,7 +555,7 @@ thing might our user do to crash our (seemingly) perfect program?”</p>
     print(line)
 print(&#39;Done!&#39;)
 
-# Code: http://www.py4e.com/code3/copytildone2.py</code></pre>
+# Code: https://www.py4e.com/code3/copytildone2.py</code></pre>
 <p>Look what happens when the user enters an empty line of input:</p>
 <pre class="python"><code>&gt; hello there
 hello there
@@ -643,7 +643,7 @@ operation on each.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 5: Slicing strings</strong></p>
+<p><strong>Exercise 5:</strong> Slicing strings</p>
 <p>Take the following Python code that stores a string:</p>
 <p><code>str = 'X-DSPAM-Confidence: 0.8475'</code></p>
 <p>Use <code>find</code> and string slicing to extract the portion of
@@ -651,7 +651,7 @@ the string after the colon character and then use the <code>float</code>
 function to convert the extracted string into a floating point
 number.</p>
 <p> </p>
-<p><strong>Exercise 6: String methods</strong></p>
+<p><strong>Exercise 6:</strong> String methods</p>
 <p>Read the documentation of the string methods at <a
 href="https://docs.python.org/library/stdtypes.html#string-methods"
 class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a>.

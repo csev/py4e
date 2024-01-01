@@ -330,9 +330,9 @@ for i in range(10):
 0.510535245390327
 0.27447040171978143
 0.028511805472785867</code></pre>
-<p><strong>Exercise 1: Run the program on your system and see what
-numbers you get. Run the program more than once and see what numbers you
-get.</strong></p>
+<p><strong>Exercise 1:</strong> Run the program on your system and see
+what numbers you get. Run the program more than once and see what
+numbers you get.</p>
 <p>The <code>random</code> function is only one of many functions that
 handle random numbers. The function <code>randint</code> takes the
 parameters <code>low</code> and <code>high</code>, and returns an
@@ -434,7 +434,7 @@ def repeat_lyrics():
 
 repeat_lyrics()
 
-# Code: http://www.py4e.com/code3/lyrics.py</code></pre>
+# Code: https://www.py4e.com/code3/lyrics.py</code></pre>
 <p>This program has two function definitions: <code>print_lyrics</code>
 and <code>repeat_lyrics</code>. Function definitions get executed just
 like other statements, but the effect is to create function objects. The
@@ -444,13 +444,13 @@ called, and the function definition generates no output.</p>
 <p>As you might expect, you have to create a function before you can
 execute it. In other words, the function definition has to be executed
 before the first time it is called.</p>
-<p><strong>Exercise 2: Move the last line of this program to the top, so
-the function call appears before the definitions. Run the program and
-see what error message you get.</strong></p>
-<p><strong>Exercise 3: Move the function call back to the bottom and
-move the definition of <code>print_lyrics</code> after the definition of
-<code>repeat_lyrics</code>. What happens when you run this
-program?</strong></p>
+<p><strong>Exercise 2:</strong> Move the last line of this program to
+the top, so the function call appears before the definitions. Run the
+program and see what error message you get.</p>
+<p><strong>Exercise 3:</strong> Move the function call back to the
+bottom and move the definition of <code>print_lyrics</code> after the
+definition of <code>repeat_lyrics</code>. What happens when you run this
+program?</p>
 <h2 id="flow-of-execution">Flow of execution</h2>
 <p></p>
 <p>In order to ensure that a function is defined before its first use,
@@ -578,7 +578,7 @@ returns a result.</p>
 x = addtwo(3, 5)
 print(x)
 
-# Code: http://www.py4e.com/code3/addtwo.py</code></pre>
+# Code: https://www.py4e.com/code3/addtwo.py</code></pre>
 <p>When this script executes, the <code>print</code> statement will
 print out “8” because the <code>addtwo</code> function was called with 3
 and 5 as arguments. Within the function, the parameters <code>a</code>
@@ -725,16 +725,16 @@ A function that does not return a value.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 4: What is the purpose of the “def” keyword in
-Python?</strong></p>
+<p><strong>Exercise 4:</strong> What is the purpose of the “def” keyword
+in Python?</p>
 <p>a) It is slang that means “the following code is really cool”<br />
 b) It indicates the start of a function<br />
 c) It indicates that the following indented section of code is to be
 stored for later<br />
 d) b and c are both true<br />
 e) None of the above</p>
-<p><strong>Exercise 5: What will the following Python program print
-out?</strong></p>
+<p><strong>Exercise 5:</strong> What will the following Python program
+print out?</p>
 <pre class="python"><code>def fred():
    print(&quot;Zap&quot;)
 
@@ -749,16 +749,16 @@ b) Zap ABC Zap<br />
 c) ABC Zap jane<br />
 d) ABC Zap ABC<br />
 e) Zap Zap Zap</p>
-<p><strong>Exercise 6: Rewrite your pay computation with time-and-a-half
-for overtime and create a function called <code>computepay</code> which
-takes two parameters (<code>hours</code> and
-<code>rate</code>).</strong></p>
+<p><strong>Exercise 6:</strong> Rewrite your pay computation with
+time-and-a-half for overtime and create a function called
+<code>computepay</code> which takes two parameters (<code>hours</code>
+and <code>rate</code>).</p>
 <pre><code>Enter Hours: 45
 Enter Rate: 10
 Pay: 475.0</code></pre>
-<p><strong>Exercise 7: Rewrite the grade program from the previous
-chapter using a function called <code>computegrade</code> that takes a
-score as its parameter and returns a grade as a string.</strong></p>
+<p><strong>Exercise 7:</strong> Rewrite the grade program from the
+previous chapter using a function called <code>computegrade</code> that
+takes a score as its parameter and returns a grade as a string.</p>
 <pre><code> Score   Grade
 &gt;= 0.9     A
 &gt;= 0.8     B

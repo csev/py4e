@@ -206,7 +206,7 @@ for line in hand:
     if re.search(&#39;From:&#39;, line):
         print(line)
 
-# Code: http://www.py4e.com/code3/re01.py</code></pre>
+# Code: https://www.py4e.com/code3/re01.py</code></pre>
 <p>We open the file, loop through each line, and use the regular
 expression <code>search()</code> to only print out lines that contain
 the string “From:”. This program does not use the real power of regular
@@ -230,7 +230,7 @@ for line in hand:
     if re.search(&#39;^From:&#39;, line):
         print(line)
 
-# Code: http://www.py4e.com/code3/re02.py</code></pre>
+# Code: https://www.py4e.com/code3/re02.py</code></pre>
 <p>Now we will only match lines that <em>start with</em> the string
 “From:”. This is still a very simple example that we could have done
 equivalently with the <code>startswith()</code> method from the string
@@ -257,7 +257,7 @@ for line in hand:
     if re.search(&#39;^F..m:&#39;, line):
         print(line)
 
-# Code: http://www.py4e.com/code3/re03.py</code></pre>
+# Code: https://www.py4e.com/code3/re03.py</code></pre>
 <p>This is particularly powerful when combined with the ability to
 indicate that a character can be repeated any number of times using the
 <code>*</code> or <code>+</code> characters in your regular expression.
@@ -275,7 +275,7 @@ for line in hand:
     if re.search(&#39;^From:.+@&#39;, line):
         print(line)
 
-# Code: http://www.py4e.com/code3/re04.py</code></pre>
+# Code: https://www.py4e.com/code3/re04.py</code></pre>
 <p>The search string <code>^From:.+@</code> will successfully match
 lines that start with “From:”, followed by one or more characters
 (<code>.+</code>), followed by an at-sign. So this will match the
@@ -315,7 +315,7 @@ s = &#39;A message from csev@umich.edu to cwen@iupui.edu about meeting @2PM&#39;
 lst = re.findall(&#39;\S+@\S+&#39;, s)
 print(lst)
 
-# Code: http://www.py4e.com/code3/re05.py</code></pre>
+# Code: https://www.py4e.com/code3/re05.py</code></pre>
 <p>The <code>findall()</code> method searches the string in the second
 argument and returns a list of all of the strings that look like email
 addresses. We are using a two-character sequence that matches a
@@ -342,7 +342,7 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re06.py</code></pre>
+# Code: https://www.py4e.com/code3/re06.py</code></pre>
 <p>We read each line and then extract all the substrings that match our
 regular expression. Since <code>findall()</code> returns a list, we
 simply check if the number of elements in our returned list is more than
@@ -396,7 +396,7 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re07.py</code></pre>
+# Code: https://www.py4e.com/code3/re07.py</code></pre>
 <pre><code>...
 [&#39;wagnermr@iupui.edu&#39;]
 [&#39;cwen@iupui.edu&#39;]
@@ -447,7 +447,7 @@ for line in hand:
     if re.search(&#39;^X\S*: [0-9.]+&#39;, line):
         print(line)
 
-# Code: http://www.py4e.com/code3/re10.py</code></pre>
+# Code: https://www.py4e.com/code3/re10.py</code></pre>
 <p>When we run the program, we see the data nicely filtered to show only
 the lines we are looking for.</p>
 <pre><code>X-DSPAM-Confidence: 0.8475
@@ -480,7 +480,7 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re11.py</code></pre>
+# Code: https://www.py4e.com/code3/re11.py</code></pre>
 <p>Instead of calling <code>search()</code>, we add parentheses around
 the part of the regular expression that represents the floating-point
 number to indicate we only want <code>findall()</code> to give us back
@@ -513,7 +513,7 @@ for line in hand:
     if len(x) &gt; 0:
         print(x)
 
-# Code: http://www.py4e.com/code3/re12.py</code></pre>
+# Code: https://www.py4e.com/code3/re12.py</code></pre>
 <p>Translating our regular expression, we are looking for lines that
 start with <code>Details:</code>, followed by any number of characters
 (<code>.*</code>), followed by <code>rev=</code>, and then by one or
@@ -568,7 +568,7 @@ for line in hand:
     x = re.findall(&#39;^From .* ([0-9][0-9]):&#39;, line)
     if len(x) &gt; 0: print(x)
 
-# Code: http://www.py4e.com/code3/re13.py</code></pre>
+# Code: https://www.py4e.com/code3/re13.py</code></pre>
 <p>When the program runs, it produces the following output:</p>
 <pre><code>[&#39;09&#39;]
 [&#39;18&#39;]
@@ -729,10 +729,10 @@ the wild-card character is the period.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Write a simple program to simulate the operation
-of the <code>grep</code> command on Unix. Ask the user to enter a
-regular expression and count the number of lines that matched the
-regular expression:</strong></p>
+<p><strong>Exercise 1:</strong> Write a simple program to simulate the
+operation of the <code>grep</code> command on Unix. Ask the user to
+enter a regular expression and count the number of lines that matched
+the regular expression:</p>
 <pre><code>$ python grep.py
 Enter a regular expression: ^Author
 mbox.txt had 1798 lines that matched ^Author
@@ -744,8 +744,8 @@ mbox.txt had 14368 lines that matched ^X-
 $ python grep.py
 Enter a regular expression: java$
 mbox.txt had 4175 lines that matched java$</code></pre>
-<p><strong>Exercise 2: Write a program to look for lines of the
-form:</strong></p>
+<p><strong>Exercise 2:</strong> Write a program to look for lines of the
+form:</p>
 <pre><code>New Revision: 39772</code></pre>
 <p><strong>Extract the number from each of the lines using a regular
 expression and the <code>findall()</code> method. Compute the average of

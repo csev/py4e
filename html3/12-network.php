@@ -239,7 +239,7 @@ while True:
 
 mysock.close()
 
-# Code: http://www.py4e.com/code3/socket1.py</code></pre>
+# Code: https://www.py4e.com/code3/socket1.py</code></pre>
 <p>First the program makes a connection to port 80 on the server <a
 href="http://www.pr4e.com">www.pr4e.com</a>. Since our program is
 playing the role of the “web browser”, the HTTP protocol says we must
@@ -342,7 +342,7 @@ fhand = open(&quot;stuff.jpg&quot;, &quot;wb&quot;)
 fhand.write(picture)
 fhand.close()
 
-# Code: http://www.py4e.com/code3/urljpeg.py</code></pre>
+# Code: https://www.py4e.com/code3/urljpeg.py</code></pre>
 <p>When the program runs, it produces the following output:</p>
 <pre><code>$ python urljpeg.py
 5120 5120
@@ -440,7 +440,7 @@ fhand = urllib.request.urlopen(&#39;http://data.pr4e.org/romeo.txt&#39;)
 for line in fhand:
     print(line.decode().strip())
 
-# Code: http://www.py4e.com/code3/urllib1.py</code></pre>
+# Code: https://www.py4e.com/code3/urllib1.py</code></pre>
 <p>Once the web page has been opened with
 <code>urllib.request.urlopen</code>, we can treat it like a file and
 read through it using a <code>for</code> loop.</p>
@@ -465,7 +465,7 @@ for line in fhand:
         counts[word] = counts.get(word, 0) + 1
 print(counts)
 
-# Code: http://www.py4e.com/code3/urlwords.py</code></pre>
+# Code: https://www.py4e.com/code3/urlwords.py</code></pre>
 <p>Again, once we have opened the web page, we can read it like a local
 file.</p>
 <h2 id="reading-binary-files-using-urllib">Reading binary files using
@@ -486,7 +486,7 @@ fhand = open(&#39;cover3.jpg&#39;, &#39;wb&#39;)
 fhand.write(img)
 fhand.close()
 
-# Code: http://www.py4e.com/code3/curl1.py</code></pre>
+# Code: https://www.py4e.com/code3/curl1.py</code></pre>
 <p>This program reads all of the data in at once across the network and
 stores it in the variable <code>img</code> in the main memory of your
 computer, then opens the file <code>cover.jpg</code> and writes the data
@@ -513,7 +513,7 @@ while True:
 print(size, &#39;characters copied.&#39;)
 fhand.close()
 
-# Code: http://www.py4e.com/code3/curl2.py</code></pre>
+# Code: https://www.py4e.com/code3/curl2.py</code></pre>
 <p>In this example, we read only 100,000 characters at a time and then
 write those characters to the <code>cover3.jpg</code> file before
 retrieving the next 100,000 characters of data from the web.</p>
@@ -580,7 +580,7 @@ links = re.findall(b&#39;href=&quot;(http[s]?://.*?)&quot;&#39;, html)
 for link in links:
     print(link.decode())
 
-# Code: http://www.py4e.com/code3/urlregex.py</code></pre>
+# Code: https://www.py4e.com/code3/urlregex.py</code></pre>
 <p>The <code>ssl</code> library allows this program to access web sites
 that strictly enforce HTTPS. The <code>read</code> method returns HTML
 source code as a bytes object instead of returning an HTTPResponse
@@ -656,7 +656,7 @@ tags = soup(&#39;a&#39;)
 for tag in tags:
     print(tag.get(&#39;href&#39;, None))
 
-# Code: http://www.py4e.com/code3/urllinks.py</code></pre>
+# Code: https://www.py4e.com/code3/urllinks.py</code></pre>
 <p>The program prompts for a web address, then opens the web page, reads
 the data and passes the data to the BeautifulSoup parser, and then
 retrieves all of the anchor tags and prints out the <code>href</code>
@@ -738,7 +738,7 @@ for tag in tags:
     print(&#39;Contents:&#39;, tag.contents[0])
     print(&#39;Attrs:&#39;, tag.attrs)
 
-# Code: http://www.py4e.com/code3/urllink2.py</code></pre>
+# Code: https://www.py4e.com/code3/urllink2.py</code></pre>
 <pre><code>python urllink2.py
 Enter - http://www.dr-chuck.com/page1.htm
 TAG: &lt;a href=&quot;http://www.dr-chuck.com/page2.htm&quot;&gt;
@@ -811,32 +811,34 @@ the Internet which they use to build their search index.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Change the socket program <code>socket1.py</code>
-to prompt the user for the URL so it can read any web page.</strong></p>
+<p><strong>Exercise 1:</strong> Change the socket program
+<code>socket1.py</code> to prompt the user for the URL so it can read
+any web page.</p>
 <p>You can use <code>split('/')</code> to break the URL into its
 component parts so you can extract the host name for the socket
 <code>connect</code> call. Add error checking using <code>try</code> and
 <code>except</code> to handle the condition where the user enters an
 improperly formatted or non-existent URL.</p>
-<p><strong>Exercise 2: Change your socket program so that it counts the
-number of characters it has received and stops displaying any text after
-it has shown 3000 characters. The program should retrieve the entire
-document and count the total number of characters and display the count
-of the number of characters at the end of the document.</strong></p>
-<p><strong>Exercise 3: Use <code>urllib</code> to replicate the previous
-exercise of (1) retrieving the document from a URL, (2) displaying up to
-3000 characters, and (3) counting the overall number of characters in
-the document. Don’t worry about the headers for this exercise, simply
-show the first 3000 characters of the document contents.</strong></p>
-<p><strong>Exercise 4: Change the <code>urllinks.py</code> program to
-extract and count paragraph (p) tags from the retrieved HTML document
-and display the count of the paragraphs as the output of your program.
-Do not display the paragraph text, only count them. Test your program on
-several small web pages as well as some larger web pages.</strong></p>
-<p><strong>Exercise 5: (Advanced) Change the socket program so that it
-only shows data after the headers and a blank line have been received.
-Remember that <code>recv</code> receives characters (newlines and all),
-not lines.</strong></p>
+<p><strong>Exercise 2:</strong> Change your socket program so that it
+counts the number of characters it has received and stops displaying any
+text after it has shown 3000 characters. The program should retrieve the
+entire document and count the total number of characters and display the
+count of the number of characters at the end of the document.</p>
+<p><strong>Exercise 3:</strong> Use <code>urllib</code> to replicate the
+previous exercise of (1) retrieving the document from a URL, (2)
+displaying up to 3000 characters, and (3) counting the overall number of
+characters in the document. Don’t worry about the headers for this
+exercise, simply show the first 3000 characters of the document
+contents.</p>
+<p><strong>Exercise 4:</strong> Change the <code>urllinks.py</code>
+program to extract and count paragraph (p) tags from the retrieved HTML
+document and display the count of the paragraphs as the output of your
+program. Do not display the paragraph text, only count them. Test your
+program on several small web pages as well as some larger web pages.</p>
+<p><strong>Exercise 5:</strong> (Advanced) Change the socket program so
+that it only shows data after the headers and a blank line have been
+received. Remember that <code>recv</code> receives characters (newlines
+and all), not lines.</p>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />

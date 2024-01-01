@@ -417,7 +417,7 @@ while (True):
 average = total / count
 print(&#39;Average:&#39;, average)
 
-# Code: http://www.py4e.com/code3/avenum.py</code></pre>
+# Code: https://www.py4e.com/code3/avenum.py</code></pre>
 <p>In this program, we have <code>count</code> and <code>total</code>
 variables to keep the number and running total of the user’s numbers as
 we repeatedly prompt the user for a number.</p>
@@ -433,7 +433,7 @@ while (True):
 average = sum(numlist) / len(numlist)
 print(&#39;Average:&#39;, average)
 
-# Code: http://www.py4e.com/code3/avelist.py</code></pre>
+# Code: https://www.py4e.com/code3/avelist.py</code></pre>
 <p>We make an empty list before the loop starts, and then each time we
 have a number, we append it to the list. At the end of the program, we
 simply compute the sum of the numbers in the list and divide it by the
@@ -505,7 +505,7 @@ for line in fhand:
     words = line.split()
     print(words[2])
 
-# Code: http://www.py4e.com/code3/search5.py</code></pre>
+# Code: https://www.py4e.com/code3/search5.py</code></pre>
 <p>The program produces the following output:</p>
 <pre><code>Sat
 Fri
@@ -641,11 +641,11 @@ used:</p>
 &gt;&gt;&gt; rest = tail(letters)
 &gt;&gt;&gt; print(rest)
 [&#39;b&#39;, &#39;c&#39;]</code></pre>
-<p><strong>Exercise 1: Write a function called <code>chop</code> that
-takes a list and modifies it, removing the first and last elements, and
-returns <code>None</code>. Then write a function called
-<code>middle</code> that takes a list and returns a new list that
-contains all but the first and last elements.</strong></p>
+<p><strong>Exercise 1:</strong> Write a function called
+<code>chop</code> that takes a list and modifies it, removing the first
+and last elements, and returns <code>None</code>. Then write a function
+called <code>middle</code> that takes a list and returns a new list that
+contains all but the first and last elements.</p>
 <h2 id="debugging">Debugging</h2>
 <p></p>
 <p>Careless use of lists (and other mutable objects) can lead to long
@@ -799,15 +799,15 @@ Our guardian statement does make sure that the <code>words[0]</code>
 will never fail, but perhaps it is not enough. When we are programming,
 we must always be thinking, “What might go wrong?”</p></li>
 </ol>
-<p><strong>Exercise 2: Figure out which line of the above program is
-still not properly guarded. See if you can construct a text file which
-causes the program to fail and then modify the program so that the line
-is properly guarded and test it to make sure it handles your new text
-file.</strong></p>
-<p><strong>Exercise 3: Rewrite the guardian code in the above example
-without two <code>if</code> statements. Instead, use a compound logical
-expression using the <code>or</code> logical operator with a single
-<code>if</code> statement.</strong></p>
+<p><strong>Exercise 2:</strong> Figure out which line of the above
+program is still not properly guarded. See if you can construct a text
+file which causes the program to fail and then modify the program so
+that the line is properly guarded and test it to make sure it handles
+your new text file.</p>
+<p><strong>Exercise 3:</strong> Rewrite the guardian code in the above
+example without two <code>if</code> statements. Instead, use a compound
+logical expression using the <code>or</code> logical operator with a
+single <code>if</code> statement.</p>
 <h2 id="glossary">Glossary</h2>
 <dl>
 <dt>aliasing</dt>

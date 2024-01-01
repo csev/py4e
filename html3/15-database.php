@@ -260,7 +260,7 @@ cur.execute(&#39;CREATE TABLE Track (title TEXT, plays INTEGER)&#39;)
 
 conn.close()
 
-# Code: http://www.py4e.com/code3/db1.py</code></pre>
+# Code: https://www.py4e.com/code3/db1.py</code></pre>
 <p> </p>
 <p>The <code>connect</code> operation makes a “connection” to the
 database stored in the file <code>music.sqlite</code> in the current
@@ -335,7 +335,7 @@ conn.commit()
 
 cur.close()
 
-# Code: http://www.py4e.com/code3/db2.py</code></pre>
+# Code: https://www.py4e.com/code3/db2.py</code></pre>
 <p>First we <code>INSERT</code> two rows into our table and use
 <code>commit()</code> to force the data to be written to the database
 file.</p>

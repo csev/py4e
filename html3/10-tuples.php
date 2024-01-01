@@ -282,7 +282,7 @@ for length, word in t:
 
 print(res)
 
-# Code: http://www.py4e.com/code3/soft.py</code></pre>
+# Code: https://www.py4e.com/code3/soft.py</code></pre>
 <p>The first loop builds a list of tuples, where each tuple is a word
 preceded by its length.</p>
 <p><code>sort</code> compares the first element, length, first, and only
@@ -305,9 +305,19 @@ Python list and sorted in descending word length order.</p>
 ability to have a tuple on the left side and a sequence on the right
 side of an assignment statement. This allows you to assign more than one
 variable at a time to the given sequence.</p>
-<p>In this example we have a two-element list (which is a sequence) and
-assign the first and second elements of the sequence to the variables
-<code>x</code> and <code>y</code> in a single statement.</p>
+<p>In this example we have a two-element tuple and assign the first and
+second elements of the tuple to the variables <code>x</code> and
+<code>y</code> in a single statement.</p>
+<pre class="python trinket"><code>&gt;&gt;&gt; m = ( &#39;have&#39;, &#39;fun&#39; )
+&gt;&gt;&gt; x, y = m
+&gt;&gt;&gt; x
+&#39;have&#39;
+&gt;&gt;&gt; y
+&#39;fun&#39;
+&gt;&gt;&gt;</code></pre>
+<p>This is more general than tuple-to-tuple assignment. Both tuples and
+lists are sequences, so this syntax works with a two element list as
+well.</p>
 <pre class="python trinket"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
 &gt;&gt;&gt; x, y = m
 &gt;&gt;&gt; x
@@ -318,7 +328,7 @@ assign the first and second elements of the sequence to the variables
 <p>It is not magic, Python <em>roughly</em> translates the tuple
 assignment syntax to be the following:<a href="#fn2"
 class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<pre class="python trinket"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
+<pre class="python trinket"><code>&gt;&gt;&gt; m = ( &#39;have&#39;, &#39;fun&#39; )
 &gt;&gt;&gt; x = m[0]
 &gt;&gt;&gt; y = m[1]
 &gt;&gt;&gt; x
@@ -329,7 +339,7 @@ class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>Stylistically when we use a tuple on the left side of the assignment
 statement, we omit the parentheses, but the following is an equally
 valid syntax:</p>
-<pre class="python"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
+<pre class="python"><code>&gt;&gt;&gt; m = ( &#39;have&#39;, &#39;fun&#39; )
 &gt;&gt;&gt; (x, y) = m
 &gt;&gt;&gt; x
 &#39;have&#39;
@@ -392,7 +402,7 @@ dictionaries</h2>
 you can see a nice code pattern for traversing the keys and values of a
 dictionary in a single loop:</p>
 <pre class="python"><code>d = {&#39;a&#39;:10, &#39;b&#39;:1, &#39;c&#39;:22}
-for key, val in list(d.items()):
+for key, val in d.items():
     print(val, key)</code></pre>
 <p>This loop has two <em>iteration variables</em> because
 <code>items</code> returns a list of tuples and <code>key, val</code> is
@@ -457,7 +467,7 @@ lst.sort(reverse=True)
 for key, val in lst[:10]:
     print(key, val)
 
-# Code: http://www.py4e.com/code3/count3.py</code></pre>
+# Code: https://www.py4e.com/code3/count3.py</code></pre>
 <p>The first part of the program which reads the file and computes the
 dictionary that maps each word to the count of words in the document is
 unchanged. But instead of simply printing out <code>counts</code> and
@@ -622,9 +632,10 @@ assigned to the variables on the left.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Revise a previous program as follows: Read and
-parse the “From” lines and pull out the addresses from the line. Count
-the number of messages from each person using a dictionary.</strong></p>
+<p><strong>Exercise 1:</strong> Revise a previous program as follows:
+Read and parse the “From” lines and pull out the addresses from the
+line. Count the number of messages from each person using a
+dictionary.</p>
 <p>After all the data has been read, print the person with the most
 commits by creating a list of (count, email) tuples from the dictionary.
 Then sort the list in reverse order and print out the person who has the
@@ -637,12 +648,12 @@ cwen@iupui.edu 5
 
 Enter a file name: mbox.txt
 zqian@umich.edu 195</code></pre>
-<p><strong>Exercise 2: This program counts the distribution of the hour
-of the day for each of the messages. You can pull the hour from the
-“From” line by finding the time string and then splitting that string
-into parts using the colon character. Once you have accumulated the
-counts for each hour, print out the counts, one per line, sorted by hour
-as shown below.</strong></p>
+<p><strong>Exercise 2:</strong> This program counts the distribution of
+the hour of the day for each of the messages. You can pull the hour from
+the “From” line by finding the time string and then splitting that
+string into parts using the colon character. Once you have accumulated
+the counts for each hour, print out the counts, one per line, sorted by
+hour as shown below.</p>
 <pre><code>python timeofday.py
 Enter a file name: mbox-short.txt
 04 3
@@ -657,8 +668,8 @@ Enter a file name: mbox-short.txt
 17 2
 18 1
 19 1</code></pre>
-<p><strong>Exercise 3: Write a program that reads a file and prints the
-<em>letters</em> in decreasing order of frequency.</strong></p>
+<p><strong>Exercise 3:</strong> Write a program that reads a file and
+prints the <em>letters</em> in decreasing order of frequency.</p>
 <p>Your program should convert all the input to lower case and only
 count the letters a-z. Your program should not count spaces, digits,
 punctuation, or anything other than the letters a-z. Find text samples

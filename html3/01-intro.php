@@ -217,7 +217,7 @@ true, reading and understanding text from a piece of paper is hard for a
 computer to do but counting the words and telling you how many times the
 most used word was used is very easy for the computer:</p>
 <pre class="python"><code>python words.py
-Enter file:words.txt
+Enter file: words.txt
 to 16</code></pre>
 <p>Our “personal information analysis assistant” quickly told us that
 the word “to” was used sixteen times in the first three paragraphs of
@@ -652,7 +652,7 @@ for word, count in list(counts.items()):
 
 print(bigword, bigcount)
 
-# Code: http://www.py4e.com/code3/words.py</code></pre>
+# Code: https://www.py4e.com/code3/words.py</code></pre>
 <p>You don’t even need to know Python to use this program. You will need
 to get through Chapter 10 of this book to fully understand the awesome
 Python techniques that were used to make the program. You are the end
@@ -1004,39 +1004,39 @@ A program in a high-level language.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: What is the function of the secondary memory in a
-computer?</strong></p>
+<p><strong>Exercise 1:</strong> What is the function of the secondary
+memory in a computer?</p>
 <p>a) Execute all of the computation and logic of the program<br />
 b) Retrieve web pages over the Internet<br />
 c) Store information for the long term, even beyond a power cycle<br />
 d) Take input from the user</p>
-<p><strong>Exercise 2: What is a program?</strong></p>
-<p><strong>Exercise 3: What is the difference between a compiler and an
-interpreter?</strong></p>
-<p><strong>Exercise 4: Which of the following contains “machine
-code”?</strong></p>
+<p><strong>Exercise 2:</strong> What is a program?</p>
+<p><strong>Exercise 3:</strong> What is the difference between a
+compiler and an interpreter?</p>
+<p><strong>Exercise 4:</strong> Which of the following contains “machine
+code”?</p>
 <p>a) The Python interpreter<br />
 b) The keyboard<br />
 c) Python source file<br />
 d) A word processing document</p>
-<p><strong>Exercise 5: What is wrong with the following
-code:</strong></p>
+<p><strong>Exercise 5:</strong> What is wrong with the following
+code:</p>
 <pre class="python"><code>&gt;&gt;&gt; primt &#39;Hello world!&#39;
 File &quot;&lt;stdin&gt;&quot;, line 1
   primt &#39;Hello world!&#39;
                      ^
 SyntaxError: invalid syntax
 &gt;&gt;&gt;</code></pre>
-<p><strong>Exercise 6: Where in the computer is a variable such as “x”
-stored after the following Python line finishes?</strong></p>
+<p><strong>Exercise 6:</strong> Where in the computer is a variable such
+as “x” stored after the following Python line finishes?</p>
 <pre class="python"><code>x = 123</code></pre>
 <p>a) Central processing unit<br />
 b) Main Memory<br />
 c) Secondary Memory<br />
 d) Input Devices<br />
 e) Output Devices</p>
-<p><strong>Exercise 7: What will the following program print
-out:</strong></p>
+<p><strong>Exercise 7:</strong> What will the following program print
+out:</p>
 <pre class="python"><code>x = 43
 x = x - 1
 print(x)</code></pre>
@@ -1044,12 +1044,11 @@ print(x)</code></pre>
 b) 42<br />
 c) x + 1<br />
 d) Error because x = x + 1 is not possible mathematically</p>
-<p><strong>Exercise 8: Explain each of the following using an example of
-a human capability: (1) Central processing unit, (2) Main Memory, (3)
-Secondary Memory, (4) Input Device, and (5) Output Device. For example,
-“What is the human equivalent to a Central Processing
-Unit”?</strong></p>
-<p><strong>Exercise 9: How do you fix a “Syntax Error”?</strong></p>
+<p><strong>Exercise 8:</strong> Explain each of the following using an
+example of a human capability: (1) Central processing unit, (2) Main
+Memory, (3) Secondary Memory, (4) Input Device, and (5) Output Device.
+For example, “What is the human equivalent to a Central Processing
+Unit”?</p>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />

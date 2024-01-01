@@ -280,7 +280,7 @@ type <code>done</code>. You could write:</p>
     print(line)
 print(&#39;Done!&#39;)
 
-# Code: http://www.py4e.com/code3/copytildone1.py</code></pre>
+# Code: https://www.py4e.com/code3/copytildone1.py</code></pre>
 <p>The loop condition is <code>True</code>, which is always true, so the
 loop runs repeatedly until it hits the break statement.</p>
 <p>Each time through, it prompts the user with an angle bracket. If the
@@ -317,7 +317,7 @@ lines not to be printed (kind of like Python comments).</p>
     print(line)
 print(&#39;Done!&#39;)
 
-# Code: http://www.py4e.com/code3/copytildone2.py</code></pre>
+# Code: https://www.py4e.com/code3/copytildone2.py</code></pre>
 <p>Here is a sample run of this new program with <code>continue</code>
 added.</p>
 <pre><code>&gt; hello there
@@ -562,12 +562,12 @@ calls itself or a loop.
 </dd>
 </dl>
 <h2 id="exercises">Exercises</h2>
-<p><strong>Exercise 1: Write a program which repeatedly reads numbers
-until the user enters “done”. Once “done” is entered, print out the
-total, count, and average of the numbers. If the user enters anything
-other than a number, detect their mistake using <code>try</code> and
-<code>except</code> and print an error message and skip to the next
-number.</strong></p>
+<p><strong>Exercise 1:</strong> Write a program which repeatedly reads
+integers until the user enters “done”. Once “done” is entered, print out
+the total, count, and average of the integers. If the user enters
+anything other than a integers, detect their mistake using
+<code>try</code> and <code>except</code> and print an error message and
+skip to the next integers.</p>
 <pre><code>Enter a number: 4
 Enter a number: 5
 Enter a number: bad data
@@ -575,9 +575,9 @@ Invalid input
 Enter a number: 7
 Enter a number: done
 16 3 5.333333333333333</code></pre>
-<p><strong>Exercise 2: Write another program that prompts for a list of
-numbers as above and at the end prints out both the maximum and minimum
-of the numbers instead of the average.</strong></p>
+<p><strong>Exercise 2:</strong> Write another program that prompts for a
+list of numbers as above and at the end prints out both the maximum and
+minimum of the numbers instead of the average.</p>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
