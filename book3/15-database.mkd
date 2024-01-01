@@ -206,11 +206,6 @@ Our `for` loop finds two rows, and each row is a Python tuple
 with the first value as the `title` and the second value as
 the number of `plays`.
 
-*Note: You may see strings starting with `u'` in other books or on the Internet.
-This was an indication in Python 2 that the strings are *Unicode* strings that are capable
-of storing non-Latin character sets. In Python 3, all strings are Unicode
-strings by default.*
-
 At the very end of the program, we execute an SQL command to
 `DELETE` the rows we have just created so we can run the
 program over and over. The `DELETE` command shows the use of
@@ -283,14 +278,6 @@ follows:
 SELECT title,plays FROM Track ORDER BY title
 ~~~~
 
-To remove a row, you need a `WHERE` clause on an SQL
-`DELETE` statement. The `WHERE` clause determines
-which rows are to be deleted:
-
-~~~~ {.sql}
-DELETE FROM Track WHERE title = 'My Way'
-~~~~
-
 It is possible to `UPDATE` a column or columns within one or
 more rows in a table using the SQL `UPDATE` statement as
 follows:
@@ -307,12 +294,20 @@ rows that match the `WHERE` clause. If a `WHERE`
 clause is not specified, it performs the `UPDATE` on all of
 the rows in the table.
 
+To remove a row, you need a `WHERE` clause on an SQL
+`DELETE` statement. The `WHERE` clause determines
+which rows are to be deleted:
+
+~~~~ {.sql}
+DELETE FROM Track WHERE title = 'My Way'
+~~~~
+
 \index{CRUD}
 \index{SQL!CRUD}
 These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow
 the four basic operations needed to create and maintain data.  We use
 "CRUD" (Create, Read, Update, and Delete) to capture all these
-concepts in a single term. ^[Yes there is a disconnect between "CRUD"
+concepts in a single term.^[Yes there is a disconnect between "CRUD"
 term and the first letters of the four SQL statements that implement
 "CRUD".  A possible explanation might be to claim that "CRUD" is the
 "concept" and SQL is the implementation.  Another possible explanation
@@ -401,7 +396,9 @@ INSERT INTO Track (title, plays, artist, eyes)
 Since Frank Sinatra recorded over 1200 songs, are we really going
 to put the string 'Blue' in 1200 rows in our `Track` table.  And
 what would happen if we decided his eye color was 'Light Blue'? Something
-just does not feel right.  The right solution is to create a table
+just does not feel right.
+
+The correct solution is to create a table
 for the each `Artist` and store all the data about the artist in
 that table.  And then somehow we need to make a connection between
 a row in the `Track` table to a row in the `Artist` table.  Perhaps
@@ -424,7 +421,7 @@ To do this, we need why we call 'keys'.  These keys will just be integer numbers
 that we can use to lookup a row in different table.  If we are going to make
 links to rows inside of a table, we need to add a *primary key* to the rows in the
 table.  By convention we usually name the primary key column 'id'.  So our
-`Artist`table looks as follows:
+`Artist` table looks as follows:
 
 ~~~~ {.sql}
 DROP TABLE IF EXISTS Artist;
@@ -482,7 +479,7 @@ While it might seem a little clunky and your instincts might tell you that
 it would be faster just to keep the data in one table, it turns out the
 the limit on database performance is how much data needs to be scanned
 when retrieving a query.  While they details are very complex, integers
-are a lot smaller than strings (especially Unicode Strings) and far quicker to
+are a lot smaller than strings (especially Unicode) and far quicker to
 to move and compare.
 
 Data model diagrams
@@ -490,11 +487,11 @@ Data model diagrams
 
 \index{Data model diagrams}
 \index{Entity-Relationship diagrams}
-While out `Track` and `Artist` database design, is very simple
+While our `Track` and `Artist` database design is simple
 with just two tables and a single
 one-to-many relationship, these data models can get complicated quickly
 and are easier to understand if we can make a graphical representation
-data model.
+of our data model.
 
 ![A Verbose One-to-Many Data Model\label{figvrbo2m}](height=1.5in@../images/one-to-many-verbose)
 
@@ -511,16 +508,16 @@ In this case, "many" tracks can be associated with each artist.  So the track en
 is shown with the crow's foot spread out indicating it is the" "many" end.  The
 artist end is shown with a vertical like that indicates "one".  There will be "many"
 artists in general, but the important aspect is that for each artist there will be
-many tracks.
+many tracks.  And each of those artists may be associated with multiple tracks.
 
 \index{foreign key}
 You will note that the column that holds the *foreign_key* like `artist_id` is on
 the "many" end and the *primary key* is at the "one" end.
 
 Since the pattern of foreign and primary key placement is so consistent and
-follows the "many" and "one" ends of the lines, in reality we never include
+follows the "many" and "one" ends of the lines, we never include
 either the primary or foreign key columns in our diagram of the data model
-as shown in the second diagram as showin in Figure \ref{figo2m}.
+as shown in the second diagram as shown in Figure \ref{figo2m}.
 The columns are thought of as "implementation detail" to capture the nature of
 the relationship details and not an essential part of the data being modeled.
 
@@ -549,7 +546,9 @@ INSERT INTO Artist (name, eyes)
 
 Now we have instructed the database to auto-assign us a unique value to
 the Frank Sinatra row.  But we then need a way to have the database tell
-us the `id` value for the recently inserted row:
+us the `id` value for the recently inserted row.  One way is to use a `SELECT`
+statement to retrieve data from an SQLite built-in-fuction
+called `last_insert_rowid()`.
 
 ~~~~
 sqlite> DROP TABLE IF EXISTS Artist;
@@ -683,8 +682,7 @@ sqlite>
 
 By combining an `INSERT OR IGNORE` and a `SELECT` we can insert a new
 record if the name is not already there and whether or not the record
-is already there, retrieve the *primary* key of the record regardless
-of whether it was newly inserted or already present in the table.
+is already there, retrieve the *primary* key of the record.
 
 ~~~~
 sqlite> INSERT OR IGNORE INTO Artist (name, eyes)
@@ -701,12 +699,14 @@ Since we have not added a uniqueness constraint to the eye color
 column, there is no problem having multiple 'Blue' values in the
 `eye` column.
 
+![Tracks, Albums, and Artists\label{figtaa}](height=1.5in@../images/tracks-albums-artists)
+
 Sample multi-table application
 ------------------------------
 
 A sample application called `tracks_csv.py` shows how these ideas can be combined
 to parse textual data and load it into several tables using a proper data
-model with relational connections between the tables:
+model with relational connections between the tables.
 
 This application reads and parses a comma-separated file `tracks.csv` based on
 an export from Dr. Chuck's iTunes library.
@@ -721,8 +721,6 @@ Black Dog,Led Zeppelin,IV,109,100,296620
 
 The columns in this file are: title, artist, album, number of plays,
 rating (0-100) and length in milliseconds.
-
-![Tracks, Albums, and Artists\label{figtaa}](height=1.5in@../images/tracks-albums-artists)
 
 Our data model is shown in Figure \ref{figtaa} and described in SQL as follows:
 
@@ -751,7 +749,7 @@ CREATE TABLE Track (
 ~~~~
 
 We are adding the `UNIQUE` keyword to `TEXT` columns that we would like
-to have a uniqueness constraint that w will use in `INSERT IGNORE` statements.
+to have a uniqueness constraint that we will use in `INSERT IGNORE` statements.
 This is more succinct that separate `CREATE INDEX` statements but has the
 same effect.
 
@@ -819,7 +817,6 @@ id  artist_id  title
 3   3          Grease           
 4   4          IV               
 5   5          The Wall [Disc 2]
-sqlite>
 ~~~~
 
 \index{SQL!JOIN}
@@ -878,8 +875,6 @@ For example, lets say we are going to build a data model for a course management
 system.  There will be courses, users, and rosters.   A user can be on the roster
 for many courses and a course will have many users on its roster.
 
-![A Many to Many Relationship\label{figm2m}](height=1.5in@../images/many-to-many)
-
 It is pretty simple to *draw* a many-to-many relationship as shown in Figure \ref{figm2m}.
 We simply draw two tables and connect them with a line that has the "many" indicator on both
 ends of the lines.  The problem is how to *implement* the raltionship using primary keys and
@@ -887,6 +882,8 @@ foreign keys.
 
 Before we explore how we implement many-to-many relationships, lets see if we could hack
 something up by extending a one-to many relationship.
+
+![A Many to Many Relationship\label{figm2m}](height=1.5in@../images/many-to-many)
 
 If SQL supported the notion of arrays, we might try to define this:
 
@@ -1028,7 +1025,7 @@ for entry in json_data:
 Like in a previous example, we first make sure that we have an entry
 in the `User` table and know the primary key of the entry as well as
 an entry in the `Course` table and know its primary key.  We use the
-'INSERT OR IGNORE' and 'SELECT' patter so our code work regardless
+'INSERT OR IGNORE' and 'SELECT' pattern so our code works regardless
 of whether the record is in the table or not.
 
 Our insert into the `Member` table is simply inserting the two integers
@@ -1068,6 +1065,104 @@ You can see the three tables from left to right - `Course`, `Member`,
 and `User` and you can see the connections between the primary keys and
 foreign keys in each row of output.
 
+Modeling data at the many-to-many connection
+--------------------------------------------
+
+While we have presented the "join table" as having two foreign keys making a connection
+between rows in two tables, this is the simplest form of a join table.  It is quite
+common to want to add some data to the connection itself.
+
+Continuing with our example of users, courses, and rosters to model a
+simple learning management system, we will also need to understand the *role*
+that each user is assigned in each course.
+
+If we first try to solve this by adding an "instructor" flag to the `User` table,
+we will find that this does not work because a user can be a instructor in one
+course and a student in another course.  If we add an `instructor_id` to
+the `Course` table it will not work because a course can have multiple
+instructors.  And there is no one-to-many hack that can deal with the fact that
+the number of roles will expand into roles like Teaching Assistant or Parent.
+
+But if we simply add a `role` column to the `Member` table - we can represent
+a wide range of roles, role combinations, etc.
+
+Lets change our member table as follows:
+
+~~~~ {.sql}
+DROP TABLE Member;
+
+CREATE TABLE Member (
+    user_id     INTEGER,
+    course_id   INTEGER,
+    role        INTEGER,
+    PRIMARY KEY (user_id, course_id)
+);
+~~~~
+
+For simplicity, we will decide that zero in the role means "student" and one in the
+`role` means instructor.  Lets assume our JSON data is augmented with the role as
+follows:
+
+~~~~
+[
+  [ "Charley", "si110", 1],
+  [ "Mea", "si110", 0],
+  [ "Hattie", "si110", 0],
+  [ "Keziah", "si110", 0],
+  [ "Rosa", "si106", 0],
+  [ "Mea", "si106", 1],
+  [ "Mairin", "si106", 0],
+  [ "Zendel", "si106", 0],
+  [ "Honie", "si106", 0],
+  [ "Rosa", "si106", 0],
+...
+]
+~~~~
+
+We could alter the `roster.py` program above to incorporate role as follows:
+
+~~~~ {.python}
+for entry in json_data:
+
+    name = entry[0]
+    title = entry[1]
+    role = entry[2]
+
+    ...
+
+    cur.execute('''INSERT OR REPLACE INTO Member
+        (user_id, course_id, role) VALUES ( ?, ?, ? )''',
+        ( user_id, course_id, role ) )
+~~~~
+
+In a real system, we would proably build a `Role` table and make 
+the `role` column in `Member` a foreign key into the Role table
+as follows:
+
+~~~~ {.sql}
+DROP TABLE Member;
+
+CREATE TABLE Member (
+    user_id     INTEGER,
+    course_id   INTEGER,
+    role_id     INTEGER,
+    PRIMARY KEY (user_id, course_id, role_id)
+);
+
+CREATE TABLE Role (
+    id          INTEGER PRIMARY KEY,
+    name        TEXT UNIQUE
+);
+
+INSERT INTO Role (id, name) VALUES (0, 'Student');
+INSERT INTO Role (id, name) VALUES (1, 'Instructor');
+~~~~
+
+Notice that because we declared the `id` column in the `Role` table
+as a `PRIMARY KEY`, we *could* omit it in the `INSERT` statement.
+But we can also choose the `id` value as long as the value is not
+already in the `id` column and does not violate the implied `UNIQUE`
+constaint on primary keys.
 
 Summary
 -------
