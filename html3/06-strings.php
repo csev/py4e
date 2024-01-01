@@ -591,21 +591,6 @@ incremented.
 A string with no characters and length 0, represented by two quotation
 marks.
 </dd>
-<dt>format operator</dt>
-<dd>
-An operator, <code>%</code>, that takes a format string and a tuple and
-generates a string that includes the elements of the tuple formatted as
-specified by the format string.
-</dd>
-<dt>format sequence</dt>
-<dd>
-A sequence of characters in a format string, like <code>%d</code>, that
-specifies how a value should be formatted.
-</dd>
-<dt>format string</dt>
-<dd>
-A string, used with the format operator, that contains format sequences.
-</dd>
 <dt>flag</dt>
 <dd>
 A boolean variable used to indicate whether a condition is true or
