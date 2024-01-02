@@ -399,10 +399,17 @@ an.party()
 
 # Code: https://www.py4e.com/code3/party2.py</code></pre>
 <p>Each method looks like a function, starting with the <code>def</code>
-keyword and consisting of an indented block of code. This object has one
-attribute (<code>x</code>) and one method (<code>party</code>). The
-methods have a special first parameter that we name by convention
-<code>self</code>.</p>
+keyword and consisting of an indented block of code.</p>
+<p>The first method is a specially-named method called
+<code>__init()__</code>. This method is called to do any initial setup
+of the data we want to store in the object. In this class we allocate
+the <code>x</code> attribute using dot notation and initialize it to
+zero.</p>
+<pre class="python"><code>    self.x = 0</code></pre>
+<p>The other method named <code>party</code>. The methods all have a
+special first parameter that we name by convention <code>self</code>.
+The first parameter gives us access to the object instance so we can set
+attributes and call methods using dot notation.</p>
 <p>Just as the <code>def</code> keyword does not cause function code to
 be executed, the <code>class</code> keyword does not create an object.
 Instead, the <code>class</code> keyword defines a template indicating
