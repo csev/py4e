@@ -224,7 +224,7 @@ print (stuff[0])
 print (stuff.__getitem__(0))
 print (list.__getitem__(stuff,0))
 
-# Code: https://www.py4e.com/code3/party1.py</code></pre>
+# Code: https://www.py4e.com/code3/objects.py</code></pre>
 <p>Instead of focusing on what these lines accomplish, let’s look at
 what is really happening from the point of view of object-oriented
 programming. Don’t worry if the following paragraphs don’t make any
@@ -384,7 +384,9 @@ that will make up each of the objects. The class keyword includes the
 name of the class and begins an indented block of code where we include
 the attributes (data) and methods (code).</p>
 <pre class="python"><code>class PartyAnimal:
-   x = 0
+
+   def __init__(self):
+     self.x = 0
 
    def party(self) :
      self.x = self.x + 1
@@ -394,7 +396,6 @@ an = PartyAnimal()
 an.party()
 an.party()
 an.party()
-PartyAnimal.party(an)
 
 # Code: https://www.py4e.com/code3/party2.py</code></pre>
 <p>Each method looks like a function, starting with the <code>def</code>
@@ -472,7 +473,9 @@ built-in <code>dir</code> function to examine the capabilities of a
 variable. We can also use <code>type</code> and <code>dir</code> with
 the classes that we create.</p>
 <pre class="python"><code>class PartyAnimal:
-   x = 0
+
+   def __init__(self):
+     self.x = 0
 
    def party(self) :
      self.x = self.x + 1
@@ -508,9 +511,9 @@ constructed and possibly clean things up as the object is discarded.</p>
 <p>If we want our object to be aware of these moments of construction
 and destruction, we add specially named methods to our object:</p>
 <pre class="python"><code>class PartyAnimal:
-   x = 0
 
    def __init__(self):
+     self.x = 0
      print(&#39;I am constructed&#39;)
 
    def party(self) :
@@ -556,9 +559,9 @@ set up different initial values for each of the objects. We can pass
 data to the constructors to give each object a different initial
 value:</p>
 <pre class="python"><code>class PartyAnimal:
-   x = 0
-   name = &#39;&#39;
+
    def __init__(self, nam):
+     self.x = 0
      self.name = nam
      print(self.name,&#39;constructed&#39;)
 
@@ -601,7 +604,11 @@ new file and extend it, as follows:</p>
 <pre class="python"><code>from party import PartyAnimal
 
 class CricketFan(PartyAnimal):
-   points = 0
+
+   def __init__(self, nam) :
+       super().__init__(nam)
+       self.points = 0
+
    def six(self):
       self.points = self.points + 6
       self.party()
@@ -645,15 +652,21 @@ focuses mainly on terminology and the syntax of defining and using
 objects. Let’s quickly review the code that we looked at in the
 beginning of the chapter. At this point you should fully understand what
 is going on.</p>
-<pre class="python"><code>stuff = list()
-stuff.append(&#39;python&#39;)
-stuff.append(&#39;chuck&#39;)
-stuff.sort()
-print (stuff[0])
-print (stuff.__getitem__(0))
-print (list.__getitem__(stuff,0))
+<pre class="python"><code>class PartyAnimal:
 
-# Code: https://www.py4e.com/code3/party1.py</code></pre>
+   def __init__(self):
+     self.x = 0
+
+   def party(self) :
+     self.x = self.x + 1
+     print(&quot;So far&quot;,self.x)
+
+an = PartyAnimal()
+an.party()
+an.party()
+an.party()
+
+# Code: https://www.py4e.com/code3/party2.py</code></pre>
 <p>The first line constructs a <code>list</code> <em>object</em>. When
 Python creates the <code>list</code> object, it calls the
 <em>constructor</em> method (named <code>__init__</code>) to set up the
@@ -749,8 +762,9 @@ class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 class is defined, take a look at (hopefully the URL won’t change)
 https://github.com/python/cpython/blob/master/Objects/listobject.c - the
 list class is written in a language called “C”. If you take a look at
-that source code and find it curious you might want to explore a few
-Computer Science courses.<a href="#fnref3" class="footnote-back"
+that source code and find it curious you might want to explore C
+programming with an eye towards building objects at
+https://www.cc4e.com/.<a href="#fnref3" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>

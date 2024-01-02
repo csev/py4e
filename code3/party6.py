@@ -1,7 +1,11 @@
 from party import PartyAnimal
 
 class CricketFan(PartyAnimal):
-   points = 0
+
+   def __init__(self, nam) :
+       super().__init__(nam)
+       self.points = 0
+
    def six(self):
       self.points = self.points + 6
       self.party()

@@ -1,5 +1,7 @@
 class PartyAnimal:
-   x = 0
+
+   def __init__(self):
+     self.x = 0
 
    def party(self) :
      self.x = self.x + 1

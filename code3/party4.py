@@ -1,7 +1,7 @@
 class PartyAnimal:
-   x = 0
 
    def __init__(self):
+     self.x = 0
      print('I am constructed')
 
    def party(self) :
