@@ -207,11 +207,10 @@ and methods (code).
 Each method looks like a function, starting with the `def` keyword and
 consisting of an indented block of code.
 
-The first method is a
-specially-named method called `__init()__`.  This method is called
-to do any initial setup of the data we want to store in the object.
-In this class we allocate the `x` attribute using dot notation
-and initialize  it to zero.
+The first method is a specially-named method called `__init()__`.
+This method is called to do any initial setup of the data we want to
+store in the object.  In this class we allocate the `x` attribute
+using dot notation and initialize  it to zero.
 
 ~~~~ {.python}
     self.x = 0
@@ -426,6 +425,7 @@ Sally party count 2
 Inheritance
 -----------
 
+\index{object!inheritance}
 Another powerful feature of object-oriented programming is the ability to
 create a new class by extending an existing class.  When extending a class,
 we call the original class the *parent class* and the new class the
@@ -441,6 +441,22 @@ the `PartyAnimal` class.  This means that all of the variables (`x`) and methods
 (`party`) from the `PartyAnimal` class are *inherited* by the `CricketFan` class.
 For example, within the `six` method in the `CricketFan` class, we 
 call the `party` method from the `PartyAnimal` class.
+
+We use a special syntax in the `__init__()` method in the `CricketFan` class to insure
+that we call the `__init()__` method in the `PartyAnimal` so that whatever setup
+that `PartyAnimal` needs is done in addition to the setup needed for the `CriocketFan`
+extensions.
+
+~~~~ {.python}
+   def __init__(self, nam) :
+       super().__init__(nam)
+       self.points = 0
+~~~~
+
+\index{super class}
+The `super()` syntax is telling Python to call the `__init__` method in the class that
+we are extending.  `PartyAnimal` is the super (or parent) class and `CricketFan`
+is the sub (or child) class.
 
 As the program executes, we create `s` and `j` as independent instances
 of `PartyAnimal` and `CricketFan`. The `j` object has additional capabilities beyond
@@ -469,7 +485,7 @@ on terminology and the syntax of defining and using objects.
 Let's quickly review the code that we looked at in the beginning of the chapter.
 At this point you should fully understand what is going on.
 
-\VerbatimInput{../code3/party2.py}
+\VerbatimInput{../code3/objects.py}
 
 The first line constructs a `list` *object*.  When Python creates the `list` object,
 it calls the *constructor* method (named `__init__`) to set up the internal

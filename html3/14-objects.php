@@ -577,9 +577,9 @@ value:</p>
      print(self.name,&#39;party count&#39;,self.x)
 
 s = PartyAnimal(&#39;Sally&#39;)
+s.party()
 j = PartyAnimal(&#39;Jim&#39;)
 
-s.party()
 j.party()
 s.party()
 
@@ -601,7 +601,7 @@ Sally party count 1
 Jim party count 1
 Sally party count 2</code></pre>
 <h2 id="inheritance">Inheritance</h2>
-<p>Another powerful feature of object-oriented programming is the
+<p> Another powerful feature of object-oriented programming is the
 ability to create a new class by extending an existing class. When
 extending a class, we call the original class the <em>parent class</em>
 and the new class the <em>child class</em>.</p>
@@ -636,6 +636,18 @@ the variables (<code>x</code>) and methods (<code>party</code>) from the
 <code>CricketFan</code> class. For example, within the <code>six</code>
 method in the <code>CricketFan</code> class, we call the
 <code>party</code> method from the <code>PartyAnimal</code> class.</p>
+<p>We use a special syntax in the <code>__init__()</code> method in the
+<code>CricketFan</code> class to insure that we call the
+<code>__init()__</code> method in the <code>PartyAnimal</code> so that
+whatever setup that <code>PartyAnimal</code> needs is done in addition
+to the setup needed for the <code>CriocketFan</code> extensions.</p>
+<pre class="python"><code>   def __init__(self, nam) :
+       super().__init__(nam)
+       self.points = 0</code></pre>
+<p> The <code>super()</code> syntax is telling Python to call the
+<code>__init__</code> method in the class that we are extending.
+<code>PartyAnimal</code> is the super (or parent) class and
+<code>CricketFan</code> is the sub (or child) class.</p>
 <p>As the program executes, we create <code>s</code> and <code>j</code>
 as independent instances of <code>PartyAnimal</code> and
 <code>CricketFan</code>. The <code>j</code> object has additional
@@ -659,21 +671,15 @@ focuses mainly on terminology and the syntax of defining and using
 objects. Let’s quickly review the code that we looked at in the
 beginning of the chapter. At this point you should fully understand what
 is going on.</p>
-<pre class="python"><code>class PartyAnimal:
+<pre class="python"><code>stuff = list()
+stuff.append(&#39;python&#39;)
+stuff.append(&#39;chuck&#39;)
+stuff.sort()
+print (stuff[0])
+print (stuff.__getitem__(0))
+print (list.__getitem__(stuff,0))
 
-   def __init__(self):
-     self.x = 0
-
-   def party(self) :
-     self.x = self.x + 1
-     print(&quot;So far&quot;,self.x)
-
-an = PartyAnimal()
-an.party()
-an.party()
-an.party()
-
-# Code: https://www.py4e.com/code3/party2.py</code></pre>
+# Code: https://www.py4e.com/code3/objects.py</code></pre>
 <p>The first line constructs a <code>list</code> <em>object</em>. When
 Python creates the <code>list</code> object, it calls the
 <em>constructor</em> method (named <code>__init__</code>) to set up the
