@@ -494,7 +494,8 @@ except:
 counts = dict()
 for line in fhand:
     line = line.rstrip()
-    line = line.translate(line.maketrans(&#39;&#39;, &#39;&#39;, string.punctuation))
+    # First two parameters are empty strings
+    line = line.translate(line.maketrans(&quot;&quot;, &quot;&quot;, string.punctuation))
     line = line.lower()
     words = line.split()
     for word in words:
