@@ -195,10 +195,16 @@ https://gr.py4e.com Translation: Konstantia Kiourtidou</p></li>
 <li><p>Arabic - Translation: Electronics Go</p></li>
 </ul>
 <p>Anyone who is given permission to translate the book agrees to
-provide a free copy of the book online. Some of the books in print and
-avalailable for sale.</p>
+provide a free copy of the book online. Some of the translations are
+available in print and avalailable for purchase.</p>
 <h2 id="contributor-list-for-python-for-everybody">Contributor List for
 Python for Everybody</h2>
+<p>The source for the book is maintained in <code>github</code> and yuo
+can find numberous contributors for the book who find and suggest fixes
+using pull requests.</p>
+<p>https://github.com/csev/py4e/</p>
+<p>Look under <code>Insights -&gt; Contributors</code> to see all the
+folks who have contributed through <code>github</code>.</p>
 <p>Juan Carlos Perez Castellanos, Juan Dougnac, Daniel Merino
 Echeverría, Jaime Bermeo Ramírez, Fernando Tardío, Alessandro Rossetti,
 Vittore Zen, Yuri Loia de Medeiros, Konstantia Kiourtidou, Andrzej

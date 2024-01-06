@@ -409,12 +409,12 @@ for key, val in d.items():
 a tuple assignment that successively iterates through each of the
 key-value pairs in the dictionary.</p>
 <p>For each iteration through the loop, both <code>key</code> and
-<code>value</code> are advanced to the next key-value pair in the
+<code>val</code> are advanced to the next key-value pair in the
 dictionary (still in hash order).</p>
 <p>The output of this loop is:</p>
 <pre><code>10 a
-22 c
-1 b</code></pre>
+1 b
+22 c</code></pre>
 <p>Again, it is in hash key order (i.e., no particular order).</p>
 <p>If we combine these two techniques, we can print out the contents of
 a dictionary sorted by the <em>value</em> stored in each key-value

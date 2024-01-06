@@ -437,12 +437,14 @@ pairs in sorted order as follows:</p>
 lst = list(counts.keys())
 print(lst)
 lst.sort()
+print(lst)
 for key in lst:
     print(key, counts[key])</code></pre>
 <p>Here’s what the output looks like:</p>
 <pre><code>[&#39;chuck&#39;, &#39;annie&#39;, &#39;jan&#39;]
-chuck 1
+[&#39;annie&#39;, &#39;chuck&#39;, &#39;jan&#39;]
 annie 42
+chuck 1
 jan 100</code></pre>
 <p>First you see the list of keys in non-alphabetical order that we get
 from the <code>keys</code> method. Then we see the key-value pairs in
