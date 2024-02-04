@@ -17,7 +17,7 @@ $serviceurl = 'https://api.geoapify.com/v1/geocode/search?apiKey='.$OPENGEO_KEY.
 $q = \Tsugi\Util\U::get($_GET, 'q', false);
 if ( ! $q ) {
 ?>
-<h1>Python For Everybody Open StreetMap / GeoAPIfProxy Server</h1>
+<h1>Python For Everybody Open StreetMap / GeoAPIProxy Server</h1>
 <p>
 This server is used in the Python for Everybody
 (<a href="https://www.py4e.com">www.py4e.com</a>)
