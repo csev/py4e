@@ -159,7 +159,7 @@ the use of the <b>connect()</b> statement.
 </p>
 <h1>Musical Track Database</h1>
 <p>
-This application will read an iTunes export file in CSV format and produce a properly
+This application will read an iTunes export file in XML and produce a properly
 normalized database with this structure:
 <pre>
 CREATE TABLE Artist (
@@ -195,12 +195,10 @@ make sure to empty out the data before each run.
 You can use this code as a starting point for your application:
 <a href="http://www.py4e.com/code3/tracks.zip" target="_blank">
 http://www.py4e.com/code3/tracks.zip</a>.  
-The ZIP file contains the <b>tracks.csv</b> file to be used for this assignment.
+The ZIP file contains the <b>Library.xml</b> file to be used for this assignment.
 You can export your own tracks from iTunes and create a database, but
 for the database that you turn in for this assignment, only use the 
-<b>tracks.csv</b> data that is provided.
-You can adapt the <b>tracks_csv.py</b> application in the zip file
-to complete the assignment.
+<b>Library.xml</b> data that is provided.
 </p>
 <p>
 To grade this assignment, the program will run a query like this on
