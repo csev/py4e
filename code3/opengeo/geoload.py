@@ -6,6 +6,7 @@ import time
 import ssl
 import sys
 
+# https://py4e-data.dr-chuck.net/opengeo?q=Ann+Arbor%2C+MI
 serviceurl = 'https://py4e-data.dr-chuck.net/opengeo?'
 
 # Additional detail for urllib
@@ -69,7 +70,9 @@ for line in fh:
         nofound = nofound + 1
 
     cur.execute('''INSERT INTO Locations (address, geodata)
-                VALUES ( ?, ? )''', (memoryview(address.encode()), memoryview(data.encode()) ) )
+        VALUES ( ?, ? )''',
+        (memoryview(address.encode()), memoryview(data.encode()) ) )
+
     conn.commit()
 
     if count % 10 == 0 :
