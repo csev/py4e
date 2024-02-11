@@ -1,5 +1,5 @@
 import urllib.request, urllib.parse
-import http, json, ssl
+import json, ssl
 
 # Heavily rate limited proxy of https://www.geoapify.com/ api
 serviceurl = 'https://py4e-data.dr-chuck.net/opengeo?'
