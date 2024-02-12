@@ -113,6 +113,8 @@ Greek
 <li>
 <a href="https://gr.py4e.com/">Greek version of the web site - gr.py4e.com</a>
 </li>
+<li> <a href="https://disigma.gr/products/python-gia-olous?variant=47526224527708" target="_blank">Printed Book</a>
+</li>
 <li>
 Free PDF (in progress): <a https://www.py4e.com/translations/GR/gr/2023-4-24-Greek.pdf " target="_blank">PDF</a>
 </li>
