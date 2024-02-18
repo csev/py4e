@@ -1,3 +1,11 @@
+
+
+NOTE: As of January 2024, this course no longer
+includes material about using the Google GeoCoding
+API.   Please see the "opengeo" folder where the same
+examples are done using OpenStreetMap Data
+
+
 Using the Google Places API with a Database and
 Visualizing Data on Google Map
 
