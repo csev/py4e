@@ -6,15 +6,19 @@ import time
 import ssl
 import sys
 
-api_key = False
-# If you have a Google Places API key, enter it here
-# api_key = 'AIzaSy___IDByT70'
+# NOTE: As of January 2024, this course no longer
+# includes material about using the Google GeoCoding
+# API.   Please see the "opengeo" folder where the same
+# examples are done using OpenStreetMap Data
 
-if api_key is False:
-    api_key = 42
-    serviceurl = "http://py4e-data.dr-chuck.net/json?"
-else :
-    serviceurl = "https://maps.googleapis.com/maps/api/geocode/json?"
+# This file is here for previous versions of the course
+# materials and since it uses a proxy server to access the API,
+# it should work for a while.
+
+print("See https://www.py4e.com/code3/opengeo.zip")
+
+api_key = 42
+serviceurl = "http://py4e-data.dr-chuck.net/json?"
 
 # Additional detail for urllib
 # http.client.HTTPConnection.debuglevel = 1

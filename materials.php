@@ -46,13 +46,6 @@ on how to set up the "app store" in your LMS when you receive
 your key and secret.
 </p>
 </li>
-<li><p>
-If you are using
-<a href="https://classroom.google.com" target="_blank">Google Classroom</a>,
-you can automatically link the resources in this site
-into your classroom in the
-<a href="<?= $CFG->apphome ?>/lessons/intro?nostyle=yes">low-style view of the lessons</a>. (must be logged in)
-</p></li>
 <li>
 <p>
 If your LMS supports neither Content Item, nor Common Cartridge, but does support LTI,
