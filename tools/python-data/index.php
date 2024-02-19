@@ -24,7 +24,8 @@ $assignments = array(
     'knows.php' => 'Follow links in a series of web pages.',
     'comment_xml.php' => 'Sum comment data from XML',
     'comment_json.php' => 'Sum comment data from JSON',
-    'geo_json.php' => 'Retrieve GEO data from a JSON API'
+    'geo_json.php' => 'Retrieve data from OpenStreetMap JSON API',
+    'google_geo_json.php' => 'Retrieve GEO data from a JSON API (Deprecated)',
 );
 
 $oldsettings = Settings::linkGetAll();
@@ -59,6 +60,14 @@ if ( $LAUNCH->link && $LAUNCH->user && $LAUNCH->user->instructor ) {
 
 // View
 $OUTPUT->header();
+?>
+<style>
+a {
+text-decoration: underline;
+color: blue;
+}
+</style>
+<?php
 $OUTPUT->bodyStart();
 $OUTPUT->topNav($menu);
 
