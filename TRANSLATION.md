@@ -38,11 +38,20 @@ Translating the Book
 
 The source code for the book is in the *book3* folder.  There is a `README.md`
 file in that folder that describes how to set up LaTeX and Pandoc so you can
-run the build scripts to produce the PDF and HTML versions of the book.
+run the build scripts to produce the PDF and HTML versions of the book.  If you do the
+work to translate the markdown, you can have a print-ready PDF book as well
+as HTML, and EPUB versions.
 
 I have an automatic build server for the text book that takes your
 latest book in github and produces the PDF and EPUB and hosts it online at
 http://do1.dr-chuck.com/pythonlearn/.
+
+If your translation team cannot set up the infrastructure to translate
+markdown and produce PDF, you could translate a Microsoft Word version
+of the book.  Contact me for a copy of the latest book in Word.  If you
+choose to translate in Word, you will have to do signficant additional
+steps to produce a print copy like a table of contents and index which
+is automatic if you translate the markdown version.
 
 In terms of licensing, since the book is CC-NC-SA, you do not need
 my permission to translate, produce, and distribute electronic copies
@@ -53,6 +62,11 @@ is complete and of high quality.
 I have detailed instructions as to the copyright of the book at:
 
 https://github.com/csev/py4e/blob/master/book3/AB-copyright.mkd
+
+Also, I would like a PDF (or Word) copy of any resulting transalation - either
+as a free and open link to your web site, or a copy I can host on
+www.py4e.com.  You can sell access to your copy - I just want one
+archival copy so as to not lose your work.
 
 So far (and this is not required) most who have translated my book have given
 me permission to publish their work on Amazon and give the profits to charity.
