@@ -14,6 +14,9 @@ echo Using python command: $MY_PYTHON
 # For yucks make the epub
 cat epub-metadata.txt *.mkd | grep -v '^%' | $MY_PYTHON pre-html.py | $MY_PYTHON verbatim.py | iconv -f utf8 -t ascii//TRANSLIT | pandoc --default-image-extension=svg --css=epub.css -o x.epub
 
+# For yucks make the word
+cat epub-metadata.txt *.mkd | grep -v '^%' | $MY_PYTHON pre-html.py | $MY_PYTHON verbatim.py | iconv -f utf8 -t ascii//TRANSLIT | pandoc --default-image-extension=svg -t docx -o x.docx
+
 rm tmp.* *.tmp *.aux
 pandoc A0-preface.mkd -o tmp.prefacex.tex
 sed < tmp.prefacex.tex 's/section{/section*{/' > tmp.preface.tex
