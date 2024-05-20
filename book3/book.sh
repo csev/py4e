@@ -53,6 +53,8 @@ else
     # ps2pdf14 -dProcessColorModel=/DeviceGray -sColorConversionStrategy=Gray -dPDFSETTINGS=/prepress -dEmbedAllFonts=true tmp.ps x14.pdf
 fi
 
+cp tmp.tex x.tex
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
   open x.pdf
 elif [[ "$OSTYPE" == "linux-gnu" && -n "$DISPLAY" ]]; then
