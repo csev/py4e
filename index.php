@@ -50,6 +50,7 @@ You can take this course and receive a certificate at:
 -->
 <li><a href="https://www.youtube.com/watch?v=8DvywoWv6fI" target="_blank">FreeCodeCamp</a></li>
 <li><a href="https://online.umich.edu/series/python-for-everybody/" target="_blank">Free certificates for University of Michigan students and staff</a></li>
+<li><a href="https://codekidz.ai/lesson-intro/python-for-e-365c2e" target="_blank">CodeKidz</a></li>
 </ul>
 <p>
 If you <a href="tsugi/login.php">log in</a> to this site
