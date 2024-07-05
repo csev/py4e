@@ -26,6 +26,7 @@ $assignments = array(
     'comment_json.php' => 'Sum comment data from JSON',
     'geo_json.php' => 'Retrieve data from OpenStreetMap JSON API',
     'google_geo_json.php' => 'Retrieve GEO data from a JSON API (Deprecated)',
+    'freebie.php' => 'Choose your own grade',
 );
 
 $oldsettings = Settings::linkGetAll();
