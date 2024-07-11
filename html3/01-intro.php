@@ -65,6 +65,10 @@
     img {
       max-width: 100%;
     }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
     h1, h2, h3, h4, h5, h6 {
       margin-top: 1.4em;
     }
@@ -168,9 +172,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
@@ -1049,7 +1050,7 @@ example of a human capability: (1) Central processing unit, (2) Main
 Memory, (3) Secondary Memory, (4) Input Device, and (5) Output Device.
 For example, “What is the human equivalent to a Central Processing
 Unit”?</p>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -1057,7 +1058,7 @@ role="doc-endnotes">
 class="uri">http://xkcd.com/231/</a><a href="#fnref1"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

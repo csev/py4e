@@ -64,6 +64,10 @@
     img {
       max-width: 100%;
     }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
     h1, h2, h3, h4, h5, h6 {
       margin-top: 1.4em;
     }
@@ -167,9 +171,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="using-web-services">Using Web Services</h1>
@@ -433,7 +434,7 @@ publishes the APIs (i.e., the “rules”) that must be followed to access
 the services provided by the program.</p>
 <p>When we begin to build our programs where the functionality of our
 program includes access to services provided by other programs, we call
-the approach a <em>Service-oriented architecture</em> (SOA). A SOA
+the approach a <em>Service-oriented architecture</em> (SOA). An SOA
 approach is one where our overall application makes use of the services
 of other applications. A non-SOA approach is where the application is a
 single standalone application which contains all of the code necessary
@@ -511,182 +512,6 @@ eXtensible Markup Language - A format that allows for the markup of
 structured data.
 </dd>
 </dl>
-<h2 id="google-geocoding-web-service">Google geocoding web service</h2>
-<p> </p>
-<p>Google has an excellent web service that allows us to make use of
-their large database of geographic information. We can submit a
-geographical search string like “Ann Arbor, MI” to their geocoding API
-and have Google return its best guess as to where on a map we might find
-our search string and tell us about the landmarks nearby.</p>
-<p>The geocoding service is free but rate limited so you cannot make
-unlimited use of the API in a commercial application. But if you have
-some survey data where an end user has entered a location in a
-free-format input box, you can use this API to clean up your data quite
-nicely.</p>
-<p><em>When you are using a free API, you need to be respectful in your
-use of these resources. If too many people abuse the service, Google
-might drop or significantly curtail its free service.</em></p>
-<p></p>
-<p>The following is a simple application to prompt the user for a search
-string, call the Google geocoding API, and extract information from the
-returned JSON.</p>
-<pre class="python"><code>import urllib.request, urllib.parse, urllib.error
-import json
-import ssl
-
-api_key = False
-# If you have a Google Places API key, enter it here
-# api_key = &#39;AIzaSy___IDByT70&#39;
-# https://developers.google.com/maps/documentation/geocoding/intro
-
-if api_key is False:
-    api_key = 42
-    serviceurl = &#39;http://py4e-data.dr-chuck.net/json?&#39;
-else :
-    serviceurl = &#39;https://maps.googleapis.com/maps/api/geocode/json?&#39;
-
-# Ignore SSL certificate errors
-ctx = ssl.create_default_context()
-ctx.check_hostname = False
-ctx.verify_mode = ssl.CERT_NONE
-
-while True:
-    address = input(&#39;Enter location: &#39;)
-    if len(address) &lt; 1: break
-
-    parms = dict()
-    parms[&#39;address&#39;] = address
-    if api_key is not False: parms[&#39;key&#39;] = api_key
-    url = serviceurl + urllib.parse.urlencode(parms)
-
-    print(&#39;Retrieving&#39;, url)
-    uh = urllib.request.urlopen(url, context=ctx)
-    data = uh.read().decode()
-    print(&#39;Retrieved&#39;, len(data), &#39;characters&#39;)
-
-    try:
-        js = json.loads(data)
-    except:
-        js = None
-
-    if not js or &#39;status&#39; not in js or js[&#39;status&#39;] != &#39;OK&#39;:
-        print(&#39;==== Failure To Retrieve ====&#39;)
-        print(data)
-        continue
-
-    print(json.dumps(js, indent=4))
-
-    lat = js[&#39;results&#39;][0][&#39;geometry&#39;][&#39;location&#39;][&#39;lat&#39;]
-    lng = js[&#39;results&#39;][0][&#39;geometry&#39;][&#39;location&#39;][&#39;lng&#39;]
-    print(&#39;lat&#39;, lat, &#39;lng&#39;, lng)
-    location = js[&#39;results&#39;][0][&#39;formatted_address&#39;]
-    print(location)
-
-# Code: https://www.py4e.com/code3/geojson.py</code></pre>
-<p>The program takes the search string and constructs a URL with the
-search string as a properly encoded parameter and then uses
-<code>urllib</code> to retrieve the text from the Google geocoding API.
-Unlike a fixed web page, the data we get depends on the parameters we
-send and the geographical data stored in Google’s servers.</p>
-<p>Once we retrieve the JSON data, we parse it with the
-<code>json</code> library and do a few checks to make sure that we
-received good data, then extract the information that we are looking
-for.</p>
-<p>Note that we use our own copy of some of the Google data to avoid
-rate limits and key requirements.</p>
-<p>The output of the program is as follows (some of the returned JSON
-has been removed):</p>
-<pre><code>$ python3 geojson.py
-Enter location: Ann Arbor, MI
-Retrieving
-  http://py4e-data.dr-chuck.net/json?address=Ann+Arbor%2C+MI&amp;key=42
-Retrieved 1736 characters</code></pre>
-<pre class="json"><code>{
-    &quot;results&quot;: [
-        {
-            &quot;address_components&quot;: [
-                {
-                    &quot;long_name&quot;: &quot;Ann Arbor&quot;,
-                    &quot;short_name&quot;: &quot;Ann Arbor&quot;,
-                    &quot;types&quot;: [
-                        &quot;locality&quot;,
-                        &quot;political&quot;
-                    ]
-                },
-                {
-                    &quot;long_name&quot;: &quot;Washtenaw County&quot;,
-                    &quot;short_name&quot;: &quot;Washtenaw County&quot;,
-                    &quot;types&quot;: [
-                        &quot;administrative_area_level_2&quot;,
-                        &quot;political&quot;
-                    ]
-                },
-                {
-                    &quot;long_name&quot;: &quot;Michigan&quot;,
-                    &quot;short_name&quot;: &quot;MI&quot;,
-                    &quot;types&quot;: [
-                        &quot;administrative_area_level_1&quot;,
-                        &quot;political&quot;
-                    ]
-                },
-                {
-                    &quot;long_name&quot;: &quot;United States&quot;,
-                    &quot;short_name&quot;: &quot;US&quot;,
-                    &quot;types&quot;: [
-                        &quot;country&quot;,
-                        &quot;political&quot;
-                    ]
-                }
-            ],
-            &quot;formatted_address&quot;: &quot;Ann Arbor, MI, USA&quot;,
-            &quot;geometry&quot;: {
-                &quot;bounds&quot;: {
-                    &quot;northeast&quot;: {
-                        &quot;lat&quot;: 42.3239728,
-                        &quot;lng&quot;: -83.6758069
-                    },
-                    &quot;southwest&quot;: {
-                        &quot;lat&quot;: 42.222668,
-                        &quot;lng&quot;: -83.799572
-                    }
-                },
-                &quot;location&quot;: {
-                    &quot;lat&quot;: 42.2808256,
-                    &quot;lng&quot;: -83.7430378
-                },
-                &quot;location_type&quot;: &quot;APPROXIMATE&quot;,
-                &quot;viewport&quot;: {
-                    &quot;northeast&quot;: {
-                        &quot;lat&quot;: 42.3239728,
-                        &quot;lng&quot;: -83.6758069
-                    },
-                    &quot;southwest&quot;: {
-                        &quot;lat&quot;: 42.222668,
-                        &quot;lng&quot;: -83.799572
-                    }
-                }
-            },
-            &quot;place_id&quot;: &quot;ChIJMx9D1A2wPIgR4rXIhkb5Cds&quot;,
-            &quot;types&quot;: [
-                &quot;locality&quot;,
-                &quot;political&quot;
-            ]
-        }
-    ],
-    &quot;status&quot;: &quot;OK&quot;
-}
-lat 42.2808256 lng -83.7430378
-Ann Arbor, MI, USA</code></pre>
-<pre><code>Enter location:</code></pre>
-<p>You can download <a
-href="http://www.py4e.com/code3/geoxml.py">www.py4e.com/code3/geoxml.py</a>
-to explore the XML variant of the Google geocoding API.</p>
-<p><strong>Exercise 1:</strong> Change <a
-href="http://www.py4e.com/code3/geojson.py">geojson.py</a> to print out
-the two-character country code from the retrieved data. Add error
-checking so your program does not traceback if the country code is not
-there. Once you have it working, search for “Atlantic Ocean” and make
-sure it can handle locations that are not in any country.</p>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

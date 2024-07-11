@@ -64,6 +64,10 @@
     img {
       max-width: 100%;
     }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
     h1, h2, h3, h4, h5, h6 {
       margin-top: 1.4em;
     }
@@ -167,9 +171,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="iteration">Iteration</h1>
@@ -578,7 +579,7 @@ Enter a number: done
 <p><strong>Exercise 2:</strong> Write another program that prompts for a
 list of numbers as above and at the end prints out both the maximum and
 minimum of the numbers instead of the average.</p>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -586,7 +587,7 @@ role="doc-endnotes">
 chapter.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

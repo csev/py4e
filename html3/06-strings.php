@@ -64,6 +64,10 @@
     img {
       max-width: 100%;
     }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
     h1, h2, h3, h4, h5, h6 {
       margin-top: 1.4em;
     }
@@ -167,9 +171,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="strings">Strings</h1>
@@ -400,7 +401,8 @@ capitalize(self, /)
 &gt;&gt;&gt;</code></pre>
 <p>While the <code>dir</code> function lists the methods, and you can
 use <code>help</code> to get some simple documentation on a method, a
-better source of documentation for string methods would be <a
+better source of documentation for string methods would be</p>
+<p><a
 href="https://docs.python.org/library/stdtypes.html#string-methods"
 class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a>.</p>
 <p>Calling a <em>method</em> is similar to calling a function (it takes
@@ -652,10 +654,11 @@ function to convert the extracted string into a floating point
 number.</p>
 <p> </p>
 <p><strong>Exercise 6:</strong> String methods</p>
-<p>Read the documentation of the string methods at <a
+<p>Read the documentation of the string methods at</p>
+<p><a
 href="https://docs.python.org/library/stdtypes.html#string-methods"
-class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a>.
-You might want to experiment with some of them to make sure you
+class="uri">https://docs.python.org/library/stdtypes.html#string-methods</a>.</p>
+<p>You might want to experiment with some of them to make sure you
 understand how they work. <code>strip</code> and <code>replace</code>
 are particularly useful.</p>
 <p>The documentation uses a syntax that might be confusing. For example,

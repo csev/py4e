@@ -64,6 +64,10 @@
     img {
       max-width: 100%;
     }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
     h1, h2, h3, h4, h5, h6 {
       margin-top: 1.4em;
     }
@@ -167,9 +171,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="using-databases-and-sql">Using Databases and SQL</h1>
@@ -502,7 +503,7 @@ CREATE TABLE Artist (name TEXT, eyes TEXT);
 INSERT INTO Artist (name, eyes)
    VALUES (&#39;Frank Sinatra&#39;, &#39;blue&#39;);</code></pre>
 <p> Now we have two tables but we need a way to <em>link</em> rows in
-the two tables. To do this, we need why we call ‘keys’. These keys will
+the two tables. To do this, we need what we call ‘keys’. These keys will
 just be integer numbers that we can use to lookup a row in different
 table. If we are going to make links to rows inside of a table, we need
 to add a <em>primary key</em> to the rows in the table. By convention we
@@ -544,7 +545,7 @@ New York|25|Frank Sinatra|blue</code></pre>
 <p>While it might seem a little clunky and your instincts might tell you
 that it would be faster just to keep the data in one table, it turns out
 the the limit on database performance is how much data needs to be
-scanned when retrieving a query. While they details are very complex,
+scanned when retrieving a query. While the details are very complex,
 integers are a lot smaller than strings (especially Unicode) and far
 quicker to to move and compare.</p>
 <h2 id="data-model-diagrams">Data model diagrams</h2>
@@ -560,7 +561,7 @@ A Verbose One-to-Many Data Model
 </figcaption>
 </figure>
 <p> While there are many graphical representations of data models, we
-will use one of the “classic” appraches, called “Crow’s Foot Diagrams”
+will use one of the “classic” approaches, called “Crow’s Foot Diagrams”
 as shown in Figure . Each table is shown as a box with the name of the
 table and its columns. Then where there is a relationship between two
 tables a line is drawn connecting the tables with a notation added to
@@ -877,9 +878,9 @@ have many users on its roster.</p>
 <p>It is pretty simple to <em>draw</em> a many-to-many relationship as
 shown in Figure . We simply draw two tables and connect them with a line
 that has the “many” indicator on both ends of the lines. The problem is
-how to <em>implement</em> the raltionship using primary keys and foreign
-keys.</p>
-<p>Before we explore how we implement many-to-many relationships, lets
+how to <em>implement</em> the relationship using primary keys and
+foreign keys.</p>
+<p>Before we explore how we implement many-to-many relationships, let’s
 see if we could hack something up by extending a one-to many
 relationship.</p>
 <figure>
@@ -1226,7 +1227,7 @@ typically called “row”.
 </dd>
 </dl>
 <p></p>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -1247,7 +1248,7 @@ database integrity. NoSQL is a story for another course
 https://www.pg4e.com/ <a href="#fnref3" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

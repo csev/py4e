@@ -64,6 +64,10 @@
     img {
       max-width: 100%;
     }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
     h1, h2, h3, h4, h5, h6 {
       margin-top: 1.4em;
     }
@@ -167,9 +171,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="variables-expressions-and-statements">Variables, expressions,
@@ -480,7 +481,8 @@ get an error:</p>
 What...is the airspeed velocity of an unladen swallow?
 What do you mean, an African or a European swallow?
 &gt;&gt;&gt; int(speed)
-ValueError: invalid literal for int() with base 10:</code></pre>
+ValueError: invalid literal for int() with
+base 10: &#39;What do you mean, an African or a European swallow?&#39;</code></pre>
 <p>We will see how to handle this kind of error later.</p>
 <p> </p>
 <h2 id="comments">Comments</h2>
@@ -740,7 +742,7 @@ expression and the type (of the value of the expression).</p>
 <p><strong>Exercise 5:</strong> Write a program which prompts the user
 for a Celsius temperature, convert the temperature to Fahrenheit, and
 print out the converted temperature.</p>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -752,7 +754,7 @@ class="uri">https://en.wikipedia.org/wiki/Mnemonic</a> for an extended
 description of the word “mnemonic”.<a href="#fnref2"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {

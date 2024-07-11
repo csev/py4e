@@ -64,6 +64,10 @@
     img {
       max-width: 100%;
     }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
     h1, h2, h3, h4, h5, h6 {
       margin-top: 1.4em;
     }
@@ -167,9 +171,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1 id="conditional-execution">Conditional execution</h1>
@@ -274,7 +275,7 @@ haven’t written yet). In that case, you can use the <code>pass</code>
 statement to pass the Python interpreter check, which does nothing.</p>
 <p> </p>
 <pre class="python"><code>if x &lt; 0 :
-    pass          # need to handle negative values, but we do nothing for now.</code></pre>
+    pass   # need to handle negative values, do nothing for now.</code></pre>
 <p>If you enter an <code>if</code> statement in the Python interpreter,
 the prompt will change from three chevrons (&gt;&gt;&gt;) to three dots
 (…) to indicate you are in the middle of a block of statements, as shown
@@ -402,7 +403,8 @@ be:</p>
 What is the air velocity of an unladen swallow?
 What do you mean, an African or a European swallow?
 &gt;&gt;&gt; int(speed)
-ValueError: invalid literal for int() with base 10: &#39;What do you mean, an African or a European swallow?&#39;
+ValueError: invalid literal for int() with
+base 10: &#39;What do you mean, an African or a European swallow?&#39;
 &gt;&gt;&gt;</code></pre>
 <p>When we are executing these statements in the Python interpreter, we
 get a new prompt from the interpreter, think “oops”, and move on to our
@@ -668,7 +670,7 @@ C</code></pre>
 F</code></pre>
 <p>Run the program repeatedly as shown above to test the various
 different values for input.</p>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -676,7 +678,7 @@ role="doc-endnotes">
 Chapter 5.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>
 <?php if ( file_exists("../bookfoot.php") ) {
