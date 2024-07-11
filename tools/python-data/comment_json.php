@@ -101,7 +101,7 @@ The data consists of a number of names and comment counts in JSON as follows:
 The closest sample code that shows how to parse JSON and extract a list is
 <a href="http://www.py4e.com/code3/json2.py" target="_blank">json2.py</a>.  You might also want
 to look at
-<a href="http://www.py4e.com/code3/geoxml.py" target="_blank">geoxml.py</a>
+<a href="http://www.py4e.com/code3/xml3.py" target="_blank">xml3.py</a>
 to see how to prompt for a URL and retrieve data from a URL.
 </p>
 <p><b>Sample Execution</b></p>
