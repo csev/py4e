@@ -396,8 +396,8 @@ sentence. Our sentence starts with the function <em>print</em> followed
 by a string of text of our choosing enclosed in single quotes. The
 strings in the print statements are enclosed in quotes. Single quotes
 and double quotes do the same thing; most people use single quotes
-except in cases like this where a single quote (which is also an
-apostrophe) appears in the string.</p>
+except in cases where a single quote (which is also an apostrophe)
+appears in the string.</p>
 <h2 id="conversing-with-python">Conversing with Python</h2>
 <p>Now that we have a word and a simple sentence that we know in Python,
 we need to know how to start a conversation with Python to test our new
