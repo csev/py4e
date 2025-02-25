@@ -638,10 +638,10 @@ the variables (<code>x</code>) and methods (<code>party</code>) from the
 method in the <code>CricketFan</code> class, we call the
 <code>party</code> method from the <code>PartyAnimal</code> class.</p>
 <p>We use a special syntax in the <code>__init__()</code> method in the
-<code>CricketFan</code> class to insure that we call the
-<code>__init()__</code> method in the <code>PartyAnimal</code> so that
+<code>CricketFan</code> class to ensure that we call the
+<code>__init__()</code> method in the <code>PartyAnimal</code> so that
 whatever setup that <code>PartyAnimal</code> needs is done in addition
-to the setup needed for the <code>CriocketFan</code> extensions.</p>
+to the setup needed for the <code>CricketFan</code> extensions.</p>
 <pre class="python"><code>   def __init__(self, nam) :
        super().__init__(nam)
        self.points = 0</code></pre>
