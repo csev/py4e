@@ -86,20 +86,3 @@ while True:
         else:
             print('~~~~')
 
-if trinket:
-    # Clean up
-    sys.stdout.close()
-    sys.stdout = sys.__stdout__
-    
-    if files:
-        # Remove -->\n<--
-        with open(tmpfile, 'r') as f:
-            cleanfile = re.sub('-->\s*?\n<--\s*?\n', '', f.read(), flags=re.MULTILINE)
-        
-        print(cleanfile)
-        
-    else:
-        with open(tmpfile, 'r') as f:
-            print(f.read())
-            
-    os.remove(tmpfile)
