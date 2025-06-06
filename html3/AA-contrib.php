@@ -175,7 +175,7 @@
 <body>
 <h1 id="contributions">Contributions</h1>
 <h2 id="translations">Translations</h2>
-<p>This book hass been translated into a number of languages which can
+<p>This book has been translated into a number of languages which can
 be found at https://www.py4e.com/book.</p>
 <ul>
 <li><p>Spanish - Python para todos: Explorando la información con Python
@@ -200,8 +200,8 @@ provide a free copy of the book online. Some of the translations are
 available in print and avalailable for purchase.</p>
 <h2 id="contributor-list-for-python-for-everybody">Contributor List for
 Python for Everybody</h2>
-<p>The source for the book is maintained in <code>github</code> and yuo
-can find numberous contributors for the book who find and suggest fixes
+<p>The source for the book is maintained in <code>github</code> and you
+can find numerous contributors for the book who find and suggest fixes
 using pull requests.</p>
 <p>https://github.com/csev/py4e/</p>
 <p>Look under <code>Insights -&gt; Contributors</code> to see all the
