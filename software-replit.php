@@ -77,7 +77,7 @@ Here is what the Linux Shell commands we are typing are doing:
 right place in the folder hierarchy.</li>
 <li><b>pwd</b> - Print Working Directory - this command tells you where you are at in the folder
 hierarchy.  We are in our home folder.  Linux is a multi-user system and each user has their own 'home'
-directory.  You can build a folder hirearchy from your home folder on down.</li>
+directory.  You can build a folder hierarchy from your home folder on down.</li>
 <li><b>ls -l</b> list the files and subfolders in the current folder.  The <b>-l</b> option
 shows details like permissions, modification date and file size.</li>
 <li><b>python3 hello.py</b> runs Python on your file</li>
