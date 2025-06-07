@@ -111,8 +111,8 @@
      overflow: visible;
     }
     hr {
-      background-color: #1a1a1a;
       border: none;
+      border-top: 1px solid #1a1a1a;
       height: 1px;
       margin: 1em 0;
     }
@@ -313,7 +313,7 @@ and extract one or more addresses from each of those lines.</p>
 <p> </p>
 <pre class="python"><code>import re
 s = &#39;A message from csev@umich.edu to cwen@iupui.edu about meeting @2PM&#39;
-lst = re.findall(&#39;\S+@\S+&#39;, s)
+lst = re.findall(r&#39;\S+@\S+&#39;, s)
 print(lst)
 
 # Code: https://www.py4e.com/code3/re05.py</code></pre>
@@ -339,7 +339,7 @@ import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
     line = line.rstrip()
-    x = re.findall(&#39;\S+@\S+&#39;, line)
+    x = re.findall(r&#39;\S+@\S+&#39;, line)
     if len(x) &gt; 0:
         print(x)
 
@@ -393,7 +393,7 @@ import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
     line = line.rstrip()
-    x = re.findall(&#39;[a-zA-Z0-9]\S*@\S*[a-zA-Z]&#39;, line)
+    x = re.findall(r&#39;[a-zA-Z0-9]\S*@\S*[a-zA-Z]&#39;, line)
     if len(x) &gt; 0:
         print(x)
 
@@ -445,7 +445,7 @@ import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
     line = line.rstrip()
-    if re.search(&#39;^X\S*: [0-9.]+&#39;, line):
+    if re.search(r&#39;^X\S*: [0-9.]+&#39;, line):
         print(line)
 
 # Code: https://www.py4e.com/code3/re10.py</code></pre>
@@ -477,7 +477,7 @@ import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
     line = line.rstrip()
-    x = re.findall(&#39;^X\S*: ([0-9.]+)&#39;, line)
+    x = re.findall(r&#39;^X\S*: ([0-9.]+)&#39;, line)
     if len(x) &gt; 0:
         print(x)
 

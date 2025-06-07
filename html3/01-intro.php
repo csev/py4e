@@ -112,8 +112,8 @@
      overflow: visible;
     }
     hr {
-      background-color: #1a1a1a;
       border: none;
+      border-top: 1px solid #1a1a1a;
       height: 1px;
       margin: 1em 0;
     }
@@ -1043,8 +1043,8 @@ x = x - 1
 print(x)</code></pre>
 <p>a) 43<br />
 b) 42<br />
-c) x + 1<br />
-d) Error because x = x + 1 is not possible mathematically</p>
+c) x - 1<br />
+d) Error because x = x - 1 is not possible mathematically</p>
 <p><strong>Exercise 8:</strong> Explain each of the following using an
 example of a human capability: (1) Central processing unit, (2) Main
 Memory, (3) Secondary Memory, (4) Input Device, and (5) Output Device.

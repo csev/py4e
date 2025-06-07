@@ -111,8 +111,8 @@
      overflow: visible;
     }
     hr {
-      background-color: #1a1a1a;
       border: none;
+      border-top: 1px solid #1a1a1a;
       height: 1px;
       margin: 1em 0;
     }
@@ -637,13 +637,14 @@ from the anchor (<code>a</code>) tags.</p>
 <p> </p>
 <pre class="python"><code># To run this, download the BeautifulSoup zip file
 # http://www.py4e.com/code3/bs4.zip
+# or pip install beautifulsoup4 to ensure you have the latest version
 # and unzip it in the same directory as this file
 
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
-import ssl
+import ssl # defauts to certicate verification and most secure protocol (now TLS)
 
-# Ignore SSL certificate errors
+# Ignore SSL/TLS certificate errors
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE

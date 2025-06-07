@@ -111,8 +111,8 @@
      overflow: visible;
     }
     hr {
-      background-color: #1a1a1a;
       border: none;
+      border-top: 1px solid #1a1a1a;
       height: 1px;
       margin: 1em 0;
     }
@@ -175,8 +175,8 @@
 <body>
 <h1 id="contributions">Contributions</h1>
 <h2 id="translations">Translations</h2>
-<p>This book has been translated into a number of languages which can
-be found at https://www.py4e.com/book.</p>
+<p>This book has been translated into a number of languages which can be
+found at https://www.py4e.com/book.</p>
 <ul>
 <li><p>Spanish - Python para todos: Explorando la información con Python
 3 - Translated book, autograders, resources, and web site at

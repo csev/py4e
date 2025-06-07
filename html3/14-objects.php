@@ -111,8 +111,8 @@
      overflow: visible;
     }
     hr {
-      background-color: #1a1a1a;
       border: none;
+      border-top: 1px solid #1a1a1a;
       height: 1px;
       margin: 1em 0;
     }
@@ -297,13 +297,14 @@ connecting different objects together to accomplish a task:</p>
 <p> </p>
 <pre class="python"><code># To run this, download the BeautifulSoup zip file
 # http://www.py4e.com/code3/bs4.zip
+# or pip install beautifulsoup4 to ensure you have the latest version
 # and unzip it in the same directory as this file
 
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
-import ssl
+import ssl # defauts to certicate verification and most secure protocol (now TLS)
 
-# Ignore SSL certificate errors
+# Ignore SSL/TLS certificate errors
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
@@ -597,8 +598,8 @@ within the object instance.</p>
 (<code>s</code> and <code>j</code>) contain their own independent copies
 of <code>x</code> and <code>nam</code>:</p>
 <pre><code>Sally constructed
-Jim constructed
 Sally party count 1
+Jim constructed
 Jim party count 1
 Sally party count 2</code></pre>
 <h2 id="inheritance">Inheritance</h2>
@@ -638,10 +639,10 @@ the variables (<code>x</code>) and methods (<code>party</code>) from the
 method in the <code>CricketFan</code> class, we call the
 <code>party</code> method from the <code>PartyAnimal</code> class.</p>
 <p>We use a special syntax in the <code>__init__()</code> method in the
-<code>CricketFan</code> class to ensure that we call the
-<code>__init__()</code> method in the <code>PartyAnimal</code> so that
+<code>CricketFan</code> class to insure that we call the
+<code>__init()__</code> method in the <code>PartyAnimal</code> so that
 whatever setup that <code>PartyAnimal</code> needs is done in addition
-to the setup needed for the <code>CricketFan</code> extensions.</p>
+to the setup needed for the <code>CriocketFan</code> extensions.</p>
 <pre class="python"><code>   def __init__(self, nam) :
        super().__init__(nam)
        self.points = 0</code></pre>
