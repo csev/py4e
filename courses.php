@@ -39,12 +39,7 @@ avilable under a Creative Commons license.
 target="_blank">Programming Made Easy with Python</a> from 
 <a href="https://edufyre.com/" target="_blank">Edufyre</a> (India)
 </p>
-<li><p>
-<a href="http://www.edwith.org/pythonforeverybody" target="_blank">
-모두를 위한 프로그래밍 : 파이썬 (Programming for All: Python)</a>
-from 
-<a href="https://www.edwith.org/" target="_blank">Edwith</a> (Korean).
-</p></li>
+</li>
 <li><p>
 <a href="https://training.gom.com" target="_blank">
 GOM Training Center</a>
@@ -63,9 +58,7 @@ a ".edu" email address.
 </p></li>
 <li><p>
 <a href="https://www.boostcourse.org/cs122" target="_blank">
-모두를 위한 파이썬 (PY4E)</a>
-From <a href="https://www.edwith.org/" target="_blank">edwith</a>.
-(Korean)
+모두를 위한 파이썬 (PY4E)</a> (Korean)
 </p></li>
 <li><p>
 <a href="http://steamvietnam.vn/py4e/" target="_blank">
