@@ -421,7 +421,7 @@ in.
 
 While this worked, it actually results in pretty brittle code that is
 assuming the lines are nicely formatted. If you were to add enough error
-checking (or a big try/except block) to insure that your program never
+checking (or a big try/except block) to ensure that your program never
 failed when presented with incorrectly formatted lines, the code would
 balloon to 10-15 lines of code that was pretty hard to read.
 
@@ -465,10 +465,11 @@ When the program runs, it produces the following output:
 Escape character
 ----------------
 
-Since we use special characters in regular expressions to match the
-beginning or end of a line or specify wild cards, we need a way to
-indicate that these characters are "normal" and we want to match the
-actual character such as a dollar sign or caret.
+Regular expressions utilize special characters like `^` to match the 
+beginning of a line, `$` for the end of a line, and `.` as a wildcard; 
+however, sometimes we want to match those characters literally. We 
+need a way to indicate that we want to match the actual character such
+as a caret symbol, dollar sign, or period.
 
 We can indicate that we want to simply match a character by prefixing
 that character with a backslash. For example, we can find money amounts
@@ -483,7 +484,7 @@ y = re.findall('\$[0-9.]+',x)
 Since we prefix the dollar sign with a backslash, it actually matches
 the dollar sign in the input string instead of matching the "end of
 line", and the rest of the regular expression matches one or more digits
-or the period character. *Note:* Inside square brackets,
+or the period character. Remember, as we saw above, inside square brackets,
 characters are not "special". So when we say `[0-9.]`, it really means
 digits or a period. Outside of square brackets, a period is the
 "wild-card" character and matches any character. Inside square brackets,
