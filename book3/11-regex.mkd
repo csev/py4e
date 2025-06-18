@@ -27,6 +27,11 @@ regular expressions, see:
 
 <https://docs.python.org/library/re.html>
 
+You can also bookmark the following page to experiment with regular 
+expressions as you learn:
+
+<https://regex101.com/>
+
 The regular expression module `re` must be imported into
 your program before you can use it. The simplest use of the regular
 expression module is the `search()` function. The following
@@ -120,17 +125,19 @@ characters between the colon character and the at-sign.
 From:.+@
 ~~~~
 
-It is good to think of the plus and asterisk characters as "pushy". For
-example, the following string would match the last at-sign in the string
-as the `.+` pushes outwards, as shown below:
+It is good to think of the plus and asterisk characters as "pushy" or "greedy."
+For example, the following string would match the last at-sign in the string
+as the `.+` pushes outwards, the one in `cwen@iupui.edu`.
 
 ~~~~
-From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen @iupui.edu
+From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen@iupui.edu
 ~~~~
 
-It is possible to tell an asterisk or plus sign not to be so "greedy" by
-adding another character. See the detailed documentation for information
-on turning off the greedy behavior.
+It is possible to tell an asterisk or plus sign not to be so "greedy."
+If you append `?`, to make it `.*?` or `.+?`, your regex will match the 
+very first instance rather than the last instance. In the example above, 
+using `.+?@` would instead match the first at-sign, the one in 
+`stephen.marquard@uct.ac.za`. For more details, see the [Python documentation on greedy vs non-greedy quantifiers](https://docs.python.org/3/library/re.html).
 
 \index{greedy}
 
@@ -168,7 +175,10 @@ and extract one or more addresses from each of those lines.
 The `findall()` method searches the string in the second
 argument and returns a list of all of the strings that look like email
 addresses. We are using a two-character sequence that matches a
-non-whitespace character (`\S`).
+non-whitespace character (`\S`). You will notice we've also appended 
+the letter `r` just before our regular expression; this tells Python 
+to interpret our regular expression as a raw string, and not to treat 
+backslashes as escape characters (like we use with `\n`).
 
 The output of the program would be:
 
@@ -387,7 +397,8 @@ Translating our regular expression, we are looking for lines that start
 with `Details:`, followed by any number of characters (`.*`), followed
 by `rev=`, and then by one or more digits. We want to find lines that
 match the entire expression but we only want to extract the integer
-number at the end of the line, so we surround `[0-9]+` with parentheses.
+number at the end of the line, so we surround `[0-9]+` with parentheses,
+and we add `$` to indicate matches specifically at the end of the line.
 
 When we run the program, we get the following output:
 
@@ -421,7 +432,7 @@ in.
 
 While this worked, it actually results in pretty brittle code that is
 assuming the lines are nicely formatted. If you were to add enough error
-checking (or a big try/except block) to insure that your program never
+checking (or a big try/except block) to ensure that your program never
 failed when presented with incorrectly formatted lines, the code would
 balloon to 10-15 lines of code that was pretty hard to read.
 
@@ -465,10 +476,11 @@ When the program runs, it produces the following output:
 Escape character
 ----------------
 
-Since we use special characters in regular expressions to match the
-beginning or end of a line or specify wild cards, we need a way to
-indicate that these characters are "normal" and we want to match the
-actual character such as a dollar sign or caret.
+Regular expressions utilize special characters like `^` to match the 
+beginning of a line, `$` for the end of a line, and `.` as a wildcard; 
+however, sometimes we want to match those characters literally. We 
+need a way to indicate that we want to match the actual character such
+as a caret symbol, dollar sign, or period.
 
 We can indicate that we want to simply match a character by prefixing
 that character with a backslash. For example, we can find money amounts
@@ -483,7 +495,7 @@ y = re.findall('\$[0-9.]+',x)
 Since we prefix the dollar sign with a backslash, it actually matches
 the dollar sign in the input string instead of matching the "end of
 line", and the rest of the regular expression matches one or more digits
-or the period character. *Note:* Inside square brackets,
+or the period character. Remember, as we saw above, inside square brackets,
 characters are not "special". So when we say `[0-9.]`, it really means
 digits or a period. Outside of square brackets, a period is the
 "wild-card" character and matches any character. Inside square brackets,
