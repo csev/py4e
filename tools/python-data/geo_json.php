@@ -39,6 +39,7 @@ if ( isset($_POST['plus_code']) && isset($_POST['code']) ) {
 
     if ( $_POST['plus_code'] != $actual_place ) {
         $_SESSION['error'] = "Your plus_code did not match";
+        if ( $USER->instructor ) $_SESSION['error'] = "Your plus_code '".$_POST['plus_code']."' did not match $actual_place";
         header('Location: '.addSession('index.php'));
         return;
     }

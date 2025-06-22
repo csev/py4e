@@ -149,6 +149,21 @@ Thanks to:
 </li>
      </ul>
   </li>
+  <li> Hindi / Urdu - 
+<ul>
+<li>
+Course materials including slides:
+<a href="https://docs.google.com/document/d/14rK9qjKVH2EdEhaguMhZwSqPWXxURMj71GRu9veq8Wg/" target="_blank">
+Python Programming in Hindi / Urdu</a>
+</li>
+<li>
+<a href="https://www.youtube.com/@aryemanguptamathur3" target="_blank">Lectures on YouTube</a>
+<li> Thanks to
+<a href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?tab=t.0" target="_blank">
+Aryeman Gupta Mathur</a>, American School of Doha
+</li>
+</ul>
+  </li>
   <li>
     Russian 
     <ul>
