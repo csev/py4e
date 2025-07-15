@@ -41,7 +41,7 @@ This web site is building a set of free
 <a href="book.php">book</a>
 and assignments to help students
 learn how to program in Python.
-You can take this course and receive a certificate at:
+You can also take this course at:
 <ul>
 <li><a href="https://www.coursera.org/specializations/python" target="_blank">Coursera: Python for Everybody Specialization</a> </li>
 <li><a href="https://www.edx.org/bio/charles-severance" target="_blank">edX: Python for Everybody</a></li>
