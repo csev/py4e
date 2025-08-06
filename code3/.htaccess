@@ -1,13 +1,62 @@
-Options +Indexes
+# Some web servers need a RewriteBase after "RewriteEngine on" below
+# It will need to be the path on this web server for this 
+# folder.  So far I only needed this on 1and1.  Here are two examples:
+#
+# RewriteBase /
+# RewriteBase /public
+#
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !=/favicon.ico
+    RewriteRule ^ index.php [L]
+    RedirectMatch 404 /\.git
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    FallbackResource index.php
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set Cache-Control "max-age=604800, public"
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header add Access-Control-Allow-Origin "*"
+    Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+    Header add Access-Control-Allow-Methods "GET"
+</IfModule>
+
 AddType text/plain .py
 
-# https://perishablepress.com/better-default-directory-views-with-htaccess/
-# IndexOptions IgnoreCase FancyIndexing FoldersFirst NameWidth=* DescriptionWidth=* SuppressHTMLPreamble
+# Prevent access to sensitive files
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
 
-<IfModule headers_module>
-Header set Cache-Control "max-age=604800, public"
+# Prevent access to local configuration files
+<Files "config.local.php">
+    Order allow,deny
+    Deny from all
+</Files>
 
-Header add Access-Control-Allow-Origin "*"
-Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
-Header add Access-Control-Allow-Methods "GET"
-</IfModule>
+# Prevent access to potentially dangerous file types (security measure)
+<FilesMatch "\.(php|php3|php4|php5|php7|php8|phtml|phar|inc|pl|rb|sh|bash|exe|com|bat|cmd|vbs|ps1|jar|war|ear|class|so|dll|dylib|bin|msi|app|deb|rpm|pkg|apk|ipa)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Allow index.php specifically (needed for the application to work)
+<Files "index.php">
+    Order allow,deny
+    Allow from all
+</Files>
+
+# Prevent access to dot files (hidden files)
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
