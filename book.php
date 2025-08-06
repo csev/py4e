@@ -191,12 +191,20 @@ is working on a commercial translation of the book and will provide a free PDF f
 <a href="https://github.com/RodenLuo/py4e-cn" target="_blank">Book source on github</a> -
 (Thanks to Deng Luo)
 </li>
+</li>
   <li> There is an in-China copy of the videos available at
 <a href="https://www.bilibili.com/video/av46649799" target="_new">
 https://www.bilibili.com/video/av46649799</a>
   </li>
      </ul>
   </li>
+<li>Persian  - In progress thanks to Diana Mazhari
+<ul>
+<li>Free: 
+<a href="translations/FA/persian python for everybody chapter 1 - full.pdf" target="_blank">Chapter 1</a>
+</li>
+</ul>
+</li>
 </ul>
 <p>
 If you are insterested in starting a translation of the book, I have some
