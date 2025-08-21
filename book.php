@@ -201,7 +201,7 @@ https://www.bilibili.com/video/av46649799</a>
 <li>Persian  - In progress thanks to Diana Mazhari
 <ul>
 <li>Free: 
-<a href="translations/FA/persian python for everybody chapter 1 - full.pdf" target="_blank">Chapter 1</a>
+<a href="translations/FA/PY4E_chapters_1_2.pdf" target="_blank">Chapter 1 and 2</a>
 </li>
 </ul>
 </li>
