@@ -1,18 +1,41 @@
 Using Web Services
 ==================
 
-Once it became easy to retrieve documents and parse documents over HTTP
-using programs, it did not take long to develop an approach where we
-started producing documents that were specifically designed to be
-consumed by other programs (i.e., not HTML to be displayed in a
-browser).
+Once it became easy to retrieve and parse documents over HTTP using 
+programs, developers began producing documents specifically designed 
+to be consumed by other programs—in other words, not HTML to be 
+displayed in a browser, but standardized data served through public-
+facing services called APIs.
 
-There are two common formats that we use when exchanging data across the
-web. eXtensible Markup Language (XML) has been in use for a very
-long time and is best suited for exchanging document-style data. When
-programs just want to exchange dictionaries, lists, or other internal
-information with each other, they use JavaScript Object Notation (JSON)
-(see [www.json.org](http://www.json.org)). We will look at both formats.
+In order to do this data interchange effectively, however, we needed 
+to agree on how structured data should be represented for transmission 
+from one program and consumption by another. Different programming 
+languages have all sorts of ways to represent data; we needed 
+standardized, in-between formats.
+
+There are two common formats used when exchanging data across the web:
+eXtensible Markup Language (XML) and JavaScript Object Notation (JSON).
+We commonly call these "wire formats," because we prepare our program's
+internal structured data into these formats to be sent "over the wire."
+In networking, "the wire" is shorthand for a network connection, 
+originally a physical wire, across which data is sent.
+
+When we take structured data from its internal, language-specific 
+representation, like a Python list or dictionary, and we get it 
+ready to be sent over the wire by putting it into JSON or XML formats,
+we call that action *serialization.* When we intake data from external
+sources like the web and convert it from XML or JSON into Python
+data structures, we call that *deserialization.*
+
+The low-level rules for how data is sent over the network (like using 
+HTTP or TCP) are often called *wire protocols*. Formats like XML and 
+JSON are used on top of these protocols to structure the data content
+being exchanged.
+
+XML has been in use for a very long time and is best suited for exchanging
+document-style data. When programs just want to exchange dictionaries, lists,
+or other internal information with each other, they use JavaScript Object 
+Notation (JSON) (see [www.json.org](http://www.json.org)). We will look at both formats.
 
 eXtensible Markup Language - XML
 --------------------------------
@@ -31,7 +54,7 @@ Here is a sample of an XML document:
 ~~~~
 
 Each pair of opening (e.g., `<person>`) and closing tags
-(e.g., `</person>`) represents a *element* or *node* with the same
+(e.g., `</person>`) represents an *element* or *node* with the same
 name as the tag (e.g., `person`). Each element can have some text,
 some attributes (e.g., `hide`), and other nested elements. If an XML
 element is empty (i.e., has no content), then it may be depicted by
@@ -90,8 +113,8 @@ all of the nodes. In the following program, we loop through all of the
 The `findall` method retrieves a Python list of subtrees that
 represent the `user` structures in the XML tree. Then we can
 write a `for` loop that looks at each of the user nodes, and
-prints the `name` and `id` text elements as well
-as the `x` attribute from the `user` node.
+prints the `name` and `id` text elements along with the `x` 
+attribute from the `user` node.
 
 ~~~~
 User count: 2
@@ -148,11 +171,9 @@ JavaScript Object Notation - JSON
 \index{JSON}
 \index{JavaScript Object Notation}
 
-The JSON format was inspired by the object and array format used in the
-JavaScript language. But since Python was invented before JavaScript,
-Python's syntax for dictionaries and lists influenced the syntax of
-JSON. So the format of JSON is nearly identical to a combination of
-Python lists and dictionaries.
+JSON was inspired by the object and array format used in the JavaScript
+language, but Python predates JavaScript and had similar structures. 
+So JSON's format closely resembles Python dictionaries and lists, too.
 
 Here is a JSON encoding that is roughly equivalent to the simple XML
 from above:
@@ -205,12 +226,16 @@ disadvantage).
 \VerbatimInput{../code3/json2.py}
 
 If you compare the code to extract data from the parsed JSON and XML you
-will see that what we get from `json.loads()` is a Python
-list which we traverse with a `for` loop, and each item
-within that list is a Python dictionary. Once the JSON has been parsed,
-we can use the Python index operator to extract the various bits of data
-for each user. We don't have to use the JSON library to dig through the
-parsed JSON, since the returned data is simply native Python structures.
+will see that what we get from `json.loads()` is a Python list which we 
+traverse with a `for` loop, and each item within that list is a Python 
+dictionary. Note that in the original JSON, the list is enclosed by square
+brackets `[]`, just as it would be in native Python. Similarly, each 
+dictionary within the list is enclosed with familiar curly braces `{}`. 
+
+Once the JSON has been parsed, we can use the Python index operator to 
+extract the various bits of data for each user. We don't have to use the
+JSON library to dig through the parsed JSON, since the returned data is 
+simply native Python structures.
 
 The output of this program is exactly the same as the XML version above.
 
@@ -232,21 +257,65 @@ using JSON. But XML is more self-descriptive than JSON and so there are
 some applications where XML retains an advantage. For example, most word
 processors store documents internally using XML rather than JSON.
 
+Wire Format Schemas
+-------------------
+
+Standard wire formats like XML and JSON define how structured data should
+be represented when sent between programs. XML uses tags and nested 
+elements to express hierarchy, while JSON uses curly braces, brackets, 
+and key–value pairs to describe objects and lists.
+
+But just using XML or JSON isn't always enough. When two specific programs
+need to exchange data, they often require more precise expectations: which 
+fields are required, what types of values are allowed, and how nested 
+structures should be shaped. In these cases, we define a *schema*—a template 
+or contract that describes the expected shape of the data.
+
+Think of it like an academic essay: your teacher might require a title, a 
+body, and a bibliography for your work to be considered complete. If you 
+leave out the bibliography, the essay might still be written in the right 
+language, but it wouldn’t meet the assignment requirements, or the "schema"
+set by your teacher.
+
+There are formal schema languages that define and validate the structure of 
+wire format data, including for both XML and JSON.
+
+XML Schema Definition (XSD) allows us to define what elements must appear
+(and how many times), what attributes are allowed and what data types they 
+must hold, and the nested relationships between elements. This makes it 
+possible to automatically check whether an XML document is valid according 
+to an expected structure using an XML Schema Validator when sending or
+receiving serialized XML data.
+
+JSON Schema plays a similar role for JSON data. It lets us define required 
+vs. optional fields, expected data types (e.g., string, number, array), and 
+constraints like minimum values, string patterns, or allowed enums.
+
+Schemas make data validation automatic and enforceable. They allow us to
+programmatically validate serialized data *before* we ingest it into our
+program and attempt to parse it into native Python data structures.
+
 Application Programming Interfaces
 ----------------------------------
 
-We now have the ability to exchange data between applications using
-Hypertext Transport Protocol (HTTP) and a way to represent complex data
-that we are sending back and forth between these applications using
-eXtensible Markup Language (XML) or JavaScript Object Notation (JSON).
+We now have the "wire" to exchange data between applications using
+Hypertext Transport Protocol (HTTP), standardized formats like
+eXtensible Markup Language (XML) and JavaScript Object Notation (JSON)
+to represent structured data, and schemas to define the expected
+structure of that data for specific use cases.
 
-The next step is to begin to define and document "contracts" between
-applications using these techniques. The general name for these
-application-to-application contracts is *Application Program
-Interfaces* (APIs). When we use an API, generally one program
-makes a set of *services* available for use by other
-applications and publishes the APIs (i.e., the "rules") that must be
-followed to access the services provided by the program.
+The final piece we need to establish reliable cooperation between programs
+is a way to describe what services are available, what requests can be 
+made, and what kind of responses we can expect.
+
+An *Application Programming Interface* (API) defines a higher-level contract 
+between programs. It describes not just the structure of the data, but the 
+available *operations* on that data: what endpoints a service offers, what 
+parameters are required, and what kind of responses will be returned.
+
+When we use an API, generally one program makes a set of *services* available 
+for use by other applications and publishes the API (i.e., the "rules") that 
+must be followed to access those services.
 
 When we begin to build our programs where the functionality of our
 program includes access to services provided by other programs, we call
@@ -279,6 +348,18 @@ have good performance and meet the user's needs.
 When an application makes a set of services in its API available over
 the web, we call these *web services*.
 
+While we've focused on the structure of data exchanged over web services 
+(XML and JSON), there are also different architectural styles for how 
+services themselves are designed. Two major styles are SOAP and REST.
+
+SOAP (Simple Object Access Protocol) is an older, XML-heavy protocol with
+strict formatting and message envelopes. REST (Representational State 
+Transfer), which is more common today, uses simple URLs and HTTP methods 
+like GET and POST, and typically returns JSON.
+
+REST is now the dominant approach for modern APIs, but some enterprise or
+legacy systems still use SOAP.
+
 Security and API usage
 ----------------------
 
@@ -290,7 +371,8 @@ vendor's API. The general idea is that they want to know who is using
 their services and how much each user is using. Perhaps they have free
 and pay tiers of their services or have a policy that limits the number
 of requests that a single individual can make during a particular time
-period.
+period. For example, if you exceed Google's geocoding API rate limit,
+your account cannot access their API again for 24 hours.
 
 Sometimes once you get your API key, you simply include the key as part
 of POST data or perhaps as a parameter on the URL when calling the API.
@@ -298,9 +380,9 @@ of POST data or perhaps as a parameter on the URL when calling the API.
 Other times, the vendor wants increased assurance of the source of the
 requests and so they expect you to send cryptographically signed
 messages using shared keys and secrets. A very common technology that is
-used to sign requests over the Internet is called
-*OAuth*. You can read more about the OAuth protocol at
-[www.oauth.net](http://www.oauth.net).
+used to sign requests over the Internet is called *OAuth*. For example, 
+that is what X, formerly Twitter, uses. You can read more about the OAuth 
+protocol at [www.oauth.net](http://www.oauth.net).
 
 Thankfully there are a number of convenient
 and free OAuth libraries so you can avoid writing an OAuth
@@ -313,10 +395,16 @@ Glossary
 --------
 
 API
-:   Application Program Interface - A contract between applications that
-    defines the patterns of interaction between two application
-    components.
+:   Application Program Interface - A defined contract that describes the
+    services one program offers to another, including what requests can be
+    made and what data will be returned.
 \index{API}
+
+Deserialization  
+:   The reverse of serialization; converting received data in a wire 
+    format like XML or JSON back into internal data structures within 
+    a program.
+\index{Deserialization}
 
 ElementTree
 :   A built-in Python library used to parse XML data.
@@ -328,11 +416,31 @@ JSON
 \index{JSON}
 \index{JavaScript Object Notation}
 
+Serialization  
+:   The process of converting structured data from a program's internal 
+    format (e.g., Python lists or dictionaries) into a standardized wire 
+    format like XML or JSON, so it can be transmitted over a network.
+\index{Serialization}
+
 SOA
-:   Service-Oriented Architecture - When an application is made of
-    components connected across a network.
+:   Service-Oriented Architecture - A design approach where an application
+    is built by combining services provided by other programs over a 
+    network, rather than having all functionality in one standalone
+    codebase.
 \index{SOA}
 \index{Service Oriented Architecture}
+
+Wire Format  
+:   A standardized format (such as XML or JSON) used to represent structured 
+    data when transmitting it between programs over a network.
+\index{Wire Format}
+
+Wire Format Schema  
+:   A formal specification that defines the expected structure, data types, 
+    and required fields of data encoded in a wire format such as XML or JSON. 
+    Wire format schemas are written using schema languages like XSD (for XML) 
+    or JSON Schema (for JSON).
+\index{Wire Format Schema}
 
 XML
 :   eXtensible Markup Language - A format that allows for the markup of
