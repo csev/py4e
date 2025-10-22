@@ -194,6 +194,10 @@ regular expressions, see:</p>
 class="uri">https://en.wikipedia.org/wiki/Regular_expression</a></p>
 <p><a href="https://docs.python.org/library/re.html"
 class="uri">https://docs.python.org/library/re.html</a></p>
+<p>You can also bookmark the following page to experiment with regular
+expressions as you learn:</p>
+<p><a href="https://regex101.com/"
+class="uri">https://regex101.com/</a></p>
 <p>The regular expression module <code>re</code> must be imported into
 your program before you can use it. The simplest use of the regular
 expression module is the <code>search()</code> function. The following
@@ -217,7 +221,7 @@ expressions, since we could have just as easily used
 <p>The power of the regular expressions comes when we add special
 characters to the search string that allow us to more precisely control
 which lines match the string. Adding these special characters to our
-regular expression allow us to do sophisticated matching and extraction
+regular expression allows us to do sophisticated matching and extraction
 while writing very little code.</p>
 <p>For example, the caret character is used in regular expressions to
 match “the beginning” of a line. We could change our program to only
@@ -285,13 +289,19 @@ following line:</p>
 <p>You can think of the <code>.+</code> wildcard as expanding to match
 all the characters between the colon character and the at-sign.</p>
 <pre><code>From:.+@</code></pre>
-<p>It is good to think of the plus and asterisk characters as “pushy”.
-For example, the following string would match the last at-sign in the
-string as the <code>.+</code> pushes outwards, as shown below:</p>
-<pre><code>From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen @iupui.edu</code></pre>
-<p>It is possible to tell an asterisk or plus sign not to be so “greedy”
-by adding another character. See the detailed documentation for
-information on turning off the greedy behavior.</p>
+<p>It is good to think of the plus and asterisk characters as “pushy” or
+“greedy.” For example, the following string would match the last at-sign
+in the string as the <code>.+</code> pushes outwards, the one in
+<code>cwen@iupui.edu</code>.</p>
+<pre><code>From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen@iupui.edu</code></pre>
+<p>It is possible to tell an asterisk or plus sign not to be so
+“greedy.” If you append <code>?</code>, to make it <code>.*?</code> or
+<code>.+?</code>, your regex will match the very first instance rather
+than the last instance. In the example above, using <code>.+?@</code>
+would instead match the first at-sign, the one in
+<code>stephen.marquard@uct.ac.za</code>. For more details, see the <a
+href="https://docs.python.org/3/library/re.html">Python documentation on
+greedy vs non-greedy quantifiers</a>.</p>
 <p></p>
 <h2 id="extracting-data-using-regular-expressions">Extracting data using
 regular expressions</h2>
@@ -320,7 +330,11 @@ print(lst)
 <p>The <code>findall()</code> method searches the string in the second
 argument and returns a list of all of the strings that look like email
 addresses. We are using a two-character sequence that matches a
-non-whitespace character (<code>\S</code>).</p>
+non-whitespace character (<code>\S</code>). You will notice we’ve also
+appended the letter <code>r</code> just before our regular expression;
+this tells Python to interpret our regular expression as a raw string,
+and not to treat backslashes as escape characters (like we use with
+<code>\n</code>).</p>
 <p>The output of the program would be:</p>
 <pre><code>[&#39;csev@umich.edu&#39;, &#39;cwen@iupui.edu&#39;]</code></pre>
 <p>Translating the regular expression, we are looking for substrings
@@ -445,7 +459,7 @@ import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
     line = line.rstrip()
-    if re.search(r&#39;^X\S*: [0-9.]+&#39;, line):
+    if re.search(r&#39;^X-.*: [0-9.]+&#39;, line):
         print(line)
 
 # Code: https://www.py4e.com/code3/re10.py</code></pre>
@@ -477,7 +491,7 @@ import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
     line = line.rstrip()
-    x = re.findall(r&#39;^X\S*: ([0-9.]+)&#39;, line)
+    x = re.findall(r&#39;^X-.*: ([0-9.]+)&#39;, line)
     if len(x) &gt; 0:
         print(x)
 
@@ -510,7 +524,7 @@ import re
 hand = open(&#39;mbox-short.txt&#39;)
 for line in hand:
     line = line.rstrip()
-    x = re.findall(&#39;^Details:.*rev=([0-9]+)&#39;, line)
+    x = re.findall(r&#39;^Details:.*rev=([0-9]+)$&#39;, line)
     if len(x) &gt; 0:
         print(x)
 
@@ -520,7 +534,8 @@ start with <code>Details:</code>, followed by any number of characters
 (<code>.*</code>), followed by <code>rev=</code>, and then by one or
 more digits. We want to find lines that match the entire expression but
 we only want to extract the integer number at the end of the line, so we
-surround <code>[0-9]+</code> with parentheses.</p>
+surround <code>[0-9]+</code> with parentheses, and we add <code>$</code>
+to indicate matches specifically at the end of the line.</p>
 <p>When we run the program, we get the following output:</p>
 <pre><code>[&#39;39772&#39;]
 [&#39;39771&#39;]
@@ -543,7 +558,7 @@ again on the colon character to pull out the two characters we were
 interested in.</p>
 <p>While this worked, it actually results in pretty brittle code that is
 assuming the lines are nicely formatted. If you were to add enough error
-checking (or a big try/except block) to insure that your program never
+checking (or a big try/except block) to ensure that your program never
 failed when presented with incorrectly formatted lines, the code would
 balloon to 10-15 lines of code that was pretty hard to read.</p>
 <p>We can do this in a far simpler way with the following regular
@@ -577,10 +592,11 @@ for line in hand:
 [&#39;15&#39;]
 ...</code></pre>
 <h2 id="escape-character">Escape character</h2>
-<p>Since we use special characters in regular expressions to match the
-beginning or end of a line or specify wild cards, we need a way to
-indicate that these characters are “normal” and we want to match the
-actual character such as a dollar sign or caret.</p>
+<p>Regular expressions utilize special characters like <code>^</code> to
+match the beginning of a line, <code>$</code> for the end of a line, and
+<code>.</code> as a wildcard; however, sometimes we want to match those
+characters literally. We need a way to indicate that we want to match
+the actual character such as a caret symbol, dollar sign, or period.</p>
 <p>We can indicate that we want to simply match a character by prefixing
 that character with a backslash. For example, we can find money amounts
 with the following regular expression.</p>
@@ -590,11 +606,11 @@ y = re.findall(&#39;\$[0-9.]+&#39;,x)</code></pre>
 <p>Since we prefix the dollar sign with a backslash, it actually matches
 the dollar sign in the input string instead of matching the “end of
 line”, and the rest of the regular expression matches one or more digits
-or the period character. <em>Note:</em> Inside square brackets,
-characters are not “special”. So when we say <code>[0-9.]</code>, it
-really means digits or a period. Outside of square brackets, a period is
-the “wild-card” character and matches any character. Inside square
-brackets, the period is a period.</p>
+or the period character. Remember, as we saw above, inside square
+brackets, characters are not “special”. So when we say
+<code>[0-9.]</code>, it really means digits or a period. Outside of
+square brackets, a period is the “wild-card” character and matches any
+character. Inside square brackets, the period is a period.</p>
 <h2 id="summary">Summary</h2>
 <p>While this only scratched the surface of regular expressions, we have
 learned a bit about the language of regular expressions. They are search

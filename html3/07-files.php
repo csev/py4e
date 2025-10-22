@@ -589,10 +589,10 @@ automatically.</p>
 that the last bit of data is physically written to the disk so it will
 not be lost if the power goes off.</p>
 <pre class="python"><code>&gt;&gt;&gt; fout.close()</code></pre>
-<p>We could close the files which we open for read as well, but we can
-be a little sloppy if we are only opening a few files since Python makes
-sure that all open files are closed when the program ends. When we are
-writing files, we want to explicitly close the files so as to leave
+<p>We could close the files which we open for reading as well, but we
+can be a little sloppy if we are only opening a few files since Python
+makes sure that all open files are closed when the program ends. When we
+are writing files, we want to explicitly close the files so as to leave
 nothing to chance.</p>
 <p> </p>
 <h2 id="debugging">Debugging</h2>
@@ -641,7 +641,7 @@ A technique that works elegantly in Python. “Using try and except is the
 </dd>
 <dt>Quality Assurance</dt>
 <dd>
-A person or team focused on insuring the overall quality of a software
+A person or team focused on ensuring the overall quality of a software
 product. QA is often involved in testing a product and identifying
 problems before the product is released.
 </dd>

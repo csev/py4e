@@ -537,7 +537,7 @@ never reach <code>(x/y)</code>.</p>
 <em>after</em> the <code>(x/y)</code> calculation so the expression
 fails with an error.</p>
 <p>In the second expression, we say that <code>y != 0</code> acts as a
-<em>guard</em> to insure that we only execute <code>(x/y)</code> if
+<em>guard</em> to ensure that we only execute <code>(x/y)</code> if
 <code>y</code> is non-zero.</p>
 <h2 id="debugging">Debugging</h2>
 <p> </p>

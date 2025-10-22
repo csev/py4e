@@ -476,7 +476,7 @@ If we need the data more than once, we create a numeric <em>key</em> for
 the data and reference the actual data using this key. Especially if the
 multiple entries refer to the same object.</p>
 <p>To demonstrate the slippery slope we are going down by assigning
-string columns to out database model, think about how we would change
+string columns to our database model, think about how we would change
 the data model if we wanted to keep track of the eye color of our
 artists? Would we do this?</p>
 <pre class="sql"><code>DROP TABLE IF EXISTS Track;
@@ -544,10 +544,10 @@ where <code>artist_id</code> <code>Track</code> table matches the
 New York|25|Frank Sinatra|blue</code></pre>
 <p>While it might seem a little clunky and your instincts might tell you
 that it would be faster just to keep the data in one table, it turns out
-the the limit on database performance is how much data needs to be
-scanned when retrieving a query. While the details are very complex,
-integers are a lot smaller than strings (especially Unicode) and far
-quicker to to move and compare.</p>
+the limit on database performance is how much data needs to be scanned
+when retrieving a query. While the details are very complex, integers
+are a lot smaller than strings (especially Unicode) and far quicker to
+move and compare.</p>
 <h2 id="data-model-diagrams">Data model diagrams</h2>
 <p> While our <code>Track</code> and <code>Artist</code> database design
 is simple with just two tables and a single one-to-many relationship,
@@ -607,7 +607,7 @@ INSERT INTO Artist (name, eyes)
 to the Frank Sinatra row. But we then need a way to have the database
 tell us the <code>id</code> value for the recently inserted row. One way
 is to use a <code>SELECT</code> statement to retrieve data from an
-SQLite built-in-fuction called <code>last_insert_rowid()</code>.</p>
+SQLite built-in-function called <code>last_insert_rowid()</code>.</p>
 <pre><code>sqlite&gt; DROP TABLE IF EXISTS Artist;
 sqlite&gt; CREATE TABLE Artist (id INTEGER PRIMARY KEY,
    ...&gt;     name TEXT, eyes TEXT);
@@ -627,8 +627,8 @@ sqlite&gt; CREATE TABLE Track (id INTEGER PRIMARY KEY,
    ...&gt;     title TEXT, plays INTEGER, artist_id INTEGER);</code></pre>
 <p>Note that the <code>artist_id</code> value is the new auto-assigned
 row in the <code>Artist</code> table and that while we added an
-<code>INTEGER PRIMARY KEY</code> to the the <code>Track</code> table, we
-did not include <code>id</code> in the list of fields on the
+<code>INTEGER PRIMARY KEY</code> to the <code>Track</code> table, we did
+not include <code>id</code> in the list of fields on the
 <code>INSERT</code> statements into the <code>Track</code> table. Again
 this tells the database to choose a unique value for us for the
 <code>id</code> column.</p>
@@ -674,8 +674,8 @@ database query.</p>
 <p>These text columns that are used to find rows based on some
 information in the “real world” like the name of an artist are called
 <em>Logical keys</em>.</p>
-<h2 id="adding-constraints-to-the-data-database">Adding constraints to
-the data database</h2>
+<h2 id="adding-constraints-to-the-database">Adding constraints to the
+database</h2>
 <p> We can also use an index to enforce a constraint (i.e. rules) on our
 database operations. The most common constraint is a <em>uniqueness
 constraint</em> which insists that all of the values in a column are
@@ -764,7 +764,7 @@ CREATE TABLE Track (
 );</code></pre>
 <p>We are adding the <code>UNIQUE</code> keyword to <code>TEXT</code>
 columns that we would like to have a uniqueness constraint that we will
-use in <code>INSERT IGNORE</code> statements. This is more succinct that
+use in <code>INSERT IGNORE</code> statements. This is more succinct than
 separate <code>CREATE INDEX</code> statements but has the same
 effect.</p>
 <p>With these tables in place, we write the following code
@@ -1100,7 +1100,7 @@ incorporate role as follows:</p>
     cur.execute(&#39;&#39;&#39;INSERT OR REPLACE INTO Member
         (user_id, course_id, role) VALUES ( ?, ?, ? )&#39;&#39;&#39;,
         ( user_id, course_id, role ) )</code></pre>
-<p>In a real system, we would proably build a <code>Role</code> table
+<p>In a real system, we would probably build a <code>Role</code> table
 and make the <code>role</code> column in <code>Member</code> a foreign
 key into the Role table as follows:</p>
 <pre class="sql"><code>DROP TABLE Member;

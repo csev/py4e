@@ -198,7 +198,7 @@ Here is a sample of an XML document:</p>
   &lt;email hide=&quot;yes&quot; /&gt;
 &lt;/person&gt;</code></pre>
 <p>Each pair of opening (e.g., <code>&lt;person&gt;</code>) and closing
-tags (e.g., <code>&lt;/person&gt;</code>) represents a <em>element</em>
+tags (e.g., <code>&lt;/person&gt;</code>) represents an <em>element</em>
 or <em>node</em> with the same name as the tag (e.g.,
 <code>person</code>). Each element can have some text, some attributes
 (e.g., <code>hide</code>), and other nested elements. If an XML element

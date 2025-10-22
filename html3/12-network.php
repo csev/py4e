@@ -307,10 +307,10 @@ HTTP</h2>
 <p> </p>
 <p>In the above example, we retrieved a plain text file which had
 newlines in the file and we simply copied the data to the screen as the
-program ran. We can use a similar program to retrieve an image across
-using HTTP. Instead of copying the data to the screen as the program
-runs, we accumulate the data in a string, trim off the headers, and then
-save the image data to a file as follows:</p>
+program ran. We can use a similar program to retrieve an image using
+HTTP. Instead of copying the data to the screen as the program runs, we
+accumulate the data in a string, trim off the headers, and then save the
+image data to a file as follows:</p>
 <pre class="python"><code>import socket
 import time
 

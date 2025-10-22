@@ -760,12 +760,12 @@ you need it. Its error messages sound harsh, but they are just Python’s
 call for help. It has looked at what you typed, and it simply cannot
 understand what you have entered.</p>
 <p>Python is much more like a dog, loving you unconditionally, having a
-few key words that it understands, looking you with a sweet look on its
-face (<code>&gt;&gt;&gt;</code>), and waiting for you to say something
-it understands. When Python says “SyntaxError: invalid syntax”, it is
-simply wagging its tail and saying, “You seemed to say something but I
-just don’t understand what you meant, but please keep talking to me
-(<code>&gt;&gt;&gt;</code>).”</p>
+few key words that it understands, looking at you with a sweet look on
+its face (<code>&gt;&gt;&gt;</code>), and waiting for you to say
+something it understands. When Python says “SyntaxError: invalid
+syntax”, it is simply wagging its tail and saying, “You seemed to say
+something but I just don’t understand what you meant, but please keep
+talking to me (<code>&gt;&gt;&gt;</code>).”</p>
 <p>As your programs become increasingly sophisticated, you will
 encounter three general types of errors:</p>
 <dl>

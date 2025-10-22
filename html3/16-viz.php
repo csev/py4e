@@ -307,10 +307,10 @@ href="http://www.py4e.com/code3/pagerank.zip">www.py4e.com/code3/pagerank.zip</a
 A Page Ranking
 </figcaption>
 </figure>
-<p>The first program (<em>spider.py</em>) program crawls a web site and
-pulls a series of pages into the database (<em>spider.sqlite</em>),
-recording the links between pages. You can restart the process at any
-time by removing the <em>spider.sqlite</em> file and rerunning
+<p>The first program (<em>spider.py</em>) crawls a web site and pulls a
+series of pages into the database (<em>spider.sqlite</em>), recording
+the links between pages. You can restart the process at any time by
+removing the <em>spider.sqlite</em> file and rerunning
 <em>spider.py</em>.</p>
 <pre><code>Enter web url or enter: http://www.dr-chuck.com/
 [&#39;http://www.dr-chuck.com&#39;]
