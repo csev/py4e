@@ -380,7 +380,7 @@ reference the actual data using this key. Especially if the multiple
 entries refer to the same object.
 
 To demonstrate the slippery slope we are going down by assigning string columns
-to out database model, think about how we would change the data model if we
+to our database model, think about how we would change the data model if we
 wanted to keep track of the eye color of our artists?  Would we do this?
 
 ~~~~ {.sql}
@@ -476,10 +476,10 @@ New York|25|Frank Sinatra|blue
 ~~~~
 
 While it might seem a little clunky and your instincts might tell you that
-it would be faster just to keep the data in one table, it turns out the
+it would be faster just to keep the data in one table, it turns out
 the limit on database performance is how much data needs to be scanned
 when retrieving a query.  While the details are very complex, integers
-are a lot smaller than strings (especially Unicode) and far quicker to
+are a lot smaller than strings (especially Unicode) and far quicker
 to move and compare.
 
 Data model diagrams
@@ -547,7 +547,7 @@ INSERT INTO Artist (name, eyes)
 Now we have instructed the database to auto-assign us a unique value to
 the Frank Sinatra row.  But we then need a way to have the database tell
 us the `id` value for the recently inserted row.  One way is to use a `SELECT`
-statement to retrieve data from an SQLite built-in-fuction
+statement to retrieve data from an SQLite built-in-function
 called `last_insert_rowid()`.
 
 ~~~~
@@ -574,7 +574,7 @@ sqlite> CREATE TABLE Track (id INTEGER PRIMARY KEY,
 ~~~~
 
 Note that the `artist_id` value is the new auto-assigned row in the
-`Artist` table and that while we added an `INTEGER PRIMARY KEY` to the
+`Artist` table and that while we added an `INTEGER PRIMARY KEY` to
 the `Track` table, we did not include `id` in the list of fields
 on the `INSERT` statements into the `Track` table.  Again
 this tells the database to choose a unique value for us for the
@@ -639,7 +639,7 @@ increase the performance of a database query.
 These text columns that are used to find rows based on some information
 in the "real world" like the name of an artist are called *Logical keys*.
 
-Adding constraints to the data database
+Adding constraints to the database
 ---------------------------------------
 
 \index{Constraint}
@@ -750,7 +750,7 @@ CREATE TABLE Track (
 
 We are adding the `UNIQUE` keyword to `TEXT` columns that we would like
 to have a uniqueness constraint that we will use in `INSERT IGNORE` statements.
-This is more succinct that separate `CREATE INDEX` statements but has the
+This is more succinct than separate `CREATE INDEX` statements but has the
 same effect.
 
 With these tables in place, we write the following code `tracks_csv.py`
@@ -1135,7 +1135,7 @@ for entry in json_data:
         ( user_id, course_id, role ) )
 ~~~~
 
-In a real system, we would proably build a `Role` table and make 
+In a real system, we would probably build a `Role` table and make 
 the `role` column in `Member` a foreign key into the Role table
 as follows:
 
