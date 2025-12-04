@@ -515,7 +515,7 @@ if ( $USER->instructor ) {
         <h4 class="modal-title">
 <?php
 if ( isset($LINK->title) ) {
-    echo(htmlent_utf8($LINK->title));
+    echo(htmlentities($LINK->title));
 } else {
     $OUTPUT->welcomeUserCourse();
 }
