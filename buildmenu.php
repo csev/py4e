@@ -40,7 +40,7 @@ function buildMenu() {
         $submenu->addLink('Logout', $R.'logout');
 
         if ( isset($_SESSION['avatar']) ) {
-            $set->addRight('<img src="'.$_SESSION['avatar'].'" title="'.htmlentities(__('User Profile Menu - Includes logout')).'" style="height: 2em;"/>', $submenu);
+            $set->addRight('<img src="'.$_SESSION['avatar'].'" title="'.htmlentities(__('User Profile Menu - Includes logout')).'" style="height: 2em;" referrerpolicy="no-referrer" alt="Avatar" loading="lazy"/>', $submenu);
             // htmlentities($_SESSION['displayname']), $submenu);
         } else {
             $set->addRight(htmlentities($_SESSION['displayname']), $submenu);
