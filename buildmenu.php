@@ -33,6 +33,7 @@ function buildMenu() {
             $submenu->addLink('Map', $R.'map');
         }
         $submenu->addLink('Announcements', $T.'lms/announce');
+        $submenu->addLink('Pages', $T.'lms/pages');
     
         $submenu->addLink('Badges', $R.'badges');
         $submenu->addLink('Materials', $R.'materials');
