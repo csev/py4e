@@ -1,10 +1,21 @@
 <?php
 
+use \Tsugi\Util\U;
+
 function buildMenu() {
     global $CFG;
     $R = $CFG->apphome . '/';
     $T = $CFG->wwwroot . '/';
+    $A = $CFG->wwwroot . '/lms/announce';
     $adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
+    $path = U::rest_path();
+    $base_path = $path->parent; // e.g., /announce
+
+    // Generate URLs using rest_path and addSession
+    $json_url = U::addSession($A . '/json.php');
+    $dismiss_url = U::addSession($A . '/dismiss.php');
+    $view_url = U::addSession($A . '/index.php');
+
     $set = new \Tsugi\UI\MenuSet();
     $set->setHome($CFG->servicename, $CFG->apphome);
     $set->addLeft('Lessons', $R.'lessons');
@@ -21,6 +32,7 @@ function buildMenu() {
         if ( isset($CFG->google_map_api_key) ) {
             $submenu->addLink('Map', $R.'map');
         }
+        $submenu->addLink('Announcements', $T.'lms/announce');
     
         $submenu->addLink('Badges', $R.'badges');
         $submenu->addLink('Materials', $R.'materials');
@@ -49,8 +61,12 @@ function buildMenu() {
         $set->addRight('Login', $R.'login');
     }
 
+
     $set->addRight('Book', $R . 'book');
+
     $set->addRight('Instructor', 'https://online.dr-chuck.com');
+
+    $set->addRight('<tsugi-announce json-url="'. htmlspecialchars($json_url) . '" dismiss-url="'. htmlspecialchars($dismiss_url) . '" view-url="'. htmlspecialchars($view_url) . '"> </tsugi-announce>', false);
 
     return($set);
 }

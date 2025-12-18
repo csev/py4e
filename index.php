@@ -100,4 +100,5 @@ var_dump($USER);
 ?>
 -->
 </div>
-<?php $OUTPUT->footer();
+<?php
+require_once "footer.php"; 
