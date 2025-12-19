@@ -1,6 +1,7 @@
 <?php
 use \Tsugi\Core\LTIX;
 use \Tsugi\UI\Output;
+use \Tsugi\UI\Pages;
 
 require_once "top.php";
 require_once "nav.php";
@@ -10,6 +11,13 @@ require_once "nav.php";
 <iframe width="400" height="225" src="https://www.youtube.com/embed/UjeNA_JtXME?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 <h1>Python for Everybody</h1>
+<?php
+$front_page_text = null;
+if ( isset($_SESSION['id']) && isset($_SESSION['context_id']) ) $front_page_text = Pages::getFrontPageText($_SESSION['context_id']);
+if ( $front_page_text ) {
+    echo $front_page_text;
+} else {
+?> 
 <?php if ( isset($_SESSION['id']) ) { ?>
 <p>
 Welcome to my free web site for Python for Everybody.
@@ -93,6 +101,7 @@ And yes, Dr. Chuck actually has a race car - it is called the
 He races in a series called
 <a href="https://www.24hoursoflemons.com" target="_blank">24 Hours of Lemons</a>.
 </p>
+<?php } /* End of there is a front page */ ?>
 <!--
 <?php
 echo(Output::safe_var_dump($_SESSION));
