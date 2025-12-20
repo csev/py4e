@@ -6,7 +6,8 @@ function buildMenu() {
     global $CFG;
     $R = $CFG->apphome . '/';
     $T = $CFG->wwwroot . '/';
-    $A = $CFG->wwwroot . '/lms/announce';
+    $L = $CFG->wwwroot . '/lms/';
+    $A = $L . 'announce';
     $adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
     $path = U::rest_path();
     $base_path = $path->parent; // e.g., /announce
@@ -32,8 +33,9 @@ function buildMenu() {
         if ( isset($CFG->google_map_api_key) ) {
             $submenu->addLink('Map', $R.'map');
         }
-        $submenu->addLink('Announcements', $T.'lms/announce');
-        $submenu->addLink('Pages', $T.'lms/pages');
+        $submenu->addLink('Announcements', $L.'announce');
+        $submenu->addLink('Grades', $L.'grades');
+        $submenu->addLink('Pages', $L.'pages');
     
         $submenu->addLink('Badges', $R.'badges');
         $submenu->addLink('Materials', $R.'materials');
