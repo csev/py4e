@@ -37,7 +37,7 @@ function buildMenu() {
         $submenu->addLink('Grades', $L.'grades');
         $submenu->addLink('Pages', $L.'pages');
     
-        $submenu->addLink('Badges', $L.'badges');
+        $submenu->addLink('Badges', $L.'badges2');
         $submenu->addLink('Materials', $R.'materials');
         if ( $CFG->providekeys ) {
             $submenu->addLink('LMS Integration', $T . 'settings');
