@@ -149,6 +149,17 @@ Thanks to:
 </li>
      </ul>
   </li>
+<li> Filipino-English (Taglish)
+<ul>
+<li>
+       Free: <a href="translations/TL/book_tl_2025_12_27.pdf" target="_blank">PDF Book</a>
+</li>
+<li>
+       Translation by: <a href="https://github.com/engramar" target="_blank">Engramar Bollas</a>
+of <a href="https://www.code.sydney/" target="_blank">Code.Sydney</a> | Bluehex | Vibecamp
+</li>
+     </ul>
+  </li>
   <li> Hindi / Urdu - 
 <ul>
 <li>
