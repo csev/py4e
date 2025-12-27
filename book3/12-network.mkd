@@ -1,86 +1,86 @@
 Networked programs
 ==================
 
-While many of the examples in this book have focused on reading files
-and looking for data in those files, there are many different sources of 
-information when one considers the Internet.
+Habang marami sa mga halimbawa sa libro na ito ay nakatuon sa pagbabasa ng files
+at paghahanap ng data sa mga files na iyon, mayroong maraming iba't ibang sources ng 
+impormasyon kapag isinasaalang-alang ng isa ang Internet.
 
-In this chapter we will pretend to be a web browser and retrieve web
-pages using the Hypertext Transfer Protocol (HTTP). Then we will read
-through the web page data and parse it.
+Sa chapter na ito magpapanggap tayo bilang web browser at kukuha ng web
+pages gamit ang Hypertext Transfer Protocol (HTTP). Pagkatapos magbabasa tayo
+sa web page data at i-parse ito.
 
 Hypertext Transfer Protocol - HTTP
 -----------------------------------
 
-The network protocol that powers the web is actually quite simple and
-there is built-in support in Python called `socket` which
-makes it very easy to make network connections and retrieve data over
-those sockets in a Python program.
+Ang network protocol na nagpapagana sa web ay talagang medyo simple at
+may built-in support sa Python na tinatawag na `socket` na
+nagpapadali sa paggawa ng network connections at pagkuha ng data sa pamamagitan ng
+mga sockets na iyon sa Python program.
 
-A *socket* is much like a file, except that a single
-socket provides a two-way connection between two programs. You can both
-read from and write to the same socket. If you write something to a
-socket, it is sent to the application at the other end of the socket. If
-you read from the socket, you are given the data which the other
-application has sent.
+Ang *socket* ay halos katulad ng file, maliban sa isang
+socket ay nagbibigay ng two-way connection sa pagitan ng dalawang programs. Maaari mong pareho
+magbasa mula at sumulat sa parehong socket. Kung sumusulat ka ng isang bagay sa
+socket, ipinapadala ito sa application sa kabilang dulo ng socket. Kung
+nagbabasa ka mula sa socket, binibigyan ka ng data na ipinadala ng iba pang
+application.
 
-But if you try to read a socket^[If you want to learn more about
-sockets, protocols or how web servers are developed, you can explore
-the course at https://www.dj4e.com.] when the program on the other end of the
-socket has not sent any data, you just sit and wait. If the programs on
-both ends of the socket simply wait for some data without sending
-anything, they will wait for a very long time, so an important part of programs
-that communicate over the Internet is to have some sort of protocol.
+Pero kung susubukan mong magbasa ng socket^[Kung gusto mong matuto pa tungkol sa
+sockets, protocols o kung paano nabubuo ang web servers, maaari mong i-explore
+ang course sa https://www.dj4e.com.] kapag ang program sa kabilang dulo ng
+socket ay hindi pa nagpadala ng anumang data, nakaupo ka lang at naghihintay. Kung ang programs sa
+parehong dulo ng socket ay simpleng naghihintay ng data nang hindi nagpapadala ng
+anumang bagay, maghihintay sila ng napakatagal, kaya mahalagang parte ng programs
+na nakikipag-communicate sa Internet ay magkaroon ng ilang uri ng protocol.
 
-A protocol is a set of precise rules that
-determine who is to go first, what they are to do, and then what the
-responses are to that message, and who sends next, and so on. In a sense
-the two applications at either end of the socket are doing a dance and
-making sure not to step on each other's toes.
+Ang protocol ay set ng tumpak na rules na
+nagde-determine kung sino ang uunang pumunta, kung ano ang gagawin nila, at pagkatapos kung ano ang
+mga responses sa mensaheng iyon, at sino ang susunod na magpapadala, at iba pa. Sa isang diwa
+ang dalawang applications sa magkabilang dulo ng socket ay gumagawa ng sayaw at
+sinisiguro na hindi tumapak sa paa ng isa't isa.
 
-There are many documents that describe these network protocols. The
-Hypertext Transfer Protocol is described in the following document:
+Mayroong maraming dokumento na naglalarawan sa mga network protocols na ito. Ang
+Hypertext Transfer Protocol ay inilarawan sa sumusunod na dokumento:
 
 <https://www.w3.org/Protocols/rfc2616/rfc2616.txt>
 
-This is a long and complex 176-page document with a lot of detail. If
-you find it interesting, feel free to read it all. But if you take a
-look around page 36 of RFC2616 you will find the syntax for the GET
-request. To request a document from a web server, we make a connection,
-e.g. to the `www.pr4e.org` server on port 80, and then send a
-line of the form
+Ito ay mahabang at kumplikadong 176-page na dokumento na may maraming detalye. Kung
+nakakainteresante ito sa iyo, huwag mag-atubiling basahin ang lahat. Pero kung titingnan mo
+ang page 36 ng RFC2616 makikita mo ang syntax para sa GET
+request. Para humingi ng dokumento mula sa web server, gumagawa tayo ng connection,
+hal. sa `www.pr4e.org` server sa port 80, at pagkatapos nagpapadala ng
+linya ng form
 
 `GET http://data.pr4e.org/romeo.txt HTTP/1.0 `
 
-where the second parameter is the web page we are requesting, and then
-we also send a blank line. The web server will respond with some header
-information about the document and a blank line followed by the document
+kung saan ang pangalawang parameter ay ang web page na hinihingi natin, at pagkatapos
+nagpapadala din tayo ng blank line. Ang web server ay magre-respond ng ilang header
+impormasyon tungkol sa dokumento at blank line na sinusundan ng dokumento
 content.
 
 The world's simplest web browser
 --------------------------------
 
-Perhaps the easiest way to show how the HTTP protocol works is to write
-a very simple Python program that makes a connection to a web server and
-follows the rules of the HTTP protocol to request a document and
-display what the server sends back.
+Marahil ang pinakamadaling paraan para ipakita kung paano gumagana ang HTTP protocol ay sumulat ng
+napakasimpleng Python program na gumagawa ng connection sa web server at
+sumusunod sa rules ng HTTP protocol para humingi ng dokumento at
+ipakita ang ipinadala ng server.
 
 \VerbatimInput{../code3/socket1.py}
 
-First the program makes a connection to port 80 on the server
-[www.pr4e.com](http://www.pr4e.com). Since our program is playing the role
-of the "web browser", the HTTP protocol says we must send the GET
-command followed by a blank line. `\r\n` signifies an EOL (end of line),
-so `\r\n\r\n` signifies nothing between two EOL sequences. That is the
-equivalent of a blank line.
+Una ang program ay gumagawa ng connection sa port 80 sa server
+[www.pr4e.com](http://www.pr4e.com). Dahil ang program natin ay gumaganap bilang
+"web browser", ang HTTP protocol ay nagsasabi na dapat nating ipadala ang GET
+command na sinusundan ng blank line. Ang `\r\n` ay nangangahulugang EOL (end of line),
+kaya ang `\r\n\r\n` ay nangangahulugang walang anuman sa pagitan ng dalawang EOL sequences. Iyon ang
+katumbas ng blank line.
 
 ![A Socket Connection](height=2.0in@../images/socket)
 
-Once we send that blank line, we write a loop that receives data in
-512-character chunks from the socket and prints the data out until there
-is no more data to read (i.e., the recv() returns an empty string).
+Kapag naipadala na natin ang blank line na iyon, sumusulat tayo ng loop na tumatanggap ng data sa
+512-character chunks mula sa socket at nagpi-print ng data hanggang wala nang
+data na mababasa (i.e., ang recv() ay nagre-return ng empty string).
 
-The program produces the following output:
+Ang program ay gumagawa ng sumusunod na output:
 
 ~~~~
 HTTP/1.1 200 OK
@@ -102,32 +102,32 @@ Arise fair sun and kill the envious moon
 Who is already sick and pale with grief
 ~~~~
 
-The output starts with headers which the web server sends to describe
-the document. For example, the `Content-Type` header
-indicates that the document is a plain text document
+Ang output ay nagsisimula sa headers na ipinapadala ng web server para ilarawan
+ang dokumento. Halimbawa, ang `Content-Type` header
+ay nagpapahiwatig na ang dokumento ay plain text document
 (`text/plain`).
 
-After the server sends us the headers, it adds a blank line to indicate
-the end of the headers, and then sends the actual data of the file
+Pagkatapos ipadala sa atin ng server ang headers, nagdaragdag ito ng blank line para ipahiwatig
+ang dulo ng headers, at pagkatapos nagpapadala ng aktwal na data ng file
 *romeo.txt*.
 
-This example shows how to make a low-level network connection with
-sockets. Sockets can be used to communicate with a web server or with a
-mail server or many other kinds of servers. All that is needed is to
-find the document which describes the protocol and write the code to
-send and receive the data according to the protocol.
+Ang halimbawang ito ay nagpapakita kung paano gumawa ng low-level network connection gamit ang
+sockets. Ang sockets ay maaaring gamitin para makipag-communicate sa web server o sa
+mail server o marami pang ibang uri ng servers. Ang kailangan lang ay
+hanapin ang dokumento na naglalarawan sa protocol at sumulat ng code para
+magpadala at tumanggap ng data ayon sa protocol.
 
-However, since the protocol that we use most commonly is the HTTP web
-protocol, Python has a special library specifically designed to support
-the HTTP protocol for the retrieval of documents and data over the web.
+Gayunpaman, dahil ang protocol na pinakakaraniwang ginagamit natin ay ang HTTP web
+protocol, ang Python ay may espesyal na library na partikular na idinisenyo para suportahan
+ang HTTP protocol para sa pagkuha ng mga dokumento at data sa web.
 
-One of the requirements for using the HTTP protocol is the need to send
-and receive data as bytes objects, instead of strings. In the preceding
-example, the `encode()` and `decode()` methods convert strings into bytes
-objects and back again.
+Isa sa mga requirements para gamitin ang HTTP protocol ay ang pangangailangan na magpadala
+at tumanggap ng data bilang bytes objects, sa halip na strings. Sa naunang
+halimbawa, ang `encode()` at `decode()` methods ay nagko-convert ng strings sa bytes
+objects at pabalik.
 
-The next example uses `b''` notation to specify that a variable should
-be stored as a bytes object. `encode()` and `b''` are equivalent.
+Ang susunod na halimbawa ay gumagamit ng `b''` notation para tukuyin na ang variable ay dapat
+i-store bilang bytes object. Ang `encode()` at `b''` ay katumbas.
 
 ~~~~
 >>> b'Hello world'
@@ -143,16 +143,16 @@ Retrieving an image over HTTP
 \index{image!jpg}
 \index{jpg}
 
-In the above example, we retrieved a plain text file which had newlines
-in the file and we simply copied the data to the screen as the program
-ran. We can use a similar program to retrieve an image using
-HTTP. Instead of copying the data to the screen as the program runs, we
-accumulate the data in a string, trim off the headers, and then save the
-image data to a file as follows:
+Sa halimbawa sa itaas, kumuha tayo ng plain text file na may newlines
+sa file at simpleng kinopya ang data sa screen habang tumatakbo ang program.
+Maaari tayong gumamit ng katulad na program para kumuha ng image gamit ang
+HTTP. Sa halip na kopyahin ang data sa screen habang tumatakbo ang program, 
+ina-accumulate natin ang data sa string, tinatanggal ang headers, at pagkatapos sinasave ang
+image data sa file tulad ng sumusunod:
 
 \VerbatimInput{../code3/urljpeg.py}
 
-When the program runs, it produces the following output:
+Kapag tumatakbo ang program, gumagawa ito ng sumusunod na output:
 
 ~~~~
 $ python urljpeg.py
@@ -182,34 +182,34 @@ Connection: close
 Content-Type: image/jpeg
 ~~~~
 
-You can see that for this url, the `Content-Type` header
-indicates that body of the document is an image
-(`image/jpeg`). Once the program completes, you can view the
-image data by opening the file `stuff.jpg` in an image
+Makikita mo na para sa url na ito, ang `Content-Type` header
+ay nagpapahiwatig na ang body ng dokumento ay image
+(`image/jpeg`). Kapag natapos na ang program, maaari mong tingnan ang
+image data sa pamamagitan ng pagbubukas ng file na `stuff.jpg` sa image
 viewer.
 
-As the program runs, you can see that we don't get 5120 characters each
-time we call the `recv()` method. We get as many characters
-as have been transferred across the network to us by the web server at
-the moment we call `recv()`. In this example, we either get
-as few as 3200 characters each time we request up to 5120 characters of
+Habang tumatakbo ang program, makikita mo na hindi tayo nakakakuha ng 5120 characters sa bawat
+pagkakataon na tinatawag natin ang `recv()` method. Nakakakuha tayo ng kasing dami ng characters
+na na-transfer sa network sa atin ng web server sa
+sandaling tinatawag natin ang `recv()`. Sa halimbawang ito, nakakakuha tayo ng
+kasing kaunti ng 3200 characters sa bawat pagkakataon na humihingi tayo ng hanggang 5120 characters ng
 data.
 
-Your results may be different depending on your network speed. Also note
-that on the last call to `recv()` we get 3167 bytes, which is
-the end of the stream, and in the next call to `recv()` we
-get a zero-length string that tells us that the server has called
-`close()` on its end of the socket and there is no more data
-forthcoming.
+Ang iyong results ay maaaring magkaiba depende sa network speed mo. Tandaan din
+na sa huling tawag sa `recv()` nakakakuha tayo ng 3167 bytes, na siyang
+dulo ng stream, at sa susunod na tawag sa `recv()` 
+nakakakuha tayo ng zero-length string na nagsasabi sa atin na ang server ay tumawag na sa
+`close()` sa dulo nito ng socket at wala nang data na
+darating.
 
 \index{time}
 \index{time.sleep}
 
-We can slow down our successive `recv()` calls by
-uncommenting the call to `time.sleep()`. This way, we wait a
-quarter of a second after each call so that the server can "get ahead"
-of us and send more data to us before we call `recv()` again.
-With the delay, in place the program executes as follows:
+Maaari nating pabagalin ang sunud-sunod na `recv()` calls natin sa pamamagitan ng
+pag-uncomment sa tawag sa `time.sleep()`. Sa ganitong paraan, naghihintay tayo ng
+quarter ng segundo pagkatapos ng bawat tawag para makakuha ng "lead" ang server
+at magpadala ng mas maraming data sa atin bago tayo tumawag ulit sa `recv()`.
+Sa delay, sa lugar ang program ay nag-e-execute tulad ng sumusunod:
 
 ~~~~
 $ python urljpeg.py
@@ -236,41 +236,41 @@ Connection: close
 Content-Type: image/jpeg
 ~~~~
 
-Now other than the first and last calls to `recv()`, we now
-get 5120 characters each time we ask for new data.
+Ngayon maliban sa una at huling tawag sa `recv()`, nakakakuha na tayo ng
+5120 characters sa bawat pagkakataon na humihingi tayo ng bagong data.
 
-There is a buffer between the server making `send()` requests
-and our application making `recv()` requests. When we run the
-program with the delay in place, at some point the server might fill up
-the buffer in the socket and be forced to pause until our program starts
-to empty the buffer. The pausing of either the sending application or
-the receiving application is called "flow control."
+Mayroong buffer sa pagitan ng server na gumagawa ng `send()` requests
+at application natin na gumagawa ng `recv()` requests. Kapag pinatakbo natin ang
+program na may delay sa lugar, sa ilang punto ang server ay maaaring mapuno ang
+buffer sa socket at mapilit na mag-pause hanggang magsimulang mag-emptying ng buffer ang program natin.
+Ang pag-pause ng alinman sa sending application o
+receiving application ay tinatawag na "flow control."
 
 \index{flow control}
 
 Retrieving web pages with `urllib`
 ---------------------------------------------
 
-While we can manually send and receive data over HTTP using the socket
-library, there is a much simpler way to perform this common task in
-Python by using the `urllib` library.
+Habang maaari nating manu-manong magpadala at tumanggap ng data sa HTTP gamit ang socket
+library, mayroong mas simpleng paraan para gawin ang karaniwang gawaing ito sa
+Python sa pamamagitan ng paggamit ng `urllib` library.
 
-Using `urllib`, you can treat a web page much like a file.
-You simply indicate which web page you would like to retrieve and
-`urllib` handles all of the HTTP protocol and header details.
+Gamit ang `urllib`, maaari mong tratuhin ang web page na parang file.
+Simpleng ipinapahiwatig mo lang kung aling web page ang gusto mong kunin at
+ang `urllib` ay nagha-handle ng lahat ng HTTP protocol at header details.
 
-The equivalent code to read the *romeo.txt* file from the web
-using `urllib` is as follows:
+Ang katumbas na code para basahin ang *romeo.txt* file mula sa web
+gamit ang `urllib` ay ganito:
 
 \VerbatimInput{../code3/urllib1.py}
 
-Once the web page has been opened with `urllib.request.urlopen`, we
-can treat it like a file and read through it using a `for`
+Kapag nabuksan na ang web page gamit ang `urllib.request.urlopen`, maaari nating
+tratuhin ito na parang file at basahin ito gamit ang `for`
 loop.
 
-When the program runs, we only see the output of the contents of the
-file. The headers are still sent, but the `urllib` code
-consumes the headers and only returns the data to us.
+Kapag tumatakbo ang program, nakikita lang natin ang output ng contents ng
+file. Ang headers ay ipinapadala pa rin, pero ang `urllib` code
+ay kumukonsumo ng headers at nagre-return lang ng data sa atin.
 
 ~~~~
 But soft what light through yonder window breaks
@@ -279,53 +279,53 @@ Arise fair sun and kill the envious moon
 Who is already sick and pale with grief
 ~~~~
 
-As an example, we can write a program to retrieve the data for
-`romeo.txt` and compute the frequency of each word in the
-file as follows:
+Bilang halimbawa, maaari tayong sumulat ng program para kunin ang data para sa
+`romeo.txt` at i-compute ang frequency ng bawat salita sa
+file tulad ng sumusunod:
 
 \VerbatimInput{../code3/urlwords.py}
 
-Again, once we have opened the web page, we can read it like a local
+Muli, kapag nabuksan na natin ang web page, maaari nating basahin ito na parang local
 file.
 
 Reading binary files using `urllib`
 -----------------------------------
 
-Sometimes you want to retrieve a non-text (or binary) file such as an
-image or video file. The data in these files is generally not useful to
-print out, but you can easily make a copy of a URL to a local file on
-your hard disk using `urllib`.
+Minsan gusto mong kunin ang non-text (o binary) file tulad ng
+image o video file. Ang data sa mga files na ito ay karaniwang hindi kapaki-pakinabang na
+i-print, pero madali mong magagawa ng kopya ng URL sa local file sa
+hard disk mo gamit ang `urllib`.
 
 \index{binary file}
 
-The pattern is to open the URL and use `read` to download the
-entire contents of the document into a string variable
-(`img`) then write that information to a local file as
-follows:
+Ang pattern ay buksan ang URL at gamitin ang `read` para i-download ang
+buong contents ng dokumento sa string variable
+(`img`) pagkatapos isulat ang impormasyong iyon sa local file tulad ng
+sumusunod:
 
 \VerbatimInput{../code3/curl1.py}
 
-This program reads all of the data in at once across the network and
-stores it in the variable `img` in the main memory of your
-computer, then opens the file `cover.jpg` and writes the data
-out to your disk. The `wb` argument for `open()` opens a binary file
-for writing only. This program will work if the size of the file is less than
-the size of the memory of your computer.
+Ang program na ito ay nagbabasa ng lahat ng data nang sabay-sabay sa network at
+nag-i-store nito sa variable na `img` sa main memory ng iyong
+computer, pagkatapos binubuksan ang file na `cover.jpg` at isinusulat ang data
+sa disk mo. Ang `wb` argument para sa `open()` ay nagbubukas ng binary file
+para sa pagsusulat lang. Ang program na ito ay gagana kung ang laki ng file ay mas maliit kaysa sa
+laki ng memory ng computer mo.
 
-However if this is a large audio or video file, this program may crash
-or at least run extremely slowly when your computer runs out of memory.
-In order to avoid running out of memory, we retrieve the data in blocks
-(or buffers) and then write each block to your disk before retrieving
-the next block. This way the program can read any size file without
-using up all of the memory you have in your computer.
+Gayunpaman kung ito ay malaking audio o video file, ang program na ito ay maaaring mag-crash
+o hindi bababa ay tumakbo nang napakabagal kapag naubusan ng memory ang computer mo.
+Para maiwasan ang pagkaubos ng memory, kinukuha natin ang data sa blocks
+(o buffers) at pagkatapos isinusulat ang bawat block sa disk mo bago kunin ang
+susunod na block. Sa ganitong paraan ang program ay maaaring magbasa ng anumang laking file nang hindi
+ginagamit ang lahat ng memory na mayroon ka sa computer mo.
 
 \VerbatimInput{../code3/curl2.py}
 
-In this example, we read only 100,000 characters at a time and then
-write those characters to the `cover3.jpg` file before
-retrieving the next 100,000 characters of data from the web.
+Sa halimbawang ito, nagbabasa lang tayo ng 100,000 characters sa isang pagkakataon at pagkatapos
+isinusulat ang mga characters na iyon sa file na `cover3.jpg` bago
+kunin ang susunod na 100,000 characters ng data mula sa web.
 
-This program runs as follows:
+Ang program na ito ay tumatakbo tulad ng sumusunod:
 
 ~~~~
 python curl2.py
@@ -338,28 +338,28 @@ Parsing HTML and scraping the web
 \index{web!scraping}
 \index{parsing HTML}
 
-One of the common uses of the `urllib` capability in Python
-is to *scrape* the web. Web scraping is when we write a
-program that pretends to be a web browser and retrieves pages, then
-examines the data in those pages looking for patterns.
+Isa sa karaniwang gamit ng `urllib` capability sa Python
+ay *i-scrape* ang web. Ang web scraping ay kapag sumusulat tayo ng
+program na nagpapanggap bilang web browser at kumukuha ng pages, pagkatapos
+sinusuri ang data sa mga pages na iyon na naghahanap ng patterns.
 
-As an example, a search engine such as Google will look at the source of
-one web page and extract the links to other pages and retrieve those
-pages, extracting links, and so on. Using this technique, Google
-*spiders* its way through nearly all of the pages on the
+Bilang halimbawa, ang search engine tulad ng Google ay titingnan ang source ng
+isang web page at kukunin ang links sa iba pang pages at kukunin ang mga
+pages na iyon, kumukuha ng links, at iba pa. Gamit ang technique na ito, ang Google ay
+*nag-spider* sa halos lahat ng pages sa
 web.
 
-Google also uses the frequency of links from pages it finds to a
-particular page as one measure of how "important" a page is and how high
-the page should appear in its search results.
+Gumagamit din ang Google ng frequency ng links mula sa pages na nakikita nito patungo sa
+partikular na page bilang isang sukat kung gaano "important" ang page at kung gaano kataas
+dapat lumabas ang page sa search results nito.
 
 Parsing HTML using regular expressions
 --------------------------------------
 
-One simple way to parse HTML is to use regular expressions to repeatedly
-search for and extract substrings that match a particular pattern.
+Ang isang simpleng paraan para mag-parse ng HTML ay gumamit ng regular expressions para paulit-ulit na
+maghanap at kunin ang substrings na tumutugma sa partikular na pattern.
 
-Here is a simple web page:
+Narito ang simpleng web page:
 
 ~~~~ {.html}
 <h1>The First Page</h1>
@@ -370,43 +370,43 @@ Second Page</a>.
 </p>
 ~~~~
 
-We can construct a well-formed regular expression to match and extract
-the link values from the above text as follows:
+Maaari tayong gumawa ng well-formed regular expression para tumugma at kunin
+ang link values mula sa text sa itaas tulad ng sumusunod:
 
 ~~~~
 href="http[s]?://.+?"
 ~~~~
 
-Our regular expression looks for strings that start with
-"href=\"http://" or "href=\"https://", followed by one or more characters (`.+?`),
-followed by another double quote. The question mark behind the `[s]?` indicates
-to search for the string "http" followed by zero or one "s". 
+Ang regular expression natin ay naghahanap ng strings na nagsisimula sa
+"href=\"http://" o "href=\"https://", na sinusundan ng isa o higit pang characters (`.+?`),
+na sinusundan ng isa pang double quote. Ang question mark sa likod ng `[s]?` ay nagpapahiwatig
+na maghanap ng string na "http" na sinusundan ng zero o isang "s". 
 
-The question mark added to the `.+?` indicates
-that the match is to be done in a "non-greedy" fashion instead of a
-"greedy" fashion. A non-greedy match tries to find the
-*smallest* possible matching string and a greedy match
-tries to find the *largest* possible matching string.
+Ang question mark na idinagdag sa `.+?` ay nagpapahiwatig
+na ang match ay dapat gawin sa "non-greedy" fashion sa halip na
+"greedy" fashion. Ang non-greedy match ay sinusubukang hanapin ang
+*pinakamaliit* na posibleng matching string at ang greedy match
+ay sinusubukang hanapin ang *pinakamalaki* na posibleng matching string.
 
 \index{greedy}
 \index{non-greedy}
 
-We add parentheses to our regular expression to indicate which part of
-our matched string we would like to extract, and produce the following
-program:
+Nagdaragdag tayo ng parentheses sa regular expression natin para ipahiwatig kung aling parte ng
+matched string natin ang gusto nating kunin, at gumagawa ng sumusunod
+na program:
 
 \index{regex!parentheses}
 \index{parentheses!regular expression}
 
 \VerbatimInput{../code3/urlregex.py}
 
-The `ssl` library allows this program to access web sites that strictly
-enforce HTTPS. The `read` method returns HTML source code as a bytes object 
-instead of returning an HTTPResponse object. The `findall` regular expression
-method will give us a list of all of the strings that match our
-regular expression, returning only the link text between the double quotes.
+Ang `ssl` library ay nagpapahintulot sa program na ito na ma-access ang web sites na mahigpit na
+nagpapatupad ng HTTPS. Ang `read` method ay nagre-return ng HTML source code bilang bytes object 
+sa halip na mag-return ng HTTPResponse object. Ang `findall` regular expression
+method ay magbibigay sa atin ng list ng lahat ng strings na tumutugma sa aming
+regular expression, na nagre-return lang ng link text sa pagitan ng double quotes.
 
-When we run the program and input a URL, we get the following output:
+Kapag pinatakbo natin ang program at nag-input ng URL, makukuha natin ang sumusunod na output:
 
 ~~~~
 Enter - https://docs.python.org
@@ -426,42 +426,42 @@ https://www.python.org/psf/donations/
 http://sphinx.pocoo.org/
 ~~~~
 
-Regular expressions work very nicely when your HTML is well formatted
-and predictable. But since there are a lot of "broken" HTML pages out
-there, a solution only using regular expressions might either miss some
-valid links or end up with bad data.
+Ang regular expressions ay gumagana nang napakaganda kapag ang HTML mo ay well formatted
+at predictable. Pero dahil mayroong maraming "broken" HTML pages doon,
+ang solusyon na gumagamit lang ng regular expressions ay maaaring makaligtaan ang ilang
+valid links o magtapos sa masamang data.
 
-This can be solved by using a robust HTML parsing library.
+Maaari itong malutas sa pamamagitan ng paggamit ng robust HTML parsing library.
 
 Parsing HTML using BeautifulSoup
 --------------------------------
 
 \index{BeautifulSoup}
 
-Even though HTML looks like XML^[The XML format is described in the next chapter.]
-and some pages are carefully
-constructed to be XML, most HTML is generally broken in ways that cause
-an XML parser to reject the entire page of HTML as improperly formed.
+Kahit na ang HTML ay mukhang XML^[Ang XML format ay inilarawan sa susunod na chapter.]
+at ang ilang pages ay maingat na
+ginawa para maging XML, karamihan ng HTML ay karaniwang sira sa mga paraan na nagdudulot
+na ang XML parser ay tumanggi sa buong page ng HTML bilang hindi wastong format.
 
-There are a number of Python libraries which can help you parse HTML and
-extract data from the pages. Each of the libraries has its strengths and
-weaknesses and you can pick one based on your needs.
+Mayroong ilang Python libraries na maaaring tumulong sa iyo na mag-parse ng HTML at
+kumuha ng data mula sa pages. Ang bawat library ay may sariling strengths at
+weaknesses at maaari kang pumili ng isa batay sa iyong pangangailangan.
 
-As an example, we will simply parse some HTML input and extract links
-using the *BeautifulSoup* library. BeautifulSoup tolerates highly flawed
-HTML and still lets you easily extract the data you need. You can download and
-install the BeautifulSoup code from:
+Bilang halimbawa, simpleng magpa-parse tayo ng ilang HTML input at kumuha ng links
+gamit ang *BeautifulSoup* library. Ang BeautifulSoup ay nagpaparaya sa lubhang flawed
+HTML at nagpapahintulot pa rin sa iyo na madaling kunin ang data na kailangan mo. Maaari mong i-download at
+i-install ang BeautifulSoup code mula sa:
 
 <https://pypi.python.org/pypi/beautifulsoup4>
 
-Information on installing BeautifulSoup with the Python Package Index tool `pip`
-is available at:
+Ang impormasyon tungkol sa pag-install ng BeautifulSoup gamit ang Python Package Index tool na `pip`
+ay available sa:
 
 <https://packaging.python.org/tutorials/installing-packages/>
 
-We will use `urllib` to read the page and then use
-`BeautifulSoup` to extract the `href` attributes
-from the anchor (`a`) tags.
+Gagamitin natin ang `urllib` para basahin ang page at pagkatapos gamitin ang
+`BeautifulSoup` para kunin ang `href` attributes
+mula sa anchor (`a`) tags.
 
 \index{BeautifulSoup}
 \index{HTML}
@@ -469,12 +469,12 @@ from the anchor (`a`) tags.
 
 \VerbatimInput{../code3/urllinks.py}
 
-The program prompts for a web address, then opens the web page, reads
-the data and passes the data to the BeautifulSoup parser, and then
-retrieves all of the anchor tags and prints out the `href`
-attribute for each tag.
+Ang program ay nagpo-prompt para sa web address, pagkatapos binubuksan ang web page, binabasa
+ang data at ipinapasa ang data sa BeautifulSoup parser, at pagkatapos
+kumukuha ng lahat ng anchor tags at nagpi-print ng `href`
+attribute para sa bawat tag.
 
-When the program runs, it produces the following output:
+Kapag tumatakbo ang program, gumagawa ito ng sumusunod na output:
 
 ~~~~
 Enter - https://docs.python.org
@@ -523,12 +523,12 @@ bugs.html
 http://sphinx.pocoo.org/
 ~~~~
 
-This list is much longer because some HTML anchor tags are relative
-paths (e.g., tutorial/index.html) or in-page references (e.g., '#')
-that do not include "http://" or "https://", which was a
-requirement in our regular expression.
+Ang list na ito ay mas mahaba dahil ang ilang HTML anchor tags ay relative
+paths (hal., tutorial/index.html) o in-page references (hal., '#')
+na hindi kasama ang "http://" o "https://", na siyang
+requirement sa regular expression natin.
 
-You can use also BeautifulSoup to pull out various parts of each tag:
+Maaari mo ring gamitin ang BeautifulSoup para kunin ang iba't ibang parte ng bawat tag:
 
 \VerbatimInput{../code3/urllink2.py}
 
@@ -542,21 +542,21 @@ Content: ['\nSecond Page']
 Attrs: [('href', 'http://www.dr-chuck.com/page2.htm')]
 ~~~~
 
-`html.parser` is the HTML parser included in the standard Python 3 library.
-Information on other HTML parsers is available at:
+Ang `html.parser` ay ang HTML parser na kasama sa standard Python 3 library.
+Ang impormasyon tungkol sa iba pang HTML parsers ay available sa:
 
 <http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser>
 
-These examples only begin to show the power of BeautifulSoup when it
-comes to parsing HTML.
+Ang mga halimbawang ito ay nagsisimula lang na ipakita ang kapangyarihan ng BeautifulSoup pagdating sa
+pag-parse ng HTML.
 
 Bonus section for Unix / Linux users
 ------------------------------------
 
-If you have a Linux, Unix, or Macintosh computer, you probably have
-commands built in to your operating system that retrieves both plain
-text and binary files using the HTTP or File Transfer (FTP) protocols.
-One of these commands is `curl`:
+Kung mayroon kang Linux, Unix, o Macintosh computer, malamang mayroon kang
+commands na naka-build sa operating system mo na kumukuha ng parehong plain
+text at binary files gamit ang HTTP o File Transfer (FTP) protocols.
+Isa sa mga commands na ito ay `curl`:
 
 \index{curl}
 
@@ -564,16 +564,16 @@ One of these commands is `curl`:
 $ curl -O http://www.py4e.com/cover.jpg
 ~~~~
 
-The command `curl` is short for "copy URL" and so the two
-examples listed earlier to retrieve binary files with `urllib`
-are cleverly named `curl1.py` and `curl2.py` on
-[www.py4e.com/code3](http://www.py4e.com/code3) as
-they implement similar functionality to the `curl` command.
-There is also a `curl3.py` sample program that does this task
-a little more effectively, in case you actually want to use this pattern
-in a program you are writing.
+Ang command na `curl` ay maikli para sa "copy URL" at kaya ang dalawang
+halimbawa na nakalista kanina para kumuha ng binary files gamit ang `urllib`
+ay matalinong pinangalanan na `curl1.py` at `curl2.py` sa
+[www.py4e.com/code3](http://www.py4e.com/code3) dahil
+nag-i-implement sila ng katulad na functionality sa `curl` command.
+Mayroon ding `curl3.py` sample program na gumagawa ng gawaing ito
+nang mas epektibo, kung sakaling gusto mong talagang gamitin ang pattern na ito
+sa program na sinusulat mo.
 
-A second command that functions very similarly is `wget`:
+Ang pangalawang command na gumagana nang katulad ay `wget`:
 
 \index{wget}
 
@@ -581,76 +581,75 @@ A second command that functions very similarly is `wget`:
 $ wget http://www.py4e.com/cover.jpg
 ~~~~
 
-Both of these commands make retrieving webpages and remote files a
-simple task.
+Pareho sa mga commands na ito ay nagpapasimple sa pagkuha ng webpages at remote files.
 
 Glossary
 --------
 
 BeautifulSoup
-:   A Python library for parsing HTML documents and extracting data from
-    HTML documents that compensates for most of the imperfections in the
-    HTML that browsers generally ignore. You can download the
-    BeautifulSoup code from [www.crummy.com](http://www.crummy.com).
+:   Python library para sa pag-parse ng HTML documents at pagkuha ng data mula sa
+    HTML documents na nagko-compensate para sa karamihan ng imperfections sa
+    HTML na karaniwang hindi pinapansin ng browsers. Maaari mong i-download ang
+    BeautifulSoup code mula sa [www.crummy.com](http://www.crummy.com).
 \index{BeautifulSoup}
 
 port
-:   A number that generally indicates which application you are
-    contacting when you make a socket connection to a server. As an
-    example, web traffic usually uses port 80 while email traffic uses
+:   Numero na karaniwang nagpapahiwatig kung aling application ang
+    kinokontak mo kapag gumagawa ka ng socket connection sa server. Bilang
+    halimbawa, ang web traffic ay karaniwang gumagamit ng port 80 habang ang email traffic ay gumagamit ng
     port 25.
 \index{port}
 
 scrape
-:   When a program pretends to be a web browser and retrieves a web
-    page, then looks at the web page content. Often programs are
-    following the links in one page to find the next page so they can
-    traverse a network of pages or a social network.
+:   Kapag ang program ay nagpapanggap bilang web browser at kumukuha ng web
+    page, pagkatapos tumitingin sa web page content. Kadalasan ang mga programs ay
+    sumusunod sa links sa isang page para hanapin ang susunod na page para maaari nilang
+    dumaan sa network ng pages o social network.
 \index{socket}
 
 socket
-:   A network connection between two applications where the applications
-    can send and receive data in either direction.
+:   Network connection sa pagitan ng dalawang applications kung saan ang applications
+    ay maaaring magpadala at tumanggap ng data sa alinmang direksyon.
 \index{socket}
 
 spider
-:   The act of a web search engine retrieving a page and then all the
-    pages linked from a page and so on until they have nearly all of the
-    pages on the Internet which they use to build their search index.
+:   Ang gawain ng web search engine na kumukuha ng page at pagkatapos lahat ng
+    pages na naka-link mula sa page at iba pa hanggang mayroon na silang halos lahat ng
+    pages sa Internet na ginagamit nila para gumawa ng search index nila.
 \index{spider}
 
 Exercises
 ---------
 
-**Exercise 1:** Change the socket program `socket1.py` to prompt
-the user for the URL so it can read any web page.
+**Exercise 1:** Baguhin ang socket program na `socket1.py` para mag-prompt
+sa user para sa URL para makabasa ito ng anumang web page.
 
-You can use
-`split('/')` to break the URL into its component parts so you
-can extract the host name for the socket `connect` call. Add
-error checking using `try` and `except` to handle
-the condition where the user enters an improperly formatted or
-non-existent URL.
+Maaari mong gamitin ang
+`split('/')` para hatiin ang URL sa component parts nito para
+makakuha ka ng host name para sa socket `connect` call. Magdagdag ng
+error checking gamit ang `try` at `except` para ma-handle
+ang kondisyon kung saan ang user ay nag-e-enter ng hindi wastong format o
+hindi umiiral na URL.
 
-**Exercise 2:** Change your socket program so that it counts the number of
-characters it has received and stops displaying any text after it has
-shown 3000 characters. The program should retrieve the entire document
-and count the total number of characters and display the count of the
-number of characters at the end of the document.
+**Exercise 2:** Baguhin ang socket program mo para bilangin ang bilang ng
+characters na natanggap nito at huminto sa pag-display ng anumang text pagkatapos na
+ipakita ang 3000 characters. Ang program ay dapat kumuha ng buong dokumento
+at bilangin ang kabuuang bilang ng characters at ipakita ang bilang ng
+bilang ng characters sa dulo ng dokumento.
 
-**Exercise 3:** Use `urllib` to replicate the previous exercise
-of (1) retrieving the document from a URL, (2) displaying up to 3000
-characters, and (3) counting the overall number of characters in the
-document. Don't worry about the headers for this exercise, simply show
-the first 3000 characters of the document contents.
+**Exercise 3:** Gumamit ng `urllib` para i-replicate ang naunang exercise
+ng (1) pagkuha ng dokumento mula sa URL, (2) pag-display ng hanggang 3000
+characters, at (3) pagbibilang ng kabuuang bilang ng characters sa
+dokumento. Huwag mag-alala tungkol sa headers para sa exercise na ito, simpleng ipakita
+ang unang 3000 characters ng document contents.
 
-**Exercise 4:** Change the `urllinks.py` program to extract and
-count paragraph (p) tags from the retrieved HTML document and display
-the count of the paragraphs as the output of your program. Do not
-display the paragraph text, only count them. Test your program on
-several small web pages as well as some larger web pages.
+**Exercise 4:** Baguhin ang `urllinks.py` program para kunin at
+bilangin ang paragraph (p) tags mula sa retrieved HTML document at ipakita
+ang bilang ng paragraphs bilang output ng program mo. Huwag
+ipakita ang paragraph text, bilangin lang sila. I-test ang program mo sa
+ilang maliliit na web pages pati na rin sa ilang mas malalaking web pages.
 
-**Exercise 5:** (Advanced) Change the socket program so that it only shows
-data after the headers and a blank line have been received. Remember
-that `recv` receives characters (newlines and all), not lines.
+**Exercise 5:** (Advanced) Baguhin ang socket program para ipakita lang
+ang data pagkatapos matanggap ang headers at blank line. Tandaan
+na ang `recv` ay tumatanggap ng characters (newlines at lahat), hindi lines.
 

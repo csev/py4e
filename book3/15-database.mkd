@@ -7,99 +7,99 @@ What is a database?
 
 \index{database}
 
-A *database* is a file that is organized for storing
-data. Most databases are organized like a dictionary in the sense that
-they map from keys to values. The biggest difference is that the
-database is on disk (or other permanent storage), so it persists after
-the program ends. Because a database is stored on permanent storage, it
-can store far more data than a dictionary, which is limited to the size
-of the memory in the computer.
+Ang *database* ay file na inoorganisa para mag-store ng
+data. Karamihan sa databases ay inoorganisa tulad ng dictionary sa diwa na
+nagma-map sila mula sa keys patungo sa values. Ang pinakamalaking pagkakaiba ay ang
+database ay nasa disk (o iba pang permanent storage), kaya ito ay nananatili pagkatapos
+matapos ang program. Dahil ang database ay naka-store sa permanent storage, maaari itong
+mag-store ng mas maraming data kaysa sa dictionary, na limitado sa laki
+ng memory sa computer.
 
 \index{database!indexes}
 
-Like a dictionary, database software is designed to keep the inserting
-and accessing of data very fast, even for large amounts of data.
-Database software maintains its performance by building
-*indexes* as data is added to the database to allow the
-computer to jump quickly to a particular entry.
+Tulad ng dictionary, ang database software ay idinisenyo para panatilihing napakabilis ang pag-insert
+at pag-access ng data, kahit para sa malalaking dami ng data.
+Ang database software ay nagma-maintain ng performance nito sa pamamagitan ng paggawa ng
+*indexes* habang idinadagdag ang data sa database para payagan ang
+computer na tumalon nang mabilis sa partikular na entry.
 
-There are many different database systems which are used for a wide
-variety of purposes including: Oracle, MySQL, Microsoft SQL Server,
-PostgreSQL, and SQLite. We focus on SQLite in this book because it is a
-very common database and is already built into Python. SQLite is
-designed to be *embedded* into other applications to provide database
-support within the application. For example, the Firefox browser also
-uses the SQLite database internally as do many other products.
+Mayroong maraming iba't ibang database systems na ginagamit para sa malawak
+na iba't ibang layunin kasama ang: Oracle, MySQL, Microsoft SQL Server,
+PostgreSQL, at SQLite. Nakatuon tayo sa SQLite sa libro na ito dahil ito ay
+napakakaraniwang database at naka-build na sa Python. Ang SQLite ay
+idinisenyo para ma-*embed* sa iba pang applications para magbigay ng database
+support sa loob ng application. Halimbawa, ang Firefox browser ay gumagamit din
+ng SQLite database internally tulad ng maraming iba pang produkto.
 
 <http://sqlite.org/>
 
-SQLite is well suited to some of the data manipulation problems that we
-see in Informatics.
+Ang SQLite ay angkop sa ilan sa data manipulation problems na
+nakikita natin sa Informatics.
 
 Database concepts
 -----------------
 
-When you first look at a database it looks like a spreadsheet with
-multiple sheets. The primary data structures in a database are:
-*tables*, *rows*, and
+Kapag unang tiningnan mo ang database, mukha itong spreadsheet na may
+maraming sheets. Ang pangunahing data structures sa database ay:
+*tables*, *rows*, at
 *columns*.
 
 ![Relational Databases](height=2.0in@../images/relational)
 
-In technical descriptions of relational databases the concepts of table,
-row, and column are more formally referred to as
-*relation*, *tuple*, and
-*attribute*, respectively. We will use the less formal
-terms in this chapter.
+Sa teknikal na mga paglalarawan ng relational databases ang mga konsepto ng table,
+row, at column ay mas pormal na tinutukoy bilang
+*relation*, *tuple*, at
+*attribute*, ayon sa pagkakabanggit. Gagamitin natin ang mas hindi pormal
+na terms sa chapter na ito.
 
 Database Browser for SQLite
 ---------------------------
 
-While this chapter will focus on using Python to work with data in
-SQLite database files, many operations can be done more conveniently
-using software called the *Database Browser for SQLite* which is freely available from:
+Habang ang chapter na ito ay nakatuon sa paggamit ng Python para magtrabaho sa data sa
+SQLite database files, maraming operations ay maaaring gawin nang mas maginhawa
+gamit ang software na tinatawag na *Database Browser for SQLite* na libreng available mula sa:
 
 <http://sqlitebrowser.org/>
 
-Using the browser you can easily create tables, insert data, edit data,
-or run simple SQL queries on the data in the database.
+Gamit ang browser maaari mong madaling gumawa ng tables, mag-insert ng data, mag-edit ng data,
+o magpatakbo ng simpleng SQL queries sa data sa database.
 
-In a sense, the database browser is similar to a text editor when
-working with text files. When you want to do one or very few operations
-on a text file, you can just open it in a text editor and make the
-changes you want. When you have many changes that you need to do to a
-text file, often you will write a simple Python program. You will find
-the same pattern when working with databases. You will do simple
-operations in the database manager and more complex operations will be
-most conveniently done in Python.
+Sa isang diwa, ang database browser ay katulad ng text editor kapag
+nagtatrabaho sa text files. Kapag gusto mong gumawa ng isa o napakakaunting operations
+sa text file, maaari mo lang itong buksan sa text editor at gawin ang
+mga pagbabagong gusto mo. Kapag mayroon kang maraming pagbabago na kailangan mong gawin sa
+text file, kadalasan susulat ka ng simpleng Python program. Makikita mo
+ang parehong pattern kapag nagtatrabaho sa databases. Gagawa ka ng simpleng
+operations sa database manager at mas kumplikadong operations ay
+pinaka-maginhawang gawin sa Python.
 
 Creating a database table
 -------------------------
 
-Databases require more defined structure than Python lists or
-dictionaries^[SQLite actually does allow some flexibility in the type of data
-stored in a column, but we will keep our data types strict in this
-chapter so the concepts apply equally to other database systems such
-as MySQL.].
+Ang databases ay nangangailangan ng mas tinukoy na structure kaysa sa Python lists o
+dictionaries^[Ang SQLite ay talagang nagpapahintulot ng ilang flexibility sa uri ng data
+na naka-store sa column, pero pananatilihin natin ang data types natin na strict sa
+chapter na ito para ang concepts ay nalalapat nang pantay sa iba pang database systems tulad
+ng MySQL.].
 
-When we create a database *table* we must tell the
-database in advance the names of each of the *columns* in
-the table and the type of data which we are planning to store in each
-*column*. When the database software knows the type of
-data in each column, it can choose the most efficient way to store and
-look up the data based on the type of data.
+Kapag gumagawa tayo ng database *table* dapat nating sabihin sa
+database nang maaga ang mga pangalan ng bawat isa sa *columns* sa
+table at ang uri ng data na plano nating i-store sa bawat
+*column*. Kapag alam ng database software ang uri ng
+data sa bawat column, maaari nitong piliin ang pinakamabisang paraan para mag-store at
+maghanap ng data batay sa uri ng data.
 
-You can look at the various data types supported by SQLite at the
-following url:
+Maaari mong tingnan ang iba't ibang data types na sinusuportahan ng SQLite sa
+sumusunod na url:
 
 <http://www.sqlite.org/datatypes.html>
 
-Defining structure for your data up front may seem inconvenient at the
-beginning, but the payoff is fast access to your data even when the
-database contains a large amount of data.
+Ang pagtukoy ng structure para sa data mo nang maaga ay maaaring mukhang hindi maginhawa sa
+simula, pero ang kapalit ay mabilis na access sa data mo kahit na ang
+database ay naglalaman ng malaking dami ng data.
 
-The code to create a database file and a table named `Track`
-with two columns in the database is as follows:
+Ang code para gumawa ng database file at table na pinangalanang `Track`
+na may dalawang columns sa database ay ganito:
 
 \index{sqlite3 module}
 \index{module!sqlite3}
@@ -111,88 +111,88 @@ with two columns in the database is as follows:
 \index{cursor function}
 \index{function!cursor}
 
-The `connect` operation makes a "connection" to the database
-stored in the file `music.sqlite` in the current directory.
-If the file does not exist, it will be created. The reason this is
-called a "connection" is that sometimes the database is stored on a
-separate "database server" from the server on which we are running our
-application. In our simple examples the database will just be a local
-file in the same directory as the Python code we are running.
+Ang `connect` operation ay gumagawa ng "connection" sa database
+na naka-store sa file na `music.sqlite` sa current directory.
+Kung ang file ay hindi umiiral, gagawin ito. Ang dahilan kung bakit ito ay
+tinatawag na "connection" ay dahil minsan ang database ay naka-store sa
+hiwalay na "database server" mula sa server kung saan tumatakbo ang aming
+application. Sa simpleng halimbawa natin ang database ay simpleng local
+file sa parehong directory ng Python code na tumatakbo tayo.
 
-A *cursor* is like a file handle that we can use to
-perform operations on the data stored in the database. Calling
-`cursor()` is very similar conceptually to calling
-`open()` when dealing with text files.
+Ang *cursor* ay parang file handle na maaari nating gamitin para
+gumawa ng operations sa data na naka-store sa database. Ang pagtawag sa
+`cursor()` ay napakatulad conceptually sa pagtawag sa
+`open()` kapag nakikipag-ugnayan sa text files.
 
 ![A Database Cursor](height=2.0in@../images/cursor)
 
-Once we have the cursor, we can begin to execute commands on the
-contents of the database using the `execute()` method.
+Kapag mayroon na tayong cursor, maaari na tayong magsimulang mag-execute ng commands sa
+contents ng database gamit ang `execute()` method.
 
-Database commands are expressed in a special language that has been
-standardized across many different database vendors to allow us to learn
-a single database language. The database language is called
-*Structured Query Language* or *SQL* for
-short.
+Ang database commands ay ipinahayag sa espesyal na language na
+na-standardize sa maraming iba't ibang database vendors para payagan tayong matuto ng
+isang database language. Ang database language ay tinatawag na
+*Structured Query Language* o *SQL* para sa
+maikli.
 
 <http://en.wikipedia.org/wiki/SQL>
 
-In our example, we are executing two SQL commands in our database. As a
-convention, we will show the SQL keywords in uppercase and the parts of
-the command that we are adding (such as the table and column names) will
-be shown in lowercase.
+Sa halimbawa natin, nag-e-execute tayo ng dalawang SQL commands sa database natin. Bilang
+convention, ipapakita natin ang SQL keywords sa uppercase at ang mga parte ng
+command na idinagdag natin (tulad ng table at column names) ay
+ipapakita sa lowercase.
 
-The first SQL command removes the `Track` table from the
-database if it exists. This pattern is simply to allow us to run the
-same program to create the `Track` table over and over again
-without causing an error. Note that the `DROP TABLE` command
-deletes the table and all of its contents from the database (i.e., there
-is no "undo").
+Ang unang SQL command ay nagtatanggal ng `Track` table mula sa
+database kung umiiral ito. Ang pattern na ito ay simpleng para payagan tayong patakbuhin ang
+parehong program para gumawa ng `Track` table nang paulit-ulit
+nang hindi nagdudulot ng error. Tandaan na ang `DROP TABLE` command
+ay nagtatanggal ng table at lahat ng contents nito mula sa database (i.e., walang
+"undo").
 
 ~~~~ {.python}
 cur.execute('DROP TABLE IF EXISTS Track ')
 ~~~~
 
-The second command creates a table named `Track` with a text
-column named `title` and an integer column named
+Ang pangalawang command ay gumagawa ng table na pinangalanang `Track` na may text
+column na pinangalanang `title` at integer column na pinangalanang
 `plays`.
 
 ~~~~ {.python}
 cur.execute('CREATE TABLE Track (title TEXT, plays INTEGER)')
 ~~~~
 
-Now that we have created a table named `Track`, we can put
-some data into that table using the SQL `INSERT` operation.
-Again, we begin by making a connection to the database and obtaining the
-`cursor`. We can then execute SQL commands using the cursor.
+Ngayon na gumawa na tayo ng table na pinangalanang `Track`, maaari na tayong maglagay
+ng ilang data sa table na iyon gamit ang SQL `INSERT` operation.
+Muli, nagsisimula tayo sa pamamagitan ng paggawa ng connection sa database at pagkuha ng
+`cursor`. Pagkatapos maaari na tayong mag-execute ng SQL commands gamit ang cursor.
 
-The SQL `INSERT` command indicates which table we are using
-and then defines a new row by listing the fields we want to include
-`(title, plays)` followed by the `VALUES` we want
-placed in the new row. We specify the values as question marks `(?,
-?)` to indicate that the actual values are passed in as a tuple
-`( 'My Way', 15 ) ` as the second parameter to the
+Ang SQL `INSERT` command ay nagpapahiwatig kung aling table ang ginagamit natin
+at pagkatapos nagde-define ng bagong row sa pamamagitan ng pagli-list ng fields na gusto nating isama
+`(title, plays)` na sinusundan ng `VALUES` na gusto nating
+ilagay sa bagong row. Tinutukoy natin ang values bilang question marks `(?,
+?)` para ipahiwatig na ang aktwal na values ay ipinapasa bilang tuple
+`( 'My Way', 15 ) ` bilang pangalawang parameter sa
 `execute()` call.
 
 \VerbatimInput{../code3/db2.py}
 
-First we `INSERT` two rows into our table and use
-`commit()` to force the data to be written to the database
+Una nag-`INSERT` tayo ng dalawang rows sa table natin at gumagamit ng
+`commit()` para pilitin ang data na isulat sa database
 file.
 
 ![Rows in a Table](height=1.5in@../images/tracks)
 
-Then we use the `SELECT` command to retrieve the rows we just
-inserted from the table. On the `SELECT` command, we indicate
-which columns we would like `(title, plays)` and indicate
-which table we want to retrieve the data from. After we execute the
-`SELECT` statement, the cursor is something we can loop
-through in a `for` statement. For efficiency, the cursor does
-not read all of the data from the database when we execute the
-`SELECT` statement. Instead, the data is read on demand as we
-loop through the rows in the `for` statement.
+Pagkatapos gumagamit tayo ng `SELECT` command para kunin ang rows na kakalagay lang natin
+mula sa table. Sa `SELECT` command, ipinapahiwatig natin
+kung aling columns ang gusto natin `(title, plays)` at ipinapahiwatig
+kung aling table ang gusto nating kunin ang data. Pagkatapos mag-execute ng
+`SELECT` statement, ang cursor ay isang bagay na maaari nating loop
+through sa `for` statement. Para sa efficiency, ang cursor ay hindi
+nagbabasa ng lahat ng data mula sa database kapag nag-e-execute tayo ng
+`SELECT` statement. Sa halip, ang data ay binabasa on demand habang
+naglo-loop tayo sa rows sa `for` statement.
 
-The output of the program is as follows:
+Ang output ng program ay ganito:
 
 ~~~~
 Track:
@@ -202,19 +202,19 @@ Track:
 
 \index{Unicode}
 
-Our `for` loop finds two rows, and each row is a Python tuple
-with the first value as the `title` and the second value as
-the number of `plays`.
+Ang `for` loop natin ay nakakahanap ng dalawang rows, at ang bawat row ay Python tuple
+na may unang value bilang `title` at pangalawang value bilang
+bilang ng `plays`.
 
-At the very end of the program, we execute an SQL command to
-`DELETE` the rows we have just created so we can run the
-program over and over. The `DELETE` command shows the use of
-a `WHERE` clause that allows us to express a selection
-criterion so that we can ask the database to apply the command to only
-the rows that match the criterion. In this example the criterion happens
-to apply to all the rows so we empty the table out so we can run the
-program repeatedly. After the `DELETE` is performed, we also
-call `commit()` to force the data to be removed from the
+Sa pinakadulo ng program, nag-e-execute tayo ng SQL command para
+`DELETE` ang rows na kakalikha lang natin para maaari nating patakbuhin ang
+program nang paulit-ulit. Ang `DELETE` command ay nagpapakita ng paggamit ng
+`WHERE` clause na nagpapahintulot sa atin na ipahayag ang selection
+criterion para maaari nating hilingin sa database na ilapat ang command lang sa
+rows na tumutugma sa criterion. Sa halimbawang ito ang criterion ay
+nalalapat sa lahat ng rows kaya inu-emptying natin ang table para maaari nating patakbuhin ang
+program nang paulit-ulit. Pagkatapos gawin ang `DELETE`, tumatawag din tayo sa
+`commit()` para pilitin ang data na matanggal mula sa
 database.
 
 Structured Query Language summary
@@ -222,81 +222,81 @@ Structured Query Language summary
 
 \index{CRUD}
 \index{SQL!CRUD}
-So far, we have been using the Structured Query Language in our Python
-examples and have covered many of the basics of the SQL commands. In
-this section, we look at the SQL language in particular and give an
-overview of SQL syntax.
+Hanggang ngayon, gumagamit tayo ng Structured Query Language sa aming Python
+examples at natakpan na natin ang marami sa basics ng SQL commands. Sa
+section na ito, titingnan natin ang SQL language partikular at magbigay ng
+overview ng SQL syntax.
 
-Since there are so many different database vendors, the Structured Query
-Language (SQL) was standardized so we could communicate in a portable
-manner to database systems from multiple vendors.
+Dahil mayroong napakaraming iba't ibang database vendors, ang Structured Query
+Language (SQL) ay na-standardize para maaari tayong makipag-communicate sa portable
+na paraan sa database systems mula sa maraming vendors.
 
-A relational database is made up of tables, rows, and columns. The
-columns generally have a type such as text, numeric, or date data. When
-we create a table, we indicate the names and types of the columns:
+Ang relational database ay binubuo ng tables, rows, at columns. Ang
+columns ay karaniwang may type tulad ng text, numeric, o date data. Kapag
+gumagawa tayo ng table, ipinapahiwatig natin ang mga pangalan at uri ng columns:
 
 ~~~~ {.sql}
 CREATE TABLE Track (title TEXT, plays INTEGER)
 ~~~~
 
-To insert a row into a table, we use the SQL `INSERT`
+Para mag-insert ng row sa table, gumagamit tayo ng SQL `INSERT`
 command:
 
 ~~~~ {.sql}
 INSERT INTO Track (title, plays) VALUES ('My Way', 15)
 ~~~~
 
-The `INSERT` statement specifies the table name, then a list
-of the fields/columns that you would like to set in the new row, and
-then the keyword `VALUES` and a list of corresponding values
-for each of the fields.
+Ang `INSERT` statement ay nagtutukoy ng table name, pagkatapos list
+ng fields/columns na gusto mong i-set sa bagong row, at
+pagkatapos ang keyword na `VALUES` at list ng katumbas na values
+para sa bawat field.
 
-The SQL `SELECT` command is used to retrieve rows and columns
-from a database. The `SELECT` statement lets you specify
-which columns you would like to retrieve as well as a `WHERE`
-clause to select which rows you would like to see. It also allows an
-optional `ORDER BY` clause to control the sorting of the
+Ang SQL `SELECT` command ay ginagamit para kunin ang rows at columns
+mula sa database. Ang `SELECT` statement ay nagpapahintulot sa iyo na tukuyin
+kung aling columns ang gusto mong kunin pati na rin ang `WHERE`
+clause para piliin kung aling rows ang gusto mong makita. Nagpapahintulot din ito ng
+opsiyonal na `ORDER BY` clause para kontrolin ang sorting ng
 returned rows.
 
 ~~~~ {.sql}
 SELECT * FROM Track WHERE title = 'My Way'
 ~~~~
 
-Using `*` indicates that you want the database to return all of the
-columns for each row that matches the `WHERE` clause.
+Ang paggamit ng `*` ay nagpapahiwatig na gusto mong ibalik ng database ang lahat ng
+columns para sa bawat row na tumutugma sa `WHERE` clause.
 
-Note, unlike in Python, in a SQL `WHERE` clause we use a
-single equal sign to indicate a test for equality rather than a double
-equal sign. Other logical operations allowed in a `WHERE`
-clause include `<`, `>`, `<=`, `>=`, `!=`, as well as `AND`
-and `OR` and parentheses to build your logical expressions.
+Tandaan, hindi tulad sa Python, sa SQL `WHERE` clause gumagamit tayo ng
+isang equal sign para ipahiwatig ang test para sa equality sa halip na double
+equal sign. Ang iba pang logical operations na pinapayagan sa `WHERE`
+clause ay kasama ang `<`, `>`, `<=`, `>=`, `!=`, pati na rin ang `AND`
+at `OR` at parentheses para gumawa ng logical expressions mo.
 
-You can request that the returned rows be sorted by one of the fields as
-follows:
+Maaari mong hilingin na ang returned rows ay ma-sort ayon sa isa sa fields tulad ng
+sumusunod:
 
 ~~~~ {.sql}
 SELECT title,plays FROM Track ORDER BY title
 ~~~~
 
-It is possible to `UPDATE` a column or columns within one or
-more rows in a table using the SQL `UPDATE` statement as
-follows:
+Posibleng `UPDATE` ang column o columns sa loob ng isa o
+higit pang rows sa table gamit ang SQL `UPDATE` statement tulad ng
+sumusunod:
 
 ~~~~ {.sql}
 UPDATE Track SET plays = 16 WHERE title = 'My Way'
 ~~~~
 
-The `UPDATE` statement specifies a table and then a list of
-fields and values to change after the `SET` keyword and then
-an optional `WHERE` clause to select the rows that are to be
-updated. A single `UPDATE` statement will change all of the
-rows that match the `WHERE` clause. If a `WHERE`
-clause is not specified, it performs the `UPDATE` on all of
-the rows in the table.
+Ang `UPDATE` statement ay nagtutukoy ng table at pagkatapos list ng
+fields at values na baguhin pagkatapos ng `SET` keyword at pagkatapos
+opsiyonal na `WHERE` clause para piliin ang rows na dapat
+i-update. Ang isang `UPDATE` statement ay magbabago ng lahat ng
+rows na tumutugma sa `WHERE` clause. Kung ang `WHERE`
+clause ay hindi tinukoy, ginagawa nito ang `UPDATE` sa lahat ng
+rows sa table.
 
-To remove a row, you need a `WHERE` clause on an SQL
-`DELETE` statement. The `WHERE` clause determines
-which rows are to be deleted:
+Para tanggalin ang row, kailangan mo ng `WHERE` clause sa SQL
+`DELETE` statement. Ang `WHERE` clause ay nagde-determine
+kung aling rows ang dapat tanggalin:
 
 ~~~~ {.sql}
 DELETE FROM Track WHERE title = 'My Way'
@@ -304,46 +304,45 @@ DELETE FROM Track WHERE title = 'My Way'
 
 \index{CRUD}
 \index{SQL!CRUD}
-These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow
-the four basic operations needed to create and maintain data.  We use
-"CRUD" (Create, Read, Update, and Delete) to capture all these
-concepts in a single term.^[Yes there is a disconnect between "CRUD"
-term and the first letters of the four SQL statements that implement
-"CRUD".  A possible explanation might be to claim that "CRUD" is the
-"concept" and SQL is the implementation.  Another possible explanation
-is that "CRUD" is more fun to say than "ISUD".]
+Ang apat na basic SQL commands na ito (INSERT, SELECT, UPDATE, at DELETE) ay nagpapahintulot
+sa apat na basic operations na kailangan para gumawa at mag-maintain ng data. Gumagamit tayo
+ng "CRUD" (Create, Read, Update, at Delete) para makuha ang lahat ng concepts na ito
+sa isang term.^[Oo may disconnect sa pagitan ng "CRUD"
+term at unang letters ng apat na SQL statements na nag-i-implement ng
+"CRUD". Ang posibleng paliwanag ay maaaring sabihin na ang "CRUD" ay ang
+"concept" at ang SQL ay ang implementation. Ang isa pang posibleng paliwanag
+ay mas masaya sabihin ang "CRUD" kaysa sa "ISUD".]
 
 Multiple tables and basic data modeling
 ---------------------------------------
 
 \index{Data Modelling}
 \index{Relational Model}
-The real power of a relational database is when we create multiple
-tables and make links between those tables. The act of deciding how to
-break up your application data into multiple tables and establishing the
-relationships between the tables is called *data
-modeling*. The design document that shows the tables and their
-relationships is called a *data model*.
+Ang tunay na kapangyarihan ng relational database ay kapag gumagawa tayo ng maraming
+tables at gumagawa ng links sa pagitan ng mga tables na iyon. Ang gawain ng pagde-decide kung paano
+hatiin ang application data mo sa maraming tables at pagtatatag ng
+relationships sa pagitan ng tables ay tinatawag na *data
+modeling*. Ang design document na nagpapakita ng tables at kanilang
+relationships ay tinatawag na *data model*.
 
-Data modeling is a relatively sophisticated skill and we will only
-introduce the most basic concepts of relational data modeling in this
-section. For more detail on data modeling you can start with:
+Ang data modeling ay relatively sophisticated skill at ipakikilala lang natin
+ang pinakabasic concepts ng relational data modeling sa section na ito. Para sa mas detalyado tungkol sa data modeling maaari kang magsimula sa:
 
 <http://en.wikipedia.org/wiki/Relational_model>
 
 \index{SQL!CREATE}
-Lets say for our tracks database we wanted to track the name of the
-`artist` for each track in addition to the `title` and number of
-plays for each track.  A simple approach might be to simply add another
-column to the database called `artist` and put the name of the artist
-in the column as follows:
+Sabihin natin para sa tracks database natin gusto nating i-track ang pangalan ng
+`artist` para sa bawat track bilang karagdagan sa `title` at bilang ng
+plays para sa bawat track. Ang simpleng approach ay maaaring simpleng magdagdag ng iba pang
+column sa database na tinatawag na `artist` at ilagay ang pangalan ng artist
+sa column tulad ng sumusunod:
 
 ~~~~ {.python}
 DROP TABLE IF EXISTS Track;
 CREATE TABLE Track (title TEXT, plays INTEGER, artist TEXT);
 ~~~~
 
-Then we could insert a few tracks into our table.
+Pagkatapos maaari tayong mag-insert ng ilang tracks sa table natin.
 
 ~~~~ {.sql}
 INSERT INTO Track (title, plays, artist)
@@ -352,8 +351,8 @@ INSERT INTO Track (title, plays, artist)
     VALUES ('New York', 25, 'Frank Sinatra');
 ~~~~
 
-If we were to look at our data with a `SELECT * FROM Track` statement,
-it looks like we have done a fine job.
+Kung titingnan natin ang data natin gamit ang `SELECT * FROM Track` statement,
+mukhang maganda ang ginawa natin.
 
 ~~~~
 sqlite> SELECT * FROM Track;
@@ -362,26 +361,26 @@ New York|25|Frank Sinatra
 sqlite>
 ~~~~
 
-We have made a *very bad error* in our data modeling.   We have violated the rules
-of *database normalization*.
+Gumawa tayo ng *napakasamang error* sa data modeling natin. Nilabag natin ang rules
+ng *database normalization*.
 
 <https://en.wikipedia.org/wiki/Database_normalization>
 
 \index{Database Normalization}
 \index{Data Normalization}
-While database normalization seems very complex on the surface and contains a lot
-of mathematical justifications, for now we can reduce it all into one simple rule that
-we will follow.
+Habang ang database normalization ay mukhang napakakumplikado sa ibabaw at naglalaman ng maraming
+mathematical justifications, sa ngayon maaari nating bawasan ang lahat sa isang simpleng rule na
+susundin natin.
 
 \index{Data Replication}
-We should never put the same string data in a column more than once. If
-we need the data more than once, we create a numeric *key* for the data and
-reference the actual data using this key. Especially if the multiple
-entries refer to the same object.
+Hindi dapat nating ilagay ang parehong string data sa column nang higit sa isang beses. Kung
+kailangan natin ang data nang higit sa isang beses, gumagawa tayo ng numeric *key* para sa data at
+nagre-reference sa aktwal na data gamit ang key na ito. Lalo na kung ang maraming
+entries ay tumutukoy sa parehong object.
 
-To demonstrate the slippery slope we are going down by assigning string columns
-to our database model, think about how we would change the data model if we
-wanted to keep track of the eye color of our artists?  Would we do this?
+Para ipakita ang slippery slope na binababa natin sa pamamagitan ng pag-assign ng string columns
+sa database model natin, isipin kung paano natin babaguhin ang data model kung gusto nating
+i-track ang eye color ng artists natin? Gagawin ba natin ito?
 
 ~~~~ {.sql}
 DROP TABLE IF EXISTS Track;
@@ -393,20 +392,20 @@ INSERT INTO Track (title, plays, artist, eyes)
     VALUES ('New York', 25, 'Frank Sinatra', 'Blue');
 ~~~~
 
-Since Frank Sinatra recorded over 1200 songs, are we really going
-to put the string 'Blue' in 1200 rows in our `Track` table.  And
-what would happen if we decided his eye color was 'Light Blue'? Something
-just does not feel right.
+Dahil nag-record si Frank Sinatra ng higit sa 1200 songs, talaga bang
+ilalagay natin ang string na 'Blue' sa 1200 rows sa `Track` table natin. At
+ano ang mangyayari kung magde-decide tayo na ang eye color niya ay 'Light Blue'? May bagay
+na hindi tama.
 
-The correct solution is to create a table
-for the each `Artist` and store all the data about the artist in
-that table.  And then somehow we need to make a connection between
-a row in the `Track` table to a row in the `Artist` table.  Perhaps
-we could call this "link" between two "tables" a "relationship" between
-two tables. And that is exactly what database experts decided to all these
-links.
+Ang tamang solusyon ay gumawa ng table
+para sa bawat `Artist` at mag-store ng lahat ng data tungkol sa artist sa
+table na iyon. At pagkatapos kailangan nating gumawa ng connection sa pagitan ng
+row sa `Track` table patungo sa row sa `Artist` table. Marahil
+maaari nating tawagin ang "link" na ito sa pagitan ng dalawang "tables" na "relationship" sa pagitan ng
+dalawang tables. At iyon mismo ang napagpasyahan ng database experts na tawagin sa lahat ng mga
+links na ito.
 
-Lets make an `Artist` table as follows:
+Gumawa tayo ng `Artist` table tulad ng sumusunod:
 
 ~~~~ {.sql}
 DROP TABLE IF EXISTS Artist;
@@ -416,12 +415,12 @@ INSERT INTO Artist (name, eyes)
 ~~~~
 
 \index{primary key}
-Now we have two tables but we need a way to *link* rows in the two tables.
-To do this, we need what we call 'keys'.  These keys will just be integer numbers
-that we can use to lookup a row in different table.  If we are going to make
-links to rows inside of a table, we need to add a *primary key* to the rows in the
-table.  By convention we usually name the primary key column 'id'.  So our
-`Artist` table looks as follows:
+Ngayon mayroon tayong dalawang tables pero kailangan natin ng paraan para *i-link* ang rows sa dalawang tables.
+Para gawin ito, kailangan natin ng tinatawag nating 'keys'. Ang mga keys na ito ay simpleng integer numbers
+na maaari nating gamitin para maghanap ng row sa iba't ibang table. Kung gagawa tayo ng
+links sa rows sa loob ng table, kailangan nating magdagdag ng *primary key* sa rows sa
+table. Ayon sa convention karaniwang pinapangalanan natin ang primary key column na 'id'. Kaya ang
+`Artist` table natin ay ganito:
 
 ~~~~ {.sql}
 DROP TABLE IF EXISTS Artist;
@@ -430,9 +429,9 @@ INSERT INTO Artist (id, name, eyes)
    VALUES (42, 'Frank Sinatra', 'blue');
 ~~~~
 
-Now we have a row in the table for 'Frank Sinatra' (and his eye color) and
-a primary key of '42' to use to link our tracks to him.  So we alter our
-Track table as follows:
+Ngayon mayroon tayong row sa table para sa 'Frank Sinatra' (at eye color niya) at
+primary key na '42' para gamitin para i-link ang tracks natin sa kanya. Kaya binabago natin ang
+Track table natin tulad ng sumusunod:
 
 ~~~~ {.sql}
 DROP TABLE IF EXISTS Track;
@@ -445,17 +444,17 @@ INSERT INTO Track (title, plays, artist_id)
 ~~~~
 
 \index{Foreign key}
-The `artist_id` column is an integer, and by naming convention is 
-a *foreign key* pointing at a *primary* key in the `Artist` table.
-We call it a foreign key because it is pointing to a row in a different
+Ang `artist_id` column ay integer, at ayon sa naming convention ay 
+*foreign key* na tumuturo sa *primary* key sa `Artist` table.
+Tinatawag natin itong foreign key dahil tumuturo ito sa row sa iba't ibang
 table.
 
 \index{SQL!JOIN}
 \index{SQL!ON}
-Now we are following the rules of database normalization, but when we
-want to get data out of our database, we don't want to see the 42, we
-want to see the name and eye color of the artist.  To do this we use the
-`JOIN` keyword in our SELECT statement.
+Ngayon sumusunod na tayo sa rules ng database normalization, pero kapag gusto nating
+makuha ang data mula sa database natin, hindi natin gusto na makita ang 42, gusto nating
+makita ang pangalan at eye color ng artist. Para gawin ito gumagamit tayo ng
+keyword na `JOIN` sa SELECT statement natin.
 
 ~~~~ {.sql}
 SELECT title, plays, name, eyes
@@ -463,35 +462,35 @@ FROM Track JOIN Artist
 ON Track.artist_id = Artist.id;
 ~~~~
 
-The `JOIN` clause includes an `ON` condition that defines how the rows are to
-to be connected.  For each row in `Track` add the data from `Artist` from
-the row where `artist_id` `Track` table matches the `id` from the `Artist`
+Ang `JOIN` clause ay kasama ang `ON` condition na nagde-define kung paano ang rows ay dapat
+konektado. Para sa bawat row sa `Track` idagdag ang data mula sa `Artist` mula sa
+row kung saan ang `artist_id` sa `Track` table ay tumutugma sa `id` mula sa `Artist`
 table.
 
-The output would be:
+Ang output ay magiging:
 
 ~~~~
 My Way|15|Frank Sinatra|blue
 New York|25|Frank Sinatra|blue
 ~~~~
 
-While it might seem a little clunky and your instincts might tell you that
-it would be faster just to keep the data in one table, it turns out
-the limit on database performance is how much data needs to be scanned
-when retrieving a query.  While the details are very complex, integers
-are a lot smaller than strings (especially Unicode) and far quicker
-to move and compare.
+Habang maaaring mukhang medyo clunky at ang instincts mo ay maaaring sabihin sa iyo na
+mas mabilis lang na panatilihin ang data sa isang table, lumalabas na
+ang limit sa database performance ay kung gaano karaming data ang kailangang i-scan
+kapag kumukuha ng query. Habang ang detalye ay napakakumplikado, ang integers
+ay mas maliit kaysa sa strings (lalo na ang Unicode) at mas mabilis
+na ilipat at i-compare.
 
 Data model diagrams
 -------------------
 
 \index{Data model diagrams}
 \index{Entity-Relationship diagrams}
-While our `Track` and `Artist` database design is simple
-with just two tables and a single
-one-to-many relationship, these data models can get complicated quickly
-and are easier to understand if we can make a graphical representation
-of our data model.
+Habang ang `Track` at `Artist` database design natin ay simple
+na may dalawang tables lang at isang
+one-to-many relationship, ang mga data models na ito ay maaaring maging kumplikado nang mabilis
+at mas madaling maintindihan kung maaari tayong gumawa ng graphical representation
+ng data model natin.
 
 ![A Verbose One-to-Many Data Model\label{figvrbo2m}](height=1.5in@../images/one-to-many-verbose)
 
@@ -1099,9 +1098,9 @@ CREATE TABLE Member (
 );
 ~~~~
 
-For simplicity, we will decide that zero in the role means "student" and one in the
-`role` means instructor.  Lets assume our JSON data is augmented with the role as
-follows:
+Para sa simplicity, magde-decide tayo na zero sa role ay nangangahulugang "student" at isa sa
+`role` ay nangangahulugang instructor. Ipagpalagay natin na ang JSON data natin ay na-augment ng role tulad ng
+sumusunod:
 
 ~~~~
 [
@@ -1119,7 +1118,7 @@ follows:
 ]
 ~~~~
 
-We could alter the `roster.py` program above to incorporate role as follows:
+Maaari nating baguhin ang program na `roster.py` sa itaas para isama ang role tulad ng sumusunod:
 
 ~~~~ {.python}
 for entry in json_data:
@@ -1135,9 +1134,9 @@ for entry in json_data:
         ( user_id, course_id, role ) )
 ~~~~
 
-In a real system, we would probably build a `Role` table and make 
-the `role` column in `Member` a foreign key into the Role table
-as follows:
+Sa tunay na system, malamang gagawa tayo ng `Role` table at gawin
+ang `role` column sa `Member` na foreign key sa Role table
+tulad ng sumusunod:
 
 ~~~~ {.sql}
 DROP TABLE Member;
@@ -1192,90 +1191,90 @@ fast as possible.
 Debugging
 ---------
 
-One common pattern when you are developing a Python program to connect
-to an SQLite database will be to run a Python program and check the
-results using the Database Browser for SQLite. The browser allows you to
-quickly check to see if your program is working properly.
+Ang isang karaniwang pattern kapag gumagawa ka ng Python program para kumonekta
+sa SQLite database ay patakbuhin ang Python program at suriin ang
+results gamit ang Database Browser for SQLite. Ang browser ay nagpapahintulot sa iyo na
+mabilis na suriin kung gumagana nang maayos ang program mo.
 
-You must be careful because SQLite takes care to keep two programs from
-changing the same data at the same time. For example, if you open a
-database in the browser and make a change to the database and have not
-yet pressed the "save" button in the browser, the browser "locks" the
-database file and keeps any other program from accessing the file. In
-particular, your Python program will not be able to access the file if
-it is locked.
+Dapat kang maging maingat dahil ang SQLite ay nag-aalaga para pigilan ang dalawang programs na
+baguhin ang parehong data nang sabay. Halimbawa, kung bubuksan mo ang
+database sa browser at gumawa ng pagbabago sa database at hindi pa
+na-press ang "save" button sa browser, ang browser ay "naglo-lock" ng
+database file at pumipigil sa anumang iba pang program na ma-access ang file. Sa
+partikular, ang Python program mo ay hindi makaka-access sa file kung
+naka-lock ito.
 
-So a solution is to make sure to either close the database browser or
-use the *File* menu to close the database in the browser
-before you attempt to access the database from Python to avoid the
-problem of your Python code failing because the database is locked.
+Kaya ang solusyon ay siguraduhing isara ang database browser o
+gamitin ang *File* menu para isara ang database sa browser
+bago subukang ma-access ang database mula sa Python para maiwasan ang
+problema ng Python code mo na mabigo dahil naka-lock ang database.
 
 Glossary
 --------
 
 attribute
-:   One of the values within a tuple. More commonly called a "column" or
+:   Isa sa mga values sa loob ng tuple. Mas karaniwang tinatawag na "column" o
     "field".
 \index{attribute}
 
 constraint
-:   When we tell the database to enforce a rule on a field or a row in a
-    table. A common constraint is to insist that there can be no
-    duplicate values in a particular field (i.e., all the values must be
+:   Kapag sinasabi natin sa database na ipatupad ang rule sa field o row sa
+    table. Ang karaniwang constraint ay pagpilit na hindi maaaring magkaroon ng
+    duplicate values sa partikular na field (i.e., lahat ng values ay dapat
     unique).
 \index{constraint}
 
 cursor
-:   A cursor allows you to execute SQL commands in a database and
-    retrieve data from the database. A cursor is similar to a socket or
-    file handle for network connections and files, respectively.
+:   Ang cursor ay nagpapahintulot sa iyo na mag-execute ng SQL commands sa database at
+    kumuha ng data mula sa database. Ang cursor ay katulad ng socket o
+    file handle para sa network connections at files, ayon sa pagkakabanggit.
 \index{cursor}
 
 database browser
-:   A piece of software that allows you to directly connect to a
-    database and manipulate the database directly without writing a
+:   Piraso ng software na nagpapahintulot sa iyo na direktang kumonekta sa
+    database at manipulahin ang database nang direkta nang hindi sumusulat ng
     program.
 \index{database browser}
 
 foreign key
-:   A numeric key that points to the primary key of a row in another
-    table. Foreign keys establish relationships between rows stored in
-    different tables.
+:   Numeric key na tumuturo sa primary key ng row sa iba pang
+    table. Ang foreign keys ay nagtatatag ng relationships sa pagitan ng rows na naka-store sa
+    iba't ibang tables.
 \index{foreign key}
 
 index
-:   Additional data that the database software maintains as rows and
-    inserts into a table to make lookups very fast.
+:   Karagdagang data na nagma-maintain ang database software bilang rows at
+    nag-i-insert sa table para gawing napakabilis ang lookups.
 \index{index}
 \index{}
 
 logical key
-:   A key that the "outside world" uses to look up a particular row. For
-    example in a table of user accounts, a person's email address might
-    be a good candidate as the logical key for the user's data.
+:   Key na ginagamit ng "outside world" para maghanap ng partikular na row. Para sa
+    halimbawa sa table ng user accounts, ang email address ng tao ay maaaring
+    maging magandang kandidato bilang logical key para sa data ng user.
 \index{logical key}
 
 normalization
-:   Designing a data model so that no data is replicated. We store each
-    item of data at one place in the database and reference it elsewhere
-    using a foreign key.
+:   Pagde-design ng data model para walang data na na-replicate. Nag-i-store tayo ng bawat
+    item ng data sa isang lugar sa database at nagre-reference dito sa ibang lugar
+    gamit ang foreign key.
 \index{normalization}
 \index{database normalization}
 
 primary key
-:   A numeric key assigned to each row that is used to refer to one row
-    in a table from another table. Often the database is configured to
-    automatically assign primary keys as rows are inserted.
+:   Numeric key na na-a-assign sa bawat row na ginagamit para tumukoy sa isang row
+    sa table mula sa iba pang table. Kadalasan ang database ay naka-configure para
+    awtomatikong mag-assign ng primary keys habang na-i-insert ang rows.
 \index{primary key}
 
 relation
-:   An area within a database that contains tuples and attributes. More
-    typically called a "table".
+:   Area sa loob ng database na naglalaman ng tuples at attributes. Mas
+    karaniwang tinatawag na "table".
 \index{relation}
 
 tuple
-:   A single entry in a database table that is a set of attributes. More
-    typically called "row".
+:   Isang entry sa database table na set ng attributes. Mas
+    karaniwang tinatawag na "row".
 
 \index{tuple}
 

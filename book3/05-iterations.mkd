@@ -10,19 +10,19 @@ Updating variables
 \index{update}
 \index{variable!updating}
 
-A common pattern in assignment statements is an assignment statement
-that updates a variable, where the new value of the variable depends on
-the old.
+Karaniwang pattern sa assignment statements ay assignment statement
+na nag-u-update ng variable, kung saan ang bagong value ng variable ay depende sa
+luma.
 
 ~~~~ {.python}
 x = x + 1
 ~~~~
 
-This means "get the current value of `x`, add 1, and then
-update `x` with the new value."
+Ito ay nangangahulugang "kunin ang kasalukuyang value ng `x`, magdagdag ng 1, at pagkatapos
+i-update ang `x` gamit ang bagong value."
 
-If you try to update a variable that doesn't exist, you get an error,
-because Python evaluates the right side before it assigns a value to
+Kung susubukan mong i-update ang variable na hindi umiiral, makakakuha ka ng error,
+dahil ang Python ay nag-e-evaluate ng right side bago mag-assign ng value sa
 `x`:
 
 ~~~~ {.python}
@@ -30,8 +30,8 @@ because Python evaluates the right side before it assigns a value to
 NameError: name 'x' is not defined
 ~~~~
 
-Before you can update a variable, you have to
-*initialize* it, usually with a simple assignment:
+Bago mo ma-update ang variable, kailangan mong
+*i-initialize* ito, karaniwang may simpleng assignment:
 
 \index{initialization (before update)}
 
@@ -40,8 +40,8 @@ Before you can update a variable, you have to
 >>> x = x + 1
 ~~~~
 
-Updating a variable by adding 1 is called an *increment*;
-subtracting 1 is called a *decrement*.
+Ang pag-update ng variable sa pamamagitan ng pagdadagdag ng 1 ay tinatawag na *increment*;
+ang pagbabawas ng 1 ay tinatawag na *decrement*.
 
 \index{increment}
 \index{decrement}
@@ -54,13 +54,13 @@ The `while` statement
 \index{loop!while}
 \index{iteration}
 
-Computers are often used to automate repetitive tasks. Repeating
-identical or similar tasks without making errors is something that
-computers do well and people do poorly. Because iteration is so common,
-Python provides several language features to make it easier.
+Ang mga computers ay kadalasang ginagamit para i-automate ang repetitive tasks. Ang pag-uulit ng
+magkapareho o katulad na tasks nang hindi gumagawa ng errors ay bagay na
+magaling gawin ng computers at mahirap gawin ng mga tao. Dahil ang iteration ay napakakaraniwan,
+ang Python ay nagbibigay ng ilang language features para gawin itong mas madali.
 
-One form of iteration in Python is the `while` statement.
-Here is a simple program that counts down from five and then says
+Isang form ng iteration sa Python ay ang `while` statement.
+Narito ang simpleng program na nagbi-bilang pababa mula lima at pagkatapos nagsasabi ng
 "Blastoff!".
 
 ~~~~ {.python}
@@ -71,70 +71,69 @@ while n > 0:
 print('Blastoff!')
 ~~~~
 
-You can almost read the `while` statement as if it were
-English. It means, "While `n` is greater than 0, display the
-value of `n` and then reduce the value of `n` by 1. 
-When you get to 0, exit the `while` statement and display
-the word `Blastoff!`"
+Maaari mong halos basahin ang `while` statement na parang
+English. Ibig sabihin nito, "Habang ang `n` ay mas malaki sa 0, i-display ang
+value ng `n` at pagkatapos bawasan ang value ng `n` ng 1. 
+Kapag nakarating ka sa 0, lumabas sa `while` statement at i-display
+ang salitang `Blastoff!`"
 
 \index{flow of execution}
 
-More formally, here is the flow of execution for a `while`
+Mas pormal, narito ang flow of execution para sa `while`
 statement:
 
-1.  Evaluate the condition, yielding `True` or
+1.  I-evaluate ang condition, na nagbibigay ng `True` o
     `False`.
 
-2.  If the condition is false, exit the `while` statement and
-    continue execution at the next statement.
+2.  Kung ang condition ay false, lumabas sa `while` statement at
+    magpatuloy ng execution sa susunod na statement.
 
-3.  If the condition is true, execute the body and then go back to
+3.  Kung ang condition ay true, i-execute ang body at pagkatapos bumalik sa
     step 1.
 
-This type of flow is called a *loop* because the third
-step loops back around to the top. We call each time we execute the body
-of the loop an *iteration*. For the above loop, we would
-say, "It had five iterations", which means that the body of the loop was
-executed five times.
+Ang uri ng flow na ito ay tinatawag na *loop* dahil ang ikatlong
+step ay naglo-loop pabalik sa itaas. Tinatawag natin ang bawat pagkakataon na nag-e-execute tayo ng body
+ng loop bilang *iteration*. Para sa loop sa itaas, sasabihin natin,
+"Mayroon itong limang iterations", na nangangahulugang ang body ng loop ay
+na-e-execute ng limang beses.
 
 \index{condition}
 \index{loop}
 \index{body}
 
-The body of the loop should change the value of one or more variables so
-that eventually the condition becomes false and the loop terminates. We
-call the variable that changes each time the loop executes and controls
-when the loop finishes the *iteration variable*. If there
-is no iteration variable, the loop will repeat forever, resulting in an
+Ang body ng loop ay dapat baguhin ang value ng isa o higit pang variables para
+sa huli ang condition ay maging false at ang loop ay magtatapos. Tinatawag natin ang variable na nagbabago sa bawat pagkakataon na nag-e-execute ang loop at kumokontrol
+kung kailan natatapos ang loop bilang *iteration variable*. Kung walang
+iteration variable, ang loop ay mag-uulit magpakailanman, na nagreresulta sa
 *infinite loop*.
 
 Infinite loops
 --------------
 
-An endless source of amusement for programmers is the observation that
-the directions on shampoo, "Lather, rinse, repeat," are an infinite loop
-because there is no *iteration variable* telling you how
-many times to execute the loop.
+Walang katapusang pinagmumulan ng kasiyahan para sa mga programmers ay ang obserbasyon na
+ang mga direksyon sa shampoo, "Lather, rinse, repeat," ay infinite loop
+dahil walang *iteration variable* na nagsasabi sa iyo kung ilang
+beses i-execute ang loop.
 
 \index{infinite loop}
 \index{loop!infinite}
 
-In the case of `countdown`, we can prove that the loop
-terminates because we know that the value of `n` is finite,
-and we can see that the value of `n` gets smaller each time
-through the loop, so eventually we have to get to 0. Other times a loop
-is obviously infinite because it has no iteration variable at all.
+Sa kaso ng `countdown`, maaari nating patunayan na ang loop
+ay nagtatapos dahil alam natin na ang value ng `n` ay finite,
+at nakikita natin na ang value ng `n` ay nagiging mas maliit sa bawat pagkakataon
+sa loop, kaya sa huli dapat tayong makarating sa 0. Sa ibang pagkakataon ang loop
+ay halatang infinite dahil walang iteration variable.
 
 \index{break statement}
 \index{statement!break}
 
-Sometimes you don't know it's time to end a loop until you get half way
-through the body. In that case you can write an infinite loop on purpose
-and then use the `break` statement to jump out of the loop.
+Minsan hindi mo alam na panahon na para tapusin ang loop hanggang makarating ka sa gitna
+ng body. Sa kasong iyon maaari kang sumulat ng infinite loop nang sadyang
+at pagkatapos gamitin ang `break` statement para tumalon palabas ng loop.
 
-This loop is obviously an *infinite loop* because the
-logical expression on the `while` statement is simply the
-logical constant `True`:
+Ang loop na ito ay halatang *infinite loop* dahil ang
+logical expression sa `while` statement ay simpleng
+logical constant na `True`:
 
 ~~~~ {.python}
 n = 10
@@ -144,30 +143,30 @@ while True:
 print('Done!')
 ~~~~
 
-If you make the mistake and run this code, you will learn quickly how to
-stop a runaway Python process on your system or find where the power-off
-button is on your computer. This program will run forever or until your
-battery runs out because the logical expression at the top of the loop
-is always true by virtue of the fact that the expression is the constant
-value `True`.
+Kung magkakamali ka at patakbuhin ang code na ito, matututunan mo agad kung paano
+itigil ang runaway Python process sa iyong system o hanapin kung nasaan ang power-off
+button sa iyong computer. Ang program na ito ay tatakbo magpakailanman o hanggang ang iyong
+battery ay maubos dahil ang logical expression sa itaas ng loop
+ay palaging true dahil sa katotohanan na ang expression ay constant
+value na `True`.
 
-While this is a dysfunctional infinite loop, we can still use this
-pattern to build useful loops as long as we carefully add code to the
-body of the loop to explicitly exit the loop using `break`
-when we have reached the exit condition.
+Habang ito ay dysfunctional infinite loop, maaari pa rin nating gamitin ang pattern na ito
+para gumawa ng kapaki-pakinabang na loops basta maingat nating idagdag ang code sa
+body ng loop para tahasang lumabas sa loop gamit ang `break`
+kapag naabot na natin ang exit condition.
 
-For example, suppose you want to take input from the user until they
-type `done`. You could write:
+Halimbawa, ipagpalagay na gusto mong kumuha ng input mula sa user hanggang mag-type sila ng
+`done`. Maaari mong isulat:
 
 \VerbatimInput{../code3/copytildone1.py}
 
-The loop condition is `True`, which is always true, so the
-loop runs repeatedly until it hits the break statement.
+Ang loop condition ay `True`, na palaging true, kaya ang
+loop ay tumatakbo nang paulit-ulit hanggang maabot ang break statement.
 
-Each time through, it prompts the user with an angle bracket. If the
-user types `done`, the `break` statement exits the
-loop. Otherwise the program echoes whatever the user types and goes back
-to the top of the loop. Here's a sample run:
+Sa bawat pagkakataon, nagpo-prompt ito sa user na may angle bracket. Kung ang
+user ay nagta-type ng `done`, ang `break` statement ay lumalabas sa
+loop. Kung hindi, ang program ay nag-e-echo ng anuman ang na-type ng user at bumabalik
+sa itaas ng loop. Narito ang sample run:
 
 ~~~~
 > hello there
@@ -178,10 +177,10 @@ finished
 Done!
 ~~~~
 
-This way of writing `while` loops is common because you can
-check the condition anywhere in the loop (not just at the top) and you
-can express the stop condition affirmatively ("stop when this happens")
-rather than negatively ("keep going until that happens.").
+Ang paraan ng pagsusulat ng `while` loops na ito ay karaniwan dahil maaari mong
+suriin ang condition kahit saan sa loop (hindi lang sa itaas) at maaari mong
+ipahayag ang stop condition nang positibo ("huminto kapag nangyari ito")
+imbes na negatibo ("magpatuloy hanggang mangyari iyon.").
 
 Finishing iterations with `continue`
 -----------------------------------------------
@@ -189,20 +188,20 @@ Finishing iterations with `continue`
 \index{continue statement}
 \index{statement!continue}
 
-Sometimes you are in an iteration of a loop and want to finish the
-current iteration and immediately jump to the next iteration. In that
-case you can use the `continue` statement to skip to the next
-iteration without finishing the body of the loop for the current
+Minsan nasa iteration ka ng loop at gusto mong tapusin ang
+kasalukuyang iteration at agad na tumalon sa susunod na iteration. Sa kasong
+iyon maaari mong gamitin ang `continue` statement para lumaktaw sa susunod na
+iteration nang hindi tinatapos ang body ng loop para sa kasalukuyang
 iteration.
 
-Here is an example of a loop that copies its input until the user types
-"done", but treats lines that start with the hash character as lines not
-to be printed (kind of like Python comments).
+Narito ang halimbawa ng loop na kumokopya ng input nito hanggang mag-type ang user ng
+"done", pero tinatrato ang mga linya na nagsisimula sa hash character bilang mga linya na hindi
+i-print (parang Python comments).
 
 \VerbatimInput{../code3/copytildone2.py}
 
-Here is a sample run of this new program with `continue`
-added.
+Narito ang sample run ng bagong program na ito na may `continue`
+na idinagdag.
 
 ~~~~ 
 > hello there
@@ -214,10 +213,10 @@ print this!
 Done!
 ~~~~
 
-All the lines are printed except the one that starts with the hash sign
-because when the `continue` is executed, it ends the current
-iteration and jumps back to the `while` statement to start
-the next iteration, thus skipping the `print` statement.
+Lahat ng mga linya ay na-print maliban sa isa na nagsisimula sa hash sign
+dahil kapag na-e-execute ang `continue`, tinatapos nito ang kasalukuyang
+iteration at tumatalon pabalik sa `while` statement para simulan
+ang susunod na iteration, kaya na-skip ang `print` statement.
 
 Definite loops using `for` 
 --------------------------------------
@@ -225,18 +224,18 @@ Definite loops using `for`
 \index{for statement}
 \index{statement!for}
 
-Sometimes we want to loop through a *set* of things such
-as a list of words, the lines in a file, or a list of numbers. When we
-have a list of things to loop through, we can construct a *definite*
-loop using a `for` statement. We call the `while`
-statement an *indefinite* loop because it simply loops until some
-condition becomes `False`, whereas the `for` loop
-is looping through a known set of items so it runs through as many
-iterations as there are items in the set.
+Minsan gusto nating mag-loop sa *set* ng mga bagay tulad
+ng list ng mga salita, ang mga linya sa file, o list ng mga numero. Kapag mayroon tayong
+list ng mga bagay na lalapitan ng loop, maaari tayong gumawa ng *definite*
+loop gamit ang `for` statement. Tinatawag natin ang `while`
+statement bilang *indefinite* loop dahil simpleng naglo-loop ito hanggang ang ilang
+condition ay maging `False`, samantalang ang `for` loop
+ay naglo-loop sa kilalang set ng items kaya tumatakbo ito sa kasing dami ng
+iterations na may items sa set.
 
-The syntax of a `for` loop is similar to the
-`while` loop in that there is a `for` statement
-and a loop body:
+Ang syntax ng `for` loop ay katulad ng
+`while` loop na mayroong `for` statement
+at loop body:
 
 ~~~~ {.python}
 friends = ['Joseph', 'Glenn', 'Sally']
@@ -245,11 +244,11 @@ for friend in friends:
 print('Done!')
 ~~~~
 
-In Python terms, the variable `friends` is a list^[We will examine lists 
-in more detail in a later chapter.] of
-three strings and the `for` loop goes through the list and
-executes the body once for each of the three strings in the list
-resulting in this output:
+Sa mga termino ng Python, ang variable na `friends` ay list^[Susuriin natin ang lists 
+nang mas detalyado sa susunod na chapter.] ng
+tatlong strings at ang `for` loop ay dumadaan sa list at
+nag-e-execute ng body minsan para sa bawat isa sa tatlong strings sa list
+na nagreresulta sa output na ito:
 
 ~~~~ {.python}
 Happy New Year: Joseph
@@ -258,51 +257,50 @@ Happy New Year: Sally
 Done!
 ~~~~
 
-Translating this `for` loop to English is not as direct as
-the `while`, but if you think of friends as a
-*set*, it goes like this: "Run the statements in the body
-of the for loop once for each friend *in* the set named friends."
+Ang pag-translate ng `for` loop na ito sa English ay hindi kasing direkta ng
+`while`, pero kung iisipin mo ang friends bilang
+*set*, ganito: "Patakbuhin ang statements sa body
+ng for loop minsan para sa bawat friend *sa* set na may pangalang friends."
 
-Looking at the `for` loop, *for* and
-*in* are reserved Python keywords, and
-`friend` and `friends` are variables.
+Sa pagtingin sa `for` loop, ang *for* at
+*in* ay reserved Python keywords, at
+ang `friend` at `friends` ay variables.
 
 ~~~~ {.python}
 for friend in friends:
     print('Happy New Year:', friend)
 ~~~~
 
-In particular, `friend` is the *iteration
-variable* for the for loop. The variable `friend`
-changes for each iteration of the loop and controls when the
-`for` loop completes. The *iteration variable*
-steps successively through the three strings stored in the
-`friends` variable.
+Sa partikular, ang `friend` ay ang *iteration
+variable* para sa for loop. Ang variable na `friend`
+ay nagbabago para sa bawat iteration ng loop at kumokontrol kung kailan
+natatapos ang `for` loop. Ang *iteration variable*
+ay sunud-sunod na dumadaan sa tatlong strings na naka-store sa
+variable na `friends`.
 
 Loop patterns
 -------------
 
-Often we use a `for` or `while` loop to go through
-a list of items or the contents of a file and we are looking for
-something such as the largest or smallest value of the data we scan
-through.
+Kadalasan gumagamit tayo ng `for` o `while` loop para dumaan sa
+list ng items o contents ng file at naghahanap tayo ng
+isang bagay tulad ng pinakamalaki o pinakamaliit na value ng data na sinasala natin.
 
-These loops are generally constructed by:
+Ang mga loops na ito ay karaniwang ginagawa sa pamamagitan ng:
 
--   Initializing one or more variables before the loop starts
+-   Pag-i-initialize ng isa o higit pang variables bago magsimula ang loop
 
--   Performing some computation on each item in the loop body, possibly
-    changing the variables in the body of the loop
+-   Paggawa ng ilang computation sa bawat item sa loop body, maaaring
+    binabago ang variables sa body ng loop
 
--   Looking at the resulting variables when the loop completes
+-   Pagtingin sa resulting variables kapag natapos ang loop
 
-We will use a list of numbers to demonstrate the concepts and
-construction of these loop patterns.
+Gagamitin natin ang list ng mga numero para ipakita ang concepts at
+construction ng mga loop patterns na ito.
 
 ### Counting and summing loops
 
-For example, to count the number of items in a list, we would write the
-following `for` loop:
+Halimbawa, para bilangin ang bilang ng items sa list, susulat tayo ng
+sumusunod na `for` loop:
 
 ~~~~ {.python}
 count = 0
@@ -311,25 +309,24 @@ for itervar in [3, 41, 12, 9, 74, 15]:
 print('Count: ', count)
 ~~~~
 
-We set the variable `count` to zero before the loop starts,
-then we write a `for` loop to run through the list of
-numbers. Our *iteration* variable is named
-`itervar` and while we do not use `itervar` in the
-loop, it does control the loop and cause the loop body to be executed
-once for each of the values in the list.
+Ini-set natin ang variable na `count` sa zero bago magsimula ang loop,
+pagkatapos sumusulat tayo ng `for` loop para tumakbo sa list ng
+mga numero. Ang *iteration* variable natin ay may pangalang
+`itervar` at habang hindi natin ginagamit ang `itervar` sa
+loop, kinokontrol nito ang loop at nagdudulot na ang loop body ay ma-e-execute
+minsan para sa bawat isa sa values sa list.
 
-In the body of the loop, we add 1 to the current value of
-`count` for each of the values in the list. While the loop is
-executing, the value of `count` is the number of values we
-have seen "so far".
+Sa body ng loop, nagdadagdag tayo ng 1 sa kasalukuyang value ng
+`count` para sa bawat isa sa values sa list. Habang ang loop ay
+nag-e-execute, ang value ng `count` ay ang bilang ng values na
+nakita natin "hanggang ngayon".
 
-Once the loop completes, the value of `count` is the total
-number of items. The total number "falls in our lap" at the end of the
-loop. We construct the loop so that we have what we want when the loop
-finishes.
+Kapag natapos ang loop, ang value ng `count` ay ang kabuuang
+bilang ng items. Ang kabuuang bilang ay "nahuhulog sa kandungan natin" sa dulo ng
+loop. Ginagawa natin ang loop para mayroon tayong gusto natin kapag natatapos ang loop.
 
-Another similar loop that computes the total of a set of numbers is as
-follows:
+Ang isa pang katulad na loop na nagko-compute ng kabuuan ng set ng mga numero ay ang
+sumusunod:
 
 ~~~~ {.python}
 total = 0
@@ -338,26 +335,26 @@ for itervar in [3, 41, 12, 9, 74, 15]:
 print('Total: ', total)
 ~~~~
 
-In this loop we *do* use the *iteration variable*.
-Instead of simply adding one to the `count` as in the
-previous loop, we add the actual number (3, 41, 12, etc.) to the running
-total during each loop iteration. If you think about the variable
-`total`, it contains the "running total of the values so
-far". So before the loop starts `total` is zero because we
-have not yet seen any values, during the loop `total` is the
-running total, and at the end of the loop `total` is the
-overall total of all the values in the list.
+Sa loop na ito ay *ginagamit* natin ang *iteration variable*.
+Sa halip na simpleng magdagdag ng isa sa `count` tulad sa
+naunang loop, idinadagdag natin ang actual number (3, 41, 12, etc.) sa running
+total habang bawat loop iteration. Kung iisipin mo ang variable na
+`total`, naglalaman ito ng "running total ng values hanggang
+ngayon". Kaya bago magsimula ang loop ang `total` ay zero dahil hindi pa
+natin nakikita ang anumang values, habang ang loop ay tumatakbo ang `total` ay ang
+running total, at sa dulo ng loop ang `total` ay ang
+overall total ng lahat ng values sa list.
 
-As the loop executes, `total` accumulates the sum of the
-elements; a variable used this way is sometimes called an
+Habang ang loop ay nag-e-execute, ang `total` ay nag-a-accumulate ng sum ng
+mga elements; ang variable na ginagamit sa ganitong paraan ay minsan tinatawag na
 *accumulator*.
 
 \index{accumulator!sum}
 
-Neither the counting loop nor the summing loop are particularly useful
-in practice because there are built-in functions `len()` and
-`sum()` that compute the number of items in a list and the
-total of the items in the list respectively.
+Ang counting loop o summing loop ay hindi partikular na kapaki-pakinabang
+sa practice dahil mayroong built-in functions na `len()` at
+`sum()` na nagko-compute ng bilang ng items sa list at ang
+kabuuan ng items sa list ayon sa pagkakabanggit.
 
 ### Maximum and minimum loops
 
@@ -366,8 +363,8 @@ total of the items in the list respectively.
 \index{None special value}
 \index{special value!None}
 
-To find the largest value in a list or sequence, we
-construct the following loop:
+Para hanapin ang pinakamalaking value sa list o sequence, gumagawa tayo ng
+sumusunod na loop:
 
 ~~~~ {.python}
 largest = None
@@ -379,7 +376,7 @@ for itervar in [3, 41, 12, 9, 74, 15]:
 print('Largest:', largest)
 ~~~~
 
-When the program executes, the output is as follows:
+Kapag na-e-execute ang program, ang output ay ganito:
 
 ~~~~
 Before: None
@@ -392,34 +389,34 @@ Loop: 15 74
 Largest: 74
 ~~~~
 
-The variable `largest` is best thought of as the "largest
-value we have seen so far". Before the loop, we set `largest`
-to the constant `None`. `None` is a special
-constant value which we can store in a variable to mark the variable as
+Ang variable na `largest` ay pinakamabuting iisipin bilang "pinakamalaking
+value na nakita natin hanggang ngayon". Bago ang loop, ini-set natin ang `largest`
+sa constant na `None`. Ang `None` ay espesyal na
+constant value na maaari nating i-store sa variable para markahan ang variable bilang
 "empty".
 
-Before the loop starts, the largest value we have seen so far is
-`None` since we have not yet seen any values. While the loop
-is executing, if `largest` is `None` then we take
-the first value we see as the largest so far. You can see in the first
-iteration when the value of `itervar` is 3, since
-`largest` is `None`, we immediately set
-`largest` to be 3.
+Bago magsimula ang loop, ang pinakamalaking value na nakita natin hanggang ngayon ay
+`None` dahil hindi pa natin nakikita ang anumang values. Habang ang loop
+ay nag-e-execute, kung ang `largest` ay `None` pagkatapos kinukuha natin
+ang unang value na nakikita natin bilang pinakamalaki hanggang ngayon. Makikita mo sa unang
+iteration kapag ang value ng `itervar` ay 3, dahil
+ang `largest` ay `None`, agad naming ini-set
+ang `largest` na maging 3.
 
-After the first iteration, `largest` is no longer
-`None`, so the second part of the compound logical expression
-that checks `itervar > largest` triggers only when we see a
-value that is larger than the "largest so far". When we see a new "even
-larger" value we take that new value for `largest`. You can
-see in the program output that `largest` progresses from 3 to
-41 to 74.
+Pagkatapos ng unang iteration, ang `largest` ay hindi na
+`None`, kaya ang pangalawang parte ng compound logical expression
+na sumusuri sa `itervar > largest` ay nagti-trigger lang kapag nakikita natin ang
+value na mas malaki kaysa sa "pinakamalaki hanggang ngayon". Kapag nakikita natin ang bagong "mas
+malaki pa" na value kinukuha natin ang bagong value na iyon para sa `largest`. Makikita mo
+sa program output na ang `largest` ay umuunlad mula 3 patungo
+41 patungo 74.
 
-At the end of the loop, we have scanned all of the values and the
-variable `largest` now does contain the largest value in the
+Sa dulo ng loop, nasala na natin ang lahat ng values at ang
+variable na `largest` ngayon ay naglalaman ng pinakamalaking value sa
 list.
 
-To compute the smallest number, the code is very similar with one small
-change:
+Para i-compute ang pinakamaliit na numero, ang code ay napakatulad na may isang maliit na
+pagbabago:
 
 ~~~~ {.python}
 smallest = None
@@ -431,15 +428,14 @@ for itervar in [3, 41, 12, 9, 74, 15]:
 print('Smallest:', smallest)
 ~~~~
 
-Again, `smallest` is the "smallest so far" before, during,
-and after the loop executes. When the loop has completed,
-`smallest` contains the minimum value in the list.
+Muli, ang `smallest` ay ang "pinakamaliit hanggang ngayon" bago, habang,
+at pagkatapos na-e-execute ang loop. Kapag natapos ang loop,
+ang `smallest` ay naglalaman ng minimum value sa list.
 
-Again as in counting and summing, the built-in functions
-`max()` and `min()` make writing these exact loops
-unnecessary.
+Muli tulad sa counting at summing, ang built-in functions na
+`max()` at `min()` ay ginagawang hindi kailangan ang pagsusulat ng eksaktong loops na ito.
 
-The following is a simple version of the Python built-in
+Ang sumusunod ay simpleng bersyon ng Python built-in
 `min()` function:
 
 ~~~~ {.python}
@@ -451,87 +447,87 @@ def min(values):
     return smallest
 ~~~~
 
-In the function version of the smallest code, we removed all of the
-`print` statements so as to be equivalent to the
-`min` function which is already built in to Python.
+Sa function version ng smallest code, tinanggal namin ang lahat ng
+`print` statements para maging katumbas ng
+`min` function na built-in na sa Python.
 
 Debugging
 ---------
 
-As you start writing bigger programs, you might find yourself spending
-more time debugging. More code means more chances to make an error and
-more places for bugs to hide.
+Habang nagsisimula kang sumulat ng mas malalaking programs, maaari mong makita na gumugugol ka ng
+mas maraming panahon sa debugging. Mas maraming code ay nangangahulugang mas maraming pagkakataon na magkamali at
+mas maraming lugar para magtago ang bugs.
 
 \index{debugging!by bisection}
 \index{bisection, debugging by}
 
-One way to cut your debugging time is "debugging by bisection." For
-example, if there are 100 lines in your program and you check them one
-at a time, it would take 100 steps.
+Isang paraan para bawasan ang debugging time mo ay "debugging by bisection." Halimbawa,
+kung mayroong 100 lines sa program mo at sinusuri mo sila isa-isa,
+aabutin ng 100 steps.
 
-Instead, try to break the problem in half. Look at the middle of the
-program, or near it, for an intermediate value you can check. Add a
-`print` statement (or something else that has a verifiable
-effect) and run the program.
+Sa halip, subukan mong hatiin ang problema sa kalahati. Tingnan ang gitna ng
+program, o malapit dito, para sa intermediate value na maaari mong suriin. Magdagdag ng
+`print` statement (o iba pang bagay na may verifiable
+effect) at patakbuhin ang program.
 
-If the mid-point check is incorrect, the problem must be in the first
-half of the program. If it is correct, the problem is in the second
-half.
+Kung ang mid-point check ay hindi tama, ang problema ay dapat nasa unang
+kalahati ng program. Kung tama ito, ang problema ay nasa pangalawang
+kalahati.
 
-Every time you perform a check like this, you halve the number of lines
-you have to search. After six steps (which is much less than 100), you
-would be down to one or two lines of code, at least in theory.
+Sa bawat pagkakataon na gumagawa ka ng check na ganito, hinahati mo ang bilang ng lines
+na kailangan mong hanapin. Pagkatapos ng anim na steps (na mas kaunti kaysa sa 100), makakarating ka
+sa isa o dalawang linya ng code, hindi bababa sa teorya.
 
-In practice it is not always clear what the "middle of the program" is
-and not always possible to check it. It doesn't make sense to count
-lines and find the exact midpoint. Instead, think about places in the
-program where there might be errors and places where it is easy to put a
-check. Then choose a spot where you think the chances are about the same
-that the bug is before or after the check.
+Sa practice hindi palaging malinaw kung ano ang "gitna ng program" at
+hindi palaging posible na suriin ito. Hindi makatuwiran na bilangin ang
+mga linya at hanapin ang eksaktong midpoint. Sa halip, isipin ang mga lugar sa
+program kung saan maaaring may errors at mga lugar kung saan madaling maglagay ng
+check. Pagkatapos pumili ng lugar kung saan sa tingin mo ang mga pagkakataon ay halos pareho
+na ang bug ay bago o pagkatapos ng check.
 
 Glossary
 --------
 
 accumulator
-:   A variable used in a loop to add up or accumulate a result.
+:   Variable na ginagamit sa loop para magdagdag o mag-accumulate ng result.
 \index{accumulator}
 
 counter
-:   A variable used in a loop to count the number of times something
-    happened. We initialize a counter to zero and then increment the
-    counter each time we want to "count" something.
+:   Variable na ginagamit sa loop para bilangin ang bilang ng beses na nangyari ang isang bagay.
+    Ini-initialize natin ang counter sa zero at pagkatapos i-increment ang
+    counter sa bawat pagkakataon na gusto nating "bilangin" ang isang bagay.
 \index{counter}
 
 decrement
-:   An update that decreases the value of a variable.
+:   Update na nagpapababa ng value ng variable.
 \index{decrement}
 
 initialize
-:   An assignment that gives an initial value to a variable that will be
-    updated.
+:   Assignment na nagbibigay ng initial value sa variable na
+    i-u-update.
 
 increment
-:   An update that increases the value of a variable (often by one).
+:   Update na nagpapataas ng value ng variable (kadalasan ng isa).
 \index{increment}
 
 infinite loop
-:   A loop in which the terminating condition is never satisfied or for
-    which there is no terminating condition.
+:   Loop kung saan ang terminating condition ay hindi kailanman nasiyahan o kung saan
+    walang terminating condition.
 \index{infinite loop}
 
 iteration
-:   Repeated execution of a set of statements using either a function
-    that calls itself or a loop.
+:   Paulit-ulit na execution ng set ng statements gamit ang function
+    na tumatawag sa sarili o loop.
 \index{iteration}
 
 Exercises
 ---------
 
-**Exercise 1:** Write a program which repeatedly reads integers until the
-user enters "done". Once "done" is entered, print out the total, count,
-and average of the integers. If the user enters anything other than an
-integer, detect their mistake using `try` and
-`except` and print an error message and skip to the next
+**Exercise 1:** Sumulat ng program na paulit-ulit na nagbabasa ng integers hanggang ang
+user ay mag-enter ng "done". Kapag na-enter na ang "done", mag-print ng total, count,
+at average ng integers. Kung ang user ay mag-enter ng anuman maliban sa
+integer, tuklasin ang kanilang pagkakamali gamit ang `try` at
+`except` at mag-print ng error message at lumaktaw sa susunod na
 integers.
 
 ~~~~
@@ -544,7 +540,7 @@ Enter a number: done
 16 3 5.333333333333333
 ~~~~
 
-**Exercise 2:** Write another program that prompts for a list of numbers as
-above and at the end prints out both the maximum and minimum of the
-numbers instead of the average.
+**Exercise 2:** Sumulat ng isa pang program na nagpo-prompt para sa list ng mga numero tulad ng
+sa itaas at sa dulo ay magpi-print ng parehong maximum at minimum ng
+mga numero imbes na ang average.
 
