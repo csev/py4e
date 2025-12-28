@@ -1,0 +1,745 @@
+Strings
+=======
+
+A string is a sequence
+----------------------
+
+\index{sequence}
+\index{character}
+\index{bracket operator}
+\index{operator!bracket}
+
+Ang string ay *sequence* ng characters. Maaari mong ma-access
+ang mga characters isa-isa gamit ang bracket operator:
+
+~~~~ {.python}
+>>> fruit = 'banana'
+>>> letter = fruit[1]
+~~~~
+
+\index{index}
+\index{}
+
+Ang pangalawang statement ay kumukuha ng character sa index position 1 mula sa
+variable na `fruit` at nag-a-assign nito sa variable na `letter`.
+
+Ang expression sa brackets ay tinatawag na *index*. Ang
+index ay nagpapahiwatig kung aling character sa sequence ang gusto mo (kaya ang
+pangalan).
+
+Pero maaaring hindi mo makuha ang inaasahan mo:
+
+~~~~ {.python}
+>>> print(letter)
+a
+~~~~
+
+Para sa karamihan ng mga tao, ang unang letra ng "banana" ay "b", hindi
+"a". Pero sa Python, ang index ay offset mula sa simula
+ng string, at ang offset ng unang letra ay zero.
+
+~~~~ {.python}
+>>> letter = fruit[0]
+>>> print(letter)
+b
+~~~~
+
+Kaya ang "b" ay ang 0th letra ("zero-th") ng "banana",
+ang "a" ay ang 1th letra ("one-th"), at ang "n" ay ang
+2th ("two-th") letra.
+
+![String Indexes](height=0.75in@../images/string)
+
+\index{index!starting at zero}
+\index{zero, index starting at}
+
+Maaari mong gamitin ang anumang expression, kasama ang variables at operators, bilang
+index, pero ang value ng index ay dapat integer. Kung hindi makakakuha ka ng:
+
+\index{index}
+\index{}
+\index{exception!TypeError}
+\index{TypeError}
+
+~~~~ {.python}
+>>> letter = fruit[1.5]
+TypeError: string indices must be integers
+~~~~
+
+Getting the length of a string using `len`
+-----------------------------------------------------
+
+\index{len function}
+\index{function!len}
+
+Ang `len` ay built-in function na nagre-return ng bilang ng
+characters sa string:
+
+~~~~ {.python}
+>>> fruit = 'banana'
+>>> len(fruit)
+6
+~~~~
+
+Para makuha ang huling letra ng string, maaari kang matukso na subukan
+ang isang bagay na ganito:
+
+\index{exception!IndexError}
+\index{IndexError}
+
+~~~~ {.python}
+>>> length = len(fruit)
+>>> last = fruit[length]
+IndexError: string index out of range
+~~~~
+
+Ang dahilan ng `IndexError` ay walang letra sa
+"banana" na may index 6. Dahil nagsimula tayo sa pagbilang sa
+zero, ang anim na letra ay may numero 0 hanggang 5. Para makuha ang huling character,
+kailangan mong ibawas ang 1 mula sa `length`:
+
+~~~~ {.python}
+>>> last = fruit[length-1]
+>>> print(last)
+a
+~~~~
+
+Bilang alternatibo, maaari mong gamitin ang negative indices, na nagbi-bilang pabalik mula sa
+dulo ng string. Ang expression na `fruit[-1]` ay nagbibigay ng
+huling letra, ang `fruit[-2]` ay nagbibigay ng pangalawang huli, at iba pa.
+
+\index{index!negative}
+\index{negative index}
+
+Traversal through a string with a loop
+--------------------------------------
+
+\index{traversal}
+\index{loop!traversal}
+\index{for loop}
+\index{loop!for}
+\index{statement!for}
+\index{traversal}
+
+Maraming computations ang nagsasangkot ng pagproseso ng string isang character sa isang
+panahon. Kadalasan nagsisimula sila sa simula, pumipili ng bawat character nang sunud-sunod,
+gumagawa ng isang bagay dito, at nagpapatuloy hanggang sa dulo. Ang pattern ng
+processing na ito ay tinatawag na *traversal*. Isang paraan para sumulat ng
+traversal ay gamit ang `while` loop:
+
+~~~~ {.python}
+index = 0
+while index < len(fruit):
+    letter = fruit[index]
+    print(letter)
+    index = index + 1
+~~~~
+
+Ang loop na ito ay dumadaan sa string at nagdi-display ng bawat letra sa isang linya na
+mag-isa. Ang loop condition ay `index < len(fruit)`, kaya kapag
+ang `index` ay katumbas ng haba ng string, ang condition
+ay false, at ang body ng loop ay hindi na-e-execute. Ang huling character
+na na-access ay ang may index na `len(fruit)-1`, na
+ang huling character sa string.
+
+**Exercise 1:** Sumulat ng `while` loop na nagsisimula sa huling
+character sa string at gumagana pabalik patungo sa unang
+character sa string, na nagpi-print ng bawat letra sa hiwalay na linya, maliban sa
+pabalik.
+
+Ang isa pang paraan para sumulat ng traversal ay gamit ang `for` loop:
+
+~~~~ {.python}
+for char in fruit:
+    print(char)
+~~~~
+
+Sa bawat pagkakataon sa loop, ang susunod na character sa string ay na-a-assign
+sa variable na `char`. Ang loop ay nagpapatuloy hanggang walang
+characters na natitira.
+
+String slices
+-------------
+
+\index{slice operator}
+\index{operator!slice}
+\index{index!slice}
+\index{string!slice}
+\index{slice!string}
+
+Ang segment ng string ay tinatawag na *slice*. Ang pagpili ng
+slice ay katulad ng pagpili ng character:
+
+~~~~ {.python}
+>>> s = 'Monty Python'
+>>> print(s[0:5])
+Monty
+>>> print(s[6:12])
+Python
+~~~~
+
+Ang operator [n:m] ay nagre-return ng parte ng string mula sa "n-th" character
+hanggang sa "m-th" character, kasama ang una pero hindi kasama ang huli.
+
+Kung tatanggalin mo ang unang index (bago ang colon), ang slice ay nagsisimula sa
+simula ng string. Kung tatanggalin mo ang pangalawang index, ang slice ay hanggang sa
+dulo ng string:
+
+~~~~ {.python}
+>>> fruit = 'banana'
+>>> fruit[:3]
+'ban'
+>>> fruit[3:]
+'ana'
+~~~~
+
+Kung ang unang index ay mas malaki o katumbas ng pangalawa ang result ay
+*empty string*, na kinakatawan ng dalawang quotation marks:
+
+\index{quotation mark}
+
+~~~~ {.python}
+>>> fruit = 'banana'
+>>> fruit[3:3]
+''
+~~~~
+
+Ang empty string ay walang characters at may haba na 0, pero bukod sa
+iyon, pareho ito sa anumang iba pang string.
+
+**Exercise 2:** Given na ang `fruit` ay string, ano ang ibig sabihin ng
+`fruit[:]`?
+
+\index{copy!slice}
+\index{slice!copy}
+
+Strings are immutable
+---------------------
+
+\index{mutability}
+\index{immutability}
+\index{string!immutable}
+
+Nakakatukso na gamitin ang operator sa kaliwang bahagi ng assignment,
+na may layunin na baguhin ang character sa string. Halimbawa:
+
+\index{TypeError}
+\index{exception!TypeError}
+
+~~~~ {.python}
+>>> greeting = 'Hello, world!'
+>>> greeting[0] = 'J'
+TypeError: 'str' object does not support item assignment
+~~~~
+
+Ang "object" sa kasong ito ay ang string at ang "item" ay ang character
+na sinubukan mong i-assign. Sa ngayon, ang *object* ay pareho
+sa value, pero pipino natin ang definition na iyon mamaya. Ang
+*item* ay isa sa mga values sa sequence.
+
+\index{object}
+\index{item assignment}
+\index{assignment!item}
+\index{immutability}
+
+Ang dahilan ng error ay ang strings ay *immutable*,
+na nangangahulugang hindi mo maaaring baguhin ang existing string. Ang pinakamabuting magagawa mo ay
+gumawa ng bagong string na variation ng original:
+
+~~~~ {.python}
+>>> greeting = 'Hello, world!'
+>>> new_greeting = 'J' + greeting[1:]
+>>> print(new_greeting)
+Jello, world!
+~~~~
+
+Ang halimbawang ito ay nagko-concatenate ng bagong unang letra sa slice ng
+`greeting`. Walang epekto ito sa original string.
+
+\index{concatenation}
+
+Looping and counting
+--------------------
+
+\index{counter}
+\index{counting and looping}
+\index{looping and counting}
+\index{looping!with strings}
+
+Ang sumusunod na program ay nagbi-bilang ng bilang ng beses na ang letra
+"a" ay lumalabas sa string:
+
+~~~~ {.python}
+word = 'banana'
+count = 0
+for letter in word:
+    if letter == 'a':
+        count = count + 1
+print(count)
+~~~~
+
+Ang program na ito ay nagpapakita ng isa pang pattern ng computation na tinatawag na
+*counter*. Ang variable na `count` ay ini-initialize
+sa 0 at pagkatapos i-increment sa bawat pagkakataon na makikita ang "a". Kapag ang
+loop ay lumabas, ang `count` ay naglalaman ng result: ang kabuuang bilang ng
+a's.
+
+\index{encapsulation}
+
+**Exercise 3:** I-encapsulate ang code na ito sa function na may pangalang `count`, at
+gawing general para tumanggap ng string at letra bilang arguments.
+
+The `in` operator
+----------------------------
+
+\index{in operator}
+\index{operator!in}
+\index{boolean operator}
+\index{operator!boolean}
+
+Ang salitang `in` ay boolean operator na tumatanggap ng dalawang strings
+at nagre-return ng `True` kung ang una ay lumalabas bilang substring sa
+pangalawa:
+
+~~~~ {.python}
+>>> 'a' in 'banana'
+True
+>>> 'seed' in 'banana'
+False
+~~~~
+
+String comparison
+-----------------
+
+\index{string!comparison}
+\index{comparison!string}
+
+Ang comparison operators ay gumagana sa strings. Para makita kung ang dalawang strings ay
+equal:
+
+~~~~ {.python}
+if word == 'banana':
+    print('All right, bananas.')
+~~~~ 
+
+Ang iba pang comparison operations ay kapaki-pakinabang para ilagay ang mga salita sa alphabetical
+order:
+
+~~~~ {.python}
+if word < 'banana':
+    print('Your word,' + word + ', comes before banana.')
+elif word > 'banana':
+    print('Your word,' + word + ', comes after banana.')
+else:
+    print('All right, bananas.')
+~~~~
+
+Ang Python ay hindi nagha-handle ng uppercase at lowercase letters sa parehong paraan na
+ginagawa ng mga tao. Lahat ng uppercase letters ay nauuna sa lahat ng lowercase
+letters, kaya:
+
+~~~~
+Your word, Pineapple, comes before banana.
+~~~~
+
+Karaniwang paraan para solusyonan ang problemang ito ay i-convert ang strings sa standard
+format, tulad ng lahat lowercase, bago gawin ang comparison. Tandaan
+iyon kung sakaling kailangan mong ipagtanggol ang sarili mo laban sa taong armado
+ng Pineapple.
+
+String methods
+---------------------------
+
+Ang Strings ay halimbawa ng Python *objects*. Ang object
+ay naglalaman ng parehong data (ang actual string mismo) at
+*methods*, na epektibong functions na built
+sa object at available sa anumang *instance* ng
+object.
+
+Ang Python ay may function na tinatawag na `dir` na nagli-list ng methods
+available para sa object. Ang `type` function ay nagpapakita ng type
+ng object at ang `dir` function ay nagpapakita ng available
+methods.
+
+~~~~ {.python}
+>>> stuff = 'Hello world'
+>>> type(stuff)
+<class 'str'>
+>>> dir(stuff)
+[... 'capitalize', 'casefold', 'center', 'count', 'encode',
+'endswith', 'expandtabs', 'find', 'format', 'format_map',
+'index', 'isalnum', 'isalpha', 'isdecimal', 'isdigit',
+'isidentifier', 'islower', 'isnumeric', 'isprintable',
+'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower',
+'lstrip', 'maketrans', 'partition', 'replace', 'rfind',
+'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip',
+'split', 'splitlines', 'startswith', 'strip', 'swapcase',
+'title', 'translate', 'upper', 'zfill']
+>>> help(str.capitalize)
+Help on method_descriptor:
+
+capitalize(self, /)
+    Return a capitalized version of the string.
+    
+    More specifically, make the first character have upper
+    case and the rest lower case.
+>>>
+~~~~
+
+Habang ang `dir` function ay nagli-list ng methods, at maaari mong gamitin ang
+`help` para makakuha ng ilang simpleng documentation sa method, mas mabuting
+source ng documentation para sa string methods ay
+
+<https://docs.python.org/library/stdtypes.html#string-methods>.
+
+Ang pagtawag sa *method* ay katulad ng pagtawag sa function (ito ay
+tumatanggap ng arguments at nagre-return ng value) pero ang syntax ay iba. Tinatawag natin
+ang method sa pamamagitan ng pag-append ng method name sa variable name gamit ang
+period bilang delimiter.
+
+Halimbawa, ang method na `upper` ay tumatanggap ng string at nagre-return ng
+bagong string na may lahat uppercase letters:
+
+\index{method}
+\index{string!method}
+
+Sa halip na function syntax na `upper(word)`, ginagamit nito ang
+method syntax na `word.upper()`.
+
+\index{dot notation}
+
+~~~~ {.python}
+>>> word = 'banana'
+>>> new_word = word.upper()
+>>> print(new_word)
+BANANA
+~~~~
+
+Ang form ng dot notation na ito ay tumutukoy sa pangalan ng method,
+`upper`, at ang pangalan ng string na a-applyan ng method,
+`word`. Ang empty parentheses ay nagpapahiwatig na ang method na ito ay hindi
+tumatanggap ng argument.
+
+\index{parentheses!empty}
+
+Ang method call ay tinatawag na *invocation*; sa kasong ito, sasabihin natin
+na nag-i-invoke tayo ng `upper` sa
+`word`.
+
+\index{invocation}
+
+Halimbawa, mayroong string method na may pangalang `find` na
+naghahanap ng posisyon ng isang string sa loob ng isa pa:
+
+~~~~ {.python}
+>>> word = 'banana'
+>>> index = word.find('a')
+>>> print(index)
+1
+~~~~ 
+
+Sa halimbawang ito, nag-i-invoke tayo ng `find` sa `word` at
+ipinapasa ang letra na hinahanap natin bilang parameter.
+
+Ang `find` method ay maaaring makahanap ng substrings pati na rin characters:
+
+~~~~ {.python}
+>>> word.find('na')
+2
+~~~~
+
+Maaari itong tumanggap bilang pangalawang argument ng index kung saan dapat ito magsimula:
+
+\index{optional argument}
+\index{argument!optional}
+
+~~~~ {.python}
+>>> word.find('na', 3)
+4
+~~~~
+
+Isang karaniwang gawain ay alisin ang white space (spaces, tabs, o newlines)
+mula sa simula at dulo ng string gamit ang `strip`
+method:
+
+~~~~ {.python}
+>>> line = '  Here we go  '
+>>> line.strip()
+'Here we go'
+~~~~
+
+Ang ilang methods tulad ng *startswith* ay nagre-return ng boolean values.
+
+~~~~ {.python}
+>>> line = 'Have a nice day'
+>>> line.startswith('Have')
+True
+>>> line.startswith('h')
+False
+~~~~
+
+Mapapansin mo na ang `startswith` ay nangangailangan ng case na tumugma, kaya
+minsan kumukuha tayo ng linya at i-map ito lahat sa lowercase bago gumawa ng anumang
+checking gamit ang `lower` method.
+
+~~~~ {.python}
+>>> line = 'Have a nice day'
+>>> line.startswith('h')
+False
+>>> line.lower()
+'have a nice day'
+>>> line.lower().startswith('h')
+True
+~~~~
+
+Sa huling halimbawa, ang method na `lower` ay tinatawag at pagkatapos
+ginagamit natin ang `startswith` para makita kung ang resulting lowercase string
+ay nagsisimula sa letrang "h". Hangga't maingat tayo sa order, maaari tayong
+gumawa ng maraming method calls sa isang expression.
+
+\index{count method}
+\index{method!count}
+
+**Exercise 4:** Mayroong string method na tinatawag na `count` na katulad ng
+function sa naunang exercise. Basahin ang documentation ng method na ito sa:
+
+<https://docs.python.org/library/stdtypes.html#string-methods> 
+
+Sumulat ng invocation na nagbi-bilang ng bilang ng beses na ang letrang a ay nangyayari
+sa "banana".
+
+Parsing strings
+---------------
+
+Kadalasan, gusto nating tumingin sa string at makahanap ng substring. Halimbawa
+kung ipinakita sa atin ang serye ng mga linya na na-format tulad ng sumusunod:
+
+`From stephen.marquard@`*` uct.ac.za`*` Sat Jan  5 09:14:16 2008`
+
+at gusto nating kunin lang ang pangalawang kalahati ng address (i.e.,
+`uct.ac.za`) mula sa bawat linya, maaari nating gawin ito sa pamamagitan ng paggamit ng
+`find` method at string slicing.
+
+Una, hahanapin natin ang posisyon ng at-sign sa string. Pagkatapos hahanapin natin
+ang posisyon ng unang space *pagkatapos* ng at-sign. At pagkatapos
+gagamitin natin ang string slicing para kunin ang parte ng string na
+hinahanap natin.
+
+~~~~ {.python}
+>>> data = 'From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008'
+>>> atpos = data.find('@')
+>>> print(atpos)
+21
+>>> sppos = data.find(' ',atpos)
+>>> print(sppos)
+31
+>>> host = data[atpos+1:sppos]
+>>> print(host)
+uct.ac.za
+>>>
+~~~~
+
+Ginagamit natin ang bersyon ng `find` method na nagpapahintulot sa atin na
+tukuyin ang posisyon sa string kung saan gusto nating magsimulang maghanap ang `find`.
+Kapag nag-slice tayo, kinukuha natin ang characters mula sa "isa pagkatapos
+ng at-sign hanggang sa *pero hindi kasama* ang space character".
+
+Ang documentation para sa `find` method ay available sa
+
+<https://docs.python.org/library/stdtypes.html#string-methods>.
+
+Formatted String Literals
+-------------------------
+
+\index{formatted string literals}
+
+Ang formatted string literal (kadalasang tinutukoy lang bilang f-string)
+ay nagpapahintulot na gamitin ang Python expressions sa loob ng string literals. Ito ay
+nakakamit sa pamamagitan ng pag-prepend ng `f` sa string literal at pag-enclose
+ng expressions sa curly braces `{}`.
+
+Halimbawa, ang pag-wrap ng variable name sa curly braces sa loob ng
+f-string ay magdudulot na mapalitan ito ng value nito:
+
+~~~~ {.python}
+>>> camels = 42
+>>> f'{camels}'
+'42'
+~~~~
+
+Ang result ay ang string na '42', na hindi dapat malito sa
+integer value na 42.
+
+Ang expression ay maaaring lumabas kahit saan sa string, kaya maaari mong i-embed ang
+value sa sentence:
+
+~~~~ {.python}
+>>> camels = 42
+>>> f'I have spotted {camels} camels.'
+'I have spotted 42 camels.'
+~~~~
+
+Maraming expressions ay maaaring isama sa loob ng isang string literal
+para gumawa ng mas kumplikadong strings.
+
+~~~~ {.python}
+>>> years = 3
+>>> count = .1
+>>> species = 'camels'
+>>> f'In {years} years I have spotted {count} {species}.'
+'In 3 years I have spotted 0.1 camels.'
+~~~~
+
+Ang formatted string literals ay makapangyarihan, at maaari silang gumawa ng higit pa sa sakop
+dito. Maaari kang magbasa pa tungkol sa kanila sa
+
+<https://docs.python.org/3/tutorial/inputoutput.html#formatted-string-literals>.
+
+Debugging
+---------
+
+\index{debugging}
+
+Isang skill na dapat mong linangin habang nagpo-program ay palaging nagtatanong
+sa sarili, "Ano ang maaaring maging mali dito?" o bilang alternatibo, "Anong baliw
+na bagay ang maaaring gawin ng user natin para i-crash ang (mukhang) perpektong program natin?"
+
+Halimbawa, tingnan ang program na ginamit natin para ipakita ang
+`while` loop sa chapter tungkol sa iteration:
+
+\VerbatimInput{../code3/copytildone2.py}
+
+Tingnan kung ano ang mangyayari kapag ang user ay nag-e-enter ng empty line ng input:
+
+~~~~ {.python}
+> hello there
+hello there
+> # don't print this
+> print this!
+print this!
+>
+Traceback (most recent call last):
+  File "copytildone.py", line 3, in <module>
+    if line[0] == '#':
+IndexError: string index out of range
+~~~~
+
+Ang code ay gumagana nang maayos hanggang ipinakita ang empty line. Pagkatapos walang
+zero-th character, kaya nakakakuha tayo ng traceback. Mayroong dalawang solusyon sa
+ito para gawing "safe" ang line three kahit na ang linya ay empty.
+
+Ang isang posibilidad ay simpleng gamitin ang `startswith` method
+na nagre-return ng `False` kung ang string ay empty.
+
+~~~~ {.python}
+if line.startswith('#'):
+~~~~
+
+\index{guardian pattern}
+\index{pattern!guardian}
+
+Ang isa pang paraan ay ligtas na sumulat ng `if` statement gamit ang
+*guardian* pattern at siguraduhin na ang pangalawang logical
+expression ay na-e-evaluate lang kung saan may hindi bababa sa isang character sa
+string:
+
+~~~~ {.python}
+if len(line) > 0 and line[0] == '#':
+~~~~
+
+Glossary
+--------
+
+counter
+:   Variable na ginagamit para bilangin ang isang bagay, karaniwang ini-initialize sa zero at
+    pagkatapos i-increment.
+\index{counter}
+
+empty string
+:   String na walang characters at may haba na 0, na kinakatawan ng dalawang
+    quotation marks.
+\index{empty string}
+
+flag
+:   Boolean variable na ginagamit para ipahiwatig kung ang condition ay true o false.
+\index{flag}
+
+invocation
+:   Statement na tumatawag sa method.
+\index{invocation}
+
+immutable
+:   Ang property ng sequence na ang items ay hindi maaaring i-assign.
+\index{immutability}
+
+index
+:   Integer value na ginagamit para pumili ng item sa sequence, tulad ng
+    character sa string.
+\index{index}
+\index{}
+
+item
+:   Isa sa mga values sa sequence.
+\index{item}
+
+method
+:   Function na nauugnay sa object at tinatawag gamit ang dot
+    notation.
+\index{method}
+
+object
+:   Isang bagay na maaaring tinukoy ng variable. Sa ngayon, maaari mong gamitin ang "object" at
+    "value" nang magkakapalit.
+\index{object}
+
+search
+:   Pattern ng traversal na humihinto kapag nakita na ang hinahanap
+    nito.
+\index{search pattern}
+\index{pattern!search}
+
+sequence
+:   Ordered set; iyon ay, set ng values kung saan ang bawat value ay
+    nakikilala ng integer index.
+\index{sequence}
+
+slice
+:   Parte ng string na tinukoy ng range ng indices.
+\index{slice}
+
+traverse
+:   Mag-iterate sa mga items sa sequence, na gumagawa ng katulad na
+    operation sa bawat isa.
+\index{traversal}
+
+Exercises
+---------
+
+**Exercise 5:** Slicing strings
+
+Kunin ang sumusunod na Python code na nag-i-store ng string:
+
+`str = 'X-DSPAM-Confidence: 0.8475'`
+
+Gamitin ang `find` at string slicing para kunin ang parte ng
+string pagkatapos ng colon character at pagkatapos gamitin ang `float`
+function para i-convert ang extracted string sa floating point number.
+
+\index{string method}
+\index{method!string}
+
+**Exercise 6:** String methods
+
+Basahin ang documentation ng string methods sa
+
+<https://docs.python.org/library/stdtypes.html#string-methods>.
+
+Maaaring gusto mong mag-eksperimento sa ilan sa kanila para masiguro na naiintindihan mo
+kung paano sila gumagana. Ang `strip` at `replace` ay
+partikular na kapaki-pakinabang.
+
+Ang documentation ay gumagamit ng syntax na maaaring nakakalito. Halimbawa, sa
+`find(sub[, start[, end]])`, ang brackets ay nagpapahiwatig ng optional arguments.
+Kaya ang `sub` ay required, pero ang `start` ay optional, at
+kung isasama mo ang `start`, pagkatapos ang `end` ay optional.
+

@@ -1,41 +1,41 @@
 Regular expressions
 ===================
 
-Hanggang ngayon, nagbabasa tayo sa mga files, naghahanap ng patterns at
-kumukuha ng iba't ibang bits ng lines na nakakainteresante sa atin. Gumagamit tayo ng
-string methods tulad ng `split` at `find` at
-gumagamit ng lists at string slicing para kunin ang mga parte ng lines.
+So far we have been reading through files, looking for patterns and
+extracting various bits of lines that we find interesting. We have been
+using string methods like `split` and `find` and
+using lists and string slicing to extract portions of the lines.
 
 \index{regular expressions}
 \index{regex}
 \index{re module}
 
-Ang gawaing ito ng paghahanap at pagkuha ay napakakaraniwan na ang Python ay may
-napakamakapangyarihang module na tinatawag na *regular expressions* na
-naghahandle ng marami sa mga gawaing ito nang elegante. Ang dahilan kung bakit hindi namin
-ipinakilala ang regular expressions mas maaga sa libro ay dahil habang sila ay
-napakamakapangyarihan, medyo kumplikado sila at ang syntax nila ay nangangailangan ng
-ilang paggamit para masanay.
+This task of searching and extracting is so common that Python has a
+very powerful module called *regular expressions* that
+handles many of these tasks quite elegantly. The reason we have not
+introduced regular expressions earlier in the book is because while they
+are very powerful, they are a little complicated and their syntax takes
+some getting used to.
 
-Ang regular expressions ay halos sarili nilang maliit na programming language para sa
-paghahanap at pag-parse ng strings. Sa katunayan, buong mga libro ang
-nasusulat tungkol sa paksa ng regular expressions. Sa chapter na ito,
-tatalakayin lang natin ang basics ng regular expressions. Para sa mas detalyado tungkol sa
-regular expressions, tingnan:
+Regular expressions are almost their own little programming language for
+searching and parsing strings. As a matter of fact, entire books have
+been written on the topic of regular expressions. In this chapter, we
+will only cover the basics of regular expressions. For more detail on
+regular expressions, see:
 
 <https://en.wikipedia.org/wiki/Regular_expression>
 
 <https://docs.python.org/library/re.html>
 
-Maaari mo ring i-bookmark ang sumusunod na page para mag-eksperimento sa regular 
-expressions habang natututo ka:
+You can also bookmark the following page to experiment with regular 
+expressions as you learn:
 
 <https://regex101.com/>
 
-Ang regular expression module na `re` ay dapat i-import sa
-program mo bago mo ito magamit. Ang pinakasimpleng paggamit ng regular
-expression module ay ang `search()` function. Ang sumusunod
-na program ay nagpapakita ng trivial na paggamit ng search function.
+The regular expression module `re` must be imported into
+your program before you can use it. The simplest use of the regular
+expression module is the `search()` function. The following
+program demonstrates a trivial use of the search function.
 
 \index{regex!search}
 
@@ -44,112 +44,112 @@ na program ay nagpapakita ng trivial na paggamit ng search function.
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Binubuksan natin ang file, naglo-loop sa bawat linya, at gumagamit ng regular expression na
-`search()` para lang mag-print ng lines na naglalaman ng string
-"From:". Ang program na ito ay hindi gumagamit ng tunay na kapangyarihan ng regular
-expressions, dahil maaari lang nating gamitin ang
-`line.find()` para makamit ang parehong result.
+We open the file, loop through each line, and use the regular expression
+`search()` to only print out lines that contain the string
+"From:". This program does not use the real power of regular
+expressions, since we could have just as easily used
+`line.find()` to accomplish the same result.
 
 \index{string!find}
 
-Ang kapangyarihan ng regular expressions ay dumarating kapag nagdadagdag tayo ng espesyal na
-characters sa search string na nagpapahintulot sa atin na mas tumpak na kontrolin
-kung aling lines ang tumugma sa string. Ang pagdaragdag ng espesyal na characters na ito sa aming
-regular expression ay nagpapahintulot sa atin na gumawa ng sophisticated matching at extraction
-habang sumusulat ng napakakaunting code.
+The power of the regular expressions comes when we add special
+characters to the search string that allow us to more precisely control
+which lines match the string. Adding these special characters to our
+regular expression allows us to do sophisticated matching and extraction
+while writing very little code.
 
-Halimbawa, ang caret character ay ginagamit sa regular expressions para tumugma sa
-"simula" ng linya. Maaari nating baguhin ang program natin para lang tumugma sa
-lines kung saan ang "From:" ay nasa simula ng linya tulad ng sumusunod:
+For example, the caret character is used in regular expressions to match
+"the beginning" of a line. We could change our program to only match
+lines where "From:" was at the beginning of the line as follows:
 
 \VerbatimInput{../code3/re02.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Ngayon ay tumutugma lang tayo sa lines na *nagsisimula sa* string
-"From:". Ito ay napakasimpleng halimbawa pa rin na maaari nating gawin
-nang katumbas gamit ang `startswith()` method mula sa string
-module. Pero nagsisilbi ito para ipakilala ang konsepto na ang regular expressions
-ay naglalaman ng espesyal na action characters na nagbibigay sa atin ng mas maraming kontrol kung ano
-ang tutugma sa regular expression.
+Now we will only match lines that *start with* the string
+"From:". This is still a very simple example that we could have done
+equivalently with the `startswith()` method from the string
+module. But it serves to introduce the notion that regular expressions
+contain special action characters that give us more control as to what
+will match the regular expression.
 
 \index{string!startswith}
 
 Character matching in regular expressions
 -----------------------------------------
 
-Mayroong ilang iba pang espesyal na characters na nagpapahintulot sa atin na gumawa ng mas
-makapangyarihang regular expressions. Ang pinakakaraniwang ginagamit na espesyal
-character ay ang period o full stop, na tumutugma sa anumang character.
+There are a number of other special characters that let us build even
+more powerful regular expressions. The most commonly used special
+character is the period or full stop, which matches any character.
 
 \index{wild card}
 \index{regex!wild card}
 
-Sa sumusunod na halimbawa, ang regular expression na `F..m:` ay tutugma sa anumang
-sa mga strings na "From:", "Fxxm:", "F12m:", o "F!@m:" dahil ang period
-characters sa regular expression ay tumutugma sa anumang character.
+In the following example, the regular expression `F..m:` would match any
+of the strings "From:", "Fxxm:", "F12m:", or "F!@m:" since the period
+characters in the regular expression match any character.
 
 \VerbatimInput{../code3/re03.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Ito ay partikular na makapangyarihan kapag pinagsama sa kakayahang ipahiwatig
-na ang character ay maaaring ulitin ng anumang bilang ng beses gamit ang `*` o
-`+` characters sa regular expression mo. Ang espesyal na characters na ito ay nangangahulugang
-sa halip na tumugma sa isang character sa search string, tumutugma sila sa
-zero-or-more characters (sa kaso ng asterisk) o
-one-or-more ng characters (sa kaso ng plus sign).
+This is particularly powerful when combined with the ability to indicate
+that a character can be repeated any number of times using the `*` or
+`+` characters in your regular expression. These special characters mean
+that instead of matching a single character in the search string, they
+match zero-or-more characters (in the case of the asterisk) or
+one-or-more of the characters (in the case of the plus sign).
 
-Maaari pa nating paliitin ang lines na tinutugma natin gamit ang paulit-ulit na
-*wild card* character sa sumusunod na halimbawa:
+We can further narrow down the lines that we match using a repeated
+*wild card* character in the following example:
 
 \VerbatimInput{../code3/re04.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Ang search string na `^From:.+@` ay matagumpay na tutugma sa lines na nagsisimula
-sa "From:", na sinusundan ng isa o higit pang characters (`.+`), na sinusundan ng
-at-sign. Kaya tutugma ito sa sumusunod na linya:
+The search string `^From:.+@` will successfully match lines that start
+with "From:", followed by one or more characters (`.+`), followed by an
+at-sign. So this will match the following line:
 
 ~~~~
 From: stephen.marquard@uct.ac.za
 ~~~~
 
-Maaari mong isipin ang `.+` wildcard bilang pagpapalawak para tumugma sa lahat ng
-characters sa pagitan ng colon character at at-sign.
+You can think of the `.+` wildcard as expanding to match all the
+characters between the colon character and the at-sign.
 
 ~~~~
 From:.+@
 ~~~~
 
-Magandang isipin ang plus at asterisk characters bilang "pushy" o "greedy."
-Halimbawa, ang sumusunod na string ay tutugma sa huling at-sign sa string
-habang ang `.+` ay nagpu-push palabas, ang nasa `cwen@iupui.edu`.
+It is good to think of the plus and asterisk characters as "pushy" or "greedy."
+For example, the following string would match the last at-sign in the string
+as the `.+` pushes outwards, the one in `cwen@iupui.edu`.
 
 ~~~~
 From: stephen.marquard@uct.ac.za, csev@umich.edu, and cwen@iupui.edu
 ~~~~
 
-Posibleng sabihin sa asterisk o plus sign na huwag maging masyadong "greedy."
-Kung mag-a-append ka ng `?`, para gawin itong `.*?` o `.+?`, ang regex mo ay tutugma sa 
-pinakaunang instance imbes na huling instance. Sa halimbawa sa itaas, 
-ang paggamit ng `.+?@` ay tutugma sa unang at-sign, ang nasa 
-`stephen.marquard@uct.ac.za`. Para sa mas maraming detalye, tingnan ang [Python documentation on greedy vs non-greedy quantifiers](https://docs.python.org/3/library/re.html).
+It is possible to tell an asterisk or plus sign not to be so "greedy."
+If you append `?`, to make it `.*?` or `.+?`, your regex will match the 
+very first instance rather than the last instance. In the example above, 
+using `.+?@` would instead match the first at-sign, the one in 
+`stephen.marquard@uct.ac.za`. For more details, see the [Python documentation on greedy vs non-greedy quantifiers](https://docs.python.org/3/library/re.html).
 
 \index{greedy}
 
 Extracting data using regular expressions
 -----------------------------------------
 
-Kung gusto nating kunin ang data mula sa string sa Python maaari nating gamitin ang
-`findall()` method para kunin ang lahat ng substrings na
-tumutugma sa regular expression. Gamitin natin ang halimbawa ng pagkuha ng
-anumang bagay na mukhang email address mula sa anumang linya anuman ang
-format. Halimbawa, gusto nating kunin ang email addresses mula sa bawat isa sa
-sumusunod na lines:
+If we want to extract data from a string in Python we can use the
+`findall()` method to extract all of the substrings which
+match a regular expression. Let's use the example of wanting to extract
+anything that looks like an email address from any line regardless of
+format. For example, we want to pull the email addresses from each of
+the following lines:
 
 ~~~~
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
@@ -159,10 +159,10 @@ Received: (from apache@localhost)
 Author: stephen.marquard@uct.ac.za
 ~~~~
 
-Hindi natin gusto na sumulat ng code para sa bawat uri ng lines, na nagha-hati
-at nag-slice nang iba para sa bawat linya. Ang sumusunod na program ay gumagamit ng
-`findall()` para hanapin ang lines na may email addresses sa kanila
-at kunin ang isa o higit pang addresses mula sa bawat isa sa mga lines na iyon.
+We don't want to write code for each of the types of lines, splitting
+and slicing differently for each line. This following program uses
+`findall()` to find the lines with email addresses in them
+and extract one or more addresses from each of those lines.
 
 \index{findall}
 \index{regex!findall}
@@ -172,45 +172,45 @@ at kunin ang isa o higit pang addresses mula sa bawat isa sa mga lines na iyon.
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Ang `findall()` method ay naghahanap sa string sa pangalawang
-argument at nagre-return ng list ng lahat ng strings na mukhang email
-addresses. Gumagamit tayo ng two-character sequence na tumutugma sa
-non-whitespace character (`\S`). Mapapansin mo na nag-append din tayo ng 
-letrang `r` bago lang ang regular expression natin; sinasabi nito sa Python 
-na bigyang-kahulugan ang regular expression natin bilang raw string, at huwag tratuhin ang 
-backslashes bilang escape characters (tulad ng ginagamit natin sa `\n`).
+The `findall()` method searches the string in the second
+argument and returns a list of all of the strings that look like email
+addresses. We are using a two-character sequence that matches a
+non-whitespace character (`\S`). You will notice we've also appended 
+the letter `r` just before our regular expression; this tells Python 
+to interpret our regular expression as a raw string, and not to treat 
+backslashes as escape characters (like we use with `\n`).
 
-Ang output ng program ay magiging:
+The output of the program would be:
 
 ~~~~
 ['csev@umich.edu', 'cwen@iupui.edu']
 ~~~~
 
-Sa pag-translate ng regular expression, naghahanap tayo ng substrings na
-may hindi bababa sa isang non-whitespace character, na sinusundan ng at-sign,
-na sinusundan ng hindi bababa sa isa pang non-whitespace character. Ang
-`\S+` ay tumutugma sa kasing dami ng non-whitespace characters na
-posible.
+Translating the regular expression, we are looking for substrings that
+have at least one non-whitespace character, followed by an at-sign,
+followed by at least one more non-whitespace character. The
+`\S+` matches as many non-whitespace characters as
+possible.
 
-Ang regular expression ay tutugma nang dalawang beses (csev@umich.edu at
-cwen@iupui.edu), pero hindi ito tutugma sa string na "@2PM" dahil walang
-non-blank characters *bago* ang at-sign. Maaari nating
-gamitin ang regular expression na ito sa program para basahin ang lahat ng lines sa file
-at mag-print ng anumang bagay na mukhang email address tulad ng sumusunod:
+The regular expression would match twice (csev@umich.edu and
+cwen@iupui.edu), but it would not match the string "@2PM" because there
+are no non-blank characters *before* the at-sign. We can
+use this regular expression in a program to read all the lines in a file
+and print out anything that looks like an email address as follows:
 
 \VerbatimInput{../code3/re06.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Binabasa natin ang bawat linya at pagkatapos kinukuha ang lahat ng substrings na tumutugma sa aming
-regular expression. Dahil ang `findall()` ay nagre-return ng list, 
-simpleng sinusuri natin kung ang bilang ng elements sa returned list natin ay higit sa
-zero para mag-print lang ng lines kung saan nakakita tayo ng hindi bababa sa isang substring na
-mukhang email address.
+We read each line and then extract all the substrings that match our
+regular expression. Since `findall()` returns a list, we
+simply check if the number of elements in our returned list is more than
+zero to print only lines where we found at least one substring that
+looks like an email address.
 
-Kung patakbuhin natin ang program sa *mbox-short.txt* makukuha natin ang sumusunod
-na output:
+If we run the program on *mbox-short.txt* we get the following
+output:
 
 ~~~~
 ...
@@ -225,38 +225,38 @@ na output:
 ['wagnermr@iupui.edu']
 ~~~~
 
-Ang ilan sa aming email addresses ay may maling characters tulad ng "<" o ";"
-sa simula o dulo. Sabihin natin na interesado lang tayo sa
-parte ng string na nagsisimula at nagtatapos sa letra o
-numero.
+Some of our email addresses have incorrect characters like "<" or ";"
+at the beginning or end. Let's declare that we are only interested in
+the portion of the string that starts and ends with a letter or a
+number.
 
-Para gawin ito, gumagamit tayo ng iba pang feature ng regular expressions. Ang square
-brackets ay ginagamit para ipahiwatig ang set ng maraming acceptable characters na
-handa nating isaalang-alang na tumugma. Sa isang diwa, ang `\S` ay
-naghihingi na tumugma sa set ng "non-whitespace characters". Ngayon ay magiging mas
-eksplisito tayo sa mga characters na tutugma natin.
+To do this, we use another feature of regular expressions. Square
+brackets are used to indicate a set of multiple acceptable characters we
+are willing to consider matching. In a sense, the `\S` is
+asking to match the set of "non-whitespace characters". Now we will be a
+little more explicit in terms of the characters we will match.
 
-Narito ang bagong regular expression natin:
+Here is our new regular expression:
 
 ~~~~
 [a-zA-Z0-9]\S*@\S*[a-zA-Z]
 ~~~~
 
-Ito ay nagiging medyo kumplikado at maaari mong simulan na makita kung bakit
-ang regular expressions ay sarili nilang maliit na language.
-Sa pag-translate ng regular expression na ito, naghahanap tayo ng substrings na
-nagsisimula sa *isang* lowercase letter, uppercase letter,
-o numero "[a-zA-Z0-9]", na sinusundan ng zero o higit pang non-blank characters
-(`\S*`), na sinusundan ng at-sign, na sinusundan ng zero o higit pang
-non-blank characters (`\S*`), na sinusundan ng uppercase o
-lowercase letter. Tandaan na lumipat tayo mula sa `+` patungo sa `*` para ipahiwatig ang
-zero o higit pang non-blank characters dahil ang `[a-zA-Z0-9]` ay isa nang
-non-blank character. Tandaan na ang `*` o `+` ay nalalapat sa isang
-character na agad nasa kaliwa ng plus o asterisk.
+This is getting a little complicated and you can begin to see why
+regular expressions are their own little language unto themselves.
+Translating this regular expression, we are looking for substrings that
+start with a *single* lowercase letter, uppercase letter,
+or number "[a-zA-Z0-9]", followed by zero or more non-blank characters
+(`\S*`), followed by an at-sign, followed by zero or more
+non-blank characters (`\S*`), followed by an uppercase or
+lowercase letter. Note that we switched from `+` to `*` to indicate
+zero or more non-blank characters since `[a-zA-Z0-9]` is already one
+non-blank character. Remember that the `*` or `+` applies to the single
+character immediately to the left of the plus or asterisk.
 
 \index{regex!character sets(brackets)}
 
-Kung gagamitin natin ang expression na ito sa program natin, mas malinis ang data natin:
+If we use this expression in our program, our data is much cleaner:
 
 \VerbatimInput{../code3/re07.py} 
 \begin{trinketfiles}
@@ -275,54 +275,54 @@ Kung gagamitin natin ang expression na ito sa program natin, mas malinis ang dat
 ['apache@localhost']
 ~~~~
 
-Mapansin na sa `source@collab.sakaiproject.org` lines, ang regular
-expression natin ay nagtanggal ng dalawang letra sa dulo ng string (">;").
-Ito ay dahil kapag nag-a-append tayo ng `[a-zA-Z]` sa dulo ng regular
-expression natin, hinihingi natin na anumang string na makikita ng regular expression
-parser ay dapat magtapos sa letra. Kaya kapag nakikita nito ang ">" sa dulo ng
-"sakaiproject.org>;" simpleng humihinto ito sa huling "matching" na letra na
-nakita nito (i.e., ang "g" ay ang huling magandang match).
+Notice that on the `source@collab.sakaiproject.org` lines, our regular
+expression eliminated two letters at the end of the string (">;").
+This is because when we append `[a-zA-Z]` to the end of our regular
+expression, we are demanding that whatever string the regular expression
+parser finds must end with a letter. So when it sees the ">" at the end of
+"sakaiproject.org>;" it simply stops at the last "matching" letter it
+found (i.e., the "g" was the last good match).
 
-Tandaan din na ang output ng program ay Python list na may
-string bilang isang element sa list.
+Also note that the output of the program is a Python list that has a
+string as the single element in the list.
 
 Combining searching and extracting
 ----------------------------------
 
-Kung gusto nating hanapin ang mga numero sa lines na nagsisimula sa string "X-" tulad
-ng:
+If we want to find numbers on lines that start with the string "X-" such
+as:
 
 ~~~~
 X-DSPAM-Confidence: 0.8475
 X-DSPAM-Probability: 0.0000
 ~~~~
 
-hindi lang natin gusto ang anumang floating-point numbers mula sa anumang lines. Gusto lang nating
-kunin ang mga numero mula sa lines na may syntax sa itaas.
+we don't just want any floating-point numbers from any lines. We only
+want to extract numbers from lines that have the above syntax.
 
-Maaari nating gawin ang sumusunod na regular expression para pumili ng lines:
+We can construct the following regular expression to select the lines:
 
 ~~~~
 ^X-.*: [0-9.]+
 ~~~~
 
-Sa pag-translate nito, sinasabi natin, gusto natin ng lines na nagsisimula sa `X-`,
-na sinusundan ng zero o higit pang characters (`.*`), na sinusundan ng colon (`:`)
-at pagkatapos ng space. Pagkatapos ng space naghahanap tayo ng isa o higit pang
-characters na alinman sa digit (0-9) o period `[0-9.]+`. Tandaan
-na sa loob ng square brackets, ang period ay tumutugma sa aktwal na period
-(i.e., hindi ito wildcard sa pagitan ng square brackets).
+Translating this, we are saying, we want lines that start with `X-`,
+followed by zero or more characters (`.*`), followed by a colon (`:`)
+and then a space. After the space we are looking for one or more
+characters that are either a digit (0-9) or a period `[0-9.]+`. Note
+that inside the square brackets, the period matches an actual period
+(i.e., it is not a wildcard between the square brackets).
 
-Ito ay napakapinid na expression na halos tutugma lang sa
-lines na interesado tayo tulad ng sumusunod:
+This is a very tight expression that will pretty much match only the
+lines we are interested in as follows:
 
 \VerbatimInput{../code3/re10.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Kapag pinatakbo natin ang program, nakikita natin ang data na maganda ang filter para ipakita lang
-ang lines na hinahanap natin.
+When we run the program, we see the data nicely filtered to show only
+the lines we are looking for.
 
 ~~~~
 X-DSPAM-Confidence: 0.8475
@@ -332,36 +332,36 @@ X-DSPAM-Probability: 0.0000
 ...
 ~~~~
 
-Pero ngayon kailangan nating solusyonan ang problema ng pagkuha ng mga numero. Habang
-sapat na simple ang paggamit ng `split`, maaari tayong gumamit ng iba pang
-feature ng regular expressions para parehong maghanap at mag-parse ng linya sa
-parehong pagkakataon.
+But now we have to solve the problem of extracting the numbers. While it
+would be simple enough to use `split`, we can use another
+feature of regular expressions to both search and parse the line at the
+same time.
 
 \index{string!split}
 
-Ang parentheses ay isa pang espesyal na character sa regular expressions. Kapag
-nagdaragdag ka ng parentheses sa regular expression, hindi sila pinapansin kapag
-tumutugma sa string. Pero kapag gumagamit ka ng `findall()`,
-ang parentheses ay nagpapahiwatig na habang gusto mo na tumugma ang buong expression,
-interesado ka lang na kunin ang parte ng substring na
-tumutugma sa regular expression.
+Parentheses are another special character in regular expressions. When
+you add parentheses to a regular expression, they are ignored when
+matching the string. But when you are using `findall()`,
+parentheses indicate that while you want the whole expression to match,
+you only are interested in extracting a portion of the substring that
+matches the regular expression.
 
 \index{regex!parentheses}
 \index{parentheses!regular expression}
 
-Kaya ginagawa natin ang sumusunod na pagbabago sa program natin:
+So we make the following change to our program:
 
 \VerbatimInput{../code3/re11.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Sa halip na tawagin ang `search()`, nagdaragdag tayo ng parentheses sa paligid ng
-parte ng regular expression na kumakatawan sa floating-point number
-para ipahiwatig na gusto lang natin na ibigay sa atin ng `findall()` ang
-floating-point number na parte ng matching string.
+Instead of calling `search()`, we add parentheses around the
+part of the regular expression that represents the floating-point number
+to indicate we only want `findall()` to give us back the
+floating-point number portion of the matching string.
 
-Ang output mula sa program na ito ay ganito:
+The output from this program is as follows:
 
 ~~~~
 ['0.8475']
@@ -373,34 +373,34 @@ Ang output mula sa program na ito ay ganito:
 ...
 ~~~~
 
-Ang mga numero ay nasa list pa rin at kailangang i-convert mula sa strings patungo sa
-floating point, pero ginamit na natin ang kapangyarihan ng regular expressions para
-parehong maghanap at kunin ang impormasyon na nakakainteresante sa atin.
+The numbers are still in a list and need to be converted from strings to
+floating point, but we have used the power of regular expressions to
+both search and extract the information we found interesting.
 
-Bilang isa pang halimbawa ng technique na ito, kung titingnan mo ang file mayroong
-ilang lines ng form:
+As another example of this technique, if you look at the file there are
+a number of lines of the form:
 
 ~~~~
 Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
 ~~~~
 
-Kung gusto nating kunin ang lahat ng revision numbers (ang integer number
-sa dulo ng mga lines na ito) gamit ang parehong technique sa itaas, maaari tayong
-sumulat ng sumusunod na program:
+If we wanted to extract all of the revision numbers (the integer number
+at the end of these lines) using the same technique as above, we could
+write the following program:
 
 \VerbatimInput{../code3/re12.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Sa pag-translate ng regular expression natin, naghahanap tayo ng lines na nagsisimula
-sa `Details:`, na sinusundan ng anumang bilang ng characters (`.*`), na sinusundan
-ng `rev=`, at pagkatapos ng isa o higit pang digits. Gusto nating hanapin ang lines na
-tumutugma sa buong expression pero gusto lang nating kunin ang integer
-number sa dulo ng linya, kaya pinalilibutan natin ang `[0-9]+` ng parentheses,
-at nagdaragdag tayo ng `$` para ipahiwatig na tumutugma partikular sa dulo ng linya.
+Translating our regular expression, we are looking for lines that start
+with `Details:`, followed by any number of characters (`.*`), followed
+by `rev=`, and then by one or more digits. We want to find lines that
+match the entire expression but we only want to extract the integer
+number at the end of the line, so we surround `[0-9]+` with parentheses,
+and we add `$` to indicate matches specifically at the end of the line.
 
-Kapag pinatakbo natin ang program, makukuha natin ang sumusunod na output:
+When we run the program, we get the following output:
 
 ~~~~
 ['39772']
@@ -410,59 +410,60 @@ Kapag pinatakbo natin ang program, makukuha natin ang sumusunod na output:
 ...
 ~~~~
 
-Tandaan na ang `[0-9]+` ay "greedy" at sinusubukan nitong gawing mas malaki ang
-string ng digits hangga't maaari bago kunin ang mga digits na iyon. Ang
-"greedy" behavior na ito ang dahilan kung bakit nakukuha natin ang lahat ng limang digits para sa bawat numero. Ang
-regular expression module ay lumalawak sa parehong direksyon hanggang
-makakita ng non-digit, o simula o dulo ng linya.
+Remember that the `[0-9]+` is "greedy" and it tries to make as large a
+string of digits as possible before extracting those digits. This
+"greedy" behavior is why we get all five digits for each number. The
+regular expression module expands in both directions until it
+encounters a non-digit, or the beginning or the end of a line.
 
-Ngayon maaari nating gamitin ang regular expressions para gawin ulit ang exercise mula sa mas maaga sa
-libro kung saan interesado tayo sa oras ng araw ng bawat mail
-message. Naghanap tayo ng lines ng form:
+Now we can use regular expressions to redo an exercise from earlier in
+the book where we were interested in the time of day of each mail
+message. We looked for lines of the form:
 
 ~~~~
 From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 ~~~~
 
-at gusto nating kunin ang oras ng araw para sa bawat linya. Dati ginawa natin ito
-gamit ang dalawang tawag sa `split`. Una hinati ang linya
-sa mga salita at pagkatapos kinuha natin ang ikalimang salita at hinati ulit sa
-colon character para kunin ang dalawang characters na interesado tayo.
+and wanted to extract the hour of the day for each line. Previously we
+did this with two calls to `split`. First the line was split
+into words and then we pulled out the fifth word and split it again on
+the colon character to pull out the two characters we were interested
+in.
 
-Habang gumagana ito, nagreresulta ito sa medyo brittle code na
-nag-a-assume na ang lines ay maganda ang format. Kung magdaragdag ka ng sapat na error
-checking (o malaking try/except block) para siguraduhin na ang program mo ay hindi kailanman
-mabibigo kapag binigyan ng maling format na lines, ang code ay
-lalaki sa 10-15 lines ng code na medyo mahirap basahin.
+While this worked, it actually results in pretty brittle code that is
+assuming the lines are nicely formatted. If you were to add enough error
+checking (or a big try/except block) to ensure that your program never
+failed when presented with incorrectly formatted lines, the code would
+balloon to 10-15 lines of code that was pretty hard to read.
 
-Maaari nating gawin ito sa mas simpleng paraan gamit ang sumusunod na regular
+We can do this in a far simpler way with the following regular
 expression:
 
 ~~~~
 ^From .* [0-9][0-9]:
 ~~~~
 
-Ang translation ng regular expression na ito ay naghahanap tayo ng
-lines na nagsisimula sa `From ` (tandaan ang space), na sinusundan ng anumang bilang
-ng characters (`.*`), na sinusundan ng space, na sinusundan ng dalawang digits
-`[0-9][0-9]`, na sinusundan ng colon character. Ito ang definition ng
-mga uri ng lines na hinahanap natin.
+The translation of this regular expression is that we are looking for
+lines that start with `From ` (note the space), followed by any number
+of characters (`.*`), followed by a space, followed by two digits
+`[0-9][0-9]`, followed by a colon character. This is the definition of
+the kinds of lines we are looking for.
 
-Para kunin lang ang oras gamit ang `findall()`, nagdaragdag tayo ng
-parentheses sa paligid ng dalawang digits tulad ng sumusunod:
+In order to pull out only the hour using `findall()`, we add
+parentheses around the two digits as follows:
 
 ~~~~
 ^From .* ([0-9][0-9]):
 ~~~~
 
-Ito ay nagreresulta sa sumusunod na program:
+This results in the following program:
 
 \VerbatimInput{../code3/re13.py} 
 \begin{trinketfiles}
 ../code3/mbox-short.txt
 \end{trinketfiles}
 
-Kapag tumatakbo ang program, gumagawa ito ng sumusunod na output:
+When the program runs, it produces the following output:
 
 ~~~~
 ['09']
@@ -475,15 +476,15 @@ Kapag tumatakbo ang program, gumagawa ito ng sumusunod na output:
 Escape character
 ----------------
 
-Ang regular expressions ay gumagamit ng espesyal na characters tulad ng `^` para tumugma sa 
-simula ng linya, `$` para sa dulo ng linya, at `.` bilang wildcard; 
-gayunpaman, minsan gusto nating tumugma sa mga characters na iyon nang literal. Kailangan natin ng 
-paraan para ipahiwatig na gusto nating tumugma sa aktwal na character tulad
-ng caret symbol, dollar sign, o period.
+Regular expressions utilize special characters like `^` to match the 
+beginning of a line, `$` for the end of a line, and `.` as a wildcard; 
+however, sometimes we want to match those characters literally. We 
+need a way to indicate that we want to match the actual character such
+as a caret symbol, dollar sign, or period.
 
-Maaari nating ipahiwatig na gusto lang nating tumugma sa character sa pamamagitan ng pag-prefix
-ng character na iyon ng backslash. Halimbawa, maaari nating hanapin ang money amounts
-gamit ang sumusunod na regular expression.
+We can indicate that we want to simply match a character by prefixing
+that character with a backslash. For example, we can find money amounts
+with the following regular expression.
 
 ~~~~ {.python}
 import re
@@ -491,92 +492,92 @@ x = 'We just received $10.00 for cookies.'
 y = re.findall('\$[0-9.]+',x)
 ~~~~
 
-Dahil nag-prefix tayo ng dollar sign ng backslash, aktwal na tumutugma ito sa
-dollar sign sa input string sa halip na tumugma sa "dulo ng
-linya", at ang natitirang parte ng regular expression ay tumutugma sa isa o higit pang digits
-o period character. Tandaan, tulad ng nakita natin sa itaas, sa loob ng square brackets,
-ang characters ay hindi "espesyal". Kaya kapag sinasabi natin ang `[0-9.]`, nangangahulugan ito ng
-digits o period. Sa labas ng square brackets, ang period ay ang
-"wild-card" character at tumutugma sa anumang character. Sa loob ng square brackets,
-ang period ay period.
+Since we prefix the dollar sign with a backslash, it actually matches
+the dollar sign in the input string instead of matching the "end of
+line", and the rest of the regular expression matches one or more digits
+or the period character. Remember, as we saw above, inside square brackets,
+characters are not "special". So when we say `[0-9.]`, it really means
+digits or a period. Outside of square brackets, a period is the
+"wild-card" character and matches any character. Inside square brackets,
+the period is a period.
 
 Summary
 -------
 
-Habang ito ay sumasayad lang sa ibabaw ng regular expressions, natutunan natin ang kaunti tungkol sa
-language ng regular expressions. Sila ay search
-strings na may espesyal na characters sa kanila na nagko-communicate ng iyong mga nais sa
-regular expression system tungkol sa kung ano ang nagde-define ng "matching" at kung ano ang
-kinukuha mula sa matched strings. Narito ang ilan sa mga espesyal na
-characters at character sequences:
+While this only scratched the surface of regular expressions, we have
+learned a bit about the language of regular expressions. They are search
+strings with special characters in them that communicate your wishes to
+the regular expression system as to what defines "matching" and what is
+extracted from the matched strings. Here are some of those special
+characters and character sequences:
 
-`^` Tumutugma sa simula ng linya.
+`^` Matches the beginning of the line.
 
-`$` Tumutugma sa dulo ng linya.
+`$` Matches the end of the line.
 
-`.` Tumutugma sa anumang character (wildcard).
+`.` Matches any character (a wildcard).
 
-`\s` Tumutugma sa whitespace character.
+`\s` Matches a whitespace character.
 
-`\S` Tumutugma sa non-whitespace character (kabaligtaran ng \\s).
+`\S` Matches a non-whitespace character (opposite of \\s).
 
-`*` Nalalapat sa agad na nauunang character(s) at nagpapahiwatig na tumugma
-zero o higit pang beses.
+`*` Applies to the immediately preceding character(s) and indicates to match
+zero or more times.
 
-`*?` Nalalapat sa agad na nauunang character(s) at nagpapahiwatig na
-tumugma zero o higit pang beses sa "non-greedy mode".
+`*?` Applies to the immediately preceding character(s) and indicates to
+match zero or more times in "non-greedy mode".
 
-`+` Nalalapat sa agad na nauunang character(s) at nagpapahiwatig na tumugma
-isa o higit pang beses.
+`+` Applies to the immediately preceding character(s) and indicates to match
+one or more times.
 
-`+?` Nalalapat sa agad na nauunang character(s) at nagpapahiwatig na
-tumugma isa o higit pang beses sa "non-greedy mode".
+`+?` Applies to the immediately preceding character(s) and indicates to
+match one or more times in "non-greedy mode".
 
-`?` Nalalapat sa agad na nauunang character(s) at nagpapahiwatig na tumugma
-zero o isang beses.
+`?` Applies to the immediately preceding character(s) and indicates to match
+zero or one time.
 
-`??` Nalalapat sa agad na nauunang character(s) at nagpapahiwatig na
-tumugma zero o isang beses sa "non-greedy mode".
+`??` Applies to the immediately preceding character(s) and indicates to
+match zero or one time in "non-greedy mode".
 
-`[aeiou]` Tumutugma sa isang character hangga't ang character na iyon ay nasa
-tinukoy na set. Sa halimbawang ito, tutugma ito sa "a", "e", "i", "o", o
-"u", pero walang iba pang characters.
+`[aeiou]` Matches a single character as long as that character is in the
+specified set. In this example, it would match "a", "e", "i", "o", or
+"u", but no other characters.
 
-`[a-z0-9]` Maaari mong tukuyin ang ranges ng characters gamit ang minus sign. Ang
-halimbawang ito ay isang character na dapat lowercase letter o
+`[a-z0-9]` You can specify ranges of characters using the minus sign. This
+example is a single character that must be a lowercase letter or a
 digit.
 
-`[^A-Za-z]` Kapag ang unang character sa set notation ay caret, ito ay
-binabaligtad ang logic. Ang halimbawang ito ay tumutugma sa isang character na
-anumang bagay *maliban sa* uppercase o lowercase letter.
+`[^A-Za-z]` When the first character in the set notation is a caret, it
+inverts the logic. This example matches a single character that is
+anything *other than* an uppercase or lowercase letter.
 
-`( )` Kapag ang parentheses ay idinagdag sa regular expression, hindi sila pinapansin
-para sa layunin ng matching, pero nagpapahintulot sa iyo na kunin ang partikular na
-subset ng matched string sa halip na buong string kapag gumagamit ng
+`( )` When parentheses are added to a regular expression, they are ignored
+for the purpose of matching, but allow you to extract a particular
+subset of the matched string rather than the whole string when using
 `findall()`.
 
-`\b` Tumutugma sa empty string, pero lang sa simula o dulo ng salita.
+`\b` Matches the empty string, but only at the start or end of a word.
 
-`\B` Tumutugma sa empty string, pero hindi sa simula o dulo ng salita.
+`\B` Matches the empty string, but not at the start or end of a word.
 
-`\d` Tumutugma sa anumang decimal digit; katumbas ng set [0-9].
+`\d` Matches any decimal digit; equivalent to the set [0-9].
 
-`\D` Tumutugma sa anumang non-digit character; katumbas ng set [^0-9].
+`\D` Matches any non-digit character; equivalent to the set [^0-9].
 
 Bonus section for Unix / Linux users
 ------------------------------------
 
-Ang suporta para sa paghahanap ng files gamit ang regular expressions ay naka-build sa
-Unix operating system mula noong 1960s at available ito sa halos lahat ng
-programming languages sa isang form o iba pa.
+Support for searching files using regular expressions was built into the
+Unix operating system since the 1960s and it is available in nearly all
+programming languages in one form or another.
 
 \index{grep}
 
-Sa katunayan, mayroong command-line program na naka-build sa Unix
-na tinatawag na *grep* (Generalized Regular Expression Parser)
-na gumagawa ng halos pareho sa `search()` examples sa
-chapter na ito. Kaya kung mayroon kang Macintosh o Linux system, maaari mong subukan
-ang sumusunod na commands sa command-line window mo.
+As a matter of fact, there is a command-line program built into Unix
+called *grep* (Generalized Regular Expression Parser)
+that does pretty much the same as the `search()` examples in
+this chapter. So if you have a Macintosh or Linux system, you can try
+the following commands in your command-line window.
 
 ~~~~ {.bash}
 $ grep '^From:' mbox-short.txt
@@ -586,26 +587,26 @@ From: zqian@umich.edu
 From: rjlowe@iupui.edu
 ~~~~
 
-Sinasabi nito sa `grep` na ipakita sa iyo ang lines na nagsisimula sa
-string "From:" sa file na *mbox-short.txt*. Kung
-mag-eksperimento ka sa `grep` command ng kaunti at basahin ang
-documentation para sa `grep`, makikita mo ang ilang subtle
-differences sa pagitan ng regular expression support sa Python at ang
-regular expression support sa `grep`. Bilang halimbawa,
-ang `grep` ay hindi sumusuporta sa non-blank character na
-`\S` kaya kailangan mong gamitin ang medyo mas kumplikadong set
-notation na `[^ ]`, na simpleng nangangahulugang tumugma sa character na anumang bagay
-maliban sa space.
+This tells `grep` to show you lines that start with the
+string "From:" in the file *mbox-short.txt*. If you
+experiment with the `grep` command a bit and read the
+documentation for `grep`, you will find some subtle
+differences between the regular expression support in Python and the
+regular expression support in `grep`. As an example,
+`grep` does not support the non-blank character
+`\S` so you will need to use the slightly more complex set
+notation `[^ ]`, which simply means match a character that is anything
+other than a space.
 
 Debugging
 ---------
 
-Ang Python ay may ilang simple at rudimentary built-in documentation na maaaring
-maging kapaki-pakinabang kung kailangan mo ng mabilis na refresher para ma-trigger ang memory mo
-tungkol sa eksaktong pangalan ng partikular na method. Ang documentation na ito ay maaaring
-tingnan sa Python interpreter sa interactive mode.
+Python has some simple and rudimentary built-in documentation that can
+be quite helpful if you need a quick refresher to trigger your memory
+about the exact name of a particular method. This documentation can be
+viewed in the Python interpreter in interactive mode.
 
-Maaari mong buksan ang interactive help system gamit ang `help()`.
+You can bring up an interactive help system using `help()`.
 
 ~~~~ {.python}
 >>> help()
@@ -613,8 +614,8 @@ Maaari mong buksan ang interactive help system gamit ang `help()`.
 help> modules
 ~~~~
 
-Kung alam mo kung anong module ang gusto mong gamitin, maaari mong gamitin ang
-`dir()` command para hanapin ang methods sa module tulad ng sumusunod:
+If you know what module you want to use, you can use the
+`dir()` command to find the methods in the module as follows:
 
 ~~~~ {.python .trinket}
 >>> import re
@@ -624,8 +625,8 @@ Kung alam mo kung anong module ang gusto mong gamitin, maaari mong gamitin ang
 'sre_parse', 'sub', 'subn', 'sys', 'template']
 ~~~~
 
-Maaari mo ring makuha ang kaunting documentation tungkol sa partikular na method
-gamit ang help command na pinagsama sa gustong method.
+You can also get a small amount of documentation on a particular method
+using the help command combined with the desired method.
 
 ~~~~ {.python .trinket}
 >>> help (re.search)
@@ -637,47 +638,47 @@ search(pattern, string, flags=0)
 >>>
 ~~~~
 
-Ang built-in documentation ay hindi masyadong malawak, pero maaari itong maging kapaki-pakinabang
-kapag nagmamadali ka o walang access sa web browser o search
+The built-in documentation is not very extensive, but it can be helpful
+when you are in a hurry or don't have access to a web browser or search
 engine.
 
 Glossary
 --------
 
 brittle code
-:   Code na gumagana kapag ang input data ay nasa partikular na format pero
-    madaling masira kung may deviation mula sa tamang
-    format. Tinatawag natin itong "brittle code" dahil madali itong masira.
+:   Code that works when the input data is in a particular format but is
+    prone to breakage if there is some deviation from the correct
+    format. We call this "brittle code" because it is easily broken.
 
 greedy matching
-:   Ang konsepto na ang `+` at `*` characters sa regular expression
-    ay lumalawak palabas para tumugma sa pinakamalaking posibleng string.
+:   The notion that the `+` and `*` characters in a regular expression
+    expand outward to match the largest possible string.
 \index{greedy}
 \index{greedy matching}
 
 grep
-:   Command na available sa karamihan ng Unix systems na naghahanap sa text
-    files na naghahanap ng lines na tumutugma sa regular expressions. Ang command
-    name ay nangangahulugang "Generalized Regular Expression Parser".
+:   A command available in most Unix systems that searches through text
+    files looking for lines that match regular expressions. The command
+    name stands for "Generalized Regular Expression Parser".
 \index{grep}
 
 regular expression
-:   Language para ipahayag ang mas kumplikadong search strings. Ang regular
-    expression ay maaaring maglalaman ng espesyal na characters na nagpapahiwatig na ang
-    search ay tumutugma lang sa simula o dulo ng linya o marami pang iba
-    na katulad na capabilities.
+:   A language for expressing more complex search strings. A regular
+    expression may contain special characters that indicate that a
+    search only matches at the beginning or end of a line or many other
+    similar capabilities.
 
 wild card
-:   Espesyal na character na tumutugma sa anumang character. Sa regular
-    expressions ang wild-card character ay ang period.
+:   A special character that matches any character. In regular
+    expressions the wild-card character is the period.
 \index{wild card}
 
 Exercises
 ---------
 
-**Exercise 1:** Sumulat ng simpleng program para i-simulate ang operation ng
-`grep` command sa Unix. Magtanong sa user na mag-enter ng regular
-expression at bilangin ang bilang ng lines na tumugma sa regular
+**Exercise 1:** Write a simple program to simulate the operation of the
+`grep` command on Unix. Ask the user to enter a regular
+expression and count the number of lines that matched the regular
 expression:
 
 ~~~~
@@ -694,15 +695,15 @@ Enter a regular expression: java$
 mbox.txt had 4175 lines that matched java$
 ~~~~
 
-**Exercise 2:** Sumulat ng program para hanapin ang lines ng form:
+**Exercise 2:** Write a program to look for lines of the form:
 
 ~~~~
 New Revision: 39772
 ~~~~
 
-**Kunin ang numero mula sa bawat isa sa lines gamit ang regular expression
-at ang `findall()` method. I-compute ang average ng
-mga numero at mag-print ng average bilang integer.**
+**Extract the number from each of the lines using a regular expression
+and the `findall()` method. Compute the average of the
+numbers and print out the average as an integer.**
 
 ~~~~
 Enter file:mbox.txt

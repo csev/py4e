@@ -1,24 +1,24 @@
 Using Web Services
 ==================
 
-Nang naging madali na ang pagkuha ng documents at pag-parse ng documents sa HTTP
-gamit ang programs, hindi nagtagal bago nabuo ang approach kung saan
-nagsimula tayong gumawa ng documents na partikular na idinisenyo para
-konsumahin ng iba pang programs (i.e., hindi HTML para ipakita sa
+Once it became easy to retrieve documents and parse documents over HTTP
+using programs, it did not take long to develop an approach where we
+started producing documents that were specifically designed to be
+consumed by other programs (i.e., not HTML to be displayed in a
 browser).
 
-Mayroong dalawang karaniwang format na ginagamit natin kapag nagpapalitan ng data sa
-web. Ang eXtensible Markup Language (XML) ay ginagamit na ng napakatagal
-at pinakaangkop para sa pagpapalitan ng document-style data. Kapag
-ang programs ay gusto lang magpalitan ng dictionaries, lists, o iba pang internal
-impormasyon sa isa't isa, gumagamit sila ng JavaScript Object Notation (JSON)
-(tingnan ang [www.json.org](http://www.json.org)). Titingnan natin ang parehong format.
+There are two common formats that we use when exchanging data across the
+web. eXtensible Markup Language (XML) has been in use for a very
+long time and is best suited for exchanging document-style data. When
+programs just want to exchange dictionaries, lists, or other internal
+information with each other, they use JavaScript Object Notation (JSON)
+(see [www.json.org](http://www.json.org)). We will look at both formats.
 
 eXtensible Markup Language - XML
 --------------------------------
 
-Ang XML ay mukhang katulad ng HTML, pero ang XML ay mas structured kaysa sa HTML.
-Narito ang sample ng XML document:
+XML looks very similar to HTML, but XML is more structured than HTML.
+Here is a sample of an XML document:
 
 ~~~~ {.xml}
 <person>
@@ -30,16 +30,16 @@ Narito ang sample ng XML document:
 </person>
 ~~~~
 
-Ang bawat pares ng opening (hal., `<person>`) at closing tags
-(hal., `</person>`) ay kumakatawan sa *element* o *node* na may parehong
-pangalan sa tag (hal., `person`). Ang bawat element ay maaaring may ilang text,
-ilang attributes (hal., `hide`), at iba pang nested elements. Kung ang XML
-element ay empty (i.e., walang content), maaari itong ilarawan ng
-self-closing tag (hal., `<email />`).
+Each pair of opening (e.g., `<person>`) and closing tags
+(e.g., `</person>`) represents an *element* or *node* with the same
+name as the tag (e.g., `person`). Each element can have some text,
+some attributes (e.g., `hide`), and other nested elements. If an XML
+element is empty (i.e., has no content), then it may be depicted by
+a self-closing tag (e.g., `<email />`).
 
-Kadalasan kapaki-pakinabang na isipin ang XML document bilang tree structure
-kung saan mayroong top element (dito: `person`), at ang iba pang tags (hal.,
-`phone`) ay iginuhit bilang *children* ng kanilang *parent* elements.
+Often it is helpful to think of an XML document as a tree structure
+where there is a top element (here: `person`), and other tags (e.g.,
+`phone`) are drawn as *children* of their *parent* elements.
 
 ![A Tree Representation of XML](height=2.0in@../images/xml-tree)
 
@@ -50,29 +50,29 @@ Parsing XML
 \index{ElementTree!fromstring}
 \index{ElementTree!find}
 
-Narito ang simpleng application na nagpa-parse ng ilang XML at kumukuha ng ilang data
-elements mula sa XML:
+Here is a simple application that parses some XML and extracts some data
+elements from the XML:
 
 \VerbatimInput{../code3/xml1.py} 
 
-Ang triple single quote (`'''`), pati na rin ang triple double quote (`"""`), ay nagpapahintulot sa paggawa ng strings na sumasaklaw sa maraming linya.
+The triple single quote (`'''`), as well as the triple double quote (`"""`), allow for the creation of strings that span multiple lines.
 
-Ang pagtawag sa `fromstring` ay nagko-convert ng string representation ng
-XML sa "tree" ng XML elements. Kapag ang XML ay nasa tree,
-mayroon tayong serye ng methods na maaari nating tawagin para kunin ang mga parte
-ng data mula sa XML string. Ang `find` function ay naghahanap
-sa XML tree at kumukuha ng element na tumutugma
-sa tinukoy na tag.
+Calling `fromstring` converts the string representation of
+the XML into a "tree" of XML elements. When the XML is in a tree,
+we have a series of methods we can call to extract portions
+of data from the XML string.  The `find` function searches
+through the XML tree and retrieves the element that matches
+the specified tag.
 
 ~~~~
 Name: Chuck
 Attr: yes
 ~~~~
 
-Ang paggamit ng XML parser tulad ng `ElementTree` ay may advantage
-na habang ang XML sa halimbawang ito ay medyo simple, lumalabas na mayroong
-maraming rules tungkol sa valid XML, at ang paggamit ng `ElementTree`
-ay nagpapahintulot sa atin na kunin ang data mula sa XML nang hindi nag-aalala tungkol sa rules ng
+Using an XML parser such as `ElementTree` has the advantage
+that while the XML in this example is quite simple, it turns out there
+are many rules regarding valid XML, and using `ElementTree`
+allows us to extract data from XML without worrying about the rules of
 XML syntax.
 
 Looping through nodes
@@ -81,17 +81,17 @@ Looping through nodes
 \index{ElementTree!findall}
 \index{ElementTree!get}
 
-Kadalasan ang XML ay may maraming nodes at kailangan nating sumulat ng loop para iproseso
-ang lahat ng nodes. Sa sumusunod na program, naglo-loop tayo sa lahat ng
+Often the XML has multiple nodes and we need to write a loop to process
+all of the nodes. In the following program, we loop through all of the
 `user` nodes:
 
 \VerbatimInput{../code3/xml2.py} 
 
-Ang `findall` method ay kumukuha ng Python list ng subtrees na
-kumakatawan sa `user` structures sa XML tree. Pagkatapos maaari tayong
-sumulat ng `for` loop na tumitingin sa bawat user node, at
-nagpi-print ng `name` at `id` text elements pati na rin
-ang `x` attribute mula sa `user` node.
+The `findall` method retrieves a Python list of subtrees that
+represent the `user` structures in the XML tree. Then we can
+write a `for` loop that looks at each of the user nodes, and
+prints the `name` and `id` text elements as well
+as the `x` attribute from the `user` node.
 
 ~~~~
 User count: 2
@@ -103,9 +103,9 @@ Id 009
 Attribute 7
 ~~~~
 
-Mahalagang isama ang lahat ng parent level elements sa `findall`
-statement maliban sa top level element (hal., `users/user`).
-Kung hindi, ang Python ay hindi makakahanap ng anumang gustong nodes.
+It is important to include all parent level elements in the `findall`
+statement except for the top level element (e.g., `users/user`).
+Otherwise, Python will not find any desired nodes.
 
 ~~~~ {.python}
 import xml.etree.ElementTree as ET
@@ -133,9 +133,9 @@ lst2 = stuff.findall('user')
 print('User count:', len(lst2))
 ~~~~
 
-Ang `lst` ay nag-i-store ng lahat ng `user` elements na nested sa loob ng kanilang `users`
-parent. Ang `lst2` ay naghahanap ng `user` elements na hindi nested sa loob ng
-top level `stuff` element kung saan walang anuman.
+`lst` stores all `user` elements that are nested within their `users`
+parent. `lst2` looks for `user` elements that are not nested within
+the top level `stuff` element where there are none.
 
 ~~~~
 User count: 2
@@ -148,14 +148,14 @@ JavaScript Object Notation - JSON
 \index{JSON}
 \index{JavaScript Object Notation}
 
-Ang JSON format ay naging inspirasyon mula sa object at array format na ginagamit sa
-JavaScript language. Pero dahil ang Python ay naimbento bago ang JavaScript,
-ang syntax ng Python para sa dictionaries at lists ay naimpluwensyahan ang syntax ng
-JSON. Kaya ang format ng JSON ay halos kapareho ng kombinasyon ng
-Python lists at dictionaries.
+The JSON format was inspired by the object and array format used in the
+JavaScript language. But since Python was invented before JavaScript,
+Python's syntax for dictionaries and lists influenced the syntax of
+JSON. So the format of JSON is nearly identical to a combination of
+Python lists and dictionaries.
 
-Narito ang JSON encoding na halos katumbas ng simpleng XML
-mula sa itaas:
+Here is a JSON encoding that is roughly equivalent to the simple XML
+from above:
 
 ~~~~ {.json}
 {
@@ -170,49 +170,49 @@ mula sa itaas:
 }
 ~~~~
 
-Mapapansin mo ang ilang pagkakaiba. Una, sa XML, maaari tayong magdagdag ng attributes
-tulad ng "intl" sa "phone" tag. Sa JSON, mayroon lang tayong key-value pairs.
-Gayundin ang XML "person" tag ay nawala, pinalitan ng set ng outer curly
+You will notice some differences. First, in XML, we can add attributes
+like "intl" to the "phone" tag. In JSON, we simply have key-value pairs.
+Also the XML "person" tag is gone, replaced by a set of outer curly
 braces.
 
-Sa pangkalahatan, ang JSON structures ay mas simple kaysa sa XML dahil ang JSON ay may mas kaunting
-capabilities kaysa sa XML. Pero ang JSON ay may advantage na nagma-map ito
-*directly* sa ilang kombinasyon ng dictionaries at lists.
-At dahil halos lahat ng programming languages ay may katumbas sa
-dictionaries at lists ng Python, ang JSON ay napakalikas na format para magkaroon ng
-dalawang cooperating programs na magpalitan ng data.
+In general, JSON structures are simpler than XML because JSON has fewer
+capabilities than XML. But JSON has the advantage that it maps
+*directly* to some combination of dictionaries and lists.
+And since nearly all programming languages have something equivalent to
+Python's dictionaries and lists, JSON is a very natural format to have
+two cooperating programs exchange data.
 
-Ang JSON ay mabilis na naging format ng pagpipilian para sa halos lahat ng data
-exchange sa pagitan ng applications dahil sa relatibong simplicity nito
-kumpara sa XML.
+JSON is quickly becoming the format of choice for nearly all data
+exchange between applications because of its relative simplicity
+compared to XML.
 
 Parsing JSON
 ------------
 
-Ginagawa natin ang JSON natin sa pamamagitan ng pag-nest ng dictionaries at lists ayon sa
-pangangailangan. Sa halimbawang ito, kinakatawan natin ang list ng users kung saan ang bawat user ay
-set ng key-value pairs (i.e., dictionary). Kaya mayroon tayong list ng
+We construct our JSON by nesting dictionaries and lists as
+needed. In this example, we represent a list of users where each user is
+a set of key-value pairs (i.e., a dictionary). So we have a list of
 dictionaries.
 
-Sa sumusunod na program, ginagamit natin ang built-in `json`
-library para mag-parse ng JSON at magbasa sa data. I-compare ito nang
-mabuti sa katumbas na XML data at code sa itaas. Ang JSON ay may mas kaunting
-detalye, kaya dapat nating malaman nang maaga na nakakakuha tayo ng list at ang
-list ay ng users at ang bawat user ay set ng key-value pairs. Ang JSON
-ay mas succinct (advantage) pero mas kaunti rin ang self-describing (a
+In the following program, we use the built-in `json`
+library to parse the JSON and read through the data. Compare this
+closely to the equivalent XML data and code above. The JSON has less
+detail, so we must know in advance that we are getting a list and that
+the list is of users and each user is a set of key-value pairs. The JSON
+is more succinct (an advantage) but also is less self-describing (a
 disadvantage).
 
 \VerbatimInput{../code3/json2.py}
 
-Kung i-compare mo ang code para kunin ang data mula sa parsed JSON at XML
-makikita mo na ang nakukuha natin mula sa `json.loads()` ay Python
-list na dinadaanan natin gamit ang `for` loop, at ang bawat item
-sa loob ng list na iyon ay Python dictionary. Kapag na-parse na ang JSON,
-maaari nating gamitin ang Python index operator para kunin ang iba't ibang bits ng data
-para sa bawat user. Hindi natin kailangang gamitin ang JSON library para mag-dig sa
-parsed JSON, dahil ang returned data ay simpleng native Python structures.
+If you compare the code to extract data from the parsed JSON and XML you
+will see that what we get from `json.loads()` is a Python
+list which we traverse with a `for` loop, and each item
+within that list is a Python dictionary. Once the JSON has been parsed,
+we can use the Python index operator to extract the various bits of data
+for each user. We don't have to use the JSON library to dig through the
+parsed JSON, since the returned data is simply native Python structures.
 
-Ang output ng program na ito ay eksaktong pareho sa XML version sa itaas.
+The output of this program is exactly the same as the XML version above.
 
 ~~~~
 User count: 2
@@ -224,60 +224,60 @@ Id 009
 Attribute 7
 ~~~~
 
-Sa pangkalahatan, mayroong industry trend palayo sa XML at patungo sa JSON
-para sa web services. Dahil ang JSON ay mas simple at mas direktang nagma-map sa
-native data structures na mayroon na tayo sa programming languages, ang
-parsing at data extraction code ay karaniwang mas simple at mas direkta kapag
-gumagamit ng JSON. Pero ang XML ay mas self-descriptive kaysa sa JSON at kaya mayroong
-ilang applications kung saan ang XML ay nananatiling may advantage. Halimbawa, karamihan ng word
-processors ay nag-i-store ng documents internally gamit ang XML sa halip na JSON.
+In general, there is an industry trend away from XML and towards JSON
+for web services. Because the JSON is simpler and more directly maps to
+native data structures we already have in programming languages, the
+parsing and data extraction code is usually simpler and more direct when
+using JSON. But XML is more self-descriptive than JSON and so there are
+some applications where XML retains an advantage. For example, most word
+processors store documents internally using XML rather than JSON.
 
 Application Programming Interfaces
 ----------------------------------
 
-Mayroon na tayong kakayahang magpalitan ng data sa pagitan ng applications gamit ang
-Hypertext Transport Protocol (HTTP) at paraan para kumatawan sa complex data
-na ipinapadala natin pabalik-balik sa pagitan ng mga applications na ito gamit ang
-eXtensible Markup Language (XML) o JavaScript Object Notation (JSON).
+We now have the ability to exchange data between applications using
+Hypertext Transport Protocol (HTTP) and a way to represent complex data
+that we are sending back and forth between these applications using
+eXtensible Markup Language (XML) or JavaScript Object Notation (JSON).
 
-Ang susunod na hakbang ay simulan na tukuyin at dokumentado ang "contracts" sa pagitan ng
-applications gamit ang mga techniques na ito. Ang pangkalahatang pangalan para sa mga
-application-to-application contracts na ito ay *Application Program
-Interfaces* (APIs). Kapag gumagamit tayo ng API, karaniwang isang program
-ang gumagawa ng set ng *services* na available para gamitin ng iba pang
-applications at nagpu-publish ng APIs (i.e., ang "rules") na dapat
-sundin para ma-access ang services na ibinigay ng program.
+The next step is to begin to define and document "contracts" between
+applications using these techniques. The general name for these
+application-to-application contracts is *Application Program
+Interfaces* (APIs). When we use an API, generally one program
+makes a set of *services* available for use by other
+applications and publishes the APIs (i.e., the "rules") that must be
+followed to access the services provided by the program.
 
-Kapag nagsisimula na tayong gumawa ng programs natin kung saan ang functionality ng aming
-program ay kasama ang access sa services na ibinigay ng iba pang programs, tinatawag natin
-ang approach na *Service-oriented architecture* (SOA). Ang
-SOA approach ay isa kung saan ang overall application natin ay gumagamit ng
-services ng iba pang applications. Ang non-SOA approach ay kung saan ang
-application ay isang solong standalone application na naglalaman ng lahat ng
-code na kailangan para i-implement ang application.
+When we begin to build our programs where the functionality of our
+program includes access to services provided by other programs, we call
+the approach a *Service-oriented architecture* (SOA). An
+SOA approach is one where our overall application makes use of the
+services of other applications. A non-SOA approach is where the
+application is a single standalone application which contains all of the
+code necessary to implement the application.
 
-Nakikita natin ang maraming halimbawa ng SOA kapag gumagamit tayo ng web. Maaari tayong pumunta sa isang
-web site at mag-book ng air travel, hotels, at automobiles lahat mula sa isang
-site. Ang data para sa hotels ay hindi naka-store sa airline computers.
-Sa halip, ang airline computers ay nakikipag-ugnayan sa services sa hotel
-computers at kumukuha ng hotel data at ipinakita ito sa user. Kapag
-sumang-ayon ang user na gumawa ng hotel reservation gamit ang airline site, ang
-airline site ay gumagamit ng iba pang web service sa hotel systems para talagang
-gawin ang reservation. At kapag oras na para singilin ang credit card mo
-para sa buong transaction, iba pang computers pa rin ang kasangkot sa
-proseso.
+We see many examples of SOA when we use the web. We can go to a single
+web site and book air travel, hotels, and automobiles all from a single
+site. The data for hotels is not stored on the airline computers.
+Instead, the airline computers contact the services on the hotel
+computers and retrieve the hotel data and present it to the user. When
+the user agrees to make a hotel reservation using the airline site, the
+airline site uses another web service on the hotel systems to actually
+make the reservation. And when it comes time to charge your credit card
+for the whole transaction, still other computers become involved in the
+process.
 
 ![Service-oriented architecture](height=3.0in@../images/soa)
 
-Ang Service-oriented architecture ay may maraming advantages, kasama ang: (1) palaging
-nagma-maintain lang tayo ng isang kopya ng data (ito ay partikular na mahalaga
-para sa mga bagay tulad ng hotel reservations kung saan ayaw nating mag-over-commit)
-at (2) ang mga may-ari ng data ay maaaring magtakda ng rules tungkol sa paggamit ng kanilang
-data. Sa mga advantages na ito, ang SOA system ay dapat maingat na idinisenyo para
-magkaroon ng magandang performance at matugunan ang pangangailangan ng user.
+A Service-oriented architecture has many advantages, including: (1) we
+always maintain only one copy of data (this is particularly important
+for things like hotel reservations where we do not want to over-commit)
+and (2) the owners of the data can set the rules about the use of their
+data. With these advantages, an SOA system must be carefully designed to
+have good performance and meet the user's needs.
 
-Kapag ang application ay gumagawa ng set ng services sa API nito na available sa
-web, tinatawag natin ang mga ito na *web services*.
+When an application makes a set of services in its API available over
+the web, we call these *web services*.
 
 Security and API usage
 ----------------------
@@ -285,57 +285,57 @@ Security and API usage
 \index{OAuth}
 \index{API!key}
 
-Napakakaraniwan na kailangan mo ng API key para magamit ang
-API ng vendor. Ang pangkalahatang ideya ay gusto nilang malaman kung sino ang gumagamit ng
-services nila at kung gaano karami ang ginagamit ng bawat user. Marahil mayroon silang libre
-at bayad na tiers ng services nila o may policy na naglilimita sa bilang ng
-requests na maaaring gawin ng isang indibidwal sa partikular na panahon
+It is quite common that you need an API key to make use of a
+vendor's API. The general idea is that they want to know who is using
+their services and how much each user is using. Perhaps they have free
+and pay tiers of their services or have a policy that limits the number
+of requests that a single individual can make during a particular time
 period.
 
-Minsan kapag nakuha mo na ang API key mo, simpleng isama mo lang ang key bilang parte
-ng POST data o marahil bilang parameter sa URL kapag tinatawag ang API.
+Sometimes once you get your API key, you simply include the key as part
+of POST data or perhaps as a parameter on the URL when calling the API.
 
-Sa ibang pagkakataon, ang vendor ay gusto ng mas mataas na assurance ng source ng
-requests at kaya inaasahan nila na magpadala ka ng cryptographically signed
-messages gamit ang shared keys at secrets. Ang napakakaraniwang teknolohiya na
-ginagamit para mag-sign ng requests sa Internet ay tinatawag na
-*OAuth*. Maaari kang magbasa pa tungkol sa OAuth protocol sa
+Other times, the vendor wants increased assurance of the source of the
+requests and so they expect you to send cryptographically signed
+messages using shared keys and secrets. A very common technology that is
+used to sign requests over the Internet is called
+*OAuth*. You can read more about the OAuth protocol at
 [www.oauth.net](http://www.oauth.net).
 
-Sa kabutihang palad mayroong ilang maginhawa
-at libreng OAuth libraries para maiwasan mong sumulat ng OAuth
-implementation mula sa simula sa pamamagitan ng pagbabasa ng specification. Ang mga
-libraries na ito ay may iba't ibang complexity at may iba't ibang antas ng
-richness. Ang OAuth web site ay may impormasyon tungkol sa iba't ibang OAuth
+Thankfully there are a number of convenient
+and free OAuth libraries so you can avoid writing an OAuth
+implementation from scratch by reading the specification. These
+libraries are of varying complexity and have varying degrees of
+richness. The OAuth web site has information about various OAuth
 libraries.
 
 Glossary
 --------
 
 API
-:   Application Program Interface - Contract sa pagitan ng applications na
-    nagde-define ng patterns ng interaction sa pagitan ng dalawang application
+:   Application Program Interface - A contract between applications that
+    defines the patterns of interaction between two application
     components.
 \index{API}
 
 ElementTree
-:   Built-in Python library na ginagamit para mag-parse ng XML data.
+:   A built-in Python library used to parse XML data.
 \index{ElementTree}
 
 JSON
-:   JavaScript Object Notation - Format na nagpapahintulot sa markup ng
-    structured data batay sa syntax ng JavaScript Objects.
+:   JavaScript Object Notation - A format that allows for the markup of
+    structured data based on the syntax of JavaScript Objects.
 \index{JSON}
 \index{JavaScript Object Notation}
 
 SOA
-:   Service-Oriented Architecture - Kapag ang application ay gawa sa
-    components na konektado sa network.
+:   Service-Oriented Architecture - When an application is made of
+    components connected across a network.
 \index{SOA}
 \index{Service Oriented Architecture}
 
 XML
-:   eXtensible Markup Language - Format na nagpapahintulot sa markup ng
+:   eXtensible Markup Language - A format that allows for the markup of
     structured data.
 \index{XML}
 \index{eXtensible Markup Language}

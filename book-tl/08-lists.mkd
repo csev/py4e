@@ -1,0 +1,1161 @@
+
+Lists
+=====
+
+\index{list}
+\index{type!list}
+
+A list is a sequence
+--------------------
+
+Tulad ng string, ang *list* ay sequence ng values. Sa
+string, ang values ay characters; sa list, maaari silang anumang type. Ang
+mga values sa lists ay tinatawag na *elements* o minsan
+*items*.
+
+\index{element}
+\index{sequence}
+\index{item}
+
+Mayroong ilang paraan para gumawa ng bagong list; ang pinakasimple ay i-enclose
+ang elements sa square brackets ("[" at "]"):
+
+~~~~ {.python}
+[10, 20, 30, 40]
+['crunchy frog', 'ram bladder', 'lark vomit']
+~~~~
+
+Ang unang halimbawa ay list ng apat na integers. Ang pangalawa ay list ng
+tatlong strings. Ang elements ng list ay hindi kailangang pareho ang type.
+Ang sumusunod na list ay naglalaman ng string, float, integer, at (lo!)
+isa pang list:
+
+~~~~ {.python}
+['spam', 2.0, 5, [10, 20]]
+~~~~ 
+
+Ang list sa loob ng ibang list ay *nested*.
+
+\index{nested list}
+\index{list!nested}
+
+Ang list na walang elements ay tinatawag na empty list; maaari kang gumawa
+ng isa na may empty brackets, `[]`.
+
+\index{empty list}
+\index{list!empty}
+
+Tulad ng maaaring inaasahan mo, maaari mong i-assign ang list values sa variables:
+
+~~~~ {.python .trinket}
+>>> cheeses = ['Cheddar', 'Edam', 'Gouda']
+>>> numbers = [17, 123]
+>>> empty = []
+>>> print(cheeses, numbers, empty)
+['Cheddar', 'Edam', 'Gouda'] [17, 123] []
+~~~~
+
+\index{assignment}
+
+Lists are mutable
+-----------------
+
+\index{list!element}
+\index{access}
+\index{index}
+\index{}
+\index{bracket operator}
+\index{operator!bracket}
+
+Ang syntax para ma-access ang elements ng list ay pareho sa
+pag-access ng characters ng string: ang bracket operator. Ang
+expression sa loob ng brackets ay tumutukoy sa index. Tandaan na ang
+indices ay nagsisimula sa 0:
+
+~~~~ {.python}
+>>> print(cheeses[0])
+Cheddar
+~~~~
+
+Hindi tulad ng strings, ang lists ay mutable dahil maaari mong baguhin ang order ng
+items sa list o mag-reassign ng item sa list. Kapag ang bracket operator
+ay lumalabas sa kaliwang bahagi ng assignment, kinikilala nito ang element ng
+list na ma-a-assign.
+
+\index{mutability}
+
+~~~~ {.python .trinket}
+>>> numbers = [17, 123]
+>>> numbers[1] = 5
+>>> print(numbers)
+[17, 5]
+~~~~
+
+Ang one-th element ng `numbers`, na dati ay 123, ay
+ngayon 5.
+
+\index{index!starting at zero}
+\index{zero, index starting at}
+
+Maaari mong isipin ang list bilang relasyon sa pagitan ng indices at elements.
+Ang relasyong ito ay tinatawag na *mapping*; ang bawat index ay "nagma-map
+sa" isa sa mga elements.
+
+\index{item assignment}
+\index{assignment!item}
+
+Ang list indices ay gumagana sa parehong paraan ng string indices:
+
+-   Anumang integer expression ay maaaring gamitin bilang index.
+
+-   Kung susubukan mong basahin o sulatan ang element na hindi umiiral, makakakuha ka ng
+    `IndexError`.
+
+\index{exception!IndexError}
+\index{IndexError}
+
+-   Kung ang index ay may negative value, nagbi-bilang ito pabalik mula sa dulo ng
+    list.
+
+\index{list!index}
+\index{list!membership}
+\index{membership!list}
+\index{in operator}
+\index{operator!in}
+
+Ang `in` operator ay gumagana din sa lists.
+
+~~~~ {.python .trinket}
+>>> cheeses = ['Cheddar', 'Edam', 'Gouda']
+>>> 'Edam' in cheeses
+True
+>>> 'Brie' in cheeses
+False
+~~~~
+
+Traversing a list
+-----------------
+
+\index{list!traversal}
+\index{traversal!list}
+\index{for loop}
+\index{loop!for}
+\index{statement!for}
+
+Ang pinakakaraniwang paraan para dumaan sa elements ng list ay gamit ang
+`for` loop. Ang syntax ay pareho sa strings:
+
+~~~~ {.python}
+for cheese in cheeses:
+    print(cheese)
+~~~~
+
+Ito ay gumagana nang maayos kung kailangan mo lang basahin ang elements ng list. Pero
+kung gusto mong sumulat o mag-update ng elements, kailangan mo ang indices. Ang
+karaniwang paraan para gawin iyon ay pagsamahin ang functions na `range` at
+`len`:
+
+\index{looping!with indices}
+\index{index!looping with}
+
+~~~~ {.python}
+for i in range(len(numbers)):
+    numbers[i] = numbers[i] * 2
+~~~~
+
+Ang loop na ito ay dumadaan sa list at nag-u-update ng bawat element. Ang `len`
+ay nagre-return ng bilang ng elements sa list. Ang `range` ay nagre-return ng
+list ng indices mula 0 hanggang $n-1$, kung saan ang $n$ ay ang haba ng list.
+Sa bawat pagkakataon sa loop, ang `i` ay nakakakuha ng index ng susunod na
+element. Ang assignment statement sa body ay gumagamit ng `i` para
+basahin ang lumang value ng element at i-assign ang bagong value.
+
+\index{item update}
+\index{update!item}
+
+Ang `for` loop sa empty list ay hindi kailanman nag-e-execute ng body:
+
+~~~~ {.python}
+for x in empty:
+    print('This never happens.')
+~~~~
+
+Bagaman ang list ay maaaring maglalaman ng ibang list, ang nested list ay binibilang pa rin
+bilang isang element. Ang haba ng list na ito ay apat:
+
+\index{nested list}
+\index{list!nested}
+
+~~~~ {.python}
+['spam', 1, ['Brie', 'Roquefort', 'Pol le Veq'], [1, 2, 3]]
+~~~~
+
+List operations
+---------------
+
+\index{list!operation}
+
+Ang `+` operator ay nagko-concatenate ng lists:
+
+\index{concatenation!list}
+\index{list!concatenation}
+
+~~~~ {.python .trinket}
+>>> a = [1, 2, 3]
+>>> b = [4, 5, 6]
+>>> c = a + b
+>>> print(c)
+[1, 2, 3, 4, 5, 6]
+~~~~
+
+Katulad nito, ang `*` operator ay nag-uulit ng list sa ibinigay na bilang ng beses:
+
+\index{repetition!list}
+\index{list!repetition}
+
+~~~~ {.python .trinket}
+>>> [0] * 4
+[0, 0, 0, 0]
+>>> [1, 2, 3] * 3
+[1, 2, 3, 1, 2, 3, 1, 2, 3]
+~~~~
+
+Ang unang halimbawa ay nag-uulit ng apat na beses. Ang pangalawang halimbawa ay nag-uulit ng
+list ng tatlong beses.
+
+List slices
+-----------
+
+\index{slice operator}
+\index{operator!slice}
+\index{index!slice}
+\index{list!slice}
+\index{slice!list}
+
+Ang slice operator ay gumagana din sa lists:
+
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c', 'd', 'e', 'f']
+>>> t[1:3]
+['b', 'c']
+>>> t[:4]
+['a', 'b', 'c', 'd']
+>>> t[3:]
+['d', 'e', 'f']
+~~~~
+
+Kung tatanggalin mo ang unang index, ang slice ay nagsisimula sa simula. Kung
+tatanggalin mo ang pangalawa, ang slice ay hanggang sa dulo. Kaya kung tatanggalin mo ang pareho, ang
+slice ay kopya ng buong list.
+
+\index{list!copy}
+\index{slice!copy}
+\index{copy!slice}
+
+~~~~ {.python}
+>>> t[:]
+['a', 'b', 'c', 'd', 'e', 'f']
+~~~~
+
+Dahil ang lists ay mutable, kadalasang kapaki-pakinabang na gumawa ng kopya bago
+gawin ang operations na nagfo-fold, nag-spindle, o nagmu-mutilate ng lists.
+
+\index{mutability}
+
+Ang slice operator sa kaliwang bahagi ng assignment ay maaaring mag-update ng maraming
+elements:
+
+\index{slice!update}
+\index{update!slice}
+
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c', 'd', 'e', 'f']
+>>> t[1:3] = ['x', 'y']
+>>> print(t)
+['a', 'x', 'y', 'd', 'e', 'f']
+~~~~
+
+List methods
+------------
+
+\index{list!method}
+\index{method, list}
+
+Ang Python ay nagbibigay ng methods na gumagana sa lists. Halimbawa,
+ang `append` ay nagdadagdag ng bagong element sa dulo ng list:
+
+\index{append method}
+\index{method!append}
+
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c']
+>>> t.append('d')
+>>> print(t)
+['a', 'b', 'c', 'd']
+~~~~
+
+Ang `extend` ay tumatanggap ng list bilang argument at nag-a-append ng lahat ng
+elements:
+
+\index{extend method}
+\index{method!extend}
+
+~~~~ {.python .trinket}
+>>> t1 = ['a', 'b', 'c']
+>>> t2 = ['d', 'e']
+>>> t1.extend(t2)
+>>> print(t1)
+['a', 'b', 'c', 'd', 'e']
+~~~~
+
+Ang halimbawang ito ay nag-iiwan sa `t2` na hindi nabago.
+
+Ang `sort` ay nag-a-arrange ng elements ng list mula mababa hanggang mataas:
+
+\index{sort method}
+\index{method!sort}
+
+~~~~ {.python .trinket}
+>>> t = ['d', 'c', 'e', 'b', 'a']
+>>> t.sort()
+>>> print(t)
+['a', 'b', 'c', 'd', 'e']
+~~~~
+
+Karamihan ng list methods ay void; binabago nila ang list at nagre-return ng
+`None`. Kung aksidenteng sumulat ka ng `t = t.sort()`,
+mabibigo ka sa result.
+
+\index{void method}
+\index{method!void}
+\index{None special value}
+\index{special value!None}
+
+Deleting elements
+-----------------
+
+\index{element deletion}
+\index{deletion, element of list}
+
+Mayroong ilang paraan para tanggalin ang elements mula sa list. Kung alam mo ang
+index ng element na gusto mo, maaari mong gamitin ang `pop`:
+
+\index{pop method}
+\index{method!pop}
+
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c']
+>>> x = t.pop(1)
+>>> print(t)
+['a', 'c']
+>>> print(x)
+b
+~~~~
+
+Ang `pop` ay nagmo-modify ng list at nagre-return ng element na
+tinanggal. Kung hindi mo ibibigay ang index, tinatanggal at nagre-return ito ng huling
+element.
+
+Kung hindi mo kailangan ang tinanggal na value, maaari mong gamitin ang `del`
+statement:
+
+\index{del statement}
+\index{statement!del}
+
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c']
+>>> del t[1]
+>>> print(t)
+['a', 'c']
+~~~~
+
+Kung alam mo ang element na gusto mong tanggalin (pero hindi ang index), maaari mong
+gamitin ang `remove`:
+
+\index{remove method}
+\index{method!remove}
+
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c']
+>>> t.remove('b')
+>>> print(t)
+['a', 'c']
+~~~~
+
+Ang return value mula sa `remove` ay `None`.
+
+\index{None special value}
+\index{special value!None}
+
+Para tanggalin ang higit sa isang element, maaari mong gamitin ang `del` na may
+slice index:
+
+~~~~ {.python .trinket}
+>>> t = ['a', 'b', 'c', 'd', 'e', 'f']
+>>> del t[1:5]
+>>> print(t)
+['a', 'f']
+~~~~
+
+Tulad ng dati, ang slice ay pumipili ng lahat ng elements hanggang sa, pero hindi kasama,
+ang pangalawang index.
+
+Lists and functions
+-------------------
+
+Mayroong ilang built-in functions na maaaring gamitin sa lists na
+nagpapahintulot sa iyo na mabilis na tumingin sa list nang hindi sumusulat ng sarili mong loops:
+
+~~~~ {.python .trinket}
+>>> nums = [3, 41, 12, 9, 74, 15]
+>>> print(len(nums))
+6
+>>> print(max(nums))
+74
+>>> print(min(nums))
+3
+>>> print(sum(nums))
+154
+>>> print(sum(nums)/len(nums))
+25
+~~~~
+
+Ang `sum()` function ay gumagana lang kapag ang list elements ay
+numbers. Ang iba pang functions (`max()`, `len()`,
+atbp.) ay gumagana sa lists ng strings at iba pang types na maaaring maihambing.
+
+Maaari nating muling isulat ang naunang program na nag-compute ng average ng list
+ng numbers na na-enter ng user gamit ang list.
+
+Una, ang program para mag-compute ng average nang walang list:
+
+\VerbatimInput{../code3/avenum.py}
+
+Sa program na ito, mayroon tayong `count` at `total`
+variables para panatilihin ang bilang at running total ng numbers ng user habang
+paulit-ulit nating pinaprompt ang user para sa number.
+
+Maaari nating simpleng tandaan ang bawat number habang ini-enter ito ng user at gamitin
+ang built-in functions para mag-compute ng sum at count sa dulo.
+
+\VerbatimInput{../code3/avelist.py}
+
+Gumagawa tayo ng empty list bago magsimula ang loop, at pagkatapos sa bawat pagkakataon na mayroon tayong
+number, idinadagdag natin ito sa list. Sa dulo ng program, simpleng
+kinakalkula natin ang sum ng numbers sa list at hinahati ito sa bilang ng
+numbers sa list para makakuha ng average.
+
+Lists and strings
+-----------------
+
+\index{list}
+\index{string}
+\index{sequence}
+
+Ang string ay sequence ng characters at ang list ay sequence ng values,
+pero ang list ng characters ay hindi pareho sa string. Para i-convert mula sa
+string patungo sa list ng characters, maaari mong gamitin ang `list`:
+
+\index{list!function}
+\index{function!list}
+
+~~~~ {.python .trinket}
+>>> s = 'spam'
+>>> t = list(s)
+>>> print(t)
+['s', 'p', 'a', 'm']
+~~~~
+
+Dahil ang `list` ay pangalan ng built-in function, dapat mong
+iwasan ang paggamit nito bilang variable name. Iniiwasan ko rin ang letrang
+"l" dahil mukhang masyadong katulad ng number na "1".
+Kaya iyon ang dahilan kung bakit ginagamit ko ang "t".
+
+Ang `list` function ay naghahati ng string sa indibidwal na mga letra.
+Kung gusto mong hatiin ang string sa mga salita, maaari mong gamitin ang
+`split` method:
+
+\index{split method}
+\index{method!split}
+
+~~~~ {.python .trinket}
+>>> s = 'pining for the fjords'
+>>> t = s.split()
+>>> print(t)
+['pining', 'for', 'the', 'fjords']
+>>> print(t[2])
+the
+~~~~
+
+Kapag ginamit mo na ang `split` para hatiin ang string sa list ng
+mga salita, maaari mong gamitin ang index operator (square bracket) para tumingin sa
+partikular na salita sa list.
+
+Maaari mong tawagin ang `split` na may optional argument na tinatawag na
+*delimiter* na tumutukoy kung aling characters ang gagamitin bilang
+word boundaries. Ang sumusunod na halimbawa ay gumagamit ng hyphen bilang delimiter:
+
+\index{optional argument}
+\index{argument!optional}
+\index{delimiter}
+
+~~~~ {.python .trinket}
+>>> s = 'spam-spam-spam'
+>>> delimiter = '-'
+>>> s.split(delimiter)
+['spam', 'spam', 'spam']
+~~~~
+
+Ang `join` ay kabaligtaran ng `split`. Tumatanggap ito ng list
+ng strings at nagko-concatenate ng elements. Ang `join` ay string
+method, kaya kailangan mong i-invoke ito sa delimiter at ipasa ang list bilang
+parameter:
+
+\index{join method}
+\index{method!join}
+\index{concatenation}
+
+~~~~ {.python .trinket}
+>>> t = ['pining', 'for', 'the', 'fjords']
+>>> delimiter = ' '
+>>> delimiter.join(t)
+'pining for the fjords'
+~~~~
+
+Sa kasong ito ang delimiter ay space character, kaya ang `join`
+ay naglalagay ng space sa pagitan ng mga salita. Para mag-concatenate ng strings nang walang spaces, maaari mong
+gamitin ang empty string, "", bilang delimiter.
+
+\index{empty string}
+\index{string!empty}
+
+Parsing lines
+-------------
+
+Karaniwan kapag nagbabasa tayo ng file gusto nating gumawa ng isang bagay sa mga linya
+maliban sa simpleng pag-print ng buong linya. Kadalasan gusto nating hanapin ang
+"interesting lines" at pagkatapos *i-parse* ang linya para hanapin
+ang ilang interesting na *part* ng linya. Paano kung gusto nating mag-print ng
+araw ng linggo mula sa mga linyang nagsisimula sa "From "?
+
+~~~~
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+~~~~
+
+Ang `split` method ay napaka-epektibo kapag nahaharap sa ganitong
+uri ng problema. Maaari tayong sumulat ng maliit na program na naghahanap ng mga linya kung saan
+ang linya ay nagsisimula sa "From ", `split` ang mga linyang iyon, at pagkatapos
+mag-print ng ikatlong salita sa linya:
+
+\VerbatimInput{../code3/search5.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
+
+Ang program ay gumagawa ng sumusunod na output:
+
+    Sat
+    Fri
+    Fri
+    Fri
+    ...
+
+Mamaya, matututunan natin ang mas sopistikadong techniques para pumili ng
+mga linya na gagawin at kung paano natin hinahati ang mga linyang iyon para hanapin ang eksaktong
+piraso ng impormasyon na hinahanap natin.
+
+Objects and values
+------------------
+
+\index{object}
+\index{value}
+
+Kung e-execute natin ang assignment statements na ito:
+
+~~~~ {.python}
+a = 'banana'
+b = 'banana'
+~~~~
+
+alam natin na ang `a` at `b` ay parehong tumutukoy sa string,
+pero hindi natin alam kung tumutukoy sila sa *parehong* string. Mayroong dalawang
+posibleng estado:
+
+\index{aliasing}
+
+![Variables and Objects](height=0.5in@../images/list1)
+
+Sa isang kaso, ang `a` at `b` ay tumutukoy sa dalawang magkaibang
+objects na may parehong value. Sa pangalawang kaso, tumutukoy sila sa
+parehong object.
+
+\index{is operator}
+\index{operator!is}
+
+Para suriin kung ang dalawang variables ay tumutukoy sa parehong object, maaari mong gamitin ang
+`is` operator.
+
+~~~~ {.python .trinket}
+>>> a = 'banana'
+>>> b = 'banana'
+>>> a is b
+True
+~~~~
+
+Sa halimbawang ito, ang Python ay gumawa lang ng isang string object, at pareho
+ang `a` at `b` ay tumutukoy dito.
+
+Pero kapag gumawa ka ng dalawang lists, makakakuha ka ng dalawang objects:
+
+~~~~ {.python .trinket}
+>>> a = [1, 2, 3]
+>>> b = [1, 2, 3]
+>>> a is b
+False
+~~~~
+
+Sa kasong ito sasabihin natin na ang dalawang lists ay
+*equivalent*, dahil mayroon silang parehong elements, pero
+hindi *identical*, dahil hindi sila parehong object. Kung
+ang dalawang objects ay identical, equivalent din sila, pero kung
+equivalent sila, hindi naman sila kinakailangang identical.
+
+\index{equivalence}
+\index{identity}
+
+Hanggang ngayon, ginagamit natin ang "object" at "value" nang magkakapalit, pero
+mas tumpak na sabihin na ang object ay may value. Kung e-execute mo
+ang `a = [1,2,3]`, ang `a` ay tumutukoy sa list object na ang
+value ay partikular na sequence ng elements. Kung ang ibang list ay may parehong
+elements, sasabihin natin na mayroon itong parehong value.
+
+\index{object}
+\index{value}
+
+Aliasing
+--------
+
+\index{aliasing}
+\index{reference!aliasing}
+
+Kung ang `a` ay tumutukoy sa object at i-assign mo ang `b = a`,
+pagkatapos parehong variables ay tumutukoy sa parehong object:
+
+~~~~ {.python .trinket}
+>>> a = [1, 2, 3]
+>>> b = a
+>>> b is a
+True
+~~~~
+
+Ang asosasyon ng variable sa object ay tinatawag na
+*reference*. Sa halimbawang ito, mayroong dalawang references sa
+parehong object.
+
+\index{reference}
+
+Ang object na may higit sa isang reference ay may higit sa isang pangalan, kaya sinasabi natin
+na ang object ay *aliased*.
+
+\index{mutability}
+
+Kung ang aliased object ay mutable, ang mga pagbabagong ginawa gamit ang isang alias ay nakakaapekto sa
+iba:
+
+~~~~ {.python}
+>>> b[0] = 17
+>>> print(a)
+[17, 2, 3]
+~~~~
+
+Bagaman ang behavior na ito ay maaaring kapaki-pakinabang, ito ay madaling magkamali. Sa pangkalahatan, mas
+ligtas na iwasan ang aliasing kapag nagtatrabaho ka sa mutable objects.
+
+\index{immutability}
+
+Para sa immutable objects tulad ng strings, ang aliasing ay hindi gaanong
+problema. Sa halimbawang ito:
+
+~~~~ {.python}
+a = 'banana'
+b = 'banana'
+~~~~
+
+halos hindi ito gumagawa ng pagkakaiba kung ang `a` at
+`b` ay tumutukoy sa parehong string o hindi.
+
+List arguments
+--------------
+
+\index{list!as argument}
+\index{argument}
+\index{argument!list}
+\index{reference}
+\index{parameter}
+
+Kapag nagpasa ka ng list sa function, ang function ay nakakakuha ng reference sa
+list. Kung ang function ay nagmo-modify ng list parameter, nakikita ng caller ang
+pagbabago. Halimbawa, ang `delete_head` ay nagtatanggal ng unang element mula sa
+list:
+
+~~~~ {.python}
+def delete_head(t):
+    del t[0]
+~~~~
+
+Narito kung paano ito ginagamit:
+
+~~~~ {.python .trinket}
+>>> letters = ['a', 'b', 'c']
+>>> delete_head(letters)
+>>> print(letters)
+['b', 'c']
+~~~~
+
+Ang parameter na `t` at ang variable na `letters` ay
+aliases para sa parehong object.
+
+Mahalagang makilala ang pagkakaiba sa pagitan ng operations na nagmo-modify ng lists at
+operations na gumagawa ng bagong lists. Halimbawa, ang `append`
+method ay nagmo-modify ng list, pero ang `+` operator ay gumagawa ng bagong
+list:
+
+\index{append method}
+\index{method!append}
+\index{list!concatenation}
+\index{concatenation!list}
+
+~~~~ {.python .trinket}
+>>> t1 = [1, 2]
+>>> t2 = t1.append(3)
+>>> print(t1)
+[1, 2, 3]
+>>> print(t2)
+None
+
+>>> t3 = t1 + [3]
+>>> print(t3)
+[1, 2, 3]
+>>> t1 is t3
+False
+~~~~
+
+Ang pagkakaibang ito ay mahalaga kapag sumusulat ka ng functions na dapat
+mag-modify ng lists. Halimbawa, ang function na ito *hindi* nagtatanggal ng head
+ng list:
+
+~~~~ {.python}
+def bad_delete_head(t):
+    t = t[1:]              # WRONG!
+~~~~
+
+Ang slice operator ay gumagawa ng bagong list at ang assignment ay ginagawang
+ang `t` ay tumutukoy dito, pero wala sa mga iyon ang may epekto sa list
+na ipinasa bilang argument.
+
+\index{slice operator}
+\index{operator!slice}
+
+Ang alternatibo ay sumulat ng function na gumagawa at nagre-return ng bagong
+list. Halimbawa, ang `tail` ay nagre-return ng lahat maliban sa unang element
+ng list:
+
+~~~~ {.python}
+def tail(t):
+    return t[1:]
+~~~~
+
+Ang function na ito ay nag-iiwan sa original list na hindi nabago. Narito kung paano ito
+ginagamit:
+
+~~~~ {.python .trinket}
+>>> letters = ['a', 'b', 'c']
+>>> rest = tail(letters)
+>>> print(rest)
+['b', 'c']
+~~~~
+
+**Exercise 1:** Sumulat ng function na tinatawag na `chop` na tumatanggap ng list at nagmo-modify
+nito, tinatanggal ang una at huling elements, at nagre-return ng `None`. Pagkatapos sumulat ng function
+na tinatawag na `middle` na tumatanggap ng list at nagre-return ng bagong list na naglalaman ng lahat maliban sa
+una at huling elements.
+
+Debugging
+---------
+
+\index{debugging}
+
+Ang pabayang paggamit ng lists (at iba pang mutable objects) ay maaaring magdulot ng mahabang oras
+ng debugging. Narito ang ilang karaniwang pitfalls at paraan para iwasan ang mga ito:
+
+1.  Huwag kalimutan na karamihan ng list methods ay nagmo-modify ng argument at nagre-return ng
+    `None`. Ito ay kabaligtaran ng string methods, na
+    nagre-return ng bagong string at nag-iiwan sa original.
+
+    Kung sanay ka sa pagsusulat ng string code tulad nito:
+
+    ~~~~ {.python}
+    word = word.strip()
+    ~~~~
+
+    Nakakaakit na sumulat ng list code tulad nito:
+
+    ~~~~ {.python}
+    t = t.sort()           # WRONG!
+    ~~~~
+
+    \index{sort method}
+    \index{method!sort}
+
+    Dahil ang `sort` ay nagre-return ng `None`, ang susunod na
+    operation na gagawin mo sa `t` ay malamang na mabibigo.
+
+    Bago gamitin ang list methods at operators, dapat mong basahin nang mabuti ang
+    documentation at pagkatapos i-test ang mga ito sa interactive mode. Ang
+    methods at operators na ibinabahagi ng lists sa iba pang sequences (tulad ng
+    strings) ay na-document sa:
+
+    [docs.python.org/library/stdtypes.html#common-sequence-operations](https://docs.python.org/library/stdtypes.html#common-sequence-operations)
+
+    Ang methods at operators na applicable lang sa mutable sequences ay
+    na-document sa:
+
+    [docs.python.org/library/stdtypes.html#mutable-sequence-types](https://docs.python.org/library/stdtypes.html#mutable-sequence-types)
+
+2.  Pumili ng idiom at manatili dito.
+
+    \index{idiom}
+
+    Parte ng problema sa lists ay napakaraming paraan para gawin ang
+    mga bagay. Halimbawa, para tanggalin ang element mula sa list, maaari mong gamitin ang
+    `pop`, `remove`, `del`, o kahit
+    slice assignment.
+
+    Para magdagdag ng element, maaari mong gamitin ang `append` method o ang
+    `+` operator. Pero huwag kalimutan na ang mga ito ay tama:
+
+    ~~~~ {.python}
+    t.append(x)
+    t = t + [x]
+    ~~~~
+
+    At ang mga ito ay mali:
+
+    ~~~~ {.python}
+    t.append([x])          # WRONG!
+    t = t.append(x)        # WRONG!
+    t + [x]                # WRONG!
+    t = t + x              # WRONG!
+    ~~~~
+
+    Subukan ang bawat isa sa mga halimbawang ito sa interactive mode para masiguro na
+    naiintindihan mo ang ginagawa nila. Pansinin na ang huli lang ang nagdudulot ng
+    runtime error; ang iba pang tatlo ay legal, pero mali ang ginagawa
+    nila.
+
+3.  Gumawa ng copies para iwasan ang aliasing.
+
+    \index{aliasing!copying to avoid}
+    \index{copy!to avoid aliasing}
+
+    Kung gusto mong gamitin ang method tulad ng `sort` na nagmo-modify ng
+    argument, pero kailangan mo ring panatilihin ang original list, maaari kang
+    gumawa ng kopya.
+
+    ~~~~ {.python}
+    orig = t[:]
+    t.sort()
+    ~~~~
+
+    Sa halimbawang ito maaari mo ring gamitin ang built-in function na
+    `sorted`, na nagre-return ng bagong, sorted list at nag-iiwan sa
+    original. Pero sa kasong iyon dapat mong iwasan ang paggamit ng
+    `sorted` bilang variable name!
+
+4.  Lists, `split`, at files
+
+    Kapag nagbabasa at nagpa-parse tayo ng files, maraming pagkakataon na
+    makatagpo ng input na maaaring i-crash ang program natin kaya magandang ideya na
+    muling bisitahin ang *guardian* pattern pagdating sa pagsusulat ng
+    programs na nagbabasa sa file at naghahanap ng "needle in the
+    haystack".
+
+    Muling bisitahin natin ang program natin na naghahanap ng araw ng linggo sa
+    from lines ng file natin:
+
+    ~~~~
+    From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+    ~~~~
+
+    Dahil hinahati natin ang linyang ito sa mga salita, maaari nating alisin ang
+    paggamit ng `startswith` at simpleng tingnan ang unang salita
+    ng linya para matukoy kung interesado tayo sa linya. Maaari nating
+    gamitin ang `continue` para laktawan ang mga linyang walang "From"
+    bilang unang salita tulad ng sumusunod:
+
+    ~~~~ {.python}
+    fhand = open('mbox-short.txt')
+    for line in fhand:
+        words = line.split()
+        if words[0] != 'From' : continue
+        print(words[2])
+    ~~~~
+
+    Mukhang mas simple ito at hindi na natin kailangan gawin ang
+    `rstrip` para tanggalin ang newline sa dulo ng file.
+    Pero mas mabuti ba ito?
+
+    ~~~~
+    python search8.py
+    Sat
+    Traceback (most recent call last):
+      File "search8.py", line 5, in <module>
+        if words[0] != 'From' : continue
+    IndexError: list index out of range
+    ~~~~
+
+    Medyo gumagana ito at nakikita natin ang araw mula sa unang linya (Sat), pero
+    pagkatapos nabibigo ang program na may traceback error. Ano ang naging mali? Ano ang
+    messed-up data na nagdulot na ang elegant, clever, at napaka-Pythonic program natin
+    ay mabigo?
+
+    Maaari mong titigan ito nang mahabang panahon at pag-isipan o magtanong
+    sa iba para sa tulong, pero ang mas mabilis at mas matalinong approach ay magdagdag ng
+    `print` statement. Ang pinakamabuting lugar para magdagdag ng print
+    statement ay mismo bago ang linya kung saan nabigo ang program at
+    mag-print ng data na tila nagdudulot ng pagkabigo.
+
+    Ngayon ang approach na ito ay maaaring gumawa ng maraming linya ng output, pero
+    hindi bababa ay mayroon ka agad na clue tungkol sa problema.
+    Kaya nagdadagdag tayo ng print ng variable na `words` mismo bago
+    ang line five. Nagdadagdag pa tayo ng prefix na "Debug:" sa linya para ma-separate
+    natin ang regular output natin mula sa debug output natin.
+
+    ~~~~ {.python}
+    for line in fhand:
+        words = line.split()
+        print('Debug:', words)
+        if words[0] != 'From' : continue
+        print(words[2])
+    ~~~~
+
+    Kapag tumatakbo ang program, maraming output ang nag-scroll sa screen pero
+    sa dulo, nakikita natin ang debug output natin at ang traceback kaya alam natin
+    kung ano ang nangyari mismo bago ang traceback.
+
+    ~~~~
+    Debug: ['X-DSPAM-Confidence:', '0.8475']
+    Debug: ['X-DSPAM-Probability:', '0.0000']
+    Debug: []
+    Traceback (most recent call last):
+      File "search9.py", line 6, in <module>
+        if words[0] != 'From' : continue
+    IndexError: list index out of range
+    ~~~~
+
+    Ang bawat debug line ay nagpi-print ng list ng mga salita na nakukuha natin kapag
+    `split` natin ang linya sa mga salita. Kapag nabibigo ang program, ang
+    list ng mga salita ay empty `[]`. Kung bubuksan natin ang file sa text editor
+    at titingnan ang file, sa puntong iyon mukhang ganito:
+
+    ~~~~
+    X-DSPAM-Result: Innocent
+    X-DSPAM-Processed: Sat Jan  5 09:14:16 2008
+    X-DSPAM-Confidence: 0.8475
+    X-DSPAM-Probability: 0.0000
+
+    Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
+    ~~~~
+
+    Ang error ay nangyayari kapag ang program natin ay nakatagpo ng blank line! Siyempre
+    mayroong "zero words" sa blank line. Bakit hindi natin naisip iyon
+    kapag sumusulat tayo ng code? Kapag ang code ay naghahanap ng unang
+    salita (`word[0]`) para suriin kung tumutugma ito sa "From", nakakakuha tayo ng
+    "index out of range" error.
+
+    Ito siyempre ay perpektong lugar para magdagdag ng ilang
+    *guardian* code para iwasan ang pag-check ng unang salita kung
+    ang unang salita ay wala doon. Mayroong maraming paraan para protektahan ang code na ito;
+    pipiliin nating suriin ang bilang ng mga salita na mayroon tayo bago
+    tingnan ang unang salita:
+
+    ~~~~ {.python}
+    fhand = open('mbox-short.txt')
+    count = 0
+    for line in fhand:
+        words = line.split()
+        # print('Debug:', words)
+        if len(words) == 0 : continue
+        if words[0] != 'From' : continue
+        print(words[2])
+    ~~~~ 
+
+    Una nag-comment out tayo ng debug print statement sa halip na tanggalin
+    ito, kung sakaling mabigo ang modification natin at kailangan nating mag-debug ulit. Pagkatapos
+    nagdagdag tayo ng guardian statement na sumusuri kung mayroon tayong zero
+    words, at kung gayon, ginagamit natin ang `continue` para laktawan ang susunod na
+    linya sa file.
+
+    Maaari nating isipin ang dalawang `continue` statements bilang tumutulong
+    sa atin na pinuhin ang set ng mga linya na "interesting" sa atin at na
+    gusto nating i-process pa. Ang linya na walang salita ay
+    "uninteresting" sa atin kaya nilalaktawan natin ang susunod na linya. Ang linya na walang
+    "From" bilang unang salita ay uninteresting sa atin kaya nilalaktawan natin
+    ito.
+
+    Ang program na nabago ay tumatakbo nang matagumpay, kaya marahil tama ito.
+    Ang guardian statement natin ay sinisiguro na ang `words[0]`
+    ay hindi kailanman mabibigo, pero marahil hindi ito sapat. Kapag
+    nagpo-program tayo, dapat palaging iniisip natin, "Ano ang maaaring maging mali?"
+
+**Exercise 2:** Alamin kung aling linya ng program sa itaas ang hindi pa rin
+properly guarded. Tingnan kung maaari mong gumawa ng text file na nagdudulot
+na ang program ay mabigo at pagkatapos baguhin ang program para ang linya ay
+properly guarded at i-test ito para masiguro na ha-handle nito ang bagong text
+file mo.
+
+**Exercise 3:** Muling isulat ang guardian code sa halimbawa sa itaas nang walang
+dalawang `if` statements. Sa halip, gumamit ng compound logical
+expression gamit ang `or` logical operator na may isang
+`if` statement.
+
+Glossary
+--------
+
+aliasing
+:   Kalagayan kung saan ang dalawa o higit pang variables ay tumutukoy sa parehong object.
+\index{aliasing}
+
+delimiter
+:   Character o string na ginagamit para ipahiwatig kung saan dapat hatiin ang string.
+\index{delimiter}
+
+element
+:   Isa sa mga values sa list (o iba pang sequence); tinatawag din na items.
+\index{element}
+
+equivalent
+:   May parehong value.
+\index{equivalent}
+
+index
+:   Integer value na tumutukoy sa element sa list.
+\index{index}
+\index{}
+
+identical
+:   Parehong object (na nagpapahiwatig ng equivalence).
+\index{identical}
+
+list
+:   Sequence ng values.
+\index{list}
+
+list traversal
+:   Ang sequential na pag-access sa bawat element sa list.
+\index{list!traversal}
+
+nested list
+:   List na element ng ibang list.
+\index{nested list}
+
+object
+:   Isang bagay na maaaring tinukoy ng variable. Ang object ay may type at value.
+\index{object}
+
+reference
+:   Ang asosasyon sa pagitan ng variable at value nito.
+\index{reference}
+
+Exercises
+---------
+
+\index{Romeo and Juliet}
+
+**Exercise 4: Find all unique words in a file**
+
+Gumamit si Shakespeare ng higit sa 20,000 salita sa kanyang mga gawa. Pero paano mo matutukoy iyon? Paano mo
+gagawin ang list ng lahat ng salitang ginamit ni Shakespeare? I-do-download mo ba
+lahat ng kanyang gawa, basahin ito at subaybayan ang lahat ng unique words nang manu-mano?
+
+Gamitin natin ang Python para makamit iyon sa halip. I-list ang lahat ng unique words, na naka-sort sa alphabetical
+order, na naka-store sa file na `romeo.txt` na naglalaman ng subset ng gawa ni Shakespeare.
+
+Para makapagsimula, i-download ang kopya ng file
+[www.py4e.com/code3/romeo.txt](http://www.py4e.com/code3/romeo.txt).
+Gumawa ng list ng unique words, na maglalaman ng final result.
+Sumulat ng program para buksan ang file na `romeo.txt` at basahin ito nang linya
+sa linya. Para sa bawat linya, hatiin ang linya sa list ng mga salita gamit ang
+`split` function. Para sa bawat salita, suriin kung ang salita ay nasa list na
+ng unique words. Kung ang salita ay wala sa list ng unique words, idagdag ito sa list.
+Kapag natapos ang program, i-sort at i-print ang list ng unique words sa
+alphabetical order.
+
+~~~~
+Enter file: romeo.txt
+['Arise', 'But', 'It', 'Juliet', 'Who', 'already',
+'and', 'breaks', 'east', 'envious', 'fair', 'grief',
+'is', 'kill', 'light', 'moon', 'pale', 'sick', 'soft',
+'sun', 'the', 'through', 'what', 'window',
+'with', 'yonder']
+~~~~
+
+**Exercise 5: Minimalist Email Client.**
+
+Ang MBOX (mail box) ay popular na file format para i-store at ibahagi ang koleksyon ng
+emails. Ito ay ginamit ng mga naunang email servers at desktop apps. Nang hindi pumapasok
+sa masyadong maraming detalye, ang MBOX ay text file, na nag-i-store ng emails nang sunud-sunod.
+Ang mga emails ay pinaghihiwalay ng espesyal na linya na nagsisimula sa `From ` (pansinin ang space).
+Mahalaga, ang mga linyang nagsisimula sa `From:` (pansinin ang colon) ay naglalarawan sa email
+mismo at hindi kumikilos bilang separator.
+Isipin na sumulat ka ng minimalist email app, na nagli-list ng email ng mga sender
+sa Inbox ng user at nagbi-bilang ng bilang ng emails.
+
+Sumulat ng program para magbasa sa mail box data at kapag
+nakakita ka ng linya na nagsisimula sa "From", hahatiin mo ang linya sa
+mga salita gamit ang `split` function. Interesado tayo sa kung sino
+ang nagpadala ng mensahe, na siyang pangalawang salita sa From line.
+
+~~~~
+From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008
+~~~~
+
+I-parse mo ang From line at mag-print ng pangalawang salita para sa bawat From
+line, pagkatapos magbi-bilang ka rin ng bilang ng From (hindi From:) lines at
+mag-print ng bilang sa dulo. Ito ay magandang sample output na may ilang linya na tinanggal:
+
+~~~~
+python fromcount.py
+Enter a file name: mbox-short.txt
+stephen.marquard@uct.ac.za
+louis@media.berkeley.edu
+zqian@umich.edu
+
+[...some output removed...]
+
+ray@media.berkeley.edu
+cwen@iupui.edu
+cwen@iupui.edu
+cwen@iupui.edu
+There were 27 lines in the file with From as the first word
+~~~~
+
+**Exercise 6:**
+
+Muling isulat ang program na nagpo-prompt sa user para sa list ng
+numbers at nagpi-print ng maximum at minimum ng numbers sa dulo
+kapag ang user ay nag-e-enter ng "done". Sumulat ng program para i-store ang numbers na
+ini-enter ng user sa list at gamitin ang `max()` at
+`min()` functions para mag-compute ng maximum at minimum numbers
+pagkatapos matapos ang loop.
+
+~~~~
+Enter a number: 6
+Enter a number: 2
+Enter a number: 9
+Enter a number: 3
+Enter a number: 5
+Enter a number: done
+Maximum: 9.0
+Minimum: 2.0
+~~~~
