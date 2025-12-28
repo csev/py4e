@@ -156,7 +156,8 @@ Thanks to:
 </li>
 <li>
        Translation by: <a href="https://github.com/engramar" target="_blank">Engramar Bollas</a>
-of <a href="https://www.code.sydney/" target="_blank">Code.Sydney</a> | Bluehex | Vibecamp
+(<a href="https://www.code.sydney/" target="_blank">Code.Sydney</a> |
+<a href="https://dataengineering.ph/" target="_blank">Data Engineering Pilipinas</a>)
 </li>
      </ul>
   </li>
