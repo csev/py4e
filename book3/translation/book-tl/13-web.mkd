@@ -1,0 +1,342 @@
+Using Web Services
+==================
+
+Nang naging madali na ang pagkuha ng documents at pag-parse ng documents sa HTTP
+gamit ang programs, hindi nagtagal bago nabuo ang approach kung saan
+nagsimula tayong gumawa ng documents na partikular na idinisenyo para
+konsumahin ng iba pang programs (i.e., hindi HTML para ipakita sa
+browser).
+
+Mayroong dalawang karaniwang format na ginagamit natin kapag nagpapalitan ng data sa
+web. Ang eXtensible Markup Language (XML) ay ginagamit na ng napakatagal
+at pinakaangkop para sa pagpapalitan ng document-style data. Kapag
+ang programs ay gusto lang magpalitan ng dictionaries, lists, o iba pang internal
+impormasyon sa isa't isa, gumagamit sila ng JavaScript Object Notation (JSON)
+(tingnan ang [www.json.org](http://www.json.org)). Titingnan natin ang parehong format.
+
+eXtensible Markup Language - XML
+--------------------------------
+
+Ang XML ay mukhang katulad ng HTML, pero ang XML ay mas structured kaysa sa HTML.
+Narito ang sample ng XML document:
+
+~~~~ {.xml}
+<person>
+  <name>Chuck</name>
+  <phone type="intl">
+    +1 734 303 4456
+  </phone>
+  <email hide="yes" />
+</person>
+~~~~
+
+Ang bawat pares ng opening (hal., `<person>`) at closing tags
+(hal., `</person>`) ay kumakatawan sa *element* o *node* na may parehong
+pangalan sa tag (hal., `person`). Ang bawat element ay maaaring may ilang text,
+ilang attributes (hal., `hide`), at iba pang nested elements. Kung ang XML
+element ay empty (i.e., walang content), maaari itong ilarawan ng
+self-closing tag (hal., `<email />`).
+
+Kadalasan kapaki-pakinabang na isipin ang XML document bilang tree structure
+kung saan mayroong top element (dito: `person`), at ang iba pang tags (hal.,
+`phone`) ay iginuhit bilang *children* ng kanilang *parent* elements.
+
+![A Tree Representation of XML](height=2.0in@../../../images/xml-tree)
+
+Parsing XML
+-----------
+
+\index{ElementTree}
+\index{ElementTree!fromstring}
+\index{ElementTree!find}
+
+Narito ang simpleng application na nagpa-parse ng ilang XML at kumukuha ng ilang data
+elements mula sa XML:
+
+\VerbatimInput{../code3/xml1.py} 
+
+Ang triple single quote (`'''`), pati na rin ang triple double quote (`"""`), ay nagpapahintulot sa paggawa ng strings na sumasaklaw sa maraming linya.
+
+Ang pagtawag sa `fromstring` ay nagko-convert ng string representation ng
+XML sa "tree" ng XML elements. Kapag ang XML ay nasa tree,
+mayroon tayong serye ng methods na maaari nating tawagin para kunin ang mga parte
+ng data mula sa XML string. Ang `find` function ay naghahanap
+sa XML tree at kumukuha ng element na tumutugma
+sa tinukoy na tag.
+
+~~~~
+Name: Chuck
+Attr: yes
+~~~~
+
+Ang paggamit ng XML parser tulad ng `ElementTree` ay may advantage
+na habang ang XML sa halimbawang ito ay medyo simple, lumalabas na mayroong
+maraming rules tungkol sa valid XML, at ang paggamit ng `ElementTree`
+ay nagpapahintulot sa atin na kunin ang data mula sa XML nang hindi nag-aalala tungkol sa rules ng
+XML syntax.
+
+Looping through nodes
+---------------------
+
+\index{ElementTree!findall}
+\index{ElementTree!get}
+
+Kadalasan ang XML ay may maraming nodes at kailangan nating sumulat ng loop para iproseso
+ang lahat ng nodes. Sa sumusunod na program, naglo-loop tayo sa lahat ng
+`user` nodes:
+
+\VerbatimInput{../code3/xml2.py} 
+
+Ang `findall` method ay kumukuha ng Python list ng subtrees na
+kumakatawan sa `user` structures sa XML tree. Pagkatapos maaari tayong
+sumulat ng `for` loop na tumitingin sa bawat user node, at
+nagpi-print ng `name` at `id` text elements pati na rin
+ang `x` attribute mula sa `user` node.
+
+~~~~
+User count: 2
+Name Chuck
+Id 001
+Attribute 2
+Name Brent
+Id 009
+Attribute 7
+~~~~
+
+Mahalagang isama ang lahat ng parent level elements sa `findall`
+statement maliban sa top level element (hal., `users/user`).
+Kung hindi, ang Python ay hindi makakahanap ng anumang gustong nodes.
+
+~~~~ {.python}
+import xml.etree.ElementTree as ET
+
+input = '''
+<stuff>
+  <users>
+    <user x="2">
+      <id>001</id>
+      <name>Chuck</name>
+    </user>
+    <user x="7">
+      <id>009</id>
+      <name>Brent</name>
+    </user>
+  </users>
+</stuff>'''
+
+stuff = ET.fromstring(input)
+
+lst = stuff.findall('users/user')
+print('User count:', len(lst))
+
+lst2 = stuff.findall('user')
+print('User count:', len(lst2))
+~~~~
+
+Ang `lst` ay nag-i-store ng lahat ng `user` elements na nested sa loob ng kanilang `users`
+parent. Ang `lst2` ay naghahanap ng `user` elements na hindi nested sa loob ng
+top level `stuff` element kung saan walang anuman.
+
+~~~~
+User count: 2
+User count: 0
+~~~~
+
+JavaScript Object Notation - JSON
+---------------------------------
+
+\index{JSON}
+\index{JavaScript Object Notation}
+
+Ang JSON format ay naging inspirasyon mula sa object at array format na ginagamit sa
+JavaScript language. Pero dahil ang Python ay naimbento bago ang JavaScript,
+ang syntax ng Python para sa dictionaries at lists ay naimpluwensyahan ang syntax ng
+JSON. Kaya ang format ng JSON ay halos kapareho ng kombinasyon ng
+Python lists at dictionaries.
+
+Narito ang JSON encoding na halos katumbas ng simpleng XML
+mula sa itaas:
+
+~~~~ {.json}
+{
+  "name" : "Chuck",
+  "phone" : {
+    "type" : "intl",
+    "number" : "+1 734 303 4456"
+   },
+   "email" : {
+     "hide" : "yes"
+   }
+}
+~~~~
+
+Mapapansin mo ang ilang pagkakaiba. Una, sa XML, maaari tayong magdagdag ng attributes
+tulad ng "intl" sa "phone" tag. Sa JSON, mayroon lang tayong key-value pairs.
+Gayundin ang XML "person" tag ay nawala, pinalitan ng set ng outer curly
+braces.
+
+Sa pangkalahatan, ang JSON structures ay mas simple kaysa sa XML dahil ang JSON ay may mas kaunting
+capabilities kaysa sa XML. Pero ang JSON ay may advantage na nagma-map ito
+*directly* sa ilang kombinasyon ng dictionaries at lists.
+At dahil halos lahat ng programming languages ay may katumbas sa
+dictionaries at lists ng Python, ang JSON ay napakalikas na format para magkaroon ng
+dalawang cooperating programs na magpalitan ng data.
+
+Ang JSON ay mabilis na naging format ng pagpipilian para sa halos lahat ng data
+exchange sa pagitan ng applications dahil sa relatibong simplicity nito
+kumpara sa XML.
+
+Parsing JSON
+------------
+
+Ginagawa natin ang JSON natin sa pamamagitan ng pag-nest ng dictionaries at lists ayon sa
+pangangailangan. Sa halimbawang ito, kinakatawan natin ang list ng users kung saan ang bawat user ay
+set ng key-value pairs (i.e., dictionary). Kaya mayroon tayong list ng
+dictionaries.
+
+Sa sumusunod na program, ginagamit natin ang built-in `json`
+library para mag-parse ng JSON at magbasa sa data. I-compare ito nang
+mabuti sa katumbas na XML data at code sa itaas. Ang JSON ay may mas kaunting
+detalye, kaya dapat nating malaman nang maaga na nakakakuha tayo ng list at ang
+list ay ng users at ang bawat user ay set ng key-value pairs. Ang JSON
+ay mas succinct (advantage) pero mas kaunti rin ang self-describing (a
+disadvantage).
+
+\VerbatimInput{../code3/json2.py}
+
+Kung i-compare mo ang code para kunin ang data mula sa parsed JSON at XML
+makikita mo na ang nakukuha natin mula sa `json.loads()` ay Python
+list na dinadaanan natin gamit ang `for` loop, at ang bawat item
+sa loob ng list na iyon ay Python dictionary. Kapag na-parse na ang JSON,
+maaari nating gamitin ang Python index operator para kunin ang iba't ibang bits ng data
+para sa bawat user. Hindi natin kailangang gamitin ang JSON library para mag-dig sa
+parsed JSON, dahil ang returned data ay simpleng native Python structures.
+
+Ang output ng program na ito ay eksaktong pareho sa XML version sa itaas.
+
+~~~~
+User count: 2
+Name Chuck
+Id 001
+Attribute 2
+Name Brent
+Id 009
+Attribute 7
+~~~~
+
+Sa pangkalahatan, mayroong industry trend palayo sa XML at patungo sa JSON
+para sa web services. Dahil ang JSON ay mas simple at mas direktang nagma-map sa
+native data structures na mayroon na tayo sa programming languages, ang
+parsing at data extraction code ay karaniwang mas simple at mas direkta kapag
+gumagamit ng JSON. Pero ang XML ay mas self-descriptive kaysa sa JSON at kaya mayroong
+ilang applications kung saan ang XML ay nananatiling may advantage. Halimbawa, karamihan ng word
+processors ay nag-i-store ng documents internally gamit ang XML sa halip na JSON.
+
+Application Programming Interfaces
+----------------------------------
+
+Mayroon na tayong kakayahang magpalitan ng data sa pagitan ng applications gamit ang
+Hypertext Transport Protocol (HTTP) at paraan para kumatawan sa complex data
+na ipinapadala natin pabalik-balik sa pagitan ng mga applications na ito gamit ang
+eXtensible Markup Language (XML) o JavaScript Object Notation (JSON).
+
+Ang susunod na hakbang ay simulan na tukuyin at dokumentado ang "contracts" sa pagitan ng
+applications gamit ang mga techniques na ito. Ang pangkalahatang pangalan para sa mga
+application-to-application contracts na ito ay *Application Program
+Interfaces* (APIs). Kapag gumagamit tayo ng API, karaniwang isang program
+ang gumagawa ng set ng *services* na available para gamitin ng iba pang
+applications at nagpu-publish ng APIs (i.e., ang "rules") na dapat
+sundin para ma-access ang services na ibinigay ng program.
+
+Kapag nagsisimula na tayong gumawa ng programs natin kung saan ang functionality ng aming
+program ay kasama ang access sa services na ibinigay ng iba pang programs, tinatawag natin
+ang approach na *Service-oriented architecture* (SOA). Ang
+SOA approach ay isa kung saan ang overall application natin ay gumagamit ng
+services ng iba pang applications. Ang non-SOA approach ay kung saan ang
+application ay isang solong standalone application na naglalaman ng lahat ng
+code na kailangan para i-implement ang application.
+
+Nakikita natin ang maraming halimbawa ng SOA kapag gumagamit tayo ng web. Maaari tayong pumunta sa isang
+web site at mag-book ng air travel, hotels, at automobiles lahat mula sa isang
+site. Ang data para sa hotels ay hindi naka-store sa airline computers.
+Sa halip, ang airline computers ay nakikipag-ugnayan sa services sa hotel
+computers at kumukuha ng hotel data at ipinakita ito sa user. Kapag
+sumang-ayon ang user na gumawa ng hotel reservation gamit ang airline site, ang
+airline site ay gumagamit ng iba pang web service sa hotel systems para talagang
+gawin ang reservation. At kapag oras na para singilin ang credit card mo
+para sa buong transaction, iba pang computers pa rin ang kasangkot sa
+proseso.
+
+![Service-oriented architecture](height=3.0in@../../../images/soa)
+
+Ang Service-oriented architecture ay may maraming advantages, kasama ang: (1) palaging
+nagma-maintain lang tayo ng isang kopya ng data (ito ay partikular na mahalaga
+para sa mga bagay tulad ng hotel reservations kung saan ayaw nating mag-over-commit)
+at (2) ang mga may-ari ng data ay maaaring magtakda ng rules tungkol sa paggamit ng kanilang
+data. Sa mga advantages na ito, ang SOA system ay dapat maingat na idinisenyo para
+magkaroon ng magandang performance at matugunan ang pangangailangan ng user.
+
+Kapag ang application ay gumagawa ng set ng services sa API nito na available sa
+web, tinatawag natin ang mga ito na *web services*.
+
+Security and API usage
+----------------------
+
+\index{OAuth}
+\index{API!key}
+
+Napakakaraniwan na kailangan mo ng API key para magamit ang
+API ng vendor. Ang pangkalahatang ideya ay gusto nilang malaman kung sino ang gumagamit ng
+services nila at kung gaano karami ang ginagamit ng bawat user. Marahil mayroon silang libre
+at bayad na tiers ng services nila o may policy na naglilimita sa bilang ng
+requests na maaaring gawin ng isang indibidwal sa partikular na panahon
+period.
+
+Minsan kapag nakuha mo na ang API key mo, simpleng isama mo lang ang key bilang parte
+ng POST data o marahil bilang parameter sa URL kapag tinatawag ang API.
+
+Sa ibang pagkakataon, ang vendor ay gusto ng mas mataas na assurance ng source ng
+requests at kaya inaasahan nila na magpadala ka ng cryptographically signed
+messages gamit ang shared keys at secrets. Ang napakakaraniwang teknolohiya na
+ginagamit para mag-sign ng requests sa Internet ay tinatawag na
+*OAuth*. Maaari kang magbasa pa tungkol sa OAuth protocol sa
+[www.oauth.net](http://www.oauth.net).
+
+Sa kabutihang palad mayroong ilang maginhawa
+at libreng OAuth libraries para maiwasan mong sumulat ng OAuth
+implementation mula sa simula sa pamamagitan ng pagbabasa ng specification. Ang mga
+libraries na ito ay may iba't ibang complexity at may iba't ibang antas ng
+richness. Ang OAuth web site ay may impormasyon tungkol sa iba't ibang OAuth
+libraries.
+
+Glossary
+--------
+
+API
+:   Application Program Interface - Contract sa pagitan ng applications na
+    nagde-define ng patterns ng interaction sa pagitan ng dalawang application
+    components.
+\index{API}
+
+ElementTree
+:   Built-in Python library na ginagamit para mag-parse ng XML data.
+\index{ElementTree}
+
+JSON
+:   JavaScript Object Notation - Format na nagpapahintulot sa markup ng
+    structured data batay sa syntax ng JavaScript Objects.
+\index{JSON}
+\index{JavaScript Object Notation}
+
+SOA
+:   Service-Oriented Architecture - Kapag ang application ay gawa sa
+    components na konektado sa network.
+\index{SOA}
+\index{Service Oriented Architecture}
+
+XML
+:   eXtensible Markup Language - Format na nagpapahintulot sa markup ng
+    structured data.
+\index{XML}
+\index{eXtensible Markup Language}
+

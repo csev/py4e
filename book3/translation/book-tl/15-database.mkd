@@ -1,0 +1,1281 @@
+
+Using Databases and SQL
+=======================
+
+What is a database?
+-------------------
+
+\index{database}
+
+Ang *database* ay file na inoorganisa para mag-store ng
+data. Karamihan sa databases ay inoorganisa tulad ng dictionary sa diwa na
+nagma-map sila mula sa keys patungo sa values. Ang pinakamalaking pagkakaiba ay ang
+database ay nasa disk (o iba pang permanent storage), kaya ito ay nananatili pagkatapos
+matapos ang program. Dahil ang database ay naka-store sa permanent storage, maaari itong
+mag-store ng mas maraming data kaysa sa dictionary, na limitado sa laki
+ng memory sa computer.
+
+\index{database!indexes}
+
+Tulad ng dictionary, ang database software ay idinisenyo para panatilihing napakabilis ang pag-insert
+at pag-access ng data, kahit para sa malalaking dami ng data.
+Ang database software ay nagma-maintain ng performance nito sa pamamagitan ng paggawa ng
+*indexes* habang idinadagdag ang data sa database para payagan ang
+computer na tumalon nang mabilis sa partikular na entry.
+
+Mayroong maraming iba't ibang database systems na ginagamit para sa malawak
+na iba't ibang layunin kasama ang: Oracle, MySQL, Microsoft SQL Server,
+PostgreSQL, at SQLite. Nakatuon tayo sa SQLite sa libro na ito dahil ito ay
+napakakaraniwang database at naka-build na sa Python. Ang SQLite ay
+idinisenyo para ma-*embed* sa iba pang applications para magbigay ng database
+support sa loob ng application. Halimbawa, ang Firefox browser ay gumagamit din
+ng SQLite database internally tulad ng maraming iba pang produkto.
+
+<http://sqlite.org/>
+
+Ang SQLite ay angkop sa ilan sa data manipulation problems na
+nakikita natin sa Informatics.
+
+Database concepts
+-----------------
+
+Kapag unang tiningnan mo ang database, mukha itong spreadsheet na may
+maraming sheets. Ang pangunahing data structures sa database ay:
+*tables*, *rows*, at
+*columns*.
+
+![Relational Databases](height=2.0in@../../../images/relational)
+
+Sa teknikal na mga paglalarawan ng relational databases ang mga konsepto ng table,
+row, at column ay mas pormal na tinutukoy bilang
+*relation*, *tuple*, at
+*attribute*, ayon sa pagkakabanggit. Gagamitin natin ang mas hindi pormal
+na terms sa chapter na ito.
+
+Database Browser for SQLite
+---------------------------
+
+Habang ang chapter na ito ay nakatuon sa paggamit ng Python para magtrabaho sa data sa
+SQLite database files, maraming operations ay maaaring gawin nang mas maginhawa
+gamit ang software na tinatawag na *Database Browser for SQLite* na libreng available mula sa:
+
+<http://sqlitebrowser.org/>
+
+Gamit ang browser maaari mong madaling gumawa ng tables, mag-insert ng data, mag-edit ng data,
+o magpatakbo ng simpleng SQL queries sa data sa database.
+
+Sa isang diwa, ang database browser ay katulad ng text editor kapag
+nagtatrabaho sa text files. Kapag gusto mong gumawa ng isa o napakakaunting operations
+sa text file, maaari mo lang itong buksan sa text editor at gawin ang
+mga pagbabagong gusto mo. Kapag mayroon kang maraming pagbabago na kailangan mong gawin sa
+text file, kadalasan susulat ka ng simpleng Python program. Makikita mo
+ang parehong pattern kapag nagtatrabaho sa databases. Gagawa ka ng simpleng
+operations sa database manager at mas kumplikadong operations ay
+pinaka-maginhawang gawin sa Python.
+
+Creating a database table
+-------------------------
+
+Ang databases ay nangangailangan ng mas tinukoy na structure kaysa sa Python lists o
+dictionaries^[Ang SQLite ay talagang nagpapahintulot ng ilang flexibility sa uri ng data
+na naka-store sa column, pero pananatilihin natin ang data types natin na strict sa
+chapter na ito para ang concepts ay nalalapat nang pantay sa iba pang database systems tulad
+ng MySQL.].
+
+Kapag gumagawa tayo ng database *table* dapat nating sabihin sa
+database nang maaga ang mga pangalan ng bawat isa sa *columns* sa
+table at ang uri ng data na plano nating i-store sa bawat
+*column*. Kapag alam ng database software ang uri ng
+data sa bawat column, maaari nitong piliin ang pinakamabisang paraan para mag-store at
+maghanap ng data batay sa uri ng data.
+
+Maaari mong tingnan ang iba't ibang data types na sinusuportahan ng SQLite sa
+sumusunod na url:
+
+<http://www.sqlite.org/datatypes.html>
+
+Ang pagtukoy ng structure para sa data mo nang maaga ay maaaring mukhang hindi maginhawa sa
+simula, pero ang kapalit ay mabilis na access sa data mo kahit na ang
+database ay naglalaman ng malaking dami ng data.
+
+Ang code para gumawa ng database file at table na pinangalanang `Track`
+na may dalawang columns sa database ay ganito:
+
+\index{sqlite3 module}
+\index{module!sqlite3}
+
+\VerbatimInput{../code3/db1.py}
+
+\index{connect function}
+\index{function!connect}
+\index{cursor function}
+\index{function!cursor}
+
+Ang `connect` operation ay gumagawa ng "connection" sa database
+na naka-store sa file na `music.sqlite` sa current directory.
+Kung ang file ay hindi umiiral, gagawin ito. Ang dahilan kung bakit ito ay
+tinatawag na "connection" ay dahil minsan ang database ay naka-store sa
+hiwalay na "database server" mula sa server kung saan tumatakbo ang aming
+application. Sa simpleng halimbawa natin ang database ay simpleng local
+file sa parehong directory ng Python code na tumatakbo tayo.
+
+Ang *cursor* ay parang file handle na maaari nating gamitin para
+gumawa ng operations sa data na naka-store sa database. Ang pagtawag sa
+`cursor()` ay napakatulad conceptually sa pagtawag sa
+`open()` kapag nakikipag-ugnayan sa text files.
+
+![A Database Cursor](height=2.0in@../../../images/cursor)
+
+Kapag mayroon na tayong cursor, maaari na tayong magsimulang mag-execute ng commands sa
+contents ng database gamit ang `execute()` method.
+
+Ang database commands ay ipinahayag sa espesyal na language na
+na-standardize sa maraming iba't ibang database vendors para payagan tayong matuto ng
+isang database language. Ang database language ay tinatawag na
+*Structured Query Language* o *SQL* para sa
+maikli.
+
+<http://en.wikipedia.org/wiki/SQL>
+
+Sa halimbawa natin, nag-e-execute tayo ng dalawang SQL commands sa database natin. Bilang
+convention, ipapakita natin ang SQL keywords sa uppercase at ang mga parte ng
+command na idinagdag natin (tulad ng table at column names) ay
+ipapakita sa lowercase.
+
+Ang unang SQL command ay nagtatanggal ng `Track` table mula sa
+database kung umiiral ito. Ang pattern na ito ay simpleng para payagan tayong patakbuhin ang
+parehong program para gumawa ng `Track` table nang paulit-ulit
+nang hindi nagdudulot ng error. Tandaan na ang `DROP TABLE` command
+ay nagtatanggal ng table at lahat ng contents nito mula sa database (i.e., walang
+"undo").
+
+~~~~ {.python}
+cur.execute('DROP TABLE IF EXISTS Track ')
+~~~~
+
+Ang pangalawang command ay gumagawa ng table na pinangalanang `Track` na may text
+column na pinangalanang `title` at integer column na pinangalanang
+`plays`.
+
+~~~~ {.python}
+cur.execute('CREATE TABLE Track (title TEXT, plays INTEGER)')
+~~~~
+
+Ngayon na gumawa na tayo ng table na pinangalanang `Track`, maaari na tayong maglagay
+ng ilang data sa table na iyon gamit ang SQL `INSERT` operation.
+Muli, nagsisimula tayo sa pamamagitan ng paggawa ng connection sa database at pagkuha ng
+`cursor`. Pagkatapos maaari na tayong mag-execute ng SQL commands gamit ang cursor.
+
+Ang SQL `INSERT` command ay nagpapahiwatig kung aling table ang ginagamit natin
+at pagkatapos nagde-define ng bagong row sa pamamagitan ng pagli-list ng fields na gusto nating isama
+`(title, plays)` na sinusundan ng `VALUES` na gusto nating
+ilagay sa bagong row. Tinutukoy natin ang values bilang question marks `(?,
+?)` para ipahiwatig na ang aktwal na values ay ipinapasa bilang tuple
+`( 'My Way', 15 ) ` bilang pangalawang parameter sa
+`execute()` call.
+
+\VerbatimInput{../code3/db2.py}
+
+Una nag-`INSERT` tayo ng dalawang rows sa table natin at gumagamit ng
+`commit()` para pilitin ang data na isulat sa database
+file.
+
+![Rows in a Table](height=1.5in@../../../images/tracks)
+
+Pagkatapos gumagamit tayo ng `SELECT` command para kunin ang rows na kakalagay lang natin
+mula sa table. Sa `SELECT` command, ipinapahiwatig natin
+kung aling columns ang gusto natin `(title, plays)` at ipinapahiwatig
+kung aling table ang gusto nating kunin ang data. Pagkatapos mag-execute ng
+`SELECT` statement, ang cursor ay isang bagay na maaari nating loop
+through sa `for` statement. Para sa efficiency, ang cursor ay hindi
+nagbabasa ng lahat ng data mula sa database kapag nag-e-execute tayo ng
+`SELECT` statement. Sa halip, ang data ay binabasa on demand habang
+naglo-loop tayo sa rows sa `for` statement.
+
+Ang output ng program ay ganito:
+
+~~~~
+Track:
+('Thunderstruck', 20)
+('My Way', 15)
+~~~~
+
+\index{Unicode}
+
+Ang `for` loop natin ay nakakahanap ng dalawang rows, at ang bawat row ay Python tuple
+na may unang value bilang `title` at pangalawang value bilang
+bilang ng `plays`.
+
+Sa pinakadulo ng program, nag-e-execute tayo ng SQL command para
+`DELETE` ang rows na kakalikha lang natin para maaari nating patakbuhin ang
+program nang paulit-ulit. Ang `DELETE` command ay nagpapakita ng paggamit ng
+`WHERE` clause na nagpapahintulot sa atin na ipahayag ang selection
+criterion para maaari nating hilingin sa database na ilapat ang command lang sa
+rows na tumutugma sa criterion. Sa halimbawang ito ang criterion ay
+nalalapat sa lahat ng rows kaya inu-emptying natin ang table para maaari nating patakbuhin ang
+program nang paulit-ulit. Pagkatapos gawin ang `DELETE`, tumatawag din tayo sa
+`commit()` para pilitin ang data na matanggal mula sa
+database.
+
+Structured Query Language summary
+---------------------------------
+
+\index{CRUD}
+\index{SQL!CRUD}
+Hanggang ngayon, gumagamit tayo ng Structured Query Language sa aming Python
+examples at natakpan na natin ang marami sa basics ng SQL commands. Sa
+section na ito, titingnan natin ang SQL language partikular at magbigay ng
+overview ng SQL syntax.
+
+Dahil mayroong napakaraming iba't ibang database vendors, ang Structured Query
+Language (SQL) ay na-standardize para maaari tayong makipag-communicate sa portable
+na paraan sa database systems mula sa maraming vendors.
+
+Ang relational database ay binubuo ng tables, rows, at columns. Ang
+columns ay karaniwang may type tulad ng text, numeric, o date data. Kapag
+gumagawa tayo ng table, ipinapahiwatig natin ang mga pangalan at uri ng columns:
+
+~~~~ {.sql}
+CREATE TABLE Track (title TEXT, plays INTEGER)
+~~~~
+
+Para mag-insert ng row sa table, gumagamit tayo ng SQL `INSERT`
+command:
+
+~~~~ {.sql}
+INSERT INTO Track (title, plays) VALUES ('My Way', 15)
+~~~~
+
+Ang `INSERT` statement ay nagtutukoy ng table name, pagkatapos list
+ng fields/columns na gusto mong i-set sa bagong row, at
+pagkatapos ang keyword na `VALUES` at list ng katumbas na values
+para sa bawat field.
+
+Ang SQL `SELECT` command ay ginagamit para kunin ang rows at columns
+mula sa database. Ang `SELECT` statement ay nagpapahintulot sa iyo na tukuyin
+kung aling columns ang gusto mong kunin pati na rin ang `WHERE`
+clause para piliin kung aling rows ang gusto mong makita. Nagpapahintulot din ito ng
+opsiyonal na `ORDER BY` clause para kontrolin ang sorting ng
+returned rows.
+
+~~~~ {.sql}
+SELECT * FROM Track WHERE title = 'My Way'
+~~~~
+
+Ang paggamit ng `*` ay nagpapahiwatig na gusto mong ibalik ng database ang lahat ng
+columns para sa bawat row na tumutugma sa `WHERE` clause.
+
+Tandaan, hindi tulad sa Python, sa SQL `WHERE` clause gumagamit tayo ng
+isang equal sign para ipahiwatig ang test para sa equality sa halip na double
+equal sign. Ang iba pang logical operations na pinapayagan sa `WHERE`
+clause ay kasama ang `<`, `>`, `<=`, `>=`, `!=`, pati na rin ang `AND`
+at `OR` at parentheses para gumawa ng logical expressions mo.
+
+Maaari mong hilingin na ang returned rows ay ma-sort ayon sa isa sa fields tulad ng
+sumusunod:
+
+~~~~ {.sql}
+SELECT title,plays FROM Track ORDER BY title
+~~~~
+
+Posibleng `UPDATE` ang column o columns sa loob ng isa o
+higit pang rows sa table gamit ang SQL `UPDATE` statement tulad ng
+sumusunod:
+
+~~~~ {.sql}
+UPDATE Track SET plays = 16 WHERE title = 'My Way'
+~~~~
+
+Ang `UPDATE` statement ay nagtutukoy ng table at pagkatapos list ng
+fields at values na baguhin pagkatapos ng `SET` keyword at pagkatapos
+opsiyonal na `WHERE` clause para piliin ang rows na dapat
+i-update. Ang isang `UPDATE` statement ay magbabago ng lahat ng
+rows na tumutugma sa `WHERE` clause. Kung ang `WHERE`
+clause ay hindi tinukoy, ginagawa nito ang `UPDATE` sa lahat ng
+rows sa table.
+
+Para tanggalin ang row, kailangan mo ng `WHERE` clause sa SQL
+`DELETE` statement. Ang `WHERE` clause ay nagde-determine
+kung aling rows ang dapat tanggalin:
+
+~~~~ {.sql}
+DELETE FROM Track WHERE title = 'My Way'
+~~~~
+
+\index{CRUD}
+\index{SQL!CRUD}
+Ang apat na basic SQL commands na ito (INSERT, SELECT, UPDATE, at DELETE) ay nagpapahintulot
+sa apat na basic operations na kailangan para gumawa at mag-maintain ng data. Gumagamit tayo
+ng "CRUD" (Create, Read, Update, at Delete) para makuha ang lahat ng concepts na ito
+sa isang term.^[Oo may disconnect sa pagitan ng "CRUD"
+term at unang letters ng apat na SQL statements na nag-i-implement ng
+"CRUD". Ang posibleng paliwanag ay maaaring sabihin na ang "CRUD" ay ang
+"concept" at ang SQL ay ang implementation. Ang isa pang posibleng paliwanag
+ay mas masaya sabihin ang "CRUD" kaysa sa "ISUD".]
+
+Multiple tables and basic data modeling
+---------------------------------------
+
+\index{Data Modelling}
+\index{Relational Model}
+Ang tunay na kapangyarihan ng relational database ay kapag gumagawa tayo ng maraming
+tables at gumagawa ng links sa pagitan ng mga tables na iyon. Ang gawain ng pagde-decide kung paano
+hatiin ang application data mo sa maraming tables at pagtatatag ng
+relationships sa pagitan ng tables ay tinatawag na *data
+modeling*. Ang design document na nagpapakita ng tables at kanilang
+relationships ay tinatawag na *data model*.
+
+Ang data modeling ay relatively sophisticated skill at ipakikilala lang natin
+ang pinakabasic concepts ng relational data modeling sa section na ito. Para sa mas detalyado tungkol sa data modeling maaari kang magsimula sa:
+
+<http://en.wikipedia.org/wiki/Relational_model>
+
+\index{SQL!CREATE}
+Sabihin natin para sa tracks database natin gusto nating i-track ang pangalan ng
+`artist` para sa bawat track bilang karagdagan sa `title` at bilang ng
+plays para sa bawat track. Ang simpleng approach ay maaaring simpleng magdagdag ng iba pang
+column sa database na tinatawag na `artist` at ilagay ang pangalan ng artist
+sa column tulad ng sumusunod:
+
+~~~~ {.python}
+DROP TABLE IF EXISTS Track;
+CREATE TABLE Track (title TEXT, plays INTEGER, artist TEXT);
+~~~~
+
+Pagkatapos maaari tayong mag-insert ng ilang tracks sa table natin.
+
+~~~~ {.sql}
+INSERT INTO Track (title, plays, artist)
+    VALUES ('My Way', 15, 'Frank Sinatra');
+INSERT INTO Track (title, plays, artist)
+    VALUES ('New York', 25, 'Frank Sinatra');
+~~~~
+
+Kung titingnan natin ang data natin gamit ang `SELECT * FROM Track` statement,
+mukhang maganda ang ginawa natin.
+
+~~~~
+sqlite> SELECT * FROM Track;
+My Way|15|Frank Sinatra
+New York|25|Frank Sinatra
+sqlite>
+~~~~
+
+Gumawa tayo ng *napakasamang error* sa data modeling natin. Nilabag natin ang rules
+ng *database normalization*.
+
+<https://en.wikipedia.org/wiki/Database_normalization>
+
+\index{Database Normalization}
+\index{Data Normalization}
+Habang ang database normalization ay mukhang napakakumplikado sa ibabaw at naglalaman ng maraming
+mathematical justifications, sa ngayon maaari nating bawasan ang lahat sa isang simpleng rule na
+susundin natin.
+
+\index{Data Replication}
+Hindi dapat nating ilagay ang parehong string data sa column nang higit sa isang beses. Kung
+kailangan natin ang data nang higit sa isang beses, gumagawa tayo ng numeric *key* para sa data at
+nagre-reference sa aktwal na data gamit ang key na ito. Lalo na kung ang maraming
+entries ay tumutukoy sa parehong object.
+
+Para ipakita ang slippery slope na binababa natin sa pamamagitan ng pag-assign ng string columns
+sa database model natin, isipin kung paano natin babaguhin ang data model kung gusto nating
+i-track ang eye color ng artists natin? Gagawin ba natin ito?
+
+~~~~ {.sql}
+DROP TABLE IF EXISTS Track;
+CREATE TABLE Track (title TEXT, plays INTEGER,
+    artist TEXT, eyes TEXT);
+INSERT INTO Track (title, plays, artist, eyes)
+    VALUES ('My Way', 15, 'Frank Sinatra', 'Blue');
+INSERT INTO Track (title, plays, artist, eyes)
+    VALUES ('New York', 25, 'Frank Sinatra', 'Blue');
+~~~~
+
+Dahil nag-record si Frank Sinatra ng higit sa 1200 songs, talaga bang
+ilalagay natin ang string na 'Blue' sa 1200 rows sa `Track` table natin. At
+ano ang mangyayari kung magde-decide tayo na ang eye color niya ay 'Light Blue'? May bagay
+na hindi tama.
+
+Ang tamang solusyon ay gumawa ng table
+para sa bawat `Artist` at mag-store ng lahat ng data tungkol sa artist sa
+table na iyon. At pagkatapos kailangan nating gumawa ng connection sa pagitan ng
+row sa `Track` table patungo sa row sa `Artist` table. Marahil
+maaari nating tawagin ang "link" na ito sa pagitan ng dalawang "tables" na "relationship" sa pagitan ng
+dalawang tables. At iyon mismo ang napagpasyahan ng database experts na tawagin sa lahat ng mga
+links na ito.
+
+Gumawa tayo ng `Artist` table tulad ng sumusunod:
+
+~~~~ {.sql}
+DROP TABLE IF EXISTS Artist;
+CREATE TABLE Artist (name TEXT, eyes TEXT);
+INSERT INTO Artist (name, eyes)
+   VALUES ('Frank Sinatra', 'blue');
+~~~~
+
+\index{primary key}
+Ngayon mayroon tayong dalawang tables pero kailangan natin ng paraan para *i-link* ang rows sa dalawang tables.
+Para gawin ito, kailangan natin ng tinatawag nating 'keys'. Ang mga keys na ito ay simpleng integer numbers
+na maaari nating gamitin para maghanap ng row sa iba't ibang table. Kung gagawa tayo ng
+links sa rows sa loob ng table, kailangan nating magdagdag ng *primary key* sa rows sa
+table. Ayon sa convention karaniwang pinapangalanan natin ang primary key column na 'id'. Kaya ang
+`Artist` table natin ay ganito:
+
+~~~~ {.sql}
+DROP TABLE IF EXISTS Artist;
+CREATE TABLE Artist (id INTEGER, name TEXT, eyes TEXT);
+INSERT INTO Artist (id, name, eyes)
+   VALUES (42, 'Frank Sinatra', 'blue');
+~~~~
+
+Ngayon mayroon tayong row sa table para sa 'Frank Sinatra' (at eye color niya) at
+primary key na '42' para gamitin para i-link ang tracks natin sa kanya. Kaya binabago natin ang
+Track table natin tulad ng sumusunod:
+
+~~~~ {.sql}
+DROP TABLE IF EXISTS Track;
+CREATE TABLE Track (title TEXT, plays INTEGER,
+    artist_id INTEGER);
+INSERT INTO Track (title, plays, artist_id)
+    VALUES ('My Way', 15, 42);
+INSERT INTO Track (title, plays, artist_id)
+    VALUES ('New York', 25, 42);
+~~~~
+
+\index{Foreign key}
+Ang `artist_id` column ay integer, at ayon sa naming convention ay 
+*foreign key* na tumuturo sa *primary* key sa `Artist` table.
+Tinatawag natin itong foreign key dahil tumuturo ito sa row sa iba't ibang
+table.
+
+\index{SQL!JOIN}
+\index{SQL!ON}
+Ngayon sumusunod na tayo sa rules ng database normalization, pero kapag gusto nating
+makuha ang data mula sa database natin, hindi natin gusto na makita ang 42, gusto nating
+makita ang pangalan at eye color ng artist. Para gawin ito gumagamit tayo ng
+keyword na `JOIN` sa SELECT statement natin.
+
+~~~~ {.sql}
+SELECT title, plays, name, eyes
+FROM Track JOIN Artist
+ON Track.artist_id = Artist.id;
+~~~~
+
+Ang `JOIN` clause ay kasama ang `ON` condition na nagde-define kung paano ang rows ay dapat
+konektado. Para sa bawat row sa `Track` idagdag ang data mula sa `Artist` mula sa
+row kung saan ang `artist_id` sa `Track` table ay tumutugma sa `id` mula sa `Artist`
+table.
+
+Ang output ay magiging:
+
+~~~~
+My Way|15|Frank Sinatra|blue
+New York|25|Frank Sinatra|blue
+~~~~
+
+Habang maaaring mukhang medyo clunky at ang instincts mo ay maaaring sabihin sa iyo na
+mas mabilis lang na panatilihin ang data sa isang table, lumalabas na
+ang limit sa database performance ay kung gaano karaming data ang kailangang i-scan
+kapag kumukuha ng query. Habang ang detalye ay napakakumplikado, ang integers
+ay mas maliit kaysa sa strings (lalo na ang Unicode) at mas mabilis
+na ilipat at i-compare.
+
+Data model diagrams
+-------------------
+
+\index{Data model diagrams}
+\index{Entity-Relationship diagrams}
+Habang ang `Track` at `Artist` database design natin ay simple
+na may dalawang tables lang at isang
+one-to-many relationship, ang mga data models na ito ay maaaring maging kumplikado nang mabilis
+at mas madaling maintindihan kung maaari tayong gumawa ng graphical representation
+ng data model natin.
+
+![A Verbose One-to-Many Data Model\label{figvrbo2m}](height=1.5in@../../../images/one-to-many-verbose)
+
+\index{Crow's Foot diagrams}
+While there are many graphical representations of data models, we will use
+one of the "classic" approaches, called "Crow's Foot Diagrams" as shown in Figure \ref{figvrbo2m}.
+Each table is shown as a box with the name of the table and its columns.  Then where there
+is a relationship between two tables a line is drawn connecting the tables with
+a notation added to the end of each line indicating the nature of the relationship.
+
+<https://en.wikipedia.org/wiki/Entity-relationship_model>
+
+In this case, "many" tracks can be associated with each artist.  So the track end
+is shown with the crow's foot spread out indicating it is the" "many" end.  The
+artist end is shown with a vertical like that indicates "one".  There will be "many"
+artists in general, but the important aspect is that for each artist there will be
+many tracks.  And each of those artists may be associated with multiple tracks.
+
+\index{foreign key}
+You will note that the column that holds the *foreign_key* like `artist_id` is on
+the "many" end and the *primary key* is at the "one" end.
+
+Since the pattern of foreign and primary key placement is so consistent and
+follows the "many" and "one" ends of the lines, we never include
+either the primary or foreign key columns in our diagram of the data model
+as shown in the second diagram as shown in Figure \ref{figo2m}.
+The columns are thought of as "implementation detail" to capture the nature of
+the relationship details and not an essential part of the data being modeled.
+
+![A Succinct One-to-Many Data Model\label{figo2m}](height=1.5in@../../../images/one-to-many)
+
+
+Automatically creating primary keys
+-----------------------------------
+
+\index{Primary key}
+\index{Auto increment}
+\index{SQL!UNIQUE}
+In the above example, we arbitrarily assigned Frank the primary key of 42.
+However when we are inserting millions or rows, it is nice to have the database
+automatically generate the values for the id column.  We do this by declaring
+the `id` column as a `PRIMARY KEY` and leave out the `id` value when inserting the
+row:
+
+~~~~ {.sql}
+DROP TABLE IF EXISTS Artist;
+CREATE TABLE Artist (id INTEGER PRIMARY KEY,
+    name TEXT, eyes TEXT);
+INSERT INTO Artist (name, eyes)
+   VALUES ('Frank Sinatra', 'blue');
+~~~~
+
+Now we have instructed the database to auto-assign us a unique value to
+the Frank Sinatra row.  But we then need a way to have the database tell
+us the `id` value for the recently inserted row.  One way is to use a `SELECT`
+statement to retrieve data from an SQLite built-in-function
+called `last_insert_rowid()`.
+
+~~~~
+sqlite> DROP TABLE IF EXISTS Artist;
+sqlite> CREATE TABLE Artist (id INTEGER PRIMARY KEY,
+   ...>     name TEXT, eyes TEXT);
+sqlite> INSERT INTO Artist (name, eyes)
+   ...>    VALUES ('Frank Sinatra', 'blue');
+sqlite> select last_insert_rowid();
+1
+sqlite> SELECT * FROM Artist;
+1|Frank Sinatra|blue
+sqlite>
+~~~~
+
+Once we know the `id` of our 'Frank Sinatra' row, we can use it
+when we `INSERT` the tracks into the `Track` table.  As a general
+strategy, we add these `id` columns to any table we create:
+
+~~~~
+sqlite> DROP TABLE IF EXISTS Track;
+sqlite> CREATE TABLE Track (id INTEGER PRIMARY KEY,
+   ...>     title TEXT, plays INTEGER, artist_id INTEGER);
+~~~~
+
+Note that the `artist_id` value is the new auto-assigned row in the
+`Artist` table and that while we added an `INTEGER PRIMARY KEY` to
+the `Track` table, we did not include `id` in the list of fields
+on the `INSERT` statements into the `Track` table.  Again
+this tells the database to choose a unique value for us for the
+`id` column.
+
+~~~~
+sqlite> INSERT INTO Track (title, plays, artist_id)
+   ...>     VALUES ('My Way', 15, 1);
+sqlite> select last_insert_rowid();
+1
+sqlite> INSERT INTO Track (title, plays, artist_id)
+   ...>     VALUES ('New York', 25, 1);
+sqlite> select last_insert_rowid();
+2
+sqlite>
+~~~~
+
+\index{Primary key retrieval}
+You can call `SELECT last_insert_rowid();` after each of the inserts
+to retrieve the value that the database assigned to the `id` of each newly
+created row.  Later when we are coding in Python, we can ask for the `id`
+value in our code and store it in a variable for later use.
+
+Logical keys for fast lookup
+----------------------------
+
+\index{Logical key}
+\index{SQL!INDEX}
+If we had a table full of artists and a table full of tracks, each with a
+foreign key link to a row in a table full of artists and we wanted to list
+all the tracks that were sung by 'Frank Sinatra' as follows:
+
+~~~~
+SELECT title, plays, name, eyes
+FROM Track JOIN Artist
+ON Track.artist_id = Artist.id
+WHERE Artist.name = 'Frank Sinatra';
+~~~~
+
+Since we have two tables and a foreign key between the two tables, our
+data is well-modeled, but if we are going to have millions of records
+in the `Artist` table and going to do a lot of lookups by artist name,
+we would benefit if we gave the database a hint about our intended use
+of the `name` column.
+
+\index{CREATE INDEX}
+We do this by adding an "index" to a text column that we intend to use
+in `WHERE` clauses:
+
+~~~~
+CREATE INDEX artist_name ON Artist(name);
+~~~~
+
+When the database has been told that an index is needed on a column in
+a table, it stores extra information to make it possible to look up a
+row more quickly using the indexed field (`name` in this example).  Once
+you request that an index be created, there is nothing special that is needed
+in the SQL to access the table.   The database keeps the index up to date
+as data is inserted, deleted, and updated, and uses it automatically if it will
+increase the performance of a database query.
+
+These text columns that are used to find rows based on some information
+in the "real world" like the name of an artist are called *Logical keys*.
+
+Adding constraints to the database
+---------------------------------------
+
+\index{Constraint}
+\index{SQL!UNIQUE}
+We can also use an index to enforce a constraint (i.e. rules) on our database
+operations.  The most common constraint is a *uniqueness constraint* which insists
+that all of the values in a column are unique.   We can add the optional
+`UNIQUE` keyword, to the `CREATE INDEX` statement to tell the database
+that we would like it to enforce the constraint on our SQL.  We can drop and
+re-create the `artist_name` index with a `UNIQUE` constraint as follows.
+
+~~~~
+DROP INDEX artist_name;
+CREATE UNIQUE INDEX artist_name ON Artist(name);
+~~~~
+
+If we try to insert 'Frank Sinatra' a second time, it will fail
+with an error.
+
+~~~~
+sqlite> SELECT * FROM Artist;
+1|Frank Sinatra|blue
+sqlite> INSERT INTO Artist (name, eyes)
+   ...>    VALUES ('Frank Sinatra', 'blue');
+Runtime error: UNIQUE constraint failed: Artist.name (19)
+sqlite>
+~~~~
+
+\index{SQL!IGNORE}
+We can tell the database to ignore any duplicate key errors
+by adding the `IGNORE` keyword to the `INSERT` statement as follows:
+
+~~~~
+sqlite> INSERT OR IGNORE INTO Artist (name, eyes)
+   ...>     VALUES ('Frank Sinatra', 'blue');
+sqlite> SELECT id FROM Artist WHERE name='Frank Sinatra';
+1
+sqlite>
+~~~~
+
+By combining an `INSERT OR IGNORE` and a `SELECT` we can insert a new
+record if the name is not already there and whether or not the record
+is already there, retrieve the *primary* key of the record.
+
+~~~~
+sqlite> INSERT OR IGNORE INTO Artist (name, eyes)
+   ...>      VALUES ('Elvis', 'blue');
+sqlite> SELECT id FROM Artist WHERE name='Elvis';
+2
+sqlite> SELECT * FROM Artist;
+1|Frank Sinatra|blue
+2|Elvis|blue
+sqlite>
+~~~~
+
+Since we have not added a uniqueness constraint to the eye color
+column, there is no problem having multiple 'Blue' values in the
+`eye` column.
+
+![Tracks, Albums, and Artists\label{figtaa}](height=1.5in@../../../images/tracks-albums-artists)
+
+Sample multi-table application
+------------------------------
+
+A sample application called `tracks_csv.py` shows how these ideas can be combined
+to parse textual data and load it into several tables using a proper data
+model with relational connections between the tables.
+
+This application reads and parses a comma-separated file `tracks.csv` based on
+an export from Dr. Chuck's iTunes library.
+
+~~~~
+Another One Bites The Dust,Queen,Greatest Hits,55,100,217103
+Asche Zu Asche,Rammstein,Herzeleid,79,100,231810
+Beauty School Dropout,Various,Grease,48,100,239960
+Black Dog,Led Zeppelin,IV,109,100,296620
+...
+~~~~
+
+The columns in this file are: title, artist, album, number of plays,
+rating (0-100) and length in milliseconds.
+
+Our data model is shown in Figure \ref{figtaa} and described in SQL as follows:
+
+~~~~ {.sql}
+DROP TABLE IF EXISTS Artist;
+DROP TABLE IF EXISTS Album;
+DROP TABLE IF EXISTS Track;
+
+CREATE TABLE Artist (
+    id INTEGER PRIMARY KEY,
+    name TEXT UNIQUE
+);
+
+CREATE TABLE Album (
+    id INTEGER PRIMARY KEY,
+    artist_id  INTEGER,
+    title TEXT UNIQUE
+);
+
+CREATE TABLE Track (
+    id INTEGER PRIMARY KEY,
+    title TEXT UNIQUE,
+    album_id INTEGER,
+    len INTEGER, rating INTEGER, count INTEGER
+);
+~~~~
+
+We are adding the `UNIQUE` keyword to `TEXT` columns that we would like
+to have a uniqueness constraint that we will use in `INSERT IGNORE` statements.
+This is more succinct than separate `CREATE INDEX` statements but has the
+same effect.
+
+With these tables in place, we write the following code `tracks_csv.py`
+to parse the data and insert it into the tables:
+
+~~~~ {.python}
+import sqlite3
+
+conn = sqlite3.connect('trackdb.sqlite')
+cur = conn.cursor()
+
+handle = open('tracks.csv')
+
+for line in handle:
+    line = line.strip();
+    pieces = line.split(',')
+    if len(pieces) != 6 : continue
+
+    name = pieces[0]
+    artist = pieces[1]
+    album = pieces[2]
+    count = pieces[3]
+    rating = pieces[4]
+    length = pieces[5]
+
+    print(name, artist, album, count, rating, length)
+
+    cur.execute('''INSERT OR IGNORE INTO Artist (name)
+        VALUES ( ? )''', ( artist, ) )
+    cur.execute('SELECT id FROM Artist WHERE name = ? ', (artist, ))
+    artist_id = cur.fetchone()[0]
+
+    cur.execute('''INSERT OR IGNORE INTO Album (title, artist_id)
+        VALUES ( ?, ? )''', ( album, artist_id ) )
+    cur.execute('SELECT id FROM Album WHERE title = ? ', (album, ))
+    album_id = cur.fetchone()[0]
+
+    cur.execute('''INSERT OR REPLACE INTO Track
+        (title, album_id, len, rating, count)
+        VALUES ( ?, ?, ?, ?, ? )''',
+        ( name, album_id, length, rating, count ) )
+
+    conn.commit()
+~~~~
+
+You can see that we are repeating the pattern of `INSERT OR IGNORE` followed
+by a `SELECT` to get the appropriate `artist_id` and `album_id` for use in later
+`INSERT` statements.  We start from `Artist` because we need `artist_id` to insert
+the `Album` and need the `album_id` to insert the `Track`.
+
+\index{Primary key}
+\index{Foreign key}
+If we look at the `Album` table, we can see that the entries were added and assigned
+a *primary* key as necessary as the data was parsed.  We can also see the *foreign
+key* pointing to a row in the `Artist` table for each `Album` row.
+
+~~~~
+sqlite> .mode column
+sqlite> SELECT * FROM Album LIMIT 5;
+id  artist_id  title 
+--  ---------  -----------------
+1   1          Greatest Hits    
+2   2          Herzeleid        
+3   3          Grease           
+4   4          IV               
+5   5          The Wall [Disc 2]
+~~~~
+
+\index{SQL!JOIN}
+\index{SQL!ON}
+We can reconstruct all of the `Track` data, following all the relations using
+`JOIN / ON` clauses.   You can see both ends of each of the (2) relational connections
+in each row in the output below:
+
+~~~~
+sqlite> .mode line
+sqlite> SELECT * FROM Track
+   ...> JOIN Album ON Track.album_id = Album.id
+   ...> JOIN Artist ON Album.artist_id = Artist.id
+   ...> LIMIT 2;
+       id = 1
+    title = Another One Bites The Dust
+ album_id = 1
+      len = 217103
+   rating = 100
+    count = 55
+       id = 1
+artist_id = 1
+    title = Greatest Hits
+       id = 1
+     name = Queen
+
+       id = 2
+    title = Asche Zu Asche
+ album_id = 2
+      len = 231810
+   rating = 100
+    count = 79
+       id = 2
+artist_id = 2
+    title = Herzeleid
+       id = 2
+     name = Rammstein
+~~~~
+
+This example shows three tables and two *one-to-many* relationships between the tables.
+It also shows how to use indexes and uniqueness constraints to programmatically
+construct the tables and their relationships.
+
+<https://en.wikipedia.org/wiki/One-to-many_(data_model)>
+
+Up next we will look at the many-to-many relationships in data models.
+
+Many to many relationships in databases
+---------------------------------------
+
+\index{Data model}
+\index{Many to many relationship}
+\index{Crow's foot diagram}
+Some data relationships cannot be modeled by a simple one-to-many relationship.
+For example, lets say we are going to build a data model for a course management
+system.  There will be courses, users, and rosters.   A user can be on the roster
+for many courses and a course will have many users on its roster.
+
+It is pretty simple to *draw* a many-to-many relationship as shown in Figure \ref{figm2m}.
+We simply draw two tables and connect them with a line that has the "many" indicator on both
+ends of the lines.  The problem is how to *implement* the relationship using primary keys and
+foreign keys.
+
+Before we explore how we implement many-to-many relationships, let's see if we could hack
+something up by extending a one-to many relationship.
+
+![A Many to Many Relationship\label{figm2m}](height=1.5in@../../../images/many-to-many)
+
+If SQL supported the notion of arrays, we might try to define this:
+
+~~~~ {.sql}
+CREATE TABLE Course (
+    id     INTEGER PRIMARY KEY,
+    title  TEXT UNIQUE
+    student_ids ARRAY OF INTEGER;
+);
+~~~~
+
+Sadly, while this is a tempting idea, SQL does not support arrays.^[Some SQL dialects
+support arrays but arrays do not scale well. NoSQL databases use arrays and
+data replication but at a cost of database integrity. NoSQL is a story for another course
+https://www.pg4e.com/ ]
+
+Or we could just make long string and concatenate all the `User`
+primary keys into a long string separated by commas.
+
+~~~~ {.sql}
+CREATE TABLE Course (
+    id     INTEGER PRIMARY KEY,
+    title  TEXT UNIQUE
+    student_ids ARRAY OF INTEGER;
+);
+
+INSERT INTO Course (title, student_ids)
+VALUES( 'si311', '1,3,4,5,6,9,14');
+~~~~
+
+This would be very inefficient because as the course roster grows in size
+and the number of courses increases it becomes quite expensive to figure out
+which courses have student 14 on their roster.
+
+![A Many to Many Connector Table\label{figm2mvrb}](height=1.5in@../../../images/many-to-many-verbose)
+
+\index{Through table}
+\index{Junction table}
+\index{Connector table}
+\index{Join table}
+Instead of either of these approaches, we model a many-to-many relationship
+using an additional table that we call a "junction table", "through table",
+"connector table", or "join table" as shown in Figure \ref{figm2mvrb}.  The purpose of this table is to
+capture the *connection* between *a* course and *a* student.
+
+In a sense the table sits between the
+`Course` and `User` table and has a one-to-many relationship to both tables.
+By using an intermediate table we break a many-to-many relationship into
+two one-to-many relationships.  Databases are very good at modeling and processing
+one-to-many relationships.
+
+An example `Member` table would be as follows:
+
+~~~~ {.sql}
+CREATE TABLE User (
+    id     INTEGER PRIMARY KEY,
+    name   TEXT UNIQUE
+);
+
+CREATE TABLE Course (
+    id     INTEGER PRIMARY KEY,
+    title  TEXT UNIQUE
+);
+
+CREATE TABLE Member (
+    user_id     INTEGER,
+    course_id   INTEGER,
+    PRIMARY KEY (user_id, course_id)
+);
+~~~~
+
+Following our naming convention, `Member.user_id` and `Member.course_id` are foreign
+keys pointing at the corresponding rows in the `User` and `Course` tables.  Each entry
+in the member table links a row in the `User` table to a row in the `Course` table by
+going *through* the `Member` table.
+
+\index{SQL!Constraint}
+We indicate that the *combination* of `course_id` and `user_id` is the `PRIMARY KEY`
+for the `Member` table, also creating an uniqueness constraint for a `course_id` / `user_id`
+combination.
+
+Now lets say we need to insert a number of students into the rosters of a number of courses.
+Lets assume the data comes to us in a JSON-formatted file with records like this:
+
+~~~~
+[
+  [ "Charley", "si110"],
+  [ "Mea", "si110"],
+  [ "Hattie", "si110"],
+  [ "Keziah", "si110"],
+  [ "Rosa", "si106"],
+  [ "Mea", "si106"],
+  [ "Mairin", "si106"],
+  [ "Zendel", "si106"],
+  [ "Honie", "si106"],
+  [ "Rosa", "si106"],
+...
+]
+~~~~
+
+\index{JSON!parse}
+We could write code as follows to read the JSON file and insert the members of each
+course roster into the database using the following code:
+
+~~~~ {.python}
+import json
+import sqlite3
+
+conn = sqlite3.connect('rosterdb.sqlite')
+cur = conn.cursor()
+
+str_data = open('roster_data_sample.json').read()
+json_data = json.loads(str_data)
+
+for entry in json_data:
+
+    name = entry[0]
+    title = entry[1]
+
+    print((name, title))
+
+    cur.execute('''INSERT OR IGNORE INTO User (name)
+        VALUES ( ? )''', ( name, ) )
+    cur.execute('SELECT id FROM User WHERE name = ? ', (name, ))
+    user_id = cur.fetchone()[0]
+
+    cur.execute('''INSERT OR IGNORE INTO Course (title)
+        VALUES ( ? )''', ( title, ) )
+    cur.execute('SELECT id FROM Course WHERE title = ? ', (title, ))
+    course_id = cur.fetchone()[0]
+
+    cur.execute('''INSERT OR REPLACE INTO Member
+        (user_id, course_id) VALUES ( ?, ? )''',
+        ( user_id, course_id ) )
+
+    conn.commit()
+~~~~
+
+Like in a previous example, we first make sure that we have an entry
+in the `User` table and know the primary key of the entry as well as
+an entry in the `Course` table and know its primary key.  We use the
+'INSERT OR IGNORE' and 'SELECT' pattern so our code works regardless
+of whether the record is in the table or not.
+
+Our insert into the `Member` table is simply inserting the two integers
+as a new or existing row depending on the constraint to make sure we do not
+end up with duplicate entries in the `Member` table for a particular `user_id` /
+`course_id` combination.
+
+\index{SQL!JOIN}
+To reconstruct our data across all three tables, we again use `JOIN` / `ON` to
+construct a `SELECT` query;
+
+~~~~
+sqlite> SELECT * FROM Course
+   ...> JOIN Member ON Course.id = Member.course_id
+   ...> JOIN User ON Member.user_id = User.id;
++----+-------+---------+-----------+----+---------+
+| id | title | user_id | course_id | id |  name   |
++----+-------+---------+-----------+----+---------+
+| 1  | si110 | 1       | 1         | 1  | Charley |
+| 1  | si110 | 2       | 1         | 2  | Mea     |
+| 1  | si110 | 3       | 1         | 3  | Hattie  |
+| 1  | si110 | 4       | 1         | 4  | Lyena   |
+| 1  | si110 | 5       | 1         | 5  | Keziah  |
+| 1  | si110 | 6       | 1         | 6  | Ellyce  |
+| 1  | si110 | 7       | 1         | 7  | Thalia  |
+| 1  | si110 | 8       | 1         | 8  | Meabh   |
+| 2  | si106 | 2       | 2         | 2  | Mea     |
+| 2  | si106 | 10      | 2         | 10 | Mairin  |
+| 2  | si106 | 11      | 2         | 11 | Zendel  |
+| 2  | si106 | 12      | 2         | 12 | Honie   |
+| 2  | si106 | 9       | 2         | 9  | Rosa    |
++----+-------+---------+-----------+----+---------+
+sqlite>
+~~~~
+
+You can see the three tables from left to right - `Course`, `Member`,
+and `User` and you can see the connections between the primary keys and
+foreign keys in each row of output.
+
+Modeling data at the many-to-many connection
+--------------------------------------------
+
+While we have presented the "join table" as having two foreign keys making a connection
+between rows in two tables, this is the simplest form of a join table.  It is quite
+common to want to add some data to the connection itself.
+
+Continuing with our example of users, courses, and rosters to model a
+simple learning management system, we will also need to understand the *role*
+that each user is assigned in each course.
+
+If we first try to solve this by adding an "instructor" flag to the `User` table,
+we will find that this does not work because a user can be a instructor in one
+course and a student in another course.  If we add an `instructor_id` to
+the `Course` table it will not work because a course can have multiple
+instructors.  And there is no one-to-many hack that can deal with the fact that
+the number of roles will expand into roles like Teaching Assistant or Parent.
+
+But if we simply add a `role` column to the `Member` table - we can represent
+a wide range of roles, role combinations, etc.
+
+Lets change our member table as follows:
+
+~~~~ {.sql}
+DROP TABLE Member;
+
+CREATE TABLE Member (
+    user_id     INTEGER,
+    course_id   INTEGER,
+    role        INTEGER,
+    PRIMARY KEY (user_id, course_id)
+);
+~~~~
+
+Para sa simplicity, magde-decide tayo na zero sa role ay nangangahulugang "student" at isa sa
+`role` ay nangangahulugang instructor. Ipagpalagay natin na ang JSON data natin ay na-augment ng role tulad ng
+sumusunod:
+
+~~~~
+[
+  [ "Charley", "si110", 1],
+  [ "Mea", "si110", 0],
+  [ "Hattie", "si110", 0],
+  [ "Keziah", "si110", 0],
+  [ "Rosa", "si106", 0],
+  [ "Mea", "si106", 1],
+  [ "Mairin", "si106", 0],
+  [ "Zendel", "si106", 0],
+  [ "Honie", "si106", 0],
+  [ "Rosa", "si106", 0],
+...
+]
+~~~~
+
+Maaari nating baguhin ang program na `roster.py` sa itaas para isama ang role tulad ng sumusunod:
+
+~~~~ {.python}
+for entry in json_data:
+
+    name = entry[0]
+    title = entry[1]
+    role = entry[2]
+
+    ...
+
+    cur.execute('''INSERT OR REPLACE INTO Member
+        (user_id, course_id, role) VALUES ( ?, ?, ? )''',
+        ( user_id, course_id, role ) )
+~~~~
+
+Sa tunay na system, malamang gagawa tayo ng `Role` table at gawin
+ang `role` column sa `Member` na foreign key sa Role table
+tulad ng sumusunod:
+
+~~~~ {.sql}
+DROP TABLE Member;
+
+CREATE TABLE Member (
+    user_id     INTEGER,
+    course_id   INTEGER,
+    role_id     INTEGER,
+    PRIMARY KEY (user_id, course_id, role_id)
+);
+
+CREATE TABLE Role (
+    id          INTEGER PRIMARY KEY,
+    name        TEXT UNIQUE
+);
+
+INSERT INTO Role (id, name) VALUES (0, 'Student');
+INSERT INTO Role (id, name) VALUES (1, 'Instructor');
+~~~~
+
+Notice that because we declared the `id` column in the `Role` table
+as a `PRIMARY KEY`, we *could* omit it in the `INSERT` statement.
+But we can also choose the `id` value as long as the value is not
+already in the `id` column and does not violate the implied `UNIQUE`
+constaint on primary keys.
+
+Summary
+-------
+
+This chapter has covered a lot of ground to give you an overview of the
+basics of using a database in Python. It is more complicated to write
+the code to use a database to store data than Python dictionaries or
+flat files so there is little reason to use a database unless your
+application truly needs the capabilities of a database. The situations
+where a database can be quite useful are: (1) when your application
+needs to make many small random updates within a large data set, (2)
+when your data is so large it cannot fit in a dictionary and you need to
+look up information repeatedly, or (3) when you have a long-running
+process that you want to be able to stop and restart and retain the data
+from one run to the next.
+
+You can build a simple database with a single table to suit many
+application needs, but most problems will require several tables and
+links/relationships between rows in different tables. When you start
+making links between tables, it is important to do some thoughtful
+design and follow the rules of database normalization to make the best
+use of the database's capabilities. Since the primary motivation for
+using a database is that you have a large amount of data to deal with,
+it is important to model your data efficiently so your programs run as
+fast as possible.
+
+Debugging
+---------
+
+Ang isang karaniwang pattern kapag gumagawa ka ng Python program para kumonekta
+sa SQLite database ay patakbuhin ang Python program at suriin ang
+results gamit ang Database Browser for SQLite. Ang browser ay nagpapahintulot sa iyo na
+mabilis na suriin kung gumagana nang maayos ang program mo.
+
+Dapat kang maging maingat dahil ang SQLite ay nag-aalaga para pigilan ang dalawang programs na
+baguhin ang parehong data nang sabay. Halimbawa, kung bubuksan mo ang
+database sa browser at gumawa ng pagbabago sa database at hindi pa
+na-press ang "save" button sa browser, ang browser ay "naglo-lock" ng
+database file at pumipigil sa anumang iba pang program na ma-access ang file. Sa
+partikular, ang Python program mo ay hindi makaka-access sa file kung
+naka-lock ito.
+
+Kaya ang solusyon ay siguraduhing isara ang database browser o
+gamitin ang *File* menu para isara ang database sa browser
+bago subukang ma-access ang database mula sa Python para maiwasan ang
+problema ng Python code mo na mabigo dahil naka-lock ang database.
+
+Glossary
+--------
+
+attribute
+:   Isa sa mga values sa loob ng tuple. Mas karaniwang tinatawag na "column" o
+    "field".
+\index{attribute}
+
+constraint
+:   Kapag sinasabi natin sa database na ipatupad ang rule sa field o row sa
+    table. Ang karaniwang constraint ay pagpilit na hindi maaaring magkaroon ng
+    duplicate values sa partikular na field (i.e., lahat ng values ay dapat
+    unique).
+\index{constraint}
+
+cursor
+:   Ang cursor ay nagpapahintulot sa iyo na mag-execute ng SQL commands sa database at
+    kumuha ng data mula sa database. Ang cursor ay katulad ng socket o
+    file handle para sa network connections at files, ayon sa pagkakabanggit.
+\index{cursor}
+
+database browser
+:   Piraso ng software na nagpapahintulot sa iyo na direktang kumonekta sa
+    database at manipulahin ang database nang direkta nang hindi sumusulat ng
+    program.
+\index{database browser}
+
+foreign key
+:   Numeric key na tumuturo sa primary key ng row sa iba pang
+    table. Ang foreign keys ay nagtatatag ng relationships sa pagitan ng rows na naka-store sa
+    iba't ibang tables.
+\index{foreign key}
+
+index
+:   Karagdagang data na nagma-maintain ang database software bilang rows at
+    nag-i-insert sa table para gawing napakabilis ang lookups.
+\index{index}
+\index{}
+
+logical key
+:   Key na ginagamit ng "outside world" para maghanap ng partikular na row. Para sa
+    halimbawa sa table ng user accounts, ang email address ng tao ay maaaring
+    maging magandang kandidato bilang logical key para sa data ng user.
+\index{logical key}
+
+normalization
+:   Pagde-design ng data model para walang data na na-replicate. Nag-i-store tayo ng bawat
+    item ng data sa isang lugar sa database at nagre-reference dito sa ibang lugar
+    gamit ang foreign key.
+\index{normalization}
+\index{database normalization}
+
+primary key
+:   Numeric key na na-a-assign sa bawat row na ginagamit para tumukoy sa isang row
+    sa table mula sa iba pang table. Kadalasan ang database ay naka-configure para
+    awtomatikong mag-assign ng primary keys habang na-i-insert ang rows.
+\index{primary key}
+
+relation
+:   Area sa loob ng database na naglalaman ng tuples at attributes. Mas
+    karaniwang tinatawag na "table".
+\index{relation}
+
+tuple
+:   Isang entry sa database table na set ng attributes. Mas
+    karaniwang tinatawag na "row".
+
+\index{tuple}
+
+

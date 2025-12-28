@@ -1,0 +1,717 @@
+
+Tuples
+======
+
+Tuples are immutable
+--------------------
+
+\index{tuple}
+\index{type!tuple}
+\index{sequence}
+
+Ang tuple^[Fun fact: Ang salitang "tuple" ay nagmula sa mga pangalan na ibinigay sa sequences
+ng mga numero na may iba't ibang haba: single, double, triple, quadruple,
+quintuple, sextuple, septuple, etc.] ay sequence ng values na katulad ng list. Ang mga values na naka-store
+sa tuple ay maaaring anumang type, at sila ay na-index ng integers. Ang
+importanteng pagkakaiba ay ang tuples ay *immutable*.
+Ang tuples ay *comparable* din at
+*hashable* kaya maaari nating i-sort ang lists ng mga ito at gamitin ang tuples bilang
+key values sa Python dictionaries.
+
+\index{mutability}
+\index{hashable}
+\index{comparable}
+\index{immutability}
+
+Syntactically, ang tuple ay comma-separated list ng values:
+
+~~~~ {.python}
+>>> t = 'a', 'b', 'c', 'd', 'e'
+~~~~
+
+Bagaman hindi ito kailangan, karaniwang i-enclose ang tuples sa
+parentheses para matulungan tayong mabilis na makilala ang tuples kapag tinitingnan natin ang Python
+code:
+
+\index{parentheses!tuples in}
+
+~~~~ {.python}
+>>> t = ('a', 'b', 'c', 'd', 'e')
+~~~~
+
+Para gumawa ng tuple na may isang element, kailangan mong isama ang final
+comma:
+
+\index{singleton}
+\index{tuple!singleton}
+
+~~~~ {.python .trinket}
+>>> t1 = ('a',)
+>>> type(t1)
+<type 'tuple'>
+~~~~
+
+Kung walang comma ang Python ay tinatrato ang `('a')` bilang expression na may string
+sa parentheses na nag-e-evaluate sa string:
+
+~~~~ {.python}
+>>> t2 = ('a')
+>>> type(t2)
+<type 'str'>
+~~~~
+
+Ang isa pang paraan para gumawa ng tuple ay ang built-in function na
+`tuple`. Kung walang argument, gumagawa ito ng empty tuple:
+
+\index{tuple function}
+\index{function!tuple}
+
+~~~~ {.python .trinket}
+>>> t = tuple()
+>>> print(t)
+()
+~~~~
+
+Kung ang argument ay sequence (string, list, o tuple), ang result ng
+pagtawag sa `tuple` ay tuple na may elements ng
+sequence:
+
+~~~~ {.python .trinket}
+>>> t = tuple('lupins')
+>>> print(t)
+('l', 'u', 'p', 'i', 'n', 's')
+~~~~
+
+Dahil ang `tuple` ay pangalan ng constructor, dapat mong
+iwasan ang paggamit nito bilang variable name.
+
+Karamihan ng list operators ay gumagana din sa tuples. Ang bracket operator ay nag-i-index ng
+element:
+
+\index{bracket operator}
+\index{operator!bracket}
+
+~~~~ {.python .trinket}
+>>> t = ('a', 'b', 'c', 'd', 'e')
+>>> print(t[0])
+'a'
+~~~~
+
+At ang slice operator ay pumipili ng range ng elements.
+
+\index{slice operator}
+\index{operator!slice}
+\index{tuple!slice}
+\index{slice!tuple}
+
+~~~~ {.python}
+>>> print(t[1:3])
+('b', 'c')
+~~~~
+
+Pero kung susubukan mong baguhin ang isa sa elements ng tuple, makakakuha ka ng
+error:
+
+\index{exception!TypeError}
+\index{TypeError}
+\index{item assignment}
+\index{assignment!item}
+
+~~~~ {.python}
+>>> t[0] = 'A'
+TypeError: object doesn't support item assignment
+~~~~
+
+Hindi mo maaaring baguhin ang elements ng tuple, pero maaari mong palitan ang isang tuple
+ng iba pa:
+
+~~~~ {.python .trinket}
+>>> t = ('A',) + t[1:]
+>>> print(t)
+('A', 'b', 'c', 'd', 'e')
+~~~~
+
+Comparing tuples
+----------------
+
+\index{comparison!tuple}
+\index{tuple!comparison}
+\index{sort method}
+\index{method!sort}
+
+Ang comparison operators ay gumagana sa tuples at iba pang sequences. Ang Python
+ay nagsisimula sa pag-compare ng unang element mula sa bawat sequence. Kung sila ay
+equal, nagpapatuloy ito sa susunod na element, at iba pa, hanggang makita
+ang elements na magkaiba. Ang mga susunod na elements ay hindi isinasaalang-alang (kahit na
+talagang malaki sila).
+
+~~~~ {.python .trinket}
+>>> (0, 1, 2) < (0, 3, 4)
+True
+>>> (0, 1, 2000000) < (0, 3, 4)
+True
+~~~~
+
+Ang `sort` function ay gumagana sa parehong paraan. Nagso-sort ito primarily sa pamamagitan ng
+unang element, pero sa kaso ng tie, nagso-sort ito sa pamamagitan ng pangalawang element, at
+iba pa.
+
+Ang feature na ito ay nagpapahintulot sa pattern na tinatawag na *DSU* para sa
+
+Decorate
+:   sequence sa pamamagitan ng paggawa ng list ng tuples na may isa o higit pang sort keys
+    na nauuna sa elements mula sa sequence,
+
+Sort
+:   ang list ng tuples gamit ang Python built-in `sort`, at
+
+Undecorate
+:   sa pamamagitan ng pagkuha ng sorted elements ng sequence.
+
+\index{DSU pattern}
+\index{pattern!DSU}
+\index{decorate-sort-undecorate pattern}
+\index{pattern!decorate-sort-undecorate}
+\index{Romeo and Juliet}
+
+Halimbawa, ipagpalagay na mayroon kang list ng mga salita at gusto mong i-sort ang mga ito
+mula pinakamahaba hanggang pinakamaikli:
+
+\VerbatimInput{../code3/soft.py} 
+
+Ang unang loop ay gumagawa ng list ng tuples, kung saan ang bawat tuple ay salita
+na nauunahan ng haba nito.
+
+Ang `sort` ay nagko-compare ng unang element, haba, muna, at
+isinasaalang-alang lang ang pangalawang element para masira ang ties. Ang keyword argument na
+`reverse=True` ay nagsasabi sa `sort` na pumunta sa decreasing
+order.
+
+\index{keyword argument}
+\index{argument!keyword}
+\index{traversal}
+
+Ang pangalawang loop ay dumadaan sa list ng tuples at gumagawa ng list ng mga salita
+sa descending order ng haba. Ang apat-na-character na salita ay na-sort sa
+*reverse* alphabetical order, kaya ang "what" ay lumalabas bago
+ang "soft" sa sumusunod na list.
+
+Ang output ng program ay ganito:
+
+~~~~
+['yonder', 'window', 'breaks', 'light', 'what',
+'soft', 'but', 'in']
+~~~~
+
+Siyempre ang linya ay nawawalan ng maraming poetic impact kapag naging
+Python list at na-sort sa descending word length order.
+
+Tuple assignment
+----------------
+
+\index{tuple!assignment}
+\index{assignment!tuple}
+\index{swap pattern}
+\index{pattern!swap}
+
+Isa sa mga natatanging syntactic features ng Python language ay ang 
+kakayahang magkaroon ng tuple sa kaliwang bahagi at sequence sa kanang bahagi ng assignment statement. 
+Ito ay nagpapahintulot sa iyo na mag-assign ng higit sa isang variable sa isang pagkakataon sa ibinigay na sequence.
+
+Sa halimbawang ito mayroon tayong two-element tuple at
+nag-a-assign ng una at pangalawang elements ng tuple sa variables na
+`x` at `y` sa isang statement.
+
+~~~~ {.python .trinket}
+>>> m = ( 'have', 'fun' )
+>>> x, y = m
+>>> x
+'have'
+>>> y
+'fun'
+>>>
+~~~~
+
+Ito ay mas pangkalahatan kaysa sa tuple-to-tuple assignment. Parehong tuples at lists
+ay sequences, kaya ang syntax na ito ay gumagana din sa two element list.
+
+~~~~ {.python .trinket}
+>>> m = [ 'have', 'fun' ]
+>>> x, y = m
+>>> x
+'have'
+>>> y
+'fun'
+>>>
+~~~~
+
+Hindi ito magic, ang Python ay *roughly* nagta-translate ng tuple assignment syntax
+na maging sumusunod:^[Ang Python ay hindi literal na nagta-translate ng syntax. Halimbawa, kung
+susubukan mo ito sa dictionary, hindi ito gagana tulad ng inaasahan mo.]
+
+~~~~ {.python .trinket}
+>>> m = ( 'have', 'fun' )
+>>> x = m[0]
+>>> y = m[1]
+>>> x
+'have'
+>>> y
+'fun'
+>>>
+~~~~
+
+Stylistically kapag gumagamit tayo ng tuple sa kaliwang bahagi ng assignment
+statement, tinatanggal natin ang parentheses, pero ang sumusunod ay pantay na
+valid syntax:
+
+~~~~ {.python}
+>>> m = ( 'have', 'fun' )
+>>> (x, y) = m
+>>> x
+'have'
+>>> y
+'fun'
+>>>
+~~~~
+
+Ang partikular na matalinong application ng tuple assignment ay nagpapahintulot sa atin na
+*swap* ang values ng dalawang variables sa isang statement:
+
+~~~~ {.python}
+>>> a, b = b, a
+~~~~
+
+Ang parehong bahagi ng statement na ito ay tuples, pero ang kaliwang bahagi ay tuple ng
+variables; ang kanang bahagi ay tuple ng expressions. Ang bawat value sa
+kanang bahagi ay na-a-assign sa kani-kaniyang variable sa kaliwang bahagi. Lahat ng
+expressions sa kanang bahagi ay na-e-evaluate bago ang alinman sa
+assignments.
+
+Ang bilang ng variables sa kaliwa at ang bilang ng values sa
+kanan ay dapat pareho:
+
+\index{exception!ValueError}
+\index{ValueError}
+
+~~~~ {.python}
+>>> a, b = 1, 2, 3
+ValueError: too many values to unpack
+~~~~
+
+Mas pangkalahatan, ang kanang bahagi ay maaaring anumang uri ng sequence (string,
+list, o tuple). Halimbawa, para hatiin ang email address sa user name
+at domain, maaari mong isulat:
+
+\index{split method}
+\index{method!split}
+\index{email address}
+
+~~~~ {.python}
+>>> addr = 'monty@python.org'
+>>> uname, domain = addr.split('@')
+~~~~
+
+Ang return value mula sa `split` ay list na may dalawang elements;
+ang unang element ay na-a-assign sa `uname`, ang pangalawa sa
+`domain`.
+
+~~~~ {.python}
+>>> print(uname)
+monty
+>>> print(domain)
+python.org
+~~~~
+
+Dictionaries and tuples
+-----------------------
+
+\index{dictionary}
+\index{items method}
+\index{method!items}
+\index{key-value pair}
+
+Ang dictionaries ay may method na tinatawag na `items` na nagre-return ng list
+ng tuples, kung saan ang bawat tuple ay key-value pair:
+
+~~~~ {.python .trinket}
+>>> d = {'b':1, 'a':10, 'c':22}
+>>> t = list(d.items())
+>>> print(t)
+[('b', 1), ('a', 10), ('c', 22)]
+~~~~
+
+Tulad ng dapat mong asahan mula sa dictionary, ang items ay nasa non-alphabetical
+order.
+
+Gayunpaman, dahil ang list ng tuples ay list, at ang tuples ay comparable,
+maaari na nating i-sort ang list ng tuples. Ang pagko-convert ng dictionary sa list ng
+tuples ay paraan para sa atin na i-output ang contents ng dictionary na na-sort ayon sa
+key:
+
+~~~~ {.python}
+>>> d = {'b':1, 'a':10, 'c':22}
+>>> t = list(d.items())
+>>> t
+[('b', 1), ('a', 10), ('c', 22)]
+>>> t.sort()
+>>> t
+[('a', 10), ('b', 1), ('c', 22)]
+~~~~
+
+Ang bagong list ay na-sort sa ascending alphabetical order ayon sa key value.
+
+Multiple assignment with dictionaries
+-------------------------------------
+
+\index{traverse!dictionary}
+\index{dictionary!traversal}
+
+Sa pagsasama ng `items`, tuple assignment, at `for`,
+makikita mo ang magandang code pattern para dumaan sa keys at values ng
+dictionary sa isang loop:
+
+~~~~ {.python}
+d = {'a':10, 'b':1, 'c':22}
+for key, val in d.items():
+    print(val, key)
+~~~~
+
+Ang loop na ito ay may dalawang *iteration variables* dahil
+ang `items` ay nagre-return ng list ng tuples at ang `key, val` ay
+tuple assignment na sunud-sunod na nag-i-iterate sa bawat isa sa
+key-value pairs sa dictionary.
+
+Para sa bawat iteration sa loop, parehong `key` at
+`val` ay umaabante sa susunod na key-value pair sa
+dictionary (nasa hash order pa rin).
+
+Ang output ng loop na ito ay:
+
+~~~~
+10 a
+1 b
+22 c
+~~~~
+
+Muli, nasa hash key order ito (i.e., walang partikular na order).
+
+Kung pagsasamahin natin ang dalawang techniques na ito, maaari nating i-print ang contents ng
+dictionary na na-sort ayon sa *value* na naka-store sa bawat key-value pair.
+
+Para gawin ito, una tayong gumagawa ng list ng tuples kung saan ang bawat tuple ay
+`(value, key)`. Ang `items` method ay magbibigay sa atin ng
+list ng `(key, value)` tuples, pero sa pagkakataong ito gusto nating mag-sort
+ayon sa value, hindi key. Kapag nagawa na natin ang list na may value-key
+tuples, simpleng bagay lang na i-sort ang list sa reverse order at
+i-print ang bagong, sorted list.
+
+~~~~ {.python}
+>>> d = {'a':10, 'b':1, 'c':22}
+>>> l = list()
+>>> for key, val in d.items() :
+...     l.append( (val, key) )
+...
+>>> l
+[(10, 'a'), (1, 'b'), (22, 'c')]
+>>> l.sort(reverse=True)
+>>> l
+[(22, 'c'), (10, 'a'), (1, 'b')]
+>>>
+~~~~
+
+Sa maingat na paggawa ng list ng tuples para magkaroon ng value bilang
+unang element ng bawat tuple, maaari nating i-sort ang list ng tuples at makuha ang
+dictionary contents natin na na-sort ayon sa value.
+
+The most common words
+---------------------
+
+\index{Romeo and Juliet}
+
+Bumabalik sa running example natin ng text mula sa *Romeo and Juliet*
+Act 2, Scene 2, maaari nating dagdagan ang program natin para gamitin ang technique na ito para
+i-print ang sampung pinakakaraniwang salita sa text tulad ng sumusunod:
+
+\VerbatimInput{../code3/count3.py} 
+\begin{trinketfiles}
+../code3/romeo-full.txt
+\end{trinketfiles}
+
+Ang unang parte ng program na nagbabasa ng file at nagko-compute ng
+dictionary na nagma-map ng bawat salita sa bilang ng salita sa dokumento ay
+hindi nagbago. Pero sa halip na simpleng mag-print ng `counts` at
+tapusin ang program, gumagawa tayo ng list ng `(val, key)`
+tuples at pagkatapos i-sort ang list sa reverse order.
+
+Dahil ang value ay una, ito ay gagamitin para sa comparisons. Kung mayroong
+higit sa isang tuple na may parehong value, titingnan nito ang pangalawang
+element (ang key), kaya ang tuples kung saan ang value ay pareho ay mas
+na-sort ayon sa alphabetical order ng key.
+
+Sa dulo sumusulat tayo ng magandang `for` loop na gumagawa ng multiple
+assignment iteration at nagpi-print ng sampung pinakakaraniwang salita sa pamamagitan ng
+pag-i-iterate sa slice ng list (`lst[:10]`).
+
+Kaya ngayon ang output ay mukhang gusto natin para sa word frequency
+analysis natin.
+
+~~~~
+61 i
+42 and
+40 romeo
+34 to
+34 the
+32 thou
+32 juliet
+30 that
+29 my
+24 thee
+~~~~
+
+Ang katotohanan na ang complex data parsing at analysis na ito ay maaaring gawin gamit ang
+madaling maintindihang 19-line Python program ay isa sa mga dahilan kung bakit ang Python ay
+magandang pagpipilian bilang language para mag-explore ng information.
+
+Using tuples as keys in dictionaries
+------------------------------------
+
+\index{tuple!as key in dictionary}
+\index{hashable}
+
+Dahil ang tuples ay *hashable* at ang lists ay hindi, kung gusto nating
+gumawa ng *composite* key para gamitin sa dictionary
+kailangan nating gumamit ng tuple bilang key.
+
+Makakatagpo tayo ng composite key kung gusto nating gumawa ng telephone
+directory na nagma-map mula sa last-name, first-name pairs patungo sa telephone
+numbers. Ipagpalagay na tinukoy na natin ang variables na `last`,
+`first`, at `number`, maaari tayong sumulat ng dictionary
+assignment statement tulad ng sumusunod:
+
+~~~~ {.python}
+directory[last,first] = number
+~~~~
+
+Ang expression sa brackets ay tuple. Maaari nating gamitin ang tuple assignment sa
+`for` loop para dumaan sa dictionary na ito.
+
+\index{tuple!in brackets}
+
+~~~~ {.python}
+for last, first in directory:
+    print(first, last, directory[last,first])
+~~~~
+
+Ang loop na ito ay dumadaan sa keys sa `directory`, na
+tuples. Nag-a-assign ito ng elements ng bawat tuple sa `last` at
+`first`, pagkatapos nagpi-print ng pangalan at katumbas na telephone
+number.
+
+Sequences: strings, lists, and tuples - Oh My!
+--------------------------------------------
+
+\index{sequence}
+
+Nakatuon ako sa lists ng tuples, pero halos lahat ng halimbawa sa
+chapter na ito ay gumagana din sa lists ng lists, tuples ng tuples, at tuples
+ng lists. Para maiwasan ang pag-enumerate ng posibleng combinations, minsan
+mas madaling pag-usapan ang sequences ng sequences.
+
+Sa maraming konteksto, ang iba't ibang uri ng sequences (strings, lists, at
+tuples) ay maaaring gamitin nang magkakapalit. Kaya paano at bakit pipiliin mo ang isa
+kaysa sa iba?
+
+\index{string}
+\index{list}
+\index{tuple}
+\index{mutability}
+\index{immutability}
+
+Para magsimula sa halata, ang strings ay mas limitado kaysa sa iba pang sequences
+dahil ang elements ay dapat characters. Immutable din sila. Kung
+kailangan mo ng kakayahang baguhin ang characters sa string (sa halip na
+gumawa ng bagong string), maaaring gusto mong gumamit ng list ng characters
+sa halip.
+
+Ang lists ay mas karaniwan kaysa sa tuples, karamihan dahil mutable sila. Pero
+may ilang kaso kung saan maaaring mas gusto mo ang tuples:
+
+1.  Sa ilang konteksto, tulad ng `return` statement, ito ay
+    syntactically mas simple na gumawa ng tuple kaysa sa list. Sa iba pang
+    konteksto, maaaring mas gusto mo ang list.
+
+2.  Kung gusto mong gamitin ang sequence bilang dictionary key, kailangan mong gamitin
+    ang immutable type tulad ng tuple o string.
+
+3.  Kung nagpapasa ka ng sequence bilang argument sa function, ang paggamit ng
+    tuples ay binabawasan ang posibilidad ng hindi inaasahang behavior dahil sa
+    aliasing.
+
+Dahil ang tuples ay immutable, hindi sila nagbibigay ng methods tulad ng
+`sort` at `reverse`, na nagmo-modify ng existing lists.
+Gayunpaman ang Python ay nagbibigay ng built-in functions na `sorted` at
+`reversed`, na tumatanggap ng anumang sequence bilang parameter at nagre-return ng
+bagong sequence na may parehong elements sa ibang order.
+
+\index{sorted function}
+\index{function!sorted}
+\index{reversed function}
+\index{function!reversed}
+
+List comprehension
+------------------
+
+Minsan gusto mong gumawa ng sequence sa pamamagitan ng paggamit ng data mula sa iba pang sequence.
+Maaari mong makamit ito sa pamamagitan ng pagsusulat ng for loop at pag-a-append ng isang item sa isang pagkakataon.
+Halimbawa, kung gusto mong i-convert ang list ng strings -- bawat string na nag-i-store ng digits
+-- sa mga numero na maaari mong i-sum, susulat ka ng:
+
+~~~~ {.python}
+list_of_ints_in_strings = ['42', '65', '12']
+list_of_ints = []
+for x in list_of_ints_in_strings:
+    list_of_ints.append(int(x))
+
+print(sum(list_of_ints))
+~~~~
+
+Gamit ang list comprehension, ang code sa itaas ay maaaring isulat sa mas compact na paraan:
+
+~~~~ {.python}
+list_of_ints_in_strings = ['42', '65', '12']
+list_of_ints = [ int(x) for x in list_of_ints_in_strings ]
+print(sum(list_of_ints))
+~~~~
+
+\index{list comprehension}
+
+Debugging
+---------
+
+\index{debugging}
+\index{data structure}
+\index{shape error}
+\index{error!shape}
+
+Ang lists, dictionaries at tuples ay kilala sa pangkalahatan bilang *data
+structures*; sa chapter na ito nagsisimula tayong makakita ng compound
+data structures, tulad ng lists ng tuples, at dictionaries na naglalaman ng
+tuples bilang keys at lists bilang values. Ang compound data structures ay kapaki-pakinabang,
+pero madali silang magkaroon ng tinatawag kong *shape errors*; iyon ay,
+errors na sanhi kapag ang data structure ay may maling type, size, o
+composition, o maaaring sumusulat ka ng code at nakakalimutan ang shape ng iyong
+data at nagdudulot ng error. Halimbawa, kung umaasahan ka ng list na may isang integer at binigyan kita ng plain old integer (hindi sa list), hindi ito gagana.
+
+Glossary
+--------
+
+comparable
+:   Type kung saan ang isang value ay maaaring suriin para makita kung mas malaki,
+    mas maliit, o katumbas ng iba pang value ng parehong type. Ang mga types na
+    comparable ay maaaring ilagay sa list at i-sort.
+\index{comparable}
+
+data structure
+:   Koleksyon ng related values, kadalasang inoorganisa sa lists,
+    dictionaries, tuples, etc.
+\index{data structure}
+
+DSU
+:   Abbreviation ng "decorate-sort-undecorate", pattern na nagsasangkot ng
+    paggawa ng list ng tuples, pagso-sort, at pagkuha ng parte ng
+    result.
+\index{DSU pattern}
+
+gather
+:   Ang operation ng pag-assemble ng variable-length argument tuple.
+\index{gather}
+
+hashable
+:   Type na may hash function. Ang immutable types tulad ng integers,
+    floats, at strings ay hashable; ang mutable types tulad ng lists at
+    dictionaries ay hindi.
+\index{hashable}
+
+scatter
+:   Ang operation ng pagtrato sa sequence bilang list ng arguments.
+\index{scatter}
+
+shape (of a data structure)
+:   Buod ng type, size, at composition ng data structure.
+\index{shape}
+
+singleton
+:   List (o iba pang sequence) na may isang element.
+\index{singleton}
+
+tuple
+:   Immutable sequence ng elements.
+\index{tuple}
+
+tuple assignment
+:   Assignment na may sequence sa kanang bahagi at tuple ng
+    variables sa kaliwang bahagi. Ang kanang bahagi ay na-e-evaluate at pagkatapos ang
+    elements nito ay na-a-assign sa variables sa kaliwa.
+\index{tuple assignment}
+\index{assignment!tuple}
+
+Exercises
+---------
+
+**Exercise 1:** Rebisahin ang naunang program tulad ng sumusunod: Basahin at i-parse ang
+"From " lines at kunin ang addresses mula sa linya. Bilangin ang bilang
+ng messages mula sa bawat tao gamit ang dictionary.
+
+Pagkatapos mabasa ang lahat ng data, mag-print ng tao na may pinakamaraming commits
+sa pamamagitan ng paggawa ng list ng (count, email) tuples mula sa dictionary. Pagkatapos
+i-sort ang list sa reverse order at mag-print ng tao na may pinakamaraming
+commits.
+
+~~~~
+Sample Line:
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+
+Enter a file name: mbox-short.txt
+cwen@iupui.edu 5
+
+Enter a file name: mbox.txt
+zqian@umich.edu 195
+~~~~
+
+**Exercise 2:** Ang program na ito ay nagbi-bilang ng distribution ng oras ng araw
+para sa bawat isa sa messages. Maaari mong kunin ang oras mula sa "From " line sa pamamagitan ng
+paghahanap ng time string at pagkatapos paghahati ng string na iyon sa mga parte gamit
+ang colon character. Kapag na-accumulate mo na ang counts para sa bawat oras,
+mag-print ng counts, isa bawat linya, na na-sort ayon sa oras tulad ng ipinakita sa ibaba.
+
+~~~~
+python timeofday.py
+Enter a file name: mbox-short.txt
+04 3
+06 1
+07 1
+09 2
+10 3
+11 6
+14 1
+15 2
+16 4
+17 2
+18 1
+19 1
+~~~~
+
+**Exercise 3:** Sumulat ng program na nagbabasa ng file at nagpi-print ng
+*mga letra* sa decreasing order ng frequency.
+
+Ang iyong program
+ay dapat i-convert ang lahat ng input sa lower case at bilangin lang ang mga letra
+a-z. Ang iyong program ay hindi dapat magbilang ng spaces, digits, punctuation, o
+anumang bagay maliban sa mga letra a-z. Maghanap ng text samples mula sa ilang
+iba't ibang languages at tingnan kung paano nag-iiba ang letter frequency sa pagitan ng
+mga languages. I-compare ang iyong results sa tables sa
+<https://wikipedia.org/wiki/Letter_frequencies>.
+
+\index{letter frequency}
+\index{frequency!letter}
+

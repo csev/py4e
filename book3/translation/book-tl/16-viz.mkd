@@ -1,0 +1,535 @@
+Visualizing data
+================
+
+Hanggang ngayon natututo tayo ng Python language at pagkatapos natututo kung paano
+gamitin ang Python, network, at databases para manipulahin ang data.
+
+Sa chapter na ito, titingnan natin ang tatlong kumpletong applications na
+pinagsasama ang lahat ng mga bagay na ito para pamahalaan at i-visualize ang data. Maaari mong
+gamitin ang mga applications na ito bilang sample code para matulungan kang magsimula sa
+pagsolusyon ng real-world problem.
+
+Ang bawat isa sa applications ay ZIP file na maaari mong i-download at i-extract
+sa computer mo at i-execute.
+
+Building a OpenStreetMap from geocoded data
+-------------------------------------------
+
+\index{Google!map}
+\index{OpenStreetMap}
+\index{Visualization!map}
+
+Sa project na ito, gumagamit tayo ng OpenStreetMap geocoding API para linisin ang ilang
+user-entered geographic locations ng university names at pagkatapos ilagay
+ang data sa aktwal na OpenStreetMap.
+
+![An OpenStreetMap](../images/openstreet-map)
+
+Para magsimula, i-download ang application mula sa:
+
+[www.py4e.com/code3/opengeo.zip](http://www.py4e.com/code3/opengeo.zip)
+
+Ang unang problema na solusyonan ay ang mga geocoding APIs na ito ay
+rate-limited sa tiyak na bilang ng requests bawat araw. Kung mayroon kang maraming
+data, maaaring kailangan mong huminto at muling simulan ang lookup process nang ilang
+beses. Kaya hinahati natin ang problema sa dalawang phases.
+
+\index{cache}
+
+Sa unang phase kinukuha natin ang input "survey" data natin sa file
+*where.data* at binabasa ito isang linya sa isang pagkakataon, at kumukuha
+ng geocoded information mula sa Google at nag-i-store nito sa database
+*geodata.sqlite*. Bago gamitin ang geocoding API para sa
+bawat user-entered location, simpleng sinusuri natin kung mayroon na tayong
+data para sa partikular na linya ng input. Ang database ay gumagana
+bilang local "cache" ng geocoding data natin para siguraduhin na hindi tayo kailanman hihingi
+sa Google ng parehong data nang dalawang beses.
+
+Maaari mong muling simulan ang proseso anumang oras sa pamamagitan ng pagtanggal ng file
+*geodata.sqlite*.
+
+Patakbuhin ang *geoload.py* program. Ang program na ito ay magbabasa ng
+input lines sa *where.data* at para sa bawat linya susuriin kung
+nasa database na ito. Kung wala tayong data para sa
+location, tatawagin nito ang geocoding API para kunin ang data at i-store
+ito sa database.
+
+Narito ang sample run pagkatapos mayroon nang ilang data sa database:
+
+~~~~
+Found in database AGH University of Science and Technology
+
+Found in database Academy of Fine Arts Warsaw Poland
+
+Found in database American University in Cairo
+
+Found in database Arizona State University
+
+Found in database Athens Information Technology
+
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=BITS+Pilani
+Retrieved 794 characters {"type":"FeatureColl
+
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=Babcock+University
+Retrieved 760 characters {"type":"FeatureColl
+
+Retrieving https://py4e-data.dr-chuck.net/
+   opengeo?q=Banaras+Hindu+University
+Retrieved 866 characters {"type":"FeatureColl
+...
+~~~~
+
+Ang unang limang locations ay nasa database na at kaya sila ay
+na-skip. Ang program ay nag-scan hanggang sa punto kung saan nakakahanap ito ng bagong locations at
+nagsisimulang kunin ang mga ito.
+
+Ang *geoload.py* program ay maaaring itigil anumang oras, at
+mayroong counter na maaari mong gamitin para limitahan ang bilang ng tawag sa
+geocoding API para sa bawat run. Dahil ang *where.data*
+ay may ilang daang data items lang, hindi ka dapat makakaranas ng daily
+rate limit, pero kung mayroon kang mas maraming data maaaring kailangan ng ilang runs sa loob ng
+ilang araw para magkaroon ang database mo ng lahat ng geocoded data para sa
+input mo.
+
+Kapag mayroon ka nang ilang data na na-load sa *geodata.sqlite*, maaari mong
+i-visualize ang data gamit ang *geodump.py* program.
+Ang program na ito ay nagbabasa ng database at sumusulat ng file
+*where.js* na may location, latitude, at longitude sa
+form ng executable JavaScript code.
+
+Ang run ng *geodump.py* program ay ganito:
+
+~~~~
+AGH University of Science and Technology, Czarnowiejska,
+Czarna Wieś, Krowodrza, Kraków, Lesser Poland
+Voivodeship, 31-126, Poland 50.0657 19.91895
+
+Academy of Fine Arts, Krakowskie Przedmieście,
+Northern Śródmieście, Śródmieście, Warsaw, Masovian
+Voivodeship, 00-046, Poland 52.239 21.0155
+...
+260 lines were written to where.js
+Open the where.html file in a web browser to view the data.
+~~~~
+
+Ang file na *where.html* ay binubuo ng HTML at JavaScript para
+i-visualize ang Google map. Binabasa nito ang pinakabagong data sa
+*where.js* para makuha ang data na i-visualize. Narito ang
+format ng file na *where.js*:
+
+~~~~ {.js}
+myData = [
+[50.0657,19.91895,
+'AGH University of Science and Technology, Czarnowiejska,
+Czarna Wieś, Krowodrza, Kraków, Lesser Poland
+Voivodeship, 31-126, Poland '],
+[52.239,21.0155,
+'Academy of Fine Arts, Krakowskie Przedmieściee,
+Śródmieście Północne, Śródmieście, Warsaw,
+Masovian Voivodeship, 00-046, Poland'],
+   ...
+];
+~~~~
+
+Ito ay JavaScript variable na naglalaman ng list ng lists. Ang syntax
+para sa JavaScript list constants ay napakatulad sa Python, kaya ang syntax
+ay dapat pamilyar sa iyo.
+
+Simpleng buksan ang *where.html* sa browser para makita ang
+locations. Maaari mong i-hover sa bawat map pin para hanapin ang location na
+ibinalik ng geocoding API para sa user-entered input. Kung hindi mo makita ang anumang
+data kapag binubuksan mo ang file na *where.html*, maaaring gusto mong
+suriin ang JavaScript o developer console para sa browser mo.
+
+Visualizing networks and interconnections
+-----------------------------------------
+
+\index{Google!page rank}
+\index{Visualization!networks}
+\index{Visualization!page rank}
+
+Sa application na ito, gagawa tayo ng ilang functions ng search
+engine. Una tayong mag-spider ng maliit na subset ng web at magpatakbo ng
+simplified version ng Google page rank algorithm para matukoy kung alin
+ang pages na pinakamataas ang connectivity, at pagkatapos i-visualize ang page rank at
+connectivity ng maliit na sulok natin ng web. Gagamitin natin ang D3
+JavaScript visualization library <http://d3js.org/> para gumawa ng
+visualization output.
+
+Maaari mong i-download at i-extract ang application na ito mula sa:
+
+[www.py4e.com/code3/pagerank.zip](http://www.py4e.com/code3/pagerank.zip)
+
+![A Page Ranking](height=3.5in@../../../images/pagerank)
+
+Ang unang program (*spider.py*) ay nag-crawl ng web site
+at kumukuha ng serye ng pages sa database
+(*spider.sqlite*), na nagre-record ng links sa pagitan ng pages. Maaari mong
+muling simulan ang proseso anumang oras sa pamamagitan ng pagtanggal ng
+file na *spider.sqlite* at muling pagpatakbo ng
+*spider.py*.
+
+~~~~
+Enter web url or enter: http://www.dr-chuck.com/
+['http://www.dr-chuck.com']
+How many pages:2
+1 http://www.dr-chuck.com/ 12
+2 http://www.dr-chuck.com/csev-blog/ 57
+How many pages:
+~~~~
+
+Sa sample run na ito, sinabi natin sa kanya na i-crawl ang website at kunin ang dalawang
+pages. Kung muling patakbuhin mo ang program at sabihin sa kanya na i-crawl ang mas maraming pages, hindi ito
+magre-crawl ng anumang pages na nasa database na. Sa pag-restart pumupunta ito sa
+random na non-crawled page at nagsisimula doon. Kaya ang bawat sunud-sunod na
+run ng *spider.py* ay additive.
+
+~~~~
+Enter web url or enter: http://www.dr-chuck.com/
+['http://www.dr-chuck.com']
+How many pages:3
+3 http://www.dr-chuck.com/csev-blog 57
+4 http://www.dr-chuck.com/dr-chuck/resume/speaking.htm 1
+5 http://www.dr-chuck.com/dr-chuck/resume/index.htm 13
+How many pages:
+~~~~
+
+Maaari kang magkaroon ng maraming starting points sa parehong database—sa loob ng
+program, ang mga ito ay tinatawag na "webs". Ang spider ay pumipili nang random sa
+lahat ng non-visited links sa lahat ng webs bilang susunod na page na i-spider.
+
+Kung gusto mong i-dump ang contents ng file na *spider.sqlite*,
+maaari mong patakbuhin ang *spdump.py* tulad ng sumusunod:
+
+~~~~
+(5, None, 1.0, 3, 'http://www.dr-chuck.com/csev-blog')
+(3, None, 1.0, 4, 'http://www.dr-chuck.com/dr-chuck/resume/speaking.htm')
+(1, None, 1.0, 2, 'http://www.dr-chuck.com/csev-blog/')
+(1, None, 1.0, 5, 'http://www.dr-chuck.com/dr-chuck/resume/index.htm')
+4 rows.
+~~~~
+
+Ipinapakita nito ang bilang ng incoming links, ang lumang page rank, ang bagong page
+rank, ang id ng page, at ang url ng page. Ang
+program na *spdump.py* ay nagpapakita lang ng pages na may hindi bababa
+sa isang incoming link sa kanila.
+
+Kapag mayroon ka nang ilang pages sa database, maaari mong patakbuhin ang page rank sa
+pages gamit ang program na *sprank.py*. Simpleng sinasabi mo lang sa kanya
+kung ilang page rank iterations ang patakbuhin.
+
+~~~~
+How many iterations:2
+1 0.546848992536
+2 0.226714939664
+[(1, 0.559), (2, 0.659), (3, 0.985), (4, 2.135), (5, 0.659)]
+~~~~
+
+Maaari mong i-dump ang database ulit para makita na na-update na ang page rank:
+
+~~~~
+(5, 1.0, 0.985, 3, 'http://www.dr-chuck.com/csev-blog')
+(3, 1.0, 2.135, 4, 'http://www.dr-chuck.com/dr-chuck/resume/speaking.htm')
+(1, 1.0, 0.659, 2, 'http://www.dr-chuck.com/csev-blog/')
+(1, 1.0, 0.659, 5, 'http://www.dr-chuck.com/dr-chuck/resume/index.htm')
+4 rows.
+~~~~
+
+Maaari mong patakbuhin ang *sprank.py* nang maraming beses hangga't gusto mo at ito ay
+simpleng magre-refine ng page rank sa bawat pagkakataon na patakbuhin mo ito. Maaari mo ring patakbuhin ang
+*sprank.py* nang ilang beses at pagkatapos mag-spider ng ilang higit pang
+pages gamit ang *spider.py* at pagkatapos patakbuhin ang
+*sprank.py* para muling mag-converge ang page rank values. Ang search
+engine ay karaniwang nagpapatakbo ng parehong crawling at ranking programs sa lahat ng oras.
+
+Kung gusto mong muling simulan ang page rank calculations nang hindi muling nag-spider
+ng web pages, maaari mong gamitin ang *spreset.py* at pagkatapos muling simulan ang
+*sprank.py*.
+
+~~~~
+How many iterations:50
+1 0.546848992536
+2 0.226714939664
+3 0.0659516187242
+4 0.0244199333
+5 0.0102096489546
+6 0.00610244329379
+...
+42 0.000109076928206
+43 9.91987599002e-05
+44 9.02151706798e-05
+45 8.20451504471e-05
+46 7.46150183837e-05
+47 6.7857770908e-05
+48 6.17124694224e-05
+49 5.61236959327e-05
+50 5.10410499467e-05
+[(512, 0.0296), (1, 12.79), (2, 28.93), (3, 6.808), (4, 13.46)]
+~~~~
+
+Para sa bawat iteration ng page rank algorithm nagpi-print ito ng average
+change sa page rank per page. Ang network sa simula ay medyo hindi balanse
+at kaya ang individual page rank values ay nagbabago nang malaki sa pagitan ng iterations.
+Pero sa ilang maikling iterations, ang page rank ay nagco-converge. Dapat mong patakbuhin ang
+*sprank.py* nang sapat na tagal para ang page rank values
+ay mag-converge.
+
+Kung gusto mong i-visualize ang kasalukuyang top pages sa terms ng page rank,
+patakbuhin ang *spjson.py* para basahin ang database at isulat ang data
+para sa pinakamataas na linked pages sa JSON format para makita sa web
+browser.
+
+~~~~
+Creating JSON output on spider.json...
+How many nodes? 30
+Open force.html in a browser to view the visualization
+~~~~
+
+Maaari mong tingnan ang data na ito sa pamamagitan ng pagbubukas ng file na *force.html*
+sa web browser mo. Ipinapakita nito ang automatic layout ng nodes at
+links. Maaari mong i-click at i-drag ang anumang node at maaari mo ring i-double-click ang
+node para hanapin ang URL na kinakatawan ng node.
+
+Kung muling patakbuhin mo ang iba pang utilities, muling patakbuhin ang *spjson.py* at
+pindutin ang refresh sa browser para makuha ang bagong data mula sa
+*spider.json*.
+
+Visualizing mail data
+---------------------
+
+Hanggang sa puntong ito sa libro, naging pamilyar ka na sa aming
+*mbox-short.txt* at *mbox.txt* data
+files. Ngayon panahon na para dalhin ang analysis natin ng email data sa susunod na
+level.
+
+Sa totoong mundo, minsan kailangan mong kunin ang mail data mula sa
+servers. Maaaring tumagal ito ng ilang panahon at ang data ay maaaring
+hindi consistent, puno ng error, at nangangailangan ng maraming cleanup o adjustment. Sa
+section na ito, nagtatrabaho tayo sa application na pinakakumplikado hanggang
+ngayon at kumukuha ng halos gigabyte ng data at i-visualize ito.
+
+![A Word Cloud from the Sakai Developer List](height=3.5in@../../../images/wordcloud)
+
+Maaari mong i-download ang application na ito mula sa:
+
+[https://www.py4e.com/code3/gmane.zip](https://www.py4e.com/code3/gmane.zip)
+
+Gagamitin natin ang data mula sa libreng email list archiving service na tinatawag na
+*gmane* - ang service ay na-shut down na at para sa layunin ng course na ito,
+ang partial archive ay na-maintain
+sa [http://mbox.dr-chuck.net](http://mbox.dr-chuck.net).
+Ang gmane service ay napakapopular sa open
+source projects dahil nagbibigay ito ng magandang searchable archive ng kanilang
+email activity.
+
+[http://mbox.dr-chuck.net/export.php](http://mbox.dr-chuck.net/export.php)
+
+Kapag ang Sakai email data ay na-spider gamit ang software na ito, gumawa ito ng
+halos Gigabyte ng data at tumagal ng ilang runs sa loob ng ilang araw. Ang
+file na *README.txt* sa ZIP sa itaas ay maaaring may instructions
+tungkol sa kung paano mo maaaring i-download ang pre-spidered copy ng
+file na *content.sqlite* para sa karamihan ng Sakai email
+corpus para hindi mo kailangang mag-spider ng limang araw lang para patakbuhin ang
+programs. Kung i-download mo ang pre-spidered content, dapat mo pa ring patakbuhin
+ang spidering process para makahabol sa mas bagong messages.
+
+Ang unang hakbang ay i-spider ang repository. Ang base URL ay
+hard-coded sa *gmane.py* at hard-coded sa
+Sakai developer list. Maaari mong i-spider ang iba pang repository sa pamamagitan ng pagbabago ng
+base url na iyon. Siguraduhing tanggalin ang file na *content.sqlite*
+kung magpapalit ka ng base url.
+
+Ang file na *gmane.py* ay gumagana bilang responsible caching
+spider sa diwa na mabagal itong tumatakbo at kumukuha ng isang mail message bawat segundo
+para maiwasan ang ma-throttle. Nag-i-store ito ng lahat ng data nito sa
+database at maaaring ma-interrupt at muling simulan nang kasing dami ng kailangan. Maaari itong
+tumagal ng maraming oras para kunin ang lahat ng data. Kaya maaaring kailangan mong
+muling simulan nang ilang beses.
+
+Narito ang run ng *gmane.py* na kumukuha ng huling limang
+messages ng Sakai developer list:
+
+~~~~
+How many messages:10
+http://mbox.dr-chuck.net/sakai.devel/51410/51411 9460
+    nealcaidin@sakaifoundation.org 2013-04-05 re: [building ...
+http://mbox.dr-chuck.net/sakai.devel/51411/51412 3379
+    samuelgutierrezjimenez@gmail.com 2013-04-06 re: [building ...
+http://mbox.dr-chuck.net/sakai.devel/51412/51413 9903
+    da1@vt.edu 2013-04-05 [building sakai] melete 2.9 oracle ...
+http://mbox.dr-chuck.net/sakai.devel/51413/51414 349265
+    m.shedid@elraed-it.com 2013-04-07 [building sakai] ...
+http://mbox.dr-chuck.net/sakai.devel/51414/51415 3481
+    samuelgutierrezjimenez@gmail.com 2013-04-07 re: ...
+http://mbox.dr-chuck.net/sakai.devel/51415/51416 0
+
+Does not start with From
+~~~~
+
+Ang program ay nag-scan ng *content.sqlite* mula sa isa hanggang sa
+unang message number na hindi pa na-spider at nagsisimulang mag-spider sa
+message na iyon. Nagpapatuloy ito sa pag-spider hanggang na-spider na nito ang gustong bilang
+ng messages o umabot ito sa page na hindi mukhang properly
+formatted message.
+
+Minsan ang repository ay kulang ng message. Marahil
+ang administrators ay maaaring magtanggal ng messages o marahil nawawala sila. Kung ang
+spider mo ay huminto, at mukhang nakahit ito ng missing message, pumunta sa
+SQLite Manager at magdagdag ng row na may missing id na iiwan ang lahat ng iba pang
+fields na blank at muling simulan ang *gmane.py*. Aalisin nito ang
+stuck na spidering process at payagan itong magpatuloy. Ang mga empty messages na ito
+ay hindi papansinin sa susunod na phase ng proseso.
+
+Ang isang magandang bagay ay kapag na-spider mo na ang lahat ng messages at
+mayroon ka na sa *content.sqlite*, maaari mong patakbuhin ang
+*gmane.py* ulit para makakuha ng bagong messages habang ipinapadala sila sa
+list.
+
+Ang data ng *content.sqlite* ay medyo raw, na may
+inefficient data model, at hindi compressed. Ito ay sinasadya dahil
+nagpapahintulot ito sa iyo na tingnan ang *content.sqlite* sa SQLite
+Manager para i-debug ang mga problema sa spidering process. Masamang
+ideya na patakbuhin ang anumang queries laban sa database na ito, dahil magiging
+napakabagal sila.
+
+Ang pangalawang proseso ay patakbuhin ang program na *gmodel.py*.
+Ang program na ito ay nagbabasa ng raw data mula sa *content.sqlite* at
+gumagawa ng cleaned-up at well-modeled version ng data sa file
+*index.sqlite*. Ang file na ito ay mas maliit (kadalasan 10X
+mas maliit) kaysa sa *content.sqlite* dahil nagko-compress din ito ng
+header at body text.
+
+Sa bawat pagkakataon na tumatakbo ang *gmodel.py* tinatanggal nito at muling ginagawa ang
+*index.sqlite*, na nagpapahintulot sa iyo na i-adjust ang parameters nito at
+i-edit ang mapping tables sa *content.sqlite* para i-tweak ang
+data cleaning process. Ito ay sample run ng
+*gmodel.py*. Nagpi-print ito ng linya sa bawat pagkakataon na 250 mail
+messages ay na-proseso para makita mo ang ilang progress na nangyayari, dahil ang program na ito
+ay maaaring tumakbo nang ilang panahon na nagpo-proseso ng halos Gigabyte ng mail data.
+
+~~~~
+Loaded allsenders 1588 and mapping 28 dns mapping 1
+1 2005-12-08T23:34:30-06:00 ggolden22@mac.com
+251 2005-12-22T10:03:20-08:00 tpamsler@ucdavis.edu
+501 2006-01-12T11:17:34-05:00 lance@indiana.edu
+751 2006-01-24T11:13:28-08:00 vrajgopalan@ucmerced.edu
+...
+~~~~
+
+Ang program na *gmodel.py* ay nagha-handle ng ilang data cleaning
+tasks.
+
+Ang domain names ay na-truncate sa dalawang levels para sa .com, .org, .edu, at .net.
+Ang iba pang domain names ay na-truncate sa tatlong levels. Kaya ang si.umich.edu
+ay nagiging umich.edu at ang caret.cam.ac.uk ay nagiging cam.ac.uk. Ang email addresses
+ay pinipilit din na maging lower case, at ang ilan sa @gmane.org address tulad ng
+sumusunod
+
+~~~~
+arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
+~~~~
+ay na-convert sa tunay na address tuwing mayroong tumutugmang tunay na
+email address sa ibang lugar sa message corpus.
+
+Sa database na *mapping.sqlite* mayroong dalawang tables
+na nagpapahintulot sa iyo na mag-map ng parehong domain names at individual email addresses
+na nagbabago sa buong buhay ng email list. Halimbawa, si Steve
+Githens ay gumamit ng sumusunod na email addresses habang nagpapalit ng trabaho sa
+buong buhay ng Sakai developer list:
+
+~~~~
+s-githens@northwestern.edu
+sgithens@cam.ac.uk
+swgithen@mtu.edu
+~~~~
+
+Maaari tayong magdagdag ng dalawang entries sa Mapping table sa
+*mapping.sqlite* para ang *gmodel.py* ay magma-map
+ng lahat ng tatlo sa isang address:
+
+~~~~
+s-githens@northwestern.edu ->  swgithen@mtu.edu
+sgithens@cam.ac.uk -> swgithen@mtu.edu
+~~~~
+
+Maaari mo ring gumawa ng katulad na entries sa DNSMapping table kung mayroong
+maraming DNS names na gusto mong i-map sa isang DNS. Ang sumusunod
+mapping ay idinagdag sa Sakai data:
+
+~~~~
+iupui.edu -> indiana.edu
+~~~~
+
+para lahat ng accounts mula sa iba't ibang Indiana University campuses ay
+na-track nang magkasama.
+
+Maaari mong muling patakbuhin ang *gmodel.py* nang paulit-ulit habang tinitingnan mo
+ang data, at magdagdag ng mappings para gawing mas malinis at mas malinis ang data. Kapag
+tapos ka na, magkakaroon ka ng magandang indexed version ng email sa
+*index.sqlite*. Ito ang file na gagamitin para gumawa ng data
+analysis. Gamit ang file na ito, ang data analysis ay talagang mabilis.
+
+Ang una, pinakasimpleng data analysis ay matukoy "sino ang nagpadala ng pinakamaraming
+mail?" at "aling organization ang nagpadala ng pinakamaraming mail"? Ginagawa ito gamit ang
+*gbasic.py*:
+
+~~~~
+How many to dump? 5
+Loaded messages= 51330 subjects= 25033 senders= 1584
+
+Top 5 Email list participants
+steve.swinsburg@gmail.com 2657
+azeckoski@unicon.net 1742
+ieb@tfd.co.uk 1591
+csev@umich.edu 1304
+david.horwitz@uct.ac.za 1184
+
+Top 5 Email list organizations
+gmail.com 7339
+umich.edu 6243
+uct.ac.za 2451
+indiana.edu 2258
+unicon.net 2055
+~~~~
+
+Tandaan kung gaano mas mabilis tumatakbo ang *gbasic.py* kumpara sa
+*gmane.py* o kahit na *gmodel.py*. Lahat sila ay
+nagtatrabaho sa parehong data, pero ang *gbasic.py* ay gumagamit ng
+compressed at normalized data sa *index.sqlite*. Kung
+mayroon kang maraming data na pamahalaan, ang multistep process tulad ng nasa
+application na ito ay maaaring tumagal ng kaunti para ma-develop, pero makakatipid ka ng
+maraming oras kapag talagang nagsimula ka nang mag-explore at i-visualize ang data mo.
+
+Maaari kang gumawa ng simpleng visualization ng word frequency sa
+subject lines sa file na *gword.py*:
+
+~~~~
+Range of counts: 33229 129
+Output written to gword.js
+~~~~
+
+Gumagawa ito ng file na *gword.js* na maaari mong i-visualize
+gamit ang *gword.htm* para gumawa ng word cloud na katulad ng
+isa sa simula ng section na ito.
+
+Ang pangalawang visualization ay ginagawa ng *gline.py*. Ito ay
+nagko-compute ng email participation ng organizations sa paglipas ng panahon.
+
+~~~~
+Loaded messages= 51330 senders= 1584
+Top 10 Oranizations
+['gmail.com', 'umich.edu', 'uct.ac.za', 'indiana.edu',
+'unicon.net', 'tfd.co.uk', 'berkeley.edu', 'longsight.com',
+'stanford.edu', 'ox.ac.uk']
+Output written to gline.js
+~~~~
+
+Ang output nito ay isinusulat sa *gline.js* na na-visualize
+gamit ang *gline.htm*.
+
+![Sakai Mail Activity by Organization](../images/mailorg)
+
+Ito ay relatively complex at sophisticated application at mayroong
+features para gumawa ng ilang tunay na data retrieval, cleaning, at visualization.

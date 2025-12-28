@@ -1,0 +1,653 @@
+Dictionaries
+============
+
+\index{dictionary}
+\index{dictionary}
+
+\index{type!dict}
+\index{key}
+\index{key-value pair}
+\index{index}
+\index{}
+
+Ang *dictionary* ay katulad ng list, pero mas pangkalahatan. Sa
+list, ang index positions ay dapat integers; sa dictionary, ang
+indices ay maaaring (halos) anumang type.
+
+Maaari mong isipin ang dictionary bilang mapping sa pagitan ng set ng indices
+(na tinatawag na *keys*) at set ng values. Ang bawat key
+ay nagma-map sa value. Ang asosasyon ng key at value ay tinatawag na
+*key-value pair* o minsan *item*.
+
+Bilang halimbawa, gagawa tayo ng dictionary na nagma-map mula sa English patungo sa
+Spanish words, kaya ang keys at values ay lahat strings.
+
+Ang function na `dict` ay gumagawa ng bagong dictionary na walang items.
+Dahil ang `dict` ay pangalan ng built-in function, dapat mong
+iwasan ang paggamit nito bilang variable name.
+
+\index{dict function}
+\index{function!dict}
+
+~~~~ {.python .trinket}
+>>> eng2sp = dict()
+>>> print(eng2sp)
+{}
+~~~~
+
+Ang curly brackets, `{}`, ay kumakatawan sa empty dictionary. Para magdagdag ng items sa
+dictionary, maaari mong gamitin ang square brackets:
+
+\index{squiggly bracket}
+\index{bracket!squiggly}
+
+~~~~ {.python}
+>>> eng2sp['one'] = 'uno'
+~~~~
+
+Ang linyang ito ay gumagawa ng item na nagma-map mula sa key na `'one'` patungo sa
+value na "uno". Kung magpi-print tayo ng dictionary ulit, nakikita natin ang key-value
+pair na may colon sa pagitan ng key at value:
+
+~~~~ {.python}
+>>> print(eng2sp)
+{'one': 'uno'}
+~~~~
+
+Ang output format na ito ay input format din. Halimbawa, maaari kang gumawa ng
+bagong dictionary na may tatlong items.
+
+~~~~ {.python}
+>>> eng2sp = {'one': 'uno', 'two': 'dos', 'three': 'tres'}
+>>> print(eng2sp)
+{'one': 'uno', 'two': 'dos', 'three': 'tres'}
+~~~~
+
+Simula sa Python 3.7x ang order ng key-value pairs ay pareho sa input
+order nila, i.e. ang dictionaries ay ordered structures na ngayon.
+
+Pero hindi talaga mahalaga iyon dahil ang elements ng dictionary ay hindi kailanman
+na-index gamit ang integer indices. Sa halip, ginagamit mo ang keys para hanapin ang
+katumbas na values:
+
+~~~~ {.python}
+>>> print(eng2sp['two'])
+'dos'
+~~~~
+
+Ang key na `'two'` ay palaging nagma-map sa value na "dos" kaya ang order
+ng items ay hindi mahalaga.
+
+Kung ang key ay wala sa dictionary, makakakuha ka ng exception:
+
+\index{exception!KeyError}
+\index{KeyError}
+
+~~~~ {.python}
+>>> print(eng2sp['four'])
+KeyError: 'four'
+~~~~
+
+Ang `len` function ay gumagana sa dictionaries; nagre-return ito ng
+bilang ng key-value pairs:
+
+\index{len function}
+\index{function!len}
+
+~~~~ {.python}
+>>> len(eng2sp)
+3
+~~~~
+
+Ang `in` operator ay gumagana sa dictionaries; sinasabi nito sa iyo kung
+lumalabas ang isang bagay bilang *key* sa dictionary (ang paglitaw bilang value ay
+hindi sapat).
+
+\index{membership!dictionary}
+\index{in operator}
+\index{operator!in}
+
+~~~~ {.python}
+>>> 'one' in eng2sp
+True
+>>> 'uno' in eng2sp
+False
+~~~~
+
+Para makita kung lumalabas ang isang bagay bilang value sa dictionary, maaari mong gamitin
+ang method na `values`, na nagre-return ng values bilang type na maaaring i-convert
+sa list, at pagkatapos gamitin ang `in` operator:
+
+\index{values method}
+\index{method!values}
+
+~~~~ {.python}
+>>> vals = list(eng2sp.values())
+>>> 'uno' in vals
+True
+~~~~
+
+Ang `in` operator ay gumagamit ng iba't ibang algorithms para sa lists at
+dictionaries. Para sa lists, gumagamit ito ng linear search algorithm. Habang ang list
+ay nagiging mas mahaba, ang search time ay nagiging mas mahaba nang direkta sa proporsyon sa
+haba ng list. Para sa dictionaries, ang Python ay gumagamit ng algorithm na tinatawag na
+*hash table* na may kapansin-pansing property: ang
+`in` operator ay tumatagal ng halos parehong dami ng panahon anuman
+ang bilang ng items sa dictionary. Hindi ko ipapaliwanag kung bakit ang hash
+functions ay napaka-magical, pero maaari kang magbasa pa tungkol dito sa
+[wikipedia.org/wiki/Hash\_table](https://wikipedia.org/wiki/Hash_table).^[Kung
+gusto mong matuto pa tungkol sa hash tables, mayroong course sa https://www.cc4e.com
+na nag-e-explore kung paano ang programming language na C ay nag-i-implement ng Python
+dictionary.]
+
+\index{hash table}
+\index{set membership}
+\index{membership!set}
+
+**Exercise 1:** I-download ang kopya ng file
+
+[www.py4e.com/code3/words.txt](http://www.py4e.com/code3/words.txt)
+
+Sumulat ng program na nagbabasa ng mga salita sa *words.txt* at
+nag-i-store sa kanila bilang keys sa dictionary. Hindi mahalaga kung ano ang values
+ay. Pagkatapos maaari mong gamitin ang `in` operator bilang mabilis na paraan para
+suriin kung ang string ay nasa dictionary.
+
+Dictionary as a set of counters
+-------------------------------
+
+\index{counter}
+
+Ipagpalagay na binigyan ka ng string at gusto mong bilangin kung ilang beses lumalabas ang bawat
+letra. Mayroong ilang paraan na maaari mong gawin:
+
+1.  Maaari kang gumawa ng 26 variables, isa para sa bawat letra ng alphabet.
+    Pagkatapos maaari mong daanan ang string at, para sa bawat character,
+    i-increment ang katumbas na counter, marahil gamit ang chained
+    conditional.
+
+2.  Maaari kang gumawa ng list na may 26 elements. Pagkatapos maaari mong i-convert
+    ang bawat character sa number (gamit ang built-in function na
+    `ord`), gamitin ang number bilang index sa list, at
+    i-increment ang naaangkop na counter.
+
+3.  Maaari kang gumawa ng dictionary na may characters bilang keys at counters
+    bilang katumbas na values. Sa unang pagkakataon na makikita mo ang character, magdadagdag ka
+    ng item sa dictionary. Pagkatapos i-increment mo ang
+    value ng existing item.
+
+Ang bawat isa sa mga opsyon na ito ay gumagawa ng parehong computation, pero ang bawat isa sa kanila
+ay nag-i-implement ng computation na iyon sa ibang paraan.
+
+\index{implementation}
+
+Ang *implementation* ay paraan ng paggawa ng computation;
+ang ilang implementations ay mas mabuti kaysa sa iba. Halimbawa, ang advantage
+ng dictionary implementation ay hindi natin kailangang malaman nang maaga
+kung aling mga letra ang lumalabas sa string at kailangan lang nating gumawa ng lugar
+para sa mga letrang lumalabas.
+
+Narito kung ano ang hitsura ng code:
+
+~~~~ {.python .trinket}
+word = 'brontosaurus'
+d = dict()
+for c in word:
+    if c not in d:
+        d[c] = 1
+    else:
+        d[c] = d[c] + 1
+print(d)
+~~~~
+
+Epektibong nagco-compute tayo ng *histogram*, na statistical term para sa set ng counters (o frequencies).
+
+\index{histogram}
+\index{frequency}
+\index{traversal}
+
+Ang `for` loop ay dumadaan sa string. Sa bawat pagkakataon sa
+loop, kung ang `c` ay wala sa dictionary, gumagawa tayo
+ng bagong item na may key na `c` at initial value na 1 (dahil
+nakita na natin ang letrang ito nang isang beses). Kung ang `c` ay nasa
+dictionary na, i-increment natin ang `d[c]`.
+
+\index{histogram}
+
+Narito ang output ng program:
+
+~~~~
+{'b': 1, 'r': 2, 'o': 2, 'n': 1, 't': 1, 's': 2, 'a': 1, 'u': 2}
+~~~~
+
+Ang histogram ay nagpapahiwatig na ang mga letrang "a" at "b"
+ay lumalabas nang isang beses; ang "o" ay lumalabas nang dalawang beses, at iba pa.
+
+\index{get method}
+\index{method!get}
+
+Ang Dictionaries ay may method na tinatawag na `get` na tumatanggap ng key at
+default value. Kung ang key ay lumalabas sa dictionary, ang `get`
+ay nagre-return ng katumbas na value; kung hindi, nagre-return ito ng default value.
+Halimbawa:
+
+~~~~ {.python .trinket}
+>>> counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+>>> print(counts.get('jan', 0))
+100
+>>> print(counts.get('tim', 0))
+0
+~~~~
+
+Maaari nating gamitin ang `get` para sumulat ng histogram loop natin nang mas maikli.
+Dahil ang `get` method ay awtomatikong nagha-handle ng kaso kung saan
+ang key ay wala sa dictionary, maaari nating bawasan ang apat na linya sa isa at
+alisin ang `if` statement.
+
+~~~~ {.python}
+word = 'brontosaurus'
+d = dict()
+for c in word:
+    d[c] = d.get(c,0) + 1
+print(d)
+~~~~
+
+Ang paggamit ng `get` method para gawing simple ang counting loop na ito
+ay nagiging napakakaraniwang ginagamit na "idiom" sa Python at gagamitin natin ito
+nang maraming beses sa natitirang bahagi ng libro. Kaya dapat mong maglaan ng sandali at
+ihambing ang loop na gumagamit ng `if` statement at `in`
+operator sa loop na gumagamit ng `get` method. Parehong eksaktong ginagawa nila
+ang parehong bagay, pero ang isa ay mas maikli.
+
+\index{idiom}
+
+Dictionaries and files
+----------------------
+
+Isa sa karaniwang gamit ng dictionary ay bilangin ang occurrence ng
+mga salita sa file na may nakasulat na teksto. Magsimula tayo sa napakasimpleng
+file ng mga salita na kinuha mula sa teksto ng *Romeo and Juliet*.
+
+Para sa unang set ng halimbawa, gagamitin natin ang pinaikli at pinasimpleng
+bersyon ng teksto na walang punctuation. Mamaya magtatrabaho tayo sa
+teksto ng scene na may kasamang punctuation.
+
+    But soft what light through yonder window breaks
+    It is the east and Juliet is the sun
+    Arise fair sun and kill the envious moon
+    Who is already sick and pale with grief
+
+Susulat tayo ng Python program para magbasa sa mga linya ng file,
+hatiin ang bawat linya sa list ng mga salita, at pagkatapos mag-loop sa bawat isa sa
+mga salita sa linya at bilangin ang bawat salita gamit ang dictionary.
+
+\index{nested loops}
+\index{loop!nested}
+
+Makikita mo na mayroon tayong dalawang `for` loops. Ang outer loop ay
+nagbabasa ng mga linya ng file at ang inner loop ay nag-i-iterate sa
+bawat isa sa mga salita sa partikular na linya. Ito ay halimbawa ng
+pattern na tinatawag na *nested loops* dahil ang isa sa mga loops ay
+ang *outer* loop at ang ibang loop ay ang *inner* loop.
+
+Dahil ang inner loop ay nag-e-execute ng lahat ng iterations nito sa bawat pagkakataon na ang
+outer loop ay gumagawa ng isang iteration, iniisip natin ang inner loop bilang
+nag-i-iterate nang "mas mabilis" at ang outer loop bilang nag-i-iterate nang mas mabagal.
+
+\index{Romeo and Juliet}
+
+Ang kombinasyon ng dalawang nested loops ay sinisiguro na mabibilang natin ang bawat
+salita sa bawat linya ng input file.
+
+\VerbatimInput{../code3/count1.py}
+\begin{trinketfiles}
+../code3/romeo.txt
+\end{trinketfiles}
+
+Sa `else` statement natin, ginagamit natin ang mas compact na alternatibo para mag-increment ng variable. Ang `counts[word] += 1` ay katumbas ng `counts[word] = counts[word] + 1`. Ang alinmang method ay maaaring gamitin para baguhin ang value ng variable sa anumang nais na dami. Katulad na alternatibo ang umiiral para sa `-=`, `*=`, at `/=`.
+
+Kapag tumatakbo ang program, nakikita natin ang raw dump ng lahat ng counts sa
+unsorted hash order. (ang file na *romeo.txt* ay available sa
+[www.py4e.com/code3/romeo.txt](http://www.py4e.com/code3/romeo.txt))
+
+~~~~
+python count1.py
+Enter the file name: romeo.txt
+{'But': 1, 'soft': 1, 'what': 1, 'light': 1, 'through': 1, 'yonder': 1,
+'window': 1, 'breaks': 1, 'It': 1, 'is': 3, 'the': 3, 'east': 1, 'and': 3,
+'Juliet': 1, 'sun': 2, 'Arise': 1, 'fair': 1, 'kill': 1, 'envious': 1,
+'moon': 1, 'Who': 1, 'already': 1, 'sick': 1, 'pale': 1, 'with': 1,
+'grief': 1}
+~~~~
+
+Medyo hindi maginhawa na tumingin sa dictionary para hanapin ang pinaka
+karaniwang mga salita at ang kanilang counts, kaya kailangan nating magdagdag ng higit pang Python code
+para makakuha ng output na mas makakatulong.
+
+Looping and dictionaries
+------------------------
+
+\index{dictionary!looping with}
+\index{looping!with dictionaries}
+\index{traversal}
+
+Kung gagamitin mo ang dictionary bilang sequence sa `for` statement,
+dumadaan ito sa keys ng dictionary. Ang loop na ito ay nagpi-print ng bawat key at
+katumbas na value:
+
+~~~~ {.python}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+for key in counts:
+    print(key, counts[key])
+~~~~
+
+Narito ang hitsura ng output:
+
+~~~~
+chuck 1
+annie 42
+jan 100
+~~~~
+
+Muli, ang keys ay ordered.
+
+\index{idiom}
+
+Maaari nating gamitin ang pattern na ito para i-implement ang iba't ibang loop idioms na
+na-describe natin kanina. Halimbawa kung gusto nating hanapin ang lahat ng entries
+sa dictionary na may value na higit sa sampu, maaari tayong sumulat ng sumusunod na
+code:
+
+~~~~ {.python}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+for key in counts:
+    if counts[key] > 10 :
+        print(key, counts[key])
+~~~~
+
+Ang `for` loop ay nag-i-iterate sa *keys* ng
+dictionary, kaya dapat nating gamitin ang index operator para kunin ang
+katumbas na *value* para sa bawat key. Narito ang hitsura ng output:
+
+~~~~
+annie 42
+jan 100
+~~~~
+
+Nakikita lang natin ang entries na may value na higit sa 10.
+
+\index{keys method}
+\index{method!keys}
+
+Kung gusto mong mag-print ng keys sa alphabetical order, una gumawa ka ng
+list ng keys sa dictionary gamit ang `keys` method
+na available sa dictionary objects, at pagkatapos i-sort ang list na iyon at mag-loop
+sa sorted list, naghahanap ng bawat key at nagpi-print ng key-value
+pairs sa sorted order tulad ng sumusunod:
+
+~~~~ {.python}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+lst = list(counts.keys())
+print(lst)
+lst.sort()
+print(lst)
+for key in lst:
+    print(key, counts[key])
+~~~~
+
+Here's what the output looks like:
+
+~~~~
+['chuck', 'annie', 'jan']
+['annie', 'chuck', 'jan']
+annie 42
+chuck 1
+jan 100
+~~~~
+
+First you see the list of keys in non-alphabetical order that we get from the
+`keys` method. Then we see the key-value pairs in alphabetical order from
+the `for` loop.
+
+Advanced text parsing
+---------------------
+
+\index{Romeo and Juliet}
+
+In the above example using the file *romeo.txt*, we made the
+file as simple as possible by removing all punctuation by hand. The
+actual text has lots of punctuation, as shown below.
+
+~~~~
+But, soft! what light through yonder window breaks?
+It is the east, and Juliet is the sun.
+Arise, fair sun, and kill the envious moon,
+Who is already sick and pale with grief,
+~~~~
+
+Since the Python `split` function looks for spaces and treats
+words as tokens separated by spaces, we would treat the words "soft!"
+and "soft" as *different* words and create a separate dictionary entry
+for each word.
+
+Also since the file has capitalization, we would treat "who" and "Who"
+as different words with different counts.
+
+We can solve both these problems by using the string methods
+`lower`, `punctuation`, and
+`translate`. The `translate` is the most subtle of
+the methods. Here is the documentation for `translate`:
+
+`line.translate(str.maketrans(fromstr, tostr, deletestr))`
+
+*Replace the characters in `fromstr` with the character in the same position in `tostr`
+and delete all characters that are in `deletestr`.
+The `fromstr` and `tostr` can be empty strings and the `deletestr`
+parameter can be omitted.*
+
+We will not specify the `tostr` but we will use the
+`deletestr` parameter to delete all of the punctuation. We
+will even let Python tell us the list of characters that it considers
+"punctuation":
+
+~~~~ {.python}
+>>> import string
+>>> string.punctuation
+'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+~~~~
+
+The parameters used by `translate` were different in Python 2.0.
+
+We make the following modifications to our program:
+
+\VerbatimInput{../code3/count2.py}
+\begin{trinketfiles}
+../code3/romeo-full.txt
+\end{trinketfiles}
+
+Part of learning the "Art of Python" or "Thinking Pythonically" is
+realizing that Python often has built-in capabilities for many common
+data analysis problems. Over time, you will see enough example code and
+read enough of the documentation to know where to look to see if someone
+has already written something that makes your job much easier.
+
+The following is an abbreviated version of the output:
+
+~~~~
+Enter the file name: romeo-full.txt
+{'romeo': 40, 'and': 42, 'juliet': 32, 'act': 1, '2': 2, 'scene': 2,
+'ii': 1, 'capulets': 1, 'orchard': 2, 'enter': 1, 'he': 5, 'jests': 1,
+'at': 9, 'scars': 1, 'that': 30, 'never': 2, 'felt': 1, 'a': 24,
+'wound': 1, 'appears': 1, 'above': 6, 'window': 2, 'but': 18,
+'soft': 1, 'what': 11, 'light': 5, 'through': 2, 'yonder': 2,
+'breaks': 1, ...}
+~~~~
+
+Looking through this output is still unwieldy and we can use Python to
+give us exactly what we are looking for, but to do so, we need to learn
+about Python *tuples*. We will pick up this example once
+we learn about tuples.
+
+Debugging
+---------
+
+\index{debugging}
+
+As you work with bigger datasets it can become unwieldy to debug by
+printing and checking data by hand. Here are some suggestions for
+debugging large datasets:
+
+Scale down the input
+:   If possible, reduce the size of the dataset. For example if the
+    program reads a text file, start with just the first 10 lines, or
+    with the smallest example you can find. You can either edit the
+    files themselves, or (better) modify the program so it reads only
+    the first `n` lines.
+
+    If there is an error, you can reduce `n` to the smallest
+    value that manifests the error, and then increase it gradually as
+    you find and correct errors.
+
+Check summaries and types
+:   Instead of printing and checking the entire dataset, consider
+    printing summaries of the data: for example, the number of items in
+    a dictionary or the total of a list of numbers.
+
+    A common cause of runtime errors is a value that is not the right
+    type. For debugging this kind of error, it is often enough to print
+    the type of a value.
+
+Write self-checks
+:   Sometimes you can write code to check for errors automatically. For
+    example, if you are computing the average of a list of numbers, you
+    could check that the result is not greater than the largest element
+    in the list or less than the smallest. This is called a "sanity
+    check" because it detects results that are "completely illogical".
+\index{sanity check}
+\index{consistency check}
+
+    Another kind of check compares the results of two different
+    computations to see if they are consistent. This is called a
+    "consistency check".
+
+Pretty print the output
+:   Formatting debugging output can make it easier to spot an error.
+
+Again, time you spend building scaffolding can reduce the time you spend
+debugging.
+\index{scaffolding}
+
+Glossary
+--------
+
+dictionary
+:   A mapping from a set of keys to their corresponding values.
+\index{dictionary}
+
+hashtable
+:   The algorithm used to implement Python dictionaries.
+\index{hashtable}
+
+hash function
+:   A function used by a hashtable to compute the location for a key.
+\index{hash function}
+
+histogram
+:   A set of counters.
+\index{histogram}
+
+implementation
+:   A way of performing a computation.
+\index{implementation}
+
+item
+:   Another name for a key-value pair.
+\index{item!dictionary}
+
+key
+:   An object that appears in a dictionary as the first part of a
+    key-value pair.
+\index{key}
+
+key-value pair
+:   The representation of the mapping from a key to a value.
+\index{key-value pair}
+
+lookup
+:   A dictionary operation that takes a key and finds the corresponding
+    value.
+\index{lookup}
+
+nested loops
+:   When there are one or more loops "inside" of another loop. The inner
+    loop runs to completion each time the outer loop runs once.
+\index{nested loops}
+\index{loop!nested}
+
+value
+:   An object that appears in a dictionary as the second part of a
+    key-value pair. This is more specific than our previous use of the
+    word "value".
+\index{value}
+
+Exercises
+---------
+
+**Exercise 2:** Write a program that categorizes each mail message by which
+day of the week the commit was done. To do this look for lines that
+start with "From", then look for the third word and keep a running count
+of each of the days of the week. At the end of the program print out the
+contents of your dictionary (order does not matter).
+
+Sample Line:
+
+~~~~
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+~~~~
+
+Sample Execution:
+
+~~~~
+python dow.py
+Enter a file name: mbox-short.txt
+{'Fri': 20, 'Thu': 6, 'Sat': 1}
+~~~~
+
+**Exercise 3:** Write a program to read through a mail log, build a
+histogram using a dictionary to count how many messages have come from
+each email address, and print the dictionary.
+
+~~~~
+Enter file name: mbox-short.txt
+{'gopal.ramasammycook@gmail.com': 1, 'louis@media.berkeley.edu': 3,
+'cwen@iupui.edu': 5, 'antranig@caret.cam.ac.uk': 1,
+'rjlowe@iupui.edu': 2, 'gsilver@umich.edu': 3,
+'david.horwitz@uct.ac.za': 4, 'wagnermr@iupui.edu': 1,
+'zqian@umich.edu': 4, 'stephen.marquard@uct.ac.za': 2,
+'ray@media.berkeley.edu': 1}
+~~~~
+
+**Exercise 4:** Add code to the above program to figure out who has sent the most messages in the file. After
+all the data has been read and the dictionary has been created, look through the
+dictionary using a maximum loop (see Chapter 5: Maximum and minimum loops) to find
+who has the most messages and print how many messages the person has.
+
+~~~~
+Enter a file name: mbox-short.txt
+cwen@iupui.edu 5
+
+Enter a file name: mbox.txt
+zqian@umich.edu 195
+~~~~
+
+**Exercise 5:** This program records the domain name (instead of the
+address) where the message was sent from instead of who the mail came
+from (i.e., the whole email address). At the end of the program, print
+out the contents of your dictionary.
+
+~~~~
+python schoolcount.py
+Enter a file name: mbox-short.txt
+{'media.berkeley.edu': 4, 'uct.ac.za': 6, 'umich.edu': 7,
+'gmail.com': 1, 'caret.cam.ac.uk': 1, 'iupui.edu': 8}
+~~~~

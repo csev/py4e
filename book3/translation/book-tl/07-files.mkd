@@ -1,0 +1,668 @@
+Files
+=====
+
+\index{file}
+\index{type!file}
+
+Persistence
+-----------
+
+\index{persistence}
+\index{secondary memory}
+
+Hanggang ngayon, natutunan natin kung paano sumulat ng programs at makipag-ugnayan sa
+intentions natin sa *Central Processing Unit* gamit ang
+conditional execution, functions, at iterations. Natutunan natin kung paano
+gumawa at gumamit ng data structures sa *Main Memory*. Ang
+CPU at memory ay kung saan gumagana at tumatakbo ang software natin. Ito ay kung saan lahat ng
+"pag-iisip" ay nangyayari.
+
+Pero kung maaalala mo mula sa hardware architecture discussions natin, kapag ang
+power ay naka-off, anumang naka-store sa CPU o main memory ay
+nabubura. Kaya hanggang ngayon, ang mga programs natin ay simpleng transient fun
+exercises lang para matuto ng Python.
+
+![Secondary Memory](height=2.5in@../../../images/arch)
+
+Sa chapter na ito, nagsisimula tayong magtrabaho sa *Secondary Memory*
+(o files). Ang Secondary memory ay hindi nabubura kapag ang power ay naka-off.
+O sa kaso ng USB flash drive, ang data na isinusulat natin mula sa
+programs natin ay maaaring alisin sa system at dalhin sa iba pang
+system.
+
+Pangunahing tututukan natin ang pagbabasa at pagsusulat ng text files tulad ng mga
+ginagawa natin sa text editor. Mamaya makikita natin kung paano magtrabaho sa database
+files na binary files, partikular na idinisenyo para basahin at
+sulatan sa pamamagitan ng database software.
+
+Opening files
+-------------
+
+\index{file!open}
+\index{open function}
+\index{function!open}
+
+Kapag gusto nating magbasa o sumulat ng file (sabihin sa hard drive mo), una dapat nating
+*buksan* ang file. Ang pagbubukas ng file ay nakikipag-ugnayan sa
+operating system mo, na alam kung saan naka-store ang data para sa bawat file.
+Kapag nagbubukas ka ng file, hinihiling mo sa operating system na
+hanapin ang file sa pamamagitan ng pangalan at siguraduhin na umiiral ang file. Sa halimbawang ito, binubuksan natin
+ang file na *mbox.txt*, na dapat naka-store sa parehong
+folder kung saan ka kapag nagsimula ka ng Python. Maaari mong i-download ang file na ito
+mula sa [www.py4e.com/code3/mbox.txt](http://www.py4e.com/code3/mbox.txt)
+
+~~~~ {.python}
+>>> fhand = open('mbox.txt')
+>>> print(fhand)
+<_io.TextIOWrapper name='mbox.txt' mode='r' encoding='cp1252'>
+~~~~
+
+\index{file handle}
+
+Kung ang `open` ay matagumpay, ang operating system ay nagre-return sa atin ng
+*file handle*. Ang file handle ay hindi ang actual data
+na nasa file, sa halip ito ay "handle" na maaari nating gamitin para
+basahin ang data. Bibigyan ka ng handle kung ang requested file ay umiiral at
+mayroon kang tamang permissions para basahin ang file.
+
+![A File Handle](height=2.0in@../../../images/handle)
+
+Kung ang file ay hindi umiiral, ang `open` ay mabibigo na may traceback
+at hindi ka makakakuha ng handle para ma-access ang contents ng file:
+
+~~~~ {.python}
+>>> fhand = open('stuff.txt')
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'stuff.txt'
+~~~~
+
+Mamaya gagamitin natin ang `try` at `except` para harapin nang mas
+maayos ang situation kung saan sinusubukan nating buksan ang file na hindi
+umiiral.
+
+Text files and lines
+--------------------
+
+Ang text file ay maaaring isipin bilang sequence ng mga linya, katulad ng Python
+string na maaaring isipin bilang sequence ng characters. Halimbawa, ito
+ay sample ng text file na nagre-record ng mail activity mula sa iba't ibang
+indibidwal sa open source project development team:
+
+~~~~
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+Return-Path: <postmaster@collab.sakaiproject.org>
+Date: Sat, 5 Jan 2008 09:12:18 -0500
+To: source@collab.sakaiproject.org
+From: stephen.marquard@uct.ac.za
+Subject: [sakai] svn commit: r39772 - content/branches/
+Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
+...
+~~~~
+Ang buong file ng mail interactions ay available mula sa
+
+[www.py4e.com/code3/mbox.txt](http://www.py4e.com/code3/mbox.txt)
+
+at ang pinaikling bersyon ng file ay available mula sa
+
+[www.py4e.com/code3/mbox-short.txt](http://www.py4e.com/code3/mbox-short.txt)
+
+Ang mga files na ito ay nasa standard format para sa file na naglalaman ng maraming mail
+messages. Ang mga linya na nagsisimula sa "From " ay naghihiwalay ng messages at
+ang mga linya na nagsisimula sa "From:" ay parte ng messages. Para sa higit pa
+information tungkol sa mbox format, tingnan ang
+<https://en.wikipedia.org/wiki/Mbox>.
+
+Para hatiin ang file sa mga linya, mayroong espesyal na character na
+kumakatawan sa "end of the line" na tinatawag na *newline*
+character.
+
+\index{newline}
+
+Sa Python, kinakatawan natin ang *newline* character bilang
+backslash-n sa string constants. Kahit na mukhang dalawang
+characters ito, ito ay talagang isang character lang. Kapag tinitingnan natin ang
+variable sa pamamagitan ng pag-enter ng "stuff" sa interpreter, ipinapakita nito sa atin ang `\n` sa
+string, pero kapag ginagamit natin ang `print` para ipakita ang string, nakikita natin
+ang string na nahati sa dalawang linya ng newline character.
+
+~~~~ {.python}
+>>> stuff = 'Hello\nWorld!'
+>>> stuff
+'Hello\nWorld!'
+>>> print(stuff)
+Hello
+World!
+>>> stuff = 'X\nY'
+>>> print(stuff)
+X
+Y
+>>> len(stuff)
+3
+~~~~
+
+Makikita mo rin na ang haba ng string na `X\nY` ay *tatlo*
+characters dahil ang newline character ay isang character lang.
+
+Kaya kapag tinitingnan natin ang mga linya sa file, kailangan nating *isipin* na mayroong
+espesyal na invisible character na tinatawag na newline sa dulo ng bawat
+linya na nagma-marka ng dulo ng linya.
+
+Kaya ang newline character ay naghihiwalay ng characters sa file sa
+mga linya.
+
+Reading files
+-------------
+
+\index{file!reading}
+\index{counter}
+
+Habang ang *file handle* ay hindi naglalaman ng data para sa
+file, napakadaling gumawa ng `for` loop para magbasa
+at bilangin ang bawat linya sa file:
+
+\VerbatimInput{../code3/open.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
+
+Maaari nating gamitin ang file handle bilang sequence sa `for` loop natin.
+Ang `for` loop natin ay simpleng nagbi-bilang ng bilang ng lines sa file
+at nagpi-print sa kanila. Ang rough translation ng `for` loop
+sa English ay, "para sa bawat linya sa file na kinakatawan ng file
+handle, magdagdag ng isa sa variable na `count`."
+
+Ang dahilan na ang `open` function ay hindi nagbabasa ng buong
+file ay maaaring napakalaki ang file na may maraming gigabytes ng data.
+Ang `open` statement ay tumatagal ng parehong dami ng panahon anuman
+ang laki ng file. Ang `for` loop talaga ang nagdudulot na ang
+data ay mabasa mula sa file.
+
+Kapag ang file ay binabasa gamit ang `for` loop sa ganitong paraan,
+ang Python ay nag-aalaga sa paghahati ng data sa file sa hiwalay na mga linya
+gamit ang newline character. Ang Python ay nagbabasa ng bawat linya hanggang sa newline
+at kasama ang newline bilang huling character sa variable na `line`
+para sa bawat iteration ng `for` loop.
+
+Dahil ang `for` loop ay nagbabasa ng data isang linya sa isang panahon, maaari itong
+mabisa na magbasa at magbilang ng mga linya sa napakalaking files nang hindi
+naubusan ng main memory para i-store ang data. Ang program sa itaas ay maaaring
+magbilang ng mga linya sa anumang laking file gamit ang napakakaunting memory dahil ang bawat
+linya ay binabasa, binibilang, at pagkatapos itinatapon.
+
+Kung alam mo na ang file ay medyo maliit kumpara sa laki ng iyong
+main memory, maaari mong basahin ang buong file sa isang string gamit ang
+`read` method sa file handle.
+
+~~~~ {.python}
+>>> fhand = open('mbox-short.txt')
+>>> inp = fhand.read()
+>>> print(len(inp))
+94626
+>>> print(inp[:20])
+From stephen.marquar
+~~~~
+
+Sa halimbawang ito, ang buong contents (lahat ng 94,626 characters) ng file
+*mbox-short.txt* ay direktang binabasa sa variable na
+`inp`. Ginagamit natin ang string slicing para i-print ang unang 20
+characters ng string data na naka-store sa `inp`.
+
+
+Kapag ang file ay binabasa sa ganitong paraan, lahat ng characters kasama ang lahat
+ng mga linya at newline characters ay isang malaking string sa variable na
+`inp`. Magandang ideya na i-store ang output ng `read` bilang variable
+dahil ang bawat tawag sa `read` ay nauubos ang resource:
+
+~~~~ {.python}
+>>> fhand = open('mbox-short.txt')
+>>> print(len(fhand.read()))
+94626
+>>> print(len(fhand.read()))
+0
+~~~~
+
+Tandaan na ang form ng `open` function na ito ay dapat lang gamitin
+kung ang file data ay magkakasya nang komportable sa main memory ng computer mo.
+Kung ang file ay masyadong malaki para magkasya sa main memory, dapat mong isulat ang
+program mo para basahin ang file sa chunks gamit ang `for` o `while` loop.
+
+Searching through a file
+------------------------
+
+Kapag naghahanap ka sa data sa file, napakakaraniwang pattern na magbasa sa file, hindi pinapansin ang karamihan ng mga linya at
+nagpo-process lang ng mga linya na tumutugma sa partikular na condition. Maaari nating pagsamahin ang
+pattern para magbasa ng file kasama ang string methods para gumawa ng simpleng search
+mechanisms.
+
+\index{filter pattern}
+\index{pattern!filter}
+
+Halimbawa, kung gusto nating magbasa ng file at mag-print lang ng mga linya na
+nagsimula sa prefix na "From:", maaari nating gamitin ang string method na
+*startswith* para pumili lang ng mga linya na may gustong
+prefix:
+
+\VerbatimInput{../code3/search1.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
+
+Kapag tumatakbo ang program na ito, nakakakuha tayo ng sumusunod na output:
+
+~~~~
+From: stephen.marquard@uct.ac.za
+
+From: louis@media.berkeley.edu
+
+From: zqian@umich.edu
+
+From: rjlowe@iupui.edu
+...
+~~~~
+
+Ang output ay mukhang maganda dahil ang tanging mga linya na nakikita natin ay ang mga
+nagsisimula sa "From:", pero bakit nakikita natin ang extra blank lines?
+Ito ay dahil sa invisible na *newline* character na iyon. Ang bawat
+isa sa mga linya ay nagtatapos sa newline, kaya ang `print` statement
+ay nagpi-print ng string sa variable na *line* na kasama ang
+newline at pagkatapos ang `print` ay nagdadagdag ng *isa pa* na newline, na nagreresulta sa
+double spacing effect na nakikita natin.
+
+Maaari nating gamitin ang line slicing para i-print ang lahat maliban sa huling character, pero ang mas
+simpleng approach ay gamitin ang *rstrip* method na
+nagtatanggal ng whitespaces mula sa kanang bahagi ng string tulad ng sumusunod:
+
+\VerbatimInput{../code3/search2.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
+
+Kapag tumatakbo ang program na ito, nakakakuha tayo ng sumusunod na output:
+
+~~~~
+From: stephen.marquard@uct.ac.za
+From: louis@media.berkeley.edu
+From: zqian@umich.edu
+From: rjlowe@iupui.edu
+From: zqian@umich.edu
+From: rjlowe@iupui.edu
+From: cwen@iupui.edu
+...
+~~~~
+
+Habang ang file processing programs mo ay nagiging mas kumplikado, maaaring gusto mong
+i-structure ang search loops mo gamit ang `continue`. Ang basic idea
+ng search loop ay naghahanap ka ng "interesting" lines at
+epektibong nilalaktawan ang "uninteresting" lines. At pagkatapos kapag nakakita tayo ng
+interesting line, gumagawa tayo ng isang bagay sa linya na iyon.
+
+Maaari nating i-structure ang loop para sundin ang pattern ng paglaktaw sa
+uninteresting lines tulad ng sumusunod:
+
+\VerbatimInput{../code3/search3.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
+
+Ang output ng program ay pareho. Sa English, ang uninteresting
+lines ay ang mga hindi nagsisimula sa "From:", na nilalaktawan natin gamit ang
+`continue`. Para sa "interesting" lines (i.e., ang mga
+nagsisimula sa "From:") ginagawa natin ang processing.
+
+Maaari nating gamitin ang `find` string method para gayahin ang text editor
+search na nakakahanap ng mga linya kung saan ang search string ay nasa kahit saan sa linya.
+Dahil ang `find` ay naghahanap ng occurrence ng string sa loob ng
+ibang string at nagre-return ng posisyon ng string o -1 kung
+hindi nahanap ang string, maaari tayong sumulat ng sumusunod na loop para ipakita ang mga linya
+na naglalaman ng string na "@uct.ac.za" (i.e., galing sila sa
+University of Cape Town sa South Africa):
+
+\VerbatimInput{../code3/search4.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
+
+Na gumagawa ng sumusunod na output:
+
+~~~~
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+X-Authentication-Warning: set sender to stephen.marquard@uct.ac.za using -f
+From: stephen.marquard@uct.ac.za
+Author: stephen.marquard@uct.ac.za
+From david.horwitz@uct.ac.za Fri Jan  4 07:02:32 2008
+X-Authentication-Warning: set sender to david.horwitz@uct.ac.za using -f
+From: david.horwitz@uct.ac.za
+Author: david.horwitz@uct.ac.za
+...
+~~~~
+
+Dito ginagamit din natin ang contracted form ng `if` statement
+kung saan inilalagay natin ang `continue` sa parehong linya ng
+`if`. Ang contracted form ng `if` na ito ay gumagana
+pareho kung ang `continue` ay nasa susunod na linya at
+naka-indent.
+
+Letting the user choose the file name
+-------------------------------------
+
+Talagang ayaw nating kailanganin na i-edit ang Python code natin sa bawat pagkakataon na gusto nating
+i-process ang ibang file. Mas magiging magagamit kung hihilingin natin sa user na
+mag-enter ng file name string sa bawat pagkakataon na tumatakbo ang program para magamit nila
+ang program natin sa iba't ibang files nang hindi binabago ang Python code.
+
+Napakasimple gawin ito sa pamamagitan ng pagbasa ng file name mula sa user gamit ang
+`input` tulad ng sumusunod:
+
+\VerbatimInput{../code3/search6.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
+
+Binabasa natin ang file name mula sa user at inilalagay ito sa variable na may pangalang
+`fname` at binubuksan ang file na iyon. Ngayon maaari na nating patakbuhin ang program
+nang paulit-ulit sa iba't ibang files.
+
+~~~~
+python search6.py
+Enter the file name: mbox.txt
+There were 1797 subject lines in mbox.txt
+
+python search6.py
+Enter the file name: mbox-short.txt
+There were 27 subject lines in mbox-short.txt
+~~~~
+
+Bago tumingin sa susunod na section, tingnan ang program sa itaas at
+tanungin ang sarili mo, "Ano ang maaaring maging mali dito?" o "Ano ang maaaring gawin ng
+friendly user natin na magdudulot na ang nice little program natin ay
+lumabas nang hindi maayos na may traceback, na ginagawang hindi masyadong cool tayo sa
+mga mata ng users natin?"
+
+Using `try, except,` and `open`
+-----------------------------------------------------
+
+Sinabi ko sa iyo na huwag tumingin. Ito na ang huling pagkakataon mo.
+
+Paano kung ang user natin ay nagta-type ng isang bagay na hindi file name?
+
+~~~~
+python search6.py
+Enter the file name: missing.txt
+Traceback (most recent call last):
+  File "search6.py", line 2, in <module>
+    fhand = open(fname)
+FileNotFoundError: [Errno 2] No such file or directory: 'missing.txt'
+
+python search6.py
+Enter the file name: na na boo boo
+Traceback (most recent call last):
+  File "search6.py", line 2, in <module>
+    fhand = open(fname)
+FileNotFoundError: [Errno 2] No such file or directory: 'na na boo boo'
+~~~~
+
+Huwag tumawa. Ang mga users ay sa huli ay gagawin ang bawat posibleng bagay na magagawa nila
+para sirain ang programs mo, maaaring hindi sinasadya o may masamang layunin. Bilang
+matter of fact, mahalagang parte ng anumang software development team ay isang
+tao o grupo na tinatawag na *Quality Assurance* (o QA para sa
+maikli) na ang trabaho ay gawin ang pinakamabaliw na bagay na posible sa
+pagtatangka na sirain ang software na ginawa ng programmer.
+
+\index{Quality Assurance}
+\index{QA}
+
+Ang QA team ay responsable sa paghahanap ng flaws sa programs bago natin
+nai-deliver ang program sa end users na maaaring bumibili ng
+software o nagbabayad ng suweldo natin para sumulat ng software. Kaya ang QA team ay
+pinakamabuting kaibigan ng programmer.
+
+\index{try statement}
+\index{statement!try}
+\index{open function}
+\index{function!open}
+\index{exception!IOError}
+\index{IOError}
+
+Kaya ngayon na nakikita natin ang flaw sa program, maaari nating maayos na ayusin ito
+gamit ang `try`/`except` structure. Kailangan nating
+i-assume na ang `open` call ay maaaring mabigo at magdagdag ng recovery code
+kapag ang `open` ay nabigo tulad ng sumusunod:
+
+\VerbatimInput{../code3/search7.py}
+\begin{trinketfiles}
+../code3/mbox-short.txt
+\end{trinketfiles}
+
+Ang `exit` function ay nagtatapos ng program. Ito ay function
+na tinatawag natin na hindi kailanman nagre-return. Ngayon kapag ang user natin (o QA team) ay nagta-type ng
+kalokohan o masamang file names, "hinuhuli" natin sila at nagre-recover nang maayos:
+
+~~~~
+python search7.py
+Enter the file name: mbox.txt
+There were 1797 subject lines in mbox.txt
+
+python search7.py
+Enter the file name: na na boo boo
+File cannot be opened: na na boo boo
+~~~~
+
+\index{Pythonic}
+
+Ang pagprotekta sa `open` call ay magandang halimbawa ng tamang
+paggamit ng `try` at `except` sa Python program. Ginagamit natin
+ang term na "Pythonic" kapag gumagawa tayo ng isang bagay sa "Python way". Maaari nating
+sabihin na ang halimbawa sa itaas ay ang Pythonic way para buksan ang file.
+
+Kapag naging mas bihasa ka na sa Python, maaari kang makipag-repartee sa
+iba pang Python programmers para magpasya kung alin sa dalawang katumbas na solusyon sa
+problema ang "mas Pythonic". Ang layunin na maging "mas Pythonic" ay kumukuha
+ng konsepto na ang programming ay parte engineering at parte art. Hindi tayo
+palaging interesado lang na gumawa ng isang bagay na gumagana, gusto din natin na ang
+solusyon natin ay elegant at maa-appreciate bilang elegant ng mga kapantay natin.
+
+Writing files
+-------------
+
+\index{file!writing}
+
+Para sumulat ng file, kailangan mong buksan ito na may mode na "w" bilang pangalawang
+parameter:
+
+~~~~ {.python}
+>>> fout = open('output.txt', 'w')
+>>> print(fout)
+<_io.TextIOWrapper name='output.txt' mode='w' encoding='cp1252'>
+~~~~
+
+Kung ang file ay umiiral na, ang pagbubukas nito sa write mode ay naglilinis ng lumang
+data at nagsisimula ng fresh, kaya mag-ingat! Kung ang file ay hindi umiiral, bago
+ang gagawin.
+
+Ang `write` method ng file handle object ay naglalagay ng data sa
+file, na nagre-return ng bilang ng characters na naisulat. Ang default write
+mode ay text para sa pagsusulat (at pagbabasa) ng strings.
+
+~~~~ {.python}
+>>> line1 = "This here's the wattle,\n"
+>>> fout.write(line1)
+24
+~~~~
+
+\index{newline}
+
+Muli, ang file object ay nagsu-subaybay kung nasaan ito, kaya kung tatawagin mo
+ang `write` ulit, idinadagdag nito ang bagong data sa dulo.
+
+Dapat nating siguraduhin na pamahalaan ang dulo ng mga linya habang sumusulat tayo sa file sa pamamagitan ng
+tahasang paglalagay ng newline character kapag gusto nating tapusin ang linya.
+Ang `print` statement ay awtomatikong nag-a-append ng newline, pero
+ang `write` method ay hindi nagdadagdag ng newline nang awtomatiko.
+
+~~~~ {.python}
+>>> line2 = 'the emblem of our land.\n'
+>>> fout.write(line2)
+24
+~~~~
+
+Kapag tapos ka na sa pagsusulat, kailangan mong isara ang file para masiguro na
+ang huling piraso ng data ay pisikal na naisulat sa disk para hindi ito
+mawala kung ang power ay mawawala.
+
+~~~~ {.python}
+>>> fout.close()
+~~~~
+
+Maaari nating isara ang mga files na binubuksan natin para sa pagbabasa din, pero maaari tayong maging
+medyo pabaya kung nagbubukas lang tayo ng ilang files dahil sinisiguro ng Python
+na lahat ng bukas na files ay nagsasara kapag natatapos ang program. Kapag
+sumusulat tayo ng files, gusto nating tahasang isara ang files para walang
+maiwan sa pagkakataon.
+
+\index{close method}
+\index{method!close}
+
+Debugging
+---------
+
+\index{debugging}
+\index{whitespace}
+
+Kapag nagbabasa at sumusulat ka ng files, maaari kang makatagpo ng mga problema sa
+whitespace. Ang mga errors na ito ay maaaring mahirap i-debug dahil ang spaces, tabs, at
+newlines ay karaniwang invisible:
+
+~~~~ {.python}
+>>> s = '1 2\t 3\n 4'
+>>> print(s)
+1 2  3
+ 4
+~~~~
+
+\index{repr function}
+\index{function!repr}
+\index{string representation}
+
+Ang built-in function na `repr` ay maaaring makatulong. Tumatanggap ito ng anumang object bilang
+argument at nagre-return ng string representation ng object. Para sa
+strings, kinakatawan nito ang whitespace characters gamit ang backslash sequences:
+
+~~~~ {.python}
+>>> print(repr(s))
+'1 2\t 3\n 4'
+~~~~
+
+Ito ay maaaring makatulong para sa debugging.
+
+Ang isa pang problema na maaaring makatagpo ka ay ang iba't ibang systems ay gumagamit ng
+iba't ibang characters para ipahiwatig ang dulo ng linya. Ang ilang systems ay gumagamit ng
+newline, na kinakatawan ng `\n`. Ang iba ay gumagamit ng return character, na kinakatawan ng
+`\r`. Ang ilan ay gumagamit ng pareho. Kung ililipat mo ang files sa pagitan ng iba't ibang systems, ang mga
+inconsistencies na ito ay maaaring magdulot ng mga problema.
+
+\index{end of line character}
+
+Para sa karamihan ng systems, mayroong applications para i-convert mula sa isang format patungo sa
+iba. Maaari mong hanapin ang mga ito (at magbasa pa tungkol sa issue na ito) sa
+[https://www.wikipedia.org/wiki/Newline](https://wikipedia.org/wiki/Newline). O, siyempre,
+maaari mong isulat ang isa sa iyong sarili.
+
+Glossary
+--------
+
+catch
+:   Para pigilan ang exception na tapusin ang program gamit ang
+    `try` at `except` statements.
+\index{catch}
+
+newline
+:   Espesyal na character na ginagamit sa files at strings para ipahiwatig ang dulo ng
+    linya.
+\index{newline}
+
+Pythonic
+:   Technique na gumagana nang elegant sa Python. "Ang paggamit ng try at except ay
+    ang *Pythonic* way para makabawi mula sa missing files".
+\index{Pythonic}
+
+Quality Assurance
+:   Tao o team na nakatuon sa pagtiyak ng overall quality ng
+    software product. Ang QA ay kadalasang kasangkot sa pag-test ng product at
+    pagkilala ng mga problema bago i-release ang product.
+\index{Quality Assurance}
+\index{QA}
+
+text file
+:   Sequence ng characters na naka-store sa permanent storage tulad ng hard
+    drive.
+\index{text file}
+
+Exercises
+---------
+
+**Exercise 1:** Sumulat ng program para magbasa sa file at mag-print ng
+contents ng file (linya sa linya) lahat sa upper case. Ang pag-e-execute ng
+program ay magiging ganito:
+
+~~~~
+python shout.py
+Enter a file name: mbox-short.txt
+FROM STEPHEN.MARQUARD@UCT.AC.ZA SAT JAN  5 09:14:16 2008
+RETURN-PATH: <POSTMASTER@COLLAB.SAKAIPROJECT.ORG>
+RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
+     BY FRANKENSTEIN.MAIL.UMICH.EDU (CYRUS V2.3.8) WITH LMTPA;
+     SAT, 05 JAN 2008 09:14:16 -0500
+~~~~
+
+Maaari mong i-download ang file mula sa [www.py4e.com/code3/mbox-short.txt](http://www.py4e.com/code3/mbox-short.txt)
+
+**Exercise 2:** Sumulat ng program para mag-prompt para sa file name, at pagkatapos magbasa
+sa file at maghanap ng mga linya ng form:
+
+~~~~
+X-DSPAM-Confidence: 0.8475
+~~~~
+
+Kapag nakatagpo ka ng linya na nagsisimula sa "X-DSPAM-Confidence:" hatiin
+ang linya para kunin ang floating-point number sa linya. Bilangin
+ang mga linyang ito at pagkatapos i-compute ang kabuuan ng spam confidence values
+mula sa mga linyang ito. Kapag naabot mo na ang dulo ng file, mag-print ng
+average spam confidence.
+
+~~~~
+Enter the file name: mbox.txt
+Average spam confidence: 0.894128046745
+
+Enter the file name: mbox-short.txt
+Average spam confidence: 0.750718518519
+~~~~
+
+I-test ang file mo sa *mbox.txt* at *mbox-short.txt* files.
+
+**Exercise 3:**
+
+Minsan kapag ang mga programmers ay naiinip o gusto ng kaunting
+kasiyahan, nagdadagdag sila ng harmless na *Easter Egg* sa program nila.
+Baguhin ang program na nagpo-prompt sa user para sa file name para
+mag-print ng nakakatawang mensahe kapag ang user ay nagta-type ng eksaktong file name na "na na
+boo boo". Ang program ay dapat kumilos nang normal para sa lahat ng iba pang files na
+umiiral at hindi umiiral. Narito ang sample execution ng program:
+
+~~~~
+python egg.py
+Enter the file name: mbox.txt
+There were 1797 subject lines in mbox.txt
+
+python egg.py
+Enter the file name: missing.tyxt
+File cannot be opened: missing.tyxt
+
+python egg.py
+Enter the file name: na na boo boo
+NA NA BOO BOO TO YOU - You have been punk'd!
+~~~~
+
+Hindi namin hinihikayat na maglagay ng Easter Eggs sa programs mo; ito ay
+exercise lang.
+

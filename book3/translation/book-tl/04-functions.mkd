@@ -1,0 +1,878 @@
+
+Functions
+=========
+
+Function calls
+--------------
+
+\index{function call}
+
+Sa konteksto ng programming, ang *function* ay pinangalanang
+sequence ng statements na gumagawa ng computation. Kapag nagde-define ka ng
+function, tinutukoy mo ang pangalan at ang sequence ng statements. Mamaya,
+maaari mong "tawagin" ang function sa pamamagitan ng pangalan. Nakita na natin ang isang halimbawa ng
+*function call*:
+
+~~~~ {.python}
+>>> type(32)
+<class 'int'>
+~~~~
+
+Ang pangalan ng function ay `type`. Ang expression sa
+parentheses ay tinatawag na *argument* ng function. Ang
+argument ay value o variable na ipinapasa natin sa function bilang
+input sa function. Ang result, para sa `type` function,
+ay ang type ng argument.
+
+\index{parentheses!argument in}
+
+Karaniwang sinasabi na ang function ay "tumatanggap" ng argument at "nagre-return" ng
+result. Ang result ay tinatawag na *return value*.
+
+\index{argument}
+\index{return value}
+
+Built-in functions
+------------------
+
+Ang Python ay nagbibigay ng maraming important built-in functions na maaari nating gamitin
+nang hindi kailangan magbigay ng function definition. Ang mga creators ng
+Python ay sumulat ng set ng functions para solusyonan ang common problems at isinama
+sila sa Python para sa atin na gamitin.
+
+Ang `max` at `min` functions ay nagbibigay sa atin ng pinakamalaki
+at pinakamaliit na values sa list, ayon sa pagkakabanggit:
+
+~~~~ {.python}
+>>> max('Hello world')
+'w'
+>>> min('Hello world')
+' '
+>>>
+~~~~
+
+Ang `max` function ay nagsasabi sa atin ng "largest character" sa
+string (na lumalabas na letrang "w") at ang `min`
+function ay nagpapakita sa atin ng smallest character (na lumalabas na
+space).
+
+Ang isa pang napakakaraniwang built-in function ay ang `len` function
+na nagsasabi sa atin kung ilang items ang nasa argument nito. Kung ang argument sa
+`len` ay string, nagre-return ito ng bilang ng characters sa
+string.
+
+~~~~ {.python}
+>>> len('Hello world')
+11
+>>>
+~~~~
+
+Ang mga functions na ito ay hindi limitado sa pagtingin sa strings. Maaari silang gumana
+sa anumang set ng values, tulad ng makikita natin sa susunod na chapters.
+
+Dapat mong ituring ang mga pangalan ng built-in functions bilang reserved words
+(i.e., iwasan ang paggamit ng "max" bilang variable name).
+
+Type conversion functions
+-------------------------
+
+\index{conversion!type}
+\index{type conversion}
+
+Ang Python ay nagbibigay din ng built-in functions na nagko-convert ng values mula sa isang
+type patungo sa iba. Ang `int` function ay tumatanggap ng anumang value at
+nagko-convert nito sa integer, kung kaya, o nagre-reklamo kung hindi:
+
+\index{int function}
+\index{function!int}
+
+~~~~ {.python}
+>>> int('32')
+32
+>>> int('Hello')
+ValueError: invalid literal for int() with base 10: 'Hello'
+~~~~
+
+Ang `int` ay maaaring mag-convert ng floating-point values sa integers, pero hindi ito
+nagro-round off; tinatanggal nito ang fraction part:
+
+~~~~ {.python}
+>>> int(3.99999)
+3
+>>> int(-2.3)
+-2
+~~~~
+
+Ang `float` ay nagko-convert ng integers at strings sa floating-point
+numbers:
+
+\index{float function}
+\index{function!float}
+
+~~~~ {.python}
+>>> float(32)
+32.0
+>>> float('3.14159')
+3.14159
+~~~~
+
+Sa wakas, ang `str` ay nagko-convert ng argument nito sa string:
+
+\index{str function}
+\index{function!str}
+
+~~~~ {.python}
+>>> str(32)
+'32'
+>>> str(3.14159)
+'3.14159'
+~~~~
+
+Math functions
+--------------
+
+\index{math function}
+\index{function, math}
+\index{module}
+\index{module object}
+
+Ang Python ay may `math` module na nagbibigay ng karamihan sa pamilyar na
+mathematical functions. Bago natin magamit ang module, kailangan nating i-import
+ito:
+
+~~~~ {.python}
+>>> import math
+~~~~
+
+Ang statement na ito ay gumagawa ng *module object* na may pangalang math. Kung
+i-print mo ang module object, makakakuha ka ng ilang information tungkol dito:
+
+~~~~ {.python}
+>>> print(math)
+<module 'math' (built-in)>
+~~~~
+
+Ang module object ay naglalaman ng mga functions at variables na tinukoy sa
+module. Para ma-access ang isa sa mga functions, kailangan mong tukuyin ang pangalan ng
+module at ang pangalan ng function, na pinaghihiwalay ng dot (kilala din bilang
+period). Ang format na ito ay tinatawag na *dot notation*.
+
+\index{dot notation}
+
+~~~~ {.python}
+>>> ratio = signal_power / noise_power
+>>> decibels = 10 * math.log10(ratio)
+
+>>> radians = 0.7
+>>> height = math.sin(radians)
+~~~~
+
+Ang unang halimbawa ay nagko-compute ng logarithm base 10 ng signal-to-noise
+ratio. Ang math module ay nagbibigay din ng function na tinatawag na `log`
+na nagko-compute ng logarithms base e.
+
+\index{log function}
+\index{function!log}
+\index{sine function}
+\index{radian}
+\index{trigonometric function}
+\index{function, trigonometric}
+
+Ang pangalawang halimbawa ay nakakahanap ng sine ng `radians`. Ang pangalan ng
+variable ay hint na ang `sin` at ang iba pang trigonometric
+functions (`cos`, `tan`, etc.) ay tumatanggap ng arguments sa
+radians. Para i-convert mula sa degrees patungo sa radians, hatiin sa 360 at i-multiply
+sa $2
+\pi$:
+
+~~~~ {.python}
+>>> degrees = 45
+>>> radians = degrees / 360.0 * 2 * math.pi
+>>> math.sin(radians)
+0.7071067811865476
+~~~~
+
+Ang expression na `math.pi` ay kumukuha ng variable na `pi`
+mula sa math module. Ang value ng variable na ito ay approximation ng
+$\pi$, tumpak sa humigit-kumulang 15 digits.
+
+\index{pi}
+
+Kung alam mo ang trigonometry mo, maaari mong suriin ang naunang result sa pamamagitan ng
+pag-compare nito sa square root ng dalawa na hinati sa dalawa:
+
+\index{sqrt function}
+\index{function!sqrt}
+
+~~~~ {.python}
+>>> math.sqrt(2) / 2.0
+0.7071067811865476
+~~~~
+
+Random numbers
+--------------
+
+\index{random number}
+\index{number, random}
+\index{deterministic}
+\index{pseudorandom}
+
+Sa parehong inputs, karamihan ng computer programs ay gumagawa ng parehong outputs
+sa bawat pagkakataon, kaya sinasabi na sila ay *deterministic*.
+Ang Determinism ay karaniwang magandang bagay, dahil inaasahan natin na ang parehong
+calculation ay magbibigay ng parehong result. Para sa ilang applications, gayunpaman, gusto natin
+na ang computer ay unpredictable. Ang mga games ay halatang halimbawa, pero
+mayroon pa.
+
+Ang paggawa ng program na talagang nondeterministic ay lumalabas na hindi masyadong madali, pero
+may mga paraan para gawin itong hindi bababa ay mukhang nondeterministic. Isa sa kanila ay
+gamitin ang *algorithms* na gumagawa ng
+*pseudorandom* numbers. Ang Pseudorandom numbers ay hindi
+talagang random dahil ginagawa sila ng deterministic computation,
+pero sa pagtingin lang sa mga numero ay halos imposibleng
+makilala sila mula sa random.
+
+\index{random module}
+\index{module!random}
+
+Ang `random` module ay nagbibigay ng functions na gumagawa ng
+pseudorandom numbers (na tatawagin ko lang na "random" mula ngayon).
+
+\index{random function}
+\index{function!random}
+
+Ang function na `random` ay nagre-return ng random float sa pagitan ng 0.0 at
+1.0 (kasama ang 0.0 pero hindi ang 1.0). Sa bawat pagtawag sa `random`,
+nakakakuha ka ng susunod na numero sa mahabang serye. Para makita ang sample, patakbuhin ang loop na ito:
+
+~~~~ {.python}
+import random
+
+for i in range(10):
+    x = random.random()
+    print(x)
+~~~~
+
+Ang program na ito ay gumagawa ng sumusunod na list ng 10 random numbers sa pagitan ng
+0.0 at hanggang pero hindi kasama ang 1.0.
+
+~~~~
+0.11132867921152356
+0.5950949227890241
+0.04820265884996877
+0.841003109276478
+0.997914947094958
+0.04842330803368111
+0.7416295948208405
+0.510535245390327
+0.27447040171978143
+0.028511805472785867
+~~~~
+
+**Exercise 1:** Patakbuhin ang program sa iyong system at tingnan kung anong mga numero ang makukuha mo.
+Patakbuhin ang program nang higit sa isang beses at tingnan kung anong mga numero ang makukuha mo.
+
+Ang `random` function ay isa lang sa maraming functions na
+naghahandle ng random numbers. Ang function na `randint` ay tumatanggap ng
+parameters na `low` at `high`, at nagre-return ng
+integer sa pagitan ng `low` at `high` (kasama ang pareho).
+
+\index{randint function}
+\index{function!randint}
+
+~~~~ {.python}
+>>> random.randint(5, 10)
+5
+>>> random.randint(5, 10)
+9
+~~~~
+
+Para pumili ng element mula sa sequence nang random, maaari mong gamitin ang
+`choice`:
+
+\index{choice function}
+\index{function!choice}
+
+~~~~ {.python}
+>>> t = [1, 2, 3]
+>>> random.choice(t)
+2
+>>> random.choice(t)
+3
+~~~~
+
+Ang `random` module ay nagbibigay din ng functions para gumawa ng
+random values mula sa continuous distributions kasama ang Gaussian,
+exponential, gamma, at ilan pa.
+
+Adding new functions
+--------------------
+
+Hanggang ngayon, gumagamit lang tayo ng mga functions na kasama sa Python, pero
+maaari ring magdagdag ng bagong functions. Ang *function
+definition* ay tumutukoy sa pangalan ng bagong function at sa
+sequence ng statements na na-e-execute kapag tinawag ang function. Kapag
+nagde-define tayo ng function, maaari nating muling gamitin ang function nang paulit-ulit sa buong
+program natin.
+
+\index{function}
+\index{function definition}
+\index{definition!function}
+
+Narito ang halimbawa:
+
+~~~~ {.python}
+def print_lyrics():
+    print("I'm a lumberjack, and I'm okay.")
+    print('I sleep all night and I work all day.')
+~~~~
+
+Ang `def` ay keyword na nagpapahiwatig na ito ay function
+definition. Ang pangalan ng function ay `print_lyrics`. Ang mga rules para sa
+function names ay pareho sa variable names: letra, numero at
+ilang punctuation marks ay legal, pero ang unang character ay hindi maaaring
+numero. Hindi mo maaaring gamitin ang keyword bilang pangalan ng function, at dapat mong
+iwasan na magkaroon ng variable at function na may parehong pangalan.
+
+\index{def keyword}
+\index{keyword!def}
+\index{argument}
+
+Ang empty parentheses pagkatapos ng pangalan ay nagpapahiwatig na ang function na ito ay hindi
+tumatanggap ng anumang arguments. Mamaya ay gagawa tayo ng functions na tumatanggap ng arguments bilang
+kanilang inputs.
+
+\index{parentheses!empty}
+\index{header}
+\index{body}
+\index{indentation}
+\index{colon}
+
+Ang unang linya ng function definition ay tinatawag na
+*header*; ang natitira ay tinatawag na *body*.
+Ang header ay dapat magtapos sa colon at ang body ay dapat naka-indent. Ayon sa
+convention, ang indentation ay palaging apat na spaces. Ang body ay maaaring maglalaman ng
+anumang bilang ng statements.
+
+\index{ellipses}
+
+Kung magta-type ka ng function definition sa interactive mode, ang interpreter
+ay nagpi-print ng ellipses (*...*) para ipaalam sa iyo na ang definition ay hindi pa
+kumpleto:
+
+~~~~ {.python}
+>>> def print_lyrics():
+...     print("I'm a lumberjack, and I'm okay.")
+...     print('I sleep all night and I work all day.')
+...
+~~~~
+
+Para tapusin ang function, kailangan mong mag-enter ng empty line (hindi ito
+kailangan sa script).
+
+Ang pagde-define ng function ay gumagawa ng variable na may parehong pangalan.
+
+~~~~ {.python}
+>>> print(print_lyrics)
+<function print_lyrics at 0xb7e99e9c>
+>>> print(type(print_lyrics))
+<class 'function'>
+~~~~
+
+Ang value ng `print_lyrics` ay *function object*, na
+may type na "function".
+
+\index{function object}
+\index{object!function}
+
+Ang syntax para tawagin ang bagong function ay pareho sa built-in
+functions:
+
+~~~~ {.python}
+>>> print_lyrics()
+I'm a lumberjack, and I'm okay.
+I sleep all night and I work all day.
+~~~~
+
+Kapag nagde-define ka na ng function, maaari mong gamitin ito sa loob ng iba pang
+function. Halimbawa, para ulitin ang naunang refrain, maaari tayong sumulat ng
+function na tinatawag na `repeat_lyrics`:
+
+~~~~ {.python}
+def repeat_lyrics():
+    print_lyrics()
+    print_lyrics()
+~~~~
+
+At pagkatapos tawagin ang `repeat_lyrics`:
+
+~~~~ {.python}
+>>> repeat_lyrics()
+I'm a lumberjack, and I'm okay.
+I sleep all night and I work all day.
+I'm a lumberjack, and I'm okay.
+I sleep all night and I work all day.
+~~~~
+
+Pero hindi talaga ganun ang kanta.
+
+Definitions and uses
+--------------------
+
+\index{function definition}
+
+Pinagsasama ang code fragments mula sa naunang section, ang buong
+program ay ganito:
+
+\VerbatimInput{../code3/lyrics.py}
+
+Ang program na ito ay may dalawang function definitions: `print_lyrics` at
+`repeat_lyrics`. Ang function definitions ay na-e-execute katulad ng iba pang
+statements, pero ang epekto ay paggawa ng function objects. Ang mga statements
+sa loob ng function ay hindi na-e-execute hanggang tinawag ang function,
+at ang function definition ay hindi gumagawa ng output.
+
+\index{use before def}
+
+Tulad ng maaaring inaasahan mo, kailangan mong gumawa ng function bago mo
+ma-e-execute ito. Sa ibang salita, ang function definition ay dapat na-e-execute
+bago ang unang pagkakataon na ito ay tinawag.
+
+**Exercise 2:** Ilipat ang huling linya ng program na ito sa itaas, para ang
+function call ay lumabas bago ang definitions. Patakbuhin ang program at tingnan
+kung anong error message ang makukuha mo.
+
+**Exercise 3:** Ilipat ang function call pabalik sa ibaba at ilipat ang
+definition ng `print_lyrics` pagkatapos ng definition ng `repeat_lyrics`.
+Ano ang mangyayari kapag pinatakbo mo ang program na ito?
+
+Flow of execution
+-----------------
+
+\index{flow of execution}
+
+Para masiguro na ang function ay na-define bago ang unang paggamit nito, kailangan mong
+malaman ang order kung saan ang statements ay na-e-execute, na tinatawag na
+*flow of execution*.
+
+Ang execution ay palaging nagsisimula sa unang statement ng program.
+Ang mga statements ay na-e-execute isa-isa, sa order mula itaas hanggang ibaba.
+
+Ang function *definitions* ay hindi binabago ang flow of execution ng
+program, pero tandaan na ang mga statements sa loob ng function ay hindi
+na-e-execute hanggang tinawag ang function.
+
+Ang function call ay parang detour sa flow of execution. Sa halip na
+pumunta sa susunod na statement, ang flow ay tumatalon sa body ng function,
+nag-e-execute ng lahat ng statements doon, at pagkatapos ay bumabalik para kunin kung saan
+ito natigil.
+
+Mukhang simple lang iyon, hanggang maalala mo na ang isang function ay maaaring tumawag
+sa iba. Habang nasa gitna ng isang function, ang program ay maaaring kailangan
+i-execute ang mga statements sa iba pang function. Pero habang nag-e-execute ng bagong
+function na iyon, ang program ay maaaring kailangan i-execute pa ang isa pang function!
+
+Sa kabutihang-palad, ang Python ay magaling sa pagsubaybay kung nasaan ito, kaya sa bawat
+pagkakataon na natatapos ang function, ang program ay kumukuha kung saan ito natigil sa
+function na tumawag dito. Kapag nakarating na sa dulo ng program, ito ay
+nagtatapos.
+
+Ano ang moral ng sordid tale na ito? Kapag nagbabasa ka ng program, hindi mo
+palaging gusto na basahin mula itaas hanggang ibaba. Minsan mas makatuwiran kung
+sinusundan mo ang flow of execution.
+
+Parameters and arguments
+------------------------
+
+\index{parameter}
+\index{function parameter}
+\index{argument}
+\index{function argument}
+
+Ang ilan sa mga built-in functions na nakita natin ay nangangailangan ng arguments. Halimbawa,
+kapag tinatawag mo ang `math.sin` ay ipinapasa mo ang numero bilang
+argument. Ang ilang functions ay tumatanggap ng higit sa isang argument:
+ang `math.pow` ay tumatanggap ng dalawa, ang base at ang exponent.
+
+Sa loob ng function, ang mga arguments ay na-a-assign sa variables na tinatawag na
+*parameters*. Narito ang halimbawa ng user-defined
+function na tumatanggap ng argument:
+
+\index{parentheses!parameters in}
+
+~~~~ {.python}
+def print_twice(bruce):
+    print(bruce)
+    print(bruce)
+~~~~
+
+Ang function na ito ay nag-a-assign ng argument sa parameter na may pangalang
+`bruce`. Kapag tinawag ang function, nagpi-print ito ng value ng
+parameter (anuman ito) nang dalawang beses.
+
+Ang function na ito ay gumagana sa anumang value na maaaring i-print.
+
+~~~~ {.python}
+>>> print_twice('Spam')
+Spam
+Spam
+>>> print_twice(17)
+17
+17
+>>> import math
+>>> print_twice(math.pi)
+3.141592653589793
+3.141592653589793
+~~~~
+
+Ang parehong rules ng composition na nalalapat sa built-in functions ay
+nalalapat din sa user-defined functions, kaya maaari nating gamitin ang anumang uri ng expression bilang
+argument para sa `print_twice`:
+
+\index{composition}
+
+~~~~ {.python}
+>>> print_twice('Spam '*4)
+Spam Spam Spam Spam
+Spam Spam Spam Spam
+>>> print_twice(math.cos(math.pi))
+-1.0
+-1.0
+~~~~
+
+Ang argument ay na-e-evaluate bago tinawag ang function, kaya sa mga
+halimbawa ang expressions na `'Spam '*4` at `math.cos(math.pi)`
+ay na-e-evaluate lang minsan.
+
+\index{argument}
+
+Maaari mo ring gamitin ang variable bilang argument:
+
+~~~~ {.python}
+>>> michael = 'Eric, the half a bee.'
+>>> print_twice(michael)
+Eric, the half a bee.
+Eric, the half a bee.
+~~~~
+
+Ang pangalan ng variable na ipinapasa natin bilang argument (`michael`)
+ay walang kinalaman sa pangalan ng parameter (`bruce`).
+Hindi mahalaga kung ano ang tawag sa value sa pinanggalingan (sa caller);
+dito sa `print_twice`, tinatawag natin ang lahat na `bruce`.
+
+Fruitful functions and void functions
+-------------------------------------
+
+\index{fruitful function}
+\index{void function}
+\index{function, fruitful}
+\index{function, void}
+
+Ang ilan sa mga functions na ginagamit natin, tulad ng math functions, ay nagbibigay ng
+results; dahil walang mas magandang pangalan, tinatawag ko silang *fruitful
+functions*. Ang iba pang functions, tulad ng `print_twice`, ay gumagawa ng
+action pero hindi nagre-return ng value. Tinatawag silang *void
+functions*.
+
+Kapag tumatawag ka ng fruitful function, halos palaging gusto mong gumawa
+ng isang bagay sa result; halimbawa, maaari mong i-assign ito sa isang
+variable o gamitin ito bilang parte ng expression:
+
+~~~~ {.python}
+x = math.cos(radians)
+golden = (math.sqrt(5) + 1) / 2
+~~~~
+
+Kapag tumatawag ka ng function sa interactive mode, ang Python ay nagdi-display ng
+result:
+
+~~~~ {.python}
+>>> math.sqrt(5)
+2.23606797749979
+~~~~
+
+Pero sa script, kung tumatawag ka ng fruitful function at hindi mo i-store ang
+result ng function sa variable, ang return value ay nawawala sa
+mist!
+
+~~~~ {.python}
+math.sqrt(5)
+~~~~
+
+Ang script na ito ay nagko-compute ng square root ng 5, pero dahil hindi nito i-store
+ang result sa variable o i-display ang result, hindi ito masyadong kapaki-pakinabang.
+
+\index{interactive mode}
+\index{script mode}
+
+Ang void functions ay maaaring mag-display ng isang bagay sa screen o may iba pang
+epekto, pero wala silang return value. Kung susubukan mong i-assign ang
+result sa variable, makakakuha ka ng espesyal na value na tinatawag na `None`.
+
+\index{None special value}
+\index{special value!None}
+
+~~~~ {.python}
+>>> result = print_twice('Bing')
+Bing
+Bing
+>>> print(result)
+None
+~~~~
+
+Ang value na `None` ay hindi pareho sa string na "None". Ito ay
+espesyal na value na may sariling type:
+
+~~~~ {.python}
+>>> print(type(None))
+<class 'NoneType'>
+~~~~
+
+Para mag-return ng result mula sa function, ginagamit natin ang `return`
+statement sa function natin. Halimbawa, maaari tayong gumawa ng napakasimpleng
+function na tinatawag na `addtwo` na nagdadagdag ng dalawang numero at
+nagre-return ng result.
+
+\VerbatimInput{../code3/addtwo.py}
+
+Kapag na-e-execute ang script na ito, ang `print` statement ay magpi-print
+ng "8" dahil ang `addtwo` function ay tinawag na may 3 at 5
+bilang arguments. Sa loob ng function, ang parameters na `a` at
+`b` ay 3 at 5 ayon sa pagkakabanggit. Ang function ay nagko-compute ng sum
+ng dalawang numero at inilagay ito sa local function variable na may pangalang
+`added`. Pagkatapos ginamit nito ang `return` statement para
+ipadala ang computed value pabalik sa calling code bilang function result,
+na na-assign sa variable na `x` at na-print.
+
+Why functions?
+--------------
+
+\index{function, reasons for}
+
+Maaaring hindi malinaw kung bakit sulit ang paghihiwalay ng program sa
+functions. May ilang dahilan:
+
+-   Ang paggawa ng bagong function ay nagbibigay sa iyo ng pagkakataon na pangalanan ang grupo ng
+    statements, na ginagawang mas madaling basahin, maintindihan, at
+    i-debug ang program mo.
+
+-   Ang functions ay maaaring gawing mas maliit ang program sa pamamagitan ng pag-aalis ng repetitive code.
+    Mamaya, kung gagawa ka ng pagbabago, kailangan mo lang gawin ito sa isang lugar.
+
+-   Ang paghahati ng mahabang program sa functions ay nagpapahintulot sa iyo na i-debug ang mga parts
+    isa-isa at pagkatapos ay pagsama-samahin sila sa working whole.
+
+-   Ang well-designed functions ay kadalasang kapaki-pakinabang para sa maraming programs. Kapag
+    nasulat at na-debug mo na ang isa, maaari mo na itong muling gamitin.
+
+Sa natitirang bahagi ng libro, kadalasan ay gagamit tayo ng function definition
+para ipaliwanag ang konsepto. Parte ng skill ng paggawa at paggamit ng functions
+ay magkaroon ng function na maayos na nakakakuha ng ideya tulad ng "hanapin ang
+pinakamaliit na value sa list ng values". Mamaya ay ipapakita namin sa iyo ang code na
+nakakahanap ng pinakamaliit sa list ng values at ipapakita namin ito sa iyo bilang
+function na may pangalang `min` na tumatanggap ng list ng values bilang
+argument nito at nagre-return ng pinakamaliit na value sa list.
+
+Debugging
+---------
+
+\index{debugging}
+
+Kung gumagamit ka ng text editor para sumulat ng iyong scripts, maaari kang makatagpo ng
+mga problema sa spaces at tabs. Ang pinakamabuting paraan para iwasan ang mga problemang ito ay
+gamitin ang spaces lang (walang tabs). Karamihan ng text editors na alam ang
+Python ay ginagawa ito by default, pero ang ilan ay hindi.
+
+\index{whitespace}
+
+Ang tabs at spaces ay karaniwang invisible, na ginagawang mahirap i-debug,
+kaya subukan mong maghanap ng editor na namamahala ng indentation para sa iyo.
+
+Gayundin, huwag kalimutang i-save ang program mo bago mo ito patakbuhin. Ang ilang
+development environments ay ginagawa ito nang awtomatiko, pero ang ilan ay hindi. Sa kasong
+iyon, ang program na tinitingnan mo sa text editor ay hindi pareho
+sa program na pinatakbo mo.
+
+Ang debugging ay maaaring tumagal ng mahabang panahon kung patuloy mong pinatakbo ang parehong maling
+program nang paulit-ulit!
+
+Siguraduhin na ang code na tinitingnan mo ay ang code na pinatakbo mo.
+Kung hindi ka sigurado, maglagay ng isang bagay tulad ng `print("hello")` sa simula
+ng program at patakbuhin ito ulit. Kung hindi mo makita ang `hello`, hindi mo
+pinatakbo ang tamang program!
+
+Glossary
+--------
+
+algorithm
+:   Pangkalahatang proseso para solusyonan ang kategorya ng mga problema.
+\index{algorithm}
+
+argument
+:   Value na ibinigay sa function kapag tinawag ang function. Ang
+    value na ito ay na-a-assign sa corresponding parameter sa function.
+\index{argument}
+
+body
+:   Ang sequence ng statements sa loob ng function definition.
+\index{body}
+
+composition
+:   Paggamit ng expression bilang parte ng mas malaking expression, o statement
+    bilang parte ng mas malaking statement.
+\index{composition}
+
+deterministic
+:   Tungkol sa program na gumagawa ng parehong bagay sa bawat pagtakbo,
+    sa parehong inputs.
+\index{deterministic}
+
+dot notation
+:   Ang syntax para tawagin ang function sa iba pang module sa pamamagitan ng pagtukoy
+    sa module name na sinusundan ng dot (period) at function name.
+\index{dot notation}
+
+flow of execution
+:   Ang order kung saan ang statements ay na-e-execute habang tumatakbo ang program.
+\index{flow of execution}
+
+fruitful function
+:   Function na nagre-return ng value.
+\index{fruitful function}
+
+function
+:   Pinangalanang sequence ng statements na gumagawa ng kapaki-pakinabang na operation.
+    Ang mga functions ay maaaring tumanggap o hindi ng arguments at maaaring gumawa o hindi ng
+    result.
+\index{function}
+
+function call
+:   Statement na nag-e-execute ng function. Binubuo ito ng function
+    name na sinusundan ng argument list.
+\index{function call}
+
+function definition
+:   Statement na gumagawa ng bagong function, na tumutukoy sa pangalan nito,
+    parameters, at mga statements na na-e-execute nito.
+\index{function definition}
+
+function object
+:   Value na ginawa ng function definition. Ang pangalan ng function
+    ay variable na tumutukoy sa function object.
+\index{function object}
+
+header
+:   Ang unang linya ng function definition.
+\index{header}
+
+import statement
+:   Statement na nagbabasa ng module file at gumagawa ng module object.
+\index{import statement}
+\index{statement!import}
+
+module object
+:   Value na ginawa ng `import` statement na nagbibigay ng
+    access sa data at code na tinukoy sa module.
+\index{module}
+
+parameter
+:   Pangalan na ginagamit sa loob ng function para tumukoy sa value na ipinasa bilang
+    argument.
+\index{parameter}
+
+pseudorandom
+:   Tungkol sa sequence ng mga numero na mukhang random, pero
+    ginawa ng deterministic program.
+\index{pseudorandom}
+
+return value
+:   Ang result ng function. Kung ang function call ay ginagamit bilang
+    expression, ang return value ay ang value ng expression.
+\index{return value}
+
+void function
+:   Function na hindi nagre-return ng value.
+\index{void function}
+
+Exercises
+---------
+
+**Exercise 4:** Ano ang layunin ng "def" keyword sa Python?
+
+a\) Slang ito na nangangahulugang "ang sumusunod na code ay talagang cool"\
+b) Nagpapahiwatig ito ng simula ng function\
+c) Nagpapahiwatig ito na ang sumusunod na indented section ng code ay
+i-store para mamaya\
+d) Pareho ang b at c ay totoo\
+e) Wala sa itaas
+
+**Exercise 5:** Ano ang i-print ng sumusunod na Python program?
+
+~~~~ {.python}
+def fred():
+   print("Zap")
+
+def jane():
+   print("ABC")
+
+jane()
+fred()
+jane()
+~~~~
+
+a\) Zap ABC jane fred jane\
+b) Zap ABC Zap\
+c) ABC Zap jane\
+d) ABC Zap ABC\
+e) Zap Zap Zap
+
+**Exercise 6:** Muling isulat ang iyong pay computation na may time-and-a-half para sa
+overtime at gumawa ng function na tinatawag na `computepay` na
+tumatanggap ng dalawang parameters (`hours` at `rate`).
+
+~~~~
+Enter Hours: 45
+Enter Rate: 10
+Pay: 475.0
+~~~~
+
+**Exercise 7:** Muling isulat ang grade program mula sa naunang chapter gamit ang
+function na tinatawag na `computegrade` na tumatanggap ng score bilang
+parameter nito at nagre-return ng grade bilang string.
+
+~~~~
+ Score   Grade
+>= 0.9     A
+>= 0.8     B
+>= 0.7     C
+>= 0.6     D
+ < 0.6     F
+~~~~
+
+~~~~
+Enter score: 0.95
+A
+~~~~
+
+~~~~
+Enter score: perfect
+Bad score
+~~~~
+
+~~~~
+Enter score: 10.0
+Bad score
+~~~~
+
+~~~~
+Enter score: 0.75
+C
+~~~~
+
+~~~~
+Enter score: 0.5
+F
+~~~~
+
+Patakbuhin ang program nang paulit-ulit para i-test ang iba't ibang values para sa
+input.
