@@ -1,0 +1,864 @@
+Variables, expressions, at statements
+======================================
+
+Values and types
+----------------
+
+\index{value}
+\index{type}
+\index{string}
+
+Ang *value* ay isa sa mga basic na bagay na ginagampanan ng program,
+tulad ng letra o numero. Ang mga values na nakita natin hanggang ngayon ay
+1, 2, at "Hello, World!"
+
+Ang mga values na ito ay kabilang sa iba't ibang *types*: ang 2
+ay integer, at ang "Hello, World!" ay *string*, kaya
+tinatawag na ganito dahil naglalaman ito ng "string" ng mga letra. Ikaw (at ang
+interpreter) ay makakakilala ng strings dahil nakapaloob sila sa quotation
+marks.
+
+\index{quotation mark}
+
+Ang `print` statement ay gumagana din para sa integers. Ginagamit natin ang
+`python` command para simulan ang interpreter.
+
+~~~~ {.python}
+python
+>>> print(4)
+4
+~~~~
+
+Kung hindi ka sigurado kung anong type ang value, maaaring sabihin sa iyo ng interpreter.
+
+~~~~ {.python .trinket height="160"}
+>>> type('Hello, World!')
+<class 'str'>
+>>> type(17)
+<class 'int'>
+~~~~
+
+Hindi nakakagulat, ang strings ay kabilang sa type na `str` at
+ang integers ay kabilang sa type na `int`. Mas hindi halata, ang mga numero
+na may decimal point ay kabilang sa type na tinatawag na `float`, dahil
+ang mga numerong ito ay kinakatawan sa format na tinatawag na *floating
+point*.
+
+\index{type}
+\index{string type}
+\index{class!str}
+\index{int type}
+\index{class!int}
+\index{float type}
+\index{class!float}
+
+~~~~ {.python .trinket height="120"}
+>>> type(3.2)
+<class 'float'>
+~~~~
+
+Paano naman ang mga values tulad ng "17" at "3.2"? Mukha silang mga numero, pero
+nakapaloob sila sa quotation marks tulad ng strings.
+
+\index{quotation mark}
+
+~~~~ {.python .trinket  height="160"}
+>>> type('17')
+<class 'str'>
+>>> type('3.2')
+<class 'str'>
+~~~~
+
+Mga strings sila.
+
+Kapag nagta-type ka ng malaking integer, maaari kang matukso na gumamit ng commas
+sa pagitan ng mga grupo ng tatlong digits, tulad ng 1,000,000. Hindi ito
+legal integer sa Python, pero legal ito:
+
+~~~~ {.python .trinket height="120"}
+>>> print(1,000,000)
+1 0 0
+~~~~
+
+Well, hindi iyon ang inaasahan natin! Binibigyang-kahulugan ng Python ang
+1,000,000 bilang comma-separated sequence ng integers, na
+ini-print nito na may spaces sa pagitan.
+
+\index{semantic error}
+\index{error!semantic}
+\index{error message}
+
+Ito ang unang halimbawa na nakita natin ng semantic error: ang code
+ay tumatakbo nang hindi gumagawa ng error message, pero hindi ito gumagawa ng "tamang"
+bagay.
+
+Variables
+---------
+
+\index{variable}
+\index{assignment statement}
+\index{statement!assignment}
+
+Isa sa pinakamakapangyarihang features ng programming language ay ang
+kakayahang manipulahin ang *variables*. Ang variable ay pangalan
+na tumutukoy sa isang value.
+
+Ang *assignment statement* ay gumagawa ng bagong variables at binibigyan
+sila ng values:
+
+~~~~ {.python}
+>>> message = 'And now for something completely different'
+>>> n = 17
+>>> pi = 3.1415926535897931
+~~~~
+
+Ang halimbawang ito ay gumagawa ng tatlong assignments. Ang una ay nag-a-assign ng string sa isang
+bagong variable na may pangalang `message`; ang pangalawa ay nag-a-assign ng integer
+na 17 sa `n`; ang pangatlo ay nag-a-assign ng (approximate)
+value ng $\pi$ sa `pi`.
+
+Para i-display ang value ng variable, maaari mong gamitin ang print statement:
+
+~~~~ {.python}
+>>> print(n)
+17
+>>> print(pi)
+3.141592653589793
+~~~~
+
+Ang type ng variable ay ang type ng value na tinutukoy nito.
+
+~~~~ {.python}
+>>> type(message)
+<class 'str'>
+>>> type(n)
+<class 'int'>
+>>> type(pi)
+<class 'float'>
+~~~~
+
+Variable names and keywords
+---------------------------
+
+\index{keyword}
+
+Ang mga programmers ay karaniwang pumipili ng mga pangalan para sa kanilang variables na
+makabuluhan at nagdo-document kung para saan ginagamit ang variable.
+
+Ang mga variable names ay maaaring arbitrary na mahaba. Maaari silang maglalaman ng parehong letra
+at numero, pero hindi sila maaaring magsimula sa numero. Legal na gumamit ng
+uppercase letters, pero magandang ideya na magsimula ang variable names sa
+lowercase letter (makikita mo kung bakit mamaya).
+
+Ang underscore character ( \_ ) ay maaaring lumabas sa pangalan. Kadalasan itong ginagamit sa
+mga pangalan na may maraming salita, tulad ng `my_name` o
+`airspeed_of_unladen_swallow`. Ang mga variable names ay maaaring magsimula sa
+underscore character, pero karaniwang iniiwasan natin ito maliban kung
+sumusulat tayo ng library code para sa iba na gamitin.
+
+\index{underscore character}
+
+Kung bibigyan mo ang variable ng illegal na pangalan, makakakuha ka ng syntax error:
+
+~~~~ {.python .trinket height="450"}
+>>> 76trombones = 'big parade'
+SyntaxError: invalid syntax
+>>> more@ = 1000000
+SyntaxError: invalid syntax
+>>> class = 'Advanced Theoretical Zymurgy'
+SyntaxError: invalid syntax
+~~~~
+
+Ang `76trombones` ay illegal dahil nagsisimula ito sa numero.
+Ang `more@` ay illegal dahil naglalaman ito ng illegal character,
+@. Pero ano ang mali sa `class`?
+
+Lumalabas na ang `class` ay isa sa mga *keywords* ng Python.
+Ang interpreter ay gumagamit ng keywords para makilala
+ang structure ng program, at hindi sila maaaring gamitin bilang variable names.
+
+\index{keyword}
+
+Ang Python ay nagre-reserve ng 35 keywords:
+
+~~~~
+False      await      else       import     pass
+None       break      except     in         raise
+True       class      finally    is         return
+and        continue   for        lambda     try
+as         def        from       nonlocal   while
+assert     del        global     not        with
+async      elif       if         or         yield
+~~~~
+
+Maaaring gusto mong panatilihin ang list na ito na malapit. Kung nagre-reklamo ang interpreter
+tungkol sa isa sa iyong variable names at hindi mo alam kung bakit, tingnan kung nasa
+list na ito.
+
+Statements
+----------
+
+Ang *statement* ay unit ng code na maaaring i-execute ng Python
+interpreter. Nakita na natin ang dalawang uri ng statements: ang print bilang
+expression statement at assignment.
+
+\index{statement}
+\index{interactive mode}
+\index{script mode}
+
+Kapag nagta-type ka ng statement sa interactive mode, i-e-execute ito ng interpreter
+at i-di-display ang result, kung mayroon.
+
+Ang script ay karaniwang naglalaman ng sequence ng statements. Kung mayroong higit
+sa isang statement, ang results ay lumalabas isa-isa habang na-e-execute ang statements.
+
+Halimbawa, ang script
+
+~~~~ {.python}
+print(1)
+x = 2
+print(x)
+~~~~
+
+ay gumagawa ng output
+
+~~~~
+1
+2
+~~~~
+
+Ang assignment statement ay hindi gumagawa ng output.
+
+Operators and operands
+----------------------
+
+\index{operator, arithmetic}
+\index{arithmetic operator}
+\index{operand}
+\index{expression}
+
+Ang *Operators* ay espesyal na symbols na kumakatawan sa
+computations tulad ng addition at multiplication. Ang mga values na ina-applyan ng operator
+ay tinatawag na *operands*.
+
+Ang mga operators na `+`, `-`, `*`, `/`, at
+`**` ay gumagawa ng addition, subtraction, multiplication, division,
+at exponentiation, tulad sa sumusunod na halimbawa:
+
+~~~~ {.python}
+20+32
+hour-1
+hour*60+minute
+minute/60
+5**2
+(5+9)*(15-7)
+~~~~
+
+May pagbabago sa division operator sa pagitan ng Python 2
+at Python 3. Sa Python 3, ang result ng division na ito ay
+floating point result:
+
+~~~~ {.python .trinket height="160"}
+>>> minute = 59
+>>> minute/60
+0.9833333333333333
+~~~~
+
+Ang division operator sa Python 2 ay magdi-divide ng dalawang integers at 
+i-truncate ang result sa integer:
+
+~~~~ {.python}
+>>> minute = 59
+>>> minute/60
+0
+~~~~
+
+Para makuha ang parehong sagot sa Python 3 gumamit ng floored ( `//` integer) division.
+
+~~~~ {.python .trinket  height="160"}
+>>> minute = 59
+>>> minute//60
+0
+~~~~
+
+Sa Python 3 ang integer division ay gumagana nang mas katulad ng inaasahan mo
+kung nag-enter ka ng expression sa calculator.
+
+\index{Python 3}
+\index{Python 2}
+\index{floating-point division}
+\index{division!floating-point}
+
+Expressions
+-----------
+
+Ang *expression* ay kombinasyon ng values, variables,
+at operators. Ang value na mag-isa ay itinuturing na expression, at ganun din
+ang variable, kaya ang sumusunod ay lahat legal expressions (assuming na
+ang variable na `x` ay na-assign na ng value):
+
+\index{expression}
+\index{evaluate}
+
+~~~~ {.python}
+17
+x
+x + 17
+~~~~
+
+Kung magta-type ka ng expression sa interactive mode, i-*evaluate* ito ng interpreter
+at i-di-display ang result:
+
+~~~~ {.python}
+>>> 1 + 1
+2
+~~~~
+
+Pero sa script, ang expression na mag-isa ay walang ginagawa! Ito
+ay karaniwang pinagmumulan ng kalituhan para sa mga beginners.
+
+
+**Exercise 1:** I-type ang sumusunod na statements sa Python interpreter para
+makita kung ano ang ginagawa nila:
+
+~~~~ {.python}
+5
+x = 5
+x + 1
+~~~~
+
+Order of operations
+-------------------
+
+\index{order of operations}
+\index{rules of precedence}
+\index{PEMDAS}
+
+Kapag higit sa isang operator ang lumalabas sa expression, ang order ng
+evaluation ay depende sa *rules of precedence*. Para sa
+mathematical operators, ang Python ay sumusunod sa mathematical convention. Ang
+acronym na *PEMDAS* ay kapaki-pakinabang na paraan para matandaan ang mga rules:
+
+\index{parentheses!overriding precedence}
+
+-   Ang *P*arentheses ay may pinakamataas na precedence at maaaring
+    gamitin para pilitin ang expression na i-evaluate sa order na gusto mo. Dahil
+    ang expressions sa parentheses ay na-e-evaluate muna, ang `2 *
+    (3-1)` ay 4, at ang `(1+1)**(5-2)` ay 8. Maaari mo ring
+    gamitin ang parentheses para gawing mas madaling basahin ang expression, tulad sa
+    `(minute * 100) / 60`, kahit hindi nito binabago ang
+    result.
+
+-   Ang *E*xponentiation ay may susunod na pinakamataas na precedence, kaya
+    ang `2**1+1` ay 3, hindi 4, at ang `3*1**3` ay 3,
+    hindi 27.
+
+-   Ang *M*ultiplication at *D*ivision ay may
+    parehong precedence, na mas mataas kaysa sa *A*ddition
+    at *S*ubtraction, na may parehong precedence din.
+    Kaya ang `2*3-1` ay 5, hindi 4, at
+    ang `6+4/2` ay 8, hindi 5.
+
+-   Ang mga operators na may parehong precedence ay na-e-evaluate mula kaliwa hanggang kanan.
+    Kaya ang expression na `5-3-1` ay 1, hindi 3, dahil ang
+    `5-3` ay nangyayari muna at pagkatapos ang `1` ay ibabawas
+    mula sa 2.
+
+Kapag may duda, palaging maglagay ng parentheses sa iyong expressions para masiguro
+na ang computations ay ginagawa sa order na gusto mo.
+
+Modulus operator
+----------------
+
+\index{modulus operator}
+\index{operator!modulus}
+
+Ang *modulus operator* ay gumagana sa integers at nagbibigay ng
+remainder kapag ang unang operand ay hinati sa pangalawa. Sa Python,
+ang modulus operator ay percent sign (`%`). Ang syntax ay pareho sa
+iba pang operators:
+
+~~~~ {.python .trinket height="240"}
+>>> quotient = 7 // 3
+>>> print(quotient)
+2
+>>> remainder = 7 % 3
+>>> print(remainder)
+1
+~~~~
+
+Kaya ang 7 na hinati sa 3 ay 2 na may natitirang 1.
+
+Ang modulus operator ay naging kapaki-pakinabang. Halimbawa,
+maaari mong suriin kung ang isang numero ay divisible sa isa pa: kung ang `x %
+y` ay zero, pagkatapos ang `x` ay divisible sa `y`.
+
+\index{divisibility}
+
+Maaari mo ring kunin ang right-most digit o digits mula sa numero. Halimbawa,
+ang `x % 10` ay nagbibigay ng right-most digit ng
+`x` (sa base 10). Katulad nito, ang `x % 100` ay nagbibigay ng
+huling dalawang digits.
+
+String operations
+-----------------
+
+\index{string!operation}
+\index{operator!string}
+
+Ang `+` operator ay gumagana sa strings, pero hindi ito addition
+sa mathematical sense. Sa halip ay gumagawa ito ng
+*concatenation*, na nangangahulugang pag-uugnay ng strings sa pamamagitan ng
+pag-link sa kanila mula dulo hanggang dulo. Halimbawa:
+
+\index{concatenation}
+
+~~~~ {.python}
+>>> first = 10
+>>> second = 15
+>>> print(first+second)
+25
+>>> first = '100'
+>>> second = '150'
+>>> print(first + second)
+100150
+~~~~
+
+Ang `*` operator ay gumagana din sa strings sa pamamagitan ng pag-multiply ng content
+ng string sa integer. Halimbawa:
+
+~~~~ {.python}
+>>> first = 'Test '
+>>> second = 3
+>>> print(first * second)
+Test Test Test
+~~~~
+
+Asking the user for input
+-------------------------
+
+\index{keyboard input}
+
+Minsan gusto nating kunin ang value para sa variable mula sa user
+sa pamamagitan ng kanilang keyboard. Ang Python ay nagbibigay ng built-in function na tinatawag na
+`input` na kumukuha ng input mula sa keyboard^[Sa Python 2, ang function na ito ay may pangalang `raw_input`.]. 
+Kapag tinawag ang function na ito,
+ang program ay humihinto at naghihintay na mag-type ang user ng isang bagay. Kapag
+pinindot ng user ang `Return` o `Enter`, ang program
+ay nagpapatuloy at ang `input` ay nagre-return ng na-type ng user bilang string.
+
+\index{Python 2}
+
+~~~~ {.python}
+>>> inp = input()
+Some silly stuff
+>>> print(inp)
+Some silly stuff
+~~~~
+
+Bago kumuha ng input mula sa user, magandang ideya na mag-print ng prompt
+na nagsasabi sa user kung ano ang i-input. Maaari mong ipasa ang string sa `input` para
+i-display sa user bago mag-pause para sa input:
+
+\index{prompt}
+
+~~~~ {.python}
+>>> name = input('What is your name?\n')
+What is your name?
+Chuck
+>>> print(name)
+Chuck
+~~~~
+
+Ang sequence na `\n` sa dulo ng prompt ay kumakatawan sa
+*newline*, na espesyal na character na nagdudulot ng
+line break. Iyon ang dahilan kung bakit ang input ng user ay lumalabas sa ibaba ng prompt.
+
+\index{newline}
+
+Kung inaasahan mong mag-type ang user ng integer, maaari mong subukan na i-convert ang
+return value sa `int` gamit ang `int()` function:
+
+~~~~ {.python}
+>>> prompt = 'What...is the airspeed velocity of an unladen swallow?\n'
+>>> speed = input(prompt)
+What...is the airspeed velocity of an unladen swallow?
+17
+>>> int(speed)
+17
+>>> int(speed) + 5
+22
+~~~~
+
+Pero kung ang user ay nag-type ng iba sa string ng digits, makakakuha ka ng
+error:
+
+~~~~ {.python}
+>>> speed = input(prompt)
+What...is the airspeed velocity of an unladen swallow?
+What do you mean, an African or a European swallow?
+>>> int(speed)
+ValueError: invalid literal for int() with
+base 10: 'What do you mean, an African or a European swallow?'
+~~~~
+
+Makikita natin kung paano haharapin ang ganitong uri ng error mamaya.
+
+\index{ValueError}
+\index{exception!ValueError}
+
+Comments
+--------
+
+\index{comment}
+
+Habang ang mga programs ay nagiging mas malaki at mas kumplikado, nagiging mas mahirap silang
+basahin. Ang formal languages ay dense, at kadalasang mahirap tingnan ang isang
+piraso ng code at alamin kung ano ang ginagawa nito, o bakit.
+
+Para sa dahilang ito, magandang ideya na magdagdag ng notes sa iyong programs para
+ipaliwanag sa natural language kung ano ang ginagawa ng program. Ang mga notes na ito ay
+tinatawag na *comments*, at sa Python nagsisimula sila sa `#`
+symbol:
+
+~~~~ {.python}
+# compute the percentage of the hour that has elapsed
+percentage = (minute * 100) / 60
+~~~~
+
+Sa kasong ito, ang comment ay lumalabas sa sarili nitong linya. Maaari mo ring ilagay
+ang comments sa dulo ng linya:
+
+~~~~ {.python}
+percentage = (minute * 100) / 60     # percentage of an hour
+~~~~
+
+Lahat mula sa `#` hanggang sa dulo ng linya ay hindi pinapansin; walang
+epekto ito sa program.
+
+Ang comments ay pinaka-kapaki-pakinabang kapag nagdo-document sila ng hindi halatang features ng
+code. Makatwiran na i-assume na ang reader ay makakapag-figure out kung *ano*
+ang ginagawa ng code; mas kapaki-pakinabang na ipaliwanag ang *bakit*.
+
+Ang comment na ito ay redundant sa code at walang silbi:
+
+~~~~ {.python}
+v = 5     # assign 5 to v
+~~~~
+
+Ang comment na ito ay naglalaman ng kapaki-pakinabang na information na wala sa code:
+
+~~~~ {.python}
+v = 5     # velocity in meters/second.
+~~~~
+
+Ang magagandang variable names ay maaaring bawasan ang pangangailangan para sa comments, pero ang mahahabang pangalan ay maaaring
+gawing mahirap basahin ang complex expressions, kaya may trade-off.
+
+Choosing mnemonic variable names
+--------------------------------
+
+\index{mnemonic}
+
+Hangga't sinusunod mo ang simpleng rules ng variable naming, at iniiwasan ang
+reserved words, marami kang pagpipilian kapag pinangalanan mo ang iyong variables.
+Sa simula, ang pagpipiliang ito ay maaaring nakakalito kapag nagbabasa ka ng
+program at kapag sumusulat ka ng sarili mong programs. Halimbawa, ang sumusunod
+na tatlong programs ay magkapareho sa kung ano ang nagagawa nila, pero napaka
+iba kapag binabasa mo sila at sinusubukan mong maintindihan.
+
+~~~~ {.python}
+a = 35.0
+b = 12.50
+c = a * b
+print(c)
+~~~~
+
+~~~~ {.python}
+hours = 35.0
+rate = 12.50
+pay = hours * rate
+print(pay)
+~~~~
+
+~~~~ {.python}
+x1q3z9ahd = 35.0
+x1q3z9afd = 12.50
+x1q3p9afd = x1q3z9ahd * x1q3z9afd
+print(x1q3p9afd)
+~~~~
+
+Ang Python interpreter ay nakikita ang lahat ng tatlong programs na ito bilang *eksaktong pareho*
+pero ang mga tao ay nakikita at naiintindihan ang mga programs na ito nang medyo iba.
+Ang mga tao ay pinakamabilis na maiintindihan ang *intent* ng
+pangalawang program dahil ang programmer ay pumili ng variable names na
+sumasalamin sa kanilang intent tungkol sa kung ano ang data na i-store sa bawat
+variable.
+
+Tinatawag natin ang mga matalinong napiling variable names na "mnemonic variable names".
+Ang salitang *mnemonic*^[Tingnan ang <https://en.wikipedia.org/wiki/Mnemonic> para sa extended
+description ng salitang "mnemonic".] ay nangangahulugang "memory aid". Pumipili tayo ng mnemonic variable
+names para matulungan tayong matandaan kung bakit natin ginawa ang variable sa simula
+pa lang.
+
+Habang ang lahat ng ito ay mukhang maganda, at napakagandang ideya na gumamit ng mnemonic
+variable names, ang mnemonic variable names ay maaaring makagambala sa
+kakayahan ng beginning programmer na i-parse at maintindihan ang code. Ito ay
+dahil ang mga beginning programmers ay hindi pa na-memorize ang reserved words
+(may 35 lang sa kanila) at minsan ang mga variables na may mga pangalan na
+masyadong descriptive ay nagsisimulang magmukhang parte ng language at hindi lang
+well-chosen variable names.
+
+Tingnan mo ang sumusunod na Python sample code na naglo-loop
+sa ilang data. Tatalakayin natin ang loops sa lalong madaling panahon, pero sa ngayon subukan lang
+na alamin kung ano ang ibig sabihin nito:
+
+~~~~ {.python}
+for word in words:
+    print(word)
+~~~~
+
+Ano ang nangyayari dito? Alin sa mga tokens (for, word, in, etc.) ang
+reserved words at alin ang variable names lang? Naiintindihan ba ng Python
+sa fundamental level ang konsepto ng words? Ang mga beginning programmers ay
+may problema sa paghihiwalay kung aling parts ng code ang *dapat* pareho sa
+halimbawang ito at aling parts ng code ang simpleng choices lang ng
+programmer.
+
+Ang sumusunod na code ay katumbas ng code sa itaas:
+
+~~~~ {.python}
+for slice in pizza:
+    print(slice)
+~~~~
+
+Mas madali para sa beginning programmer na tingnan ang code na ito at malaman
+kung aling parts ang reserved words na tinukoy ng Python at aling parts ang
+simpleng variable names lang na pinili ng programmer. Medyo malinaw na
+walang fundamental understanding ang Python tungkol sa pizza at slices at sa katotohanan
+na ang pizza ay binubuo ng set ng isa o higit pang slices.
+
+Pero kung ang program natin ay talagang tungkol sa pagbasa ng data at paghahanap ng words sa
+data, ang `pizza` at `slice` ay napaka-un-mnemonic
+variable names. Ang pagpili sa kanila bilang variable names ay nakakagambala sa
+kahulugan ng program.
+
+Pagkatapos ng medyo maikling panahon, malalaman mo ang pinakakaraniwang
+reserved words at magsisimula kang makita ang reserved words na tumatalon
+sa iyo:
+
+<pre>
+<b>for</b> word <b>in</b> words<b>:</b>
+    <b>print</b>(word)
+</pre>
+
+Ang mga parts ng code na tinukoy ng Python (`for`,
+`in`, `print`, at `:`) ay naka-bold at
+ang programmer-chosen variables (`word` at
+`words`) ay hindi naka-bold. Maraming text editors ang aware sa
+Python syntax at magko-color ng reserved words nang iba para bigyan ka ng
+clues para panatilihing hiwalay ang iyong variables at reserved words. Pagkatapos ng ilang panahon
+magsisimula kang magbasa ng Python at mabilis na matukoy kung ano ang variable
+at kung ano ang reserved word.
+
+Debugging
+---------
+
+\index{debugging}
+
+Sa puntong ito, ang syntax error na malamang mong gawin ay
+illegal variable name, tulad ng `class` at `yield`,
+na keywords, o `odd~job` at `US$`, na naglalaman ng illegal
+characters.
+
+\index{syntax error}
+\index{error!syntax}
+
+Kung maglalagay ka ng space sa variable name, iniisip ng Python na dalawang operands
+ito na walang operator:
+
+~~~~ {.python}
+>>> bad name = 5
+SyntaxError: invalid syntax
+~~~~
+
+Para sa syntax errors, ang error messages ay hindi masyadong nakakatulong. Ang pinakakaraniwang
+messages ay `SyntaxError: invalid syntax` na hindi masyadong informative.
+
+\index{error message}
+\index{use before def}
+\index{exception}
+\index{runtime error}
+\index{error!runtime}
+
+Ang runtime error na malamang mong gawin ay "use before def;"
+iyon ay, sinusubukan mong gamitin ang variable bago mo i-assign ang value. Maaari itong
+mangyari kung mali ang spelling mo ng variable name:
+
+~~~~ {.python}
+>>> principal = 327.68
+>>> interest = principle * rate
+NameError: name 'principle' is not defined
+~~~~
+
+Ang mga variable names ay case sensitive, kaya ang `LaTeX` ay hindi
+pareho sa `latex`.
+
+\index{case-sensitivity, variable names}
+\index{semantic error}
+\index{error!semantic}
+
+Sa puntong ito, ang pinakamalamang na sanhi ng semantic error ay ang order ng
+operations. Halimbawa, para i-evaluate ang $1/2\pi$, maaari kang
+matukso na sumulat
+
+~~~~ {.python}
+>>> 1.0 / 2.0 * pi
+~~~~
+
+Pero ang division ay nangyayari muna, kaya makakakuha ka ng $\pi / 2$, na hindi
+pareho! Walang paraan para sa Python na malaman kung ano ang ibig mong sabihin,
+kaya sa kasong ito hindi ka makakakuha ng error message; mali lang ang sagot na makukuha mo.
+
+\index{order of operations}
+
+Glossary
+--------
+
+assignment
+:   Statement na nag-a-assign ng value sa variable.
+\index{assignment}
+
+concatenate
+:   Pag-uugnay ng dalawang operands mula dulo hanggang dulo.
+\index{concatenation}
+
+comment
+:   Information sa program na para sa iba pang programmers (o
+    sinumang nagbabasa ng source code) at walang epekto sa execution
+    ng program.
+\index{comment}
+
+evaluate
+:   Pagpapasimple ng expression sa pamamagitan ng paggawa ng operations sa order para
+    magbigay ng isang value.
+
+expression
+:   Kombinasyon ng variables, operators, at values na kumakatawan sa isang
+    result value.
+\index{expression}
+
+floating point
+:   Type na kumakatawan sa mga numero na may fractional parts.
+\index{floating-point}
+
+integer
+:   Type na kumakatawan sa whole numbers.
+\index{integer}
+
+keyword
+:   Reserved word na ginagamit ng compiler para i-parse ang program; hindi mo
+    maaaring gamitin ang keywords tulad ng `if`, `def`, at
+    `while` bilang variable names.
+\index{keyword}
+
+mnemonic
+:   Memory aid. Kadalasang binibigyan natin ang variables ng mnemonic names para matulungan tayo
+    na matandaan kung ano ang naka-store sa variable.
+\index{mnemonic}
+
+modulus operator
+:   Operator, na tinutukoy ng percent sign (`%`), na
+    gumagana sa integers at nagbibigay ng remainder kapag ang isang numero ay
+    hinati sa isa pa.
+\index{modulus operator}
+\index{operator!modulus}
+
+operand
+:   Isa sa mga values na ginagampanan ng operator.
+\index{operand}
+
+operator
+:   Espesyal na symbol na kumakatawan sa simpleng computation tulad ng addition,
+    multiplication, o string concatenation.
+\index{operator}
+
+rules of precedence
+:   Set ng rules na namamahala sa order kung saan ang expressions na may
+    maraming operators at operands ay na-e-evaluate.
+\index{rules of precedence}
+\index{precedence}
+
+statement
+:   Section ng code na kumakatawan sa command o action. Hanggang ngayon, ang
+    statements na nakita natin ay assignments at print expression statement.
+\index{statement}
+
+string
+:   Type na kumakatawan sa sequences ng characters.
+\index{string}
+
+type
+:   Kategorya ng values. Ang mga types na nakita natin hanggang ngayon ay integers
+    (type `int`), floating-point numbers (type
+    `float`), at strings (type `str`).
+\index{type}
+
+value
+:   Isa sa mga basic units ng data, tulad ng numero o string, na
+    ginagampanan ng program.
+\index{value}
+
+variable
+:   Pangalan na tumutukoy sa value.
+\index{variable}
+
+Exercises
+---------
+
+**Exercise 2:** Sumulat ng program na gumagamit ng `input` para mag-prompt sa user para sa
+kanilang pangalan at pagkatapos ay batiin sila.
+
+~~~~
+Enter your name: Chuck
+Hello Chuck
+~~~~
+
+**Exercise 3:** Sumulat ng program para mag-prompt sa user para sa hours at rate per
+hour para i-compute ang gross pay.
+
+~~~~
+Enter Hours: 35
+Enter Rate: 2.75
+Pay: 96.25
+~~~~
+
+Hindi natin iintindihin ang pagtiyak na ang pay natin ay may eksaktong dalawang digits pagkatapos
+ng decimal place sa ngayon. Kung gusto mo, maaari mong subukan ang built-in
+Python `round` function para maayos na i-round ang resulting pay
+sa dalawang decimal places.
+
+**Exercise 4:** I-assume na i-e-execute natin ang sumusunod na assignment statements:
+
+~~~~
+width = 17
+height = 12.0
+~~~~
+
+Para sa bawat isa sa sumusunod na expressions, isulat ang value ng expression
+at ang type (ng value ng expression).
+
+1.  `width//2`
+
+2.  `width/2.0`
+
+3.  `height/3`
+
+4.  `1 + 2 * 5`
+
+Gamitin ang Python interpreter para suriin ang iyong mga sagot.
+
+**Exercise 5:** Sumulat ng program na nagpo-prompt sa user para sa Celsius
+temperature, i-convert ang temperature sa Fahrenheit, at i-print ang
+converted temperature.
+

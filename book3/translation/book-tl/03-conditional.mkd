@@ -1,0 +1,683 @@
+Conditional execution
+=====================
+
+Boolean expressions
+-------------------
+
+\index{boolean expression}
+\index{expression!boolean}
+\index{logical operator}
+\index{operator!logical}
+
+Ang *boolean expression* ay expression na maaaring
+true o false. Ang sumusunod na halimbawa ay gumagamit ng operator na `==`,
+na nagko-compare ng dalawang operands at gumagawa ng `True` kung sila ay
+equal at `False` kung hindi:
+
+~~~~ {.python .trinket}
+>>> 5 == 5
+True
+>>> 5 == 6
+False
+~~~~
+
+Ang `True` at `False` ay espesyal na values na kabilang
+sa class na `bool`; hindi sila strings:
+
+\index{True special value}
+\index{False special value}
+\index{special value!True}
+\index{special value!False}
+\index{bool type}
+\index{type!bool}
+
+~~~~ {.python}
+>>> type(True)
+<class 'bool'>
+>>> type(False)
+<class 'bool'>
+~~~~
+
+Ang `==` operator ay isa sa mga *comparison
+operators*; ang iba ay:
+
+~~~~ {.python}
+x != y               # x is not equal to y
+x > y                # x is greater than y
+x < y                # x is less than y
+x >= y               # x is greater than or equal to y
+x <= y               # x is less than or equal to y
+x is y               # x is the same as y
+x is not y           # x is not the same as y
+~~~~
+
+Bagaman ang mga operations na ito ay malamang pamilyar sa iyo, ang Python
+symbols ay iba sa mathematical symbols para sa parehong
+operations. Karaniwang error ay ang paggamit ng single equal sign
+(`=`) imbes na double equal sign (`==`).
+Tandaan na ang `=` ay assignment operator at
+ang `==` ay comparison operator. Walang ganitong bagay na
+`=<` o `=>`.
+
+\index{comparison operator}
+\index{operator!comparison}
+
+Logical operators
+-----------------
+
+\index{logical operator}
+\index{operator!logical}
+
+Mayroong tatlong *logical operators*: `and`,
+`or`, at `not`. Ang semantics (kahulugan) ng mga
+operators na ito ay katulad ng kanilang kahulugan sa English. Halimbawa,
+
+`x > 0 and x < 10`
+
+ay true lang kung ang `x` ay mas malaki sa 0 *at* mas maliit sa 10.
+
+\index{and operator}
+\index{or operator}
+\index{not operator}
+\index{operator!and}
+\index{operator!or}
+\index{operator!not}
+
+Ang `n%2 == 0 or n%3 == 0` ay true kung *alinman* sa conditions
+ay true, iyon ay, kung ang numero ay divisible sa 2 *o* 3.
+
+Sa wakas, ang `not` operator ay nagne-negate ng boolean expression, kaya
+ang `not (x > y)` ay true kung ang `x > y` ay false.
+
+~~~~ {.python}
+>>> x = 1
+>>> y = 2
+>>> x > y
+False
+>>> not (x > y)
+True
+~~~~
+
+Strictly speaking, ang mga operands ng logical operators ay dapat
+boolean expressions, pero ang Python ay hindi masyadong strict. Anumang nonzero number
+ay binibigyang-kahulugan bilang "true."
+
+~~~~ {.python}
+>>> 17 and True
+True
+~~~~
+
+Ang flexibility na ito ay maaaring kapaki-pakinabang sa ilang situations, pero may ilang subtleties dito na
+maaaring nakakalito. Maaaring gusto mong iwasan ito hanggang sigurado ka na
+alam mo ang ginagawa mo.
+
+Conditional execution
+---------------------
+
+\index{conditional statement}
+\index{statement!conditional}
+\index{if statement}
+\index{statement!if}
+\index{conditional executions}
+
+Para sumulat ng kapaki-pakinabang na programs, halos palaging kailangan natin ang kakayahang
+suriin ang conditions at baguhin ang behavior ng program ayon dito.
+Ang *Conditional statements* ay nagbibigay sa atin ng kakayahang ito. Ang
+pinakasimpleng form ay ang `if` statement:
+
+~~~~ {.python}
+if x > 0 :
+    print('x is positive')
+~~~~
+
+Ang boolean expression pagkatapos ng `if` statement ay tinatawag na
+*condition*. Tinatapos natin ang `if` statement ng
+colon character (:) at ang linya/lines pagkatapos ng if statement ay naka-indent.
+
+![If Logic](height=1.5in@../../../images/if)
+
+
+Kung ang logical condition ay true, pagkatapos ang indented statement ay
+na-e-execute. Kung ang logical condition ay false, ang indented statement ay
+na-skip.
+
+\index{condition}
+\index{compound statement}
+\index{statement!compound}
+
+Ang `if` statements ay may parehong structure sa function
+definitions o `for` loops^[Matututunan natin ang functions sa Chapter 4 at loops sa Chapter 5.].
+Ang statement ay binubuo ng
+header line na nagtatapos sa colon character (:) na sinusundan ng
+indented block. Ang mga statements na ganito ay tinatawag na *compound
+statements* dahil umaabot sila sa higit sa isang linya.
+
+~~~~ {.python}
+if x > y:
+    print(x)
+    print(y)
+~~~~
+
+Walang limitasyon sa bilang ng statements na maaaring lumabas sa
+body, pero dapat may hindi bababa sa isa. Paminsan-minsan, kapaki-pakinabang na magkaroon ng
+body na walang statements (karaniwang bilang place holder para sa code na hindi mo pa
+nasusulat). Sa kasong iyon, maaari mong gamitin ang `pass` statement para makapasa sa Python interpreter check,
+na walang ginagawa.
+
+\index{pass statement}
+\index{statement!pass}
+
+~~~~ {.python}
+if x < 0 :
+    pass   # need to handle negative values, do nothing for now.
+~~~~
+
+Kung mag-e-enter ka ng `if` statement sa Python interpreter, ang
+prompt ay magbabago mula sa tatlong chevrons (>>>) patungo sa tatlong dots (...) para ipahiwatig na nasa
+gitna ka ng block ng statements, tulad ng ipinakita sa ibaba:
+
+~~~~ {.python}
+>>> x = 3
+>>> if x < 10:
+...    print('Small')
+...
+Small
+>>>
+~~~~
+
+Kapag gumagamit ng Python interpreter, kailangan mong mag-iwan ng blank line sa dulo ng block, kung hindi ay magre-return ang Python ng error:
+
+~~~~ {.python}
+>>> x = 3
+>>> if x < 10:
+...    print('Small')
+... print('Done')
+  File "<stdin>", line 3
+    print('Done')
+        ^
+SyntaxError: invalid syntax
+~~~~
+
+Ang blank line sa dulo ng block ng statements ay hindi kailangan kapag sumusulat at nag-e-execute ng script, pero maaari itong mapabuti ang readability ng iyong code.
+
+Alternative execution
+---------------------
+
+\index{alternative execution}
+\index{else keyword}
+\index{keyword!else}
+
+Ang pangalawang form ng `if` statement ay *alternative
+execution*, kung saan mayroong dalawang posibilidad at ang
+condition ay tumutukoy kung alin ang na-e-execute. Ang syntax ay ganito:
+
+~~~~ {.python}
+if x % 2 == 0:
+    print('x is even')
+else:
+    print('x is odd')
+~~~~
+
+Kung ang remainder kapag ang `x` ay hinati sa 2 ay 0, pagkatapos alam natin
+na ang `x` ay even, at ang program ay nagdi-display ng mensahe tungkol dito.
+Kung ang condition ay false, ang pangalawang set ng statements ay
+na-e-execute.
+
+![If-Then-Else Logic](height=1.5in@../../../images/if-else)
+
+Dahil ang condition ay dapat na true o false, eksaktong isa sa mga
+alternatives ang ma-e-execute. Ang mga alternatives ay tinatawag na
+*branches*, dahil sila ay branches sa flow ng
+execution.
+
+\index{branch}
+
+Chained conditionals
+--------------------
+
+\index{chained conditional}
+\index{conditional!chained}
+
+Minsan mayroong higit sa dalawang posibilidad at kailangan natin ng higit sa
+dalawang branches. Isang paraan para ipahayag ang computation na ganito ay
+*chained conditional*:
+
+~~~~ {.python}
+if x < y:
+    print('x is less than y')
+elif x > y:
+    print('x is greater than y')
+else:
+    print('x and y are equal')
+~~~~
+
+Ang `elif` ay abbreviation ng "else if." Muli, eksaktong isang
+branch ang ma-e-execute.
+
+![If-Then-ElseIf Logic](height=2.0in@../../../images/elif)
+
+Walang limitasyon sa bilang ng `elif` statements. Kung
+mayroong `else` clause, dapat ito ay nasa dulo, pero hindi
+kailangan na mayroon.
+
+\index{elif keyword}
+\index{keyword!elif}
+
+~~~~ {.python}
+if choice == 'a':
+    print('Bad guess')
+elif choice == 'b':
+    print('Good guess')
+elif choice == 'c':
+    print('Close, but not correct')
+~~~~
+
+Ang bawat condition ay sinusuri sa order. Kung ang una ay false, ang susunod ay
+sinusuri, at iba pa. Kung ang isa sa kanila ay true, ang corresponding branch
+ay na-e-execute, at ang statement ay nagtatapos. Kahit na higit sa isang condition ay
+true, ang unang true branch lang ang na-e-execute.
+
+Nested conditionals
+-------------------
+
+\index{nested conditional}
+\index{conditional!nested}
+
+Ang isang conditional ay maaari ring i-nest sa loob ng isa pa. Maaari nating isulat
+ang three-branch example na ganito:
+
+~~~~ {.python}
+if x == y:
+    print('x and y are equal')
+else:
+    if x < y:
+        print('x is less than y')
+    else:
+        print('x is greater than y')
+~~~~
+
+Ang outer conditional ay naglalaman ng dalawang branches. Ang unang branch ay naglalaman ng
+simpleng statement. Ang pangalawang branch ay naglalaman ng iba pang `if`
+statement, na may dalawang branches din. Ang dalawang branches na iyon ay
+parehong simpleng statements, bagaman maaari silang maging conditional
+statements din.
+
+![Nested If Statements](height=2.0in@../../../images/nested)
+
+Bagaman ang indentation ng statements ay ginagawang halata ang structure,
+ang *nested conditionals* ay nagiging mahirap basahin nang
+napakabilis. Sa pangkalahatan, magandang ideya na iwasan ang mga ito kapag maaari.
+
+Ang logical operators ay kadalasang nagbibigay ng paraan para gawing simple ang nested conditional
+statements. Halimbawa, maaari nating muling isulat ang sumusunod na code gamit ang
+isang conditional:
+
+~~~~ {.python}
+if 0 < x:
+    if x < 10:
+        print('x is a positive single-digit number.')
+~~~~
+
+Ang `print` statement ay na-e-execute lang kapag pumasa tayo sa
+parehong conditionals. Maaari nating makuha ang parehong epekto gamit ang
+`and` operator:
+
+~~~~ {.python}
+if 0 < x and x < 10:
+    print('x is a positive single-digit number.')
+~~~~
+
+Catching exceptions using try and except
+----------------------------------------
+
+Mas maaga nakita natin ang code segment kung saan ginamit natin ang `input` at
+`int` functions para basahin at i-parse ang integer number na na-enter
+ng user. Nakita din natin kung gaano kadelikado ang paggawa nito:
+
+~~~~ {.python}
+>>> prompt = "What is the air velocity of an unladen swallow?\n"
+>>> speed = input(prompt)
+What is the air velocity of an unladen swallow?
+What do you mean, an African or a European swallow?
+>>> int(speed)
+ValueError: invalid literal for int() with
+base 10: 'What do you mean, an African or a European swallow?'
+>>>
+~~~~
+
+Kapag nag-e-execute tayo ng mga statements na ito sa Python interpreter, nakakakuha tayo ng
+bagong prompt mula sa interpreter, iniisip natin ang "oops", at nagpapatuloy sa susunod nating
+statement.
+
+Gayunpaman kung ilalagay mo ang code na ito sa Python script at mangyari ang error na ito,
+ang iyong script ay agad na humihinto sa track nito na may traceback. Hindi ito
+nag-e-execute ng sumusunod na statement.
+
+\index{traceback}
+
+Narito ang sample program para i-convert ang Fahrenheit temperature sa
+Celsius temperature:
+
+\index{fahrenheit}
+\index{celsius}
+\index{temperature conversion}
+
+\VerbatimInput{../../../code3/fahren.py}
+
+Kung i-e-execute natin ang code na ito at bigyan ito ng invalid input, simpleng nabibigo ito na may
+unfriendly error message:
+
+~~~~
+python fahren.py
+Enter Fahrenheit Temperature:72
+22.22222222222222
+~~~~
+
+~~~~
+python fahren.py
+Enter Fahrenheit Temperature:fred
+Traceback (most recent call last):
+  File "fahren.py", line 2, in <module>
+    fahr = float(inp)
+ValueError: could not convert string to float: 'fred'
+~~~~
+
+Mayroong conditional execution structure na built-in sa Python para haharapin
+ang mga uri ng expected at unexpected errors na tinatawag na "try / except". Ang
+layunin ng `try` at `except` ay alam mo na
+ang ilang sequence ng instruction(s) ay maaaring may problema at gusto mong magdagdag
+ng ilang statements para i-execute kung may error na mangyari. Ang mga extra
+statements na ito (ang except block) ay hindi pinapansin kung walang error.
+
+Maaari mong isipin ang `try` at `except` feature sa
+Python bilang "insurance policy" sa sequence ng statements.
+
+Maaari nating muling isulat ang temperature converter natin tulad ng sumusunod:
+
+\VerbatimInput{../../../code3/fahren2.py}
+
+Ang Python ay nagsisimula sa pag-e-execute ng sequence ng statements sa
+`try` block. Kung maayos ang lahat, i-skip nito ang
+`except` block at magpapatuloy. Kung may exception na mangyari sa
+`try` block, ang Python ay lumalabas sa `try` block
+at nag-e-execute ng sequence ng statements sa `except`
+block.
+
+~~~~
+python fahren2.py
+Enter Fahrenheit Temperature:72
+22.22222222222222
+~~~~
+
+~~~~
+python fahren2.py
+Enter Fahrenheit Temperature:fred
+Please enter a number
+~~~~
+
+Ang pagharap sa exception gamit ang `try` statement ay tinatawag na
+*catching* ng exception. Sa halimbawang ito, ang
+`except` clause ay nagpi-print ng error message. Sa pangkalahatan, ang pag-catch
+ng exception ay nagbibigay sa iyo ng pagkakataon na ayusin ang problema, o subukan ulit, o hindi
+bababa ay tapusin ang program nang maayos.
+
+Short-circuit evaluation of logical expressions
+-----------------------------------------------
+
+\index{short circuit}
+
+Kapag nagpo-process ang Python ng logical expression tulad ng
+`x >= 2 and (x/y) > 2`, i-e-evaluate nito ang expression mula kaliwa hanggang kanan.
+Dahil sa definition ng `and`, kung ang `x` ay mas maliit
+sa 2, ang expression na `x >= 2` ay `False` at kaya
+ang buong expression ay `False` anuman kung
+ang `(x/y) > 2` ay nag-e-evaluate sa `True` o
+`False`.
+
+Kapag nakita ng Python na walang makukuha sa pag-e-evaluate ng
+natitirang bahagi ng logical expression, humihinto ito sa evaluation at hindi ginagawa
+ang computations sa natitirang bahagi ng logical expression. Kapag ang
+evaluation ng logical expression ay humihinto dahil ang overall value ay
+alam na, ito ay tinatawag na *short-circuiting* ang
+evaluation.
+
+\index{guardian pattern}
+\index{pattern!guardian}
+
+Habang ito ay maaaring mukhang fine point, ang short-circuit behavior ay nagdudulot
+sa matalinong technique na tinatawag na *guardian pattern*.
+Isaalang-alang ang sumusunod na code sequence sa Python interpreter:
+
+~~~~ {.python}
+>>> x = 6
+>>> y = 2
+>>> x >= 2 and (x/y) > 2
+True
+>>> x = 1
+>>> y = 0
+>>> x >= 2 and (x/y) > 2
+False
+>>> x = 6
+>>> y = 0
+>>> x >= 2 and (x/y) > 2
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: division by zero
+>>>
+~~~~
+
+Ang pangatlong calculation ay nabigo dahil ang Python ay nag-e-evaluate ng
+`(x/y)` at ang `y` ay zero, na nagdudulot ng runtime
+error. Pero ang una at pangalawang halimbawa ay *hindi* nabigo dahil sa unang calculation ang `y` ay non zero at sa pangalawa ang unang parte ng
+mga expressions na ito na `x >= 2` ay nag-e-evaluate sa `False` kaya
+ang `(x/y)` ay hindi kailanman na-e-execute dahil sa
+*short-circuit* rule at walang error.
+
+Maaari nating gawin ang logical expression para strategically maglagay ng
+*guard* evaluation bago lang ang evaluation na maaaring
+magdulot ng error tulad ng sumusunod:
+
+~~~~ {.python}
+>>> x = 1
+>>> y = 0
+>>> x >= 2 and y != 0 and (x/y) > 2
+False
+>>> x = 6
+>>> y = 0
+>>> x >= 2 and y != 0 and (x/y) > 2
+False
+>>> x >= 2 and (x/y) > 2 and y != 0
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: division by zero
+>>>
+~~~~
+
+Sa unang logical expression, ang `x >= 2` ay
+`False` kaya ang evaluation ay humihinto sa `and`. Sa
+pangalawang logical expression, ang `x >= 2` ay `True`
+pero ang `y != 0` ay `False` kaya hindi natin naabot ang
+`(x/y)`.
+
+Sa pangatlong logical expression, ang `y != 0` ay *pagkatapos* ng
+`(x/y) ` calculation kaya ang expression ay nabibigo na may error.
+
+Sa pangalawang expression, sinasabi natin na ang `y != 0` ay nagsisilbing
+*guard* para masiguro na i-e-execute lang natin ang `(x/y)`
+kung ang `y` ay non-zero.
+
+Debugging
+---------
+
+\index{debugging}
+\index{traceback}
+
+Ang traceback na ipinapakita ng Python kapag may error ay naglalaman ng maraming
+information, pero maaari itong maging overwhelming. Ang pinakakapaki-pakinabang na parts ay
+karaniwang:
+
+-   Anong uri ng error ito, at
+
+-   Saan ito nangyari.
+
+Ang syntax errors ay karaniwang madaling hanapin, pero may ilang gotchas.
+Ang whitespace errors ay maaaring nakakalito dahil ang spaces at tabs ay invisible
+at sanay tayong hindi pinapansin ang mga ito.
+
+\index{whitespace}
+
+~~~~ {.python}
+>>> x = 5
+>>>  y = 6
+  File "<stdin>", line 1
+    y = 6
+    ^
+IndentationError: unexpected indent
+~~~~
+
+Sa halimbawang ito, ang problema ay ang pangalawang linya ay naka-indent ng isang
+space. Pero ang error message ay tumuturo sa `y`, na
+nakakalito. Sa pangkalahatan, ang error messages ay nagpapahiwatig kung saan natuklasan ang problema,
+pero ang actual error ay maaaring mas maaga sa code, minsan
+sa naunang linya.
+
+Sa pangkalahatan, ang error messages ay nagsasabi sa iyo kung saan natuklasan ang problema,
+pero iyon ay kadalasang hindi kung saan ito naging sanhi.
+
+Glossary
+--------
+
+body
+:   Ang sequence ng statements sa loob ng compound statement.
+\index{body}
+
+boolean expression
+:   Expression na ang value ay maaaring `True` o `False`.
+\index{boolean expression}
+\index{expression!boolean}
+
+branch
+:   Isa sa mga alternative sequences ng statements sa conditional statement.
+\index{branch}
+
+chained conditional
+:   Conditional statement na may serye ng alternative branches.
+\index{chained conditional}
+\index{conditional!chained}
+
+comparison operator
+:   Isa sa mga operators na nagko-compare ng mga operands nito: `==`,
+    `!=`, `>`, `<`, `>=`, at `<=`.
+
+conditional statement
+:   Statement na kumokontrol sa flow ng execution depende sa ilang
+    condition.
+\index{conditional statement}
+\index{statement!conditional}
+
+condition
+:   Ang boolean expression sa conditional statement na tumutukoy
+    kung aling branch ang na-e-execute.
+\index{condition}
+
+compound statement
+:   Statement na binubuo ng header at body. Ang header ay nagtatapos
+    sa colon (:). Ang body ay naka-indent relative sa header.
+\index{compound statement}
+
+guardian pattern
+:   Kung saan gumagawa tayo ng logical expression na may additional comparisons
+    para samantalahin ang short-circuit behavior.
+\index{guardian pattern}
+\index{pattern!guardian}
+
+logical operator
+:   Isa sa mga operators na nagko-combine ng boolean expressions:
+    `and`, `or`, at `not`.
+
+nested conditional
+:   Conditional statement na lumalabas sa isa sa mga branches ng
+    iba pang conditional statement.
+\index{nested conditional}
+\index{conditional!nested}
+
+traceback
+:   List ng mga functions na nag-e-execute, na na-print kapag may
+    exception na nangyari.
+\index{traceback}
+
+short circuit
+:   Kapag ang Python ay nasa gitna ng pag-e-evaluate ng logical expression at
+    humihinto sa evaluation dahil alam na ng Python ang final value para sa
+    expression nang hindi kailangan i-evaluate ang natitirang bahagi ng expression.
+\index{short circuit}
+
+Exercises
+---------
+
+**Exercise 1:** Muling isulat ang iyong pay computation para bigyan ang employee ng 1.5 beses
+ang hourly rate para sa hours na nagtrabaho sa itaas ng 40 hours.
+
+~~~~
+Enter Hours: 45
+Enter Rate: 10
+Pay: 475.0
+~~~~
+
+**Exercise 2:** Muling isulat ang iyong pay program gamit ang `try` at
+`except` para ang iyong program ay haharapin ang non-numeric input
+nang maayos sa pamamagitan ng pag-print ng mensahe at pag-exit sa program. Ang sumusunod
+ay nagpapakita ng dalawang executions ng program:
+
+~~~~
+Enter Hours: 20
+Enter Rate: nine
+Error, please enter numeric input
+~~~~
+
+~~~~
+Enter Hours: forty
+Error, please enter numeric input
+~~~~
+
+**Exercise 3:** Sumulat ng program para mag-prompt para sa score sa pagitan ng 0.0 at 1.0.
+Kung ang score ay nasa labas ng range, mag-print ng error message. Kung ang score ay
+sa pagitan ng 0.0 at 1.0, mag-print ng grade gamit ang sumusunod na table:
+
+~~~~
+ Score   Grade
+>= 0.9     A
+>= 0.8     B
+>= 0.7     C
+>= 0.6     D
+ < 0.6     F
+~~~~
+
+~~~~
+Enter score: 0.95
+A
+~~~~
+
+~~~~
+Enter score: perfect
+Bad score
+~~~~
+
+~~~~
+Enter score: 10.0
+Bad score
+~~~~
+
+~~~~
+Enter score: 0.75
+C
+~~~~
+
+~~~~
+Enter score: 0.5
+F
+~~~~
+
+Patakbuhin ang program nang paulit-ulit tulad ng ipinakita sa itaas para i-test ang iba't ibang
+values para sa input.
+

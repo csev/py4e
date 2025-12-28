@@ -1,0 +1,546 @@
+
+Iteration
+=========
+
+\index{iteration}
+
+Updating variables
+------------------
+
+\index{update}
+\index{variable!updating}
+
+Karaniwang pattern sa assignment statements ay assignment statement
+na nag-u-update ng variable, kung saan ang bagong value ng variable ay depende sa
+luma.
+
+~~~~ {.python}
+x = x + 1
+~~~~
+
+Ito ay nangangahulugang "kunin ang kasalukuyang value ng `x`, magdagdag ng 1, at pagkatapos
+i-update ang `x` gamit ang bagong value."
+
+Kung susubukan mong i-update ang variable na hindi umiiral, makakakuha ka ng error,
+dahil ang Python ay nag-e-evaluate ng right side bago mag-assign ng value sa
+`x`:
+
+~~~~ {.python}
+>>> x = x + 1
+NameError: name 'x' is not defined
+~~~~
+
+Bago mo ma-update ang variable, kailangan mong
+*i-initialize* ito, karaniwang may simpleng assignment:
+
+\index{initialization (before update)}
+
+~~~~ {.python}
+>>> x = 0
+>>> x = x + 1
+~~~~
+
+Ang pag-update ng variable sa pamamagitan ng pagdadagdag ng 1 ay tinatawag na *increment*;
+ang pagbabawas ng 1 ay tinatawag na *decrement*.
+
+\index{increment}
+\index{decrement}
+
+The `while` statement
+--------------------------------
+
+\index{statement!while}
+\index{while loop}
+\index{loop!while}
+\index{iteration}
+
+Ang mga computers ay kadalasang ginagamit para i-automate ang repetitive tasks. Ang pag-uulit ng
+magkapareho o katulad na tasks nang hindi gumagawa ng errors ay bagay na
+magaling gawin ng computers at mahirap gawin ng mga tao. Dahil ang iteration ay napakakaraniwan,
+ang Python ay nagbibigay ng ilang language features para gawin itong mas madali.
+
+Isang form ng iteration sa Python ay ang `while` statement.
+Narito ang simpleng program na nagbi-bilang pababa mula lima at pagkatapos nagsasabi ng
+"Blastoff!".
+
+~~~~ {.python}
+n = 5
+while n > 0:
+    print(n)
+    n = n - 1
+print('Blastoff!')
+~~~~
+
+Maaari mong halos basahin ang `while` statement na parang
+English. Ibig sabihin nito, "Habang ang `n` ay mas malaki sa 0, i-display ang
+value ng `n` at pagkatapos bawasan ang value ng `n` ng 1. 
+Kapag nakarating ka sa 0, lumabas sa `while` statement at i-display
+ang salitang `Blastoff!`"
+
+\index{flow of execution}
+
+Mas pormal, narito ang flow of execution para sa `while`
+statement:
+
+1.  I-evaluate ang condition, na nagbibigay ng `True` o
+    `False`.
+
+2.  Kung ang condition ay false, lumabas sa `while` statement at
+    magpatuloy ng execution sa susunod na statement.
+
+3.  Kung ang condition ay true, i-execute ang body at pagkatapos bumalik sa
+    step 1.
+
+Ang uri ng flow na ito ay tinatawag na *loop* dahil ang ikatlong
+step ay naglo-loop pabalik sa itaas. Tinatawag natin ang bawat pagkakataon na nag-e-execute tayo ng body
+ng loop bilang *iteration*. Para sa loop sa itaas, sasabihin natin,
+"Mayroon itong limang iterations", na nangangahulugang ang body ng loop ay
+na-e-execute ng limang beses.
+
+\index{condition}
+\index{loop}
+\index{body}
+
+Ang body ng loop ay dapat baguhin ang value ng isa o higit pang variables para
+sa huli ang condition ay maging false at ang loop ay magtatapos. Tinatawag natin ang variable na nagbabago sa bawat pagkakataon na nag-e-execute ang loop at kumokontrol
+kung kailan natatapos ang loop bilang *iteration variable*. Kung walang
+iteration variable, ang loop ay mag-uulit magpakailanman, na nagreresulta sa
+*infinite loop*.
+
+Infinite loops
+--------------
+
+Walang katapusang pinagmumulan ng kasiyahan para sa mga programmers ay ang obserbasyon na
+ang mga direksyon sa shampoo, "Lather, rinse, repeat," ay infinite loop
+dahil walang *iteration variable* na nagsasabi sa iyo kung ilang
+beses i-execute ang loop.
+
+\index{infinite loop}
+\index{loop!infinite}
+
+Sa kaso ng `countdown`, maaari nating patunayan na ang loop
+ay nagtatapos dahil alam natin na ang value ng `n` ay finite,
+at nakikita natin na ang value ng `n` ay nagiging mas maliit sa bawat pagkakataon
+sa loop, kaya sa huli dapat tayong makarating sa 0. Sa ibang pagkakataon ang loop
+ay halatang infinite dahil walang iteration variable.
+
+\index{break statement}
+\index{statement!break}
+
+Minsan hindi mo alam na panahon na para tapusin ang loop hanggang makarating ka sa gitna
+ng body. Sa kasong iyon maaari kang sumulat ng infinite loop nang sadyang
+at pagkatapos gamitin ang `break` statement para tumalon palabas ng loop.
+
+Ang loop na ito ay halatang *infinite loop* dahil ang
+logical expression sa `while` statement ay simpleng
+logical constant na `True`:
+
+~~~~ {.python}
+n = 10
+while True:
+    print(n, end=' ')
+    n = n - 1
+print('Done!')
+~~~~
+
+Kung magkakamali ka at patakbuhin ang code na ito, matututunan mo agad kung paano
+itigil ang runaway Python process sa iyong system o hanapin kung nasaan ang power-off
+button sa iyong computer. Ang program na ito ay tatakbo magpakailanman o hanggang ang iyong
+battery ay maubos dahil ang logical expression sa itaas ng loop
+ay palaging true dahil sa katotohanan na ang expression ay constant
+value na `True`.
+
+Habang ito ay dysfunctional infinite loop, maaari pa rin nating gamitin ang pattern na ito
+para gumawa ng kapaki-pakinabang na loops basta maingat nating idagdag ang code sa
+body ng loop para tahasang lumabas sa loop gamit ang `break`
+kapag naabot na natin ang exit condition.
+
+Halimbawa, ipagpalagay na gusto mong kumuha ng input mula sa user hanggang mag-type sila ng
+`done`. Maaari mong isulat:
+
+\VerbatimInput{../../../code3/copytildone1.py}
+
+Ang loop condition ay `True`, na palaging true, kaya ang
+loop ay tumatakbo nang paulit-ulit hanggang maabot ang break statement.
+
+Sa bawat pagkakataon, nagpo-prompt ito sa user na may angle bracket. Kung ang
+user ay nagta-type ng `done`, ang `break` statement ay lumalabas sa
+loop. Kung hindi, ang program ay nag-e-echo ng anuman ang na-type ng user at bumabalik
+sa itaas ng loop. Narito ang sample run:
+
+~~~~
+> hello there
+hello there
+> finished
+finished
+> done
+Done!
+~~~~
+
+Ang paraan ng pagsusulat ng `while` loops na ito ay karaniwan dahil maaari mong
+suriin ang condition kahit saan sa loop (hindi lang sa itaas) at maaari mong
+ipahayag ang stop condition nang positibo ("huminto kapag nangyari ito")
+imbes na negatibo ("magpatuloy hanggang mangyari iyon.").
+
+Finishing iterations with `continue`
+-----------------------------------------------
+
+\index{continue statement}
+\index{statement!continue}
+
+Minsan nasa iteration ka ng loop at gusto mong tapusin ang
+kasalukuyang iteration at agad na tumalon sa susunod na iteration. Sa kasong
+iyon maaari mong gamitin ang `continue` statement para lumaktaw sa susunod na
+iteration nang hindi tinatapos ang body ng loop para sa kasalukuyang
+iteration.
+
+Narito ang halimbawa ng loop na kumokopya ng input nito hanggang mag-type ang user ng
+"done", pero tinatrato ang mga linya na nagsisimula sa hash character bilang mga linya na hindi
+i-print (parang Python comments).
+
+\VerbatimInput{../../../code3/copytildone2.py}
+
+Narito ang sample run ng bagong program na ito na may `continue`
+na idinagdag.
+
+~~~~ 
+> hello there
+hello there
+> # don't print this
+> print this!
+print this!
+> done
+Done!
+~~~~
+
+Lahat ng mga linya ay na-print maliban sa isa na nagsisimula sa hash sign
+dahil kapag na-e-execute ang `continue`, tinatapos nito ang kasalukuyang
+iteration at tumatalon pabalik sa `while` statement para simulan
+ang susunod na iteration, kaya na-skip ang `print` statement.
+
+Definite loops using `for` 
+--------------------------------------
+
+\index{for statement}
+\index{statement!for}
+
+Minsan gusto nating mag-loop sa *set* ng mga bagay tulad
+ng list ng mga salita, ang mga linya sa file, o list ng mga numero. Kapag mayroon tayong
+list ng mga bagay na lalapitan ng loop, maaari tayong gumawa ng *definite*
+loop gamit ang `for` statement. Tinatawag natin ang `while`
+statement bilang *indefinite* loop dahil simpleng naglo-loop ito hanggang ang ilang
+condition ay maging `False`, samantalang ang `for` loop
+ay naglo-loop sa kilalang set ng items kaya tumatakbo ito sa kasing dami ng
+iterations na may items sa set.
+
+Ang syntax ng `for` loop ay katulad ng
+`while` loop na mayroong `for` statement
+at loop body:
+
+~~~~ {.python}
+friends = ['Joseph', 'Glenn', 'Sally']
+for friend in friends:
+    print('Happy New Year:', friend)
+print('Done!')
+~~~~
+
+Sa mga termino ng Python, ang variable na `friends` ay list^[Susuriin natin ang lists 
+nang mas detalyado sa susunod na chapter.] ng
+tatlong strings at ang `for` loop ay dumadaan sa list at
+nag-e-execute ng body minsan para sa bawat isa sa tatlong strings sa list
+na nagreresulta sa output na ito:
+
+~~~~ {.python}
+Happy New Year: Joseph
+Happy New Year: Glenn
+Happy New Year: Sally
+Done!
+~~~~
+
+Ang pag-translate ng `for` loop na ito sa English ay hindi kasing direkta ng
+`while`, pero kung iisipin mo ang friends bilang
+*set*, ganito: "Patakbuhin ang statements sa body
+ng for loop minsan para sa bawat friend *sa* set na may pangalang friends."
+
+Sa pagtingin sa `for` loop, ang *for* at
+*in* ay reserved Python keywords, at
+ang `friend` at `friends` ay variables.
+
+~~~~ {.python}
+for friend in friends:
+    print('Happy New Year:', friend)
+~~~~
+
+Sa partikular, ang `friend` ay ang *iteration
+variable* para sa for loop. Ang variable na `friend`
+ay nagbabago para sa bawat iteration ng loop at kumokontrol kung kailan
+natatapos ang `for` loop. Ang *iteration variable*
+ay sunud-sunod na dumadaan sa tatlong strings na naka-store sa
+variable na `friends`.
+
+Loop patterns
+-------------
+
+Kadalasan gumagamit tayo ng `for` o `while` loop para dumaan sa
+list ng items o contents ng file at naghahanap tayo ng
+isang bagay tulad ng pinakamalaki o pinakamaliit na value ng data na sinasala natin.
+
+Ang mga loops na ito ay karaniwang ginagawa sa pamamagitan ng:
+
+-   Pag-i-initialize ng isa o higit pang variables bago magsimula ang loop
+
+-   Paggawa ng ilang computation sa bawat item sa loop body, maaaring
+    binabago ang variables sa body ng loop
+
+-   Pagtingin sa resulting variables kapag natapos ang loop
+
+Gagamitin natin ang list ng mga numero para ipakita ang concepts at
+construction ng mga loop patterns na ito.
+
+### Counting and summing loops
+
+Halimbawa, para bilangin ang bilang ng items sa list, susulat tayo ng
+sumusunod na `for` loop:
+
+~~~~ {.python}
+count = 0
+for itervar in [3, 41, 12, 9, 74, 15]:
+    count = count + 1
+print('Count: ', count)
+~~~~
+
+Ini-set natin ang variable na `count` sa zero bago magsimula ang loop,
+pagkatapos sumusulat tayo ng `for` loop para tumakbo sa list ng
+mga numero. Ang *iteration* variable natin ay may pangalang
+`itervar` at habang hindi natin ginagamit ang `itervar` sa
+loop, kinokontrol nito ang loop at nagdudulot na ang loop body ay ma-e-execute
+minsan para sa bawat isa sa values sa list.
+
+Sa body ng loop, nagdadagdag tayo ng 1 sa kasalukuyang value ng
+`count` para sa bawat isa sa values sa list. Habang ang loop ay
+nag-e-execute, ang value ng `count` ay ang bilang ng values na
+nakita natin "hanggang ngayon".
+
+Kapag natapos ang loop, ang value ng `count` ay ang kabuuang
+bilang ng items. Ang kabuuang bilang ay "nahuhulog sa kandungan natin" sa dulo ng
+loop. Ginagawa natin ang loop para mayroon tayong gusto natin kapag natatapos ang loop.
+
+Ang isa pang katulad na loop na nagko-compute ng kabuuan ng set ng mga numero ay ang
+sumusunod:
+
+~~~~ {.python}
+total = 0
+for itervar in [3, 41, 12, 9, 74, 15]:
+    total = total + itervar
+print('Total: ', total)
+~~~~
+
+Sa loop na ito ay *ginagamit* natin ang *iteration variable*.
+Sa halip na simpleng magdagdag ng isa sa `count` tulad sa
+naunang loop, idinadagdag natin ang actual number (3, 41, 12, etc.) sa running
+total habang bawat loop iteration. Kung iisipin mo ang variable na
+`total`, naglalaman ito ng "running total ng values hanggang
+ngayon". Kaya bago magsimula ang loop ang `total` ay zero dahil hindi pa
+natin nakikita ang anumang values, habang ang loop ay tumatakbo ang `total` ay ang
+running total, at sa dulo ng loop ang `total` ay ang
+overall total ng lahat ng values sa list.
+
+Habang ang loop ay nag-e-execute, ang `total` ay nag-a-accumulate ng sum ng
+mga elements; ang variable na ginagamit sa ganitong paraan ay minsan tinatawag na
+*accumulator*.
+
+\index{accumulator!sum}
+
+Ang counting loop o summing loop ay hindi partikular na kapaki-pakinabang
+sa practice dahil mayroong built-in functions na `len()` at
+`sum()` na nagko-compute ng bilang ng items sa list at ang
+kabuuan ng items sa list ayon sa pagkakabanggit.
+
+### Maximum and minimum loops
+
+\index{loop!maximum}
+\index{loop!minimum}
+\index{None special value}
+\index{special value!None}
+
+Para hanapin ang pinakamalaking value sa list o sequence, gumagawa tayo ng
+sumusunod na loop:
+
+~~~~ {.python}
+largest = None
+print('Before:', largest)
+for itervar in [3, 41, 12, 9, 74, 15]:
+    if largest is None or itervar > largest :
+        largest = itervar
+    print('Loop:', itervar, largest)
+print('Largest:', largest)
+~~~~
+
+Kapag na-e-execute ang program, ang output ay ganito:
+
+~~~~
+Before: None
+Loop: 3 3
+Loop: 41 41
+Loop: 12 41
+Loop: 9 41
+Loop: 74 74
+Loop: 15 74
+Largest: 74
+~~~~
+
+Ang variable na `largest` ay pinakamabuting iisipin bilang "pinakamalaking
+value na nakita natin hanggang ngayon". Bago ang loop, ini-set natin ang `largest`
+sa constant na `None`. Ang `None` ay espesyal na
+constant value na maaari nating i-store sa variable para markahan ang variable bilang
+"empty".
+
+Bago magsimula ang loop, ang pinakamalaking value na nakita natin hanggang ngayon ay
+`None` dahil hindi pa natin nakikita ang anumang values. Habang ang loop
+ay nag-e-execute, kung ang `largest` ay `None` pagkatapos kinukuha natin
+ang unang value na nakikita natin bilang pinakamalaki hanggang ngayon. Makikita mo sa unang
+iteration kapag ang value ng `itervar` ay 3, dahil
+ang `largest` ay `None`, agad naming ini-set
+ang `largest` na maging 3.
+
+Pagkatapos ng unang iteration, ang `largest` ay hindi na
+`None`, kaya ang pangalawang parte ng compound logical expression
+na sumusuri sa `itervar > largest` ay nagti-trigger lang kapag nakikita natin ang
+value na mas malaki kaysa sa "pinakamalaki hanggang ngayon". Kapag nakikita natin ang bagong "mas
+malaki pa" na value kinukuha natin ang bagong value na iyon para sa `largest`. Makikita mo
+sa program output na ang `largest` ay umuunlad mula 3 patungo
+41 patungo 74.
+
+Sa dulo ng loop, nasala na natin ang lahat ng values at ang
+variable na `largest` ngayon ay naglalaman ng pinakamalaking value sa
+list.
+
+Para i-compute ang pinakamaliit na numero, ang code ay napakatulad na may isang maliit na
+pagbabago:
+
+~~~~ {.python}
+smallest = None
+print('Before:', smallest)
+for itervar in [3, 41, 12, 9, 74, 15]:
+    if smallest is None or itervar < smallest:
+        smallest = itervar
+    print('Loop:', itervar, smallest)
+print('Smallest:', smallest)
+~~~~
+
+Muli, ang `smallest` ay ang "pinakamaliit hanggang ngayon" bago, habang,
+at pagkatapos na-e-execute ang loop. Kapag natapos ang loop,
+ang `smallest` ay naglalaman ng minimum value sa list.
+
+Muli tulad sa counting at summing, ang built-in functions na
+`max()` at `min()` ay ginagawang hindi kailangan ang pagsusulat ng eksaktong loops na ito.
+
+Ang sumusunod ay simpleng bersyon ng Python built-in
+`min()` function:
+
+~~~~ {.python}
+def min(values):
+    smallest = None
+    for value in values:
+        if smallest is None or value < smallest:
+            smallest = value
+    return smallest
+~~~~
+
+Sa function version ng smallest code, tinanggal namin ang lahat ng
+`print` statements para maging katumbas ng
+`min` function na built-in na sa Python.
+
+Debugging
+---------
+
+Habang nagsisimula kang sumulat ng mas malalaking programs, maaari mong makita na gumugugol ka ng
+mas maraming panahon sa debugging. Mas maraming code ay nangangahulugang mas maraming pagkakataon na magkamali at
+mas maraming lugar para magtago ang bugs.
+
+\index{debugging!by bisection}
+\index{bisection, debugging by}
+
+Isang paraan para bawasan ang debugging time mo ay "debugging by bisection." Halimbawa,
+kung mayroong 100 lines sa program mo at sinusuri mo sila isa-isa,
+aabutin ng 100 steps.
+
+Sa halip, subukan mong hatiin ang problema sa kalahati. Tingnan ang gitna ng
+program, o malapit dito, para sa intermediate value na maaari mong suriin. Magdagdag ng
+`print` statement (o iba pang bagay na may verifiable
+effect) at patakbuhin ang program.
+
+Kung ang mid-point check ay hindi tama, ang problema ay dapat nasa unang
+kalahati ng program. Kung tama ito, ang problema ay nasa pangalawang
+kalahati.
+
+Sa bawat pagkakataon na gumagawa ka ng check na ganito, hinahati mo ang bilang ng lines
+na kailangan mong hanapin. Pagkatapos ng anim na steps (na mas kaunti kaysa sa 100), makakarating ka
+sa isa o dalawang linya ng code, hindi bababa sa teorya.
+
+Sa practice hindi palaging malinaw kung ano ang "gitna ng program" at
+hindi palaging posible na suriin ito. Hindi makatuwiran na bilangin ang
+mga linya at hanapin ang eksaktong midpoint. Sa halip, isipin ang mga lugar sa
+program kung saan maaaring may errors at mga lugar kung saan madaling maglagay ng
+check. Pagkatapos pumili ng lugar kung saan sa tingin mo ang mga pagkakataon ay halos pareho
+na ang bug ay bago o pagkatapos ng check.
+
+Glossary
+--------
+
+accumulator
+:   Variable na ginagamit sa loop para magdagdag o mag-accumulate ng result.
+\index{accumulator}
+
+counter
+:   Variable na ginagamit sa loop para bilangin ang bilang ng beses na nangyari ang isang bagay.
+    Ini-initialize natin ang counter sa zero at pagkatapos i-increment ang
+    counter sa bawat pagkakataon na gusto nating "bilangin" ang isang bagay.
+\index{counter}
+
+decrement
+:   Update na nagpapababa ng value ng variable.
+\index{decrement}
+
+initialize
+:   Assignment na nagbibigay ng initial value sa variable na
+    i-u-update.
+
+increment
+:   Update na nagpapataas ng value ng variable (kadalasan ng isa).
+\index{increment}
+
+infinite loop
+:   Loop kung saan ang terminating condition ay hindi kailanman nasiyahan o kung saan
+    walang terminating condition.
+\index{infinite loop}
+
+iteration
+:   Paulit-ulit na execution ng set ng statements gamit ang function
+    na tumatawag sa sarili o loop.
+\index{iteration}
+
+Exercises
+---------
+
+**Exercise 1:** Sumulat ng program na paulit-ulit na nagbabasa ng integers hanggang ang
+user ay mag-enter ng "done". Kapag na-enter na ang "done", mag-print ng total, count,
+at average ng integers. Kung ang user ay mag-enter ng anuman maliban sa
+integer, tuklasin ang kanilang pagkakamali gamit ang `try` at
+`except` at mag-print ng error message at lumaktaw sa susunod na
+integers.
+
+~~~~
+Enter a number: 4
+Enter a number: 5
+Enter a number: bad data
+Invalid input
+Enter a number: 7
+Enter a number: done
+16 3 5.333333333333333
+~~~~
+
+**Exercise 2:** Sumulat ng isa pang program na nagpo-prompt para sa list ng mga numero tulad ng
+sa itaas at sa dulo ay magpi-print ng parehong maximum at minimum ng
+mga numero imbes na ang average.
+
