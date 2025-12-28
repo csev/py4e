@@ -33,7 +33,7 @@ fi
 
 sed < tmp.app.tex -e 's/subsubsection{/xyzzy{/' -e 's/subsection{/plugh{/' -e 's/section{/chapter{/' -e 's/xyzzy{/subsection{/' -e 's/plugh{/section{/'  > tmp.appendix.tex
 
-sed < tmp.tex '/includegraphics/s/jpg/eps/' | sed 's"includegraphics{../photos"includegraphics[height=3.0in]{../photos"' | iconv -f utf8 -t ascii//TRANSLIT > tmp.sed
+sed < tmp.tex '/includegraphics/s/jpg/eps/' | sed 's"includegraphics{../photos"includegraphics[height=3.0in]{../../../photos"' | sed 's"includegraphics{../images"includegraphics{../../../images"' | iconv -f utf8 -t ascii//TRANSLIT > tmp.sed
 diff tmp.sed tmp.tex
 $MY_PYTHON texpatch.py < tmp.sed | iconv -f utf8 -t ascii//TRANSLIT > tmp.patch
 
