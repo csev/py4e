@@ -219,7 +219,7 @@ https://www.bilibili.com/video/av46649799</a>
 </li>
 </ul>
 <p>
-If you are insterested in starting a translation of the book, I have some
+If you are interested in starting a translation of the book, I have some
 instructions for
 <a href="https://github.com/csev/py4e/blob/master/TRANSLATION.md"
  target="_blank">

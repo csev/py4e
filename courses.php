@@ -5,7 +5,7 @@
 <p>
 This page reflects various courses that use this textbook around the world.
 This translation / adaptation / reuse is encouraged since the materials are
-avilable under a Creative Commons license.
+available under a Creative Commons license.
 </p>
 
 <ul>
