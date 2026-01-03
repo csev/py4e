@@ -10,7 +10,7 @@ function buildMenu() {
     $A = $L . 'announce';
     $adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
     $path = U::rest_path();
-    $base_path = $path->parent; // e.g., /announce
+    $base_path = ($path && isset($path->parent)) ? $path->parent : ''; // e.g., /announce
 
     // Generate URLs using rest_path and addSession
     $json_url = U::addSession($A . '/json.php');
