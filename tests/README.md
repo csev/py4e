@@ -54,9 +54,17 @@ php tests/run-all.php
 php tests/Py4ETests/LessonsTest.php
 php tests/ToolsTests/PythonAutoTest.php
 php tests/ToolsTests/ToolsTestHarnessTest.php
+php tests/ToolsTests/AipaperTest.php  # Example: test specific tool
 ```
 
 **Note**: Mod tools are NOT tested directly. They are tested through the tools test harness at `/tools` which goes to `/tsugi/store/test`. This harness provides built-in test accounts (Jane Instructor, Sue Student, Jane Student) and launches tools via iframes.
+
+### Testing Individual Tools
+
+You can create detailed tests for specific tools (like aipaper). See:
+- `tests/ToolsTests/ToolTestTemplate.php` - Template for creating tool tests
+- `tests/ToolsTests/AipaperTest.php` - Example test for aipaper tool
+- `tests/ToolsTests/HOW_TO_TEST_TOOLS.md` - Guide for testing individual tools
 
 ## Watch Mode
 
