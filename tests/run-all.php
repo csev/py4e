@@ -13,6 +13,17 @@ if (php_sapi_name() !== 'cli') {
     die("Error: This script can only be run from the command line.\n");
 }
 
+// Check for --watch flag
+global $argv;
+$watchMode = isset($argv) && in_array('--watch', $argv);
+if ($watchMode) {
+    echo "👀 Watch mode enabled - browser window will be visible\n";
+    echo "   Press Ctrl+C to stop\n\n";
+    // Set environment variable so BaseTestCase can detect it
+    $_SERVER['PANTHER_WATCH'] = '1';
+    $_ENV['PANTHER_WATCH'] = '1';
+}
+
 require_once __DIR__ . '/SmokeTest.php';
 require_once __DIR__ . '/Py4ETests/LessonsTest.php';
 require_once __DIR__ . '/ToolsTests/PythonAutoTest.php';
