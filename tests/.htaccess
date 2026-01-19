@@ -1,0 +1,20 @@
+# Security: Block web access to test files
+# Tests should only be run from command line or localhost
+
+# Deny all web access
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+
+# Fallback for older Apache versions
+<IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+</IfModule>
+
+# Allow localhost access (for development)
+# Uncomment and adjust if you need web access during development:
+# <IfModule mod_authz_core.c>
+#     Require ip 127.0.0.1
+#     Require ip ::1
+# </IfModule>
