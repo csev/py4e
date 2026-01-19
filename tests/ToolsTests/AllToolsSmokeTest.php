@@ -6,11 +6,15 @@
  * This provides comprehensive coverage of all installed tools.
  */
 
+// Load Composer autoloader - prefer tests/vendor, fallback to tsugi/vendor
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+} else {
+    require_once __DIR__ . '/../../tsugi/vendor/autoload.php';
+}
+
 require_once __DIR__ . '/../BaseTestCase.php';
 require_once __DIR__ . '/BaseToolTest.php';
-
-// Load Composer autoloader
-require_once __DIR__ . '/../../tsugi/vendor/autoload.php';
 
 class AllToolsSmokeTest extends BaseTestCase
 {

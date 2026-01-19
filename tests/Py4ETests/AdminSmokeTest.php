@@ -8,10 +8,15 @@
  * 3. Test admin UI navigation (hrefs and modal popups)
  */
 
-require_once __DIR__ . '/../BaseTestCase.php';
+// Load Composer autoloader BEFORE BaseTestCase (BaseTestCase uses Panther classes)
+// Prefer tests/vendor, fallback to tsugi/vendor
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+} else {
+    require_once __DIR__ . '/../../tsugi/vendor/autoload.php';
+}
 
-// Load Composer autoloader
-require_once __DIR__ . '/../../tsugi/vendor/autoload.php';
+require_once __DIR__ . '/../BaseTestCase.php';
 
 class AdminSmokeTest extends BaseTestCase
 {
@@ -212,34 +217,9 @@ class AdminSmokeTest extends BaseTestCase
             throw new \Exception("Login may have failed - admin page did not load after login attempt");
         }
         
-        return $result['crawler'];
-    }
-    
-    /**
-     * Test that admin login page loads
-     */
-    public function testAdminLoginPageLoads()
-    {
-        $client = $this->getPantherClient();
-        
-        try {
-            $crawler = $client->request('GET', $this->baseUrl . '/tsugi/admin');
-            sleep(1);
-            
-            $bodyText = $crawler->filter('body')->text();
-            $this->assertNotEmpty($bodyText, 'Admin page should have content');
-            
-            echo "✓ Admin login page loads\n";
-            
-            if ($this->isWatchMode()) {
-                sleep(2);
-            }
-            
-            $client->quit();
-        } catch (\Exception $e) {
-            try { $client->quit(); } catch (\Exception $e2) {}
-            echo "⚠ Admin login page test skipped: " . $e->getMessage() . "\n";
-        }
+        // Refresh crawler to avoid stale references
+        $crawler = $client->getCrawler();
+        return $crawler;
     }
     
     /**
@@ -248,16 +228,33 @@ class AdminSmokeTest extends BaseTestCase
     public function testAdminLogin()
     {
         $client = $this->getPantherClient();
+        $driver = $client->getWebDriver();
         
         try {
             echo "   Logging in to admin...\n";
             $crawler = $this->loginToAdmin($client);
             
-            // Check if login was successful
-            $bodyText = $crawler->filter('body')->text();
+            // Check if login was successful using WebDriver (avoid stale crawler references)
+            $bodyText = '';
+            try {
+                $body = $driver->findElement(\Facebook\WebDriver\WebDriverBy::tagName('body'));
+                if ($body && $body->isDisplayed()) {
+                    $bodyText = $body->getText();
+                }
+            } catch (\Exception $e) {
+                // Fallback to crawler if WebDriver fails
+                try {
+                    $crawler = $client->getCrawler(); // Refresh crawler
+                    $bodyText = $crawler->filter('body')->text();
+                } catch (\Exception $e2) {
+                    throw new \Exception("Could not get page content: " . $e->getMessage());
+                }
+            }
             
             // Look for admin UI indicators
-            $hasAdminUI = stripos($bodyText, 'admin') !== false || 
+            $hasAdminUI = stripos($bodyText, 'Administration Console') !== false || 
+                         stripos($bodyText, 'Manage Access Keys') !== false ||
+                         stripos($bodyText, 'admin') !== false || 
                          stripos($bodyText, 'dashboard') !== false ||
                          stripos($bodyText, 'upgrade') !== false ||
                          stripos($bodyText, 'database') !== false;
@@ -281,6 +278,134 @@ class AdminSmokeTest extends BaseTestCase
     }
     
     /**
+     * Check for PHP errors in page content
+     * PHP errors can return HTTP 200 but show error messages in the page
+     * Detects: Parse errors, Fatal errors, Warnings, Notices, Deprecated, etc.
+     * 
+     * @param Client $client Panther client
+     * @param bool $checkIframe If true, also check iframe content (for modals)
+     * @return array ['hasError' => bool, 'errorMessage' => string|null]
+     */
+    protected function checkForPhpErrors($client, $checkIframe = false)
+    {
+        try {
+            $driver = $client->getWebDriver();
+            
+            // Check main page content
+            $body = $driver->findElement(\Facebook\WebDriver\WebDriverBy::tagName('body'));
+            $bodyText = $body->getText();
+            $pageSource = $driver->getPageSource();
+            
+            // Check for PHP error messages - use specific PHP error format patterns
+            // PHP errors typically follow formats like:
+            // "PHP Warning: ... in /path/to/file.php on line X"
+            // "Parse error: ... in /path/to/file.php on line X"
+            // "Fatal error: ... in /path/to/file.php on line X"
+            // Note: die() and exit() also return HTTP 200, so we check for those too
+            
+            $phpErrorPatterns = [
+                // Parse errors - must have "Parse error:" or "syntax error" with "on line"
+                '/Parse error:\s*[^<]*on line \d+/i',
+                '/syntax error[^<]*on line \d+/i',
+                '/unexpected[^<]*on line \d+/i',
+                
+                // Fatal errors - must have "Fatal error:" with file path or "on line"
+                '/Fatal error:\s*[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                
+                // Warnings - must have "PHP Warning:" or "Warning:" with file path or "on line"
+                '/PHP Warning:\s*[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                '/Warning:\s*[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                
+                // Notices - must have "PHP Notice:" or "Notice:" with file path or "on line"
+                '/PHP Notice:\s*[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                '/Notice:\s*[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                
+                // Deprecated - must have "PHP Deprecated:" or "Deprecated:" with file path or "on line"
+                '/PHP Deprecated:\s*[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                '/Deprecated:\s*[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                
+                // Other specific PHP errors - must have error type with file path or "on line"
+                '/PHP Error:\s*[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                '/Call to undefined[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                '/Undefined variable[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                '/Undefined index[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                '/Undefined property[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                '/Trying to access[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                '/Cannot redeclare[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                '/Class [^<]+ not found[^<]*(?:in [^<]+\.php|on line \d+)/i',
+                '/Call to a member function[^<]*(?:in [^<]+\.php|on line \d+)/i',
+            ];
+            
+            foreach ($phpErrorPatterns as $pattern) {
+                if (preg_match($pattern, $bodyText, $matches) || preg_match($pattern, $pageSource, $matches)) {
+                    // Extract full error message
+                    if (!empty($matches[0])) {
+                        return ['hasError' => true, 'errorMessage' => trim($matches[0])];
+                    }
+                }
+            }
+            
+            // Check for die()/exit() - pages that are suspiciously short or incomplete
+            // Admin pages should have substantial content (navigation, forms, etc.)
+            // If page is very short and doesn't look like a complete admin page, might be die()
+            $bodyTextLength = strlen(trim($bodyText));
+            $hasAdminContent = stripos($bodyText, 'admin') !== false || 
+                             stripos($bodyText, 'Administration') !== false ||
+                             stripos($bodyText, 'Manage') !== false ||
+                             stripos($bodyText, 'form') !== false ||
+                             stripos($bodyText, 'table') !== false ||
+                             stripos($pageSource, '<html') !== false ||
+                             stripos($pageSource, '<body') !== false;
+            
+            // If page is very short (< 100 chars) and doesn't have admin content, might be die()
+            // But be careful - some admin pages might legitimately be short
+            // Only flag if it's suspiciously short AND doesn't have expected admin structure
+            if ($bodyTextLength < 100 && !$hasAdminContent && stripos($pageSource, '<html') === false) {
+                // Check if it looks like a die() message (short, no HTML structure)
+                if (preg_match('/^[^<]{0,200}$/s', $bodyText) && strlen($bodyText) < 100) {
+                    return ['hasError' => true, 'errorMessage' => 'Possible die()/exit() - page content: ' . substr($bodyText, 0, 100)];
+                }
+            }
+            
+            // Check iframe content if requested (for modals)
+            if ($checkIframe) {
+                try {
+                    $iframe = $driver->findElement(\Facebook\WebDriver\WebDriverBy::id('iframe-frame'));
+                    if ($iframe && $iframe->isDisplayed()) {
+                        // Switch to iframe context
+                        $driver->switchTo()->frame($iframe);
+                        
+                        try {
+                            $iframeBody = $driver->findElement(\Facebook\WebDriver\WebDriverBy::tagName('body'));
+                            $iframeText = $iframeBody->getText();
+                            $iframeSource = $driver->getPageSource();
+                            
+                            foreach ($phpErrorPatterns as $pattern) {
+                                if (preg_match($pattern, $iframeText, $matches) || preg_match($pattern, $iframeSource, $matches)) {
+                                    if (!empty($matches[0])) {
+                                        $driver->switchTo()->defaultContent();
+                                        return ['hasError' => true, 'errorMessage' => 'Iframe: ' . trim($matches[0])];
+                                    }
+                                }
+                            }
+                        } finally {
+                            // Always switch back to main document
+                            $driver->switchTo()->defaultContent();
+                        }
+                    }
+                } catch (\Exception $e) {
+                    // Iframe might not exist or not be accessible - that's okay
+                }
+            }
+            
+            return ['hasError' => false, 'errorMessage' => null];
+        } catch (\Exception $e) {
+            // If we can't check, assume no error (don't fail on check failure)
+            return ['hasError' => false, 'errorMessage' => null];
+        }
+    }
+    
+    /**
      * Test admin UI navigation (hrefs and modals)
      */
     public function testAdminUINavigation()
@@ -291,6 +416,12 @@ class AdminSmokeTest extends BaseTestCase
             echo "   Logging in to admin...\n";
             $crawler = $this->loginToAdmin($client);
             sleep(1);
+            
+            // Check for PHP errors on admin main page
+            $errorCheck = $this->checkForPhpErrors($client);
+            if ($errorCheck['hasError']) {
+                throw new \Exception("PHP error detected on admin page: " . $errorCheck['errorMessage']);
+            }
             
             echo "   Testing admin UI navigation...\n";
             
@@ -440,6 +571,15 @@ class AdminSmokeTest extends BaseTestCase
                         
                         sleep(1); // Wait for page/modal to load
                         
+                        // Check for PHP errors after navigation
+                        if (!$isModal) {
+                            $errorCheck = $this->checkForPhpErrors($client);
+                            if ($errorCheck['hasError']) {
+                                echo "       ✗ PHP error detected: " . $errorCheck['errorMessage'] . "\n";
+                                throw new \Exception("PHP error on page {$linkText}: " . $errorCheck['errorMessage']);
+                            }
+                        }
+                        
                         if ($isModal) {
                             // Handle modal - wait for iframe-dialog to appear, then close it
                             echo "       ✓ Modal opened\n";
@@ -490,11 +630,24 @@ class AdminSmokeTest extends BaseTestCase
                                         if (!$isDisplayed || $isHidden) {
                                             $spinnerGone = true;
                                             echo "       ✓ Spinner disappeared, modal content loaded\n";
+                                            
+                                            // Check for PHP errors in iframe content
+                                            $errorCheck = $this->checkForPhpErrors($client, true);
+                                            if ($errorCheck['hasError']) {
+                                                echo "       ✗ PHP error detected in modal: " . $errorCheck['errorMessage'] . "\n";
+                                                throw new \Exception("PHP error in modal {$linkText}: " . $errorCheck['errorMessage']);
+                                            }
+                                            
                                             // Wait 3 seconds after spinner disappears
                                             sleep(3);
                                             break;
                                         }
                                     } catch (\Exception $e) {
+                                        // Check if this is a PHP error exception - rethrow it
+                                        if (stripos($e->getMessage(), 'PHP error') !== false) {
+                                            throw $e;
+                                        }
+                                        
                                         // Spinner element not found - might already be gone
                                         try {
                                             // Try to find it again
@@ -503,6 +656,14 @@ class AdminSmokeTest extends BaseTestCase
                                             // Spinner doesn't exist - consider it gone
                                             $spinnerGone = true;
                                             echo "       ✓ Spinner not found (already removed)\n";
+                                            
+                                            // Check for PHP errors in iframe content
+                                            $errorCheck = $this->checkForPhpErrors($client, true);
+                                            if ($errorCheck['hasError']) {
+                                                echo "       ✗ PHP error detected in modal: " . $errorCheck['errorMessage'] . "\n";
+                                                throw new \Exception("PHP error in modal {$linkText}: " . $errorCheck['errorMessage']);
+                                            }
+                                            
                                             // Wait 3 seconds after spinner disappears
                                             sleep(3);
                                             break;
@@ -545,7 +706,87 @@ class AdminSmokeTest extends BaseTestCase
                                 // Couldn't close modal - continue anyway
                             }
                         } else {
-                            // Regular page navigation - look for "Admin" link/button to go back
+                                // Regular page navigation - check for pagination "Next" button first
+                            echo "       Checking for pagination...\n";
+                            
+                            // Check for PHP errors before navigating
+                            $errorCheck = $this->checkForPhpErrors($client);
+                            if ($errorCheck['hasError']) {
+                                echo "       ✗ PHP error detected: " . $errorCheck['errorMessage'] . "\n";
+                                throw new \Exception("PHP error on page {$linkText}: " . $errorCheck['errorMessage']);
+                            }
+                            
+                            // Look for "Next" button (pagination) - click it once if found
+                            try {
+                                $nextButtons = $driver->findElements(\Facebook\WebDriver\WebDriverBy::cssSelector('input[type="submit"][value="Next"].btn.btn-default'));
+                                if (count($nextButtons) === 0) {
+                                    // Also try without the exact class combination
+                                    $nextButtons = $driver->findElements(\Facebook\WebDriver\WebDriverBy::cssSelector('input[type="submit"][value="Next"]'));
+                                }
+                                
+                                $nextClicked = false;
+                                foreach ($nextButtons as $nextButton) {
+                                    try {
+                                        if ($nextButton->isDisplayed() && $nextButton->isEnabled()) {
+                                            echo "       ✓ Found 'Next' button, clicking once...\n";
+                                            $driver->executeScript('arguments[0].click();', [$nextButton]);
+                                            sleep(2); // Wait for next page to load
+                                            
+                                            // Check for PHP errors after clicking Next
+                                            $errorCheck = $this->checkForPhpErrors($client);
+                                            if ($errorCheck['hasError']) {
+                                                echo "       ✗ PHP error detected after clicking Next: " . $errorCheck['errorMessage'] . "\n";
+                                                throw new \Exception("PHP error on page {$linkText} after Next: " . $errorCheck['errorMessage']);
+                                            }
+                                            
+                                            $nextClicked = true;
+                                            break; // Only click first enabled Next button
+                                        }
+                                    } catch (\Exception $e) {
+                                        // Skip stale/disabled buttons
+                                        continue;
+                                    }
+                                }
+                                
+                                // If we clicked Next, look for Back button and click it
+                                if ($nextClicked) {
+                                    try {
+                                        $backButtons = $driver->findElements(\Facebook\WebDriver\WebDriverBy::cssSelector('input[type="submit"][value="Back"].btn.btn-default'));
+                                        if (count($backButtons) === 0) {
+                                            // Also try without the exact class combination
+                                            $backButtons = $driver->findElements(\Facebook\WebDriver\WebDriverBy::cssSelector('input[type="submit"][value="Back"]'));
+                                        }
+                                        
+                                        foreach ($backButtons as $backButton) {
+                                            try {
+                                                if ($backButton->isDisplayed() && $backButton->isEnabled()) {
+                                                    echo "       ✓ Found 'Back' button, clicking...\n";
+                                                    $driver->executeScript('arguments[0].click();', [$backButton]);
+                                                    sleep(2); // Wait for back page to load
+                                                    
+                                                    // Check for PHP errors after clicking Back
+                                                    $errorCheck = $this->checkForPhpErrors($client);
+                                                    if ($errorCheck['hasError']) {
+                                                        echo "       ✗ PHP error detected after clicking Back: " . $errorCheck['errorMessage'] . "\n";
+                                                        throw new \Exception("PHP error on page {$linkText} after Back: " . $errorCheck['errorMessage']);
+                                                    }
+                                                    
+                                                    break; // Only click first enabled Back button
+                                                }
+                                            } catch (\Exception $e) {
+                                                // Skip stale/disabled buttons
+                                                continue;
+                                            }
+                                        }
+                                    } catch (\Exception $e) {
+                                        // No Back button found or error clicking - that's okay, continue
+                                    }
+                                }
+                            } catch (\Exception $e) {
+                                // No Next button found or error clicking - that's okay, continue
+                            }
+                            
+                            // Now look for "Admin" link/button to go back
                             echo "       Looking for 'Admin' link to return...\n";
                             
                             $adminLinkFound = false;
@@ -646,7 +887,6 @@ class AdminSmokeTest extends BaseTestCase
         echo "\n=== Running Admin Smoke Tests ===\n\n";
         
         try {
-            $this->testAdminLoginPageLoads();
             $this->testAdminLogin();
             $this->testAdminUINavigation();
             

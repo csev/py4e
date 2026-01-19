@@ -10,9 +10,7 @@
  */
 
 require_once __DIR__ . '/BaseToolTest.php';
-
-// Load Composer autoloader
-require_once __DIR__ . '/../../tsugi/vendor/autoload.php';
+// BaseToolTest already loads autoloader
 
 class AipaperTest extends BaseToolTest
 {

@@ -20,8 +20,12 @@ if (php_sapi_name() !== 'cli') {
     }
 }
 
-// Load Composer autoloader
-require_once __DIR__ . '/../tsugi/vendor/autoload.php';
+// Load Composer autoloader - prefer tests/vendor, fallback to tsugi/vendor
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+} else {
+    require_once __DIR__ . '/../tsugi/vendor/autoload.php';
+}
 
 use Symfony\Component\Panther\Client;
 
