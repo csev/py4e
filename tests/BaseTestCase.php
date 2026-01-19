@@ -34,19 +34,10 @@ abstract class BaseTestCase
     protected $baseUrl = 'http://localhost:8888/py4e';
     
     /**
-     * Constructor - sets TSUGI_PANTHER environment variable for tests
-     * 
-     * This allows testing the admin tool without Google OAuth authentication.
-     * When TSUGI_PANTHER is set, config.php skips setting Google credentials,
-     * which enables admin tool testing without OAuth complications.
+     * Constructor
      */
     public function __construct()
     {
-        // Set environment variable to indicate Panther tests are running
-        // This prevents config.php from setting Google API credentials
-        // which allows admin tool testing without OAuth
-        $_ENV['TSUGI_PANTHER'] = '1';
-        $_SERVER['TSUGI_PANTHER'] = '1';
     }
     
     /**
