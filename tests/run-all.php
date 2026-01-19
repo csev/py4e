@@ -26,8 +26,11 @@ if ($watchMode) {
 
 require_once __DIR__ . '/SmokeTest.php';
 require_once __DIR__ . '/Py4ETests/LessonsTest.php';
+require_once __DIR__ . '/Py4ETests/AdminSmokeTest.php';
 require_once __DIR__ . '/ToolsTests/PythonAutoTest.php';
 require_once __DIR__ . '/ToolsTests/ToolsTestHarnessTest.php';
+require_once __DIR__ . '/ToolsTests/AipaperTest.php';
+require_once __DIR__ . '/ToolsTests/AllToolsSmokeTest.php';
 
 echo "\n";
 echo "========================================\n";
@@ -53,8 +56,18 @@ try {
     $lessonsTest->testNavigateToModule();
     $lessonsTest->testPreviousNextNavigation();
     $lessonsTest->testItemsArrayRenders();
+    $lessonsTest->testLessonsWithUser();
 } catch (\Exception $e) {
     echo "✗ Lessons tests failed: " . $e->getMessage() . "\n";
+    $exitCode = 1;
+}
+
+echo "\n--- Admin Tests ---\n";
+$adminSmokeTest = new AdminSmokeTest();
+try {
+    $adminSmokeTest->runAll();
+} catch (\Exception $e) {
+    echo "✗ Admin tests failed: " . $e->getMessage() . "\n";
     $exitCode = 1;
 }
 
@@ -77,6 +90,26 @@ try {
     $toolsHarnessTest->testTestAccountsAvailable();
 } catch (\Exception $e) {
     echo "✗ Tools test harness tests failed: " . $e->getMessage() . "\n";
+    $exitCode = 1;
+}
+
+echo "\n--- Aipaper Tool Tests ---\n";
+$aipaperTest = new AipaperTest();
+try {
+    $aipaperTest->runAll();
+} catch (\Exception $e) {
+    echo "✗ Aipaper tests failed: " . $e->getMessage() . "\n";
+    $exitCode = 1;
+}
+
+echo "\n--- All Tools Smoke Tests (Quick Mode) ---\n";
+$allToolsSmokeTest = new AllToolsSmokeTest();
+try {
+    // Run in quick mode to keep it fast - only tests store listing, not full launches
+    // Remove --quick flag if you want full tests (will be slower)
+    $allToolsSmokeTest->testAllTools(0, true); // 0 = all tools, true = quick mode
+} catch (\Exception $e) {
+    echo "✗ All tools smoke tests failed: " . $e->getMessage() . "\n";
     $exitCode = 1;
 }
 
