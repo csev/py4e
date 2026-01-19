@@ -692,30 +692,128 @@ abstract class BaseToolTest extends BaseTestCase
      * @param string $identityName Identity display name
      * @param \Symfony\Component\Panther\DomCrawler\Crawler $iframeCrawler Crawler for iframe content
      */
+    /**
+     * Get iframe body text using resilient approach
+     * 
+     * Always uses WebDriver directly since we're already in iframe context.
+     * This ensures we get fresh content even if crawler references are stale.
+     * 
+     * @param Client $client Panther client (must already be switched to iframe)
+     * @param \Symfony\Component\Panther\DomCrawler\Crawler|null $iframeCrawler Optional crawler (not used, kept for compatibility)
+     * @return string Body text content
+     */
+    protected function getIframeBodyText($client, $iframeCrawler = null)
+    {
+        $iframeBody = '';
+        
+        // Always use WebDriver directly - it's more reliable and always fresh
+        // The crawler can become stale, especially after switching contexts
+        try {
+            $driver = $client->getWebDriver();
+            $body = $driver->findElement(\Facebook\WebDriver\WebDriverBy::tagName('body'));
+            $iframeBody = $body->getText();
+        } catch (\Exception $e) {
+            // If WebDriver fails, try Crawler as fallback (might work if crawler is fresh)
+            if ($iframeCrawler) {
+                try {
+                    $bodyElement = $iframeCrawler->filter('body');
+                    if ($bodyElement->count() > 0) {
+                        $iframeBody = $bodyElement->text();
+                    }
+                } catch (\Exception $e2) {
+                    // Both failed
+                    $iframeBody = '';
+                }
+            }
+        }
+        
+        return $iframeBody;
+    }
+    
+    /**
+     * Get fresh iframe crawler
+     * Gets a new crawler reference after switching to iframe
+     * Use this when you need a crawler for filtering elements
+     * 
+     * @param Client $client Panther client (must already be switched to iframe)
+     * @return \Symfony\Component\Panther\DomCrawler\Crawler Fresh crawler for iframe
+     */
+    protected function getFreshIframeCrawler($client)
+    {
+        return $client->getCrawler();
+    }
+    
+    /**
+     * Extract first visible text from iframe body content
+     * Finds first non-empty line longer than 3 characters
+     * 
+     * @param string $iframeBody Full iframe body text
+     * @param int $maxLength Maximum length to return (default: 100)
+     * @return string First visible text, truncated if needed
+     */
+    protected function getFirstVisibleText($iframeBody, $maxLength = 100)
+    {
+        $textLines = explode("\n", $iframeBody);
+        $firstVisibleText = '';
+        
+        foreach ($textLines as $line) {
+            $line = trim($line);
+            // Skip empty lines and very short lines (likely formatting)
+            if (!empty($line) && strlen($line) > 3) {
+                $firstVisibleText = $line;
+                break;
+            }
+        }
+        
+        // Truncate if too long
+        if (strlen($firstVisibleText) > $maxLength) {
+            $firstVisibleText = substr($firstVisibleText, 0, $maxLength - 3) . '...';
+        }
+        
+        return $firstVisibleText;
+    }
+    
+    /**
+     * Print debug information about iframe content
+     * Shows character count and first visible text
+     * Can be called from derived classes or automatically enabled
+     * 
+     * Always gets fresh content using WebDriver (crawler parameter kept for compatibility)
+     * 
+     * @param Client $client Panther client (must already be switched to iframe)
+     * @param string $identityName Identity display name
+     * @param \Symfony\Component\Panther\DomCrawler\Crawler|null $iframeCrawler Optional crawler (not used, kept for compatibility)
+     */
+    protected function printIframeDebugInfo($client, $identityName, $iframeCrawler = null)
+    {
+        try {
+            // Always get fresh body text (doesn't rely on potentially stale crawler)
+            $iframeBody = $this->getIframeBodyText($client, $iframeCrawler);
+            $charCount = strlen($iframeBody);
+            $firstVisibleText = $this->getFirstVisibleText($iframeBody);
+            
+            echo "     [DEBUG] Per-identity per-tool tests would go here for {$identityName}\n";
+            echo "     [DEBUG] Iframe text character count: {$charCount}\n";
+            if (!empty($firstVisibleText)) {
+                echo "     [DEBUG] First visible text: \"{$firstVisibleText}\"\n";
+            } else {
+                echo "     [DEBUG] First visible text: (none found - iframe may still be loading)\n";
+            }
+        } catch (\Exception $e) {
+            echo "     [DEBUG] Could not extract debug info: " . $e->getMessage() . "\n";
+        }
+    }
+    
     protected function testToolFunctionalityForIdentity($client, $identityKey, $identityName, $iframeCrawler)
     {
         // Base implementation: just verify content exists
         // Override in derived classes for tool-specific tests
         
         try {
-            // Try to get body text - handle case where body might not be ready yet
-            $iframeBody = '';
-            try {
-                $bodyElement = $iframeCrawler->filter('body');
-                if ($bodyElement->count() > 0) {
-                    $iframeBody = $bodyElement->text();
-                }
-            } catch (\Exception $e) {
-                // Body might not be accessible yet - try direct WebDriver access
-                try {
-                    $driver = $client->getWebDriver();
-                    $body = $driver->findElement(\Facebook\WebDriver\WebDriverBy::tagName('body'));
-                    $iframeBody = $body->getText();
-                } catch (\Exception $e2) {
-                    // Still can't access - might be loading
-                    $iframeBody = '';
-                }
-            }
+            // Get iframe body text using resilient approach (always gets fresh content)
+            // Note: $iframeCrawler parameter kept for compatibility but not used
+            // We always use WebDriver directly to avoid stale crawler issues
+            $iframeBody = $this->getIframeBodyText($client, $iframeCrawler);
             
             if (empty(trim($iframeBody))) {
                 echo "     ⚠ {$identityName}: Tool launched but iframe appears empty (may still be loading)\n";

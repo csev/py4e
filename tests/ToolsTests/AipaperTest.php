@@ -36,59 +36,8 @@ class AipaperTest extends BaseToolTest
         // Call parent to do basic content check
         parent::testToolFunctionalityForIdentity($client, $identityKey, $identityName, $iframeCrawler);
         
-        // Debug output: Show iframe content info
-        // Use same resilient approach as parent method
-        try {
-            $iframeBody = '';
-            $charCount = 0;
-            
-            // Try Crawler first
-            try {
-                $bodyElement = $iframeCrawler->filter('body');
-                if ($bodyElement->count() > 0) {
-                    $iframeBody = $bodyElement->text();
-                }
-            } catch (\Exception $e) {
-                // Crawler failed, try direct WebDriver access
-                try {
-                    $driver = $client->getWebDriver();
-                    $body = $driver->findElement(\Facebook\WebDriver\WebDriverBy::tagName('body'));
-                    $iframeBody = $body->getText();
-                } catch (\Exception $e2) {
-                    // Still can't access
-                    $iframeBody = '';
-                }
-            }
-            
-            $charCount = strlen($iframeBody);
-            
-            // Get first non-HTML viewable text (strip whitespace, find first meaningful text)
-            $textLines = explode("\n", $iframeBody);
-            $firstVisibleText = '';
-            foreach ($textLines as $line) {
-                $line = trim($line);
-                // Skip empty lines and very short lines (likely formatting)
-                if (!empty($line) && strlen($line) > 3) {
-                    $firstVisibleText = $line;
-                    break;
-                }
-            }
-            
-            // Truncate if too long
-            if (strlen($firstVisibleText) > 100) {
-                $firstVisibleText = substr($firstVisibleText, 0, 97) . '...';
-            }
-            
-            echo "     [DEBUG] Per-identity per-tool tests would go here for {$identityName}\n";
-            echo "     [DEBUG] Iframe text character count: {$charCount}\n";
-            if (!empty($firstVisibleText)) {
-                echo "     [DEBUG] First visible text: \"{$firstVisibleText}\"\n";
-            } else {
-                echo "     [DEBUG] First visible text: (none found - iframe may still be loading)\n";
-            }
-        } catch (\Exception $e) {
-            echo "     [DEBUG] Could not extract debug info: " . $e->getMessage() . "\n";
-        }
+        // Debug output: Show iframe content info (using parent helper method)
+        $this->printIframeDebugInfo($client, $identityName, $iframeCrawler);
         
         // TODO: Add aipaper-specific tests here for each identity:
         // 
