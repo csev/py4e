@@ -1,7 +1,25 @@
 # Security: Block web access to test files
 # Tests should only be run from command line or localhost
 
-# Deny all web access
+# Allow localhost access to test user login pages (for Panther test user setup)
+<FilesMatch "^(setup-test-user|login_test_user)\.php$">
+    <IfModule mod_authz_core.c>
+        Require ip 127.0.0.1
+        Require ip ::1
+        Require ip 192.168.0.0/16
+        Require ip 10.0.0.0/8
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+        Allow from 127.0.0.1
+        Allow from ::1
+        Allow from 192.168.0.0/16
+        Allow from 10.0.0.0/8
+    </IfModule>
+</FilesMatch>
+
+# Deny all web access to other test files
 <IfModule mod_authz_core.c>
     Require all denied
 </IfModule>
@@ -11,10 +29,3 @@
     Order deny,allow
     Deny from all
 </IfModule>
-
-# Allow localhost access (for development)
-# Uncomment and adjust if you need web access during development:
-# <IfModule mod_authz_core.c>
-#     Require ip 127.0.0.1
-#     Require ip ::1
-# </IfModule>

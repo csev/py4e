@@ -45,6 +45,97 @@ abstract class BaseTestCase
     }
     
     /**
+     * Set up a test user session before running tests
+     * 
+     * This method logs in a test user via the login form, creating the user
+     * if needed. The password must match the admin password from config.php.
+     * 
+     * Panther automatically maintains cookies across requests, so once the
+     * login form is submitted and the session cookie is set, it will be
+     * included in all subsequent requests.
+     * 
+     * @param Client $client Panther client
+     * @param string $email Test user email (default: 'test@example.com')
+     * @param string $displayname Test user display name (default: 'Test User')
+     * @param int $role User role: 0 = student, 1000 = instructor (default: 0)
+     * @param string $adminPassword Admin password from config.php (required)
+     * @return Client The Panther client with session set up
+     */
+    protected function setupTestUser(Client $client, $email = 'test@gmail.com', $displayname = 'Test User', $role = 0, $adminPassword = null)
+    {
+        // Get admin password from config if not provided
+        if ($adminPassword === null) {
+            // Try to read from config.php
+            $configFile = __DIR__ . '/../tsugi/config.php';
+            if (file_exists($configFile)) {
+                $configContent = file_get_contents($configFile);
+                // Try to extract adminpw value (basic extraction)
+                if (preg_match('/\$CFG->adminpw\s*=\s*[\'"]([^\'"]+)[\'"]/', $configContent, $matches)) {
+                    $adminPassword = $matches[1];
+                }
+            }
+            
+            if (empty($adminPassword)) {
+                throw new \Exception("Admin password is required. Either pass it as parameter or set it in config.php");
+            }
+        }
+        
+        // Navigate to test user login page
+        $loginUrl = $this->baseUrl . '/tests/login_test_user.php';
+        $crawler = $client->request('GET', $loginUrl);
+        
+        // Wait for form to load
+        sleep(1);
+        
+        // Fill and submit the form
+        $form = $crawler->selectButton('Login as Test User')->form([
+            'email' => $email,
+            'displayname' => $displayname,
+            'role' => $role,
+            'password' => $adminPassword
+        ]);
+        
+        $crawler = $client->submit($form);
+        
+        // Wait for redirect/login to complete and cookie to be set
+        sleep(2);
+        
+        // Verify cookies are set (Panther maintains cookies automatically)
+        $cookies = $client->getCookieJar()->all();
+        $hasSessionCookie = false;
+        foreach ($cookies as $cookie) {
+            if (strpos($cookie->getName(), 'PHPSESSID') !== false || 
+                strpos($cookie->getName(), session_name()) !== false) {
+                $hasSessionCookie = true;
+                break;
+            }
+        }
+        
+        // Verify we're logged in by checking if we're redirected away from login page
+        $currentUrl = $client->getCurrentURL();
+        if (strpos($currentUrl, 'login_test_user.php') !== false) {
+            // Still on login page - check for error message
+            try {
+                $errorElement = $crawler->filter('.error');
+                if ($errorElement->count() > 0) {
+                    $errorText = $errorElement->text();
+                    throw new \Exception("Failed to log in test user: " . $errorText);
+                }
+            } catch (\Exception $e) {
+                // Error element might not exist
+            }
+            throw new \Exception("Failed to log in test user - still on login page. Session cookie set: " . ($hasSessionCookie ? 'yes' : 'no'));
+        }
+        
+        // Verify session cookie is present
+        if (!$hasSessionCookie) {
+            echo "⚠ Warning: Session cookie not detected, but login appears successful\n";
+        }
+        
+        return $client;
+    }
+    
+    /**
      * Get Panther client with proper configuration
      */
     protected function getPantherClient(): Client
