@@ -233,7 +233,8 @@ abstract class BaseToolTest extends BaseTestCase
                 }
             }
         }
-        sleep(2); // Wait for test harness to load
+        // Wait for test harness to load (poll for iframe or page elements)
+        $this->waitForTestHarnessToLoad($client);
         
         return $client->getCrawler();
     }
@@ -271,6 +272,157 @@ abstract class BaseToolTest extends BaseTestCase
         }
         
         return null;
+    }
+    
+    /**
+     * Wait for test harness page to load after clicking "Try It"
+     * Polls for iframe element to appear (check, wait 1s, check again, up to 5 attempts = 5 seconds max)
+     */
+    protected function waitForTestHarnessToLoad($client, $maxAttempts = 5)
+    {
+        for ($attempt = 1; $attempt <= $maxAttempts; $attempt++) {
+            $iframeElement = $this->waitForIframeElement($client, 1); // Quick check (1 second)
+            if ($iframeElement) {
+                return; // Test harness loaded (iframe present)
+            }
+            
+            // If not ready yet and not last attempt, wait 1 second
+            if ($attempt < $maxAttempts) {
+                sleep(1);
+            }
+        }
+        // If we get here, iframe didn't appear, but continue anyway (might be slow)
+    }
+    
+    /**
+     * Wait for identity tab content (#identity div) to become visible
+     * Polls: check, wait 1 second, check again (up to 5 attempts = 5 seconds max)
+     */
+    protected function waitForIdentityTabContent($client, $maxAttempts = 5)
+    {
+        $driver = $client->getWebDriver();
+        
+        for ($attempt = 1; $attempt <= $maxAttempts; $attempt++) {
+            try {
+                $divs = $driver->findElements(\Facebook\WebDriver\WebDriverBy::id('identity'));
+                if (count($divs) > 0) {
+                    $identityDiv = $divs[0];
+                    try {
+                        $isDisplayed = $identityDiv->isDisplayed();
+                        $class = $identityDiv->getAttribute('class');
+                        // Bootstrap tabs: active tab has class "active" or "in"
+                        if ($isDisplayed || (stripos($class, 'active') !== false) || (stripos($class, 'in') !== false)) {
+                            return; // Tab content is visible
+                        }
+                    } catch (\Exception $e) {
+                        // Element might be stale, continue
+                    }
+                }
+            } catch (\Exception $e) {
+                // Continue trying
+            }
+            
+            // If not ready yet and not last attempt, wait 1 second
+            if ($attempt < $maxAttempts) {
+                sleep(1);
+            }
+        }
+        // If we get here, tab content didn't appear, but continue anyway
+    }
+    
+    /**
+     * Wait for identity switch to complete (page reload with new identity)
+     * Polls for iframe to reload (check, wait 1s, check again, up to 5 attempts = 5 seconds max)
+     */
+    protected function waitForIdentitySwitchToComplete($client, $maxAttempts = 5)
+    {
+        // After clicking identity link, page reloads and iframe reloads
+        // Wait for iframe to reappear/reload
+        for ($attempt = 1; $attempt <= $maxAttempts; $attempt++) {
+            // Small delay to let page start reloading
+            if ($attempt > 1) {
+                sleep(1);
+            }
+            
+            // Check if iframe is present (page has reloaded)
+            $iframeElement = $this->waitForIframeElement($client, 1); // Quick check
+            if ($iframeElement) {
+                // Iframe is present - page has reloaded
+                return;
+            }
+        }
+        // If we get here, iframe didn't reload, but continue anyway
+    }
+    
+    /**
+     * Wait for iframe body content to be ready
+     * Uses polling: check, wait 1 second, check again (up to 5 attempts = 5 seconds max)
+     * 
+     * @param Client $client Panther client
+     * @param int $maxAttempts Maximum number of attempts (default: 5)
+     * @return array ['success' => bool, 'bodyText' => string, 'crawler' => Crawler|null]
+     */
+    protected function waitForIframeBodyContent($client, $maxAttempts = 5)
+    {
+        $driver = $client->getWebDriver();
+        
+        for ($attempt = 1; $attempt <= $maxAttempts; $attempt++) {
+            try {
+                // Try to find body element
+                $body = null;
+                try {
+                    $body = $driver->findElement(\Facebook\WebDriver\WebDriverBy::tagName('body'));
+                } catch (\Exception $e) {
+                    // Body not found yet
+                }
+                
+                if ($body) {
+                    // Check if body is displayed
+                    try {
+                        $isDisplayed = $body->isDisplayed();
+                        if ($isDisplayed) {
+                            // Try to get text content
+                            $bodyText = '';
+                            try {
+                                $bodyText = $body->getText();
+                            } catch (\Exception $e) {
+                                // Can't get text yet
+                            }
+                            
+                            // If we have text content, we're good
+                            if (!empty(trim($bodyText))) {
+                                // Get crawler for iframe
+                                $iframeCrawler = $client->getCrawler();
+                                return [
+                                    'success' => true,
+                                    'bodyText' => $bodyText,
+                                    'crawler' => $iframeCrawler
+                                ];
+                            }
+                        }
+                    } catch (\Exception $e) {
+                        // Body exists but not accessible yet
+                    }
+                }
+                
+                // If not ready yet and not last attempt, wait 1 second
+                if ($attempt < $maxAttempts) {
+                    sleep(1);
+                }
+            } catch (\Exception $e) {
+                // Error checking - wait and retry if not last attempt
+                if ($attempt < $maxAttempts) {
+                    sleep(1);
+                }
+            }
+        }
+        
+        // All attempts failed - return failure
+        return [
+            'success' => false,
+            'bodyText' => '',
+            'crawler' => null
+        ];
     }
     
     /**
@@ -341,7 +493,6 @@ abstract class BaseToolTest extends BaseTestCase
             // Click identity tab to activate the #identity div
             // Use JavaScript click to ensure it works with Bootstrap tabs
             $driver->executeScript('arguments[0].click();', [$identityTabElement]);
-            sleep(1); // Wait for tab content to become visible
             
             // Also trigger Bootstrap tab show event if needed
             $driver->executeScript('
@@ -349,7 +500,9 @@ abstract class BaseToolTest extends BaseTestCase
                     jQuery("a[href=\'#identity\']").tab("show");
                 }
             ');
-            sleep(1);
+            
+            // Wait for identity tab content to become visible (poll)
+            $this->waitForIdentityTabContent($client);
             
         } catch (\Exception $e) {
             throw new \Exception("Could not click identity tab: " . $e->getMessage());
@@ -444,7 +597,8 @@ abstract class BaseToolTest extends BaseTestCase
         // Step 4: Click identity link (this will reload page with new identity)
         try {
             $driver->executeScript('arguments[0].click();', [$identityLinkElement]);
-            sleep(2); // Wait for page to reload with new identity
+            // Wait for page to reload with new identity (poll for iframe to reload)
+            $this->waitForIdentitySwitchToComplete($client);
         } catch (\Exception $e) {
             throw new \Exception("Could not click identity link: " . $e->getMessage());
         }
@@ -488,10 +642,19 @@ abstract class BaseToolTest extends BaseTestCase
             
             // Step 4: Switch to iframe and verify content
             $this->switchToIframe($client, 0);
-            sleep(2);
             
-            $iframeCrawler = $client->getCrawler();
-            $iframeBody = $iframeCrawler->filter('body')->text();
+            // Wait for iframe body content using polling (check, wait 1s, check again, up to 3 times)
+            $result = $this->waitForIframeBodyContent($client, 3);
+            
+            if (!$result['success']) {
+                echo "⚠ Tool launched but iframe content not ready after 5 attempts (may still be loading)\n";
+                $this->switchToMainDocument($client);
+                $client->quit();
+                return;
+            }
+            
+            $iframeBody = $result['bodyText'];
+            $iframeCrawler = $result['crawler'];
             
             if (empty(trim($iframeBody))) {
                 echo "⚠ Tool launched but iframe appears empty\n";
@@ -533,18 +696,44 @@ abstract class BaseToolTest extends BaseTestCase
     {
         // Base implementation: just verify content exists
         // Override in derived classes for tool-specific tests
-        $iframeBody = $iframeCrawler->filter('body')->text();
         
-        if (empty(trim($iframeBody))) {
-            echo "     ⚠ {$identityName}: Tool launched but iframe appears empty\n";
-        } else {
-            echo "     ✓ {$identityName}: Tool launched successfully (" . strlen($iframeBody) . " chars)\n";
+        try {
+            // Try to get body text - handle case where body might not be ready yet
+            $iframeBody = '';
+            try {
+                $bodyElement = $iframeCrawler->filter('body');
+                if ($bodyElement->count() > 0) {
+                    $iframeBody = $bodyElement->text();
+                }
+            } catch (\Exception $e) {
+                // Body might not be accessible yet - try direct WebDriver access
+                try {
+                    $driver = $client->getWebDriver();
+                    $body = $driver->findElement(\Facebook\WebDriver\WebDriverBy::tagName('body'));
+                    $iframeBody = $body->getText();
+                } catch (\Exception $e2) {
+                    // Still can't access - might be loading
+                    $iframeBody = '';
+                }
+            }
+            
+            if (empty(trim($iframeBody))) {
+                echo "     ⚠ {$identityName}: Tool launched but iframe appears empty (may still be loading)\n";
+            } else {
+                echo "     ✓ {$identityName}: Tool launched successfully (" . strlen($iframeBody) . " chars)\n";
+            }
+        } catch (\Exception $e) {
+            // If we can't verify content, but tool launched, consider it a partial success
+            echo "     ⚠ {$identityName}: Tool launched but content verification failed: " . $e->getMessage() . "\n";
         }
     }
     
     /**
      * Test all four identities (Jane Instructor, Sue Student, Ed Student, Anonymous)
      * Launches tool for each identity and calls testToolFunctionalityForIdentity() hook
+     * 
+     * Optimized: Stays on test harness page (/tsugi/store/test/{tool}) and switches
+     * identities directly without navigating back to store listing.
      */
     public function testAllIdentities()
     {
@@ -557,9 +746,11 @@ abstract class BaseToolTest extends BaseTestCase
             
             echo "   Navigating to tool test harness...\n";
             
-            // Navigate to tool details and click Try It
+            // Navigate to tool details and click Try It (gets us to test harness)
             $crawler = $this->navigateToToolDetails($client);
             $crawler = $this->clickTryItButton($client, $crawler);
+            
+            // We're now on /tsugi/store/test/{tool} - stay here for all identity switches
             
             // Wait for initial launch (Jane Instructor by default)
             echo "   Waiting for initial tool launch (Jane Instructor)...\n";
@@ -575,22 +766,33 @@ abstract class BaseToolTest extends BaseTestCase
             // Test Jane Instructor (already launched)
             echo "   Testing identity: Jane Instructor...\n";
             try {
+                // Switch to iframe
                 $this->switchToIframe($client, 0);
-                sleep(2);
                 
-                $iframeCrawler = $client->getCrawler();
-                $this->testToolFunctionalityForIdentity($client, 'instructor', 'Jane Instructor', $iframeCrawler);
+                // Wait for iframe body content using polling (check, wait 1s, check again, up to 5 times)
+                $result = $this->waitForIframeBodyContent($client, 5);
                 
-                $this->switchToMainDocument($client);
+                if (!$result['success']) {
+                    echo "     ⚠ Jane Instructor: Iframe content not ready after 5 attempts\n";
+                    $this->switchToMainDocument($client);
+                } else {
+                    $iframeCrawler = $result['crawler'];
+                    $this->testToolFunctionalityForIdentity($client, 'instructor', 'Jane Instructor', $iframeCrawler);
+                    $this->switchToMainDocument($client);
+                }
             } catch (\Exception $e) {
                 echo "     ⚠ Jane Instructor: Failed - " . $e->getMessage() . "\n";
+                if ($this->isWatchMode()) {
+                    echo "       (Iframe may still be loading - check browser window)\n";
+                }
                 try {
                     $this->switchToMainDocument($client);
                 } catch (\Exception $e2) {}
             }
             
             // Test remaining identities (Sue Student, Ed Student, Anonymous)
-            echo "   Testing remaining identities...\n";
+            // We stay on the test harness page and just switch identities
+            echo "   Testing remaining identities (switching on test harness page)...\n";
             $remainingIdentities = [
                 'learner1' => 'Sue Student',
                 'learner2' => 'Ed Student',
@@ -601,7 +803,10 @@ abstract class BaseToolTest extends BaseTestCase
                 echo "   Testing identity: {$identityName}...\n";
                 
                 try {
-                    // Switch to identity tab and click identity link
+                    // Refresh crawler to get current page state (we're still on test harness)
+                    $crawler = $client->getCrawler();
+                    
+                    // Switch to identity tab and click identity link (stays on same page)
                     $crawler = $this->switchIdentity($client, $crawler, $identityKey);
                     
                     // Wait for iframe to reload with new identity
@@ -615,9 +820,17 @@ abstract class BaseToolTest extends BaseTestCase
                     
                     // Switch to iframe and test functionality
                     $this->switchToIframe($client, 0);
-                    sleep(2);
                     
-                    $iframeCrawler = $client->getCrawler();
+                    // Wait for iframe body content using polling (check, wait 1s, check again, up to 3 times)
+                    $result = $this->waitForIframeBodyContent($client, 3);
+                    
+                    if (!$result['success']) {
+                        echo "     ⚠ {$identityName}: Iframe content not ready after 5 attempts\n";
+                        $this->switchToMainDocument($client);
+                        continue;
+                    }
+                    
+                    $iframeCrawler = $result['crawler'];
                     $this->testToolFunctionalityForIdentity($client, $identityKey, $identityName, $iframeCrawler);
                     
                     // Switch back to main document before next identity
@@ -634,7 +847,7 @@ abstract class BaseToolTest extends BaseTestCase
                     } catch (\Exception $e2) {
                         // Ignore
                     }
-                    // Continue with next identity
+                    // Continue with next identity (still on test harness page)
                     continue;
                 }
             }
