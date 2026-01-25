@@ -5,7 +5,7 @@
 
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
-import ssl # defauts to certicate verification and most secure protocol (now TLS)
+import ssl # defaults to certificate verification and most secure protocol (now TLS)
 
 # Ignore SSL/TLS certificate errors
 ctx = ssl.create_default_context()
