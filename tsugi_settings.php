@@ -24,6 +24,8 @@ $CFG->launcherror = $CFG->apphome . "/launcherror";
 
 $CFG->giftquizzes = $CFG->dirroot.'/../py4e-private/quiz';
 
+// $CFG->setExtension('lessons2_enable', true);
+
 $buildmenu = $CFG->dirroot.'/../buildmenu.php';
 if ( file_exists($buildmenu) ) {
     require_once $buildmenu;

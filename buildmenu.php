@@ -6,16 +6,13 @@ function buildMenu() {
     global $CFG;
     $R = $CFG->apphome . '/';
     $T = $CFG->wwwroot . '/';
-    $L = $CFG->wwwroot . '/lms/';
-    $A = $L . 'announce';
     $adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
     $path = U::rest_path();
     $base_path = ($path && isset($path->parent)) ? $path->parent : ''; // e.g., /announce
 
-    // Generate URLs using rest_path and addSession
-    $json_url = U::addSession($A . '/json.php');
-    $dismiss_url = U::addSession($A . '/dismiss.php');
-    $view_url = U::addSession($A . '/index.php');
+    $json_url = $R . 'announcements/json';
+    $dismiss_url = $R . 'announcements/dismiss';
+    $view_url = $R . 'announcements';
 
     $set = new \Tsugi\UI\MenuSet();
     $set->setHome($CFG->servicename, $CFG->apphome);
@@ -33,11 +30,11 @@ function buildMenu() {
         if ( isset($CFG->google_map_api_key) ) {
             $submenu->addLink('Map', $R.'map');
         }
-        $submenu->addLink('Announcements', $L.'announce');
-        $submenu->addLink('Grades', $L.'grades');
-        $submenu->addLink('Pages', $L.'pages');
+        $submenu->addLink('Announcements', $R.'announcements');
+        $submenu->addLink('Grades', $R.'grades');
+        $submenu->addLink('Pages', $R.'pages');
     
-        $submenu->addLink('Badges', $L.'badges2');
+        $submenu->addLink('Badges', $R.'badges');
         $submenu->addLink('Materials', $R.'materials');
         if ( $CFG->providekeys ) {
             $submenu->addLink('LMS Integration', $T . 'settings');
