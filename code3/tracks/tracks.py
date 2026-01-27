@@ -34,7 +34,7 @@ handle = open('tracks.csv')
 #   0                          1      2           3  4   5
 
 for line in handle:
-    line = line.strip();
+    line = line.strip()
     pieces = line.split(',')
     if len(pieces) < 6 : continue
 
