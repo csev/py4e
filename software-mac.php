@@ -13,7 +13,7 @@ or you can install it on your system.
 </p>
 <p>
 If the installation for VSCode looks a little too complex, we recommend the free and open source
-<a href="https://brackets.io/" target="_blank">Brackets</a> text editor.  It is easy
+<a href="https://phcode.io/" target="_blank">Phoenix Code</a> text editor.  It is easy
 to install and is very capable for your needs in the course.
 </p>
 
@@ -22,7 +22,7 @@ to install and is very capable for your needs in the course.
 We have a short
 <a href="https://www.youtube.com/watch?v=9lOdVSNUKfY" target="_blank">
 step-by-step video</a> showing how to use a programmer editor and write your first Python 3 program.
-This video uses the Bracket editor - which we suggest you to install and use, or the VS-Code, if you don't already have
+This video uses the Phoenix Code editor - which we suggest you to install and use, or the VS-Code, if you don't already have
 a programming text editor.
 </p>
 <p>

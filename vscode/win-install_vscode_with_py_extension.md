@@ -66,7 +66,7 @@ yourself with the VS Code's feature set.
 
 ## 5.0 Alternative text editors and IDEs
 Besides VS Code and Python's own [IDLE](https://docs.python.org/3/library/idle.html) app, there are other code editing
-tool options such as [Brackets](https://brackets.io/), [Sublime Text](http://www.sublimetext.com/) or
+tool options such as [Phoenix Code](https://phcode.io/), [Sublime Text](http://www.sublimetext.com/) or
 JetBrain's [PyCharm](https://www.jetbrains.com/pycharm/) interactive development environment (IDE) \[note: you _must_
 apply to JetBrain's for a free [student](https://www.jetbrains.com/student/) license\] but VS Code is all the rage
 these days and I suggest that you try it out.

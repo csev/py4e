@@ -118,7 +118,7 @@ installation instructions.
 
 There are of course other solutions that you can choose. A few of the more popular apps include:
 
-* [Brackets](https://brackets.io/),
+* [Phoenix Code](https://phcode.io/),
 * [Sublime Text](http://www.sublimetext.com/) or
 * [PyCharm](https://www.jetbrains.com/pycharm/) interactive development environment (IDE) \[note: you
 _must_ apply to JetBrain's for a free [student](https://www.jetbrains.com/student/) license\]

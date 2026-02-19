@@ -16,15 +16,15 @@ that can represent all this "pretty" text stuff - and that confuses compilers an
 If you already have an editor or development environment installed please <b>keep using it</b>.
 There is no need to install another editor just for this course.
 </p>
-<h2>Recommended Programmer Editor: Brackets.IO</h2>
+<h2>Recommended Programmer Editor: Phoenix Code</h2>
 <p>
 If you are installing your first programmer editor, we recommend you keep it simple
 and use 
-<a href="https://brackets.io/" target="_blank">brackets.io</a> - it 
+<a href="https://phcode.io/" target="_blank">phcode.io</a> - it 
 is free, open source, and works on Windows, Linux, and Macintosh.
         <ul>
             <li>
-                <a href="https://brackets.io/" target="_blank">The Brackets programmer text editor</a> 
+                <a href="https://phcode.io/" target="_blank">The Phoenix Code programmer text editor</a> 
             </li>
 </ul>
 </p>
