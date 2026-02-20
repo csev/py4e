@@ -73,5 +73,5 @@ future verison of the course but need a place holder for that assignment until t
 And we also give you a free look at one of Dr. Chuck's race cars - the "Forarri".
 </p>
 <center>
-<img src="Forarri_2MB.png" style="width: 50%;">
+<img src="Forarri_2MB.png" alt="Dr. Chuck's race car the Forarri" style="width: 50%;">
 </center>

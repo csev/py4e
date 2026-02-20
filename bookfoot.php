@@ -30,7 +30,7 @@ function onSelect() {
 }
 </script>
 <div style="float:right">
-<select id="chapters" onchange="onSelect();">
+<select id="chapters" onchange="onSelect();" aria-label="Jump to chapter">
   <option <?= x_sel("01-intro") ?>>Chapter 1: Introduction</option>
   <option <?= x_sel("02-variables") ?>>Chapter 2: Variables</option>
   <option <?= x_sel("03-conditional") ?>>Chapter 3: Conditionals</option>
@@ -58,7 +58,7 @@ $OUTPUT->footerStart();
 <hr/>
 <p>
 If you find a mistake in this book, feel free to send me a fix using
-<a href="https://github.com/csev/py4e/tree/master/book3" target="_blank">Github</a>.
+<a href="https://github.com/csev/py4e/tree/master/book3" target="_blank" rel="noopener noreferrer">Github</a>.
 </p>
 <script>
 function onSelectFooter() {
@@ -67,7 +67,7 @@ function onSelectFooter() {
 }
 </script>
 <div style="float:right">
-<select id="chapters_footer" onchange="onSelectFooter();">
+<select id="chapters_footer" onchange="onSelectFooter();" aria-label="Jump to chapter">
   <option <?= x_sel("01-intro") ?>>Chapter 1: Introduction</option>
   <option <?= x_sel("02-variables") ?>>Chapter 2: Variables</option>
   <option <?= x_sel("03-conditional") ?>>Chapter 3: Conditionals</option>

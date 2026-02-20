@@ -604,7 +604,7 @@ if ( $dueDate->message ) {
     }
     echo('<button onclick="$(\'#info\').modal();return false;" class="btn btn-default" type="button"><span class="glyphicon glyphicon-info-sign"></span></button>'."\n");
 ?>
-<img id="spinner" src="static/spinner.gif" style="vertical-align: middle;display: none">
+<img id="spinner" src="static/spinner.gif" alt="" style="vertical-align: middle;display: none">
 <span id="redo" style="color:red;display:none"> Please correct your code and re-run. </span>
 <span id="complete" style="color:green;display:none"> Execution complete. </span>
 <span id="gradegood" style="color:green;display:none"> Grade updated on server. </span>
