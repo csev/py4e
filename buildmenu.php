@@ -67,8 +67,9 @@ function buildMenu() {
     $set->addRight('Instructor', 'https://online.dr-chuck.com', true, array('target' => '_self'));
 
     if ( isset($_SESSION['id']) ) {
-        $set->addRight('<tsugi-announce json-url="'. htmlspecialchars($json_url) . '" dismiss-url="'. htmlspecialchars($dismiss_url) . '" view-url="'. htmlspecialchars($view_url) . '"> </tsugi-announce>', false);
+        $set->addRight('<tsugi-notifications api-url="'. htmlspecialchars($T . 'api/notifications.php') . '" notifications-view-url="'. htmlspecialchars($R . 'notifications') . '" announcements-view-url="'. htmlspecialchars($R . 'announcements') . '"></tsugi-notifications>', false);
     }
+
 
     return($set);
 }
