@@ -1,13 +1,11 @@
 <?php include("top.php"); ?>
 <?php include("nav.php"); ?>
-<h1>Installing Python 3 On Windows 10</h1>
+<h1>Installing Python On Windows 11</h1>
 <p><b>Note:</b> Any reasonably recent version of Python is acceptable for this course.
-If you have a version of Python 3.x on your computer already you should be able to use it for this class.
+If you have a revent version of Python 3.x on your computer already you should be able to use it for this class.
 </p>
-<p>Please download and install Python 3.x from:</p>
+<p>Please download and install Python from:</p>
 <p><a href="http://www.python.org/download/" target="_blank">http://www.python.org/download/</a></p>
-<p>As you install Python, make sure to check the "Add Python 3.5 to PATH" so that you can 
-type <b>python</b> at the command line prompt to run Python.
 </p>
 <b>Installing A Programming Text Editor</b>
 <p>If you already have a programmer text editor like
@@ -16,15 +14,16 @@ or you can install it on your system.
 </p>
 <p>
 If the installation for VSCode looks a little too complex, we recommend the free and open source
-<a href="https://phcode.io/" target="_blank">Phoenix Code</a> text editor.  It is easy
+<a href="https://thonny.org/" target="_blank">Thonny</a> or
+<a href="https://phcode.io/" target="_blank">Phoenix Code</a> text editors.  They are easy
 to install and is very capable for your needs in the course.
 </p>
 
-<h1>Writing a Python 3 program Windows-10</h1>
+<h1>Writing a Python program Windows-11</h1>
 <p>
 We have a short 
-<a href="https://www.youtube.com/watch?v=ARAL3ib5G6Q&index=1&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
-step-by-step video</a> showing how to install Python 3 and write your first program.
+<a href="https://www.youtube.com/watch?v=70ZxCfUjkuw&index=1&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
+step-by-step video</a> showing how to install Python and write your first program.
 </p>
 <h1>Windows Command Line Notes</h1>
 <p>
@@ -32,11 +31,10 @@ When the command line starts <b style="color:black;background-color:#a0ffff">up<
 is different for each of the operating systems.  
 In each of these examples, your logged in account should be used instead of csev.</p>
 <pre>
-    Windows XP:             C:\Documents and Settings\csev
-    Windows Vista:          C:\Users\csev
-    Windows 7:              C:\Users\csev
     Windows 10:             C:\Users\csev
     Windows 10 OneDrive:    C:\Users\csev\OneDrive
+    Windows 11:             C:\Users\csev
+    Windows 11 OneDrive:    C:\Users\csev\OneDrive
 </pre>
 The command line prompt usually includes some clue as to 
 where you are in the folder structure on your hard drive.
@@ -83,7 +81,7 @@ the most important is to set the Command History Buffer Size to be 999.
 To run your program in the command line you type at the command line prompt.
 Windows knows that files that end with a ".py" suffix are Python programs.
 <pre>
-    python firstprog.py
+    py firstprog.py
 </pre>
 or
 <pre>
