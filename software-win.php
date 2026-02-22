@@ -1,99 +1,59 @@
 <?php include("top.php"); ?>
 <?php include("nav.php"); ?>
-<h1>Installing Python On Windows 11</h1>
+<h1>Installing Python on Windows 11</h1>
 <p><b>Note:</b> Any reasonably recent version of Python is acceptable for this course.
-If you have a revent version of Python 3.x on your computer already you should be able to use it for this class.
-</p>
-<p>Please download and install Python from:</p>
-<p><a href="http://www.python.org/download/" target="_blank">http://www.python.org/download/</a></p>
-</p>
-<b>Installing A Programming Text Editor</b>
-<p>If you already have a programmer text editor like
-<a href="https://code.visualstudio.com/" target="_blank">VS-Code</a> installed you can use it in the class
-or you can install it on your system.
-</p>
-<p>
-If the installation for VSCode looks a little too complex, we recommend the free and open source
-<a href="https://thonny.org/" target="_blank">Thonny</a> or
-<a href="https://phcode.io/" target="_blank">Phoenix Code</a> text editors.  They are easy
-to install and is very capable for your needs in the course.
-</p>
+If you already have Python 3.x on your computer, you can use it for this class.</p>
+<p>If you don't have Python installed, download it from:</p>
+<p><a href="https://www.python.org/download/" target="_blank" rel="noopener noreferrer">https://www.python.org/download/</a></p>
 
-<h1>Writing a Python program Windows-11</h1>
-<p>
-We have a short 
-<a href="https://www.youtube.com/watch?v=70ZxCfUjkuw&index=1&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank">
-step-by-step video</a> showing how to install Python and write your first program.
-</p>
-<h1>Windows Command Line Notes</h1>
-<p>
-When the command line starts <b style="color:black;background-color:#a0ffff">up</b>, you are in your "home" directory.  Your home directory 
-is different for each of the operating systems.  
-In each of these examples, your logged in account should be used instead of csev.</p>
+<h2>Installing a Programming Text Editor</h2>
+<p>If you have a programmer editor you like, you can use it. If not, we recommend these
+free text editors for software development:</p>
+<ul>
+<li><a href="https://thonny.org/" target="_blank" rel="noopener noreferrer">Thonny</a> – Free, open source, simple</li>
+<li><a href="https://phcode.io/" target="_blank" rel="noopener noreferrer">Phoenix Code</a> – Free, open source, more advanced</li>
+<li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer">VS Code</a> – Free, feature-rich, includes AI assistance</li>
+</ul>
+
+<h2>Writing a Python Program on Windows 11</h2>
+<p>We have a short
+<a href="https://www.youtube.com/watch?v=70ZxCfUjkuw&index=1&list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p" target="_blank" rel="noopener noreferrer">step-by-step video</a>
+showing how to install Python and write your first program.</p>
+
+<h2>Windows Command Line Notes</h2>
+<p>When the command line starts <b>up</b>, you are in your "home" directory. The path to your home directory varies by Windows version. In the examples below, replace <b>csev</b> with your own username.</p>
 <pre>
     Windows 10:             C:\Users\csev
     Windows 10 OneDrive:    C:\Users\csev\OneDrive
     Windows 11:             C:\Users\csev
     Windows 11 OneDrive:    C:\Users\csev\OneDrive
 </pre>
-The command line prompt usually includes some clue as to 
-where you are in the folder structure on your hard drive.
-<p>
-If you want to really figure out where you are, use the cd command with no parameters
-</p>
+<p>The command prompt usually shows your current location in the folder structure.</p>
+<p>To see exactly where you are, run <b>cd</b> with no parameters:</p>
 <pre>
     C:\Users\csev> cd
     C:\Users\csev
 </pre>
-<p>
-Where can you go?
-</p>
-<p>
-Generally the first thing you want to do when you open a command line 
-interface is to navigate to the right folder.  Say you wanted to run a 
-file from your desktop.   The command is <b>cd Desktop</b> (or <b>cd OneDrive\Desktop</b>) 
-to get into the 
-folder that is your Desktop.  You can use the <b>dir</b> command to see 
-which files are in the current directory and the 
-<b>cd ..</b> command to go "<b style="color:black;background-color:#a0ffff">up</b>" a directory
-</p>
-<p> 
-<b>Nifty Trick:</b>  On the cd command, you can partially type a folder name like
-Desktop and then press the TAB key and the system will auto-complete the folder name 
-if you have typed enough that the system can accurately guess what you mean to type.</p>
-<p>
-If you get Lost...</p>
-<p>
-If you can't figure out what folder you are in and/or cannot figure out how 
-to get to the folder you want to get to - simply close and re-open 
-the Command Line / Terminal window.  You will be back to 
-your "home" directory - so you can start from a known location.</p>
-<p>
-Some Cool Hints on the Windows Command Line Interface
-</p>
-<p>
-If you click on the little icon in the upper-left of the command prompt window 
-and select Preferences - you can set many things about the command line - probably 
-the most important is to set the Command History Buffer Size to be 999.
-</p>
-<h1>Running Your Python Program in the Command Line</h1>
-<p>
-To run your program in the command line you type at the command line prompt.
-Windows knows that files that end with a ".py" suffix are Python programs.
+
+<h3>Navigating Folders</h3>
+<p>When you open a command line, the first step is usually to move to the right folder. For example, to run a file from your desktop, use <b>cd Desktop</b> (or <b>cd OneDrive\Desktop</b>). Use <b>dir</b> to list files in the current directory and <b>cd ..</b> to go <b>up</b> one directory.</p>
+<p><b>Tip:</b> When typing a path, you can type part of a folder name (like Desktop) and press Tab to auto-complete it, as long as you've typed enough for the system to guess correctly.</p>
+
+<h3>If You Get Lost</h3>
+<p>If you lose track of your location or can't find the folder you need, close the Command Line or Terminal window and open a new one. You'll start back in your home directory.</p>
+
+<h3>Command Line Settings</h3>
+<p>Click the icon in the upper-left of the command prompt window and select Preferences. You can customize various settings; a particularly useful one is to set the Command History Buffer Size to 999, so you can scroll back through many previous commands.</p>
+
+<h2>Running Your Python Program in the Command Line</h2>
+<p>To run your program, type at the command prompt:</p>
 <pre>
     py firstprog.py
 </pre>
-or
+<p>Or simply:</p>
 <pre>
     firstprog.py
 </pre>
-Where firstprog.py is the name of the file containing your Python program.  
-Make sure to use the cd command to be in the correct directory that contains your program file(s).
-</p>
-<p> 
-You can run your program over and over again in the command window.  
-Hint:  You can use the <b style="color:black;background-color:#a0ffff">up</b>-arrow key to scroll back through previous 
-commands and re-execute them by pressing enter.  This allows you to quickly 
-edit and rerun your program to make and test changes.
-</p>
+<p>Replace <b>firstprog.py</b> with the name of your Python file. Make sure you're in the correct directory using the <b>cd</b> command first.</p>
+<p>You can run your program repeatedly in the same command window. Use the <b>up</b>-arrow key to recall previous commands and press Enter to run them again—handy when you're editing and testing changes.</p>
 <?php include('footer.php');?>
