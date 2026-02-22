@@ -1,15 +1,15 @@
 <?php include("top.php"); ?>
 <?php include("nav.php");?>
-<div style="float: right; margin: 5px;"/>
+<div style="float: right; margin: 5px;">
 <a href="https://amzn.to/4ijhMJX" target="_blank" rel="noopener noreferrer"><img src="cover3.png" width="200px" alt="Python for Everybody book cover" style="padding: 10px; float: right"></a>
 </div>
-<h2>Python for Everybody</h2>
+<h1>Python for Everybody</h1>
 <p>
         The goal of this book is to provide an Informatics-oriented introduction to programming. The primary difference between a computer science approach and the Informatics 
         approach taken in this book is a greater focus on using Python to solve data analysis problems common in the world of Informatics.
 </p>
 <p>
-        The sample code and data files for the book is here: <a href="http://www.py4e.com/code3/" target="_blank" rel="noopener noreferrer">Code Samples</a>.
+        The sample code and data files for the book are here: <a href="http://www.py4e.com/code3/" target="_blank" rel="noopener noreferrer">Code Samples</a>.
 </p>
 <p><b><a href="courses">Other courses / web sites using this book</a></b>
 </p>
@@ -19,7 +19,7 @@ Book translations:
 <ul>
   <li>
      English -
-<a href="https://amzn.to/29w0lsX" target="_blank" rel="noopener noreferrer">Python for Everbody: Exploring Data in Python3</a>
+<a href="https://amzn.to/29w0lsX" target="_blank" rel="noopener noreferrer">Python for Everybody: Exploring Data in Python 3</a>
      <ul class="menu vertical nested is-active">
        <li class="menu-text">Printed book on
 <a href="https://www.amazon.in/dp/9352136276" target="_blank" rel="noopener noreferrer">Amazon India</a>
@@ -56,7 +56,7 @@ Translated book, autograders, resources, and web site at
     <a href="https://github.com/danielmerino" target="_blank" rel="noopener noreferrer">Daniel Merino Echeverría</a>,
     Jaime Bermeo Ramírez
     and
-    <a href="https://github.com/ftardio" target="_new">Fernando Tardío</a>.
+    <a href="https://github.com/ftardio" target="_blank" rel="noopener noreferrer">Fernando Tardío</a>.
 </li>
 </ul>
 </li>
@@ -95,7 +95,7 @@ Polish -
 <a href="https://www.amazon.de/gp/product/8396017603" target="_blank" rel="noopener noreferrer">from Amazon.de</a>)
 <ul>
 <li>
-<a href="https://py4e.pl/" target="blank">Polish verson of web site - py4e.pl</a>
+<a href="https://py4e.pl/" target="_blank" rel="noopener noreferrer">Polish version of web site - py4e.pl</a>
 </li>
             <li class="menu-text">
                 <a href="https://py4e.pl/html3">HTML</a>,
@@ -118,7 +118,7 @@ Greek
 <li> <a href="https://disigma.gr/products/python-gia-olous?variant=47526224527708" target="_blank" rel="noopener noreferrer">Printed Book</a>
 </li>
 <li>
-Free PDF (in progress): <a https://www.py4e.com/translations/GR/gr/2023-4-24-Greek.pdf " target="_blank" rel="noopener noreferrer">PDF</a>
+Free PDF (in progress): <a href="https://www.py4e.com/translations/GR/gr/2023-4-24-Greek.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
 </li>
 <li>
 <a href="https://github.com/csev-gr/py4e" target="_blank" rel="noopener noreferrer">Github repository</a>
@@ -170,6 +170,7 @@ Python Programming in Hindi / Urdu</a>
 </li>
 <li>
 <a href="https://www.youtube.com/@aryemanguptamathur3" target="_blank" rel="noopener noreferrer">Lectures on YouTube</a>
+</li>
 <li> Thanks to
 <a href="https://docs.google.com/document/d/15Li_DpXPSA6NXyXyCzM3vUu766RBq87W/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
 Aryeman Gupta Mathur</a>, American School of Doha
@@ -205,7 +206,7 @@ is working on a commercial translation of the book and will provide a free PDF f
 </li>
 </li>
   <li> There is an in-China copy of the videos available at
-<a href="https://www.bilibili.com/video/av46649799" target="_new">
+<a href="https://www.bilibili.com/video/av46649799" target="_blank" rel="noopener noreferrer">
 https://www.bilibili.com/video/av46649799</a>
   </li>
      </ul>
