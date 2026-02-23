@@ -16,35 +16,13 @@ that can represent all this "pretty" text stuff - and that confuses compilers an
 If you already have an editor or development environment installed please <b>keep using it</b>.
 There is no need to install another editor just for this course.
 </p>
-<h2>Recommended Programmer Editor: Phoenix Code</h2>
-<p>
-If you are installing your first programmer editor, we recommend you keep it simple
-and use 
-<a href="https://phcode.io/" target="_blank">phcode.io</a> - it 
-is free, open source, and works on Windows, Linux, and Macintosh.
-        <ul>
-            <li>
-                <a href="https://phcode.io/" target="_blank">The Phoenix Code programmer text editor</a> 
-            </li>
-</ul>
-</p>
-<h2>Alternate Programmer Editors</h2>
-<p>
-There are more sophisticated text editors and integrated development environments available.  These
-are often more complex to install - but can greatly improve your productivity.
+<p>If you have a programmer editor or development environment you like, you can use it. If not, we recommend these
+free text editors for software development:</p>
 <ul>
-            <li>
-                <a href="https://code.visualstudio.com/" target="_blank">The VSCode programmer text editor</a> 
-            </li>
-            <li>
-                <a href="https://www.jetbrains.com/pycharm/" target="_blank">PyCharm</a>
-                    interactive development environment (IDE) [note: you <b>must</b> apply to JetBrain's for a free <a href="https://www.jetbrains.com/student/">student license</a>]
-            </li>
-            <li>
-                <a href="http://www.sublimetext.com/" target="_blank">Sublime programmer text editor</a>
-            </li>
-        </ul>
-</p>
+<li><a href="https://thonny.org/" target="_blank" rel="noopener noreferrer">Thonny</a> – Free, open source, simple</li>
+<li><a href="https://phcode.io/" target="_blank" rel="noopener noreferrer">Phoenix Code</a> – Free, open source, more advanced</li>
+<li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer">VS Code</a> – Free, feature-rich, includes AI assistance</li>
+</ul>
 <p>
 You can use any programmer editor you like for this course.
 </p>
