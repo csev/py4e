@@ -15,6 +15,8 @@ $CFG->servicedesc = 'OER materials for Python for Everybody textbook';
 $CFG->context_title = "Python for Everybody";
 
 $CFG->lessons = $CFG->dirroot.'/../lessons.json';
+$CFG->lessons = $CFG->dirroot.'/../lessons-items.json';
+$CFG->setExtension('lessons2_enable', true);
 $CFG->youtube_playlist = 'PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p';
 
 $CFG->youtube_url = $CFG->apphome . '/mod/youtube/';
