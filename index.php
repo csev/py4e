@@ -8,7 +8,7 @@ require_once "nav.php";
 ?>
 <main id="container">
 <div style="margin-left: 10px; float:right">
-<iframe width="400" height="225" src="https://www.youtube.com/embed/UjeNA_JtXME?rel=0" frameborder="0" allowfullscreen title="Python for Everybody course introduction video"></iframe>
+<iframe width="400" height="225" src="https://www.youtube.com/embed/UjeNA_JtXME?list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p&rel=0" frameborder="0" allowfullscreen title="Python for Everybody course introduction video"></iframe>
 </div>
 <h1>Python for Everybody</h1>
 <?php
