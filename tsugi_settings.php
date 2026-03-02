@@ -23,8 +23,6 @@ $CFG->youtube_url = $CFG->apphome . '/mod/youtube/';
 
 $CFG->tdiscus = $CFG->apphome . '/mod/tdiscus/';
 
-$CFG->launcherror = $CFG->apphome . "/launcherror";
-
 $CFG->giftquizzes = $CFG->dirroot.'/../py4e-private/quiz';
 
 // $CFG->setExtension('lessons2_enable', true);
