@@ -94,7 +94,7 @@ composer install
 
 ### Tests fail with 404 errors
 - Verify the base URL in `BaseTestCase.php` matches your setup
-- Check that the paths exist (e.g., `/tsugi/lms/lessons`)
+- Check that the paths exist (e.g., `/lessons`)
 
 ### Chrome/Chromium not found
 Install Chrome or Chromium, or update the browser path in `BaseTestCase.php`

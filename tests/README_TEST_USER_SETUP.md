@@ -19,7 +19,7 @@ class MyTest extends BaseTestCase
         $this->setupTestUser($client);
         
         // Now you can navigate to pages that require login
-        $crawler = $client->request('GET', $this->baseUrl . '/tsugi/lms/lessons');
+        $crawler = $client->request('GET', $this->baseUrl . '/lessons');
         // User is now logged in!
     }
 }
@@ -100,7 +100,7 @@ public function testStudentFeature()
     $this->setupTestUser($client, 'student@example.com', 'Test Student', 0);
     
     // Navigate to student page
-    $crawler = $client->request('GET', $this->baseUrl . '/tsugi/lms/lessons');
+    $crawler = $client->request('GET', $this->baseUrl . '/lessons');
     // Should see student view
 }
 ```

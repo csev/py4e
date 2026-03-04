@@ -40,7 +40,7 @@ class SmokeTest extends BaseTestCase
     public function testLessonsPageLoads()
     {
         $client = $this->getPantherClient();
-        $crawler = $this->assertPageLoaded($client, $this->baseUrl . '/tsugi/lms/lessons');
+        $crawler = $this->assertPageLoaded($client, $this->baseUrl . '/lessons');
         
         // In watch mode, add a small delay so you can see the page
         if ($this->isWatchMode()) {
@@ -63,7 +63,7 @@ class SmokeTest extends BaseTestCase
         $client = $this->getPantherClient();
         
         // Try to load first module (adjust anchor as needed)
-        $crawler = $this->assertPageLoaded($client, $this->baseUrl . '/tsugi/lms/lessons/intro');
+        $crawler = $this->assertPageLoaded($client, $this->baseUrl . '/lessons/intro');
         
         // In watch mode, add a small delay so you can see the page
         if ($this->isWatchMode()) {

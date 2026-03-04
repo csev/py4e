@@ -201,7 +201,7 @@ abstract class BaseTestCase
     protected function loginAsInstructor(Client $client, $email = 'test@example.com', $password = 'testpass')
     {
         // Navigate to login page
-        $crawler = $client->request('GET', $this->baseUrl . '/tsugi/lms/login');
+        $crawler = $client->request('GET', $this->baseUrl . '/login');
         
         // Fill login form if it exists
         try {
