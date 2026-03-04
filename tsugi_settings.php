@@ -25,6 +25,8 @@ $CFG->tdiscus = $CFG->apphome . '/mod/tdiscus/';
 
 $CFG->giftquizzes = $CFG->dirroot.'/../py4e-private/quiz';
 
+$CFG->sessionlifetime = 12*60*60;  // 12 hours
+
 // $CFG->setExtension('lessons2_enable', true);
 
 $buildmenu = $CFG->dirroot.'/../buildmenu.php';
