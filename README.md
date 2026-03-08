@@ -82,10 +82,9 @@ put the following into "Authorized JavaScript Origins":
 
         http://localhost
 
-And these into Authorized redirect URIs:
+And this into Authorized redirect URI:
 
-    http://localhost/py4e/tsugi/login.php
-    http://localhost/py4e/tsugi/login
+    http://localhost/py4e/login
 
 Note: You do not need port numbers for either of these values in your Google
 configuration.
@@ -101,6 +100,18 @@ key", and name the key "My Google MAP API Key" and put the API
 key into `config.php` like the following:
 
     $CFG->google_map_api_key = 'AIza..snip..9e8';
+
+Some Important Files
+--------------------
+
+The `tsugi_settings.php` is included in `tsugi/config.php` - we tend to see non-private configuration
+variables here.
+
+The `tsugi.php` mounts the common controlers like `/announcements` and `/login` and `/pages` just under 
+`py4e` to make the LMS features of Tsugi present in the site at the top level s othey apear to just be part of
+the site.
+
+The navigation is buit in the `buildmenu.php`.
 
 Starting the Application
 ------------------------
@@ -146,7 +157,7 @@ Then install the "Gift Quiz" tool and re-run the database upgrade.
 If you want to have access to the quiz content, please contact Chuck for access 
 to the private py4e repository.  Access will only be given to those seriously installing
 the software and verified as teaching the course and adopting the materials.
-To checkout the private repo:
+To checkout the private repo (requires you to be added to the repo by Chuck):
 
     cd py4e
     git clone https://github.com/csev/py4e-private.git
