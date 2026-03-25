@@ -2,6 +2,27 @@
 # ##############################################################
 # Note: This script Requires LibreOffice to be installed:
 # https://www.libreoffice.org/get-help/install-howto/
+#
+# You can determine whether it is installed run the following command:
+#   - soffice --version
+# The expected output is similar to:
+#   LibreOffice 24.2.7.2 420(Build:2)
+#
+# To install LibreOffice on Linux use the packages tailored to your system's 
+# packaging standard (RPM or deb). For example, on Debian systems such as
+# Ubuntu, use the CLI command: 
+#   - sudo apt install libreoffice
+#
+# On macOS use either Homebrew or MacPorts CLI:
+#   - Homebrew command: brew install --cask libreoffice
+#   - MacPorts command: sudo port install libreoffice
+# 
+# The soffice command used by this script is located in
+# /Applications/LibreOffice.app/Contents/MacOS/soffice
+# on macOS. Verify that it is in your path.
+# 
+# More information is provided in README.md.
+#   
 # ##############################################################
 #
 # Converts all .pptx files in the current directory and its subdirectories
@@ -15,6 +36,8 @@
 # you may need to set JAVA_HOME to point to your Java installation.
 
 # Set JAVA_HOME if not already set, to ensure LibreOffice can find Java if needed.
+# Note, it's unlikely the Java is needed for the conversion process, but setting it
+# eliminate's a warning message that displays even when it's not needed.
 if [ -z "$JAVA_HOME" ]; then
     DEFAULT_JAVA_HOME=$(readlink -f $(which java) | sed "s:bin/java::")
     if [ -z "$DEFAULT_JAVA_HOME" ]; then
@@ -64,7 +87,8 @@ for pptx_file in $pptx_files; do
     
     # Convert pptx to PDF
     echo "Converting: $pptx_file to $pdf_file"
-    "$SOFFICE_PATH" --headless --convert-to pdf --outdir "$pdf_dir" "$pptx_file"
+    "$SOFFICE_PATH" --headless --convert-to pdf:impress_pdf_Export:{"PDFUACompliance":true,"UseTaggedPDF":true,"ReduceImageResolution":true,"MaxImageResolution":300,"UseLosslessCompression":false,"Quality":90} --outdir "$pdf_dir" "$pptx_file"
+
     if [ $? -eq 0 ]; then
         echo "Successfully converted: $pptx_file"
         count=$((count + 1))
