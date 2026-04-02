@@ -30,6 +30,8 @@ $CFG->giftquizzes = $CFG->dirroot.'/../py4e-private/quiz';
 
 $CFG->sessionlifetime = 18*60*60;  // 18 hours
 
+$CFG->google_login_redirect = $CFG->apphome . "/login";
+
 $buildmenu = $CFG->dirroot.'/../buildmenu.php';
 if ( file_exists($buildmenu) ) {
     require_once $buildmenu;
