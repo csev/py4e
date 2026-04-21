@@ -24,7 +24,7 @@ $CFG->youtube_playlist = 'PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p';
 
 $CFG->youtube_url = $CFG->apphome . '/mod/youtube/';
 
-$CFG->tdiscus = $CFG->apphome . '/mod/tdiscus/';
+$CFG->tdiscus = $CFG->wwwroot . '/tool/tdiscus/';
 
 $CFG->giftquizzes = $CFG->dirroot.'/../py4e-private/quiz';
 
