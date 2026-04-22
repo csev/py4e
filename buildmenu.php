@@ -9,6 +9,9 @@ function buildMenu() {
     $adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
     $path = U::rest_path();
     $base_path = ($path && isset($path->parent)) ? $path->parent : ''; // e.g., /announce
+    $showCalendarDueUi = isset($_SESSION['id'])
+        && U::isNotEmpty($CFG->lessons)
+        && \Tsugi\Grades\GradeUtil::showDueDates(U::get($_SESSION, 'context_id', 0));
 
     $json_url = $R . 'announcements/json';
     $dismiss_url = $R . 'announcements/dismiss';
@@ -70,6 +73,15 @@ function buildMenu() {
             true,
             'hidden-xs tsugi-wc-nav-item'
         );
+
+        if ( $showCalendarDueUi ) {
+            $set->addRight(
+                '<tsugi-calendar-due api-url="'. htmlspecialchars($R . 'calendar/json') . '" lessons-url="'. htmlspecialchars($R . 'lessons') . '"></tsugi-calendar-due>',
+                false,
+                true,
+                'hidden-xs tsugi-wc-nav-item'
+            );
+        }
 
         if ( isset($CFG->tdiscus) && $CFG->tdiscus ) {
             $set->addRight(
