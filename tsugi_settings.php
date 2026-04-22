@@ -13,6 +13,7 @@ $CFG->servicedesc = 'OER materials for Python for Everybody textbook';
 // Default theme
 
 $CFG->context_title = "Python for Everybody";
+$CFG->tool_folders = array("admin", "../tools", "../mod", "tool");
 
 // $CFG->setExtension('lessons2_enable', true);
 // $CFG->lessons = $CFG->dirroot.'/../lessons.json';
