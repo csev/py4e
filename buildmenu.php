@@ -17,9 +17,9 @@ function buildMenu() {
     $set = new \Tsugi\UI\MenuSet();
     $set->setHome($CFG->servicename, $CFG->apphome);
     $set->addLeft('Lessons', $R.'lessons');
-    if ( isset($CFG->tdiscus) && $CFG->tdiscus ) $set->addLeft('Discussions', $R.'discussions');
     if ( isset($_SESSION['id']) ) {
         $set->addLeft('Assignments', $R.'assignments');
+        $set->addLeft('Book', $R . 'book');
     } else {
         $set->addLeft('OER', $R.'materials');
     }
@@ -43,6 +43,7 @@ function buildMenu() {
             $submenu->addLink('Google Classroom', $T.'gclass/login');
         }
         $submenu->addLink('Free App Store', 'https://www.tsugicloud.org');
+        $submenu->addLink('Courses', $R.'coursesredirect.php');
         $submenu->addLink('Rate this course', 'https://www.class-central.com/mooc/7363/python-for-everybody');
         $submenu->addLink('Privacy', $R.'privacy');
         $submenu->addLink('Service Level', $R.'service');
@@ -59,15 +60,25 @@ function buildMenu() {
         }
     } else {
         $set->addRight('Login', $R.'login');
+        $set->addRight('Courses', $R.'coursesredirect.php');
     }
 
-
-    $set->addRight('Book', $R . 'book');
-
-    $set->addRight('Courses', 'https://online.dr-chuck.com', true, array('target' => '_self'));
-
     if ( isset($_SESSION['id']) ) {
-        $set->addRight('<tsugi-notifications api-url="'. htmlspecialchars($T . 'api/notifications.php') . '" notifications-view-url="'. htmlspecialchars($R . 'notifications') . '" announcements-view-url="'. htmlspecialchars($R . 'announcements') . '"></tsugi-notifications>', false);
+        $set->addRight(
+            '<tsugi-notifications api-url="'. htmlspecialchars($T . 'api/notifications.php') . '" notifications-view-url="'. htmlspecialchars($R . 'notifications') . '" announcements-view-url="'. htmlspecialchars($R . 'announcements') . '"></tsugi-notifications>',
+            false,
+            true,
+            'hidden-xs tsugi-wc-nav-item'
+        );
+
+        if ( isset($CFG->tdiscus) && $CFG->tdiscus ) {
+            $set->addRight(
+                '<tsugi-discussions api-url="'. htmlspecialchars($R . 'discussions/json') . '" discussions-url="'. htmlspecialchars($R . 'discussions') . '"></tsugi-discussions>',
+                false,
+                true,
+                'hidden-xs tsugi-wc-nav-item'
+            );
+        }
     }
 
 
