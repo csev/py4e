@@ -15,10 +15,6 @@ $CFG->servicedesc = 'OER materials for Python for Everybody textbook';
 $CFG->context_title = "Python for Everybody";
 $CFG->tool_folders = array("admin", "../tools", "../mod", "tool");
 
-// $CFG->setExtension('lessons2_enable', true);
-// $CFG->lessons = $CFG->dirroot.'/../lessons.json';
-// $CFG->setExtension('lessons2_enable', true);
-
 $CFG->lessons = $CFG->dirroot.'/../lessons-items.json';
 
 $CFG->youtube_playlist = 'PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p';
