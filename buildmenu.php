@@ -3,10 +3,12 @@
 use \Tsugi\Util\U;
 
 function buildMenu() {
-    global $CFG;
+    global $CFG, $USER;
     $R = $CFG->apphome . '/';
     $T = $CFG->wwwroot . '/';
     $adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
+    $isInstructor = (isset($USER) && $USER && isset($USER->instructor) && $USER->instructor)
+        || (isset($_SESSION['instructor']) && $_SESSION['instructor']);
     $path = U::rest_path();
     $base_path = ($path && isset($path->parent)) ? $path->parent : ''; // e.g., /announce
     $showCalendarDueUi = isset($_SESSION['id'])
@@ -29,14 +31,22 @@ function buildMenu() {
     
     if ( isset($_SESSION['id']) ) {
         $submenu = new \Tsugi\UI\Menu();
-        $submenu->addLink('Profile', $R.'profile');
-        if ( isset($CFG->google_map_api_key) ) {
-            $submenu->addLink('Map', $R.'map');
-        }
         $submenu->addLink('Announcements', $R.'announcements');
         $submenu->addLink('Grades', $R.'grades');
         $submenu->addLink('Pages', $R.'pages');
-    
+        $submenu->addLink('Discussions', $R.'discussions');
+        if ( $isInstructor ) {
+            $submenu->addLink('Notifications', $R.'notifications');
+        }
+        $submenu->addLink('Courses', $R.'coursesredirect.php');
+        if ( isset($CFG->google_map_api_key) ) {
+            $submenu->addLink('Map', $R.'map');
+        }
+        $submenu->addLink('Profile', $R.'profile');
+        if ( $showCalendarDueUi ) {
+            $submenu->addLink('Calendar', $R.'calendar');
+        }
+
         $submenu->addLink('Badges', $R.'badges');
         $submenu->addLink('Materials', $R.'materials');
         if ( $CFG->providekeys ) {
@@ -46,7 +56,6 @@ function buildMenu() {
             $submenu->addLink('Google Classroom', $T.'gclass/login');
         }
         $submenu->addLink('Free App Store', 'https://www.tsugicloud.org');
-        $submenu->addLink('Courses', $R.'coursesredirect.php');
         $submenu->addLink('Rate this course', 'https://www.class-central.com/mooc/7363/python-for-everybody');
         $submenu->addLink('Privacy', $R.'privacy');
         $submenu->addLink('Service Level', $R.'service');
