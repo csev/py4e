@@ -85,7 +85,7 @@ function buildMenu() {
 
         if ( $showCalendarDueUi ) {
             $set->addRight(
-                '<tsugi-calendar-due api-url="'. htmlspecialchars($R . 'calendar/json') . '" lessons-url="'. htmlspecialchars($R . 'lessons') . '"></tsugi-calendar-due>',
+                '<tsugi-calendar-due api-url="'. htmlspecialchars($R . 'calendar/json') . '" lessons-url="'. htmlspecialchars($R . 'calendar') . '" calendar-url="'. htmlspecialchars($R . 'calendar') . '"></tsugi-calendar-due>',
                 false,
                 true,
                 'hidden-xs tsugi-wc-nav-item'
