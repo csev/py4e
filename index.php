@@ -1,4 +1,11 @@
 <?php
+
+require_once __DIR__ . '/site/site.php';
+
+if ( vhost_require_variant('home.php') ) {
+    return;
+}
+
 use \Tsugi\Core\LTIX;
 use \Tsugi\UI\Output;
 use \Tsugi\UI\Pages;

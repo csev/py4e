@@ -1,5 +1,10 @@
 <?php
 
+require_once __DIR__ . '/site/site.php';
+if ( vhost_require_variant('footer.php') ) {
+    return;
+}
+
 $foot = '
 <p style="font-size: 0.875rem; color: #333; margin-top: 5em;">
 Copyright Creative Commons Attribution 4.0 - Charles R. Severance
@@ -7,4 +12,3 @@ Copyright Creative Commons Attribution 4.0 - Charles R. Severance
 
 $OUTPUT->setAppFooter($foot);
 $OUTPUT->footer();
-

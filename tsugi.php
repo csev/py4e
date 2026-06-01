@@ -7,7 +7,8 @@ require_once "tsugi/config.php";
 
 $launch = LTIX::session_start();
 
-$buildmenu = $CFG->dirroot."/../buildmenu.php";
+require_once $CFG->dirroot."/../site/site.php";
+$buildmenu = vhost_site_file('buildmenu.php');
 if ( file_exists($buildmenu) ) {
     require_once $buildmenu;
     $CFG->defaultmenu = buildMenu();

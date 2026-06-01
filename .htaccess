@@ -16,6 +16,8 @@
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
+    # Route /labs to Tsugi (must precede !-d rule; site-labs/lessons.json is denied via .htaccess)
+    RewriteRule ^labs/?$ tsugi.php [L,QSA]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} !=/favicon.ico
