@@ -74,6 +74,14 @@ function ai_print_styles() {
     margin: 0;
     color: #f5f3ff;
 }
+.tsugi-site-under-construction {
+    background: #fef3c7;
+    border: 1px solid #d97706;
+    color: #78350f;
+    padding: 0.65rem 1rem;
+    margin: 0 0 1.25rem 0;
+    border-radius: 0.25rem;
+}
 .tsugi-ai-callout {
     background: var(--ai-surface);
     border-left: 4px solid var(--ai-accent);

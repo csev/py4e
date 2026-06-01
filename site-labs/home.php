@@ -27,6 +27,9 @@ if ( isset($CFG->servicedesc) && $CFG->servicedesc ) {
     echo('<p>'.htmlspecialchars($CFG->servicedesc).'</p>'."\n");
 }
 
+echo('<p class="tsugi-site-under-construction"><strong>Under construction.</strong> ');
+echo('Content and features on this site are still being prepared.</p>'."\n");
+
 $front_page_text = null;
 if ( isset($_SESSION['id']) && isset($_SESSION['context_id']) ) {
     $front_page_text = Pages::getFrontPageText($_SESSION['context_id']);

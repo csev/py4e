@@ -7,6 +7,14 @@ function labs_print_styles() {
 #container.tsugi-labs-home {
     max-width: 960px;
 }
+.tsugi-site-under-construction {
+    background: #fef3c7;
+    border: 1px solid #d97706;
+    color: #78350f;
+    padding: 0.65rem 1rem;
+    margin: 0 0 1.25rem 0;
+    border-radius: 0.25rem;
+}
 .tsugi-labs-hero-float {
     float: right;
     margin: 0 0 1rem 1.25rem;
