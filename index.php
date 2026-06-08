@@ -1,8 +1,12 @@
 <?php
 
-require_once __DIR__ . '/site/site.php';
+if ( ! defined('COOKIE_SESSION') ) {
+    define('COOKIE_SESSION', true);
+}
+require_once __DIR__ . '/tsugi/config.php';
+global $CFG;
 
-if ( vhost_require_variant('home.php') ) {
+if ( $CFG->requireVhostVariant('home.php') ) {
     return;
 }
 

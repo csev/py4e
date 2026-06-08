@@ -1,17 +1,17 @@
 <?php
 use \Tsugi\Core\LTIX;
 
-require_once __DIR__ . '/site/site.php';
+if ( ! defined('COOKIE_SESSION') ) {
+    define('COOKIE_SESSION', true);
+}
+require_once __DIR__ . '/tsugi/config.php';
+global $CFG;
 
-if ( ! isset($CFG) ) {
-    if ( ! defined('COOKIE_SESSION') ) {
-        define('COOKIE_SESSION', true);
-    }
-    require_once __DIR__ . '/tsugi/config.php';
+if ( ! isset($LAUNCH) ) {
     $LAUNCH = LTIX::session_start();
 }
 
-if ( vhost_require_variant('top.php') ) {
+if ( $CFG->requireVhostVariant('top.php') ) {
     return;
 }
 
