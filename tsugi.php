@@ -7,6 +7,14 @@ require_once "tsugi/config.php";
 
 $launch = LTIX::session_start();
 
+// If variant vhost.php was missing on the server, still use variant lessons.json when present.
+if ( $CFG->getVhostId() ) {
+    $variant_lessons = $CFG->getVhostSiteFile('lessons.json');
+    if ( is_readable($variant_lessons) ) {
+        $CFG->lessons = $variant_lessons;
+    }
+}
+
 $buildmenu = $CFG->getVhostSiteFile('buildmenu.php');
 if ( file_exists($buildmenu) ) {
     require_once $buildmenu;

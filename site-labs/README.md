@@ -1,10 +1,10 @@
 # PY4E Labs (application)
 
-The **labs** hostname (`labs.py4e.com`, `labs.local.py4e.com`) loads everything from **`site-labs/`**: lessons JSON, config, and slim labs UI. Site mode is decided in **`site/vhost.php`** (generic) and **`site-labs/config.php`** (labs-only `$CFG` overrides) — not in Tsugi.
+The **labs** hostname (`labs.py4e.com`, `labs.local.py4e.com`) loads everything from **`site-labs/`**: lessons JSON, vhost config, and slim labs UI. Tsugi **`applyVhostVariantConfig()`** loads **`site-labs/vhost.php`** on `labs.*` hosts.
 
 | Path | Purpose |
 |------|---------|
-| `site-labs/config.php` | `$CFG` overrides when host is `labs.*` (servicename, lessons file) |
+| `site-labs/vhost.php` | `$CFG` overrides when host is `labs.*` (servicename, lessons file) |
 | `site-labs/lessons.json` | Lessons JSON used on labs vhosts (`"labs": true` on LTI items) |
 | `site-labs/home.php`, `buildmenu.php`, `top.php`, `nav.php`, `footer.php`, `styles.php` | Labs shell (home matches www-style YouTube hero) |
 | `/labs` (URL) | Tsugi route — catalog of lab activities (see root `.htaccess`) |

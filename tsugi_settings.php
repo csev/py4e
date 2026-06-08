@@ -15,8 +15,6 @@ $CFG->servicedesc = 'OER materials for Python for Everybody textbook';
 $CFG->context_title = "Python for Everybody";
 $CFG->tool_folders = array("admin", "../tools", "../mod", "tool");
 
-$CFG->lessons = $CFG->dirroot.'/../lessons-items.json';
-
 $CFG->youtube_playlist = 'PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p';
 
 $CFG->giftquizzes = $CFG->dirroot.'/../py4e-private/quiz';
@@ -56,6 +54,10 @@ if ( $CFG->vhostUsesVhostUrls() ) {
 }
 
 $CFG->applyVhostVariantConfig();
+
+if ( ! isset($CFG->lessons) || ! is_string($CFG->lessons) || strlen($CFG->lessons) < 1 ) {
+    $CFG->lessons = $CFG->dirroot.'/../lessons-items.json';
+}
 
 $CFG->youtube_url = $CFG->apphome . '/mod/youtube/';
 $CFG->tdiscus = $CFG->wwwroot . '/tool/tdiscus/';

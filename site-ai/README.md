@@ -4,7 +4,7 @@ The **ai** hostname (`ai.py4e.com`, `ai.local.py4e.com`) loads everything from *
 
 | Path | Purpose |
 |------|---------|
-| `site-ai/config.php` | `$CFG` overrides on `ai.*` hosts (servicename, lessons path) |
+| `site-ai/vhost.php` | `$CFG` overrides on `ai.*` hosts (servicename, lessons path, theme) |
 | `site-ai/lessons.json` | Lessons and badges for the AI track |
 | `site-ai/home.php` | AI-themed home page |
 | `site-ai/buildmenu.php`, `top.php`, `nav.php`, `footer.php` | Shell |
