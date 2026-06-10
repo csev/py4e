@@ -63,7 +63,8 @@ $CFG->google_login_redirect = $CFG->apphome . "/login";
 
 if ( is_array($CFG->getExtension('stripe')) ) {
   $CFG->setExtension('premium', array(
-      'checkout_url' => $CFG->apphome . '/stripe/checkout.php',
+      'supporter_url' => $CFG->apphome . '/support',
       'price' => '$4.20 USD',
   ));
 }
+
