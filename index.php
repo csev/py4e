@@ -1,9 +1,7 @@
 <?php
 
-require_once __DIR__ . '/site/site.php';
-
-if ( vhost_require_variant('home.php') ) {
-    return;
+if ( ! defined('COOKIE_SESSION') ) {
+    define('COOKIE_SESSION', true);
 }
 
 use \Tsugi\Core\LTIX;
@@ -11,6 +9,11 @@ use \Tsugi\UI\Output;
 use \Tsugi\UI\Pages;
 
 require_once "top.php";
+
+if ( $CFG->requireVhostVariant('home.php') ) {
+    return;
+}
+
 require_once "nav.php";
 ?>
 <main id="container">

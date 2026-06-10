@@ -1,7 +1,14 @@
 <?php
 
-require_once __DIR__ . '/site/site.php';
-if ( vhost_require_variant('footer.php') ) {
+if ( ! defined('COOKIE_SESSION') ) {
+    define('COOKIE_SESSION', true);
+}
+
+if ( ! isset($CFG) ) {
+    require_once __DIR__ . '/tsugi/config.php';
+}
+
+if ( $CFG->requireVhostVariant('footer.php') ) {
     return;
 }
 
