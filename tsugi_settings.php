@@ -8,7 +8,7 @@
 
 // This is how the system will refer to itself.
 $CFG->servicename = 'PY4E';
-$CFG->servicedesc = 'OER materials for Python for Everybody textbook';
+$CFG->servicedesc = 'Python for Everybody';
 
 // Default theme
 
@@ -60,3 +60,10 @@ $CFG->applyVhostVariantConfig();
 $CFG->youtube_url = $CFG->apphome . '/mod/youtube/';
 $CFG->tdiscus = $CFG->wwwroot . '/tool/tdiscus/';
 $CFG->google_login_redirect = $CFG->apphome . "/login";
+
+if ( is_array($CFG->getExtension('stripe')) ) {
+  $CFG->setExtension('premium', array(
+      'checkout_url' => $CFG->apphome . '/stripe/checkout.php',
+      'price' => '$4.20 USD',
+  ));
+}
