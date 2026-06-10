@@ -4,18 +4,21 @@ if ( ! defined('COOKIE_SESSION') ) {
     define('COOKIE_SESSION', true);
 }
 
-use Tsugi\Util\Stripe as StripeUtil;
+use Tsugi\Controllers\Profile as SupporterProfile;
+use Tsugi\Controllers\Stripe;
 
 require_once __DIR__ . '/top.php';
 require_once __DIR__ . '/nav.php';
 
 global $CFG;
 
-$site_name = StripeUtil::siteName($CFG);
-$site_label = StripeUtil::siteLabel($CFG);
-$supporter_label = '💚 ' . $site_name . ' Supporter';
-$price_phrase = StripeUtil::supporterPricePhrase($CFG);
-$stripe_url = rtrim($CFG->apphome, '/') . '/stripe';
+$site_name = SupporterProfile::supporterSiteName($CFG);
+$site_label = SupporterProfile::supporterSiteLabel($CFG);
+$supporter_label = SupporterProfile::supporterLabel($CFG);
+$price_phrase = SupporterProfile::supporterPricePhrase($CFG);
+$premium_period = SupporterProfile::premiumMonthsLabel($CFG);
+$refund_policy = SupporterProfile::refundPolicy($CFG);
+$stripe_url = Stripe::checkoutUrl($CFG);
 $hero_image = rtrim($CFG->apphome, '/') . '/artwork/master-programmer.png';
 ?>
 <style>
@@ -73,7 +76,7 @@ hundreds of lessons and tools working smoothly for learners around the world.
 <p>
 A <strong><?= htmlspecialchars($supporter_label) ?></strong> contribution is optional. It helps cover those costs
 and keeps <?= htmlspecialchars($site_name) ?> available for the next student who finds their way here.
-In return, you receive one year of supporter status on your profile — a small thank-you, not a feature unlock.
+In return, you receive <?= htmlspecialchars($premium_period) ?> of supporter status on your profile — a small thank-you, not a feature unlock.
 </p>
 </div>
 
@@ -87,7 +90,9 @@ In return, you receive one year of supporter status on your profile — a small 
 Payments are processed securely through our payment provider. The exact amount in your currency is shown
 on the next screen<?php if ($price_phrase !== '') { ?>
  (<?= htmlspecialchars($price_phrase) ?>)<?php } ?>.
-<em>There are no refunds.</em>
+<?php if ($refund_policy !== '') { ?>
+<em><?= htmlspecialchars($refund_policy) ?></em>
+<?php } ?>
 </p>
 
 <div class="support-cta">
