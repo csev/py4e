@@ -49,15 +49,13 @@ $CFG->setExtension('vhost', array(
     ),
 ));
 
+$CFG->lessons = $CFG->dirroot.'/../lessons.json';
+
 if ( $CFG->vhostUsesVhostUrls() ) {
     $CFG->applyVhostHostUrls();
 }
 
 $CFG->applyVhostVariantConfig();
-
-if ( ! isset($CFG->lessons) || ! is_string($CFG->lessons) || strlen($CFG->lessons) < 1 ) {
-    $CFG->lessons = $CFG->dirroot.'/../lessons-items.json';
-}
 
 $CFG->youtube_url = $CFG->apphome . '/mod/youtube/';
 $CFG->tdiscus = $CFG->wwwroot . '/tool/tdiscus/';
