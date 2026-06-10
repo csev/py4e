@@ -72,6 +72,9 @@ print(count,"Lines")';
 
 $CHECKS = false;
 $EX = false;
+$XCODE = false;
+$EXERCISE_KEY = false;
+$PARSONS_SEED = false;
 
 // Check which exercise we are supposed to do - settings, then custom, then 
 // inherit, then GET
@@ -108,6 +111,10 @@ if ( $ex !== false && $ex != "code" ) {
         $DESIRED2 = rtrim($DESIRED2);
         if ( isset($EX["code"]) ) $CODE = $EX["code"];
         if ( isset($EX["checks"]) ) $CHECKS = json_encode($EX["checks"]);
+        if ( isset($EX["xcode"]) ) $XCODE = $EX["xcode"];
+        $EXERCISE_KEY = $ex;
+        $uid = (isset($USER->id) && $USER->id) ? $USER->id : session_id();
+        $PARSONS_SEED = crc32($ex.':'.$uid);
     }
     if ( $EX === false ) {
         echo("</head><body><h1>Error, exercise ".htmlentities($ex).
@@ -125,6 +132,109 @@ if ( (! isset($oldsettings['exercise'])) || $oldsettings['exercise'] != $ex ) {
 <style>
 body { font-family: sans-serif; }
 .inputarea { width: 100%; height: 250px; }
+#parsons-blocks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.parsons-block {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #f8f8f8;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    cursor: move;
+}
+.parsons-block.ui-sortable-helper {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    background: #fff;
+}
+.parsons-block-placeholder {
+    visibility: visible !important;
+    border: 2px dashed #9b8ec4;
+    background: #f3f0fa;
+    min-height: 40px;
+}
+.parsons-block-num {
+    flex: 0 0 28px;
+    text-align: center;
+    font-weight: bold;
+    padding: 8px 4px;
+    background: #e8e8e8;
+    border-right: 1px solid #ccc;
+    color: #666;
+}
+.parsons-drag-grip {
+    flex: 0 0 22px;
+    text-align: center;
+    padding: 8px 2px;
+    color: #999;
+    border-right: 1px solid #ddd;
+    font-size: 14px;
+    line-height: 1;
+}
+.parsons-block-code {
+    flex: 1;
+    font-family: Courier, monospace;
+    font-size: 14px;
+    padding: 8px 10px;
+    color: #333;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    pointer-events: none;
+}
+#parsons-hint .modal-body {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+#parsons-hint .modal-body * {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+#parsons-hint .modal-header {
+    cursor: move;
+}
+#parsons-hint .modal-header .close {
+    cursor: pointer;
+}
+/* Square icon button — ~1 step above Bootstrap .btn height (info button) */
+#forminput .btn.btn-sparkle {
+    box-sizing: border-box;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+    padding: 0;
+    line-height: 1;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #2e1065;
+    border: 1px solid #4c1d95;
+}
+#forminput .btn.btn-sparkle:hover,
+#forminput .btn.btn-sparkle:focus {
+    background: #4c1d95;
+    border-color: #5b21b6;
+    outline: none;
+}
+#forminput .btn.btn-sparkle img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    display: block;
+    margin: 0;
+}
+#forminput .btn.btn-sparkle:hover img {
+    filter: brightness(1.08);
+}
 </style>
 <link href="static/splitter/jquery.splitter.css" rel="stylesheet"/>
 <?php if ( $codemirror ) { ?>
@@ -183,7 +293,21 @@ function load_files() {
     } else {
         echo("   window.CHECKS = $CHECKS;\n");
     }
+    if ( $XCODE === false ) {
+        echo("   window.PARSONS_XCODE = false;\n");
+        echo("   window.PARSONS_EXERCISE = false;\n");
+        echo("   window.PARSONS_SEED = false;\n");
+    } else {
+        echo("   window.PARSONS_XCODE = ".json_encode($XCODE).";\n");
+        echo("   window.PARSONS_EXERCISE = ".json_encode($EXERCISE_KEY).";\n");
+        echo("   window.PARSONS_SEED = ".$PARSONS_SEED.";\n");
+    }
 ?>
+</script>
+<script type="text/javascript" src="static/parsons-blocks.js"></script>
+<script type="text/javascript" src="static/parsons-hint.js"></script>
+<script type="text/javascript">
+
     window.GLOBAL_ERROR = true;
     window.GLOBAL_TIMER = false;
     window.CM_EDITOR = false;
@@ -482,6 +606,45 @@ if(typeof String.prototype.trimRight !== 'function') {
     }
 }
 
+<?php if ( $USER->instructor && $XCODE !== false ) { ?>
+    window.INSTRUCTOR_XCODE = <?php echo json_encode($XCODE); ?>;
+
+    function copyInstructorSolution() {
+        var text = window.INSTRUCTOR_XCODE;
+        if (!text) {
+            return false;
+        }
+        function copied() {
+            alert('Solution copied to clipboard.');
+        }
+        function fallbackCopy() {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                if ( document.execCommand('copy') ) {
+                    copied();
+                } else {
+                    alert('Could not copy automatically.');
+                }
+            } catch (e) {
+                alert('Could not copy automatically.');
+            }
+            document.body.removeChild(ta);
+        }
+        if ( navigator.clipboard && navigator.clipboard.writeText ) {
+            navigator.clipboard.writeText(text).then(copied).catch(fallbackCopy);
+        } else {
+            fallbackCopy();
+        }
+        return false;
+    }
+<?php } ?>
+
 </script>
 <style>
 pre {
@@ -581,6 +744,31 @@ if ( isset($LINK->title) ) {
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<?php if ( $XCODE !== false ) { ?>
+<div class="modal fade" id="parsons-hint">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Code Fragments</h4>
+      </div>
+      <div class="modal-body">
+        <p>These code fragments are <b>out of order</b>.
+        <b>Drag and drop</b> them into the correct sequence, then write your own solution in the editor.</p>
+        <div id="parsons-blocks"></div>
+        <p class="text-muted" style="margin-top: 12px; font-size: 12px;">
+        Drag to rearrange. Copying from this window is disabled.</p>
+      </div>
+<?php if ( $USER->instructor ) { ?>
+      <div class="modal-footer">
+        <button onclick="return copyInstructorSolution();" class="btn btn-default" type="button">Copy Solution</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+<?php } ?>
+    </div>
+  </div>
+</div>
+<?php } ?>
 
 <div id="overall" style="border: 3px solid black;">
 <div id="inputs">
@@ -602,7 +790,12 @@ if ( $dueDate->message ) {
     if ( strlen($CODE) > 0 ) {
         echo('<button onclick="resetcode()" class="btn btn-default" type="button">Reset Code</button> ');
     }
-    echo('<button onclick="$(\'#info\').modal();return false;" class="btn btn-default" type="button"><span class="glyphicon glyphicon-info-sign"></span></button>'."\n");
+    echo('<button onclick="$(\'#info\').modal();return false;" class="btn btn-default" type="button"><span class="glyphicon glyphicon-info-sign"></span></button> '."\n");
+    if ( $XCODE !== false ) {
+        echo('<button onclick="return showParsonsHint();" class="btn btn-sparkle" type="button" title="Study code fragments">'."\n");
+        echo('<img src="static/sparkle.png" alt="">'."\n");
+        echo('</button> '."\n");
+    }
 ?>
 <img id="spinner" src="static/spinner.gif" alt="" style="vertical-align: middle;display: none">
 <span id="redo" style="color:red;display:none"> Please correct your code and re-run. </span>
@@ -718,6 +911,9 @@ function load_cm() {
 <?php } ?>
 
  $().ready(function(){
+    if ( typeof initParsonsHintGuards === 'function' ) {
+        initParsonsHintGuards();
+    }
     // I cannot make this reliable :(
     $(window).resize(function () { compute_divs(); });
     window.MOBILE = $(window).width() <= 480;
