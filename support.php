@@ -4,7 +4,6 @@ if ( ! defined('COOKIE_SESSION') ) {
     define('COOKIE_SESSION', true);
 }
 
-use Tsugi\Controllers\Profile as SupporterProfile;
 use Tsugi\Controllers\Stripe;
 
 require_once __DIR__ . '/top.php';
@@ -12,12 +11,12 @@ require_once __DIR__ . '/nav.php';
 
 global $CFG;
 
-$site_name = SupporterProfile::supporterSiteName($CFG);
-$site_label = SupporterProfile::supporterSiteLabel($CFG);
-$supporter_label = SupporterProfile::supporterLabel($CFG);
-$price_phrase = SupporterProfile::supporterPricePhrase($CFG);
-$premium_period = SupporterProfile::premiumMonthsLabel($CFG);
-$refund_policy = SupporterProfile::refundPolicy($CFG);
+$site_name = $CFG->supporterSiteName();
+$site_label = $CFG->supporterSiteLabel();
+$supporter_label = $CFG->supporterLabel();
+$price_phrase = $CFG->supporterPricePhrase();
+$premium_period = $CFG->premiumMonthsLabel();
+$refund_policy = $CFG->refundPolicy();
 $stripe_url = Stripe::checkoutUrl($CFG);
 $hero_image = rtrim($CFG->apphome, '/') . '/artwork/master-programmer.png';
 ?>
