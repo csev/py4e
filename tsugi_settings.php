@@ -64,7 +64,7 @@ $CFG->google_login_redirect = $CFG->apphome . "/login";
 if ( is_array($CFG->getExtension('stripe')) ) {
   $CFG->setExtension('premium', array(
       'supporter_url' => $CFG->apphome . '/support',
-      'price' => '$9.00 USD',
+      'price' => '$15.00 USD',
       'premium_months' => 12,
       'refund_policy' => 'There are no refunds.',
   ));
