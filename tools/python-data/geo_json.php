@@ -35,14 +35,17 @@ if ( $USER->instructor && array_key_exists('instructor_location', $_POST) ) {
     }
 }
 
-function geo_json_assignment_location($code, $USER) {
+function geo_json_load_assignment($code, $USER, $api_url) {
     if ( $USER->instructor && isset($_SESSION['geo_json_instructor_location']) ) {
-        return $_SESSION['geo_json_instructor_location'];
+        $override = $_SESSION['geo_json_instructor_location'];
+        $actual = lookup_opengeo($override, $api_url);
+        if ( is_array($actual) ) return $actual;
+        unset($_SESSION['geo_json_instructor_location']);
+        $_SESSION['error'] = "Location override failed API lookup (no plus_code): ".$override;
+        return false;
     }
-    return pick_location($code);
+    return load_opengeo($code, $api_url);
 }
-
-$actual_location = geo_json_assignment_location($code, $USER);
 
 $oldgrade = $RESULT->grade;
 if ( array_key_exists('plus_code', $_POST) && array_key_exists('code', $_POST) ) {
@@ -53,8 +56,12 @@ if ( array_key_exists('plus_code', $_POST) && array_key_exists('code', $_POST) )
     );
 
     // Re-query the API at grading time so we match what the student sees
-    $grade_location = geo_json_assignment_location($code, $USER);
-    $actual = lookup_opengeo($grade_location, $api_url);
+    $actual = geo_json_load_assignment($code, $USER, $api_url);
+    if ( $actual === false ) {
+        header('Location: '.addSession('index.php'));
+        return;
+    }
+    $actual_location = $actual[0];
     $actual_place = $actual[1];
     $actual_url = $actual[3];
 
@@ -63,7 +70,7 @@ if ( array_key_exists('plus_code', $_POST) && array_key_exists('code', $_POST) )
         'plus_code' => $_POST['plus_code'],
         'actual_url' => $actual_url,
         'actual_place' => $actual_place,
-        'actual_location' => $grade_location
+        'actual_location' => $actual_location
     ));
 
     if ( $_POST['plus_code'] != $actual_place ) {
@@ -95,7 +102,12 @@ if ( isset($_SESSION['geo_json_post']) ) {
 }
 
 // Live API lookup for page display (same endpoint students use)
-$actual = lookup_opengeo($actual_location, $api_url);
+$actual = geo_json_load_assignment($code, $USER, $api_url);
+if ( $actual === false ) {
+    header('Location: '.addSession('index.php'));
+    return;
+}
+$actual_location = $actual[0];
 $actual_place = $actual[1];
 $actual_count = $actual[2];
 $actual_url = $actual[3];

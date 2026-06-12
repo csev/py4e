@@ -53,17 +53,21 @@ function lookup_opengeo($location, $api_url) {
     if ( $response != 200 || $sample_json == null || ( !isset($sample_json->features[0])) ||
         ! isset($sample_json->features[0]->properties) ||
         ! isset($sample_json->features[0]->properties->plus_code) ) {
-        die("Could not load location=$location response=$response url=$sample_url json_error=".json_last_error_msg());
+        error_log("lookup_opengeo fail location=$location response=$response url=$sample_url json_error=".json_last_error_msg());
+        return false;
     }
     $sample_place =  $sample_json->features[0]->properties->plus_code;
     return array($location, $sample_place, $sample_count, $sample_url);
 }
 
-function load_opengeo($code, $api_url) {
-    for ($i=0; $i< 2; $i++) {
-        $sample_location = pick_location($code, $i);
-        $retval = lookup_opengeo($sample_location, $api_url);
+function load_opengeo($code, $api_url, $max_tries=10) {
+    $locations = get_locations();
+    $MT = new Mersenne_Twister($code);
+    $sample = $MT->shuffle($locations);
+    $tries = min($max_tries, count($sample));
+    for ($i=0; $i < $tries; $i++) {
+        $retval = lookup_opengeo($sample[$i], $api_url);
         if ( is_array($retval) ) return $retval;
     }
-    die("Could not load opengeo data for code=$code");
+    die("Could not load opengeo data for code=$code after $tries tries");
 }

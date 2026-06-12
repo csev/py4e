@@ -62,6 +62,7 @@ if ( $pause > 0 ) echo("Pause: {$pause}s after each MISS\n");
 echo("\n");
 
 $cache_counts = array();
+$failures = array();
 $misses = 0;
 $tested = 0;
 foreach ( get_locations() as $location ) {
@@ -74,7 +75,9 @@ foreach ( get_locations() as $location ) {
     if ( $is_miss ) $misses++;
     $sample_json = json_decode($sample_data);
     if ( $response != 200 || $sample_json == null || ( !isset($sample_json->features[0])) ) {
-        echo("*** Bad response=$response ".$cache['label']." url=$sample_url json_error=".json_last_error_msg()."\n");
+        $reason = "bad response=$response json_error=".json_last_error_msg();
+        $failures[$location] = $reason;
+        echo("*** Bad response=$response ".$cache['label']." url=$sample_url $reason\n");
         if ( is_string($sample_data) && strlen($sample_data) < 2000 ) {
             echo($sample_data."\n");
         }
@@ -85,6 +88,7 @@ foreach ( get_locations() as $location ) {
         continue;
     }
     if ( !isset($sample_json->features[0]->properties->plus_code) ) {
+        $failures[$location] = 'missing plus_code';
         echo("*** Could not find plus_code ".$cache['label']." $location\n");
         flush();
         $tested++;
@@ -105,4 +109,11 @@ echo("Cloudflare cache summary:\n");
 ksort($cache_counts);
 foreach ( $cache_counts as $status => $count ) {
     echo("  $status: $count\n");
+}
+echo("\nFailures: ".count($failures)."\n");
+if ( count($failures) > 0 ) {
+    ksort($failures);
+    foreach ( $failures as $location => $reason ) {
+        echo("  $location ($reason)\n");
+    }
 }
