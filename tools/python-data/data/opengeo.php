@@ -55,9 +55,9 @@ This server is maintained by
 	return;
 }
 
-$known_sites = file_get_contents("where.data");
+require_once(__DIR__ . "/locations.php");
 
-$known = strpos($known_sites, $q."\n") !== false;
+$known = in_array($q, get_locations(), true);
 
 $ipaddr = \Tsugi\Util\Net::getIP();
 if ( $known ) {

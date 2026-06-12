@@ -13,8 +13,7 @@ $sanity = array(
 
 $api_url = dataUrl('opengeo');
 
-// Compute the stuff for the output
-$code = 42;
+// Sample data (code 42) - live API call
 $sample = load_opengeo(42, $api_url);
 $sample_location = $sample[0];
 $sample_plus = $sample[1];
@@ -22,19 +21,49 @@ $sample_count = $sample[2];
 $sample_url = $sample[3];
 
 $code = $USER->id+$LINK->id+$CONTEXT->id;
-$actual = load_opengeo($code, $api_url);
-$actual_location = $actual[0];
-$actual_place = $actual[1];
-$actual_count = $actual[2];
-$actual_url = $actual[3];
+
+if ( $USER->instructor && isset($_GET['clear_location']) ) {
+    unset($_SESSION['geo_json_instructor_location']);
+}
+
+if ( $USER->instructor && array_key_exists('instructor_location', $_POST) ) {
+    $override_location = trim($_POST['instructor_location']);
+    if ( strlen($override_location) > 0 ) {
+        $_SESSION['geo_json_instructor_location'] = $override_location;
+    } else {
+        unset($_SESSION['geo_json_instructor_location']);
+    }
+}
+
+function geo_json_assignment_location($code, $USER) {
+    if ( $USER->instructor && isset($_SESSION['geo_json_instructor_location']) ) {
+        return $_SESSION['geo_json_instructor_location'];
+    }
+    return pick_location($code);
+}
+
+$actual_location = geo_json_assignment_location($code, $USER);
 
 $oldgrade = $RESULT->grade;
-if ( isset($_POST['plus_code']) && isset($_POST['code']) ) {
+if ( array_key_exists('plus_code', $_POST) && array_key_exists('code', $_POST) ) {
+
+    $_SESSION['geo_json_post'] = array(
+        'code' => $_POST['code'] ?? '',
+        'plus_code' => $_POST['plus_code'] ?? '',
+    );
+
+    // Re-query the API at grading time so we match what the student sees
+    $grade_location = geo_json_assignment_location($code, $USER);
+    $actual = lookup_opengeo($grade_location, $api_url);
+    $actual_place = $actual[1];
+    $actual_url = $actual[3];
+
     $RESULT->setJsonKeys( array(
         'code' => $_POST['code'],
         'plus_code' => $_POST['plus_code'],
         'actual_url' => $actual_url,
-        'actual_place' => $actual_place
+        'actual_place' => $actual_place,
+        'actual_location' => $grade_location
     ));
 
     if ( $_POST['plus_code'] != $actual_place ) {
@@ -56,6 +85,20 @@ if ( isset($_POST['plus_code']) && isset($_POST['code']) ) {
     header('Location: '.addSession('index.php'));
     return;
 }
+
+$post_code = '';
+$post_plus_code = '';
+if ( isset($_SESSION['geo_json_post']) ) {
+    $post_code = $_SESSION['geo_json_post']['code'] ?? '';
+    $post_plus_code = $_SESSION['geo_json_post']['plus_code'] ?? '';
+    unset($_SESSION['geo_json_post']);
+}
+
+// Live API lookup for page display (same endpoint students use)
+$actual = lookup_opengeo($actual_location, $api_url);
+$actual_place = $actual[1];
+$actual_count = $actual[2];
+$actual_url = $actual[3];
 
 // echo($goodsha);
 if ( $RESULT->grade > 0 ) {
@@ -107,7 +150,7 @@ location of "<?= $sample_location ?>" which will have a
 <pre>
 $ python solution.py
 Enter location: <?= $sample_location . "\n" ?>
-Retrieving http://...
+Retrieving <?= deHttps($sample_url) . "\n" ?>
 Retrieved <?= $sample_count ?> characters
 Plus code <?= $sample_plus ?>
 </pre>
@@ -129,8 +172,32 @@ normal Google API.  Your program should work with the Google API - but the
 <b>plus_code</b> may not match for this assignment.
 </p>
 <form method="post">
-plus_code: <input type="text" size="40" name="plus_code">
+<?php if ( $USER->instructor ) { ?>
+<p><b>Instructor:</b> Paste the student's location below to replicate their assignment.
+<?php if ( isset($_SESSION['geo_json_instructor_location']) ) { ?>
+(<a href="<?= addSession('index.php?clear_location=1') ?>">use my location</a>)
+<?php } ?>
+</p>
+Location Override: <input type="text" size="60" name="instructor_location" value="<?= htmlentities($actual_location) ?>"><br/>
+<?php } ?>
+plus_code: <input type="text" size="40" name="plus_code" value="<?= htmlspecialchars($post_plus_code, ENT_QUOTES) ?>">
 <input type="submit" value="Submit Assignment"><br/>
 Python code:<br/>
-<textarea rows="20" style="width: 90%" name="code"></textarea><br/>
+<textarea rows="20" style="width: 90%" name="code"><?= htmlspecialchars($post_code, ENT_QUOTES) ?></textarea><br/>
 </form>
+<?php
+$retrieval_output = "Retrieving ".deHttps($actual_url)."\n"
+    ."Retrieved ".$actual_count." characters\n"
+    ."Plus code ".$actual_place;
+if ( $USER->instructor ) {
+    echo("<pre>\n".htmlspecialchars($retrieval_output)."\n</pre>\n");
+} else {
+    echo("<!--\n".htmlspecialchars($retrieval_output)."\n-->\n");
+}
+?>
+<script>
+console.log(<?= json_encode('py4e opengeo: Easter Egg greetings from Dr. Chuck\'s data server') ?>);
+console.log(<?= json_encode('Retrieving '.deHttps($actual_url)) ?>);
+console.log(<?= json_encode('Retrieved '.$actual_count.' characters') ?>);
+console.log(<?= json_encode('Plus code '.$actual_place) ?>);
+</script>

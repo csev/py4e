@@ -3,82 +3,67 @@
 use \Tsugi\Util\Net;
 use \Tsugi\Util\Mersenne_Twister;
 
-$GEODATA = false;
-$json_data = false;
-if ( file_exists('locations.txt') ) {
-    $json_data = file_get_contents('locations.txt');
-} else if (file_exists('../locations.txt') ) {
-    $json_data = file_get_contents('../locations.txt');
-} else if (file_exists('data/locations.txt') ) {
-    $json_data = file_get_contents('data/locations.txt');
-}
+function get_locations() {
+    static $locations = null;
+    if ( $locations !== null ) return $locations;
 
-$json = null;
-if ( $json_data != false ) {
-    $json = json_decode($json_data, true);
-    if ( is_array($json) && count($json) > 0 ) {
-        // OK
-    } else {
-        $json = null;
+    $paths = array(
+        __DIR__ . '/../locations.inp',
+        'locations.inp',
+        'data/locations.inp',
+    );
+
+    $locations = array();
+    foreach ( $paths as $path ) {
+        if ( ! file_exists($path) ) continue;
+        $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ( ! is_array($lines) ) continue;
+        foreach ( $lines as $line ) {
+            $line = trim($line);
+            if ( strlen($line) > 0 ) $locations[] = $line;
+        }
+        break;
     }
+
+    if ( count($locations) < 1 ) {
+        die("Location list not found - missing locations.inp");
+    }
+
+    $locations = array_unique($locations);
+    sort($locations);
+    return $locations;
 }
 
-if ( $json !== null ) {
-    $LOCATIONS = array_keys($json);
-    $GEODATA = $json;
+function pick_location($code, $index=0) {
+    $locations = get_locations();
+    $MT = new Mersenne_Twister($code);
+    $sample = $MT->shuffle($locations);
+    if ( ! isset($sample[$index]) ) {
+        die("Could not pick location for code=$code index=$index");
+    }
+    return $sample[$index];
 }
 
-$LOCATIONS=array_unique($LOCATIONS);
-sort($LOCATIONS);
+function lookup_opengeo($location, $api_url) {
+    $sample_url = $api_url . '?q=' . urlencode($location) . "&key=42";
+    $sample_data = Net::doGet($sample_url);
+    $sample_count = strlen($sample_data);
+    $response = Net::getLastHttpResponse();
+    $sample_json = json_decode($sample_data);
+    if ( $response != 200 || $sample_json == null || ( !isset($sample_json->features[0])) ||
+        ! isset($sample_json->features[0]->properties) ||
+        ! isset($sample_json->features[0]->properties->plus_code) ) {
+        die("Could not load location=$location response=$response url=$sample_url json_error=".json_last_error_msg());
+    }
+    $sample_place =  $sample_json->features[0]->properties->plus_code;
+    return array($location, $sample_place, $sample_count, $sample_url);
+}
 
-// Need to do this more than once as data changes
 function load_opengeo($code, $api_url) {
-    global $LOCATIONS;
-    $retval = false;
-    $MT = new Mersenne_Twister($code);
-    $sample = $MT->shuffle($LOCATIONS);
     for ($i=0; $i< 2; $i++) {
-        $sample_location = $sample[$i];
-        // Retrieve the data
-        $sample_url = $api_url . '?q=' . urlencode($sample_location) . "&key=42";
-        $sample_data = Net::doGet($sample_url);
-        $sample_count = strlen($sample_data);
-        $response = Net::getLastHttpResponse();
-        $sample_json = json_decode($sample_data);
-        if ( $response != 200 || $sample_json == null || ( !isset($sample_json->features[0])) ||
-            ! isset($sample_json->features[0]->properties) ||
-            ! isset($sample_json->features[0]->properties->plus_code) ) {
-            echo("<pre>\n");echo(htmlentities($sample_data));echo("</pre>\n");
-            error_log("DIE: Load $i fail response=$response url=$sample_url json_error=".json_last_error_msg());
-            continue;
-        }
-        $sample_place =  $sample_json->features[0]->properties->plus_code;
-        return array($sample_location, $sample_place, $sample_count, $sample_url);
+        $sample_location = pick_location($code, $i);
+        $retval = lookup_opengeo($sample_location, $api_url);
+        if ( is_array($retval) ) return $retval;
     }
-    die("Could not load sample response=$response url=$sample_url json_error=".json_last_error_msg());
+    die("Could not load opengeo data for code=$code");
 }
-// Need to do this more than once as data changes
-function load_geo($code, $api_url) {
-    global $LOCATIONS;
-    $retval = false;
-    $MT = new Mersenne_Twister($code);
-    $sample = $MT->shuffle($LOCATIONS);
-    for ($i=0; $i< 10; $i++) {
-        $sample_location = $sample[$i];
-        // Retrieve the data
-        $sample_url = $api_url . '?address=' . urlencode($sample_location) . "&key=42";
-        $sample_data = Net::doGet($sample_url);
-        $sample_count = strlen($sample_data);
-        $response = Net::getLastHttpResponse();
-        $sample_json = json_decode($sample_data);
-        if ( $response != 200 || $sample_json == null || ( !isset($sample_json->results[0])) ||
-            ! isset($sample_json->results[0]->place_id) ) {
-            error_log("DIE: Load $i fail response=$response url=$sample_url json_error=".json_last_error_msg());
-            continue;
-        }
-        $sample_place =  $sample_json->results[0]->place_id;
-        return array($sample_location, $sample_place, $sample_count, $sample_url);
-    }
-    die("Could not load sample response=$response url=$sample_url json_error=".json_last_error_msg());
-}
-

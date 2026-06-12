@@ -24,11 +24,7 @@ $local_path = get_request_document();
 $pos = strpos($local_path,'?');
 if ( $pos > 0 ) $local_path = substr($local_path,0,$pos);
 
-if ( strpos($local_path,"geojson") === 0 ) {
-    require_once("geojson.php");
-    return;
-
-} else if ( strpos($local_path,"xml") === 0 ) {
+if ( strpos($local_path,"xml") === 0 ) {
     require_once("geocode.php");
     return;
 
@@ -303,7 +299,6 @@ Python for Informatics: Exploring Information</a> written by
 <a href="http://www.twitter.com/drchuck" target="_blank">@DrChuck</a> / 
 <a href="http://www.dr-chuck.com/" target="_blank">www.dr-chuck.com</a>.
 <ul>
-<li><a href="geojson" target="_blank">A subset of data from the Google Geo Coding API</a></li>
 <li><a href="regex_sum_42.txt" target=_"blank">Some data in a text file to be summed</a></li>
 <li><a href="comments_42.html" target=_"blank">Some data in an html file to be summed</a></li>
 <li><a href="comments_42.xml" target=_"blank">Some data in an xml file to be summed</a></li>
