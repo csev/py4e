@@ -15,13 +15,6 @@ if ( $CFG->getVhostId() ) {
     }
 }
 
-$buildmenu = $CFG->getVhostSiteFile('buildmenu.php');
-if ( file_exists($buildmenu) ) {
-    require_once $buildmenu;
-    $CFG->defaultmenu = buildMenu();
-    $OUTPUT->topNavSession($CFG->defaultmenu);
-}
-
 // Make PHP paths pretty .../install => install.php
 $router = new Tsugi\Util\FileRouter();
 $file = $router->fileCheck();

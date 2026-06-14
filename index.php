@@ -70,7 +70,7 @@ You can also take this course at:
 <li><a href="https://online.umich.edu/series/python-for-everybody/" target="_blank" rel="noopener noreferrer">Free certificates for University of Michigan students and staff</a></li>
 </ul>
 <p>
-If you <a href="tsugi/login.php">log in</a> to this site
+If you <a href="login">log in</a> to this site
 you have joined a free, global
 open and online course.  You have a grade book, autograded assignments, discussion forums, and can earn
 badges for your efforts.</p>

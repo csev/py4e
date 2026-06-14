@@ -70,3 +70,13 @@ if ( is_array($CFG->getExtension('stripe')) ) {
   ));
 }
 
+$CFG->top_menu_callback = function() {
+    global $CFG;
+    $buildmenu = $CFG->getVhostSiteFile('buildmenu.php');
+    if ( ! is_string($buildmenu) || ! file_exists($buildmenu) ) {
+        return false;
+    }
+    require_once $buildmenu;
+    return buildMenu();
+};
+
