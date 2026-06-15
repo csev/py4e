@@ -8,6 +8,7 @@ use \Tsugi\Core\LTIX;
 use \Tsugi\UI\Output;
 use \Tsugi\UI\Pages;
 
+require_once "sanity.php";
 require_once "top.php";
 
 if ( $CFG->requireVhostVariant('home.php') ) {
