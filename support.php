@@ -79,10 +79,12 @@ In return, you receive <?= htmlspecialchars($premium_period) ?> of supporter sta
 </p>
 </div>
 
+<?php /*
 <div class="support-video-placeholder" id="support-video">
 <p><strong>Video coming soon</strong></p>
 <p>We will add a short message here about what your support makes possible.</p>
 </div>
+*/ ?>
 
 <h2>Become a supporter</h2>
 <p>
