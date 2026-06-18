@@ -61,14 +61,13 @@ $CFG->youtube_url = $CFG->apphome . '/mod/youtube/';
 $CFG->tdiscus = $CFG->wwwroot . '/tool/tdiscus/';
 $CFG->google_login_redirect = $CFG->apphome . "/login";
 
-if ( is_array($CFG->getExtension('stripe')) ) {
-  $CFG->setExtension('premium', array(
-      'supporter_url' => $CFG->apphome . '/support',
-      'price' => '$15.00 USD',
-      'premium_months' => 12,
-      'refund_policy' => 'There are no refunds.',
-  ));
-}
+$CFG->setExtension('premium', array(
+   'supporter_url' => $CFG->apphome . '/support',
+   'price' => '$15.00 USD',
+   'premium_months' => 12,
+   'refund_policy' => 'There are no refunds.',
+   'premium_provider' => 'stripe'
+));
 
 $CFG->top_menu_callback = function() {
     global $CFG;
