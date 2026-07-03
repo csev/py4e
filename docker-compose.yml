@@ -39,6 +39,8 @@ services:
       # For localhost. On Dokploy this is ignored in favour of Traefik routing,
       # but harmless to leave. Change the left side to remap the host port.
       - "${PY4E_HTTP_PORT:-8080}:80"
+    networks:
+      - py4e
 
   db:
     image: mysql:8.0
@@ -56,6 +58,17 @@ services:
       interval: 5s
       timeout: 5s
       retries: 20
+    networks:
+      - py4e
 
 volumes:
   db_data:
+
+# Pin both services to one explicit bridge network so the `web` container can
+# always resolve `db` by name. Without this, some environments (notably Dokploy,
+# which runs its own dokploy-network) can place the services on different
+# networks, breaking DNS with:
+#   getaddrinfo for db failed: Name or service not known
+networks:
+  py4e:
+    driver: bridge

@@ -101,3 +101,34 @@ on first boot, then appends overrides that read these environment variables:
 
 To regenerate `config.php` (e.g. after changing vars), the file lives inside the
 container; the simplest reset is `docker compose up --build --force-recreate`.
+
+---
+
+## Troubleshooting
+
+### `getaddrinfo for db failed: Name or service not known`
+
+The `web` container can't resolve the `db` hostname over the Docker network. The
+DB config is correct — this is a networking problem. Two causes:
+
+1. **The `db` container isn't running** (crashed on boot, or only `web` was
+   deployed). Check it:
+
+   ```bash
+   docker compose ps                 # is db Up / healthy?
+   docker compose logs db --tail=50  # why it failed, if not
+   ```
+
+   Stale credentials in the `db_data` volume are a common crash cause after
+   changing `MYSQL_*` vars. Reset (⚠️ wipes the database):
+   `docker compose down -v && docker compose up --build`.
+
+2. **`web` and `db` are on different networks** — seen on Dokploy, which runs its
+   own `dokploy-network`. The `networks: [py4e]` block in `docker-compose.yml`
+   pins both services to one bridge so `db` always resolves. Confirm both share
+   it:
+
+   ```bash
+   docker inspect -f '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}' <web-container>
+   docker inspect -f '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}' <db-container>
+   ```
