@@ -1,0 +1,61 @@
+# PY4E — Docker Compose
+#
+# Localhost:
+#   docker compose up --build
+#   open http://localhost:8080  (admin console: http://localhost:8080/tsugi/admin)
+#
+# Dokploy (VPS):
+#   Create a "Compose" service, point it at this file. Dokploy's Traefik proxy
+#   terminates TLS and routes your domain to the `web` service on port 80, so you
+#   normally do NOT publish ports there — see the notes at the bottom.
+#
+# All secrets come from a .env file (see .env.example). Override PY4E_APPHOME to
+# your real domain on the VPS, e.g. https://py4e.example.com
+#
+services:
+  web:
+    build:
+      context: .
+      args:
+        TSUGI_REF: ${TSUGI_REF:-master}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PY4E_APPHOME: ${PY4E_APPHOME:-http://localhost:8080}
+      PY4E_WWWROOT: ${PY4E_WWWROOT:-}
+      PY4E_STATICROOT: ${PY4E_STATICROOT:-https://static.tsugi.org}
+      PY4E_DB_HOST: db
+      PY4E_DB_PORT: "3306"
+      PY4E_DB_NAME: ${MYSQL_DATABASE:-tsugi}
+      PY4E_DB_USER: ${MYSQL_USER:-ltiuser}
+      PY4E_DB_PASS: ${MYSQL_PASSWORD:-ltipassword}
+      PY4E_ADMIN_PW: ${PY4E_ADMIN_PW:-admin}
+      PY4E_GOOGLE_CLIENT_ID: ${PY4E_GOOGLE_CLIENT_ID:-}
+      PY4E_GOOGLE_CLIENT_SECRET: ${PY4E_GOOGLE_CLIENT_SECRET:-}
+      PY4E_GOOGLE_MAP_API_KEY: ${PY4E_GOOGLE_MAP_API_KEY:-}
+    ports:
+      # For localhost. On Dokploy this is ignored in favour of Traefik routing,
+      # but harmless to leave. Change the left side to remap the host port.
+      - "${PY4E_HTTP_PORT:-8080}:80"
+
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-tsugi}
+      MYSQL_USER: ${MYSQL_USER:-ltiuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ltipassword}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD:-rootpassword}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  db_data:
