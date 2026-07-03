@@ -21,7 +21,9 @@
 
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options nosniff
-    Header always set X-Frame-Options DENY
+    # SAMEORIGIN (not DENY) so the site's own Lessons pages can embed the
+    # lecture slides (PDF viewer) inline while still blocking other origins.
+    Header always set X-Frame-Options SAMEORIGIN
     Header always set X-XSS-Protection "1; mode=block"
 </IfModule>
 

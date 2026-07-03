@@ -1,0 +1,148 @@
+/*
+ * lessons-embed.css — inline video + slide viewing on the Lessons pages.
+ *
+ * Progressive enhancement layered on top of Tsugi's lessons markup
+ * (li.tsugi-lessons-module-video / li.tsugi-lessons-module-slide). Loaded via
+ * the "headers" hook in lessons.json; the behavior lives in lessons-embed.js.
+ */
+
+/* ---- Videos ---------------------------------------------------------- */
+
+.py4e-embed-video {
+    margin: .35em 0 .6em 0;
+    max-width: 640px;
+}
+
+/* Click-to-play poster: looks like a video, loads nothing from YouTube
+   until the visitor actually clicks it. */
+.py4e-embed-facade {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: #1a1a1a center/cover no-repeat;
+    cursor: pointer;
+    color: #fff;
+    text-align: left;
+}
+
+.py4e-embed-facade:focus-visible {
+    outline: 3px solid #4a90d9;
+    outline-offset: 2px;
+}
+
+/* Gradient scrim so the title stays readable over any thumbnail. */
+.py4e-embed-facade::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,.75) 100%);
+}
+
+.py4e-embed-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(0,0,0,.6);
+    transition: background .15s ease;
+    z-index: 1;
+}
+.py4e-embed-facade:hover .py4e-embed-play,
+.py4e-embed-facade:focus-visible .py4e-embed-play {
+    background: #f00;
+}
+/* Play triangle */
+.py4e-embed-play::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -50%);
+    border-style: solid;
+    border-width: 11px 0 11px 19px;
+    border-color: transparent transparent transparent #fff;
+}
+
+.py4e-embed-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    padding: 8px 12px;
+    font-size: .92em;
+    line-height: 1.3;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0,0,0,.6);
+}
+
+/* The live 16:9 iframe once playing. */
+.py4e-embed-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+}
+.py4e-embed-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.py4e-embed-fallback {
+    display: block;
+    margin-top: .25em;
+    font-size: .82em;
+}
+
+/* ---- Slides (PDF) ---------------------------------------------------- */
+
+.py4e-embed-toggle {
+    margin-left: .5em;
+    padding: .05em .55em;
+    font-size: .82em;
+    line-height: 1.6;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    background: #f4f4f4;
+    color: #333;
+    cursor: pointer;
+    vertical-align: baseline;
+}
+.py4e-embed-toggle:hover {
+    background: #e8e8e8;
+}
+.py4e-embed-toggle[aria-expanded="true"] {
+    background: #e2ecf7;
+    border-color: #9cbfe0;
+}
+
+.py4e-embed-pdf {
+    margin: .5em 0 .8em 0;
+    width: 100%;
+    max-width: none;
+    height: 88vh;
+    min-height: 640px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #f7f7f7;
+    resize: vertical;
+    overflow: hidden;
+}
+.py4e-embed-pdf iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
