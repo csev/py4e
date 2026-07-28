@@ -235,6 +235,17 @@ body { font-family: sans-serif; }
 #forminput .btn.btn-sparkle:hover img {
     filter: brightness(1.08);
 }
+/* Fallback if Bootstrap .sr-only is unavailable */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
 </style>
 <link href="static/splitter/jquery.splitter.css" rel="stylesheet"/>
 <?php if ( $codemirror ) { ?>
@@ -314,9 +325,53 @@ function load_files() {
     window.SPLIT_1 = false;
     window.SPLIT_2 = false;
     window.MOBILE = false;
+    window.INFO_FOCUS_RETURN = null;
 
     if (typeof console == "undefined") {
         console = {log: function() {}};
+    }
+
+    // Screen-reader announcements: display:none toggles are not reliably spoken,
+    // so we mirror status into a dedicated aria-live region.
+    function announceStatus(msg) {
+        var el = document.getElementById("a11y-status");
+        if ( !el ) return;
+        el.textContent = "";
+        // Clear-then-set so repeated identical messages are still announced.
+        setTimeout(function() {
+            el.textContent = msg || "";
+        }, 50);
+    }
+
+    function getOutputPlainText() {
+        var output = document.getElementById("output");
+        if ( !output ) return "";
+        var text = output.innerText || output.textContent || "";
+        return text.replace(/\s+/g, " ").trim();
+    }
+
+    function getOutputSummary(maxLen) {
+        var text = getOutputPlainText();
+        if ( !text ) return "Your output is empty.";
+        maxLen = maxLen || 280;
+        if ( text.length > maxLen ) {
+            text = text.substring(0, maxLen) + "…";
+        }
+        return "Your output updated. " + text;
+    }
+
+    function announceOutputUpdated() {
+        announceStatus(getOutputSummary());
+    }
+
+    function setOutputBusy(busy) {
+        var output = document.getElementById("output");
+        if ( !output ) return;
+        if ( busy ) {
+            output.setAttribute("aria-busy", "true");
+        } else {
+            output.removeAttribute("aria-busy");
+        }
     }
 
     function hideall() {
@@ -342,6 +397,7 @@ function load_files() {
         if ( window.GLOBAL_TIMER != false ) window.clearInterval(window.GLOBAL_TIMER);
         window.GLOBAL_TIMER = false;
         hideall();
+        setOutputBusy(false);
         var output = document.getElementById("output");
         oldtext = output.innerHTML;
         if ( oldtext.trim().length < 1 ) {
@@ -381,8 +437,10 @@ function load_files() {
         if ( window.GLOBAL_ERROR ) {
 <?php if ( $EX !== false ) { ?>
             $("#redo").show();
+            announceStatus("Please correct your code and re-run. " + getOutputSummary());
 <?php } else { ?>
             $("#complete").show();
+            announceStatus("Execution complete. " + getOutputSummary());
 <?php } ?>
         } else {
             $("#check").show();
@@ -481,9 +539,12 @@ function outf(text) {
         window.console && console.log(prog);
         if ( prog.length < 1 ) {
             alert("You do not have any Python code");
+            announceStatus("You do not have any Python code.");
             return false;
         }
         $("#spinner").show();
+        setOutputBusy(true);
+        announceStatus("Checking code.");
 
 <?php if ( $RESULT->id ) { ?>
         if ( ! sendCodeFail ) {
@@ -529,6 +590,7 @@ function outf(text) {
             var module = Sk.importMainWithBody("<stdin>", false, prog);
         } catch (e) {
             $("#spinner").hide();
+            setOutputBusy(false);
             var f = e + ''; // Convert to a string.
             if ( f.startsWith('SystemExit') ) return true;
             if ( window.GLOBAL_TIMER != false ) window.clearInterval(window.GLOBAL_TIMER);
@@ -536,6 +598,7 @@ function outf(text) {
             window.GLOBAL_ERROR = true;
             hideall();
             $("#redo").show();
+            announceStatus("Error running code. " + f);
             alert(e);
         }
         return false;
@@ -578,14 +641,17 @@ function outf(text) {
             if ( data.status == "success") {
                 $("#gradegood").show();
                 $('#curgrade').text('1');
+                announceStatus("Grade updated on server. " + getOutputSummary());
             } else {
                 $("#gradebad").show();
+                announceStatus("Error storing grade on server.");
             }
         }).error( function(data) {;
             window.console && console.log("Grade response received...");
             window.console && console.log(data);
             $("#spinner").hide();
             $("#gradebad").show();
+            announceStatus("Error storing grade on server.");
         });
         return false;
     }
@@ -645,6 +711,79 @@ if(typeof String.prototype.trimRight !== 'function') {
     }
 <?php } ?>
 
+    function getFocusableIn(container) {
+        if ( !container ) return [];
+        var nodes = container.querySelectorAll(
+            'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        var list = [];
+        for ( var i = 0; i < nodes.length; i++ ) {
+            if ( nodes[i].getClientRects().length > 0 ) {
+                list.push(nodes[i]);
+            }
+        }
+        return list;
+    }
+
+    function trapModalFocus(e, modal) {
+        if ( e.keyCode !== 9 ) return; // Tab
+        var focusable = getFocusableIn(modal);
+        if ( !focusable.length ) {
+            e.preventDefault();
+            return;
+        }
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if ( e.shiftKey ) {
+            if ( document.activeElement === first || !modal.contains(document.activeElement) ) {
+                e.preventDefault();
+                last.focus();
+            }
+        } else if ( document.activeElement === last ) {
+            e.preventDefault();
+            first.focus();
+        }
+    }
+
+    function openInfoDialog() {
+        window.INFO_FOCUS_RETURN = document.getElementById('info-button') || document.activeElement;
+        $('#info').modal('show');
+        return false;
+    }
+
+    function initAccessibleModals() {
+        var $info = $('#info');
+        if ( $info.length ) {
+            $info.on('shown.bs.modal', function () {
+                var closeBtn = this.querySelector('.close');
+                if ( closeBtn ) closeBtn.focus();
+            });
+            $info.on('hidden.bs.modal', function () {
+                var ret = window.INFO_FOCUS_RETURN || document.getElementById('info-button');
+                if ( ret && typeof ret.focus === 'function' ) ret.focus();
+                window.INFO_FOCUS_RETURN = null;
+            });
+            $info.on('keydown', function (e) {
+                trapModalFocus(e, this);
+            });
+        }
+
+        var $parsons = $('#parsons-hint');
+        if ( $parsons.length ) {
+            $parsons.on('shown.bs.modal', function () {
+                var closeBtn = this.querySelector('.close');
+                if ( closeBtn ) closeBtn.focus();
+            });
+            $parsons.on('hidden.bs.modal', function () {
+                var ret = document.getElementById('parsons-hint-button');
+                if ( ret && typeof ret.focus === 'function' ) ret.focus();
+            });
+            $parsons.on('keydown', function (e) {
+                trapModalFocus(e, this);
+            });
+        }
+    }
+
 </script>
 <style>
 pre {
@@ -659,6 +798,7 @@ font-size: 14px;
 <?php
 $OUTPUT->bodyStart();
 $OUTPUT->topNav($menu);
+$OUTPUT->flashMessages();
 
 if ( $USER->instructor ) {
     SettingsForm::start();
@@ -670,12 +810,12 @@ if ( $USER->instructor ) {
 } // end isInstructor() 
 ?>
 
-<div class="modal fade" id="info">
-  <div class="modal-dialog">
+<div class="modal fade" id="info" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="info-title">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="info-title">
 <?php
 if ( isset($LINK->title) ) {
     echo(htmlentities($LINK->title));
@@ -684,7 +824,7 @@ if ( isset($LINK->title) ) {
 }
 ?></h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="info-body">
 <?php if ( $EX === false ) { ?>
         <p>This is an open-ended space for you to write and execute Python programs.
         This page does not check our output and it does not send a grade back.  It is
@@ -745,12 +885,12 @@ if ( isset($LINK->title) ) {
 </div><!-- /.modal -->
 
 <?php if ( $XCODE !== false ) { ?>
-<div class="modal fade" id="parsons-hint">
-  <div class="modal-dialog modal-lg">
+<div class="modal fade" id="parsons-hint" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="parsons-hint-title">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Code Fragments</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="parsons-hint-title">Code Fragments</h4>
       </div>
       <div class="modal-body">
         <p>These code fragments are <b>out of order</b>.
@@ -790,23 +930,24 @@ if ( $dueDate->message ) {
     if ( strlen($CODE) > 0 ) {
         echo('<button onclick="resetcode()" class="btn btn-default" type="button">Reset Code</button> ');
     }
-    echo('<button onclick="$(\'#info\').modal();return false;" class="btn btn-default" type="button"><span class="glyphicon glyphicon-info-sign"></span></button> '."\n");
+    echo('<button id="info-button" onclick="return openInfoDialog();" class="btn btn-default" type="button" aria-label="About this autograder" title="About this autograder"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></button> '."\n");
     if ( $XCODE !== false ) {
-        echo('<button onclick="return showParsonsHint();" class="btn btn-sparkle" type="button" title="Study code fragments">'."\n");
-        echo('<img src="static/sparkle.png" alt="">'."\n");
+        echo('<button id="parsons-hint-button" onclick="return showParsonsHint();" class="btn btn-sparkle" type="button" title="Study code fragments" aria-label="Study code fragments">'."\n");
+        echo('<img src="static/sparkle.png" alt="" aria-hidden="true">'."\n");
         echo('</button> '."\n");
     }
 ?>
-<img id="spinner" src="static/spinner.gif" alt="" style="vertical-align: middle;display: none">
-<span id="redo" style="color:red;display:none"> Please correct your code and re-run. </span>
-<span id="complete" style="color:green;display:none"> Execution complete. </span>
-<span id="gradegood" style="color:green;display:none"> Grade updated on server. </span>
-<span id="gradelow" style="color:green;display:none"> Grade updated on server. </span>
-<span id="gradebad" style="color:red;display:none"> Error storing grade on server. </span>
+<img id="spinner" src="static/spinner.gif" alt="" aria-hidden="true" style="vertical-align: middle;display: none">
+<div id="a11y-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+<span id="redo" style="color:red;display:none" aria-hidden="true"> Please correct your code and re-run. </span>
+<span id="complete" style="color:green;display:none" aria-hidden="true"> Execution complete. </span>
+<span id="gradegood" style="color:green;display:none" aria-hidden="true"> Grade updated on server. </span>
+<span id="gradelow" style="color:green;display:none" aria-hidden="true"> Grade updated on server. </span>
+<span id="gradebad" style="color:red;display:none" aria-hidden="true"> Error storing grade on server. </span>
 <br/>
 &nbsp;<br/>
 <div id="textarea" class="inputarea">
-<textarea id="code" style="width:100%; height: 100%; font-family:Courier,fixed;font-size:16px;color:blue;">
+<textarea id="code" aria-label="Python code editor" style="width:100%; height: 100%; font-family:Courier,fixed;font-size:16px;color:blue;">
 <?php
 if ( $OLDCODE !== false ) {
     echo(htmlentities($OLDCODE));
@@ -819,14 +960,13 @@ if ( $OLDCODE !== false ) {
 </div>
 <div id="outputs">
 <div id="left">
-<b>Your Output</b>
-<pre id="output" class="inputarea"></pre>
-</pre>
+<b id="your-output-label">Your Output</b>
+<pre id="output" class="inputarea" role="region" aria-labelledby="your-output-label" tabindex="0"></pre>
 </div>
 <?php if ( $EX !== false ) { ?>
 <div id="right">
-<b>Desired Output</b>
-<pre id="desired" class="inputarea"><?php echo($DESIRED); echo("\n"); ?></pre>
+<b id="desired-output-label">Desired Output</b>
+<pre id="desired" class="inputarea" role="region" aria-labelledby="desired-output-label" tabindex="0"><?php echo($DESIRED); echo("\n"); ?></pre>
 <span id="desired2" style="display:none"><?php echo($DESIRED2); echo("\n"); ?></span>
 </div>
 <?php } ?>
@@ -914,6 +1054,7 @@ function load_cm() {
     if ( typeof initParsonsHintGuards === 'function' ) {
         initParsonsHintGuards();
     }
+    initAccessibleModals();
     // I cannot make this reliable :(
     $(window).resize(function () { compute_divs(); });
     window.MOBILE = $(window).width() <= 480;
@@ -926,6 +1067,7 @@ function load_cm() {
             setTimeout('compute_divs();', 1200);
         }
     })
+    window.INFO_FOCUS_RETURN = document.getElementById('info-button');
     $('#info').modal();
 <?php } ?>
     load_files();
