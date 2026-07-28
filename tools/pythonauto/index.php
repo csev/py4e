@@ -37,7 +37,7 @@ if ( isset($_GET['editor']) && ( $_GET['editor'] == '1' || $_GET['editor'] == '0
         $editor = $neweditor;
     }
 }
-$codemirror = $editor == 1;
+$ace_editor = $editor == 1;
 
 require_once "exercises3.php";
 
@@ -246,12 +246,36 @@ body { font-family: sans-serif; }
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
+#textarea {
+    position: relative;
+}
+#ace-host {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+/* Hide the sync textarea from visual/contrast checks while Ace is active.
+   display:none keeps .value readable for Check Code / grading. */
+textarea.ace-backed {
+    display: none !important;
+}
+#code {
+    color: #000;
+    background-color: #fff;
+}
+.ace_editor {
+    font-size: 16px;
+}
 </style>
 <link href="static/splitter/jquery.splitter.css" rel="stylesheet"/>
-<?php if ( $codemirror ) { ?>
-<link href="static/codemirror/codemirror.css" rel="stylesheet"/>
-<script type="text/javascript" src="static/codemirror/codemirror.js"></script>
-<script type="text/javascript" src="static/codemirror/python.js"></script>
+<?php if ( $ace_editor ) { ?>
+<script type="text/javascript" src="static/ace/ace.js"></script>
+<script type="text/javascript" src="static/ace/mode-python.js"></script>
+<script type="text/javascript" src="static/ace/theme-chrome.js"></script>
 <?php } ?>
 <!--
 <script src="static/skulpt-004/skulpt.min.js?v=1" type="text/javascript"></script>
@@ -321,7 +345,7 @@ function load_files() {
 
     window.GLOBAL_ERROR = true;
     window.GLOBAL_TIMER = false;
-    window.CM_EDITOR = false;
+    window.ACE_EDITOR = false;
     window.SPLIT_1 = false;
     window.SPLIT_2 = false;
     window.MOBILE = false;
@@ -533,7 +557,7 @@ function outf(text) {
     function runit()
     {
         hideall();
-        if ( window.CM_EDITOR !== false ) window.CM_EDITOR.save();
+        if ( window.ACE_EDITOR !== false ) ace_save();
         var prog = document.getElementById("code").value;
         window.console && console.log('code');
         window.console && console.log(prog);
@@ -606,10 +630,9 @@ function outf(text) {
 
     function resetcode() {
         if ( ! confirm("Are you sure you want to reset the code area to the original sample code?") ) return;
-        if ( window.CM_EDITOR !== false ) window.CM_EDITOR.toTextArea();
-        window.CM_EDITOR = false;
+        if ( window.ACE_EDITOR !== false ) ace_destroy();
         document.getElementById("code").value = document.getElementById("resetcode").value;
-        if ( window.MOBILE === false ) load_cm();
+        if ( window.MOBILE === false ) load_ace();
     }
 
     function gradeit() {
@@ -621,7 +644,7 @@ function outf(text) {
         if ( oldgrade > grade ) grade = oldgrade;  // Never go down
         window.console && console.log("Sending grade="+grade);
 
-        if ( window.CM_EDITOR !== false ) window.CM_EDITOR.save();
+        if ( window.ACE_EDITOR !== false ) ace_save();
         var code = document.getElementById("code").value;
         var toSend = { grade : grade, code : code };
 
@@ -808,14 +831,22 @@ if ( $USER->instructor ) {
     SettingsForm::end();
 
 } // end isInstructor() 
+
+$page_heading = 'Python Autograder';
+if ( isset($LINK->title) && strlen($LINK->title) > 0 ) {
+    $page_heading = $LINK->title;
+} else if ( $EX === false ) {
+    $page_heading = 'Python Playground';
+}
 ?>
+<h1 class="sr-only"><?php echo(htmlentities($page_heading)); ?></h1>
 
 <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="info-title">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="info-title">
+        <h2 class="modal-title" id="info-title">
 <?php
 if ( isset($LINK->title) ) {
     echo(htmlentities($LINK->title));
@@ -890,7 +921,7 @@ if ( isset($LINK->title) ) {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="parsons-hint-title">Code Fragments</h4>
+        <h2 class="modal-title" id="parsons-hint-title">Code Fragments</h2>
       </div>
       <div class="modal-body">
         <p>These code fragments are <b>out of order</b>.
@@ -947,7 +978,7 @@ if ( $dueDate->message ) {
 <br/>
 &nbsp;<br/>
 <div id="textarea" class="inputarea">
-<textarea id="code" aria-label="Python code editor" style="width:100%; height: 100%; font-family:Courier,fixed;font-size:16px;color:blue;">
+<textarea id="code" aria-label="Python code editor" style="width:100%; height: 100%; font-family:Courier,fixed;font-size:16px;">
 <?php
 if ( $OLDCODE !== false ) {
     echo(htmlentities($OLDCODE));
@@ -977,7 +1008,7 @@ if ( $OLDCODE !== false ) {
 <div id="footer" style="text-align: center">
 Setting:
 <?php
-    if ( $codemirror ) {
+    if ( $ace_editor ) {
         $editurl = reconstruct_query('index.php',array("editor" => 0));
         $textval = "Hide editor";
     } else {
@@ -987,10 +1018,10 @@ Setting:
     echo('<a href="'.$editurl.'">'.$textval.'</a>');
 ?>
 This software is based on <a href="http://skulpt.org/" target="_blank">Skulpt</a>
-and <a href="http://codemirror.net/" target="_blank">CodeMirror</a>.
+and <a href="https://ace.c9.io/" target="_blank">Ace</a>.
 The source code for this auto-grader is available on
 <a href="https://github.com/csev/tsugi" target="_blank">on GitHub</a>.
-<textarea id="resetcode" cols="80" style="display:none">
+<textarea id="resetcode" cols="80" style="display:none" aria-hidden="true" tabindex="-1" readonly aria-label="Original sample code used by Reset Code">
 <?php   echo(htmlentities($CODE)); ?>
 </textarea>
 <?php
@@ -1020,10 +1051,22 @@ function compute_divs() {
 <?php } ?>
 
     if ( window.SPLIT_1 == false ) {
-        window.SPLIT_1 = $('#overall').split({orientation:'vertical', limit:100});
+        window.SPLIT_1 = $('#overall').split({
+            orientation:'vertical',
+            limit:100,
+            onDrag: function () {
+                if ( window.ACE_EDITOR !== false ) window.ACE_EDITOR.resize();
+            }
+        });
         window.console && console.log(window.SPLIT_1);
 <?php if ( $EX !== false ) { ?>
-        window.SPLIT_2 = $('#outputs').split({orientation:'horizontal', limit:100});
+        window.SPLIT_2 = $('#outputs').split({
+            orientation:'horizontal',
+            limit:100,
+            onDrag: function () {
+                if ( window.ACE_EDITOR !== false ) window.ACE_EDITOR.resize();
+            }
+        });
 <?php } ?>
     } else {
         window.SPLIT_1.position('50%');
@@ -1032,22 +1075,91 @@ function compute_divs() {
 <?php } ?>
     }
     window.console && console.log('avail='+$avail+' favail='+$favail);
+    if ( window.ACE_EDITOR !== false ) {
+        window.ACE_EDITOR.resize();
+    }
 }
 
-<?php if ( $codemirror ) { ?>
-// Setup Codemirror
-function load_cm() {
-    window.CM_EDITOR = CodeMirror.fromTextArea(document.getElementById("code"),
-    {
-        mode: {name: "python",
-        version: 2,
-        singleLineStringErrors: false},
-        lineNumbers: true,
-        indentUnit: 4,
-        matchBrackets: true
-    });
-    window.CM_EDITOR.setSize('100%', '100%');
+<?php if ( $ace_editor ) { ?>
+function ace_save() {
+    if ( window.ACE_EDITOR === false ) return;
+    document.getElementById("code").value = window.ACE_EDITOR.getValue();
 }
+
+function ace_destroy() {
+    if ( window.ACE_EDITOR === false ) return;
+    ace_save();
+    window.ACE_EDITOR.destroy();
+    var host = document.getElementById("ace-host");
+    if ( host && host.parentNode ) {
+        host.parentNode.removeChild(host);
+    }
+    window.ACE_EDITOR = false;
+    var ta = document.getElementById("code");
+    if ( ta ) {
+        ta.classList.remove("ace-backed");
+        ta.removeAttribute("aria-hidden");
+        ta.removeAttribute("tabindex");
+    }
+}
+
+function load_ace() {
+    if ( typeof ace === "undefined" ) return;
+    if ( window.ACE_EDITOR !== false ) return;
+    var ta = document.getElementById("code");
+    if ( !ta ) return;
+    var parent = document.getElementById("textarea");
+    if ( !parent ) return;
+
+    var host = document.getElementById("ace-host");
+    if ( !host ) {
+        host = document.createElement("div");
+        host.id = "ace-host";
+        host.setAttribute("role", "presentation");
+        parent.insertBefore(host, ta);
+    }
+
+    ta.classList.add("ace-backed");
+    ta.setAttribute("aria-hidden", "true");
+    ta.setAttribute("tabindex", "-1");
+
+    ace.config.set("basePath", "static/ace");
+    var editor = ace.edit(host);
+    editor.setTheme("ace/theme/chrome");
+    editor.session.setMode("ace/mode/python");
+    editor.setShowPrintMargin(false);
+    editor.session.setTabSize(4);
+    editor.session.setUseSoftTabs(true);
+    editor.session.setUseWorker(false);
+    editor.setOptions({
+        fontSize: "16px",
+        fontFamily: "Courier,monospace",
+        showLineNumbers: true,
+        highlightActiveLine: true,
+        behavioursEnabled: true,
+        wrap: false
+    });
+    editor.setValue(ta.value || "", -1);
+    editor.clearSelection();
+    editor.gotoLine(1, 0, false);
+
+    // Ace's input textarea — better SR target than the backed-off source textarea
+    try {
+        var aceInput = editor.textInput && editor.textInput.getElement
+            ? editor.textInput.getElement()
+            : null;
+        if ( aceInput ) {
+            aceInput.setAttribute("aria-label", "Python code editor");
+        }
+    } catch (e) {}
+
+    window.ACE_EDITOR = editor;
+    editor.resize();
+}
+<?php } else { ?>
+function ace_save() {}
+function ace_destroy() {}
+function load_ace() {}
 <?php } ?>
 
  $().ready(function(){
@@ -1072,8 +1184,8 @@ function load_cm() {
 <?php } ?>
     load_files();
     if ( MOBILE === false ) {
-<?php if ( $codemirror ) { ?>
-        load_cm();
+<?php if ( $ace_editor ) { ?>
+        load_ace();
 <?php } ?>
         compute_divs();
         setTimeout('compute_divs();', 1200);
