@@ -1,0 +1,118 @@
+ So now we're gonna talk to you about one of the common applications of dictionaries and that is making histograms.
+ It's counting the frequency of things. And so if you think of a histogram as, you know,
+ it's a little graph and there is, you know,
+ how many A's, how many B's, and how many C's, and there's a histogram that says,
+ oh, there's this many of that and this many of that, and these are like buckets,
+ these are frequencies, and this is how many times it happens. So a histogram.
+ But we're gonna do this thing where we're gonna count people's names and we're gonna kind of count
+ how many that we see. But the interesting thing that we're gonna solve,
+ just like many of the things in the computer, is we can't just sort of look at the data.
+ We've got to look at the data iteratively, one piece of data at a time.
+ So I'm gonna give you a little problem, okay?
+ I'm gonna show you a series of names, one at a time, and I want you to count for each name,
+ make a little bucket, and then keep counting how many things for each of the different names, okay?
+ You'll notice that you have to start with one and then you move across.
+ So just watch this, and tell me how many,
+ what's the most common name of the set of names I'm about to show you,
+ and how many do we see.
+ So how many, what was the most common name and how many times did you see it?
+ That's the question. Now here comes the reveal.
+ So for humans, it's so much easier for you to just look at this, and you think how did my brain look at that?
+ And you're like, okay, what is pretty common, oh, maybe, maybe Chen is common, oh, Chen, Chen, Chen, no.
+ Maybe Zhen is common, one, two, three, four, yeah, that, anybody else, Marquardt's got three, C7,
+ and so you'll notice how our minds, without computers, we just sort of like bounce, branch and bound.
+ We have hypotheses, and then we decide, yep, it's Zhen, that's it, and there's four of them.
+ Now, how did your brain think about this as we were going through them one at a time?
+ Well, my guess is if you really had to do this a lot, you would make a little picture like this.
+ And then what you would do is if you saw a new name, you know, XYZ, you'd add it to the list and give it a tick mark of one,
+ and then if you saw like C7 again, you'd give that a tick mark,
+ and if you saw XYZ again, you'd make a tick mark, and then you'd make, you'd keep adding to these tick marks, right?
+ And that's how you would do it, and you wouldn't, like many of the things we do in a loop,
+ you wouldn't really know what the most common was, one, until the end.
+ And then you'd sort of take a look at these numbers, and you'd say, okay, that's the most, most common number,
+ and then you'd, you'd be done.
+ But you have to watch them one at a time, you can't just bounce around.
+ And so that's how we're going to use dictionaries to achieve that.
+ Again, instinctively as humans, we just look at the stuff.
+ But if you add a million things, you probably want to write a Python program and use dictionaries.
+ And so this is the idea, and there's two basic things that happen.
+ One is the first time you see a name, you've got to say, is this name there already?
+ If it's there already, you really just want to add one to it, right?
+ That's the adding of a tick.
+ Or you want to see for the first time, you know, blah, blah, blah, blah, blah, and give it a one.
+ You can use the name as the key, and then one is the value.
+ And then first time you see Chen, you stick one in there.
+ And so at this point, inside the dictionary, sort of dynamically adding, as soon as it sees a new name,
+ it adds another slot in here.
+ But then if you see the same name again, like Chen again, then you end up with a one, add one to it,
+ and so it's two, and so at that point, Chen is two.
+ And so you can see how you can both extend the dictionary by encountering a new name,
+ or adding when you see a name that you've already seen before.
+ The problem with dictionaries is, like everything in Python,
+ there are rules about what you can and can't do.
+ And one of the, I think, kind of frustrating things about dictionaries is that
+ you can't just look for a key that doesn't exist.
+ So this is a fresh brand new dictionary, we do a constructor there,
+ and we print out some CSEV, and boom, it blows up, and that's bad.
+ But we can solve this by the in operator, the in operator we've used in the for loop.
+ We've used it in lists, we've used it in strings.
+ So that is a question, it's saying, is CSEV in CCC?
+ Well, this is this empty one, and so it is, no, it is not, CSEV is not in CCC.
+ And so using this in operator, we can avoid the trace back.
+ We can say, if it's not there, put it in.
+ If it is there, add one to it.
+ And that leads us to this bit of code.
+ Okay, and that is the kind of code that we're going to build, this is going to histogram code, okay?
+ And so this is going to have name as our iterator names.
+ Sorry, I made them singular and plural, that's nice.
+ So name is going to be CSEV Chen, CSEV Zhen.
+ Now normally we'll be reading this from a file, but for now we'll keep it easy.
+ We're going to go through this.
+ And we're going to have counts as our dictionary, so that starts out empty.
+ And we're going to do a simple if then else every time through the loop.
+ If the name we're looking at is not in the dictionary already, is the key, then set it to be one.
+ If it's not, go get the old value, count sub name, and then add one to it and stick it back in.
+ So this is, this line right here is new, adding a new thing.
+ And this line right here is adding some things to existing things.
+ And you do this long enough, you start with an empty one, and you do this long enough.
+ At the very end, it will print out the histogram that you're looking for, the histogram you're looking for.
+ And so you say, oh, we've seen CSEV twice, Zhen once, and Chen twice.
+ And so that's the idea, and so this can run a million times if you want.
+ Now, this notion of checking to see if a key exists, and doing one thing if it doesn't exist,
+ and doing another thing if it does exist, is such a common practice that the dictionary object
+ has this method called get that collapses these four lines into one line.
+ And so the idea is you're going to do one thing if it's in there, and you're going to retrieve the current thing.
+ Otherwise, you're going to pick a default value.
+ In this case, we'll pick one. I mean, pick zero.
+ This is like the default, right, meaning what is not there.
+ You say counts, now counts is a dictionary, .get, that's like string.upper, that's a method.
+ You give it a key, and then a default.
+ And if the key exists, you get back what's in the key. If the key doesn't exist, you get the default.
+ And with no trace back, this works.
+ So the best way to think about this is those four lines are equal to that one line,
+ because x is either going to be whatever was in there before if it exists, or it's going to be zero.
+ Now, the nice thing about zero is the next thing we're going to do is we're going to add one to it,
+ so that that's going to get us to one.
+ So collapsing that loop that we saw before, collapsing that loop, we can make it just a one line loop.
+ And this will become an idiom.
+ This will become something that you will get used to, and you will use over and over and over again.
+ And after a while, right now you're looking at it, boy, that's a lot of syntax and semicolons and whatever.
+ After a while, you just type this and not even think about it. It's an idiom.
+ It's basically included in this idiom is how to both create new entries in dictionaries
+ and update existing entries by adding one to them.
+ So everything else in this is the same.
+ Name is going to go through these five values.
+ And we're going to say counts of name equals counts.get name comma zero plus one.
+ And so if, for example, this already has a one in it, then this is going to be one plus one becomes two.
+ If it's not, it's going to be zero plus one equals two.
+ And so this is the idea of if new, set it to one, not zero, set it to one.
+ Because the first time you see something, the count should be one, not zero.
+ So that's why we make this default.
+ Now the get can be used for anything.
+ It just so happens that zero is a common default because it's really common that we're using this to basically make a histogram, right?
+ A little histogram of A, B, C, right?
+ And so we need to make a D, but then the histogram has to start at one.
+ So that's basically the simplified counting with get.
+ And there's a lot of things that we're going to do inside of Python that do have to do with frequencies and how many times certain things happened.
+ And this pattern is a really good pattern to absolutely know.
+ [ Music ]

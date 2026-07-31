@@ -1,0 +1,149 @@
+ - So now we're going to move from merely matching to matching and extracting.
+ So we're going to say, hey, I would like to not only have you take this template,
+ this little pattern, the string pattern, regular expression pattern,
+ run it across the line, I want you to give me all the ones that match.
+ And I want a list of those.
+ And that's what we're going to use the find all.
+ So search gives a true false, find all gives a list of all the strings that match.
+ So if there's four of them, you'll get four things in the list.
+ If there's nothing that matches, you'll get an empty list.
+ So let's take a look at what we got going here.
+ So instead of calling search, we call find all.
+ We still pass in the string that we're looking through.
+ And then we have our little template pattern.
+ And this is a new bit of regular expression.
+ Any little bracket operation, square bracket, is one character.
+ That's just a character.
+ But then in between here is a set of allowed characters.
+ So 0-9 means a single digit, 0, 1, 2, 3, 4, 5, 6, 7, 8, or 9.
+ But that's really one character.
+ And then we have, so that's one character.
+ And then when the plus applies to that, which means if we look at this whole thing,
+ this whole thing says one or more digits.
+ That's the code we write in a regular expression that says one or more digits.
+ And we're just going to use that in our regular expression by itself.
+ So we're going to look for any string that's one or more digits.
+ And pull it out and give it back to me.
+ So it's going to look.
+ So that's my little template, stamp, stamp, stamp, stamp.
+ Oop, got it.
+ Stamp, stamp, stamp, stamp, stamp, stamp, stamp, stamp, stamp, stamp.
+ Oop, got it.
+ Stamp, stamp, stamp, stamp, got it.
+ So what we get back after we ask find all to find all of the one or more digit
+ strings is 2, 9, and 42.
+ So it actually parsed it.
+ It split it.
+ It found all these things and said, I found them all for you.
+ And here they are, 2, 19, and 42.
+ So it's a list of three strings because that's how many it found.
+ Now, it might have found none.
+ And we would have got an empty list at that point.
+ But it found some.
+ OK.
+ So just as an example, we did this thing.
+ We get 2, 19, and 42.
+ But if I said this, that basically is an uppercase vowel, A, E, I, O, or U.
+ So that's one letter.
+ And that's one or more.
+ So it's saying something like A, A would match, E, I would match, O, O would match.
+ But if you look now, it's saying, OK, I'm looking for one or more.
+ Minimum one or more uppercase, A, E, I, O, U is a set of characters, one or more
+ uppercase letters.
+ And so it's like, look, there's an uppercase.
+ But it's an M. No, no, no, no, no, uppercase, no uppercase, no uppercase,
+ no uppercase, found nothing, did not find anything.
+ And so it gives us back an empty list.
+ And so it's like, find all the things that match this.
+ And the answer is, none matched, here's your list of nothing.
+ And so you have to check.
+ That's how you have to check even if you got something, because it's not
+ going to return you false.
+ It returns you a list with no items in it.
+ Now, the way it works, like I said, it sort of is taking this template and
+ stamping it across the line, stamping across the characters.
+ Now, there's a behavior that might not be intuitive you at the very beginning.
+ But the notion of what we call greedy matching.
+ And that is, when it can match more than one possible string,
+ overlapping string, it chooses the largest of the overlapping strings.
+ And so the easiest way is to show this with an example.
+ And we're saying, I want something that starts with an F with one or
+ more characters and ends with a colon.
+ So that's my little stamp, that's my template.
+ So it starts with an F, good, that's good.
+ One or more characters, dah, dah, dah, dah, dah, have a colon.
+ So that could be from colon, that would match.
+ But look, I've got another colon here, and this is just continuing on with one or
+ more characters, and this.
+ So the question is, do we get this, or do we get this part, right?
+ And the answer is, with greedy matching, is we get the larger of the two, okay?
+ And so what you get back is somewhat counterintuitive.
+ You get the whole thing as the match, from colon using the.
+ We could have got from colon, but the reason it picks this is this one's longer.
+ So any time it has a choice, it picks the longer one.
+ And that's what greedy is, meaning it's probably better described as larger or
+ tending toward the longest string, or something like that.
+ So you can, of course, suppress this behavior, like everything.
+ In programming regular expressions, you simply add another character.
+ And so now, it's going to say, I would like to start with letter f,
+ any character, one or more times, and then this question mark,
+ this is still one little thing, non-greedy, okay?
+ And so that just says, do it not greedy,
+ which just means that it prefers the shorter of the strings.
+ And so now, it could still match this string or this string.
+ But because it's been told to not be greedy, it chooses this string instead, and
+ that's the string that we get.
+ And so that's the not greedy, and
+ you just had the question mark after the asterisk.
+ So it's usually an asterisk question mark or a plus question mark.
+ That's a two thing, that's zero more characters non-greedy, and
+ that's one or more characters non-greedy.
+ Actually, most of the time, it seems to me that the non-greedy would be
+ the more reasonable default, but that's not how it is.
+ Greedy is the default, and non-greedy is optional.
+ Now, we can play some more with this stuff, okay?
+ And so let's take a look at this little example,
+ where we have a non-blank characters, backslash capital S.
+ One or more of those non-blank characters, followed by an at sign, and
+ then again, one or more non-blank characters.
+ So this is looking for strings that have an at sign with non-blank characters on
+ both sides.
+ This is an example of where it sort of comes to this at, and it goes this way, and
+ it does it in a greedy manner.
+ If you told it to not be greedy, it would give you this, these three characters.
+ But we're telling it to go greedy, so it goes all the way to here, and
+ stops at this blank, and then stops at this blank.
+ And so that's a nice little thing.
+ Find the at signs, go to the first blank, blank, and pull that stuff out.
+ And so that, with one little match, you've pulled this thing out.
+ Now, of course, we've done that before with other techniques.
+ So that's just another way to pull stuff out.
+ Now, if we, we get this whole thing, but
+ what if that's not exactly what we wanted?
+ We can tell, we can, we, we can give it
+ a matching string that's different than the extracting string by adding parentheses.
+ And so here's another example, where we basically say, this is our string.
+ We wanna match from at the beginning, followed by a space, followed by,
+ ignore the parentheses for the minute, one or more non-blank characters,
+ followed by an at sign, followed by one or more non-blank characters.
+ So this is also going to, if there's no from,
+ it's not gonna be looking for that, right?
+ So it demands the from is here, so it matches that, and
+ the space is demanded as well, and then it says, oh, non-blank characters, great.
+ I got an at sign, great, non-blank characters, oops, stop there.
+ And so this is what's going to match.
+ Now, the key is that we don't actually want that back in our extraction.
+ What we really want back in our extraction is this part right here.
+ So what we do is we put parentheses in.
+ Parentheses don't, are code, they're, they're code in the regular expression world.
+ Parentheses say, start your extraction and end your extraction.
+ And so when you do this with a parentheses, when you, when you do it,
+ you know, without a parentheses, you get, you get the whole from, right?
+ Without a parentheses, oh wait, no, okay, that, that doesn't have a from in it.
+ So, but if you do that with the parentheses, the, you match the from, but
+ you only get the, this bit to come out as well.
+ So you can add this to make the matching part more precise, but
+ without changing what you get returned, and
+ you specify what you want to get returned with the parentheses.
+ So next I want to show you just a couple of different ways to use these newfound skills.
+ [MUSIC]

@@ -1,0 +1,326 @@
+ So welcome back.
+ Let's talk a little bit more about some more complex
+ conditional statements that sort of build on this concept
+ of if and if-then-else.
+ The first thing we're going to look at is the multi-way branch.
+ And so the idea is it's kind of like the if-then-else where
+ you're going to pick one of two, but now we
+ can pick one of three, or one of four, or one of five.
+ And it introduces a new concept called the LF.
+ The LF is another reserved word inside Python.
+ And the way it works is it's probably best to look at this
+ here where it checks the first one, and if it's a true,
+ then it runs that, and then it's done.
+ It doesn't check them all.
+ It's not like it sees that there are two logical conditions.
+ It actually checks them, the first one,
+ and how you order these matters, as we'll see in a bit.
+ And so if the first one is true, it runs.
+ If the first one is false and the second one is true,
+ it runs this one, and it's done.
+ And if neither of them are true, it falls through,
+ and there's an else clause that is otherwise, and it runs that.
+ So basically, it's going to run one and then skip the other two,
+ or it is going to skip one, skip two, and then run this one.
+ But it only runs, in this case, one of them.
+ But the important thing is it checks these questions in order.
+ And it doesn't check the second question
+ until it finds that the first-- it doesn't
+ check the second question until it
+ knows the first question is false.
+ So if the first question is true, you're done.
+ You're done, and you're done with this.
+ You're done with the whole block at that point.
+ So only one of these three is going to execute in that block.
+ So here's sort of some examples of this.
+ If we, for example, have x equals 0,
+ it's going to come down here.
+ x is less than true.
+ That's true.
+ So it runs this code, and then it skips, skips, skips,
+ down to that.
+ And so it's like this, runs that code,
+ and then skips to the end.
+ On the other hand, if it's 5, then this is false,
+ and it skips that, and it checks this, this is true.
+ It runs this code, and then it's done, skips to the end.
+ Goes like false, true, run, end.
+ And then if x is like 20, for example, it runs.
+ It runs, false, false, run the else clause, and you're done.
+ So skip, skip, oh, else, run that code, and you're done.
+ So in this case, we ran that, and we didn't run that,
+ and we didn't run that.
+ Again, one of them is going to run.
+ They're checked in order.
+ These questions are checked in order, not out of order.
+ It doesn't look ahead.
+ It just checks in the order that you wrote it.
+ You're the one that wrote that order.
+ And so there's a couple of variations on this multi-way.
+ You can have no else.
+ You can have no else, as in this case.
+ And this just means that it might not run any of them.
+ In this case, x is 5, so it's not less than 2,
+ but then it runs this one.
+ But if x was like 50, for example, if x was 50,
+ then this would be false, and it would skip,
+ and this would still be false, and it would skip,
+ and either of these two would run.
+ So if you don't have an else, you're
+ not guaranteed that one of them is going to run,
+ because else is like the catch-all.
+ If the other ones are all false, then the else
+ is the one that runs.
+ Similarly, you can have many LFs.
+ But this is where it's really important for you
+ to make sure you know what order they're being taken in.
+ So if this is true, it runs.
+ It goes all the way to the bottom.
+ If it's false, false, false, true, it runs this one,
+ and it's done.
+ If, on the other hand, it looks at it as false-- oops,
+ go back, go back-- if it runs false, false, false, false,
+ they're all false, then it runs the else.
+ This one has an else, this one didn't have an else.
+ They don't have to have them.
+ The key is you can have more than one of these LS.
+ So I got a couple little things.
+ I'll let you pause right now and look at-- the question is,
+ are there, looking at the three lines or four lines of code,
+ x equals something.
+ Are there lines of code that will never execute,
+ regardless of the value for x?
+ And I'll let you pause and think about it,
+ and then I'll explain it to you.
+ OK, hopefully you paused and thought about it
+ as long as you like.
+ So let me now explain it to you.
+ So we come in here, and if x is less than or equal to 2,
+ it's going to run this first thing.
+ And if x is greater than or equal to 2,
+ it's going to run this.
+ And if neither of those are true,
+ then it's going to run this.
+ Well, the weird thing is, all numbers
+ are either less than 2 or greater than or equal to 2.
+ I carefully constructed this to the point
+ where it would never run this line of code.
+ It is either going to run this one or run that one,
+ but it's not going to ever run this one.
+ So that was kind of like a weird dysfunctional one
+ that I constructed.
+ This other one is a little different.
+ If x is less than 2, we do this.
+ If x is less than 20, we do that.
+ If x is less than 10, we do that.
+ And if none of those are true, we do that.
+ Well, the problem here is between these two lines.
+ The problem is, if something's less than 10,
+ like 6, for example, it's also less than 20.
+ So even though there might be values for which this is true,
+ those also are going to have this true.
+ So for something like 6, it's going to run here,
+ and it's not even going to look at this.
+ That's the point.
+ It doesn't even look at this.
+ And so that's-- I mean, I could have made this more sensible
+ if I had moved this little block of code up to there.
+ So this is where the order in which you
+ choose your questions, the way you put these LFs together,
+ matters because it doesn't look at all of them.
+ It only looks as long as it can.
+ As long as it sees falses, then it
+ keeps on going to the next one.
+ But as soon as it doesn't see a false, it doesn't continue.
+ So the last conditional structure
+ we'll talk about is the try and accept structure.
+ If you know any other languages like C++ or Java or JavaScript,
+ you're like, whoa, that's kind of an advanced concept.
+ But it turns out in Python, because of Python's propensity
+ to throw tracebacks in situations where you kind of
+ would like to recover, it turns out
+ you kind of have to use it a little more and a little earlier
+ in your programming skill.
+ So the problem is what if there is a line of code
+ and you absolutely know it's going to make a traceback?
+ It's going to blow up.
+ But you don't want to blow up.
+ I don't want to have code blow up.
+ If you're using my autograder and you
+ see a traceback in my autograder,
+ that's kind of like I consider that a failure.
+ I could put an error like, hey, you entered blank data
+ or you didn't enter a number.
+ But a traceback, that just seems like I'm
+ too lazy as a programmer.
+ So we as programmers are supposed
+ to anticipate parts of our code that
+ are going to blow up potentially based on perhaps the user's
+ input and then do something about it.
+ And that's what the try and accept are for.
+ If you take this little dangerous piece of code
+ that might break and might blow up,
+ and you surround it with a try and it says,
+ this might blow up.
+ And if it fails, run this code down here.
+ So that's the try.
+ And if you get an exception, the accept
+ is kind of like if you get an exception.
+ And the problem is if you are running code-- here's
+ a little bit of code-- we put hello Bob in,
+ and we convert it to an integer.
+ And we know from past experience that this blows up.
+ You can't take hello Bob and convert it to an integer.
+ It's just going to blow up.
+ The problem is-- and here we are.
+ It says, oh, you blew up on line two.
+ That's great.
+ And I'm not very happy with hello Bob and whatever.
+ But the important thing is your program stops.
+ These other lines, they don't-- oops.
+ These other lines, they don't exist.
+ It doesn't go any further.
+ Remember, the traceback is Python is really confused.
+ And I don't know what to do next.
+ So Python is just going to be conservative and stop.
+ So Python stops, and your program stops.
+ No matter how much error checking you put down here,
+ it doesn't matter because it's gone.
+ It's all gone.
+ And like I said, we take this kind of personally
+ because the code that you write is like the you being put
+ into the computer, giving it instructions.
+ And if the code blows up, well, that sort of wipes you out.
+ You're not in the game anymore.
+ You're not able to do anything.
+ So we want to be able to-- especially in these situations
+ where we can anticipate that an error that
+ might happen in the normal course or your program's
+ execution might be something that you want to compensate for.
+ And that's what the try and accept does.
+ So here's a bit of code for the try and accept.
+ And we just have two little bits of straight line code.
+ And so we put a string in here that's hello Bob.
+ And then we're going to convert it to an integer.
+ This is the dangerous code.
+ This code, in this case, with hello Bob,
+ is going to do a trace back.
+ And so we say try, and then we indent the dangerous code.
+ And then we add this little accept bit.
+ If it works, the accept is ignored.
+ If this blows up, it runs the accept.
+ So in this code, it's going to come in.
+ It's going to try this.
+ This is going to blow up.
+ But instead of giving a trace back,
+ it's going to say, oh, I've got an available accept.
+ I'm going to run this accept code,
+ and then I'm going to continue on.
+ And so that prints out first negative 1.
+ So because we set this variable, Ister, to negative 1,
+ like a little flag telling us that something went wrong.
+ And then we keep on going.
+ And now we have put in 1, 2, 3.
+ The digit's 123.
+ The digit's 123.
+ And now it's going to work.
+ But we still have it in a try block.
+ And then this one works.
+ It does not blow up.
+ And then it ignores the accept block.
+ So the accept block is only triggered
+ when something goes wrong in the code.
+ It is ignored if something doesn't go wrong.
+ So it's like you bought an insurance policy
+ on this line of code.
+ And when things go wrong, your accept block
+ springs into action and does whatever
+ it is that you want it to do in the case of an error.
+ So that's a pretty useful thing.
+ You've got to be a little bit careful that you don't overuse
+ it.
+ Because if you put more than one line inside the try part,
+ and one of the lines blows up, it
+ doesn't come back to the try block.
+ And so in this one here, we have kind of a simple, silly one
+ where we set the string, we're worried about some stuff.
+ Well, the print statement's never going to blow up.
+ So it's a bad idea to put it in try accept anyways.
+ Then we do this conversion.
+ And that's the dangerous part.
+ And in this one, it's going to blow up.
+ And so then it's going to go to the accept block,
+ and then run the accept block, and then continue.
+ What it does not do, what it doesn't do,
+ is somehow go back and finish this.
+ So these lines are gone.
+ So if you look at it like this, this works.
+ The try starts.
+ Hello.
+ This blows up.
+ It goes to the accept.
+ It runs the accept, and it continues on.
+ Never runs that code.
+ So it's not like you took out an insurance on the whole block.
+ Any of those lines can blow up in the block.
+ But whichever line blows up, that
+ is the last line that's executing in that block.
+ So you tend to want-- in this particular example,
+ you would probably-- the print statement would go out there,
+ and this print statement would come down here.
+ And you would only put in your try block a single line of code
+ that you think might blow up, because you kind of know print
+ statements aren't going to blow up.
+ So this is an example that's a more common real world example,
+ where the user is going to type some data.
+ And that's users that get us in trouble.
+ So our program starts by asking the user enter a number.
+ And we know that this could be dangerous.
+ So we're going to put the conversion from string
+ to integer in a try block.
+ And we're going to set negative 1 if that's a failure.
+ And then if it's greater than 0, we'll say, nice work.
+ And if it's less than 0, well, not a number.
+ So first time we run this program,
+ out comes enter a number.
+ We type in 42, which is a string.
+ That 42 goes back into roster, runs in here.
+ This runs.
+ It's fine.
+ That becomes a 42 number.
+ So we skip the accept block.
+ And Ival is greater than 0.
+ We print out nice work, and we skip the else.
+ So it says, nice work.
+ On the other hand, if we run it again this time,
+ the input says enter a number.
+ And we're silly.
+ We enter the word 42, but in words, 40, F-O-U-R-T-Y.
+ So that's a string, and that goes into roster.
+ And then the execution continues.
+ We run in here.
+ And now this is going to blow up.
+ That's going to blow up.
+ Normally, we would see a trace back right there.
+ There would be a trace back.
+ But we're not going to, because we put this calculation
+ in a try and accept block.
+ It's going to immediately run the accept block,
+ set Ival to negative 1, continue on with the program.
+ See, you are not blown up at this point.
+ And if Ival is greater than 0, well, it's negative 1.
+ So we're going to hit the else clause
+ and print out not a number.
+ So we've done error detection.
+ The user set something that caused a line of our code
+ to kind of blow up.
+ But we put that line in a try and accept block,
+ and so we caught it.
+ And so we dealt with that fact.
+ So in summary in this, we talked about if statements.
+ We talked about else.
+ We talked about try and accept, how important indentation
+ is to mark blocks where they begin in the end,
+ and an else if, and try accept.
+ So up next, we're going to talk about loops and iteration.
+ [MUSIC PLAYING]

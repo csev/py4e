@@ -1,0 +1,267 @@
+ - Hello, and welcome to Chapter 11, Regular Expressions.
+ The fun thing about this chapter is unlike all the rest
+ of the chapters, you sort of had to really understand
+ every single thing in chapters one through 11,
+ built on one another, one through 10, built on one another,
+ but you can really get along without using Chapter 11.
+ It's not a really required topic, but it's a fun topic
+ and an interesting topic, so you can relax a little bit
+ and realize that you may or may not like regular expressions,
+ and if you don't like 'em, that's okay.
+ You don't have to use 'em.
+ You can go for your whole life
+ without using regular expressions.
+ The idea of a regular expression is that
+ you come up with a language.
+ It's a little character-based programming language
+ where you can, you know, do smart searching, basically.
+ Start searching, and as you'll see in a bit,
+ well, smart extraction.
+ And it's really almost programmable wild card expressions.
+ There's no looping, but there is looping,
+ and there's all this implicit thing,
+ and you say, look for patterns that look like this,
+ and then you get back things that match those patterns.
+ You know, we do searching for everything.
+ We're looking through large blocks of text.
+ Say, go find me everything that has the word Python in it
+ or something like that.
+ So that's just such a common thing to do,
+ and regular expressions are a very structured way
+ to go about searching for information.
+ They're very powerful, but they're also very cryptic,
+ and you may not like them, but they're a lot of fun,
+ actually, once you understand them.
+ Learning how to program them takes a while.
+ Writing good regular expression programs requires some
+ try it, play with it, check it, try it,
+ check it, try it, check it, but once you get them,
+ they're really quite cool.
+ It's a very old programming language.
+ You know, it comes almost from the 1960s.
+ The concept of, it's a theory of computing,
+ where they were trying to come up with theory of languages,
+ and regular expressions was one form of languages
+ that computers could understand,
+ and so it has some fun old words.
+ And one of the advantages of knowing regular expressions
+ is that you're kind of a cool person.
+ You can take a quick look at this XKCD
+ that sort of captures the devil may care,
+ awesome power that regular expressions do.
+ And while we're at it, you know,
+ while we're talking about awesome,
+ I do want to take this moment
+ and show you my awesome tattoos.
+ And so, you may not know this,
+ but I got a couple tattoos here.
+ Here's the first tattoo.
+ This is where I went to, got my PhD,
+ this is my University of Michigan faculty member position.
+ I got PhD in engineering,
+ and I teach in a school of information in library science.
+ And then I have this other tattoo,
+ and this tattoo is what I call the ring of compliance.
+ I work on learning management systems
+ and educational technology and standards,
+ and there's this standard called
+ learning tools and operability,
+ which if you're using this course and doing the auto-grader,
+ it uses learning tools and operability
+ to integrate into whatever learning management system
+ you happen to be using.
+ And one of those learning management systems
+ is the open source learning management system
+ that I helped write called Sakai.
+ And these are the rest of the major vendors.
+ And the idea of that tattoo was that
+ I would put the tattoo of every vendor
+ that would comply with learning tools and operability.
+ So you'll notice Coursera.
+ I helped Coursera put learning tools and operability in,
+ and so the auto-grader is integrated into Coursera,
+ or Blackboard, or Canvas, or Sakai, or Moodle,
+ or half of those are other things.
+ So it's just like a cool techno thing,
+ just like regular expressions.
+ So I've got a URL here for regular expression quick guide.
+ You might wanna print this out
+ so that you can look at it
+ even while you're watching this lecture,
+ because it's a little programming language,
+ except that it's character-based,
+ not line-based and not keyword-based.
+ It has certain active characters
+ that the character means something
+ versus the character represents the character itself.
+ And so the regular expressions
+ is not part of the base Python,
+ but it's distributed with Python,
+ so you have to put import re at the top
+ to say that's really saying
+ pull in the regular expression library.
+ And there is a couple of functions inside that.
+ re.search, which is kind of like a really smart version
+ of the find method inside of strings,
+ and re.findall, which is kind of like
+ taking and stamping your way through a loop,
+ through a string, and finding all of the things
+ that match a particular pattern and then extracting those.
+ And we'll talk about both of these in this lecture.
+ So here's a really simple piece of code
+ where I'm just gonna sort of show you
+ sort of before and after.
+ So here's a thing where we're looking for lines
+ that begin with from colon.
+ And so we open a file, we loop through the whole file,
+ we strip off the lines text,
+ and then we say if line.find from
+ is greater than or equal to zero, then we print it.
+ It gives you negative one if it's not found,
+ and so reads all the lines,
+ and once in a while it'll print it out,
+ and reads all the lines once in a while it'll print it out.
+ So that's kind of like a needle in the haystack.
+ To use regular expressions to do that,
+ we have to import the regular expression library.
+ These lines are the same, we're gonna loop through,
+ we're gonna strip, and now we're gonna say if re.search.
+ The way to say this is within the library regular expressions,
+ go find the search function,
+ and search for the string from in the string line, okay?
+ So this is the line to search,
+ whereas here it was more object-oriented
+ where we say line.find.
+ We say re.search and we pass in line as parameter.
+ These two things are equivalent,
+ which means most of the time it's gonna run,
+ and once in a while it'll hit a line,
+ and it'll print that out,
+ and then it'll finish the whole thing.
+ So that is taking and doing what we would do
+ with the find operation with regular expressions.
+ Now, searching with regular expressions
+ has these special characters,
+ and so here we have the same basic code,
+ except now we're saying if line starts with from.
+ So we're not using find anymore,
+ and that way we're only gonna get that thing
+ in the first position,
+ not like blah, blah, blah, blah from colon.
+ We don't want that to match.
+ We only want it to match here at the beginning of the line,
+ and so that's what we use line starts with.
+ So it's gonna do the same thing
+ and find lines that have the prefix
+ and print those out and then be done.
+ Now, in regular expression search,
+ we don't, in a sense, change the method.
+ We have a certain number of things we can do with strings
+ based on what they've built in,
+ but in regular expression we actually can turn
+ this first parameter into code,
+ and so what's happening here is the caret,
+ if you go back to the little cheat sheet,
+ caret means this is the beginning of line.
+ It's a virtual character that matches the beginning line.
+ It's like from that starts at the beginning,
+ so from at the beginning does match,
+ and from in the middle does not match
+ by putting that little caret there.
+ Same thing, line is what we're searching,
+ and then from is what we caret from,
+ line at the beginning is what we're looking for,
+ and so again it does the exact same thing,
+ and only prints lines that have from colon
+ as the first character in the line.
+ So the difference is is we look for a method,
+ and the other one is we program the regular expression.
+ So we're gonna run out of methods in the string class
+ long before we run out of things
+ that we can do with regular expressions.
+ And so a couple other special characters
+ that caret matches the beginning of the line,
+ so caret matches the beginning of the line.
+ This capital X matches itself.
+ Dot is a wild card that matches any character,
+ and then some of the characters in regular expressions
+ modify the immediately preceding character,
+ and so that says look for a line that starts with X
+ and then has many characters, that's these two things,
+ zero or more characters followed by a colon.
+ And so you can see that it's sort of,
+ it's this sort of like expanding stamp.
+ It's like oh, there's an X at the beginning of that line.
+ It looks good.
+ I got some characters here, and then I got a colon.
+ That's good, so this is an X, some characters, and a colon.
+ Check, X, some characters, and a colon.
+ Check, X, and these things, you know, away we go.
+ And so you can, that's what's gonna match.
+ And so you can see how some of these characters are special.
+ Again, go back to your cheat sheet.
+ Some of them are special,
+ and some of them are actual characters.
+ And this colon and X are just, they're not special.
+ They're just the characters, okay?
+ Now, sometimes you wanna be a little more clear
+ on your match, so let's take a look at these lines
+ that match that particular thing that we just did.
+ So we have these two, X dash sieve colon,
+ X dash destam dash result, like these are from mail messages.
+ And then one of the mail messages has a line in it
+ that says X dash plain is behind schedule.
+ And this matches.
+ Is that what you really wanted?
+ And so what we can basically say is because this is an X,
+ this is some number of characters, and that's a colon,
+ it matches, it has to match.
+ That's this rule applied to this line results in a yes.
+ It does.
+ And so how can you be a little more clear
+ as to what you want to match
+ and what you don't want to match?
+ So we can write code.
+ So now what we're going to say is
+ we wanna match the beginning of the line,
+ and we wanna capital X, and we wanna dash.
+ So now we're gonna match those first two characters,
+ X dash, at the beginning of the line.
+ Carat X dash says first two characters of the line
+ must be X dash.
+ Now we have another special character.
+ Now again, refer to your cheat sheet.
+ Backslash capital S means a non-white space character.
+ Any character other than white space.
+ And then plus means one or more times,
+ one or more non-white space characters.
+ That's what this whole thing says.
+ One or more non-white space characters,
+ and followed by a colon, which is just a character.
+ So now we have X dash followed by one or more
+ non-white space characters followed by a colon.
+ X dash followed by one or more non-white space characters
+ followed by a colon.
+ And here we have X dash followed by one or more,
+ whoops, there's a space there.
+ And so this doesn't match.
+ Even though there's a colon there,
+ it means that between the dash and the colon,
+ you can only have some number of non-white space characters.
+ So this is a no, it does not match.
+ And so you just can, if you didn't wanna match this,
+ you then sort of create a more precise,
+ you know, we could even have a thing that said
+ I want X dash with an uppercase character,
+ uppercase letter, if you wanted to.
+ So there's all kind of fine-tuning
+ if you sort of learn the structure that you've got to do.
+ And so that's kind of the matching
+ where you're taking a whole line
+ and taking this template and deciding
+ if the template anywhere in that line matches.
+ And now what we're gonna do is use this
+ to actually pull data out of strings
+ using the regular expression library.
+ (upbeat rock music)
+ (upbeat rock music)

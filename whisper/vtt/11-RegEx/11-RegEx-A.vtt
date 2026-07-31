@@ -1,0 +1,803 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.400
+ - Hello, and welcome to Chapter 11, Regular Expressions.
+
+00:00:03.400 --> 00:00:06.160
+ The fun thing about this chapter is unlike all the rest
+
+00:00:06.160 --> 00:00:09.000
+ of the chapters, you sort of had to really understand
+
+00:00:09.000 --> 00:00:11.720
+ every single thing in chapters one through 11,
+
+00:00:11.720 --> 00:00:14.440
+ built on one another, one through 10, built on one another,
+
+00:00:14.440 --> 00:00:17.920
+ but you can really get along without using Chapter 11.
+
+00:00:17.920 --> 00:00:21.420
+ It's not a really required topic, but it's a fun topic
+
+00:00:21.420 --> 00:00:25.040
+ and an interesting topic, so you can relax a little bit
+
+00:00:25.040 --> 00:00:28.040
+ and realize that you may or may not like regular expressions,
+
+00:00:28.040 --> 00:00:29.400
+ and if you don't like 'em, that's okay.
+
+00:00:29.400 --> 00:00:30.240
+ You don't have to use 'em.
+
+00:00:30.240 --> 00:00:31.800
+ You can go for your whole life
+
+00:00:31.800 --> 00:00:33.880
+ without using regular expressions.
+
+00:00:33.880 --> 00:00:36.160
+ The idea of a regular expression is that
+
+00:00:36.160 --> 00:00:39.320
+ you come up with a language.
+
+00:00:39.320 --> 00:00:41.400
+ It's a little character-based programming language
+
+00:00:41.400 --> 00:00:45.440
+ where you can, you know, do smart searching, basically.
+
+00:00:45.440 --> 00:00:47.180
+ Start searching, and as you'll see in a bit,
+
+00:00:47.180 --> 00:00:50.400
+ well, smart extraction.
+
+00:00:50.400 --> 00:00:53.920
+ And it's really almost programmable wild card expressions.
+
+00:00:53.920 --> 00:00:55.660
+ There's no looping, but there is looping,
+
+00:00:55.660 --> 00:00:57.080
+ and there's all this implicit thing,
+
+00:00:57.080 --> 00:00:59.000
+ and you say, look for patterns that look like this,
+
+00:00:59.000 --> 00:01:02.000
+ and then you get back things that match those patterns.
+
+00:01:02.000 --> 00:01:04.160
+ You know, we do searching for everything.
+
+00:01:04.160 --> 00:01:06.320
+ We're looking through large blocks of text.
+
+00:01:06.320 --> 00:01:08.800
+ Say, go find me everything that has the word Python in it
+
+00:01:08.800 --> 00:01:09.720
+ or something like that.
+
+00:01:09.720 --> 00:01:11.520
+ So that's just such a common thing to do,
+
+00:01:11.520 --> 00:01:14.400
+ and regular expressions are a very structured way
+
+00:01:14.400 --> 00:01:16.620
+ to go about searching for information.
+
+00:01:16.620 --> 00:01:18.620
+ They're very powerful, but they're also very cryptic,
+
+00:01:18.620 --> 00:01:20.680
+ and you may not like them, but they're a lot of fun,
+
+00:01:20.680 --> 00:01:22.000
+ actually, once you understand them.
+
+00:01:22.000 --> 00:01:24.760
+ Learning how to program them takes a while.
+
+00:01:24.760 --> 00:01:27.880
+ Writing good regular expression programs requires some
+
+00:01:27.880 --> 00:01:30.040
+ try it, play with it, check it, try it,
+
+00:01:30.040 --> 00:01:31.680
+ check it, try it, check it, but once you get them,
+
+00:01:31.680 --> 00:01:33.640
+ they're really quite cool.
+
+00:01:33.640 --> 00:01:36.680
+ It's a very old programming language.
+
+00:01:36.680 --> 00:01:39.400
+ You know, it comes almost from the 1960s.
+
+00:01:39.400 --> 00:01:41.800
+ The concept of, it's a theory of computing,
+
+00:01:41.800 --> 00:01:43.640
+ where they were trying to come up with theory of languages,
+
+00:01:43.640 --> 00:01:46.620
+ and regular expressions was one form of languages
+
+00:01:46.620 --> 00:01:48.800
+ that computers could understand,
+
+00:01:48.800 --> 00:01:51.360
+ and so it has some fun old words.
+
+00:01:51.360 --> 00:01:55.720
+ And one of the advantages of knowing regular expressions
+
+00:01:55.720 --> 00:01:58.300
+ is that you're kind of a cool person.
+
+00:01:58.300 --> 00:02:01.560
+ You can take a quick look at this XKCD
+
+00:02:01.560 --> 00:02:04.900
+ that sort of captures the devil may care,
+
+00:02:04.900 --> 00:02:08.400
+ awesome power that regular expressions do.
+
+00:02:08.400 --> 00:02:11.400
+ And while we're at it, you know,
+
+00:02:11.400 --> 00:02:13.200
+ while we're talking about awesome,
+
+00:02:13.200 --> 00:02:14.620
+ I do want to take this moment
+
+00:02:14.620 --> 00:02:16.320
+ and show you my awesome tattoos.
+
+00:02:16.320 --> 00:02:18.560
+ And so, you may not know this,
+
+00:02:18.560 --> 00:02:20.000
+ but I got a couple tattoos here.
+
+00:02:20.000 --> 00:02:21.520
+ Here's the first tattoo.
+
+00:02:21.520 --> 00:02:23.520
+ This is where I went to, got my PhD,
+
+00:02:23.520 --> 00:02:26.640
+ this is my University of Michigan faculty member position.
+
+00:02:26.640 --> 00:02:28.280
+ I got PhD in engineering,
+
+00:02:28.280 --> 00:02:31.560
+ and I teach in a school of information in library science.
+
+00:02:31.560 --> 00:02:33.320
+ And then I have this other tattoo,
+
+00:02:33.320 --> 00:02:37.200
+ and this tattoo is what I call the ring of compliance.
+
+00:02:37.200 --> 00:02:38.800
+ I work on learning management systems
+
+00:02:38.800 --> 00:02:41.000
+ and educational technology and standards,
+
+00:02:41.000 --> 00:02:42.040
+ and there's this standard called
+
+00:02:42.040 --> 00:02:43.220
+ learning tools and operability,
+
+00:02:43.220 --> 00:02:46.680
+ which if you're using this course and doing the auto-grader,
+
+00:02:46.680 --> 00:02:48.360
+ it uses learning tools and operability
+
+00:02:48.360 --> 00:02:50.440
+ to integrate into whatever learning management system
+
+00:02:50.440 --> 00:02:51.920
+ you happen to be using.
+
+00:02:51.920 --> 00:02:53.680
+ And one of those learning management systems
+
+00:02:53.680 --> 00:02:55.320
+ is the open source learning management system
+
+00:02:55.320 --> 00:02:57.000
+ that I helped write called Sakai.
+
+00:02:57.000 --> 00:02:59.520
+ And these are the rest of the major vendors.
+
+00:02:59.520 --> 00:03:02.760
+ And the idea of that tattoo was that
+
+00:03:02.760 --> 00:03:05.560
+ I would put the tattoo of every vendor
+
+00:03:05.560 --> 00:03:07.520
+ that would comply with learning tools and operability.
+
+00:03:07.520 --> 00:03:08.480
+ So you'll notice Coursera.
+
+00:03:08.480 --> 00:03:11.080
+ I helped Coursera put learning tools and operability in,
+
+00:03:11.080 --> 00:03:13.320
+ and so the auto-grader is integrated into Coursera,
+
+00:03:13.320 --> 00:03:15.760
+ or Blackboard, or Canvas, or Sakai, or Moodle,
+
+00:03:15.760 --> 00:03:16.840
+ or half of those are other things.
+
+00:03:16.840 --> 00:03:20.600
+ So it's just like a cool techno thing,
+
+00:03:20.600 --> 00:03:22.920
+ just like regular expressions.
+
+00:03:22.920 --> 00:03:26.040
+ So I've got a URL here for regular expression quick guide.
+
+00:03:26.040 --> 00:03:27.840
+ You might wanna print this out
+
+00:03:27.840 --> 00:03:30.280
+ so that you can look at it
+
+00:03:30.280 --> 00:03:32.700
+ even while you're watching this lecture,
+
+00:03:32.700 --> 00:03:34.640
+ because it's a little programming language,
+
+00:03:34.640 --> 00:03:35.880
+ except that it's character-based,
+
+00:03:35.880 --> 00:03:37.680
+ not line-based and not keyword-based.
+
+00:03:37.680 --> 00:03:39.880
+ It has certain active characters
+
+00:03:39.880 --> 00:03:42.360
+ that the character means something
+
+00:03:42.360 --> 00:03:46.280
+ versus the character represents the character itself.
+
+00:03:46.280 --> 00:03:47.560
+ And so the regular expressions
+
+00:03:47.560 --> 00:03:49.120
+ is not part of the base Python,
+
+00:03:49.120 --> 00:03:50.440
+ but it's distributed with Python,
+
+00:03:50.440 --> 00:03:53.040
+ so you have to put import re at the top
+
+00:03:53.040 --> 00:03:54.400
+ to say that's really saying
+
+00:03:54.400 --> 00:03:56.400
+ pull in the regular expression library.
+
+00:03:56.400 --> 00:03:59.200
+ And there is a couple of functions inside that.
+
+00:03:59.200 --> 00:04:02.000
+ re.search, which is kind of like a really smart version
+
+00:04:02.000 --> 00:04:04.520
+ of the find method inside of strings,
+
+00:04:04.520 --> 00:04:08.160
+ and re.findall, which is kind of like
+
+00:04:08.160 --> 00:04:10.520
+ taking and stamping your way through a loop,
+
+00:04:10.520 --> 00:04:13.340
+ through a string, and finding all of the things
+
+00:04:13.340 --> 00:04:17.400
+ that match a particular pattern and then extracting those.
+
+00:04:17.400 --> 00:04:20.560
+ And we'll talk about both of these in this lecture.
+
+00:04:20.560 --> 00:04:24.040
+ So here's a really simple piece of code
+
+00:04:24.040 --> 00:04:25.480
+ where I'm just gonna sort of show you
+
+00:04:25.480 --> 00:04:27.080
+ sort of before and after.
+
+00:04:27.080 --> 00:04:29.960
+ So here's a thing where we're looking for lines
+
+00:04:29.960 --> 00:04:31.440
+ that begin with from colon.
+
+00:04:31.440 --> 00:04:34.360
+ And so we open a file, we loop through the whole file,
+
+00:04:34.360 --> 00:04:36.360
+ we strip off the lines text,
+
+00:04:36.360 --> 00:04:39.080
+ and then we say if line.find from
+
+00:04:39.080 --> 00:04:41.640
+ is greater than or equal to zero, then we print it.
+
+00:04:41.640 --> 00:04:43.200
+ It gives you negative one if it's not found,
+
+00:04:43.200 --> 00:04:44.760
+ and so reads all the lines,
+
+00:04:44.760 --> 00:04:45.760
+ and once in a while it'll print it out,
+
+00:04:45.760 --> 00:04:47.520
+ and reads all the lines once in a while it'll print it out.
+
+00:04:47.520 --> 00:04:50.320
+ So that's kind of like a needle in the haystack.
+
+00:04:50.320 --> 00:04:51.760
+ To use regular expressions to do that,
+
+00:04:51.760 --> 00:04:54.120
+ we have to import the regular expression library.
+
+00:04:54.120 --> 00:04:55.760
+ These lines are the same, we're gonna loop through,
+
+00:04:55.760 --> 00:04:59.540
+ we're gonna strip, and now we're gonna say if re.search.
+
+00:04:59.540 --> 00:05:02.440
+ The way to say this is within the library regular expressions,
+
+00:05:02.440 --> 00:05:04.760
+ go find the search function,
+
+00:05:04.760 --> 00:05:09.720
+ and search for the string from in the string line, okay?
+
+00:05:09.720 --> 00:05:10.880
+ So this is the line to search,
+
+00:05:10.880 --> 00:05:12.920
+ whereas here it was more object-oriented
+
+00:05:12.920 --> 00:05:14.320
+ where we say line.find.
+
+00:05:14.320 --> 00:05:17.200
+ We say re.search and we pass in line as parameter.
+
+00:05:17.200 --> 00:05:18.280
+ These two things are equivalent,
+
+00:05:18.280 --> 00:05:19.560
+ which means most of the time it's gonna run,
+
+00:05:19.560 --> 00:05:20.520
+ and once in a while it'll hit a line,
+
+00:05:20.520 --> 00:05:21.880
+ and it'll print that out,
+
+00:05:21.880 --> 00:05:23.440
+ and then it'll finish the whole thing.
+
+00:05:23.440 --> 00:05:27.040
+ So that is taking and doing what we would do
+
+00:05:27.040 --> 00:05:30.360
+ with the find operation with regular expressions.
+
+00:05:30.360 --> 00:05:34.360
+ Now, searching with regular expressions
+
+00:05:34.360 --> 00:05:35.640
+ has these special characters,
+
+00:05:35.640 --> 00:05:37.880
+ and so here we have the same basic code,
+
+00:05:37.880 --> 00:05:40.320
+ except now we're saying if line starts with from.
+
+00:05:40.320 --> 00:05:41.920
+ So we're not using find anymore,
+
+00:05:43.000 --> 00:05:45.440
+ and that way we're only gonna get that thing
+
+00:05:45.440 --> 00:05:46.520
+ in the first position,
+
+00:05:46.520 --> 00:05:50.000
+ not like blah, blah, blah, blah from colon.
+
+00:05:50.000 --> 00:05:50.960
+ We don't want that to match.
+
+00:05:50.960 --> 00:05:53.240
+ We only want it to match here at the beginning of the line,
+
+00:05:53.240 --> 00:05:54.760
+ and so that's what we use line starts with.
+
+00:05:54.760 --> 00:05:55.920
+ So it's gonna do the same thing
+
+00:05:55.920 --> 00:05:57.560
+ and find lines that have the prefix
+
+00:05:57.560 --> 00:05:59.880
+ and print those out and then be done.
+
+00:05:59.880 --> 00:06:01.040
+ Now, in regular expression search,
+
+00:06:01.040 --> 00:06:03.360
+ we don't, in a sense, change the method.
+
+00:06:03.360 --> 00:06:05.800
+ We have a certain number of things we can do with strings
+
+00:06:05.800 --> 00:06:07.360
+ based on what they've built in,
+
+00:06:07.360 --> 00:06:09.600
+ but in regular expression we actually can turn
+
+00:06:09.600 --> 00:06:12.480
+ this first parameter into code,
+
+00:06:12.480 --> 00:06:16.080
+ and so what's happening here is the caret,
+
+00:06:16.080 --> 00:06:17.480
+ if you go back to the little cheat sheet,
+
+00:06:17.480 --> 00:06:20.120
+ caret means this is the beginning of line.
+
+00:06:20.120 --> 00:06:22.200
+ It's a virtual character that matches the beginning line.
+
+00:06:22.200 --> 00:06:24.160
+ It's like from that starts at the beginning,
+
+00:06:24.160 --> 00:06:27.120
+ so from at the beginning does match,
+
+00:06:27.120 --> 00:06:28.800
+ and from in the middle does not match
+
+00:06:28.800 --> 00:06:30.560
+ by putting that little caret there.
+
+00:06:30.560 --> 00:06:32.520
+ Same thing, line is what we're searching,
+
+00:06:32.520 --> 00:06:34.480
+ and then from is what we caret from,
+
+00:06:34.480 --> 00:06:37.480
+ line at the beginning is what we're looking for,
+
+00:06:37.480 --> 00:06:39.480
+ and so again it does the exact same thing,
+
+00:06:39.480 --> 00:06:41.080
+ and only prints lines that have from colon
+
+00:06:41.080 --> 00:06:43.320
+ as the first character in the line.
+
+00:06:43.320 --> 00:06:45.840
+ So the difference is is we look for a method,
+
+00:06:45.840 --> 00:06:48.720
+ and the other one is we program the regular expression.
+
+00:06:48.720 --> 00:06:52.840
+ So we're gonna run out of methods in the string class
+
+00:06:52.840 --> 00:06:54.400
+ long before we run out of things
+
+00:06:54.400 --> 00:06:56.740
+ that we can do with regular expressions.
+
+00:06:56.740 --> 00:07:00.040
+ And so a couple other special characters
+
+00:07:00.040 --> 00:07:03.000
+ that caret matches the beginning of the line,
+
+00:07:03.000 --> 00:07:04.960
+ so caret matches the beginning of the line.
+
+00:07:04.960 --> 00:07:07.440
+ This capital X matches itself.
+
+00:07:07.440 --> 00:07:10.360
+ Dot is a wild card that matches any character,
+
+00:07:10.360 --> 00:07:12.800
+ and then some of the characters in regular expressions
+
+00:07:12.800 --> 00:07:15.080
+ modify the immediately preceding character,
+
+00:07:15.080 --> 00:07:18.720
+ and so that says look for a line that starts with X
+
+00:07:18.720 --> 00:07:22.160
+ and then has many characters, that's these two things,
+
+00:07:22.160 --> 00:07:25.200
+ zero or more characters followed by a colon.
+
+00:07:25.200 --> 00:07:26.980
+ And so you can see that it's sort of,
+
+00:07:26.980 --> 00:07:29.000
+ it's this sort of like expanding stamp.
+
+00:07:29.000 --> 00:07:30.920
+ It's like oh, there's an X at the beginning of that line.
+
+00:07:30.920 --> 00:07:31.860
+ It looks good.
+
+00:07:31.860 --> 00:07:33.480
+ I got some characters here, and then I got a colon.
+
+00:07:33.480 --> 00:07:38.040
+ That's good, so this is an X, some characters, and a colon.
+
+00:07:38.040 --> 00:07:41.160
+ Check, X, some characters, and a colon.
+
+00:07:41.160 --> 00:07:44.040
+ Check, X, and these things, you know, away we go.
+
+00:07:44.040 --> 00:07:46.160
+ And so you can, that's what's gonna match.
+
+00:07:46.160 --> 00:07:48.760
+ And so you can see how some of these characters are special.
+
+00:07:48.760 --> 00:07:50.320
+ Again, go back to your cheat sheet.
+
+00:07:50.320 --> 00:07:51.320
+ Some of them are special,
+
+00:07:51.320 --> 00:07:52.960
+ and some of them are actual characters.
+
+00:07:52.960 --> 00:07:55.640
+ And this colon and X are just, they're not special.
+
+00:07:55.640 --> 00:07:58.520
+ They're just the characters, okay?
+
+00:07:58.520 --> 00:08:02.280
+ Now, sometimes you wanna be a little more clear
+
+00:08:02.280 --> 00:08:05.000
+ on your match, so let's take a look at these lines
+
+00:08:05.000 --> 00:08:08.120
+ that match that particular thing that we just did.
+
+00:08:08.120 --> 00:08:11.040
+ So we have these two, X dash sieve colon,
+
+00:08:11.040 --> 00:08:14.360
+ X dash destam dash result, like these are from mail messages.
+
+00:08:14.360 --> 00:08:16.160
+ And then one of the mail messages has a line in it
+
+00:08:16.160 --> 00:08:19.120
+ that says X dash plain is behind schedule.
+
+00:08:19.120 --> 00:08:21.240
+ And this matches.
+
+00:08:21.240 --> 00:08:22.880
+ Is that what you really wanted?
+
+00:08:22.880 --> 00:08:26.640
+ And so what we can basically say is because this is an X,
+
+00:08:26.640 --> 00:08:29.560
+ this is some number of characters, and that's a colon,
+
+00:08:29.560 --> 00:08:30.800
+ it matches, it has to match.
+
+00:08:30.800 --> 00:08:34.960
+ That's this rule applied to this line results in a yes.
+
+00:08:34.960 --> 00:08:35.920
+ It does.
+
+00:08:35.920 --> 00:08:39.400
+ And so how can you be a little more clear
+
+00:08:39.400 --> 00:08:40.800
+ as to what you want to match
+
+00:08:40.800 --> 00:08:42.800
+ and what you don't want to match?
+
+00:08:42.800 --> 00:08:45.720
+ So we can write code.
+
+00:08:45.720 --> 00:08:48.480
+ So now what we're going to say is
+
+00:08:48.480 --> 00:08:51.720
+ we wanna match the beginning of the line,
+
+00:08:51.720 --> 00:08:54.440
+ and we wanna capital X, and we wanna dash.
+
+00:08:54.440 --> 00:08:56.320
+ So now we're gonna match those first two characters,
+
+00:08:56.320 --> 00:08:58.760
+ X dash, at the beginning of the line.
+
+00:08:58.760 --> 00:09:00.820
+ Carat X dash says first two characters of the line
+
+00:09:00.820 --> 00:09:02.060
+ must be X dash.
+
+00:09:02.060 --> 00:09:03.560
+ Now we have another special character.
+
+00:09:03.560 --> 00:09:05.440
+ Now again, refer to your cheat sheet.
+
+00:09:05.440 --> 00:09:09.600
+ Backslash capital S means a non-white space character.
+
+00:09:09.600 --> 00:09:12.700
+ Any character other than white space.
+
+00:09:12.700 --> 00:09:15.100
+ And then plus means one or more times,
+
+00:09:15.100 --> 00:09:17.500
+ one or more non-white space characters.
+
+00:09:17.500 --> 00:09:19.320
+ That's what this whole thing says.
+
+00:09:19.320 --> 00:09:21.280
+ One or more non-white space characters,
+
+00:09:21.280 --> 00:09:23.280
+ and followed by a colon, which is just a character.
+
+00:09:23.280 --> 00:09:25.640
+ So now we have X dash followed by one or more
+
+00:09:25.640 --> 00:09:27.960
+ non-white space characters followed by a colon.
+
+00:09:27.960 --> 00:09:30.360
+ X dash followed by one or more non-white space characters
+
+00:09:30.360 --> 00:09:31.560
+ followed by a colon.
+
+00:09:31.560 --> 00:09:33.680
+ And here we have X dash followed by one or more,
+
+00:09:33.680 --> 00:09:35.480
+ whoops, there's a space there.
+
+00:09:35.480 --> 00:09:36.800
+ And so this doesn't match.
+
+00:09:36.800 --> 00:09:38.240
+ Even though there's a colon there,
+
+00:09:38.240 --> 00:09:40.680
+ it means that between the dash and the colon,
+
+00:09:40.680 --> 00:09:43.660
+ you can only have some number of non-white space characters.
+
+00:09:43.660 --> 00:09:47.160
+ So this is a no, it does not match.
+
+00:09:47.160 --> 00:09:50.520
+ And so you just can, if you didn't wanna match this,
+
+00:09:50.520 --> 00:09:53.760
+ you then sort of create a more precise,
+
+00:09:53.760 --> 00:09:56.800
+ you know, we could even have a thing that said
+
+00:09:56.800 --> 00:09:59.560
+ I want X dash with an uppercase character,
+
+00:09:59.560 --> 00:10:01.360
+ uppercase letter, if you wanted to.
+
+00:10:01.360 --> 00:10:03.120
+ So there's all kind of fine-tuning
+
+00:10:03.120 --> 00:10:07.520
+ if you sort of learn the structure that you've got to do.
+
+00:10:07.520 --> 00:10:09.360
+ And so that's kind of the matching
+
+00:10:09.360 --> 00:10:10.760
+ where you're taking a whole line
+
+00:10:10.760 --> 00:10:12.680
+ and taking this template and deciding
+
+00:10:12.680 --> 00:10:15.440
+ if the template anywhere in that line matches.
+
+00:10:15.440 --> 00:10:17.000
+ And now what we're gonna do is use this
+
+00:10:17.000 --> 00:10:20.220
+ to actually pull data out of strings
+
+00:10:20.220 --> 00:10:22.120
+ using the regular expression library.
+
+00:10:22.120 --> 00:10:27.840
+ (upbeat rock music)
+
+00:10:31.360 --> 00:10:34.360
+ (upbeat rock music)
+

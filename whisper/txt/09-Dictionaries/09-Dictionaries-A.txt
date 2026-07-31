@@ -1,0 +1,138 @@
+ >> Hello, and welcome to our lecture on Python dictionaries.
+ So Python dictionaries are an example of a collection.
+ And a collection is just a way for us to put more than one value in a variable and sort
+ of take a group of values that are usually similar in one way or the other, but move
+ them around together.
+ It's kind of like putting things in a piece of luggage and carrying them all around together.
+ Each of the things is distinct, but we can carry them around together.
+ And so it's just nice and convenient, but we do have to organize them.
+ So a good example of a disorganized collection is the desktop that I'm sitting at in front
+ of right now as I'm making this lecture.
+ And you can see that's just very disorganized.
+ And so part of the goal of a collection is organizing it.
+ Now what's not a collection?
+ A symbol variable is not a collection.
+ So we put x equals 2, 2 is an x.
+ One statement later we say x equals 4, and 4 is an x, but 2 is long gone.
+ So we can't put two things in x at the same time.
+ But if x is a collection, we can put two things in at the same time.
+ Now we've already covered lists.
+ A list is a linear collection of values, and you can look it up by position, somewhere
+ between 0 and the length of that list minus 1.
+ But a dictionary is a collection of key-value pairs.
+ You can look them up by tag or key.
+ Now it turns out that dictionaries also have an order.
+ So a filing cabinet with a bunch of tabs is a good example.
+ If you have a bunch of books in a bookshelf, and you can read the names of the books.
+ The content is the book itself, but you've got the titles on the back of books.
+ Another thing that you might imagine is I bet we all have like a box or a drawer that
+ has a bunch of computer cables in it, and I did too.
+ And I used to just throw extra computer cables in, but I had so many extra computer cables
+ so I came up with a new trick.
+ The new trick is to put all the cables of a certain type into the same bag.
+ And then I would put a label on, and that's the key essence of key-value pairs.
+ The key in this is HDMI.
+ The value is what's inside of it.
+ So I should be able to go into my junk drawer and say, "Hey, give me my HDMI cables."
+ And I would get them back.
+ Now Python's collection is very efficient at getting it back.
+ So I say like, "Hey, get my firewire cables," and this would just come out because this
+ is my firewire bag, my bag of firewire cables.
+ That's how long I've been doing video is I have a bag of firewire cables that I don't
+ use very often.
+ Now the collection, whether it's a bookshelf or a drawer full of bags of cables that are
+ marked has a key value, but it also then has an order.
+ But the key thing is that in Python, unlike in the real world, the best way to look things
+ up is by the tag or the key, not going all the way through them.
+ So dictionaries are Python's most powerful data collection, and they allow us to do fast
+ database-like operations in Python.
+ There are similar concepts in many different programming languages that you may or may
+ not have heard of, like associative arrays, like Perl or PHP, properties, property maps
+ or hash maps or tree maps and Java or property bags, and C++ also has a map concept.
+ Now dictionaries have changed over time in Python.
+ Prior to 2018, dictionaries did not keep entries in their order of insertion.
+ You'd put them in and they kind of get all jumbled up and randomized, and that's because
+ the underlying storage mechanism, what's called a hash table, purely hash table, which does
+ not keep things in order.
+ And since 2018, Python 3.7, the dictionaries keep entries in the order that they were inserted.
+ Now they're not sorted, not sorted by key, not sorted by value, and one of the things
+ we're going to do is do a lot of sorting by key and value.
+ They're stored in insertion order.
+ And so it's almost like dictionaries after Python 3.7 are kind of like lists but with
+ a very different way of storing and looking things up.
+ So you store them, they kind of stay in order, but in lists you use numbers to get them out
+ and in Python you use whatever the keys are that you've done.
+ Now Python lists and dictionaries are elegant, abstract, beautiful, easy to use objects,
+ and that's part of the reason people like using Python is because things like lists
+ and dictionaries just work so well.
+ For now, let's just pretend they're magical.
+ We're going to understand them and be thankful that Guido and the others who built Python
+ for us just made them well-designed and easy for us to use.
+ But underneath the covers, the code to support them is actually pretty complex.
+ The way that computer scientists built the implementation for dictionaries in lists are
+ things like dynamic memory, arrays, linked lists, hash maps, and trees.
+ And those are all computer science concepts that for now I might mention the word hash
+ in passing, but in general that implementation detail is for a later course, and it's most
+ commonly a course that we do in C. So we can go from easy, super easy to use in Python,
+ to like, "Whoa, this is hard to build."
+ That's actually part of the skill.
+ But for now, just ignore this.
+ So let's take a quick review of how lists work.
+ So we append values to the end of the list, it's the only thing we can do, and we look
+ at them by position.
+ We can change things, but if we want to insert something then they all gotta be shuffled
+ down a little bit.
+ So we're gonna call cards equals list, open print, closed print, which is the list constructor.
+ We're gonna append in order, 12, 3, and 75.
+ And then we're gonna print them out, and we get them out with square brackets, 12, 3,
+ and 75.
+ We can look them up by position.
+ Cards sub 1, so they start at 0, so that's actually the second one, and that value there
+ is 3.
+ So in the second position in the list, which is the sub 1 position in the list, the value
+ is 3.
+ We can use this sort of index syntax of square brackets, cards sub 1 plus 2 on the right
+ hand side of an assignment statement.
+ So that'll retrieve the value 3, add 2 to it, and then store it back in the cards sub
+ 1.
+ And so we can, if we're using the index expression, we can treat that kind of like a variable.
+ And if we print cards afterwards, we see that the second value has moved from 3 to 5.
+ Doing a similar kind of thing in dictionaries, we make a thing called cabinet, and we call
+ the dictionary constructor, and we say cabinet sub summer equals 12.
+ So just like in my drawer of cables, I had to pick a label before I threw it in.
+ And so in this case, summer is the label and 12 is the value.
+ Now, they can be much larger than that.
+ I'm using keys as strings and integers as values because it's a very common use case,
+ but they can be much more complex than that.
+ Cabinet sub fall equals 3 and cabinet sub spring equals 75.
+ They're being inserted.
+ So when you print them, you see summer 12, fall 3, spring 75.
+ But the thing that's key about this is you might put a million things in there, but printing
+ cabinets of fall does not need to read all million things.
+ A list, you might have to read all million things to find something.
+ But dictionaries and how they're built using hash maps, how they're built, cabinet sub
+ fall is in a sense guaranteed to you to be instant, virtually instantaneous.
+ So we, even though there's only three in this one, if there's a million, it would be just
+ about as fast.
+ And so we get that three.
+ We can also use this index syntax with a string as index, pull off the old version, which
+ is 3, add 2 to it, becomes 5, goes back in, the cabinets of fall, and you print it.
+ And you can see that the entire cabinet is unchanged except the key fall is now 5.
+ So you can kind of see this, right?
+ The only real difference is how we index these things.
+ If we look at them, they kind of accumulate values in order, but in dictionaries we're
+ accumulating keys and values, and then the way we look things up is by key in dictionaries
+ and by position in values.
+ And we can both look things up and we can change them in both dictionaries and lists.
+ Like anything, you've got to have a way to put a constant because you want to say a set
+ of key value pairs, so it's really simple.
+ The constant looks exactly like the printout.
+ So if you print a dictionary, it has a curly brace and then a key colon value comma key
+ colon value comma key colon value.
+ And so you can do that, and that's a literal, that's a dictionary constant, sign that into
+ JJJ, and then you print that out and you get back basically the same thing.
+ And if you just do curly brace curly brace, you get an empty dictionary.
+ So up next, we're going to use dictionaries to go through a seemingly unlimited length
+ list of names or eventually words, and we're going to use dictionaries to accumulate a
+ histogram of the frequency of names in a list of names, and then look and find the most
+ common name.

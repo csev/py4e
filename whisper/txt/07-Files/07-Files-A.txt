@@ -1,0 +1,180 @@
+ - Hello and welcome to chapter seven.
+ This is the chapter where it all really starts to pay off.
+ We have been learning bits and pieces
+ and doing little two lines, three lines, four lines of code
+ to learn the basic building blocks of Python
+ and learn some of the syntax and find lots of terms.
+ But now we're actually going to start doing something.
+ So if you look at what we've been doing so far,
+ you know, we are inside this little computer
+ and you type up, you know, the Python says what next
+ and you give it its command and it does something
+ and you do something else and does something
+ and you do this three or four times
+ unless you write a loop and then it goes like,
+ you know, 10, 20 times and that's it.
+ And then maybe we write a thing
+ that reads something from our keyboard,
+ gives us something back and then we write something
+ and print something out, print a few things out.
+ And so we've been pretty much using the keyboard,
+ the screen, the CPU and the memory.
+ That's kind of where we've been living.
+ And while it's important to talk to the keyboard
+ and the screen, the real world is things like databases
+ that live out here, files that live on our systems
+ and, you know, connecting to the network
+ and reading data from the network.
+ And so that's what we're starting to do right now
+ is we're starting to be able to work outside
+ kind of our code and create things that are permanent.
+ And so we're going to be talking,
+ initially we're going to work on files.
+ We'll later talk to databases and the network
+ and other stuff, but for now we are talking about files.
+ And so really kind of, we're stepping out a little bit
+ and creating, reading things that are permanent
+ and creating things that are permanent.
+ The kinds of files that we're going to talk about
+ mostly are text files.
+ And you can think of these as a sequence of lines in a file
+ that are easily read by Python.
+ You've been making text files all along.
+ You're, you know, hello.py, that file's a text file too.
+ You're using a text editor to create that file.
+ You put your Python commands in a file,
+ you run those files, and that's what it is.
+ And so a file can be thought of as a bunch of lines,
+ you know, one, two, three, four, five, six, seven,
+ a blank line here.
+ That's possible.
+ And, but the reality is that these are actually just lines
+ and we have a special character called the new line
+ that we'll talk about in a second.
+ So to read a file, you have to call the open function.
+ And open returns what we call a file handle.
+ Open doesn't actually read the file.
+ Open makes it possible so that you can read the file.
+ So the parameters to open are,
+ it takes one parameter that's required,
+ which is the name of the file.
+ Another parameter that's optional,
+ whether or not to read it or write it.
+ If we're reading the file, it doesn't harm it.
+ You can read it over and over.
+ If you write it, it actually, if there's already data
+ in that file, it truncates it and writes something.
+ And we're not gonna really write files,
+ we're mostly gonna read them.
+ And so open sort of, you pass it in a file,
+ it gives you back this file handle,
+ and then you have a variable in which you store it.
+ I often call it fhand to be mnemonic.
+ Just, you'll see my code, I use fhand all the time
+ to indicate that that is a file handle.
+ And so if we were to run this in an interactive mode,
+ we'll open mbox.txt, and that is a function
+ built into Python, and then it gives us back a handle.
+ It does not give the data.
+ You can kind of see this when we print out the file handle
+ using the print statement.
+ It doesn't print the lines that are in the file.
+ The lines that are in the file are sort of out there.
+ There could be like 10 million lines for all we know,
+ lines in the file.
+ The handle's like a little opening outside of your program.
+ And you can talk to the file by opening it,
+ then you can read stuff.
+ If you're writing the file, you can write stuff.
+ And then you close the file to shut the handle down.
+ The handle is a thing that allows you to get to the file.
+ It is not the file itself, and it's not the data in the file.
+ It's just a wrapper that kind of allows you.
+ So this, if you print it out, it's like,
+ that's the file we opened, we're reading it.
+ And encoding has to do with the different kinds
+ of character sets, which we talked about
+ at the end of the last lecture,
+ the Unicode character set, et cetera.
+ UTF-8 is a great character set.
+ It's probably the most typical character set
+ that you will run into, although you can have
+ different character sets of files,
+ but most of them are UTF-8.
+ So, of course, this is Python.
+ If you make a mistake and there's a file that doesn't exist,
+ we get a traceback, and it blows up.
+ We'll show you in a second how to deal with that.
+ Now, the newline character is an important part
+ of file reading.
+ And in files, in strings, we can put the newline character
+ in by this \n character.
+ And the \n is the character that indicates
+ that we're supposed to go to another line.
+ Go to a new line.
+ Go to a new line.
+ And so we have, what is this?
+ Well, that's a \n, that's a \n.
+ And so, if we print it out, we print it this way,
+ we see that the \n is in there.
+ This is how we type it.
+ We actually type \n to Python to indicate
+ that we're supposed to put that there.
+ But if we do a print statement,
+ it actually interprets the \n,
+ and so the \n causes this movement to the beginning.
+ Now, the print actually, at the end of this,
+ adds another \n.
+ So the \n that we put in by putting it into the string
+ is that one, and then print always puts a \n at the end.
+ There's actually a way to override that \n behavior
+ by putting something on the print statement,
+ which we'll talk about later.
+ Now, it's important to note that the \n is one character.
+ And so, even though this x\ny prints this,
+ and then print adds another new line to go down to here,
+ if you ask how many characters,
+ what is the length of this?
+ Well, it's only three.
+ That's because that's a character,
+ the \n's a character, and the y is a character.
+ So it's a three-character string.
+ So the \n is a character like all the rest of the characters,
+ but it's only, we encode it by typing \n.
+ It's called an escape, where the \ is the escape,
+ \n is a way to say new line, 'cause we can't see it.
+ It's a way for us to encode in a string
+ this non-printable character, this invisible character.
+ The white space, it's part of white space.
+ So as we're reading through the file,
+ we can think of it as a sequence of lines,
+ and we can read these a line at a time.
+ We can also read them a character at a time if we want.
+ And so, but it's more common to say, read this line,
+ read the next line, read the line after that,
+ et cetera, et cetera, et cetera.
+ But the way to best think about this,
+ it doesn't really matter.
+ You can think about it as lines,
+ and we will in most of the programs that we write.
+ But realize that the way when we see this,
+ we see it like this, it comes back to the beginning,
+ it comes back to the beginning.
+ There's a character in the file at each of these points
+ to say, go back to the beginning.
+ It's like hitting the Enter key on your computer.
+ And that is a new line.
+ So you have to think that in the file,
+ in order for your text editor and Python and everybody
+ to know where the lines end, you put new lines in the file.
+ And that's another character.
+ So, you know, this looks like an empty line.
+ This line here looks like an empty line,
+ but really it has a single character,
+ and the character is a new line.
+ And it turns out that in a bit,
+ we're gonna need to keep track of the fact
+ that every line is ended by a new line.
+ So up next, I'm gonna talk a little bit
+ about how to read files in Python.
+ (gentle music)

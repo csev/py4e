@@ -1,0 +1,88 @@
+ So now we're gonna wrap up and talk a little bit about how strings and lists are related.
+ They're sort of related in that they both have zero base things and we use the square bracket operator to do various things.
+ But there's a lot of situations where we're looking at our data and we're combining the use of lists and strings.
+ So let me show you the first thing, probably the coolest thing.
+ We're gonna use it a lot, the rest of the class, and that is the split function.
+ So let's take a string, we've got ABC here, it's with three words.
+ What we're interested in in the fact is that there's spaces in this word.
+ And what split does is says, you know, I'm gonna look through this thing, I'm gonna find this, and I'm gonna break this into pieces.
+ And I'm gonna return you a list of the separate individual pieces.
+ So read, look for blanks, and break it in pieces, and give me back the pieces.
+ So I'll print these out and now you see that it's a list with three items, with three words.
+ The spaces are gone, but it's given it to us.
+ So it's like, split this into words, please, and give me the individual words.
+ And give me a list of individual words, rather than a big long string with spaces in the middle of it.
+ And that is a quick way to go from a line, and it's really common.
+ A lot of things are gone, like go get the second thing, or the third thing, or whatever.
+ So the split's really nice, 'cause then you can just grab stuff.
+ And so you say, oh, how many things did I get?
+ Well, I got three.
+ The len function tells us that.
+ And I can print the first word I got, which is, and with the sub zero.
+ And that'll be like with, will be the first word, 'cause that's the sub zero position.
+ So I read something, I split it, I can say there's three things,
+ and I can look at stuff, the first word, basically, without really knowing much.
+ Now if you remember earlier, and we'll see this, we used find and slicing to do a similar kind of thing.
+ But people tend to prefer the split.
+ And you can, oops, go back.
+ You can also then loop through them.
+ So you can split these things into stuff as a word, and then go through with w.
+ And then it's gonna go through, w is gonna take the successive with three words.
+ And so you can make a loop by reading some data, splitting it, and then writing a for loop.
+ And then it's effectively going through the words in that line of data.
+ And so that's a really powerful concept that we'll use in a lot of the programs that we're going to write.
+ Just a couple of bits about this and how it works.
+ Split with no parameters here, it looks for spaces, but it also treats a bunch of spaces as a single space.
+ And so it's pretty smart about that.
+ And so even though this has a lot of spaces between lot and of, you only see lot of, all the spaces are gone.
+ It does something special about spaces.
+ It's really white space, so tabs or new lines or other characters would also qualify in split, basically.
+ Now, you don't always have to split based on spaces, and a lot of data that you're gonna run into,
+ you're gonna wanna split on something else.
+ And so here's some data that looks like we're using colons to separate the first, second, and third piece.
+ Now if you just call split, split's looking for spaces.
+ And so split gives you back a list of the things broken apart with spaces, but there's not a single space in that line.
+ And so we get a list, see it's a list, but there's only one item, and the semicolons are sitting there.
+ Split doesn't go like, "Oh, this looks like it should be semicolons."
+ Split's job is to use spaces and split the string based on spaces, okay?
+ But given that this is something we like to do, you can tell split what character you'd actually like to split on.
+ Now it's not quite as clever when splitting on something other than spaces.
+ It doesn't understand that if there's a bunch of semicolons in a row, it still thinks of those as points to split.
+ But in this particular case where there's no spaces, and it's gonna split that.
+ So it says split this based on the semicolon, instead of being based on the space.
+ And so if you take a look at what comes out of this, we split on semicolon, now we have a three-item list, and we get first, second, and third.
+ And a lot of your data comes out of some logging system or some router status updates, who knows what you're looking at.
+ But the delimiter is often something other than space, and you can do that with split.
+ So this is a useful thing when parsing things like our email address, right?
+ We wanted to get things like the email address, this second piece, off of the line.
+ And so we can use split to take advantage of this.
+ And so here's a little loop that's just gonna print out not the email addresses, but instead, the day of the week.
+ We're gonna print the day of the week out for all these things.
+ How do we do that?
+ Well, we can observe really quickly that if we split based on spaces, it's the 0, 1, 2, it's the 2 position.
+ So we can quickly write a bit of code that opens the file, then loops through the lines, we do this all the time now.
+ A strip takes off the end of the new lines.
+ We can check to see if it starts with from space, right?
+ From space is our key, so we're ignoring all of the lines that don't start with from space.
+ But then we find a line that starts with from space, and we split it, and then we just print out the second word.
+ And so we get the second word of the lines that start with from, and that's how this thing works.
+ Now, sometimes we want to dig into deeper, and we will take something, split it, and then split another piece of it again with a different delimiter.
+ So let's just say that the thing that we want to achieve is getting the part after the @ sign for email addresses.
+ And we did this with, again, find and pose and stuff like that, but you can use split to do this as well.
+ So the first thing we're going to do is we're going to take this line, we're going to split it based on spaces, right?
+ Chop, chop, chop, chop, chop, and the fact that there's an extra space there doesn't matter, split happily just like zooms through that.
+ And then words sub 1, 0, 1, 2, words sub 1 is this email address, so we'll put that in a variable called email.
+ And so email will be a string that's just this, so in two lines we've pulled out the second address into a variable.
+ Then what we're going to do is we're going to re-split that.
+ We're going to take this string we've got and split it based on @ sign, because we know it's an email address.
+ So we get a new set of pieces, the first part is the person's name, and the second part is the host name that their email is hosted on.
+ And then what we can do then is we just happen to know that this is the zero item and this is the one item, so we can get at that.
+ So the interesting thing of going here, if you think back to how we did this before with find and pose and all that stuff, it's really a lot cleaner.
+ And we don't, for me, I can look at this after you understand it and it's easy for me to understand that it's correct.
+ Whereas that pose stuff, you've got to add one and start the second find after, just remember that.
+ And this is a lot cleaner way, and this is a more typical way of pulling this kind of information out of a line.
+ So in this chapter we've talked about lists, we've talked about the concept of collections, that's our first data structure.
+ We're not just doing algorithms, we kind of know algorithms now, but now we're going to do data structures.
+ And this chapter and the next two chapters are our foundational data structures.
+ And then we'll, like everything, we'll make more complex data structures by composing those data structures together.
+ We've looked at how strings and lists connect together and how split works, and these are all really powerful tools that we're going to use going forward.

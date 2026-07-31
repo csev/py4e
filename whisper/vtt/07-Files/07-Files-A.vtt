@@ -1,0 +1,542 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.240
+ - Hello and welcome to chapter seven.
+
+00:00:02.240 --> 00:00:04.900
+ This is the chapter where it all really starts to pay off.
+
+00:00:04.900 --> 00:00:07.980
+ We have been learning bits and pieces
+
+00:00:07.980 --> 00:00:12.780
+ and doing little two lines, three lines, four lines of code
+
+00:00:12.780 --> 00:00:15.360
+ to learn the basic building blocks of Python
+
+00:00:15.360 --> 00:00:18.620
+ and learn some of the syntax and find lots of terms.
+
+00:00:18.620 --> 00:00:22.120
+ But now we're actually going to start doing something.
+
+00:00:22.120 --> 00:00:25.040
+ So if you look at what we've been doing so far,
+
+00:00:25.040 --> 00:00:28.520
+ you know, we are inside this little computer
+
+00:00:28.520 --> 00:00:31.620
+ and you type up, you know, the Python says what next
+
+00:00:31.620 --> 00:00:33.560
+ and you give it its command and it does something
+
+00:00:33.560 --> 00:00:35.880
+ and you do something else and does something
+
+00:00:35.880 --> 00:00:37.440
+ and you do this three or four times
+
+00:00:37.440 --> 00:00:39.240
+ unless you write a loop and then it goes like,
+
+00:00:39.240 --> 00:00:41.480
+ you know, 10, 20 times and that's it.
+
+00:00:41.480 --> 00:00:43.600
+ And then maybe we write a thing
+
+00:00:43.600 --> 00:00:45.320
+ that reads something from our keyboard,
+
+00:00:45.320 --> 00:00:47.320
+ gives us something back and then we write something
+
+00:00:47.320 --> 00:00:50.280
+ and print something out, print a few things out.
+
+00:00:50.280 --> 00:00:53.200
+ And so we've been pretty much using the keyboard,
+
+00:00:53.200 --> 00:00:56.440
+ the screen, the CPU and the memory.
+
+00:00:56.440 --> 00:00:58.700
+ That's kind of where we've been living.
+
+00:00:58.700 --> 00:01:00.600
+ And while it's important to talk to the keyboard
+
+00:01:00.600 --> 00:01:04.540
+ and the screen, the real world is things like databases
+
+00:01:04.540 --> 00:01:07.360
+ that live out here, files that live on our systems
+
+00:01:07.360 --> 00:01:09.560
+ and, you know, connecting to the network
+
+00:01:09.560 --> 00:01:12.320
+ and reading data from the network.
+
+00:01:12.320 --> 00:01:14.400
+ And so that's what we're starting to do right now
+
+00:01:14.400 --> 00:01:18.120
+ is we're starting to be able to work outside
+
+00:01:18.120 --> 00:01:20.820
+ kind of our code and create things that are permanent.
+
+00:01:20.820 --> 00:01:23.160
+ And so we're going to be talking,
+
+00:01:23.160 --> 00:01:25.260
+ initially we're going to work on files.
+
+00:01:25.260 --> 00:01:27.440
+ We'll later talk to databases and the network
+
+00:01:27.440 --> 00:01:31.000
+ and other stuff, but for now we are talking about files.
+
+00:01:31.000 --> 00:01:33.760
+ And so really kind of, we're stepping out a little bit
+
+00:01:33.760 --> 00:01:36.300
+ and creating, reading things that are permanent
+
+00:01:36.300 --> 00:01:38.980
+ and creating things that are permanent.
+
+00:01:38.980 --> 00:01:40.680
+ The kinds of files that we're going to talk about
+
+00:01:40.680 --> 00:01:42.800
+ mostly are text files.
+
+00:01:42.800 --> 00:01:47.240
+ And you can think of these as a sequence of lines in a file
+
+00:01:47.240 --> 00:01:49.600
+ that are easily read by Python.
+
+00:01:49.600 --> 00:01:51.880
+ You've been making text files all along.
+
+00:01:51.880 --> 00:01:56.880
+ You're, you know, hello.py, that file's a text file too.
+
+00:01:56.880 --> 00:01:59.600
+ You're using a text editor to create that file.
+
+00:01:59.600 --> 00:02:01.120
+ You put your Python commands in a file,
+
+00:02:01.120 --> 00:02:03.480
+ you run those files, and that's what it is.
+
+00:02:03.480 --> 00:02:06.920
+ And so a file can be thought of as a bunch of lines,
+
+00:02:06.920 --> 00:02:09.000
+ you know, one, two, three, four, five, six, seven,
+
+00:02:09.000 --> 00:02:10.240
+ a blank line here.
+
+00:02:10.240 --> 00:02:11.460
+ That's possible.
+
+00:02:11.460 --> 00:02:16.460
+ And, but the reality is that these are actually just lines
+
+00:02:16.460 --> 00:02:18.520
+ and we have a special character called the new line
+
+00:02:18.520 --> 00:02:20.260
+ that we'll talk about in a second.
+
+00:02:21.640 --> 00:02:25.160
+ So to read a file, you have to call the open function.
+
+00:02:25.160 --> 00:02:27.920
+ And open returns what we call a file handle.
+
+00:02:27.920 --> 00:02:30.280
+ Open doesn't actually read the file.
+
+00:02:30.280 --> 00:02:34.500
+ Open makes it possible so that you can read the file.
+
+00:02:34.500 --> 00:02:38.340
+ So the parameters to open are,
+
+00:02:38.340 --> 00:02:40.280
+ it takes one parameter that's required,
+
+00:02:40.280 --> 00:02:41.740
+ which is the name of the file.
+
+00:02:41.740 --> 00:02:42.920
+ Another parameter that's optional,
+
+00:02:42.920 --> 00:02:44.880
+ whether or not to read it or write it.
+
+00:02:44.880 --> 00:02:47.040
+ If we're reading the file, it doesn't harm it.
+
+00:02:47.040 --> 00:02:48.080
+ You can read it over and over.
+
+00:02:48.080 --> 00:02:50.160
+ If you write it, it actually, if there's already data
+
+00:02:50.160 --> 00:02:52.160
+ in that file, it truncates it and writes something.
+
+00:02:52.160 --> 00:02:53.560
+ And we're not gonna really write files,
+
+00:02:53.560 --> 00:02:54.960
+ we're mostly gonna read them.
+
+00:02:54.960 --> 00:02:57.680
+ And so open sort of, you pass it in a file,
+
+00:02:57.680 --> 00:02:59.240
+ it gives you back this file handle,
+
+00:02:59.240 --> 00:03:01.840
+ and then you have a variable in which you store it.
+
+00:03:01.840 --> 00:03:05.440
+ I often call it fhand to be mnemonic.
+
+00:03:05.440 --> 00:03:08.400
+ Just, you'll see my code, I use fhand all the time
+
+00:03:08.400 --> 00:03:11.040
+ to indicate that that is a file handle.
+
+00:03:11.040 --> 00:03:15.760
+ And so if we were to run this in an interactive mode,
+
+00:03:15.760 --> 00:03:19.920
+ we'll open mbox.txt, and that is a function
+
+00:03:19.920 --> 00:03:22.320
+ built into Python, and then it gives us back a handle.
+
+00:03:22.320 --> 00:03:23.820
+ It does not give the data.
+
+00:03:23.820 --> 00:03:26.920
+ You can kind of see this when we print out the file handle
+
+00:03:26.920 --> 00:03:28.440
+ using the print statement.
+
+00:03:28.440 --> 00:03:31.240
+ It doesn't print the lines that are in the file.
+
+00:03:31.240 --> 00:03:32.880
+ The lines that are in the file are sort of out there.
+
+00:03:32.880 --> 00:03:36.760
+ There could be like 10 million lines for all we know,
+
+00:03:36.760 --> 00:03:37.760
+ lines in the file.
+
+00:03:37.760 --> 00:03:41.700
+ The handle's like a little opening outside of your program.
+
+00:03:41.700 --> 00:03:43.880
+ And you can talk to the file by opening it,
+
+00:03:43.880 --> 00:03:45.480
+ then you can read stuff.
+
+00:03:45.480 --> 00:03:47.520
+ If you're writing the file, you can write stuff.
+
+00:03:47.520 --> 00:03:49.680
+ And then you close the file to shut the handle down.
+
+00:03:49.680 --> 00:03:53.440
+ The handle is a thing that allows you to get to the file.
+
+00:03:53.440 --> 00:03:56.480
+ It is not the file itself, and it's not the data in the file.
+
+00:03:56.480 --> 00:03:59.400
+ It's just a wrapper that kind of allows you.
+
+00:03:59.400 --> 00:04:00.680
+ So this, if you print it out, it's like,
+
+00:04:00.680 --> 00:04:02.720
+ that's the file we opened, we're reading it.
+
+00:04:02.720 --> 00:04:04.640
+ And encoding has to do with the different kinds
+
+00:04:04.640 --> 00:04:06.560
+ of character sets, which we talked about
+
+00:04:06.560 --> 00:04:07.600
+ at the end of the last lecture,
+
+00:04:07.600 --> 00:04:09.600
+ the Unicode character set, et cetera.
+
+00:04:09.600 --> 00:04:12.240
+ UTF-8 is a great character set.
+
+00:04:12.240 --> 00:04:15.780
+ It's probably the most typical character set
+
+00:04:15.780 --> 00:04:18.320
+ that you will run into, although you can have
+
+00:04:18.320 --> 00:04:19.720
+ different character sets of files,
+
+00:04:19.720 --> 00:04:21.220
+ but most of them are UTF-8.
+
+00:04:21.220 --> 00:04:25.180
+ So, of course, this is Python.
+
+00:04:25.180 --> 00:04:27.960
+ If you make a mistake and there's a file that doesn't exist,
+
+00:04:27.960 --> 00:04:30.760
+ we get a traceback, and it blows up.
+
+00:04:30.760 --> 00:04:36.560
+ We'll show you in a second how to deal with that.
+
+00:04:36.560 --> 00:04:39.380
+ Now, the newline character is an important part
+
+00:04:39.380 --> 00:04:41.040
+ of file reading.
+
+00:04:41.040 --> 00:04:44.800
+ And in files, in strings, we can put the newline character
+
+00:04:44.800 --> 00:04:47.700
+ in by this \n character.
+
+00:04:47.700 --> 00:04:50.480
+ And the \n is the character that indicates
+
+00:04:50.480 --> 00:04:53.040
+ that we're supposed to go to another line.
+
+00:04:53.040 --> 00:04:54.680
+ Go to a new line.
+
+00:04:54.680 --> 00:04:55.920
+ Go to a new line.
+
+00:04:55.920 --> 00:04:57.120
+ And so we have, what is this?
+
+00:04:57.120 --> 00:04:59.460
+ Well, that's a \n, that's a \n.
+
+00:04:59.460 --> 00:05:04.120
+ And so, if we print it out, we print it this way,
+
+00:05:04.120 --> 00:05:05.900
+ we see that the \n is in there.
+
+00:05:05.900 --> 00:05:06.900
+ This is how we type it.
+
+00:05:06.900 --> 00:05:10.880
+ We actually type \n to Python to indicate
+
+00:05:10.880 --> 00:05:12.940
+ that we're supposed to put that there.
+
+00:05:12.940 --> 00:05:15.880
+ But if we do a print statement,
+
+00:05:15.880 --> 00:05:17.560
+ it actually interprets the \n,
+
+00:05:17.560 --> 00:05:20.440
+ and so the \n causes this movement to the beginning.
+
+00:05:20.440 --> 00:05:22.800
+ Now, the print actually, at the end of this,
+
+00:05:22.800 --> 00:05:24.120
+ adds another \n.
+
+00:05:24.120 --> 00:05:28.000
+ So the \n that we put in by putting it into the string
+
+00:05:28.000 --> 00:05:31.720
+ is that one, and then print always puts a \n at the end.
+
+00:05:31.720 --> 00:05:36.040
+ There's actually a way to override that \n behavior
+
+00:05:36.040 --> 00:05:37.840
+ by putting something on the print statement,
+
+00:05:37.840 --> 00:05:39.520
+ which we'll talk about later.
+
+00:05:39.520 --> 00:05:44.360
+ Now, it's important to note that the \n is one character.
+
+00:05:44.360 --> 00:05:48.840
+ And so, even though this x\ny prints this,
+
+00:05:48.840 --> 00:05:51.400
+ and then print adds another new line to go down to here,
+
+00:05:51.400 --> 00:05:52.840
+ if you ask how many characters,
+
+00:05:52.840 --> 00:05:54.400
+ what is the length of this?
+
+00:05:54.400 --> 00:05:55.800
+ Well, it's only three.
+
+00:05:55.800 --> 00:05:57.680
+ That's because that's a character,
+
+00:05:57.680 --> 00:06:00.200
+ the \n's a character, and the y is a character.
+
+00:06:00.200 --> 00:06:01.720
+ So it's a three-character string.
+
+00:06:01.720 --> 00:06:05.320
+ So the \n is a character like all the rest of the characters,
+
+00:06:05.320 --> 00:06:10.020
+ but it's only, we encode it by typing \n.
+
+00:06:10.020 --> 00:06:12.560
+ It's called an escape, where the \ is the escape,
+
+00:06:12.560 --> 00:06:16.480
+ \n is a way to say new line, 'cause we can't see it.
+
+00:06:16.480 --> 00:06:19.040
+ It's a way for us to encode in a string
+
+00:06:19.040 --> 00:06:22.640
+ this non-printable character, this invisible character.
+
+00:06:22.640 --> 00:06:24.760
+ The white space, it's part of white space.
+
+00:06:24.760 --> 00:06:27.480
+ So as we're reading through the file,
+
+00:06:27.480 --> 00:06:29.240
+ we can think of it as a sequence of lines,
+
+00:06:29.240 --> 00:06:31.140
+ and we can read these a line at a time.
+
+00:06:31.140 --> 00:06:33.640
+ We can also read them a character at a time if we want.
+
+00:06:33.640 --> 00:06:36.000
+ And so, but it's more common to say, read this line,
+
+00:06:36.000 --> 00:06:38.160
+ read the next line, read the line after that,
+
+00:06:38.160 --> 00:06:39.960
+ et cetera, et cetera, et cetera.
+
+00:06:39.960 --> 00:06:42.880
+ But the way to best think about this,
+
+00:06:42.880 --> 00:06:44.080
+ it doesn't really matter.
+
+00:06:44.080 --> 00:06:45.500
+ You can think about it as lines,
+
+00:06:45.500 --> 00:06:47.880
+ and we will in most of the programs that we write.
+
+00:06:47.880 --> 00:06:50.800
+ But realize that the way when we see this,
+
+00:06:50.800 --> 00:06:55.960
+ we see it like this, it comes back to the beginning,
+
+00:06:55.960 --> 00:06:56.800
+ it comes back to the beginning.
+
+00:06:56.800 --> 00:06:59.880
+ There's a character in the file at each of these points
+
+00:06:59.880 --> 00:07:01.120
+ to say, go back to the beginning.
+
+00:07:01.120 --> 00:07:04.360
+ It's like hitting the Enter key on your computer.
+
+00:07:04.360 --> 00:07:05.460
+ And that is a new line.
+
+00:07:05.460 --> 00:07:07.920
+ So you have to think that in the file,
+
+00:07:07.920 --> 00:07:11.240
+ in order for your text editor and Python and everybody
+
+00:07:11.240 --> 00:07:14.600
+ to know where the lines end, you put new lines in the file.
+
+00:07:14.600 --> 00:07:16.360
+ And that's another character.
+
+00:07:16.360 --> 00:07:19.680
+ So, you know, this looks like an empty line.
+
+00:07:19.680 --> 00:07:21.340
+ This line here looks like an empty line,
+
+00:07:21.340 --> 00:07:22.680
+ but really it has a single character,
+
+00:07:22.680 --> 00:07:24.200
+ and the character is a new line.
+
+00:07:24.200 --> 00:07:25.880
+ And it turns out that in a bit,
+
+00:07:25.880 --> 00:07:27.660
+ we're gonna need to keep track of the fact
+
+00:07:27.660 --> 00:07:31.360
+ that every line is ended by a new line.
+
+00:07:31.360 --> 00:07:33.120
+ So up next, I'm gonna talk a little bit
+
+00:07:33.120 --> 00:07:36.000
+ about how to read files in Python.
+
+00:07:36.000 --> 00:07:38.580
+ (gentle music)
+

@@ -1,0 +1,356 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.260
+ So now we're gonna talk to you about one of the common applications of dictionaries and that is making histograms.
+
+00:00:06.260 --> 00:00:11.560
+ It's counting the frequency of things. And so if you think of a histogram as, you know,
+
+00:00:11.560 --> 00:00:14.520
+ it's a little graph and there is, you know,
+
+00:00:14.520 --> 00:00:18.440
+ how many A's, how many B's, and how many C's, and there's a histogram that says,
+
+00:00:18.440 --> 00:00:21.800
+ oh, there's this many of that and this many of that, and these are like buckets,
+
+00:00:21.800 --> 00:00:25.500
+ these are frequencies, and this is how many times it happens. So a histogram.
+
+00:00:25.500 --> 00:00:29.720
+ But we're gonna do this thing where we're gonna count people's names and we're gonna kind of count
+
+00:00:29.720 --> 00:00:33.260
+ how many that we see. But the interesting thing that we're gonna solve,
+
+00:00:33.260 --> 00:00:36.860
+ just like many of the things in the computer, is we can't just sort of look at the data.
+
+00:00:36.860 --> 00:00:41.360
+ We've got to look at the data iteratively, one piece of data at a time.
+
+00:00:41.360 --> 00:00:43.960
+ So I'm gonna give you a little problem, okay?
+
+00:00:43.960 --> 00:00:50.460
+ I'm gonna show you a series of names, one at a time, and I want you to count for each name,
+
+00:00:50.460 --> 00:00:54.460
+ make a little bucket, and then keep counting how many things for each of the different names, okay?
+
+00:00:54.460 --> 00:00:58.140
+ You'll notice that you have to start with one and then you move across.
+
+00:00:58.140 --> 00:01:04.140
+ So just watch this, and tell me how many,
+
+00:01:04.140 --> 00:01:07.520
+ what's the most common name of the set of names I'm about to show you,
+
+00:01:07.520 --> 00:01:10.120
+ and how many do we see.
+
+00:01:28.140 --> 00:01:48.140
+ So how many, what was the most common name and how many times did you see it?
+
+00:01:48.140 --> 00:01:52.140
+ That's the question. Now here comes the reveal.
+
+00:01:52.140 --> 00:01:57.140
+ So for humans, it's so much easier for you to just look at this, and you think how did my brain look at that?
+
+00:01:57.140 --> 00:02:07.140
+ And you're like, okay, what is pretty common, oh, maybe, maybe Chen is common, oh, Chen, Chen, Chen, no.
+
+00:02:07.140 --> 00:02:15.140
+ Maybe Zhen is common, one, two, three, four, yeah, that, anybody else, Marquardt's got three, C7,
+
+00:02:15.140 --> 00:02:23.140
+ and so you'll notice how our minds, without computers, we just sort of like bounce, branch and bound.
+
+00:02:23.140 --> 00:02:29.140
+ We have hypotheses, and then we decide, yep, it's Zhen, that's it, and there's four of them.
+
+00:02:29.140 --> 00:02:35.140
+ Now, how did your brain think about this as we were going through them one at a time?
+
+00:02:35.140 --> 00:02:40.140
+ Well, my guess is if you really had to do this a lot, you would make a little picture like this.
+
+00:02:40.140 --> 00:02:47.140
+ And then what you would do is if you saw a new name, you know, XYZ, you'd add it to the list and give it a tick mark of one,
+
+00:02:47.140 --> 00:02:51.140
+ and then if you saw like C7 again, you'd give that a tick mark,
+
+00:02:51.140 --> 00:02:56.140
+ and if you saw XYZ again, you'd make a tick mark, and then you'd make, you'd keep adding to these tick marks, right?
+
+00:02:56.140 --> 00:03:00.140
+ And that's how you would do it, and you wouldn't, like many of the things we do in a loop,
+
+00:03:00.140 --> 00:03:03.140
+ you wouldn't really know what the most common was, one, until the end.
+
+00:03:03.140 --> 00:03:08.140
+ And then you'd sort of take a look at these numbers, and you'd say, okay, that's the most, most common number,
+
+00:03:08.140 --> 00:03:11.140
+ and then you'd, you'd be done.
+
+00:03:11.140 --> 00:03:16.140
+ But you have to watch them one at a time, you can't just bounce around.
+
+00:03:16.140 --> 00:03:21.140
+ And so that's how we're going to use dictionaries to achieve that.
+
+00:03:21.140 --> 00:03:24.140
+ Again, instinctively as humans, we just look at the stuff.
+
+00:03:24.140 --> 00:03:28.140
+ But if you add a million things, you probably want to write a Python program and use dictionaries.
+
+00:03:28.140 --> 00:03:31.140
+ And so this is the idea, and there's two basic things that happen.
+
+00:03:31.140 --> 00:03:35.140
+ One is the first time you see a name, you've got to say, is this name there already?
+
+00:03:35.140 --> 00:03:38.140
+ If it's there already, you really just want to add one to it, right?
+
+00:03:38.140 --> 00:03:40.140
+ That's the adding of a tick.
+
+00:03:40.140 --> 00:03:45.140
+ Or you want to see for the first time, you know, blah, blah, blah, blah, blah, and give it a one.
+
+00:03:45.140 --> 00:03:50.140
+ You can use the name as the key, and then one is the value.
+
+00:03:50.140 --> 00:03:53.140
+ And then first time you see Chen, you stick one in there.
+
+00:03:53.140 --> 00:03:58.140
+ And so at this point, inside the dictionary, sort of dynamically adding, as soon as it sees a new name,
+
+00:03:58.140 --> 00:04:00.140
+ it adds another slot in here.
+
+00:04:00.140 --> 00:04:05.140
+ But then if you see the same name again, like Chen again, then you end up with a one, add one to it,
+
+00:04:05.140 --> 00:04:08.140
+ and so it's two, and so at that point, Chen is two.
+
+00:04:08.140 --> 00:04:13.140
+ And so you can see how you can both extend the dictionary by encountering a new name,
+
+00:04:13.140 --> 00:04:19.140
+ or adding when you see a name that you've already seen before.
+
+00:04:19.140 --> 00:04:22.140
+ The problem with dictionaries is, like everything in Python,
+
+00:04:22.140 --> 00:04:24.140
+ there are rules about what you can and can't do.
+
+00:04:24.140 --> 00:04:28.140
+ And one of the, I think, kind of frustrating things about dictionaries is that
+
+00:04:28.140 --> 00:04:31.140
+ you can't just look for a key that doesn't exist.
+
+00:04:31.140 --> 00:04:34.140
+ So this is a fresh brand new dictionary, we do a constructor there,
+
+00:04:34.140 --> 00:04:38.140
+ and we print out some CSEV, and boom, it blows up, and that's bad.
+
+00:04:38.140 --> 00:04:42.140
+ But we can solve this by the in operator, the in operator we've used in the for loop.
+
+00:04:42.140 --> 00:04:45.140
+ We've used it in lists, we've used it in strings.
+
+00:04:45.140 --> 00:04:49.140
+ So that is a question, it's saying, is CSEV in CCC?
+
+00:04:49.140 --> 00:04:54.140
+ Well, this is this empty one, and so it is, no, it is not, CSEV is not in CCC.
+
+00:04:54.140 --> 00:04:57.140
+ And so using this in operator, we can avoid the trace back.
+
+00:04:57.140 --> 00:05:00.140
+ We can say, if it's not there, put it in.
+
+00:05:00.140 --> 00:05:02.140
+ If it is there, add one to it.
+
+00:05:02.140 --> 00:05:06.140
+ And that leads us to this bit of code.
+
+00:05:06.140 --> 00:05:12.140
+ Okay, and that is the kind of code that we're going to build, this is going to histogram code, okay?
+
+00:05:12.140 --> 00:05:15.140
+ And so this is going to have name as our iterator names.
+
+00:05:15.140 --> 00:05:18.140
+ Sorry, I made them singular and plural, that's nice.
+
+00:05:18.140 --> 00:05:21.140
+ So name is going to be CSEV Chen, CSEV Zhen.
+
+00:05:21.140 --> 00:05:25.140
+ Now normally we'll be reading this from a file, but for now we'll keep it easy.
+
+00:05:25.140 --> 00:05:27.140
+ We're going to go through this.
+
+00:05:27.140 --> 00:05:30.140
+ And we're going to have counts as our dictionary, so that starts out empty.
+
+00:05:30.140 --> 00:05:33.140
+ And we're going to do a simple if then else every time through the loop.
+
+00:05:33.140 --> 00:05:39.140
+ If the name we're looking at is not in the dictionary already, is the key, then set it to be one.
+
+00:05:39.140 --> 00:05:46.140
+ If it's not, go get the old value, count sub name, and then add one to it and stick it back in.
+
+00:05:46.140 --> 00:05:50.140
+ So this is, this line right here is new, adding a new thing.
+
+00:05:50.140 --> 00:05:54.140
+ And this line right here is adding some things to existing things.
+
+00:05:54.140 --> 00:05:58.140
+ And you do this long enough, you start with an empty one, and you do this long enough.
+
+00:05:58.140 --> 00:06:05.140
+ At the very end, it will print out the histogram that you're looking for, the histogram you're looking for.
+
+00:06:05.140 --> 00:06:09.140
+ And so you say, oh, we've seen CSEV twice, Zhen once, and Chen twice.
+
+00:06:09.140 --> 00:06:17.140
+ And so that's the idea, and so this can run a million times if you want.
+
+00:06:17.140 --> 00:06:24.140
+ Now, this notion of checking to see if a key exists, and doing one thing if it doesn't exist,
+
+00:06:24.140 --> 00:06:32.140
+ and doing another thing if it does exist, is such a common practice that the dictionary object
+
+00:06:32.140 --> 00:06:39.140
+ has this method called get that collapses these four lines into one line.
+
+00:06:39.140 --> 00:06:44.140
+ And so the idea is you're going to do one thing if it's in there, and you're going to retrieve the current thing.
+
+00:06:44.140 --> 00:06:46.140
+ Otherwise, you're going to pick a default value.
+
+00:06:46.140 --> 00:06:49.140
+ In this case, we'll pick one. I mean, pick zero.
+
+00:06:49.140 --> 00:06:53.140
+ This is like the default, right, meaning what is not there.
+
+00:06:53.140 --> 00:06:58.140
+ You say counts, now counts is a dictionary, .get, that's like string.upper, that's a method.
+
+00:06:58.140 --> 00:07:01.140
+ You give it a key, and then a default.
+
+00:07:01.140 --> 00:07:07.140
+ And if the key exists, you get back what's in the key. If the key doesn't exist, you get the default.
+
+00:07:07.140 --> 00:07:10.140
+ And with no trace back, this works.
+
+00:07:10.140 --> 00:07:17.140
+ So the best way to think about this is those four lines are equal to that one line,
+
+00:07:17.140 --> 00:07:22.140
+ because x is either going to be whatever was in there before if it exists, or it's going to be zero.
+
+00:07:22.140 --> 00:07:25.140
+ Now, the nice thing about zero is the next thing we're going to do is we're going to add one to it,
+
+00:07:25.140 --> 00:07:27.140
+ so that that's going to get us to one.
+
+00:07:27.140 --> 00:07:37.140
+ So collapsing that loop that we saw before, collapsing that loop, we can make it just a one line loop.
+
+00:07:37.140 --> 00:07:39.140
+ And this will become an idiom.
+
+00:07:39.140 --> 00:07:44.140
+ This will become something that you will get used to, and you will use over and over and over again.
+
+00:07:44.140 --> 00:07:50.140
+ And after a while, right now you're looking at it, boy, that's a lot of syntax and semicolons and whatever.
+
+00:07:50.140 --> 00:07:54.140
+ After a while, you just type this and not even think about it. It's an idiom.
+
+00:07:54.140 --> 00:07:59.140
+ It's basically included in this idiom is how to both create new entries in dictionaries
+
+00:07:59.140 --> 00:08:03.140
+ and update existing entries by adding one to them.
+
+00:08:03.140 --> 00:08:05.140
+ So everything else in this is the same.
+
+00:08:05.140 --> 00:08:07.140
+ Name is going to go through these five values.
+
+00:08:07.140 --> 00:08:13.140
+ And we're going to say counts of name equals counts.get name comma zero plus one.
+
+00:08:13.140 --> 00:08:19.140
+ And so if, for example, this already has a one in it, then this is going to be one plus one becomes two.
+
+00:08:19.140 --> 00:08:22.140
+ If it's not, it's going to be zero plus one equals two.
+
+00:08:22.140 --> 00:08:27.140
+ And so this is the idea of if new, set it to one, not zero, set it to one.
+
+00:08:27.140 --> 00:08:31.140
+ Because the first time you see something, the count should be one, not zero.
+
+00:08:31.140 --> 00:08:32.140
+ So that's why we make this default.
+
+00:08:32.140 --> 00:08:34.140
+ Now the get can be used for anything.
+
+00:08:34.140 --> 00:08:41.140
+ It just so happens that zero is a common default because it's really common that we're using this to basically make a histogram, right?
+
+00:08:41.140 --> 00:08:44.140
+ A little histogram of A, B, C, right?
+
+00:08:44.140 --> 00:08:48.140
+ And so we need to make a D, but then the histogram has to start at one.
+
+00:08:48.140 --> 00:08:52.140
+ So that's basically the simplified counting with get.
+
+00:08:52.140 --> 00:09:02.140
+ And there's a lot of things that we're going to do inside of Python that do have to do with frequencies and how many times certain things happened.
+
+00:09:02.140 --> 00:09:07.140
+ And this pattern is a really good pattern to absolutely know.
+
+00:09:18.140 --> 00:09:26.140
+ [ Music ]
+

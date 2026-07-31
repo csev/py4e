@@ -1,0 +1,106 @@
+ So now what we want to do is use some of these newfound skills in some more practical applications of regular expressions.
+ So let's go back to the way we first tore apart strings and
+ and look at the situation where we, if you recall, we just wanted the host name, right?
+ This is an email address and we're interested in the host name. So we have this string and
+ we go find the @, right? The find looks up and tells us the @ is at position 21.
+ And then what we do is we say, okay, let's look beyond there to the space and that tells that the space is in position 31.
+ And then we're saying we can extract, starting at beyond the @ sign, up to but not including the space, by saying
+ @pos + 1 colon space position. And
+ when we get that, now we have to have a thing that decides to only look at this on from lines,
+ but then it can print out the host that is extracting of this information.
+ So that was one way that we did that, right? One way we did it.
+ The next way we did this was the double split pattern.
+ Right? So we said, okay, let's take this line. Let's break it into words
+ based on spaces. That's what words is. So that's 0, 1, 2, 3, 4, 5, 6.
+ And then we know that the email address on lines that start with from space is the second one.
+ So we pull out email address, which pulls this bit out into email.
+ And then we're going to split that again
+ based on the @ sign.
+ So we're going to split this part again based on the @ sign.
+ So it splits right there, and then this becomes the 0 and 1 in pieces.
+ And then pieces sub 1 is that host. And if we print that out, we get the host.
+ So that's the double split pattern. Nice thing about that is you don't have to keep track.
+ The little plus one is kind of annoying to use the space position.
+ That previous one, that's just hard to remember. It's just...
+ I've written this code way too many times in my career, and I've made mistakes,
+ and I have to debug it every single time, and I print all these numbers out.
+ I'm like, "Did I get it right? Oh, I did it in Python. I did it in Java. I did it in C.E.U.
+ Wait a second. I did it differently." And so it's...
+ So this is a lot cleaner. I mean, I can write this every time, and I know it's going to work every time.
+ I barely even need to test this code because it's so obvious.
+ So double split is another way of extracting stuff.
+ But if we look at this thing with the regular expression, we can say, "Oh, okay.
+ Let's use a regular expression to do this."
+ So we'll start looking through the string. We'll start by saying, "Hey, let's look until we find an @ sign."
+ Then let's start extracting with the parentheses, and then once we have found the @ sign,
+ let's look for non-blank characters.
+ This is a set of characters. This ^ as the first one means not a blank.
+ So that's another way to do non-blank. A set of characters which are everything but blank. That's what this little bit is saying.
+ * means
+ zero more times, which means it's going to run, run, run, run until it finds a blank, which is going to stop it.
+ The greediness is what keeps pushing it, right?
+ This is a greedy match. That asterisk is greedy because there's no question mark after it.
+ And so that does go and starts at the @ sign
+ with the parentheses,
+ goes to the space, and that's the end parentheses, and that's what prints out.
+ Now, y is going to be a list that's a one item list that has the string in it that we're looking for,
+ but you can just go sub-zero to get that guy right out of there.
+ Okay, so that's sort of the regular expression version of it, but we can
+ make this a more fine-tuned thing.
+ So we can say, "Look, we also want to pick the line, and we want to know if there are, if we don't get that line,
+ we want to skip it. If we do get the line, we want to extract the data."
+ And we can do this all in a single regular expression.
+ So again, we say start from the beginning of the line,
+ and if it's got to be a from, followed by a space, and then followed by any number of characters, dot, star,
+ followed by an @ sign, so this has to match.
+ We see a space, then we're going to have any number of characters, and then we're going to see an @ sign, and then
+ we're going to start extracting, and then we're going to go non-blank, non-blank, non-blank, non-blank, non-blank, up-blank, and extracting,
+ and out that comes. And this has the advantage of the previous one, in that that makes it much more precise.
+ There, if we look at the previous one, while it works on good lines,
+ it might actually trigger on lines that we actually don't want to see. So this allows us to refine it,
+ so it only actually does this to lines that we care about. So it's sort of a, both an if statement,
+ and a splitting, extracting, going on all at the same time, by having a bigger string that we're matching than we're extracting.
+ It's a way to kind of clean up your data.
+ So here is a simple program that we're going to just put all this together and actually accomplish something.
+ And so we're going to, we're going to read through and look for lines in a file that have this form, and we're going to extract this number,
+ and then we're going to compute the maximum of this.
+ Okay, so we're going to extract this number and then convert it to a float and compute the maximum.
+ So, you know, we're going to open a file, we're going to write a for loop, we're going to strip,
+ so we're going to do this for every line in the file, but the first thing we want to do is not get lines, we want to discard all the lines,
+ except ones that have this. So our regular expression is, look for lines that start with x dash dspam dash confidence colon.
+ So that's a pretty strong match. If that's not there, we're not going to get anything.
+ And then there's a space, there's a space, and then start extracting, and then go as long, one or more digits and dots,
+ that's a single character, and that's one or more, and then stop extracting.
+ So that says, start extracting, da da da da, greedy, greedy, greedy, greedy, stop extracting.
+ And so that's what we're going to get.
+ Now, if the line doesn't have this, it means missing in some way, whether it's this prefix or this number.
+ If the number's missing, it's going to fail too. We're going to get back a list, an empty list.
+ So the first thing you have to do is check to see if you actually got a match.
+ So you say, if the number of items in the list, len of stuff, is not equal to one, continue.
+ And so this is the skip all the lines that don't match, skip, skip, skip, skip, skip, skip, so there could be thousands of lines
+ that don't match, but then when this match hits, it's going to come down and fall through, right?
+ So that, most of the lines will skip up, but then when we actually get one, and we know instantly that we've got one,
+ and stuff sub zero, because that's what we extracted, is this number.
+ And we can take the floating point of it, we append it to our list, we made a list to store them.
+ That runs, the list grows, and then we just say, what was the largest one?
+ And so you can run this and see that.
+ We have an escape character, and the whole idea is that sometimes all these little special characters
+ that make a lot of sense to us, we actually want to search for it.
+ So what if we want to search for a dollar sign?
+ Well, we just prefix it with the backslash, and that just means this is a real dollar sign.
+ So backslash dollar is a real dollar sign.
+ So this says, I would like a dollar sign followed by one or more digits or dots.
+ And so that's going to match a dollar sign followed by one or more digits, dots are okay.
+ This is a set, remember, 0-9 or dot, that's a set of the list of legit characters.
+ This is a range of characters that's a shortcut to how to make the set.
+ You could make it be 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, dot, or 0-9, and it assumes that, and that's one or more.
+ So then it stops because this is a space, it's greedy matching, then it pulls this out.
+ So that's kind of why greedy has to be the default, because otherwise if it wasn't doing greedy matching,
+ oops, come back, come back.
+ If it wasn't doing greedy matching, it would, if it wasn't doing greedy matching, it would stop here,
+ because it would find a dollar sign, non-greedy would find a dollar sign and one character,
+ and then it would give us dollar one rather than dollar ten.
+ So, in summary, regular expressions are a cryptic but powerful language,
+ and they're an acquired taste.
+ I think that, I bet eventually you'll find them fun, even though on your first impression you might not think that they're so fun.
+ [Music]

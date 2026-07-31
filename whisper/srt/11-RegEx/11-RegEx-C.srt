@@ -1,0 +1,424 @@
+1
+00:00:00,000 --> 00:00:06,080
+ So now what we want to do is use some of these newfound skills in some more practical applications of regular expressions.
+
+2
+00:00:06,080 --> 00:00:10,560
+ So let's go back to the way we first tore apart strings and
+
+3
+00:00:10,560 --> 00:00:15,500
+ and look at the situation where we, if you recall, we just wanted the host name, right?
+
+4
+00:00:15,500 --> 00:00:20,080
+ This is an email address and we're interested in the host name. So we have this string and
+
+5
+00:00:20,080 --> 00:00:25,440
+ we go find the @, right? The find looks up and tells us the @ is at position 21.
+
+6
+00:00:25,440 --> 00:00:32,680
+ And then what we do is we say, okay, let's look beyond there to the space and that tells that the space is in position 31.
+
+7
+00:00:32,680 --> 00:00:39,980
+ And then we're saying we can extract, starting at beyond the @ sign, up to but not including the space, by saying
+
+8
+00:00:39,980 --> 00:00:43,520
+ @pos + 1 colon space position. And
+
+9
+00:00:43,520 --> 00:00:48,640
+ when we get that, now we have to have a thing that decides to only look at this on from lines,
+
+10
+00:00:48,640 --> 00:00:52,480
+ but then it can print out the host that is extracting of this information.
+
+11
+00:00:52,480 --> 00:00:56,260
+ So that was one way that we did that, right? One way we did it.
+
+12
+00:00:56,260 --> 00:01:00,040
+ The next way we did this was the double split pattern.
+
+13
+00:01:00,040 --> 00:01:04,500
+ Right? So we said, okay, let's take this line. Let's break it into words
+
+14
+00:01:04,500 --> 00:01:12,200
+ based on spaces. That's what words is. So that's 0, 1, 2, 3, 4, 5, 6.
+
+15
+00:01:12,200 --> 00:01:17,800
+ And then we know that the email address on lines that start with from space is the second one.
+
+16
+00:01:17,800 --> 00:01:21,940
+ So we pull out email address, which pulls this bit out into email.
+
+17
+00:01:22,640 --> 00:01:24,640
+ And then we're going to split that again
+
+18
+00:01:24,640 --> 00:01:27,080
+ based on the @ sign.
+
+19
+00:01:27,080 --> 00:01:30,240
+ So we're going to split this part again based on the @ sign.
+
+20
+00:01:30,240 --> 00:01:33,560
+ So it splits right there, and then this becomes the 0 and 1 in pieces.
+
+21
+00:01:33,560 --> 00:01:39,120
+ And then pieces sub 1 is that host. And if we print that out, we get the host.
+
+22
+00:01:39,120 --> 00:01:42,920
+ So that's the double split pattern. Nice thing about that is you don't have to keep track.
+
+23
+00:01:42,920 --> 00:01:46,840
+ The little plus one is kind of annoying to use the space position.
+
+24
+00:01:46,840 --> 00:01:50,760
+ That previous one, that's just hard to remember. It's just...
+
+25
+00:01:51,760 --> 00:01:56,160
+ I've written this code way too many times in my career, and I've made mistakes,
+
+26
+00:01:56,160 --> 00:01:59,040
+ and I have to debug it every single time, and I print all these numbers out.
+
+27
+00:01:59,040 --> 00:02:03,800
+ I'm like, "Did I get it right? Oh, I did it in Python. I did it in Java. I did it in C.E.U.
+
+28
+00:02:03,800 --> 00:02:05,680
+ Wait a second. I did it differently." And so it's...
+
+29
+00:02:05,680 --> 00:02:11,360
+ So this is a lot cleaner. I mean, I can write this every time, and I know it's going to work every time.
+
+30
+00:02:11,360 --> 00:02:13,960
+ I barely even need to test this code because it's so obvious.
+
+31
+00:02:13,960 --> 00:02:17,200
+ So double split is another way of extracting stuff.
+
+32
+00:02:17,200 --> 00:02:20,920
+ But if we look at this thing with the regular expression, we can say, "Oh, okay.
+
+33
+00:02:21,280 --> 00:02:25,280
+ Let's use a regular expression to do this."
+
+34
+00:02:25,280 --> 00:02:30,520
+ So we'll start looking through the string. We'll start by saying, "Hey, let's look until we find an @ sign."
+
+35
+00:02:30,520 --> 00:02:38,800
+ Then let's start extracting with the parentheses, and then once we have found the @ sign,
+
+36
+00:02:38,800 --> 00:02:41,800
+ let's look for non-blank characters.
+
+37
+00:02:41,800 --> 00:02:48,800
+ This is a set of characters. This ^ as the first one means not a blank.
+
+38
+00:02:49,440 --> 00:02:56,280
+ So that's another way to do non-blank. A set of characters which are everything but blank. That's what this little bit is saying.
+
+39
+00:02:56,280 --> 00:02:58,720
+ * means
+
+40
+00:02:58,720 --> 00:03:03,520
+ zero more times, which means it's going to run, run, run, run until it finds a blank, which is going to stop it.
+
+41
+00:03:03,520 --> 00:03:06,000
+ The greediness is what keeps pushing it, right?
+
+42
+00:03:06,000 --> 00:03:10,120
+ This is a greedy match. That asterisk is greedy because there's no question mark after it.
+
+43
+00:03:10,120 --> 00:03:14,360
+ And so that does go and starts at the @ sign
+
+44
+00:03:14,360 --> 00:03:17,360
+ with the parentheses,
+
+45
+00:03:17,360 --> 00:03:21,440
+ goes to the space, and that's the end parentheses, and that's what prints out.
+
+46
+00:03:21,440 --> 00:03:26,920
+ Now, y is going to be a list that's a one item list that has the string in it that we're looking for,
+
+47
+00:03:26,920 --> 00:03:30,240
+ but you can just go sub-zero to get that guy right out of there.
+
+48
+00:03:30,240 --> 00:03:34,040
+ Okay, so that's sort of the regular expression version of it, but we can
+
+49
+00:03:34,040 --> 00:03:37,040
+ make this a more fine-tuned thing.
+
+50
+00:03:37,040 --> 00:03:44,480
+ So we can say, "Look, we also want to pick the line, and we want to know if there are, if we don't get that line,
+
+51
+00:03:45,000 --> 00:03:48,080
+ we want to skip it. If we do get the line, we want to extract the data."
+
+52
+00:03:48,080 --> 00:03:50,400
+ And we can do this all in a single regular expression.
+
+53
+00:03:50,400 --> 00:03:53,320
+ So again, we say start from the beginning of the line,
+
+54
+00:03:53,320 --> 00:04:00,280
+ and if it's got to be a from, followed by a space, and then followed by any number of characters, dot, star,
+
+55
+00:04:00,280 --> 00:04:03,400
+ followed by an @ sign, so this has to match.
+
+56
+00:04:03,400 --> 00:04:08,960
+ We see a space, then we're going to have any number of characters, and then we're going to see an @ sign, and then
+
+57
+00:04:08,960 --> 00:04:15,920
+ we're going to start extracting, and then we're going to go non-blank, non-blank, non-blank, non-blank, non-blank, up-blank, and extracting,
+
+58
+00:04:15,920 --> 00:04:21,840
+ and out that comes. And this has the advantage of the previous one, in that that makes it much more precise.
+
+59
+00:04:21,840 --> 00:04:25,760
+ There, if we look at the previous one, while it works on good lines,
+
+60
+00:04:25,760 --> 00:04:31,320
+ it might actually trigger on lines that we actually don't want to see. So this allows us to refine it,
+
+61
+00:04:31,320 --> 00:04:36,480
+ so it only actually does this to lines that we care about. So it's sort of a, both an if statement,
+
+62
+00:04:37,000 --> 00:04:44,240
+ and a splitting, extracting, going on all at the same time, by having a bigger string that we're matching than we're extracting.
+
+63
+00:04:44,240 --> 00:04:47,760
+ It's a way to kind of clean up your data.
+
+64
+00:04:47,760 --> 00:04:54,440
+ So here is a simple program that we're going to just put all this together and actually accomplish something.
+
+65
+00:04:54,440 --> 00:05:02,280
+ And so we're going to, we're going to read through and look for lines in a file that have this form, and we're going to extract this number,
+
+66
+00:05:02,280 --> 00:05:07,920
+ and then we're going to compute the maximum of this.
+
+67
+00:05:07,920 --> 00:05:11,360
+ Okay, so we're going to extract this number and then convert it to a float and compute the maximum.
+
+68
+00:05:11,360 --> 00:05:17,000
+ So, you know, we're going to open a file, we're going to write a for loop, we're going to strip,
+
+69
+00:05:17,000 --> 00:05:23,200
+ so we're going to do this for every line in the file, but the first thing we want to do is not get lines, we want to discard all the lines,
+
+70
+00:05:23,200 --> 00:05:29,960
+ except ones that have this. So our regular expression is, look for lines that start with x dash dspam dash confidence colon.
+
+71
+00:05:29,960 --> 00:05:34,320
+ So that's a pretty strong match. If that's not there, we're not going to get anything.
+
+72
+00:05:34,320 --> 00:05:43,440
+ And then there's a space, there's a space, and then start extracting, and then go as long, one or more digits and dots,
+
+73
+00:05:43,440 --> 00:05:47,800
+ that's a single character, and that's one or more, and then stop extracting.
+
+74
+00:05:47,800 --> 00:05:52,360
+ So that says, start extracting, da da da da, greedy, greedy, greedy, greedy, stop extracting.
+
+75
+00:05:52,360 --> 00:05:54,360
+ And so that's what we're going to get.
+
+76
+00:05:54,360 --> 00:06:01,960
+ Now, if the line doesn't have this, it means missing in some way, whether it's this prefix or this number.
+
+77
+00:06:01,960 --> 00:06:07,320
+ If the number's missing, it's going to fail too. We're going to get back a list, an empty list.
+
+78
+00:06:07,320 --> 00:06:11,040
+ So the first thing you have to do is check to see if you actually got a match.
+
+79
+00:06:11,040 --> 00:06:16,280
+ So you say, if the number of items in the list, len of stuff, is not equal to one, continue.
+
+80
+00:06:16,280 --> 00:06:24,200
+ And so this is the skip all the lines that don't match, skip, skip, skip, skip, skip, skip, so there could be thousands of lines
+
+81
+00:06:24,200 --> 00:06:30,440
+ that don't match, but then when this match hits, it's going to come down and fall through, right?
+
+82
+00:06:30,440 --> 00:06:38,960
+ So that, most of the lines will skip up, but then when we actually get one, and we know instantly that we've got one,
+
+83
+00:06:38,960 --> 00:06:43,360
+ and stuff sub zero, because that's what we extracted, is this number.
+
+84
+00:06:43,360 --> 00:06:48,160
+ And we can take the floating point of it, we append it to our list, we made a list to store them.
+
+85
+00:06:48,160 --> 00:06:54,000
+ That runs, the list grows, and then we just say, what was the largest one?
+
+86
+00:06:54,000 --> 00:06:57,400
+ And so you can run this and see that.
+
+87
+00:06:57,400 --> 00:07:01,960
+ We have an escape character, and the whole idea is that sometimes all these little special characters
+
+88
+00:07:01,960 --> 00:07:04,760
+ that make a lot of sense to us, we actually want to search for it.
+
+89
+00:07:04,760 --> 00:07:07,120
+ So what if we want to search for a dollar sign?
+
+90
+00:07:07,120 --> 00:07:13,040
+ Well, we just prefix it with the backslash, and that just means this is a real dollar sign.
+
+91
+00:07:13,040 --> 00:07:15,280
+ So backslash dollar is a real dollar sign.
+
+92
+00:07:15,280 --> 00:07:22,280
+ So this says, I would like a dollar sign followed by one or more digits or dots.
+
+93
+00:07:22,280 --> 00:07:26,920
+ And so that's going to match a dollar sign followed by one or more digits, dots are okay.
+
+94
+00:07:26,920 --> 00:07:32,600
+ This is a set, remember, 0-9 or dot, that's a set of the list of legit characters.
+
+95
+00:07:32,600 --> 00:07:36,280
+ This is a range of characters that's a shortcut to how to make the set.
+
+96
+00:07:36,280 --> 00:07:42,880
+ You could make it be 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, dot, or 0-9, and it assumes that, and that's one or more.
+
+97
+00:07:42,880 --> 00:07:48,360
+ So then it stops because this is a space, it's greedy matching, then it pulls this out.
+
+98
+00:07:48,360 --> 00:07:53,760
+ So that's kind of why greedy has to be the default, because otherwise if it wasn't doing greedy matching,
+
+99
+00:07:53,760 --> 00:07:56,760
+ oops, come back, come back.
+
+100
+00:07:56,760 --> 00:08:03,280
+ If it wasn't doing greedy matching, it would, if it wasn't doing greedy matching, it would stop here,
+
+101
+00:08:03,280 --> 00:08:07,520
+ because it would find a dollar sign, non-greedy would find a dollar sign and one character,
+
+102
+00:08:07,520 --> 00:08:11,200
+ and then it would give us dollar one rather than dollar ten.
+
+103
+00:08:11,200 --> 00:08:16,520
+ So, in summary, regular expressions are a cryptic but powerful language,
+
+104
+00:08:16,520 --> 00:08:19,360
+ and they're an acquired taste.
+
+105
+00:08:19,360 --> 00:08:26,960
+ I think that, I bet eventually you'll find them fun, even though on your first impression you might not think that they're so fun.
+
+106
+00:08:46,720 --> 00:08:51,720
+ [Music]
+
