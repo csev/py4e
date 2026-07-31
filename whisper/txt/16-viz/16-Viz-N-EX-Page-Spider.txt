@@ -1,0 +1,354 @@
+ (gentle piano music)
+ Hello and welcome to Python for Everybody.
+ We're doing a bit of code walkthrough and if you want to,
+ you can get to the sample code and download it all
+ so that you can walk through the code yourself.
+ What we're walking through today is the PageRank code.
+ And so the PageRank code,
+ let me get the picture of the PageRank code up here.
+ Here's the picture of the PageRank code.
+ And so the PageRank code is a, has four chunks of code
+ that are going to, five chunks of code that are going to run.
+ The first one we're going to look at is the Spitering code
+ and then we'll do a separate look at these other guys later.
+ So the first one we'll look at is Spitering.
+ And again, it's sort of the same pattern of,
+ we've got some stuff on the web, in this case web pages.
+ We're going to have a database that sort of
+ just captures the stuff.
+ It's not really trying to be particularly intelligent,
+ but it is going to parse these with BeautifulSoup
+ and add things to the database, okay?
+ And so then we'll talk about how we run
+ the PageRank algorithm and then how we visualize
+ the PageRank algorithm in a bit.
+ Now, the first thing to notice is that I've got to put,
+ I put the BeautifulSoup code in right here, okay?
+ So this is, you can get this from the BS4.zip file.
+ There might even be a README, no,
+ but there's a README somewhere.
+ But you've got to use BeautifulSoup,
+ you've got to put this BS4.zip,
+ or you have to install BeautifulSoup for your stuff.
+ So I provide this BS4.zip as a quick and dirty way
+ if you can't install something for every,
+ for all of the Python users on your system.
+ So that's what it's supposed to look like.
+ You're supposed to have it unzipped right here
+ in these files, and I don't know what dammit.py means.
+ That came from BeautifulSoup.
+ If you look, it's in their source code.
+ So I didn't, I'm not swearing.
+ It's BeautifulSoup, people are swearing.
+ I'm sorry, I apologize.
+ Okay, so the code we're going to play with the most is,
+ in this first one, is called spider.py.
+ And we're going to do databases, we're going to read URLs,
+ and we're going to parse them with BeautifulSoup.
+ Okay?
+ And so what we're going to do is we're going to make a file.
+ Again, this will make spider.sqlite,
+ and here we are in page rank, and else minus l.
+ Spider.sqlite is not there,
+ so it's going to create the database.
+ We do create table if not exists.
+ We're going to have an integer primary key,
+ because we're going to do foreign keys here.
+ We're going to have a URL, and the URL, which is unique,
+ the HTML, which is unique, whether we got an error.
+ And then for the second half, when we start doing page rank,
+ we're going to have old rank and new rank,
+ because the way page rank works is it takes the old rank,
+ computes the new rank, and then replaces the new rank
+ with the old rank, and then does it over and over again.
+ And then we're going to have a many-to-many table,
+ which points really back, so I call this from_id and to_id.
+ We did this with some of the Twitter stuff.
+ And then this webs is just in case I have more than one web,
+ but that really doesn't make much difference.
+ Okay, so what we're going to do is
+ we're going to select ID URL from pages where HTML is null.
+ This is our indicator that a page has not yet been retrieved.
+ And error is null, ordered by random.
+ And so this is our way, this long bit of stuff.
+ And this, not all this SQL is completely standard,
+ but this order by random is really quite nice in SQLite.
+ Limit ones is just randomly pick a record in this database
+ where this true is true, and then pick it randomly.
+ And then we're going to fetch a row.
+ And if that row is none, right,
+ we're going to ask for a new web, a starting URL,
+ and this is going to fire things up,
+ and we're going to insert this new URL.
+ Otherwise, we're going to restart.
+ We have a row to start with.
+ And otherwise, we're going to sort of prime this
+ by inserting the URL we start with, insert into it.
+ If you enter it, it just goes to drchuck.com,
+ which is a fine place to start.
+ And then what we do is we,
+ what this does is it's page rank,
+ is it uses this webs table to limit the links.
+ It only does links to the sites that you tell it to do links.
+ And probably the best for your page rank
+ is to stick with one site.
+ Otherwise, you will just never find the same site again.
+ If you let this wander the web aimlessly,
+ and so I generally run with one web,
+ which this should be probably called websites.
+ And I pull in all the data, and I read this in,
+ and I just make myself a list of the URL,
+ the legit URLs, and you'll see how we use that.
+ And the webs is how many,
+ what are the legit places we're going to go?
+ 'Cause we're going to go through a loop,
+ ask for how many pages,
+ and we're going to look for a null page.
+ Again, we're using that random,
+ order by random, limit one.
+ And then we're going to have a,
+ we're going to grab one.
+ We're going to get the from ID,
+ which is the page we're linking from.
+ And then the URL.
+ Otherwise, there's no one retrieved.
+ And so the from ID is when we start adding links
+ to our page links, we got to know the page we started with.
+ And that's the primary key.
+ We'll see how that primary key is set in a second.
+ So otherwise, we have none.
+ And we're going to print this,
+ from ID, the from ID and the URL that we're working with.
+ Just to make sure we're going to wipe out all of the links,
+ because it's un-retrieved,
+ we're going to wipe out from the links.
+ The links is the connection table
+ that connects from pages back to pages.
+ And so we're going to wipe out.
+ So we're going to go grab this URL.
+ We're going to read it.
+ We're not decoding it because we're using Beautiful Soup,
+ which,
+ we're using Beautiful Soup,
+ which compensates for the UTF-8.
+ So we can ask, this is the HTML error code.
+ And we checked 200 is a good error.
+ And if we get a bad error,
+ we're going to say this error on page.
+ We're going to set that error.
+ We're going to update pages.
+ That way we don't retrieve it ever again.
+ We basically check to see if the content type
+ is text HTML.
+ Remember in HTTP, you get the content type.
+ We only want to retrieve,
+ we only want to look for the links on HTML pages.
+ And so we wipe that guy out.
+ If we get a JPEG or something like that,
+ we're not going to retrieve JPEG.
+ And then we commit and continue.
+ So these are kind of like,
+ oh, those were pages we didn't want to mess with.
+ And then we print out how many characters we got and parse it.
+ We do this whole thing in a try-accept block
+ because a lot of things can go wrong here.
+ It's a bit of a long try-accept block.
+ Keyboard interrupt,
+ that's what happens if I hit Control + C at my keyboard
+ or Control + Z on Windows.
+ Some other exception probably means
+ beautiful suit blew up or something else blew up.
+ And so we indicate with the error equals negative one
+ for that URL so we don't retrieve it again.
+ At this point, at line 103,
+ we have got the HTML for that URL.
+ And so we're going to insert it in.
+ And we're going to set the page rank to one.
+ So the way page rank works is it gives all the pages
+ some normal value and then it alters that.
+ We'll see that in a bit.
+ So it sets it in with one.
+ We're going to insert or ignore.
+ That's just in case this pages is already,
+ that the pages is not there,
+ but and then we're going to do an update.
+ And that's kind of doing the same thing twice,
+ just sort of doubly making sure if it's already there,
+ this or ignore will cause this to do nothing.
+ And the update will cause us to retain it.
+ And then we commit it so that if we do selects later,
+ we get that information.
+ Now this code is similar.
+ Remember, we use beautiful soup
+ to pull out all the anchor tags.
+ We have a for loop, we pull out the href.
+ And you'll see this code's a little more complex
+ than some of the earlier stuff
+ because it has to deal with the real nastiness
+ or imperfection of the web.
+ And so we're going to use URL parse,
+ which is actually part of the URL lib code.
+ And that's going to break the URL into pieces, come back.
+ We use URL parse.
+ We have the scheme, which is HTTP or HTTPS.
+ If it's a relative, this solves relative references.
+ This is solve relative references
+ by taking the current URL and hooking it up.
+ URL join knows about slashes and all those other things.
+ We check to see if there's an anchor,
+ the pound sign at the end of a URL,
+ and we throw everything past, including the anchor away.
+ If we have a JPEG or a PNG or a GIF,
+ we're going to skip it.
+ We don't want to bother with that.
+ We're looking through links now.
+ We're looking at all the links.
+ And if we have a slash at the end,
+ we're going to chop off the slash by saying minus one.
+ And so this is just kind of nasty choppage
+ and throwing away the URLs that we're going through a page
+ and we have a bunch that we don't like
+ or we have to clean 'em up or whatever.
+ And now, and we've made 'em absolute by doing this.
+ It's an absolute URL.
+ This is just, you write this slowly but surely
+ when your code blows up and you start it over
+ and start it over and start it over.
+ Then what we do is we check to see through all the webs,
+ remember those were the URLs that we're willing to stay with
+ and usually it's just one.
+ If this would link off the sites,
+ of the sites we're interested in, we're going to skip it.
+ We are not interested in links that leave the sites.
+ So this is like link that left the site, skip it.
+ But now we finally here at page, line 132,
+ we are ready to put this into pages,
+ URL and the HTML and it's all good, right?
+ And that one's going to be null right there
+ because we haven't retrieved the HTML.
+ This is null because this is a page we're going to retrieve.
+ We're giving the page rank of one
+ and we're giving it no HTML and that way it'll be retrieved
+ and then we commit that, okay?
+ And then we want to get the ID.
+ So we could have done this with one way or another
+ but we're going to do a select to say hey,
+ what was the ID that either was already there
+ or was just created and we grab that with a fetch one
+ and say retrieve to ID and now we're going to put a link in,
+ insert or ignore into links from ID to ID
+ which is the ID, the primary key of the page
+ that we're going through and looking for links.
+ To ID is the link that we just created and away we run.
+ So it's going to go and go and go and go.
+ If you, let's go look at the create.
+ Create statement up here from ID and to ID right there.
+ Okay, so let's run it.
+ Python three, oops, Python three, SpiderPython.
+ So it's fresh and so it wants a URL with which to start
+ and I'll just start with my favorite website,
+ www.DrChuck.com.
+ Now this basically, this first one you put in,
+ it's going to stay on this website for a while, okay?
+ So I'll hit enter and let's just grab like,
+ let's grab one page just for yucks.
+ Okay, so it grabbed that and it printed out
+ that it got 85, 45 characters
+ and it printed out that it got six links.
+ So if I go to this and open it,
+ open database and I go to code three
+ and I go to page rank and I look at this.
+ Oh, let me get out so it closes.
+ So here, so notice this SQLite journal.
+ That means it's not done closing
+ so I'm going to get out of this by pressing enter
+ and so you'll notice now that that journal file went away.
+ Otherwise, we would not be getting the final data.
+ There we go.
+ Okay, so webs, let's take a look at the data.
+ Webs has just one URL.
+ That's the URLs that we're allowing ourselves to look at.
+ You can put more than one in here if you want
+ but most people will just leave this as one.
+ Pages, so we got this first one and we retrieved this
+ and this is the HTML of it and we found six other URLs
+ in there that are DrChuck.com URLs, right?
+ There was lots of other URLs in there
+ but there were only five other ones that we found, okay?
+ And so, and what we'll find is if we go to links,
+ we'll see that page one links to two, links to three,
+ links to four, links to five, links to six
+ because the links is just a many-to-many table.
+ So page one points to page two,
+ page one points to page two, page one to three,
+ page one to five, okay?
+ So that's what happens when we have the first page.
+ So let's retrieve one more page
+ Now, it's, we could have started a new crawl
+ but we're just going to, it's going to stay on DrChuck.com
+ and I'll just ask for one more page
+ and so now it went and grabbed.
+ It randomly picked among these null guys
+ and I'm going to hit enter to close it
+ and then I'll refresh this.
+ And oh, so it looks like we retrieved OBI sample
+ and we didn't get any new links
+ and so the links page, no, we didn't get any new links.
+ So that page, whatever that was, OBI sample,
+ had no external links.
+ So let's do another one.
+ Oh, one more page.
+ So that one had 15 links.
+ So let's take a look now.
+ So now we have 15 pages.
+ It picked this one to do, right?
+ And now it added 15 more pages
+ and then if you look at links,
+ you will see that page four,
+ which is one it just retrieved, links back to page one.
+ So now we're seeing, this is where the page rank
+ is going to be cool, four links to one,
+ four links to, there's whatever, away we go, right?
+ One goes to four, four goes to one.
+ I should have probably put a uniqueness constraint on that.
+ It's not supposed to, that duplicated that.
+ Okay, so let's run this a bunch of times now.
+ So let's run, let's just run it 100 times for 100 pages.
+ It'll take a minute.
+ So you'll see it's like freaking out on certain pages
+ and not parsing them.
+ You know, it's found its way into my blog.
+ It's finding like 27 links.
+ This table is growing wildly at this point.
+ It's going to take us a while before we get to 100.
+ It's kind of slow.
+ Now the interesting thing is,
+ I can hit control C at any point in time.
+ Right?
+ And so that blew up.
+ But it's okay because the data is still there
+ and so if we go back to pages, for example,
+ and we refresh our data, we see we got a ton of stuff
+ and this will restart and all the things,
+ so if we search this, I sorted that by HTML,
+ you see that there's lots of files that we've got
+ and it's never going to retrieve those again
+ because those have HTML.
+ So then I can run this thing again and start it up
+ and when I say control C, your computer might go down,
+ your network might go down.
+ There's all kinds of things that might happen
+ and you just pick up where it leaves off.
+ It just picks up where it leaves off
+ and that's what's nice about this.
+ Okay?
+ So that's pretty much how this works.
+ We've got this part running.
+ We're seeing it flow into SpideredSQL Lite.
+ We're seeing that we can start this and replace this
+ and so what I'll do is I will come back in the next video
+ and show you how all these things work together
+ and then how we actually do the page rank.
+ So thanks again for listening and see you in the next video.
+ (gentle music)
+ (gentle piano music)

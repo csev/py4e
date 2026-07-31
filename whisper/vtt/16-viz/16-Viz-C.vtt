@@ -1,0 +1,332 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.920
+ The last visualization application that we're going to take a look at is mailing lists and that's kind of ironic.
+
+00:00:04.920 --> 00:00:07.920
+ We started with the mailing lists and we're going to end with the mailing lists.
+
+00:00:07.920 --> 00:00:13.560
+ The mailing lists, of course, are from my open source Sakai project, which I love and very proud of.
+
+00:00:13.560 --> 00:00:20.000
+ And so what we're going to do is we're going to crawl the archive of a mailing list and then we're going to do two visualizations.
+
+00:00:20.000 --> 00:00:24.200
+ One is an activity visualization and another is a word cloud.
+
+00:00:24.200 --> 00:00:29.720
+ So it's probably the more important thing is when I do the demonstration of how the software works.
+
+00:00:29.720 --> 00:00:33.960
+ So this is a large data set, so you got to be careful.
+
+00:00:33.960 --> 00:00:38.560
+ This could spider gmain.org, which is a very free and friendly archive.
+
+00:00:38.560 --> 00:00:43.920
+ This data originally came from gmain.org, but I've got a copy of it.
+
+00:00:43.920 --> 00:00:50.440
+ And so gmain.org is not rate limited, but if everyone who is watching this starts
+
+00:00:50.440 --> 00:00:53.480
+ spidering gmain.org at the same time, you will crash it.
+
+00:00:53.480 --> 00:00:57.600
+ It just doesn't have the horsepower to give you this data as fast.
+
+00:00:57.600 --> 00:01:03.160
+ And so I've got something that can give you the data super fast and has no rate limit on a really good server.
+
+00:01:03.160 --> 00:01:07.640
+ And it's cached all around the world using a technology called Cloudflare.
+
+00:01:07.640 --> 00:01:11.120
+ So please, please, please don't point this at gmain.org.
+
+00:01:11.120 --> 00:01:15.960
+ Point this at the URL here, mvoxdrchuck.net, et cetera, et cetera.
+
+00:01:15.960 --> 00:01:18.760
+ And then you can run this as fast as you like.
+
+00:01:18.760 --> 00:01:25.440
+ Now, another thing to worry about is if you have a metered connection.
+
+00:01:25.440 --> 00:01:30.600
+ So don't do this on a cell phone connection, because you'll pay thousands of dollars, perhaps.
+
+00:01:30.600 --> 00:01:34.440
+ Make sure you run a no cost connection before you start running this.
+
+00:01:34.440 --> 00:01:36.520
+ Because this is going to pull a lot of data down.
+
+00:01:36.520 --> 00:01:43.160
+ If you just start this from scratch and you let it run, on a super fast connection,
+
+00:01:43.160 --> 00:01:47.560
+ downloading the whole thing is probably about four hours.
+
+00:01:47.560 --> 00:01:55.120
+ On my home connection, when I had like about a 10 megabit connection, it took several days.
+
+00:01:55.120 --> 00:02:00.920
+ And so, so just understand that in this one, it's both fun to deal with a ton of data,
+
+00:02:00.920 --> 00:02:03.320
+ and it's scary to deal with a ton of data.
+
+00:02:03.320 --> 00:02:04.360
+ So this one is big.
+
+00:02:04.360 --> 00:02:10.160
+ This one is, you'll see the process in action, cuz it'll run for a while.
+
+00:02:10.160 --> 00:02:12.920
+ Everything, the things will take a long time.
+
+00:02:12.920 --> 00:02:16.560
+ So here's basically the flow of the data in this particular one.
+
+00:02:16.560 --> 00:02:23.760
+ You are going to have the restartable spider that talks to the API, mvoxdrchuck.net,
+
+00:02:23.760 --> 00:02:27.720
+ which has a scalable copy of all this information.
+
+00:02:27.720 --> 00:02:33.560
+ And again, it's going to do kind of a raw database, not a very clean database.
+
+00:02:33.560 --> 00:02:34.440
+ It's sort of a mess.
+
+00:02:34.440 --> 00:02:39.120
+ It's just enough columns to keep track of whether or not we've got this page or not.
+
+00:02:39.120 --> 00:02:43.240
+ And so this has the ones we've retrieved so far.
+
+00:02:43.240 --> 00:02:47.600
+ And so what Gmail does is it sort of scans down to see where to retrieve next,
+
+00:02:47.600 --> 00:02:51.440
+ gets that, and then starts scanning and then adding things here.
+
+00:02:51.440 --> 00:02:55.520
+ So it just adds it, and then it blows up, and then it comes in again and says, okay,
+
+00:02:55.520 --> 00:02:58.320
+ I'll start here, and then it starts retrieving stuff and fills this in,
+
+00:02:58.320 --> 00:02:59.960
+ fills this in, fills this in.
+
+00:02:59.960 --> 00:03:03.600
+ And sometimes you put like a delay in this so you don't overwhelm networks or
+
+00:03:03.600 --> 00:03:05.080
+ don't overwhelm servers.
+
+00:03:05.080 --> 00:03:10.280
+ But basically this is pretty much a raw retrieval of the email messages.
+
+00:03:10.280 --> 00:03:12.040
+ And this file can get rather large.
+
+00:03:12.040 --> 00:03:14.480
+ This is the one that's greater than a gigabyte.
+
+00:03:14.480 --> 00:03:17.480
+ Now this data is actually really nasty.
+
+00:03:17.480 --> 00:03:20.320
+ It's email data, the date format's changed.
+
+00:03:20.320 --> 00:03:25.960
+ This is data that lasted from 2004 to like 2012 or '13.
+
+00:03:25.960 --> 00:03:31.560
+ And so this data has got a lot of things wrong with it.
+
+00:03:31.560 --> 00:03:34.480
+ It even has things where people's email addresses changed.
+
+00:03:34.480 --> 00:03:36.040
+ And so it has this mapping file.
+
+00:03:36.040 --> 00:03:41.000
+ This comes along with it, this mapping file that says, here's this one person and
+
+00:03:41.000 --> 00:03:45.880
+ here are the six email addresses that they used throughout the life of the project.
+
+00:03:45.880 --> 00:03:50.400
+ And so there is a relatively complex, and so this is,
+
+00:03:50.400 --> 00:03:55.880
+ this part here is super slow, very slow.
+
+00:03:55.880 --> 00:03:58.280
+ This part here is slow.
+
+00:03:58.280 --> 00:04:01.080
+ But it'll take like, depending on how fast your computer is,
+
+00:04:01.080 --> 00:04:03.200
+ somewhere between two minutes and ten minutes.
+
+00:04:03.200 --> 00:04:06.360
+ This first part will take days, perhaps,
+
+00:04:06.360 --> 00:04:08.760
+ depending on the speed of your network connection.
+
+00:04:08.760 --> 00:04:12.560
+ And so what Gmodel does is it reads through this, it actually recreates,
+
+00:04:12.560 --> 00:04:16.600
+ it wipes this out, and recreates index.sqlite every time it runs.
+
+00:04:16.600 --> 00:04:19.320
+ So that you can change any number of things, you can respire things,
+
+00:04:19.320 --> 00:04:20.120
+ you can do whatever.
+
+00:04:20.120 --> 00:04:24.520
+ And often, the cleanup, this is one of those cleanup processes, and
+
+00:04:24.520 --> 00:04:26.160
+ you have to tweak the cleanup process.
+
+00:04:26.160 --> 00:04:28.840
+ You're like, look at your data, like, oh, the cleanup missed something, so
+
+00:04:28.840 --> 00:04:30.120
+ I got to run it again.
+
+00:04:30.120 --> 00:04:33.720
+ So this produces index.sqlite every time it runs.
+
+00:04:33.720 --> 00:04:36.280
+ So this is like two to ten minutes.
+
+00:04:36.280 --> 00:04:38.200
+ Gmodel is two to ten minutes.
+
+00:04:38.200 --> 00:04:41.800
+ And it, like, maps names, and when it's all said and done,
+
+00:04:41.800 --> 00:04:46.800
+ this is a very small, highly normalized, it's a nice data model.
+
+00:04:46.800 --> 00:04:50.080
+ This one here had the, content.sqlite has an ugly data model.
+
+00:04:50.080 --> 00:04:52.560
+ Index.sqlite has a pretty data model.
+
+00:04:52.560 --> 00:04:54.920
+ It's got foreign keys, it's got all this stuff.
+
+00:04:54.920 --> 00:04:58.200
+ And all those things we talked about in the database where it's efficient.
+
+00:04:58.200 --> 00:05:02.120
+ And so in your mind, keep track of how fast it is to scan all the data in
+
+00:05:02.120 --> 00:05:04.120
+ a database with a bad model.
+
+00:05:04.120 --> 00:05:07.280
+ And then watch when you run, like, gbasic, which is a scanner, or
+
+00:05:07.280 --> 00:05:11.240
+ gline, which produces line data, or gword, and watch how fast they run.
+
+00:05:11.240 --> 00:05:14.400
+ They run in, like, a couple of seconds, at the most.
+
+00:05:14.400 --> 00:05:16.320
+ And this runs in two to ten minutes.
+
+00:05:16.320 --> 00:05:20.160
+ And the difference is, is that's because the data is efficiently modeled in
+
+00:05:20.160 --> 00:05:24.360
+ index.sqlite, so you can take a look at that using SQLite browser and
+
+00:05:24.360 --> 00:05:25.920
+ take a look at the data model.
+
+00:05:25.920 --> 00:05:27.960
+ And you'll see it looks just like the stuff we talked about in
+
+00:05:27.960 --> 00:05:32.320
+ the database chapter, it's got foreign keys and all those things.
+
+00:05:32.320 --> 00:05:34.040
+ And so that runs, and you got this.
+
+00:05:34.040 --> 00:05:36.000
+ And then we do our visualizations and
+
+00:05:36.000 --> 00:05:38.720
+ our analysis from this clean version of all the data.
+
+00:05:38.720 --> 00:05:41.640
+ And so gbasic just loops through and prints some stuff out.
+
+00:05:41.640 --> 00:05:43.920
+ It's a great way to test things.
+
+00:05:43.920 --> 00:05:47.160
+ It's a pretty easy to understand program, and you can take a look at it.
+
+00:05:47.160 --> 00:05:52.560
+ gline does some bucketing and makes some histograms to produce a line graph.
+
+00:05:52.560 --> 00:05:55.100
+ And then gword does a different histogram.
+
+00:05:55.100 --> 00:05:57.160
+ It does a histogram of word frequency, and
+
+00:05:57.160 --> 00:06:00.720
+ then produces that as the word frequency ends up in gword.js.
+
+00:06:00.720 --> 00:06:06.880
+ And then we have two HTML files that use the d3.js visualization
+
+00:06:06.880 --> 00:06:09.920
+ to produce a line and a word chart.
+
+00:06:09.920 --> 00:06:14.480
+ And so in another video I will show you how this code works,
+
+00:06:14.480 --> 00:06:16.360
+ which is probably more useful than this picture.
+
+00:06:16.360 --> 00:06:24.560
+ But this is a whole bunch of good stuff in this particular application.
+
+00:06:24.560 --> 00:06:27.600
+ And if you really understand everything in here,
+
+00:06:27.600 --> 00:06:31.640
+ you can build a pretty sophisticated data retrieval and analysis pipeline.
+
+00:06:31.640 --> 00:06:35.040
+ And so that's it.
+
+00:06:35.040 --> 00:06:37.640
+ I thank you for watching all these lectures, and
+
+00:06:37.640 --> 00:06:39.460
+ I look forward to seeing you on the net.
+
+00:06:39.460 --> 00:06:49.460
+ [MUSIC]
+

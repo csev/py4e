@@ -1,0 +1,719 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.000
+ - Hello and welcome to Python Objects.
+
+00:00:02.000 --> 00:00:04.900
+ I'm Charles Severance and we're well on our way
+
+00:00:04.900 --> 00:00:08.760
+ to getting through all this material in the Python.
+
+00:00:08.760 --> 00:00:10.920
+ So this lecture is in a weird place.
+
+00:00:10.920 --> 00:00:14.780
+ I even debated where to put it in the book.
+
+00:00:14.780 --> 00:00:16.800
+ I don't really want to teach you how to write
+
+00:00:16.800 --> 00:00:18.400
+ a lot of object-oriented programming,
+
+00:00:18.400 --> 00:00:20.640
+ but we're going to start using objects
+
+00:00:20.640 --> 00:00:23.500
+ and I want to be able to use the terminology.
+
+00:00:23.500 --> 00:00:27.080
+ And so as much as anything, this lecture is about terminology
+
+00:00:27.080 --> 00:00:30.320
+ and understanding the words, things like methods
+
+00:00:30.320 --> 00:00:34.180
+ and method signatures and variables and inheritance.
+
+00:00:34.180 --> 00:00:36.360
+ And so think of this as a terminology lecture
+
+00:00:36.360 --> 00:00:39.920
+ rather than a learn how to program or learn how to use this.
+
+00:00:39.920 --> 00:00:42.800
+ It's not something you're going to figure out right away
+
+00:00:42.800 --> 00:00:45.200
+ and there'll come a time when you as a programmer
+
+00:00:45.200 --> 00:00:47.160
+ really want to start using object-oriented programming.
+
+00:00:47.160 --> 00:00:49.960
+ It's really a powerful and wonderful technique,
+
+00:00:49.960 --> 00:00:53.320
+ but I think it's too early as a beginning programmer
+
+00:00:53.320 --> 00:00:55.520
+ to really say, oh, let's write a bunch of objects.
+
+00:00:55.520 --> 00:00:59.440
+ So just relax and enjoy and learn this material
+
+00:00:59.440 --> 00:01:03.880
+ and think of it as sort of a theoretical thing
+
+00:01:03.880 --> 00:01:06.720
+ rather than a how to program thing.
+
+00:01:06.720 --> 00:01:11.960
+ And so part of this is we're going to start reading
+
+00:01:11.960 --> 00:01:16.260
+ data structures, and I mean data on how to use
+
+00:01:16.260 --> 00:01:18.220
+ all these libraries, et cetera.
+
+00:01:18.220 --> 00:01:20.040
+ We're going to see the word objects, right?
+
+00:01:20.040 --> 00:01:21.900
+ And then we're going to start hearing them.
+
+00:01:21.900 --> 00:01:24.180
+ And I want you to be able to read the Python documentation
+
+00:01:24.180 --> 00:01:26.240
+ so that you understand what's going on.
+
+00:01:26.240 --> 00:01:29.720
+ And so the word objects should make sense to you
+
+00:01:29.720 --> 00:01:31.160
+ even though you're not going to write
+
+00:01:31.160 --> 00:01:32.640
+ a lot of object-oriented programming.
+
+00:01:32.640 --> 00:01:35.800
+ And so page upon page upon page,
+
+00:01:35.800 --> 00:01:37.880
+ database stuff which we're going to talk about soon
+
+00:01:37.880 --> 00:01:40.400
+ is uses objects all over the place.
+
+00:01:40.400 --> 00:01:43.860
+ And the beautiful soup talks about uses objects.
+
+00:01:43.860 --> 00:01:47.120
+ We've kind of been using them and I've been waving my hands
+
+00:01:47.120 --> 00:01:49.380
+ and I use the word method without defining it,
+
+00:01:49.380 --> 00:01:53.840
+ but now it's really time to define it and go to it.
+
+00:01:53.840 --> 00:01:57.420
+ So I want to review from the very beginning
+
+00:01:57.420 --> 00:02:00.720
+ what we think of as a program.
+
+00:02:00.720 --> 00:02:03.600
+ So the classic program, my favorite little minimum program
+
+00:02:03.600 --> 00:02:06.420
+ is our little elevator floor converter
+
+00:02:06.420 --> 00:02:09.320
+ which converts from European elevator floors
+
+00:02:09.320 --> 00:02:11.540
+ to United States elevator floors.
+
+00:02:11.540 --> 00:02:14.820
+ And the key to this is that it's input, processing,
+
+00:02:14.820 --> 00:02:18.980
+ and output, and this is a good way to model any program.
+
+00:02:18.980 --> 00:02:22.880
+ And in that process we've got variables
+
+00:02:22.880 --> 00:02:25.440
+ and we've got logic, we've got algorithms,
+
+00:02:25.440 --> 00:02:28.040
+ we've got loops that we write, we've got all kinds of things.
+
+00:02:28.040 --> 00:02:32.200
+ And we construct a series of steps to achieve some goal.
+
+00:02:32.200 --> 00:02:36.920
+ In object-oriented, and frankly you've been using
+
+00:02:36.920 --> 00:02:41.880
+ object-oriented all along, the program has lots of objects
+
+00:02:41.880 --> 00:02:43.840
+ and we're sort of putting stuff into these objects,
+
+00:02:43.840 --> 00:02:45.240
+ taking stuff out of one object
+
+00:02:45.240 --> 00:02:46.940
+ and putting it into another object.
+
+00:02:46.940 --> 00:02:48.680
+ And you've actually been doing this all along.
+
+00:02:48.680 --> 00:02:50.980
+ As soon as you're looking at dictionaries and lists,
+
+00:02:50.980 --> 00:02:52.960
+ you're doing objects.
+
+00:02:52.960 --> 00:02:57.000
+ And so an object is quite a little thing,
+
+00:02:57.000 --> 00:03:00.080
+ it's sort of its own little space inside of a program
+
+00:03:00.080 --> 00:03:02.500
+ that contains code and data.
+
+00:03:02.500 --> 00:03:05.880
+ And so we're working together,
+
+00:03:05.880 --> 00:03:07.580
+ all these objects are now working together.
+
+00:03:07.580 --> 00:03:10.100
+ It's a bit of self-contained code and data
+
+00:03:10.100 --> 00:03:14.040
+ and it is one way to take a very complex problem
+
+00:03:14.040 --> 00:03:17.620
+ and make it easier by breaking into separate things
+
+00:03:17.620 --> 00:03:19.940
+ that can be engineered and developed separately.
+
+00:03:19.940 --> 00:03:21.980
+ So you've been using string objects
+
+00:03:21.980 --> 00:03:24.240
+ or maybe you'd use Beautiful Soup or something.
+
+00:03:24.240 --> 00:03:25.740
+ These are powerful capabilities
+
+00:03:25.740 --> 00:03:27.880
+ and if you had to look at all of them,
+
+00:03:27.880 --> 00:03:29.960
+ it's just hey, here's a thing, use this object,
+
+00:03:29.960 --> 00:03:31.220
+ it'll do these things for you
+
+00:03:31.220 --> 00:03:33.460
+ and there's lots of details inside of it.
+
+00:03:33.460 --> 00:03:35.720
+ Just don't look at it, don't worry about it.
+
+00:03:35.720 --> 00:03:38.300
+ And so there's boundaries, the things that you can use,
+
+00:03:38.300 --> 00:03:39.700
+ things that you can look at,
+
+00:03:39.700 --> 00:03:41.680
+ and things that really you don't bother looking at,
+
+00:03:41.680 --> 00:03:45.700
+ you go read the documentation and use it and away it goes.
+
+00:03:45.700 --> 00:03:47.140
+ But then someone had to write that
+
+00:03:47.140 --> 00:03:48.920
+ and so they built an object.
+
+00:03:48.920 --> 00:03:50.620
+ So what we're going to do is look a little bit
+
+00:03:50.620 --> 00:03:52.000
+ under the covers of what it takes
+
+00:03:52.000 --> 00:03:54.500
+ to build some of these objects.
+
+00:03:54.500 --> 00:03:59.800
+ And so if we think of this program
+
+00:03:59.800 --> 00:04:02.180
+ that originally just sort of did processing,
+
+00:04:02.180 --> 00:04:05.380
+ we can think of it as having some kind of an input, right,
+
+00:04:05.380 --> 00:04:06.900
+ coming into our program.
+
+00:04:06.900 --> 00:04:09.320
+ And we have a string object, a dictionary object,
+
+00:04:09.320 --> 00:04:11.860
+ maybe eventually some objects like a database object
+
+00:04:11.860 --> 00:04:14.020
+ or an object that we eventually define.
+
+00:04:14.020 --> 00:04:16.260
+ And you can think of us, we're receiving data,
+
+00:04:16.260 --> 00:04:18.460
+ it comes in an object which is a string object
+
+00:04:18.460 --> 00:04:21.280
+ where we start putting the strings in dictionaries
+
+00:04:21.280 --> 00:04:23.560
+ and do whatever, we pull out a list of them.
+
+00:04:23.560 --> 00:04:27.140
+ And so you can think of data as moving between these objects.
+
+00:04:27.140 --> 00:04:30.680
+ And like I say, even strings in the first week,
+
+00:04:30.680 --> 00:04:33.720
+ first lecture, first week, first everything,
+
+00:04:33.720 --> 00:04:38.600
+ we were using objects and we've been using them all along.
+
+00:04:38.600 --> 00:04:41.540
+ And so you can think of every string and every dictionary
+
+00:04:41.540 --> 00:04:44.340
+ as a little program all by itself
+
+00:04:44.340 --> 00:04:48.340
+ that has a bit of code and a bit of data.
+
+00:04:48.340 --> 00:04:50.340
+ And so a string has the data which includes
+
+00:04:50.340 --> 00:04:51.960
+ all the characters that make up the string,
+
+00:04:51.960 --> 00:04:54.580
+ but then there is a method called upper
+
+00:04:54.580 --> 00:04:57.840
+ that does uppercase or rstrip that strips off the right,
+
+00:04:57.840 --> 00:04:59.560
+ a white space from the right.
+
+00:04:59.560 --> 00:05:01.660
+ And so it's like they're almost little programs
+
+00:05:01.660 --> 00:05:03.980
+ that have inputs and outputs themselves
+
+00:05:03.980 --> 00:05:05.180
+ and we can make lots of them.
+
+00:05:05.180 --> 00:05:07.120
+ And there's lots of cooperating objects
+
+00:05:07.120 --> 00:05:09.380
+ that make up an application.
+
+00:05:09.380 --> 00:05:13.900
+ And one of the nice things about the object-oriented pattern
+
+00:05:13.900 --> 00:05:18.060
+ is that they form boundaries and within the boundaries
+
+00:05:18.680 --> 00:05:20.940
+ if you're inside the object you can say,
+
+00:05:20.940 --> 00:05:22.840
+ "Look, I'm going to build you a string object
+
+00:05:22.840 --> 00:05:25.340
+ "or a database object or a beautiful soup object
+
+00:05:25.340 --> 00:05:26.780
+ "and I'm going to build this capability
+
+00:05:26.780 --> 00:05:29.360
+ "and I'm going to give it to you in the form of an interface
+
+00:05:29.360 --> 00:05:31.540
+ "and I'm not really going to care how you use it."
+
+00:05:31.540 --> 00:05:34.380
+ And so we have this sort of visibility wall
+
+00:05:34.380 --> 00:05:37.400
+ where I'm going to make an object and I'm going to let you use it
+
+00:05:37.400 --> 00:05:39.280
+ and the maker of the object doesn't necessarily
+
+00:05:39.280 --> 00:05:41.320
+ have to know every single thing
+
+00:05:41.320 --> 00:05:43.440
+ about the use of that object.
+
+00:05:43.440 --> 00:05:45.820
+ But so just like inside the object,
+
+00:05:45.820 --> 00:05:47.220
+ they don't have to worry about what you're doing
+
+00:05:47.220 --> 00:05:48.860
+ with the object outside of it.
+
+00:05:48.860 --> 00:05:50.660
+ When you're outside the object you don't have to worry
+
+00:05:50.660 --> 00:05:52.260
+ about what's going on inside of it.
+
+00:05:52.260 --> 00:05:55.560
+ We, as the user of the object, we talk to its interface
+
+00:05:55.560 --> 00:05:57.520
+ and we get things from it and give things to it
+
+00:05:57.520 --> 00:05:59.860
+ and use functionality within that object.
+
+00:05:59.860 --> 00:06:01.580
+ But we don't have to look inside of this.
+
+00:06:01.580 --> 00:06:04.260
+ We can just say, "Oh, it's a nice little magical thing."
+
+00:06:04.260 --> 00:06:06.300
+ We read the documentation, we read a webpage
+
+00:06:06.300 --> 00:06:08.220
+ and it told us to do this, this, and this
+
+00:06:08.220 --> 00:06:09.060
+ and away you go.
+
+00:06:09.060 --> 00:06:12.380
+ And so it is sort of this isolation boundary
+
+00:06:12.380 --> 00:06:16.460
+ that works both for the programmer who's writing the object
+
+00:06:16.460 --> 00:06:19.080
+ and the programmer who's using the object.
+
+00:06:19.080 --> 00:06:21.740
+ And so it's a very nice pattern.
+
+00:06:21.740 --> 00:06:25.640
+ And so you'll see how we're going to build code
+
+00:06:25.640 --> 00:06:26.660
+ and we're going to group it together
+
+00:06:26.660 --> 00:06:27.840
+ and then we're going to be using it
+
+00:06:27.840 --> 00:06:30.500
+ sort of as a big blob of stuff.
+
+00:06:30.500 --> 00:06:34.780
+ So some definitions in this space,
+
+00:06:34.780 --> 00:06:37.780
+ words that I want you to understand.
+
+00:06:37.780 --> 00:06:41.800
+ When we're going to create one of these things,
+
+00:06:41.800 --> 00:06:44.300
+ one of these objects, instances,
+
+00:06:44.300 --> 00:06:47.300
+ that has some data in it and some code in it,
+
+00:06:47.300 --> 00:06:49.920
+ we have to be able to define the shape of this object.
+
+00:06:49.920 --> 00:06:52.100
+ What code will each object have in it
+
+00:06:52.100 --> 00:06:54.740
+ and what data will each object have in it?
+
+00:06:54.740 --> 00:06:56.720
+ And that's called a class.
+
+00:06:56.720 --> 00:06:58.660
+ The key to a class, and this little picture
+
+00:06:58.660 --> 00:07:01.540
+ that I've got up here in all these slides, is a key.
+
+00:07:01.540 --> 00:07:02.900
+ The class is a template.
+
+00:07:02.900 --> 00:07:04.100
+ It's not the thing itself.
+
+00:07:04.100 --> 00:07:05.360
+ So it's a cookie cutter.
+
+00:07:05.360 --> 00:07:08.140
+ It knows a lot about how cookies are made.
+
+00:07:08.140 --> 00:07:10.740
+ And if you have cookie dough and you hit the thing,
+
+00:07:10.740 --> 00:07:12.700
+ then you make as many cookies as you want.
+
+00:07:12.700 --> 00:07:15.460
+ And so this nice little cookie picture
+
+00:07:15.460 --> 00:07:18.880
+ is a great mental model of how it works.
+
+00:07:18.880 --> 00:07:22.200
+ The class, the class, oops.
+
+00:07:22.200 --> 00:07:28.700
+ The class is the template.
+
+00:07:28.700 --> 00:07:32.600
+ And then the object are all of the cookies
+
+00:07:32.600 --> 00:07:34.180
+ that are made from that template.
+
+00:07:34.180 --> 00:07:36.520
+ But the template defines the shape
+
+00:07:36.520 --> 00:07:37.620
+ and the nature of the class.
+
+00:07:37.620 --> 00:07:41.780
+ So the code that we write is going of each of the objects.
+
+00:07:41.780 --> 00:07:44.380
+ The code we write is the class code.
+
+00:07:44.380 --> 00:07:46.700
+ And then later we say, oh, let's take that template
+
+00:07:46.700 --> 00:07:49.960
+ and make ourselves an object or an instance.
+
+00:07:49.960 --> 00:07:53.000
+ Now, as we're defining a class,
+
+00:07:53.000 --> 00:07:55.620
+ we have two basic things that we put in the class.
+
+00:07:55.620 --> 00:07:58.020
+ And there's a couple of different terminologies for this.
+
+00:07:58.020 --> 00:07:59.780
+ One is method, which is code.
+
+00:07:59.780 --> 00:08:02.100
+ It's like a function that lives inside of a class.
+
+00:08:02.100 --> 00:08:04.740
+ Not a function that lives inside your program,
+
+00:08:04.740 --> 00:08:06.280
+ but one that lives inside of a class.
+
+00:08:06.280 --> 00:08:08.020
+ And so this is a scoping thing.
+
+00:08:08.020 --> 00:08:10.760
+ A method is really just a function.
+
+00:08:10.760 --> 00:08:13.220
+ But it lives inside the class.
+
+00:08:13.220 --> 00:08:15.620
+ And then fields or attributes are data items
+
+00:08:15.620 --> 00:08:16.460
+ that are in the class.
+
+00:08:16.460 --> 00:08:19.160
+ And so they're variables that are defined in the class.
+
+00:08:19.160 --> 00:08:20.900
+ You can define variables outside the class
+
+00:08:20.900 --> 00:08:21.820
+ that you use in your program.
+
+00:08:21.820 --> 00:08:23.180
+ You've been doing that all along.
+
+00:08:23.180 --> 00:08:25.180
+ But if you're saying, I'm going to build this capability
+
+00:08:25.180 --> 00:08:27.920
+ and it's going to have data inside of it and code inside of it,
+
+00:08:27.920 --> 00:08:30.780
+ the code is the method or message and field or attribute.
+
+00:08:30.780 --> 00:08:33.220
+ And they're just, oops.
+
+00:08:33.220 --> 00:08:39.320
+ There are just two different sets of terminology.
+
+00:08:39.320 --> 00:08:41.020
+ Method is what I'll probably use.
+
+00:08:41.020 --> 00:08:42.980
+ If you look in some object-oriented patterns
+
+00:08:42.980 --> 00:08:47.300
+ like Smalltalk or Apple, they often will call these messages.
+
+00:08:47.300 --> 00:08:49.340
+ So you can either access a method
+
+00:08:49.340 --> 00:08:51.660
+ inside of a class or an object,
+
+00:08:51.660 --> 00:08:53.980
+ or you can send a message to the object.
+
+00:08:53.980 --> 00:08:55.700
+ The same is true for field and attribute.
+
+00:08:55.700 --> 00:08:57.660
+ It's just a chunk of data that's in the object
+
+00:08:57.660 --> 00:09:01.100
+ that you may or may not have the right to access.
+
+00:09:01.100 --> 00:09:05.980
+ So, like I said, a class is a template.
+
+00:09:05.980 --> 00:09:08.220
+ It defines the characteristics of the objects
+
+00:09:08.220 --> 00:09:09.500
+ that we're going to use to make it.
+
+00:09:09.500 --> 00:09:11.020
+ It is the cookie cutter.
+
+00:09:11.020 --> 00:09:17.660
+ So dog is sort of the exemplar.
+
+00:09:17.660 --> 00:09:19.060
+ Lassie is a particular dog.
+
+00:09:19.060 --> 00:09:21.180
+ And so dog has fur and dog barks
+
+00:09:21.180 --> 00:09:22.580
+ and dogs do all these things.
+
+00:09:22.580 --> 00:09:24.740
+ And so we know something about dogs,
+
+00:09:24.740 --> 00:09:26.780
+ but it doesn't mean we have a dog, right?
+
+00:09:26.780 --> 00:09:29.780
+ And the class is a more abstract concept
+
+00:09:29.780 --> 00:09:31.860
+ that when it's time to get a dog,
+
+00:09:31.860 --> 00:09:34.700
+ we know certain things about dogs.
+
+00:09:34.700 --> 00:09:38.900
+ Instances or objects are once we say,
+
+00:09:38.900 --> 00:09:41.860
+ oh, time to make a cookie from the template.
+
+00:09:41.860 --> 00:09:44.740
+ Time to get a dog, we know something about dogs.
+
+00:09:44.740 --> 00:09:46.900
+ That's the creation of an object
+
+00:09:46.900 --> 00:09:49.900
+ and we call them instances, instance of a class.
+
+00:09:49.900 --> 00:09:53.740
+ So the class doesn't exist, but we say,
+
+00:09:53.740 --> 00:09:57.420
+ make me a new object using this class as its template.
+
+00:09:57.420 --> 00:09:58.580
+ Oh, and now make me another one.
+
+00:09:58.580 --> 00:10:01.580
+ And so we can have many, many objects from one class.
+
+00:10:01.580 --> 00:10:05.300
+ So just like many cookies from one cookie cutter.
+
+00:10:05.300 --> 00:10:10.580
+ Method is a bit of code that lives inside of an object.
+
+00:10:10.580 --> 00:10:11.420
+ It's like a function,
+
+00:10:11.420 --> 00:10:15.280
+ but it's scoped to within the object or within the class.
+
+00:10:15.280 --> 00:10:18.100
+ Okay, so that kind of gets us started
+
+00:10:18.100 --> 00:10:20.500
+ on some of the terminology and we'll come back
+
+00:10:20.500 --> 00:10:22.740
+ and we'll take a look at how we write code
+
+00:10:22.740 --> 00:10:24.940
+ that's object-oriented.
+
+00:10:24.940 --> 00:10:29.120
+ (gentle music)
+
+00:10:32.580 --> 00:10:35.660
+ (gentle piano music)
+

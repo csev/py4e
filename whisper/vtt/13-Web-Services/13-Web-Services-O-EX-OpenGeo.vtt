@@ -1,0 +1,845 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.000
+ [MUSIC]
+
+00:00:08.000 --> 00:00:12.920
+ Hello, and welcome to yet another code walkthrough for Python for everybody.
+
+00:00:12.920 --> 00:00:15.920
+ In this walkthrough, we're going to play with geocoding,
+
+00:00:15.920 --> 00:00:20.120
+ which is really taking a text version of an address and
+
+00:00:20.120 --> 00:00:24.080
+ turning it into a well-known, to a location.
+
+00:00:24.080 --> 00:00:27.480
+ And we see this all the time on map applications.
+
+00:00:27.480 --> 00:00:31.920
+ This map application that I'm using is called Open Street Map.
+
+00:00:31.920 --> 00:00:35.520
+ It's an open source, openly maintained.
+
+00:00:35.520 --> 00:00:40.120
+ It's a wonderful organization that gives us an alternative
+
+00:00:40.120 --> 00:00:45.360
+ to the commercial map companies, like Google Map, who play games with all of us.
+
+00:00:45.360 --> 00:00:51.840
+ So I'm a big fan of open source, big fan of open data resources.
+
+00:00:51.840 --> 00:00:56.120
+ And so I'm going to search for a place.
+
+00:00:56.120 --> 00:00:58.960
+ One of my favorite restaurants in the whole world.
+
+00:00:58.960 --> 00:01:00.980
+ And so I'm using a text address.
+
+00:01:00.980 --> 00:01:02.320
+ I'm like, where is this thing?
+
+00:01:02.320 --> 00:01:06.640
+ And so it found it to me, and it found all this data.
+
+00:01:06.640 --> 00:01:11.160
+ We see things like the GPS coordinates or
+
+00:01:11.160 --> 00:01:14.240
+ the coordinates of latitude, longitude coordinates here.
+
+00:01:14.240 --> 00:01:16.840
+ And there is one of my favorite restaurants in the world.
+
+00:01:16.840 --> 00:01:22.800
+ And so the act of going from a text address
+
+00:01:22.800 --> 00:01:26.360
+ to a location is called geocoding.
+
+00:01:26.360 --> 00:01:28.720
+ It's a super common kind of thing.
+
+00:01:28.720 --> 00:01:32.160
+ So we've got a bit of sample code here.
+
+00:01:32.160 --> 00:01:35.240
+ And I am going to edit this code.
+
+00:01:35.240 --> 00:01:41.560
+ You can get it from www.pyfree.com/code3opengeo.py.
+
+00:01:41.560 --> 00:01:45.400
+ And save it to some location so you can edit and play with this bit of code.
+
+00:01:45.400 --> 00:01:46.360
+ So I've got it right here.
+
+00:01:46.360 --> 00:01:49.040
+ I'm actually editing the master copy.
+
+00:01:49.040 --> 00:01:50.880
+ It's in GitHub, so I will be able to fix it.
+
+00:01:50.880 --> 00:01:53.880
+ So don't worry about that.
+
+00:01:53.880 --> 00:01:58.880
+ So let's do a bit of walkthrough.
+
+00:01:58.880 --> 00:02:06.240
+ The API that we're going to be doing is a thing called geoAPI, and it's a company.
+
+00:02:06.240 --> 00:02:08.800
+ And they take that OpenStreetMap data and
+
+00:02:08.800 --> 00:02:13.220
+ they make it available to us in this geocoding API, for example.
+
+00:02:13.220 --> 00:02:15.480
+ This is the thing that we're going to be doing.
+
+00:02:15.480 --> 00:02:19.520
+ And so you can see that the idea of geocoding is you take a text,
+
+00:02:19.520 --> 00:02:22.160
+ like I've said, a text address.
+
+00:02:22.160 --> 00:02:24.120
+ There's all kinds of stuff.
+
+00:02:24.120 --> 00:02:29.240
+ You can play with it, you can play, they give these free playgrounds.
+
+00:02:29.240 --> 00:02:32.880
+ And so if you look at this, it's not exactly free.
+
+00:02:32.880 --> 00:02:35.480
+ There is a free level of it, right?
+
+00:02:35.480 --> 00:02:37.920
+ And so you still have to go get an API key.
+
+00:02:37.920 --> 00:02:41.040
+ And if you start using it more and more, you got to pay money.
+
+00:02:41.040 --> 00:02:42.800
+ And it gets pretty high.
+
+00:02:42.800 --> 00:02:47.680
+ So this is 250,000, whatever, 600 bucks a month.
+
+00:02:47.680 --> 00:02:52.760
+ So that's where the real API is.
+
+00:02:52.760 --> 00:02:56.880
+ But if you take a look at the code, we're not going to hit that API.
+
+00:02:56.880 --> 00:02:59.480
+ Because otherwise, you'd have to sign up for account.
+
+00:02:59.480 --> 00:03:06.880
+ Although it'd be good exercise, you could definitely use their official API endpoint,
+
+00:03:06.880 --> 00:03:08.200
+ if you signed up for an account.
+
+00:03:08.200 --> 00:03:12.600
+ But I have given you what I call a heavily rate limited proxy of that.
+
+00:03:13.720 --> 00:03:18.080
+ And it means that I've got a copy of it.
+
+00:03:18.080 --> 00:03:22.320
+ I've got a database where I cache the most commonly used things.
+
+00:03:22.320 --> 00:03:24.920
+ And I use Cloudflare, and we talked about that in the lecture.
+
+00:03:24.920 --> 00:03:28.280
+ And it's also super heavily rate limited,
+
+00:03:28.280 --> 00:03:32.640
+ which means it slows you down to a crawl if you overuse it.
+
+00:03:32.640 --> 00:03:35.640
+ The rate limit is designed to allow you
+
+00:03:35.640 --> 00:03:41.960
+ to get what you need done for this class, but not more, okay?
+
+00:03:41.960 --> 00:03:48.920
+ So the prefix for this is htppi-free-data-dr-chuck.net, open geo question mark.
+
+00:03:48.920 --> 00:03:52.800
+ And then afterwards, you put a Q equals query parameter.
+
+00:03:52.800 --> 00:03:54.840
+ And so I've got this.
+
+00:03:54.840 --> 00:04:00.160
+ And you see the Q equals, this is just URLs and HTTP.
+
+00:04:00.160 --> 00:04:04.040
+ The plus in that is the space, this is called URL encoding.
+
+00:04:04.040 --> 00:04:10.800
+ And the percent 2c is URL encoded comma, because you can't just put a comma there.
+
+00:04:10.800 --> 00:04:13.000
+ You actually have to take the comma and encode it.
+
+00:04:13.000 --> 00:04:20.600
+ But if we click on this click, you will get some JSON, right?
+
+00:04:20.600 --> 00:04:22.500
+ And just like we talked about in the lecture.
+
+00:04:22.500 --> 00:04:25.640
+ And so in there is all kinds of stuff, right?
+
+00:04:25.640 --> 00:04:30.320
+ It's a feature collection, which means it's an array named features.
+
+00:04:30.320 --> 00:04:32.440
+ And then you've got the country, you've got the latitude and
+
+00:04:32.440 --> 00:04:34.520
+ longitude, which we're going to go after.
+
+00:04:34.520 --> 00:04:38.760
+ And then we're going to look at this formatted address, okay?
+
+00:04:38.760 --> 00:04:43.400
+ So you can test this in the browser without a key.
+
+00:04:43.400 --> 00:04:46.520
+ And so we're going to retrieve this.
+
+00:04:46.520 --> 00:04:50.960
+ Now, there's this little bit of stuff that we've got to do.
+
+00:04:50.960 --> 00:04:53.680
+ Just don't worry too much about this.
+
+00:04:53.680 --> 00:05:04.840
+ And that is, this URL open wants to check sometimes the certificates of the HTTPS.
+
+00:05:04.840 --> 00:05:08.760
+ And we want to tell it that we're going to take data even though we,
+
+00:05:08.760 --> 00:05:11.960
+ the certificate may not be well known by Python.
+
+00:05:11.960 --> 00:05:14.800
+ And that's because Python, last I checked,
+
+00:05:14.800 --> 00:05:18.760
+ doesn't ship with a ton of well known certificates.
+
+00:05:18.760 --> 00:05:19.920
+ It's a long story.
+
+00:05:19.920 --> 00:05:23.520
+ So just here's some code for you.
+
+00:05:23.520 --> 00:05:27.080
+ This is basically saying we're not going to verify the certificate.
+
+00:05:27.080 --> 00:05:31.640
+ Now, if we look at the certificate of this, you can actually see that this is
+
+00:05:31.640 --> 00:05:37.280
+ a secure content verified and it's a CloudFlare certificate.
+
+00:05:37.280 --> 00:05:41.960
+ And here's some more information about it, blah, blah, blah, blah, blah, blah.
+
+00:05:41.960 --> 00:05:47.520
+ And so what we're saying is we're telling Python not to look too closely at this
+
+00:05:47.520 --> 00:05:50.960
+ stuff because we're just reading it.
+
+00:05:50.960 --> 00:05:55.160
+ I mean, you probably would want to solve this if you were doing production, but
+
+00:05:55.160 --> 00:05:57.640
+ for us, this is just a quick way we do it.
+
+00:05:57.640 --> 00:06:01.480
+ Okay, so I make a big while loop and I ask for a location.
+
+00:06:01.480 --> 00:06:04.200
+ If I just press Enter, it's going to break.
+
+00:06:04.200 --> 00:06:05.840
+ And I strip it.
+
+00:06:05.840 --> 00:06:10.040
+ And then I create a dictionary in order to do this Q equals thing, right?
+
+00:06:10.040 --> 00:06:11.760
+ This little Q equals thing.
+
+00:06:11.760 --> 00:06:15.320
+ Now, I could sort of change the space to a plus.
+
+00:06:15.320 --> 00:06:18.160
+ I could change the comma to a percent to C.
+
+00:06:18.160 --> 00:06:21.800
+ Or I could call a library called urllab_parse_url_encode_parms,
+
+00:06:21.800 --> 00:06:24.440
+ which takes a key value pair in a dictionary.
+
+00:06:24.440 --> 00:06:26.180
+ So Q equals address.
+
+00:06:26.180 --> 00:06:27.880
+ And that does all the fancy stuff.
+
+00:06:27.880 --> 00:06:31.560
+ So I print it, and then I use urllab_request_open with that URL.
+
+00:06:31.560 --> 00:06:33.320
+ Context equals CTX.
+
+00:06:33.320 --> 00:06:36.080
+ Ignore any certificate problems.
+
+00:06:36.080 --> 00:06:39.480
+ And then read the data from the URL.
+
+00:06:39.480 --> 00:06:43.760
+ Now, if we look at the raw data, let me retrieve this again.
+
+00:06:43.760 --> 00:06:48.000
+ If you look at the raw data, this is actually what it looks like, okay?
+
+00:06:48.000 --> 00:06:52.120
+ It's very compact and dense, doesn't have a lot of spaces.
+
+00:06:52.120 --> 00:06:55.600
+ Pretty printing, as we well know, says, let's throw some spaces in so
+
+00:06:55.600 --> 00:06:58.480
+ at least we can figure out what's going on.
+
+00:06:58.480 --> 00:07:02.160
+ And then there's this JSON viewer, which is not really what's coming back, but
+
+00:07:02.160 --> 00:07:05.000
+ you can show and hide things in this JSON viewer.
+
+00:07:05.000 --> 00:07:14.040
+ That's okay, I guess, but I like to see the raw data.
+
+00:07:14.040 --> 00:07:15.080
+ I do like it pretty printed.
+
+00:07:15.080 --> 00:07:18.480
+ So in this particular browser, which I'm using as Firefox,
+
+00:07:18.480 --> 00:07:23.560
+ when it sees JSON, it gives you some options as to what is supposed to work.
+
+00:07:23.560 --> 00:07:27.560
+ Now, this decode, we've talked about this before.
+
+00:07:27.560 --> 00:07:34.160
+ The data on the web that we just got, this data, is in UTF-8.
+
+00:07:34.160 --> 00:07:37.840
+ And that's because there could be all kinds of characters in here
+
+00:07:37.840 --> 00:07:42.040
+ that are not simple ASCII characters, so the web pretty much uses UTF-8.
+
+00:07:42.040 --> 00:07:47.160
+ So when we get a read, that is UTF-8, right?
+
+00:07:47.160 --> 00:07:50.840
+ We've read data from the Internet, and it's a UTF-8 data.
+
+00:07:50.840 --> 00:07:56.600
+ Decode says, okay, look at it, make sure it's UTF-8, and
+
+00:07:56.600 --> 00:08:02.520
+ then give it back to me in the form of a Python string data, which is Unicode.
+
+00:08:02.520 --> 00:08:05.480
+ And so Unicode is not the same as UTF-8.
+
+00:08:05.480 --> 00:08:09.080
+ Unicode is how we manipulate things inside Python.
+
+00:08:09.080 --> 00:08:12.960
+ So by making everything Python, everything Unicode in Python,
+
+00:08:12.960 --> 00:08:14.640
+ it all works inside Python.
+
+00:08:14.640 --> 00:08:18.480
+ You can encode it and decode it when you move it out and back in.
+
+00:08:18.480 --> 00:08:23.880
+ So then we say how many characters we got, and then we parse it.
+
+00:08:23.880 --> 00:08:27.360
+ So JSON load s is a parse, it might fail.
+
+00:08:27.360 --> 00:08:32.760
+ And then we look for sort of a sanity check to make sure if features,
+
+00:08:32.760 --> 00:08:34.160
+ the features thing is in there.
+
+00:08:34.160 --> 00:08:39.000
+ So that's looking for this thing, like just checking if it exists.
+
+00:08:39.000 --> 00:08:43.680
+ And if you look at features, features is an array.
+
+00:08:43.680 --> 00:08:48.560
+ And so for sanity, we also say, hey, we only got one back.
+
+00:08:48.560 --> 00:08:51.800
+ Now in this Ann Arbor example, it's going to work.
+
+00:08:51.800 --> 00:08:58.160
+ But if you put something in, this sanity checking may or may not sort of work.
+
+00:08:58.160 --> 00:09:05.920
+ So what I'm going to do is, well, let's just run it.
+
+00:09:05.920 --> 00:09:09.640
+ I'll just run it without uncommenting anything.
+
+00:09:09.640 --> 00:09:16.320
+ So let's come back here, and I'm going to say python opengeo.py.
+
+00:09:16.320 --> 00:09:22.360
+ And I'm going to type Ann Arbor, Michigan.
+
+00:09:22.360 --> 00:09:24.880
+ So it's retrieving it.
+
+00:09:24.880 --> 00:09:28.400
+ I mistyped it.
+
+00:09:28.400 --> 00:09:38.280
+ So you see the rate limiting in action.
+
+00:09:38.280 --> 00:09:41.880
+ So it figured out that I typoed, and it went and found Ann Arbor, Michigan.
+
+00:09:41.880 --> 00:09:43.400
+ It found the real place, right?
+
+00:09:43.400 --> 00:09:44.360
+ And that's part of what you do.
+
+00:09:44.360 --> 00:09:47.000
+ This geocoding is kind of a search engine.
+
+00:09:47.000 --> 00:09:48.320
+ I made a mistake.
+
+00:09:48.320 --> 00:09:54.440
+ Now you'll notice it's a lot quicker if I type it right, cuz it already has it.
+
+00:09:54.440 --> 00:09:57.360
+ And so it rate limits things, see how fast that was?
+
+00:09:57.360 --> 00:09:59.200
+ That's the proxies working.
+
+00:09:59.200 --> 00:10:03.200
+ So in that first one when I typed it wrong, the proxy was actively slowing you down.
+
+00:10:03.200 --> 00:10:05.400
+ And I'm like, my code's broken.
+
+00:10:05.400 --> 00:10:08.880
+ But it was actively slowing me down, because it was mad at me, cuz I was asking for
+
+00:10:08.880 --> 00:10:10.360
+ too many things.
+
+00:10:10.360 --> 00:10:14.640
+ But then it doesn't rate limit you on things that it already has,
+
+00:10:14.640 --> 00:10:18.080
+ which are cheap for it, cuz it's all very well proxy.
+
+00:10:18.080 --> 00:10:21.760
+ But we retrieved the data, we got 1319 characters.
+
+00:10:21.760 --> 00:10:24.720
+ We figured I'll parse the latitude and the longitude.
+
+00:10:24.720 --> 00:10:28.520
+ See, we print that out, and then we got the location, right?
+
+00:10:28.520 --> 00:10:37.240
+ And so now let's, I can't think of a better way to describe it.
+
+00:10:37.240 --> 00:10:39.040
+ We're just going to delete a bunch of working code.
+
+00:10:39.040 --> 00:10:42.840
+ I'm going to delete this, I'm going to delete this.
+
+00:10:42.840 --> 00:10:50.000
+ And I'm going to say lat equals 42,
+
+00:10:50.000 --> 00:10:56.640
+ lon equals 42, and location equals jerk pit.
+
+00:10:59.440 --> 00:11:04.800
+ So now what I did is I hit, all that code that looked really cool is gone now.
+
+00:11:04.800 --> 00:11:12.080
+ So if I run it again, I can say Ann Arbor, Michigan, oops.
+
+00:11:12.080 --> 00:11:16.040
+ See, you got to download enter.
+
+00:11:16.040 --> 00:11:19.200
+ It was like, I don't know what that is.
+
+00:11:19.200 --> 00:11:22.840
+ So it was unhappy, but you'll notice this download error code checked cuz I was
+
+00:11:22.840 --> 00:11:27.040
+ typing in cursors and keys and weird things and it was not happy.
+
+00:11:27.040 --> 00:11:30.720
+ So let's do it again.
+
+00:11:30.720 --> 00:11:33.240
+ I wonder what would trigger that in this.
+
+00:11:33.240 --> 00:11:37.120
+ So now you see we're running, but we are not looking at the latitude and
+
+00:11:37.120 --> 00:11:38.280
+ the longitude.
+
+00:11:38.280 --> 00:11:40.880
+ So let me show you how I build this code.
+
+00:11:40.880 --> 00:11:43.320
+ So the first thing I'm going to do is I'm just going to print this stuff.
+
+00:11:43.320 --> 00:11:48.920
+ And so we're going to see it.
+
+00:11:53.320 --> 00:11:58.640
+ And so now this is that same data that we saw in the browser, right?
+
+00:11:58.640 --> 00:12:02.400
+ And so what I want out of this data, and it takes a while to figure it out,
+
+00:12:02.400 --> 00:12:06.320
+ is I want this lat and this lon value, okay?
+
+00:12:06.320 --> 00:12:12.640
+ And I can kind of guess what this is, but I'll show you how I work through it.
+
+00:12:12.640 --> 00:12:16.360
+ So I look at this and I say, okay, the outer thing that I want is features.
+
+00:12:16.360 --> 00:12:22.160
+ So this is an outer dictionary, basically, features.
+
+00:12:22.160 --> 00:12:28.480
+ And so I'm going to, that's in this variable js, that's a dictionary variable.
+
+00:12:28.480 --> 00:12:38.920
+ So if I say print js sub features.
+
+00:12:38.920 --> 00:12:49.480
+ So what I'm doing is I'm going to comment this part out and
+
+00:12:49.480 --> 00:12:55.000
+ we're going to indent that, I got to put a close curly brace there.
+
+00:12:55.000 --> 00:12:58.560
+ Comment indent equals four.
+
+00:12:58.560 --> 00:13:00.640
+ So what I'm going to do is I'm going to work out in.
+
+00:13:00.640 --> 00:13:04.640
+ So originally I was dumping js, now I'm going to dump js of features.
+
+00:13:04.640 --> 00:13:12.680
+ And so I'm going to save that, and I'm going to, I got to keep running it.
+
+00:13:12.680 --> 00:13:15.360
+ Yeah, cuz I didn't type it correct.
+
+00:13:17.080 --> 00:13:21.000
+ Doobie doobie doo, I got an extra parenthesis.
+
+00:13:21.000 --> 00:13:25.160
+ And I put a semicolon in cuz I've written too much java in javascript in my life and
+
+00:13:25.160 --> 00:13:25.920
+ I can't help it.
+
+00:13:25.920 --> 00:13:39.080
+ I got to add the json dump pass, here we go.
+
+00:13:39.080 --> 00:13:46.560
+ I should've just copied that previous line.
+
+00:13:47.080 --> 00:13:54.280
+ So now I got to dig in one level and then I just got to pre-print it.
+
+00:13:54.280 --> 00:13:58.880
+ So that's json dump s with an indent of four.
+
+00:13:58.880 --> 00:14:08.200
+ Okay, so now what you see.
+
+00:14:08.200 --> 00:14:13.880
+ It seems subtle, but I went in and now the only thing I'm seeing is the array.
+
+00:14:13.880 --> 00:14:20.520
+ Okay, so in this array, Okay.
+
+00:14:20.520 --> 00:14:24.800
+ There's the zero with object or the zero with dictionary in this array.
+
+00:14:24.800 --> 00:14:27.800
+ So now what I'm going to do is I'm going to make a tiny change here cuz the thing that
+
+00:14:27.800 --> 00:14:30.800
+ came back from js of features is an array.
+
+00:14:30.800 --> 00:14:33.520
+ And I'm going to grab the first item in that array.
+
+00:14:33.520 --> 00:14:36.560
+ So what you're going to notice next time is we're going to, this is going to be the outer
+
+00:14:36.560 --> 00:14:40.000
+ bit cuz we went into this array sub zero.
+
+00:14:44.720 --> 00:14:54.760
+ Okay, so you see the outer thing is now a dictionary and it is of type feature.
+
+00:14:54.760 --> 00:14:59.240
+ I mean, one of the keys is type and one of the keys is properties.
+
+00:14:59.240 --> 00:15:02.520
+ Now we want the stuff inside properties.
+
+00:15:02.520 --> 00:15:03.960
+ So what we're printing here.
+
+00:15:03.960 --> 00:15:12.720
+ That we want to go into the key within that dictionary.
+
+00:15:12.720 --> 00:15:16.640
+ So we have a dictionary, but we have an array sub zero,
+
+00:15:16.640 --> 00:15:20.240
+ which returns a dictionary and now we're going to get the sub properties.
+
+00:15:20.240 --> 00:15:25.360
+ And this seemed kind of slow, but it is going to finish.
+
+00:15:25.360 --> 00:15:33.880
+ Okay, so now what we have is we have a dictionary.
+
+00:15:33.880 --> 00:15:37.560
+ That long string now is a dictionary, let me move this over.
+
+00:15:37.560 --> 00:15:41.400
+ That long string is a dictionary and within that dictionary there is a lawn.
+
+00:15:42.600 --> 00:15:43.640
+ And a lat.
+
+00:15:43.640 --> 00:15:49.840
+ So now just for testing, I'm going to say, look up in that dictionary, a lawn.
+
+00:15:49.840 --> 00:15:53.160
+ So I'm going to run it again now.
+
+00:15:53.160 --> 00:16:05.440
+ So now we see that the actual thing we retrieved using this
+
+00:16:05.440 --> 00:16:10.840
+ whole thing was the number that is the longitude.
+
+00:16:10.840 --> 00:16:15.080
+ And so now what I'm going to do, I've gotten this far, and
+
+00:16:15.080 --> 00:16:18.480
+ now what I'm going to do is instead of the longitude being 42,
+
+00:16:18.480 --> 00:16:23.960
+ that's what the lawn is going to look up, right?
+
+00:16:23.960 --> 00:16:29.720
+ And we can pretty much say that the lat is going to be the lat.
+
+00:16:29.720 --> 00:16:35.120
+ So we're going to now, I think, be able to look up lawn and lat.
+
+00:16:35.120 --> 00:16:35.620
+ Oops.
+
+00:16:41.160 --> 00:16:43.080
+ So now the lat and long are correct.
+
+00:16:43.080 --> 00:16:48.440
+ Now I kind of forgot.
+
+00:16:48.440 --> 00:16:55.480
+ So I'm going to take this off the print statement, the debug print, and run it again.
+
+00:16:55.480 --> 00:17:06.000
+ Okay, so we found the lat and the lawn.
+
+00:17:06.000 --> 00:17:09.400
+ Now I went up now, so I'm not printing long and lat.
+
+00:17:09.400 --> 00:17:10.160
+ Okay, that's easy.
+
+00:17:10.160 --> 00:17:11.280
+ It's just formatted.
+
+00:17:11.280 --> 00:17:14.720
+ The key inside the properties is formatted.
+
+00:17:14.720 --> 00:17:19.840
+ So now what I can do is I can find the location by grabbing this.
+
+00:17:19.840 --> 00:17:24.400
+ And just look up formatted.
+
+00:17:24.400 --> 00:17:29.640
+ So I'll just comment this little bit out temporarily.
+
+00:17:29.640 --> 00:17:36.360
+ And oops, I just hit Ctrl+C.
+
+00:17:36.360 --> 00:17:40.320
+ And arbor michigan.
+
+00:17:40.320 --> 00:17:45.920
+ So now I'm getting the formatted address, I'm getting the latitude, and
+
+00:17:45.920 --> 00:17:46.840
+ I'm getting the longitude.
+
+00:17:46.840 --> 00:17:51.760
+ And so when we started, I had code that pretty much looked like this.
+
+00:17:51.760 --> 00:17:53.800
+ It was a little bit different order.
+
+00:17:53.800 --> 00:18:00.400
+ And you saw me sort of successively dig hierarchically into this.
+
+00:18:00.400 --> 00:18:02.800
+ Now if you know, it's like, okay, here we go.
+
+00:18:02.800 --> 00:18:05.120
+ It's an outer dictionary, sub features.
+
+00:18:05.120 --> 00:18:10.880
+ It's an array, sub zero, features sub zero, and then sub properties, sub lat.
+
+00:18:10.880 --> 00:18:16.760
+ Now you might just figure that out and immediately derive this long thing.
+
+00:18:16.760 --> 00:18:21.440
+ I'll just say that every time I try to do that, I mess it up.
+
+00:18:21.440 --> 00:18:23.360
+ One tiny little mistake.
+
+00:18:23.360 --> 00:18:29.160
+ And let's just say you missed on this, I'll just make a mistake here.
+
+00:18:29.160 --> 00:18:32.400
+ So you just said, I got that first entry in features, and
+
+00:18:32.400 --> 00:18:35.800
+ I'm just going to go into lat.
+
+00:18:35.800 --> 00:18:40.060
+ So that means that you're going to go straight into lat, and
+
+00:18:40.060 --> 00:18:41.360
+ you're going to see what happens then.
+
+00:18:41.360 --> 00:18:47.840
+ Boom.
+
+00:18:47.840 --> 00:18:50.120
+ So what it's saying is there is no key lat, and
+
+00:18:50.120 --> 00:18:54.360
+ that's because you're in js feature sub zero, sub lat.
+
+00:18:54.360 --> 00:18:56.760
+ And again, it's easy because I made the mistake, I knew it.
+
+00:18:56.760 --> 00:19:01.960
+ So the zero, this is the sub zero, and I thought that lat was in this object, but
+
+00:19:01.960 --> 00:19:02.560
+ it's not.
+
+00:19:02.560 --> 00:19:07.720
+ You have to go into one more dictionary deep in the properties dictionary,
+
+00:19:07.720 --> 00:19:09.400
+ then you can go to lat.
+
+00:19:09.400 --> 00:19:14.280
+ And that's why this one works, because I kind of dive into the properties.
+
+00:19:14.280 --> 00:19:17.320
+ Now I think I can get that back, save me some time.
+
+00:19:17.320 --> 00:19:19.920
+ And now it should work again.
+
+00:19:19.920 --> 00:19:27.280
+ Okay, so we're working.
+
+00:19:27.280 --> 00:19:34.140
+ So I hope you found this interesting, geocoding is just fun.
+
+00:19:34.140 --> 00:19:38.920
+ Later in the course, we will make a map and do kind of a batch geocoding.
+
+00:19:38.920 --> 00:19:42.800
+ Use a database, etc, and then make a map, and that's kind of cool.
+
+00:19:42.800 --> 00:19:46.840
+ And you can place yourself on the map, or a place you know on the map.
+
+00:19:46.840 --> 00:19:48.600
+ So I hope you enjoyed this, cheers.
+
+00:19:57.280 --> 00:20:07.280
+ [MUSIC]
+

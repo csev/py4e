@@ -1,0 +1,503 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.060
+ Okay, so now it's time to teach you a bit of complexity about text processing.
+
+00:00:06.060 --> 00:00:11.800
+ Up till now, we've kind of been ignoring the complexity of text processing.
+
+00:00:11.800 --> 00:00:17.840
+ Everything that I have been doing, most of what I've been doing is in ASCII,
+
+00:00:17.840 --> 00:00:23.240
+ the Latin character set, the character set that, you know, United States, Europe,
+
+00:00:23.240 --> 00:00:27.040
+ lots of Western civilizations use this character set.
+
+00:00:27.040 --> 00:00:34.160
+ And if you go back to the 1950s and 1960s, they, we were happy to have one computer,
+
+00:00:34.160 --> 00:00:37.440
+ and we didn't care what the character set was, as long as what you typed on
+
+00:00:37.440 --> 00:00:42.360
+ the keyboard came out on the printer, the internal representation didn't matter.
+
+00:00:42.360 --> 00:00:47.280
+ And as the 70s and 80s came along, certainly 70s,
+
+00:00:47.280 --> 00:00:50.800
+ we needed some interoperability, and so they standardized that character set.
+
+00:00:50.800 --> 00:00:52.720
+ But they standardized that character set,
+
+00:00:52.720 --> 00:00:56.360
+ certainly in the West, that did not represent anything.
+
+00:00:56.360 --> 00:01:02.640
+ And so, if you look at this sheet, basically what it's telling you is for
+
+00:01:02.640 --> 00:01:06.240
+ the various characters, there's some non-printing characters,
+
+00:01:06.240 --> 00:01:09.960
+ white space, non-printing characters, and then here's some printing characters like
+
+00:01:09.960 --> 00:01:13.840
+ the and key, the zero, and then the uppercase characters, and
+
+00:01:13.840 --> 00:01:19.020
+ then the lowercase characters, and there's 128 of these possible values.
+
+00:01:19.020 --> 00:01:22.920
+ And there are nothing even for Spanish or French in here.
+
+00:01:22.920 --> 00:01:28.080
+ And it's also why, by the way, uppercase letters in Latin sort lower than
+
+00:01:28.080 --> 00:01:31.760
+ lowercase letters, and we saw that in some of the string stuff.
+
+00:01:31.760 --> 00:01:37.960
+ And what these do is it maps and says, okay, and
+
+00:01:37.960 --> 00:01:45.000
+ a lowercase a maps to the number integer number 97, which in base 16 is 61 and
+
+00:01:45.000 --> 00:01:48.760
+ in octal it's 141, but in binary, this is, it's 8-bit numbers.
+
+00:01:48.760 --> 00:01:53.160
+ And so, these are 8-bits, otherwise known as a byte.
+
+00:01:53.160 --> 00:01:59.240
+ And they're very efficient, like when you buy a disk drive, it's megabytes or
+
+00:01:59.240 --> 00:02:04.020
+ gigabytes or whatever, that's how many of these kind of characters it can store.
+
+00:02:04.020 --> 00:02:09.240
+ But unfortunately, this doesn't work for more complex characters.
+
+00:02:09.240 --> 00:02:15.800
+ You can figure out these numbers inside of Python by using the ord function.
+
+00:02:15.800 --> 00:02:20.680
+ And so, you say, what is the ordinal or the numeric representation of the uppercase
+
+00:02:20.680 --> 00:02:23.840
+ h, lowercase e, and newline is a character as well.
+
+00:02:23.840 --> 00:02:27.240
+ And so, like 10 is the ordinal position of newline.
+
+00:02:27.240 --> 00:02:29.040
+ And this actually has to do with sorting, so
+
+00:02:29.040 --> 00:02:33.320
+ that e lowercase e is higher than uppercase h.
+
+00:02:33.320 --> 00:02:38.200
+ And that's just because in the simplest of sorts, we just sort them numerically.
+
+00:02:38.200 --> 00:02:41.320
+ So newline, if you go back to the previous little sheet,
+
+00:02:41.320 --> 00:02:45.600
+ newline is this 10 right here, it's that 10, which is a line feed.
+
+00:02:45.600 --> 00:02:49.080
+ And that's a 10, and that's why when we print newline out, we get a 10.
+
+00:02:49.080 --> 00:02:53.800
+ And so again, in the early days when strings were simple,
+
+00:02:53.800 --> 00:02:56.480
+ we just represented them as one byte per character.
+
+00:02:56.480 --> 00:03:02.120
+ But the problem is, is that as we have gotten more complex, and
+
+00:03:02.120 --> 00:03:05.320
+ in today's modern world, it's simply unacceptable to say that the only thing
+
+00:03:05.320 --> 00:03:08.180
+ computers can understand is ASCII.
+
+00:03:08.180 --> 00:03:13.240
+ And so this leads to a very, very, from the simplest of character sets to
+
+00:03:13.240 --> 00:03:16.680
+ a super complex character set called Unicode.
+
+00:03:16.680 --> 00:03:20.040
+ Which basically is billions of characters,
+
+00:03:20.040 --> 00:03:25.400
+ potential billions of characters for every language and every character set.
+
+00:03:25.400 --> 00:03:29.960
+ And because there's so much space in Unicode, it's easy to take very small
+
+00:03:29.960 --> 00:03:32.600
+ variations of characters and give them a space.
+
+00:03:32.600 --> 00:03:39.880
+ It's so large that you can have pretty much any character that you want.
+
+00:03:39.880 --> 00:03:40.840
+ So that's Unicode.
+
+00:03:42.400 --> 00:03:46.800
+ The problem is, is that if we sent Unicode across the network,
+
+00:03:46.800 --> 00:03:48.560
+ it would be way too large.
+
+00:03:48.560 --> 00:03:53.200
+ It'd be this UTF32, which instead of being eight bytes per character,
+
+00:03:53.200 --> 00:03:55.160
+ would be four bytes per character.
+
+00:03:55.160 --> 00:03:58.560
+ And so it would take all of the data that we build and
+
+00:03:58.560 --> 00:04:03.560
+ make it four times larger, and it'd be very difficult.
+
+00:04:03.560 --> 00:04:07.440
+ And so what they've come up with is ways to compress this.
+
+00:04:08.960 --> 00:04:15.440
+ And UTF16 is this weird thing, UTF32 is really sort of the full Unicode pretty
+
+00:04:15.440 --> 00:04:21.800
+ much, UTF16 is a subset of Unicode, it's used in some countries.
+
+00:04:21.800 --> 00:04:27.320
+ But the best practice for moving data across the internet or
+
+00:04:27.320 --> 00:04:32.160
+ in a file that you're going to move between computers is what's called UTF8.
+
+00:04:32.160 --> 00:04:35.760
+ And so what happens is, is that UTF32 is fixed length.
+
+00:04:35.760 --> 00:04:44.640
+ ASCII is one byte, UTF16 is two bytes, UTF32 is four bytes.
+
+00:04:44.640 --> 00:04:50.920
+ And UTF8 has dynamic length, meaning that it is one to four bytes.
+
+00:04:50.920 --> 00:04:54.640
+ And if it's only one byte long, it's perfectly compatible with ASCII,
+
+00:04:54.640 --> 00:04:58.480
+ meaning that an ASCII file is also a UTF8.
+
+00:04:58.480 --> 00:04:59.760
+ And so here's this little sheet, and
+
+00:04:59.760 --> 00:05:02.360
+ it's not critical that you understand this graph too much.
+
+00:05:02.360 --> 00:05:07.040
+ But basically, as time passed, 2000 internets coming, coming, coming,
+
+00:05:07.040 --> 00:05:10.920
+ coming out 2014, pretty much overwhelmingly the documents on
+
+00:05:10.920 --> 00:05:13.680
+ the internet that you might retrieve are UTF8.
+
+00:05:13.680 --> 00:05:19.800
+ Now, so UTF8 is the recommended practice, and it's sort of a compression.
+
+00:05:19.800 --> 00:05:24.600
+ UTF8 can represent all the things UTF32 can represent.
+
+00:05:24.600 --> 00:05:30.120
+ It's just a compression of it with an overlap of ASCII, which is awesome.
+
+00:05:30.120 --> 00:05:30.920
+ It's what you want.
+
+00:05:32.520 --> 00:05:33.720
+ I don't need to talk anymore.
+
+00:05:33.720 --> 00:05:39.480
+ So in Python, we have always had sort of two ways of representing strings.
+
+00:05:39.480 --> 00:05:44.440
+ In Python 2, the normal string was a byte string,
+
+00:05:44.440 --> 00:05:47.680
+ was an ASCII string, was a Latin string.
+
+00:05:47.680 --> 00:05:49.560
+ And if you wanted to represent Unicode,
+
+00:05:49.560 --> 00:05:55.560
+ there was a separate kind of object that we had, and so you would do that.
+
+00:05:55.560 --> 00:06:02.720
+ And in Python 3.0 or later, one of the main features of Python 3
+
+00:06:02.720 --> 00:06:05.320
+ was to make Unicode and string the same.
+
+00:06:05.320 --> 00:06:10.900
+ So that means inside of Python, when you have a string variable, it's a Unicode.
+
+00:06:10.900 --> 00:06:14.800
+ Whereas inside of Python 2, it was a byte variable.
+
+00:06:14.800 --> 00:06:20.120
+ And so now we have this notion separately in Python 2 and
+
+00:06:20.120 --> 00:06:23.720
+ on Python 3 where we have byte variables.
+
+00:06:23.720 --> 00:06:28.320
+ And so byte variables are, in effect, an array of bytes.
+
+00:06:28.320 --> 00:06:32.520
+ So if there's A, B, C, that means it's three bytes, it's three bytes long.
+
+00:06:32.520 --> 00:06:35.160
+ Whereas a string, a three character string,
+
+00:06:35.160 --> 00:06:37.800
+ might be anywhere from three to 12 bytes long.
+
+00:06:37.800 --> 00:06:42.440
+ So Python 2 had bytes and strings that were the same.
+
+00:06:42.440 --> 00:06:47.080
+ Bites and strings are the same, and Unicode is weird.
+
+00:06:47.080 --> 00:06:53.560
+ And in Python 3, Strings and Unicode are the same.
+
+00:06:53.560 --> 00:06:56.040
+ And bytes are weird, okay?
+
+00:06:56.040 --> 00:06:58.520
+ And so that's what we've got to deal with.
+
+00:06:58.520 --> 00:07:04.560
+ And there'll be times when we get bytes from APIs, when we call things,
+
+00:07:04.560 --> 00:07:07.880
+ we have to then figure out what kind of thing those bytes contain.
+
+00:07:07.880 --> 00:07:11.240
+ Cuz the bytes might contain ASCII, they might contain UTF-8,
+
+00:07:11.240 --> 00:07:13.440
+ they might contain various things.
+
+00:07:13.440 --> 00:07:16.800
+ And so internally, all the strings in Python 3 are Unicode.
+
+00:07:16.800 --> 00:07:20.880
+ Most of the time, if you're inside the program or
+
+00:07:20.880 --> 00:07:22.880
+ reading and writing files, we just work.
+
+00:07:22.880 --> 00:07:24.800
+ And that's why we haven't mentioned it.
+
+00:07:24.800 --> 00:07:26.520
+ But now that we're talking over sockets, and
+
+00:07:26.520 --> 00:07:29.000
+ we're talking to the sort of random world out there,
+
+00:07:29.000 --> 00:07:32.320
+ we have to be a little more aware of the data we're dealing with.
+
+00:07:32.320 --> 00:07:38.800
+ Now, the good news is 98% of the time, or 95% of the time, it's UTF-8.
+
+00:07:38.800 --> 00:07:41.960
+ Which might also include ASCII, and so it's quite nice.
+
+00:07:41.960 --> 00:07:44.160
+ But we have to be aware of this.
+
+00:07:44.160 --> 00:07:51.640
+ And so if we are going to take data that comes off of the network in the bytes,
+
+00:07:51.640 --> 00:07:57.320
+ then we have to make sure that we interpret it or decode it in the right way.
+
+00:07:57.320 --> 00:08:01.680
+ So that internally, the strings, which are Unicode, are properly represented.
+
+00:08:01.680 --> 00:08:06.320
+ And so that's why when we read data in from a network connection,
+
+00:08:06.320 --> 00:08:09.520
+ like a socket, we have to say, hey, decode it.
+
+00:08:09.520 --> 00:08:13.520
+ Now, there's a couple things going on at that moment of decode.
+
+00:08:13.520 --> 00:08:19.240
+ And so this is where we're doing it, we have to manage this in this code,
+
+00:08:19.240 --> 00:08:22.120
+ where before we send this stuff, we're going to encode it,
+
+00:08:22.120 --> 00:08:27.200
+ which takes a Unicode string and turns it into UTF-8 bytes.
+
+00:08:27.200 --> 00:08:30.240
+ There's actually a parameter here that you could do it different than UTF-8,
+
+00:08:30.240 --> 00:08:31.800
+ but no one ever does.
+
+00:08:31.800 --> 00:08:34.520
+ You might have to for certain situations, but so
+
+00:08:34.520 --> 00:08:38.640
+ that says that we're going to encode this into UTF-8 before we send it.
+
+00:08:38.640 --> 00:08:42.800
+ And then when we get something back, before we print it, we're going to decode it.
+
+00:08:42.800 --> 00:08:45.320
+ And that's how this ends up working out.
+
+00:08:45.320 --> 00:08:49.540
+ And if you look at the documentation, you will see that sometimes it says
+
+00:08:49.540 --> 00:08:52.080
+ it's a string or it's bytes.
+
+00:08:52.080 --> 00:08:57.880
+ And so you take a byte array and you decode it to get a string and
+
+00:08:57.880 --> 00:09:00.600
+ you take a string and encode it to get a byte array.
+
+00:09:00.600 --> 00:09:03.240
+ And so that's what we're doing.
+
+00:09:03.240 --> 00:09:06.040
+ So you can think of the process as this way.
+
+00:09:06.040 --> 00:09:14.520
+ And that is the network has these UTF-8, mostly UTF-8 resources, not ASCII.
+
+00:09:14.520 --> 00:09:16.080
+ If it's ASCII, it's okay.
+
+00:09:16.080 --> 00:09:18.760
+ So you read with the receive.
+
+00:09:18.760 --> 00:09:23.080
+ So this receive here pulls data, well, we have a Unicode string.
+
+00:09:23.080 --> 00:09:24.720
+ Let's start with the send.
+
+00:09:24.720 --> 00:09:27.400
+ So up here, we have a Unicode string.
+
+00:09:27.400 --> 00:09:28.680
+ That's a Unicode string.
+
+00:09:28.680 --> 00:09:31.760
+ Even though there's no special characters in it, no Asian characters or
+
+00:09:31.760 --> 00:09:34.720
+ French characters, that's a Unicode string.
+
+00:09:34.720 --> 00:09:38.280
+ And before we can send it, we have to send it in UTF-8.
+
+00:09:38.280 --> 00:09:41.400
+ If that had Asian characters, it'd be okay.
+
+00:09:41.400 --> 00:09:44.960
+ And that would be set up just right so that the UTF-8 would be right.
+
+00:09:44.960 --> 00:09:47.760
+ So we encode it first, and that's the CMD.
+
+00:09:47.760 --> 00:09:49.160
+ This is now bytes, okay?
+
+00:09:49.160 --> 00:09:50.840
+ CMD is bytes.
+
+00:09:50.840 --> 00:09:53.760
+ And then we actually send the bytes, and that goes across the network.
+
+00:09:53.760 --> 00:09:57.800
+ We get back our thing, and we receive, and we receive into data.
+
+00:09:57.800 --> 00:10:01.720
+ Well, data is bytes, not string, it's bytes.
+
+00:10:01.720 --> 00:10:03.400
+ We can say how big it is.
+
+00:10:03.400 --> 00:10:05.720
+ Function's kind of like a string and it has len,
+
+00:10:05.720 --> 00:10:11.480
+ except that it is one byte per character, which means some of it might be UTF-8.
+
+00:10:11.480 --> 00:10:13.120
+ And then all we have to do is say decode.
+
+00:10:13.120 --> 00:10:16.400
+ Again, you could, if you were dealing with a situation where you weren't expecting
+
+00:10:16.400 --> 00:10:22.000
+ it to typically be UTF-8 or ASCII, you could tell it UTF-16 or something.
+
+00:10:22.000 --> 00:10:23.280
+ And it's more complex.
+
+00:10:23.280 --> 00:10:27.160
+ But the simple thing is you just say, I'm going to clean up my data on the way in.
+
+00:10:27.160 --> 00:10:28.920
+ I'm going to clean it up by running it through decode.
+
+00:10:28.920 --> 00:10:30.920
+ And I'm going to encode stuff on the way out.
+
+00:10:30.920 --> 00:10:35.400
+ And so sockets are the place where this comes into play.
+
+00:10:35.400 --> 00:10:39.040
+ And so you'll see, we'll always do this encode and decode every time we're
+
+00:10:39.040 --> 00:10:43.640
+ sending data kind of outside of Python and inside of Python.
+
+00:10:43.640 --> 00:10:45.880
+ So now that we've talked a little bit about character sets,
+
+00:10:45.880 --> 00:10:50.160
+ we're going to make this even easier so you don't have to use sockets.
+
+00:10:50.160 --> 00:10:54.000
+ We're going to, urllib is a bit of Python code in the library
+
+00:10:54.000 --> 00:10:55.800
+ that does all the socket stuff for you.
+
+00:10:55.800 --> 00:11:05.800
+ [MUSIC]
+

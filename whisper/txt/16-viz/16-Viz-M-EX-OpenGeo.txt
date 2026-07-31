@@ -1,0 +1,273 @@
+ Hello, and welcome to Python for Everybody and another code walkthrough.
+ So in this one, we're going to walk through a Chapter 16 diagram.
+ Let's take a look at it.
+ So this is a situation where we're going to be talking to some OpenStreetMap data through
+ an API, through a proxy to that API, and we're going to write a bit of code that's going
+ to repeatedly pull this stuff down.
+ Now these APIs are notoriously slow, expensive, difficult, and sometimes even sort of unreliable.
+ If you hit a rate limit, it starts blowing up on you.
+ So we want this to be a restartable process.
+ So what we're going to do is write this code called geoload.py, and it is going to read
+ a file that is the list of the locations we ultimately want to have.
+ And when you're doing your homework, you've got to edit this file.
+ But the idea is that this geoload is going to read all the locations we want, and then
+ it's starting to pull them down.
+ And then it's going to simply insert the JSON into this geodata.sqlite file.
+ And then if this part here is a restartable process, the geoload is a restartable process.
+ And when we do it, we'll start it a couple of times.
+ And it's smart enough to know the things it already has and not start from the beginning
+ over and over.
+ That's why it's a restartable process.
+ And at any given point, we can, in a sense, view and visualize the current contents of
+ this database with geodump.py.
+ So that reads the database, and it produces a little file called where.js.
+ It also writes a little debug output.
+ And then that where.js is read into when you open a browser, this file where.html opens
+ in a browser.
+ And then it reads the where.js, and then it visualizes it.
+ And that's really cool.
+ So at some point, you're supposed to put your own location in where.data and then show in
+ the visualization that you were able to get your location.
+ So without further ado, let's go take a look at the code.
+ So the code you're going to need to use is opengeo.zip.
+ You download this open, you download www.py4e.com/code3/opengeo.zip.
+ And then you open that into a folder, and you will have a folder called opengeo.
+ So if I'm looking at my current folder of opengeo, you can see that it's got a readme.txt,
+ a geodump.py, a geoload, a where.data, where.html, and where.js.
+ And so the where.html and the where.js are, those are the visualization part of it.
+ And geoload is the spidering part of it, and geodump is the read the database, okay?
+ So let's go ahead and start taking a look at geoload.py.
+ And so this is the restartable, this is the restartable spider.
+ And if you look, it's going to be looking at a proxy of the geo API.
+ So we have OpenStreetMap, right?
+ There's the OpenStreetMap, and we can search for things in OpenStreetMap,
+ do this kind of geocoding by hand.
+ And we're doing it every time we do a map search, a geocoding is happening.
+ We're talking to geo API, which in effect takes the free data,
+ but then wraps an API around it.
+ And so this is what the API we're going to get.
+ But if you're going to use it, you got to get an account, so you got to sign up.
+ So what I've done to simplify things in this class is I've made a proxy for it.
+ And this proxy does not require a key, but
+ it has really, really fierce API rate limits.
+ Meaning that it slows down terribly if you use it more than what you should use it
+ in this class.
+ But that slowing down also is kind of fun because you are doing a restartable thing.
+ So you don't need a key to talk to this, it's just for this class.
+ And so the protocol is pretty simple.
+ You have a query parameter, which is the text location properly URL encoded.
+ Spaces are encoded as pluses, and commas are percent twos, okay?
+ So that's the kind of thing we got to do.
+ So if we take a quick look back at our code, and
+ we looked at this code in a previous, we only retrieved one.
+ Now we're building a restartable process using a database.
+ So we have this prefix of it.
+ Now, this is database.
+ So we're going to create or open an existing database.
+ And in this case, we don't yet have a database, ls -l, there is no database.
+ You'll see the first time we start this, we're going to create this database.
+ And we're going to create a simple table.
+ Now, the key thing is that all we're going to do is we're going to take
+ the address that we looked up as the key, and the JSON that we get back as a value.
+ So in this case, Ann Arbor comma Michigan is the key.
+ And this raw data, which looks prettier, that is the value.
+ That's what we're going to do, because again, this is the restartable process.
+ You want this restartable process to be simple and restartable.
+ And then, if we continue down in the code,
+ we see the pattern having to do with let's ignore certificate problems.
+ Having to do with the fact that there's not a lot of good certificates that are
+ default and excluded in Python, and so it's simpler for now.
+ In production, you can figure this out a little bit better, but
+ that just makes sure that our URL lib stuff works.
+ So just kind of, there you go.
+ It's unfortunate, because when they fixed this thing about they didn't like
+ the certificates, they had some problems, they just took them all out.
+ So we went from a lot of good certificates and
+ one bad one to no good certificates, but.
+ And then everyone immediately went and ignored the certificates.
+ The law of unintended consequences.
+ So let's take a look at this file, where.data.
+ So where.data, the idea at some point is you want to know the locations.
+ So this is just the input to our, and this is just all the places.
+ And we can add to this jerk pit and arbor Michigan.
+ So this is the list, the to-do list in a sense, okay?
+ So we're going to, that's what we're going to do, and I give you a starting point, and
+ you're supposed to, in your work, add something to it.
+ So we're going to read this where.data, and that file had, I don't remember, 275.
+ But you might have thousands of lines.
+ And then we're going to read the whole file.
+ And if we get past 100 of retrieved locations, we're going to stop.
+ And that's kind of to let our API settle down.
+ You would change these numbers.
+ And then we're going to take the address from the line, which is just a text line.
+ And then we're going to check to see if the address has already been retrieved.
+ And we're doing an encode in a memory view because of UTF-8 and
+ because the database is kind of outside of us.
+ There you go.
+ And then what we're going to do is we're going to retrieve that record.
+ And if the address was already in the database, at the beginning it's not,
+ cuz the database is empty.
+ We're just going to continue and go through zooming through this file.
+ Ignoring, not retrieving the ones that we've already retrieved,
+ that are in our thing already.
+ But if they aren't there, then we're going to create a URL.
+ And this is basically the pattern of we're going to create a dictionary.
+ And we're going to say Q equals Ann Arbor, Michigan.
+ But that Ann Arbor, Michigan has to be properly URL encoded.
+ And so that's what this URL lib parse URL encode does.
+ So that ends up with a URL that looks like this.
+ It all gets concatenated together, but
+ that encoding is something we don't have to write the code for.
+ Thank heaven, cuz even though it's easy to explain in a simple example,
+ it's hard to do it right in all cases.
+ So we'll just let the libraries do that.
+ So now we have a URL, so we open that URL.
+ This little context equal CTX is the trick we use to ignore the SSL errors.
+ Then we read it, but the stuff that comes back, of course,
+ this here, if we were to look at the headers, let's see.
+ We could look at the headers and we'd see that this is a UTF-8 application/json.
+ And so Python internally does not use UTF-8.
+ Python internally uses Unicode.
+ So decode says, that stuff we just read, UTF-8, decode it into our internal format,
+ which is Unicode, and there you go.
+ And then I print out a debug statement, and I increment my count so
+ that each run only does no more than 100.
+ Then I try to parse it using JSON.loads, and then I have a couple of sanity checks
+ to make sure that I got real data.
+ If I didn't even get data, I should just complain about it and
+ either break or continue.
+ And then I am going to insert it into the database, insert into locations,
+ address geo data, encode the address, and encode the data.
+ And that's it, I'm going to commit it.
+ And I'm going to pause, sleep five seconds, everyone, and
+ that goes round and round and round, and retrieves them.
+ And then at the end of the loop, it prints the number of features and
+ sends a little message.
+ So let's just go ahead and run it.
+ I mean, some of this code we talked about,
+ it's very just adapted from a couple of chapters ago.
+ So let's type python geoload.py.
+ So now it's going to start reading where.data and hitting the API.
+ So you see, there you go.
+ Now I'm going to hit Ctrl+C.
+ So it did the first 10, did the first 10, and then it hit this.
+ And I just hit Ctrl+C to blow it up.
+ So if we look in our database now, Let me start that.
+ If we look at our database, and we open a database, and we go into, where am I?
+ I've got to find where I'm at, and you'll have to find where you're at.
+ I just happen to know my folder names.
+ And I'm actually working in the, I'm working right in my main thing.
+ There we are, I found that file.
+ So that file now exists.
+ And if I take a look at the data, I see I have one table, it's locations table.
+ And I see the address, zoop, and then I see the data itself.
+ There we go.
+ So that's all I did.
+ I just went through the first 10, and so they're already there.
+ So now let's go run this thing again and just start it up.
+ Now what it's going to do is it's going to read all the file,
+ the whole file of where.data, but you'll notice that it has the first 10 already done.
+ So it just like says, got it, got it, got it, right?
+ So it's went very rapidly through the first 10, and now let's grab the next 10.
+ And now it's grabbing the next 10.
+ And again, let's just say your network goes down.
+ The whole thing blows up.
+ Well, let's take a look at the data.
+ So we've got 30 now, okay?
+ And then you come back in the morning, this might be like 3,000 instead of 30.
+ But you come back in the morning like, it blew up.
+ So what do you do?
+ You start it up again.
+ So now it goes, I got all those, here's the next 10.
+ Here's the next 10, okay?
+ So now, let's just blow this up.
+ And let's briefly comment this out so it gets done faster.
+ So now it's not going to sleep, it'll stay pausing for a bit.
+ But it's going to go, [SOUND] So now it's retrieving.
+ We'll see how many it's got to go to, 257.
+ And again, this is good data, it's going through 257 of these things.
+ I didn't make you do 25,000 or a million, but this pattern could work, okay?
+ And so, I wonder if, it went to 100.
+ So I got to run it again, because it had another limit, only 100.
+ We'll get there, just keep loading, just keep loading.
+ I want to get to my thing where I have to mine.
+ And there was an error, and you could have gone and
+ looked at what that error was, okay, I still have to get it again.
+ Gotta run it.
+ I should have just changed the line.
+ Okay, so actually this hit the, you can see it's slow, it hit the rate limit.
+ [LAUGH] And okay, so let me put that sleep back in.
+ Interestingly now, if we run it, we've been through,
+ well let's go look at our database for a second.
+ Let's reload the database, and we see that, there we go, and
+ the jerk bit's already in there, that's the one I added.
+ So there's 273 in here.
+ Now watch what happens when I run this again.
+ It's going to zoom, it's already done, because what it was doing there,
+ let's take a look at the thing, because what it was doing there is it was reading
+ all of the things in where.data, and it was checking geodata SQLite,
+ they're already there.
+ So there was no need to go to the API.
+ That's what I mean by a restartable process.
+ You don't need to go back to the API, and so
+ I can run this as many times as I want, and it's instant basically.
+ Cuz only 250 things read from a database, which happens really fast, okay?
+ And so in a sense, the way you can think about this is,
+ this first phase is kind of done.
+ We restarted it a couple times, we did this, we did that.
+ And now we want to work on this second phase, where we run geodump.
+ And all that's going to do, let's take a look at the code.
+ And so these two look very different.
+ So geolode worries about the fact that the API may blow up on you, or
+ it may be slow, or you may run out of time.
+ This tool, geodump.py, it opens a database.
+ And then it just reads all this stuff, and it starts writing this file,
+ where.js file, and a kind of funky, weird thing.
+ And it basically reads the first row, just reads the rows, and
+ then it parses the JSON, and then it checks to see if that features is there,
+ which is the outer thing in the, and let's go back and look at the.
+ Let's go look here.
+ Raw data, pretty print features is this outer thing.
+ It's an array of features, but we're just going to look at the zeroth item, and
+ then we're going to look into side properties, or let's look at it this way.
+ So we're going to go into features, and that's an array, so
+ we're going to go into the sub zero.
+ And then we're going to go to properties, and then inside properties,
+ we're going to grab the longitude, the latitude, and whatever else it is.
+ So you can see these little things where we're going into the JSON,
+ sub features, sub zero, cuz features is an array, sub geometry, sub coordinates.
+ The first one and the second one, the zeroth and
+ the first is the longitude and latitude, longitude and latitude, okay?
+ So, let's go ahead and run that.
+ We're going to print it, and we're actually writing it into this where.js file at
+ the same time, and this is also going to be really fast.
+ So that was super fast, right?
+ Because it was only reading from the database and writing to where.js and
+ then writing to, and so there's something wrong with this particular one.
+ I'm not going to worry too much about that.
+ But if I look at where.js, it's just a JavaScript variable
+ that is all of this data with longitude, latitude, and the name.
+ And that's how you put pins on a map.
+ And if you watch where.html, this is not an HTML class, I'm just giving you this.
+ It does a whole bunch of HTML to use Google,
+ not Google, you use OpenGeo to visualize this stuff, okay?
+ So now all I'm going to do is I'm going to say open where.html.
+ And there we go.
+ So this is the map.
+ So these are all of the retrieved locations.
+ And if I click on one of these things, you kind of see this.
+ So I can find my location somewhere on here.
+ Okay, so I have one link in the University of Michigan is where it decided the center
+ of the University of Michigan is.
+ I'm not sure I agree with that, but hey, that's okay.
+ I guess it's OpenStreetMan.
+ But the second one was the one that I put on.
+ And that is the Jamaican Jerk Pit,
+ which is only one of my favorite restaurants in the whole world.
+ So there you go, the Jamaican Jerk Pit.
+ So my office is currently in this building right here.
+ And I walk less than half a block to the Jamaican Jerk Pit.
+ So that's basically a walkthrough for our restartable geocoding process.
+ And then visualization using OpenStreetMan, and I hope you found that useful.
+ Cheers.
+ [MUSIC]

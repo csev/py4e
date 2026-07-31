@@ -1,0 +1,188 @@
+ [MUSIC]
+ Hello everybody and welcome to Python for Everybody.
+ We are going to be doing some code walkthroughs.
+ If you want the sample code, you can download the zip from our website.
+ The work that we're doing right now is we are in the process of building a spider and
+ a visualization tool for email data that came originally from this website, gmain,
+ but I've got my own copy of it.
+ And so what we've done before is we ran gmain.py, and I grabbed a URL.
+ I have a URL that has all this data, and I downloaded that.
+ And then I ran gmain again to catch up, and so it took quite a bit of catching up.
+ But by the time I get to, remember how I said it runs, tries to fail five times?
+ Well, it ran out of data at 60,421, and then it started failing and then it quit.
+ So we pretty much have all of our data now.
+ We have finished this process in s-content SQLite, okay?
+ And if I take a look in the database browser,
+ we can see we got 59,823 email messages.
+ And so if I look at any of these things, you see the headers,
+ you see the subject line, you see the email address, you see the body of it.
+ So remember I split the body in half and the headers.
+ And so I made this as raw as I possibly could, because as you saw,
+ I had to spend so much time in the gmain just getting the data successfully retrieved.
+ And so I don't like cleaning the data up too much.
+ And so what we're going to look at next is the data cleaning process, okay?
+ And so this is gmodel.py is what we're going to take a look at now.
+ So let's get rid of those guys and look at gmodel.py.
+ I don't think I need urllib in this code.
+ Do I have any urllib?
+ No, so I don't need that, sorry.
+ Fix that.
+ Okay, so it's going to read from the database, it's going to use regular expressions.
+ And zlib is a way to do some compression.
+ And so I'm going to do, in this one I'm going to compress some of the data to make it so
+ that I have less data to, some of the text fields are going to be compressed.
+ I wanted to keep these fields uncompressed inside of messages.
+ And so we have some clean up messages and cleans things up.
+ And it turns out that the way email addresses in this particular mail corpus,
+ they changed over time and there's certain kinds of things.
+ Sometimes the gmain.org is the email address when people want to hide their
+ address.
+ And I made all kinds of stuff and I split it and checked to see if it would end with
+ this and I cleaned up things, just that thing.
+ And so I have all kinds of cleanup stuff going on in here.
+ And I have this mapping and DNS mapping that I'll talk about in a bit where
+ organizations sometimes send email with different addresses over time and
+ people send email from different time.
+ And we're going to do the parsing of the date and that is the code for that.
+ We're going to pull out the header information.
+ This is sort of borrowed from the other code.
+ We clean up the email addresses and the domain names.
+ And we'll pull the date out, pull the subject out,
+ pull out the message ID, various things.
+ So here's the main body of the code.
+ We're going to go from content.sqlite to index.sqlite.
+ And what I'm going to do every time is I'm going to wipe out index.sqlite and
+ drop the messages, senders, subjects, and replies.
+ So this is a normalized database in that it has foreign keys.
+ So there's a messages table here with an integer primary key, the GUID for it.
+ The GUID stands for global unique ID, sent time sender ID.
+ And it's going to have a blob.
+ These are blobs, binary or large objects for the headers in the body.
+ Cuz I'm going to compress them in this database to make them.
+ And then the senders, each sender has a key.
+ And then each subject line is going to have a key.
+ And then replies are a connection from one message to another.
+ And so this is like a many to many.
+ Now, I also have this file called mapping.sqlite.
+ And so we can take a look at that one, mapping.sqlite.
+ And so what happened is this has two tables that I hand deal with.
+ And so sometimes this was a email address that mapped to that.
+ So indiana.edu, that's a way to take an @ the email address.
+ And then these were a bunch of people that had email addresses changing
+ throughout the project, and I sort of kind of mapped them in a way.
+ And so this is just sort of like a, I pull this in really quick.
+ And I read all this stuff from the DNS mapping.
+ And I, other than stripping and making this lowercase, etc.
+ I just am going to make a dictionary.
+ DNS mapping, which is the old name to the new name.
+ And the email address mapping from the old name to the new name.
+ And I'm using fixed sender.
+ Fixed sender is cuz the email addresses even within Gmail were kind of funky.
+ So don't worry so much about this.
+ Okay, and so now what I'm going to do is I opened up a connection just to read all
+ that stuff in, and now I'm going to actually open the main content.
+ And I'm asking it to open, this is a little trickier.
+ I open that read only, that was so
+ that I could potentially be running the spider and running this at the same time.
+ I get a cursor, and so I'm going to read through, so in the content file,
+ this is the big one, I'm going to read through and go through every one and
+ write all of these things in.
+ And I'm going to take all the email addresses, and
+ I'm going to put those in a list.
+ So I loaded that, I've got the mappings loaded, and so
+ now I'm going to go through every single message.
+ I got all the senders, all the subjects, and all the global unique IDs.
+ So I read in each message.
+ So now I'm going through content one at a time.
+ I parse the headers.
+ I check to see if the sender's name email address,
+ after it's been cleaned up, is in my mapping, mapping.get sender.
+ And the default is I get back sender, that's what that's saying.
+ Lookup sender, if it's in there, give me the entry of that key.
+ Otherwise, give me sender back.
+ We're going to print every 250 things we do, we'll complain if this is true.
+ We're going to go get the mapping between the senders,
+ which is a way to look up the primary key.
+ I could have done this with a database thing, but I wanted it to be fast.
+ So that's part of the reason I read all these things in, so
+ I could have those mappings to be really fast.
+ You'll see this takes a little while, even though I got all this stuff cached.
+ And so then, if I don't have a sender ID, meaning that I haven't seen it yet,
+ then I'm going to do an insert or ignore into senders.
+ And then I'm going to do a select, and then you've seen this, where I grab the row
+ back, and I'm really just trying to look at the recently assigned ID.
+ And then I'm going to not only set the sender ID for this iteration loop, but
+ I'm also going to store it in the dictionary, and so that builds this dictionary up.
+ And you'll see the same thing is true for subject ID.
+ I'm going to insert it into the subject's table and get a primary key.
+ If I don't know what it is, and then I'm going to put it into,
+ not only am I going to put it into the database, but
+ I'm also going to put it into my dictionary.
+ And the same thing, I guess I didn't do it for the GUID.
+ Okay, so now what I have is the sender ID and the subject ID,
+ which are foreign keys into the sender table and the subject table.
+ And I'm going to insert the message with the sender ID,
+ subject ID, the sent at, headers and body.
+ And the values here are the GUID, sender ID, subject ID, sent at.
+ Now this here is zlib compress.
+ So what I'm taking is the message, the header and the body.
+ And this little bit ends up with a compressed version of this stuff.
+ And you'll see it in a second.
+ And this keeps the size of these text things down at the cost of
+ the computation of, at the cost of the computation to compress and
+ decompress when we want to read it, okay?
+ And then I pull the GUIDs out, the ID, which is the GUID.
+ And I pull out the primary key for this thing based on the GUID.
+ And I update this dictionary, okay?
+ So let me run that code.
+ It is doing a lot of cleanup.
+ And I'll tell you, it took me a long time to make this work.
+ So just, so this code that I'm running now.
+ Oh, don't forget to take a Python 3, Chuck.
+ So this is going to run every 250.
+ So it did all this precaching.
+ So that's how long it takes to do 250.
+ Now there's 60,000 in here.
+ And so this is really busy, the reason it's bouncing back and
+ forth is that every time it makes this journal file, that's, and
+ then does it commit.
+ So you can kind of see that it's busy making journal files and
+ committing, and there's a lot of activity going on here.
+ [MUSIC]
+ It just so happens that Adam shows me these files.
+ [MUSIC]
+ Okay, so it's finished.
+ It took about three minutes to finish that, right?
+ And so if we take a look at the size of the files,
+ we will see that the index is much smaller.
+ It's fully normalized.
+ It's still 263 megabytes.
+ It's all compressed.
+ So let's take a look at that in the browser.
+ So it's 200 megabytes, but it loads up a lot faster.
+ There we go.
+ So we have a sender's table, right?
+ Which is just kind of a many to one table.
+ We have a subjects to table, which is a many to one table.
+ And we have messages, which has foreign keys.
+ It takes a little bit to load that up, okay?
+ And so we see the foreign keys for sender and subject.
+ And that saves us, all those foreign keys save us.
+ And so we have, you can kind of see that I can't see the headers in the body,
+ because now they're compressed.
+ That saves me a whole bunch of stuff, right?
+ It saved me a whole bunch of stuff, you know?
+ And so that's what's in that file.
+ And that, we've finished this process, okay?
+ And we've finished modeling the data and making it really clean.
+ And we'll pick back up, and the rest of the stuff we will do
+ is actually visualizing pulling data out of index.sqlite.
+ The idea is this can be restarted.
+ This can be run over and over and over,
+ even though it takes like three minutes to run this.
+ That's way better than five hours to run this.
+ So three minutes, five hours, and then you'll see now,
+ reading this is in seconds, cuz we got it all nice and normalized in a quite pretty way.
+ So I hope this has been useful.
+ In the next one, we'll actually do the visualization.
+ [MUSIC]

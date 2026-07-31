@@ -1,0 +1,147 @@
+ - Hello, and welcome to our final chapter,
+ Retrieving and Visualizing Data.
+ In this chapter, we are going to basically
+ bring this all together, databases, web services,
+ code, loops, logic, and we're going to solve a problem
+ that is a multi-step data analysis.
+ We're going to find some data on the internet,
+ might be HTML, might be an API or whatever,
+ and we're going to write a relatively slow process
+ that's going to pull data slowly,
+ because these are all rate-limited.
+ This is a slow and restartable process.
+ So you can be a start this, and what we're going to do
+ is we're going to have a database that's going to hold
+ the data that we're pulling, and so this might take
+ several days, actually, if you really have to do it,
+ and then you'll build up your data in your database,
+ and then what you tend to do is you tend to produce
+ two databases, one is kind of a raw database that,
+ you know, you really, all of its data columns are aimed at
+ helping you figure out what you've got to retrieve yet,
+ and what you haven't retrieved yet,
+ so that's kind of a crawling, spidering process,
+ and then you find that the data is kind of nasty and ugly,
+ and you find that before you're going to do any analysis,
+ you probably want to clean and process it,
+ so in a lot of these, you're going to go from a raw database
+ to a clean one, and this is going to be really large,
+ and this is going to be really small,
+ and you're going to do this sort of once, but slowly,
+ and you'll do this as many times as you need,
+ changing this program, cleaning the data up
+ over and over and over again, and then you'll end up
+ with really clean data, and it's relatively small,
+ and you might run programs that'll loop through this
+ to do visualizations or analysis or some things,
+ or whatever, and so you'll actually sort of use this
+ database as a source of information, okay?
+ So that's the basic pattern of what we're going to work with.
+ Now, this is what I call personal data mining,
+ and if you're going to do this seriously,
+ Python is used in lots of data mining activities,
+ but if you're going to do data mining seriously
+ with really, really large data sets,
+ we're doing small to medium-sized data sets,
+ as you might do sort of for individual personal research
+ versus like an organizational research
+ where you're processing the logs of a web server
+ or something like that, and there's lots and lots
+ of wonderful technology, and what's really cool is
+ this technology just keeps getting better and better,
+ because the whole data and mining data analysis,
+ natural language processing field is just so hot right now.
+ It's so awesome.
+ We're going to keep it simple and do stuff for ourselves
+ for now, and I gave you a bunch of sample code
+ that's going to make it so that you can adapt
+ this sample code to solve the problems
+ that you need to solve.
+ So like I said, this is more of a programming exercise.
+ Data mining might be a lot more complex.
+ If you're doing simple research,
+ this might actually model what you do pretty well.
+ So the first thing that we're going to do
+ is what's called use the Google's JSON API for geocoding,
+ and there are two versions of this.
+ One version requires a key,
+ and one version doesn't require a key.
+ Google used to make all this data available for free
+ but with just a rate limit, but now they're making,
+ increasingly requiring a key.
+ So I give you code in this zip file that kind of does both.
+ If you really wanted to do something in production
+ taking user entered places and names
+ and getting precise latitude longitude coordinates
+ so you can produce a nice little Google map like this.
+ But since Google has made a rate limited API,
+ I've actually pre-spidered a copy of the Google data
+ and I have my own sort of fake Google API
+ and so you can do your assignments
+ and test all your code using my fake API
+ which has no rate limits and has no problems,
+ but it's only a limited set of the data.
+ And so this is the basic process
+ and it's one of those things that it follows
+ that basic personal data modeling,
+ personal data mining pattern.
+ And so here's this API which is either Google or me.
+ I've got my own Dr. Chuck version of this,
+ Dr. Chuck.net version of this.
+ And there is an input queue of the location.
+ So this is the user data where they just put in the name
+ of where they think they live,
+ University of Tubigin or something,
+ and so this is the queue of the things
+ that are to be retrieved.
+ And in my case when I built this map for the first time,
+ there was like 15,000 and it took me days to get this
+ and so it would stop.
+ And so what I would do is I would read the first one
+ into this geoload.py,
+ check to see if I already had it in my database.
+ If I didn't already have the database,
+ I would go into the API, pull the data down
+ and I would put it in the database
+ and then I would go to the next one.
+ The next one, the next one.
+ So you know I might get 1,000 in my database
+ and then it blows up or I'm told I can't go any further.
+ So I wait 24 hours, I start it up
+ and it reads the first 1,000 and says,
+ oh they're all in the database already
+ and then it starts at 1,000 and one.
+ And then it adds that and adds that
+ and then until it stops and so it took me
+ several days of processing to get this data right.
+ Now I didn't have a separate cleaning process
+ because this data is pretty simple.
+ I was pulling out the JSON and latitude and longitude,
+ et cetera and so I didn't have to do two separate processes
+ to clean this data up.
+ It was clean enough right as I pulled it
+ because I was talking to an API.
+ If you're talking to the HTML,
+ sometimes it gets nasty and ugly.
+ And so then I wrote this program that just reads through it.
+ It just does a select and you know reads through the stuff
+ and it prints out some summary information
+ and tells you what to do.
+ It also prints out and you'll see this pattern
+ because I'm visualizing using browsers, HTML
+ and this happens to be using the Google Maps API
+ and putting all the data in a little JavaScript file.
+ So these end up being assignment statements in JavaScript.
+ You can take a look at that file.
+ And all the data shows up as assignment statements
+ in the JavaScript and then when this HTML loads,
+ it reads this file and puts up all those pins
+ as long as you have access to the in browser JavaScript API.
+ So the next thing we're going to talk about is PageRank
+ which is spidering now HTML.
+ We talked a lot about this.
+ Spider HTML, get some links.
+ And so up next, we're going to actually build a real database,
+ full featured search engine using PageRank.
+ (gentle music)
+ (gentle piano music)

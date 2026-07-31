@@ -1,0 +1,124 @@
+ (piano music)
+ Hello everybody and welcome to some worked sample code.
+ If you are interested in the source code,
+ you go to materials and download this sample code.zip.
+ I have this downloaded.
+ It'll be in a folder called code3 on my computer.
+ This is where I'm at, I'm in the code3 folder.
+ And this has a ton of bits of code here.
+ So if I do an ls you'll see I got all these files here.
+ And so we'll just leave those there.
+ And so this is the one I want to work through right now,
+ is the socket1.py code.
+ And basically what we're doing here is we're simulating
+ what is going to happen in a web browser.
+ And the cool thing about the HTML, the HTTP protocol,
+ is that we can do this by hand.
+ And I'm actually going to hack this HTTP protocol.
+ And this is going to go to data.pr4e.org and retrieve a document.
+ And so I'm going to do telnet to,
+ now you can do this on a Mac and Linux.
+ And if you put telnet on a Windows box,
+ you can do it here, data.pr4e.org.
+ And I want to talk to port 80.
+ And the port 80 is a different port.
+ It's a non-standard port.
+ But what we're doing here is talking to the HTTP port.
+ And so I'm going to be able to hand send commands
+ to the web server and retrieve a document.
+ So I've already copied this string, this get HTTP Romeo.txt.
+ I'm copying that into my buffer because if I wait too long,
+ this won't work.
+ So here I go.
+ And now I'm going to type that and I have to hit enter twice.
+ And that literally was the HTTP protocol.
+ So what I typed there was the HTTP protocol.
+ And the web server responds with some metadata
+ about the document, how much data there is,
+ the kind of data is there.
+ A blank line separates the header information
+ from the body of the document.
+ If I was to go to this in a browser right there,
+ you would see.
+ If I turned on developer console and I went to the network,
+ let's make this a little bit bigger.
+ You would see that it retrieves this file romeo.txt
+ and it gets back that it shows us the headers
+ and it shows us the response.
+ And so this is all the same way of doing the same thing
+ and that is how to do the HTTP protocol.
+ Okay, but now we're going to do this in Python.
+ And so here's the code we're going to write.
+ So we're going to import the socket library
+ and we're going to make a socket.
+ Now this doesn't actually make a connection.
+ Think of a socket as a file handle
+ that doesn't have any data associated with it yet.
+ And then what we're going to do is we're going to reach out
+ and connect that socket to a destination across the internet
+ with the domain name of data.pr4e.org.
+ And the second parameter in this tuple,
+ this is a function call with a single tuple as a parameter.
+ And so tuple sub zero is data.pr4e.org
+ and tuple sub one is the 80,
+ which says I want to talk to port 80.
+ That could fail.
+ It will make the connection and if the port 80 is there,
+ away it goes.
+ And then we're going to actually send the HTTP command.
+ So get, this is the HTTP rules,
+ followed by an end of line, followed by a blank line.
+ So you saw me do this there.
+ This was what I typed here.
+ And then I had to type a blank line.
+ Now if you want to go read the RFCs for how to do this,
+ you can figure this out.
+ So the only other thing that's kind of weird here
+ is we have to add this dot in code.
+ And that's because there are strings inside of Python
+ that are in Unicode and we have to send them out
+ as what's called UTF-8.
+ And in code converts from Unicode internally to UTF-8.
+ So this command is a set of UTF-8 bytes
+ that we're then going to send.
+ It still has that same set of characters in it
+ and now we're going to send it.
+ And that's, after we've made the connection,
+ we're going to send these two things
+ and then we're going to wait.
+ And my SOC is like a file handle at that point
+ because it's been opened and we've sent data.
+ The HTTP protocol told us what we had to send
+ and the fact that we did have to send it.
+ So now I have just a simple while loop
+ and I'm going to ask up to 512 characters
+ and receive up to 512 characters and get that back.
+ If I will know that this is the end of file
+ if I got no data back, so if the length of the data,
+ the byte array that I got back is less than one,
+ then I'm going to quit.
+ Otherwise, I'm going to print the data
+ and I'm going to use this decode,
+ which is kind of the opposite of this encode.
+ What I'm getting is UTF-8 encoded data, most likely,
+ and decode basically converts it to the internal format
+ called Unicode that runs inside.
+ So this is going to run a bunch of times,
+ pulling in the blocks, basically 512,
+ up to 512 characters at a time, printing it out,
+ and then when it's all said and done,
+ we will close that connection.
+ And so it's not too exciting.
+ Python 3 socket 1.py.
+ And you'll see that it's just going to,
+ Python is now going to do what I did by hand.
+ Now of course, the interesting thing is
+ these are all in strings, right?
+ And so this way we could write code
+ that does stuff with this.
+ But all we're really trying to do
+ in this particular situation
+ is show how you open a socket, send a command,
+ and then retrieve the data.
+ (gentle music)
+ (gentle music)

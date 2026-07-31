@@ -1,0 +1,194 @@
+ (piano music)
+ - Hello everybody, welcome to Python for Everybody.
+ We're going to do a little bit of sample code.
+ If you're interested in getting the sample code,
+ you can download this zip here at
+ python4everybody.com, materials.php.
+ And you will download and you will get all the files.
+ And all the files that I'm looking at here.
+ And so, the one I'm going to play with today
+ is the file called urllinks.py.
+ So the first thing you got to do before urllinks.py works
+ is you have got to install Beautiful Soup.
+ And I've got some simple instructions
+ at the beginning of the file.
+ And so, one way to do it is install it using
+ Python install process to install this Beautiful Soup
+ for all Python applications.
+ And if you are the owner of your computer
+ and you're going to use Beautiful Soup a lot,
+ it's a fine idea to do that.
+ But I want to show you a simpler way
+ that if you don't own your own computer
+ and you just want to make it so that Beautiful Soup works,
+ you can download this file.
+ This file right here, Beautiful Soup 4.zip,
+ unzip it and put it in the same folder as here.
+ And so, if you look in this folder,
+ I have a subfolder called bs4.
+ And that's the unzipped version of this.
+ And it has these things.
+ I didn't write this code,
+ so I'm sorry if the name is bad.
+ But this is the code to bs4.
+ And this is what's in bs4.zip.
+ And it's in the same folder as
+ url_links.py.
+ And so, what happens is when you do this
+ from bs4 import Beautiful Soup,
+ that either can go to sort of this global magic place
+ that Python installs stuff
+ and pulls in the Beautiful Soup object.
+ Or it can go to the folder bs4 and pull it in.
+ Okay?
+ And so, that's how that works.
+ So you have to do one of these two things.
+ I prefer to keep it simple, download and unzip this file
+ and put it in the same folder as this code
+ and away you go.
+ So from the previous example,
+ we're going to use url_lib, of course.
+ And then we're going to pull in the Beautiful Soup,
+ from the Beautiful Soup 4 library,
+ we're going to get the Beautiful Soup object.
+ Now, if you do this with SSL,
+ if these websites we're going to play with have SSL,
+ you pretty much have to do this little hack.
+ And these three lines, don't worry too much about it.
+ The whole idea, you can do Google on Stack Overflow
+ and figure this out.
+ But this is the way that you ignore errors
+ when you have SSL certificate errors.
+ And so we have to add this parameter context equals ctx,
+ which is this variable that we create.
+ So this part and this part, sort of just do them.
+ If you don't, you can take them out, actually.
+ But otherwise you won't be able to do HTTPS sites.
+ So let's take a look at what we're doing
+ other than dealing with the HTTPS problem.
+ Gonna ask the user for a URL.
+ We are going to retrieve all the HTML.
+ We're going to do a URL open, just like we did before.
+ Now this would return us something we could loop
+ through line by line with a for loop.
+ But instead we're going to say, hey, read the whole thing.
+ And that basically returns us the entire document
+ at that webpage in a single big string
+ with new lines at the end of each line.
+ And this is not a Unicode, but it's probably a UTF-8 string.
+ But it turns out Beautiful Soup knows how to deal with UTF-8
+ and it also knows how to deal with Unicode strings.
+ So what we're saying is Beautiful Soup,
+ read through and deal with all the nasty bits, right?
+ So HTML is like very, very flexible.
+ So,
+ drchuck.com/page1htm.
+ And so if we take a look at the source of this,
+ view page source, make this bigger.
+ You know, you might be able to do regular expressions,
+ but it does things like break stuff across lines.
+ There could be a line break here.
+ There could be all kinds of things, right?
+ And so writing regular expressions or splits or whatever
+ is really hard for HTML.
+ And so what we do is someone has written this.
+ It's called Beautiful Soup.
+ And it's basically,
+ this is the code,
+ and it's based on a joke from a children's story.
+ It basically, someone has just went through
+ and figured out all the bad things
+ that could possibly happen
+ when you're reading and parsing HTML.
+ So either you use it or you will slowly but surely
+ derive all the things that it doesn't work.
+ And so when we look at this line right here,
+ this line at a high level is saying,
+ "We're giving you ugly, nasty HTML
+ "that could make no sense whatsoever.
+ "Please read it and have all the brains that you have
+ "and all the weird stuff.
+ "Figure that out for us and give us back an object."
+ I happen to call it soup.
+ You don't have to call it soup.
+ "An object, and that is a proxy for that HTML,
+ "but this soup object is clean."
+ And so what we can do is we can sort of retrieve
+ all the anchor tags.
+ So we can talk to this object and ask it,
+ "Give me the anchor tags."
+ What's an anchor tag?
+ Well, if we take a look at this source,
+ the anchor tag is the a through the slash a.
+ That is the tag.
+ It is the tag, it is attributes that are on the tag,
+ it is the text within the tag, and everything.
+ And so that's what we're going to get.
+ Now, I called it tags plural,
+ not because plural matters at all,
+ but because we're going to get a list of tags,
+ because even though this webpage has lots and lots of tags,
+ if we look at, say, drchuck.com,
+ and view source, whoa, that's kind of small.
+ View page source, right?
+ And we go look for a anchor tags.
+ We got 45 of them, and they all kind of have
+ weird stuff in them, right?
+ So this line will give us back a list of tags.
+ It will give us all the tags in this document.
+ So it goes, the tag goes from there to there.
+ And then what we're going to do is we're going to write a loop
+ to loop through all the tags.
+ So that's basically hopping, like it's hopping
+ through the document, sort of like this,
+ that's what it's doing.
+ Hop, hop, hop, hop, hop, hop.
+ And it's pulling out the text of the hreth attribute,
+ so it's going to pull out this bit right here.
+ Whoops, oh darn, that was so cool,
+ because that's a flaw, look at that.
+ This is my own page.
+ There is no closing quote here, but it's going to work,
+ because HTMLSoup is like, oh, I know what to do about that.
+ I can deal with that.
+ So let's check to see if that one works,
+ because that's like a mistake.
+ But that's one of the things we like about BeautifulSoup.
+ So we're going to read through,
+ and then we're going to pull out all the hrefs.
+ So, (laughs)
+ this is probably thousands of lines of code
+ that you really don't want to run.
+ So python3urllinks.py.
+ And so let's start with a simple one,
+ http://www.drchuck.com.
+ Oh, it reads it?
+ Oh, that's the, no, that's,
+ that's actually the hard one, because we got a whole bunch.
+ Let's see if sugi, see, the sugi one worked.
+ It found that one.
+ It's right after sakaiproject.org.
+ Where is that, is there another sugi?
+ Oh, no, it didn't find that one, that's kind of funky.
+ Look, it found it wrong, but that's okay.
+ So you see, it found all these,
+ and did a lot of nice stuff for us.
+ If we do it, python3urllinks.py.
+ urllinks.py and do the easy one.
+ http://www.dr-chuck.com.
+ Page one dot htm, we will only see one.
+ And there we go.
+ Now, the SSL is if you are looking at a page
+ that has SSL, python urllinks2.
+ So I'll go to like, https://www.si.umich.edu,
+ and that will get a bunch of links, so you'll see.
+ If it wasn't for that, so all kinds of stuff coming back,
+ and if it wasn't for this bit right here
+ and this bit right here, this https wouldn't have worked.
+ And it's not that that website had a bad url.
+ It has a certificate that's not in python's official list.
+ And so the url is okay.
+ So that gives you a quick summary of using the beautiful
+ soup library in python, along with the urllib.
+ (jazz music)
+ (piano music)

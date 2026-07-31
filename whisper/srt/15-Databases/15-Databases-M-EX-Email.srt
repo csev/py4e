@@ -1,0 +1,896 @@
+1
+00:00:00,000 --> 00:00:08,000
+ [MUSIC]
+
+2
+00:00:08,000 --> 00:00:09,840
+ Hello, and welcome to a code walkthrough.
+
+3
+00:00:09,840 --> 00:00:13,480
+ In this bit of code, we're talking about the emaildb.py.
+
+4
+00:00:13,480 --> 00:00:18,800
+ This is a beautiful little example in that it sort of reduces
+
+5
+00:00:18,800 --> 00:00:23,200
+ talking to the database to kind of its pure essence.
+
+6
+00:00:23,200 --> 00:00:25,160
+ And so we'll start out this code and
+
+7
+00:00:25,160 --> 00:00:28,400
+ we import the SQLite3 just to get the library there.
+
+8
+00:00:28,400 --> 00:00:32,000
+ We make a connection, and in databases,
+
+9
+00:00:32,000 --> 00:00:35,280
+ we sort of end up with an open that's two steps.
+
+10
+00:00:35,280 --> 00:00:38,960
+ There's the connection to the database which checks access to the file, and
+
+11
+00:00:38,960 --> 00:00:42,480
+ the cursor is kind of like our handle.
+
+12
+00:00:42,480 --> 00:00:45,720
+ It's not as simple as you just open it and read it, but you open it and
+
+13
+00:00:45,720 --> 00:00:48,480
+ then you send SQL commands to the cursor, and
+
+14
+00:00:48,480 --> 00:00:50,640
+ then you get your responses through that same cursor.
+
+15
+00:00:50,640 --> 00:00:55,760
+ So CUR here is the variable that we're interested in.
+
+16
+00:00:55,760 --> 00:01:01,480
+ And first thing that we're going to do is we're going to, we've got this file.
+
+17
+00:01:01,480 --> 00:01:05,080
+ It will either create this file, and right now this file doesn't exist.
+
+18
+00:01:05,080 --> 00:01:10,160
+ It's going to be in the same directory, oops, email.
+
+19
+00:01:10,160 --> 00:01:13,080
+ Yeah, there's no email db.
+
+20
+00:01:13,080 --> 00:01:16,360
+ So this is actually going to create the file when it runs.
+
+21
+00:01:16,360 --> 00:01:19,960
+ And then the first thing we're going to do is drop the table if it exists.
+
+22
+00:01:19,960 --> 00:01:21,840
+ Drop table is a bit of SQL.
+
+23
+00:01:21,840 --> 00:01:25,360
+ If exists just keeps this from blowing up if we start with a fresh database.
+
+24
+00:01:25,360 --> 00:01:29,160
+ And in this case, there is no file there, so we are starting with a fresh database.
+
+25
+00:01:29,160 --> 00:01:33,320
+ So this will accomplish absolutely nothing, which is just fine.
+
+26
+00:01:33,320 --> 00:01:35,080
+ Now we're using triple quotes here.
+
+27
+00:01:35,080 --> 00:01:37,800
+ I'm just kind of using that to make this a little bit easier to read.
+
+28
+00:01:37,800 --> 00:01:39,680
+ I probably could pull those lines up a bit.
+
+29
+00:01:39,680 --> 00:01:45,280
+ This one's actually small enough that I could, maybe I'll just do that.
+
+30
+00:01:45,280 --> 00:01:45,800
+ Let's do that.
+
+31
+00:01:45,800 --> 00:01:49,200
+ Let's bring that baby right up and turn this into a single quote.
+
+32
+00:01:49,200 --> 00:01:53,040
+ That's short enough, right?
+
+33
+00:01:54,520 --> 00:01:58,080
+ But triple quote is just, this one here is a little longer, so I'll use triple quote.
+
+34
+00:01:58,080 --> 00:02:01,600
+ So we're going to drop table, that's going to do nothing first time through.
+
+35
+00:02:01,600 --> 00:02:03,520
+ Then we're going to do a create table.
+
+36
+00:02:03,520 --> 00:02:06,360
+ Now sometimes your application will have like a read me or something.
+
+37
+00:02:06,360 --> 00:02:09,440
+ It says go run these commands to set the database up.
+
+38
+00:02:09,440 --> 00:02:13,800
+ But we're able to just set this database up in this particular application.
+
+39
+00:02:13,800 --> 00:02:17,440
+ We'll see later ones where we're going to leave the database and
+
+40
+00:02:17,440 --> 00:02:18,320
+ not start it fresh.
+
+41
+00:02:18,320 --> 00:02:21,360
+ And in this one, we can do the same.
+
+42
+00:02:21,360 --> 00:02:26,720
+ And so in this one we could, but we're just going to start fresh by dropping the table.
+
+43
+00:02:26,720 --> 00:02:27,400
+ So we'll create it.
+
+44
+00:02:27,400 --> 00:02:32,760
+ We're going to have a email and an account.
+
+45
+00:02:32,760 --> 00:02:36,920
+ Basically what we're doing here is we're really going to pretend that this is
+
+46
+00:02:36,920 --> 00:02:38,120
+ a dictionary.
+
+47
+00:02:38,120 --> 00:02:41,480
+ If you recall when I said dictionary, dictionary is like an in-memory database.
+
+48
+00:02:41,480 --> 00:02:45,000
+ Well, now we're using a database to do a database.
+
+49
+00:02:45,000 --> 00:02:48,360
+ But the first thing we're going to do here is pretend it's a dictionary.
+
+50
+00:02:48,360 --> 00:02:49,440
+ So that's a little crazy.
+
+51
+00:02:49,440 --> 00:02:53,080
+ So these next lines of code hopefully are pretty familiar to you, right?
+
+52
+00:02:53,080 --> 00:02:56,720
+ Get a file name, loop through it.
+
+53
+00:02:56,720 --> 00:03:00,640
+ Check to see if it's, grab inbox short by default so
+
+54
+00:03:00,640 --> 00:03:03,760
+ we can press the enter key and then loop through it, right?
+
+55
+00:03:03,760 --> 00:03:08,560
+ And so this little part right here, this is our basic loop that we're doing.
+
+56
+00:03:08,560 --> 00:03:13,520
+ And so that is pretty normal.
+
+57
+00:03:13,520 --> 00:03:18,040
+ And if we look at this line right here, that line right there is the line that is
+
+58
+00:03:19,600 --> 00:03:24,960
+ that line right there, make sure that we can only get the from lines.
+
+59
+00:03:24,960 --> 00:03:26,840
+ We've done that a bunch of times and we're going to split it.
+
+60
+00:03:26,840 --> 00:03:31,040
+ We're not going to strip the right because the split's going to take care of that.
+
+61
+00:03:31,040 --> 00:03:32,680
+ And then we're going to grab the email address,
+
+62
+00:03:32,680 --> 00:03:39,160
+ which of course in the from line is the second part and then we will have that.
+
+63
+00:03:39,160 --> 00:03:41,680
+ So now we're going to do some database.
+
+64
+00:03:41,680 --> 00:03:43,520
+ So the first thing we're going to do,
+
+65
+00:03:43,520 --> 00:03:49,520
+ this bit right here is kind of like the dictionary part.
+
+66
+00:03:49,520 --> 00:03:53,360
+ So the first thing that we're going to do is we're going to select count from our database,
+
+67
+00:03:53,360 --> 00:03:56,400
+ that is an integer, where email equals.
+
+68
+00:03:56,400 --> 00:03:59,040
+ And this part right here bears some explaining.
+
+69
+00:03:59,040 --> 00:04:03,720
+ This is going to be csev@umich.edu or whatever.
+
+70
+00:04:03,720 --> 00:04:08,760
+ Now, it is dangerous to put those strings,
+
+71
+00:04:08,760 --> 00:04:12,640
+ especially from user entered data, into your SQL.
+
+72
+00:04:12,640 --> 00:04:13,680
+ You technically could.
+
+73
+00:04:13,680 --> 00:04:18,320
+ I could make this be a email equals single quote csev@umich.edu.
+
+74
+00:04:18,320 --> 00:04:20,240
+ I'd have to escape the quotes and stuff.
+
+75
+00:04:20,240 --> 00:04:22,880
+ But this question mark is a placeholder.
+
+76
+00:04:22,880 --> 00:04:27,560
+ And this is a way to basically make sure that we don't allow SQL injection.
+
+77
+00:04:27,560 --> 00:04:32,200
+ Go Google SQL injection to get a sense of what that is.
+
+78
+00:04:32,200 --> 00:04:36,720
+ It's more of an issue in online applications.
+
+79
+00:04:36,720 --> 00:04:39,520
+ But in this application, we're just being good.
+
+80
+00:04:41,400 --> 00:04:44,800
+ And so the way this works is, this is a placeholder in this SQL,
+
+81
+00:04:44,800 --> 00:04:47,000
+ that will ultimately be replaced by this.
+
+82
+00:04:47,000 --> 00:04:48,760
+ Now, you could have several question marks.
+
+83
+00:04:48,760 --> 00:04:50,360
+ We only have one in here.
+
+84
+00:04:50,360 --> 00:04:52,480
+ And so you give a tuple.
+
+85
+00:04:52,480 --> 00:04:55,200
+ And if we just put email, it won't turn into a tuple.
+
+86
+00:04:55,200 --> 00:04:57,640
+ This is a one tuple, basically.
+
+87
+00:04:57,640 --> 00:05:02,280
+ This little weird parentheses, email, comma, parentheses.
+
+88
+00:05:02,280 --> 00:05:07,200
+ That is a tuple with only one thing in it, and that's just the weird Python syntax.
+
+89
+00:05:07,200 --> 00:05:09,240
+ It's rare that I apologize for Python syntax.
+
+90
+00:05:09,240 --> 00:05:12,680
+ But that's a little bit less than pretty.
+
+91
+00:05:12,680 --> 00:05:14,360
+ But it's okay, it's a tuple.
+
+92
+00:05:14,360 --> 00:05:17,760
+ And normally if there were like two of these, then there would be email, name,
+
+93
+00:05:17,760 --> 00:05:19,960
+ dah, dah, dah, dah, dah, okay?
+
+94
+00:05:19,960 --> 00:05:26,800
+ So this cur.execute is actually not really retrieving the data.
+
+95
+00:05:26,800 --> 00:05:28,720
+ In a way, it's looking at the SQL and
+
+96
+00:05:28,720 --> 00:05:32,600
+ making sure that maybe it might verify that the table name is right.
+
+97
+00:05:32,600 --> 00:05:34,920
+ Or if there's any syntax errors, etc, etc.
+
+98
+00:05:34,920 --> 00:05:38,360
+ So this actually is not really reading the data.
+
+99
+00:05:38,360 --> 00:05:40,600
+ But we have prepared this cursor.
+
+100
+00:05:40,600 --> 00:05:43,560
+ This is kind of like the opening of a file, but
+
+101
+00:05:43,560 --> 00:05:45,640
+ what we're opening is a record set.
+
+102
+00:05:45,640 --> 00:05:52,080
+ We're opening a set of records that are going to be this wherever it's true.
+
+103
+00:05:52,080 --> 00:05:53,880
+ So it's like we're going to read this like a file.
+
+104
+00:05:53,880 --> 00:05:56,800
+ Now later things will loop through this, but
+
+105
+00:05:56,800 --> 00:05:59,240
+ we're only going to say, hey, grab that first one, right?
+
+106
+00:05:59,240 --> 00:06:01,840
+ We could have even put maybe a limit clause on there or something.
+
+107
+00:06:01,840 --> 00:06:04,840
+ Grab the first one and give it back in row.
+
+108
+00:06:04,840 --> 00:06:13,540
+ And so row is going to be the information that we get from the database.
+
+109
+00:06:13,540 --> 00:06:17,840
+ And so that is, if there are no records that meet this,
+
+110
+00:06:17,840 --> 00:06:19,080
+ then row is going to be none.
+
+111
+00:06:19,080 --> 00:06:23,760
+ So here's kind of, again, like the get, here's like the get,
+
+112
+00:06:23,760 --> 00:06:29,200
+ where if the row wasn't there, cuz the way we're doing this is,
+
+113
+00:06:29,200 --> 00:06:31,800
+ we're going to end up with this row in the database.
+
+114
+00:06:31,800 --> 00:06:34,720
+ Here is this database, and there's going to be two columns, and
+
+115
+00:06:34,720 --> 00:06:35,680
+ there's a bunch of rows.
+
+116
+00:06:35,680 --> 00:06:43,600
+ And then here's going to be csev, four, and gen, three, and Stephen, six, right?
+
+117
+00:06:43,600 --> 00:06:44,920
+ So these are the counts.
+
+118
+00:06:44,920 --> 00:06:50,360
+ And so we're grabbing this variable out, if it's csev, that we're grabbing.
+
+119
+00:06:50,360 --> 00:06:51,880
+ And that's going to come into here, right?
+
+120
+00:06:51,880 --> 00:06:53,680
+ That's going to show up in here.
+
+121
+00:06:53,680 --> 00:07:02,040
+ And that row is actually, it turns out that the row is a list,
+
+122
+00:07:02,040 --> 00:07:03,840
+ but we're only getting one thing.
+
+123
+00:07:03,840 --> 00:07:06,960
+ And what we really are doing is if we search through, and we got through, and
+
+124
+00:07:06,960 --> 00:07:10,840
+ there was nothing, then row is none, means that there was no, and
+
+125
+00:07:10,840 --> 00:07:15,280
+ we're seeing like chens for the first time, and we have to insert it.
+
+126
+00:07:15,280 --> 00:07:19,160
+ So if row is none, we're going to run an insert statement,
+
+127
+00:07:19,160 --> 00:07:22,000
+ insert into counts, email count.
+
+128
+00:07:22,000 --> 00:07:24,840
+ Now we've got to set it to one, cuz it's the first time we've seen it.
+
+129
+00:07:24,840 --> 00:07:28,800
+ So values, and then again, the question mark, the question mark basically says,
+
+130
+00:07:28,800 --> 00:07:32,840
+ hey, I'm going to have a value in this tuple, and there's an ordering to the tuple.
+
+131
+00:07:32,840 --> 00:07:37,040
+ And so there's only one question here, one question mark placeholder here, and
+
+132
+00:07:37,040 --> 00:07:38,240
+ then one is the initial count.
+
+133
+00:07:38,240 --> 00:07:42,360
+ So email, question mark, count one, away we go.
+
+134
+00:07:42,360 --> 00:07:47,440
+ And so then we have, again, we have a tuple that gives to this execute statement,
+
+135
+00:07:47,440 --> 00:07:51,160
+ just like in that execute statement, the corresponding sort of strings or
+
+136
+00:07:51,160 --> 00:07:55,000
+ integers that are to be placed by each of the questions.
+
+137
+00:07:55,000 --> 00:07:58,060
+ So when this runs, there's going to be a new record, and
+
+138
+00:07:58,060 --> 00:08:01,840
+ there's going to be a one that's put in there into that new record.
+
+139
+00:08:01,840 --> 00:08:05,680
+ If on the other hand we pull back a row that exists, we're going to get this four
+
+140
+00:08:05,680 --> 00:08:09,960
+ number, and you might think we want to take this four number and add it.
+
+141
+00:08:09,960 --> 00:08:14,200
+ But in databases, it's always better to do an update,
+
+142
+00:08:14,200 --> 00:08:18,200
+ because there might be multiple applications that are talking to
+
+143
+00:08:18,200 --> 00:08:19,840
+ this database at the same time.
+
+144
+00:08:19,840 --> 00:08:24,800
+ So no matter what update does, it's in a single atomic operation.
+
+145
+00:08:24,800 --> 00:08:27,400
+ It turns whatever this number is into one higher, and
+
+146
+00:08:27,400 --> 00:08:31,440
+ we don't have to worry about other pieces of code potentially modifying it.
+
+147
+00:08:31,440 --> 00:08:33,600
+ Now in this case, we don't have to worry about that,
+
+148
+00:08:33,600 --> 00:08:35,080
+ cuz we're the only piece of code.
+
+149
+00:08:35,080 --> 00:08:40,280
+ But using update to increment something is way better than reading the value,
+
+150
+00:08:40,280 --> 00:08:44,200
+ and then doing an update to adding one inside of Python, and
+
+151
+00:08:44,200 --> 00:08:47,480
+ then updating the new value, which is that's two SQL statements.
+
+152
+00:08:47,480 --> 00:08:50,000
+ But it's also not atomic, okay?
+
+153
+00:08:50,000 --> 00:08:57,000
+ So if the row is none, if the row exists, we just know that it exists,
+
+154
+00:08:57,000 --> 00:08:58,840
+ and we just want to add one to the number.
+
+155
+00:08:58,840 --> 00:09:03,880
+ We do have the number sitting here in the row variable, but we don't need it.
+
+156
+00:09:03,880 --> 00:09:09,320
+ And so we're going to say, update counts, set count equals count plus one,
+
+157
+00:09:09,320 --> 00:09:13,000
+ column name, where email equals, and then another placeholder, and
+
+158
+00:09:13,000 --> 00:09:15,880
+ then another tuple for the question mark, okay?
+
+159
+00:09:15,880 --> 00:09:18,720
+ And so that's what this little bit of code does.
+
+160
+00:09:18,720 --> 00:09:23,040
+ That is kind of the read it, parse it, check to see if it's there,
+
+161
+00:09:23,040 --> 00:09:26,200
+ if it's not, insert it, if it is, update it.
+
+162
+00:09:26,200 --> 00:09:29,520
+ And so then, we see this con commit.
+
+163
+00:09:29,520 --> 00:09:33,680
+ And this con commit, basically the way it works is that the database
+
+164
+00:09:33,680 --> 00:09:38,400
+ is efficiently keeping some of the information in memory, and
+
+165
+00:09:38,400 --> 00:09:41,480
+ at some point it has to write all that stuff out to disk.
+
+166
+00:09:41,480 --> 00:09:44,720
+ So you can choose at times where you put this commit.
+
+167
+00:09:44,720 --> 00:09:47,320
+ Right now we're going to commit every time through this loop.
+
+168
+00:09:47,320 --> 00:09:51,280
+ But you might commit every 10th time through the loop cuz the commit will take
+
+169
+00:09:51,280 --> 00:09:54,440
+ some time because it forces everything to be written to disk.
+
+170
+00:09:54,440 --> 00:09:58,960
+ And these can run really fast, and the commit is the slowest part here.
+
+171
+00:09:58,960 --> 00:10:03,160
+ So sometimes we do things like commit every 10th record or every 100th record.
+
+172
+00:10:03,160 --> 00:10:06,040
+ If it's an online system, which is not what this is,
+
+173
+00:10:06,040 --> 00:10:08,960
+ you have to commit at the end of every sort of screen paint.
+
+174
+00:10:08,960 --> 00:10:12,520
+ But for this kind of a system, because we're putting so much in,
+
+175
+00:10:12,520 --> 00:10:14,160
+ this is kind of a bulk insert.
+
+176
+00:10:14,160 --> 00:10:19,720
+ We might come up with a thing where every 10th time we do a commit.
+
+177
+00:10:19,720 --> 00:10:23,520
+ But ultimately what this will do when this is running is it will build up slowly but
+
+178
+00:10:23,520 --> 00:10:24,880
+ surely adding new records.
+
+179
+00:10:24,880 --> 00:10:28,440
+ And then one, one, and then a build two, and a three, and all these things, and
+
+180
+00:10:28,440 --> 00:10:30,240
+ add another one, that'll be one.
+
+181
+00:10:30,240 --> 00:10:31,280
+ It'll do this thing, right?
+
+182
+00:10:31,280 --> 00:10:36,040
+ And then at the end of the day, that is what's going to be in the database.
+
+183
+00:10:36,040 --> 00:10:43,360
+ Now, so now we're, so let's take a look what's in the database.
+
+184
+00:10:43,360 --> 00:10:45,560
+ Now we can actually read the database.
+
+185
+00:10:45,560 --> 00:10:49,840
+ And so in the database, we're going to run a select.
+
+186
+00:10:49,840 --> 00:10:51,880
+ And we're going to say, we're going to select the email and
+
+187
+00:10:51,880 --> 00:10:54,680
+ the count from counts, order by count descending.
+
+188
+00:10:54,680 --> 00:10:56,000
+ So look at that, isn't that cool?
+
+189
+00:10:56,000 --> 00:10:59,600
+ We're getting in the top ten, cuz databases are good at sorting, and
+
+190
+00:10:59,600 --> 00:11:00,800
+ they're good at all these other things.
+
+191
+00:11:00,800 --> 00:11:04,080
+ So we're going to then execute this.
+
+192
+00:11:04,080 --> 00:11:08,080
+ And then we're going to ask for the rows one at a time.
+
+193
+00:11:08,080 --> 00:11:11,680
+ And the rows are going to be a tuple.
+
+194
+00:11:11,680 --> 00:11:14,760
+ And row sub zero will be email, and row sub one will be count.
+
+195
+00:11:14,760 --> 00:11:15,800
+ So we run all this stuff.
+
+196
+00:11:15,800 --> 00:11:19,520
+ And then we close the connection, and away we go, okay?
+
+197
+00:11:19,520 --> 00:11:22,920
+ So let's go ahead and run this.
+
+198
+00:11:22,920 --> 00:11:30,160
+ Let's go ahead and run all this stuff, python3, emaildb.py.
+
+199
+00:11:30,160 --> 00:11:37,000
+ It asks for a file name, inbox short.
+
+200
+00:11:37,000 --> 00:11:39,720
+ Now I can hit enter, right, inbox short.
+
+201
+00:11:39,720 --> 00:11:43,600
+ And that's it, and it looks just like that, and it counts it, and away we go.
+
+202
+00:11:43,600 --> 00:11:49,680
+ Now the difference is, at this point, we have a file, emaildb.sqlite.
+
+203
+00:11:49,680 --> 00:11:56,680
+ And we can run the SQLite browser, and we can then open this database.
+
+204
+00:11:56,680 --> 00:12:04,960
+ And we can see what's in there, so here we go, it has made an SQLite database.
+
+205
+00:12:04,960 --> 00:12:08,760
+ We have a table of counts, and then we can take a look at the data, and
+
+206
+00:12:08,760 --> 00:12:11,720
+ there we go, we've got the data, and we can do this.
+
+207
+00:12:13,800 --> 00:12:15,920
+ And so, let me close this.
+
+208
+00:12:15,920 --> 00:12:21,520
+ It's important at times when you don't want necessarily to have.
+
+209
+00:12:21,520 --> 00:12:23,680
+ Well, let's see if we can cause it to lock up.
+
+210
+00:12:23,680 --> 00:12:27,000
+ Let me run this again, and it's going to drop this table.
+
+211
+00:12:27,000 --> 00:12:32,320
+ So I'm going to run the code again, But
+
+212
+00:12:32,320 --> 00:12:39,120
+ this time I am going to do the full one, mbox.txt.
+
+213
+00:12:39,120 --> 00:12:43,600
+ Now, we'll see what happens here, but it ran.
+
+214
+00:12:43,600 --> 00:12:48,280
+ And now, so what we have to do then to see this date is from the previous run,
+
+215
+00:12:48,280 --> 00:12:51,840
+ but if we wanted the most recent one, we hit refresh, and then away we go.
+
+216
+00:12:51,840 --> 00:12:53,520
+ And so we can see this stuff.
+
+217
+00:12:53,520 --> 00:12:59,560
+ And so this is just a real simple start to see how you can connect some of
+
+218
+00:12:59,560 --> 00:13:02,720
+ the stuff that we've been doing, but store the data in a database.
+
+219
+00:13:02,720 --> 00:13:08,920
+ But the nice thing about the database is that it can store this stuff from run to
+
+220
+00:13:08,920 --> 00:13:12,320
+ run, even though in this case, we're dropping the table every time.
+
+221
+00:13:12,320 --> 00:13:15,480
+ In later things, we will see how we can store data from run to run to give
+
+222
+00:13:15,480 --> 00:13:17,840
+ ourselves more restartable processes.
+
+223
+00:13:17,840 --> 00:13:18,340
+ Cheers.
+
+224
+00:13:18,340 --> 00:13:28,340
+ [MUSIC]
+

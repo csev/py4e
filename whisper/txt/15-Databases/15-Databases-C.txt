@@ -1,0 +1,199 @@
+ So now we're going to take a look at how we deal with
+ more than one table, multiple tables.
+ 'Cause the real power of SQL and the power of database
+ performance has to do with when you start connecting
+ tables together.
+ If you go back to that original mathematics,
+ it models data at the intersections between the row
+ and the columns.
+ And these intersections are the magical bits.
+ And so, breaking an application to use multiple tables
+ is an art form.
+ It takes a while.
+ There are some simple basic things that you can learn
+ and will teach you here.
+ And so it's not too hard to learn the basics,
+ but then it's much more complex to be super skilled at it.
+ And in general, advanced databases, in my mind,
+ it's hard to teach advanced databases,
+ because they're always so contextually grounded.
+ You know, something like Twitter or Google,
+ the databases are so specialized.
+ By the time you make,
+ everyone can do small to medium sized databases
+ using the basic techniques,
+ but at some point, once you escape medium sized databases,
+ you end up in these sort of narrow things
+ and optimize each database very separately.
+ And so I just tell people, you know,
+ learn the basics really, really well,
+ write programs and then go do real work.
+ But database design is the act of figuring out
+ the data that your application is going to want to store
+ and spreading that across multiple tables.
+ But we don't just do it randomly.
+ We do it very much cleverly.
+ And if you look at a data model,
+ this is what it looks like.
+ And what we're showing here in this data model
+ is we are showing five tables,
+ and this is a kind of a calendar kind of a system,
+ and we're seeing the columns that are in each of the tables,
+ and then we're seeing the relationships between the tables.
+ And even in these relationships,
+ there's kind of a little bit of code.
+ And when you have an arrow that looks like that,
+ there's many of those to one,
+ and this is a many-to-one relationship,
+ many-to-one relationship.
+ We'll talk all about that stuff.
+ But if you go into an organization
+ and you have a really large and complex data application,
+ they might have something printed out on the wall
+ that looks about like this,
+ which shows the database tables and connections,
+ et cetera, et cetera.
+ And they might say, oh, your job is to go down
+ and then this little corner, add one column,
+ field there, and then do this,
+ and then connect it with this thing over there,
+ and then make a screen that shows all these things
+ that pulls from this table, this table,
+ this table, and that table.
+ And that's your job, if you're a programmer
+ on a large software development project.
+ These database models become sort of like
+ the core backbone of the knowledge
+ that applications are managing and using.
+ So, the idea is is that you take your application,
+ we're going to start really simple,
+ we're going to take your application,
+ and you have to draw a picture.
+ And the basic rule, and literally,
+ you could spend course upon course
+ learning about database normalization.
+ But I'm going to distill it into one basic rule,
+ and that is never put the same string data in twice.
+ So, my name, Charles Severance,
+ if I build a database well,
+ you should go into that database,
+ and you'd say, okay, the words Charles Severance,
+ which is the name of a person, me, in that database,
+ only shows up once.
+ And what we do instead is we connect things together
+ and model my name as a connection to the record
+ that has my actual name in it,
+ rather than putting my name all these other places.
+ And so, the idea is to pull duplicate data out
+ and make only one copy of it.
+ So, there is the users, and in there is the user's name,
+ and the user name shows up only here,
+ and everything else points to the particular user entry.
+ So, that's the idea.
+ And so, here is our first application.
+ We are working as a startup.
+ We just quit all of our jobs,
+ and we are going to build a music management application.
+ I mean, what a great idea,
+ don't you think that'll be quite successful?
+ And so, we have mocked up and we have figured out
+ that this is what our music management application,
+ we want to track people's tracks,
+ know something about what artists and albums
+ and genre they are, and we want to have ratings,
+ and how many times we played them, and how long they are.
+ That's the data that our application needs to represent.
+ And we've done testing on this and wireframes,
+ and everyone loves this, a great user interface.
+ And so, this is how it's got to look.
+ But we're going to have billions and billions of tracks
+ in these things, and so we want to come up
+ with an efficient database to handle this.
+ And so, we're going to take a look at this,
+ and look at each of the columns,
+ and we're going to ask ourselves,
+ is this column part of one of our existing objects,
+ our existing tables, or has this object
+ have to create a new table?
+ And then, once we find those different objects,
+ we connect the tables together and model the connections.
+ Now, a little trick to kind of make it a little easier
+ on ourselves is we can look in these columns,
+ and look in the columns that have duplicate information
+ vertically that's string information.
+ So, a rating is just a number like zero through five.
+ So, we don't worry too much about integers,
+ and numbers, and that kind of stuff, or whatever,
+ but we do look for strings.
+ And the problem here is we got like,
+ these strings occur many times.
+ And so, these are the problems.
+ And so, we have to put these things
+ where there is replication of string data
+ kind of in the vertical dimension.
+ We have to put those in different tables.
+ And so, we'll start out.
+ Now, the first question that you have to ask yourself
+ when you're going to draw this picture
+ of how this data is in multiple tables
+ and connect it together, is what is the first one
+ that you're going to write down?
+ And this is an interesting debate,
+ and often people are sitting in a conference room,
+ and people who have experience kind of know what to do.
+ Usually, if it's a multi-user system,
+ like a learning management system,
+ the users might be the central concept,
+ perhaps the courses might be the central concept.
+ This is a single-user system, and so you can think,
+ well, what is really this application about?
+ It's not about people, it's one person.
+ But it is about tracks.
+ And so, we can say, okay, here we'll take the track
+ is probably the sort of most foundational notion
+ of this application.
+ And then we can take and say, okay,
+ now that we've decided that tracks
+ are the foundational notion,
+ which of these columns are simply an attribute of the track?
+ Not really the cheating way and the easy way,
+ and this particular one is like these numbers,
+ all these numbers, like this number and these numbers,
+ not that one. (laughs)
+ They just go along with track, and so we'll put that in.
+ We got the track title, rating, length, and count,
+ and we put that in.
+ And then the question is, we've got the remaining things,
+ we've got the artist, we've got the album,
+ and we've got the genre.
+ And so, we can say, okay, well, we can't,
+ we've got some vertical duplication,
+ so we're going to say, okay, this track probably
+ belongs to an album, so let's pull out the album
+ into its own table.
+ Oops.
+ Pull the album out into its own table.
+ And so,
+ pull the album out into its own table.
+ And so, that pulls that out, and then you say, okay,
+ what would be the next thing that we're going to pull out?
+ So, we pulled out the track, we've got this taken care of,
+ this taken care of, that taken, now we've got the album.
+ Well, albums belong to artists, so let's take out
+ the artist, and then we'll pick where the genre belongs,
+ and we'll just say that the genre belongs to the track,
+ and so, because there might be albums with more than
+ one different genre, so it either belongs to the album,
+ or a different genre, so each album is not necessarily
+ a rock album, it could have a rock track,
+ and a country track, et cetera, et cetera, et cetera.
+ And so, now what we've got is we've got four tables, right?
+ We've got a track table, we've got an album table,
+ an artist table, and a genre table, and if we sort of
+ double check, all of the columns that had vertical
+ duplication in them now have their own little table.
+ So, we can eliminate, the next thing we'll do is to show
+ how we're going to eliminate this vertical data replication
+ by showing how you represent these relationships
+ that we just created inside of the database.
+ (heavy metal music)

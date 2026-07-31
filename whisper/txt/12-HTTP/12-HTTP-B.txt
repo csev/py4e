@@ -1,0 +1,208 @@
+ So now that we have a socket, we are going to talk about
+ what we're going to do with it, right?
+ So the socket basically functions at this level.
+ Your application is saying, make me a socket,
+ which is sort of this endpoint, and then the connect
+ actually connects to an application on the far side.
+ And there's a port involved, so that might be port 80.
+ And this is the far host, and that could be
+ www.py4e.org, or data.py4e.org.
+ Okay, and so the socket is solving this.
+ And the question then is, what are we going to send,
+ and what are we going to expect to get back?
+ And that's what we call the application protocol.
+ So we know that these two have made a phone call,
+ and it's no different than making the phone call
+ and saying, you know, hello, right?
+ And everyone knows that when the phone rings
+ and you pick it up, you're supposed to say hello.
+ And that's part of our protocol, so who talks first, right?
+ So the dominant protocol that we use in this section
+ is the HTTP protocol.
+ And the key is hypertext transfer protocol.
+ It's dominant, it's really easy to use,
+ that's why I use it as an example,
+ but realize that there are many others,
+ like mail and file transfer and remote login
+ and all kinds of other protocols.
+ Each is a different application protocol.
+ They all use sort of sockets at their lower level,
+ but then on top of that, they layer the rules of the road
+ for retrieving hypertext webpages.
+ And we have used these for all kinds of other things.
+ So the protocol, like I said, is like,
+ who answers the phone first?
+ What do they say?
+ What happens if the person doesn't answer right?
+ Can you hear me now?
+ Those kinds of things.
+ And it's a real simple thing.
+ And all you really need to do is,
+ so that both sides can agree,
+ you have to write a thing that's like the rules
+ in the middle and say, okay, everybody,
+ as long as we all do this, we'll be fine.
+ It's as simple as picking on which side of the road
+ the cars can drive on.
+ It works fine no matter which side,
+ but if each car randomly picked,
+ it would be really kind of a mess.
+ So if you look at the typical URL,
+ and this is one of the things that the web innovators
+ in 1980 really invented that was wonderful,
+ and it seems second nature today,
+ but in 1990, it was rather revolutionary,
+ and that these uniform resource locators
+ encrypted and included in themselves a protocol,
+ the host to connect to, and the document to retrieve.
+ So this is one of the clever, clever ideas
+ that the web came up with,
+ because we used to have to pick a program like FTP
+ or Telnet or whatever, SMTP,
+ then we had to go to the right host,
+ and then we had to talk to that host a certain way.
+ So in HTTP, it's a really simple protocol
+ invented in 1989 and 1990 by Tim Berners-Lee
+ and Robert Caillou at CERN,
+ and they created a protocol that we have grown to know
+ and love and use for way more than retrieving documents,
+ as we'll see in the upcoming chapters.
+ So we're going to talk a little bit about what happens
+ when you click on a page that has a link.
+ Now, there's all kind of fancy stuff that can go on,
+ but this is the basics.
+ And so let's just imagine for the moment
+ you start sitting looking at a web page,
+ drchuck.com/page1, and inside that, there is a hyperlink.
+ It is a indication that says when you click on this page,
+ go to a different page, and in that,
+ you see the name of the page that you're supposed to go to.
+ So we click on this link, and that is a browser.
+ This is an application, this is a process,
+ or an app that's running on your computer.
+ This is the browser, okay?
+ And when the browser sees the click inside your computer,
+ then the browser makes a connection
+ to port 80 on the web server, drchuck.com,
+ and sends the request.
+ This request that it sends is precisely specified
+ by a standard, which we will see in a second.
+ Then the web server does some magic work.
+ Oops, let's go back.
+ Then the web server does some magic work in here,
+ reads some files, runs some code, does whatever,
+ constructs an answer to our phone call, and sends it back.
+ And it sends, in this case, back a web page
+ in the format of HTML, the hypertext markup link,
+ which is different than HTTP,
+ which is the protocol that we're exchanging.
+ HTML is the format of the document we're getting back.
+ And in this has an anchor tag, href,
+ and the end of anchor tag, and some highlighted text.
+ And now your browser gets this back,
+ and then renders it according to the rules of HTML,
+ and CSS, and JavaScript, et cetera,
+ parses it, and then makes a pretty web page.
+ And this web page happens to have a link
+ back to the first page, and if you click there,
+ it will do this over and over and over again.
+ And that is the request-response cycle.
+ And that's governed by a series of internet standards.
+ These are standards that were built from the '60s, '70s,
+ '80s, and '90s, and continue to this day,
+ by a group called the Internet Engineering Task Force,
+ or IETF.
+ The documents they produce are called RFCs,
+ which stands for Request for Comments.
+ The RFC, the word RFC is kind of like a sort of joke,
+ as it were, it's a, they're trying to be kind of funny,
+ in that, funny is not the right word, it's ironic,
+ in that they're trying to say,
+ even so in the protocols of the internet
+ that we've used for several decades,
+ they're always interested in improvements,
+ and that's what the RFC stands for,
+ and they're all named RFC dash whatever.
+ And if we were going to cruise around,
+ we could find some various RFCs, and this is RFC 2616.
+ It might have been revised since then,
+ but this is like a document, and this is what they look like.
+ Hypertext Transfer Protocol, version one.
+ And so you're reading this document,
+ you're going to write a browser,
+ and you want to talk to the application protocol that is HTTP.
+ This is one of many documents
+ that helps define what HTTP is.
+ So if you look down, and you look down and say,
+ oh, here's what a request looks like,
+ this is how I'm going to get a document from the server,
+ and you keep reading, and you keep reading,
+ and it says, you're supposed to have the request method
+ with a space, with the request URI, the Crest method,
+ with a space, with the URI, with a space, the HTTP version,
+ and the carriage return and the line feed.
+ That's what it's saying.
+ And so it looks kind of like this, right?
+ We say get the document followed by a space.
+ There got to be one space.
+ You do two spaces, and it's going to be quite frustrating,
+ okay, and so this is an example that you can run
+ on a number of, on Linux operating systems,
+ and Macintosh operating systems with no changes.
+ If you install Telnet on your Windows box,
+ you should be able to run something like this as well.
+ So Telnet is a program that we used in the old days.
+ It used to be how we logged into servers,
+ but because it doesn't encrypt your data back and forth,
+ we don't use it anymore, but it basically is a program
+ that can open a socket to a host on a port,
+ and I'm saying Telnet to this host on port 80,
+ and at this point, I am connected,
+ and whatever I type on my keyboard
+ is going to be sent to that server.
+ Now if you're doing this,
+ you probably want to cut and paste this really fast,
+ because if you take too long,
+ most web servers will be like, you're a human.
+ I don't want to talk to humans, I want to talk to programs.
+ So remember to type this fast enough,
+ and then you have to hit enter twice.
+ So you have to have a blank line here.
+ Just type this exactly as it's shown,
+ and then you will get back to a server.
+ If you do it right, the server,
+ and the server's properly configured,
+ the server will give you back some headers,
+ and this is metadata about the document you're going to get.
+ It has a blank line, and then the actual document,
+ and then the connection is closed.
+ And so if you do this, you can set this up in a way
+ that you can run this on your own computer,
+ and in effect, hack through the back door a web server.
+ Now you can't hack the secure web servers,
+ and mail servers used to be easy to hack,
+ but they're harder to hack now
+ because they challenge you for information,
+ but part of the reason I'm so obsessed with the command line
+ is this is how real hackers work,
+ and they know how to talk some of these protocols
+ more directly, and so we think of this beautiful,
+ sophisticated application talking to some other thing,
+ and it's all pretty, and we got wonderful clicky buttons
+ and nice usability, but the reality is,
+ like in the matrix reloaded here,
+ the kinds of things that really talented hackers are doing
+ use command lines, and they really know what's going on,
+ and that's how they do it.
+ They understand what's going on better
+ than the developers of the computers
+ that are trying to be resistant to the hacking.
+ So I come from a long line of using the command line,
+ and that's why I encourage you
+ to use the command line in this course.
+ So the next thing we're going to do
+ is we're going to go up into the application layer,
+ and instead of typing those commands by hand,
+ we're going to actually send them from Python
+ and write a very simple Python web browser.
+ (gentle piano music)

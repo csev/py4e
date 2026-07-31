@@ -1,0 +1,374 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.500
+ (piano music)
+
+00:00:02.500 --> 00:00:12.440
+ Hello everybody and welcome to some worked sample code.
+
+00:00:12.440 --> 00:00:13.880
+ If you are interested in the source code,
+
+00:00:13.880 --> 00:00:18.140
+ you go to materials and download this sample code.zip.
+
+00:00:18.140 --> 00:00:20.620
+ I have this downloaded.
+
+00:00:20.620 --> 00:00:23.620
+ It'll be in a folder called code3 on my computer.
+
+00:00:23.620 --> 00:00:26.000
+ This is where I'm at, I'm in the code3 folder.
+
+00:00:26.000 --> 00:00:29.640
+ And this has a ton of bits of code here.
+
+00:00:29.640 --> 00:00:33.280
+ So if I do an ls you'll see I got all these files here.
+
+00:00:33.280 --> 00:00:37.320
+ And so we'll just leave those there.
+
+00:00:37.320 --> 00:00:39.700
+ And so this is the one I want to work through right now,
+
+00:00:39.700 --> 00:00:42.220
+ is the socket1.py code.
+
+00:00:42.220 --> 00:00:45.800
+ And basically what we're doing here is we're simulating
+
+00:00:45.800 --> 00:00:48.840
+ what is going to happen in a web browser.
+
+00:00:48.840 --> 00:00:53.240
+ And the cool thing about the HTML, the HTTP protocol,
+
+00:00:53.240 --> 00:00:55.560
+ is that we can do this by hand.
+
+00:00:55.560 --> 00:00:58.640
+ And I'm actually going to hack this HTTP protocol.
+
+00:00:58.640 --> 00:01:02.800
+ And this is going to go to data.pr4e.org and retrieve a document.
+
+00:01:02.800 --> 00:01:07.760
+ And so I'm going to do telnet to,
+
+00:01:07.760 --> 00:01:11.920
+ now you can do this on a Mac and Linux.
+
+00:01:11.920 --> 00:01:13.940
+ And if you put telnet on a Windows box,
+
+00:01:13.940 --> 00:01:16.860
+ you can do it here, data.pr4e.org.
+
+00:01:16.860 --> 00:01:19.740
+ And I want to talk to port 80.
+
+00:01:19.740 --> 00:01:21.260
+ And the port 80 is a different port.
+
+00:01:21.260 --> 00:01:22.380
+ It's a non-standard port.
+
+00:01:22.380 --> 00:01:26.800
+ But what we're doing here is talking to the HTTP port.
+
+00:01:26.800 --> 00:01:31.540
+ And so I'm going to be able to hand send commands
+
+00:01:31.540 --> 00:01:34.080
+ to the web server and retrieve a document.
+
+00:01:34.080 --> 00:01:38.240
+ So I've already copied this string, this get HTTP Romeo.txt.
+
+00:01:38.240 --> 00:01:45.880
+ I'm copying that into my buffer because if I wait too long,
+
+00:01:45.880 --> 00:01:46.720
+ this won't work.
+
+00:01:46.720 --> 00:01:48.300
+ So here I go.
+
+00:01:48.300 --> 00:01:51.280
+ And now I'm going to type that and I have to hit enter twice.
+
+00:01:51.280 --> 00:01:54.240
+ And that literally was the HTTP protocol.
+
+00:01:54.240 --> 00:01:56.980
+ So what I typed there was the HTTP protocol.
+
+00:01:56.980 --> 00:01:59.440
+ And the web server responds with some metadata
+
+00:01:59.440 --> 00:02:02.900
+ about the document, how much data there is,
+
+00:02:02.900 --> 00:02:05.860
+ the kind of data is there.
+
+00:02:05.860 --> 00:02:09.340
+ A blank line separates the header information
+
+00:02:09.340 --> 00:02:11.920
+ from the body of the document.
+
+00:02:11.920 --> 00:02:14.820
+ If I was to go to this in a browser right there,
+
+00:02:14.820 --> 00:02:15.980
+ you would see.
+
+00:02:20.600 --> 00:02:24.760
+ If I turned on developer console and I went to the network,
+
+00:02:24.760 --> 00:02:28.780
+ let's make this a little bit bigger.
+
+00:02:28.780 --> 00:02:34.860
+ You would see that it retrieves this file romeo.txt
+
+00:02:34.860 --> 00:02:39.800
+ and it gets back that it shows us the headers
+
+00:02:39.800 --> 00:02:41.160
+ and it shows us the response.
+
+00:02:41.160 --> 00:02:44.340
+ And so this is all the same way of doing the same thing
+
+00:02:44.340 --> 00:02:48.140
+ and that is how to do the HTTP protocol.
+
+00:02:48.140 --> 00:02:50.800
+ Okay, but now we're going to do this in Python.
+
+00:02:50.800 --> 00:02:52.940
+ And so here's the code we're going to write.
+
+00:02:52.940 --> 00:02:55.100
+ So we're going to import the socket library
+
+00:02:55.100 --> 00:02:56.520
+ and we're going to make a socket.
+
+00:02:56.520 --> 00:02:58.240
+ Now this doesn't actually make a connection.
+
+00:02:58.240 --> 00:03:00.380
+ Think of a socket as a file handle
+
+00:03:00.380 --> 00:03:03.200
+ that doesn't have any data associated with it yet.
+
+00:03:03.200 --> 00:03:05.380
+ And then what we're going to do is we're going to reach out
+
+00:03:05.380 --> 00:03:09.540
+ and connect that socket to a destination across the internet
+
+00:03:09.540 --> 00:03:13.580
+ with the domain name of data.pr4e.org.
+
+00:03:13.580 --> 00:03:15.360
+ And the second parameter in this tuple,
+
+00:03:15.360 --> 00:03:19.580
+ this is a function call with a single tuple as a parameter.
+
+00:03:19.580 --> 00:03:22.180
+ And so tuple sub zero is data.pr4e.org
+
+00:03:22.180 --> 00:03:23.600
+ and tuple sub one is the 80,
+
+00:03:23.600 --> 00:03:26.480
+ which says I want to talk to port 80.
+
+00:03:26.480 --> 00:03:28.620
+ That could fail.
+
+00:03:28.620 --> 00:03:32.780
+ It will make the connection and if the port 80 is there,
+
+00:03:32.780 --> 00:03:34.640
+ away it goes.
+
+00:03:34.640 --> 00:03:37.160
+ And then we're going to actually send the HTTP command.
+
+00:03:37.160 --> 00:03:39.580
+ So get, this is the HTTP rules,
+
+00:03:39.580 --> 00:03:43.040
+ followed by an end of line, followed by a blank line.
+
+00:03:43.040 --> 00:03:44.400
+ So you saw me do this there.
+
+00:03:44.400 --> 00:03:45.960
+ This was what I typed here.
+
+00:03:45.960 --> 00:03:47.280
+ And then I had to type a blank line.
+
+00:03:47.280 --> 00:03:50.320
+ Now if you want to go read the RFCs for how to do this,
+
+00:03:50.320 --> 00:03:51.800
+ you can figure this out.
+
+00:03:51.800 --> 00:03:53.940
+ So the only other thing that's kind of weird here
+
+00:03:53.940 --> 00:03:56.940
+ is we have to add this dot in code.
+
+00:03:56.940 --> 00:04:01.680
+ And that's because there are strings inside of Python
+
+00:04:01.680 --> 00:04:04.500
+ that are in Unicode and we have to send them out
+
+00:04:04.500 --> 00:04:06.520
+ as what's called UTF-8.
+
+00:04:06.520 --> 00:04:10.260
+ And in code converts from Unicode internally to UTF-8.
+
+00:04:10.260 --> 00:04:14.260
+ So this command is a set of UTF-8 bytes
+
+00:04:14.260 --> 00:04:15.600
+ that we're then going to send.
+
+00:04:15.600 --> 00:04:18.820
+ It still has that same set of characters in it
+
+00:04:18.820 --> 00:04:19.820
+ and now we're going to send it.
+
+00:04:19.820 --> 00:04:23.220
+ And that's, after we've made the connection,
+
+00:04:23.220 --> 00:04:24.680
+ we're going to send these two things
+
+00:04:24.680 --> 00:04:26.780
+ and then we're going to wait.
+
+00:04:26.780 --> 00:04:29.700
+ And my SOC is like a file handle at that point
+
+00:04:29.700 --> 00:04:31.980
+ because it's been opened and we've sent data.
+
+00:04:31.980 --> 00:04:34.940
+ The HTTP protocol told us what we had to send
+
+00:04:34.940 --> 00:04:36.700
+ and the fact that we did have to send it.
+
+00:04:36.700 --> 00:04:39.000
+ So now I have just a simple while loop
+
+00:04:39.000 --> 00:04:42.880
+ and I'm going to ask up to 512 characters
+
+00:04:42.880 --> 00:04:47.040
+ and receive up to 512 characters and get that back.
+
+00:04:47.040 --> 00:04:49.980
+ If I will know that this is the end of file
+
+00:04:49.980 --> 00:04:52.900
+ if I got no data back, so if the length of the data,
+
+00:04:52.900 --> 00:04:55.660
+ the byte array that I got back is less than one,
+
+00:04:55.660 --> 00:04:56.860
+ then I'm going to quit.
+
+00:04:56.860 --> 00:04:58.220
+ Otherwise, I'm going to print the data
+
+00:04:58.220 --> 00:04:59.420
+ and I'm going to use this decode,
+
+00:04:59.420 --> 00:05:01.660
+ which is kind of the opposite of this encode.
+
+00:05:01.660 --> 00:05:06.100
+ What I'm getting is UTF-8 encoded data, most likely,
+
+00:05:06.100 --> 00:05:09.220
+ and decode basically converts it to the internal format
+
+00:05:09.220 --> 00:05:11.820
+ called Unicode that runs inside.
+
+00:05:11.820 --> 00:05:13.300
+ So this is going to run a bunch of times,
+
+00:05:13.300 --> 00:05:15.860
+ pulling in the blocks, basically 512,
+
+00:05:15.860 --> 00:05:18.820
+ up to 512 characters at a time, printing it out,
+
+00:05:18.820 --> 00:05:20.080
+ and then when it's all said and done,
+
+00:05:20.080 --> 00:05:21.900
+ we will close that connection.
+
+00:05:21.900 --> 00:05:24.640
+ And so it's not too exciting.
+
+00:05:24.640 --> 00:05:26.640
+ Python 3 socket 1.py.
+
+00:05:26.640 --> 00:05:31.820
+ And you'll see that it's just going to,
+
+00:05:31.820 --> 00:05:34.660
+ Python is now going to do what I did by hand.
+
+00:05:34.660 --> 00:05:36.140
+ Now of course, the interesting thing is
+
+00:05:36.140 --> 00:05:37.780
+ these are all in strings, right?
+
+00:05:37.780 --> 00:05:41.180
+ And so this way we could write code
+
+00:05:41.180 --> 00:05:42.260
+ that does stuff with this.
+
+00:05:42.260 --> 00:05:43.920
+ But all we're really trying to do
+
+00:05:43.920 --> 00:05:45.840
+ in this particular situation
+
+00:05:45.840 --> 00:05:49.220
+ is show how you open a socket, send a command,
+
+00:05:49.220 --> 00:05:51.200
+ and then retrieve the data.
+
+00:05:51.200 --> 00:05:55.780
+ (gentle music)
+
+00:06:11.180 --> 00:06:13.760
+ (gentle music)
+

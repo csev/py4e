@@ -1,0 +1,383 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.920
+ (soft piano music)
+
+00:00:02.920 --> 00:00:09.960
+ - Hello and welcome to Python for Everybody.
+
+00:00:09.960 --> 00:00:11.600
+ We're doing some code walkthroughs.
+
+00:00:11.600 --> 00:00:14.860
+ If you want to follow along, we've got a sample code zip
+
+00:00:14.860 --> 00:00:17.800
+ that you can download and take a look at all the code.
+
+00:00:17.800 --> 00:00:20.260
+ And what we are in the middle of
+
+00:00:20.260 --> 00:00:23.220
+ is we're in the middle of the PageRank code.
+
+00:00:23.220 --> 00:00:25.240
+ And we just got done running the PageRank,
+
+00:00:25.240 --> 00:00:28.320
+ and so we have spidered the code.
+
+00:00:28.320 --> 00:00:30.480
+ We've run PageRank a bunch of times.
+
+00:00:30.480 --> 00:00:33.160
+ SPreset allows us to restart the PageRank algorithm
+
+00:00:33.160 --> 00:00:35.300
+ if we want, but we're not going to play with that.
+
+00:00:35.300 --> 00:00:37.420
+ We're just going to play with spdump and spjson
+
+00:00:37.420 --> 00:00:40.540
+ and do the visualization, which is the fun part.
+
+00:00:40.540 --> 00:00:42.540
+ So I'll go into spdump.
+
+00:00:42.540 --> 00:00:46.820
+ So this is simple code, because it's really just running
+
+00:00:46.820 --> 00:00:50.040
+ a SQL query and then printing stuff out, right?
+
+00:00:50.040 --> 00:00:52.700
+ So we connect to our database, create a cursor,
+
+00:00:52.700 --> 00:00:55.500
+ and then just do a select count.
+
+00:00:55.500 --> 00:00:59.880
+ And we're going to just show the number of links.
+
+00:00:59.880 --> 00:01:02.700
+ We're going to order by the number of inbound links descending,
+
+00:01:02.700 --> 00:01:04.600
+ so we see the most linked things,
+
+00:01:04.600 --> 00:01:06.320
+ and we'll see the top 50 of that.
+
+00:01:06.320 --> 00:01:07.720
+ So this is just a sample.
+
+00:01:07.720 --> 00:01:10.200
+ You'll tend to write little helpers like this
+
+00:01:10.200 --> 00:01:12.640
+ that make your life easier just to show you
+
+00:01:12.640 --> 00:01:16.720
+ the kinds of things that you want, spdump.py.
+
+00:01:16.720 --> 00:01:18.420
+ And you just kind of test to make sure.
+
+00:01:18.420 --> 00:01:21.100
+ It's like, oh, this looks right to me.
+
+00:01:21.100 --> 00:01:23.820
+ And so here is the number of inbound links,
+
+00:01:23.820 --> 00:01:26.340
+ so that's my blog that has the most inbound links,
+
+00:01:26.340 --> 00:01:29.440
+ followed by my uncategorized, whatever that is,
+
+00:01:29.440 --> 00:01:32.940
+ and these are the number of inbound links
+
+00:01:32.940 --> 00:01:35.480
+ within my own blog somehow, I don't know,
+
+00:01:35.480 --> 00:01:39.640
+ because this is not looking at the whole internet at all.
+
+00:01:39.640 --> 00:01:42.240
+ So there we go.
+
+00:01:42.240 --> 00:01:45.560
+ So that's spdump, pretty straightforward.
+
+00:01:45.560 --> 00:01:48.740
+ And now we're going to go through the visualization process.
+
+00:01:48.740 --> 00:01:51.340
+ And so this is going to look at all that data
+
+00:01:51.340 --> 00:01:54.540
+ and produce some file, a JavaScript file.
+
+00:01:54.540 --> 00:01:56.520
+ It's going to write a JavaScript file
+
+00:01:56.520 --> 00:02:00.560
+ that will then be fed into my visualization using D3.
+
+00:02:00.560 --> 00:02:04.060
+ And spjson is going to do a big, long join.
+
+00:02:04.060 --> 00:02:10.800
+ It joins the links with the thing,
+
+00:02:10.800 --> 00:02:14.780
+ and where HTML's not null and error's not null,
+
+00:02:14.780 --> 00:02:16.720
+ order by the number of inbound links.
+
+00:02:16.720 --> 00:02:18.540
+ So we're looking at the things that have
+
+00:02:18.540 --> 00:02:22.260
+ the highest number of inbound links.
+
+00:02:22.260 --> 00:02:26.080
+ We're going to read all this stuff.
+
+00:02:26.080 --> 00:02:29.300
+ We're going to read through all those rows
+
+00:02:29.300 --> 00:02:32.700
+ and pull out the page rank for each one.
+
+00:02:32.700 --> 00:02:35.720
+ We are looking for the highest and lowest rank,
+
+00:02:35.720 --> 00:02:38.640
+ because these numbers can vary quite widely.
+
+00:02:38.640 --> 00:02:42.640
+ They go all the way from 0.000 to 20 or 30.
+
+00:02:42.640 --> 00:02:47.020
+ And so it asks how many do you want to do,
+
+00:02:47.020 --> 00:02:49.460
+ so it only does the top, like 20 or something.
+
+00:02:49.460 --> 00:02:53.620
+ And you'll see why we need that in the visualization.
+
+00:02:53.620 --> 00:02:56.220
+ And so this is just checking.
+
+00:02:56.220 --> 00:02:57.660
+ And so we're going to write out a file.
+
+00:02:57.660 --> 00:02:59.240
+ We'll see what the format of this is.
+
+00:02:59.240 --> 00:03:02.460
+ It's just a JavaScript file.
+
+00:03:02.460 --> 00:03:05.500
+ And we're going to write out,
+
+00:03:05.500 --> 00:03:08.540
+ we're basically normalizing the rank.
+
+00:03:08.540 --> 00:03:10.480
+ We're subtracting the minimum rank,
+
+00:03:10.480 --> 00:03:14.320
+ and because we're going to turn this into line weight,
+
+00:03:14.320 --> 00:03:15.420
+ the thickness of the line,
+
+00:03:15.420 --> 00:03:20.420
+ we're normalizing the rank to be the thickness of the line
+
+00:03:20.420 --> 00:03:24.060
+ and the size of the ball.
+
+00:03:24.060 --> 00:03:28.740
+ You'll see all this.
+
+00:03:28.740 --> 00:03:30.540
+ And so this is really just writing some JavaScript
+
+00:03:30.540 --> 00:03:33.680
+ with the little strings and stuff like that.
+
+00:03:33.680 --> 00:03:36.080
+ And then we're going to finish the JavaScript.
+
+00:03:36.080 --> 00:03:38.040
+ And then we're going to write all the links out.
+
+00:03:38.040 --> 00:03:40.780
+ So these are the balls that you'll see.
+
+00:03:40.780 --> 00:03:43.520
+ And this is showing what, this is drawing all the lines.
+
+00:03:43.520 --> 00:03:46.460
+ And this is again normalizing things for thickness
+
+00:03:46.460 --> 00:03:47.920
+ and printing these things out.
+
+00:03:47.920 --> 00:03:52.060
+ Now I don't want to go through this in tremendous detail.
+
+00:03:52.060 --> 00:03:57.060
+ So I'll do python spjson.py.
+
+00:03:57.060 --> 00:04:01.860
+ Let's do the top 20 nodes.
+
+00:04:01.860 --> 00:04:06.580
+ And if I take a look at this file, spider.js,
+
+00:04:06.580 --> 00:04:08.260
+ you can see that it's some objects
+
+00:04:08.260 --> 00:04:12.880
+ that basically put the page rank in, which ID it is.
+
+00:04:12.880 --> 00:04:16.160
+ And that's a way for me to be able to link back and forth.
+
+00:04:16.160 --> 00:04:18.760
+ Weight is how big the little circle is.
+
+00:04:18.760 --> 00:04:19.780
+ And then I have the links.
+
+00:04:19.780 --> 00:04:22.560
+ And I only asked for the top 20, right?
+
+00:04:22.560 --> 00:04:26.800
+ And then this is the thickness of the line,
+
+00:04:26.800 --> 00:04:29.640
+ where the line starts, where the line ends, okay?
+
+00:04:29.640 --> 00:04:34.640
+ So this is read by this HTML file.
+
+00:04:34.640 --> 00:04:40.660
+ And it's going to read somewhere, this force.js file.
+
+00:04:43.020 --> 00:04:48.020
+ And my own spider.js code, this is some JavaScript.
+
+00:04:48.020 --> 00:04:51.980
+ I mean, no, the force.js is the visualization code.
+
+00:04:51.980 --> 00:04:55.340
+ And this is D3, the visualization library.
+
+00:04:55.340 --> 00:04:57.820
+ So I'm using this D3.js,
+
+00:04:57.820 --> 00:05:00.480
+ which is a really great visualization library.
+
+00:05:00.480 --> 00:05:02.780
+ And this is just drawing the circles
+
+00:05:02.780 --> 00:05:04.580
+ and making the circles colors
+
+00:05:04.580 --> 00:05:06.620
+ and making the circles bigger and smaller,
+
+00:05:06.620 --> 00:05:08.540
+ and then connecting all the lines in between it.
+
+00:05:08.540 --> 00:05:10.700
+ So this is just there.
+
+00:05:10.700 --> 00:05:12.780
+ This data feeds that thing.
+
+00:05:12.780 --> 00:05:15.540
+ And so when we're all done, you simply say open.
+
+00:05:15.540 --> 00:05:17.060
+ You don't have to do anything.
+
+00:05:17.060 --> 00:05:18.780
+ Open force.html.
+
+00:05:18.780 --> 00:05:24.900
+ And so all this beautiful JavaScript stuff is like,
+
+00:05:24.900 --> 00:05:25.940
+ oh wow, that's really cool.
+
+00:05:25.940 --> 00:05:27.380
+ 'Cause you can move these things around.
+
+00:05:27.380 --> 00:05:28.860
+ Whoa.
+
+00:05:28.860 --> 00:05:31.420
+ You can see the circles are bigger.
+
+00:05:31.420 --> 00:05:34.640
+ If you hover over it for a while, it shows you the big ones.
+
+00:05:34.640 --> 00:05:37.940
+ You can see these things and it's kind of cool.
+
+00:05:37.940 --> 00:05:41.500
+ So I gave you all this force.js and force.html.
+
+00:05:41.500 --> 00:05:44.380
+ And so that kind of visualizes the page rank.
+
+00:05:44.380 --> 00:05:48.580
+ And you could use this to visualize quite a bit of stuff.
+
+00:05:48.580 --> 00:05:52.340
+ I, you know, it'll take you a while
+
+00:05:52.340 --> 00:05:56.360
+ to pull down enough data from a real website.
+
+00:05:56.360 --> 00:05:58.860
+ But after you pull down four or 500 pages,
+
+00:05:58.860 --> 00:05:59.700
+ if you have some time,
+
+00:05:59.700 --> 00:06:02.160
+ and then the visualization is quite interesting.
+
+00:06:02.160 --> 00:06:05.740
+ But you can see why we had to pull down several hundred pages
+
+00:06:05.740 --> 00:06:08.220
+ just to get this much page rank information.
+
+00:06:10.660 --> 00:06:15.660
+ Okay, so that gives you a sense of how to run
+
+00:06:15.660 --> 00:06:20.180
+ the page rank code in Python for everybody.
+
+00:06:20.180 --> 00:06:22.820
+ So thanks for us, thanks for listening.
+
+00:06:22.820 --> 00:06:25.400
+ (gentle music)
+
+00:06:40.660 --> 00:06:42.420
+ (upbeat music)
+

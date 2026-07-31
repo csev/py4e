@@ -1,0 +1,95 @@
+ Okay, so now we're going to write a web browser again in Python, but it's going to even be
+ shorter than what we did before.
+ We did it in 10 lines using sockets.
+ Now we're going to do it in four lines with urllib.
+ So urllib really is just because the idea of opening a connection, sending a get request,
+ sending the new line, retrieving the stuff, breaking the headers out, doing all this stuff.
+ That's so common, why not put it in a library to save ourselves some effort?
+ So here's how we do it.
+ We're going to read it in, right?
+ We're going to import this library.
+ So we had to import sockets before, but we're going to import urllib now.
+ And so this is really quite simple.
+ It's like elegantly simple.
+ You say urllib, that's a library, that's part of a module within the library, and
+ this is a function.
+ So let's call urllopen and then give it the url.
+ Now that's a string which it's going to encode automatically for us.
+ So it's taking care of all kind of pretty things for us.
+ It does the get, it does the encode.
+ Look back at that previous code.
+ That's kind of what urllib is doing for us, okay?
+ Now what urllib also does is it makes the connection, encodes the get request, and
+ then it actually retrieves.
+ At this moment, it retrieves all the headers and keeps them for you for later.
+ You can get the headers, but we're not going to see the headers.
+ And it returns to you an object that looks pretty much like a file handle.
+ Because you can put this in the foreclause after the end.
+ Now it's going to read, run that loop one time for every line of this file.
+ And so the lines we're going to get back are bytes, and so
+ we have to say decode, it doesn't do that for us automatically.
+ We are going to have to decode them.
+ And that's because we might need to decode them with a particular character set here.
+ And then we're going to do our strip, and we're going to just print this out.
+ So that's like open a file, read through it, and print it.
+ This is open a URL, read through, and print it.
+ And that's as simple as it is, and so that's what happens.
+ This is romeo.txt, and it prints out.
+ Now the thing to notice is that there are no headers here.
+ The headers have been sort of consumed in the URL open.
+ Again, there is a way to say, hey, give me my headers.
+ But for now, this is just going to eat the headers and keep them, and
+ then you get to read all the data.
+ And the loop runs, and this loop runs four times, and out come the four lines.
+ You can go ahead and run this one, it's super easy.
+ I mean, literally, super easy.
+ And if you can do anything you want, I mean, treat it like a file.
+ You just have to remember to do the decode bit when you treat it like a file.
+ And so we, that code imported, we're going to open it.
+ We're going to make a dictionary, we're going to loop through.
+ We're going to split it.
+ We have to add the decode just to make sure because that line is bytes, not string.
+ And then we're going to go, our words, we're going to go through the line.
+ And then each line, we're going to bounce through the words.
+ The inner for loop is bouncing through the words, and
+ then we're going to go to the next line.
+ And then we make ourselves a dictionary, and we print that dictionary out.
+ Now this is, this in effect, other than importing this,
+ opening it differently, and doing the decode,
+ this is exactly how we would process a file.
+ And so by using URLlib, you really sort of reduce the complexity of retrieving and
+ reading network resources to the same complexity of reading and
+ dealing with a file locally on your hard drive, which is kind of pretty.
+ So one of the things then we can do is read web pages.
+ That was a text file, but you can get HTML.
+ And so here's how you read a web page.
+ And it's the same kind of code.
+ We open a URL.
+ This one happens to have HTML in it.
+ And we read through it, and out comes the HTML.
+ Remember that the headers are there, but they've been eaten by URL open for us.
+ And now we could write a browser that would parse these less than and
+ greater than and make links, etc, etc, etc.
+ So if you can come up with ways to find these links,
+ you could actually write a bit of code that would then have a loop that would go
+ up and open a new one.
+ Pull out the links, open a new one.
+ Pull out the links, open a new one.
+ And so you could.
+ You could make a thing that would retrieve a program that would retrieve a page,
+ find the links in the page, and then retrieve those links.
+ And we'll actually do that before the end of the class.
+ And so Python is a very popular language at Google.
+ And I wonder if I'm going to, I think it's a pretty safe bet that the first crawler
+ that they wrote to crawl the web, to build the index, was Python.
+ Because literally, that's all it takes to read web pages.
+ And pull those web pages into your web crawler database.
+ So I don't know, are those the first four lines ever written to Google?
+ Who knows?
+ So the next thing that we'll talk about is how you handle that HTML.
+ HTML is kind of yucky and nasty, and so it's not as simple as regular expressions.
+ Regular expressions might help.
+ String parsing and split might help, but it's just too crazy.
+ So we'll talk a little bit about how to use a library to make
+ HTML parsing a lot easier.
+ [MUSIC]

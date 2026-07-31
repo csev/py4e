@@ -1,0 +1,1416 @@
+1
+00:00:00,000 --> 00:00:03,080
+ (gentle piano music)
+
+2
+00:00:03,080 --> 00:00:10,820
+ Hello and welcome to Python for Everybody.
+
+3
+00:00:10,820 --> 00:00:13,000
+ We're doing a bit of code walkthrough and if you want to,
+
+4
+00:00:13,000 --> 00:00:15,720
+ you can get to the sample code and download it all
+
+5
+00:00:15,720 --> 00:00:18,380
+ so that you can walk through the code yourself.
+
+6
+00:00:18,380 --> 00:00:21,400
+ What we're walking through today is the PageRank code.
+
+7
+00:00:21,400 --> 00:00:24,440
+ And so the PageRank code,
+
+8
+00:00:24,440 --> 00:00:29,020
+ let me get the picture of the PageRank code up here.
+
+9
+00:00:29,020 --> 00:00:31,520
+ Here's the picture of the PageRank code.
+
+10
+00:00:31,520 --> 00:00:35,760
+ And so the PageRank code is a, has four chunks of code
+
+11
+00:00:35,760 --> 00:00:38,400
+ that are going to, five chunks of code that are going to run.
+
+12
+00:00:38,400 --> 00:00:40,840
+ The first one we're going to look at is the Spitering code
+
+13
+00:00:40,840 --> 00:00:44,920
+ and then we'll do a separate look at these other guys later.
+
+14
+00:00:44,920 --> 00:00:46,900
+ So the first one we'll look at is Spitering.
+
+15
+00:00:46,900 --> 00:00:48,560
+ And again, it's sort of the same pattern of,
+
+16
+00:00:48,560 --> 00:00:51,440
+ we've got some stuff on the web, in this case web pages.
+
+17
+00:00:51,440 --> 00:00:54,520
+ We're going to have a database that sort of
+
+18
+00:00:54,520 --> 00:00:55,820
+ just captures the stuff.
+
+19
+00:00:55,820 --> 00:00:58,540
+ It's not really trying to be particularly intelligent,
+
+20
+00:00:58,540 --> 00:01:01,280
+ but it is going to parse these with BeautifulSoup
+
+21
+00:01:01,280 --> 00:01:04,620
+ and add things to the database, okay?
+
+22
+00:01:04,620 --> 00:01:06,440
+ And so then we'll talk about how we run
+
+23
+00:01:06,440 --> 00:01:08,520
+ the PageRank algorithm and then how we visualize
+
+24
+00:01:08,520 --> 00:01:11,260
+ the PageRank algorithm in a bit.
+
+25
+00:01:11,260 --> 00:01:14,980
+ Now, the first thing to notice is that I've got to put,
+
+26
+00:01:14,980 --> 00:01:18,080
+ I put the BeautifulSoup code in right here, okay?
+
+27
+00:01:18,080 --> 00:01:22,220
+ So this is, you can get this from the BS4.zip file.
+
+28
+00:01:22,220 --> 00:01:23,780
+ There might even be a README, no,
+
+29
+00:01:23,780 --> 00:01:25,420
+ but there's a README somewhere.
+
+30
+00:01:25,420 --> 00:01:27,000
+ But you've got to use BeautifulSoup,
+
+31
+00:01:27,000 --> 00:01:28,620
+ you've got to put this BS4.zip,
+
+32
+00:01:28,620 --> 00:01:31,120
+ or you have to install BeautifulSoup for your stuff.
+
+33
+00:01:31,120 --> 00:01:34,800
+ So I provide this BS4.zip as a quick and dirty way
+
+34
+00:01:34,800 --> 00:01:38,080
+ if you can't install something for every,
+
+35
+00:01:38,080 --> 00:01:41,580
+ for all of the Python users on your system.
+
+36
+00:01:41,580 --> 00:01:44,020
+ So that's what it's supposed to look like.
+
+37
+00:01:44,020 --> 00:01:45,440
+ You're supposed to have it unzipped right here
+
+38
+00:01:45,440 --> 00:01:48,540
+ in these files, and I don't know what dammit.py means.
+
+39
+00:01:48,540 --> 00:01:50,720
+ That came from BeautifulSoup.
+
+40
+00:01:50,720 --> 00:01:52,320
+ If you look, it's in their source code.
+
+41
+00:01:52,320 --> 00:01:54,240
+ So I didn't, I'm not swearing.
+
+42
+00:01:54,240 --> 00:01:55,580
+ It's BeautifulSoup, people are swearing.
+
+43
+00:01:55,580 --> 00:01:57,940
+ I'm sorry, I apologize.
+
+44
+00:01:57,940 --> 00:02:00,780
+ Okay, so the code we're going to play with the most is,
+
+45
+00:02:00,780 --> 00:02:04,340
+ in this first one, is called spider.py.
+
+46
+00:02:04,340 --> 00:02:08,720
+ And we're going to do databases, we're going to read URLs,
+
+47
+00:02:08,720 --> 00:02:11,660
+ and we're going to parse them with BeautifulSoup.
+
+48
+00:02:11,660 --> 00:02:12,500
+ Okay?
+
+49
+00:02:12,500 --> 00:02:17,120
+ And so what we're going to do is we're going to make a file.
+
+50
+00:02:17,120 --> 00:02:19,240
+ Again, this will make spider.sqlite,
+
+51
+00:02:19,240 --> 00:02:22,780
+ and here we are in page rank, and else minus l.
+
+52
+00:02:22,780 --> 00:02:25,120
+ Spider.sqlite is not there,
+
+53
+00:02:25,120 --> 00:02:26,480
+ so it's going to create the database.
+
+54
+00:02:26,480 --> 00:02:28,700
+ We do create table if not exists.
+
+55
+00:02:28,700 --> 00:02:30,160
+ We're going to have an integer primary key,
+
+56
+00:02:30,160 --> 00:02:32,120
+ because we're going to do foreign keys here.
+
+57
+00:02:32,120 --> 00:02:36,320
+ We're going to have a URL, and the URL, which is unique,
+
+58
+00:02:36,320 --> 00:02:39,480
+ the HTML, which is unique, whether we got an error.
+
+59
+00:02:39,480 --> 00:02:42,280
+ And then for the second half, when we start doing page rank,
+
+60
+00:02:42,280 --> 00:02:43,820
+ we're going to have old rank and new rank,
+
+61
+00:02:43,820 --> 00:02:46,480
+ because the way page rank works is it takes the old rank,
+
+62
+00:02:46,480 --> 00:02:48,720
+ computes the new rank, and then replaces the new rank
+
+63
+00:02:48,720 --> 00:02:51,540
+ with the old rank, and then does it over and over again.
+
+64
+00:02:51,540 --> 00:02:55,380
+ And then we're going to have a many-to-many table,
+
+65
+00:02:55,380 --> 00:02:59,520
+ which points really back, so I call this from_id and to_id.
+
+66
+00:02:59,520 --> 00:03:02,540
+ We did this with some of the Twitter stuff.
+
+67
+00:03:02,540 --> 00:03:05,680
+ And then this webs is just in case I have more than one web,
+
+68
+00:03:05,680 --> 00:03:07,940
+ but that really doesn't make much difference.
+
+69
+00:03:07,940 --> 00:03:10,520
+ Okay, so what we're going to do is
+
+70
+00:03:10,520 --> 00:03:17,340
+ we're going to select ID URL from pages where HTML is null.
+
+71
+00:03:17,340 --> 00:03:21,340
+ This is our indicator that a page has not yet been retrieved.
+
+72
+00:03:21,340 --> 00:03:23,820
+ And error is null, ordered by random.
+
+73
+00:03:23,820 --> 00:03:26,580
+ And so this is our way, this long bit of stuff.
+
+74
+00:03:26,580 --> 00:03:29,380
+ And this, not all this SQL is completely standard,
+
+75
+00:03:29,380 --> 00:03:32,160
+ but this order by random is really quite nice in SQLite.
+
+76
+00:03:32,160 --> 00:03:36,320
+ Limit ones is just randomly pick a record in this database
+
+77
+00:03:36,320 --> 00:03:41,900
+ where this true is true, and then pick it randomly.
+
+78
+00:03:41,900 --> 00:03:43,620
+ And then we're going to fetch a row.
+
+79
+00:03:43,620 --> 00:03:46,120
+ And if that row is none, right,
+
+80
+00:03:48,060 --> 00:03:52,060
+ we're going to ask for a new web, a starting URL,
+
+81
+00:03:52,060 --> 00:03:53,980
+ and this is going to fire things up,
+
+82
+00:03:53,980 --> 00:03:56,580
+ and we're going to insert this new URL.
+
+83
+00:03:56,580 --> 00:03:57,840
+ Otherwise, we're going to restart.
+
+84
+00:03:57,840 --> 00:04:00,400
+ We have a row to start with.
+
+85
+00:04:00,400 --> 00:04:02,580
+ And otherwise, we're going to sort of prime this
+
+86
+00:04:02,580 --> 00:04:07,240
+ by inserting the URL we start with, insert into it.
+
+87
+00:04:07,240 --> 00:04:09,740
+ If you enter it, it just goes to drchuck.com,
+
+88
+00:04:09,740 --> 00:04:11,780
+ which is a fine place to start.
+
+89
+00:04:11,780 --> 00:04:14,280
+ And then what we do is we,
+
+90
+00:04:14,280 --> 00:04:16,800
+ what this does is it's page rank,
+
+91
+00:04:16,800 --> 00:04:20,640
+ is it uses this webs table to limit the links.
+
+92
+00:04:20,640 --> 00:04:25,900
+ It only does links to the sites that you tell it to do links.
+
+93
+00:04:25,900 --> 00:04:27,500
+ And probably the best for your page rank
+
+94
+00:04:27,500 --> 00:04:29,440
+ is to stick with one site.
+
+95
+00:04:29,440 --> 00:04:32,120
+ Otherwise, you will just never find the same site again.
+
+96
+00:04:32,120 --> 00:04:35,580
+ If you let this wander the web aimlessly,
+
+97
+00:04:35,580 --> 00:04:38,520
+ and so I generally run with one web,
+
+98
+00:04:38,520 --> 00:04:42,200
+ which this should be probably called websites.
+
+99
+00:04:42,200 --> 00:04:45,300
+ And I pull in all the data, and I read this in,
+
+100
+00:04:45,300 --> 00:04:47,500
+ and I just make myself a list of the URL,
+
+101
+00:04:47,500 --> 00:04:50,100
+ the legit URLs, and you'll see how we use that.
+
+102
+00:04:50,100 --> 00:04:52,260
+ And the webs is how many,
+
+103
+00:04:52,260 --> 00:04:54,220
+ what are the legit places we're going to go?
+
+104
+00:04:54,220 --> 00:04:57,940
+ 'Cause we're going to go through a loop,
+
+105
+00:04:57,940 --> 00:04:59,860
+ ask for how many pages,
+
+106
+00:04:59,860 --> 00:05:02,720
+ and we're going to look for a null page.
+
+107
+00:05:02,720 --> 00:05:04,180
+ Again, we're using that random,
+
+108
+00:05:04,180 --> 00:05:06,820
+ order by random, limit one.
+
+109
+00:05:06,820 --> 00:05:09,860
+ And then we're going to have a,
+
+110
+00:05:09,860 --> 00:05:11,620
+ we're going to grab one.
+
+111
+00:05:11,620 --> 00:05:14,600
+ We're going to get the from ID,
+
+112
+00:05:14,600 --> 00:05:18,160
+ which is the page we're linking from.
+
+113
+00:05:18,160 --> 00:05:19,500
+ And then the URL.
+
+114
+00:05:19,500 --> 00:05:22,280
+ Otherwise, there's no one retrieved.
+
+115
+00:05:22,280 --> 00:05:26,240
+ And so the from ID is when we start adding links
+
+116
+00:05:26,240 --> 00:05:30,440
+ to our page links, we got to know the page we started with.
+
+117
+00:05:30,440 --> 00:05:31,600
+ And that's the primary key.
+
+118
+00:05:31,600 --> 00:05:34,240
+ We'll see how that primary key is set in a second.
+
+119
+00:05:34,240 --> 00:05:36,320
+ So otherwise, we have none.
+
+120
+00:05:36,320 --> 00:05:37,860
+ And we're going to print this,
+
+121
+00:05:37,860 --> 00:05:42,620
+ from ID, the from ID and the URL that we're working with.
+
+122
+00:05:42,620 --> 00:05:46,860
+ Just to make sure we're going to wipe out all of the links,
+
+123
+00:05:46,860 --> 00:05:48,160
+ because it's un-retrieved,
+
+124
+00:05:48,160 --> 00:05:49,460
+ we're going to wipe out from the links.
+
+125
+00:05:49,460 --> 00:05:51,040
+ The links is the connection table
+
+126
+00:05:51,040 --> 00:05:54,100
+ that connects from pages back to pages.
+
+127
+00:05:54,100 --> 00:05:55,780
+ And so we're going to wipe out.
+
+128
+00:05:55,780 --> 00:05:59,060
+ So we're going to go grab this URL.
+
+129
+00:05:59,060 --> 00:06:01,600
+ We're going to read it.
+
+130
+00:06:01,600 --> 00:06:04,780
+ We're not decoding it because we're using Beautiful Soup,
+
+131
+00:06:04,780 --> 00:06:05,620
+ which,
+
+132
+00:06:05,620 --> 00:06:08,620
+ we're using Beautiful Soup,
+
+133
+00:06:08,620 --> 00:06:11,060
+ which compensates for the UTF-8.
+
+134
+00:06:11,060 --> 00:06:14,900
+ So we can ask, this is the HTML error code.
+
+135
+00:06:14,900 --> 00:06:17,220
+ And we checked 200 is a good error.
+
+136
+00:06:17,220 --> 00:06:18,800
+ And if we get a bad error,
+
+137
+00:06:18,800 --> 00:06:21,240
+ we're going to say this error on page.
+
+138
+00:06:21,240 --> 00:06:22,420
+ We're going to set that error.
+
+139
+00:06:22,420 --> 00:06:23,420
+ We're going to update pages.
+
+140
+00:06:23,420 --> 00:06:25,820
+ That way we don't retrieve it ever again.
+
+141
+00:06:25,820 --> 00:06:30,980
+ We basically check to see if the content type
+
+142
+00:06:30,980 --> 00:06:33,020
+ is text HTML.
+
+143
+00:06:33,020 --> 00:06:35,520
+ Remember in HTTP, you get the content type.
+
+144
+00:06:35,520 --> 00:06:36,800
+ We only want to retrieve,
+
+145
+00:06:36,800 --> 00:06:39,820
+ we only want to look for the links on HTML pages.
+
+146
+00:06:39,820 --> 00:06:41,740
+ And so we wipe that guy out.
+
+147
+00:06:41,740 --> 00:06:44,300
+ If we get a JPEG or something like that,
+
+148
+00:06:44,300 --> 00:06:46,440
+ we're not going to retrieve JPEG.
+
+149
+00:06:46,440 --> 00:06:48,620
+ And then we commit and continue.
+
+150
+00:06:48,620 --> 00:06:49,460
+ So these are kind of like,
+
+151
+00:06:49,460 --> 00:06:51,860
+ oh, those were pages we didn't want to mess with.
+
+152
+00:06:51,860 --> 00:06:55,640
+ And then we print out how many characters we got and parse it.
+
+153
+00:06:55,640 --> 00:06:58,820
+ We do this whole thing in a try-accept block
+
+154
+00:06:58,820 --> 00:07:00,820
+ because a lot of things can go wrong here.
+
+155
+00:07:00,820 --> 00:07:03,420
+ It's a bit of a long try-accept block.
+
+156
+00:07:03,420 --> 00:07:04,260
+ Keyboard interrupt,
+
+157
+00:07:04,260 --> 00:07:07,720
+ that's what happens if I hit Control + C at my keyboard
+
+158
+00:07:07,720 --> 00:07:09,320
+ or Control + Z on Windows.
+
+159
+00:07:10,380 --> 00:07:12,340
+ Some other exception probably means
+
+160
+00:07:12,340 --> 00:07:14,780
+ beautiful suit blew up or something else blew up.
+
+161
+00:07:14,780 --> 00:07:19,780
+ And so we indicate with the error equals negative one
+
+162
+00:07:19,780 --> 00:07:23,820
+ for that URL so we don't retrieve it again.
+
+163
+00:07:23,820 --> 00:07:26,680
+ At this point, at line 103,
+
+164
+00:07:26,680 --> 00:07:30,120
+ we have got the HTML for that URL.
+
+165
+00:07:30,120 --> 00:07:31,820
+ And so we're going to insert it in.
+
+166
+00:07:31,820 --> 00:07:34,060
+ And we're going to set the page rank to one.
+
+167
+00:07:34,060 --> 00:07:36,980
+ So the way page rank works is it gives all the pages
+
+168
+00:07:36,980 --> 00:07:40,780
+ some normal value and then it alters that.
+
+169
+00:07:40,780 --> 00:07:42,260
+ We'll see that in a bit.
+
+170
+00:07:42,260 --> 00:07:43,820
+ So it sets it in with one.
+
+171
+00:07:43,820 --> 00:07:48,900
+ We're going to insert or ignore.
+
+172
+00:07:48,900 --> 00:07:50,940
+ That's just in case this pages is already,
+
+173
+00:07:50,940 --> 00:07:52,260
+ that the pages is not there,
+
+174
+00:07:52,260 --> 00:07:54,780
+ but and then we're going to do an update.
+
+175
+00:07:54,780 --> 00:07:56,980
+ And that's kind of doing the same thing twice,
+
+176
+00:07:56,980 --> 00:08:00,560
+ just sort of doubly making sure if it's already there,
+
+177
+00:08:00,560 --> 00:08:03,180
+ this or ignore will cause this to do nothing.
+
+178
+00:08:03,180 --> 00:08:05,140
+ And the update will cause us to retain it.
+
+179
+00:08:05,140 --> 00:08:08,460
+ And then we commit it so that if we do selects later,
+
+180
+00:08:08,460 --> 00:08:10,200
+ we get that information.
+
+181
+00:08:10,200 --> 00:08:13,300
+ Now this code is similar.
+
+182
+00:08:13,300 --> 00:08:14,780
+ Remember, we use beautiful soup
+
+183
+00:08:14,780 --> 00:08:16,700
+ to pull out all the anchor tags.
+
+184
+00:08:16,700 --> 00:08:19,420
+ We have a for loop, we pull out the href.
+
+185
+00:08:19,420 --> 00:08:22,740
+ And you'll see this code's a little more complex
+
+186
+00:08:22,740 --> 00:08:23,980
+ than some of the earlier stuff
+
+187
+00:08:23,980 --> 00:08:26,060
+ because it has to deal with the real nastiness
+
+188
+00:08:26,060 --> 00:08:28,180
+ or imperfection of the web.
+
+189
+00:08:28,180 --> 00:08:30,680
+ And so we're going to use URL parse,
+
+190
+00:08:30,680 --> 00:08:34,060
+ which is actually part of the URL lib code.
+
+191
+00:08:35,460 --> 00:08:39,380
+ And that's going to break the URL into pieces, come back.
+
+192
+00:08:39,380 --> 00:08:41,140
+ We use URL parse.
+
+193
+00:08:41,140 --> 00:08:45,300
+ We have the scheme, which is HTTP or HTTPS.
+
+194
+00:08:45,300 --> 00:08:48,140
+ If it's a relative, this solves relative references.
+
+195
+00:08:48,140 --> 00:08:49,860
+ This is solve relative references
+
+196
+00:08:49,860 --> 00:08:52,940
+ by taking the current URL and hooking it up.
+
+197
+00:08:52,940 --> 00:08:56,660
+ URL join knows about slashes and all those other things.
+
+198
+00:08:56,660 --> 00:08:58,620
+ We check to see if there's an anchor,
+
+199
+00:08:58,620 --> 00:09:00,380
+ the pound sign at the end of a URL,
+
+200
+00:09:00,380 --> 00:09:03,740
+ and we throw everything past, including the anchor away.
+
+201
+00:09:05,580 --> 00:09:09,500
+ If we have a JPEG or a PNG or a GIF,
+
+202
+00:09:09,500 --> 00:09:10,340
+ we're going to skip it.
+
+203
+00:09:10,340 --> 00:09:12,300
+ We don't want to bother with that.
+
+204
+00:09:12,300 --> 00:09:13,460
+ We're looking through links now.
+
+205
+00:09:13,460 --> 00:09:15,580
+ We're looking at all the links.
+
+206
+00:09:15,580 --> 00:09:17,980
+ And if we have a slash at the end,
+
+207
+00:09:17,980 --> 00:09:20,940
+ we're going to chop off the slash by saying minus one.
+
+208
+00:09:20,940 --> 00:09:23,900
+ And so this is just kind of nasty choppage
+
+209
+00:09:23,900 --> 00:09:27,540
+ and throwing away the URLs that we're going through a page
+
+210
+00:09:27,540 --> 00:09:29,100
+ and we have a bunch that we don't like
+
+211
+00:09:29,100 --> 00:09:31,100
+ or we have to clean 'em up or whatever.
+
+212
+00:09:31,100 --> 00:09:34,860
+ And now, and we've made 'em absolute by doing this.
+
+213
+00:09:34,860 --> 00:09:36,700
+ It's an absolute URL.
+
+214
+00:09:36,700 --> 00:09:39,320
+ This is just, you write this slowly but surely
+
+215
+00:09:39,320 --> 00:09:41,380
+ when your code blows up and you start it over
+
+216
+00:09:41,380 --> 00:09:43,180
+ and start it over and start it over.
+
+217
+00:09:43,180 --> 00:09:47,540
+ Then what we do is we check to see through all the webs,
+
+218
+00:09:47,540 --> 00:09:50,020
+ remember those were the URLs that we're willing to stay with
+
+219
+00:09:50,020 --> 00:09:51,460
+ and usually it's just one.
+
+220
+00:09:51,460 --> 00:09:55,100
+ If this would link off the sites,
+
+221
+00:09:55,100 --> 00:09:57,500
+ of the sites we're interested in, we're going to skip it.
+
+222
+00:09:57,500 --> 00:10:00,180
+ We are not interested in links that leave the sites.
+
+223
+00:10:00,180 --> 00:10:04,020
+ So this is like link that left the site, skip it.
+
+224
+00:10:04,020 --> 00:10:07,460
+ But now we finally here at page, line 132,
+
+225
+00:10:07,460 --> 00:10:10,660
+ we are ready to put this into pages,
+
+226
+00:10:10,660 --> 00:10:14,680
+ URL and the HTML and it's all good, right?
+
+227
+00:10:14,680 --> 00:10:20,900
+ And that one's going to be null right there
+
+228
+00:10:20,900 --> 00:10:24,460
+ because we haven't retrieved the HTML.
+
+229
+00:10:24,460 --> 00:10:27,620
+ This is null because this is a page we're going to retrieve.
+
+230
+00:10:27,620 --> 00:10:29,260
+ We're giving the page rank of one
+
+231
+00:10:29,260 --> 00:10:32,420
+ and we're giving it no HTML and that way it'll be retrieved
+
+232
+00:10:32,420 --> 00:10:34,540
+ and then we commit that, okay?
+
+233
+00:10:34,540 --> 00:10:38,380
+ And then we want to get the ID.
+
+234
+00:10:38,380 --> 00:10:42,280
+ So we could have done this with one way or another
+
+235
+00:10:42,280 --> 00:10:44,220
+ but we're going to do a select to say hey,
+
+236
+00:10:44,220 --> 00:10:47,420
+ what was the ID that either was already there
+
+237
+00:10:47,420 --> 00:10:52,420
+ or was just created and we grab that with a fetch one
+
+238
+00:10:52,420 --> 00:10:56,460
+ and say retrieve to ID and now we're going to put a link in,
+
+239
+00:10:56,460 --> 00:10:59,940
+ insert or ignore into links from ID to ID
+
+240
+00:10:59,940 --> 00:11:03,340
+ which is the ID, the primary key of the page
+
+241
+00:11:03,340 --> 00:11:05,280
+ that we're going through and looking for links.
+
+242
+00:11:05,280 --> 00:11:09,180
+ To ID is the link that we just created and away we run.
+
+243
+00:11:09,180 --> 00:11:12,040
+ So it's going to go and go and go and go.
+
+244
+00:11:12,040 --> 00:11:14,780
+ If you, let's go look at the create.
+
+245
+00:11:14,780 --> 00:11:19,780
+ Create statement up here from ID and to ID right there.
+
+246
+00:11:19,780 --> 00:11:25,880
+ Okay, so let's run it.
+
+247
+00:11:28,500 --> 00:11:33,500
+ Python three, oops, Python three, SpiderPython.
+
+248
+00:11:33,500 --> 00:11:45,620
+ So it's fresh and so it wants a URL with which to start
+
+249
+00:11:45,620 --> 00:11:48,340
+ and I'll just start with my favorite website,
+
+250
+00:11:48,340 --> 00:11:51,700
+ www.DrChuck.com.
+
+251
+00:11:51,700 --> 00:11:54,680
+ Now this basically, this first one you put in,
+
+252
+00:11:54,680 --> 00:11:58,100
+ it's going to stay on this website for a while, okay?
+
+253
+00:11:58,100 --> 00:12:02,020
+ So I'll hit enter and let's just grab like,
+
+254
+00:12:02,020 --> 00:12:04,980
+ let's grab one page just for yucks.
+
+255
+00:12:04,980 --> 00:12:08,680
+ Okay, so it grabbed that and it printed out
+
+256
+00:12:08,680 --> 00:12:13,680
+ that it got 85, 45 characters
+
+257
+00:12:13,680 --> 00:12:17,960
+ and it printed out that it got six links.
+
+258
+00:12:17,960 --> 00:12:25,720
+ So if I go to this and open it,
+
+259
+00:12:28,100 --> 00:12:33,100
+ open database and I go to code three
+
+260
+00:12:33,100 --> 00:12:37,460
+ and I go to page rank and I look at this.
+
+261
+00:12:37,460 --> 00:12:40,260
+ Oh, let me get out so it closes.
+
+262
+00:12:40,260 --> 00:12:43,020
+ So here, so notice this SQLite journal.
+
+263
+00:12:43,020 --> 00:12:44,940
+ That means it's not done closing
+
+264
+00:12:44,940 --> 00:12:48,300
+ so I'm going to get out of this by pressing enter
+
+265
+00:12:48,300 --> 00:12:51,180
+ and so you'll notice now that that journal file went away.
+
+266
+00:12:51,180 --> 00:12:54,380
+ Otherwise, we would not be getting the final data.
+
+267
+00:12:54,380 --> 00:12:55,660
+ There we go.
+
+268
+00:12:55,660 --> 00:12:59,040
+ Okay, so webs, let's take a look at the data.
+
+269
+00:12:59,040 --> 00:13:02,900
+ Webs has just one URL.
+
+270
+00:13:02,900 --> 00:13:05,840
+ That's the URLs that we're allowing ourselves to look at.
+
+271
+00:13:05,840 --> 00:13:07,900
+ You can put more than one in here if you want
+
+272
+00:13:07,900 --> 00:13:10,500
+ but most people will just leave this as one.
+
+273
+00:13:10,500 --> 00:13:15,500
+ Pages, so we got this first one and we retrieved this
+
+274
+00:13:15,500 --> 00:13:20,560
+ and this is the HTML of it and we found six other URLs
+
+275
+00:13:20,560 --> 00:13:23,220
+ in there that are DrChuck.com URLs, right?
+
+276
+00:13:23,220 --> 00:13:25,260
+ There was lots of other URLs in there
+
+277
+00:13:25,260 --> 00:13:30,260
+ but there were only five other ones that we found, okay?
+
+278
+00:13:30,260 --> 00:13:33,380
+ And so, and what we'll find is if we go to links,
+
+279
+00:13:33,380 --> 00:13:35,980
+ we'll see that page one links to two, links to three,
+
+280
+00:13:35,980 --> 00:13:37,600
+ links to four, links to five, links to six
+
+281
+00:13:37,600 --> 00:13:40,380
+ because the links is just a many-to-many table.
+
+282
+00:13:40,380 --> 00:13:42,900
+ So page one points to page two,
+
+283
+00:13:42,900 --> 00:13:45,180
+ page one points to page two, page one to three,
+
+284
+00:13:45,180 --> 00:13:47,020
+ page one to five, okay?
+
+285
+00:13:47,020 --> 00:13:51,860
+ So that's what happens when we have the first page.
+
+286
+00:13:51,860 --> 00:13:53,940
+ So let's retrieve one more page
+
+287
+00:13:56,260 --> 00:14:00,580
+ Now, it's, we could have started a new crawl
+
+288
+00:14:00,580 --> 00:14:03,220
+ but we're just going to, it's going to stay on DrChuck.com
+
+289
+00:14:03,220 --> 00:14:05,820
+ and I'll just ask for one more page
+
+290
+00:14:05,820 --> 00:14:07,100
+ and so now it went and grabbed.
+
+291
+00:14:07,100 --> 00:14:09,380
+ It randomly picked among these null guys
+
+292
+00:14:09,380 --> 00:14:11,360
+ and I'm going to hit enter to close it
+
+293
+00:14:11,360 --> 00:14:13,500
+ and then I'll refresh this.
+
+294
+00:14:13,500 --> 00:14:18,140
+ And oh, so it looks like we retrieved OBI sample
+
+295
+00:14:18,140 --> 00:14:19,980
+ and we didn't get any new links
+
+296
+00:14:19,980 --> 00:14:22,820
+ and so the links page, no, we didn't get any new links.
+
+297
+00:14:22,820 --> 00:14:26,940
+ So that page, whatever that was, OBI sample,
+
+298
+00:14:26,940 --> 00:14:28,220
+ had no external links.
+
+299
+00:14:28,220 --> 00:14:29,420
+ So let's do another one.
+
+300
+00:14:29,420 --> 00:14:36,660
+ Oh, one more page.
+
+301
+00:14:36,660 --> 00:14:39,920
+ So that one had 15 links.
+
+302
+00:14:39,920 --> 00:14:41,860
+ So let's take a look now.
+
+303
+00:14:41,860 --> 00:14:44,500
+ So now we have 15 pages.
+
+304
+00:14:44,500 --> 00:14:47,260
+ It picked this one to do, right?
+
+305
+00:14:47,260 --> 00:14:49,340
+ And now it added 15 more pages
+
+306
+00:14:49,340 --> 00:14:50,420
+ and then if you look at links,
+
+307
+00:14:50,420 --> 00:14:53,100
+ you will see that page four,
+
+308
+00:14:53,100 --> 00:14:56,540
+ which is one it just retrieved, links back to page one.
+
+309
+00:14:56,540 --> 00:14:58,420
+ So now we're seeing, this is where the page rank
+
+310
+00:14:58,420 --> 00:15:00,900
+ is going to be cool, four links to one,
+
+311
+00:15:00,900 --> 00:15:05,220
+ four links to, there's whatever, away we go, right?
+
+312
+00:15:05,220 --> 00:15:08,380
+ One goes to four, four goes to one.
+
+313
+00:15:08,380 --> 00:15:10,900
+ I should have probably put a uniqueness constraint on that.
+
+314
+00:15:10,900 --> 00:15:14,040
+ It's not supposed to, that duplicated that.
+
+315
+00:15:14,040 --> 00:15:19,520
+ Okay, so let's run this a bunch of times now.
+
+316
+00:15:19,520 --> 00:15:24,520
+ So let's run, let's just run it 100 times for 100 pages.
+
+317
+00:15:24,520 --> 00:15:28,940
+ It'll take a minute.
+
+318
+00:15:28,940 --> 00:15:33,540
+ So you'll see it's like freaking out on certain pages
+
+319
+00:15:33,540 --> 00:15:35,340
+ and not parsing them.
+
+320
+00:15:35,340 --> 00:15:38,180
+ You know, it's found its way into my blog.
+
+321
+00:15:38,180 --> 00:15:42,620
+ It's finding like 27 links.
+
+322
+00:15:42,620 --> 00:15:45,600
+ This table is growing wildly at this point.
+
+323
+00:15:47,780 --> 00:15:49,580
+ It's going to take us a while before we get to 100.
+
+324
+00:15:49,580 --> 00:15:50,780
+ It's kind of slow.
+
+325
+00:15:50,780 --> 00:15:52,620
+ Now the interesting thing is,
+
+326
+00:15:52,620 --> 00:15:54,740
+ I can hit control C at any point in time.
+
+327
+00:15:54,740 --> 00:15:57,900
+ Right?
+
+328
+00:15:57,900 --> 00:15:59,380
+ And so that blew up.
+
+329
+00:15:59,380 --> 00:16:01,620
+ But it's okay because the data is still there
+
+330
+00:16:01,620 --> 00:16:03,500
+ and so if we go back to pages, for example,
+
+331
+00:16:03,500 --> 00:16:06,460
+ and we refresh our data, we see we got a ton of stuff
+
+332
+00:16:06,460 --> 00:16:09,580
+ and this will restart and all the things,
+
+333
+00:16:09,580 --> 00:16:12,220
+ so if we search this, I sorted that by HTML,
+
+334
+00:16:12,220 --> 00:16:14,540
+ you see that there's lots of files that we've got
+
+335
+00:16:14,540 --> 00:16:16,180
+ and it's never going to retrieve those again
+
+336
+00:16:16,180 --> 00:16:18,220
+ because those have HTML.
+
+337
+00:16:18,220 --> 00:16:22,780
+ So then I can run this thing again and start it up
+
+338
+00:16:22,780 --> 00:16:25,220
+ and when I say control C, your computer might go down,
+
+339
+00:16:25,220 --> 00:16:26,700
+ your network might go down.
+
+340
+00:16:26,700 --> 00:16:29,780
+ There's all kinds of things that might happen
+
+341
+00:16:29,780 --> 00:16:31,460
+ and you just pick up where it leaves off.
+
+342
+00:16:31,460 --> 00:16:32,900
+ It just picks up where it leaves off
+
+343
+00:16:32,900 --> 00:16:34,900
+ and that's what's nice about this.
+
+344
+00:16:34,900 --> 00:16:36,020
+ Okay?
+
+345
+00:16:36,020 --> 00:16:40,140
+ So that's pretty much how this works.
+
+346
+00:16:40,140 --> 00:16:44,180
+ We've got this part running.
+
+347
+00:16:44,180 --> 00:16:46,620
+ We're seeing it flow into SpideredSQL Lite.
+
+348
+00:16:46,620 --> 00:16:49,780
+ We're seeing that we can start this and replace this
+
+349
+00:16:49,780 --> 00:16:52,820
+ and so what I'll do is I will come back in the next video
+
+350
+00:16:52,820 --> 00:16:55,740
+ and show you how all these things work together
+
+351
+00:16:55,740 --> 00:17:00,380
+ and then how we actually do the page rank.
+
+352
+00:17:00,380 --> 00:17:04,100
+ So thanks again for listening and see you in the next video.
+
+353
+00:17:04,100 --> 00:17:07,840
+ (gentle music)
+
+354
+00:17:15,180 --> 00:17:18,260
+ (gentle piano music)
+

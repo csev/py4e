@@ -1,0 +1,179 @@
+ - Welcome to Networked Programs.
+ This is Chapter 12.
+ Now we're going to learn a little bit
+ about how we talk to resources on the network using Python.
+ Now, this is a really quick introduction
+ to how the network really works.
+ I have a whole book that I wrote.
+ It's also translated into Spanish
+ on how the network works,
+ starting at the very lowest layer,
+ packets and everything, right on up.
+ And it's actually really easy to read.
+ I wrote it for a high school audience.
+ It's a short book and pretty easy to read.
+ So if you read that book,
+ you will understand that there is this layered architecture,
+ the TCP architecture that sort of runs our network.
+ At the lowest layer, on one side here,
+ this is your computer and this is a server computer.
+ And if you sort of want a webpage,
+ it goes across the network,
+ does this like 15 or 20 times,
+ then it goes up into the server, reads the data,
+ and then the data comes back, 15, 20 hops for the packets,
+ and then it's shown to you as what you see.
+ And so, that's how it works.
+ And there's these layers
+ that we're not going to talk about in this section,
+ but I talk about in that book.
+ The layers of the link layer,
+ which talk about how to get over one hop.
+ The internet layer, which talks about how to construct,
+ say, 15 or so hops to get packets back and forth.
+ That's the sort of lower level bits.
+ We're going to start at what we call the transport layer,
+ and that's the layer where your computer sort of assumes
+ that it can make a phone call to another computer,
+ another process running on a program on this computer,
+ talks to a program on this computer,
+ and then it kind of comes back, okay?
+ And so, we're going to leave this alone.
+ We're going to ignore it.
+ We're going to assume that there's this nice, reliable pipe
+ that's going from point A to point B,
+ and what are we going to do with the pipe?
+ But if you're interested, take a look at the book.
+ So, we're just going to start with a pipe,
+ some kind of a connection.
+ We have two processes, process, process,
+ and we have some kind of a connection between them,
+ and it is a connection that we can both use
+ to talk and to listen.
+ In nerd terms, we call these things sockets,
+ and that is one process running on one computer,
+ another process running on one computer,
+ another second computer connected through the internet
+ somehow, and one computer speaks into that socket,
+ and it comes out, and the other computer returns something,
+ and it comes, and so this is a bidirectional protocol
+ of data, which is a series of, in effect,
+ data phone calls between applications.
+ So, the application might be, on your side,
+ this might be your browser.
+ Chrome, Firefox, Internet Explorer.
+ On the other side, this is a web server.
+ Might be Internet IIS, Internet something-something
+ from Microsoft, or Apache, or Java Tomcat.
+ There's another program, and you are making phone calls
+ between these programs.
+ Now, in general, these servers here stay up all the time,
+ and you sort of just can make a request
+ when you feel like it in your program,
+ but that's what we're going to do,
+ and this is what we call a socket.
+ So, that little connection, that phone call,
+ that data phone call, is what we call a socket.
+ Now, you have to decide which of the systems
+ you're going to talk to, and then which of the services
+ on those systems, or which process.
+ And so, we have this concept called port numbers,
+ and they're best thought of like extensions on phones.
+ So, one organization has one phone number,
+ and it says, please enter the extension
+ of the party you'd like to talk to.
+ Well, that's kind of what ports are.
+ They're like, here is, I'm a server,
+ and I'm connected to the internet.
+ Please enter the extension of the process
+ that you would like to talk to.
+ And so, for example, there might be processes
+ running on various computers, and so the email's known
+ to hang out on port 25, or extension 25.
+ Login, insecure login lives on port 23.
+ Insecure web lives on 80, insecure web lives on 443,
+ and there's a couple of different protocols.
+ Say, if you have your mail stored on Gmail,
+ and you have a local mail client, say like Thunderbird,
+ or Apple Mail, that talks a protocol
+ to pull that mail across, and those live on various ports.
+ So, these ports are those extensions,
+ and by convention, we have standards that tell us
+ what to roughly expect at those ports.
+ So, when you're talking to port 80,
+ you expect to talk to a web server, or an HTTP server.
+ If you're talking on port 23, you expect to talk
+ to a telnet server, and on and on and on and on.
+ And so, these are the extensions, the typical,
+ commonly used default extensions
+ for various network application processes
+ that are serving us data.
+ Now, sometimes you'll go to a URL,
+ and you'll see in that URL, there's a colon and a number.
+ That means it's a web server that's running on a port
+ other than the official 80 or 443 port.
+ Now, in Python, we can talk to these sockets, right?
+ We can just talk to them, and it's really easy,
+ surprisingly easy.
+ We have to import socket, because that's a library.
+ It comes with Python, but until you can use it,
+ you can't use it in your program until you say it.
+ And then, basically, in the socket library,
+ you call socket function, that's what that syntax is saying.
+ You're making a socket, now the key to a socket,
+ it's sort of like an unopened file handle.
+ It's half of a file handle.
+ It's an outward-looking thing that's not yet connected.
+ These parameters, you're just going to type 'em in.
+ This says we're going to make a socket
+ that goes across the internet, and it's a stream socket,
+ which means that it's a series of characters
+ that come one after another,
+ rather than a series of blocks of text.
+ There's another kind that's harder to deal with,
+ but we're going to do this.
+ So this, don't worry about this line.
+ Just know that this creates a socket,
+ but does not associate it.
+ The very next line, we get back a socket object
+ that I'm storing in the variable mysock,
+ and then when you want to make a connection
+ across the internet to the far end,
+ you say, oh, hey, dear socket,
+ extend yourself across the internet.
+ Make the phone call to this host, data.pr4e.org,
+ and on that port 80.
+ So that's making the phone call.
+ This is like the phone number,
+ and this is like the phone extension.
+ So that's, we haven't sent any data yet.
+ We have simply rung the phone of a process,
+ hopefully living on port 80.
+ If it's there, great.
+ This might blow up.
+ This one here won't blow up,
+ but this line here could blow up.
+ If there's nothing sitting on that process,
+ it would come back and say, oh, you try to call,
+ you got no answer.
+ That's a legitimate thing to happen.
+ Maybe you don't have a network connection,
+ or maybe that service is down on that server,
+ or the whole server's down.
+ So I just, it's kind of amazing
+ that we're sitting here in Python,
+ and in three lines, we have probably
+ a half a million engineers have built this thing
+ called the internet, all these protocols,
+ and all this software,
+ and we just made use of it in three lines of Python.
+ In a case, this is one of the reasons
+ that people absolutely love Python,
+ absolutely love Python.
+ So now that we have a socket,
+ we have to ask ourselves what kind of data
+ are we going to send,
+ and then what kind of data are we going to expect
+ to receive across that socket?
+ (gentle music)
+ (gentle music)

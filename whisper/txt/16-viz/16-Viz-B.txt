@@ -1,0 +1,264 @@
+ - So now we're going to write a search engine,
+ do some of the things, we're going to do page rank
+ and we're going to visualize it in a web browser
+ and show the weights.
+ We're really only going to do page rank on one page
+ because you want to have links that more than one page
+ that points to a page so that you can figure out
+ which pages are more or less important.
+ And then we visualize it.
+ We'll run the page rank algorithm
+ and we'll separately do all this.
+ So at this point we're going to do pretty much the web crawling,
+ the index building, and the searching,
+ we're not going to really search it,
+ we're going to visualize the index.
+ But you could write a simple program
+ to do searches for keywords and figure out which page
+ was the most likely page for a keyword.
+ And that would be a fun additional thing to do.
+ So the web crawler is this program that hits a page,
+ pulls down the HTML, parses the page, looks for links,
+ makes a queue of incoming links
+ that are as yet unretrieved.
+ And I'm going to do this in a simple SQLite database
+ and starts out with, the database basically starts
+ with one link as the starting point
+ and then it retrieves that page
+ and then you see the database end up with
+ lots of unretrieved pages and then it goes back in
+ and picks a random page and retrieves that one
+ and then it just expands and expands.
+ This code that I've built that you're going to play with
+ is only stays on one website, otherwise it would go crazy.
+ And of course Google doesn't use an SQLite database
+ running on your hard drive, but you'll get the idea.
+ You'll see this thing exponentially gain links.
+ And you'll run it for a while,
+ pull down 1,000 web pages or whatever.
+ But of course, make sure that you don't violate
+ any terms, conditions, and again,
+ I've got some data sources that you can use
+ and they're not rate limited,
+ but you can also use things like Wikipedia,
+ which I think they sort of discourage you,
+ or drchuck.com, which has no rate limit,
+ or who knows what, right?
+ So just be careful, don't do this on Facebook
+ and don't do it on Google, don't get yourself in trouble.
+ And if you're using an internet connection
+ where you're paying for bandwidth, be careful.
+ So this is the idea of the web crawler,
+ and this isn't my picture,
+ this is the classic picture of a web crawler.
+ Read a page, parse it, take all the URLs
+ and stick them in a queue, grab again and again.
+ So for us, the scheduler is going to do it as long,
+ you'd say, oh, do 100 pages,
+ or it runs until it blows up.
+ I mean, and again, these processes
+ that have the network in the loop,
+ it's really important that they behave well
+ when they blow up.
+ And that's why databases are so useful,
+ because you can be writing along to the database
+ and some random thing happens and blows your data up
+ and you start over.
+ So you're reading these things, you're storing each page,
+ building up your storage, et cetera, et cetera.
+ So you just keep on doing that.
+ And with this program, you'll be able to retrieve some stuff,
+ then run the page rank, then you can retrieve them more,
+ and then you can run some more page rank,
+ and you can kind of see how Google sort of evolves
+ its index over time.
+ Of course, we're so much simpler.
+ And like I said, be careful when you crawl.
+ You're going to run a crawler that just goes as fast as it can,
+ but Google doesn't do that.
+ It's careful not to overwhelm any websites.
+ It's trying to be smart about the use of your bandwidth
+ on your website.
+ There is a file.
+ Our code won't bother looking at this.
+ But there's a file called robots.txt
+ that real web crawlers look at,
+ and it gives a list of the things
+ you are allowed to look at and not allowed to look at.
+ And so if you go to Google and you see a search that says,
+ we are not allowed to show you the summary text of this page
+ because of the robots.txt, it's there.
+ And you can go and you can actually see a robots.txt,
+ like on, just go to any website, it's at the top root,
+ blah, blah, blah, blah, blah, slash robots.txt.
+ It's not a path, it's not slash this, slash that,
+ slash something else robots.
+ It's at the very, very top of a website.
+ The index building uses the PageRank algorithm.
+ And the whole goal of the PageRank algorithm
+ is to figure out which pages have the most best links.
+ So having the most links is really easy.
+ You can just say how many links go to this.
+ But the problem is, is you got to figure out
+ the value of those links.
+ And then you have to, how do you figure the value
+ of those links by looking at how many good links come to it.
+ So it turns out that it's an infinite problem.
+ It's an infinitely difficult problem to use PageRank.
+ But you can approximate it, and what happens is,
+ after a while, it converges to a reasonable value.
+ And so we're going to run the search index,
+ and each time it runs, you're going to see that it says,
+ how much did these numbers change?
+ And what happens is, in the beginning,
+ they change very wildly, but quickly they flatten out.
+ And it has, the best way to think about the PageRank
+ is think about how water runs,
+ where you have a small little stream going by a house,
+ and sometimes it rains, sometimes it's dry,
+ and sometimes, and there's like a little lake,
+ and the stream is always running.
+ And it doesn't go up, and it doesn't go down.
+ It might go up a little bit if it rains a lot,
+ but in general, they're sort of a steady state,
+ meaning that whatever water's coming in
+ is about the same as the water going out.
+ So we think about this in terms of webpages.
+ The value of the links coming in is roughly the same
+ as the value of links going out.
+ So when that starts to balance the in and the out value
+ from each of the nodes, then you've got a pretty stable.
+ And so what Google does is they have a really
+ relatively stable assessment of goodness and value of pages,
+ and they use that to commute PageRank,
+ and then they throw a few more pages in,
+ and it kind of has to adjust for a while,
+ but it reconverges.
+ And so this is a calculation that generally converges,
+ and it doesn't vary wildly.
+ And that's why Google's pretty good at kind of arriving
+ at the true value of something.
+ So let's take a look at what we're going to do
+ in this application.
+ Again, we have a file that is going to Spider the Web,
+ and we only have one database.
+ Again, in this one, we'll have two databases.
+ In the next one, and so this is Spider,
+ is the restartable part.
+ And what we actually do is we put one URL in,
+ the starting URL, and then Spider walks in and asks,
+ are there any unretrieved pages?
+ And it does that randomly.
+ It sort of picks among the unretrieved pages and says,
+ okay, great, I'll go retrieve that page,
+ and then I'll parse that page,
+ and then I'll put in a bunch of new unretrieved pages,
+ as well as the text of that page
+ and then a bunch of unretrieved pages.
+ And then it'll go back up and it'll say,
+ oh, give me one of the randomly non-retrieved pages,
+ and I'll grab the next page and pull that page down,
+ and then add to it.
+ And so this is like, there's a page and then a to-do list,
+ and then this one becomes a page,
+ and then adds a few more things to the to-do list.
+ And so the to-do list, or the unretrieved URLs,
+ grows very rapidly.
+ And the retrieved ones grow sort of as,
+ you retrieve them one at a time,
+ but you've always got this long list.
+ If you have a really short site that only has like two links,
+ if you start at drchuck.com/page1.htm,
+ it'll go to page two and then go back to page one,
+ and it'll be out of things.
+ It'll have retrieved all of the pages.
+ And so if you have a website that has no external links
+ or has very few pages and they point to each other,
+ this will run out of things to do.
+ But if you go to a page like my blog or the sample stuff
+ that I have up for you to spider for testing
+ on drchuck.net, it'll run for a very long time,
+ and you'll have far more pages to retrieve
+ than pages that you retrieve, but that's okay.
+ At some point, you can stop this.
+ Maybe it stops because you ran out of bandwidth,
+ or maybe your computer went down, or who knows what, right?
+ But it's okay, this is a restartable process,
+ because it always has some pages that are retrieved
+ and some unretrieved pages.
+ You start it back up, it picks randomly
+ from the unretrieved pages.
+ The database is the sort of persistent state of your spider
+ rather than a bunch of dictionaries or lists
+ inside the Python, which go away when the program dies.
+ And so at some point, you have, let's just say,
+ a few hundred pages in here
+ and a few thousand unretrieved pages.
+ You can run the PageRank algorithm.
+ And what the PageRank algorithm does is it loops
+ through all the pages and figure out which pages
+ are linked to which pages, and then reads the numbers,
+ and then updates the numbers, and then does that
+ some number of times.
+ And so this is where the numbers,
+ all the pages sort of start out with goodness of one.
+ I think this printout is showing that goodness of one.
+ And then it changes, and then the goodness goes to,
+ the sum of the goodness goes up to two,
+ sum of the goodness goes to seven, and whatever.
+ But then it does this over and over,
+ and then it uses these numbers, and then they change again.
+ And so there's a number of time steps
+ that this PageRank runs.
+ And you will see, as the PageRank runs,
+ when I show you the code, you'll see the average
+ sort of change in these numbers across all these things,
+ and you'll see that the average goes down very rapidly
+ as you get through.
+ And so usually, with a few hundred or a thousand pages,
+ like 100 plus times you're running this algorithm,
+ and these numbers have converged.
+ And that's when you sort of can begin to trust the numbers.
+ Now there's this one program called SP Reset,
+ which sets all the pages back to one,
+ so you can start this over.
+ So if you were to spider for a while,
+ run SP Rank for a while, play around,
+ and then you wanted to spider some more,
+ and start it over, you could say,
+ oh, let's start the PageRank completely over.
+ Or you could simply take the new pages
+ and watch it adapt, either way.
+ This is just a way to reset all the pages
+ to have sort of their initial value of a goodness of 1.0.
+ So at some point, you run this.
+ This runs really, this part here runs really slow.
+ This part runs super fast, like in the blink of an eye.
+ This one is pretty fast.
+ And then at some point, you've got these pages
+ that have numbers on them.
+ They have values on the pages.
+ And there's a couple of programs
+ that allow us to visualize that.
+ One is the dump, which just reads it and checks to see.
+ It shows the new PageRank, the old PageRank,
+ and various other things, and shows just a way to dump it.
+ And then there's this thing that reads the whole thing.
+ You say, I'd like to do 25 of the best.
+ It sorts it by PageRank, and then produces a JavaScript file
+ that has just the numbers in it.
+ And then there is some HTML and a visualization library
+ called d3.js, which you can read about.
+ That when the HTML starts, it reads this
+ and has this nice force-directed layout of the PageRank.
+ And you can hover over things,
+ and you can see what PageRank you've got.
+ And so that is the PageRank algorithm
+ that we're going to do.
+ And up next, we'll do the largest
+ and most complex of these things,
+ and that is the email.
+ We're going to spider some email,
+ which is about a gigabyte of data.
+ Okay?
+ (light music)

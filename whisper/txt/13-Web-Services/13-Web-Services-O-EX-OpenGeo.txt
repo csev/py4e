@@ -1,0 +1,281 @@
+ [MUSIC]
+ Hello, and welcome to yet another code walkthrough for Python for everybody.
+ In this walkthrough, we're going to play with geocoding,
+ which is really taking a text version of an address and
+ turning it into a well-known, to a location.
+ And we see this all the time on map applications.
+ This map application that I'm using is called Open Street Map.
+ It's an open source, openly maintained.
+ It's a wonderful organization that gives us an alternative
+ to the commercial map companies, like Google Map, who play games with all of us.
+ So I'm a big fan of open source, big fan of open data resources.
+ And so I'm going to search for a place.
+ One of my favorite restaurants in the whole world.
+ And so I'm using a text address.
+ I'm like, where is this thing?
+ And so it found it to me, and it found all this data.
+ We see things like the GPS coordinates or
+ the coordinates of latitude, longitude coordinates here.
+ And there is one of my favorite restaurants in the world.
+ And so the act of going from a text address
+ to a location is called geocoding.
+ It's a super common kind of thing.
+ So we've got a bit of sample code here.
+ And I am going to edit this code.
+ You can get it from www.pyfree.com/code3opengeo.py.
+ And save it to some location so you can edit and play with this bit of code.
+ So I've got it right here.
+ I'm actually editing the master copy.
+ It's in GitHub, so I will be able to fix it.
+ So don't worry about that.
+ So let's do a bit of walkthrough.
+ The API that we're going to be doing is a thing called geoAPI, and it's a company.
+ And they take that OpenStreetMap data and
+ they make it available to us in this geocoding API, for example.
+ This is the thing that we're going to be doing.
+ And so you can see that the idea of geocoding is you take a text,
+ like I've said, a text address.
+ There's all kinds of stuff.
+ You can play with it, you can play, they give these free playgrounds.
+ And so if you look at this, it's not exactly free.
+ There is a free level of it, right?
+ And so you still have to go get an API key.
+ And if you start using it more and more, you got to pay money.
+ And it gets pretty high.
+ So this is 250,000, whatever, 600 bucks a month.
+ So that's where the real API is.
+ But if you take a look at the code, we're not going to hit that API.
+ Because otherwise, you'd have to sign up for account.
+ Although it'd be good exercise, you could definitely use their official API endpoint,
+ if you signed up for an account.
+ But I have given you what I call a heavily rate limited proxy of that.
+ And it means that I've got a copy of it.
+ I've got a database where I cache the most commonly used things.
+ And I use Cloudflare, and we talked about that in the lecture.
+ And it's also super heavily rate limited,
+ which means it slows you down to a crawl if you overuse it.
+ The rate limit is designed to allow you
+ to get what you need done for this class, but not more, okay?
+ So the prefix for this is htppi-free-data-dr-chuck.net, open geo question mark.
+ And then afterwards, you put a Q equals query parameter.
+ And so I've got this.
+ And you see the Q equals, this is just URLs and HTTP.
+ The plus in that is the space, this is called URL encoding.
+ And the percent 2c is URL encoded comma, because you can't just put a comma there.
+ You actually have to take the comma and encode it.
+ But if we click on this click, you will get some JSON, right?
+ And just like we talked about in the lecture.
+ And so in there is all kinds of stuff, right?
+ It's a feature collection, which means it's an array named features.
+ And then you've got the country, you've got the latitude and
+ longitude, which we're going to go after.
+ And then we're going to look at this formatted address, okay?
+ So you can test this in the browser without a key.
+ And so we're going to retrieve this.
+ Now, there's this little bit of stuff that we've got to do.
+ Just don't worry too much about this.
+ And that is, this URL open wants to check sometimes the certificates of the HTTPS.
+ And we want to tell it that we're going to take data even though we,
+ the certificate may not be well known by Python.
+ And that's because Python, last I checked,
+ doesn't ship with a ton of well known certificates.
+ It's a long story.
+ So just here's some code for you.
+ This is basically saying we're not going to verify the certificate.
+ Now, if we look at the certificate of this, you can actually see that this is
+ a secure content verified and it's a CloudFlare certificate.
+ And here's some more information about it, blah, blah, blah, blah, blah, blah.
+ And so what we're saying is we're telling Python not to look too closely at this
+ stuff because we're just reading it.
+ I mean, you probably would want to solve this if you were doing production, but
+ for us, this is just a quick way we do it.
+ Okay, so I make a big while loop and I ask for a location.
+ If I just press Enter, it's going to break.
+ And I strip it.
+ And then I create a dictionary in order to do this Q equals thing, right?
+ This little Q equals thing.
+ Now, I could sort of change the space to a plus.
+ I could change the comma to a percent to C.
+ Or I could call a library called urllab_parse_url_encode_parms,
+ which takes a key value pair in a dictionary.
+ So Q equals address.
+ And that does all the fancy stuff.
+ So I print it, and then I use urllab_request_open with that URL.
+ Context equals CTX.
+ Ignore any certificate problems.
+ And then read the data from the URL.
+ Now, if we look at the raw data, let me retrieve this again.
+ If you look at the raw data, this is actually what it looks like, okay?
+ It's very compact and dense, doesn't have a lot of spaces.
+ Pretty printing, as we well know, says, let's throw some spaces in so
+ at least we can figure out what's going on.
+ And then there's this JSON viewer, which is not really what's coming back, but
+ you can show and hide things in this JSON viewer.
+ That's okay, I guess, but I like to see the raw data.
+ I do like it pretty printed.
+ So in this particular browser, which I'm using as Firefox,
+ when it sees JSON, it gives you some options as to what is supposed to work.
+ Now, this decode, we've talked about this before.
+ The data on the web that we just got, this data, is in UTF-8.
+ And that's because there could be all kinds of characters in here
+ that are not simple ASCII characters, so the web pretty much uses UTF-8.
+ So when we get a read, that is UTF-8, right?
+ We've read data from the Internet, and it's a UTF-8 data.
+ Decode says, okay, look at it, make sure it's UTF-8, and
+ then give it back to me in the form of a Python string data, which is Unicode.
+ And so Unicode is not the same as UTF-8.
+ Unicode is how we manipulate things inside Python.
+ So by making everything Python, everything Unicode in Python,
+ it all works inside Python.
+ You can encode it and decode it when you move it out and back in.
+ So then we say how many characters we got, and then we parse it.
+ So JSON load s is a parse, it might fail.
+ And then we look for sort of a sanity check to make sure if features,
+ the features thing is in there.
+ So that's looking for this thing, like just checking if it exists.
+ And if you look at features, features is an array.
+ And so for sanity, we also say, hey, we only got one back.
+ Now in this Ann Arbor example, it's going to work.
+ But if you put something in, this sanity checking may or may not sort of work.
+ So what I'm going to do is, well, let's just run it.
+ I'll just run it without uncommenting anything.
+ So let's come back here, and I'm going to say python opengeo.py.
+ And I'm going to type Ann Arbor, Michigan.
+ So it's retrieving it.
+ I mistyped it.
+ So you see the rate limiting in action.
+ So it figured out that I typoed, and it went and found Ann Arbor, Michigan.
+ It found the real place, right?
+ And that's part of what you do.
+ This geocoding is kind of a search engine.
+ I made a mistake.
+ Now you'll notice it's a lot quicker if I type it right, cuz it already has it.
+ And so it rate limits things, see how fast that was?
+ That's the proxies working.
+ So in that first one when I typed it wrong, the proxy was actively slowing you down.
+ And I'm like, my code's broken.
+ But it was actively slowing me down, because it was mad at me, cuz I was asking for
+ too many things.
+ But then it doesn't rate limit you on things that it already has,
+ which are cheap for it, cuz it's all very well proxy.
+ But we retrieved the data, we got 1319 characters.
+ We figured I'll parse the latitude and the longitude.
+ See, we print that out, and then we got the location, right?
+ And so now let's, I can't think of a better way to describe it.
+ We're just going to delete a bunch of working code.
+ I'm going to delete this, I'm going to delete this.
+ And I'm going to say lat equals 42,
+ lon equals 42, and location equals jerk pit.
+ So now what I did is I hit, all that code that looked really cool is gone now.
+ So if I run it again, I can say Ann Arbor, Michigan, oops.
+ See, you got to download enter.
+ It was like, I don't know what that is.
+ So it was unhappy, but you'll notice this download error code checked cuz I was
+ typing in cursors and keys and weird things and it was not happy.
+ So let's do it again.
+ I wonder what would trigger that in this.
+ So now you see we're running, but we are not looking at the latitude and
+ the longitude.
+ So let me show you how I build this code.
+ So the first thing I'm going to do is I'm just going to print this stuff.
+ And so we're going to see it.
+ And so now this is that same data that we saw in the browser, right?
+ And so what I want out of this data, and it takes a while to figure it out,
+ is I want this lat and this lon value, okay?
+ And I can kind of guess what this is, but I'll show you how I work through it.
+ So I look at this and I say, okay, the outer thing that I want is features.
+ So this is an outer dictionary, basically, features.
+ And so I'm going to, that's in this variable js, that's a dictionary variable.
+ So if I say print js sub features.
+ So what I'm doing is I'm going to comment this part out and
+ we're going to indent that, I got to put a close curly brace there.
+ Comment indent equals four.
+ So what I'm going to do is I'm going to work out in.
+ So originally I was dumping js, now I'm going to dump js of features.
+ And so I'm going to save that, and I'm going to, I got to keep running it.
+ Yeah, cuz I didn't type it correct.
+ Doobie doobie doo, I got an extra parenthesis.
+ And I put a semicolon in cuz I've written too much java in javascript in my life and
+ I can't help it.
+ I got to add the json dump pass, here we go.
+ I should've just copied that previous line.
+ So now I got to dig in one level and then I just got to pre-print it.
+ So that's json dump s with an indent of four.
+ Okay, so now what you see.
+ It seems subtle, but I went in and now the only thing I'm seeing is the array.
+ Okay, so in this array, Okay.
+ There's the zero with object or the zero with dictionary in this array.
+ So now what I'm going to do is I'm going to make a tiny change here cuz the thing that
+ came back from js of features is an array.
+ And I'm going to grab the first item in that array.
+ So what you're going to notice next time is we're going to, this is going to be the outer
+ bit cuz we went into this array sub zero.
+ Okay, so you see the outer thing is now a dictionary and it is of type feature.
+ I mean, one of the keys is type and one of the keys is properties.
+ Now we want the stuff inside properties.
+ So what we're printing here.
+ That we want to go into the key within that dictionary.
+ So we have a dictionary, but we have an array sub zero,
+ which returns a dictionary and now we're going to get the sub properties.
+ And this seemed kind of slow, but it is going to finish.
+ Okay, so now what we have is we have a dictionary.
+ That long string now is a dictionary, let me move this over.
+ That long string is a dictionary and within that dictionary there is a lawn.
+ And a lat.
+ So now just for testing, I'm going to say, look up in that dictionary, a lawn.
+ So I'm going to run it again now.
+ So now we see that the actual thing we retrieved using this
+ whole thing was the number that is the longitude.
+ And so now what I'm going to do, I've gotten this far, and
+ now what I'm going to do is instead of the longitude being 42,
+ that's what the lawn is going to look up, right?
+ And we can pretty much say that the lat is going to be the lat.
+ So we're going to now, I think, be able to look up lawn and lat.
+ Oops.
+ So now the lat and long are correct.
+ Now I kind of forgot.
+ So I'm going to take this off the print statement, the debug print, and run it again.
+ Okay, so we found the lat and the lawn.
+ Now I went up now, so I'm not printing long and lat.
+ Okay, that's easy.
+ It's just formatted.
+ The key inside the properties is formatted.
+ So now what I can do is I can find the location by grabbing this.
+ And just look up formatted.
+ So I'll just comment this little bit out temporarily.
+ And oops, I just hit Ctrl+C.
+ And arbor michigan.
+ So now I'm getting the formatted address, I'm getting the latitude, and
+ I'm getting the longitude.
+ And so when we started, I had code that pretty much looked like this.
+ It was a little bit different order.
+ And you saw me sort of successively dig hierarchically into this.
+ Now if you know, it's like, okay, here we go.
+ It's an outer dictionary, sub features.
+ It's an array, sub zero, features sub zero, and then sub properties, sub lat.
+ Now you might just figure that out and immediately derive this long thing.
+ I'll just say that every time I try to do that, I mess it up.
+ One tiny little mistake.
+ And let's just say you missed on this, I'll just make a mistake here.
+ So you just said, I got that first entry in features, and
+ I'm just going to go into lat.
+ So that means that you're going to go straight into lat, and
+ you're going to see what happens then.
+ Boom.
+ So what it's saying is there is no key lat, and
+ that's because you're in js feature sub zero, sub lat.
+ And again, it's easy because I made the mistake, I knew it.
+ So the zero, this is the sub zero, and I thought that lat was in this object, but
+ it's not.
+ You have to go into one more dictionary deep in the properties dictionary,
+ then you can go to lat.
+ And that's why this one works, because I kind of dive into the properties.
+ Now I think I can get that back, save me some time.
+ And now it should work again.
+ Okay, so we're working.
+ So I hope you found this interesting, geocoding is just fun.
+ Later in the course, we will make a map and do kind of a batch geocoding.
+ Use a database, etc, and then make a map, and that's kind of cool.
+ And you can place yourself on the map, or a place you know on the map.
+ So I hope you enjoyed this, cheers.
+ [MUSIC]

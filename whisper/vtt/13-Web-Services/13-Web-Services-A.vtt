@@ -1,0 +1,176 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.160
+ - Hello and welcome to Chapter 13, Web Services.
+
+00:00:03.160 --> 00:00:05.840
+ So what we've been doing so far is we've been using
+
+00:00:05.840 --> 00:00:08.420
+ the request-response cycle, we've learned about sockets,
+
+00:00:08.420 --> 00:00:11.020
+ we've learned about URL lib, and we've actually learned
+
+00:00:11.020 --> 00:00:14.920
+ how to pull HTML and even flat text off the internet.
+
+00:00:14.920 --> 00:00:17.440
+ But what we're going to talk about now is using that same
+
+00:00:17.440 --> 00:00:20.520
+ request-response cycle to retrieve information
+
+00:00:20.520 --> 00:00:24.580
+ that is specifically designed for programmatic consumption
+
+00:00:24.580 --> 00:00:27.320
+ so that we had to have this beautiful soup
+
+00:00:27.320 --> 00:00:31.980
+ which sort of did a hack job or solve the hard problem
+
+00:00:31.980 --> 00:00:35.700
+ of parsing HTML, but why not produce data in a format
+
+00:00:35.700 --> 00:00:38.160
+ that makes good sense to a program because programs
+
+00:00:38.160 --> 00:00:39.500
+ want to talk to each other.
+
+00:00:39.500 --> 00:00:42.260
+ If you recall, the whole idea of a socket is to have
+
+00:00:42.260 --> 00:00:45.060
+ one application process sending data
+
+00:00:45.060 --> 00:00:47.360
+ to another application process.
+
+00:00:47.360 --> 00:00:51.060
+ And so if we think about this for a moment and we realize
+
+00:00:51.060 --> 00:00:53.920
+ that we have all these programs, they could be written
+
+00:00:53.920 --> 00:00:56.640
+ in different programming languages and they're all connected.
+
+00:00:56.640 --> 00:00:59.040
+ And so they might want to send data back and forth
+
+00:00:59.040 --> 00:01:03.120
+ through the network, PHP programs, JavaScript programs,
+
+00:01:03.120 --> 00:01:07.860
+ Java programs, and so we have to decide on a protocol
+
+00:01:07.860 --> 00:01:10.000
+ that is independent of any programming language,
+
+00:01:10.000 --> 00:01:12.680
+ and then we call that the wire protocol because if you were
+
+00:01:12.680 --> 00:01:15.800
+ to sort of take some connection and watch the exact
+
+00:01:15.800 --> 00:01:18.560
+ characters that go back and forth, that's what you would see
+
+00:01:18.560 --> 00:01:20.560
+ if you were monitoring the wire.
+
+00:01:20.560 --> 00:01:23.220
+ So that's why we call that the wire protocol.
+
+00:01:23.220 --> 00:01:28.120
+ And so the idea is, is that we have to agree on a format
+
+00:01:28.120 --> 00:01:30.160
+ that is going to represent the data and we can't make it
+
+00:01:30.160 --> 00:01:33.300
+ a Python-specific format or a Java format.
+
+00:01:33.300 --> 00:01:37.260
+ And when we take the data from the internal representation,
+
+00:01:37.260 --> 00:01:39.780
+ maybe a Python dictionary, to send it to the wire,
+
+00:01:39.780 --> 00:01:42.320
+ we call that act serialization and that is going from
+
+00:01:42.320 --> 00:01:44.920
+ sort of the internal representation to the serial
+
+00:01:44.920 --> 00:01:47.280
+ representation or the wire representation.
+
+00:01:47.280 --> 00:01:50.640
+ And then here is an example of a person with a name
+
+00:01:50.640 --> 00:01:53.440
+ and phone number with using less than and greater than,
+
+00:01:53.440 --> 00:01:56.200
+ this is an XML example, and then in the far end
+
+00:01:56.200 --> 00:01:58.200
+ in a different programming language, it receives this
+
+00:01:58.200 --> 00:02:01.240
+ and then deserializes it and then turns it into some
+
+00:02:01.240 --> 00:02:04.320
+ useful structure inside that programming language.
+
+00:02:04.320 --> 00:02:07.560
+ And so this is an example of a wire protocol
+
+00:02:07.560 --> 00:02:09.880
+ that's using XML and that's one of the formats
+
+00:02:09.880 --> 00:02:11.580
+ we're going to talk about.
+
+00:02:11.580 --> 00:02:14.600
+ Another format that we're going to talk about is a format
+
+00:02:14.600 --> 00:02:18.920
+ called JSON, JavaScript Object Notation, and it is simpler
+
+00:02:18.920 --> 00:02:23.260
+ and easier, but it's not as precise and descriptive
+
+00:02:23.260 --> 00:02:24.100
+ as XML is.
+
+00:02:24.100 --> 00:02:26.280
+ And so while you'll find that most of the things
+
+00:02:26.280 --> 00:02:28.480
+ you run into, especially if you're talking to APIs
+
+00:02:28.480 --> 00:02:31.400
+ of one form or another, you'll find that JSON
+
+00:02:31.400 --> 00:02:34.400
+ is very common, XML still holds sway
+
+00:02:34.400 --> 00:02:35.600
+ in places like documents.
+
+00:02:35.600 --> 00:02:38.960
+ So if you look at docx at the end of a Microsoft Word
+
+00:02:38.960 --> 00:02:42.560
+ document, docx means that it's an XML version
+
+00:02:42.560 --> 00:02:46.240
+ of the representation of a word processing document.
+
+00:02:46.240 --> 00:02:48.620
+ So the first thing we'll talk about is XML.
+

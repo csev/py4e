@@ -1,0 +1,794 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.920
+ - So now we're going to write a search engine,
+
+00:00:02.920 --> 00:00:04.920
+ do some of the things, we're going to do page rank
+
+00:00:04.920 --> 00:00:07.700
+ and we're going to visualize it in a web browser
+
+00:00:07.700 --> 00:00:09.060
+ and show the weights.
+
+00:00:09.060 --> 00:00:11.520
+ We're really only going to do page rank on one page
+
+00:00:11.520 --> 00:00:14.420
+ because you want to have links that more than one page
+
+00:00:14.420 --> 00:00:16.780
+ that points to a page so that you can figure out
+
+00:00:16.780 --> 00:00:19.080
+ which pages are more or less important.
+
+00:00:19.080 --> 00:00:20.080
+ And then we visualize it.
+
+00:00:20.080 --> 00:00:21.320
+ We'll run the page rank algorithm
+
+00:00:21.320 --> 00:00:23.220
+ and we'll separately do all this.
+
+00:00:23.220 --> 00:00:26.100
+ So at this point we're going to do pretty much the web crawling,
+
+00:00:26.100 --> 00:00:27.420
+ the index building, and the searching,
+
+00:00:27.420 --> 00:00:28.460
+ we're not going to really search it,
+
+00:00:28.460 --> 00:00:30.220
+ we're going to visualize the index.
+
+00:00:30.220 --> 00:00:32.540
+ But you could write a simple program
+
+00:00:32.540 --> 00:00:34.860
+ to do searches for keywords and figure out which page
+
+00:00:34.860 --> 00:00:36.620
+ was the most likely page for a keyword.
+
+00:00:36.620 --> 00:00:39.980
+ And that would be a fun additional thing to do.
+
+00:00:39.980 --> 00:00:43.500
+ So the web crawler is this program that hits a page,
+
+00:00:43.500 --> 00:00:46.620
+ pulls down the HTML, parses the page, looks for links,
+
+00:00:46.620 --> 00:00:48.520
+ makes a queue of incoming links
+
+00:00:48.520 --> 00:00:50.300
+ that are as yet unretrieved.
+
+00:00:50.300 --> 00:00:53.500
+ And I'm going to do this in a simple SQLite database
+
+00:00:53.500 --> 00:00:56.100
+ and starts out with, the database basically starts
+
+00:00:56.100 --> 00:00:57.980
+ with one link as the starting point
+
+00:00:57.980 --> 00:00:59.220
+ and then it retrieves that page
+
+00:00:59.220 --> 00:01:01.460
+ and then you see the database end up with
+
+00:01:01.460 --> 00:01:03.660
+ lots of unretrieved pages and then it goes back in
+
+00:01:03.660 --> 00:01:05.660
+ and picks a random page and retrieves that one
+
+00:01:05.660 --> 00:01:08.420
+ and then it just expands and expands.
+
+00:01:08.420 --> 00:01:10.660
+ This code that I've built that you're going to play with
+
+00:01:10.660 --> 00:01:14.020
+ is only stays on one website, otherwise it would go crazy.
+
+00:01:14.020 --> 00:01:16.380
+ And of course Google doesn't use an SQLite database
+
+00:01:16.380 --> 00:01:19.060
+ running on your hard drive, but you'll get the idea.
+
+00:01:19.060 --> 00:01:23.340
+ You'll see this thing exponentially gain links.
+
+00:01:23.340 --> 00:01:24.700
+ And you'll run it for a while,
+
+00:01:24.700 --> 00:01:27.460
+ pull down 1,000 web pages or whatever.
+
+00:01:27.460 --> 00:01:31.660
+ But of course, make sure that you don't violate
+
+00:01:31.660 --> 00:01:33.180
+ any terms, conditions, and again,
+
+00:01:33.180 --> 00:01:36.860
+ I've got some data sources that you can use
+
+00:01:36.860 --> 00:01:38.780
+ and they're not rate limited,
+
+00:01:38.780 --> 00:01:41.220
+ but you can also use things like Wikipedia,
+
+00:01:41.220 --> 00:01:43.100
+ which I think they sort of discourage you,
+
+00:01:43.100 --> 00:01:45.260
+ or drchuck.com, which has no rate limit,
+
+00:01:45.260 --> 00:01:47.340
+ or who knows what, right?
+
+00:01:47.340 --> 00:01:49.980
+ So just be careful, don't do this on Facebook
+
+00:01:49.980 --> 00:01:52.820
+ and don't do it on Google, don't get yourself in trouble.
+
+00:01:52.820 --> 00:01:57.820
+ And if you're using an internet connection
+
+00:01:57.820 --> 00:02:01.060
+ where you're paying for bandwidth, be careful.
+
+00:02:01.060 --> 00:02:02.940
+ So this is the idea of the web crawler,
+
+00:02:02.940 --> 00:02:03.980
+ and this isn't my picture,
+
+00:02:03.980 --> 00:02:06.380
+ this is the classic picture of a web crawler.
+
+00:02:06.380 --> 00:02:10.140
+ Read a page, parse it, take all the URLs
+
+00:02:10.140 --> 00:02:13.700
+ and stick them in a queue, grab again and again.
+
+00:02:13.700 --> 00:02:16.100
+ So for us, the scheduler is going to do it as long,
+
+00:02:16.100 --> 00:02:18.060
+ you'd say, oh, do 100 pages,
+
+00:02:18.060 --> 00:02:19.380
+ or it runs until it blows up.
+
+00:02:19.380 --> 00:02:21.620
+ I mean, and again, these processes
+
+00:02:21.620 --> 00:02:23.380
+ that have the network in the loop,
+
+00:02:23.380 --> 00:02:25.860
+ it's really important that they behave well
+
+00:02:25.860 --> 00:02:26.700
+ when they blow up.
+
+00:02:26.700 --> 00:02:28.220
+ And that's why databases are so useful,
+
+00:02:28.220 --> 00:02:30.020
+ because you can be writing along to the database
+
+00:02:30.020 --> 00:02:34.400
+ and some random thing happens and blows your data up
+
+00:02:34.400 --> 00:02:35.240
+ and you start over.
+
+00:02:35.240 --> 00:02:37.980
+ So you're reading these things, you're storing each page,
+
+00:02:37.980 --> 00:02:40.100
+ building up your storage, et cetera, et cetera.
+
+00:02:40.100 --> 00:02:41.840
+ So you just keep on doing that.
+
+00:02:41.840 --> 00:02:44.900
+ And with this program, you'll be able to retrieve some stuff,
+
+00:02:44.900 --> 00:02:46.860
+ then run the page rank, then you can retrieve them more,
+
+00:02:46.860 --> 00:02:48.160
+ and then you can run some more page rank,
+
+00:02:48.160 --> 00:02:51.820
+ and you can kind of see how Google sort of evolves
+
+00:02:51.820 --> 00:02:53.220
+ its index over time.
+
+00:02:53.220 --> 00:02:55.380
+ Of course, we're so much simpler.
+
+00:02:55.380 --> 00:02:59.180
+ And like I said, be careful when you crawl.
+
+00:02:59.180 --> 00:03:03.060
+ You're going to run a crawler that just goes as fast as it can,
+
+00:03:03.060 --> 00:03:04.140
+ but Google doesn't do that.
+
+00:03:04.140 --> 00:03:07.060
+ It's careful not to overwhelm any websites.
+
+00:03:07.060 --> 00:03:09.860
+ It's trying to be smart about the use of your bandwidth
+
+00:03:09.860 --> 00:03:11.020
+ on your website.
+
+00:03:11.020 --> 00:03:13.620
+ There is a file.
+
+00:03:13.620 --> 00:03:16.460
+ Our code won't bother looking at this.
+
+00:03:18.980 --> 00:03:20.900
+ But there's a file called robots.txt
+
+00:03:20.900 --> 00:03:22.460
+ that real web crawlers look at,
+
+00:03:22.460 --> 00:03:23.980
+ and it gives a list of the things
+
+00:03:23.980 --> 00:03:26.900
+ you are allowed to look at and not allowed to look at.
+
+00:03:26.900 --> 00:03:29.340
+ And so if you go to Google and you see a search that says,
+
+00:03:29.340 --> 00:03:33.020
+ we are not allowed to show you the summary text of this page
+
+00:03:33.020 --> 00:03:35.660
+ because of the robots.txt, it's there.
+
+00:03:35.660 --> 00:03:40.220
+ And you can go and you can actually see a robots.txt,
+
+00:03:40.220 --> 00:03:43.820
+ like on, just go to any website, it's at the top root,
+
+00:03:43.820 --> 00:03:46.940
+ blah, blah, blah, blah, blah, slash robots.txt.
+
+00:03:46.940 --> 00:03:49.260
+ It's not a path, it's not slash this, slash that,
+
+00:03:49.260 --> 00:03:50.820
+ slash something else robots.
+
+00:03:50.820 --> 00:03:53.300
+ It's at the very, very top of a website.
+
+00:03:53.300 --> 00:03:56.900
+ The index building uses the PageRank algorithm.
+
+00:03:56.900 --> 00:03:58.740
+ And the whole goal of the PageRank algorithm
+
+00:03:58.740 --> 00:04:03.740
+ is to figure out which pages have the most best links.
+
+00:04:03.740 --> 00:04:08.700
+ So having the most links is really easy.
+
+00:04:08.700 --> 00:04:10.500
+ You can just say how many links go to this.
+
+00:04:10.500 --> 00:04:12.140
+ But the problem is, is you got to figure out
+
+00:04:12.140 --> 00:04:13.460
+ the value of those links.
+
+00:04:13.460 --> 00:04:15.100
+ And then you have to, how do you figure the value
+
+00:04:15.100 --> 00:04:20.100
+ of those links by looking at how many good links come to it.
+
+00:04:20.100 --> 00:04:23.060
+ So it turns out that it's an infinite problem.
+
+00:04:23.060 --> 00:04:27.140
+ It's an infinitely difficult problem to use PageRank.
+
+00:04:27.140 --> 00:04:29.820
+ But you can approximate it, and what happens is,
+
+00:04:29.820 --> 00:04:34.260
+ after a while, it converges to a reasonable value.
+
+00:04:34.260 --> 00:04:36.300
+ And so we're going to run the search index,
+
+00:04:36.300 --> 00:04:39.460
+ and each time it runs, you're going to see that it says,
+
+00:04:39.460 --> 00:04:41.180
+ how much did these numbers change?
+
+00:04:41.180 --> 00:04:42.940
+ And what happens is, in the beginning,
+
+00:04:42.940 --> 00:04:46.140
+ they change very wildly, but quickly they flatten out.
+
+00:04:46.140 --> 00:04:50.940
+ And it has, the best way to think about the PageRank
+
+00:04:50.940 --> 00:04:56.180
+ is think about how water runs,
+
+00:04:56.180 --> 00:05:01.180
+ where you have a small little stream going by a house,
+
+00:05:01.180 --> 00:05:05.420
+ and sometimes it rains, sometimes it's dry,
+
+00:05:05.420 --> 00:05:10.420
+ and sometimes, and there's like a little lake,
+
+00:05:10.420 --> 00:05:12.700
+ and the stream is always running.
+
+00:05:12.700 --> 00:05:14.420
+ And it doesn't go up, and it doesn't go down.
+
+00:05:14.420 --> 00:05:16.220
+ It might go up a little bit if it rains a lot,
+
+00:05:16.220 --> 00:05:18.860
+ but in general, they're sort of a steady state,
+
+00:05:18.860 --> 00:05:20.940
+ meaning that whatever water's coming in
+
+00:05:20.940 --> 00:05:23.640
+ is about the same as the water going out.
+
+00:05:23.640 --> 00:05:26.220
+ So we think about this in terms of webpages.
+
+00:05:26.220 --> 00:05:30.020
+ The value of the links coming in is roughly the same
+
+00:05:30.020 --> 00:05:31.380
+ as the value of links going out.
+
+00:05:31.380 --> 00:05:35.060
+ So when that starts to balance the in and the out value
+
+00:05:35.060 --> 00:05:38.940
+ from each of the nodes, then you've got a pretty stable.
+
+00:05:38.940 --> 00:05:41.620
+ And so what Google does is they have a really
+
+00:05:41.620 --> 00:05:45.460
+ relatively stable assessment of goodness and value of pages,
+
+00:05:45.460 --> 00:05:47.220
+ and they use that to commute PageRank,
+
+00:05:47.220 --> 00:05:48.820
+ and then they throw a few more pages in,
+
+00:05:48.820 --> 00:05:50.740
+ and it kind of has to adjust for a while,
+
+00:05:50.740 --> 00:05:51.660
+ but it reconverges.
+
+00:05:51.660 --> 00:05:55.800
+ And so this is a calculation that generally converges,
+
+00:05:55.800 --> 00:05:58.100
+ and it doesn't vary wildly.
+
+00:05:58.100 --> 00:06:01.940
+ And that's why Google's pretty good at kind of arriving
+
+00:06:01.940 --> 00:06:03.420
+ at the true value of something.
+
+00:06:03.420 --> 00:06:05.660
+ So let's take a look at what we're going to do
+
+00:06:05.660 --> 00:06:07.440
+ in this application.
+
+00:06:07.440 --> 00:06:12.440
+ Again, we have a file that is going to Spider the Web,
+
+00:06:12.440 --> 00:06:15.340
+ and we only have one database.
+
+00:06:15.340 --> 00:06:17.100
+ Again, in this one, we'll have two databases.
+
+00:06:17.100 --> 00:06:20.700
+ In the next one, and so this is Spider,
+
+00:06:20.700 --> 00:06:22.400
+ is the restartable part.
+
+00:06:22.400 --> 00:06:25.460
+ And what we actually do is we put one URL in,
+
+00:06:25.460 --> 00:06:29.660
+ the starting URL, and then Spider walks in and asks,
+
+00:06:29.660 --> 00:06:31.660
+ are there any unretrieved pages?
+
+00:06:31.660 --> 00:06:33.040
+ And it does that randomly.
+
+00:06:33.040 --> 00:06:35.340
+ It sort of picks among the unretrieved pages and says,
+
+00:06:35.340 --> 00:06:37.740
+ okay, great, I'll go retrieve that page,
+
+00:06:37.740 --> 00:06:39.100
+ and then I'll parse that page,
+
+00:06:39.100 --> 00:06:42.940
+ and then I'll put in a bunch of new unretrieved pages,
+
+00:06:42.940 --> 00:06:44.520
+ as well as the text of that page
+
+00:06:44.520 --> 00:06:46.820
+ and then a bunch of unretrieved pages.
+
+00:06:46.820 --> 00:06:48.980
+ And then it'll go back up and it'll say,
+
+00:06:48.980 --> 00:06:51.460
+ oh, give me one of the randomly non-retrieved pages,
+
+00:06:51.460 --> 00:06:53.580
+ and I'll grab the next page and pull that page down,
+
+00:06:53.580 --> 00:06:54.700
+ and then add to it.
+
+00:06:54.700 --> 00:06:58.300
+ And so this is like, there's a page and then a to-do list,
+
+00:06:58.300 --> 00:06:59.900
+ and then this one becomes a page,
+
+00:06:59.900 --> 00:07:01.940
+ and then adds a few more things to the to-do list.
+
+00:07:01.940 --> 00:07:04.660
+ And so the to-do list, or the unretrieved URLs,
+
+00:07:04.660 --> 00:07:06.240
+ grows very rapidly.
+
+00:07:06.240 --> 00:07:10.400
+ And the retrieved ones grow sort of as,
+
+00:07:10.400 --> 00:07:11.620
+ you retrieve them one at a time,
+
+00:07:11.620 --> 00:07:13.860
+ but you've always got this long list.
+
+00:07:13.860 --> 00:07:16.260
+ If you have a really short site that only has like two links,
+
+00:07:16.260 --> 00:07:20.620
+ if you start at drchuck.com/page1.htm,
+
+00:07:20.620 --> 00:07:22.420
+ it'll go to page two and then go back to page one,
+
+00:07:22.420 --> 00:07:23.260
+ and it'll be out of things.
+
+00:07:23.260 --> 00:07:25.620
+ It'll have retrieved all of the pages.
+
+00:07:25.620 --> 00:07:27.860
+ And so if you have a website that has no external links
+
+00:07:27.860 --> 00:07:30.260
+ or has very few pages and they point to each other,
+
+00:07:30.260 --> 00:07:32.460
+ this will run out of things to do.
+
+00:07:32.460 --> 00:07:37.460
+ But if you go to a page like my blog or the sample stuff
+
+00:07:37.460 --> 00:07:40.060
+ that I have up for you to spider for testing
+
+00:07:40.060 --> 00:07:43.940
+ on drchuck.net, it'll run for a very long time,
+
+00:07:43.940 --> 00:07:46.220
+ and you'll have far more pages to retrieve
+
+00:07:46.220 --> 00:07:48.340
+ than pages that you retrieve, but that's okay.
+
+00:07:48.340 --> 00:07:50.940
+ At some point, you can stop this.
+
+00:07:50.940 --> 00:07:52.680
+ Maybe it stops because you ran out of bandwidth,
+
+00:07:52.680 --> 00:07:55.780
+ or maybe your computer went down, or who knows what, right?
+
+00:07:55.780 --> 00:07:57.940
+ But it's okay, this is a restartable process,
+
+00:07:57.940 --> 00:08:00.340
+ because it always has some pages that are retrieved
+
+00:08:00.340 --> 00:08:01.740
+ and some unretrieved pages.
+
+00:08:01.740 --> 00:08:03.400
+ You start it back up, it picks randomly
+
+00:08:03.400 --> 00:08:04.860
+ from the unretrieved pages.
+
+00:08:04.860 --> 00:08:09.300
+ The database is the sort of persistent state of your spider
+
+00:08:09.300 --> 00:08:11.300
+ rather than a bunch of dictionaries or lists
+
+00:08:11.300 --> 00:08:14.100
+ inside the Python, which go away when the program dies.
+
+00:08:14.100 --> 00:08:17.820
+ And so at some point, you have, let's just say,
+
+00:08:17.820 --> 00:08:19.100
+ a few hundred pages in here
+
+00:08:19.100 --> 00:08:21.480
+ and a few thousand unretrieved pages.
+
+00:08:21.480 --> 00:08:23.620
+ You can run the PageRank algorithm.
+
+00:08:23.620 --> 00:08:25.500
+ And what the PageRank algorithm does is it loops
+
+00:08:25.500 --> 00:08:27.320
+ through all the pages and figure out which pages
+
+00:08:27.320 --> 00:08:30.160
+ are linked to which pages, and then reads the numbers,
+
+00:08:30.160 --> 00:08:32.760
+ and then updates the numbers, and then does that
+
+00:08:32.760 --> 00:08:34.660
+ some number of times.
+
+00:08:34.660 --> 00:08:35.940
+ And so this is where the numbers,
+
+00:08:35.940 --> 00:08:38.540
+ all the pages sort of start out with goodness of one.
+
+00:08:38.540 --> 00:08:41.700
+ I think this printout is showing that goodness of one.
+
+00:08:41.700 --> 00:08:45.100
+ And then it changes, and then the goodness goes to,
+
+00:08:45.100 --> 00:08:46.740
+ the sum of the goodness goes up to two,
+
+00:08:46.740 --> 00:08:49.260
+ sum of the goodness goes to seven, and whatever.
+
+00:08:49.260 --> 00:08:50.760
+ But then it does this over and over,
+
+00:08:50.760 --> 00:08:53.140
+ and then it uses these numbers, and then they change again.
+
+00:08:53.140 --> 00:08:55.440
+ And so there's a number of time steps
+
+00:08:55.440 --> 00:08:57.100
+ that this PageRank runs.
+
+00:08:57.100 --> 00:08:59.620
+ And you will see, as the PageRank runs,
+
+00:08:59.620 --> 00:09:03.260
+ when I show you the code, you'll see the average
+
+00:09:03.260 --> 00:09:06.980
+ sort of change in these numbers across all these things,
+
+00:09:06.980 --> 00:09:09.960
+ and you'll see that the average goes down very rapidly
+
+00:09:09.960 --> 00:09:10.800
+ as you get through.
+
+00:09:10.800 --> 00:09:13.640
+ And so usually, with a few hundred or a thousand pages,
+
+00:09:13.640 --> 00:09:16.780
+ like 100 plus times you're running this algorithm,
+
+00:09:16.780 --> 00:09:19.340
+ and these numbers have converged.
+
+00:09:19.340 --> 00:09:22.100
+ And that's when you sort of can begin to trust the numbers.
+
+00:09:22.100 --> 00:09:24.180
+ Now there's this one program called SP Reset,
+
+00:09:24.180 --> 00:09:26.820
+ which sets all the pages back to one,
+
+00:09:26.820 --> 00:09:28.460
+ so you can start this over.
+
+00:09:28.460 --> 00:09:30.640
+ So if you were to spider for a while,
+
+00:09:30.640 --> 00:09:32.820
+ run SP Rank for a while, play around,
+
+00:09:32.820 --> 00:09:34.780
+ and then you wanted to spider some more,
+
+00:09:34.780 --> 00:09:36.380
+ and start it over, you could say,
+
+00:09:36.380 --> 00:09:38.600
+ oh, let's start the PageRank completely over.
+
+00:09:38.600 --> 00:09:41.700
+ Or you could simply take the new pages
+
+00:09:41.700 --> 00:09:44.540
+ and watch it adapt, either way.
+
+00:09:44.540 --> 00:09:46.660
+ This is just a way to reset all the pages
+
+00:09:46.660 --> 00:09:50.940
+ to have sort of their initial value of a goodness of 1.0.
+
+00:09:50.940 --> 00:09:52.220
+ So at some point, you run this.
+
+00:09:52.220 --> 00:09:55.860
+ This runs really, this part here runs really slow.
+
+00:09:55.860 --> 00:09:58.620
+ This part runs super fast, like in the blink of an eye.
+
+00:09:58.620 --> 00:10:00.620
+ This one is pretty fast.
+
+00:10:00.620 --> 00:10:05.020
+ And then at some point, you've got these pages
+
+00:10:05.020 --> 00:10:07.000
+ that have numbers on them.
+
+00:10:07.000 --> 00:10:08.800
+ They have values on the pages.
+
+00:10:08.800 --> 00:10:10.400
+ And there's a couple of programs
+
+00:10:10.400 --> 00:10:12.420
+ that allow us to visualize that.
+
+00:10:12.420 --> 00:10:15.500
+ One is the dump, which just reads it and checks to see.
+
+00:10:15.500 --> 00:10:18.780
+ It shows the new PageRank, the old PageRank,
+
+00:10:18.780 --> 00:10:23.220
+ and various other things, and shows just a way to dump it.
+
+00:10:23.220 --> 00:10:25.700
+ And then there's this thing that reads the whole thing.
+
+00:10:25.700 --> 00:10:28.940
+ You say, I'd like to do 25 of the best.
+
+00:10:28.940 --> 00:10:31.940
+ It sorts it by PageRank, and then produces a JavaScript file
+
+00:10:31.940 --> 00:10:34.220
+ that has just the numbers in it.
+
+00:10:34.220 --> 00:10:37.680
+ And then there is some HTML and a visualization library
+
+00:10:37.680 --> 00:10:40.120
+ called d3.js, which you can read about.
+
+00:10:40.120 --> 00:10:42.340
+ That when the HTML starts, it reads this
+
+00:10:42.340 --> 00:10:46.060
+ and has this nice force-directed layout of the PageRank.
+
+00:10:46.060 --> 00:10:47.300
+ And you can hover over things,
+
+00:10:47.300 --> 00:10:51.140
+ and you can see what PageRank you've got.
+
+00:10:51.140 --> 00:10:55.540
+ And so that is the PageRank algorithm
+
+00:10:55.540 --> 00:10:56.380
+ that we're going to do.
+
+00:10:56.380 --> 00:10:58.220
+ And up next, we'll do the largest
+
+00:10:58.220 --> 00:10:59.760
+ and most complex of these things,
+
+00:10:59.760 --> 00:11:02.020
+ and that is the email.
+
+00:11:02.020 --> 00:11:03.340
+ We're going to spider some email,
+
+00:11:03.340 --> 00:11:05.020
+ which is about a gigabyte of data.
+
+00:11:05.020 --> 00:11:05.860
+ Okay?
+
+00:11:05.860 --> 00:11:09.780
+ (light music)
+

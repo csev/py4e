@@ -1,0 +1,1360 @@
+1
+00:00:00,000 --> 00:00:02,580
+ (upbeat music)
+
+2
+00:00:02,580 --> 00:00:10,520
+ - Hello everybody, welcome to Python for Everybody.
+
+3
+00:00:10,520 --> 00:00:12,000
+ We're doing some code walkthroughs.
+
+4
+00:00:12,000 --> 00:00:13,400
+ If you want to get the source code,
+
+5
+00:00:13,400 --> 00:00:16,880
+ you can take a look at the sample code and download it
+
+6
+00:00:16,880 --> 00:00:18,760
+ and work through it.
+
+7
+00:00:18,760 --> 00:00:23,760
+ And so what we're working on now is doing some retrieval
+
+8
+00:00:23,760 --> 00:00:27,200
+ and visualization of email data.
+
+9
+00:00:27,200 --> 00:00:28,480
+ It's kind of ironic.
+
+10
+00:00:28,480 --> 00:00:31,160
+ We are going to now look at the email data
+
+11
+00:00:31,160 --> 00:00:36,160
+ that we look at the email data that we started with.
+
+12
+00:00:36,160 --> 00:00:40,280
+ It's the same Sakai developer list email data.
+
+13
+00:00:40,280 --> 00:00:43,800
+ And so there's this service called GMain.
+
+14
+00:00:43,800 --> 00:00:47,680
+ And GMain archives developer lists and various email lists.
+
+15
+00:00:47,680 --> 00:00:49,360
+ And I've made a copy of their data
+
+16
+00:00:49,360 --> 00:00:52,680
+ because all the students in my class hitting the same,
+
+17
+00:00:52,680 --> 00:00:55,400
+ their server with their API would crush it.
+
+18
+00:00:55,400 --> 00:00:56,800
+ So in order to be a nice guy,
+
+19
+00:00:56,800 --> 00:00:58,880
+ I put up a much more powerful server
+
+20
+00:00:58,880 --> 00:01:02,680
+ with just the data from this one list.
+
+21
+00:01:02,680 --> 00:01:04,760
+ And it's about a gigabyte of data.
+
+22
+00:01:04,760 --> 00:01:07,520
+ So be real careful if you're paying for network.
+
+23
+00:01:07,520 --> 00:01:10,320
+ So the basic process we're going to go through
+
+24
+00:01:10,320 --> 00:01:12,560
+ is we're going to have a spidering process
+
+25
+00:01:12,560 --> 00:01:15,160
+ that's a simple, restartable,
+
+26
+00:01:15,160 --> 00:01:19,400
+ focused on the network problems, data pulling,
+
+27
+00:01:19,400 --> 00:01:21,120
+ to pull content.sqlite.
+
+28
+00:01:21,120 --> 00:01:23,100
+ And there's going to be a database there.
+
+29
+00:01:23,100 --> 00:01:25,040
+ And then we're going to have a cleanup process.
+
+30
+00:01:25,040 --> 00:01:27,800
+ This database is going to get large, about a gigabyte.
+
+31
+00:01:27,800 --> 00:01:29,440
+ And then we're going to have a process that takes,
+
+32
+00:01:29,440 --> 00:01:31,120
+ it kind of grinds through this data.
+
+33
+00:01:31,120 --> 00:01:32,440
+ It takes a while.
+
+34
+00:01:32,440 --> 00:01:36,520
+ And so then it's going to read this mapping
+
+35
+00:01:36,520 --> 00:01:37,880
+ and I'll show you that when it comes
+
+36
+00:01:37,880 --> 00:01:39,320
+ because things like people's names
+
+37
+00:01:39,320 --> 00:01:41,080
+ have changed over all these years.
+
+38
+00:01:41,080 --> 00:01:43,520
+ And it does a cleanup and makes a really nice,
+
+39
+00:01:43,520 --> 00:01:46,520
+ highly relational version of this data.
+
+40
+00:01:46,520 --> 00:01:47,920
+ And then we visualize from here.
+
+41
+00:01:47,920 --> 00:01:52,080
+ And so this could take you several days to finish this.
+
+42
+00:01:52,080 --> 00:01:54,840
+ This will take like a few minutes to run.
+
+43
+00:01:54,840 --> 00:01:56,800
+ And then this will just take seconds to run.
+
+44
+00:01:56,800 --> 00:02:00,640
+ And so this is a multi-step process
+
+45
+00:02:00,640 --> 00:02:03,440
+ where if you were doing something like running something
+
+46
+00:02:03,440 --> 00:02:05,680
+ for two days to produce a visualization
+
+47
+00:02:05,680 --> 00:02:07,780
+ and it blew up three-quarters of the way through,
+
+48
+00:02:07,780 --> 00:02:08,680
+ it would do you no good.
+
+49
+00:02:08,680 --> 00:02:11,200
+ And so that's why we break this into simple parts.
+
+50
+00:02:11,200 --> 00:02:13,180
+ But right now we're just going to focus
+
+51
+00:02:13,180 --> 00:02:15,200
+ on this part right here
+
+52
+00:02:15,200 --> 00:02:18,240
+ and take a look at the mail bit.
+
+53
+00:02:18,240 --> 00:02:22,680
+ The mail bit and retrieve the mail.
+
+54
+00:02:22,680 --> 00:02:25,240
+ And then we'll have another video
+
+55
+00:02:25,240 --> 00:02:27,960
+ to talk about the rest of this stuff, okay?
+
+56
+00:02:27,960 --> 00:02:32,960
+ So let's take a look at the code.
+
+57
+00:02:32,960 --> 00:02:35,680
+ So here is gmain.py.
+
+58
+00:02:35,680 --> 00:02:37,740
+ That is the basic code.
+
+59
+00:02:37,740 --> 00:02:41,400
+ And hopefully this stuff is starting to look familiar.
+
+60
+00:02:41,400 --> 00:02:42,360
+ The thing that's weird here
+
+61
+00:02:42,360 --> 00:02:44,400
+ is we've got to do some date time parsing.
+
+62
+00:02:44,400 --> 00:02:45,960
+ And there is code that's out there,
+
+63
+00:02:45,960 --> 00:02:47,360
+ but you may have to install it.
+
+64
+00:02:47,360 --> 00:02:49,160
+ And I had to write my code in a way
+
+65
+00:02:49,160 --> 00:02:53,120
+ that didn't assume that you could install
+
+66
+00:02:53,120 --> 00:02:54,560
+ the date time parser.
+
+67
+00:02:54,560 --> 00:02:56,600
+ And so it has it, even if that's not there,
+
+68
+00:02:56,600 --> 00:02:58,280
+ it uses my own date time parser.
+
+69
+00:02:58,280 --> 00:02:59,400
+ And that's what this code is.
+
+70
+00:02:59,400 --> 00:03:01,000
+ Don't worry too much about that.
+
+71
+00:03:01,000 --> 00:03:03,920
+ And of course we have to deal with
+
+72
+00:03:03,920 --> 00:03:07,000
+ the lack of certificates inside of Python.
+
+73
+00:03:07,000 --> 00:03:09,800
+ And so we start things out.
+
+74
+00:03:09,800 --> 00:03:13,680
+ And this is really a simple table.
+
+75
+00:03:13,680 --> 00:03:16,620
+ We've got a messages table that's got a primary key.
+
+76
+00:03:17,760 --> 00:03:20,200
+ The email itself, when it was sent,
+
+77
+00:03:20,200 --> 00:03:24,080
+ what the subject, and the headers, and the body, okay?
+
+78
+00:03:24,080 --> 00:03:27,600
+ And so what we're going to do is,
+
+79
+00:03:27,600 --> 00:03:29,400
+ because we have to pick up where we left off,
+
+80
+00:03:29,400 --> 00:03:34,400
+ we're going to select the largest primary key
+
+81
+00:03:34,400 --> 00:03:38,880
+ from the messages table and retrieve that.
+
+82
+00:03:38,880 --> 00:03:43,880
+ And then we're going to go to the one after that, okay?
+
+83
+00:03:43,880 --> 00:03:47,720
+ And so we know what the ID is.
+
+84
+00:03:47,720 --> 00:03:50,460
+ And we're going to pick up where we left off.
+
+85
+00:03:50,460 --> 00:03:52,960
+ And so we have a starting point.
+
+86
+00:03:52,960 --> 00:03:55,640
+ It starts either zero or one.
+
+87
+00:03:55,640 --> 00:03:59,280
+ And we're going to ask how many messages to retrieve.
+
+88
+00:03:59,280 --> 00:04:01,320
+ We've got some counters.
+
+89
+00:04:01,320 --> 00:04:03,640
+ And so we're going to say, okay,
+
+90
+00:04:03,640 --> 00:04:06,120
+ see if select ID for messages
+
+91
+00:04:06,120 --> 00:04:07,920
+ where ID equals whatever that starting is.
+
+92
+00:04:07,920 --> 00:04:10,440
+ It's the highest number we've seen so far.
+
+93
+00:04:10,440 --> 00:04:15,280
+ And if we've got, if row is not none,
+
+94
+00:04:15,280 --> 00:04:17,880
+ that means we've already retrieved this particular
+
+95
+00:04:17,880 --> 00:04:19,740
+ email message.
+
+96
+00:04:19,740 --> 00:04:21,120
+ Otherwise, we're going to keep on going.
+
+97
+00:04:21,120 --> 00:04:21,960
+ And we're in good shape.
+
+98
+00:04:21,960 --> 00:04:24,320
+ And this is one that we want to retrieve.
+
+99
+00:04:24,320 --> 00:04:26,500
+ And we're subtracting that so we know.
+
+100
+00:04:26,500 --> 00:04:28,360
+ And so this is the base URL.
+
+101
+00:04:28,360 --> 00:04:33,020
+ This is the URL of our API.
+
+102
+00:04:33,020 --> 00:04:37,520
+ The one that I have a nice copy of all this data
+
+103
+00:04:37,520 --> 00:04:40,400
+ on a server that's accessible worldwide and won't crash.
+
+104
+00:04:40,400 --> 00:04:43,480
+ So the format of this is you can say,
+
+105
+00:04:43,480 --> 00:04:46,020
+ I would like the email address for one,
+
+106
+00:04:46,020 --> 00:04:49,500
+ from one to two or from 100, oops.
+
+107
+00:04:49,500 --> 00:04:53,600
+ From, you know,
+
+108
+00:04:53,600 --> 00:05:00,360
+ 102, 101, message 101 to 102.
+
+109
+00:05:00,360 --> 00:05:02,820
+ And we can just kind of walk through these things.
+
+110
+00:05:02,820 --> 00:05:05,040
+ So that's the message ID.
+
+111
+00:05:05,040 --> 00:05:08,000
+ And so if we're going to make the URL,
+
+112
+00:05:08,000 --> 00:05:13,080
+ we're going to take the base URL,
+
+113
+00:05:13,080 --> 00:05:15,440
+ add the starting address, and then add plus one.
+
+114
+00:05:15,440 --> 00:05:17,720
+ So we got the slash at the end of the starting address.
+
+115
+00:05:17,720 --> 00:05:19,680
+ And so that's how we form those.
+
+116
+00:05:19,680 --> 00:05:24,720
+ And we're going to retrieve that.
+
+117
+00:05:24,720 --> 00:05:26,520
+ And we're going to decode it.
+
+118
+00:05:26,520 --> 00:05:27,900
+ We've seen this in some other ones.
+
+119
+00:05:27,900 --> 00:05:30,820
+ We're going to check to see if we got legit data.
+
+120
+00:05:30,820 --> 00:05:33,760
+ If not, if we didn't, if I got a 404 not found
+
+121
+00:05:33,760 --> 00:05:35,600
+ or something else, we're going to quit.
+
+122
+00:05:35,600 --> 00:05:38,880
+ If someone hits control C, which is,
+
+123
+00:05:38,880 --> 00:05:40,920
+ or control Z, we'll get the program interrupt
+
+124
+00:05:40,920 --> 00:05:42,600
+ and we'll stop.
+
+125
+00:05:42,600 --> 00:05:45,960
+ And if there's some other problem, right,
+
+126
+00:05:45,960 --> 00:05:49,920
+ we're going to complain and keep going.
+
+127
+00:05:49,920 --> 00:05:52,020
+ And if we have five failures in a row, we're going to quit,
+
+128
+00:05:52,020 --> 00:05:53,120
+ but it will just keep on going.
+
+129
+00:05:53,120 --> 00:05:56,400
+ 'Cause these things do have glitchy bits here.
+
+130
+00:05:56,400 --> 00:05:58,880
+ And so at this point, if we made it this far,
+
+131
+00:05:58,880 --> 00:06:00,760
+ we've retrieved the URL and we've got the number
+
+132
+00:06:00,760 --> 00:06:02,600
+ of characters we've retrieved.
+
+133
+00:06:02,600 --> 00:06:07,000
+ And if we get bad data, if it doesn't start with from,
+
+134
+00:06:07,000 --> 00:06:09,380
+ because this is a mail message, right,
+
+135
+00:06:09,380 --> 00:06:13,000
+ and they all start with from space, if it's right,
+
+136
+00:06:13,000 --> 00:06:14,660
+ it starts with from space.
+
+137
+00:06:14,660 --> 00:06:20,080
+ Then what we're going to, we're going to tolerate
+
+138
+00:06:20,080 --> 00:06:22,720
+ up to five failures there for bad data,
+
+139
+00:06:22,720 --> 00:06:24,160
+ because it could be bad.
+
+140
+00:06:24,160 --> 00:06:25,400
+ And then we're going to find a blank line,
+
+141
+00:06:25,400 --> 00:06:27,340
+ because that's the new line at the end of one line
+
+142
+00:06:27,340 --> 00:06:28,720
+ and then a blank line.
+
+143
+00:06:28,720 --> 00:06:31,820
+ And then we're going to take and break this into the headers,
+
+144
+00:06:31,820 --> 00:06:35,080
+ the mail headers, which is, that mail headers is
+
+145
+00:06:35,080 --> 00:06:38,520
+ this stuff right here, up to, but not including
+
+146
+00:06:38,520 --> 00:06:42,600
+ the blank line, and then the body is everything after that.
+
+147
+00:06:42,600 --> 00:06:48,240
+ And so we'll just have, break that into pieces,
+
+148
+00:06:48,240 --> 00:06:51,840
+ otherwise we'll complain and tolerate up to five characters.
+
+149
+00:06:51,840 --> 00:06:54,360
+ And then we're going to use a regular expression,
+
+150
+00:06:54,360 --> 00:06:56,140
+ kind of from the regular expressions chapter,
+
+151
+00:06:56,140 --> 00:07:01,140
+ to pull out an email address from the from colon line,
+
+152
+00:07:01,140 --> 00:07:05,840
+ somewhere in these headers, from colon right there.
+
+153
+00:07:05,840 --> 00:07:09,000
+ It's going to go find a less than, and then pull,
+
+154
+00:07:09,000 --> 00:07:12,240
+ oops, come on, pull this stuff out up to it.
+
+155
+00:07:12,240 --> 00:07:15,240
+ So you got the less than, you got the parentheses,
+
+156
+00:07:15,240 --> 00:07:17,320
+ you got one or more non-blank characters,
+
+157
+00:07:17,320 --> 00:07:18,600
+ followed by an add side, followed by one
+
+158
+00:07:18,600 --> 00:07:20,080
+ or more non-blank characters.
+
+159
+00:07:20,080 --> 00:07:24,140
+ And we'll get back a list of those, we should only get one.
+
+160
+00:07:24,140 --> 00:07:28,160
+ If we find one, we're going to grab the email,
+
+161
+00:07:28,160 --> 00:07:30,720
+ we're going to strip the lower case,
+
+162
+00:07:30,720 --> 00:07:34,000
+ and if we got some little nasty less than sign in there,
+
+163
+00:07:34,000 --> 00:07:35,920
+ we'll tolerate that as well.
+
+164
+00:07:35,920 --> 00:07:38,040
+ So this is kind of clean up, and you get used to this,
+
+165
+00:07:38,040 --> 00:07:40,100
+ where you're like, oh, how come all those email addresses
+
+166
+00:07:40,100 --> 00:07:41,600
+ have this other stuff in them?
+
+167
+00:07:41,600 --> 00:07:48,200
+ And then we also look for it if there are no less than signs,
+
+168
+00:07:48,200 --> 00:07:51,800
+ and we do this way, and that's different.
+
+169
+00:07:51,800 --> 00:07:54,760
+ Some mail messages have it this way, and others,
+
+170
+00:07:54,760 --> 00:07:57,160
+ again, you write this code after you watch it for a while,
+
+171
+00:07:57,160 --> 00:07:58,400
+ and you're like, oh, it's crapped out
+
+172
+00:07:58,400 --> 00:08:01,720
+ and giving me bad stuff, and I make them all lower case
+
+173
+00:08:01,720 --> 00:08:04,680
+ so they match better and get rid of bad characters,
+
+174
+00:08:04,680 --> 00:08:06,320
+ now I got an email address.
+
+175
+00:08:06,320 --> 00:08:09,160
+ Then what I do is I look for the date of this,
+
+176
+00:08:09,160 --> 00:08:11,120
+ so I'm going to graph these by date,
+
+177
+00:08:11,120 --> 00:08:14,880
+ so I look for this line and use a regular expression
+
+178
+00:08:14,880 --> 00:08:17,040
+ to pull that out, right?
+
+179
+00:08:17,040 --> 00:08:19,560
+ So I'm looking for a date, followed by a blank,
+
+180
+00:08:19,560 --> 00:08:24,560
+ followed by any number of characters, followed by a comma,
+
+181
+00:08:24,560 --> 00:08:27,280
+ so I'm not interested in this Wednesday bit,
+
+182
+00:08:27,280 --> 00:08:29,720
+ so I'm skipping that bit right there,
+
+183
+00:08:29,720 --> 00:08:33,960
+ and going and grabbing everything after that comma space,
+
+184
+00:08:33,960 --> 00:08:38,400
+ and so it's really here to the end of the line,
+
+185
+00:08:38,400 --> 00:08:41,440
+ so that's the new line, so it's going all the way,
+
+186
+00:08:41,440 --> 00:08:44,860
+ it's going to pull this bit right here, that's the text.
+
+187
+00:08:44,860 --> 00:08:46,440
+ And this is where we're going to say,
+
+188
+00:08:46,440 --> 00:08:48,320
+ oh, that's kind of a funky looking date,
+
+189
+00:08:48,320 --> 00:08:50,820
+ and we want to standardize that date, so we're going to,
+
+190
+00:08:50,820 --> 00:08:57,080
+ let's see, yeah, we're going to chop it off
+
+191
+00:08:57,080 --> 00:08:59,160
+ with a 26 character, apparently I don't know
+
+192
+00:08:59,160 --> 00:09:01,720
+ what the 26, why do we care about the 26 character,
+
+193
+00:09:01,720 --> 00:09:04,440
+ but we chop that off with the 26 character,
+
+194
+00:09:04,440 --> 00:09:05,640
+ and then we're going to parse it,
+
+195
+00:09:05,640 --> 00:09:08,960
+ and that's going to give us back a nice, clean date,
+
+196
+00:09:08,960 --> 00:09:11,160
+ sent at date.
+
+197
+00:09:11,160 --> 00:09:13,700
+ Otherwise, we're going to complete, we're going to quit,
+
+198
+00:09:13,700 --> 00:09:16,240
+ and if we can't parse it, then we're going to tolerate
+
+199
+00:09:16,240 --> 00:09:18,660
+ five bad email addresses in a row,
+
+200
+00:09:18,660 --> 00:09:21,160
+ then we're looking for the subject line
+
+201
+00:09:21,160 --> 00:09:23,800
+ using another regular expression,
+
+202
+00:09:23,800 --> 00:09:27,600
+ subject line, regular expression, that's pretty easy,
+
+203
+00:09:27,600 --> 00:09:29,600
+ up to but not including, right?
+
+204
+00:09:29,600 --> 00:09:32,840
+ There's a blank there, it's the subject.
+
+205
+00:09:32,840 --> 00:09:41,400
+ Let me pull that out, we get the subject.
+
+206
+00:09:41,400 --> 00:09:43,620
+ Now at this point, we parsed it, and we got good stuff,
+
+207
+00:09:43,620 --> 00:09:45,920
+ so we reset the fail counter, because I kept saying,
+
+208
+00:09:45,920 --> 00:09:47,920
+ if you fail five straight times, you quit.
+
+209
+00:09:47,920 --> 00:09:51,000
+ And we're going to print it out,
+
+210
+00:09:51,000 --> 00:09:52,680
+ and then we're just going to insert that stuff.
+
+211
+00:09:52,680 --> 00:09:55,680
+ We've got the ID of the message,
+
+212
+00:09:55,680 --> 00:10:00,080
+ which we've got, the email address that it came from,
+
+213
+00:10:00,080 --> 00:10:01,720
+ the time it was sent, the subject,
+
+214
+00:10:01,720 --> 00:10:04,120
+ and then basically the headers in the body,
+
+215
+00:10:04,120 --> 00:10:05,520
+ and we're just inserting it.
+
+216
+00:10:05,520 --> 00:10:07,960
+ And now we're going to say, every 50th, we're going to commit it,
+
+217
+00:10:07,960 --> 00:10:10,320
+ so that speeds things up, and every 100th,
+
+218
+00:10:10,320 --> 00:10:11,680
+ we're going to wait a second.
+
+219
+00:10:11,680 --> 00:10:14,320
+ So that's, you know, count is going up, up, up, up, up,
+
+220
+00:10:14,320 --> 00:10:17,180
+ and every 50th, you'll see it pause,
+
+221
+00:10:17,180 --> 00:10:21,180
+ and then it will, every 100th, it'll pause for a second.
+
+222
+00:10:21,180 --> 00:10:23,200
+ Mostly that's to let me hit Control + C,
+
+223
+00:10:23,200 --> 00:10:25,700
+ or to not overload any server.
+
+224
+00:10:25,700 --> 00:10:29,440
+ Okay, so that's the simple one.
+
+225
+00:10:29,440 --> 00:10:31,460
+ The problem is, is this data just gets ugly,
+
+226
+00:10:31,460 --> 00:10:34,280
+ and so you'll find yourself wanting to reset this
+
+227
+00:10:34,280 --> 00:10:35,120
+ and start it over.
+
+228
+00:10:35,120 --> 00:10:36,680
+ This one's going to work, of course,
+
+229
+00:10:36,680 --> 00:10:41,320
+ but these are hard to build,
+
+230
+00:10:41,320 --> 00:10:43,480
+ and that's why it's a good idea.
+
+231
+00:10:43,480 --> 00:10:44,960
+ Oops.
+
+232
+00:10:44,960 --> 00:10:49,960
+ Python 3 gmain.py.
+
+233
+00:10:49,960 --> 00:10:52,760
+ How many messages?
+
+234
+00:10:52,760 --> 00:10:54,340
+ Well, let's just do one.
+
+235
+00:10:54,340 --> 00:10:57,280
+ Okay, so it went and grabbed,
+
+236
+00:10:57,280 --> 00:10:59,200
+ oh, do I have this already running?
+
+237
+00:10:59,200 --> 00:11:02,420
+ 51 through 52.
+
+238
+00:11:02,420 --> 00:11:03,420
+ Let me start over.
+
+239
+00:11:03,420 --> 00:11:06,520
+ Let's find a cell, start SQLite.
+
+240
+00:11:06,520 --> 00:11:10,800
+ Okay, rm content, I must have run it to test it.
+
+241
+00:11:10,800 --> 00:11:13,760
+ So, let's run it again.
+
+242
+00:11:13,760 --> 00:11:17,800
+ Python gmain.py, and ask for one message.
+
+243
+00:11:17,800 --> 00:11:21,120
+ Okay, so there we went and got message one from one to two,
+
+244
+00:11:21,120 --> 00:11:23,280
+ we got 226 to two characters,
+
+245
+00:11:23,280 --> 00:11:24,680
+ and we printed out the email address,
+
+246
+00:11:24,680 --> 00:11:26,840
+ the time we got it after all that hacking,
+
+247
+00:11:26,840 --> 00:11:29,080
+ and the subject line, and that's what we got.
+
+248
+00:11:29,080 --> 00:11:32,880
+ So, if we take a look at the database,
+
+249
+00:11:32,880 --> 00:11:35,940
+ and we go into the gmain,
+
+250
+00:11:35,940 --> 00:11:40,100
+ anytime you see the content SQLite journal,
+
+251
+00:11:40,100 --> 00:11:42,980
+ that means it needed to run a commit,
+
+252
+00:11:42,980 --> 00:11:44,080
+ and it hasn't run a commit,
+
+253
+00:11:44,080 --> 00:11:46,040
+ but I'll hit enter, and that will do the commit,
+
+254
+00:11:46,040 --> 00:11:47,720
+ and you see that vanish.
+
+255
+00:11:47,720 --> 00:11:51,260
+ So now I can open it, and I take a look at,
+
+256
+00:11:51,260 --> 00:11:57,160
+ how come there's no messages?
+
+257
+00:11:57,160 --> 00:12:00,440
+ Did that one not get stored in there for some reason?
+
+258
+00:12:00,440 --> 00:12:01,720
+ I'll use refresh.
+
+259
+00:12:01,720 --> 00:12:07,040
+ Huh, let's run it again.
+
+260
+00:12:07,040 --> 00:12:13,860
+ Maybe it didn't commit, maybe it got a bug in it.
+
+261
+00:12:17,720 --> 00:12:19,320
+ Let's make a change to the code.
+
+262
+00:12:19,320 --> 00:12:29,720
+ I'm going to, see this connection.commit,
+
+263
+00:12:29,720 --> 00:12:31,560
+ see that?
+
+264
+00:12:31,560 --> 00:12:34,560
+ Connection.commit.
+
+265
+00:12:34,560 --> 00:12:40,000
+ Gonna commit there, and the other thing I'm going to do
+
+266
+00:12:40,000 --> 00:12:42,240
+ is every time I stop to read,
+
+267
+00:12:42,240 --> 00:12:46,000
+ I'm going to commit right before I read it.
+
+268
+00:12:46,000 --> 00:12:47,920
+ So I think we should, I hope that doesn't blow up.
+
+269
+00:12:47,920 --> 00:12:48,760
+ We'll see.
+
+270
+00:12:48,760 --> 00:12:53,120
+ So the idea is if I want to stop, I want it committed.
+
+271
+00:12:53,120 --> 00:12:54,160
+ So let's do this.
+
+272
+00:12:54,160 --> 00:12:55,660
+ Let's do one message,
+
+273
+00:12:55,660 --> 00:12:59,600
+ and now I should hit, is it committed?
+
+274
+00:12:59,600 --> 00:13:00,880
+ Now that I've put the commits in,
+
+275
+00:13:00,880 --> 00:13:04,140
+ I think that I will, it will look better.
+
+276
+00:13:04,140 --> 00:13:08,440
+ I can't refresh, and so there it is,
+
+277
+00:13:08,440 --> 00:13:11,260
+ because I committed it, and I don't have,
+
+278
+00:13:11,260 --> 00:13:13,080
+ yeah, I don't have the journal file, so that's good.
+
+279
+00:13:13,080 --> 00:13:15,420
+ So that's a good idea to put those commits there,
+
+280
+00:13:15,420 --> 00:13:17,280
+ so I'll just leave those commits in.
+
+281
+00:13:17,280 --> 00:13:20,480
+ When you download it, it'll have those commits in there.
+
+282
+00:13:20,480 --> 00:13:24,880
+ So again, I put a commit here and a commit
+
+283
+00:13:24,880 --> 00:13:28,080
+ at the very, very end to make sure,
+
+284
+00:13:28,080 --> 00:13:31,040
+ and then I, so I missed that.
+
+285
+00:13:31,040 --> 00:13:33,080
+ But now we get one, right?
+
+286
+00:13:33,080 --> 00:13:34,560
+ And so let's just run it again,
+
+287
+00:13:34,560 --> 00:13:37,520
+ and you'll see how by selecting the max of the ID,
+
+288
+00:13:37,520 --> 00:13:40,240
+ it's going to select the max of this and then add one to it,
+
+289
+00:13:40,240 --> 00:13:42,620
+ so it doesn't do the next one.
+
+290
+00:13:42,620 --> 00:13:46,300
+ So if I run it again, I say, give me one message,
+
+291
+00:13:46,300 --> 00:13:50,460
+ so it goes two to three, and give me two messages, right?
+
+292
+00:13:50,460 --> 00:13:54,060
+ So I hit enter, and I can do refresh,
+
+293
+00:13:54,060 --> 00:13:57,360
+ and now you see we've got four messages, okay?
+
+294
+00:13:57,360 --> 00:13:59,960
+ And so let's just fire this baby up,
+
+295
+00:13:59,960 --> 00:14:02,100
+ tell it to get 100.
+
+296
+00:14:02,100 --> 00:14:06,060
+ Er, run, run, run, run, run, run, run, right?
+
+297
+00:14:06,060 --> 00:14:09,360
+ It just goes and goes, and it pauses once in a while
+
+298
+00:14:09,360 --> 00:14:12,540
+ to do a commit, and if I made a commit every time,
+
+299
+00:14:12,540 --> 00:14:15,540
+ oop, it just paused there, now it finished.
+
+300
+00:14:15,540 --> 00:14:19,620
+ So this'll run, and we will get a bunch of data.
+
+301
+00:14:19,620 --> 00:14:23,980
+ The problem is, is if I just run this,
+
+302
+00:14:23,980 --> 00:14:27,460
+ it'll take about five hours, okay,
+
+303
+00:14:27,460 --> 00:14:28,900
+ to run this and get this all,
+
+304
+00:14:28,900 --> 00:14:30,300
+ and I've got a really fast connection.
+
+305
+00:14:30,300 --> 00:14:34,340
+ So I have got a file that you can download,
+
+306
+00:14:34,340 --> 00:14:38,060
+ let's go find it, let's see if I can,
+
+307
+00:14:38,060 --> 00:14:40,100
+ let's see how long it'll take me to download this.
+
+308
+00:14:40,100 --> 00:14:43,220
+ Now I've got a file that you can download and save.
+
+309
+00:14:43,220 --> 00:14:46,220
+ Now I'm going to use the command line,
+
+310
+00:14:46,220 --> 00:14:50,060
+ curl, or wget is another command
+
+311
+00:14:50,060 --> 00:14:53,300
+ that we Linux and Mac people can use.
+
+312
+00:14:53,300 --> 00:14:55,540
+ I don't know, you might have to use your browser to do it,
+
+313
+00:14:55,540 --> 00:14:57,820
+ let's see how long this is going to take.
+
+314
+00:14:57,820 --> 00:15:13,980
+ It's retrieving, minute 30, okay well I'll just wait,
+
+315
+00:15:13,980 --> 00:15:26,420
+ when this come back.
+
+316
+00:15:26,420 --> 00:15:28,740
+ Okay, so now that's done.
+
+317
+00:15:28,740 --> 00:15:31,060
+ I was averaging 10 megabits a second,
+
+318
+00:15:31,060 --> 00:15:35,460
+ I downloaded about 600 megabytes, 10 megabits a second.
+
+319
+00:15:35,460 --> 00:15:37,820
+ That will probably be slower for you.
+
+320
+00:15:37,820 --> 00:15:41,340
+ So now if I take a look, you're going to find
+
+321
+00:15:41,340 --> 00:15:46,340
+ that that content.sqlite is 624 megabytes.
+
+322
+00:15:46,340 --> 00:15:51,300
+ Now what happens is I've free-spidered this,
+
+323
+00:15:51,300 --> 00:15:54,340
+ and so now if you run gmain.py
+
+324
+00:15:54,340 --> 00:15:56,740
+ and ask for five more messages,
+
+325
+00:15:56,740 --> 00:16:00,060
+ it will pick up where I left that one off.
+
+326
+00:16:00,060 --> 00:16:02,820
+ So it's up to message 59,000.
+
+327
+00:16:02,820 --> 00:16:05,580
+ And I think that, oh he saw an error,
+
+328
+00:16:05,580 --> 00:16:06,420
+ saw a bug in that one,
+
+329
+00:16:06,420 --> 00:16:07,940
+ I don't know what's wrong with that one.
+
+330
+00:16:07,940 --> 00:16:10,580
+ So let's see if, so at this point
+
+331
+00:16:10,580 --> 00:16:12,260
+ we're going to have most of the data.
+
+332
+00:16:12,260 --> 00:16:14,540
+ It might find its way to the very end.
+
+333
+00:16:14,540 --> 00:16:19,420
+ Once you get this, it should be not too much more,
+
+334
+00:16:19,420 --> 00:16:22,300
+ I don't know, maybe it's like 63,000 or something.
+
+335
+00:16:24,980 --> 00:16:28,140
+ So what we'll do is we will let that run,
+
+336
+00:16:28,140 --> 00:16:31,740
+ and we will come back when that one's finished
+
+337
+00:16:31,740 --> 00:16:36,740
+ and run the next phase after it's got all of its data.
+
+338
+00:16:36,740 --> 00:16:39,020
+ So thanks for listening.
+
+339
+00:16:39,020 --> 00:16:41,940
+ (soft piano music)
+
+340
+00:16:54,340 --> 00:16:57,260
+ (soft piano music)
+

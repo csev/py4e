@@ -1,0 +1,237 @@
+ (light piano music)
+ - Hello everybody, welcome to Python for Everybody.
+ We're doing a bit of code walkthrough.
+ If you want to follow along, you can download the zip file
+ for the code from our website.
+ We are in the process of retrieving data
+ from this Gmail server, one that I made a copy of,
+ and we have so far spidered it all.
+ We ended up with 600 megabytes of spidered information.
+ We have ran a rather complex cleanup process
+ that you probably don't need to fully understand.
+ You can look at it for patterns, but in general,
+ the cleanup process will be very sensitive to the data.
+ And then we have this index.sqlite,
+ which is 260 megabytes right now,
+ and we're going to now do the easy, the fun easy bits here,
+ where we're going to run little queries that just pull data out.
+ These are much simpler.
+ So part of what I wrote when I was doing this
+ is I wanted to do some simple, basic calculations
+ on the data to make sure, I really was sort of
+ looking for anomalies, right?
+ What was working, what wasn't working.
+ So I wrote a series of really simple things
+ like this gbasic, the gbasic code,
+ just give me some basic data, right?
+ So I wrote things down, and I counted things,
+ and so, do I need urllibrequest in this one?
+ I don't think so.
+ Let's fix that bug, it's not there.
+ No reason to put any of that stuff in there.
+ So it just, it reads that index.sqlite,
+ which is our cleaned up data.
+ It reads through and makes a dictionary.
+ This pattern you're going to see a lot,
+ where I'm going to make a dictionary of ID to senders,
+ save myself repeatedly looking at things.
+ I'm going to grab the subjects, I've cached them all.
+ I could have done this all with SQL,
+ but I just wanted to do things faster.
+ And now I'm going to go through each of these messages
+ and make a dictionary of them.
+ Gonna put a lot of stuff in memory,
+ and then I'm going to do some counts.
+ I'm going to see who is sent the most, right?
+ The organizations, and so now I've got to
+ go through all the messages.
+ I am not actually, so you'll notice that I'm not
+ selecting the body or the headers here.
+ I am just getting sender ID, subject ID.
+ I probably could have done this with a join,
+ it would have been cleaner.
+ You can do that, you can make that change.
+ Do that with a join so it's cleaner.
+ So I'm going through all the messages except not the body,
+ so this is going to be really quick.
+ And I'm pulling out the sender's ID.
+ I'm breaking the sender into pieces.
+ See my data's clean now.
+ I cleaned it all up in the previous processes.
+ And if I don't have two pieces,
+ I continue and I get the domain name.
+ So I have the person.
+ I'm doing a basic dictionary histogram for the people
+ and the domains.
+ And then I'm going to sort them, right?
+ With a sorted, and we're going to grab the key.
+ We're going to sort it by the how many there are, reverse,
+ and then print out the top few of the organizations
+ and the top few of the people, okay?
+ So we'll just run that code.
+ Python g basic.py.
+ Let's type, dump out the top 10.
+ So we loaded 59,000 messages, 29,000 subjects,
+ and 1,800 senders, and figured out the top 10 people
+ and the top 10 organizations.
+ And you can write various things like that
+ to just sort of scream through your data
+ and it's good to get sanity checking on your data.
+ Okay, so that's g basic.
+ Now I want to do g word.py, because that's kind of fun.
+ G word.py, I don't need urllib.
+ Why do I keep putting urllib in all these things?
+ So we'll get rid of that.
+ So this is really simple because I'm just going to go
+ for the words in the subject line.
+ So I go through index.sqli, I read in all of the subjects.
+ And I make a dictionary of those,
+ and then I go and find all the subjects.
+ This, and then I'm doing this code right here.
+ I'm pulling out the subject based on the message.
+ And I'm doing this so that when the subjects
+ are used more than once, I count the words more than once.
+ This str make trans, I talked about that in an earlier
+ chapter, this basically throws away a punctuation in numbers
+ so that when I make my words, I don't end up with words
+ that are like dashes, it compresses them down.
+ Then I strip it, I convert everything to lowercase.
+ This is basically just to keep too many words
+ from showing up, then I do a split,
+ and then I got accounts, a dictionary.
+ So, this is a no punctuation, no numbers dictionary count.
+ And then I just take the, and do a dictionary.
+ And then I sort them in reverse order.
+ And then I figure out what the highest and lowest is
+ by running through a, I could have probably done this
+ with a max and a min if I felt like it.
+ And so now I have the highest and the lowest.
+ Yeah, I should have done a max and a min on that one.
+ Why did I do that?
+ But oh well.
+ And now I've got to spread out the size,
+ and so I'm going to produce this file gword.js,
+ which is needed by the visualization,
+ because it's going to use d3.js, a word visualizer,
+ and gword.js, I have to tell it how big the text is,
+ and so I'm doing some text normalization,
+ took me a little experimentation.
+ So if I run this now, and I say python gword.js,
+ and I say python3 gword.js, which is a lot better.
+ Oh, not,
+ python.
+ Okay, so now I can go look at the gword.js,
+ wherever that is, gword.js, yep.
+ And so this is basically, it normalized all the frequencies
+ and made it font size, these are font sizes now.
+ And so this is just the data that's needed by this gword.jm,
+ which uses this d3 visualization word cloud code.
+ So this pulls in all my data,
+ and then this is just some JavaScript that draws the picture,
+ on the page, okay?
+ And so the easy part now is to just open gword.htm,
+ in a browser, it just so happens on a Mac I can do this.
+ And so that gives me a word cloud based on that data.
+ It kind of randomizes it, it shows different stuff,
+ but it's using this, oops,
+ using this data to generate how big those things are,
+ and then using a bit of randomness
+ and simulated annealing to lay it out,
+ that's not stuff that we actually have to worry about, okay?
+ So that's how we get to the point
+ where we're seeing a word cloud from this.
+ Now, we're going to do another visualization,
+ and this time we're going to do a line visualization,
+ and we're going to create a thing called gline.js
+ and produce, with another HTML file,
+ we're going to use D3 and produce that output.
+ So let's say goodbye here, goodbye, goodbye,
+ goodbye, goodbye, so gline.py, get rid of that file.
+ So again, I'm going to preload all of the senders,
+ in this case, and again, I could've done this with a join,
+ probably should've done this with a join.
+ I'm going to preload all the messages,
+ the sender ID, subject ID, et cetera,
+ I'll load those up, and now I'm going to read through,
+ I'm going to have the sending organizations and the senders,
+ and I'm going to split the senders,
+ and I'm going to have the sending organizations,
+ and then I'm going to do a simple dictionary
+ as I accumulate the sending organizations
+ by splitting the person's name into at signs,
+ and then based on the organization,
+ I accumulate it, and then I sort them,
+ and I pull out the top 10 organizations, print those out,
+ and now I'm going to produce, break this down into months,
+ and I'll show you what this looks like in a second,
+ let's go to the gline.js, so the month looks like this,
+ okay, so the month looks like that,
+ so that's the first seven characters of the date,
+ so if we look at the date,
+ the date looks like that,
+ and the month is the first seven characters,
+ and this is the data that I've got to give it,
+ we'll clean that up in a second,
+ that data will look better in a moment.
+ Go back to gline.py, and so this is,
+ we're doing a, the key is a tuple, which is the month,
+ and which organization it is, that did it,
+ and it's only in the top 10 organizations,
+ and then we're going to do a,
+ we're going to basically do a dictionary
+ where the key is a tuple,
+ and then we're going to sort it,
+ sort by key in this case, not by value,
+ that's in the months, we're going to sort that,
+ and then we're going to write all this data out
+ into gline.js, so let's go ahead and run this,
+ and again, this is just the data that has to be written
+ in a way that the JavaScript can understand it,
+ Python, gline, Python 3, gline.py,
+ okay, so top 10 organizations,
+ so now let's take a look at that JavaScript,
+ so this is what it looks like,
+ so it just so happens that you got to tell it the,
+ these are the data points, these are the lines,
+ so this is the year, the line for University of Michigan,
+ gmail.com, swinsburg.com, so this first column
+ is that line points, and the next line points,
+ so all this code was to get the data in such a way
+ that I could produce this JavaScript file,
+ because if I look at gline.htm,
+ I need that data in that particular format,
+ and I've got all this stuff, I make a line chart,
+ and I draw it with this data, that data,
+ I had to go read all the documentation
+ on how to figure this stuff out, right,
+ and that's the data that I'm going to use,
+ and I had to figure this out,
+ and I had to transform it and make it pretty,
+ it took me quite a while to get this to work,
+ and this is not a JavaScript class,
+ nor a how to visualize in D3,
+ but basically, we pulled all that stuff in,
+ and here's the gline that came from the JavaScript,
+ and then it makes an array to data table,
+ and then that data table is what gline draws,
+ so with no further ado, let's open gline.htm
+ to show that data.
+ So there you go, that's the Sakae developer participation
+ from 2015 through 2005 through 2015,
+ based on which organizations did the most commits in Sakae.
+ And so I know that I haven't done this,
+ all this code full justice, there's a lot of code here,
+ the fun is just to kind of run it and see it,
+ and then when the time comes,
+ to come back and see the techniques that are used,
+ when you're trying to build your own visualization pipeline.
+ So I hope that you found this useful.
+ You know, this is a lot of code,
+ hard to explain in 15, 20 minutes,
+ but I hope you take some time and look it over,
+ and I hope you found all these videos,
+ this is kind of the last walkthrough video
+ for chapter 16 of the book,
+ and so I hope that I will see you on the net.
+ (gentle music)
+ (gentle music)

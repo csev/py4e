@@ -1,0 +1,302 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.720
+ Now we're going to represent these relationships in the database.
+
+00:00:03.720 --> 00:00:05.720
+ And again, what we're trying to solve here
+
+00:00:05.720 --> 00:00:08.080
+ is this notion of database normalization.
+
+00:00:08.080 --> 00:00:09.320
+ Third normal form.
+
+00:00:09.320 --> 00:00:11.480
+ There is so much theory, right?
+
+00:00:11.480 --> 00:00:15.100
+ But in this lecture, I'm just going to condense this down
+
+00:00:15.100 --> 00:00:19.300
+ to don't replicate string data and use what are called keys.
+
+00:00:19.300 --> 00:00:22.360
+ Use integer keys to point at those things.
+
+00:00:22.360 --> 00:00:24.720
+ And we're going to use these integers then to point.
+
+00:00:24.720 --> 00:00:27.600
+ So assign each row an integer and then we're going to point
+
+00:00:27.600 --> 00:00:29.600
+ from one row to another using those integers.
+
+00:00:29.600 --> 00:00:32.880
+ And so we're going to add these special key columns
+
+00:00:32.880 --> 00:00:35.200
+ to each of the tables and help in the database
+
+00:00:35.200 --> 00:00:37.960
+ will even give us help managing those.
+
+00:00:37.960 --> 00:00:41.240
+ Now, and so we still need to keep track of, you know,
+
+00:00:41.240 --> 00:00:43.480
+ who is the creator of the album,
+
+00:00:43.480 --> 00:00:44.920
+ which album a track belongs to.
+
+00:00:44.920 --> 00:00:47.440
+ We've got to create these relationships
+
+00:00:47.440 --> 00:00:50.680
+ and we have to come up with ways to store those relationships.
+
+00:00:50.680 --> 00:00:54.440
+ And so the idea is, is we're going to have a column
+
+00:00:54.440 --> 00:00:56.280
+ and a table which is the key column.
+
+00:00:56.280 --> 00:00:58.200
+ And we're going to call this the ID column.
+
+00:00:58.200 --> 00:00:59.080
+ And so this is a row.
+
+00:00:59.080 --> 00:01:00.420
+ It might have many bits of data here,
+
+00:01:00.420 --> 00:01:02.920
+ but in this case, it's just the name of an artist.
+
+00:01:02.920 --> 00:01:06.040
+ So this album is going to belong to an artist.
+
+00:01:06.040 --> 00:01:08.680
+ And we're going to assign a number inside the database.
+
+00:01:08.680 --> 00:01:12.760
+ And so that Led Zeppelin is one and ACDC is two.
+
+00:01:12.760 --> 00:01:15.760
+ And so we have this key, this is called a primary key.
+
+00:01:15.760 --> 00:01:19.980
+ And then later when we want to say that the Who Made Who album
+
+00:01:19.980 --> 00:01:24.540
+ really was done by ACDC, we put the number two in.
+
+00:01:24.540 --> 00:01:28.240
+ And so the difference here is instead of saying ACDC,
+
+00:01:28.240 --> 00:01:31.040
+ in this record, we just put the number two
+
+00:01:31.040 --> 00:01:32.760
+ once we've established this number.
+
+00:01:32.760 --> 00:01:35.720
+ So we assign keys and then we have these pointers
+
+00:01:35.720 --> 00:01:39.440
+ that point back and so that's how we model a relationship
+
+00:01:39.440 --> 00:01:42.120
+ with these small integer numbers.
+
+00:01:42.120 --> 00:01:44.680
+ And so there are three basic kind of keys that we use.
+
+00:01:44.680 --> 00:01:48.320
+ One is the primary key and that is that little ID column
+
+00:01:48.320 --> 00:01:49.620
+ that is just a number.
+
+00:01:49.620 --> 00:01:51.820
+ But once we give Led Zeppelin the number one,
+
+00:01:51.820 --> 00:01:54.120
+ Led Zeppelin has got the key one
+
+00:01:54.120 --> 00:01:57.180
+ for the rest of that database.
+
+00:01:57.180 --> 00:02:00.240
+ The logical key is the text area that we use
+
+00:02:00.240 --> 00:02:01.280
+ that you might look up.
+
+00:02:01.280 --> 00:02:03.780
+ So the title of the band or the title of the album,
+
+00:02:03.780 --> 00:02:05.160
+ that's logical key.
+
+00:02:05.160 --> 00:02:06.800
+ And then the foreign key is one of these keys
+
+00:02:06.800 --> 00:02:09.940
+ that is really pointing to the primary key of another row.
+
+00:02:09.940 --> 00:02:13.100
+ So that's called a foreign key.
+
+00:02:13.100 --> 00:02:16.280
+ And you might think that you want to use something
+
+00:02:16.280 --> 00:02:18.280
+ like an email address as the primary key
+
+00:02:18.280 --> 00:02:20.080
+ for a user table or something like that.
+
+00:02:20.080 --> 00:02:22.360
+ The logical key should always be separate
+
+00:02:22.360 --> 00:02:24.180
+ and there should always be a primary key,
+
+00:02:24.180 --> 00:02:25.420
+ that integer number.
+
+00:02:25.420 --> 00:02:27.100
+ 'Cause things like logical keys do change,
+
+00:02:27.100 --> 00:02:28.740
+ people do get new email addresses.
+
+00:02:28.740 --> 00:02:30.480
+ And if you've got that email address
+
+00:02:30.480 --> 00:02:33.320
+ as a foreign key pointing all over the place,
+
+00:02:33.320 --> 00:02:34.560
+ it doesn't work out so well.
+
+00:02:34.560 --> 00:02:37.200
+ And so that's why you use these small integer numbers
+
+00:02:37.200 --> 00:02:39.000
+ that have no meaning outside.
+
+00:02:39.000 --> 00:02:41.320
+ So sometimes if you're on a system and you see a URL
+
+00:02:41.320 --> 00:02:44.800
+ and you see some number like 422,016,
+
+00:02:44.800 --> 00:02:46.240
+ you're like, oh, that turns out to probably be
+
+00:02:46.240 --> 00:02:48.240
+ my primary key in their database.
+
+00:02:48.240 --> 00:02:50.440
+ So sometimes you can look in a URL
+
+00:02:50.440 --> 00:02:52.720
+ and you can see these primary keys in the URL,
+
+00:02:52.720 --> 00:02:54.640
+ but they don't mean anything outside
+
+00:02:54.640 --> 00:02:55.960
+ of that particular system.
+
+00:02:57.200 --> 00:02:58.920
+ So like I said, a foreign key is a key
+
+00:02:58.920 --> 00:03:02.000
+ that is really pointing at a row in a different table.
+
+00:03:02.000 --> 00:03:05.860
+ And so we have, the album has a primary key for it,
+
+00:03:05.860 --> 00:03:09.760
+ but the artist_id points to a row in the artist table,
+
+00:03:09.760 --> 00:03:11.100
+ as we will soon see.
+
+00:03:11.100 --> 00:03:13.760
+ I have a naming convention.
+
+00:03:13.760 --> 00:03:16.440
+ And in my naming convention, on this lecture,
+
+00:03:16.440 --> 00:03:18.440
+ I use ID for the primary key.
+
+00:03:18.440 --> 00:03:22.460
+ And then artist_id, I use uppercase for the table names.
+
+00:03:22.460 --> 00:03:26.240
+ And then artist_id says, this is a key,
+
+00:03:26.240 --> 00:03:29.200
+ this is just a key that points to the ID key
+
+00:03:29.200 --> 00:03:30.600
+ of the artist table.
+
+00:03:30.600 --> 00:03:31.480
+ And so that's what I do.
+
+00:03:31.480 --> 00:03:33.600
+ So you'll see, in all my stuff I'll use that.
+
+00:03:33.600 --> 00:03:35.360
+ It's a convention.
+
+00:03:35.360 --> 00:03:38.020
+ It's not something SQL forces you to do,
+
+00:03:38.020 --> 00:03:40.000
+ but you will find when you go to organizations
+
+00:03:40.000 --> 00:03:41.120
+ and work on their databases,
+
+00:03:41.120 --> 00:03:43.080
+ these conventions are very important,
+
+00:03:43.080 --> 00:03:45.120
+ so I can do something and you can understand
+
+00:03:45.120 --> 00:03:47.480
+ the rules in which I created it.
+
+00:03:47.480 --> 00:03:49.880
+ Some of these, you'll find this used by some people,
+
+00:03:49.880 --> 00:03:51.760
+ you'll find completely different conventions
+
+00:03:51.760 --> 00:03:52.580
+ and that'll be okay.
+
+00:03:52.580 --> 00:03:55.200
+ Whatever convention your organization uses,
+
+00:03:55.200 --> 00:03:57.200
+ learn that convention.
+
+00:03:57.200 --> 00:04:00.600
+ So now we're going to talk about how we put these keys in
+
+00:04:00.600 --> 00:04:03.440
+ and then how we actually make the connections
+
+00:04:03.440 --> 00:04:05.280
+ from one row to another row.
+

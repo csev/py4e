@@ -1,0 +1,127 @@
+ (soft piano music)
+ - Hello and welcome to Python for Everybody.
+ We're doing some code walkthroughs.
+ If you want to follow along, we've got a sample code zip
+ that you can download and take a look at all the code.
+ And what we are in the middle of
+ is we're in the middle of the PageRank code.
+ And we just got done running the PageRank,
+ and so we have spidered the code.
+ We've run PageRank a bunch of times.
+ SPreset allows us to restart the PageRank algorithm
+ if we want, but we're not going to play with that.
+ We're just going to play with spdump and spjson
+ and do the visualization, which is the fun part.
+ So I'll go into spdump.
+ So this is simple code, because it's really just running
+ a SQL query and then printing stuff out, right?
+ So we connect to our database, create a cursor,
+ and then just do a select count.
+ And we're going to just show the number of links.
+ We're going to order by the number of inbound links descending,
+ so we see the most linked things,
+ and we'll see the top 50 of that.
+ So this is just a sample.
+ You'll tend to write little helpers like this
+ that make your life easier just to show you
+ the kinds of things that you want, spdump.py.
+ And you just kind of test to make sure.
+ It's like, oh, this looks right to me.
+ And so here is the number of inbound links,
+ so that's my blog that has the most inbound links,
+ followed by my uncategorized, whatever that is,
+ and these are the number of inbound links
+ within my own blog somehow, I don't know,
+ because this is not looking at the whole internet at all.
+ So there we go.
+ So that's spdump, pretty straightforward.
+ And now we're going to go through the visualization process.
+ And so this is going to look at all that data
+ and produce some file, a JavaScript file.
+ It's going to write a JavaScript file
+ that will then be fed into my visualization using D3.
+ And spjson is going to do a big, long join.
+ It joins the links with the thing,
+ and where HTML's not null and error's not null,
+ order by the number of inbound links.
+ So we're looking at the things that have
+ the highest number of inbound links.
+ We're going to read all this stuff.
+ We're going to read through all those rows
+ and pull out the page rank for each one.
+ We are looking for the highest and lowest rank,
+ because these numbers can vary quite widely.
+ They go all the way from 0.000 to 20 or 30.
+ And so it asks how many do you want to do,
+ so it only does the top, like 20 or something.
+ And you'll see why we need that in the visualization.
+ And so this is just checking.
+ And so we're going to write out a file.
+ We'll see what the format of this is.
+ It's just a JavaScript file.
+ And we're going to write out,
+ we're basically normalizing the rank.
+ We're subtracting the minimum rank,
+ and because we're going to turn this into line weight,
+ the thickness of the line,
+ we're normalizing the rank to be the thickness of the line
+ and the size of the ball.
+ You'll see all this.
+ And so this is really just writing some JavaScript
+ with the little strings and stuff like that.
+ And then we're going to finish the JavaScript.
+ And then we're going to write all the links out.
+ So these are the balls that you'll see.
+ And this is showing what, this is drawing all the lines.
+ And this is again normalizing things for thickness
+ and printing these things out.
+ Now I don't want to go through this in tremendous detail.
+ So I'll do python spjson.py.
+ Let's do the top 20 nodes.
+ And if I take a look at this file, spider.js,
+ you can see that it's some objects
+ that basically put the page rank in, which ID it is.
+ And that's a way for me to be able to link back and forth.
+ Weight is how big the little circle is.
+ And then I have the links.
+ And I only asked for the top 20, right?
+ And then this is the thickness of the line,
+ where the line starts, where the line ends, okay?
+ So this is read by this HTML file.
+ And it's going to read somewhere, this force.js file.
+ And my own spider.js code, this is some JavaScript.
+ I mean, no, the force.js is the visualization code.
+ And this is D3, the visualization library.
+ So I'm using this D3.js,
+ which is a really great visualization library.
+ And this is just drawing the circles
+ and making the circles colors
+ and making the circles bigger and smaller,
+ and then connecting all the lines in between it.
+ So this is just there.
+ This data feeds that thing.
+ And so when we're all done, you simply say open.
+ You don't have to do anything.
+ Open force.html.
+ And so all this beautiful JavaScript stuff is like,
+ oh wow, that's really cool.
+ 'Cause you can move these things around.
+ Whoa.
+ You can see the circles are bigger.
+ If you hover over it for a while, it shows you the big ones.
+ You can see these things and it's kind of cool.
+ So I gave you all this force.js and force.html.
+ And so that kind of visualizes the page rank.
+ And you could use this to visualize quite a bit of stuff.
+ I, you know, it'll take you a while
+ to pull down enough data from a real website.
+ But after you pull down four or 500 pages,
+ if you have some time,
+ and then the visualization is quite interesting.
+ But you can see why we had to pull down several hundred pages
+ just to get this much page rank information.
+ Okay, so that gives you a sense of how to run
+ the page rank code in Python for everybody.
+ So thanks for us, thanks for listening.
+ (gentle music)
+ (upbeat music)

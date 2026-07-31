@@ -1,0 +1,239 @@
+ - Hello and welcome to Python Objects.
+ I'm Charles Severance and we're well on our way
+ to getting through all this material in the Python.
+ So this lecture is in a weird place.
+ I even debated where to put it in the book.
+ I don't really want to teach you how to write
+ a lot of object-oriented programming,
+ but we're going to start using objects
+ and I want to be able to use the terminology.
+ And so as much as anything, this lecture is about terminology
+ and understanding the words, things like methods
+ and method signatures and variables and inheritance.
+ And so think of this as a terminology lecture
+ rather than a learn how to program or learn how to use this.
+ It's not something you're going to figure out right away
+ and there'll come a time when you as a programmer
+ really want to start using object-oriented programming.
+ It's really a powerful and wonderful technique,
+ but I think it's too early as a beginning programmer
+ to really say, oh, let's write a bunch of objects.
+ So just relax and enjoy and learn this material
+ and think of it as sort of a theoretical thing
+ rather than a how to program thing.
+ And so part of this is we're going to start reading
+ data structures, and I mean data on how to use
+ all these libraries, et cetera.
+ We're going to see the word objects, right?
+ And then we're going to start hearing them.
+ And I want you to be able to read the Python documentation
+ so that you understand what's going on.
+ And so the word objects should make sense to you
+ even though you're not going to write
+ a lot of object-oriented programming.
+ And so page upon page upon page,
+ database stuff which we're going to talk about soon
+ is uses objects all over the place.
+ And the beautiful soup talks about uses objects.
+ We've kind of been using them and I've been waving my hands
+ and I use the word method without defining it,
+ but now it's really time to define it and go to it.
+ So I want to review from the very beginning
+ what we think of as a program.
+ So the classic program, my favorite little minimum program
+ is our little elevator floor converter
+ which converts from European elevator floors
+ to United States elevator floors.
+ And the key to this is that it's input, processing,
+ and output, and this is a good way to model any program.
+ And in that process we've got variables
+ and we've got logic, we've got algorithms,
+ we've got loops that we write, we've got all kinds of things.
+ And we construct a series of steps to achieve some goal.
+ In object-oriented, and frankly you've been using
+ object-oriented all along, the program has lots of objects
+ and we're sort of putting stuff into these objects,
+ taking stuff out of one object
+ and putting it into another object.
+ And you've actually been doing this all along.
+ As soon as you're looking at dictionaries and lists,
+ you're doing objects.
+ And so an object is quite a little thing,
+ it's sort of its own little space inside of a program
+ that contains code and data.
+ And so we're working together,
+ all these objects are now working together.
+ It's a bit of self-contained code and data
+ and it is one way to take a very complex problem
+ and make it easier by breaking into separate things
+ that can be engineered and developed separately.
+ So you've been using string objects
+ or maybe you'd use Beautiful Soup or something.
+ These are powerful capabilities
+ and if you had to look at all of them,
+ it's just hey, here's a thing, use this object,
+ it'll do these things for you
+ and there's lots of details inside of it.
+ Just don't look at it, don't worry about it.
+ And so there's boundaries, the things that you can use,
+ things that you can look at,
+ and things that really you don't bother looking at,
+ you go read the documentation and use it and away it goes.
+ But then someone had to write that
+ and so they built an object.
+ So what we're going to do is look a little bit
+ under the covers of what it takes
+ to build some of these objects.
+ And so if we think of this program
+ that originally just sort of did processing,
+ we can think of it as having some kind of an input, right,
+ coming into our program.
+ And we have a string object, a dictionary object,
+ maybe eventually some objects like a database object
+ or an object that we eventually define.
+ And you can think of us, we're receiving data,
+ it comes in an object which is a string object
+ where we start putting the strings in dictionaries
+ and do whatever, we pull out a list of them.
+ And so you can think of data as moving between these objects.
+ And like I say, even strings in the first week,
+ first lecture, first week, first everything,
+ we were using objects and we've been using them all along.
+ And so you can think of every string and every dictionary
+ as a little program all by itself
+ that has a bit of code and a bit of data.
+ And so a string has the data which includes
+ all the characters that make up the string,
+ but then there is a method called upper
+ that does uppercase or rstrip that strips off the right,
+ a white space from the right.
+ And so it's like they're almost little programs
+ that have inputs and outputs themselves
+ and we can make lots of them.
+ And there's lots of cooperating objects
+ that make up an application.
+ And one of the nice things about the object-oriented pattern
+ is that they form boundaries and within the boundaries
+ if you're inside the object you can say,
+ "Look, I'm going to build you a string object
+ "or a database object or a beautiful soup object
+ "and I'm going to build this capability
+ "and I'm going to give it to you in the form of an interface
+ "and I'm not really going to care how you use it."
+ And so we have this sort of visibility wall
+ where I'm going to make an object and I'm going to let you use it
+ and the maker of the object doesn't necessarily
+ have to know every single thing
+ about the use of that object.
+ But so just like inside the object,
+ they don't have to worry about what you're doing
+ with the object outside of it.
+ When you're outside the object you don't have to worry
+ about what's going on inside of it.
+ We, as the user of the object, we talk to its interface
+ and we get things from it and give things to it
+ and use functionality within that object.
+ But we don't have to look inside of this.
+ We can just say, "Oh, it's a nice little magical thing."
+ We read the documentation, we read a webpage
+ and it told us to do this, this, and this
+ and away you go.
+ And so it is sort of this isolation boundary
+ that works both for the programmer who's writing the object
+ and the programmer who's using the object.
+ And so it's a very nice pattern.
+ And so you'll see how we're going to build code
+ and we're going to group it together
+ and then we're going to be using it
+ sort of as a big blob of stuff.
+ So some definitions in this space,
+ words that I want you to understand.
+ When we're going to create one of these things,
+ one of these objects, instances,
+ that has some data in it and some code in it,
+ we have to be able to define the shape of this object.
+ What code will each object have in it
+ and what data will each object have in it?
+ And that's called a class.
+ The key to a class, and this little picture
+ that I've got up here in all these slides, is a key.
+ The class is a template.
+ It's not the thing itself.
+ So it's a cookie cutter.
+ It knows a lot about how cookies are made.
+ And if you have cookie dough and you hit the thing,
+ then you make as many cookies as you want.
+ And so this nice little cookie picture
+ is a great mental model of how it works.
+ The class, the class, oops.
+ The class is the template.
+ And then the object are all of the cookies
+ that are made from that template.
+ But the template defines the shape
+ and the nature of the class.
+ So the code that we write is going of each of the objects.
+ The code we write is the class code.
+ And then later we say, oh, let's take that template
+ and make ourselves an object or an instance.
+ Now, as we're defining a class,
+ we have two basic things that we put in the class.
+ And there's a couple of different terminologies for this.
+ One is method, which is code.
+ It's like a function that lives inside of a class.
+ Not a function that lives inside your program,
+ but one that lives inside of a class.
+ And so this is a scoping thing.
+ A method is really just a function.
+ But it lives inside the class.
+ And then fields or attributes are data items
+ that are in the class.
+ And so they're variables that are defined in the class.
+ You can define variables outside the class
+ that you use in your program.
+ You've been doing that all along.
+ But if you're saying, I'm going to build this capability
+ and it's going to have data inside of it and code inside of it,
+ the code is the method or message and field or attribute.
+ And they're just, oops.
+ There are just two different sets of terminology.
+ Method is what I'll probably use.
+ If you look in some object-oriented patterns
+ like Smalltalk or Apple, they often will call these messages.
+ So you can either access a method
+ inside of a class or an object,
+ or you can send a message to the object.
+ The same is true for field and attribute.
+ It's just a chunk of data that's in the object
+ that you may or may not have the right to access.
+ So, like I said, a class is a template.
+ It defines the characteristics of the objects
+ that we're going to use to make it.
+ It is the cookie cutter.
+ So dog is sort of the exemplar.
+ Lassie is a particular dog.
+ And so dog has fur and dog barks
+ and dogs do all these things.
+ And so we know something about dogs,
+ but it doesn't mean we have a dog, right?
+ And the class is a more abstract concept
+ that when it's time to get a dog,
+ we know certain things about dogs.
+ Instances or objects are once we say,
+ oh, time to make a cookie from the template.
+ Time to get a dog, we know something about dogs.
+ That's the creation of an object
+ and we call them instances, instance of a class.
+ So the class doesn't exist, but we say,
+ make me a new object using this class as its template.
+ Oh, and now make me another one.
+ And so we can have many, many objects from one class.
+ So just like many cookies from one cookie cutter.
+ Method is a bit of code that lives inside of an object.
+ It's like a function,
+ but it's scoped to within the object or within the class.
+ Okay, so that kind of gets us started
+ on some of the terminology and we'll come back
+ and we'll take a look at how we write code
+ that's object-oriented.
+ (gentle music)
+ (gentle piano music)

@@ -1,0 +1,491 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:09.000
+ So, now that we know what a primary key, logical key, and foreign key are, we are going to actually start putting these together and creating tables that have these kind of values in them.
+
+00:00:09.000 --> 00:00:18.000
+ So, when we were done, we drew this picture that was sort of a logical model of how our data would be spread across four tables and how those tables are connected.
+
+00:00:18.000 --> 00:00:27.000
+ Now, we have to take this and we have to map it in a way that leads to the columns and the needed columns in each of our database tables.
+
+00:00:27.000 --> 00:00:29.000
+ And so, here's what we do.
+
+00:00:29.000 --> 00:00:38.000
+ We basically have to take, and for each of these, when we're going to build a track table, when we're going to build a track table, we add a primary key.
+
+00:00:38.000 --> 00:00:41.000
+ So, we just added an ID field to every one of these things.
+
+00:00:41.000 --> 00:00:46.000
+ And that's so we have a place to store the sequence number of this particular row.
+
+00:00:46.000 --> 00:00:47.000
+ We have logical keys.
+
+00:00:47.000 --> 00:00:48.000
+ We've just marked those.
+
+00:00:48.000 --> 00:00:49.000
+ Those are strings.
+
+00:00:49.000 --> 00:00:51.000
+ And then we have things like, you know, rating, length, and count.
+
+00:00:51.000 --> 00:00:53.000
+ They just kind of go in here.
+
+00:00:53.000 --> 00:00:56.000
+ And now we have to model a relationship.
+
+00:00:56.000 --> 00:01:08.000
+ So, what we do is we, in the table that the relationship starts from, we put one more column in, and this is the one I will name album ID, and that just is an integer column that's going to record the album ID.
+
+00:01:08.000 --> 00:01:11.000
+ So, there might be, this might be 16, and then 16 goes in here.
+
+00:01:11.000 --> 00:01:15.000
+ So, there's one of these columns that's a foreign key that points to this.
+
+00:01:15.000 --> 00:01:16.000
+ And that's why it's foreign.
+
+00:01:16.000 --> 00:01:18.000
+ This is a key that's not in the track table.
+
+00:01:18.000 --> 00:01:21.000
+ This is a key in the album table that we're pointing to.
+
+00:01:21.000 --> 00:01:24.000
+ And so, there's a foreign key.
+
+00:01:24.000 --> 00:01:25.000
+ And that's what we have to do.
+
+00:01:25.000 --> 00:01:28.000
+ And we just do that over and over and over again.
+
+00:01:28.000 --> 00:01:35.000
+ And we quickly convert that picture that was a logical picture to having every table has a primary key.
+
+00:01:35.000 --> 00:01:41.000
+ And every time we have a starting point, we have a foreign key, foreign key, and then foreign key.
+
+00:01:41.000 --> 00:01:45.000
+ And then we mark these things as logical key, logical key, logical key, and we'll see how we do that.
+
+00:01:45.000 --> 00:01:47.000
+ And so, that's the picture.
+
+00:01:47.000 --> 00:01:53.000
+ Now we have a picture of exactly how we're going to lay these tables out and the fields that we need in these tables.
+
+00:01:53.000 --> 00:02:02.000
+ So, we're going to do a create table statement.
+
+00:02:02.000 --> 00:02:09.000
+ And I've got this create table statement sitting there.
+
+00:02:09.000 --> 00:02:12.000
+ And so, this one's going to be a little bit different.
+
+00:02:12.000 --> 00:02:15.000
+ We're going to say create table artist.
+
+00:02:15.000 --> 00:02:19.000
+ And the ID field is integer.
+
+00:02:19.000 --> 00:02:26.000
+ And we're going to add all of this stuff, this is adding to the column to tell it additional stuff.
+
+00:02:26.000 --> 00:02:29.000
+ It's a primary key, which means we're going to use it to look up a lot.
+
+00:02:29.000 --> 00:02:35.000
+ It's automatically incremented, which means the database is actually going to provide this number for us as we insert records.
+
+00:02:35.000 --> 00:02:40.000
+ It's not allowed to be null, it's not allowed to be empty, and it's supposed to be unique.
+
+00:02:40.000 --> 00:02:47.000
+ And then it's going to have, the artist is going to have a name column, a name column that's just text.
+
+00:02:47.000 --> 00:02:50.000
+ So, let's do that.
+
+00:02:50.000 --> 00:02:52.000
+ We already have our users.
+
+00:02:52.000 --> 00:02:55.000
+ And now we're going to do a create table in this SQL.
+
+00:02:55.000 --> 00:02:57.000
+ And you can do that, that's okay, that's totally fine.
+
+00:02:57.000 --> 00:03:00.000
+ And we have to get this right and we say away we go.
+
+00:03:00.000 --> 00:03:10.000
+ And so, now if I take a look at database structure, I've got a users table as well as that users table we were playing with before and this artist table.
+
+00:03:10.000 --> 00:03:15.000
+ Let me go ahead and delete this users table just to say goodbye.
+
+00:03:15.000 --> 00:03:22.000
+ Okay, so now we have the artist table and we take a look and it's got an ID and it knows all about this stuff, okay?
+
+00:03:22.000 --> 00:03:25.000
+ So, that created the table.
+
+00:03:25.000 --> 00:03:27.000
+ We're going to keep doing this.
+
+00:03:27.000 --> 00:03:32.000
+ The next thing that we're going to show here is we're going to show the foreign key, right?
+
+00:03:32.000 --> 00:03:34.000
+ So, artist ID is just an integer.
+
+00:03:34.000 --> 00:03:40.000
+ In some database languages, like MySQL and Oracle, you would put more stuff here to say this is a foreign key, blah, blah, blah.
+
+00:03:40.000 --> 00:03:55.000
+ In SQLite, we keep it simple and just say that is an integer column, that's a foreign key, the album table has a primary key and a foreign key and then the title.
+
+00:03:55.000 --> 00:04:00.000
+ So, we'll go back and we'll grab that text out of my little page.
+
+00:04:00.000 --> 00:04:11.000
+ Let's create table, go back to execute SQL and then run that.
+
+00:04:11.000 --> 00:04:19.000
+ And we'll continue, we'll just, the genre table has an ID on it and primary key auto, you'll just copy and paste these.
+
+00:04:19.000 --> 00:04:26.000
+ That whole thing, you do that over and over and over again, so we'll go in here and run that one.
+
+00:04:26.000 --> 00:04:37.000
+ And so, the last one we're going to do is the track table and the only thing that's kind of weird about the track table is it's got two foreign keys, right?
+
+00:04:37.000 --> 00:04:39.000
+ It's got an album ID and a genre ID.
+
+00:04:39.000 --> 00:04:42.000
+ Once you draw the picture, you just sort of literally translate these things.
+
+00:04:42.000 --> 00:04:51.000
+ It's got two foreign keys and a primary key that's pretty much just like all those other primary keys.
+
+00:04:51.000 --> 00:04:57.000
+ And, you know, integer counts an integer and length an integer, all that stuff and now we've got it.
+
+00:04:57.000 --> 00:05:03.000
+ So, if we take a look at our database structure, we're going to see that our album, genre and track are all set up.
+
+00:05:03.000 --> 00:05:12.000
+ And these are no columns that we just made with those create statements, okay?
+
+00:05:12.000 --> 00:05:14.000
+ So, now let's insert some data.
+
+00:05:14.000 --> 00:05:17.000
+ This first insert statement is kind of important to take a look at.
+
+00:05:17.000 --> 00:05:22.000
+ So, insert into, by the way, the keywords can be upper or lower case, table name, columns.
+
+00:05:22.000 --> 00:05:24.000
+ Now, this table has two columns.
+
+00:05:24.000 --> 00:05:29.000
+ It has ID and name, but we told the database that ID was auto increment.
+
+00:05:29.000 --> 00:05:31.000
+ So, it's going to actually give us the number.
+
+00:05:31.000 --> 00:05:34.000
+ It's going to assign the number rather than make us assign.
+
+00:05:34.000 --> 00:05:38.000
+ We could make it be one, two, three, but we say, hey, database, you're good at this.
+
+00:05:38.000 --> 00:05:40.000
+ Why don't you make it one, two, three?
+
+00:05:40.000 --> 00:05:43.000
+ And so, there is going to be a record that it adds Led Zeppelin.
+
+00:05:43.000 --> 00:05:46.000
+ So, let's take a look at that.
+
+00:05:46.000 --> 00:06:01.000
+ So, we'll insert Led Zeppelin, oops, go over to SQL, insert Led Zeppelin and run it.
+
+00:06:01.000 --> 00:06:08.000
+ So, now if I look at database structure and I look at the, let's look at browse data and look at the artist database,
+
+00:06:08.000 --> 00:06:13.000
+ you will see that I put Led Zeppelin in, but this ID field here was auto incremented.
+
+00:06:13.000 --> 00:06:16.000
+ And so, it was put there by the database.
+
+00:06:16.000 --> 00:06:32.000
+ And now, when we do the next insert, which is ACDC, and we take a look at the data, we'll see that ACDC is two.
+
+00:06:32.000 --> 00:06:37.000
+ Now, if you're writing this in a program, if you're going to write this in a program,
+
+00:06:37.000 --> 00:06:42.000
+ you can get these numbers back from the database in your program, but I'm not writing this in a program,
+
+00:06:42.000 --> 00:06:47.000
+ so I have to remember that one is Zeppelin and two is ACDC.
+
+00:06:47.000 --> 00:06:51.000
+ So, I'm going to keep myself a little cheat sheet here to remember that.
+
+00:06:51.000 --> 00:06:55.000
+ Because everywhere else in the program that we want to say Led Zeppelin, I've got to say one now,
+
+00:06:55.000 --> 00:07:00.000
+ because the artist ID of one means Led Zeppelin in those rows.
+
+00:07:00.000 --> 00:07:05.000
+ And so, now we're going to go back and we're going to take a look at the next one.
+
+00:07:05.000 --> 00:07:07.000
+ And now, we're going to put the genre in.
+
+00:07:07.000 --> 00:07:10.000
+ If you think about it, we're working from the leaves out.
+
+00:07:10.000 --> 00:07:14.000
+ The track will be the last table that we'll update, because I have to define the keys
+
+00:07:14.000 --> 00:07:18.000
+ for things like rock and metal and Led Zeppelin and all those other things.
+
+00:07:18.000 --> 00:07:22.000
+ And again, even though the genre table has two columns, ID and name,
+
+00:07:22.000 --> 00:07:29.000
+ we're only going to specify the name and let the database assign the value.
+
+00:07:29.000 --> 00:07:35.000
+ So, I'm going to insert both of these and use the semicolon trick.
+
+00:07:35.000 --> 00:07:41.000
+ I'm going to put a semicolon here and a semicolon there and run that.
+
+00:07:41.000 --> 00:07:45.000
+ And so, if I take a look at my browse data and I look at the genre,
+
+00:07:45.000 --> 00:07:48.000
+ it's assigned one to rock and two to metal.
+
+00:07:48.000 --> 00:07:50.000
+ I'm going to write that down.
+
+00:07:50.000 --> 00:07:54.000
+ One rock, two metal.
+
+00:07:54.000 --> 00:07:56.000
+ I should have done something like rock and country,
+
+00:07:56.000 --> 00:08:00.000
+ because I can't even tell the difference between rock and metal, but whatever.
+
+00:08:00.000 --> 00:08:04.000
+ My musical skill is not what's at issue in this class.
+
+00:08:04.000 --> 00:08:08.000
+ So, now we're going to put an album in.
+
+00:08:08.000 --> 00:08:10.000
+ The album is the first thing that has a foreign key.
+
+00:08:10.000 --> 00:08:14.000
+ So, if you remember the thing, the album points to artist.
+
+00:08:14.000 --> 00:08:17.000
+ And so, that means it has a foreign key of artist ID.
+
+00:08:17.000 --> 00:08:19.000
+ And so, we have to explicitly say this,
+
+00:08:19.000 --> 00:08:23.000
+ because the system doesn't know which artist who made who is,
+
+00:08:23.000 --> 00:08:27.000
+ but we know that who made who is AC/DC, and that's two.
+
+00:08:27.000 --> 00:08:29.000
+ And so, we know to put artist ID in.
+
+00:08:29.000 --> 00:08:32.000
+ So, we'll say insert into album, title, artist ID,
+
+00:08:32.000 --> 00:08:34.000
+ and so we have to know what this two number is.
+
+00:08:34.000 --> 00:08:42.000
+ And of course, because we have our handy little cheat sheet,
+
+00:08:42.000 --> 00:08:45.000
+ we can go over to execute and run that.
+
+00:08:45.000 --> 00:08:50.000
+ And I'll put a semicolon there and a semicolon there and run it.
+
+00:08:50.000 --> 00:08:59.000
+ And so, now we have in the album field, we now have this.
+
+00:08:59.000 --> 00:09:02.000
+ And so, this was assigned, and so who made who,
+
+00:09:02.000 --> 00:09:10.000
+ still have to write down that who made who is album one,
+
+00:09:10.000 --> 00:09:13.000
+ and album two is Led Zeppelin four.
+
+00:09:13.000 --> 00:09:14.000
+ That makes it even more complex,
+
+00:09:14.000 --> 00:09:17.000
+ because the name of the album is Roman numeral four.
+
+00:09:17.000 --> 00:09:19.000
+ I'm sure I can figure that out.
+
+00:09:19.000 --> 00:09:23.000
+ Okay, so the next thing that we're going to do
+
+00:09:23.000 --> 00:09:25.000
+ is we're going to insert the track record.
+
+00:09:25.000 --> 00:09:27.000
+ Now, if you think about the track record,
+
+00:09:27.000 --> 00:09:32.000
+ the track has two foreign keys.
+
+00:09:32.000 --> 00:09:33.000
+ And it's got a lot of stuff.
+
+00:09:33.000 --> 00:09:35.000
+ It's got the title, it's got the rating, length, count,
+
+00:09:35.000 --> 00:09:36.000
+ but then we got the two foreign keys.
+
+00:09:36.000 --> 00:09:39.000
+ And so, we have to know these numbers.
+
+00:09:39.000 --> 00:09:45.000
+ So, this two one, this two one, this one two is the genre.
+
+00:09:45.000 --> 00:09:49.000
+ We're specifying the genre and the album that this track is from
+
+00:09:49.000 --> 00:09:50.000
+ by those numbers.
+
+00:09:50.000 --> 00:09:53.000
+ Now, again, we have to use this cheat sheet,
+
+00:09:53.000 --> 00:09:56.000
+ but if this was a program, the program would know
+
+00:09:56.000 --> 00:10:00.000
+ that one was Zeppelin, or one was who made who,
+
+00:10:00.000 --> 00:10:02.000
+ and two was Led Zeppelin four.
+
+00:10:02.000 --> 00:10:06.000
+ And so, this kind of stuff is easier for the program
+
+00:10:06.000 --> 00:10:09.000
+ to understand than for us to keep track of and understand.
+
+00:10:09.000 --> 00:10:13.000
+ But just so we can get through these few records,
+
+00:10:13.000 --> 00:10:16.000
+ and that's why I rely so heavily on my cheat sheet.
+
+00:10:16.000 --> 00:10:19.000
+ So, here we are with all these numbers.
+
+00:10:19.000 --> 00:10:21.000
+ The foreign keys are the tricky part here.
+
+00:10:21.000 --> 00:10:23.000
+ Everything else is really quite straightforward.
+
+00:10:23.000 --> 00:10:27.000
+ So, now I'm going to insert four records into my track table.
+
+00:10:27.000 --> 00:10:35.000
+ And then run that.
+
+00:10:35.000 --> 00:10:37.000
+ Okay.
+
+00:10:37.000 --> 00:10:40.000
+ So, if I browse data and I look at my track table,
+
+00:10:40.000 --> 00:10:44.000
+ this column here, this ID, that's the primary key of the track table,
+
+00:10:44.000 --> 00:10:46.000
+ and then here are the two foreign keys.
+
+00:10:46.000 --> 00:10:51.000
+ Now, the interesting thing is now there is replication in these columns,
+
+00:10:51.000 --> 00:10:55.000
+ but the numbers are what's being replicated, and that's okay.
+
+00:10:55.000 --> 00:11:00.000
+ We went a long time just not to put Led Zeppelin four in twice.
+
+00:11:00.000 --> 00:11:03.000
+ We could've made this a string, but by making this an integer,
+
+00:11:03.000 --> 00:11:06.000
+ it saves tons of storage and makes it super fast.
+
+00:11:06.000 --> 00:11:09.000
+ That turns out to be one of the key things
+
+00:11:09.000 --> 00:11:14.000
+ that makes databases super fast is using these integers.
+
+00:11:14.000 --> 00:11:16.000
+ So, we take a look at all this stuff.
+
+00:11:16.000 --> 00:11:20.000
+ We see that in a sense, by using these little numbers,
+
+00:11:20.000 --> 00:11:22.000
+ we are pointing to rows in other tables.
+
+00:11:22.000 --> 00:11:24.000
+ The foreign keys are always pointing.
+
+00:11:24.000 --> 00:11:26.000
+ They always point to their ID.
+
+00:11:26.000 --> 00:11:27.000
+ So, these foreign keys are out here.
+
+00:11:27.000 --> 00:11:29.000
+ This is the primary key up here.
+
+00:11:29.000 --> 00:11:31.000
+ And they always point to a row in another table.
+

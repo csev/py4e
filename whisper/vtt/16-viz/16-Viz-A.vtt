@@ -1,0 +1,443 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.340
+ - Hello, and welcome to our final chapter,
+
+00:00:03.340 --> 00:00:05.320
+ Retrieving and Visualizing Data.
+
+00:00:05.320 --> 00:00:07.800
+ In this chapter, we are going to basically
+
+00:00:07.800 --> 00:00:12.100
+ bring this all together, databases, web services,
+
+00:00:12.100 --> 00:00:16.260
+ code, loops, logic, and we're going to solve a problem
+
+00:00:16.260 --> 00:00:20.900
+ that is a multi-step data analysis.
+
+00:00:20.900 --> 00:00:23.500
+ We're going to find some data on the internet,
+
+00:00:23.500 --> 00:00:26.620
+ might be HTML, might be an API or whatever,
+
+00:00:26.620 --> 00:00:29.960
+ and we're going to write a relatively slow process
+
+00:00:29.960 --> 00:00:32.160
+ that's going to pull data slowly,
+
+00:00:32.160 --> 00:00:33.820
+ because these are all rate-limited.
+
+00:00:33.820 --> 00:00:37.280
+ This is a slow and restartable process.
+
+00:00:37.280 --> 00:00:39.060
+ So you can be a start this, and what we're going to do
+
+00:00:39.060 --> 00:00:41.220
+ is we're going to have a database that's going to hold
+
+00:00:41.220 --> 00:00:44.020
+ the data that we're pulling, and so this might take
+
+00:00:44.020 --> 00:00:47.520
+ several days, actually, if you really have to do it,
+
+00:00:47.520 --> 00:00:49.560
+ and then you'll build up your data in your database,
+
+00:00:49.560 --> 00:00:52.540
+ and then what you tend to do is you tend to produce
+
+00:00:52.540 --> 00:00:56.460
+ two databases, one is kind of a raw database that,
+
+00:00:56.460 --> 00:01:00.640
+ you know, you really, all of its data columns are aimed at
+
+00:01:00.640 --> 00:01:03.420
+ helping you figure out what you've got to retrieve yet,
+
+00:01:03.420 --> 00:01:04.780
+ and what you haven't retrieved yet,
+
+00:01:04.780 --> 00:01:08.220
+ so that's kind of a crawling, spidering process,
+
+00:01:08.220 --> 00:01:11.660
+ and then you find that the data is kind of nasty and ugly,
+
+00:01:11.660 --> 00:01:14.660
+ and you find that before you're going to do any analysis,
+
+00:01:14.660 --> 00:01:16.580
+ you probably want to clean and process it,
+
+00:01:16.580 --> 00:01:19.380
+ so in a lot of these, you're going to go from a raw database
+
+00:01:19.380 --> 00:01:23.060
+ to a clean one, and this is going to be really large,
+
+00:01:23.060 --> 00:01:25.200
+ and this is going to be really small,
+
+00:01:25.200 --> 00:01:28.320
+ and you're going to do this sort of once, but slowly,
+
+00:01:28.320 --> 00:01:30.220
+ and you'll do this as many times as you need,
+
+00:01:30.220 --> 00:01:32.760
+ changing this program, cleaning the data up
+
+00:01:32.760 --> 00:01:35.020
+ over and over and over again, and then you'll end up
+
+00:01:35.020 --> 00:01:37.480
+ with really clean data, and it's relatively small,
+
+00:01:37.480 --> 00:01:39.500
+ and you might run programs that'll loop through this
+
+00:01:39.500 --> 00:01:42.860
+ to do visualizations or analysis or some things,
+
+00:01:42.860 --> 00:01:45.400
+ or whatever, and so you'll actually sort of use this
+
+00:01:45.400 --> 00:01:48.900
+ database as a source of information, okay?
+
+00:01:48.900 --> 00:01:54.340
+ So that's the basic pattern of what we're going to work with.
+
+00:01:54.340 --> 00:01:57.020
+ Now, this is what I call personal data mining,
+
+00:01:57.020 --> 00:01:58.860
+ and if you're going to do this seriously,
+
+00:01:58.860 --> 00:02:01.780
+ Python is used in lots of data mining activities,
+
+00:02:01.780 --> 00:02:03.280
+ but if you're going to do data mining seriously
+
+00:02:03.280 --> 00:02:04.940
+ with really, really large data sets,
+
+00:02:04.940 --> 00:02:08.700
+ we're doing small to medium-sized data sets,
+
+00:02:08.700 --> 00:02:11.660
+ as you might do sort of for individual personal research
+
+00:02:11.660 --> 00:02:13.360
+ versus like an organizational research
+
+00:02:13.360 --> 00:02:15.900
+ where you're processing the logs of a web server
+
+00:02:15.900 --> 00:02:18.360
+ or something like that, and there's lots and lots
+
+00:02:18.360 --> 00:02:21.440
+ of wonderful technology, and what's really cool is
+
+00:02:21.440 --> 00:02:23.380
+ this technology just keeps getting better and better,
+
+00:02:23.380 --> 00:02:26.420
+ because the whole data and mining data analysis,
+
+00:02:26.420 --> 00:02:30.200
+ natural language processing field is just so hot right now.
+
+00:02:30.200 --> 00:02:31.240
+ It's so awesome.
+
+00:02:31.240 --> 00:02:34.520
+ We're going to keep it simple and do stuff for ourselves
+
+00:02:34.520 --> 00:02:38.740
+ for now, and I gave you a bunch of sample code
+
+00:02:38.740 --> 00:02:40.500
+ that's going to make it so that you can adapt
+
+00:02:40.500 --> 00:02:42.360
+ this sample code to solve the problems
+
+00:02:42.360 --> 00:02:44.060
+ that you need to solve.
+
+00:02:44.060 --> 00:02:46.800
+ So like I said, this is more of a programming exercise.
+
+00:02:46.800 --> 00:02:48.540
+ Data mining might be a lot more complex.
+
+00:02:48.540 --> 00:02:50.240
+ If you're doing simple research,
+
+00:02:50.240 --> 00:02:53.500
+ this might actually model what you do pretty well.
+
+00:02:53.500 --> 00:02:55.040
+ So the first thing that we're going to do
+
+00:02:55.040 --> 00:02:59.200
+ is what's called use the Google's JSON API for geocoding,
+
+00:02:59.200 --> 00:03:02.200
+ and there are two versions of this.
+
+00:03:02.200 --> 00:03:04.040
+ One version requires a key,
+
+00:03:04.040 --> 00:03:07.200
+ and one version doesn't require a key.
+
+00:03:07.200 --> 00:03:09.620
+ Google used to make all this data available for free
+
+00:03:09.620 --> 00:03:12.440
+ but with just a rate limit, but now they're making,
+
+00:03:12.440 --> 00:03:14.280
+ increasingly requiring a key.
+
+00:03:14.280 --> 00:03:17.980
+ So I give you code in this zip file that kind of does both.
+
+00:03:17.980 --> 00:03:19.760
+ If you really wanted to do something in production
+
+00:03:19.760 --> 00:03:23.100
+ taking user entered places and names
+
+00:03:23.100 --> 00:03:25.320
+ and getting precise latitude longitude coordinates
+
+00:03:25.320 --> 00:03:29.480
+ so you can produce a nice little Google map like this.
+
+00:03:29.480 --> 00:03:33.660
+ But since Google has made a rate limited API,
+
+00:03:33.660 --> 00:03:37.100
+ I've actually pre-spidered a copy of the Google data
+
+00:03:37.100 --> 00:03:39.120
+ and I have my own sort of fake Google API
+
+00:03:39.120 --> 00:03:41.460
+ and so you can do your assignments
+
+00:03:41.460 --> 00:03:45.220
+ and test all your code using my fake API
+
+00:03:45.220 --> 00:03:47.640
+ which has no rate limits and has no problems,
+
+00:03:47.640 --> 00:03:51.120
+ but it's only a limited set of the data.
+
+00:03:51.120 --> 00:03:52.700
+ And so this is the basic process
+
+00:03:52.700 --> 00:03:56.120
+ and it's one of those things that it follows
+
+00:03:56.120 --> 00:03:58.520
+ that basic personal data modeling,
+
+00:03:58.520 --> 00:04:00.460
+ personal data mining pattern.
+
+00:04:00.460 --> 00:04:03.100
+ And so here's this API which is either Google or me.
+
+00:04:03.100 --> 00:04:04.920
+ I've got my own Dr. Chuck version of this,
+
+00:04:04.920 --> 00:04:06.800
+ Dr. Chuck.net version of this.
+
+00:04:06.800 --> 00:04:10.800
+ And there is an input queue of the location.
+
+00:04:10.800 --> 00:04:13.500
+ So this is the user data where they just put in the name
+
+00:04:13.500 --> 00:04:14.740
+ of where they think they live,
+
+00:04:14.740 --> 00:04:17.600
+ University of Tubigin or something,
+
+00:04:17.600 --> 00:04:20.180
+ and so this is the queue of the things
+
+00:04:20.180 --> 00:04:21.740
+ that are to be retrieved.
+
+00:04:21.740 --> 00:04:24.860
+ And in my case when I built this map for the first time,
+
+00:04:24.860 --> 00:04:29.340
+ there was like 15,000 and it took me days to get this
+
+00:04:29.340 --> 00:04:30.920
+ and so it would stop.
+
+00:04:30.920 --> 00:04:34.940
+ And so what I would do is I would read the first one
+
+00:04:34.940 --> 00:04:36.540
+ into this geoload.py,
+
+00:04:36.540 --> 00:04:38.440
+ check to see if I already had it in my database.
+
+00:04:38.440 --> 00:04:39.720
+ If I didn't already have the database,
+
+00:04:39.720 --> 00:04:42.040
+ I would go into the API, pull the data down
+
+00:04:42.040 --> 00:04:43.520
+ and I would put it in the database
+
+00:04:43.520 --> 00:04:45.080
+ and then I would go to the next one.
+
+00:04:45.080 --> 00:04:45.980
+ The next one, the next one.
+
+00:04:45.980 --> 00:04:49.100
+ So you know I might get 1,000 in my database
+
+00:04:49.100 --> 00:04:51.940
+ and then it blows up or I'm told I can't go any further.
+
+00:04:51.940 --> 00:04:53.920
+ So I wait 24 hours, I start it up
+
+00:04:53.920 --> 00:04:55.440
+ and it reads the first 1,000 and says,
+
+00:04:55.440 --> 00:04:57.020
+ oh they're all in the database already
+
+00:04:57.020 --> 00:04:59.800
+ and then it starts at 1,000 and one.
+
+00:04:59.800 --> 00:05:01.380
+ And then it adds that and adds that
+
+00:05:01.380 --> 00:05:03.840
+ and then until it stops and so it took me
+
+00:05:03.840 --> 00:05:06.760
+ several days of processing to get this data right.
+
+00:05:06.760 --> 00:05:09.740
+ Now I didn't have a separate cleaning process
+
+00:05:09.740 --> 00:05:11.260
+ because this data is pretty simple.
+
+00:05:11.260 --> 00:05:14.780
+ I was pulling out the JSON and latitude and longitude,
+
+00:05:14.780 --> 00:05:18.560
+ et cetera and so I didn't have to do two separate processes
+
+00:05:18.560 --> 00:05:19.560
+ to clean this data up.
+
+00:05:19.560 --> 00:05:22.160
+ It was clean enough right as I pulled it
+
+00:05:22.160 --> 00:05:24.080
+ because I was talking to an API.
+
+00:05:24.080 --> 00:05:25.200
+ If you're talking to the HTML,
+
+00:05:25.200 --> 00:05:27.340
+ sometimes it gets nasty and ugly.
+
+00:05:27.340 --> 00:05:31.240
+ And so then I wrote this program that just reads through it.
+
+00:05:31.240 --> 00:05:33.740
+ It just does a select and you know reads through the stuff
+
+00:05:33.740 --> 00:05:36.480
+ and it prints out some summary information
+
+00:05:36.480 --> 00:05:37.760
+ and tells you what to do.
+
+00:05:37.760 --> 00:05:40.520
+ It also prints out and you'll see this pattern
+
+00:05:40.520 --> 00:05:45.280
+ because I'm visualizing using browsers, HTML
+
+00:05:45.280 --> 00:05:47.600
+ and this happens to be using the Google Maps API
+
+00:05:47.600 --> 00:05:51.200
+ and putting all the data in a little JavaScript file.
+
+00:05:51.200 --> 00:05:53.840
+ So these end up being assignment statements in JavaScript.
+
+00:05:53.840 --> 00:05:55.520
+ You can take a look at that file.
+
+00:05:55.520 --> 00:05:59.160
+ And all the data shows up as assignment statements
+
+00:05:59.160 --> 00:06:01.360
+ in the JavaScript and then when this HTML loads,
+
+00:06:01.360 --> 00:06:03.900
+ it reads this file and puts up all those pins
+
+00:06:03.900 --> 00:06:08.900
+ as long as you have access to the in browser JavaScript API.
+
+00:06:09.660 --> 00:06:12.120
+ So the next thing we're going to talk about is PageRank
+
+00:06:12.120 --> 00:06:14.840
+ which is spidering now HTML.
+
+00:06:14.840 --> 00:06:16.240
+ We talked a lot about this.
+
+00:06:16.240 --> 00:06:18.080
+ Spider HTML, get some links.
+
+00:06:18.080 --> 00:06:21.560
+ And so up next, we're going to actually build a real database,
+
+00:06:21.560 --> 00:06:24.680
+ full featured search engine using PageRank.
+
+00:06:24.680 --> 00:06:28.780
+ (gentle music)
+
+00:06:39.660 --> 00:06:42.740
+ (gentle piano music)
+

@@ -1,0 +1,312 @@
+ So now we're going to talk a little bit about XML Schema.
+ XML Schema is a language that allows you to decide
+ on whether or not a particular XML document
+ meets a contract, an arrangement.
+ So you have two pieces of software exchanging data using XML,
+ and what if one of them, if they're all working,
+ nobody really worries too much about it.
+ But if all of a sudden one breaks,
+ you change one side and the other one breaks,
+ whose fault was it, right?
+ Was it the side that got changed or the other side?
+ And so you could argue.
+ So what you like to do is before you set up
+ these arrangements between these applications,
+ set up a contract.
+ In a way, they're kind of like the RFCs are,
+ except that their scope is between pairs of applications.
+ And so it itself is XML,
+ and it basically, what we do is we take an XML document
+ and an XML Schema contract,
+ and then we either say that's good or that that is bad.
+ And that's called validation, a piece of software
+ that validates XML when given a schema is called a validator.
+ And so an XML document, here we have our little XML document.
+ We're passing it to the validator.
+ And then we have a schema contract, which is a itself XML.
+ It's kind of a particular kind of XML,
+ that excess colon complex type.
+ That's just a tag.
+ Colon is a legitimate character for the name of a tag.
+ Name equals person, that's just an attribute.
+ And so XML Schema is a particular format of XML
+ that renders an opinion
+ about what XML is supposed to look like.
+ So there's a number of different XML Schema languages,
+ the one we're going to look at
+ as one that's kind of came a little bit later,
+ that's very common, called XSD,
+ which is the World Wide Web Consortium's
+ schema specification.
+ Often you'll find files that have suffixes of .xsd
+ that actually contain the XML,
+ just like we're going to show you.
+ So if you recall, there are simple elements
+ which have text children,
+ and then there are complex elements
+ where other nodes are children of other nodes.
+ And so we can say this.
+ And so here we have a little bit of XML,
+ and the XML Schema, that makes sense with that.
+ So what we're saying is the outer tag
+ of this legitimate XML is supposed to be a complex tag
+ with a name of person.
+ And so there we go, that looks good, good, good.
+ Then there is a sequence,
+ and then there is a simple element,
+ a name of last name, looks good,
+ and it's a string, that looks good.
+ Another tag that's of a named age,
+ that's of type integer, that's good.
+ And then a thing that's called date born,
+ and then there, it looks like a date.
+ So we check all these things,
+ and we can basically say, yup,
+ that is a good XML document according to this schema.
+ And you don't have to write this generally,
+ but there is software that reads these two things
+ and comes back with a true or a false,
+ and might even have some detail as to what went wrong
+ with this particular schema.
+ Here's some more that you can do with a schema.
+ We can do things like have a complex type,
+ we have a sequence.
+ Here we have a string, full name, and a string child name.
+ But we have this min occurs and max occurs.
+ So min occurs is the minimum number of times it can occur.
+ And maximum is the maximum.
+ So min occurs equals one, max occurs equals one,
+ means it's required.
+ And so this is required, and we don't have two of them.
+ Two of them would be an error.
+ One of them is fine, so that's good.
+ Here the child name is min occurs zero, max occurs 10.
+ So we have four here, and so that's good too.
+ And so that is another kind of XML schema constraint
+ that you can have.
+ Here's a few other data types that we can do.
+ We've done the string, we've done the date.
+ The date looks like this.
+ Dates are four digit year, two digit month,
+ two digit a day with dashes.
+ Now there's lots of different ways to represent dates,
+ but the nice thing about this,
+ and you have to put the zeros in, so zero nine for September.
+ It means that these are sortable as strings.
+ So that if you do all your dates this way,
+ they're sortable as strings.
+ So you could argue what is prettier,
+ but for computers we don't worry about that.
+ We're arguing about what's the most functional.
+ And then the date time is that same date format with zeros,
+ followed by the letter T, and then followed by
+ hours, minutes, seconds, zero filled, right?
+ So nine o'clock is zero nine, and then the time zone,
+ which we'll talk about a second in the next slide.
+ You can have decimal numbers,
+ and you can have integer numbers as well.
+ And so we are able to sort of render an opinion
+ as to what is good and what is bad
+ in the resulting XML.
+ So dates are kind of interesting.
+ There's, again, we have lots of different formats of dates.
+ You know, nine slash 10 slash 2002, right?
+ That's a format of a date, but that's one.
+ There's another format of the date,
+ which is 12 December, whatever.
+ And so this is how people show dates.
+ Computers don't want to have all those different dates
+ and don't want to figure those out.
+ They have libraries that produce dates
+ and make 'em look pretty for particular locales,
+ but computers really want dates that work best for them.
+ So we just say, okay, we're going to have this year,
+ month, day, time, and then zero filled,
+ hours, minutes, seconds, H, M, S, and then time zone.
+ Now, computers even prefer a time zone.
+ I don't know if you've used something
+ like your Google Calendar and you take a flight
+ or take a train trip and you want to put a different time zone,
+ everything switches.
+ And that's because Google Calendar
+ is not really storing the time zone that you're,
+ not storing the dates in your current time zone,
+ it's storing them in what we call universal time
+ or Greenwich Mean Time.
+ Zulu time is another word for that.
+ And Z means this time that is the time in London, England,
+ Greenwich Mean Time.
+ And so the thing is is that that means
+ if this data moves between time zones
+ or crosses the international dateline
+ or standard data like savings time or anything like that,
+ none of that changes.
+ And so we have this internal date and time
+ that's very common in situations
+ where computers are exchanging data
+ that then gets shown with a time zone,
+ converted to the time zone or the local format
+ that's the right way to do that.
+ And there's a standard for how dates
+ and times are supposed to look.
+ So here's another little example of some stuff.
+ Let's see what we got.
+ Now, if you see this little question mark XML,
+ that's not a problem.
+ That just is a way of sort of putting a header
+ on the whole document that says it's an XML document,
+ telling it that it's a UTF-8 document.
+ And that's not really a tag.
+ That's sort of like a marker on the file.
+ So that you can put that there,
+ but it doesn't harm the XML.
+ The outer tag is this tag right here,
+ excess colon schema.
+ And then what else we got?
+ We got an address.
+ We've got a string, string, string, string, string.
+ We've seen all those.
+ Here we have country,
+ and we're going to have a restriction that basically says,
+ this is a simple string,
+ but we're going to make it so that you have to list
+ one of these four as the country code.
+ And so here we are down here,
+ and that's UK, and that's UK,
+ and so that is a valid XML.
+ Another couple of examples here.
+ Let's see, string, string, string, string, string.
+ Max-occurs unbounded.
+ That means infinite number.
+ There's no limit on the number.
+ You can do that.
+ Min-occurs of zero.
+ Excess positive integer.
+ We've seen integer,
+ but you can also say it's got to be a positive integer.
+ Decimal, we've seen that.
+ And then use-equals-required is just another statement
+ that you can make.
+ I'm not trying to get you
+ to the point where you can do XML schema.
+ Just get you a sense of the kinds of statements
+ that we can speak about when we're talking about
+ what is and is not legitimate XML.
+ So let's talk a little bit about
+ how we might talk XML inside Python.
+ And so like most things that are in this extended part
+ of Python, we have to import something.
+ And so this is the name of a library,
+ XML-e-tree-element-tree.
+ And then as ET, this ends up being a shortcut.
+ So we don't have to type these long things.
+ And so ET is the same as typing that.
+ It's almost like a macro.
+ Now, normally this XML is going to come
+ somewhere from the network,
+ but I'm just going to put this in a string.
+ I'm using a triple-quoted string.
+ And so that means that this triple-quoted string
+ starts here and ends here.
+ And all these new lines that are here
+ are actually part of the string.
+ So this is kind of like I opened a file
+ and read the whole thing in.
+ But just to keep this totally self-contained,
+ I'm putting it in a string.
+ So the XML would come from some server
+ on the other side of the network.
+ We would get this XML.
+ So that's how it would normally work, okay?
+ So this is the XML, right there.
+ And we parse a string of data.
+ And we call ET from string.
+ So we're passing in the less-thans,
+ the new lines, the greater-thans,
+ all of this stuff we're passing in.
+ And this could have syntax errors in it.
+ So this might blow up if this had a syntax error,
+ like we forgot the little slash or something,
+ there was a syntax error.
+ But this doesn't have a syntax error.
+ So then what we do is we get back an object.
+ I just happen to call it tree
+ because it kind of is like that tree version of the XML.
+ That is an object that we can then query
+ to pull data out of it.
+ So we say tree.find and look for a tag name name.
+ So that finds the tag name name is this.
+ It's everything.
+ It's the tag and the text.
+ If we want the text, we add .text.
+ And then that .text, that .text,
+ that actually refines it to only the word Chuck.
+ And similarly, if we do tree.find email,
+ that tree.find email, that finds the email tag,
+ which is this tag, it has a child attribute.
+ And you can get any of the attributes.
+ You say .get.
+ There's only one text child,
+ but there are many attribute children.
+ And so you have to tell it which one you want.
+ And so this here, this bit right here,
+ all of that will resolve down to that string yes.
+ That's what you're going to get there, yes.
+ And so you kind of build up these little finds
+ and call methods.
+ This is not clearly a full introduction to element tree,
+ but you get the idea that you sort of dive down in
+ with these methods, the call methods, the call methods,
+ to get little pieces out and parse all of that.
+ Here is a different example.
+ In this one, again, we're using triple quoted string.
+ We always have a single tag on the outside.
+ And then I have a complex type of users.
+ And in it, there are two user objects.
+ So this is kind of like a list, right?
+ So this is more than one of these things.
+ So this user can occur more than one time.
+ And again, we take this, we pass that into from string
+ and get back an object that represents
+ the name stuff does not necessarily have to be the same
+ as this outer tag, just a variable.
+ This could just as be easily as x if I wanted.
+ So now what I'm going to say is hey, hey stuff,
+ I want to find the tag, the path user slash user.
+ I want to find all tags that match user slash user.
+ So that's going to give me a list of two tags.
+ One tag, two tags in a list.
+ Tag, tag.
+ Oops, so two tags.
+ Now I can print out how many I get.
+ That'll be two in this case because I got two tags.
+ And then I can actually iterate through the list.
+ All right, so I can iterate through the list.
+ So this item is going to iterate first to this tag.
+ And that tag, now it's like in the previous example,
+ we can look for the name tag within there
+ and pull the text out.
+ So we pull that text out, find the name tag,
+ find the name tag, and then within that find the text.
+ And we can find the ID tag and pull the text of that out.
+ So that pulls out this zero, zero, one.
+ And I've scribbled too much.
+ And then we can item, which is this is item,
+ is that whole tag dot get x.
+ So that gets the attribute, that gets the two.
+ That two comes down here, okay?
+ And then item goes to the next one
+ because item is looping through,
+ so item iterates down to that one
+ and pulls out the name dot text, the ID dot text,
+ and the attribute dot x and pulls all those pieces out.
+ So this is the basic pattern.
+ You saw one where you're tearing into a single thing
+ and here you're tearing into something
+ that is expected to occur more than one time.
+ And so that's a quick summary of how you talk to XML
+ in Python.
+ Up next we're going to talk about the other serialization
+ format, JavaScript Object Notation.
+ (soft music)
+ (gentle music)

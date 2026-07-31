@@ -1,0 +1,167 @@
+ Okay, so now it's time to teach you a bit of complexity about text processing.
+ Up till now, we've kind of been ignoring the complexity of text processing.
+ Everything that I have been doing, most of what I've been doing is in ASCII,
+ the Latin character set, the character set that, you know, United States, Europe,
+ lots of Western civilizations use this character set.
+ And if you go back to the 1950s and 1960s, they, we were happy to have one computer,
+ and we didn't care what the character set was, as long as what you typed on
+ the keyboard came out on the printer, the internal representation didn't matter.
+ And as the 70s and 80s came along, certainly 70s,
+ we needed some interoperability, and so they standardized that character set.
+ But they standardized that character set,
+ certainly in the West, that did not represent anything.
+ And so, if you look at this sheet, basically what it's telling you is for
+ the various characters, there's some non-printing characters,
+ white space, non-printing characters, and then here's some printing characters like
+ the and key, the zero, and then the uppercase characters, and
+ then the lowercase characters, and there's 128 of these possible values.
+ And there are nothing even for Spanish or French in here.
+ And it's also why, by the way, uppercase letters in Latin sort lower than
+ lowercase letters, and we saw that in some of the string stuff.
+ And what these do is it maps and says, okay, and
+ a lowercase a maps to the number integer number 97, which in base 16 is 61 and
+ in octal it's 141, but in binary, this is, it's 8-bit numbers.
+ And so, these are 8-bits, otherwise known as a byte.
+ And they're very efficient, like when you buy a disk drive, it's megabytes or
+ gigabytes or whatever, that's how many of these kind of characters it can store.
+ But unfortunately, this doesn't work for more complex characters.
+ You can figure out these numbers inside of Python by using the ord function.
+ And so, you say, what is the ordinal or the numeric representation of the uppercase
+ h, lowercase e, and newline is a character as well.
+ And so, like 10 is the ordinal position of newline.
+ And this actually has to do with sorting, so
+ that e lowercase e is higher than uppercase h.
+ And that's just because in the simplest of sorts, we just sort them numerically.
+ So newline, if you go back to the previous little sheet,
+ newline is this 10 right here, it's that 10, which is a line feed.
+ And that's a 10, and that's why when we print newline out, we get a 10.
+ And so again, in the early days when strings were simple,
+ we just represented them as one byte per character.
+ But the problem is, is that as we have gotten more complex, and
+ in today's modern world, it's simply unacceptable to say that the only thing
+ computers can understand is ASCII.
+ And so this leads to a very, very, from the simplest of character sets to
+ a super complex character set called Unicode.
+ Which basically is billions of characters,
+ potential billions of characters for every language and every character set.
+ And because there's so much space in Unicode, it's easy to take very small
+ variations of characters and give them a space.
+ It's so large that you can have pretty much any character that you want.
+ So that's Unicode.
+ The problem is, is that if we sent Unicode across the network,
+ it would be way too large.
+ It'd be this UTF32, which instead of being eight bytes per character,
+ would be four bytes per character.
+ And so it would take all of the data that we build and
+ make it four times larger, and it'd be very difficult.
+ And so what they've come up with is ways to compress this.
+ And UTF16 is this weird thing, UTF32 is really sort of the full Unicode pretty
+ much, UTF16 is a subset of Unicode, it's used in some countries.
+ But the best practice for moving data across the internet or
+ in a file that you're going to move between computers is what's called UTF8.
+ And so what happens is, is that UTF32 is fixed length.
+ ASCII is one byte, UTF16 is two bytes, UTF32 is four bytes.
+ And UTF8 has dynamic length, meaning that it is one to four bytes.
+ And if it's only one byte long, it's perfectly compatible with ASCII,
+ meaning that an ASCII file is also a UTF8.
+ And so here's this little sheet, and
+ it's not critical that you understand this graph too much.
+ But basically, as time passed, 2000 internets coming, coming, coming,
+ coming out 2014, pretty much overwhelmingly the documents on
+ the internet that you might retrieve are UTF8.
+ Now, so UTF8 is the recommended practice, and it's sort of a compression.
+ UTF8 can represent all the things UTF32 can represent.
+ It's just a compression of it with an overlap of ASCII, which is awesome.
+ It's what you want.
+ I don't need to talk anymore.
+ So in Python, we have always had sort of two ways of representing strings.
+ In Python 2, the normal string was a byte string,
+ was an ASCII string, was a Latin string.
+ And if you wanted to represent Unicode,
+ there was a separate kind of object that we had, and so you would do that.
+ And in Python 3.0 or later, one of the main features of Python 3
+ was to make Unicode and string the same.
+ So that means inside of Python, when you have a string variable, it's a Unicode.
+ Whereas inside of Python 2, it was a byte variable.
+ And so now we have this notion separately in Python 2 and
+ on Python 3 where we have byte variables.
+ And so byte variables are, in effect, an array of bytes.
+ So if there's A, B, C, that means it's three bytes, it's three bytes long.
+ Whereas a string, a three character string,
+ might be anywhere from three to 12 bytes long.
+ So Python 2 had bytes and strings that were the same.
+ Bites and strings are the same, and Unicode is weird.
+ And in Python 3, Strings and Unicode are the same.
+ And bytes are weird, okay?
+ And so that's what we've got to deal with.
+ And there'll be times when we get bytes from APIs, when we call things,
+ we have to then figure out what kind of thing those bytes contain.
+ Cuz the bytes might contain ASCII, they might contain UTF-8,
+ they might contain various things.
+ And so internally, all the strings in Python 3 are Unicode.
+ Most of the time, if you're inside the program or
+ reading and writing files, we just work.
+ And that's why we haven't mentioned it.
+ But now that we're talking over sockets, and
+ we're talking to the sort of random world out there,
+ we have to be a little more aware of the data we're dealing with.
+ Now, the good news is 98% of the time, or 95% of the time, it's UTF-8.
+ Which might also include ASCII, and so it's quite nice.
+ But we have to be aware of this.
+ And so if we are going to take data that comes off of the network in the bytes,
+ then we have to make sure that we interpret it or decode it in the right way.
+ So that internally, the strings, which are Unicode, are properly represented.
+ And so that's why when we read data in from a network connection,
+ like a socket, we have to say, hey, decode it.
+ Now, there's a couple things going on at that moment of decode.
+ And so this is where we're doing it, we have to manage this in this code,
+ where before we send this stuff, we're going to encode it,
+ which takes a Unicode string and turns it into UTF-8 bytes.
+ There's actually a parameter here that you could do it different than UTF-8,
+ but no one ever does.
+ You might have to for certain situations, but so
+ that says that we're going to encode this into UTF-8 before we send it.
+ And then when we get something back, before we print it, we're going to decode it.
+ And that's how this ends up working out.
+ And if you look at the documentation, you will see that sometimes it says
+ it's a string or it's bytes.
+ And so you take a byte array and you decode it to get a string and
+ you take a string and encode it to get a byte array.
+ And so that's what we're doing.
+ So you can think of the process as this way.
+ And that is the network has these UTF-8, mostly UTF-8 resources, not ASCII.
+ If it's ASCII, it's okay.
+ So you read with the receive.
+ So this receive here pulls data, well, we have a Unicode string.
+ Let's start with the send.
+ So up here, we have a Unicode string.
+ That's a Unicode string.
+ Even though there's no special characters in it, no Asian characters or
+ French characters, that's a Unicode string.
+ And before we can send it, we have to send it in UTF-8.
+ If that had Asian characters, it'd be okay.
+ And that would be set up just right so that the UTF-8 would be right.
+ So we encode it first, and that's the CMD.
+ This is now bytes, okay?
+ CMD is bytes.
+ And then we actually send the bytes, and that goes across the network.
+ We get back our thing, and we receive, and we receive into data.
+ Well, data is bytes, not string, it's bytes.
+ We can say how big it is.
+ Function's kind of like a string and it has len,
+ except that it is one byte per character, which means some of it might be UTF-8.
+ And then all we have to do is say decode.
+ Again, you could, if you were dealing with a situation where you weren't expecting
+ it to typically be UTF-8 or ASCII, you could tell it UTF-16 or something.
+ And it's more complex.
+ But the simple thing is you just say, I'm going to clean up my data on the way in.
+ I'm going to clean it up by running it through decode.
+ And I'm going to encode stuff on the way out.
+ And so sockets are the place where this comes into play.
+ And so you'll see, we'll always do this encode and decode every time we're
+ sending data kind of outside of Python and inside of Python.
+ So now that we've talked a little bit about character sets,
+ we're going to make this even easier so you don't have to use sockets.
+ We're going to, urllib is a bit of Python code in the library
+ that does all the socket stuff for you.
+ [MUSIC]

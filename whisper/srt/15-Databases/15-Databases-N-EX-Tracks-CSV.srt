@@ -1,0 +1,276 @@
+1
+00:00:00,000 --> 00:00:05,680
+ Hello everybody and welcome to yet another walkthrough of Python for everybody. This is a
+
+2
+00:00:05,680 --> 00:00:17,120
+ walkthrough of the Tracks CSV application and you go to www.py4e.com/code3 and you will find a file
+
+3
+00:00:17,120 --> 00:00:24,480
+ named tracks.zip. Tracks.zip. Download this and extract it and you will have all the code
+
+4
+00:00:24,480 --> 00:00:31,840
+ that I am working with. So, here I am in that file. Let's take a look at the files that are in here.
+
+5
+00:00:31,840 --> 00:00:37,120
+ So, there's an old folder for the old XML version of this application. If you want to try that one,
+
+6
+00:00:37,120 --> 00:00:42,800
+ it's still sitting there. The autograder doesn't actually care whether you use the CSV one or the
+
+7
+00:00:42,800 --> 00:00:49,920
+ XML one. The XML one is interesting if you have to learn XML. But basically what we're going to do
+
+8
+00:00:49,920 --> 00:00:57,840
+ is we're going to take a CSV file, tracks.csv, compass-separated-values, and this is just a
+
+9
+00:00:57,840 --> 00:01:07,600
+ whole bunch of data from my own export of my iTunes data then converted to CSV from XML.
+
+10
+00:01:07,600 --> 00:01:15,520
+ So, it's got the title of it, the artist, etc. And so, we're going to read this one line at a time
+
+11
+00:01:15,520 --> 00:01:20,160
+ and then insert it in a database. And the key thing to this database is we're going to make it
+
+12
+00:01:20,160 --> 00:01:25,360
+ in normal form, meaning that we're only going to put the artist in once. We're going to have a
+
+13
+00:01:25,360 --> 00:01:30,480
+ primary key. We're going to have a unique name. So, the word queen is going to only appear once
+
+14
+00:01:30,480 --> 00:01:35,440
+ in that table. And so, we're going to link everything together through foreign keys like
+
+15
+00:01:35,440 --> 00:01:41,120
+ artist ID and album ID. And if we get this thing started, we sort of start her up. We go to
+
+16
+00:01:41,120 --> 00:01:46,080
+ trackdb.sqlite. And I want to be able to run this over and over again. So, the first thing I do is
+
+17
+00:01:46,080 --> 00:01:52,480
+ drop all three tables and then I recreate them, both in case I want to change my schema or if I
+
+18
+00:01:52,480 --> 00:01:56,720
+ just make a mistake and I want to start over. Because if you write this or you're modifying
+
+19
+00:01:56,720 --> 00:02:00,720
+ this code, you make little mistakes and you just want to start over. Every time you run the code,
+
+20
+00:02:00,720 --> 00:02:06,000
+ you want it to start fresh. So, let's take a look at the code that's going to run. We're going to
+
+21
+00:02:06,000 --> 00:02:14,400
+ open that tracks.csv file, this one right here. And then it's not a super formatted csv. This is
+
+22
+00:02:14,400 --> 00:02:20,560
+ kind of a really simple csv that's just com separated versus a true csv is actually a format.
+
+23
+00:02:20,560 --> 00:02:26,720
+ And there's code inside Python that parses the rich csv format. But I'm just going to read through
+
+24
+00:02:26,720 --> 00:02:32,320
+ and split it by commas. And in case there's like some weird piece of code in there and there's not
+
+25
+00:02:32,320 --> 00:02:36,960
+ what I want, if there's less than six pieces, I'm just going to skip it. So, I put a continue in
+
+26
+00:02:36,960 --> 00:02:43,360
+ here. And then I parse out the pieces, the name of the track, the artist, the album, the count,
+
+27
+00:02:43,360 --> 00:02:48,720
+ the rating, and the length. And so, we're most interested in an artist and album doing a money
+
+28
+00:02:48,720 --> 00:02:53,760
+ to one relationship into that. So, I just immediately print those things out because I want,
+
+29
+00:02:53,760 --> 00:02:57,920
+ you know, when I build something like this, I would build these lines first. And yes, it looks
+
+30
+00:02:57,920 --> 00:03:03,120
+ like my parsing is working correctly. Then we're going to do the many to one. And so, we work from
+
+31
+00:03:03,120 --> 00:03:08,960
+ kind of the leaves of the tree inward. So, we're going to do an insert or ignore into the artist
+
+32
+00:03:08,960 --> 00:03:14,560
+ by name. And so, whatever that is, queen or whatever. Now, that's the first time it's going
+
+33
+00:03:14,560 --> 00:03:19,760
+ to actually insert it and assign a primary key. And the second time, this ignore is going to work
+
+34
+00:03:19,760 --> 00:03:26,880
+ because the name on the artist table is defined as unique. And so, you can't insert that more
+
+35
+00:03:26,880 --> 00:03:33,440
+ than once. So, this will work the first time we see a particular artist, but it will ignore it the
+
+36
+00:03:33,440 --> 00:03:38,320
+ rest of that point. But then we got to figure out what the generated ID is, the primary key. So,
+
+37
+00:03:38,320 --> 00:03:42,800
+ we're going to select that. So, you notice there's an ID in there. That means auto-generate this if
+
+38
+00:03:42,800 --> 00:03:48,240
+ I don't give it to you. And so, we're going to grab the ID from artists where name equals and
+
+39
+00:03:48,240 --> 00:03:54,480
+ then look that same artist up by the name of them and then grab the artist ID. This is going to be
+
+40
+00:03:54,480 --> 00:04:00,000
+ fetch one, get one record, and then the zeroth item, which is there's only one column. There's
+
+41
+00:04:00,000 --> 00:04:06,080
+ going to only be one row and artist ID is what we get. Same thing is true except now we're going to
+
+42
+00:04:06,080 --> 00:04:14,960
+ use artist ID as a foreign key into the album. And so, we're going to insert album by title
+
+43
+00:04:14,960 --> 00:04:19,760
+ and artist ID as a foreign key in there. And then we're going to do the same trick.
+
+44
+00:04:19,760 --> 00:04:25,200
+ We're going to look up the ID, the primary key of that particular album. We're recording the artist
+
+45
+00:04:25,200 --> 00:04:32,960
+ ID. If we're inserting it, we want to record it. But now we're going to get the primary key
+
+46
+00:04:32,960 --> 00:04:37,680
+ of the album. We'll have that. And then let's get all that figured out. We're kind of working
+
+47
+00:04:37,680 --> 00:04:41,120
+ from outward in. So, we're doing artist, then we're doing album, and then we're doing track.
+
+48
+00:04:41,120 --> 00:04:45,840
+ That's kind of outward in. And then we're going to insert the foreign key album ID, title, length,
+
+49
+00:04:45,840 --> 00:04:51,760
+ rating, and count into the table. And then we commit it so that we write it all to the database.
+
+50
+00:04:51,760 --> 00:05:01,440
+ So, let's go ahead and run this code. Python tracks.py. It opens the file, loops through
+
+51
+00:05:01,440 --> 00:05:08,800
+ everything, and away you go. So, if you look at like the last file in its microchip, Jason Farnham,
+
+52
+00:05:08,800 --> 00:05:15,680
+ and then that is the last record that came out. So, now at this point, let's take a look at the
+
+53
+00:05:15,680 --> 00:05:27,360
+ database. And trackdb.sqlite. That's the file. And I can say, I've got the SQLite browser installed
+
+54
+00:05:27,360 --> 00:05:42,160
+ in the command line. You may have it in your... Oops. I can't even type it. And then trackdb.
+
+55
+00:05:44,800 --> 00:05:50,160
+ Okay. So, I can say, what tables do I have in here? And I see they've got the album, artist,
+
+56
+00:05:50,160 --> 00:06:04,400
+ and track. And I can say, select star from artist, limit 10. So, you see that queens are the first
+
+57
+00:06:04,400 --> 00:06:10,640
+ one. Led Zeppelin. These are the primary keys. There is only one record named queen. So,
+
+58
+00:06:10,640 --> 00:06:20,960
+ I can even say this. Select star from artist where name equals queen. So, you'll see that there is
+
+59
+00:06:20,960 --> 00:06:31,520
+ only one record. And if we say, select star from track, limit 10, we see they're all connected
+
+60
+00:06:31,520 --> 00:06:37,600
+ together and we got the primary key for the track. And then the album ID is this third parameter here.
+
+61
+00:06:37,600 --> 00:06:45,920
+ You see, that's album seven. And there's a lot of reuse there in the data. So, let's get out of this.
+
+62
+00:06:45,920 --> 00:06:53,440
+ So, I'm going to open the SQLite browser. And we're going to open the trackdb.sqlite.
+
+63
+00:06:53,440 --> 00:06:58,560
+ So, we see that those are the tables that got created. We can take a look at the data.
+
+64
+00:06:58,560 --> 00:07:04,640
+ We can go look at, for example, the artist data. And we see again one same kind of data there. See
+
+65
+00:07:04,640 --> 00:07:09,520
+ all of them now. And then we can kind of work our way into album. The album has a foreign key of
+
+66
+00:07:09,520 --> 00:07:17,920
+ artist ID. And each album has its own ID. And then if we go to track, we see them all together,
+
+67
+00:07:17,920 --> 00:07:22,960
+ where we have album ID and this other data, which is not really foreign keys, but we see the album
+
+68
+00:07:22,960 --> 00:07:31,120
+ ID foreign key. So, that gives you hopefully a quick run through of the CSV version of the tracks
+
+69
+00:07:31,120 --> 00:07:37,200
+ and the one-to-many mapping into a database.
+

@@ -1,0 +1,91 @@
+ So now that we're solving our problem using a series of cooperating applications communicating across a network,
+ we're going to talk a little bit more detail about the notion of what we call web services.
+ And in this we're going to take a different perspective. Instead of building our application and breaking it into pieces,
+ we're going to have an application that's going to really consume an API from somebody else. So there is some other
+ provider of this API that's not us.
+ And so that if you're going to talk to somebody's data like Google or Amazon or
+ Twitter, they're going to say you have to use our API. So what's that?
+ So an API is a contract that says look if you do this and this and this and this we're going to give you data
+ this way. And they set the rules, they tell you what the URLs are, they'll tell you if it's XML or JSON.
+ And this is called the application program interface. And it's something you read and you understand.
+ And so you go look at the documentation. This is the documentation for the Google Maps API.
+ So it turns out that Google knows a lot about maps.
+ It knows a lot of data, it knows how to search maps, and it actually provides some of those features to you that your
+ application can take advantage of. I took advantage of this at one point by
+ asking all the students in one section of one of my online courses where they were from.
+ And I just let them type in where it was. And then I said well, I don't know how to code any of that.
+ So I used this API doing what's called geocoding to look all those places up and get precise
+ latitudes and longitudes for the ones Google could figure out. And that saved me a lot of work. Now these are expensive resources, but I
+ could be patient and make use of these resources, which as long as you use them not too much, they can be free.
+ We'll talk a little bit more about rate limiting and what's free and what's not in a bit.
+ But you start by reading documentation. It says do this, hit this URL, hit that URL.
+ So if you read that documentation,
+ you will find that there is a URL that you can hit. And they tell you where to go.
+ And then you go to this URL, you add a question mark, and then you say address equals, and then antivirus plus,
+ and there's all these rules. These are called URL encoding rules when you have key values on URLs.
+ The plus means space and percent 2c means comma. So these are called URL encoded.
+ Don't worry too much about that because we're going to have a magic library like we always do in Python that takes care of this.
+ And so if you were to hit this URL, you type it in the exact right way in your browser,
+ you will get back a JSON document. It's an object that has key value pairs,
+ the first value is the status, then it has these results and it's a list, and you dive down and eventually you can kind of find the latitude and
+ longitude of the thing that you are looking for. And so the idea is can we write a program that can read this?
+ And so here's our little program that reads this. And a lot of this is sort of
+ comfortable. You've already seen some of this.
+ You import urllib.
+ We have to parse them JSON, we grab the URL, and then we're going to write a little while loop
+ that's going to ask for a location and we can type that location in and
+ we've got to concatenate
+ with this URL, the location equals, and there is a bit of code, a library that called parse URL and code,
+ that takes the key and the value,
+ so the address equals and then whatever this text is that we read in from the user, that goes in here and it does that
+ URL encoding with the pluses and the percent 2c and all that stuff is taken care of and that is our URL that we're going to pass
+ to URL open. So we print out that we're going to retrieve it, prints this out, and if you look at this, it's too long,
+ it has all that fancy stuff on it, and then we read it.
+ I mean we open it with URL open and then we read it and decode it. So these two things hit this URL,
+ decode it, and then we retrieved
+ 1669 characters because it's just a, in this case, because we've decoded it, data is a string now,
+ that's read as bytes and data is a string.
+ So we read
+ that many characters, 1669 characters, and then we're going to take this data and we're going to parse it with JSON and
+ we might get bad data here, it might blow up, but it might work, and so in this case it works.
+ We have an error that basically says if we got a bad thing, we're going to blow up,
+ but in this case it doesn't blow up, and so now we're going to sort of dig through and
+ if you go back, let's, let me just go back, so the
+ results sub zero geometry, let's show you how that works. So results is the first key,
+ so this is a dictionary with a key of results, but then it has a list, this list starts here and goes there and
+ there's, I'm only going to show part of it, but there's many things here.
+ So the zero item is this, this is the sub zero, and
+ then geometry within that sub zero item, so if we look at that, it is
+ the outer dictionary, the first item in the list, sub geometry, so that grabs one part,
+ that grabs
+ this part right here, and
+ then we're going to go into location and lat, and those are just keys within keys, a dictionary within a dictionary, and so you see it says
+ sublocation sub lat, and so that is literally going to pull out of that complex structure,
+ that will pull the latitude out, and then in the next line pull the longitude out, so we can pull
+ the latitude and longitude out, and then we print it out. We can go into results sub zero formatted address, and that goes into
+ results zero
+ formatted address, and that pulls this little bit out. Now it takes a little while to write this stuff, and you have to put a lot of
+ debug, and you don't necessarily figure out this complex bit here at the end,
+ but you know, you print it, you don't get what you want, you say, oh wait a sec, that was an array,
+ so I got to add a little sub zero there to get the first one out of the array,
+ but eventually you figure it out, and it's not all that difficult.
+ It's the first time, first few times you do it, like what am I doing, but after a while you realize,
+ oh, I'm just sort of tearing this apart and digging deeper and deeper into this data structure,
+ which I just retrieved over the internet from Google, and I learned something good from that.
+ Now we're going to talk about API rate limiting and security.
+ The key thing is is that the Google API and the Google data is super valuable, and you could build a website that did nothing,
+ but sort of like asked the person for something, and then showed them that place and make them be a map searcher,
+ and you added so little value and Google did all the hard work, and so they protect these somewhat.
+ Sometimes they'll say you can only do 50 of these a day or 500 a day or whatever, that's called rate limiting,
+ and sometimes they say you've got to log in, you've got to create an account and get a key with us and then present your key,
+ so that means that your account only gets so many, and they keep track of who's using their service and how much they're using it.
+ Google gives you even sort of a dashboard that tells you some of this stuff, it's kind of nice.
+ The other thing is that sometimes an API is free and then it becomes popular and they decide they're going to put a key on it or a rate limit on it,
+ so you got to kind of play this game with them and the rules kind of change as things progress.
+ So that geocoding API that we're talking about has at one point in time 2,500 requests a day, you can get more requests if you get a key.
+ So this whole web services section, we've done quite a bit of stuff, right?
+ We've looked at how instead of reading HTML or flat text, we are creating structured data according to contracts, whether it be XML or JSON.
+ We can retrieve and parse that information in a deterministic way, we talked about schemas that define the contracts so that you know if the data you're getting is wrong,
+ you could know who to blame cuz the schema gets violated and we've played with APIs where you're talking to someone else who's defining what the rules are and how to read their documentation.
+ And even if they have an API key or need to sign URLs, showed a little bit about how to do that.
+ [MUSIC]

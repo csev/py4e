@@ -1,0 +1,382 @@
+ - Hello, and welcome to our chapter on databases.
+ We're going to learn a lot in this chapter,
+ learn a whole new programming language, SQL,
+ and learn how to use that.
+ So you're going to need a new piece of software
+ to run all of the exercises that I'm going to do
+ called SQLite Browser.
+ We're using a database called SQLite.
+ Go ahead and download this.
+ You might have to pause and come back if you like.
+ Go to SQLiteBrowser.org and download it and install it.
+ While you're doing that,
+ let's talk a little bit about the history.
+ So, in the old days, 1960s, 1970s,
+ I started doing computing in 1975,
+ we didn't have a lot of storage.
+ I mean, this is 16 gigabytes right here,
+ and we didn't even have megabytes.
+ I mean, the computer I had had a few megabytes of stuff.
+ So, we didn't have a lot of disk drives,
+ and so permanent storage was often sequential.
+ These tapes, these tape drives that we had,
+ tapes and tape drives were the scalable part of storage,
+ because you could just make more tapes
+ and you could rack 'em up, and so that was our way
+ of greatly increasing the storage of the computer.
+ The problem they had was, is they were sequential.
+ You read it, it advances, read it, it advances,
+ read it, it advances.
+ Now, interestingly, we've been writing programs that do this,
+ that everything we've written so far
+ pretty much reads the whole file,
+ reads the whole webpage, reads this, everything we read it.
+ We read either a loop or read the whole thing,
+ and that's because we have plenty of memory,
+ but we're still reading sequentially,
+ and so the way you would do this
+ when you didn't have enough spinning storage
+ or online storage is you'd use offline storage,
+ but the trick would be that you would sort it.
+ So, let's imagine that you're a bank
+ and you have a bunch of accounts,
+ only a few of which are active on any day,
+ and you have a tape that has,
+ in account number order from low to high,
+ the prior balance, last night's balance
+ of every one of your bank accounts,
+ and then you do all the transactions
+ and you record how much money was taken in or out
+ for each account number,
+ and then you sort those transactions,
+ and then what you do is what we call
+ the sequential master update,
+ and that is you would write a program
+ that would read the first transaction and hold onto it.
+ Say, okay, this is count 45.
+ Then it would read the first count, like one,
+ and it would copy one, and then it'd read two,
+ and read like seven, eight, 42, 43,
+ then it would read like 44,
+ and it would read 45, but now it would change that
+ and write the new 45, and read the next thing,
+ and so this might be 60,
+ and it would read a bunch of stuff
+ and copy a bunch of stuff,
+ and then it would finally get to 60,
+ and it would merge the add, the subtract,
+ and so the old balance ended up here,
+ and the new balance did here,
+ and you had to only make one pass through the data,
+ so it was super efficient.
+ So, we had all these mechanisms to sort.
+ We used to do punch cards and have sorters
+ and all these things,
+ and then these things would run for hours,
+ and if you watch old TV shows,
+ these tapes are spinning,
+ and these things are running back and forth,
+ these are simply reading and writing tapes,
+ and that's how we did a lot of data processing,
+ because we could store far more on a tape drive
+ than we could on a disk,
+ and with racks of tape drives,
+ we could scale the storage that our computers had,
+ and so that's the way we did data processing,
+ but it meant that the only way you knew
+ what the old balance was,
+ was it was the balance as of this morning,
+ before your bank started,
+ you don't know what the balance was for the day,
+ and that led to things like,
+ you can never withdraw more than $100 a day,
+ or something like that,
+ because you don't know what the old balance was,
+ or you might go withdraw $100
+ at a couple of different branches,
+ and so they weren't able to look your stuff up right away.
+ Now, it didn't take long
+ until the disk drives got better and better and better,
+ and you could store the entire accounts,
+ all the accounts and their current balances on computers,
+ and then the problem becomes,
+ is what happens if sort of in the middle of the afternoon,
+ you want to update a balance?
+ Well, do you want to read all your data,
+ and then write a brand new one,
+ and let's say that takes like 10 minutes,
+ that means for that 10 minutes,
+ only one person can be updating their bank balance,
+ and so because we could randomly access this data,
+ we didn't have to read it all sequentially,
+ the trick was, is how do you spread the data out,
+ and then how do you make it so you can change a balance,
+ this is of course second nature today,
+ but how do you make it so you change the balance here
+ without changing the balance there,
+ and you can have multiple people
+ going simultaneously to these things,
+ and make sure that you can't say,
+ withdraw money at two different locations simultaneously,
+ and somehow have your bank balance get corrupted by that.
+ So there's a lot of debate on how to do that,
+ and in early days, we just did sequential master update,
+ but increasingly we wanted to make better use
+ of the random nature of our computers, and our storage,
+ and so that's what led to databases,
+ databases are the science of how you make use
+ of rotating random access data, permanent data,
+ in a way that allows you to read, modify,
+ and update that simultaneously
+ from many different locations,
+ and yet keep the data completely consistent,
+ and so this led to a study of a thing
+ called relational databases,
+ and relational databases are not
+ the only databases that happened,
+ we had many other kinds of databases,
+ and there was a debate,
+ and I remember in the 70s and the 80s,
+ there was folks that says, oh no, no,
+ there you can do index sequential,
+ that's the way to do it,
+ and relational databases weren't popular,
+ weren't all that popular the first time that I saw them,
+ I didn't like relational databases,
+ but relational databases had an inherent advantage
+ because they were based on some really powerful mathematics,
+ and the interesting thing is early on,
+ the relational databases were slower,
+ but eventually they figured out
+ how to sort of bring all the cleverness to bear
+ to make relational databases fast,
+ and so relational databases are a pretty advanced technology,
+ and there are companies like Oracle
+ that are very, very wealthy,
+ and their primary product for many, many years
+ was nothing more than a clever database product,
+ a clever piece of software
+ that was really good at solving this problem,
+ and that's how important this problem was to computing.
+ If you read about databases,
+ you're going to see two sets of terminology.
+ One set of terminology
+ comes from the mathematical background,
+ and has to do with the underlying math,
+ things like relations, tuples, and attributes,
+ that's kind of like the fancy math version of it,
+ and programmers kind of think of them
+ as rows and columns inside of a table,
+ and so if you look at sort of fancy theory,
+ you'll see words that look like this,
+ and they're just full of this in the connection.
+ Now, all this is important and true,
+ and if you really want to get good,
+ you sort of begin to understand the nature
+ that we model data at connections
+ rather than at sort of intersection points,
+ rather than just modeling data
+ as a flat file the way we do,
+ but for now, we're going to, as programmers,
+ think of this as just like,
+ oh, it's like a super fast spreadsheet.
+ The super fast part is the math.
+ For us, the rows, columns, and tables are spreadsheets,
+ so it thinks of, think in a spreadsheet of sheets,
+ sheet, sheet, sheet, and that's like a table,
+ a named thing, like tracks, or albums, artists, or genres,
+ and then there is rows,
+ and each row has a different kind of data,
+ and then there's columns, and we sort of specialize
+ the first column in many spreadsheets to say what's in there.
+ This is not really the data.
+ This is like metadata.
+ It's like the title's in this first column.
+ That's not really the data, and the data starts here,
+ and we have different kinds of data,
+ like strings and numbers, et cetera, et cetera,
+ for each of the rows.
+ And literally, you can get away with this
+ as sort of about 80% of databases
+ as just a really super cool spreadsheet,
+ but under the covers, it is far more powerful than that.
+ So one of the early arguments that happened was, again,
+ what the programming model for this was,
+ and a lot of folks wanted a programming model
+ that reflected how the data was actually stored.
+ The notion of structured query language came about
+ in a way to express what you want it to happen
+ and allow that to be sort of a very abstract expression.
+ Select all records that meet this criteria,
+ not read, read, read, read, read, read.
+ And so structured query language
+ is not a procedural language.
+ It is a imperative language
+ where you're simply saying what you want,
+ and then somebody writes the loop,
+ the database actually does the loop,
+ but it's a way for you to avoid actually writing the loop.
+ Now, that turns out to be the power of databases
+ because the cleverness in how to write the loop
+ is a way that you would probably never figure out
+ how to be most supremely optimal
+ when it comes to writing the loop,
+ as you'll see toward the end
+ of joining many tables together
+ and selecting and throwing a array
+ and getting down a count or whatever.
+ Someone has figured out how to do that really, really well.
+ So the idea was, as you would express,
+ we're going to create some data,
+ we're going to retrieve some data,
+ we're going to insert and delete it.
+ Create, read, crud, C-R-U-D.
+ Create, read, update, and delete crud.
+ And so that's what this does.
+ It's a language that does this very simply.
+ Now, the applications that we're going to use this for
+ are more of a data analysis application.
+ We've been doing data analysis through the whole course.
+ And the kinds of things that we'll see
+ in the remaining chapters is we'll take some raw data file.
+ These might actually come across the network.
+ And we'll write some Python programs
+ to play with that data, parse it,
+ clean it up, make sense of it, you know?
+ And then write it into a database.
+ And this might be a slow process
+ or this might be really nasty,
+ and this might be a way to have very clean data.
+ And then we'll write another Python program
+ to sort of read this, read through it,
+ and it's all efficient and pretty.
+ And then we can produce files
+ and maybe we'll visualize it
+ or do further analysis in R, Excel,
+ or a JavaScript visualization framework.
+ And so, in this situation, you will be the person
+ who is both sort of writing the programs,
+ database administrator, and you can,
+ using SQLite Browser, play and look at the database
+ kind of in a raw way.
+ And the first part of this,
+ we are mostly going to be using SQLite Browser
+ just to talk straight to a database.
+ Later, we'll write Python programs
+ that read and write data and visualize the data.
+ So this is what we're going to do first.
+ And then second, we're going to do this part right here.
+ That's the second thing we're going to do.
+ Now, another really common use of applications
+ and something that if you continue
+ learning more about programming,
+ is that you will want to write an online application
+ like Amazon or a company or Twitter
+ that's got a website and it stores dynamic data and databases.
+ And so the picture for that is similar but different
+ than the picture we're going to start out with.
+ And so the way this usually works
+ is that you, the end user, uses a web browser,
+ talks to the application,
+ and the developer writes the application software.
+ And that application software stores its data in a database.
+ And inside that database,
+ we talk to the database using SQL,
+ and all the data is actually stored here.
+ And the magic happens, the data server
+ is that database software that's so precious and valuable.
+ And then there's another person,
+ often called the database administrator,
+ who has access to the direct access to the data.
+ And these roles in medium and large project
+ are kept separate, mostly because the...
+ Mostly because the...
+ The production, while it's running and live,
+ the developer leaves the data alone
+ and works on, say, the next version of the software.
+ And then the developer has a test version
+ of the application that they run on their computer,
+ where they're doing all that stuff.
+ So this database administrator is a role
+ in a large project where we have to run production
+ and keep production careful, keep production in good shape.
+ So the database administrator has this responsibility
+ for the production aspects of the data.
+ And you may be working in a situation
+ where you're not actually controlling the data.
+ The database server's on different computers,
+ you have a little special access,
+ and you write programs to sort of read the data.
+ And so the database administrator is the person
+ who is asked by the organization to administer that data.
+ The data that we develop, and we'll do this
+ in the second part of these lectures,
+ conforms to a data model.
+ That's the metadata.
+ Is this an integer?
+ Is this a string?
+ How many columns is this?
+ And the data model turns out to be very, very important,
+ and there's a lot of science
+ to building an effective data model
+ that leads to really good performance.
+ And it's a collaborative activity
+ between the application developers
+ and the database administrator to make it so it's efficient,
+ runs in production, et cetera, et cetera, et cetera.
+ There's a lot of products out there that you may encounter.
+ We're going to be using SQLite.
+ SQLite's a little tiny database server,
+ and it's built into so many things,
+ and that's why we like it.
+ But if you're going to work at a large organization,
+ you could easily run into Oracle,
+ which is the number one commercial product.
+ Microsoft has a thing called SQL Server,
+ which is a commercial product,
+ and it's also very popular and very effective.
+ The more popular open source,
+ there's things called Postgres, there's MySQL,
+ and MySQL recently was sort of bought by Oracle,
+ and there is a copy of that called MariaDB
+ that doesn't belong to Oracle, MariaDB.
+ And so, most of the SQL that we're going to learn
+ is common across these database systems
+ because SQL is a standard,
+ but then there are parts that weren't part
+ of the original standard where each database vendor
+ has done things a little bit different,
+ but there is a core common subset
+ that does the basic create, read, update,
+ and delete operations.
+ So SQLite is very popular.
+ You probably have it in your cell phone 10, 12 times.
+ Your web browser has a database engine in it.
+ Your car has a few databases in it.
+ And so, SQLite is what's called an embedded database system.
+ Python comes built in with it.
+ You just import SQLite 3 and away you go.
+ And so, it's very, very popular because it's free,
+ it's open source, and it's such a tiny little piece
+ of software that you just include it
+ in other pieces of software and use it
+ to solve the data management problems
+ of those pieces of software.
+ Like your browser might use SQLite to store your bookmarks.
+ Now you think, oh, there's only how many bookmarks
+ can you have, but what if there you need it to be fast?
+ And what if there's people that have 10,000 bookmarks?
+ There probably are.
+ Do you still want it fast?
+ Do you want to be able to search?
+ And so, you get all that by using a database like SQLite.
+ And so, again, we're going to encourage you
+ to download the SQLite browser so you can follow along
+ with what we're going to do coming up next.
+ And so, here is the SQLite browser.
+ Here's what it looks like.
+ And it's just a desktop application.
+ And coming up next, we'll start playing
+ with this desktop application and see how it works.
+ (upbeat rock music)
+ (upbeat rock music)

@@ -1,0 +1,659 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.000
+ [MUSIC]
+
+00:00:08.000 --> 00:00:10.640
+ Hello and welcome to Python for Everybody.
+
+00:00:10.640 --> 00:00:11.880
+ We're doing some sample code.
+
+00:00:11.880 --> 00:00:16.680
+ You can get a hold of the sample code zip if you want to follow along.
+
+00:00:16.680 --> 00:00:21.660
+ And so we're picking up in the middle here where we are running
+
+00:00:21.660 --> 00:00:24.600
+ a simple spider that's retrieving data and
+
+00:00:24.600 --> 00:00:29.360
+ putting it into running this spider.py file.
+
+00:00:29.360 --> 00:00:32.080
+ And it's cruising around and doing things.
+
+00:00:32.080 --> 00:00:36.080
+ And the beauty of any of these spider processes is I can stop any time and
+
+00:00:36.080 --> 00:00:45.400
+ just hit Ctrl+C. And so we take a look at the spider.sqlite file and retrieve it.
+
+00:00:45.400 --> 00:00:48.560
+ And it looks like we got 302 pages.
+
+00:00:48.560 --> 00:00:52.080
+ I don't know how many we got retrieved, 70, okay, there we go.
+
+00:00:52.080 --> 00:00:58.920
+ We've got about 100, wait.
+
+00:00:58.920 --> 00:01:04.240
+ I'm looking for the wrong thing, no, no, no, no, no, no.
+
+00:01:04.240 --> 00:01:06.320
+ Yeah, we've got about 107 pages.
+
+00:01:06.320 --> 00:01:11.600
+ So what we're going to do now with 107 pages is we are going to
+
+00:01:11.600 --> 00:01:14.400
+ run the PageRank algorithm, okay?
+
+00:01:14.400 --> 00:01:16.240
+ So let's take a look at that code.
+
+00:01:16.240 --> 00:01:24.400
+ So the idea of PageRank, we're going to run this PageRank algorithm.
+
+00:01:24.400 --> 00:01:30.360
+ The spReset just resets the PageRank and spRank runs as many iterations of PageRank.
+
+00:01:30.360 --> 00:01:34.880
+ So the basic idea is that if you were to look at the links here,
+
+00:01:34.880 --> 00:01:43.400
+ we think of page one pointing to page two gives some of page one's love to page two.
+
+00:01:43.400 --> 00:01:48.560
+ Page four has some value that it gives to page one.
+
+00:01:48.560 --> 00:01:54.880
+ You go on and page two gives love to page 46 over and over and over again.
+
+00:01:54.880 --> 00:01:57.600
+ But the problem is that how good is page one and
+
+00:01:57.600 --> 00:02:02.800
+ how much positive karma does it give to page two?
+
+00:02:02.800 --> 00:02:09.680
+ And so what happens is we start by giving every page a rank of one.
+
+00:02:09.680 --> 00:02:12.240
+ We say, look, everybody starts out equal.
+
+00:02:12.240 --> 00:02:17.240
+ But then what we do is we divide up in one iteration of the PageRank algorithm.
+
+00:02:17.240 --> 00:02:21.840
+ We divide up the goodness of a page across its outbound links.
+
+00:02:21.840 --> 00:02:27.360
+ And then accumulate that, and that becomes the next rank, okay?
+
+00:02:27.360 --> 00:02:34.280
+ So let's take a look at the code for the PageRank algorithm.
+
+00:02:34.280 --> 00:02:36.760
+ So this is pretty simple.
+
+00:02:36.760 --> 00:02:41.280
+ It only imports SQLite 3 cuz it's really doing everything in the database, right?
+
+00:02:41.280 --> 00:02:45.560
+ It's going to be updating these columns right here in the database.
+
+00:02:45.560 --> 00:02:51.240
+ And so we're going to do some things here to speed this up.
+
+00:02:51.240 --> 00:02:56.880
+ This rank runs, if you're thinking of Google, this rank runs slowly and
+
+00:02:56.880 --> 00:03:00.440
+ it's going to run continuously to keep updating these things.
+
+00:03:00.440 --> 00:03:05.240
+ So the first thing I do is I read in all of the from IDs from the links,
+
+00:03:05.240 --> 00:03:08.000
+ select distinct, throws out any duplicates.
+
+00:03:09.400 --> 00:03:15.480
+ And so I have all the from IDs which are all the pages
+
+00:03:15.480 --> 00:03:20.220
+ that have links to other pages cuz all the pages are in pages.
+
+00:03:20.220 --> 00:03:25.040
+ But in links to have a from ID, you have to also have a to ID, okay?
+
+00:03:25.040 --> 00:03:30.160
+ And so we're also going to look at the pages that receive PageRank.
+
+00:03:30.160 --> 00:03:32.480
+ And we're kind of precaching this stuff, okay?
+
+00:03:32.480 --> 00:03:34.880
+ And so we're going to do a select distinct of from ID and
+
+00:03:34.880 --> 00:03:38.480
+ to ID and loop through that group of things.
+
+00:03:38.480 --> 00:03:42.760
+ And we're making a links list here.
+
+00:03:42.760 --> 00:03:47.280
+ And so we're saying, if the from ID is the same as to ID, we're not interested.
+
+00:03:47.280 --> 00:03:53.480
+ If the from ID is not already in my from IDs that I've got, I'm going to skip it.
+
+00:03:53.480 --> 00:03:58.400
+ If the to ID is not in the from ID, meaning that this is a to ID that's not
+
+00:03:58.400 --> 00:04:02.680
+ also, we don't want links that point off to nowhere or
+
+00:04:02.680 --> 00:04:06.640
+ point to pages that we haven't retrieved yet, and that's what this is saying.
+
+00:04:06.640 --> 00:04:10.500
+ So this is really going to give us, it's a filter on the from IDs and
+
+00:04:10.500 --> 00:04:13.120
+ the to IDs from the links table, so
+
+00:04:13.120 --> 00:04:17.600
+ that it only are the links that point to another page we've already retrieved.
+
+00:04:17.600 --> 00:04:22.120
+ And then we're going to keep track of the entire superset of two IDs,
+
+00:04:22.120 --> 00:04:23.960
+ the destination IDs.
+
+00:04:23.960 --> 00:04:25.360
+ And I'm just putting these all in lists so
+
+00:04:25.360 --> 00:04:28.700
+ that I don't have to hit the database so hard, okay?
+
+00:04:28.700 --> 00:04:32.120
+ So this is getting what's called the strongly connected component, meaning that
+
+00:04:32.120 --> 00:04:37.920
+ any of these IDs, there is a path from every ID to every other ID eventually.
+
+00:04:37.920 --> 00:04:40.520
+ So that's called the strongly connected component in graph theory.
+
+00:04:40.520 --> 00:04:45.280
+ Then what we're going to do is we're going to grab the,
+
+00:04:45.280 --> 00:04:55.000
+ we're going to select new rank from pages, for all the from IDs, right?
+
+00:04:55.000 --> 00:05:00.280
+ And so we're going to have a dictionary that's based on the ID,
+
+00:05:00.280 --> 00:05:04.360
+ the primary key, that's what node is, equals the rank.
+
+00:05:04.360 --> 00:05:08.560
+ And so if we look at our database, that means that for
+
+00:05:08.560 --> 00:05:13.080
+ the part of the strongly connected component in links, we're going to grab
+
+00:05:13.080 --> 00:05:19.080
+ this number and stick it into a dictionary based on the primary key of this.
+
+00:05:19.080 --> 00:05:24.280
+ Based on the primary key, this number right here.
+
+00:05:24.280 --> 00:05:27.280
+ So we're going to have a dictionary that's this map to that.
+
+00:05:27.280 --> 00:05:30.200
+ Again, we want to do this as fast as possible.
+
+00:05:30.200 --> 00:05:32.160
+ Now, we're only doing one iteration at the beginning.
+
+00:05:32.160 --> 00:05:35.200
+ So it asks how many times you want to run it, okay?
+
+00:05:35.200 --> 00:05:39.960
+ And so we just make an integer of that.
+
+00:05:39.960 --> 00:05:43.040
+ We check to see if there's any values in there.
+
+00:05:43.040 --> 00:05:44.840
+ If there are no values, we are bad.
+
+00:05:44.840 --> 00:05:49.120
+ And now we're going to go i equals one to range many.
+
+00:05:49.120 --> 00:05:53.000
+ This is going to be one to one, so it might run however many times.
+
+00:05:53.000 --> 00:05:56.920
+ And then what it's going to do is it's going to compute the new page ranks.
+
+00:05:56.920 --> 00:06:04.480
+ And so what it's really going to do is it's going to take the previous ranks and
+
+00:06:04.480 --> 00:06:05.840
+ loop through them.
+
+00:06:05.840 --> 00:06:17.760
+ And the previous ranks is the mapping of primary key to old page rank, okay?
+
+00:06:17.760 --> 00:06:22.520
+ And for each node, we're going to have total equals total plus old rank.
+
+00:06:22.520 --> 00:06:27.040
+ And then we're going to set the next ranks to be zero, okay?
+
+00:06:27.040 --> 00:06:33.440
+ And then what we're going to do is figure out the number of outbound links for
+
+00:06:33.440 --> 00:06:35.560
+ each page rank item.
+
+00:06:35.560 --> 00:06:38.800
+ So node and old rank in the list of the previous ranks.
+
+00:06:38.800 --> 00:06:42.640
+ These are the IDs we're going to give it to.
+
+00:06:42.640 --> 00:06:48.320
+ And so for this particular node, we're going to have the outbound links.
+
+00:06:48.320 --> 00:06:53.960
+ And we're going to go through the links and
+
+00:06:53.960 --> 00:06:57.160
+ not link to itself, although we made sure that doesn't happen.
+
+00:06:57.160 --> 00:07:01.600
+ We make sure that this, but then we're going to make a list called give IDs,
+
+00:07:01.600 --> 00:07:08.160
+ which are the IDs that node is going to share its goodness.
+
+00:07:08.160 --> 00:07:11.000
+ And now what we're going to do is we're going to say how much goodness are we going to
+
+00:07:11.000 --> 00:07:16.240
+ flow outbound based on our previous rank of this particular node and
+
+00:07:16.240 --> 00:07:19.040
+ the number of outbound links we have.
+
+00:07:19.040 --> 00:07:25.160
+ So that's how much we're going to give in our outbound links.
+
+00:07:25.160 --> 00:07:28.400
+ And then what we're doing is all the IDs we're giving it to,
+
+00:07:28.400 --> 00:07:31.800
+ we started with the next ranks being zero for these folks.
+
+00:07:31.800 --> 00:07:34.680
+ These are the receiving end and
+
+00:07:34.680 --> 00:07:38.040
+ we're going to add the amount of page rank to each one.
+
+00:07:38.040 --> 00:07:43.320
+ So whatever this is, so we'll go through all of the links,
+
+00:07:43.320 --> 00:07:49.000
+ give out fractional bits of our current goodness, and it's accumulated in each one.
+
+00:07:49.000 --> 00:07:55.840
+ And so eventually, all the incoming links have granted each new link value, okay?
+
+00:07:55.840 --> 00:07:59.900
+ Now, I'm just going to run through and calculate the new total.
+
+00:07:59.900 --> 00:08:08.200
+ And this evaporation, the idea is that you can't,
+
+00:08:08.200 --> 00:08:13.020
+ it has to do with the page rank algorithm that there are dysfunctional
+
+00:08:13.020 --> 00:08:15.440
+ shapes in which page rank can be trapped.
+
+00:08:15.440 --> 00:08:19.840
+ And this evaporation is taking a fraction away from everyone and
+
+00:08:19.840 --> 00:08:21.980
+ giving it back to everybody else.
+
+00:08:21.980 --> 00:08:26.640
+ And so we add this evaporative factor.
+
+00:08:26.640 --> 00:08:32.080
+ And then we're going to do some computations just to show some stuff.
+
+00:08:32.080 --> 00:08:38.920
+ And that is, we're calculating the average difference between the page ranks.
+
+00:08:38.920 --> 00:08:40.960
+ And you'll see this when I start running it.
+
+00:08:40.960 --> 00:08:46.780
+ And that is telling us, this is going to tell us the stability of the page rank.
+
+00:08:46.780 --> 00:08:51.600
+ So from one iteration to the next, the more it changes, the least stable it is.
+
+00:08:51.600 --> 00:08:54.560
+ And you'll see in a sec that these things stabilize.
+
+00:08:54.560 --> 00:08:58.600
+ And then we say, what's the average difference in the page ranks per node,
+
+00:08:58.600 --> 00:09:00.320
+ which is what this is?
+
+00:09:00.320 --> 00:09:01.840
+ And that's what we're going to print.
+
+00:09:01.840 --> 00:09:06.160
+ And now we're going to take the new ranks and make them the old ranks, and
+
+00:09:06.160 --> 00:09:08.560
+ then run the loop again.
+
+00:09:08.560 --> 00:09:13.320
+ So I'm not actually updating the database each time through the page rank iteration.
+
+00:09:13.320 --> 00:09:16.920
+ But then at the very end, I am going to do the update for
+
+00:09:16.920 --> 00:09:21.480
+ all of these things and update all of the rankings with a new rank.
+
+00:09:21.480 --> 00:09:23.800
+ So I'm doing an in-memory calculation so
+
+00:09:23.800 --> 00:09:27.800
+ that this loop here runs screamingly fast.
+
+00:09:27.800 --> 00:09:31.760
+ Even if I want to do this loop a hundred times or a thousand times,
+
+00:09:31.760 --> 00:09:34.280
+ it's really all just in-memory data structures.
+
+00:09:34.280 --> 00:09:38.480
+ Okay, so it's probably easier just for me to show you this.
+
+00:09:38.480 --> 00:09:41.920
+ It'll be very, the code runs quite simply.
+
+00:09:41.920 --> 00:09:54.320
+ Python three sprank rank.py.
+
+00:09:54.320 --> 00:09:56.240
+ And so I'm only going to run it for one iteration.
+
+00:09:56.240 --> 00:10:00.920
+ And that means that it's going to, this loop here is just going to run one time.
+
+00:10:00.920 --> 00:10:04.840
+ And so it's going to start with the page ranks.
+
+00:10:07.920 --> 00:10:11.560
+ The new rank of one, and it's going to just run one iteration and
+
+00:10:11.560 --> 00:10:13.800
+ put the rank there, okay?
+
+00:10:13.800 --> 00:10:15.440
+ And then update this as well.
+
+00:10:15.440 --> 00:10:18.520
+ So let's go ahead and run that once for one iteration.
+
+00:10:18.520 --> 00:10:23.480
+ Okay, and so it ran one iteration, and
+
+00:10:23.480 --> 00:10:29.560
+ the average change between the previous rank and the new rank is one.
+
+00:10:29.560 --> 00:10:31.360
+ So it's actually quite crazy.
+
+00:10:31.360 --> 00:10:35.960
+ So I'm going to refresh here, and you'll see that the old rank was one.
+
+00:10:35.960 --> 00:10:41.080
+ And the new rank is way down, way down, way down, way down,
+
+00:10:41.080 --> 00:10:46.920
+ down a little bit, down, down, some, up a whole bunch.
+
+00:10:46.920 --> 00:10:49.880
+ Down, down, up, so you see that they went down and up.
+
+00:10:49.880 --> 00:10:53.920
+ Now the sum of all of these numbers is going to be the same, right?
+
+00:10:53.920 --> 00:10:58.320
+ Cuz all it did was it floated out and recalculated it.
+
+00:10:58.320 --> 00:11:01.800
+ And so that's what happens with page rank.
+
+00:11:01.800 --> 00:11:05.600
+ And so what'll happen is if I run one more page rank iteration,
+
+00:11:05.600 --> 00:11:10.400
+ this number will, these numbers will be used to compute the new, new rank.
+
+00:11:10.400 --> 00:11:12.320
+ And then these will be calculated to the old rank.
+
+00:11:12.320 --> 00:11:15.760
+ And so you'll see that these will get, they will change again.
+
+00:11:15.760 --> 00:11:17.240
+ So I'll just run it one more time.
+
+00:11:17.240 --> 00:11:24.600
+ So I'm going to run one iteration, and then we'll hit refresh.
+
+00:11:24.600 --> 00:11:27.560
+ So you see all these numbers got copied over, but
+
+00:11:27.560 --> 00:11:32.400
+ now there's a new rank that's computed based on these guys.
+
+00:11:32.400 --> 00:11:34.840
+ And so they're getting, this one went up, this was 0.13.
+
+00:11:34.840 --> 00:11:36.440
+ That's gone up a little bit.
+
+00:11:36.440 --> 00:11:38.200
+ This one's gone up some more.
+
+00:11:38.200 --> 00:11:39.280
+ This one's gone up.
+
+00:11:39.280 --> 00:11:41.080
+ This one went down, right?
+
+00:11:41.080 --> 00:11:43.280
+ So this one went down from 6 to 8.
+
+00:11:43.280 --> 00:11:48.600
+ And you can see that the difference is now, the average difference between
+
+00:11:48.600 --> 00:11:54.240
+ this number and this number across all of them went from 1 point something to 0.41.
+
+00:11:54.240 --> 00:11:56.440
+ And you'll see that with these very few pages,
+
+00:11:56.440 --> 00:12:01.000
+ this page rank converges really quickly, okay?
+
+00:12:01.000 --> 00:12:04.000
+ So let's run it again.
+
+00:12:04.000 --> 00:12:08.400
+ And I'll just run 10, and you will watch how this converges, okay?
+
+00:12:08.400 --> 00:12:10.600
+ So there you go, it converges.
+
+00:12:10.600 --> 00:12:15.480
+ So, and you're seeing now after like 12 iterations that the difference between
+
+00:12:15.480 --> 00:12:22.920
+ the old rank and the new rank, Well, that's because it's that old rank.
+
+00:12:22.920 --> 00:12:25.040
+ I'll run one more iteration so that you can see.
+
+00:12:25.040 --> 00:12:30.240
+ So this old rank is less than 0.005.
+
+00:12:30.240 --> 00:12:33.920
+ And so now you can see that these numbers are sort of stabilizing.
+
+00:12:33.920 --> 00:12:39.080
+ This is the average, that 0.005 number is the average difference between these two
+
+00:12:39.080 --> 00:12:39.760
+ things.
+
+00:12:39.760 --> 00:12:44.960
+ Now, if we're going to pretend to be Google for a moment, we can say python3
+
+00:12:44.960 --> 00:12:53.680
+ spider.py, so let's just do ten more pages.
+
+00:12:53.680 --> 00:12:58.840
+ Now what's going to happen here is these new pages are going to have page ranks of one.
+
+00:12:58.840 --> 00:13:03.320
+ Okay, so let's get out.
+
+00:13:03.320 --> 00:13:06.720
+ So if I do a refresh now and I look at new rank.
+
+00:13:06.720 --> 00:13:10.720
+ So there's these guys that have high rank.
+
+00:13:10.720 --> 00:13:15.240
+ What you'll see, I hope, if we, yeah, okay, so you see new pages, right?
+
+00:13:15.240 --> 00:13:17.580
+ These are the new ones that we just retrieved.
+
+00:13:17.580 --> 00:13:20.040
+ I don't know if they're linked or not, and they all got one.
+
+00:13:20.040 --> 00:13:23.640
+ So some old pages are way up, 14.
+
+00:13:23.640 --> 00:13:26.880
+ Some pages, if we go downwards, are way down, right?
+
+00:13:26.880 --> 00:13:28.320
+ So these are like useless pages.
+
+00:13:28.320 --> 00:13:31.280
+ They point to somewhere, but nobody points to them.
+
+00:13:31.280 --> 00:13:33.640
+ That's what happens with these page ranks, okay?
+
+00:13:33.640 --> 00:13:38.640
+ So what happens is, is the new records get this 0.1, and so
+
+00:13:38.640 --> 00:13:44.480
+ if I run the ranking code again, and I run, let's just run five iterations.
+
+00:13:44.480 --> 00:13:48.680
+ You'll see that the average delta goes up just briefly,
+
+00:13:48.680 --> 00:13:53.100
+ as it sort of assimilates these new pages, and then it goes right back down again.
+
+00:13:53.100 --> 00:13:54.400
+ And so that's what's happening with Google.
+
+00:13:54.400 --> 00:13:58.560
+ It's sort of running the spider to get more pages, then running the page rank,
+
+00:13:58.560 --> 00:14:02.000
+ which gets disturbed a little bit, but then it reconverges very rapidly.
+
+00:14:02.000 --> 00:14:04.680
+ And of course, they've got billions of pages, and we've got hundreds of pages.
+
+00:14:04.680 --> 00:14:07.080
+ But you get the idea, okay?
+
+00:14:07.080 --> 00:14:11.160
+ And so I can run this page rank like 100 times.
+
+00:14:11.160 --> 00:14:14.240
+ And after a while, it just sort of hardly is changing.
+
+00:14:14.240 --> 00:14:18.280
+ So that's 2.7 to the negative 10th power.
+
+00:14:18.280 --> 00:14:23.280
+ So now, let me run it one more time to update the stuff.
+
+00:14:23.280 --> 00:14:26.120
+ And if I refresh this, you're going to see,
+
+00:14:26.120 --> 00:14:34.680
+ look at how stable these numbers are, 14, 9, 4, 3, 5, 9, 1, 5, 6, 7.
+
+00:14:34.680 --> 00:14:37.280
+ The difference is there in the seventh one.
+
+00:14:37.280 --> 00:14:39.560
+ So that's why this whole page rank is really cool.
+
+00:14:39.560 --> 00:14:45.840
+ It seems like it's really chaotic when it first starts out, and away you go, okay?
+
+00:14:45.840 --> 00:14:51.480
+ So that was just this, sp_rank, right?
+
+00:14:51.480 --> 00:14:57.360
+ And sp_reset, we can look at that code, I won't bother running it.
+
+00:14:57.360 --> 00:15:00.200
+ It just sets the old rank to one.
+
+00:15:00.200 --> 00:15:02.160
+ That's it, that's as much code as you got.
+
+00:15:02.160 --> 00:15:05.040
+ It just starts it and lets it rerun.
+
+00:15:05.040 --> 00:15:10.720
+ So I'm going to stop now, and I'm going to start a new video where I talk about
+
+00:15:10.720 --> 00:15:15.480
+ this phase here, where we're actually going to visualize the page ranked data.
+
+00:15:15.480 --> 00:15:25.480
+ [MUSIC]
+

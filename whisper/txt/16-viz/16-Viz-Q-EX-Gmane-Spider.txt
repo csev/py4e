@@ -1,0 +1,340 @@
+ (upbeat music)
+ - Hello everybody, welcome to Python for Everybody.
+ We're doing some code walkthroughs.
+ If you want to get the source code,
+ you can take a look at the sample code and download it
+ and work through it.
+ And so what we're working on now is doing some retrieval
+ and visualization of email data.
+ It's kind of ironic.
+ We are going to now look at the email data
+ that we look at the email data that we started with.
+ It's the same Sakai developer list email data.
+ And so there's this service called GMain.
+ And GMain archives developer lists and various email lists.
+ And I've made a copy of their data
+ because all the students in my class hitting the same,
+ their server with their API would crush it.
+ So in order to be a nice guy,
+ I put up a much more powerful server
+ with just the data from this one list.
+ And it's about a gigabyte of data.
+ So be real careful if you're paying for network.
+ So the basic process we're going to go through
+ is we're going to have a spidering process
+ that's a simple, restartable,
+ focused on the network problems, data pulling,
+ to pull content.sqlite.
+ And there's going to be a database there.
+ And then we're going to have a cleanup process.
+ This database is going to get large, about a gigabyte.
+ And then we're going to have a process that takes,
+ it kind of grinds through this data.
+ It takes a while.
+ And so then it's going to read this mapping
+ and I'll show you that when it comes
+ because things like people's names
+ have changed over all these years.
+ And it does a cleanup and makes a really nice,
+ highly relational version of this data.
+ And then we visualize from here.
+ And so this could take you several days to finish this.
+ This will take like a few minutes to run.
+ And then this will just take seconds to run.
+ And so this is a multi-step process
+ where if you were doing something like running something
+ for two days to produce a visualization
+ and it blew up three-quarters of the way through,
+ it would do you no good.
+ And so that's why we break this into simple parts.
+ But right now we're just going to focus
+ on this part right here
+ and take a look at the mail bit.
+ The mail bit and retrieve the mail.
+ And then we'll have another video
+ to talk about the rest of this stuff, okay?
+ So let's take a look at the code.
+ So here is gmain.py.
+ That is the basic code.
+ And hopefully this stuff is starting to look familiar.
+ The thing that's weird here
+ is we've got to do some date time parsing.
+ And there is code that's out there,
+ but you may have to install it.
+ And I had to write my code in a way
+ that didn't assume that you could install
+ the date time parser.
+ And so it has it, even if that's not there,
+ it uses my own date time parser.
+ And that's what this code is.
+ Don't worry too much about that.
+ And of course we have to deal with
+ the lack of certificates inside of Python.
+ And so we start things out.
+ And this is really a simple table.
+ We've got a messages table that's got a primary key.
+ The email itself, when it was sent,
+ what the subject, and the headers, and the body, okay?
+ And so what we're going to do is,
+ because we have to pick up where we left off,
+ we're going to select the largest primary key
+ from the messages table and retrieve that.
+ And then we're going to go to the one after that, okay?
+ And so we know what the ID is.
+ And we're going to pick up where we left off.
+ And so we have a starting point.
+ It starts either zero or one.
+ And we're going to ask how many messages to retrieve.
+ We've got some counters.
+ And so we're going to say, okay,
+ see if select ID for messages
+ where ID equals whatever that starting is.
+ It's the highest number we've seen so far.
+ And if we've got, if row is not none,
+ that means we've already retrieved this particular
+ email message.
+ Otherwise, we're going to keep on going.
+ And we're in good shape.
+ And this is one that we want to retrieve.
+ And we're subtracting that so we know.
+ And so this is the base URL.
+ This is the URL of our API.
+ The one that I have a nice copy of all this data
+ on a server that's accessible worldwide and won't crash.
+ So the format of this is you can say,
+ I would like the email address for one,
+ from one to two or from 100, oops.
+ From, you know,
+ 102, 101, message 101 to 102.
+ And we can just kind of walk through these things.
+ So that's the message ID.
+ And so if we're going to make the URL,
+ we're going to take the base URL,
+ add the starting address, and then add plus one.
+ So we got the slash at the end of the starting address.
+ And so that's how we form those.
+ And we're going to retrieve that.
+ And we're going to decode it.
+ We've seen this in some other ones.
+ We're going to check to see if we got legit data.
+ If not, if we didn't, if I got a 404 not found
+ or something else, we're going to quit.
+ If someone hits control C, which is,
+ or control Z, we'll get the program interrupt
+ and we'll stop.
+ And if there's some other problem, right,
+ we're going to complain and keep going.
+ And if we have five failures in a row, we're going to quit,
+ but it will just keep on going.
+ 'Cause these things do have glitchy bits here.
+ And so at this point, if we made it this far,
+ we've retrieved the URL and we've got the number
+ of characters we've retrieved.
+ And if we get bad data, if it doesn't start with from,
+ because this is a mail message, right,
+ and they all start with from space, if it's right,
+ it starts with from space.
+ Then what we're going to, we're going to tolerate
+ up to five failures there for bad data,
+ because it could be bad.
+ And then we're going to find a blank line,
+ because that's the new line at the end of one line
+ and then a blank line.
+ And then we're going to take and break this into the headers,
+ the mail headers, which is, that mail headers is
+ this stuff right here, up to, but not including
+ the blank line, and then the body is everything after that.
+ And so we'll just have, break that into pieces,
+ otherwise we'll complain and tolerate up to five characters.
+ And then we're going to use a regular expression,
+ kind of from the regular expressions chapter,
+ to pull out an email address from the from colon line,
+ somewhere in these headers, from colon right there.
+ It's going to go find a less than, and then pull,
+ oops, come on, pull this stuff out up to it.
+ So you got the less than, you got the parentheses,
+ you got one or more non-blank characters,
+ followed by an add side, followed by one
+ or more non-blank characters.
+ And we'll get back a list of those, we should only get one.
+ If we find one, we're going to grab the email,
+ we're going to strip the lower case,
+ and if we got some little nasty less than sign in there,
+ we'll tolerate that as well.
+ So this is kind of clean up, and you get used to this,
+ where you're like, oh, how come all those email addresses
+ have this other stuff in them?
+ And then we also look for it if there are no less than signs,
+ and we do this way, and that's different.
+ Some mail messages have it this way, and others,
+ again, you write this code after you watch it for a while,
+ and you're like, oh, it's crapped out
+ and giving me bad stuff, and I make them all lower case
+ so they match better and get rid of bad characters,
+ now I got an email address.
+ Then what I do is I look for the date of this,
+ so I'm going to graph these by date,
+ so I look for this line and use a regular expression
+ to pull that out, right?
+ So I'm looking for a date, followed by a blank,
+ followed by any number of characters, followed by a comma,
+ so I'm not interested in this Wednesday bit,
+ so I'm skipping that bit right there,
+ and going and grabbing everything after that comma space,
+ and so it's really here to the end of the line,
+ so that's the new line, so it's going all the way,
+ it's going to pull this bit right here, that's the text.
+ And this is where we're going to say,
+ oh, that's kind of a funky looking date,
+ and we want to standardize that date, so we're going to,
+ let's see, yeah, we're going to chop it off
+ with a 26 character, apparently I don't know
+ what the 26, why do we care about the 26 character,
+ but we chop that off with the 26 character,
+ and then we're going to parse it,
+ and that's going to give us back a nice, clean date,
+ sent at date.
+ Otherwise, we're going to complete, we're going to quit,
+ and if we can't parse it, then we're going to tolerate
+ five bad email addresses in a row,
+ then we're looking for the subject line
+ using another regular expression,
+ subject line, regular expression, that's pretty easy,
+ up to but not including, right?
+ There's a blank there, it's the subject.
+ Let me pull that out, we get the subject.
+ Now at this point, we parsed it, and we got good stuff,
+ so we reset the fail counter, because I kept saying,
+ if you fail five straight times, you quit.
+ And we're going to print it out,
+ and then we're just going to insert that stuff.
+ We've got the ID of the message,
+ which we've got, the email address that it came from,
+ the time it was sent, the subject,
+ and then basically the headers in the body,
+ and we're just inserting it.
+ And now we're going to say, every 50th, we're going to commit it,
+ so that speeds things up, and every 100th,
+ we're going to wait a second.
+ So that's, you know, count is going up, up, up, up, up,
+ and every 50th, you'll see it pause,
+ and then it will, every 100th, it'll pause for a second.
+ Mostly that's to let me hit Control + C,
+ or to not overload any server.
+ Okay, so that's the simple one.
+ The problem is, is this data just gets ugly,
+ and so you'll find yourself wanting to reset this
+ and start it over.
+ This one's going to work, of course,
+ but these are hard to build,
+ and that's why it's a good idea.
+ Oops.
+ Python 3 gmain.py.
+ How many messages?
+ Well, let's just do one.
+ Okay, so it went and grabbed,
+ oh, do I have this already running?
+ 51 through 52.
+ Let me start over.
+ Let's find a cell, start SQLite.
+ Okay, rm content, I must have run it to test it.
+ So, let's run it again.
+ Python gmain.py, and ask for one message.
+ Okay, so there we went and got message one from one to two,
+ we got 226 to two characters,
+ and we printed out the email address,
+ the time we got it after all that hacking,
+ and the subject line, and that's what we got.
+ So, if we take a look at the database,
+ and we go into the gmain,
+ anytime you see the content SQLite journal,
+ that means it needed to run a commit,
+ and it hasn't run a commit,
+ but I'll hit enter, and that will do the commit,
+ and you see that vanish.
+ So now I can open it, and I take a look at,
+ how come there's no messages?
+ Did that one not get stored in there for some reason?
+ I'll use refresh.
+ Huh, let's run it again.
+ Maybe it didn't commit, maybe it got a bug in it.
+ Let's make a change to the code.
+ I'm going to, see this connection.commit,
+ see that?
+ Connection.commit.
+ Gonna commit there, and the other thing I'm going to do
+ is every time I stop to read,
+ I'm going to commit right before I read it.
+ So I think we should, I hope that doesn't blow up.
+ We'll see.
+ So the idea is if I want to stop, I want it committed.
+ So let's do this.
+ Let's do one message,
+ and now I should hit, is it committed?
+ Now that I've put the commits in,
+ I think that I will, it will look better.
+ I can't refresh, and so there it is,
+ because I committed it, and I don't have,
+ yeah, I don't have the journal file, so that's good.
+ So that's a good idea to put those commits there,
+ so I'll just leave those commits in.
+ When you download it, it'll have those commits in there.
+ So again, I put a commit here and a commit
+ at the very, very end to make sure,
+ and then I, so I missed that.
+ But now we get one, right?
+ And so let's just run it again,
+ and you'll see how by selecting the max of the ID,
+ it's going to select the max of this and then add one to it,
+ so it doesn't do the next one.
+ So if I run it again, I say, give me one message,
+ so it goes two to three, and give me two messages, right?
+ So I hit enter, and I can do refresh,
+ and now you see we've got four messages, okay?
+ And so let's just fire this baby up,
+ tell it to get 100.
+ Er, run, run, run, run, run, run, run, right?
+ It just goes and goes, and it pauses once in a while
+ to do a commit, and if I made a commit every time,
+ oop, it just paused there, now it finished.
+ So this'll run, and we will get a bunch of data.
+ The problem is, is if I just run this,
+ it'll take about five hours, okay,
+ to run this and get this all,
+ and I've got a really fast connection.
+ So I have got a file that you can download,
+ let's go find it, let's see if I can,
+ let's see how long it'll take me to download this.
+ Now I've got a file that you can download and save.
+ Now I'm going to use the command line,
+ curl, or wget is another command
+ that we Linux and Mac people can use.
+ I don't know, you might have to use your browser to do it,
+ let's see how long this is going to take.
+ It's retrieving, minute 30, okay well I'll just wait,
+ when this come back.
+ Okay, so now that's done.
+ I was averaging 10 megabits a second,
+ I downloaded about 600 megabytes, 10 megabits a second.
+ That will probably be slower for you.
+ So now if I take a look, you're going to find
+ that that content.sqlite is 624 megabytes.
+ Now what happens is I've free-spidered this,
+ and so now if you run gmain.py
+ and ask for five more messages,
+ it will pick up where I left that one off.
+ So it's up to message 59,000.
+ And I think that, oh he saw an error,
+ saw a bug in that one,
+ I don't know what's wrong with that one.
+ So let's see if, so at this point
+ we're going to have most of the data.
+ It might find its way to the very end.
+ Once you get this, it should be not too much more,
+ I don't know, maybe it's like 63,000 or something.
+ So what we'll do is we will let that run,
+ and we will come back when that one's finished
+ and run the next phase after it's got all of its data.
+ So thanks for listening.
+ (soft piano music)
+ (soft piano music)

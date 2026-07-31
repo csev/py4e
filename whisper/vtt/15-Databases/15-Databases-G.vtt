@@ -1,0 +1,380 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.580
+ So our last major topic is called many-to-many relationships and up till now everything that we've done
+
+00:00:05.580 --> 00:00:12.300
+ is what's called a one-to-many relationship and that is there are many tracks associated with one album,
+
+00:00:12.300 --> 00:00:17.820
+ there are many albums associated with one artist, there are many tracks associated with one genre
+
+00:00:17.820 --> 00:00:23.660
+ and you can think of labeling and as you look at data models they put little labels on each arrow
+
+00:00:23.660 --> 00:00:28.140
+ that tell you which end of the arrow is the many and which end of the arrow is the one
+
+00:00:28.140 --> 00:00:33.420
+ and so in this case the foreign key is pointing to there are many of these rows over here,
+
+00:00:33.420 --> 00:00:38.060
+ many rows that point to one row over here, so it's a many-to-one relationship.
+
+00:00:38.060 --> 00:00:43.340
+ There are various ways, sometimes I'll put two arrows at this end and one arrow at that end
+
+00:00:43.340 --> 00:00:48.100
+ but whatever it is, this kind of thing we've been showing is a many-to-one relationship
+
+00:00:48.100 --> 00:00:54.580
+ and that's probably the most common thing but there are times when you just can't model things
+
+00:00:54.580 --> 00:01:01.140
+ with the one-to-many relationship. So like if you have a mother and children, well that's a
+
+00:01:01.140 --> 00:01:06.980
+ many-to-one relationship and it's just fine and that works fine but sometimes you have a
+
+00:01:06.980 --> 00:01:13.460
+ many-to-many relationship in that there might be many books, one book has many authors and each
+
+00:01:13.460 --> 00:01:19.540
+ author has many books and so you don't have like the one side, there's no one and so you have to
+
+00:01:19.540 --> 00:01:24.180
+ end up building a table that what we call it, I call it a connector table, they call it a junction
+
+00:01:24.180 --> 00:01:30.020
+ table on Wikipedia but we need a little table that allows us to break a many-to-many relationship
+
+00:01:30.020 --> 00:01:36.100
+ into an effect, two many-to-one relationships and a connector table and so this is a connector table
+
+00:01:36.100 --> 00:01:42.100
+ so you could think of this as you know there are many many links here but we don't have a way to
+
+00:01:42.100 --> 00:01:48.180
+ model the many over here to here and so what you do is you basically say oh there's a lot of these
+
+00:01:48.180 --> 00:01:53.540
+ things, there's many that go to the one, the many that go to the one and then in here you sort of
+
+00:01:53.540 --> 00:01:59.460
+ create that many-ness that you want to create so it's probably just as easy to look at a sample of
+
+00:01:59.460 --> 00:02:06.900
+ this so let's imagine a learning management system where you're taking a class and there are some
+
+00:02:06.900 --> 00:02:11.700
+ people that are teachers and some people that are students and many students are members of many
+
+00:02:11.700 --> 00:02:17.860
+ classes, a student can be part of many classes and a class has many students in it so you can't really
+
+00:02:17.860 --> 00:02:23.460
+ find the one end and so what we do is we make a table called membership and in that table of
+
+00:02:23.460 --> 00:02:29.620
+ membership we actually often don't put a primary key in at all we simply put in two foreign keys
+
+00:02:29.620 --> 00:02:36.900
+ and if we're going to put a uniqueness constraint we put a combination of the two foreign keys as
+
+00:02:36.900 --> 00:02:42.500
+ the uniqueness constraint so we say there can be duplicate user IDs and duplicate course IDs but
+
+00:02:42.500 --> 00:02:47.940
+ there can only be you know user ID course ID combinations that has to be unique so you can make
+
+00:02:47.940 --> 00:02:55.620
+ unique be more than one one column and so if you imagine a course table and a user table there's a
+
+00:02:55.620 --> 00:03:00.500
+ user ID the name and email and the course has a title and an ID and then we have this little table
+
+00:03:00.500 --> 00:03:07.220
+ that just is the connector table that shows the points out and so we can expand this membership
+
+00:03:07.220 --> 00:03:14.660
+ so let's take a look at how that works so we're going to create some tables and the
+
+00:03:14.660 --> 00:03:23.700
+ these are very classic tables because these are the one end of it so these are the one end of it
+
+00:03:23.700 --> 00:03:29.540
+ so it has a primary key a title a logical key email there's a primary key for course and then
+
+00:03:29.540 --> 00:03:33.460
+ there's text so we add this unique to kind of indicate that it's a logical key we're not going
+
+00:03:33.460 --> 00:03:41.540
+ to allow ourselves to put any duplicates in here now that the connector database here is a table
+
+00:03:41.540 --> 00:03:47.060
+ member and it has two foreign keys user ID and artist course ID and you can even model some data
+
+00:03:47.060 --> 00:03:52.580
+ here so I'm going to model role which is going to be zero equals student and one equals instructor
+
+00:03:52.580 --> 00:03:58.660
+ and then I'm going to indicate that the primary key or uniqueness constraint is the combination
+
+00:03:58.660 --> 00:04:05.780
+ of the user ID and a course ID now when we say the primary key it both limits our ability to insert
+
+00:04:05.780 --> 00:04:10.740
+ duplicates but it also allows the database to optimize its scanning because it knows that that
+
+00:04:10.740 --> 00:04:16.740
+ combination is always unique and so it can organize its disk structure and storage structure
+
+00:04:16.740 --> 00:04:22.740
+ to understand how to look things up more efficiently knowing that once it's found a user ID course ID
+
+00:04:22.740 --> 00:04:26.660
+ combination it doesn't have to look any farther because they're unique and so all of these
+
+00:04:26.660 --> 00:04:32.020
+ contracts that we add speed things up save storage and makes things more efficient but in ways we
+
+00:04:32.020 --> 00:04:38.340
+ don't always know exactly how they happened and so let's go ahead and make these let's go ahead
+
+00:04:38.340 --> 00:04:46.900
+ and make these guys I think I will start with a new database I'm going to call it LMS for learning
+
+00:04:46.900 --> 00:04:54.820
+ management system no I don't really want to do that one and so I'm going to not create the table
+
+00:04:54.820 --> 00:05:00.180
+ I'm going to do everything in SQL and so let me see if it's in my cheat sheet nope that's not in
+
+00:05:00.180 --> 00:05:04.660
+ my cheat sheet so I have to fix the cheat sheet again for you by the time you see the cheat sheet
+
+00:05:04.660 --> 00:05:09.700
+ all these things will be in there so I'm going to go in here and I'm going to grab create table user
+
+00:05:09.700 --> 00:05:14.500
+ actually I'm going to grab them all watch this
+
+00:05:16.660 --> 00:05:24.820
+ grab them all highlight all these go over to SQLite browser blast them all in and then I'll
+
+00:05:24.820 --> 00:05:32.420
+ put a semicolon at the end of each one of the statements and I want to run them
+
+00:05:32.420 --> 00:05:43.060
+ so did I look does it look good yep yep yep so I got a course I got membership two foreign keys
+
+00:05:43.060 --> 00:05:49.220
+ and I got user so that all looks good okay so now we're going to have to insert some data in
+
+00:05:49.220 --> 00:05:57.060
+ and we're going to insert from the outside in and so we're going to just put the name and email
+
+00:05:57.060 --> 00:06:02.100
+ the ID will be automatically assigned for the users and we're going to do the same thing and
+
+00:06:02.100 --> 00:06:06.900
+ the ID and the courses will be automatically assigned so let me just grab all this stuff
+
+00:06:09.300 --> 00:06:14.980
+ go into SQL that has the semicolons at the end already for me thank you very much now I'm going
+
+00:06:14.980 --> 00:06:22.340
+ to run it and if I take a look at my data now I've got primary keys for the courses and I've got
+
+00:06:22.340 --> 00:06:28.340
+ primary keys for the users and I've got nothing in the membership table and I have to of course
+
+00:06:28.340 --> 00:06:34.180
+ have to remember what these values are because Jane is one and Ed is two and Sue is three right
+
+00:06:34.180 --> 00:06:40.820
+ and Python is one SQL is two is three and so when I go into membership I've got two foreign keys
+
+00:06:40.820 --> 00:06:47.860
+ here in a role and they just have to be for the course person combination and so it's a little
+
+00:06:47.860 --> 00:06:52.500
+ tricky to figure all this stuff out but again these are just numbers and if you look at these
+
+00:06:52.500 --> 00:06:59.380
+ numbers user ID course ID role well user ID one is in course one user ID is in course as the teacher
+
+00:06:59.380 --> 00:07:04.820
+ user ID two is in course one as the student etc etc etc so I'm making these connections by just
+
+00:07:04.820 --> 00:07:10.500
+ putting these little numbers in and once again conveniently I have all my semicolons perfectly
+
+00:07:10.500 --> 00:07:20.500
+ in place so I go to SQL and then I run that and then I take and I look at my membership data and
+
+00:07:20.500 --> 00:07:25.540
+ there it is so two foreign keys and a bit of data modeled at the connection that's the way we say
+
+00:07:25.540 --> 00:07:32.260
+ that the role is modeled at the connection so now we build all this stuff up we can write some queries
+
+00:07:32.260 --> 00:07:38.420
+ that take a look at this and so what we're going to do is we're going to look at who's in what course
+
+00:07:38.420 --> 00:07:45.460
+ and what role are they and we're going to sort this in a nice way so let's just take a quick look
+
+00:07:45.460 --> 00:07:51.140
+ at the code we're writing we're going to do a select from three tables the user name the member
+
+00:07:51.140 --> 00:07:56.900
+ role the course title so we're in effect we're not showing any of the foreign keys or the primary
+
+00:07:56.900 --> 00:08:01.780
+ keys we're going to go from the user table join to the member table join to the course table
+
+00:08:01.780 --> 00:08:06.980
+ this is pretty easy to write you know there are three tables you want to go across the on clause
+
+00:08:06.980 --> 00:08:13.540
+ is also very easy to write right the on clause models each of these connections where the members
+
+00:08:13.540 --> 00:08:24.260
+ user id is equal to the user's id and where the members course id is equal to the course id so
+
+00:08:24.260 --> 00:08:28.340
+ we're going to connect we're going to concatenate all three of these tables together but we're going
+
+00:08:28.340 --> 00:08:34.180
+ to only keep rows that where it matters now that this is not this role doesn't participate but we're
+
+00:08:34.180 --> 00:08:40.500
+ going to print that out and we're going to order it by the course title first and then the member
+
+00:08:40.500 --> 00:08:58.340
+ role second and the name third and so let's run that so we've reconnected it so ed's the teacher
+
+00:08:58.340 --> 00:09:03.220
+ of the php class sue is the student the php class jane is the teacher in the python class ed's a
+
+00:09:03.220 --> 00:09:08.340
+ student and sewer students in the python class ed's the teacher in the sql class and jane is
+
+00:09:08.340 --> 00:09:14.260
+ the student in the sql class and so we have many people are in there are many students in many
+
+00:09:14.260 --> 00:09:20.740
+ classes there and so we have modeled that but we model that with this sort of table and if you look
+
+00:09:20.740 --> 00:09:25.060
+ at a piece of software that i've written called sugi which is a standalone learning management
+
+00:09:25.060 --> 00:09:30.740
+ system that's built with learning tools you will see in anything we're in membership where we have
+
+00:09:30.740 --> 00:09:36.340
+ a we have a user table we have a context which is also the course table and then we have a
+
+00:09:36.340 --> 00:09:40.820
+ membership table and you look here's these foreign keys it's kind of like that's the many side that's
+
+00:09:40.820 --> 00:09:48.340
+ the one side many to one and so this you know this is now a an effect of many to many court
+
+00:09:48.340 --> 00:09:54.260
+ between these two but then it's modeled as a series of many to one many to one relationships
+
+00:09:54.260 --> 00:09:59.540
+ and you see this all the time in all kinds of things where membership or other kinds of things
+
+00:09:59.540 --> 00:10:08.740
+ are necessary many to one how many to many so with all that there's so much to learn it's it's both
+
+00:10:08.740 --> 00:10:13.060
+ easy and complex at the same time it's easy when someone shows you how to do it but at some point
+
+00:10:13.060 --> 00:10:17.460
+ you will learn how to build database models and you realize oh it wasn't so bad it takes a while
+
+00:10:17.460 --> 00:10:25.300
+ to get used to them this really just is a quick walk but the the bottom line is the what we just
+
+00:10:25.300 --> 00:10:32.260
+ did seems like it was wow that's nice do you really have to do that and the answer is if you're going
+
+00:10:32.260 --> 00:10:38.260
+ to scale it all you absolutely have to because you simply can't read and write data sequentially
+
+00:10:38.260 --> 00:10:43.060
+ you can't read through a update one little piece of data in a file by reading all the way through
+
+00:10:43.060 --> 00:10:48.820
+ and then writing a new copy of the file that could take seconds and in a system like an online system
+
+00:10:48.820 --> 00:10:53.060
+ you get a hundredth of a second to do something like that and the databases make it so that
+
+00:10:53.060 --> 00:10:57.540
+ happens in a thousandth of a second so you ultimately you simply have to take advantage
+
+00:10:57.540 --> 00:11:02.340
+ of this you just can't if you're going to modify data you can read data from flat files but even
+
+00:11:02.340 --> 00:11:07.940
+ if you're going to read a lot of data if it's big it slows down terribly so it might seem like
+
+00:11:07.940 --> 00:11:12.180
+ there's a trade-off that you could debate whether this is worth it but if you're going to deal with
+
+00:11:12.180 --> 00:11:18.260
+ a lot of data it's you've got no choice it's really not as much a trade-off as you think so
+
+00:11:18.980 --> 00:11:24.180
+ this has been a quick romp through databases we talked a little bit about indexes there are
+
+00:11:24.180 --> 00:11:28.260
+ constraints we talked a little bit the not null stuff we've talked about that the uniqueness
+
+00:11:28.260 --> 00:11:34.740
+ that's a constraint another whole area is what's called transactions and that's the locking of
+
+00:11:34.740 --> 00:11:39.060
+ little areas so you can read an area then lock it and then update it to make sure no one else reads
+
+00:11:39.060 --> 00:11:45.780
+ it and and so they make sure they either get the the version before you looked at it or before you
+
+00:11:45.780 --> 00:11:51.860
+ change it or after you change it and so that's how you make sure that you can't do things having to
+
+00:11:51.860 --> 00:11:58.900
+ do with bank account balances and get yourself in trouble so these are a lot of sql it's really
+
+00:11:58.900 --> 00:12:06.100
+ fascinating sql is a fascinating thing to use and learn and performance tune and enjoy so
+
+00:12:06.100 --> 00:12:14.020
+ relational databases are cool this gets us started the the big thing is don't allow replication
+
+00:12:14.020 --> 00:12:18.260
+ vertically of string data pull that out into a separate table establish a primary key and
+
+00:12:18.260 --> 00:12:23.860
+ then have foreign keys that point to that primary key it is not just how much data you store it's
+
+00:12:23.860 --> 00:12:29.140
+ sort of a compression way as a way of compressing data you might think strings take no data but they
+
+00:12:29.140 --> 00:12:34.500
+ do numbers take a lot less data and it's both how much data that's stored but also how much data has
+
+00:12:34.500 --> 00:12:41.460
+ to be scanned and that way joins work that's part of the magic of why oracles such a such a successful
+
+00:12:41.460 --> 00:12:48.660
+ company it's a bit of art form and it's something that you can work your whole life and always get better at
+
+00:13:11.460 --> 00:13:13.120
+ (upbeat music)
+

@@ -1,0 +1,1092 @@
+1
+00:00:00,000 --> 00:00:13,120
+ Hello, and welcome to Python for Everybody and another code walkthrough.
+
+2
+00:00:13,120 --> 00:00:18,120
+ So in this one, we're going to walk through a Chapter 16 diagram.
+
+3
+00:00:18,120 --> 00:00:19,540
+ Let's take a look at it.
+
+4
+00:00:19,540 --> 00:00:25,360
+ So this is a situation where we're going to be talking to some OpenStreetMap data through
+
+5
+00:00:25,360 --> 00:00:30,560
+ an API, through a proxy to that API, and we're going to write a bit of code that's going
+
+6
+00:00:30,560 --> 00:00:33,360
+ to repeatedly pull this stuff down.
+
+7
+00:00:33,360 --> 00:00:41,360
+ Now these APIs are notoriously slow, expensive, difficult, and sometimes even sort of unreliable.
+
+8
+00:00:41,360 --> 00:00:44,040
+ If you hit a rate limit, it starts blowing up on you.
+
+9
+00:00:44,040 --> 00:00:46,940
+ So we want this to be a restartable process.
+
+10
+00:00:46,940 --> 00:00:52,200
+ So what we're going to do is write this code called geoload.py, and it is going to read
+
+11
+00:00:52,200 --> 00:00:57,080
+ a file that is the list of the locations we ultimately want to have.
+
+12
+00:00:57,080 --> 00:01:00,400
+ And when you're doing your homework, you've got to edit this file.
+
+13
+00:01:00,400 --> 00:01:06,360
+ But the idea is that this geoload is going to read all the locations we want, and then
+
+14
+00:01:06,360 --> 00:01:08,720
+ it's starting to pull them down.
+
+15
+00:01:08,720 --> 00:01:14,780
+ And then it's going to simply insert the JSON into this geodata.sqlite file.
+
+16
+00:01:14,780 --> 00:01:21,800
+ And then if this part here is a restartable process, the geoload is a restartable process.
+
+17
+00:01:21,800 --> 00:01:25,160
+ And when we do it, we'll start it a couple of times.
+
+18
+00:01:25,160 --> 00:01:28,560
+ And it's smart enough to know the things it already has and not start from the beginning
+
+19
+00:01:28,560 --> 00:01:29,560
+ over and over.
+
+20
+00:01:29,560 --> 00:01:31,080
+ That's why it's a restartable process.
+
+21
+00:01:31,080 --> 00:01:38,880
+ And at any given point, we can, in a sense, view and visualize the current contents of
+
+22
+00:01:38,880 --> 00:01:42,000
+ this database with geodump.py.
+
+23
+00:01:42,000 --> 00:01:46,440
+ So that reads the database, and it produces a little file called where.js.
+
+24
+00:01:46,440 --> 00:01:48,840
+ It also writes a little debug output.
+
+25
+00:01:48,840 --> 00:01:54,980
+ And then that where.js is read into when you open a browser, this file where.html opens
+
+26
+00:01:54,980 --> 00:01:56,320
+ in a browser.
+
+27
+00:01:56,320 --> 00:01:59,080
+ And then it reads the where.js, and then it visualizes it.
+
+28
+00:01:59,080 --> 00:02:00,160
+ And that's really cool.
+
+29
+00:02:00,160 --> 00:02:05,520
+ So at some point, you're supposed to put your own location in where.data and then show in
+
+30
+00:02:05,520 --> 00:02:09,320
+ the visualization that you were able to get your location.
+
+31
+00:02:09,320 --> 00:02:13,520
+ So without further ado, let's go take a look at the code.
+
+32
+00:02:13,520 --> 00:02:16,560
+ So the code you're going to need to use is opengeo.zip.
+
+33
+00:02:16,560 --> 00:02:24,040
+ You download this open, you download www.py4e.com/code3/opengeo.zip.
+
+34
+00:02:24,040 --> 00:02:30,920
+ And then you open that into a folder, and you will have a folder called opengeo.
+
+35
+00:02:30,920 --> 00:02:35,560
+ So if I'm looking at my current folder of opengeo, you can see that it's got a readme.txt,
+
+36
+00:02:35,560 --> 00:02:41,760
+ a geodump.py, a geoload, a where.data, where.html, and where.js.
+
+37
+00:02:41,760 --> 00:02:49,520
+ And so the where.html and the where.js are, those are the visualization part of it.
+
+38
+00:02:49,520 --> 00:02:56,580
+ And geoload is the spidering part of it, and geodump is the read the database, okay?
+
+39
+00:02:56,580 --> 00:03:01,820
+ So let's go ahead and start taking a look at geoload.py.
+
+40
+00:03:01,820 --> 00:03:06,760
+ And so this is the restartable, this is the restartable spider.
+
+41
+00:03:06,760 --> 00:03:12,240
+ And if you look, it's going to be looking at a proxy of the geo API.
+
+42
+00:03:12,240 --> 00:03:13,920
+ So we have OpenStreetMap, right?
+
+43
+00:03:13,920 --> 00:03:17,360
+ There's the OpenStreetMap, and we can search for things in OpenStreetMap,
+
+44
+00:03:17,360 --> 00:03:19,080
+ do this kind of geocoding by hand.
+
+45
+00:03:19,080 --> 00:03:22,760
+ And we're doing it every time we do a map search, a geocoding is happening.
+
+46
+00:03:22,760 --> 00:03:28,560
+ We're talking to geo API, which in effect takes the free data,
+
+47
+00:03:28,560 --> 00:03:30,960
+ but then wraps an API around it.
+
+48
+00:03:30,960 --> 00:03:35,040
+ And so this is what the API we're going to get.
+
+49
+00:03:35,040 --> 00:03:39,880
+ But if you're going to use it, you got to get an account, so you got to sign up.
+
+50
+00:03:39,880 --> 00:03:45,080
+ So what I've done to simplify things in this class is I've made a proxy for it.
+
+51
+00:03:45,080 --> 00:03:48,120
+ And this proxy does not require a key, but
+
+52
+00:03:48,120 --> 00:03:52,400
+ it has really, really fierce API rate limits.
+
+53
+00:03:52,400 --> 00:03:57,920
+ Meaning that it slows down terribly if you use it more than what you should use it
+
+54
+00:03:57,920 --> 00:03:58,740
+ in this class.
+
+55
+00:03:58,740 --> 00:04:05,480
+ But that slowing down also is kind of fun because you are doing a restartable thing.
+
+56
+00:04:05,480 --> 00:04:10,280
+ So you don't need a key to talk to this, it's just for this class.
+
+57
+00:04:10,280 --> 00:04:12,680
+ And so the protocol is pretty simple.
+
+58
+00:04:12,680 --> 00:04:18,280
+ You have a query parameter, which is the text location properly URL encoded.
+
+59
+00:04:18,280 --> 00:04:23,240
+ Spaces are encoded as pluses, and commas are percent twos, okay?
+
+60
+00:04:23,240 --> 00:04:25,280
+ So that's the kind of thing we got to do.
+
+61
+00:04:25,280 --> 00:04:27,800
+ So if we take a quick look back at our code, and
+
+62
+00:04:27,800 --> 00:04:31,200
+ we looked at this code in a previous, we only retrieved one.
+
+63
+00:04:31,200 --> 00:04:34,200
+ Now we're building a restartable process using a database.
+
+64
+00:04:34,200 --> 00:04:38,240
+ So we have this prefix of it.
+
+65
+00:04:38,240 --> 00:04:39,640
+ Now, this is database.
+
+66
+00:04:39,640 --> 00:04:43,240
+ So we're going to create or open an existing database.
+
+67
+00:04:43,240 --> 00:04:49,800
+ And in this case, we don't yet have a database, ls -l, there is no database.
+
+68
+00:04:49,800 --> 00:04:54,160
+ You'll see the first time we start this, we're going to create this database.
+
+69
+00:04:54,160 --> 00:04:56,120
+ And we're going to create a simple table.
+
+70
+00:04:56,120 --> 00:05:00,200
+ Now, the key thing is that all we're going to do is we're going to take
+
+71
+00:05:00,200 --> 00:05:06,880
+ the address that we looked up as the key, and the JSON that we get back as a value.
+
+72
+00:05:06,880 --> 00:05:12,400
+ So in this case, Ann Arbor comma Michigan is the key.
+
+73
+00:05:12,400 --> 00:05:16,960
+ And this raw data, which looks prettier, that is the value.
+
+74
+00:05:16,960 --> 00:05:20,280
+ That's what we're going to do, because again, this is the restartable process.
+
+75
+00:05:20,280 --> 00:05:27,360
+ You want this restartable process to be simple and restartable.
+
+76
+00:05:27,360 --> 00:05:29,200
+ And then, if we continue down in the code,
+
+77
+00:05:29,200 --> 00:05:36,000
+ we see the pattern having to do with let's ignore certificate problems.
+
+78
+00:05:36,000 --> 00:05:39,680
+ Having to do with the fact that there's not a lot of good certificates that are
+
+79
+00:05:39,680 --> 00:05:44,000
+ default and excluded in Python, and so it's simpler for now.
+
+80
+00:05:44,000 --> 00:05:46,240
+ In production, you can figure this out a little bit better, but
+
+81
+00:05:46,240 --> 00:05:51,040
+ that just makes sure that our URL lib stuff works.
+
+82
+00:05:51,040 --> 00:05:54,240
+ So just kind of, there you go.
+
+83
+00:05:54,240 --> 00:05:57,600
+ It's unfortunate, because when they fixed this thing about they didn't like
+
+84
+00:05:57,600 --> 00:06:00,520
+ the certificates, they had some problems, they just took them all out.
+
+85
+00:06:00,520 --> 00:06:03,440
+ So we went from a lot of good certificates and
+
+86
+00:06:03,440 --> 00:06:06,600
+ one bad one to no good certificates, but.
+
+87
+00:06:06,600 --> 00:06:09,120
+ And then everyone immediately went and ignored the certificates.
+
+88
+00:06:09,120 --> 00:06:13,480
+ The law of unintended consequences.
+
+89
+00:06:13,480 --> 00:06:16,480
+ So let's take a look at this file, where.data.
+
+90
+00:06:16,480 --> 00:06:21,240
+ So where.data, the idea at some point is you want to know the locations.
+
+91
+00:06:21,240 --> 00:06:26,720
+ So this is just the input to our, and this is just all the places.
+
+92
+00:06:26,720 --> 00:06:37,960
+ And we can add to this jerk pit and arbor Michigan.
+
+93
+00:06:37,960 --> 00:06:42,960
+ So this is the list, the to-do list in a sense, okay?
+
+94
+00:06:42,960 --> 00:06:46,600
+ So we're going to, that's what we're going to do, and I give you a starting point, and
+
+95
+00:06:46,600 --> 00:06:49,080
+ you're supposed to, in your work, add something to it.
+
+96
+00:06:49,080 --> 00:06:56,160
+ So we're going to read this where.data, and that file had, I don't remember, 275.
+
+97
+00:06:56,160 --> 00:06:58,360
+ But you might have thousands of lines.
+
+98
+00:06:58,360 --> 00:07:00,160
+ And then we're going to read the whole file.
+
+99
+00:07:00,160 --> 00:07:10,200
+ And if we get past 100 of retrieved locations, we're going to stop.
+
+100
+00:07:10,200 --> 00:07:12,440
+ And that's kind of to let our API settle down.
+
+101
+00:07:12,440 --> 00:07:14,360
+ You would change these numbers.
+
+102
+00:07:14,360 --> 00:07:19,120
+ And then we're going to take the address from the line, which is just a text line.
+
+103
+00:07:19,120 --> 00:07:24,640
+ And then we're going to check to see if the address has already been retrieved.
+
+104
+00:07:24,640 --> 00:07:29,560
+ And we're doing an encode in a memory view because of UTF-8 and
+
+105
+00:07:29,560 --> 00:07:32,160
+ because the database is kind of outside of us.
+
+106
+00:07:32,160 --> 00:07:34,120
+ There you go.
+
+107
+00:07:34,120 --> 00:07:37,520
+ And then what we're going to do is we're going to retrieve that record.
+
+108
+00:07:37,520 --> 00:07:41,760
+ And if the address was already in the database, at the beginning it's not,
+
+109
+00:07:41,760 --> 00:07:43,280
+ cuz the database is empty.
+
+110
+00:07:43,280 --> 00:07:47,520
+ We're just going to continue and go through zooming through this file.
+
+111
+00:07:47,520 --> 00:07:53,280
+ Ignoring, not retrieving the ones that we've already retrieved,
+
+112
+00:07:53,280 --> 00:07:54,440
+ that are in our thing already.
+
+113
+00:07:54,440 --> 00:07:59,160
+ But if they aren't there, then we're going to create a URL.
+
+114
+00:07:59,160 --> 00:08:02,320
+ And this is basically the pattern of we're going to create a dictionary.
+
+115
+00:08:02,320 --> 00:08:05,000
+ And we're going to say Q equals Ann Arbor, Michigan.
+
+116
+00:08:05,000 --> 00:08:09,080
+ But that Ann Arbor, Michigan has to be properly URL encoded.
+
+117
+00:08:09,080 --> 00:08:12,760
+ And so that's what this URL lib parse URL encode does.
+
+118
+00:08:12,760 --> 00:08:18,360
+ So that ends up with a URL that looks like this.
+
+119
+00:08:18,360 --> 00:08:20,040
+ It all gets concatenated together, but
+
+120
+00:08:20,040 --> 00:08:23,080
+ that encoding is something we don't have to write the code for.
+
+121
+00:08:23,080 --> 00:08:26,760
+ Thank heaven, cuz even though it's easy to explain in a simple example,
+
+122
+00:08:26,760 --> 00:08:29,520
+ it's hard to do it right in all cases.
+
+123
+00:08:29,520 --> 00:08:31,520
+ So we'll just let the libraries do that.
+
+124
+00:08:31,520 --> 00:08:35,440
+ So now we have a URL, so we open that URL.
+
+125
+00:08:35,440 --> 00:08:40,080
+ This little context equal CTX is the trick we use to ignore the SSL errors.
+
+126
+00:08:40,080 --> 00:08:44,680
+ Then we read it, but the stuff that comes back, of course,
+
+127
+00:08:44,680 --> 00:08:47,960
+ this here, if we were to look at the headers, let's see.
+
+128
+00:08:47,960 --> 00:08:53,480
+ We could look at the headers and we'd see that this is a UTF-8 application/json.
+
+129
+00:08:53,480 --> 00:08:57,320
+ And so Python internally does not use UTF-8.
+
+130
+00:08:57,320 --> 00:09:00,720
+ Python internally uses Unicode.
+
+131
+00:09:00,720 --> 00:09:07,760
+ So decode says, that stuff we just read, UTF-8, decode it into our internal format,
+
+132
+00:09:07,760 --> 00:09:11,360
+ which is Unicode, and there you go.
+
+133
+00:09:11,360 --> 00:09:14,420
+ And then I print out a debug statement, and I increment my count so
+
+134
+00:09:14,420 --> 00:09:17,280
+ that each run only does no more than 100.
+
+135
+00:09:17,280 --> 00:09:23,640
+ Then I try to parse it using JSON.loads, and then I have a couple of sanity checks
+
+136
+00:09:23,640 --> 00:09:27,440
+ to make sure that I got real data.
+
+137
+00:09:27,440 --> 00:09:30,160
+ If I didn't even get data, I should just complain about it and
+
+138
+00:09:30,160 --> 00:09:32,080
+ either break or continue.
+
+139
+00:09:32,080 --> 00:09:37,200
+ And then I am going to insert it into the database, insert into locations,
+
+140
+00:09:37,200 --> 00:09:42,240
+ address geo data, encode the address, and encode the data.
+
+141
+00:09:42,240 --> 00:09:43,880
+ And that's it, I'm going to commit it.
+
+142
+00:09:43,880 --> 00:09:48,080
+ And I'm going to pause, sleep five seconds, everyone, and
+
+143
+00:09:48,080 --> 00:09:50,480
+ that goes round and round and round, and retrieves them.
+
+144
+00:09:50,480 --> 00:09:57,120
+ And then at the end of the loop, it prints the number of features and
+
+145
+00:09:57,120 --> 00:09:58,320
+ sends a little message.
+
+146
+00:09:58,320 --> 00:10:00,320
+ So let's just go ahead and run it.
+
+147
+00:10:00,320 --> 00:10:02,040
+ I mean, some of this code we talked about,
+
+148
+00:10:02,040 --> 00:10:05,800
+ it's very just adapted from a couple of chapters ago.
+
+149
+00:10:05,800 --> 00:10:11,600
+ So let's type python geoload.py.
+
+150
+00:10:11,600 --> 00:10:15,640
+ So now it's going to start reading where.data and hitting the API.
+
+151
+00:10:15,640 --> 00:10:17,040
+ So you see, there you go.
+
+152
+00:10:17,040 --> 00:10:18,680
+ Now I'm going to hit Ctrl+C.
+
+153
+00:10:18,680 --> 00:10:24,560
+ So it did the first 10, did the first 10, and then it hit this.
+
+154
+00:10:24,560 --> 00:10:27,320
+ And I just hit Ctrl+C to blow it up.
+
+155
+00:10:27,320 --> 00:10:33,280
+ So if we look in our database now, Let me start that.
+
+156
+00:10:33,280 --> 00:10:42,680
+ If we look at our database, and we open a database, and we go into, where am I?
+
+157
+00:10:42,680 --> 00:10:45,960
+ I've got to find where I'm at, and you'll have to find where you're at.
+
+158
+00:10:45,960 --> 00:10:52,920
+ I just happen to know my folder names.
+
+159
+00:10:52,920 --> 00:11:01,080
+ And I'm actually working in the, I'm working right in my main thing.
+
+160
+00:11:01,080 --> 00:11:07,160
+ There we are, I found that file.
+
+161
+00:11:07,160 --> 00:11:08,600
+ So that file now exists.
+
+162
+00:11:08,600 --> 00:11:16,200
+ And if I take a look at the data, I see I have one table, it's locations table.
+
+163
+00:11:16,200 --> 00:11:20,840
+ And I see the address, zoop, and then I see the data itself.
+
+164
+00:11:23,880 --> 00:11:25,240
+ There we go.
+
+165
+00:11:25,240 --> 00:11:26,280
+ So that's all I did.
+
+166
+00:11:26,280 --> 00:11:29,680
+ I just went through the first 10, and so they're already there.
+
+167
+00:11:29,680 --> 00:11:34,920
+ So now let's go run this thing again and just start it up.
+
+168
+00:11:34,920 --> 00:11:38,360
+ Now what it's going to do is it's going to read all the file,
+
+169
+00:11:38,360 --> 00:11:43,400
+ the whole file of where.data, but you'll notice that it has the first 10 already done.
+
+170
+00:11:43,400 --> 00:11:46,480
+ So it just like says, got it, got it, got it, right?
+
+171
+00:11:46,480 --> 00:11:51,600
+ So it's went very rapidly through the first 10, and now let's grab the next 10.
+
+172
+00:11:52,960 --> 00:11:54,320
+ And now it's grabbing the next 10.
+
+173
+00:11:54,320 --> 00:11:57,760
+ And again, let's just say your network goes down.
+
+174
+00:11:57,760 --> 00:11:58,760
+ The whole thing blows up.
+
+175
+00:11:58,760 --> 00:12:01,520
+ Well, let's take a look at the data.
+
+176
+00:12:01,520 --> 00:12:04,520
+ So we've got 30 now, okay?
+
+177
+00:12:04,520 --> 00:12:08,000
+ And then you come back in the morning, this might be like 3,000 instead of 30.
+
+178
+00:12:08,000 --> 00:12:10,280
+ But you come back in the morning like, it blew up.
+
+179
+00:12:10,280 --> 00:12:11,280
+ So what do you do?
+
+180
+00:12:11,280 --> 00:12:13,120
+ You start it up again.
+
+181
+00:12:13,120 --> 00:12:16,880
+ So now it goes, I got all those, here's the next 10.
+
+182
+00:12:16,880 --> 00:12:18,840
+ Here's the next 10, okay?
+
+183
+00:12:22,480 --> 00:12:25,640
+ So now, let's just blow this up.
+
+184
+00:12:25,640 --> 00:12:36,240
+ And let's briefly comment this out so it gets done faster.
+
+185
+00:12:36,240 --> 00:12:39,240
+ So now it's not going to sleep, it'll stay pausing for a bit.
+
+186
+00:12:39,240 --> 00:12:42,240
+ But it's going to go, [SOUND] So now it's retrieving.
+
+187
+00:12:42,240 --> 00:12:45,120
+ We'll see how many it's got to go to, 257.
+
+188
+00:12:45,120 --> 00:12:48,880
+ And again, this is good data, it's going through 257 of these things.
+
+189
+00:12:50,360 --> 00:12:55,880
+ I didn't make you do 25,000 or a million, but this pattern could work, okay?
+
+190
+00:12:55,880 --> 00:13:03,520
+ And so, I wonder if, it went to 100.
+
+191
+00:13:03,520 --> 00:13:08,600
+ So I got to run it again, because it had another limit, only 100.
+
+192
+00:13:08,600 --> 00:13:11,560
+ We'll get there, just keep loading, just keep loading.
+
+193
+00:13:11,560 --> 00:13:13,280
+ I want to get to my thing where I have to mine.
+
+194
+00:13:13,280 --> 00:13:16,240
+ And there was an error, and you could have gone and
+
+195
+00:13:16,240 --> 00:13:22,280
+ looked at what that error was, okay, I still have to get it again.
+
+196
+00:13:22,280 --> 00:13:23,280
+ Gotta run it.
+
+197
+00:13:23,280 --> 00:13:24,760
+ I should have just changed the line.
+
+198
+00:13:24,760 --> 00:13:30,480
+ Okay, so actually this hit the, you can see it's slow, it hit the rate limit.
+
+199
+00:13:30,480 --> 00:13:35,960
+ [LAUGH] And okay, so let me put that sleep back in.
+
+200
+00:13:35,960 --> 00:13:40,200
+ Interestingly now, if we run it, we've been through,
+
+201
+00:13:40,200 --> 00:13:42,800
+ well let's go look at our database for a second.
+
+202
+00:13:42,800 --> 00:13:46,360
+ Let's reload the database, and we see that, there we go, and
+
+203
+00:13:46,360 --> 00:13:48,840
+ the jerk bit's already in there, that's the one I added.
+
+204
+00:13:48,840 --> 00:13:50,920
+ So there's 273 in here.
+
+205
+00:13:50,920 --> 00:13:53,840
+ Now watch what happens when I run this again.
+
+206
+00:13:53,840 --> 00:13:57,920
+ It's going to zoom, it's already done, because what it was doing there,
+
+207
+00:13:57,920 --> 00:14:01,760
+ let's take a look at the thing, because what it was doing there is it was reading
+
+208
+00:14:01,760 --> 00:14:06,640
+ all of the things in where.data, and it was checking geodata SQLite,
+
+209
+00:14:06,640 --> 00:14:07,600
+ they're already there.
+
+210
+00:14:07,600 --> 00:14:09,520
+ So there was no need to go to the API.
+
+211
+00:14:09,520 --> 00:14:13,280
+ That's what I mean by a restartable process.
+
+212
+00:14:13,280 --> 00:14:15,120
+ You don't need to go back to the API, and so
+
+213
+00:14:15,120 --> 00:14:19,560
+ I can run this as many times as I want, and it's instant basically.
+
+214
+00:14:19,560 --> 00:14:25,240
+ Cuz only 250 things read from a database, which happens really fast, okay?
+
+215
+00:14:25,240 --> 00:14:28,920
+ And so in a sense, the way you can think about this is,
+
+216
+00:14:28,920 --> 00:14:32,440
+ this first phase is kind of done.
+
+217
+00:14:32,440 --> 00:14:35,120
+ We restarted it a couple times, we did this, we did that.
+
+218
+00:14:36,320 --> 00:14:39,760
+ And now we want to work on this second phase, where we run geodump.
+
+219
+00:14:39,760 --> 00:14:42,480
+ And all that's going to do, let's take a look at the code.
+
+220
+00:14:42,480 --> 00:14:45,560
+ And so these two look very different.
+
+221
+00:14:45,560 --> 00:14:50,000
+ So geolode worries about the fact that the API may blow up on you, or
+
+222
+00:14:50,000 --> 00:14:51,960
+ it may be slow, or you may run out of time.
+
+223
+00:14:51,960 --> 00:14:59,800
+ This tool, geodump.py, it opens a database.
+
+224
+00:14:59,800 --> 00:15:03,160
+ And then it just reads all this stuff, and it starts writing this file,
+
+225
+00:15:03,160 --> 00:15:06,480
+ where.js file, and a kind of funky, weird thing.
+
+226
+00:15:06,480 --> 00:15:12,000
+ And it basically reads the first row, just reads the rows, and
+
+227
+00:15:12,000 --> 00:15:16,760
+ then it parses the JSON, and then it checks to see if that features is there,
+
+228
+00:15:16,760 --> 00:15:21,280
+ which is the outer thing in the, and let's go back and look at the.
+
+229
+00:15:21,280 --> 00:15:23,400
+ Let's go look here.
+
+230
+00:15:23,400 --> 00:15:28,320
+ Raw data, pretty print features is this outer thing.
+
+231
+00:15:28,320 --> 00:15:32,000
+ It's an array of features, but we're just going to look at the zeroth item, and
+
+232
+00:15:32,000 --> 00:15:35,920
+ then we're going to look into side properties, or let's look at it this way.
+
+233
+00:15:35,920 --> 00:15:42,080
+ So we're going to go into features, and that's an array, so
+
+234
+00:15:42,080 --> 00:15:44,240
+ we're going to go into the sub zero.
+
+235
+00:15:44,240 --> 00:15:46,840
+ And then we're going to go to properties, and then inside properties,
+
+236
+00:15:46,840 --> 00:15:51,560
+ we're going to grab the longitude, the latitude, and whatever else it is.
+
+237
+00:15:51,560 --> 00:15:57,240
+ So you can see these little things where we're going into the JSON,
+
+238
+00:15:57,240 --> 00:16:04,640
+ sub features, sub zero, cuz features is an array, sub geometry, sub coordinates.
+
+239
+00:16:04,640 --> 00:16:06,880
+ The first one and the second one, the zeroth and
+
+240
+00:16:06,880 --> 00:16:12,280
+ the first is the longitude and latitude, longitude and latitude, okay?
+
+241
+00:16:12,280 --> 00:16:16,840
+ So, let's go ahead and run that.
+
+242
+00:16:16,840 --> 00:16:21,040
+ We're going to print it, and we're actually writing it into this where.js file at
+
+243
+00:16:21,040 --> 00:16:27,040
+ the same time, and this is also going to be really fast.
+
+244
+00:16:28,080 --> 00:16:32,800
+ So that was super fast, right?
+
+245
+00:16:32,800 --> 00:16:37,880
+ Because it was only reading from the database and writing to where.js and
+
+246
+00:16:37,880 --> 00:16:41,840
+ then writing to, and so there's something wrong with this particular one.
+
+247
+00:16:41,840 --> 00:16:43,800
+ I'm not going to worry too much about that.
+
+248
+00:16:43,800 --> 00:16:51,040
+ But if I look at where.js, it's just a JavaScript variable
+
+249
+00:16:51,040 --> 00:16:55,600
+ that is all of this data with longitude, latitude, and the name.
+
+250
+00:16:55,600 --> 00:16:58,680
+ And that's how you put pins on a map.
+
+251
+00:16:58,680 --> 00:17:03,800
+ And if you watch where.html, this is not an HTML class, I'm just giving you this.
+
+252
+00:17:03,800 --> 00:17:09,040
+ It does a whole bunch of HTML to use Google,
+
+253
+00:17:09,040 --> 00:17:16,080
+ not Google, you use OpenGeo to visualize this stuff, okay?
+
+254
+00:17:16,080 --> 00:17:20,040
+ So now all I'm going to do is I'm going to say open where.html.
+
+255
+00:17:25,040 --> 00:17:26,200
+ And there we go.
+
+256
+00:17:26,200 --> 00:17:27,640
+ So this is the map.
+
+257
+00:17:27,640 --> 00:17:30,480
+ So these are all of the retrieved locations.
+
+258
+00:17:30,480 --> 00:17:33,200
+ And if I click on one of these things, you kind of see this.
+
+259
+00:17:33,200 --> 00:17:35,440
+ So I can find my location somewhere on here.
+
+260
+00:17:35,440 --> 00:17:45,320
+ Okay, so I have one link in the University of Michigan is where it decided the center
+
+261
+00:17:45,320 --> 00:17:47,440
+ of the University of Michigan is.
+
+262
+00:17:47,440 --> 00:17:50,320
+ I'm not sure I agree with that, but hey, that's okay.
+
+263
+00:17:50,320 --> 00:17:51,880
+ I guess it's OpenStreetMan.
+
+264
+00:17:51,880 --> 00:17:54,160
+ But the second one was the one that I put on.
+
+265
+00:17:54,160 --> 00:17:55,720
+ And that is the Jamaican Jerk Pit,
+
+266
+00:17:55,720 --> 00:17:59,840
+ which is only one of my favorite restaurants in the whole world.
+
+267
+00:17:59,840 --> 00:18:01,920
+ So there you go, the Jamaican Jerk Pit.
+
+268
+00:18:01,920 --> 00:18:04,760
+ So my office is currently in this building right here.
+
+269
+00:18:04,760 --> 00:18:10,440
+ And I walk less than half a block to the Jamaican Jerk Pit.
+
+270
+00:18:10,440 --> 00:18:18,080
+ So that's basically a walkthrough for our restartable geocoding process.
+
+271
+00:18:18,080 --> 00:18:23,600
+ And then visualization using OpenStreetMan, and I hope you found that useful.
+
+272
+00:18:23,600 --> 00:18:24,320
+ Cheers.
+
+273
+00:18:24,320 --> 00:18:34,320
+ [MUSIC]
+

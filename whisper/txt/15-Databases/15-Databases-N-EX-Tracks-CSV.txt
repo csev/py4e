@@ -1,0 +1,69 @@
+ Hello everybody and welcome to yet another walkthrough of Python for everybody. This is a
+ walkthrough of the Tracks CSV application and you go to www.py4e.com/code3 and you will find a file
+ named tracks.zip. Tracks.zip. Download this and extract it and you will have all the code
+ that I am working with. So, here I am in that file. Let's take a look at the files that are in here.
+ So, there's an old folder for the old XML version of this application. If you want to try that one,
+ it's still sitting there. The autograder doesn't actually care whether you use the CSV one or the
+ XML one. The XML one is interesting if you have to learn XML. But basically what we're going to do
+ is we're going to take a CSV file, tracks.csv, compass-separated-values, and this is just a
+ whole bunch of data from my own export of my iTunes data then converted to CSV from XML.
+ So, it's got the title of it, the artist, etc. And so, we're going to read this one line at a time
+ and then insert it in a database. And the key thing to this database is we're going to make it
+ in normal form, meaning that we're only going to put the artist in once. We're going to have a
+ primary key. We're going to have a unique name. So, the word queen is going to only appear once
+ in that table. And so, we're going to link everything together through foreign keys like
+ artist ID and album ID. And if we get this thing started, we sort of start her up. We go to
+ trackdb.sqlite. And I want to be able to run this over and over again. So, the first thing I do is
+ drop all three tables and then I recreate them, both in case I want to change my schema or if I
+ just make a mistake and I want to start over. Because if you write this or you're modifying
+ this code, you make little mistakes and you just want to start over. Every time you run the code,
+ you want it to start fresh. So, let's take a look at the code that's going to run. We're going to
+ open that tracks.csv file, this one right here. And then it's not a super formatted csv. This is
+ kind of a really simple csv that's just com separated versus a true csv is actually a format.
+ And there's code inside Python that parses the rich csv format. But I'm just going to read through
+ and split it by commas. And in case there's like some weird piece of code in there and there's not
+ what I want, if there's less than six pieces, I'm just going to skip it. So, I put a continue in
+ here. And then I parse out the pieces, the name of the track, the artist, the album, the count,
+ the rating, and the length. And so, we're most interested in an artist and album doing a money
+ to one relationship into that. So, I just immediately print those things out because I want,
+ you know, when I build something like this, I would build these lines first. And yes, it looks
+ like my parsing is working correctly. Then we're going to do the many to one. And so, we work from
+ kind of the leaves of the tree inward. So, we're going to do an insert or ignore into the artist
+ by name. And so, whatever that is, queen or whatever. Now, that's the first time it's going
+ to actually insert it and assign a primary key. And the second time, this ignore is going to work
+ because the name on the artist table is defined as unique. And so, you can't insert that more
+ than once. So, this will work the first time we see a particular artist, but it will ignore it the
+ rest of that point. But then we got to figure out what the generated ID is, the primary key. So,
+ we're going to select that. So, you notice there's an ID in there. That means auto-generate this if
+ I don't give it to you. And so, we're going to grab the ID from artists where name equals and
+ then look that same artist up by the name of them and then grab the artist ID. This is going to be
+ fetch one, get one record, and then the zeroth item, which is there's only one column. There's
+ going to only be one row and artist ID is what we get. Same thing is true except now we're going to
+ use artist ID as a foreign key into the album. And so, we're going to insert album by title
+ and artist ID as a foreign key in there. And then we're going to do the same trick.
+ We're going to look up the ID, the primary key of that particular album. We're recording the artist
+ ID. If we're inserting it, we want to record it. But now we're going to get the primary key
+ of the album. We'll have that. And then let's get all that figured out. We're kind of working
+ from outward in. So, we're doing artist, then we're doing album, and then we're doing track.
+ That's kind of outward in. And then we're going to insert the foreign key album ID, title, length,
+ rating, and count into the table. And then we commit it so that we write it all to the database.
+ So, let's go ahead and run this code. Python tracks.py. It opens the file, loops through
+ everything, and away you go. So, if you look at like the last file in its microchip, Jason Farnham,
+ and then that is the last record that came out. So, now at this point, let's take a look at the
+ database. And trackdb.sqlite. That's the file. And I can say, I've got the SQLite browser installed
+ in the command line. You may have it in your... Oops. I can't even type it. And then trackdb.
+ Okay. So, I can say, what tables do I have in here? And I see they've got the album, artist,
+ and track. And I can say, select star from artist, limit 10. So, you see that queens are the first
+ one. Led Zeppelin. These are the primary keys. There is only one record named queen. So,
+ I can even say this. Select star from artist where name equals queen. So, you'll see that there is
+ only one record. And if we say, select star from track, limit 10, we see they're all connected
+ together and we got the primary key for the track. And then the album ID is this third parameter here.
+ You see, that's album seven. And there's a lot of reuse there in the data. So, let's get out of this.
+ So, I'm going to open the SQLite browser. And we're going to open the trackdb.sqlite.
+ So, we see that those are the tables that got created. We can take a look at the data.
+ We can go look at, for example, the artist data. And we see again one same kind of data there. See
+ all of them now. And then we can kind of work our way into album. The album has a foreign key of
+ artist ID. And each album has its own ID. And then if we go to track, we see them all together,
+ where we have album ID and this other data, which is not really foreign keys, but we see the album
+ ID foreign key. So, that gives you hopefully a quick run through of the CSV version of the tracks
+ and the one-to-many mapping into a database.

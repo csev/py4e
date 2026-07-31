@@ -1,0 +1,311 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.340
+ In this section, we're going to write a web browser using Python.
+
+00:00:03.340 --> 00:00:06.020
+ So we've already got a socket, we know how to write a socket.
+
+00:00:06.020 --> 00:00:09.400
+ In the previous section, we played with the protocol
+
+00:00:09.400 --> 00:00:11.500
+ and used Telnet to do it by hand,
+
+00:00:11.500 --> 00:00:13.100
+ and now we're going to do it in Python.
+
+00:00:13.100 --> 00:00:16.140
+ And what you're going to find is, it's not that hard.
+
+00:00:16.140 --> 00:00:19.220
+ So here we go.
+
+00:00:19.220 --> 00:00:21.740
+ So the first three lines of this program,
+
+00:00:21.740 --> 00:00:23.700
+ import socket, make the socket.
+
+00:00:23.700 --> 00:00:26.460
+ Remember, the socket isn't really got the connection.
+
+00:00:26.460 --> 00:00:29.100
+ So when you make the socket, again,
+
+00:00:29.100 --> 00:00:30.700
+ we're going to make a stream-based socket,
+
+00:00:30.700 --> 00:00:32.820
+ and it's suitable for going across the internet.
+
+00:00:32.820 --> 00:00:36.020
+ The connection, it's like ring, phone call,
+
+00:00:36.020 --> 00:00:40.140
+ connect to data.pr4e.org and port 80.
+
+00:00:40.140 --> 00:00:43.700
+ And so that basically says, extend the socket across
+
+00:00:43.700 --> 00:00:45.580
+ and connect to a web server.
+
+00:00:45.580 --> 00:00:47.900
+ And so there's got to be a piece of software running,
+
+00:00:47.900 --> 00:00:50.540
+ and this will blow up if the software is not running.
+
+00:00:50.540 --> 00:00:56.160
+ So then, now we've got a phone, we've made a phone call.
+
+00:00:56.160 --> 00:00:59.960
+ Now, whether or not the remote side says hello or not
+
+00:00:59.960 --> 00:01:01.740
+ is up to the application protocol.
+
+00:01:01.740 --> 00:01:04.000
+ And in this case, the web servers say nothing,
+
+00:01:04.000 --> 00:01:05.380
+ and they wait for you to talk first.
+
+00:01:05.380 --> 00:01:07.580
+ So we're the web browser in this case,
+
+00:01:07.580 --> 00:01:09.260
+ and so we're going to talk first.
+
+00:01:09.260 --> 00:01:11.760
+ And we know what, because we read the documentation,
+
+00:01:11.760 --> 00:01:13.760
+ we know that we're going to send get blah blah blah blah blah,
+
+00:01:13.760 --> 00:01:16.260
+ blah blah blah blah blah, space blah blah blah blah blah,
+
+00:01:16.260 --> 00:01:19.700
+ ht1, and then two new lines, return, return.
+
+00:01:19.700 --> 00:01:21.360
+ Remember, you had to have a blank line.
+
+00:01:21.360 --> 00:01:23.000
+ We'll talk a little bit about this encode.
+
+00:01:23.000 --> 00:01:25.620
+ It's preparing the data to go across the internet.
+
+00:01:25.620 --> 00:01:27.300
+ And then we say send it.
+
+00:01:27.300 --> 00:01:29.540
+ And so this basically takes that little string
+
+00:01:29.540 --> 00:01:31.580
+ and sends it across the network.
+
+00:01:31.580 --> 00:01:34.660
+ And then this piece of software is waiting for it.
+
+00:01:34.660 --> 00:01:37.060
+ And then the software goes and reads a file
+
+00:01:37.060 --> 00:01:37.980
+ or does some other stuff,
+
+00:01:37.980 --> 00:01:40.260
+ and then it starts sending us data back,
+
+00:01:40.260 --> 00:01:43.220
+ which we can then choose to receive.
+
+00:01:43.220 --> 00:01:45.220
+ So now I write a real simple loop.
+
+00:01:45.220 --> 00:01:47.340
+ We're going to receive these things,
+
+00:01:47.340 --> 00:01:49.260
+ 512 characters at a time.
+
+00:01:49.260 --> 00:01:52.620
+ So we're going to loop through, receiving 512 each time.
+
+00:01:52.620 --> 00:01:55.500
+ And if we get zero characters,
+
+00:01:55.500 --> 00:01:56.980
+ that means it's end of the stream.
+
+00:01:56.980 --> 00:01:58.340
+ The stream is closed.
+
+00:01:58.340 --> 00:02:00.000
+ And if you look at the little example
+
+00:02:00.000 --> 00:02:02.380
+ from the previous one, you saw connection closed.
+
+00:02:02.380 --> 00:02:03.700
+ When the connection is closed,
+
+00:02:03.700 --> 00:02:05.460
+ we get an indication that it is
+
+00:02:05.460 --> 00:02:08.260
+ because we ask for some data and we get zero data.
+
+00:02:08.260 --> 00:02:11.020
+ Otherwise, if there might be more data, this'll wait.
+
+00:02:11.020 --> 00:02:12.420
+ If the network is slow, you'll see,
+
+00:02:12.420 --> 00:02:14.120
+ if you do a print statement in here,
+
+00:02:14.120 --> 00:02:16.160
+ you will see that this will pause from time to time
+
+00:02:16.160 --> 00:02:17.620
+ on a really slow network.
+
+00:02:17.620 --> 00:02:19.380
+ If your network is fast, it'll just go blank
+
+00:02:19.380 --> 00:02:21.760
+ and it'd be so fast it won't matter.
+
+00:02:21.760 --> 00:02:22.860
+ But this is how we go.
+
+00:02:22.860 --> 00:02:26.140
+ So this is basically until the entire socket,
+
+00:02:26.140 --> 00:02:30.100
+ until the socket is closed, we're going to read this data.
+
+00:02:30.100 --> 00:02:32.620
+ And because this data's coming from the outside world,
+
+00:02:32.620 --> 00:02:35.180
+ we have to decode it before we print it.
+
+00:02:35.180 --> 00:02:37.140
+ And then when we're all done, we break out of here
+
+00:02:37.140 --> 00:02:38.460
+ and we close the socket.
+
+00:02:38.460 --> 00:02:43.460
+ So literally, that is an entire web browser
+
+00:02:43.460 --> 00:02:48.660
+ written in 10 lines of Python.
+
+00:02:48.660 --> 00:02:51.860
+ And again, this is why everybody loves Python.
+
+00:02:51.860 --> 00:02:54.640
+ So this is what this program will show if you run.
+
+00:02:54.640 --> 00:02:56.780
+ The get is sent.
+
+00:02:56.780 --> 00:02:59.860
+ It looks exactly like doing it by hand.
+
+00:02:59.860 --> 00:03:01.580
+ You get some headers.
+
+00:03:01.580 --> 00:03:03.740
+ Again, this is metadata that tells you something
+
+00:03:03.740 --> 00:03:04.620
+ about the file.
+
+00:03:04.620 --> 00:03:06.000
+ In this case, one of the important things
+
+00:03:06.000 --> 00:03:07.580
+ is what kind of thing is coming next.
+
+00:03:07.580 --> 00:03:09.700
+ There's always a blank line as a break
+
+00:03:09.700 --> 00:03:12.200
+ between the headers and the actual data,
+
+00:03:12.200 --> 00:03:13.780
+ the metadata and the data.
+
+00:03:13.780 --> 00:03:18.780
+ And then here is the actual text of that romeo.txt file.
+
+00:03:18.780 --> 00:03:20.060
+ And then it's going to run this.
+
+00:03:20.060 --> 00:03:21.340
+ We're going to print data.decode.
+
+00:03:21.340 --> 00:03:23.380
+ All this is coming from the print statement.
+
+00:03:23.380 --> 00:03:25.580
+ If you were going to parse this, you have to know
+
+00:03:25.580 --> 00:03:28.740
+ that you're going to read the headers up to a blank line.
+
+00:03:28.740 --> 00:03:31.960
+ The blank line is your indication as a software developer
+
+00:03:31.960 --> 00:03:34.460
+ that the headers have stopped and the actual text begins,
+
+00:03:34.460 --> 00:03:35.700
+ and you know the syntax.
+
+00:03:35.700 --> 00:03:39.580
+ This actually could be a JPEG or PNG
+
+00:03:39.580 --> 00:03:41.100
+ or some kind of image, right?
+
+00:03:41.100 --> 00:03:43.240
+ And this data would here look like blah.
+
+00:03:43.240 --> 00:03:45.420
+ So if you type this and you change that code
+
+00:03:45.420 --> 00:03:48.360
+ to actually talk, go retrieve a JPEG URL,
+
+00:03:48.360 --> 00:03:50.320
+ gibberish will come out, okay?
+
+00:03:50.320 --> 00:03:53.420
+ And so that's exactly what you will see.
+
+00:03:53.420 --> 00:03:58.180
+ And so now you have built a very simple web browser.
+
+00:03:58.180 --> 00:04:01.180
+ Next, I want to talk a little bit about what happens
+
+00:04:01.180 --> 00:04:06.100
+ when characters transition from outside your computer,
+
+00:04:06.100 --> 00:04:08.260
+ I mean, from inside the computer in strings,
+
+00:04:08.260 --> 00:04:11.400
+ out across these sockets to servers, and then back.
+
+00:04:14.020 --> 00:04:17.020
+ (upbeat rock music)
+

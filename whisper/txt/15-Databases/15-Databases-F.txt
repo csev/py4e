@@ -1,0 +1,220 @@
+ So now that we've carefully constructed
+ our relationships in the tables,
+ we need to reconstruct the data to show our users.
+ And you can kind of see how you would go
+ pull this stuff together, but there's a wonderful capability
+ in relational databases called JOIN
+ that brings this all back together.
+ And so we have done this for efficiency of storage,
+ efficiency of scanning, et cetera,
+ but we do need to traverse these foreign keys at times,
+ and the database software will do this for us automatically.
+ So the JOIN operation, basically,
+ is a way to specify in a SELECT statement
+ that you want to pull data out of more than one table,
+ and then specifying using what's called the ON clause,
+ exactly how you want that data pulled out.
+ And so here we go.
+ We already have a table, an album table to the artist table,
+ and the foreign key, and we want to, in effect,
+ pull data from both the album and the artist,
+ the album title and the artist name,
+ and we want to show that.
+ And so we're going to say SELECT,
+ which is the same SELECT statement.
+ Here's a little different syntax.
+ This is the list of fields.
+ This is table.field, so it's the album title
+ and the artist.name, comma, there, from the album.
+ And I always start with where the little arrow starts from,
+ album joined with.
+ So that is going to walk down this connection
+ from album to artist, album joined with artist,
+ don't say with, I just say it, on,
+ and then this is the conditions
+ upon which that join is going to happen.
+ When the album's artist ID, which is this column here,
+ album's artist ID matches, think of that as,
+ is equal to or matches the artist's ID.
+ And so it only connects the rows here
+ when there is a match between these two tables.
+ And so if we look at this and we see that, you know,
+ this one matches this one and this one matches that one,
+ and so it's the join connects conditionally
+ and it connects when the on clause is satisfied.
+ And so when this whole join runs, this is what we get.
+ So you select all this stuff.
+ Now this is an abstraction.
+ Are you writing a loop?
+ Are you doing two nested loops?
+ How are you exactly bringing all this data together?
+ We don't care about that because that's the beauty of SQL.
+ That's the beauty of how we do this in a database.
+ So now if we, we can just run this command.
+ So let's grab this command.
+ Select track title, genre name, from track, join genre,
+ that exact query.
+ Case of keywords doesn't matter.
+ And we go over here and we run this as SQL.
+ And we run it, we get, oops, I got too far.
+ Let's do this one, so let's do that one there.
+ Select artist name.
+ I have to add that one to my little cheat sheet.
+ The next time you see the cheat sheet, it'll be right.
+ So the title, so this is coming from one table
+ and that's coming from another table, okay?
+ And so that's one.
+ So here is something we can do
+ that gives us a little more detail on that.
+ We can say, so this is where the connection,
+ and so you can think of the join as sort of spreading
+ one table and connecting it to the other table.
+ And so what we're going to show here
+ is it's exactly the same.
+ The other thing we're going to do
+ is we're going to add these two columns
+ so you can see where the match happens.
+ And so this is one table.
+ This is another table.
+ And these are the kind of columns in common,
+ even though they're not.
+ They're the columns that match.
+ This is where the on clause is happening, right?
+ We have taken
+ this table joined with this table
+ on these two things connecting with each other.
+ So you can almost, in some language,
+ some variants of SQL, this would even be a where clause.
+ So you connect these two rows,
+ but only connect them when those two numbers match.
+ So you can see, I mean, if we run this,
+ I'll just run this.
+ And again, you just see this is where it connects, okay?
+ Now, interestingly, we can see what happens
+ and what the purpose of the on clause is if we omit it.
+ So this is exactly the same as that previous query
+ except there's no on clause.
+ So it's select all four of those fields
+ from the track joined with the genre.
+ And so it's basically taken the track table
+ and the genre with a join, but no on clause.
+ So it's not filtering for matches.
+ This is a match, this is a match,
+ that's a match, that's a match.
+ But we don't have an on clause,
+ so the matchness doesn't matter.
+ And so you're going to get all possible combinations.
+ And literally, if there were 10 on one side
+ and 30 on the other side,
+ you would get 300 rows in that join.
+ So it'd be all combinations
+ except the on clause reduces the combinations.
+ And you might think, whoa, this is really inefficient.
+ And I will say that's what my first reaction was
+ when I first saw this, but it's not inefficient.
+ That's the beauty of abstraction,
+ that's the beauty of SQL.
+ You say, do it, and it just figures that out.
+ So let me grab this and you will see
+ that we can run this one as well.
+ And that kind of gives you why the on clause is important,
+ because now we have a whole bunch of these things.
+ And the on clause just filters that out.
+ So if we would just add the on clause back in,
+ then that would only show the ones
+ we showed on the previous slide.
+ So that's why the on clause is important.
+ The join is like all possible combinations
+ of all pairs of rows between these two tables.
+ On is, oh, but only where these two things match.
+ Now you might think that it's inefficient,
+ but the on clause turns out to be the way it becomes efficient.
+ Okay.
+ So now we're going to do the same thing
+ where we're just going to take the track title and the genre,
+ going to connect that together.
+ So we select this, we need to join
+ from one table, join to the genre table with an on clause.
+ And so we're going to make those connections.
+ And the other thing we're going to look at
+ is the title and the genre name.
+ Oh, oops.
+ And then run that.
+ And so we got the title and genre name.
+ Now the thing you'll notice is for the first time,
+ we now have replication of string data
+ in a vertical dimension.
+ That's okay.
+ Because the data is not replicated in the database,
+ the data is now replicated as a result of the join.
+ And so we are going to reconstruct what the user wants to see,
+ which the user originally, all the way back to the beginning,
+ wanted to see the duplicate information
+ in the vertical axis.
+ But now we're reconstructing it.
+ We didn't waste the space or performance in our database,
+ but we still have to show them.
+ And so now the next thing we're going to do is a monster.
+ We are going to reconstruct across all four tables.
+ And you might think this is really hard,
+ and sure it's going to be a little tricky,
+ but as long as you follow the naming convention
+ and the naming convention makes sense,
+ we're going to do a select from the track's title,
+ the artist's name, the album's title, and the genre name.
+ From the track, join genre, join the album, join artist.
+ And so the joins follow the little arrows, right?
+ And then the on clause qualifies each of those arrows
+ when to follow the arrow.
+ And then this becomes pretty easy.
+ It's a foreign key.
+ The track's genre ID, that's a foreign key,
+ equals genre.id.
+ The primary, that's primary key.
+ That's a foreign key because I name it that way.
+ And I know that this goes to that genre table
+ because I name it that way.
+ And track's album ID is equal to the album's ID,
+ foreign key, primary key.
+ And album's artist ID is equal to artist's ID.
+ After a while, you can type these pretty fast
+ as long as you follow a naming convention
+ and you know the naming convention.
+ So this looks like it's really hard to do,
+ but after a while, it's really just a pattern.
+ So let's go ahead and run that one.
+ And it will, assuming we've done everything right,
+ replicate all the data.
+ So there's all kinds of vertical data
+ now being replicated.
+ Every column has vertical data.
+ Again, it's not in the database.
+ The select and the join are reconstructing
+ vertical data as it needs to be shown to the user.
+ And so, if you've been following along,
+ probably a couple hours later now,
+ we started with a picture that was our mock-up
+ of what we wanted our user interface to look like.
+ And it had vertical stuff.
+ And we're like, ah, we can't put that in a database model.
+ And then we carefully build a database model
+ that didn't have the data.
+ And then we're like, ah, we got to reconstruct it.
+ So we use join to reconstruct it.
+ And so, after all that, we went here
+ with a clean little model with four tables
+ all beautifully connected together.
+ And then we had to join it all back together.
+ So join reconstructs it.
+ And again, the key is the storage is efficient,
+ the scanning is efficient, and we still use the join
+ to produce the output that we ultimately want
+ with all the vertical replication
+ that our users really want to see.
+ So, there's one more kind of relationship.
+ That was called a one-to-many relationship.
+ That was actually three one-to-many relationships.
+ And the other major relationship
+ is what's called a many-to-many relationship.
+ (upbeat rock music)
+ (upbeat rock music)

@@ -1,0 +1,210 @@
+ So now we're going to make a database.
+ We're going to use SQLite browser.
+ Hopefully you've downloaded it so you can follow along.
+ And I've got this handout, this basic database handout
+ that saves you from having to type all these things.
+ So bring that up in your web browser.
+ And so that gives you all of the commands
+ that I'm going to type now.
+ And so you could pull them out of either the web page,
+ you can pull them out of the slides,
+ or you can pull them out of that.
+ So I'm going to bring up the database browser here.
+ Database browser.
+ Now, the thing that's going to happen,
+ you'll see this happen on my desktop,
+ I'm going to make a new database,
+ and you have to store it somewhere.
+ And so I'm going to put it on my desktop,
+ and I'm going to call it py4efund.
+ And so we should see a new file on my database right there.
+ Py4efund.
+ Now that's a file that you don't want to edit
+ with a text editor or anything like that.
+ This is a file that's to be read
+ by SQLite browser and nothing else.
+ Okay, so we're going to create a table,
+ and I'm going to make a table called users
+ with a column called name that's a text
+ and a column called email.
+ So it's already asking me to make a table,
+ I'm going to call this users,
+ and I'm going to add a field that is called name,
+ and I'm going to add a text,
+ and I'm going to add another field called email,
+ and I'm going to make that be text.
+ Now the key thing here is we are, in effect,
+ making columns and rendering an opinion
+ as to exactly what that column is supposed to be used for,
+ and we're not allowed to violate that.
+ It's not like, oh, we'll do whatever you want,
+ because the database is optimizing its storage
+ based on a contract that we're,
+ we're effectively making the contract ourselves.
+ We can make these columns anything we wanted,
+ but we're just going to,
+ we have to, we're going to contract with ourselves.
+ And you can see it's kind of small here,
+ you can see there's a create table,
+ and that's on the slide,
+ and that's the SQL way of doing that.
+ This user interface is just helping us write SQL.
+ So now I'm going to just say okay,
+ and if you take a look,
+ you can see that I now have a table users,
+ and I can look at my database structure,
+ table users, and away we go.
+ And so, so now that's, that is creating it,
+ and like I said, here in the slides is the create statement,
+ or on the web page, there's the create statement
+ that could have done it.
+ Now, we can insert some data.
+ Let's add a new record to this database users,
+ and we'll call this guy
+ name charlescsev@umich.edu.
+ So now we have a record,
+ so it's kind of like a database, a spreadsheet.
+ Now, that's not the SQL way to do it,
+ there's SQL sort of going on in the background,
+ but if we really want to do this using SQL,
+ we're going to use the insert statement.
+ And the insert statement looks like this.
+ The SQL syntax sometimes has extra words.
+ Insert into is actually two SQL keywords,
+ the name of the table, the columns,
+ and then the word values,
+ and then one-to-one correspondence
+ between the values and in parentheses,
+ so it looks kind of like a tuple in Python,
+ but we're nowhere near Python right now.
+ Okay, and so that's what we're going to do,
+ and so I'm going to grab this, Kristen,
+ and I'm going to go over here to my SQLite browser
+ and say execute SQL.
+ So now I can say paste that in,
+ and then hit this little run button,
+ and that's going to submit the SQL to SQLite,
+ and then update that file,
+ and it says query executed successfully,
+ and away we go.
+ So if I go back now and I look at the data,
+ I see that there's two things in here,
+ and now I can actually insert all the rest of these.
+ Let's go back to my little bit of stuff here.
+ Let's put all these other rows in.
+ It turns out that if I go into the execute SQL
+ and I want to do more than one command at a time,
+ I can put a semicolon at the end of each one of these things,
+ and then I can run them all at the same time.
+ I mean, one after another actually is what's going on here.
+ So boom, boom, boom, and now I take a look at the data,
+ and look, I've got all those things in there.
+ Now, eventually, the thing that's going to generate that SQL
+ is a program, not us.
+ We're being the database administrator,
+ so we're sort of doing things manually.
+ Once things get going, you write programs,
+ do that insert over and over and over again in Python,
+ or a web language like PHP, or something like that.
+ And so that is the insert.
+ Now we can get rid of data.
+ And so I'm going to say delete from, that's the keyword,
+ users is the name of a table, where is a where clause.
+ We'll have lots of where clauses in SQL,
+ which is, it's not like an if, in effect,
+ the delete is going towards the whole table
+ and being turned on and off by this where clause.
+ So delete from users, if you didn't put the where clause on,
+ will actually delete all the rows.
+ But where Ted equals, email equals ted@umich.edu,
+ well, that one is going to make sure it only applies
+ to the rows where that is true.
+ So I'm going to go over here in SQL,
+ and I'm going to say delete from users
+ where email equals ted@umich.edu,
+ and then I'm going to run it.
+ 'Cause it's only one, I don't need a semicolon
+ at the end of it.
+ And now if I go back and I look at the data, Ted is gone.
+ Okay.
+ Update, so the update says,
+ updates keyword, users is the name of the table,
+ set is a keyword, and then this is column equals new value,
+ and then a where clause.
+ Again, this update, if we didn't have a where clause,
+ would change every row in the table.
+ And so where email equals csev@umich.edu.
+ I got to change that, because I already got the name
+ to be Charles, so you see the name is already Charles,
+ so I'll just execute here.
+ Make this be Chuck, so we see it.
+ And then I run it, and then you take a look at the data,
+ and it's changed.
+ That's it.
+ That's an update statement.
+ We're doing, you're doing great, you're doing great.
+ And so,
+ the next thing we're going to do is we're going to take a look
+ at how we retrieve data.
+ Now this is the select statement, select, star,
+ you have a list of columns, and star means all columns,
+ from is a keyword, and then the name of a table.
+ So this select star for users is the kind of thing
+ you type all the time.
+ As a matter of fact, it's what SQLite browser
+ is doing internally to cause this to happen,
+ but we can do it by hand, by saying,
+ select star from users, and then run it.
+ And so then we get a little record set
+ that is those four records that are sitting there.
+ We can also throw a where clause on the end of it.
+ So we say select star from users,
+ where email equals csev@umich.edu,
+ and that, again, the select star from users
+ goes at the whole table, and the where clause
+ goes at the whole table, and then filters out
+ all of the things except one record.
+ So the where clause is send it to the table,
+ but then filter based on whatever,
+ and so it only shows us that.
+ Okay, we're cruising right along here.
+ You can also put an order by clause on there.
+ So we can say select star from users, order by email,
+ so that's a column.
+ Select star from users, order by email,
+ and so that order's by email.
+ Or we can change it to name, and we can say descending.
+ So that's the name in descending order.
+ Sorting and selecting are good things
+ that databases are really good at.
+ So this is the summary of what I've told you.
+ I said the databases do create, read, update,
+ and delete, CRUD, and we've done all those things,
+ except we did create, delete, update, read.
+ That's what we did, and that's the summary of SQL.
+ And so you might be saying, "Why did I take so long
+ "to learn such a simple and elegant and beautiful language?"
+ 'Cause it's not really exciting.
+ It's a extremely simple language that's very predictable,
+ and you're like, "That's pretty easy."
+ And it turns out that some of you may have been using SQL
+ in situations, maybe with Microsoft Access or something,
+ where you're actually typing this stuff,
+ and you just kind of typed it, and you never realized
+ that you were learning a programming language.
+ That's why I like SQL, and that's a very declarative language,
+ and it's very straightforward.
+ It's much harder to learn, I mean, it's much easier
+ to learn SQL than it is to learn Python,
+ because in Python, you have to figure out how loops work
+ and how iteration variables work,
+ and you'll notice there's none of that.
+ And so, but the key is, is we've only started
+ to understand the power.
+ That's the simple ability to move around and update data
+ and read data, randomly using these simple sets of commands.
+ But up next, we're going to look at how you do this
+ with data models and relationships,
+ and really, multiple tables.
+ (upbeat rock music)
+ (upbeat rock music)

@@ -1,0 +1,380 @@
+1
+00:00:00,000 --> 00:00:05,000
+ Okay, so now we're going to write a web browser again in Python, but it's going to even be
+
+2
+00:00:05,000 --> 00:00:07,160
+ shorter than what we did before.
+
+3
+00:00:07,160 --> 00:00:09,480
+ We did it in 10 lines using sockets.
+
+4
+00:00:09,480 --> 00:00:12,800
+ Now we're going to do it in four lines with urllib.
+
+5
+00:00:12,800 --> 00:00:18,480
+ So urllib really is just because the idea of opening a connection, sending a get request,
+
+6
+00:00:18,480 --> 00:00:23,080
+ sending the new line, retrieving the stuff, breaking the headers out, doing all this stuff.
+
+7
+00:00:23,080 --> 00:00:27,200
+ That's so common, why not put it in a library to save ourselves some effort?
+
+8
+00:00:27,200 --> 00:00:29,440
+ So here's how we do it.
+
+9
+00:00:29,440 --> 00:00:32,040
+ We're going to read it in, right?
+
+10
+00:00:32,040 --> 00:00:33,360
+ We're going to import this library.
+
+11
+00:00:33,360 --> 00:00:38,000
+ So we had to import sockets before, but we're going to import urllib now.
+
+12
+00:00:38,000 --> 00:00:39,680
+ And so this is really quite simple.
+
+13
+00:00:39,680 --> 00:00:42,080
+ It's like elegantly simple.
+
+14
+00:00:42,080 --> 00:00:46,720
+ You say urllib, that's a library, that's part of a module within the library, and
+
+15
+00:00:46,720 --> 00:00:47,840
+ this is a function.
+
+16
+00:00:47,840 --> 00:00:51,960
+ So let's call urllopen and then give it the url.
+
+17
+00:00:51,960 --> 00:00:55,480
+ Now that's a string which it's going to encode automatically for us.
+
+18
+00:00:55,480 --> 00:00:57,560
+ So it's taking care of all kind of pretty things for us.
+
+19
+00:00:57,560 --> 00:00:59,360
+ It does the get, it does the encode.
+
+20
+00:00:59,360 --> 00:01:00,960
+ Look back at that previous code.
+
+21
+00:01:00,960 --> 00:01:04,200
+ That's kind of what urllib is doing for us, okay?
+
+22
+00:01:04,200 --> 00:01:09,440
+ Now what urllib also does is it makes the connection, encodes the get request, and
+
+23
+00:01:09,440 --> 00:01:11,560
+ then it actually retrieves.
+
+24
+00:01:11,560 --> 00:01:14,840
+ At this moment, it retrieves all the headers and keeps them for you for later.
+
+25
+00:01:14,840 --> 00:01:17,520
+ You can get the headers, but we're not going to see the headers.
+
+26
+00:01:17,520 --> 00:01:22,240
+ And it returns to you an object that looks pretty much like a file handle.
+
+27
+00:01:22,240 --> 00:01:26,320
+ Because you can put this in the foreclause after the end.
+
+28
+00:01:26,320 --> 00:01:33,000
+ Now it's going to read, run that loop one time for every line of this file.
+
+29
+00:01:33,000 --> 00:01:37,040
+ And so the lines we're going to get back are bytes, and so
+
+30
+00:01:37,040 --> 00:01:39,920
+ we have to say decode, it doesn't do that for us automatically.
+
+31
+00:01:39,920 --> 00:01:41,600
+ We are going to have to decode them.
+
+32
+00:01:41,600 --> 00:01:45,520
+ And that's because we might need to decode them with a particular character set here.
+
+33
+00:01:45,520 --> 00:01:47,720
+ And then we're going to do our strip, and we're going to just print this out.
+
+34
+00:01:47,720 --> 00:01:51,240
+ So that's like open a file, read through it, and print it.
+
+35
+00:01:51,240 --> 00:01:53,720
+ This is open a URL, read through, and print it.
+
+36
+00:01:53,720 --> 00:01:57,880
+ And that's as simple as it is, and so that's what happens.
+
+37
+00:01:57,880 --> 00:02:01,200
+ This is romeo.txt, and it prints out.
+
+38
+00:02:01,200 --> 00:02:04,200
+ Now the thing to notice is that there are no headers here.
+
+39
+00:02:04,200 --> 00:02:07,600
+ The headers have been sort of consumed in the URL open.
+
+40
+00:02:07,600 --> 00:02:10,880
+ Again, there is a way to say, hey, give me my headers.
+
+41
+00:02:10,880 --> 00:02:14,720
+ But for now, this is just going to eat the headers and keep them, and
+
+42
+00:02:14,720 --> 00:02:16,500
+ then you get to read all the data.
+
+43
+00:02:16,500 --> 00:02:20,000
+ And the loop runs, and this loop runs four times, and out come the four lines.
+
+44
+00:02:20,000 --> 00:02:23,560
+ You can go ahead and run this one, it's super easy.
+
+45
+00:02:23,560 --> 00:02:26,200
+ I mean, literally, super easy.
+
+46
+00:02:26,200 --> 00:02:29,840
+ And if you can do anything you want, I mean, treat it like a file.
+
+47
+00:02:29,840 --> 00:02:34,000
+ You just have to remember to do the decode bit when you treat it like a file.
+
+48
+00:02:34,000 --> 00:02:37,120
+ And so we, that code imported, we're going to open it.
+
+49
+00:02:37,120 --> 00:02:40,400
+ We're going to make a dictionary, we're going to loop through.
+
+50
+00:02:40,400 --> 00:02:41,160
+ We're going to split it.
+
+51
+00:02:41,160 --> 00:02:45,160
+ We have to add the decode just to make sure because that line is bytes, not string.
+
+52
+00:02:45,160 --> 00:02:51,080
+ And then we're going to go, our words, we're going to go through the line.
+
+53
+00:02:51,080 --> 00:02:53,000
+ And then each line, we're going to bounce through the words.
+
+54
+00:02:53,000 --> 00:02:55,360
+ The inner for loop is bouncing through the words, and
+
+55
+00:02:55,360 --> 00:02:57,120
+ then we're going to go to the next line.
+
+56
+00:02:57,120 --> 00:03:01,400
+ And then we make ourselves a dictionary, and we print that dictionary out.
+
+57
+00:03:01,400 --> 00:03:07,080
+ Now this is, this in effect, other than importing this,
+
+58
+00:03:07,080 --> 00:03:08,920
+ opening it differently, and doing the decode,
+
+59
+00:03:08,920 --> 00:03:11,760
+ this is exactly how we would process a file.
+
+60
+00:03:11,760 --> 00:03:17,280
+ And so by using URLlib, you really sort of reduce the complexity of retrieving and
+
+61
+00:03:17,280 --> 00:03:21,920
+ reading network resources to the same complexity of reading and
+
+62
+00:03:21,920 --> 00:03:26,280
+ dealing with a file locally on your hard drive, which is kind of pretty.
+
+63
+00:03:26,280 --> 00:03:30,760
+ So one of the things then we can do is read web pages.
+
+64
+00:03:30,760 --> 00:03:33,680
+ That was a text file, but you can get HTML.
+
+65
+00:03:33,680 --> 00:03:36,400
+ And so here's how you read a web page.
+
+66
+00:03:36,400 --> 00:03:38,160
+ And it's the same kind of code.
+
+67
+00:03:38,160 --> 00:03:42,080
+ We open a URL.
+
+68
+00:03:42,080 --> 00:03:43,760
+ This one happens to have HTML in it.
+
+69
+00:03:43,760 --> 00:03:46,080
+ And we read through it, and out comes the HTML.
+
+70
+00:03:46,080 --> 00:03:51,280
+ Remember that the headers are there, but they've been eaten by URL open for us.
+
+71
+00:03:51,280 --> 00:03:54,040
+ And now we could write a browser that would parse these less than and
+
+72
+00:03:54,040 --> 00:03:57,760
+ greater than and make links, etc, etc, etc.
+
+73
+00:03:57,760 --> 00:04:04,960
+ So if you can come up with ways to find these links,
+
+74
+00:04:04,960 --> 00:04:09,000
+ you could actually write a bit of code that would then have a loop that would go
+
+75
+00:04:09,000 --> 00:04:10,120
+ up and open a new one.
+
+76
+00:04:10,120 --> 00:04:11,560
+ Pull out the links, open a new one.
+
+77
+00:04:11,560 --> 00:04:13,640
+ Pull out the links, open a new one.
+
+78
+00:04:13,640 --> 00:04:14,360
+ And so you could.
+
+79
+00:04:14,360 --> 00:04:18,840
+ You could make a thing that would retrieve a program that would retrieve a page,
+
+80
+00:04:18,840 --> 00:04:21,640
+ find the links in the page, and then retrieve those links.
+
+81
+00:04:21,640 --> 00:04:23,400
+ And we'll actually do that before the end of the class.
+
+82
+00:04:23,400 --> 00:04:27,840
+ And so Python is a very popular language at Google.
+
+83
+00:04:27,840 --> 00:04:33,620
+ And I wonder if I'm going to, I think it's a pretty safe bet that the first crawler
+
+84
+00:04:33,620 --> 00:04:37,200
+ that they wrote to crawl the web, to build the index, was Python.
+
+85
+00:04:37,200 --> 00:04:41,560
+ Because literally, that's all it takes to read web pages.
+
+86
+00:04:41,560 --> 00:04:45,720
+ And pull those web pages into your web crawler database.
+
+87
+00:04:45,720 --> 00:04:49,360
+ So I don't know, are those the first four lines ever written to Google?
+
+88
+00:04:49,360 --> 00:04:50,040
+ Who knows?
+
+89
+00:04:50,040 --> 00:04:56,240
+ So the next thing that we'll talk about is how you handle that HTML.
+
+90
+00:04:56,240 --> 00:05:01,000
+ HTML is kind of yucky and nasty, and so it's not as simple as regular expressions.
+
+91
+00:05:01,000 --> 00:05:02,920
+ Regular expressions might help.
+
+92
+00:05:02,920 --> 00:05:06,320
+ String parsing and split might help, but it's just too crazy.
+
+93
+00:05:06,320 --> 00:05:09,440
+ So we'll talk a little bit about how to use a library to make
+
+94
+00:05:09,440 --> 00:05:10,880
+ HTML parsing a lot easier.
+
+95
+00:05:10,880 --> 00:05:20,880
+ [MUSIC]
+

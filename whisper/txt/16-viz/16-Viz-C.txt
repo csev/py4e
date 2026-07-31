@@ -1,0 +1,110 @@
+ The last visualization application that we're going to take a look at is mailing lists and that's kind of ironic.
+ We started with the mailing lists and we're going to end with the mailing lists.
+ The mailing lists, of course, are from my open source Sakai project, which I love and very proud of.
+ And so what we're going to do is we're going to crawl the archive of a mailing list and then we're going to do two visualizations.
+ One is an activity visualization and another is a word cloud.
+ So it's probably the more important thing is when I do the demonstration of how the software works.
+ So this is a large data set, so you got to be careful.
+ This could spider gmain.org, which is a very free and friendly archive.
+ This data originally came from gmain.org, but I've got a copy of it.
+ And so gmain.org is not rate limited, but if everyone who is watching this starts
+ spidering gmain.org at the same time, you will crash it.
+ It just doesn't have the horsepower to give you this data as fast.
+ And so I've got something that can give you the data super fast and has no rate limit on a really good server.
+ And it's cached all around the world using a technology called Cloudflare.
+ So please, please, please don't point this at gmain.org.
+ Point this at the URL here, mvoxdrchuck.net, et cetera, et cetera.
+ And then you can run this as fast as you like.
+ Now, another thing to worry about is if you have a metered connection.
+ So don't do this on a cell phone connection, because you'll pay thousands of dollars, perhaps.
+ Make sure you run a no cost connection before you start running this.
+ Because this is going to pull a lot of data down.
+ If you just start this from scratch and you let it run, on a super fast connection,
+ downloading the whole thing is probably about four hours.
+ On my home connection, when I had like about a 10 megabit connection, it took several days.
+ And so, so just understand that in this one, it's both fun to deal with a ton of data,
+ and it's scary to deal with a ton of data.
+ So this one is big.
+ This one is, you'll see the process in action, cuz it'll run for a while.
+ Everything, the things will take a long time.
+ So here's basically the flow of the data in this particular one.
+ You are going to have the restartable spider that talks to the API, mvoxdrchuck.net,
+ which has a scalable copy of all this information.
+ And again, it's going to do kind of a raw database, not a very clean database.
+ It's sort of a mess.
+ It's just enough columns to keep track of whether or not we've got this page or not.
+ And so this has the ones we've retrieved so far.
+ And so what Gmail does is it sort of scans down to see where to retrieve next,
+ gets that, and then starts scanning and then adding things here.
+ So it just adds it, and then it blows up, and then it comes in again and says, okay,
+ I'll start here, and then it starts retrieving stuff and fills this in,
+ fills this in, fills this in.
+ And sometimes you put like a delay in this so you don't overwhelm networks or
+ don't overwhelm servers.
+ But basically this is pretty much a raw retrieval of the email messages.
+ And this file can get rather large.
+ This is the one that's greater than a gigabyte.
+ Now this data is actually really nasty.
+ It's email data, the date format's changed.
+ This is data that lasted from 2004 to like 2012 or '13.
+ And so this data has got a lot of things wrong with it.
+ It even has things where people's email addresses changed.
+ And so it has this mapping file.
+ This comes along with it, this mapping file that says, here's this one person and
+ here are the six email addresses that they used throughout the life of the project.
+ And so there is a relatively complex, and so this is,
+ this part here is super slow, very slow.
+ This part here is slow.
+ But it'll take like, depending on how fast your computer is,
+ somewhere between two minutes and ten minutes.
+ This first part will take days, perhaps,
+ depending on the speed of your network connection.
+ And so what Gmodel does is it reads through this, it actually recreates,
+ it wipes this out, and recreates index.sqlite every time it runs.
+ So that you can change any number of things, you can respire things,
+ you can do whatever.
+ And often, the cleanup, this is one of those cleanup processes, and
+ you have to tweak the cleanup process.
+ You're like, look at your data, like, oh, the cleanup missed something, so
+ I got to run it again.
+ So this produces index.sqlite every time it runs.
+ So this is like two to ten minutes.
+ Gmodel is two to ten minutes.
+ And it, like, maps names, and when it's all said and done,
+ this is a very small, highly normalized, it's a nice data model.
+ This one here had the, content.sqlite has an ugly data model.
+ Index.sqlite has a pretty data model.
+ It's got foreign keys, it's got all this stuff.
+ And all those things we talked about in the database where it's efficient.
+ And so in your mind, keep track of how fast it is to scan all the data in
+ a database with a bad model.
+ And then watch when you run, like, gbasic, which is a scanner, or
+ gline, which produces line data, or gword, and watch how fast they run.
+ They run in, like, a couple of seconds, at the most.
+ And this runs in two to ten minutes.
+ And the difference is, is that's because the data is efficiently modeled in
+ index.sqlite, so you can take a look at that using SQLite browser and
+ take a look at the data model.
+ And you'll see it looks just like the stuff we talked about in
+ the database chapter, it's got foreign keys and all those things.
+ And so that runs, and you got this.
+ And then we do our visualizations and
+ our analysis from this clean version of all the data.
+ And so gbasic just loops through and prints some stuff out.
+ It's a great way to test things.
+ It's a pretty easy to understand program, and you can take a look at it.
+ gline does some bucketing and makes some histograms to produce a line graph.
+ And then gword does a different histogram.
+ It does a histogram of word frequency, and
+ then produces that as the word frequency ends up in gword.js.
+ And then we have two HTML files that use the d3.js visualization
+ to produce a line and a word chart.
+ And so in another video I will show you how this code works,
+ which is probably more useful than this picture.
+ But this is a whole bunch of good stuff in this particular application.
+ And if you really understand everything in here,
+ you can build a pretty sophisticated data retrieval and analysis pipeline.
+ And so that's it.
+ I thank you for watching all these lectures, and
+ I look forward to seeing you on the net.
+ [MUSIC]

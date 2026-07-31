@@ -1,0 +1,103 @@
+ In this section, we're going to write a web browser using Python.
+ So we've already got a socket, we know how to write a socket.
+ In the previous section, we played with the protocol
+ and used Telnet to do it by hand,
+ and now we're going to do it in Python.
+ And what you're going to find is, it's not that hard.
+ So here we go.
+ So the first three lines of this program,
+ import socket, make the socket.
+ Remember, the socket isn't really got the connection.
+ So when you make the socket, again,
+ we're going to make a stream-based socket,
+ and it's suitable for going across the internet.
+ The connection, it's like ring, phone call,
+ connect to data.pr4e.org and port 80.
+ And so that basically says, extend the socket across
+ and connect to a web server.
+ And so there's got to be a piece of software running,
+ and this will blow up if the software is not running.
+ So then, now we've got a phone, we've made a phone call.
+ Now, whether or not the remote side says hello or not
+ is up to the application protocol.
+ And in this case, the web servers say nothing,
+ and they wait for you to talk first.
+ So we're the web browser in this case,
+ and so we're going to talk first.
+ And we know what, because we read the documentation,
+ we know that we're going to send get blah blah blah blah blah,
+ blah blah blah blah blah, space blah blah blah blah blah,
+ ht1, and then two new lines, return, return.
+ Remember, you had to have a blank line.
+ We'll talk a little bit about this encode.
+ It's preparing the data to go across the internet.
+ And then we say send it.
+ And so this basically takes that little string
+ and sends it across the network.
+ And then this piece of software is waiting for it.
+ And then the software goes and reads a file
+ or does some other stuff,
+ and then it starts sending us data back,
+ which we can then choose to receive.
+ So now I write a real simple loop.
+ We're going to receive these things,
+ 512 characters at a time.
+ So we're going to loop through, receiving 512 each time.
+ And if we get zero characters,
+ that means it's end of the stream.
+ The stream is closed.
+ And if you look at the little example
+ from the previous one, you saw connection closed.
+ When the connection is closed,
+ we get an indication that it is
+ because we ask for some data and we get zero data.
+ Otherwise, if there might be more data, this'll wait.
+ If the network is slow, you'll see,
+ if you do a print statement in here,
+ you will see that this will pause from time to time
+ on a really slow network.
+ If your network is fast, it'll just go blank
+ and it'd be so fast it won't matter.
+ But this is how we go.
+ So this is basically until the entire socket,
+ until the socket is closed, we're going to read this data.
+ And because this data's coming from the outside world,
+ we have to decode it before we print it.
+ And then when we're all done, we break out of here
+ and we close the socket.
+ So literally, that is an entire web browser
+ written in 10 lines of Python.
+ And again, this is why everybody loves Python.
+ So this is what this program will show if you run.
+ The get is sent.
+ It looks exactly like doing it by hand.
+ You get some headers.
+ Again, this is metadata that tells you something
+ about the file.
+ In this case, one of the important things
+ is what kind of thing is coming next.
+ There's always a blank line as a break
+ between the headers and the actual data,
+ the metadata and the data.
+ And then here is the actual text of that romeo.txt file.
+ And then it's going to run this.
+ We're going to print data.decode.
+ All this is coming from the print statement.
+ If you were going to parse this, you have to know
+ that you're going to read the headers up to a blank line.
+ The blank line is your indication as a software developer
+ that the headers have stopped and the actual text begins,
+ and you know the syntax.
+ This actually could be a JPEG or PNG
+ or some kind of image, right?
+ And this data would here look like blah.
+ So if you type this and you change that code
+ to actually talk, go retrieve a JPEG URL,
+ gibberish will come out, okay?
+ And so that's exactly what you will see.
+ And so now you have built a very simple web browser.
+ Next, I want to talk a little bit about what happens
+ when characters transition from outside your computer,
+ I mean, from inside the computer in strings,
+ out across these sockets to servers, and then back.
+ (upbeat rock music)

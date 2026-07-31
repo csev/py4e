@@ -1,0 +1,1148 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.780
+ - Hello, and welcome to our chapter on databases.
+
+00:00:03.780 --> 00:00:05.560
+ We're going to learn a lot in this chapter,
+
+00:00:05.560 --> 00:00:08.440
+ learn a whole new programming language, SQL,
+
+00:00:08.440 --> 00:00:10.620
+ and learn how to use that.
+
+00:00:10.620 --> 00:00:12.340
+ So you're going to need a new piece of software
+
+00:00:12.340 --> 00:00:15.520
+ to run all of the exercises that I'm going to do
+
+00:00:15.520 --> 00:00:17.240
+ called SQLite Browser.
+
+00:00:17.240 --> 00:00:19.320
+ We're using a database called SQLite.
+
+00:00:19.320 --> 00:00:20.580
+ Go ahead and download this.
+
+00:00:20.580 --> 00:00:22.920
+ You might have to pause and come back if you like.
+
+00:00:22.920 --> 00:00:26.860
+ Go to SQLiteBrowser.org and download it and install it.
+
+00:00:26.860 --> 00:00:28.780
+ While you're doing that,
+
+00:00:28.780 --> 00:00:30.420
+ let's talk a little bit about the history.
+
+00:00:30.420 --> 00:00:34.200
+ So, in the old days, 1960s, 1970s,
+
+00:00:34.200 --> 00:00:37.200
+ I started doing computing in 1975,
+
+00:00:37.200 --> 00:00:41.020
+ we didn't have a lot of storage.
+
+00:00:41.020 --> 00:00:43.740
+ I mean, this is 16 gigabytes right here,
+
+00:00:43.740 --> 00:00:46.400
+ and we didn't even have megabytes.
+
+00:00:46.400 --> 00:00:49.580
+ I mean, the computer I had had a few megabytes of stuff.
+
+00:00:49.580 --> 00:00:52.620
+ So, we didn't have a lot of disk drives,
+
+00:00:52.620 --> 00:00:56.100
+ and so permanent storage was often sequential.
+
+00:00:56.100 --> 00:00:58.880
+ These tapes, these tape drives that we had,
+
+00:00:58.880 --> 00:01:01.760
+ tapes and tape drives were the scalable part of storage,
+
+00:01:01.760 --> 00:01:03.060
+ because you could just make more tapes
+
+00:01:03.060 --> 00:01:05.800
+ and you could rack 'em up, and so that was our way
+
+00:01:05.800 --> 00:01:07.780
+ of greatly increasing the storage of the computer.
+
+00:01:07.780 --> 00:01:10.700
+ The problem they had was, is they were sequential.
+
+00:01:10.700 --> 00:01:12.800
+ You read it, it advances, read it, it advances,
+
+00:01:12.800 --> 00:01:13.640
+ read it, it advances.
+
+00:01:13.640 --> 00:01:16.740
+ Now, interestingly, we've been writing programs that do this,
+
+00:01:16.740 --> 00:01:18.020
+ that everything we've written so far
+
+00:01:18.020 --> 00:01:19.820
+ pretty much reads the whole file,
+
+00:01:19.820 --> 00:01:22.340
+ reads the whole webpage, reads this, everything we read it.
+
+00:01:22.340 --> 00:01:24.660
+ We read either a loop or read the whole thing,
+
+00:01:24.660 --> 00:01:26.200
+ and that's because we have plenty of memory,
+
+00:01:26.200 --> 00:01:29.160
+ but we're still reading sequentially,
+
+00:01:29.160 --> 00:01:32.000
+ and so the way you would do this
+
+00:01:32.000 --> 00:01:34.700
+ when you didn't have enough spinning storage
+
+00:01:34.700 --> 00:01:37.040
+ or online storage is you'd use offline storage,
+
+00:01:37.040 --> 00:01:39.100
+ but the trick would be that you would sort it.
+
+00:01:39.100 --> 00:01:40.460
+ So, let's imagine that you're a bank
+
+00:01:40.460 --> 00:01:42.320
+ and you have a bunch of accounts,
+
+00:01:42.320 --> 00:01:44.620
+ only a few of which are active on any day,
+
+00:01:44.620 --> 00:01:47.140
+ and you have a tape that has,
+
+00:01:47.140 --> 00:01:49.640
+ in account number order from low to high,
+
+00:01:49.640 --> 00:01:52.500
+ the prior balance, last night's balance
+
+00:01:52.500 --> 00:01:54.420
+ of every one of your bank accounts,
+
+00:01:54.420 --> 00:01:56.660
+ and then you do all the transactions
+
+00:01:56.660 --> 00:01:59.820
+ and you record how much money was taken in or out
+
+00:01:59.820 --> 00:02:00.780
+ for each account number,
+
+00:02:00.780 --> 00:02:02.320
+ and then you sort those transactions,
+
+00:02:02.320 --> 00:02:04.040
+ and then what you do is what we call
+
+00:02:04.040 --> 00:02:05.720
+ the sequential master update,
+
+00:02:05.720 --> 00:02:08.660
+ and that is you would write a program
+
+00:02:08.660 --> 00:02:11.140
+ that would read the first transaction and hold onto it.
+
+00:02:11.140 --> 00:02:13.840
+ Say, okay, this is count 45.
+
+00:02:13.840 --> 00:02:15.740
+ Then it would read the first count, like one,
+
+00:02:15.740 --> 00:02:17.740
+ and it would copy one, and then it'd read two,
+
+00:02:17.740 --> 00:02:21.280
+ and read like seven, eight, 42, 43,
+
+00:02:21.280 --> 00:02:23.160
+ then it would read like 44,
+
+00:02:23.160 --> 00:02:26.300
+ and it would read 45, but now it would change that
+
+00:02:26.300 --> 00:02:29.140
+ and write the new 45, and read the next thing,
+
+00:02:29.140 --> 00:02:30.700
+ and so this might be 60,
+
+00:02:30.700 --> 00:02:31.980
+ and it would read a bunch of stuff
+
+00:02:31.980 --> 00:02:33.660
+ and copy a bunch of stuff,
+
+00:02:33.660 --> 00:02:34.920
+ and then it would finally get to 60,
+
+00:02:34.920 --> 00:02:37.140
+ and it would merge the add, the subtract,
+
+00:02:37.140 --> 00:02:39.620
+ and so the old balance ended up here,
+
+00:02:39.620 --> 00:02:40.800
+ and the new balance did here,
+
+00:02:40.800 --> 00:02:43.340
+ and you had to only make one pass through the data,
+
+00:02:43.340 --> 00:02:45.300
+ so it was super efficient.
+
+00:02:45.300 --> 00:02:47.620
+ So, we had all these mechanisms to sort.
+
+00:02:47.620 --> 00:02:49.940
+ We used to do punch cards and have sorters
+
+00:02:49.940 --> 00:02:50.780
+ and all these things,
+
+00:02:50.780 --> 00:02:54.820
+ and then these things would run for hours,
+
+00:02:54.820 --> 00:02:56.420
+ and if you watch old TV shows,
+
+00:02:56.420 --> 00:02:57.680
+ these tapes are spinning,
+
+00:02:57.680 --> 00:02:59.460
+ and these things are running back and forth,
+
+00:02:59.460 --> 00:03:02.480
+ these are simply reading and writing tapes,
+
+00:03:02.480 --> 00:03:04.780
+ and that's how we did a lot of data processing,
+
+00:03:04.780 --> 00:03:08.500
+ because we could store far more on a tape drive
+
+00:03:08.500 --> 00:03:09.780
+ than we could on a disk,
+
+00:03:09.780 --> 00:03:12.220
+ and with racks of tape drives,
+
+00:03:12.220 --> 00:03:16.020
+ we could scale the storage that our computers had,
+
+00:03:16.020 --> 00:03:17.580
+ and so that's the way we did data processing,
+
+00:03:17.580 --> 00:03:20.260
+ but it meant that the only way you knew
+
+00:03:20.260 --> 00:03:21.540
+ what the old balance was,
+
+00:03:21.540 --> 00:03:23.620
+ was it was the balance as of this morning,
+
+00:03:23.620 --> 00:03:24.800
+ before your bank started,
+
+00:03:24.800 --> 00:03:26.540
+ you don't know what the balance was for the day,
+
+00:03:26.540 --> 00:03:28.120
+ and that led to things like,
+
+00:03:28.120 --> 00:03:32.980
+ you can never withdraw more than $100 a day,
+
+00:03:32.980 --> 00:03:33.820
+ or something like that,
+
+00:03:33.820 --> 00:03:36.020
+ because you don't know what the old balance was,
+
+00:03:36.020 --> 00:03:38.020
+ or you might go withdraw $100
+
+00:03:38.020 --> 00:03:39.260
+ at a couple of different branches,
+
+00:03:39.260 --> 00:03:43.820
+ and so they weren't able to look your stuff up right away.
+
+00:03:43.820 --> 00:03:46.660
+ Now, it didn't take long
+
+00:03:46.660 --> 00:03:48.620
+ until the disk drives got better and better and better,
+
+00:03:48.620 --> 00:03:52.020
+ and you could store the entire accounts,
+
+00:03:52.020 --> 00:03:55.020
+ all the accounts and their current balances on computers,
+
+00:03:55.020 --> 00:03:57.100
+ and then the problem becomes,
+
+00:03:57.100 --> 00:03:59.620
+ is what happens if sort of in the middle of the afternoon,
+
+00:03:59.620 --> 00:04:00.780
+ you want to update a balance?
+
+00:04:00.780 --> 00:04:03.080
+ Well, do you want to read all your data,
+
+00:04:03.080 --> 00:04:04.460
+ and then write a brand new one,
+
+00:04:04.460 --> 00:04:07.040
+ and let's say that takes like 10 minutes,
+
+00:04:07.040 --> 00:04:08.320
+ that means for that 10 minutes,
+
+00:04:08.320 --> 00:04:11.580
+ only one person can be updating their bank balance,
+
+00:04:11.580 --> 00:04:15.460
+ and so because we could randomly access this data,
+
+00:04:15.460 --> 00:04:16.920
+ we didn't have to read it all sequentially,
+
+00:04:16.920 --> 00:04:20.140
+ the trick was, is how do you spread the data out,
+
+00:04:20.140 --> 00:04:23.260
+ and then how do you make it so you can change a balance,
+
+00:04:23.260 --> 00:04:24.820
+ this is of course second nature today,
+
+00:04:24.820 --> 00:04:26.980
+ but how do you make it so you change the balance here
+
+00:04:26.980 --> 00:04:28.920
+ without changing the balance there,
+
+00:04:28.920 --> 00:04:29.820
+ and you can have multiple people
+
+00:04:29.820 --> 00:04:31.660
+ going simultaneously to these things,
+
+00:04:31.660 --> 00:04:33.620
+ and make sure that you can't say,
+
+00:04:33.620 --> 00:04:36.380
+ withdraw money at two different locations simultaneously,
+
+00:04:36.380 --> 00:04:39.700
+ and somehow have your bank balance get corrupted by that.
+
+00:04:39.700 --> 00:04:41.460
+ So there's a lot of debate on how to do that,
+
+00:04:41.460 --> 00:04:45.080
+ and in early days, we just did sequential master update,
+
+00:04:45.080 --> 00:04:47.540
+ but increasingly we wanted to make better use
+
+00:04:47.540 --> 00:04:52.020
+ of the random nature of our computers, and our storage,
+
+00:04:52.020 --> 00:04:54.580
+ and so that's what led to databases,
+
+00:04:54.580 --> 00:04:58.620
+ databases are the science of how you make use
+
+00:04:58.620 --> 00:05:03.620
+ of rotating random access data, permanent data,
+
+00:05:03.620 --> 00:05:06.340
+ in a way that allows you to read, modify,
+
+00:05:06.340 --> 00:05:07.980
+ and update that simultaneously
+
+00:05:07.980 --> 00:05:09.460
+ from many different locations,
+
+00:05:09.460 --> 00:05:12.260
+ and yet keep the data completely consistent,
+
+00:05:12.260 --> 00:05:14.860
+ and so this led to a study of a thing
+
+00:05:14.860 --> 00:05:16.220
+ called relational databases,
+
+00:05:16.220 --> 00:05:17.700
+ and relational databases are not
+
+00:05:17.700 --> 00:05:21.620
+ the only databases that happened,
+
+00:05:21.620 --> 00:05:23.260
+ we had many other kinds of databases,
+
+00:05:23.260 --> 00:05:24.260
+ and there was a debate,
+
+00:05:24.260 --> 00:05:26.380
+ and I remember in the 70s and the 80s,
+
+00:05:26.380 --> 00:05:28.700
+ there was folks that says, oh no, no,
+
+00:05:28.700 --> 00:05:30.260
+ there you can do index sequential,
+
+00:05:30.260 --> 00:05:31.180
+ that's the way to do it,
+
+00:05:31.180 --> 00:05:33.780
+ and relational databases weren't popular,
+
+00:05:33.780 --> 00:05:37.620
+ weren't all that popular the first time that I saw them,
+
+00:05:37.620 --> 00:05:40.580
+ I didn't like relational databases,
+
+00:05:40.580 --> 00:05:43.480
+ but relational databases had an inherent advantage
+
+00:05:43.480 --> 00:05:46.340
+ because they were based on some really powerful mathematics,
+
+00:05:46.340 --> 00:05:48.460
+ and the interesting thing is early on,
+
+00:05:48.460 --> 00:05:50.900
+ the relational databases were slower,
+
+00:05:50.900 --> 00:05:52.860
+ but eventually they figured out
+
+00:05:52.860 --> 00:05:54.820
+ how to sort of bring all the cleverness to bear
+
+00:05:54.820 --> 00:05:56.500
+ to make relational databases fast,
+
+00:05:56.500 --> 00:06:00.560
+ and so relational databases are a pretty advanced technology,
+
+00:06:00.560 --> 00:06:02.440
+ and there are companies like Oracle
+
+00:06:02.440 --> 00:06:03.860
+ that are very, very wealthy,
+
+00:06:03.860 --> 00:06:06.540
+ and their primary product for many, many years
+
+00:06:06.540 --> 00:06:09.220
+ was nothing more than a clever database product,
+
+00:06:09.220 --> 00:06:10.780
+ a clever piece of software
+
+00:06:10.780 --> 00:06:12.540
+ that was really good at solving this problem,
+
+00:06:12.540 --> 00:06:16.020
+ and that's how important this problem was to computing.
+
+00:06:16.020 --> 00:06:17.180
+ If you read about databases,
+
+00:06:17.180 --> 00:06:19.300
+ you're going to see two sets of terminology.
+
+00:06:19.300 --> 00:06:20.380
+ One set of terminology
+
+00:06:20.380 --> 00:06:24.020
+ comes from the mathematical background,
+
+00:06:24.020 --> 00:06:26.420
+ and has to do with the underlying math,
+
+00:06:26.420 --> 00:06:29.600
+ things like relations, tuples, and attributes,
+
+00:06:29.600 --> 00:06:33.020
+ that's kind of like the fancy math version of it,
+
+00:06:33.020 --> 00:06:35.380
+ and programmers kind of think of them
+
+00:06:35.380 --> 00:06:37.960
+ as rows and columns inside of a table,
+
+00:06:37.960 --> 00:06:40.260
+ and so if you look at sort of fancy theory,
+
+00:06:40.260 --> 00:06:42.820
+ you'll see words that look like this,
+
+00:06:42.820 --> 00:06:45.420
+ and they're just full of this in the connection.
+
+00:06:45.420 --> 00:06:47.580
+ Now, all this is important and true,
+
+00:06:47.580 --> 00:06:48.740
+ and if you really want to get good,
+
+00:06:48.740 --> 00:06:50.780
+ you sort of begin to understand the nature
+
+00:06:50.780 --> 00:06:53.060
+ that we model data at connections
+
+00:06:53.060 --> 00:06:55.580
+ rather than at sort of intersection points,
+
+00:06:55.580 --> 00:06:56.820
+ rather than just modeling data
+
+00:06:56.820 --> 00:06:59.420
+ as a flat file the way we do,
+
+00:06:59.420 --> 00:07:02.420
+ but for now, we're going to, as programmers,
+
+00:07:02.420 --> 00:07:03.600
+ think of this as just like,
+
+00:07:03.600 --> 00:07:06.260
+ oh, it's like a super fast spreadsheet.
+
+00:07:06.260 --> 00:07:07.840
+ The super fast part is the math.
+
+00:07:07.840 --> 00:07:10.420
+ For us, the rows, columns, and tables are spreadsheets,
+
+00:07:10.420 --> 00:07:12.980
+ so it thinks of, think in a spreadsheet of sheets,
+
+00:07:12.980 --> 00:07:15.960
+ sheet, sheet, sheet, and that's like a table,
+
+00:07:15.960 --> 00:07:19.660
+ a named thing, like tracks, or albums, artists, or genres,
+
+00:07:19.660 --> 00:07:20.940
+ and then there is rows,
+
+00:07:20.940 --> 00:07:23.540
+ and each row has a different kind of data,
+
+00:07:23.540 --> 00:07:26.340
+ and then there's columns, and we sort of specialize
+
+00:07:26.340 --> 00:07:29.380
+ the first column in many spreadsheets to say what's in there.
+
+00:07:29.380 --> 00:07:30.580
+ This is not really the data.
+
+00:07:30.580 --> 00:07:32.660
+ This is like metadata.
+
+00:07:32.660 --> 00:07:34.380
+ It's like the title's in this first column.
+
+00:07:34.380 --> 00:07:36.700
+ That's not really the data, and the data starts here,
+
+00:07:36.700 --> 00:07:38.020
+ and we have different kinds of data,
+
+00:07:38.020 --> 00:07:40.540
+ like strings and numbers, et cetera, et cetera,
+
+00:07:40.540 --> 00:07:42.820
+ for each of the rows.
+
+00:07:42.820 --> 00:07:46.620
+ And literally, you can get away with this
+
+00:07:46.620 --> 00:07:48.420
+ as sort of about 80% of databases
+
+00:07:48.420 --> 00:07:50.180
+ as just a really super cool spreadsheet,
+
+00:07:50.180 --> 00:07:54.220
+ but under the covers, it is far more powerful than that.
+
+00:07:54.220 --> 00:07:59.580
+ So one of the early arguments that happened was, again,
+
+00:07:59.580 --> 00:08:01.220
+ what the programming model for this was,
+
+00:08:01.220 --> 00:08:03.940
+ and a lot of folks wanted a programming model
+
+00:08:03.940 --> 00:08:07.180
+ that reflected how the data was actually stored.
+
+00:08:07.180 --> 00:08:10.300
+ The notion of structured query language came about
+
+00:08:10.300 --> 00:08:13.900
+ in a way to express what you want it to happen
+
+00:08:13.900 --> 00:08:17.060
+ and allow that to be sort of a very abstract expression.
+
+00:08:17.060 --> 00:08:19.780
+ Select all records that meet this criteria,
+
+00:08:19.780 --> 00:08:22.740
+ not read, read, read, read, read, read.
+
+00:08:22.740 --> 00:08:24.340
+ And so structured query language
+
+00:08:24.340 --> 00:08:27.140
+ is not a procedural language.
+
+00:08:27.140 --> 00:08:29.900
+ It is a imperative language
+
+00:08:29.900 --> 00:08:31.700
+ where you're simply saying what you want,
+
+00:08:31.700 --> 00:08:33.380
+ and then somebody writes the loop,
+
+00:08:33.380 --> 00:08:34.740
+ the database actually does the loop,
+
+00:08:34.740 --> 00:08:37.500
+ but it's a way for you to avoid actually writing the loop.
+
+00:08:37.500 --> 00:08:40.380
+ Now, that turns out to be the power of databases
+
+00:08:40.380 --> 00:08:42.260
+ because the cleverness in how to write the loop
+
+00:08:42.260 --> 00:08:44.620
+ is a way that you would probably never figure out
+
+00:08:44.620 --> 00:08:47.580
+ how to be most supremely optimal
+
+00:08:47.580 --> 00:08:49.300
+ when it comes to writing the loop,
+
+00:08:49.300 --> 00:08:50.780
+ as you'll see toward the end
+
+00:08:50.780 --> 00:08:52.420
+ of joining many tables together
+
+00:08:52.420 --> 00:08:53.540
+ and selecting and throwing a array
+
+00:08:53.540 --> 00:08:55.260
+ and getting down a count or whatever.
+
+00:08:55.260 --> 00:08:58.420
+ Someone has figured out how to do that really, really well.
+
+00:08:58.420 --> 00:09:01.340
+ So the idea was, as you would express,
+
+00:09:01.340 --> 00:09:02.580
+ we're going to create some data,
+
+00:09:02.580 --> 00:09:03.740
+ we're going to retrieve some data,
+
+00:09:03.740 --> 00:09:05.340
+ we're going to insert and delete it.
+
+00:09:05.340 --> 00:09:08.780
+ Create, read, crud, C-R-U-D.
+
+00:09:08.780 --> 00:09:13.140
+ Create, read, update, and delete crud.
+
+00:09:13.140 --> 00:09:14.500
+ And so that's what this does.
+
+00:09:14.500 --> 00:09:17.180
+ It's a language that does this very simply.
+
+00:09:17.180 --> 00:09:21.380
+ Now, the applications that we're going to use this for
+
+00:09:21.380 --> 00:09:23.460
+ are more of a data analysis application.
+
+00:09:23.460 --> 00:09:26.500
+ We've been doing data analysis through the whole course.
+
+00:09:26.500 --> 00:09:28.140
+ And the kinds of things that we'll see
+
+00:09:28.140 --> 00:09:31.320
+ in the remaining chapters is we'll take some raw data file.
+
+00:09:31.320 --> 00:09:33.340
+ These might actually come across the network.
+
+00:09:33.340 --> 00:09:35.140
+ And we'll write some Python programs
+
+00:09:35.140 --> 00:09:37.780
+ to play with that data, parse it,
+
+00:09:37.780 --> 00:09:40.660
+ clean it up, make sense of it, you know?
+
+00:09:40.660 --> 00:09:42.500
+ And then write it into a database.
+
+00:09:42.500 --> 00:09:43.920
+ And this might be a slow process
+
+00:09:43.920 --> 00:09:45.120
+ or this might be really nasty,
+
+00:09:45.120 --> 00:09:47.540
+ and this might be a way to have very clean data.
+
+00:09:47.540 --> 00:09:49.380
+ And then we'll write another Python program
+
+00:09:49.380 --> 00:09:51.660
+ to sort of read this, read through it,
+
+00:09:51.660 --> 00:09:53.580
+ and it's all efficient and pretty.
+
+00:09:53.580 --> 00:09:55.500
+ And then we can produce files
+
+00:09:55.500 --> 00:09:56.640
+ and maybe we'll visualize it
+
+00:09:56.640 --> 00:09:58.940
+ or do further analysis in R, Excel,
+
+00:09:58.940 --> 00:10:02.160
+ or a JavaScript visualization framework.
+
+00:10:02.160 --> 00:10:06.280
+ And so, in this situation, you will be the person
+
+00:10:06.280 --> 00:10:09.100
+ who is both sort of writing the programs,
+
+00:10:09.100 --> 00:10:12.100
+ database administrator, and you can,
+
+00:10:12.100 --> 00:10:14.120
+ using SQLite Browser, play and look at the database
+
+00:10:14.120 --> 00:10:15.400
+ kind of in a raw way.
+
+00:10:15.400 --> 00:10:16.380
+ And the first part of this,
+
+00:10:16.380 --> 00:10:18.940
+ we are mostly going to be using SQLite Browser
+
+00:10:18.940 --> 00:10:20.500
+ just to talk straight to a database.
+
+00:10:20.500 --> 00:10:23.000
+ Later, we'll write Python programs
+
+00:10:23.000 --> 00:10:26.240
+ that read and write data and visualize the data.
+
+00:10:26.240 --> 00:10:28.300
+ So this is what we're going to do first.
+
+00:10:28.300 --> 00:10:30.720
+ And then second, we're going to do this part right here.
+
+00:10:30.720 --> 00:10:33.620
+ That's the second thing we're going to do.
+
+00:10:33.620 --> 00:10:36.540
+ Now, another really common use of applications
+
+00:10:36.540 --> 00:10:38.420
+ and something that if you continue
+
+00:10:38.420 --> 00:10:39.940
+ learning more about programming,
+
+00:10:39.940 --> 00:10:44.500
+ is that you will want to write an online application
+
+00:10:44.500 --> 00:10:47.580
+ like Amazon or a company or Twitter
+
+00:10:47.580 --> 00:10:52.700
+ that's got a website and it stores dynamic data and databases.
+
+00:10:52.700 --> 00:10:55.800
+ And so the picture for that is similar but different
+
+00:10:55.800 --> 00:10:57.340
+ than the picture we're going to start out with.
+
+00:10:57.340 --> 00:10:58.880
+ And so the way this usually works
+
+00:10:58.880 --> 00:11:02.360
+ is that you, the end user, uses a web browser,
+
+00:11:02.360 --> 00:11:04.100
+ talks to the application,
+
+00:11:04.100 --> 00:11:07.580
+ and the developer writes the application software.
+
+00:11:07.580 --> 00:11:11.140
+ And that application software stores its data in a database.
+
+00:11:11.140 --> 00:11:13.140
+ And inside that database,
+
+00:11:13.140 --> 00:11:15.460
+ we talk to the database using SQL,
+
+00:11:15.460 --> 00:11:17.100
+ and all the data is actually stored here.
+
+00:11:17.100 --> 00:11:18.860
+ And the magic happens, the data server
+
+00:11:18.860 --> 00:11:22.200
+ is that database software that's so precious and valuable.
+
+00:11:22.200 --> 00:11:23.500
+ And then there's another person,
+
+00:11:23.500 --> 00:11:25.420
+ often called the database administrator,
+
+00:11:25.420 --> 00:11:28.380
+ who has access to the direct access to the data.
+
+00:11:28.380 --> 00:11:30.500
+ And these roles in medium and large project
+
+00:11:30.500 --> 00:11:33.840
+ are kept separate, mostly because the...
+
+00:11:33.840 --> 00:11:37.020
+ Mostly because the...
+
+00:11:37.020 --> 00:11:42.820
+ The production, while it's running and live,
+
+00:11:42.820 --> 00:11:44.460
+ the developer leaves the data alone
+
+00:11:44.460 --> 00:11:47.220
+ and works on, say, the next version of the software.
+
+00:11:47.220 --> 00:11:49.540
+ And then the developer has a test version
+
+00:11:49.540 --> 00:11:53.380
+ of the application that they run on their computer,
+
+00:11:53.380 --> 00:11:54.780
+ where they're doing all that stuff.
+
+00:11:54.780 --> 00:11:57.760
+ So this database administrator is a role
+
+00:11:57.760 --> 00:12:01.100
+ in a large project where we have to run production
+
+00:12:01.100 --> 00:12:05.660
+ and keep production careful, keep production in good shape.
+
+00:12:05.660 --> 00:12:08.140
+ So the database administrator has this responsibility
+
+00:12:08.140 --> 00:12:10.140
+ for the production aspects of the data.
+
+00:12:10.140 --> 00:12:11.900
+ And you may be working in a situation
+
+00:12:11.900 --> 00:12:13.660
+ where you're not actually controlling the data.
+
+00:12:13.660 --> 00:12:15.660
+ The database server's on different computers,
+
+00:12:15.660 --> 00:12:17.220
+ you have a little special access,
+
+00:12:17.220 --> 00:12:20.420
+ and you write programs to sort of read the data.
+
+00:12:20.420 --> 00:12:22.680
+ And so the database administrator is the person
+
+00:12:22.680 --> 00:12:27.600
+ who is asked by the organization to administer that data.
+
+00:12:27.600 --> 00:12:29.780
+ The data that we develop, and we'll do this
+
+00:12:29.780 --> 00:12:33.080
+ in the second part of these lectures,
+
+00:12:33.080 --> 00:12:34.340
+ conforms to a data model.
+
+00:12:34.340 --> 00:12:35.240
+ That's the metadata.
+
+00:12:35.240 --> 00:12:36.260
+ Is this an integer?
+
+00:12:36.260 --> 00:12:37.780
+ Is this a string?
+
+00:12:37.780 --> 00:12:39.100
+ How many columns is this?
+
+00:12:39.100 --> 00:12:41.860
+ And the data model turns out to be very, very important,
+
+00:12:41.860 --> 00:12:42.840
+ and there's a lot of science
+
+00:12:42.840 --> 00:12:44.640
+ to building an effective data model
+
+00:12:44.640 --> 00:12:46.220
+ that leads to really good performance.
+
+00:12:46.220 --> 00:12:48.360
+ And it's a collaborative activity
+
+00:12:48.360 --> 00:12:50.720
+ between the application developers
+
+00:12:50.720 --> 00:12:53.900
+ and the database administrator to make it so it's efficient,
+
+00:12:53.900 --> 00:12:56.880
+ runs in production, et cetera, et cetera, et cetera.
+
+00:12:56.880 --> 00:13:00.840
+ There's a lot of products out there that you may encounter.
+
+00:13:00.840 --> 00:13:02.120
+ We're going to be using SQLite.
+
+00:13:02.120 --> 00:13:04.640
+ SQLite's a little tiny database server,
+
+00:13:04.640 --> 00:13:06.080
+ and it's built into so many things,
+
+00:13:06.080 --> 00:13:07.020
+ and that's why we like it.
+
+00:13:07.020 --> 00:13:09.460
+ But if you're going to work at a large organization,
+
+00:13:09.460 --> 00:13:10.740
+ you could easily run into Oracle,
+
+00:13:10.740 --> 00:13:14.420
+ which is the number one commercial product.
+
+00:13:14.420 --> 00:13:16.420
+ Microsoft has a thing called SQL Server,
+
+00:13:16.420 --> 00:13:18.180
+ which is a commercial product,
+
+00:13:18.180 --> 00:13:21.160
+ and it's also very popular and very effective.
+
+00:13:21.160 --> 00:13:23.460
+ The more popular open source,
+
+00:13:23.460 --> 00:13:26.380
+ there's things called Postgres, there's MySQL,
+
+00:13:26.380 --> 00:13:29.560
+ and MySQL recently was sort of bought by Oracle,
+
+00:13:29.560 --> 00:13:33.520
+ and there is a copy of that called MariaDB
+
+00:13:33.520 --> 00:13:36.920
+ that doesn't belong to Oracle, MariaDB.
+
+00:13:36.920 --> 00:13:40.640
+ And so, most of the SQL that we're going to learn
+
+00:13:40.640 --> 00:13:43.900
+ is common across these database systems
+
+00:13:43.900 --> 00:13:46.440
+ because SQL is a standard,
+
+00:13:46.440 --> 00:13:47.700
+ but then there are parts that weren't part
+
+00:13:47.700 --> 00:13:49.980
+ of the original standard where each database vendor
+
+00:13:49.980 --> 00:13:51.500
+ has done things a little bit different,
+
+00:13:51.500 --> 00:13:54.340
+ but there is a core common subset
+
+00:13:54.340 --> 00:13:56.460
+ that does the basic create, read, update,
+
+00:13:56.460 --> 00:13:58.380
+ and delete operations.
+
+00:13:58.380 --> 00:14:00.780
+ So SQLite is very popular.
+
+00:14:00.780 --> 00:14:04.060
+ You probably have it in your cell phone 10, 12 times.
+
+00:14:04.060 --> 00:14:06.380
+ Your web browser has a database engine in it.
+
+00:14:06.380 --> 00:14:09.100
+ Your car has a few databases in it.
+
+00:14:09.100 --> 00:14:13.460
+ And so, SQLite is what's called an embedded database system.
+
+00:14:13.460 --> 00:14:15.460
+ Python comes built in with it.
+
+00:14:15.460 --> 00:14:18.980
+ You just import SQLite 3 and away you go.
+
+00:14:18.980 --> 00:14:22.580
+ And so, it's very, very popular because it's free,
+
+00:14:22.580 --> 00:14:25.760
+ it's open source, and it's such a tiny little piece
+
+00:14:25.760 --> 00:14:27.860
+ of software that you just include it
+
+00:14:27.860 --> 00:14:29.960
+ in other pieces of software and use it
+
+00:14:29.960 --> 00:14:31.580
+ to solve the data management problems
+
+00:14:31.580 --> 00:14:32.760
+ of those pieces of software.
+
+00:14:32.760 --> 00:14:36.120
+ Like your browser might use SQLite to store your bookmarks.
+
+00:14:36.120 --> 00:14:37.660
+ Now you think, oh, there's only how many bookmarks
+
+00:14:37.660 --> 00:14:40.720
+ can you have, but what if there you need it to be fast?
+
+00:14:40.720 --> 00:14:42.980
+ And what if there's people that have 10,000 bookmarks?
+
+00:14:42.980 --> 00:14:44.340
+ There probably are.
+
+00:14:44.340 --> 00:14:45.340
+ Do you still want it fast?
+
+00:14:45.340 --> 00:14:46.340
+ Do you want to be able to search?
+
+00:14:46.340 --> 00:14:50.820
+ And so, you get all that by using a database like SQLite.
+
+00:14:50.820 --> 00:14:52.700
+ And so, again, we're going to encourage you
+
+00:14:52.700 --> 00:14:55.920
+ to download the SQLite browser so you can follow along
+
+00:14:55.920 --> 00:14:58.660
+ with what we're going to do coming up next.
+
+00:14:58.660 --> 00:15:00.460
+ And so, here is the SQLite browser.
+
+00:15:00.460 --> 00:15:01.860
+ Here's what it looks like.
+
+00:15:01.860 --> 00:15:03.780
+ And it's just a desktop application.
+
+00:15:03.780 --> 00:15:05.740
+ And coming up next, we'll start playing
+
+00:15:05.740 --> 00:15:09.900
+ with this desktop application and see how it works.
+
+00:15:09.900 --> 00:15:14.100
+ (upbeat rock music)
+
+00:15:15.340 --> 00:15:18.340
+ (upbeat rock music)
+

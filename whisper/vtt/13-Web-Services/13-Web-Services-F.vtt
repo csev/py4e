@@ -1,0 +1,275 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.360
+ So now that we're solving our problem using a series of cooperating applications communicating across a network,
+
+00:00:06.360 --> 00:00:11.600
+ we're going to talk a little bit more detail about the notion of what we call web services.
+
+00:00:11.600 --> 00:00:17.840
+ And in this we're going to take a different perspective. Instead of building our application and breaking it into pieces,
+
+00:00:17.840 --> 00:00:23.900
+ we're going to have an application that's going to really consume an API from somebody else. So there is some other
+
+00:00:23.900 --> 00:00:27.080
+ provider of this API that's not us.
+
+00:00:27.800 --> 00:00:33.000
+ And so that if you're going to talk to somebody's data like Google or Amazon or
+
+00:00:33.000 --> 00:00:38.040
+ Twitter, they're going to say you have to use our API. So what's that?
+
+00:00:38.040 --> 00:00:43.800
+ So an API is a contract that says look if you do this and this and this and this we're going to give you data
+
+00:00:43.800 --> 00:00:49.360
+ this way. And they set the rules, they tell you what the URLs are, they'll tell you if it's XML or JSON.
+
+00:00:49.360 --> 00:00:55.400
+ And this is called the application program interface. And it's something you read and you understand.
+
+00:00:55.400 --> 00:01:01.240
+ And so you go look at the documentation. This is the documentation for the Google Maps API.
+
+00:01:01.240 --> 00:01:04.480
+ So it turns out that Google knows a lot about maps.
+
+00:01:04.480 --> 00:01:11.140
+ It knows a lot of data, it knows how to search maps, and it actually provides some of those features to you that your
+
+00:01:11.140 --> 00:01:15.760
+ application can take advantage of. I took advantage of this at one point by
+
+00:01:15.760 --> 00:01:20.300
+ asking all the students in one section of one of my online courses where they were from.
+
+00:01:20.560 --> 00:01:25.600
+ And I just let them type in where it was. And then I said well, I don't know how to code any of that.
+
+00:01:25.600 --> 00:01:31.560
+ So I used this API doing what's called geocoding to look all those places up and get precise
+
+00:01:31.560 --> 00:01:39.240
+ latitudes and longitudes for the ones Google could figure out. And that saved me a lot of work. Now these are expensive resources, but I
+
+00:01:39.240 --> 00:01:46.280
+ could be patient and make use of these resources, which as long as you use them not too much, they can be free.
+
+00:01:46.280 --> 00:01:50.040
+ We'll talk a little bit more about rate limiting and what's free and what's not in a bit.
+
+00:01:50.040 --> 00:01:55.360
+ But you start by reading documentation. It says do this, hit this URL, hit that URL.
+
+00:01:55.360 --> 00:01:58.200
+ So if you read that documentation,
+
+00:01:58.200 --> 00:02:04.280
+ you will find that there is a URL that you can hit. And they tell you where to go.
+
+00:02:04.280 --> 00:02:11.280
+ And then you go to this URL, you add a question mark, and then you say address equals, and then antivirus plus,
+
+00:02:11.280 --> 00:02:16.440
+ and there's all these rules. These are called URL encoding rules when you have key values on URLs.
+
+00:02:16.760 --> 00:02:23.200
+ The plus means space and percent 2c means comma. So these are called URL encoded.
+
+00:02:23.200 --> 00:02:30.760
+ Don't worry too much about that because we're going to have a magic library like we always do in Python that takes care of this.
+
+00:02:30.760 --> 00:02:36.160
+ And so if you were to hit this URL, you type it in the exact right way in your browser,
+
+00:02:36.160 --> 00:02:40.160
+ you will get back a JSON document. It's an object that has key value pairs,
+
+00:02:40.320 --> 00:02:47.080
+ the first value is the status, then it has these results and it's a list, and you dive down and eventually you can kind of find the latitude and
+
+00:02:47.080 --> 00:02:54.000
+ longitude of the thing that you are looking for. And so the idea is can we write a program that can read this?
+
+00:02:54.000 --> 00:02:58.880
+ And so here's our little program that reads this. And a lot of this is sort of
+
+00:02:58.880 --> 00:03:02.320
+ comfortable. You've already seen some of this.
+
+00:03:02.320 --> 00:03:05.040
+ You import urllib.
+
+00:03:05.040 --> 00:03:10.600
+ We have to parse them JSON, we grab the URL, and then we're going to write a little while loop
+
+00:03:10.600 --> 00:03:14.840
+ that's going to ask for a location and we can type that location in and
+
+00:03:14.840 --> 00:03:17.320
+ we've got to concatenate
+
+00:03:17.320 --> 00:03:24.360
+ with this URL, the location equals, and there is a bit of code, a library that called parse URL and code,
+
+00:03:24.360 --> 00:03:26.400
+ that takes the key and the value,
+
+00:03:26.400 --> 00:03:33.080
+ so the address equals and then whatever this text is that we read in from the user, that goes in here and it does that
+
+00:03:33.080 --> 00:03:39.760
+ URL encoding with the pluses and the percent 2c and all that stuff is taken care of and that is our URL that we're going to pass
+
+00:03:39.760 --> 00:03:46.560
+ to URL open. So we print out that we're going to retrieve it, prints this out, and if you look at this, it's too long,
+
+00:03:46.560 --> 00:03:50.080
+ it has all that fancy stuff on it, and then we read it.
+
+00:03:50.080 --> 00:03:57.020
+ I mean we open it with URL open and then we read it and decode it. So these two things hit this URL,
+
+00:03:57.020 --> 00:03:59.960
+ decode it, and then we retrieved
+
+00:04:00.840 --> 00:04:06.920
+ 1669 characters because it's just a, in this case, because we've decoded it, data is a string now,
+
+00:04:06.920 --> 00:04:09.680
+ that's read as bytes and data is a string.
+
+00:04:09.680 --> 00:04:12.240
+ So we read
+
+00:04:12.240 --> 00:04:18.960
+ that many characters, 1669 characters, and then we're going to take this data and we're going to parse it with JSON and
+
+00:04:18.960 --> 00:04:25.040
+ we might get bad data here, it might blow up, but it might work, and so in this case it works.
+
+00:04:25.040 --> 00:04:29.800
+ We have an error that basically says if we got a bad thing, we're going to blow up,
+
+00:04:29.800 --> 00:04:34.400
+ but in this case it doesn't blow up, and so now we're going to sort of dig through and
+
+00:04:34.400 --> 00:04:40.200
+ if you go back, let's, let me just go back, so the
+
+00:04:40.200 --> 00:04:47.800
+ results sub zero geometry, let's show you how that works. So results is the first key,
+
+00:04:47.800 --> 00:04:54.640
+ so this is a dictionary with a key of results, but then it has a list, this list starts here and goes there and
+
+00:04:54.640 --> 00:04:58.520
+ there's, I'm only going to show part of it, but there's many things here.
+
+00:04:58.520 --> 00:05:02.160
+ So the zero item is this, this is the sub zero, and
+
+00:05:02.160 --> 00:05:07.800
+ then geometry within that sub zero item, so if we look at that, it is
+
+00:05:07.800 --> 00:05:16.600
+ the outer dictionary, the first item in the list, sub geometry, so that grabs one part,
+
+00:05:16.600 --> 00:05:19.640
+ that grabs
+
+00:05:19.640 --> 00:05:22.720
+ this part right here, and
+
+00:05:23.400 --> 00:05:31.040
+ then we're going to go into location and lat, and those are just keys within keys, a dictionary within a dictionary, and so you see it says
+
+00:05:31.040 --> 00:05:36.960
+ sublocation sub lat, and so that is literally going to pull out of that complex structure,
+
+00:05:36.960 --> 00:05:43.640
+ that will pull the latitude out, and then in the next line pull the longitude out, so we can pull
+
+00:05:43.640 --> 00:05:51.160
+ the latitude and longitude out, and then we print it out. We can go into results sub zero formatted address, and that goes into
+
+00:05:51.920 --> 00:05:53.920
+ results zero
+
+00:05:53.920 --> 00:06:00.200
+ formatted address, and that pulls this little bit out. Now it takes a little while to write this stuff, and you have to put a lot of
+
+00:06:00.200 --> 00:06:04.680
+ debug, and you don't necessarily figure out this complex bit here at the end,
+
+00:06:04.680 --> 00:06:09.200
+ but you know, you print it, you don't get what you want, you say, oh wait a sec, that was an array,
+
+00:06:09.200 --> 00:06:12.660
+ so I got to add a little sub zero there to get the first one out of the array,
+
+00:06:12.660 --> 00:06:16.360
+ but eventually you figure it out, and it's not all that difficult.
+
+00:06:16.360 --> 00:06:20.880
+ It's the first time, first few times you do it, like what am I doing, but after a while you realize,
+
+00:06:20.880 --> 00:06:26.360
+ oh, I'm just sort of tearing this apart and digging deeper and deeper into this data structure,
+
+00:06:26.360 --> 00:06:31.800
+ which I just retrieved over the internet from Google, and I learned something good from that.
+
+00:06:31.800 --> 00:06:34.900
+ Now we're going to talk about API rate limiting and security.
+
+00:06:34.900 --> 00:06:42.560
+ The key thing is is that the Google API and the Google data is super valuable, and you could build a website that did nothing,
+
+00:06:42.560 --> 00:06:47.800
+ but sort of like asked the person for something, and then showed them that place and make them be a map searcher,
+
+00:06:47.800 --> 00:06:54.120
+ and you added so little value and Google did all the hard work, and so they protect these somewhat.
+
+00:06:54.120 --> 00:06:59.880
+ Sometimes they'll say you can only do 50 of these a day or 500 a day or whatever, that's called rate limiting,
+
+00:06:59.880 --> 00:07:05.920
+ and sometimes they say you've got to log in, you've got to create an account and get a key with us and then present your key,
+
+00:07:05.920 --> 00:07:12.120
+ so that means that your account only gets so many, and they keep track of who's using their service and how much they're using it.
+
+00:07:12.120 --> 00:07:16.560
+ Google gives you even sort of a dashboard that tells you some of this stuff, it's kind of nice.
+
+00:07:16.560 --> 00:07:27.840
+ The other thing is that sometimes an API is free and then it becomes popular and they decide they're going to put a key on it or a rate limit on it,
+
+00:07:27.840 --> 00:07:33.520
+ so you got to kind of play this game with them and the rules kind of change as things progress.
+
+00:07:33.520 --> 00:07:44.360
+ So that geocoding API that we're talking about has at one point in time 2,500 requests a day, you can get more requests if you get a key.
+
+00:07:44.360 --> 00:07:49.400
+ So this whole web services section, we've done quite a bit of stuff, right?
+
+00:07:49.400 --> 00:08:00.080
+ We've looked at how instead of reading HTML or flat text, we are creating structured data according to contracts, whether it be XML or JSON.
+
+00:08:00.080 --> 00:08:09.760
+ We can retrieve and parse that information in a deterministic way, we talked about schemas that define the contracts so that you know if the data you're getting is wrong,
+
+00:08:09.760 --> 00:08:20.720
+ you could know who to blame cuz the schema gets violated and we've played with APIs where you're talking to someone else who's defining what the rules are and how to read their documentation.
+
+00:08:20.720 --> 00:08:27.120
+ And even if they have an API key or need to sign URLs, showed a little bit about how to do that.
+
+00:08:39.760 --> 00:08:46.400
+ [MUSIC]
+

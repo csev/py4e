@@ -1,0 +1,752 @@
+1
+00:00:00,000 --> 00:00:07,600
+ [MUSIC]
+
+2
+00:00:07,600 --> 00:00:10,000
+ Hello everybody and welcome to Python for Everybody.
+
+3
+00:00:10,000 --> 00:00:12,640
+ We are going to be doing some code walkthroughs.
+
+4
+00:00:12,640 --> 00:00:16,520
+ If you want the sample code, you can download the zip from our website.
+
+5
+00:00:16,520 --> 00:00:22,560
+ The work that we're doing right now is we are in the process of building a spider and
+
+6
+00:00:22,560 --> 00:00:30,520
+ a visualization tool for email data that came originally from this website, gmain,
+
+7
+00:00:30,520 --> 00:00:32,560
+ but I've got my own copy of it.
+
+8
+00:00:32,560 --> 00:00:39,760
+ And so what we've done before is we ran gmain.py, and I grabbed a URL.
+
+9
+00:00:39,760 --> 00:00:44,960
+ I have a URL that has all this data, and I downloaded that.
+
+10
+00:00:44,960 --> 00:00:51,600
+ And then I ran gmain again to catch up, and so it took quite a bit of catching up.
+
+11
+00:00:51,600 --> 00:00:56,240
+ But by the time I get to, remember how I said it runs, tries to fail five times?
+
+12
+00:00:56,240 --> 00:01:03,760
+ Well, it ran out of data at 60,421, and then it started failing and then it quit.
+
+13
+00:01:03,760 --> 00:01:06,640
+ So we pretty much have all of our data now.
+
+14
+00:01:06,640 --> 00:01:12,760
+ We have finished this process in s-content SQLite, okay?
+
+15
+00:01:12,760 --> 00:01:18,320
+ And if I take a look in the database browser,
+
+16
+00:01:18,320 --> 00:01:22,400
+ we can see we got 59,823 email messages.
+
+17
+00:01:22,400 --> 00:01:26,760
+ And so if I look at any of these things, you see the headers,
+
+18
+00:01:26,760 --> 00:01:31,400
+ you see the subject line, you see the email address, you see the body of it.
+
+19
+00:01:31,400 --> 00:01:36,760
+ So remember I split the body in half and the headers.
+
+20
+00:01:36,760 --> 00:01:41,440
+ And so I made this as raw as I possibly could, because as you saw,
+
+21
+00:01:41,440 --> 00:01:47,080
+ I had to spend so much time in the gmain just getting the data successfully retrieved.
+
+22
+00:01:47,080 --> 00:01:49,680
+ And so I don't like cleaning the data up too much.
+
+23
+00:01:49,680 --> 00:01:55,200
+ And so what we're going to look at next is the data cleaning process, okay?
+
+24
+00:01:55,200 --> 00:02:01,160
+ And so this is gmodel.py is what we're going to take a look at now.
+
+25
+00:02:01,160 --> 00:02:05,160
+ So let's get rid of those guys and look at gmodel.py.
+
+26
+00:02:05,160 --> 00:02:11,880
+ I don't think I need urllib in this code.
+
+27
+00:02:11,880 --> 00:02:13,000
+ Do I have any urllib?
+
+28
+00:02:17,760 --> 00:02:20,800
+ No, so I don't need that, sorry.
+
+29
+00:02:20,800 --> 00:02:22,360
+ Fix that.
+
+30
+00:02:22,360 --> 00:02:27,440
+ Okay, so it's going to read from the database, it's going to use regular expressions.
+
+31
+00:02:27,440 --> 00:02:29,680
+ And zlib is a way to do some compression.
+
+32
+00:02:29,680 --> 00:02:33,320
+ And so I'm going to do, in this one I'm going to compress some of the data to make it so
+
+33
+00:02:33,320 --> 00:02:37,080
+ that I have less data to, some of the text fields are going to be compressed.
+
+34
+00:02:37,080 --> 00:02:40,840
+ I wanted to keep these fields uncompressed inside of messages.
+
+35
+00:02:40,840 --> 00:02:48,480
+ And so we have some clean up messages and cleans things up.
+
+36
+00:02:48,480 --> 00:02:54,640
+ And it turns out that the way email addresses in this particular mail corpus,
+
+37
+00:02:54,640 --> 00:02:59,640
+ they changed over time and there's certain kinds of things.
+
+38
+00:02:59,640 --> 00:03:02,800
+ Sometimes the gmain.org is the email address when people want to hide their
+
+39
+00:03:02,800 --> 00:03:03,960
+ address.
+
+40
+00:03:03,960 --> 00:03:08,400
+ And I made all kinds of stuff and I split it and checked to see if it would end with
+
+41
+00:03:08,400 --> 00:03:12,320
+ this and I cleaned up things, just that thing.
+
+42
+00:03:12,320 --> 00:03:17,360
+ And so I have all kinds of cleanup stuff going on in here.
+
+43
+00:03:17,360 --> 00:03:21,760
+ And I have this mapping and DNS mapping that I'll talk about in a bit where
+
+44
+00:03:21,760 --> 00:03:25,720
+ organizations sometimes send email with different addresses over time and
+
+45
+00:03:25,720 --> 00:03:29,320
+ people send email from different time.
+
+46
+00:03:29,320 --> 00:03:34,880
+ And we're going to do the parsing of the date and that is the code for that.
+
+47
+00:03:34,880 --> 00:03:37,960
+ We're going to pull out the header information.
+
+48
+00:03:37,960 --> 00:03:43,840
+ This is sort of borrowed from the other code.
+
+49
+00:03:43,840 --> 00:03:47,240
+ We clean up the email addresses and the domain names.
+
+50
+00:03:47,240 --> 00:03:51,480
+ And we'll pull the date out, pull the subject out,
+
+51
+00:03:51,480 --> 00:03:54,280
+ pull out the message ID, various things.
+
+52
+00:03:54,280 --> 00:03:57,440
+ So here's the main body of the code.
+
+53
+00:03:57,440 --> 00:04:02,160
+ We're going to go from content.sqlite to index.sqlite.
+
+54
+00:04:02,160 --> 00:04:06,920
+ And what I'm going to do every time is I'm going to wipe out index.sqlite and
+
+55
+00:04:06,920 --> 00:04:09,440
+ drop the messages, senders, subjects, and replies.
+
+56
+00:04:09,440 --> 00:04:13,680
+ So this is a normalized database in that it has foreign keys.
+
+57
+00:04:13,680 --> 00:04:18,720
+ So there's a messages table here with an integer primary key, the GUID for it.
+
+58
+00:04:18,720 --> 00:04:23,360
+ The GUID stands for global unique ID, sent time sender ID.
+
+59
+00:04:23,360 --> 00:04:25,680
+ And it's going to have a blob.
+
+60
+00:04:25,680 --> 00:04:28,560
+ These are blobs, binary or large objects for the headers in the body.
+
+61
+00:04:28,560 --> 00:04:31,480
+ Cuz I'm going to compress them in this database to make them.
+
+62
+00:04:33,240 --> 00:04:37,760
+ And then the senders, each sender has a key.
+
+63
+00:04:37,760 --> 00:04:41,600
+ And then each subject line is going to have a key.
+
+64
+00:04:41,600 --> 00:04:46,440
+ And then replies are a connection from one message to another.
+
+65
+00:04:46,440 --> 00:04:48,720
+ And so this is like a many to many.
+
+66
+00:04:48,720 --> 00:04:52,080
+ Now, I also have this file called mapping.sqlite.
+
+67
+00:04:52,080 --> 00:04:57,280
+ And so we can take a look at that one, mapping.sqlite.
+
+68
+00:04:57,280 --> 00:05:03,600
+ And so what happened is this has two tables that I hand deal with.
+
+69
+00:05:03,600 --> 00:05:08,960
+ And so sometimes this was a email address that mapped to that.
+
+70
+00:05:08,960 --> 00:05:13,760
+ So indiana.edu, that's a way to take an @ the email address.
+
+71
+00:05:13,760 --> 00:05:18,960
+ And then these were a bunch of people that had email addresses changing
+
+72
+00:05:18,960 --> 00:05:23,160
+ throughout the project, and I sort of kind of mapped them in a way.
+
+73
+00:05:23,160 --> 00:05:27,120
+ And so this is just sort of like a, I pull this in really quick.
+
+74
+00:05:27,120 --> 00:05:30,520
+ And I read all this stuff from the DNS mapping.
+
+75
+00:05:30,520 --> 00:05:35,920
+ And I, other than stripping and making this lowercase, etc.
+
+76
+00:05:35,920 --> 00:05:38,480
+ I just am going to make a dictionary.
+
+77
+00:05:38,480 --> 00:05:41,840
+ DNS mapping, which is the old name to the new name.
+
+78
+00:05:41,840 --> 00:05:46,120
+ And the email address mapping from the old name to the new name.
+
+79
+00:05:46,120 --> 00:05:47,600
+ And I'm using fixed sender.
+
+80
+00:05:47,600 --> 00:05:52,000
+ Fixed sender is cuz the email addresses even within Gmail were kind of funky.
+
+81
+00:05:52,000 --> 00:05:54,640
+ So don't worry so much about this.
+
+82
+00:05:56,760 --> 00:06:01,560
+ Okay, and so now what I'm going to do is I opened up a connection just to read all
+
+83
+00:06:01,560 --> 00:06:05,360
+ that stuff in, and now I'm going to actually open the main content.
+
+84
+00:06:05,360 --> 00:06:07,360
+ And I'm asking it to open, this is a little trickier.
+
+85
+00:06:07,360 --> 00:06:10,080
+ I open that read only, that was so
+
+86
+00:06:10,080 --> 00:06:14,720
+ that I could potentially be running the spider and running this at the same time.
+
+87
+00:06:14,720 --> 00:06:21,360
+ I get a cursor, and so I'm going to read through, so in the content file,
+
+88
+00:06:21,360 --> 00:06:23,960
+ this is the big one, I'm going to read through and go through every one and
+
+89
+00:06:23,960 --> 00:06:27,400
+ write all of these things in.
+
+90
+00:06:27,400 --> 00:06:31,400
+ And I'm going to take all the email addresses, and
+
+91
+00:06:31,400 --> 00:06:34,280
+ I'm going to put those in a list.
+
+92
+00:06:34,280 --> 00:06:40,440
+ So I loaded that, I've got the mappings loaded, and so
+
+93
+00:06:40,440 --> 00:06:43,920
+ now I'm going to go through every single message.
+
+94
+00:06:43,920 --> 00:06:49,000
+ I got all the senders, all the subjects, and all the global unique IDs.
+
+95
+00:06:49,000 --> 00:06:50,400
+ So I read in each message.
+
+96
+00:06:50,400 --> 00:06:54,560
+ So now I'm going through content one at a time.
+
+97
+00:06:54,560 --> 00:06:58,240
+ I parse the headers.
+
+98
+00:06:58,240 --> 00:07:06,160
+ I check to see if the sender's name email address,
+
+99
+00:07:06,160 --> 00:07:10,920
+ after it's been cleaned up, is in my mapping, mapping.get sender.
+
+100
+00:07:10,920 --> 00:07:14,120
+ And the default is I get back sender, that's what that's saying.
+
+101
+00:07:14,120 --> 00:07:18,040
+ Lookup sender, if it's in there, give me the entry of that key.
+
+102
+00:07:18,040 --> 00:07:21,320
+ Otherwise, give me sender back.
+
+103
+00:07:21,320 --> 00:07:28,500
+ We're going to print every 250 things we do, we'll complain if this is true.
+
+104
+00:07:28,500 --> 00:07:31,440
+ We're going to go get the mapping between the senders,
+
+105
+00:07:31,440 --> 00:07:33,600
+ which is a way to look up the primary key.
+
+106
+00:07:33,600 --> 00:07:36,840
+ I could have done this with a database thing, but I wanted it to be fast.
+
+107
+00:07:36,840 --> 00:07:40,040
+ So that's part of the reason I read all these things in, so
+
+108
+00:07:40,040 --> 00:07:42,000
+ I could have those mappings to be really fast.
+
+109
+00:07:42,000 --> 00:07:47,240
+ You'll see this takes a little while, even though I got all this stuff cached.
+
+110
+00:07:48,040 --> 00:07:54,480
+ And so then, if I don't have a sender ID, meaning that I haven't seen it yet,
+
+111
+00:07:54,480 --> 00:07:58,120
+ then I'm going to do an insert or ignore into senders.
+
+112
+00:07:58,120 --> 00:08:01,680
+ And then I'm going to do a select, and then you've seen this, where I grab the row
+
+113
+00:08:01,680 --> 00:08:06,400
+ back, and I'm really just trying to look at the recently assigned ID.
+
+114
+00:08:06,400 --> 00:08:12,040
+ And then I'm going to not only set the sender ID for this iteration loop, but
+
+115
+00:08:12,040 --> 00:08:17,880
+ I'm also going to store it in the dictionary, and so that builds this dictionary up.
+
+116
+00:08:17,880 --> 00:08:21,280
+ And you'll see the same thing is true for subject ID.
+
+117
+00:08:21,280 --> 00:08:24,760
+ I'm going to insert it into the subject's table and get a primary key.
+
+118
+00:08:24,760 --> 00:08:27,800
+ If I don't know what it is, and then I'm going to put it into,
+
+119
+00:08:27,800 --> 00:08:30,000
+ not only am I going to put it into the database, but
+
+120
+00:08:30,000 --> 00:08:33,800
+ I'm also going to put it into my dictionary.
+
+121
+00:08:33,800 --> 00:08:38,600
+ And the same thing, I guess I didn't do it for the GUID.
+
+122
+00:08:38,600 --> 00:08:44,080
+ Okay, so now what I have is the sender ID and the subject ID,
+
+123
+00:08:44,080 --> 00:08:47,400
+ which are foreign keys into the sender table and the subject table.
+
+124
+00:08:47,400 --> 00:08:50,440
+ And I'm going to insert the message with the sender ID,
+
+125
+00:08:50,440 --> 00:08:53,400
+ subject ID, the sent at, headers and body.
+
+126
+00:08:53,400 --> 00:09:00,120
+ And the values here are the GUID, sender ID, subject ID, sent at.
+
+127
+00:09:00,120 --> 00:09:03,080
+ Now this here is zlib compress.
+
+128
+00:09:03,080 --> 00:09:11,840
+ So what I'm taking is the message, the header and the body.
+
+129
+00:09:11,840 --> 00:09:15,440
+ And this little bit ends up with a compressed version of this stuff.
+
+130
+00:09:15,440 --> 00:09:17,040
+ And you'll see it in a second.
+
+131
+00:09:17,040 --> 00:09:20,160
+ And this keeps the size of these text things down at the cost of
+
+132
+00:09:20,160 --> 00:09:26,880
+ the computation of, at the cost of the computation to compress and
+
+133
+00:09:26,880 --> 00:09:29,680
+ decompress when we want to read it, okay?
+
+134
+00:09:29,680 --> 00:09:36,520
+ And then I pull the GUIDs out, the ID, which is the GUID.
+
+135
+00:09:36,520 --> 00:09:40,320
+ And I pull out the primary key for this thing based on the GUID.
+
+136
+00:09:40,320 --> 00:09:44,560
+ And I update this dictionary, okay?
+
+137
+00:09:44,560 --> 00:09:48,680
+ So let me run that code.
+
+138
+00:09:48,680 --> 00:09:50,280
+ It is doing a lot of cleanup.
+
+139
+00:09:50,280 --> 00:09:53,080
+ And I'll tell you, it took me a long time to make this work.
+
+140
+00:09:53,080 --> 00:09:58,440
+ So just, so this code that I'm running now.
+
+141
+00:09:58,440 --> 00:10:01,600
+ Oh, don't forget to take a Python 3, Chuck.
+
+142
+00:10:01,600 --> 00:10:05,600
+ So this is going to run every 250.
+
+143
+00:10:05,600 --> 00:10:07,560
+ So it did all this precaching.
+
+144
+00:10:07,560 --> 00:10:09,640
+ So that's how long it takes to do 250.
+
+145
+00:10:09,640 --> 00:10:11,960
+ Now there's 60,000 in here.
+
+146
+00:10:11,960 --> 00:10:15,880
+ And so this is really busy, the reason it's bouncing back and
+
+147
+00:10:15,880 --> 00:10:18,400
+ forth is that every time it makes this journal file, that's, and
+
+148
+00:10:18,400 --> 00:10:19,680
+ then does it commit.
+
+149
+00:10:19,680 --> 00:10:24,120
+ So you can kind of see that it's busy making journal files and
+
+150
+00:10:24,120 --> 00:10:26,720
+ committing, and there's a lot of activity going on here.
+
+151
+00:10:26,720 --> 00:10:29,040
+ [MUSIC]
+
+152
+00:10:29,040 --> 00:10:32,000
+ It just so happens that Adam shows me these files.
+
+153
+00:10:32,000 --> 00:10:40,000
+ [MUSIC]
+
+154
+00:10:40,000 --> 00:10:41,080
+ Okay, so it's finished.
+
+155
+00:10:41,080 --> 00:10:44,400
+ It took about three minutes to finish that, right?
+
+156
+00:10:44,400 --> 00:10:47,560
+ And so if we take a look at the size of the files,
+
+157
+00:10:47,560 --> 00:10:53,520
+ we will see that the index is much smaller.
+
+158
+00:10:53,520 --> 00:10:55,720
+ It's fully normalized.
+
+159
+00:10:55,720 --> 00:10:58,000
+ It's still 263 megabytes.
+
+160
+00:10:58,000 --> 00:10:58,840
+ It's all compressed.
+
+161
+00:10:58,840 --> 00:11:02,040
+ So let's take a look at that in the browser.
+
+162
+00:11:02,040 --> 00:11:10,240
+ So it's 200 megabytes, but it loads up a lot faster.
+
+163
+00:11:11,080 --> 00:11:14,360
+ There we go.
+
+164
+00:11:14,360 --> 00:11:17,560
+ So we have a sender's table, right?
+
+165
+00:11:17,560 --> 00:11:20,840
+ Which is just kind of a many to one table.
+
+166
+00:11:20,840 --> 00:11:24,640
+ We have a subjects to table, which is a many to one table.
+
+167
+00:11:24,640 --> 00:11:28,480
+ And we have messages, which has foreign keys.
+
+168
+00:11:28,480 --> 00:11:31,600
+ It takes a little bit to load that up, okay?
+
+169
+00:11:31,600 --> 00:11:36,680
+ And so we see the foreign keys for sender and subject.
+
+170
+00:11:36,680 --> 00:11:39,920
+ And that saves us, all those foreign keys save us.
+
+171
+00:11:39,920 --> 00:11:43,040
+ And so we have, you can kind of see that I can't see the headers in the body,
+
+172
+00:11:43,040 --> 00:11:44,280
+ because now they're compressed.
+
+173
+00:11:44,280 --> 00:11:47,520
+ That saves me a whole bunch of stuff, right?
+
+174
+00:11:47,520 --> 00:11:51,160
+ It saved me a whole bunch of stuff, you know?
+
+175
+00:11:51,160 --> 00:11:53,960
+ And so that's what's in that file.
+
+176
+00:11:53,960 --> 00:11:59,400
+ And that, we've finished this process, okay?
+
+177
+00:11:59,400 --> 00:12:03,080
+ And we've finished modeling the data and making it really clean.
+
+178
+00:12:03,080 --> 00:12:06,480
+ And we'll pick back up, and the rest of the stuff we will do
+
+179
+00:12:06,480 --> 00:12:10,760
+ is actually visualizing pulling data out of index.sqlite.
+
+180
+00:12:10,760 --> 00:12:12,760
+ The idea is this can be restarted.
+
+181
+00:12:12,760 --> 00:12:14,200
+ This can be run over and over and over,
+
+182
+00:12:14,200 --> 00:12:16,280
+ even though it takes like three minutes to run this.
+
+183
+00:12:16,280 --> 00:12:19,720
+ That's way better than five hours to run this.
+
+184
+00:12:19,720 --> 00:12:24,000
+ So three minutes, five hours, and then you'll see now,
+
+185
+00:12:24,000 --> 00:12:29,960
+ reading this is in seconds, cuz we got it all nice and normalized in a quite pretty way.
+
+186
+00:12:29,960 --> 00:12:32,720
+ So I hope this has been useful.
+
+187
+00:12:32,720 --> 00:12:35,040
+ In the next one, we'll actually do the visualization.
+
+188
+00:12:35,040 --> 00:12:45,040
+ [MUSIC]
+

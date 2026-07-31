@@ -1,0 +1,140 @@
+ So now we're going to talk about what you would do
+ with a web page once you've retrieved it in a Python program.
+ Call this web scraping.
+ And so web scraping or web spidering is the act
+ of retrieving a web page, extracting the links
+ from those web page, making a queue of un-retrieved links,
+ and then moving on, and eventually the idea is
+ if you had enough time, energy, bandwidth, and storage,
+ you could find your way to most of the web pages
+ on the internet that are pointing, that point to,
+ that are pointed to by other web pages.
+ And so you might have all kinds of reasons to scrape data.
+ You might have a blog that you posted.
+ You might have, who knows, maybe you put some data
+ in a system, maybe the system's being shut down
+ because it's being retired.
+ You can do all kinds of things.
+ You could write a little thing, I was talking to somebody
+ who wrote a thing to retrieve something and check,
+ and then send a text when something changed.
+ All kinds of stuff, or you might make yourself a search engine.
+ But be careful, not all web sites are happy about you
+ using a robot to retrieve their content.
+ Some of the web sites, as we'll see, demand that you log in
+ and they track what you do, and if they think you're doing
+ something bad, they will shut your account off.
+ Other web sites will track what you're doing
+ without you logging in, but then shut your address off.
+ And so you have to be careful, you should read up,
+ you should figure out what sites allow you to scrape them.
+ Now I have some sites that I've set up that you can play with
+ to make it so that it's legit.
+ So, parsing HTML is difficult.
+ Some of the simple examples, you could probably write
+ a regular expression, or certainly some splitting
+ and some whatever, and what you would find
+ is you would write that code, and you'd retrieve
+ your first five web pages and it would seem to work,
+ and then it would encounter some really weird
+ but legitimate HTML.
+ Or maybe even sort of slightly broken HTML.
+ So the web is full of broken HTML,
+ and your browsers just look at it and go like,
+ oh wow, more broken HTML.
+ But they don't put up error messages,
+ and so people just leave broken pages up.
+ But your Python program is going to see those broken pages.
+ So what you would do is you'd be like,
+ oh, here's a new weird way to do an anchor tag.
+ I'll change my code, and then run for another 100 pages,
+ and like, oh no, here's a new weird way to do an anchor tag.
+ And the problem is is that you're going to find
+ a lot of different ways to mess up an anchor tag.
+ And someone's already done that.
+ There's a software called Beautiful Soup,
+ and we have installation instructions on how to use it,
+ and really what it is is it's somebody just spent months
+ figuring out all the nasty things that could happen
+ and compensated for it and gave you a nice wrapped interface
+ that just says, look, you give me the HTML
+ and I'll give you back the tags, okay?
+ And so it's called Beautiful Soup.
+ And so you have to install this.
+ There's a couple of ways that you can install this.
+ If you're good at extending your Python,
+ you can just extend and install Beautiful Soup
+ for all Python programs.
+ If you can't change your computer's configuration
+ because you're on a school computer
+ or you're using a USB stick or something,
+ then there's a way to download this file
+ that I've created called bs4.zip.
+ And so what you do is you end up with your file
+ called urllinks.py, and then a little folder called bs4,
+ which is a folder that has a bunch of files in it
+ from the zip file, and then you can run it.
+ And so it'll pull it in and you'll import from bs4,
+ Beautiful Soup, and that's either going to pull it in
+ from the folder you do, or if you have installed it
+ using the Python installer, it will also just,
+ you don't have to put this file in.
+ So it's up to you, you can either do it one of two ways.
+ So this is a little bit of code.
+ Now Beautiful Soup is a complex library,
+ and so just because this looks easy,
+ doing things in Beautiful Soup,
+ you might have to actually read a bit more to figure it out.
+ But we're going to just read this.
+ We're going to import Beautiful Soup.
+ We're going to ask for a URL right here.
+ We're going to take that URL, we're going to open it.
+ URL open, they give the URL and read the whole thing.
+ That means we're not writing a loop,
+ we've read the whole thing, that's okay,
+ as long as you know that the file's not so large.
+ And then we're going to pass the data we got back,
+ and this is going to be bytes, but Beautiful Soup
+ knows all about bytes and all about UTF-8,
+ and it figures that out, and you just say,
+ hey, take that stuff I just got and tear it apart
+ using HTML, and give me back an object, a soup object.
+ Now the soup object is something
+ that you can run queries against.
+ So it parses it, it deals with all the imperfections
+ and inconsistencies in this HTML byte array,
+ and it fixes that and gives that back.
+ And so there's various things you can do,
+ and you got to go look at the Beautiful Soup documentation.
+ It could be a whole class on Beautiful Soup.
+ So here's a thing you can do, is this object,
+ you can sort of call it like a function,
+ and say, hey, give me back the anchor tags.
+ And anchor tags, of course, are the tags that say
+ HREF equals blah, blah, blah, slash A.
+ So all of this is an anchor tag.
+ And then we're going to loop through the tags,
+ because there could be more than one of those anchor tags
+ in the file, and then we're going to pull out that HREF,
+ and that's what this does.
+ We're going to loop through all the tags
+ and print out the HREF.
+ So if you tell it to go to drchuck.com,
+ it will show you the one external link in drchuck.com.
+ And so I've got an assignment that sort of goes into that
+ in some more detail, but this chapter has been
+ a whole bunch of interesting stuff.
+ We started with TCP/IP model, and talked about sockets
+ that are phone calls between computers,
+ and then how applications, protocols are developed
+ to say what we say on those phone calls,
+ and we've explored then the HTTP protocol,
+ which is probably the most likely thing you're going to see.
+ And then we played with all this in Python,
+ and saw that Python is really good at this.
+ You can write extremely simple and small programs
+ to do some extremely complex and powerful things.
+ And again, that's why people like Python,
+ is because it makes the complex simple.
+ (jazz music)
+ (piano music)

@@ -1,0 +1,126 @@
+ So our last major topic is called many-to-many relationships and up till now everything that we've done
+ is what's called a one-to-many relationship and that is there are many tracks associated with one album,
+ there are many albums associated with one artist, there are many tracks associated with one genre
+ and you can think of labeling and as you look at data models they put little labels on each arrow
+ that tell you which end of the arrow is the many and which end of the arrow is the one
+ and so in this case the foreign key is pointing to there are many of these rows over here,
+ many rows that point to one row over here, so it's a many-to-one relationship.
+ There are various ways, sometimes I'll put two arrows at this end and one arrow at that end
+ but whatever it is, this kind of thing we've been showing is a many-to-one relationship
+ and that's probably the most common thing but there are times when you just can't model things
+ with the one-to-many relationship. So like if you have a mother and children, well that's a
+ many-to-one relationship and it's just fine and that works fine but sometimes you have a
+ many-to-many relationship in that there might be many books, one book has many authors and each
+ author has many books and so you don't have like the one side, there's no one and so you have to
+ end up building a table that what we call it, I call it a connector table, they call it a junction
+ table on Wikipedia but we need a little table that allows us to break a many-to-many relationship
+ into an effect, two many-to-one relationships and a connector table and so this is a connector table
+ so you could think of this as you know there are many many links here but we don't have a way to
+ model the many over here to here and so what you do is you basically say oh there's a lot of these
+ things, there's many that go to the one, the many that go to the one and then in here you sort of
+ create that many-ness that you want to create so it's probably just as easy to look at a sample of
+ this so let's imagine a learning management system where you're taking a class and there are some
+ people that are teachers and some people that are students and many students are members of many
+ classes, a student can be part of many classes and a class has many students in it so you can't really
+ find the one end and so what we do is we make a table called membership and in that table of
+ membership we actually often don't put a primary key in at all we simply put in two foreign keys
+ and if we're going to put a uniqueness constraint we put a combination of the two foreign keys as
+ the uniqueness constraint so we say there can be duplicate user IDs and duplicate course IDs but
+ there can only be you know user ID course ID combinations that has to be unique so you can make
+ unique be more than one one column and so if you imagine a course table and a user table there's a
+ user ID the name and email and the course has a title and an ID and then we have this little table
+ that just is the connector table that shows the points out and so we can expand this membership
+ so let's take a look at how that works so we're going to create some tables and the
+ these are very classic tables because these are the one end of it so these are the one end of it
+ so it has a primary key a title a logical key email there's a primary key for course and then
+ there's text so we add this unique to kind of indicate that it's a logical key we're not going
+ to allow ourselves to put any duplicates in here now that the connector database here is a table
+ member and it has two foreign keys user ID and artist course ID and you can even model some data
+ here so I'm going to model role which is going to be zero equals student and one equals instructor
+ and then I'm going to indicate that the primary key or uniqueness constraint is the combination
+ of the user ID and a course ID now when we say the primary key it both limits our ability to insert
+ duplicates but it also allows the database to optimize its scanning because it knows that that
+ combination is always unique and so it can organize its disk structure and storage structure
+ to understand how to look things up more efficiently knowing that once it's found a user ID course ID
+ combination it doesn't have to look any farther because they're unique and so all of these
+ contracts that we add speed things up save storage and makes things more efficient but in ways we
+ don't always know exactly how they happened and so let's go ahead and make these let's go ahead
+ and make these guys I think I will start with a new database I'm going to call it LMS for learning
+ management system no I don't really want to do that one and so I'm going to not create the table
+ I'm going to do everything in SQL and so let me see if it's in my cheat sheet nope that's not in
+ my cheat sheet so I have to fix the cheat sheet again for you by the time you see the cheat sheet
+ all these things will be in there so I'm going to go in here and I'm going to grab create table user
+ actually I'm going to grab them all watch this
+ grab them all highlight all these go over to SQLite browser blast them all in and then I'll
+ put a semicolon at the end of each one of the statements and I want to run them
+ so did I look does it look good yep yep yep so I got a course I got membership two foreign keys
+ and I got user so that all looks good okay so now we're going to have to insert some data in
+ and we're going to insert from the outside in and so we're going to just put the name and email
+ the ID will be automatically assigned for the users and we're going to do the same thing and
+ the ID and the courses will be automatically assigned so let me just grab all this stuff
+ go into SQL that has the semicolons at the end already for me thank you very much now I'm going
+ to run it and if I take a look at my data now I've got primary keys for the courses and I've got
+ primary keys for the users and I've got nothing in the membership table and I have to of course
+ have to remember what these values are because Jane is one and Ed is two and Sue is three right
+ and Python is one SQL is two is three and so when I go into membership I've got two foreign keys
+ here in a role and they just have to be for the course person combination and so it's a little
+ tricky to figure all this stuff out but again these are just numbers and if you look at these
+ numbers user ID course ID role well user ID one is in course one user ID is in course as the teacher
+ user ID two is in course one as the student etc etc etc so I'm making these connections by just
+ putting these little numbers in and once again conveniently I have all my semicolons perfectly
+ in place so I go to SQL and then I run that and then I take and I look at my membership data and
+ there it is so two foreign keys and a bit of data modeled at the connection that's the way we say
+ that the role is modeled at the connection so now we build all this stuff up we can write some queries
+ that take a look at this and so what we're going to do is we're going to look at who's in what course
+ and what role are they and we're going to sort this in a nice way so let's just take a quick look
+ at the code we're writing we're going to do a select from three tables the user name the member
+ role the course title so we're in effect we're not showing any of the foreign keys or the primary
+ keys we're going to go from the user table join to the member table join to the course table
+ this is pretty easy to write you know there are three tables you want to go across the on clause
+ is also very easy to write right the on clause models each of these connections where the members
+ user id is equal to the user's id and where the members course id is equal to the course id so
+ we're going to connect we're going to concatenate all three of these tables together but we're going
+ to only keep rows that where it matters now that this is not this role doesn't participate but we're
+ going to print that out and we're going to order it by the course title first and then the member
+ role second and the name third and so let's run that so we've reconnected it so ed's the teacher
+ of the php class sue is the student the php class jane is the teacher in the python class ed's a
+ student and sewer students in the python class ed's the teacher in the sql class and jane is
+ the student in the sql class and so we have many people are in there are many students in many
+ classes there and so we have modeled that but we model that with this sort of table and if you look
+ at a piece of software that i've written called sugi which is a standalone learning management
+ system that's built with learning tools you will see in anything we're in membership where we have
+ a we have a user table we have a context which is also the course table and then we have a
+ membership table and you look here's these foreign keys it's kind of like that's the many side that's
+ the one side many to one and so this you know this is now a an effect of many to many court
+ between these two but then it's modeled as a series of many to one many to one relationships
+ and you see this all the time in all kinds of things where membership or other kinds of things
+ are necessary many to one how many to many so with all that there's so much to learn it's it's both
+ easy and complex at the same time it's easy when someone shows you how to do it but at some point
+ you will learn how to build database models and you realize oh it wasn't so bad it takes a while
+ to get used to them this really just is a quick walk but the the bottom line is the what we just
+ did seems like it was wow that's nice do you really have to do that and the answer is if you're going
+ to scale it all you absolutely have to because you simply can't read and write data sequentially
+ you can't read through a update one little piece of data in a file by reading all the way through
+ and then writing a new copy of the file that could take seconds and in a system like an online system
+ you get a hundredth of a second to do something like that and the databases make it so that
+ happens in a thousandth of a second so you ultimately you simply have to take advantage
+ of this you just can't if you're going to modify data you can read data from flat files but even
+ if you're going to read a lot of data if it's big it slows down terribly so it might seem like
+ there's a trade-off that you could debate whether this is worth it but if you're going to deal with
+ a lot of data it's you've got no choice it's really not as much a trade-off as you think so
+ this has been a quick romp through databases we talked a little bit about indexes there are
+ constraints we talked a little bit the not null stuff we've talked about that the uniqueness
+ that's a constraint another whole area is what's called transactions and that's the locking of
+ little areas so you can read an area then lock it and then update it to make sure no one else reads
+ it and and so they make sure they either get the the version before you looked at it or before you
+ change it or after you change it and so that's how you make sure that you can't do things having to
+ do with bank account balances and get yourself in trouble so these are a lot of sql it's really
+ fascinating sql is a fascinating thing to use and learn and performance tune and enjoy so
+ relational databases are cool this gets us started the the big thing is don't allow replication
+ vertically of string data pull that out into a separate table establish a primary key and
+ then have foreign keys that point to that primary key it is not just how much data you store it's
+ sort of a compression way as a way of compressing data you might think strings take no data but they
+ do numbers take a lot less data and it's both how much data that's stored but also how much data has
+ to be scanned and that way joins work that's part of the magic of why oracles such a such a successful
+ company it's a bit of art form and it's something that you can work your whole life and always get better at
+ (upbeat music)

@@ -1,0 +1,163 @@
+ So, now that we know what a primary key, logical key, and foreign key are, we are going to actually start putting these together and creating tables that have these kind of values in them.
+ So, when we were done, we drew this picture that was sort of a logical model of how our data would be spread across four tables and how those tables are connected.
+ Now, we have to take this and we have to map it in a way that leads to the columns and the needed columns in each of our database tables.
+ And so, here's what we do.
+ We basically have to take, and for each of these, when we're going to build a track table, when we're going to build a track table, we add a primary key.
+ So, we just added an ID field to every one of these things.
+ And that's so we have a place to store the sequence number of this particular row.
+ We have logical keys.
+ We've just marked those.
+ Those are strings.
+ And then we have things like, you know, rating, length, and count.
+ They just kind of go in here.
+ And now we have to model a relationship.
+ So, what we do is we, in the table that the relationship starts from, we put one more column in, and this is the one I will name album ID, and that just is an integer column that's going to record the album ID.
+ So, there might be, this might be 16, and then 16 goes in here.
+ So, there's one of these columns that's a foreign key that points to this.
+ And that's why it's foreign.
+ This is a key that's not in the track table.
+ This is a key in the album table that we're pointing to.
+ And so, there's a foreign key.
+ And that's what we have to do.
+ And we just do that over and over and over again.
+ And we quickly convert that picture that was a logical picture to having every table has a primary key.
+ And every time we have a starting point, we have a foreign key, foreign key, and then foreign key.
+ And then we mark these things as logical key, logical key, logical key, and we'll see how we do that.
+ And so, that's the picture.
+ Now we have a picture of exactly how we're going to lay these tables out and the fields that we need in these tables.
+ So, we're going to do a create table statement.
+ And I've got this create table statement sitting there.
+ And so, this one's going to be a little bit different.
+ We're going to say create table artist.
+ And the ID field is integer.
+ And we're going to add all of this stuff, this is adding to the column to tell it additional stuff.
+ It's a primary key, which means we're going to use it to look up a lot.
+ It's automatically incremented, which means the database is actually going to provide this number for us as we insert records.
+ It's not allowed to be null, it's not allowed to be empty, and it's supposed to be unique.
+ And then it's going to have, the artist is going to have a name column, a name column that's just text.
+ So, let's do that.
+ We already have our users.
+ And now we're going to do a create table in this SQL.
+ And you can do that, that's okay, that's totally fine.
+ And we have to get this right and we say away we go.
+ And so, now if I take a look at database structure, I've got a users table as well as that users table we were playing with before and this artist table.
+ Let me go ahead and delete this users table just to say goodbye.
+ Okay, so now we have the artist table and we take a look and it's got an ID and it knows all about this stuff, okay?
+ So, that created the table.
+ We're going to keep doing this.
+ The next thing that we're going to show here is we're going to show the foreign key, right?
+ So, artist ID is just an integer.
+ In some database languages, like MySQL and Oracle, you would put more stuff here to say this is a foreign key, blah, blah, blah.
+ In SQLite, we keep it simple and just say that is an integer column, that's a foreign key, the album table has a primary key and a foreign key and then the title.
+ So, we'll go back and we'll grab that text out of my little page.
+ Let's create table, go back to execute SQL and then run that.
+ And we'll continue, we'll just, the genre table has an ID on it and primary key auto, you'll just copy and paste these.
+ That whole thing, you do that over and over and over again, so we'll go in here and run that one.
+ And so, the last one we're going to do is the track table and the only thing that's kind of weird about the track table is it's got two foreign keys, right?
+ It's got an album ID and a genre ID.
+ Once you draw the picture, you just sort of literally translate these things.
+ It's got two foreign keys and a primary key that's pretty much just like all those other primary keys.
+ And, you know, integer counts an integer and length an integer, all that stuff and now we've got it.
+ So, if we take a look at our database structure, we're going to see that our album, genre and track are all set up.
+ And these are no columns that we just made with those create statements, okay?
+ So, now let's insert some data.
+ This first insert statement is kind of important to take a look at.
+ So, insert into, by the way, the keywords can be upper or lower case, table name, columns.
+ Now, this table has two columns.
+ It has ID and name, but we told the database that ID was auto increment.
+ So, it's going to actually give us the number.
+ It's going to assign the number rather than make us assign.
+ We could make it be one, two, three, but we say, hey, database, you're good at this.
+ Why don't you make it one, two, three?
+ And so, there is going to be a record that it adds Led Zeppelin.
+ So, let's take a look at that.
+ So, we'll insert Led Zeppelin, oops, go over to SQL, insert Led Zeppelin and run it.
+ So, now if I look at database structure and I look at the, let's look at browse data and look at the artist database,
+ you will see that I put Led Zeppelin in, but this ID field here was auto incremented.
+ And so, it was put there by the database.
+ And now, when we do the next insert, which is ACDC, and we take a look at the data, we'll see that ACDC is two.
+ Now, if you're writing this in a program, if you're going to write this in a program,
+ you can get these numbers back from the database in your program, but I'm not writing this in a program,
+ so I have to remember that one is Zeppelin and two is ACDC.
+ So, I'm going to keep myself a little cheat sheet here to remember that.
+ Because everywhere else in the program that we want to say Led Zeppelin, I've got to say one now,
+ because the artist ID of one means Led Zeppelin in those rows.
+ And so, now we're going to go back and we're going to take a look at the next one.
+ And now, we're going to put the genre in.
+ If you think about it, we're working from the leaves out.
+ The track will be the last table that we'll update, because I have to define the keys
+ for things like rock and metal and Led Zeppelin and all those other things.
+ And again, even though the genre table has two columns, ID and name,
+ we're only going to specify the name and let the database assign the value.
+ So, I'm going to insert both of these and use the semicolon trick.
+ I'm going to put a semicolon here and a semicolon there and run that.
+ And so, if I take a look at my browse data and I look at the genre,
+ it's assigned one to rock and two to metal.
+ I'm going to write that down.
+ One rock, two metal.
+ I should have done something like rock and country,
+ because I can't even tell the difference between rock and metal, but whatever.
+ My musical skill is not what's at issue in this class.
+ So, now we're going to put an album in.
+ The album is the first thing that has a foreign key.
+ So, if you remember the thing, the album points to artist.
+ And so, that means it has a foreign key of artist ID.
+ And so, we have to explicitly say this,
+ because the system doesn't know which artist who made who is,
+ but we know that who made who is AC/DC, and that's two.
+ And so, we know to put artist ID in.
+ So, we'll say insert into album, title, artist ID,
+ and so we have to know what this two number is.
+ And of course, because we have our handy little cheat sheet,
+ we can go over to execute and run that.
+ And I'll put a semicolon there and a semicolon there and run it.
+ And so, now we have in the album field, we now have this.
+ And so, this was assigned, and so who made who,
+ still have to write down that who made who is album one,
+ and album two is Led Zeppelin four.
+ That makes it even more complex,
+ because the name of the album is Roman numeral four.
+ I'm sure I can figure that out.
+ Okay, so the next thing that we're going to do
+ is we're going to insert the track record.
+ Now, if you think about the track record,
+ the track has two foreign keys.
+ And it's got a lot of stuff.
+ It's got the title, it's got the rating, length, count,
+ but then we got the two foreign keys.
+ And so, we have to know these numbers.
+ So, this two one, this two one, this one two is the genre.
+ We're specifying the genre and the album that this track is from
+ by those numbers.
+ Now, again, we have to use this cheat sheet,
+ but if this was a program, the program would know
+ that one was Zeppelin, or one was who made who,
+ and two was Led Zeppelin four.
+ And so, this kind of stuff is easier for the program
+ to understand than for us to keep track of and understand.
+ But just so we can get through these few records,
+ and that's why I rely so heavily on my cheat sheet.
+ So, here we are with all these numbers.
+ The foreign keys are the tricky part here.
+ Everything else is really quite straightforward.
+ So, now I'm going to insert four records into my track table.
+ And then run that.
+ Okay.
+ So, if I browse data and I look at my track table,
+ this column here, this ID, that's the primary key of the track table,
+ and then here are the two foreign keys.
+ Now, the interesting thing is now there is replication in these columns,
+ but the numbers are what's being replicated, and that's okay.
+ We went a long time just not to put Led Zeppelin four in twice.
+ We could've made this a string, but by making this an integer,
+ it saves tons of storage and makes it super fast.
+ That turns out to be one of the key things
+ that makes databases super fast is using these integers.
+ So, we take a look at all this stuff.
+ We see that in a sense, by using these little numbers,
+ we are pointing to rows in other tables.
+ The foreign keys are always pointing.
+ They always point to their ID.
+ So, these foreign keys are out here.
+ This is the primary key up here.
+ And they always point to a row in another table.

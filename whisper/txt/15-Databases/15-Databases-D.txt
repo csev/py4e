@@ -1,0 +1,100 @@
+ Now we're going to represent these relationships in the database.
+ And again, what we're trying to solve here
+ is this notion of database normalization.
+ Third normal form.
+ There is so much theory, right?
+ But in this lecture, I'm just going to condense this down
+ to don't replicate string data and use what are called keys.
+ Use integer keys to point at those things.
+ And we're going to use these integers then to point.
+ So assign each row an integer and then we're going to point
+ from one row to another using those integers.
+ And so we're going to add these special key columns
+ to each of the tables and help in the database
+ will even give us help managing those.
+ Now, and so we still need to keep track of, you know,
+ who is the creator of the album,
+ which album a track belongs to.
+ We've got to create these relationships
+ and we have to come up with ways to store those relationships.
+ And so the idea is, is we're going to have a column
+ and a table which is the key column.
+ And we're going to call this the ID column.
+ And so this is a row.
+ It might have many bits of data here,
+ but in this case, it's just the name of an artist.
+ So this album is going to belong to an artist.
+ And we're going to assign a number inside the database.
+ And so that Led Zeppelin is one and ACDC is two.
+ And so we have this key, this is called a primary key.
+ And then later when we want to say that the Who Made Who album
+ really was done by ACDC, we put the number two in.
+ And so the difference here is instead of saying ACDC,
+ in this record, we just put the number two
+ once we've established this number.
+ So we assign keys and then we have these pointers
+ that point back and so that's how we model a relationship
+ with these small integer numbers.
+ And so there are three basic kind of keys that we use.
+ One is the primary key and that is that little ID column
+ that is just a number.
+ But once we give Led Zeppelin the number one,
+ Led Zeppelin has got the key one
+ for the rest of that database.
+ The logical key is the text area that we use
+ that you might look up.
+ So the title of the band or the title of the album,
+ that's logical key.
+ And then the foreign key is one of these keys
+ that is really pointing to the primary key of another row.
+ So that's called a foreign key.
+ And you might think that you want to use something
+ like an email address as the primary key
+ for a user table or something like that.
+ The logical key should always be separate
+ and there should always be a primary key,
+ that integer number.
+ 'Cause things like logical keys do change,
+ people do get new email addresses.
+ And if you've got that email address
+ as a foreign key pointing all over the place,
+ it doesn't work out so well.
+ And so that's why you use these small integer numbers
+ that have no meaning outside.
+ So sometimes if you're on a system and you see a URL
+ and you see some number like 422,016,
+ you're like, oh, that turns out to probably be
+ my primary key in their database.
+ So sometimes you can look in a URL
+ and you can see these primary keys in the URL,
+ but they don't mean anything outside
+ of that particular system.
+ So like I said, a foreign key is a key
+ that is really pointing at a row in a different table.
+ And so we have, the album has a primary key for it,
+ but the artist_id points to a row in the artist table,
+ as we will soon see.
+ I have a naming convention.
+ And in my naming convention, on this lecture,
+ I use ID for the primary key.
+ And then artist_id, I use uppercase for the table names.
+ And then artist_id says, this is a key,
+ this is just a key that points to the ID key
+ of the artist table.
+ And so that's what I do.
+ So you'll see, in all my stuff I'll use that.
+ It's a convention.
+ It's not something SQL forces you to do,
+ but you will find when you go to organizations
+ and work on their databases,
+ these conventions are very important,
+ so I can do something and you can understand
+ the rules in which I created it.
+ Some of these, you'll find this used by some people,
+ you'll find completely different conventions
+ and that'll be okay.
+ Whatever convention your organization uses,
+ learn that convention.
+ So now we're going to talk about how we put these keys in
+ and then how we actually make the connections
+ from one row to another row.

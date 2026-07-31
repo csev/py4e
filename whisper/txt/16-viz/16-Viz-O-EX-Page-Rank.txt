@@ -1,0 +1,219 @@
+ [MUSIC]
+ Hello and welcome to Python for Everybody.
+ We're doing some sample code.
+ You can get a hold of the sample code zip if you want to follow along.
+ And so we're picking up in the middle here where we are running
+ a simple spider that's retrieving data and
+ putting it into running this spider.py file.
+ And it's cruising around and doing things.
+ And the beauty of any of these spider processes is I can stop any time and
+ just hit Ctrl+C. And so we take a look at the spider.sqlite file and retrieve it.
+ And it looks like we got 302 pages.
+ I don't know how many we got retrieved, 70, okay, there we go.
+ We've got about 100, wait.
+ I'm looking for the wrong thing, no, no, no, no, no, no.
+ Yeah, we've got about 107 pages.
+ So what we're going to do now with 107 pages is we are going to
+ run the PageRank algorithm, okay?
+ So let's take a look at that code.
+ So the idea of PageRank, we're going to run this PageRank algorithm.
+ The spReset just resets the PageRank and spRank runs as many iterations of PageRank.
+ So the basic idea is that if you were to look at the links here,
+ we think of page one pointing to page two gives some of page one's love to page two.
+ Page four has some value that it gives to page one.
+ You go on and page two gives love to page 46 over and over and over again.
+ But the problem is that how good is page one and
+ how much positive karma does it give to page two?
+ And so what happens is we start by giving every page a rank of one.
+ We say, look, everybody starts out equal.
+ But then what we do is we divide up in one iteration of the PageRank algorithm.
+ We divide up the goodness of a page across its outbound links.
+ And then accumulate that, and that becomes the next rank, okay?
+ So let's take a look at the code for the PageRank algorithm.
+ So this is pretty simple.
+ It only imports SQLite 3 cuz it's really doing everything in the database, right?
+ It's going to be updating these columns right here in the database.
+ And so we're going to do some things here to speed this up.
+ This rank runs, if you're thinking of Google, this rank runs slowly and
+ it's going to run continuously to keep updating these things.
+ So the first thing I do is I read in all of the from IDs from the links,
+ select distinct, throws out any duplicates.
+ And so I have all the from IDs which are all the pages
+ that have links to other pages cuz all the pages are in pages.
+ But in links to have a from ID, you have to also have a to ID, okay?
+ And so we're also going to look at the pages that receive PageRank.
+ And we're kind of precaching this stuff, okay?
+ And so we're going to do a select distinct of from ID and
+ to ID and loop through that group of things.
+ And we're making a links list here.
+ And so we're saying, if the from ID is the same as to ID, we're not interested.
+ If the from ID is not already in my from IDs that I've got, I'm going to skip it.
+ If the to ID is not in the from ID, meaning that this is a to ID that's not
+ also, we don't want links that point off to nowhere or
+ point to pages that we haven't retrieved yet, and that's what this is saying.
+ So this is really going to give us, it's a filter on the from IDs and
+ the to IDs from the links table, so
+ that it only are the links that point to another page we've already retrieved.
+ And then we're going to keep track of the entire superset of two IDs,
+ the destination IDs.
+ And I'm just putting these all in lists so
+ that I don't have to hit the database so hard, okay?
+ So this is getting what's called the strongly connected component, meaning that
+ any of these IDs, there is a path from every ID to every other ID eventually.
+ So that's called the strongly connected component in graph theory.
+ Then what we're going to do is we're going to grab the,
+ we're going to select new rank from pages, for all the from IDs, right?
+ And so we're going to have a dictionary that's based on the ID,
+ the primary key, that's what node is, equals the rank.
+ And so if we look at our database, that means that for
+ the part of the strongly connected component in links, we're going to grab
+ this number and stick it into a dictionary based on the primary key of this.
+ Based on the primary key, this number right here.
+ So we're going to have a dictionary that's this map to that.
+ Again, we want to do this as fast as possible.
+ Now, we're only doing one iteration at the beginning.
+ So it asks how many times you want to run it, okay?
+ And so we just make an integer of that.
+ We check to see if there's any values in there.
+ If there are no values, we are bad.
+ And now we're going to go i equals one to range many.
+ This is going to be one to one, so it might run however many times.
+ And then what it's going to do is it's going to compute the new page ranks.
+ And so what it's really going to do is it's going to take the previous ranks and
+ loop through them.
+ And the previous ranks is the mapping of primary key to old page rank, okay?
+ And for each node, we're going to have total equals total plus old rank.
+ And then we're going to set the next ranks to be zero, okay?
+ And then what we're going to do is figure out the number of outbound links for
+ each page rank item.
+ So node and old rank in the list of the previous ranks.
+ These are the IDs we're going to give it to.
+ And so for this particular node, we're going to have the outbound links.
+ And we're going to go through the links and
+ not link to itself, although we made sure that doesn't happen.
+ We make sure that this, but then we're going to make a list called give IDs,
+ which are the IDs that node is going to share its goodness.
+ And now what we're going to do is we're going to say how much goodness are we going to
+ flow outbound based on our previous rank of this particular node and
+ the number of outbound links we have.
+ So that's how much we're going to give in our outbound links.
+ And then what we're doing is all the IDs we're giving it to,
+ we started with the next ranks being zero for these folks.
+ These are the receiving end and
+ we're going to add the amount of page rank to each one.
+ So whatever this is, so we'll go through all of the links,
+ give out fractional bits of our current goodness, and it's accumulated in each one.
+ And so eventually, all the incoming links have granted each new link value, okay?
+ Now, I'm just going to run through and calculate the new total.
+ And this evaporation, the idea is that you can't,
+ it has to do with the page rank algorithm that there are dysfunctional
+ shapes in which page rank can be trapped.
+ And this evaporation is taking a fraction away from everyone and
+ giving it back to everybody else.
+ And so we add this evaporative factor.
+ And then we're going to do some computations just to show some stuff.
+ And that is, we're calculating the average difference between the page ranks.
+ And you'll see this when I start running it.
+ And that is telling us, this is going to tell us the stability of the page rank.
+ So from one iteration to the next, the more it changes, the least stable it is.
+ And you'll see in a sec that these things stabilize.
+ And then we say, what's the average difference in the page ranks per node,
+ which is what this is?
+ And that's what we're going to print.
+ And now we're going to take the new ranks and make them the old ranks, and
+ then run the loop again.
+ So I'm not actually updating the database each time through the page rank iteration.
+ But then at the very end, I am going to do the update for
+ all of these things and update all of the rankings with a new rank.
+ So I'm doing an in-memory calculation so
+ that this loop here runs screamingly fast.
+ Even if I want to do this loop a hundred times or a thousand times,
+ it's really all just in-memory data structures.
+ Okay, so it's probably easier just for me to show you this.
+ It'll be very, the code runs quite simply.
+ Python three sprank rank.py.
+ And so I'm only going to run it for one iteration.
+ And that means that it's going to, this loop here is just going to run one time.
+ And so it's going to start with the page ranks.
+ The new rank of one, and it's going to just run one iteration and
+ put the rank there, okay?
+ And then update this as well.
+ So let's go ahead and run that once for one iteration.
+ Okay, and so it ran one iteration, and
+ the average change between the previous rank and the new rank is one.
+ So it's actually quite crazy.
+ So I'm going to refresh here, and you'll see that the old rank was one.
+ And the new rank is way down, way down, way down, way down,
+ down a little bit, down, down, some, up a whole bunch.
+ Down, down, up, so you see that they went down and up.
+ Now the sum of all of these numbers is going to be the same, right?
+ Cuz all it did was it floated out and recalculated it.
+ And so that's what happens with page rank.
+ And so what'll happen is if I run one more page rank iteration,
+ this number will, these numbers will be used to compute the new, new rank.
+ And then these will be calculated to the old rank.
+ And so you'll see that these will get, they will change again.
+ So I'll just run it one more time.
+ So I'm going to run one iteration, and then we'll hit refresh.
+ So you see all these numbers got copied over, but
+ now there's a new rank that's computed based on these guys.
+ And so they're getting, this one went up, this was 0.13.
+ That's gone up a little bit.
+ This one's gone up some more.
+ This one's gone up.
+ This one went down, right?
+ So this one went down from 6 to 8.
+ And you can see that the difference is now, the average difference between
+ this number and this number across all of them went from 1 point something to 0.41.
+ And you'll see that with these very few pages,
+ this page rank converges really quickly, okay?
+ So let's run it again.
+ And I'll just run 10, and you will watch how this converges, okay?
+ So there you go, it converges.
+ So, and you're seeing now after like 12 iterations that the difference between
+ the old rank and the new rank, Well, that's because it's that old rank.
+ I'll run one more iteration so that you can see.
+ So this old rank is less than 0.005.
+ And so now you can see that these numbers are sort of stabilizing.
+ This is the average, that 0.005 number is the average difference between these two
+ things.
+ Now, if we're going to pretend to be Google for a moment, we can say python3
+ spider.py, so let's just do ten more pages.
+ Now what's going to happen here is these new pages are going to have page ranks of one.
+ Okay, so let's get out.
+ So if I do a refresh now and I look at new rank.
+ So there's these guys that have high rank.
+ What you'll see, I hope, if we, yeah, okay, so you see new pages, right?
+ These are the new ones that we just retrieved.
+ I don't know if they're linked or not, and they all got one.
+ So some old pages are way up, 14.
+ Some pages, if we go downwards, are way down, right?
+ So these are like useless pages.
+ They point to somewhere, but nobody points to them.
+ That's what happens with these page ranks, okay?
+ So what happens is, is the new records get this 0.1, and so
+ if I run the ranking code again, and I run, let's just run five iterations.
+ You'll see that the average delta goes up just briefly,
+ as it sort of assimilates these new pages, and then it goes right back down again.
+ And so that's what's happening with Google.
+ It's sort of running the spider to get more pages, then running the page rank,
+ which gets disturbed a little bit, but then it reconverges very rapidly.
+ And of course, they've got billions of pages, and we've got hundreds of pages.
+ But you get the idea, okay?
+ And so I can run this page rank like 100 times.
+ And after a while, it just sort of hardly is changing.
+ So that's 2.7 to the negative 10th power.
+ So now, let me run it one more time to update the stuff.
+ And if I refresh this, you're going to see,
+ look at how stable these numbers are, 14, 9, 4, 3, 5, 9, 1, 5, 6, 7.
+ The difference is there in the seventh one.
+ So that's why this whole page rank is really cool.
+ It seems like it's really chaotic when it first starts out, and away you go, okay?
+ So that was just this, sp_rank, right?
+ And sp_reset, we can look at that code, I won't bother running it.
+ It just sets the old rank to one.
+ That's it, that's as much code as you got.
+ It just starts it and lets it rerun.
+ So I'm going to stop now, and I'm going to start a new video where I talk about
+ this phase here, where we're actually going to visualize the page ranked data.
+ [MUSIC]
