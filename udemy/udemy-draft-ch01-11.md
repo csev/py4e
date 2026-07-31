@@ -81,3 +81,5 @@ Welcome to Python for Everybody. I’m glad you’re here. You do not need any p
 ### Congratulations message
 
 Congratulations on finishing this part of Python for Everybody. You have gone from “Why program?” to writing Python that uses variables, decisions, loops, functions, files, lists, dictionaries, tuples, and regular expressions. That is a real foundation. Keep practicing on small problems, revisit any chapter that still feels fuzzy, and when you are ready, continue into the later material on networks, web data, and databases. Nice work—and welcome to programming.
+
+
