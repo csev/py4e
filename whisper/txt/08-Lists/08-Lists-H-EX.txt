@@ -1,0 +1,205 @@
+ >> Hello, and welcome to Python for Everybodybody.
+ I'm Charles Severance, and now we're going to take a look at how we would write some
+ code to do some parsing, read some data.
+ As a matter of fact, we're going to read through our famous mailbox data, look for
+ lines that begin with from space, and extract the third word.
+ As a matter of fact, we already have some of this code already written.
+ We're going to debug it.
+ We're going to look at code, and we're going to debug it.
+ So here we go.
+ Here we have it.
+ So it's a pretty basic program.
+ It opens a file, loops through the file, throws away the white space, splits it into words,
+ and checks to see if the zeroth word, the first word, is from, and if it's not, we skip
+ and read the next line.
+ And otherwise, if we find a line that starts with from space, then we print the third word,
+ which is word_2.
+ Okay, so this is what we've got, and we've carefully saved this file into the same folder
+ that we've got, ex08.
+ And so let's go ahead, cd desktop python for everybody ex_08.
+ And so this is some files.
+ We got our day of the week, python, and our inbox short, so that's sitting there, okay?
+ And so let's run this program.
+ This is the program that we've got right here, python3dow.py.
+ And it doesn't work.
+ Now, by now you've seen a few tracebacks, and there you go.
+ So when you look at a traceback, you think to yourself, well, I made a mistake, and you've
+ gotten pretty good at looking at that line.
+ So there you are.
+ You're like, this is the line.
+ There must be something wrong on this line, and you want to change it.
+ But that line's not actually the problem in this particular thing.
+ And so you've got to be careful sometimes, and one of the things that you didn't notice
+ in this one right away is that it actually worked.
+ It printed the first line out.
+ So if we take a look at our data set, it found the line started with from space, it split
+ it and printed out the third word.
+ And it blew up later.
+ And so part of the problem is that we don't know what it was doing when it blew up.
+ And so the first thing I like to do in this kind of a situation is find the line and make
+ sure there's a print statement right before it.
+ And so I'm going to print words colon and then comma WDS.
+ I want to print right before the line that blows up so that I know really when this finally
+ does blow up what was going on in that line.
+ So I'm going to run it again, and do I forget to save it?
+ No, I forgot to save it.
+ Look at that.
+ See the little blue dot?
+ Forgot to save it.
+ So now we see a whole bunch of output, and we see that it's actually doing a whole lot
+ of work before it's blowing up.
+ And so you see that it prints the words out from that first line and prints out Saturday,
+ which is exactly what we expect.
+ It's the third word in the line, and then reads a whole bunch of stuff.
+ And actually, what it's doing now is ignoring-- let me just put something here.
+ I'm going to say print ignore.
+ So I can keep track of when these lines are being ignored.
+ So let's run it again and have the word ignore pop up.
+ And so it's doing a lot of ignoring.
+ It finds these words, prints out Saturday, reads this line and ignores it, reads this
+ line and ignores it, reads this line and ignores it.
+ So a lot of stuff's going on here that you might not realize.
+ And so we have to take a look at what the problem is.
+ And so it is now blowing up word sub 0.
+ And now we can scroll down, and we can look at exactly what happened right before the
+ traceback.
+ So we really now know exactly what happened before the traceback.
+ And the interesting thing is that there is an empty string-- I mean, empty array.
+ There's an array with zero items.
+ Now I'm going to print the line out, too.
+ Print line colon-- now I haven't changed my program at all.
+ I'm just trying to figure out what's going on here.
+ So I'll save that, and I'm going to run it.
+ And we've got a lot of stuff, and it's still working.
+ It reads a line, it reads a line, splits it into words, and then prints out Saturday,
+ which is the third word on the line.
+ Now here it reads a line, and this line is a blank line.
+ And because it's a blank line, the split returns no words.
+ And that's what blows up.
+ And the problem now is, oh, wait a sec, list index out of range.
+ So word sub 0 is not valid, which is the first word, when there are no words.
+ So this is a statement that works most of the time.
+ Now you might think, oh, I want to just put a try and accept in there.
+ Well, the right thing to do is to say to yourself, oh, wait a second.
+ If I don't have enough words, if the length of the words is less than 1, continue.
+ So basically, it's going to come through here.
+ It's going to split it.
+ And if we don't have any words, meaning it's a blank line, then we're going to skip it.
+ So let's run that.
+ So now this ran all the way to the end.
+ It did a lot of stuff.
+ And it did not blow up specifically, didn't have a traceback.
+ Another way to protect this would be to-- I'll take this part out.
+ This is called a guardian pattern, right?
+ Guardian pattern.
+ Because this is dangerous.
+ This could blow up.
+ But it won't blow up if it makes it past here.
+ It won't come through there under the conditions that are causing it to blow up.
+ Another way to do this might be to protect it as follows.
+ To say, oh, wait a sec.
+ If the line is a blank line, no, continue.
+ So now what we're going to do is we're going to skip blank lines.
+ I even say this, print skip blank.
+ So if it's a blank, we're going to skip blank and keep going.
+ This will skip blank lines.
+ It'll come through here.
+ And this will skip lines that don't have from.
+ But because we're not processing blank lines, word sub 0 always works.
+ So I can run this code.
+ And it works again.
+ So here we have a blank line.
+ We skipped it.
+ Here we have a blank line.
+ We skipped it.
+ Now here we had a non-blank line, so we parsed it.
+ But then we ignored it.
+ And then up here, we'll find a from somewhere.
+ Let's find a from.
+ It comes-- oh, no, I just ignore, ignore.
+ I've got too much debug print.
+ I can't find it.
+ Here, I'll just hunt for from with find.
+ OK, so there we go.
+ There it's from.
+ And we print the thing out.
+ So we're getting a lot of extra stuff.
+ So I'm going to comment out some of these debugs.
+ And I'm actually just going to get rid of this whole skipping
+ of the blank line.
+ I'm going to do it with the words.
+ I'm going to go back to the guardian we had before.
+ If the number of words that we got, len of words,
+ is less than 1, continue.
+ OK, so now this is going to be a working program.
+ Oops, I've got to take another print statement out.
+ Got to take another print statement out.
+ We sort of know what we're doing here.
+ OK, so this looks like a pretty safe thing.
+ This guardian is protecting this dangerous.
+ I'll get rid of that one too.
+ This is the word that was our traceback.
+ And nothing else in this thing changed from when we started,
+ except we've added this little guardian.
+ Now the interesting thing is, if it comes through here
+ and prints word sub 2, what happens
+ if somehow we find a line that has from as its first word,
+ and there's only one word on, this is going to blow up.
+ So we can make our guardian a little stronger.
+ And we can say, you know what, we're
+ going to skip this line if it doesn't have three words in it.
+ So it has to have at least three words.
+ And if we see less than three words, we're going to skip it.
+ And that just makes the guardian a bit stronger.
+ And so the program works safely.
+ And you see these things where sometimes you
+ want to check to see reasonable, that your assumptions
+ about the data are reasonable and skip things
+ where the data is not reasonable.
+ So that's one guardian pattern.
+ Let me show you a slightly different way to do this.
+ And this is with an or statement.
+ So I'm going to take this code, copy that,
+ and put it here with or.
+ Get rid of all this stuff.
+ This is the guardian in a compound statement.
+ So what we're saying is if there are less than three words
+ on the line or if the first word is not from, continue.
+ Now, we're doing this in order because the way it works
+ is or is true if either that's true or this is true.
+ But if it knows that this is true,
+ then it doesn't bother checking this.
+ And the checking of this is what blows up,
+ what causes the traceback.
+ So if we flip this order, it would fail.
+ If we do it in this order, it will work.
+ So let's do this one right.
+ It works.
+ But if I get this backwards, it's
+ going to check this before it checks this.
+ And we're going to go back to failing again.
+ So you've got to get the order of these things right.
+ The guardian comes before in the or.
+ The guardian comes before.
+ And if this is true, then it doesn't check this.
+ This is called short-circuit evaluation,
+ where it knows that as long as this part's true,
+ it doesn't evaluate this second part.
+ And so now we have a guardian in a compound statement.
+ You'll see this a lot.
+ Sometimes if it's more complex, you do it in multiple statements
+ or you fall through, check for sanity, check for sanity,
+ and only run the code.
+ So I hope that that was useful to you,
+ looking a little bit about how to debug where you don't just
+ start chopping on the line that had the problem.
+ It's not always that line, because we never
+ did change that line.
+ Although we did change it a little bit at the end.
+ We added this guardian here.
+ But we also fixed it without it.
+ Sometimes you add some print statements
+ to figure out what's going on before you just
+ start chopping on that line.
+ So again, I hope this helps.
+ Thanks.

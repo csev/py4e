@@ -1,0 +1,617 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.560
+ >> Hello, and welcome to Python for Everybodybody.
+
+00:00:02.560 --> 00:00:07.200
+ I'm Charles Severance, and now we're going to take a look at how we would write some
+
+00:00:07.200 --> 00:00:10.360
+ code to do some parsing, read some data.
+
+00:00:10.360 --> 00:00:15.240
+ As a matter of fact, we're going to read through our famous mailbox data, look for
+
+00:00:15.240 --> 00:00:19.720
+ lines that begin with from space, and extract the third word.
+
+00:00:19.720 --> 00:00:22.840
+ As a matter of fact, we already have some of this code already written.
+
+00:00:22.840 --> 00:00:23.840
+ We're going to debug it.
+
+00:00:23.840 --> 00:00:26.460
+ We're going to look at code, and we're going to debug it.
+
+00:00:26.460 --> 00:00:27.460
+ So here we go.
+
+00:00:27.460 --> 00:00:28.460
+ Here we have it.
+
+00:00:28.460 --> 00:00:30.520
+ So it's a pretty basic program.
+
+00:00:30.520 --> 00:00:36.800
+ It opens a file, loops through the file, throws away the white space, splits it into words,
+
+00:00:36.800 --> 00:00:41.360
+ and checks to see if the zeroth word, the first word, is from, and if it's not, we skip
+
+00:00:41.360 --> 00:00:43.280
+ and read the next line.
+
+00:00:43.280 --> 00:00:48.400
+ And otherwise, if we find a line that starts with from space, then we print the third word,
+
+00:00:48.400 --> 00:00:49.400
+ which is word_2.
+
+00:00:49.400 --> 00:00:55.400
+ Okay, so this is what we've got, and we've carefully saved this file into the same folder
+
+00:00:55.400 --> 00:00:59.000
+ that we've got, ex08.
+
+00:00:59.000 --> 00:01:07.220
+ And so let's go ahead, cd desktop python for everybody ex_08.
+
+00:01:07.220 --> 00:01:10.240
+ And so this is some files.
+
+00:01:10.240 --> 00:01:15.760
+ We got our day of the week, python, and our inbox short, so that's sitting there, okay?
+
+00:01:15.760 --> 00:01:17.080
+ And so let's run this program.
+
+00:01:17.080 --> 00:01:24.920
+ This is the program that we've got right here, python3dow.py.
+
+00:01:24.920 --> 00:01:26.880
+ And it doesn't work.
+
+00:01:26.880 --> 00:01:31.840
+ Now, by now you've seen a few tracebacks, and there you go.
+
+00:01:31.840 --> 00:01:38.600
+ So when you look at a traceback, you think to yourself, well, I made a mistake, and you've
+
+00:01:38.600 --> 00:01:41.420
+ gotten pretty good at looking at that line.
+
+00:01:41.420 --> 00:01:42.420
+ So there you are.
+
+00:01:42.420 --> 00:01:43.420
+ You're like, this is the line.
+
+00:01:43.420 --> 00:01:48.240
+ There must be something wrong on this line, and you want to change it.
+
+00:01:48.240 --> 00:01:50.760
+ But that line's not actually the problem in this particular thing.
+
+00:01:50.760 --> 00:01:54.960
+ And so you've got to be careful sometimes, and one of the things that you didn't notice
+
+00:01:54.960 --> 00:01:58.880
+ in this one right away is that it actually worked.
+
+00:01:58.880 --> 00:02:01.320
+ It printed the first line out.
+
+00:02:01.320 --> 00:02:06.720
+ So if we take a look at our data set, it found the line started with from space, it split
+
+00:02:06.720 --> 00:02:09.320
+ it and printed out the third word.
+
+00:02:09.320 --> 00:02:11.360
+ And it blew up later.
+
+00:02:11.360 --> 00:02:16.600
+ And so part of the problem is that we don't know what it was doing when it blew up.
+
+00:02:16.600 --> 00:02:23.680
+ And so the first thing I like to do in this kind of a situation is find the line and make
+
+00:02:23.680 --> 00:02:26.740
+ sure there's a print statement right before it.
+
+00:02:26.740 --> 00:02:32.760
+ And so I'm going to print words colon and then comma WDS.
+
+00:02:32.760 --> 00:02:37.840
+ I want to print right before the line that blows up so that I know really when this finally
+
+00:02:37.840 --> 00:02:42.240
+ does blow up what was going on in that line.
+
+00:02:42.240 --> 00:02:47.440
+ So I'm going to run it again, and do I forget to save it?
+
+00:02:47.440 --> 00:02:48.720
+ No, I forgot to save it.
+
+00:02:48.720 --> 00:02:49.720
+ Look at that.
+
+00:02:49.720 --> 00:02:50.720
+ See the little blue dot?
+
+00:02:50.720 --> 00:02:54.880
+ Forgot to save it.
+
+00:02:54.880 --> 00:02:57.960
+ So now we see a whole bunch of output, and we see that it's actually doing a whole lot
+
+00:02:57.960 --> 00:02:59.960
+ of work before it's blowing up.
+
+00:02:59.960 --> 00:03:04.720
+ And so you see that it prints the words out from that first line and prints out Saturday,
+
+00:03:04.720 --> 00:03:06.320
+ which is exactly what we expect.
+
+00:03:06.320 --> 00:03:09.240
+ It's the third word in the line, and then reads a whole bunch of stuff.
+
+00:03:09.240 --> 00:03:13.240
+ And actually, what it's doing now is ignoring-- let me just put something here.
+
+00:03:13.240 --> 00:03:21.280
+ I'm going to say print ignore.
+
+00:03:21.280 --> 00:03:24.000
+ So I can keep track of when these lines are being ignored.
+
+00:03:24.000 --> 00:03:27.360
+ So let's run it again and have the word ignore pop up.
+
+00:03:27.360 --> 00:03:29.960
+ And so it's doing a lot of ignoring.
+
+00:03:29.960 --> 00:03:35.480
+ It finds these words, prints out Saturday, reads this line and ignores it, reads this
+
+00:03:35.480 --> 00:03:37.640
+ line and ignores it, reads this line and ignores it.
+
+00:03:37.640 --> 00:03:41.760
+ So a lot of stuff's going on here that you might not realize.
+
+00:03:41.760 --> 00:03:44.720
+ And so we have to take a look at what the problem is.
+
+00:03:44.720 --> 00:03:48.160
+ And so it is now blowing up word sub 0.
+
+00:03:48.160 --> 00:03:52.360
+ And now we can scroll down, and we can look at exactly what happened right before the
+
+00:03:52.360 --> 00:03:53.360
+ traceback.
+
+00:03:53.360 --> 00:03:56.840
+ So we really now know exactly what happened before the traceback.
+
+00:03:56.840 --> 00:04:03.920
+ And the interesting thing is that there is an empty string-- I mean, empty array.
+
+00:04:03.920 --> 00:04:05.720
+ There's an array with zero items.
+
+00:04:05.720 --> 00:04:09.840
+ Now I'm going to print the line out, too.
+
+00:04:09.840 --> 00:04:14.000
+ Print line colon-- now I haven't changed my program at all.
+
+00:04:14.000 --> 00:04:16.800
+ I'm just trying to figure out what's going on here.
+
+00:04:16.800 --> 00:04:19.840
+ So I'll save that, and I'm going to run it.
+
+00:04:19.840 --> 00:04:22.440
+ And we've got a lot of stuff, and it's still working.
+
+00:04:22.440 --> 00:04:27.400
+ It reads a line, it reads a line, splits it into words, and then prints out Saturday,
+
+00:04:27.400 --> 00:04:29.680
+ which is the third word on the line.
+
+00:04:29.680 --> 00:04:34.040
+ Now here it reads a line, and this line is a blank line.
+
+00:04:34.040 --> 00:04:38.520
+ And because it's a blank line, the split returns no words.
+
+00:04:38.520 --> 00:04:39.800
+ And that's what blows up.
+
+00:04:39.800 --> 00:04:43.700
+ And the problem now is, oh, wait a sec, list index out of range.
+
+00:04:43.700 --> 00:04:48.680
+ So word sub 0 is not valid, which is the first word, when there are no words.
+
+00:04:48.680 --> 00:04:52.120
+ So this is a statement that works most of the time.
+
+00:04:52.120 --> 00:04:55.600
+ Now you might think, oh, I want to just put a try and accept in there.
+
+00:04:55.600 --> 00:05:00.840
+ Well, the right thing to do is to say to yourself, oh, wait a second.
+
+00:05:00.840 --> 00:05:13.820
+ If I don't have enough words, if the length of the words is less than 1, continue.
+
+00:05:13.820 --> 00:05:15.840
+ So basically, it's going to come through here.
+
+00:05:15.840 --> 00:05:16.840
+ It's going to split it.
+
+00:05:16.840 --> 00:05:21.720
+ And if we don't have any words, meaning it's a blank line, then we're going to skip it.
+
+00:05:21.720 --> 00:05:24.920
+ So let's run that.
+
+00:05:24.920 --> 00:05:26.600
+ So now this ran all the way to the end.
+
+00:05:26.600 --> 00:05:27.600
+ It did a lot of stuff.
+
+00:05:27.600 --> 00:05:33.760
+ And it did not blow up specifically, didn't have a traceback.
+
+00:05:33.760 --> 00:05:38.320
+ Another way to protect this would be to-- I'll take this part out.
+
+00:05:38.320 --> 00:05:43.840
+ This is called a guardian pattern, right?
+
+00:05:43.840 --> 00:05:44.840
+ Guardian pattern.
+
+00:05:44.840 --> 00:05:47.240
+ Because this is dangerous.
+
+00:05:47.240 --> 00:05:48.280
+ This could blow up.
+
+00:05:48.280 --> 00:05:52.240
+ But it won't blow up if it makes it past here.
+
+00:05:52.240 --> 00:05:56.780
+ It won't come through there under the conditions that are causing it to blow up.
+
+00:05:56.780 --> 00:05:59.720
+ Another way to do this might be to protect it as follows.
+
+00:05:59.720 --> 00:06:02.520
+ To say, oh, wait a sec.
+
+00:06:02.520 --> 00:06:09.920
+ If the line is a blank line, no, continue.
+
+00:06:09.920 --> 00:06:12.000
+ So now what we're going to do is we're going to skip blank lines.
+
+00:06:12.000 --> 00:06:21.980
+ I even say this, print skip blank.
+
+00:06:21.980 --> 00:06:25.540
+ So if it's a blank, we're going to skip blank and keep going.
+
+00:06:25.540 --> 00:06:27.200
+ This will skip blank lines.
+
+00:06:27.200 --> 00:06:28.600
+ It'll come through here.
+
+00:06:28.600 --> 00:06:30.820
+ And this will skip lines that don't have from.
+
+00:06:30.820 --> 00:06:35.360
+ But because we're not processing blank lines, word sub 0 always works.
+
+00:06:35.360 --> 00:06:37.320
+ So I can run this code.
+
+00:06:37.320 --> 00:06:38.320
+ And it works again.
+
+00:06:38.320 --> 00:06:40.160
+ So here we have a blank line.
+
+00:06:40.160 --> 00:06:41.160
+ We skipped it.
+
+00:06:41.160 --> 00:06:42.160
+ Here we have a blank line.
+
+00:06:42.160 --> 00:06:43.160
+ We skipped it.
+
+00:06:43.160 --> 00:06:45.320
+ Now here we had a non-blank line, so we parsed it.
+
+00:06:45.320 --> 00:06:46.880
+ But then we ignored it.
+
+00:06:46.880 --> 00:06:51.220
+ And then up here, we'll find a from somewhere.
+
+00:06:51.220 --> 00:06:52.680
+ Let's find a from.
+
+00:06:52.680 --> 00:07:04.440
+ It comes-- oh, no, I just ignore, ignore.
+
+00:07:04.440 --> 00:07:13.240
+ I've got too much debug print.
+
+00:07:13.240 --> 00:07:14.240
+ I can't find it.
+
+00:07:14.240 --> 00:07:22.440
+ Here, I'll just hunt for from with find.
+
+00:07:22.440 --> 00:07:24.040
+ OK, so there we go.
+
+00:07:24.040 --> 00:07:24.960
+ There it's from.
+
+00:07:24.960 --> 00:07:26.360
+ And we print the thing out.
+
+00:07:26.360 --> 00:07:29.880
+ So we're getting a lot of extra stuff.
+
+00:07:29.880 --> 00:07:32.480
+ So I'm going to comment out some of these debugs.
+
+00:07:32.480 --> 00:07:37.760
+ And I'm actually just going to get rid of this whole skipping
+
+00:07:37.760 --> 00:07:38.420
+ of the blank line.
+
+00:07:38.420 --> 00:07:39.800
+ I'm going to do it with the words.
+
+00:07:39.800 --> 00:07:42.440
+ I'm going to go back to the guardian we had before.
+
+00:07:49.320 --> 00:07:53.720
+ If the number of words that we got, len of words,
+
+00:07:53.720 --> 00:07:59.720
+ is less than 1, continue.
+
+00:07:59.720 --> 00:08:01.820
+ OK, so now this is going to be a working program.
+
+00:08:01.820 --> 00:08:10.160
+ Oops, I've got to take another print statement out.
+
+00:08:10.160 --> 00:08:11.940
+ Got to take another print statement out.
+
+00:08:11.940 --> 00:08:13.480
+ We sort of know what we're doing here.
+
+00:08:13.480 --> 00:08:19.160
+ OK, so this looks like a pretty safe thing.
+
+00:08:19.160 --> 00:08:22.640
+ This guardian is protecting this dangerous.
+
+00:08:22.640 --> 00:08:24.220
+ I'll get rid of that one too.
+
+00:08:24.220 --> 00:08:27.240
+ This is the word that was our traceback.
+
+00:08:27.240 --> 00:08:29.640
+ And nothing else in this thing changed from when we started,
+
+00:08:29.640 --> 00:08:31.800
+ except we've added this little guardian.
+
+00:08:31.800 --> 00:08:34.000
+ Now the interesting thing is, if it comes through here
+
+00:08:34.000 --> 00:08:36.200
+ and prints word sub 2, what happens
+
+00:08:36.200 --> 00:08:41.240
+ if somehow we find a line that has from as its first word,
+
+00:08:41.240 --> 00:08:43.840
+ and there's only one word on, this is going to blow up.
+
+00:08:43.840 --> 00:08:45.840
+ So we can make our guardian a little stronger.
+
+00:08:48.960 --> 00:08:50.920
+ And we can say, you know what, we're
+
+00:08:50.920 --> 00:08:53.560
+ going to skip this line if it doesn't have three words in it.
+
+00:08:53.560 --> 00:08:55.540
+ So it has to have at least three words.
+
+00:08:55.540 --> 00:08:57.960
+ And if we see less than three words, we're going to skip it.
+
+00:08:57.960 --> 00:09:02.360
+ And that just makes the guardian a bit stronger.
+
+00:09:02.360 --> 00:09:04.520
+ And so the program works safely.
+
+00:09:04.520 --> 00:09:06.760
+ And you see these things where sometimes you
+
+00:09:06.760 --> 00:09:10.000
+ want to check to see reasonable, that your assumptions
+
+00:09:10.000 --> 00:09:11.960
+ about the data are reasonable and skip things
+
+00:09:11.960 --> 00:09:14.960
+ where the data is not reasonable.
+
+00:09:14.960 --> 00:09:16.720
+ So that's one guardian pattern.
+
+00:09:16.720 --> 00:09:19.040
+ Let me show you a slightly different way to do this.
+
+00:09:19.040 --> 00:09:21.080
+ And this is with an or statement.
+
+00:09:21.080 --> 00:09:24.640
+ So I'm going to take this code, copy that,
+
+00:09:24.640 --> 00:09:27.240
+ and put it here with or.
+
+00:09:27.240 --> 00:09:29.840
+ Get rid of all this stuff.
+
+00:09:29.840 --> 00:09:35.200
+ This is the guardian in a compound statement.
+
+00:09:35.200 --> 00:09:43.360
+ So what we're saying is if there are less than three words
+
+00:09:43.360 --> 00:09:49.020
+ on the line or if the first word is not from, continue.
+
+00:09:49.020 --> 00:09:52.120
+ Now, we're doing this in order because the way it works
+
+00:09:52.120 --> 00:09:56.000
+ is or is true if either that's true or this is true.
+
+00:09:56.000 --> 00:09:59.120
+ But if it knows that this is true,
+
+00:09:59.120 --> 00:10:00.800
+ then it doesn't bother checking this.
+
+00:10:00.800 --> 00:10:02.920
+ And the checking of this is what blows up,
+
+00:10:02.920 --> 00:10:04.680
+ what causes the traceback.
+
+00:10:04.680 --> 00:10:06.880
+ So if we flip this order, it would fail.
+
+00:10:06.880 --> 00:10:09.400
+ If we do it in this order, it will work.
+
+00:10:09.400 --> 00:10:13.320
+ So let's do this one right.
+
+00:10:13.320 --> 00:10:14.440
+ It works.
+
+00:10:14.440 --> 00:10:22.520
+ But if I get this backwards, it's
+
+00:10:22.520 --> 00:10:25.560
+ going to check this before it checks this.
+
+00:10:25.560 --> 00:10:29.720
+ And we're going to go back to failing again.
+
+00:10:29.720 --> 00:10:32.320
+ So you've got to get the order of these things right.
+
+00:10:32.320 --> 00:10:39.160
+ The guardian comes before in the or.
+
+00:10:39.160 --> 00:10:40.800
+ The guardian comes before.
+
+00:10:40.800 --> 00:10:43.320
+ And if this is true, then it doesn't check this.
+
+00:10:43.320 --> 00:10:45.680
+ This is called short-circuit evaluation,
+
+00:10:45.680 --> 00:10:47.800
+ where it knows that as long as this part's true,
+
+00:10:47.800 --> 00:10:50.800
+ it doesn't evaluate this second part.
+
+00:10:50.800 --> 00:10:54.840
+ And so now we have a guardian in a compound statement.
+
+00:10:54.840 --> 00:10:56.640
+ You'll see this a lot.
+
+00:10:56.640 --> 00:10:59.600
+ Sometimes if it's more complex, you do it in multiple statements
+
+00:10:59.600 --> 00:11:03.040
+ or you fall through, check for sanity, check for sanity,
+
+00:11:03.040 --> 00:11:06.500
+ and only run the code.
+
+00:11:06.500 --> 00:11:10.280
+ So I hope that that was useful to you,
+
+00:11:10.280 --> 00:11:12.840
+ looking a little bit about how to debug where you don't just
+
+00:11:12.840 --> 00:11:16.080
+ start chopping on the line that had the problem.
+
+00:11:16.080 --> 00:11:17.840
+ It's not always that line, because we never
+
+00:11:17.840 --> 00:11:18.920
+ did change that line.
+
+00:11:18.920 --> 00:11:20.960
+ Although we did change it a little bit at the end.
+
+00:11:20.960 --> 00:11:22.200
+ We added this guardian here.
+
+00:11:22.200 --> 00:11:24.640
+ But we also fixed it without it.
+
+00:11:24.640 --> 00:11:26.240
+ Sometimes you add some print statements
+
+00:11:26.240 --> 00:11:28.200
+ to figure out what's going on before you just
+
+00:11:28.200 --> 00:11:30.360
+ start chopping on that line.
+
+00:11:30.360 --> 00:11:32.920
+ So again, I hope this helps.
+
+00:11:32.920 --> 00:11:34.480
+ Thanks.
+
