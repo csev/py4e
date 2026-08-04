@@ -77,6 +77,8 @@ while True:
         document = urlopen(url, context=ctx)
 
         html = document.read()
+	soup = BeautifulSoup(html, "html.parser")
+
         if document.getcode() != 200 :
             print("Error on page: ",document.getcode())
             cur.execute('UPDATE Pages SET error=? WHERE url=?', (document.getcode(), url) )
@@ -86,10 +88,9 @@ while True:
             cur.execute('DELETE FROM Pages WHERE url=?', ( url, ) )
             conn.commit()
             continue
-
+		
         print('('+str(len(html))+')', end=' ')
 
-        soup = BeautifulSoup(html, "html.parser")
     except KeyboardInterrupt:
         print('')
         print('Program interrupted by user...')
