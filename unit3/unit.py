@@ -17,7 +17,6 @@ os.system("mkdir -p testtmp")
 failures = [
     'count1.py',    # different on Linux and Mac
     'count2.py',    # different on Linux and Mac
-    'geojson.py',    # different on Linux and Mac
     'mailcount.py',    # different on Linux and Mac
     'party3.py',    # different on Linux and Mac
     'party6.py',    # different on Linux and Mac
