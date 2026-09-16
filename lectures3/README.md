@@ -4,8 +4,10 @@
 
 The `convert2pdf.sh` script converts all `.pptx` files in the current directory and its subdirectories into PDF format using LibreOffice’s command-line interface.
 
-Each converted PDF is saved in a `pdf` subdirectory located in the same directory as its source `.pptx` file. If the `pdf` directory does not exist, it is created automatically.
+Each PDF is saved in the same directory as its source `.pptx` file. 
 
+Each PDF is exported with PDF/UA (ISO 14289) specification and special accessibility tags enabled.
+See https://help.libreoffice.org/latest/en-US/text/shared/guide/pdf_params.html
 ---
 
 ## Requirements
@@ -70,7 +72,7 @@ Ensure this path is included in your system `PATH` environment variable, or upda
 
 * Recursively searches for `.pptx` files starting from the current directory
 * Converts each file to PDF using LibreOffice in headless mode
-* Outputs each PDF into a `pdf/` subdirectory alongside the original file
+* Outputs each PDF in the same directory as the PPTX file
 
 ---
 
@@ -107,12 +109,16 @@ Run the script from the directory containing your PowerPoint files:
 
 The script will process all `.pptx` files found in the current directory and its subdirectories.
 
+It will only generate a PDF when the PPTX is newer or the PDF does not exist.
+
 ---
 
 ## Notes
-* There's no official doc for the CLI convert to filter option names that correspond to the Impress UI options
-, but the option names can be found in the [source code](https://opengrok.libreoffice.org/xref/core/filter/source/pdf/). Look in files
+* PDF export command line options are documented [here](https://help.libreoffice.org/latest/en-US/text/shared/guide/pdf_params.html)
+
+* Related source code be found [here](https://opengrok.libreoffice.org/xref/core/filter/source/pdf/). Look in files
 `pdfexport.cxx` and `impdialog.cxx`.
+
 * The script assumes `.pptx` files are valid and readable by LibreOffice
 * Output PDFs will overwrite existing files with the same name in the `pdf` directory
 * Font availability on the system may affect final rendering in the PDF
