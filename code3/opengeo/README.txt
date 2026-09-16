@@ -117,4 +117,8 @@ entered by the user. If you don't see the where.html file when you open it
 no data, check if JavaScript is enabled in the browser or in
 your browser's development console, check if there are any errors.
 
+The map background comes from OpenStreetMap tiles. The main OSM tile
+servers block pages opened as a local file, so where.html uses the
+OpenStreetMap Germany tile server instead.
+
 

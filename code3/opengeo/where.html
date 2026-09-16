@@ -2,6 +2,7 @@
 <html lang="pl">
   <head>
     <meta charset="utf-8">
+    <meta name="referrer" content="origin-when-cross-origin">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.3/css/ol.css" type="text/css">
     <style>
 	  body {font-family: Verdana, Geneva, sans-serif;}
@@ -104,7 +105,13 @@
 		overlays: [overlay],
         layers: [
           new ol.layer.Tile({
-            source: new ol.source.OSM()
+            // OSM's main tile servers (tile.openstreetmap.org) require an HTTP
+            // Referer and block pages opened as local files (file://).
+            // tile.openstreetmap.de serves the same map without that requirement.
+            // See https://operations.osmfoundation.org/policies/tiles/
+            source: new ol.source.OSM({
+              url: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png'
+            })
           })
         ],
         view: new ol.View({
