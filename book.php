@@ -11,7 +11,7 @@
 <p>
         The sample code and data files for the book are here: <a href="http://www.py4e.com/code3/" target="_blank" rel="noopener noreferrer">Code Samples</a>.
 </p>
-<p><b><a href="courses">Other courses / web sites using this book</a></b>
+<p><b><a href="others">Other courses / web sites using this book</a></b>
 </p>
 <p>
 Book translations:

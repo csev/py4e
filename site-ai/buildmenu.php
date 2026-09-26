@@ -31,7 +31,7 @@ function buildMenu() {
         if ( $isInstructor ) {
             $submenu->addLink('Notifications', $R . 'notifications');
         }
-        $submenu->addLink('Courses', $R . 'coursesredirect.php');
+        $submenu->addLink('Courses', 'https://online.dr-chuck.com', false, 'target="_self"');
         if ( isset($CFG->google_map_api_key) ) {
             $submenu->addLink('Map', $R . 'map');
         }
@@ -61,7 +61,7 @@ function buildMenu() {
         }
     } else {
         $set->addRight('Login', $R . 'login');
-        $set->addRight('Courses', $R . 'coursesredirect.php');
+        $set->addRight('Courses', 'https://online.dr-chuck.com', true, 'target="_self"');
     }
 
     if ( isset($_SESSION['id']) ) {
