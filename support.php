@@ -5,6 +5,7 @@ if ( ! defined('COOKIE_SESSION') ) {
 }
 
 use Tsugi\Controllers\Stripe;
+use Tsugi\UI\Supporter;
 
 require_once __DIR__ . '/top.php';
 require_once __DIR__ . '/nav.php';
@@ -19,6 +20,9 @@ $premium_period = $CFG->premiumMonthsLabel();
 $refund_policy = $CFG->refundPolicy();
 $stripe_url = Stripe::checkoutUrl($CFG);
 $hero_image = rtrim($CFG->apphome, '/') . '/artwork/master-programmer.png';
+$support = Supporter::currentSupport($CFG);
+$extending = is_array($support) && !empty($support['is_active']);
+$until_label = $extending ? (string) ($support['premium_until_label'] ?? '') : '';
 ?>
 <style>
 .support-hero-link {
@@ -86,7 +90,14 @@ In return, you receive <?= htmlspecialchars($premium_period) ?> of supporter sta
 </div>
 */ ?>
 
-<h2>Become a supporter</h2>
+<h2><?= $extending ? 'Extend your support' : 'Become a supporter' ?></h2>
+<?php if ($extending) { ?>
+<p>
+You already have <?= htmlspecialchars($supporter_label) ?> status<?php if ($until_label !== '') { ?>
+ through <strong><?= htmlspecialchars($until_label) ?></strong><?php } ?>.
+Another contribution adds <?= htmlspecialchars($premium_period) ?> to that date.
+</p>
+<?php } ?>
 <p>
 Payments are processed securely through our payment provider. The exact amount in your currency is shown
 on the next screen<?php if ($price_phrase !== '') { ?>
@@ -98,7 +109,9 @@ on the next screen<?php if ($price_phrase !== '') { ?>
 
 <div class="support-cta">
 <p style="margin: 0;">
-Ready to help? Continue to checkout when you are set.
+<?= $extending
+    ? 'Ready to add ' . htmlspecialchars($premium_period) . '? Continue to checkout when you are set.'
+    : 'Ready to help? Continue to checkout when you are set.' ?>
 </p>
 <p style="margin: 0.5rem 0 0;">
 <a href="<?= htmlspecialchars($stripe_url) ?>" class="btn btn-success">Continue to payment</a>
