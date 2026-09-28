@@ -211,10 +211,10 @@ https://www.bilibili.com/video/av46649799</a>
   </li>
      </ul>
   </li>
-<li>Persian  - In progress thanks to Diana Mazhari
+<li>Persian - Thanks to Nooshin Zekavat
 <ul>
 <li>Free: 
-<a href="translations/FA/PY4E_chapters_1_2.pdf" target="_blank" rel="noopener noreferrer">Chapter 1 and 2</a>
+<a href="translations/FA/2025-12-03-Persian-Translation-Zekavat.pdf" target="_blank" rel="noopener noreferrer">پایتون برای همه</a>
 </li>
 </ul>
 </li>
