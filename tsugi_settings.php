@@ -21,6 +21,8 @@ $CFG->giftquizzes = $CFG->dirroot.'/../py4e-private/quiz';
 
 $CFG->sessionlifetime = 18*60*60;  // 18 hours
 
+$CFG->privacy_url = $CFG->apphome . '/privacy.php';
+
 $CFG->setExtension('vhost', array(
     'suffixes' => array('py4e.com'),
     'site_root' => dirname($CFG->dirroot),
