@@ -45,6 +45,8 @@ if [ -z "$JAVA_HOME" ]; then
         echo "Please set JAVA_HOME manually if you encounter issues with LibreOffice."
     else
         echo "Detected JAVA_HOME: $DEFAULT_JAVA_HOME"
+        export JAVA_HOME="$DEFAULT_JAVA_HOME"
+        echo "Set JAVA_HOME to: $JAVA_HOME"
     fi
 else
     echo "Using existing JAVA_HOME: $JAVA_HOME"
@@ -58,14 +60,19 @@ if [ -z "$SOFFICE_PATH" ]; then
     exit 1
 fi
 
+# Define the PDF filter with options for PDF/A compliance and accessibility tags PDF
+# Reference: https://help.libreoffice.org/latest/en-US/text/shared/guide/pdf_params.html
+PDF_FILTER='pdf:impress_pdf_Export:{"PDFUACompliance":{"type":"boolean","value":"true"},"UseTaggedPDF":{"type":"boolean","value":"true"}}'
+
 # Find all .pptx files recursively starting from the current directory
 pptx_files=$(find . -type f -name "*.pptx")
 
 count=0
 error_count=0
+skip_count=0
 
-# Convert each pptx file to pdf
-for pptx_file in $pptx_files; do
+convert_pptx_to_pdf() {
+    local pptx_file="$1"
     # Get the directory containing the pptx file
     dir=$(dirname "$pptx_file")
     echo "Processing directory: $dir"
@@ -73,29 +80,30 @@ for pptx_file in $pptx_files; do
     # Get the filename without extension
     filename=$(basename "$pptx_file" .pptx)
     
-    # Create pdf subdirectory if it doesn't exist
-    pdf_dir="$dir/pdf"
-    mkdir -p "$pdf_dir"
-    if [ $? -ne 0 ]; then
-        echo "Error creating directory: $pdf_dir"
-        error_count=$((error_count + 1))
-        continue
-    fi
-
-    # Define output PDF path
+    # Define pdf paths
+    pdf_dir="$dir" # keep pdfs in same directory as pptx
     pdf_file="$pdf_dir/$filename.pdf"
     
-    # Convert pptx to PDF
-    echo "Converting: $pptx_file to $pdf_file"
-    "$SOFFICE_PATH" --headless --convert-to pdf:impress_pdf_Export:{"PDFUACompliance":true,"UseTaggedPDF":true,"ReduceImageResolution":true,"MaxImageResolution":300,"UseLosslessCompression":false,"Quality":90} --outdir "$pdf_dir" "$pptx_file"
-
-    if [ $? -eq 0 ]; then
-        echo "Successfully converted: $pptx_file"
-        count=$((count + 1))
+    if [[ ! -f "$pdf_file" || "$pptx_file" -nt "$pdf_file" ]]; then
+        # Convert because PDF does not exist or PPTX is newer
+        echo "Converting: $pptx_file to $pdf_file"
+        "$SOFFICE_PATH" --headless --convert-to "$PDF_FILTER" --outdir "$pdf_dir" "$pptx_file"
+        if [ $? -eq 0 ]; then
+            echo "Successfully converted: $pptx_file"
+            count=$((count + 1))
+        else
+            echo "Error converting: $pptx_file"
+            error_count=$((error_count + 1))
+        fi
     else
-        echo "Error converting: $pptx_file"
-        error_count=$((error_count + 1))
+        echo "Skipping: $pptx_file (PDF is up to date)"
+        skip_count=$((skip_count + 1))
     fi
+}
+
+# Convert each pptx file to pdf
+for pptx_file in $pptx_files; do
+    convert_pptx_to_pdf "$pptx_file"
 done
 
-echo "Conversion complete! $count files converted, $error_count files failed."
+echo "Conversion complete! $count files converted, $error_count files failed, $skip_count files skipped."
