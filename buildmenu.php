@@ -100,6 +100,16 @@ function buildMenu() {
                 'hidden-xs tsugi-wc-nav-item'
             );
         }
+
+        if ( \Tsugi\Controllers\Courses::showCoursesWidget() ) {
+            $set->addRight(
+                '<tsugi-courses api-url="'. htmlspecialchars($T . 'courses/json') . '" all-url="'. htmlspecialchars($T . 'courses') . '" enter-url="'. htmlspecialchars($T . 'courses') . '"></tsugi-courses>', 
+                false,
+                true,
+                'hidden-xs tsugi-wc-nav-item' 
+            );
+        }
+
     }
 
 
