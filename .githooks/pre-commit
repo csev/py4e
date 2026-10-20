@@ -1,0 +1,33 @@
+#!/bin/bash
+# When the book or sample code is part of this commit, rebuild the zip
+# downloads and include them in the same commit.
+set -euo pipefail
+
+root="$(git rev-parse --show-toplevel)"
+cd "$root"
+
+staged="$(git diff --cached --name-only --diff-filter=ACMRD)"
+if ! printf '%s\n' "$staged" | grep -Eq '^(book3/.*\.(mkd|py|sh)|book3/make-zips\.sh|code3/|code/|code\.sh$)'; then
+    exit 0
+fi
+
+# Zip-only commits should not rebuild themselves.
+if ! printf '%s\n' "$staged" | grep -Eqv '\.zip$'; then
+    exit 0
+fi
+
+bash book3/make-zips.sh
+
+git add -- \
+    book3/zips/html.zip \
+    code.zip \
+    code3.zip \
+    code3/opengeo.zip \
+    code3/gmane.zip \
+    code3/pagerank.zip \
+    code3/tracks.zip \
+    code3/roster.zip \
+    code3/bs4.zip
+if [ -f code3/geodata.zip ]; then
+    git add -- code3/geodata.zip
+fi
