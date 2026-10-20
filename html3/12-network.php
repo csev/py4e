@@ -8,7 +8,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
+  <title>Networked programs</title>
   <style>
     html {
       color: #1a1a1a;
@@ -289,8 +289,8 @@ find the document which describes the protocol and write the code to
 send and receive the data according to the protocol.</p>
 <p>However, since the protocol that we use most commonly is the HTTP web
 protocol, Python has a special library specifically designed to support
-the HTTP protocol for the retrieval of documents and data over the
-web.</p>
+the HTTP protocol for the retrieval of documents and data over the web,
+<code>urllib</code>, which we’ll cover shortly.</p>
 <p>One of the requirements for using the HTTP protocol is the need to
 send and receive data as bytes objects, instead of strings. In the
 preceding example, the <code>encode()</code> and <code>decode()</code>
@@ -642,7 +642,7 @@ from the anchor (<code>a</code>) tags.</p>
 
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
-import ssl # defauts to certicate verification and most secure protocol (now TLS)
+import ssl # defaults to certificate verification and most secure protocol (now TLS)
 
 # Ignore SSL/TLS certificate errors
 ctx = ssl.create_default_context()

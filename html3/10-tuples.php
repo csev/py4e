@@ -8,7 +8,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
+  <title>Tuples</title>
   <style>
     html {
       color: #1a1a1a;
@@ -394,8 +394,8 @@ dictionary sorted by key:</p>
 &gt;&gt;&gt; t.sort()
 &gt;&gt;&gt; t
 [(&#39;a&#39;, 10), (&#39;b&#39;, 1), (&#39;c&#39;, 22)]</code></pre>
-<p>The new list is sorted in ascending alphabetical order by the key
-value.</p>
+<p>The list of tuples is now sorted in ascending alphabetical order by
+the key.</p>
 <h2 id="multiple-assignment-with-dictionaries">Multiple assignment with
 dictionaries</h2>
 <p> </p>
@@ -425,7 +425,7 @@ pair.</p>
 list of <code>(key, value)</code> tuples, but this time we want to sort
 by value, not key. Once we have constructed the list with the value-key
 tuples, it is a simple matter to sort the list in reverse order and
-print out the new, sorted list.</p>
+print it out.</p>
 <pre class="python"><code>&gt;&gt;&gt; d = {&#39;a&#39;:10, &#39;b&#39;:1, &#39;c&#39;:22}
 &gt;&gt;&gt; l = list()
 &gt;&gt;&gt; for key, val in d.items() :
@@ -438,8 +438,8 @@ print out the new, sorted list.</p>
 [(22, &#39;c&#39;), (10, &#39;a&#39;), (1, &#39;b&#39;)]
 &gt;&gt;&gt;</code></pre>
 <p>By carefully constructing the list of tuples to have the value as the
-first element of each tuple, we can sort the list of tuples and get our
-dictionary contents sorted by value.</p>
+first element of each tuple, we can sort the list of tuples and print
+our dictionary contents sorted by value.</p>
 <h2 id="the-most-common-words">The most common words</h2>
 <p></p>
 <p>Coming back to our running example of the text from <em>Romeo and

@@ -8,7 +8,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
+  <title>Dictionaries</title>
   <style>
     html {
       color: #1a1a1a;
@@ -299,10 +299,10 @@ print(d)</code></pre>
 statistical term for a set of counters (or frequencies).</p>
 <p> </p>
 <p>The <code>for</code> loop traverses the string. Each time through the
-loop, if the character <code>c</code> is not in the dictionary, we
-create a new item with key <code>c</code> and the initial value 1 (since
-we have seen this letter once). If <code>c</code> is already in the
-dictionary we increment <code>d['c']</code>.</p>
+loop, if <code>c</code> is not in the dictionary, we create a new item
+with key <code>c</code> and the initial value 1 (since we have seen this
+letter once). If <code>c</code> is already in the dictionary we
+increment <code>d[c]</code>.</p>
 <p></p>
 <p>Here’s the output of the program:</p>
 <pre><code>{&#39;b&#39;: 1, &#39;r&#39;: 2, &#39;o&#39;: 2, &#39;n&#39;: 1, &#39;t&#39;: 1, &#39;s&#39;: 2, &#39;a&#39;: 1, &#39;u&#39;: 2}</code></pre>
@@ -646,11 +646,11 @@ have come from each email address, and print the dictionary.</p>
 &#39;zqian@umich.edu&#39;: 4, &#39;stephen.marquard@uct.ac.za&#39;: 2,
 &#39;ray@media.berkeley.edu&#39;: 1}</code></pre>
 <p><strong>Exercise 4:</strong> Add code to the above program to figure
-out who has the most messages in the file. After all the data has been
-read and the dictionary has been created, look through the dictionary
-using a maximum loop (see Chapter 5: Maximum and minimum loops) to find
-who has the most messages and print how many messages the person
-has.</p>
+out who has sent the most messages in the file. After all the data has
+been read and the dictionary has been created, look through the
+dictionary using a maximum loop (see Chapter 5: Maximum and minimum
+loops) to find who has the most messages and print how many messages the
+person has.</p>
 <pre><code>Enter a file name: mbox-short.txt
 cwen@iupui.edu 5
 

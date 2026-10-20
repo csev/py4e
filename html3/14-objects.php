@@ -8,7 +8,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
+  <title>Object-oriented programming</title>
   <style>
     html {
       color: #1a1a1a;
@@ -302,7 +302,7 @@ connecting different objects together to accomplish a task:</p>
 
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
-import ssl # defauts to certicate verification and most secure protocol (now TLS)
+import ssl # defaults to certificate verification and most secure protocol (now TLS)
 
 # Ignore SSL/TLS certificate errors
 ctx = ssl.create_default_context()
@@ -403,7 +403,7 @@ an.party()
 <p>Each method looks like a function, starting with the <code>def</code>
 keyword and consisting of an indented block of code.</p>
 <p>The first method is a specially-named method called
-<code>__init()__</code>. This method is called to do any initial setup
+<code>__init__()</code>. This method is called to do any initial setup
 of the data we want to store in the object. In this class we allocate
 the <code>x</code> attribute using dot notation and initialize it to
 zero.</p>
@@ -640,9 +640,9 @@ method in the <code>CricketFan</code> class, we call the
 <code>party</code> method from the <code>PartyAnimal</code> class.</p>
 <p>We use a special syntax in the <code>__init__()</code> method in the
 <code>CricketFan</code> class to ensure that we call the
-<code>__init()__</code> method in the <code>PartyAnimal</code> so that
+<code>__init__()</code> method in the <code>PartyAnimal</code> so that
 whatever setup that <code>PartyAnimal</code> needs is done in addition
-to the setup needed for the <code>CriocketFan</code> extensions.</p>
+to the setup needed for the <code>CricketFan</code> extensions.</p>
 <pre class="python"><code>   def __init__(self, nam) :
        super().__init__(nam)
        self.points = 0</code></pre>
