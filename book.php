@@ -207,10 +207,17 @@ https://www.bilibili.com/video/av46649799</a>
   </li>
      </ul>
   </li>
-<li>Persian - Thanks to <a href="https://www.linkedin.com/in/nooshin-zekavat" tareget="_blank">Nooshin Zekavat</a>
+<li>Persian - Thanks to <a href="https://www.linkedin.com/in/nooshin-zekavat" target="_blank">Nooshin Zekavat</a>
 <ul>
 <li>Free: 
 <a href="translations/FA/2025-12-03-Persian-Translation-Zekavat.pdf" target="_blank" rel="noopener noreferrer">پایتون برای همه</a>
+</li>
+</ul>
+</li>
+<li>Turkish in progress - Thanks to <a href="https://www.linkedin.com/in/altay-arbak-ph-d-33622087/" target="_blank">Dr. Altay Arbak</a>
+<ul>
+<li>Chapter 1: 
+<a href="translations/TR/2026-10-20-HerkesIcinPython-Bolum1.pdf" target="_blank" rel="noopener noreferrer">Herkes İçin Python</a>
 </li>
 </ul>
 </li>
