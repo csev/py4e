@@ -43,7 +43,7 @@ should run all these scripts and check it all into github so it ends up online.
 of this site in `../html3` - this is then checked into github.
 
 * `htmlbook.sh` will make an html verion of the book and then make a zip file.
-* `make-zips.sh` rebuilds that HTML zip plus the sample-code zips (`code3.zip` and the assignment zips under `code3/`). Those zips are checked in. The `.githooks/pre-commit` hook runs `make-zips.sh` when the book or sample code is committed, then stages the new zips. Install it once per clone with `cp .githooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit`.
+* `make-zips.sh` rebuilds that HTML zip plus the sample-code zips (`code.zip` and `code3.zip`, both a zip of `code3/`, and the assignment zips under `code3/`). Those zips are checked in. The `.githooks/pre-commit` hook runs `make-zips.sh` when the book or sample code is committed, then stages the new zips. Install it once per clone with `cp .githooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit`.
 
 If you'd like to make your own build script, you can use these as examples. If
 your build script might have use to others, consider contributing it in a pull request.
