@@ -180,7 +180,7 @@
 false. The following examples use the operator <code>==</code>, which
 compares two operands and produces <code>True</code> if they are equal
 and <code>False</code> otherwise:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; 5 == 5
+<pre class="python"><code>&gt;&gt;&gt; 5 == 5
 True
 &gt;&gt;&gt; 5 == 6
 False</code></pre>

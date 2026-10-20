@@ -29,7 +29,7 @@
         </ul>
         <p>
             Other cloud-provided Python environments include
-            <a href="http://trinket.io">Trinket</a>,
+            <a href="https://coddy.tech/playground/python">Coddy</a>,
             <a href="http://c9.io">Cloud9</a>, or
             <a href="http://codeanywhere.com">CodeAnywhere</a>.
         </p>

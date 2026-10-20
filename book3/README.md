@@ -42,19 +42,7 @@ should run all these scripts and check it all into github so it ends up online.
 * `phpbook.sh` will make an html/php verion of the book that is an extension
 of this site in `../html3` - this is then checked into github.
 
-* `htmlbook.sh` will make an html verion of the book, with interactive examples
-embedded in trinkets and then make a zip file.
-
-* `zipbook.sh` will make two html versions of the book with Trinket branding,
-one with interactive examples (that require an internet connection to work) and one with 
-syntax highlighted code blocks for completely offline viewing.  A zip containing 
-these is at `/book3/zips/pfe.zip` if you'd just like to download it.
-
-* `trinketbook.sh` will make the nunjucks template that we use to host the book
-at [books.trinket.io](https://books.trinket.io).  This is likely not of use to you
-unless you're looking for an example of how to get the book source into your own
-templating language.  If you'd like to see the output of this script it's in
-`books/trinket/pfe`.   Also updates `../trinket3`.
+* `htmlbook.sh` will make an html verion of the book and then make a zip file.
 
 If you'd like to make your own build script, you can use these as examples. If
 your build script might have use to others, consider contributing it in a pull request.

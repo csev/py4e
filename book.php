@@ -35,10 +35,6 @@ Book translations:
 <!--
        <li class="menu-text"><a href="https://github.com/csev/py4e/raw/master/book3/zips/pfe.zip" target="_blank" rel="noopener noreferrer">Download HTML in a ZIP (~6MB)</a></li>
 -->
-<!--
-       <li class="menu-text"><a href="trinket3" target="_blank" rel="noopener noreferrer">Interactive HTML from Trinket.io</a></li>
--->
-       <li class="menu-text"><a href="https://books.trinket.io/pfe/index.html" target="_blank" rel="noopener noreferrer">Interactive HTML from Trinket.io</a></li>
      </ul>
   </li>
 <li> Spanish -

@@ -189,7 +189,7 @@ Spanish words, so the keys and the values are all strings.</p>
 items. Because <code>dict</code> is the name of a built-in function, you
 should avoid using it as a variable name.</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; eng2sp = dict()
+<pre class="python"><code>&gt;&gt;&gt; eng2sp = dict()
 &gt;&gt;&gt; print(eng2sp)
 {}</code></pre>
 <p>The curly brackets, <code>{}</code>, represent an empty dictionary.
@@ -287,7 +287,7 @@ dictionary implementation is that we don’t have to know ahead of time
 which letters appear in the string and we only have to make room for the
 letters that do appear.</p>
 <p>Here is what the code might look like:</p>
-<pre class="python trinket"><code>word = &#39;brontosaurus&#39;
+<pre class="python"><code>word = &#39;brontosaurus&#39;
 d = dict()
 for c in word:
     if c not in d:
@@ -313,7 +313,7 @@ appears twice, and so on.</p>
 and a default value. If the key appears in the dictionary,
 <code>get</code> returns the corresponding value; otherwise it returns
 the default value. For example:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; counts = { &#39;chuck&#39; : 1 , &#39;annie&#39; : 42, &#39;jan&#39;: 100}
+<pre class="python"><code>&gt;&gt;&gt; counts = { &#39;chuck&#39; : 1 , &#39;annie&#39; : 42, &#39;jan&#39;: 100}
 &gt;&gt;&gt; print(counts.get(&#39;jan&#39;, 0))
 100
 &gt;&gt;&gt; print(counts.get(&#39;tim&#39;, 0))

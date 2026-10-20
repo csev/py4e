@@ -192,7 +192,7 @@ because they are enclosed in quotation marks.</p>
 4</code></pre>
 <p>If you are not sure what type a value has, the interpreter can tell
 you.</p>
-<pre class="python trinket" height="160"><code>&gt;&gt;&gt; type(&#39;Hello, World!&#39;)
+<pre class="python" height="160"><code>&gt;&gt;&gt; type(&#39;Hello, World!&#39;)
 &lt;class &#39;str&#39;&gt;
 &gt;&gt;&gt; type(17)
 &lt;class &#39;int&#39;&gt;</code></pre>
@@ -202,12 +202,12 @@ with a decimal point belong to a type called <code>float</code>, because
 these numbers are represented in a format called <em>floating
 point</em>.</p>
 <p> </p>
-<pre class="python trinket" height="120"><code>&gt;&gt;&gt; type(3.2)
+<pre class="python" height="120"><code>&gt;&gt;&gt; type(3.2)
 &lt;class &#39;float&#39;&gt;</code></pre>
 <p>What about values like “17” and “3.2”? They look like numbers, but
 they are in quotation marks like strings.</p>
 <p></p>
-<pre class="python trinket" height="160"><code>&gt;&gt;&gt; type(&#39;17&#39;)
+<pre class="python" height="160"><code>&gt;&gt;&gt; type(&#39;17&#39;)
 &lt;class &#39;str&#39;&gt;
 &gt;&gt;&gt; type(&#39;3.2&#39;)
 &lt;class &#39;str&#39;&gt;</code></pre>
@@ -215,7 +215,7 @@ they are in quotation marks like strings.</p>
 <p>When you type a large integer, you might be tempted to use commas
 between groups of three digits, as in 1,000,000. This is not a legal
 integer in Python, but it is legal:</p>
-<pre class="python trinket" height="120"><code>&gt;&gt;&gt; print(1,000,000)
+<pre class="python" height="120"><code>&gt;&gt;&gt; print(1,000,000)
 1 0 0</code></pre>
 <p>Well, that’s not what we expected at all! Python interprets 1,000,000
 as a comma-separated sequence of integers, which it prints with spaces
@@ -266,7 +266,7 @@ an underscore character, but we generally avoid doing this unless we are
 writing library code for others to use.</p>
 <p></p>
 <p>If you give a variable an illegal name, you get a syntax error:</p>
-<pre class="python trinket" height="450"><code>&gt;&gt;&gt; 76trombones = &#39;big parade&#39;
+<pre class="python" height="450"><code>&gt;&gt;&gt; 76trombones = &#39;big parade&#39;
 SyntaxError: invalid syntax
 &gt;&gt;&gt; more@ = 1000000
 SyntaxError: invalid syntax
@@ -326,7 +326,7 @@ minute/60
 <p>There has been a change in the division operator between Python 2 and
 Python 3. In Python 3, the result of this division is a floating point
 result:</p>
-<pre class="python trinket" height="160"><code>&gt;&gt;&gt; minute = 59
+<pre class="python" height="160"><code>&gt;&gt;&gt; minute = 59
 &gt;&gt;&gt; minute/60
 0.9833333333333333</code></pre>
 <p>The division operator in Python 2 would divide two integers and
@@ -336,7 +336,7 @@ truncate the result to an integer:</p>
 0</code></pre>
 <p>To obtain the same answer in Python 3 use floored ( <code>//</code>
 integer) division.</p>
-<pre class="python trinket" height="160"><code>&gt;&gt;&gt; minute = 59
+<pre class="python" height="160"><code>&gt;&gt;&gt; minute = 59
 &gt;&gt;&gt; minute//60
 0</code></pre>
 <p>In Python 3 integer division functions much more as you would expect
@@ -398,7 +398,7 @@ sure the computations are performed in the order you intend.</p>
 remainder when the first operand is divided by the second. In Python,
 the modulus operator is a percent sign (<code>%</code>). The syntax is
 the same as for other operators:</p>
-<pre class="python trinket" height="240"><code>&gt;&gt;&gt; quotient = 7 // 3
+<pre class="python" height="240"><code>&gt;&gt;&gt; quotient = 7 // 3
 &gt;&gt;&gt; print(quotient)
 2
 &gt;&gt;&gt; remainder = 7 % 3

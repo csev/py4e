@@ -696,14 +696,14 @@ help&gt; modules</code></pre>
 <p>If you know what module you want to use, you can use the
 <code>dir()</code> command to find the methods in the module as
 follows:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; import re
+<pre class="python"><code>&gt;&gt;&gt; import re
 &gt;&gt;&gt; dir(re)
 [.. &#39;compile&#39;, &#39;copy_reg&#39;, &#39;error&#39;, &#39;escape&#39;, &#39;findall&#39;,
 &#39;finditer&#39;, &#39;match&#39;, &#39;purge&#39;, &#39;search&#39;, &#39;split&#39;, &#39;sre_compile&#39;,
 &#39;sre_parse&#39;, &#39;sub&#39;, &#39;subn&#39;, &#39;sys&#39;, &#39;template&#39;]</code></pre>
 <p>You can also get a small amount of documentation on a particular
 method using the help command combined with the desired method.</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; help (re.search)
+<pre class="python"><code>&gt;&gt;&gt; help (re.search)
 Help on function search in module re:
 
 search(pattern, string, flags=0)

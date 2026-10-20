@@ -195,7 +195,7 @@ another list:</p>
 create one with empty brackets, <code>[]</code>.</p>
 <p> </p>
 <p>As you might expect, you can assign list values to variables:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; cheeses = [&#39;Cheddar&#39;, &#39;Edam&#39;, &#39;Gouda&#39;]
+<pre class="python"><code>&gt;&gt;&gt; cheeses = [&#39;Cheddar&#39;, &#39;Edam&#39;, &#39;Gouda&#39;]
 &gt;&gt;&gt; numbers = [17, 123]
 &gt;&gt;&gt; empty = []
 &gt;&gt;&gt; print(cheeses, numbers, empty)
@@ -214,7 +214,7 @@ items in a list or reassign an item in a list. When the bracket operator
 appears on the left side of an assignment, it identifies the element of
 the list that will be assigned.</p>
 <p></p>
-<pre class="python trinket"><code>&gt;&gt;&gt; numbers = [17, 123]
+<pre class="python"><code>&gt;&gt;&gt; numbers = [17, 123]
 &gt;&gt;&gt; numbers[1] = 5
 &gt;&gt;&gt; print(numbers)
 [17, 5]</code></pre>
@@ -238,7 +238,7 @@ the list.</li>
 </ul>
 <p> </p>
 <p>The <code>in</code> operator also works on lists.</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; cheeses = [&#39;Cheddar&#39;, &#39;Edam&#39;, &#39;Gouda&#39;]
+<pre class="python"><code>&gt;&gt;&gt; cheeses = [&#39;Cheddar&#39;, &#39;Edam&#39;, &#39;Gouda&#39;]
 &gt;&gt;&gt; &#39;Edam&#39; in cheeses
 True
 &gt;&gt;&gt; &#39;Brie&#39; in cheeses
@@ -277,7 +277,7 @@ counts as a single element. The length of this list is four:</p>
 <p></p>
 <p>The <code>+</code> operator concatenates lists:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; a = [1, 2, 3]
+<pre class="python"><code>&gt;&gt;&gt; a = [1, 2, 3]
 &gt;&gt;&gt; b = [4, 5, 6]
 &gt;&gt;&gt; c = a + b
 &gt;&gt;&gt; print(c)
@@ -285,7 +285,7 @@ counts as a single element. The length of this list is four:</p>
 <p>Similarly, the <code>*</code> operator repeats a list a given number
 of times:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; [0] * 4
+<pre class="python"><code>&gt;&gt;&gt; [0] * 4
 [0, 0, 0, 0]
 &gt;&gt;&gt; [1, 2, 3] * 3
 [1, 2, 3, 1, 2, 3, 1, 2, 3]</code></pre>
@@ -294,7 +294,7 @@ list three times.</p>
 <h2 id="list-slices">List slices</h2>
 <p> </p>
 <p>The slice operator also works on lists:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]
+<pre class="python"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]
 &gt;&gt;&gt; t[1:3]
 [&#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; t[:4]
@@ -313,7 +313,7 @@ performing operations that fold, spindle, or mutilate lists.</p>
 <p>A slice operator on the left side of an assignment can update
 multiple elements:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]
+<pre class="python"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]
 &gt;&gt;&gt; t[1:3] = [&#39;x&#39;, &#39;y&#39;]
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;x&#39;, &#39;y&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]</code></pre>
@@ -322,14 +322,14 @@ multiple elements:</p>
 <p>Python provides methods that operate on lists. For example,
 <code>append</code> adds a new element to the end of a list:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+<pre class="python"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; t.append(&#39;d&#39;)
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]</code></pre>
 <p><code>extend</code> takes a list as an argument and appends all of
 the elements:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t1 = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+<pre class="python"><code>&gt;&gt;&gt; t1 = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; t2 = [&#39;d&#39;, &#39;e&#39;]
 &gt;&gt;&gt; t1.extend(t2)
 &gt;&gt;&gt; print(t1)
@@ -338,7 +338,7 @@ the elements:</p>
 <p><code>sort</code> arranges the elements of the list from low to
 high:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;d&#39;, &#39;c&#39;, &#39;e&#39;, &#39;b&#39;, &#39;a&#39;]
+<pre class="python"><code>&gt;&gt;&gt; t = [&#39;d&#39;, &#39;c&#39;, &#39;e&#39;, &#39;b&#39;, &#39;a&#39;]
 &gt;&gt;&gt; t.sort()
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;]</code></pre>
@@ -351,7 +351,7 @@ you will be disappointed with the result.</p>
 <p>There are several ways to delete elements from a list. If you know
 the index of the element you want, you can use <code>pop</code>:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+<pre class="python"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; x = t.pop(1)
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;c&#39;]
@@ -363,14 +363,14 @@ element.</p>
 <p>If you don’t need the removed value, you can use the <code>del</code>
 statement:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+<pre class="python"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; del t[1]
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;c&#39;]</code></pre>
 <p>If you know the element you want to remove (but not the index), you
 can use <code>remove</code>:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+<pre class="python"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; t.remove(&#39;b&#39;)
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;c&#39;]</code></pre>
@@ -378,7 +378,7 @@ can use <code>remove</code>:</p>
 <p> </p>
 <p>To remove more than one element, you can use <code>del</code> with a
 slice index:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]
+<pre class="python"><code>&gt;&gt;&gt; t = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]
 &gt;&gt;&gt; del t[1:5]
 &gt;&gt;&gt; print(t)
 [&#39;a&#39;, &#39;f&#39;]</code></pre>
@@ -388,7 +388,7 @@ including, the second index.</p>
 <p>There are a number of built-in functions that can be used on lists
 that allow you to quickly look through a list without writing your own
 loops:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; nums = [3, 41, 12, 9, 74, 15]
+<pre class="python"><code>&gt;&gt;&gt; nums = [3, 41, 12, 9, 74, 15]
 &gt;&gt;&gt; print(len(nums))
 6
 &gt;&gt;&gt; print(max(nums))
@@ -446,7 +446,7 @@ values, but a list of characters is not the same as a string. To convert
 from a string to a list of characters, you can use
 <code>list</code>:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; s = &#39;spam&#39;
+<pre class="python"><code>&gt;&gt;&gt; s = &#39;spam&#39;
 &gt;&gt;&gt; t = list(s)
 &gt;&gt;&gt; print(t)
 [&#39;s&#39;, &#39;p&#39;, &#39;a&#39;, &#39;m&#39;]</code></pre>
@@ -458,7 +458,7 @@ because it looks too much like the number “1”. So that’s why I use
 letters. If you want to break a string into words, you can use the
 <code>split</code> method:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; s = &#39;pining for the fjords&#39;
+<pre class="python"><code>&gt;&gt;&gt; s = &#39;pining for the fjords&#39;
 &gt;&gt;&gt; t = s.split()
 &gt;&gt;&gt; print(t)
 [&#39;pining&#39;, &#39;for&#39;, &#39;the&#39;, &#39;fjords&#39;]
@@ -471,7 +471,7 @@ particular word in the list.</p>
 <em>delimiter</em> that specifies which characters to use as word
 boundaries. The following example uses a hyphen as a delimiter:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; s = &#39;spam-spam-spam&#39;
+<pre class="python"><code>&gt;&gt;&gt; s = &#39;spam-spam-spam&#39;
 &gt;&gt;&gt; delimiter = &#39;-&#39;
 &gt;&gt;&gt; s.split(delimiter)
 [&#39;spam&#39;, &#39;spam&#39;, &#39;spam&#39;]</code></pre>
@@ -480,7 +480,7 @@ list of strings and concatenates the elements. <code>join</code> is a
 string method, so you have to invoke it on the delimiter and pass the
 list as a parameter:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = [&#39;pining&#39;, &#39;for&#39;, &#39;the&#39;, &#39;fjords&#39;]
+<pre class="python"><code>&gt;&gt;&gt; t = [&#39;pining&#39;, &#39;for&#39;, &#39;the&#39;, &#39;fjords&#39;]
 &gt;&gt;&gt; delimiter = &#39; &#39;
 &gt;&gt;&gt; delimiter.join(t)
 &#39;pining for the fjords&#39;</code></pre>
@@ -537,14 +537,14 @@ same object.</p>
 <p> </p>
 <p>To check whether two variables refer to the same object, you can use
 the <code>is</code> operator.</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; a = &#39;banana&#39;
+<pre class="python"><code>&gt;&gt;&gt; a = &#39;banana&#39;
 &gt;&gt;&gt; b = &#39;banana&#39;
 &gt;&gt;&gt; a is b
 True</code></pre>
 <p>In this example, Python only created one string object, and both
 <code>a</code> and <code>b</code> refer to it.</p>
 <p>But when you create two lists, you get two objects:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; a = [1, 2, 3]
+<pre class="python"><code>&gt;&gt;&gt; a = [1, 2, 3]
 &gt;&gt;&gt; b = [1, 2, 3]
 &gt;&gt;&gt; a is b
 False</code></pre>
@@ -564,7 +564,7 @@ elements, we would say it has the same value.</p>
 <p> </p>
 <p>If <code>a</code> refers to an object and you assign
 <code>b = a</code>, then both variables refer to the same object:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; a = [1, 2, 3]
+<pre class="python"><code>&gt;&gt;&gt; a = [1, 2, 3]
 &gt;&gt;&gt; b = a
 &gt;&gt;&gt; b is a
 True</code></pre>
@@ -599,7 +599,7 @@ from a list:</p>
 <pre class="python"><code>def delete_head(t):
     del t[0]</code></pre>
 <p>Here’s how it is used:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; letters = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+<pre class="python"><code>&gt;&gt;&gt; letters = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; delete_head(letters)
 &gt;&gt;&gt; print(letters)
 [&#39;b&#39;, &#39;c&#39;]</code></pre>
@@ -610,7 +610,7 @@ and operations that create new lists. For example, the
 <code>append</code> method modifies a list, but the <code>+</code>
 operator creates a new list:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t1 = [1, 2]
+<pre class="python"><code>&gt;&gt;&gt; t1 = [1, 2]
 &gt;&gt;&gt; t2 = t1.append(3)
 &gt;&gt;&gt; print(t1)
 [1, 2, 3]
@@ -638,7 +638,7 @@ of a list:</p>
     return t[1:]</code></pre>
 <p>This function leaves the original list unmodified. Here’s how it is
 used:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; letters = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+<pre class="python"><code>&gt;&gt;&gt; letters = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
 &gt;&gt;&gt; rest = tail(letters)
 &gt;&gt;&gt; print(rest)
 [&#39;b&#39;, &#39;c&#39;]</code></pre>

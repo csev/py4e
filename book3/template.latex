@@ -84,16 +84,13 @@ $endif$
 \RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
 {fontsize=\small,gobble=2}
 
-% Comment out extra trinket file includes in latex (used in interactive HTML version
-\usepackage{comment}
-\excludecomment{trinketfiles}
 $if(verbatim-in-note)$
 \VerbatimFootnotes
 $endif$
 $if(tables)$
 \usepackage{longtable,booktabs}
 $endif$
-$if(graphics)$
+% Always load graphicx since pandocbounded may be used even if graphics variable not set
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -103,7 +100,8 @@ $if(graphics)$
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-$endif$
+% Define pandocbounded command for newer pandoc versions (always define, even if graphics not detected)
+\newcommand{\pandocbounded}[1]{#1}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex

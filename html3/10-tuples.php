@@ -194,7 +194,7 @@ code:</p>
 <p>To create a tuple with a single element, you have to include the
 final comma:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t1 = (&#39;a&#39;,)
+<pre class="python"><code>&gt;&gt;&gt; t1 = (&#39;a&#39;,)
 &gt;&gt;&gt; type(t1)
 &lt;type &#39;tuple&#39;&gt;</code></pre>
 <p>Without the comma Python treats <code>('a')</code> as an expression
@@ -205,13 +205,13 @@ with a string in parentheses that evaluates to a string:</p>
 <p>Another way to construct a tuple is the built-in function
 <code>tuple</code>. With no argument, it creates an empty tuple:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = tuple()
+<pre class="python"><code>&gt;&gt;&gt; t = tuple()
 &gt;&gt;&gt; print(t)
 ()</code></pre>
 <p>If the argument is a sequence (string, list, or tuple), the result of
 the call to <code>tuple</code> is a tuple with the elements of the
 sequence:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = tuple(&#39;lupins&#39;)
+<pre class="python"><code>&gt;&gt;&gt; t = tuple(&#39;lupins&#39;)
 &gt;&gt;&gt; print(t)
 (&#39;l&#39;, &#39;u&#39;, &#39;p&#39;, &#39;i&#39;, &#39;n&#39;, &#39;s&#39;)</code></pre>
 <p>Because <code>tuple</code> is the name of a constructor, you should
@@ -219,7 +219,7 @@ avoid using it as a variable name.</p>
 <p>Most list operators also work on tuples. The bracket operator indexes
 an element:</p>
 <p> </p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = (&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)
+<pre class="python"><code>&gt;&gt;&gt; t = (&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)
 &gt;&gt;&gt; print(t[0])
 &#39;a&#39;</code></pre>
 <p>And the slice operator selects a range of elements.</p>
@@ -233,7 +233,7 @@ error:</p>
 TypeError: object doesn&#39;t support item assignment</code></pre>
 <p>You can’t modify the elements of a tuple, but you can replace one
 tuple with another:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; t = (&#39;A&#39;,) + t[1:]
+<pre class="python"><code>&gt;&gt;&gt; t = (&#39;A&#39;,) + t[1:]
 &gt;&gt;&gt; print(t)
 (&#39;A&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)</code></pre>
 <h2 id="comparing-tuples">Comparing tuples</h2>
@@ -243,7 +243,7 @@ starts by comparing the first element from each sequence. If they are
 equal, it goes on to the next element, and so on, until it finds
 elements that differ. Subsequent elements are not considered (even if
 they are really big).</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; (0, 1, 2) &lt; (0, 3, 4)
+<pre class="python"><code>&gt;&gt;&gt; (0, 1, 2) &lt; (0, 3, 4)
 True
 &gt;&gt;&gt; (0, 1, 2000000) &lt; (0, 3, 4)
 True</code></pre>
@@ -309,7 +309,7 @@ variable at a time to the given sequence.</p>
 <p>In this example we have a two-element tuple and assign the first and
 second elements of the tuple to the variables <code>x</code> and
 <code>y</code> in a single statement.</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; m = ( &#39;have&#39;, &#39;fun&#39; )
+<pre class="python"><code>&gt;&gt;&gt; m = ( &#39;have&#39;, &#39;fun&#39; )
 &gt;&gt;&gt; x, y = m
 &gt;&gt;&gt; x
 &#39;have&#39;
@@ -319,7 +319,7 @@ second elements of the tuple to the variables <code>x</code> and
 <p>This is more general than tuple-to-tuple assignment. Both tuples and
 lists are sequences, so this syntax works with a two element list as
 well.</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
+<pre class="python"><code>&gt;&gt;&gt; m = [ &#39;have&#39;, &#39;fun&#39; ]
 &gt;&gt;&gt; x, y = m
 &gt;&gt;&gt; x
 &#39;have&#39;
@@ -329,7 +329,7 @@ well.</p>
 <p>It is not magic, Python <em>roughly</em> translates the tuple
 assignment syntax to be the following:<a href="#fn2"
 class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<pre class="python trinket"><code>&gt;&gt;&gt; m = ( &#39;have&#39;, &#39;fun&#39; )
+<pre class="python"><code>&gt;&gt;&gt; m = ( &#39;have&#39;, &#39;fun&#39; )
 &gt;&gt;&gt; x = m[0]
 &gt;&gt;&gt; y = m[1]
 &gt;&gt;&gt; x
@@ -377,7 +377,7 @@ python.org</code></pre>
 <p> </p>
 <p>Dictionaries have a method called <code>items</code> that returns a
 list of tuples, where each tuple is a key-value pair:</p>
-<pre class="python trinket"><code>&gt;&gt;&gt; d = {&#39;b&#39;:1, &#39;a&#39;:10, &#39;c&#39;:22}
+<pre class="python"><code>&gt;&gt;&gt; d = {&#39;b&#39;:1, &#39;a&#39;:10, &#39;c&#39;:22}
 &gt;&gt;&gt; t = list(d.items())
 &gt;&gt;&gt; print(t)
 [(&#39;b&#39;, 1), (&#39;a&#39;, 10), (&#39;c&#39;, 22)]</code></pre>
