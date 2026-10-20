@@ -1,0 +1,18 @@
+---
+description: Install the local git pre-commit hook at the start of every session
+alwaysApply: true
+---
+
+# Git pre-commit hook (MANDATORY for agents)
+
+The zip rebuild hook lives in `.githooks/pre-commit`. Git does not install it on clone. It runs locally, before the commit, on this machine only.
+
+## Session start
+
+Before any other work, verify the hook is installed. If the check fails, tell the user you are installing the pre-commit hook, then run the installer:
+
+```bash
+test -x .git/hooks/pre-commit && grep -q 'make-zips.sh' .git/hooks/pre-commit || bash qa/install-git-hooks.sh
+```
+
+Do not set `core.hooksPath`. The installer copies `.githooks/pre-commit` into `.git/hooks/pre-commit`.
