@@ -22,7 +22,7 @@ $pieces = explode('/',$url);
 
 $file = false;
 $contents = false;
-if ( $pieces >= 2 ) {
+if ( count($pieces) >= 2 ) {
    $file = $pieces[count($pieces)-1];
    if ( ! endsWith($file, '.md') ) $file = false;
    if ( ! $file || ! file_exists($file) ) $file = false;

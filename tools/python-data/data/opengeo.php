@@ -1,7 +1,16 @@
 <?php
 
 require_once "rate_limit.php";
-require_once "opengeo_api.php";
+
+// The API key lives in opengeo_api.php, which is not part of the git checkout.
+$opengeo_api = __DIR__ . '/opengeo_api.php';
+if ( ! is_file($opengeo_api) ) {
+    http_response_code(500);
+    header('Content-Type: text/plain; charset=utf-8');
+    echo "OpenGeo API key is not configured.\n";
+    return;
+}
+require_once $opengeo_api;
 
 /* opengeo_api.php
 

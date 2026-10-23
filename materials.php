@@ -110,5 +110,5 @@ from SI502 as taught on campus at the UM School of Information Fall 2015.
 </p>
 
 
-<?php include("footer.php"); ?>
+<?php include("footer.php");
 

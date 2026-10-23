@@ -13,5 +13,5 @@ c/o Learning Experiences (learnxp.com)
 Holt MI 48842-9998
 United States</code></pre>
 <p>Last edited: 22-Nov-2020</p>
-<?php include("footer.php"); ?>
+<?php include("footer.php");
 
