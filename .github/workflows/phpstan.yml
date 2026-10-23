@@ -1,0 +1,36 @@
+name: PHPStan
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  phpstan:
+    name: PHP 8.4–8.5
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout py4e
+        uses: actions/checkout@v4
+
+      - name: Checkout Tsugi
+        uses: actions/checkout@v4
+        with:
+          repository: tsugiproject/tsugi
+          path: tsugi
+
+      - name: Provide Tsugi config
+        run: cp tsugi/config-dist.php tsugi/config.php
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer
+          coverage: none
+
+      - name: Install PHPStan
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Analyse
+        run: composer phpstan

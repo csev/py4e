@@ -214,7 +214,7 @@ function shouldHide($name, $is_dir = false) {
 function formatFileSize($bytes) {
     if ($bytes == 0) return '0 B';
     $units = array('B', 'KB', 'MB', 'GB', 'TB');
-    $i = floor(log($bytes, 1024));
+    $i = (int) floor(log($bytes, 1024));
     return round($bytes / pow(1024, $i), 2) . ' ' . $units[$i];
 }
 

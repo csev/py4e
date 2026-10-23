@@ -1,9 +1,9 @@
 <?php
-if ( file_exists('../config.php') ) {
-    require_once("../config.php");
-} else {
-    require_once("../../config.php");
+$config_php = __DIR__ . '/../config.php';
+if ( ! is_file($config_php) ) {
+    $config_php = __DIR__ . '/../../config.php';
 }
+require_once $config_php;
 
 require_once("names.php");
 require_once("data_util.php");
@@ -42,8 +42,8 @@ if ( strpos($local_path,"xml") === 0 ) {
     header('Content-Type: text/plain');
     $code = 42;
     $pieces = preg_split('/[_.]/',$local_path);
-    if ( count($pieces) == 4 && $pieces[2]+0 > 0 ) {
-        $code = $pieces[2]+0;
+    if ( count($pieces) == 4 && ctype_digit($pieces[2]) && (int) $pieces[2] > 0 ) {
+        $code = (int) $pieces[2];
     }
     if ( $code == 42 ) {
         echo("This file contains the sample data\n\n");
@@ -105,8 +105,8 @@ if ( strpos($local_path,"xml") === 0 ) {
 <?php
     $code = 42;
     $pieces = preg_split('/[_.]/',$local_path);
-    if ( count($pieces) == 3 && $pieces[1]+0 > 0 ) {
-        $code = $pieces[1]+0;
+    if ( count($pieces) == 3 && ctype_digit($pieces[1]) && (int) $pieces[1] > 0 ) {
+        $code = (int) $pieces[1];
     }
     
     if ( $code == 42 ) {
@@ -140,8 +140,8 @@ if ( strpos($local_path,"xml") === 0 ) {
     echo("<commentinfo>\n");
     $code = 42;
     $pieces = preg_split('/[_.]/',$local_path);
-    if ( count($pieces) == 3 && $pieces[1]+0 > 0 ) {
-        $code = $pieces[1]+0;
+    if ( count($pieces) == 3 && ctype_digit($pieces[1]) && (int) $pieces[1] > 0 ) {
+        $code = (int) $pieces[1];
     }
     
     if ( $code == 42 ) {
@@ -172,8 +172,8 @@ if ( strpos($local_path,"xml") === 0 ) {
     header('Content-Type: application/json; charset=utf-8');
     $code = 42;
     $pieces = preg_split('/[_.]/',$local_path);
-    if ( count($pieces) == 3 && $pieces[1]+0 > 0 ) {
-        $code = $pieces[1]+0;
+    if ( count($pieces) == 3 && ctype_digit($pieces[1]) && (int) $pieces[1] > 0 ) {
+        $code = (int) $pieces[1];
     }
     
     $arr = array();
