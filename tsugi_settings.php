@@ -23,41 +23,7 @@ $CFG->sessionlifetime = 18*60*60;  // 18 hours
 
 $CFG->privacy_url = $CFG->apphome . '/privacy.php';
 
-$CFG->setExtension('vhost', array(
-    'suffixes' => array('py4e.com'),
-    'site_root' => dirname($CFG->dirroot),
-    'vhosts' => array(
-        'www' => array(
-            'apphomes' => array(
-                'https://local.py4e.com',
-                'https://www.py4e.com',
-                'https://py4e.com',
-            ),
-        ),
-        'ai' => array(
-            'apphomes' => array(
-                'https://ai.local.py4e.com',
-                'https://ai.py4e.com',
-            ),
-            'dir' => 'site-ai',
-        ),
-        'labs' => array(
-            'apphomes' => array(
-                'https://labs.local.py4e.com',
-                'https://labs.py4e.com',
-            ),
-            'dir' => 'site-labs',
-        ),
-    ),
-));
-
 $CFG->lessons = $CFG->dirroot.'/../lessons.json';
-
-if ( $CFG->vhostUsesVhostUrls() ) {
-    $CFG->applyVhostHostUrls();
-}
-
-$CFG->applyVhostVariantConfig();
 
 $CFG->youtube_url = $CFG->apphome . '/mod/youtube/';
 $CFG->tdiscus = $CFG->wwwroot . '/tool/tdiscus/';
@@ -73,8 +39,8 @@ $CFG->setExtension('premium', array(
 
 $CFG->top_menu_callback = function() {
     global $CFG;
-    $buildmenu = $CFG->getVhostSiteFile('buildmenu.php');
-    if ( ! is_string($buildmenu) || ! file_exists($buildmenu) ) {
+    $buildmenu = $CFG->dirroot.'/../buildmenu.php';
+    if ( ! file_exists($buildmenu) ) {
         return false;
     }
     require_once $buildmenu;
