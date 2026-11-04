@@ -11,10 +11,6 @@ use \Tsugi\UI\Pages;
 require_once "sanity.php";
 require_once "top.php";
 
-if ( $CFG->requireVhostVariant('home.php') ) {
-    return;
-}
-
 require_once "nav.php";
 ?>
 <main id="container">

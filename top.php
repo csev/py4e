@@ -12,10 +12,6 @@ if ( session_id() == "" ) {
     $LAUNCH = LTIX::session_start();
 }
 
-if ( $CFG->requireVhostVariant('top.php') ) {
-    return;
-}
-
 $OUTPUT->header();
 ?>
 <style>

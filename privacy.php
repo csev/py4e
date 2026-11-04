@@ -3,10 +3,8 @@
         <h2>Privacy Policy</h2>
 <p>
 This policy describes how Python for Everybody (PY4E) collects, uses, and protects personal
-information when you use our teaching and learning sites, including
-<a href="https://www.py4e.com/">py4e.com</a>,
-<a href="https://labs.py4e.com/">labs.py4e.com</a>, and
-<a href="https://ai.py4e.com/">ai.py4e.com</a>.
+information when you use our teaching and learning site,
+<a href="https://www.py4e.com/">www.py4e.com</a>.
 PY4E provides open course materials, autograded activities, and related tools for learners
 and instructors. Please read this policy to understand how we handle your information.
 </p>
@@ -157,5 +155,5 @@ c/o Learning Experiences (learnxp.com)<br>
 Holt MI 48842-9998<br>
 United States
 </address>
-<p>Last edited: 30-May-2026</p>
+<p>Last edited: 4-Nov-2026</p>
 <?php include("footer.php"); ?>
