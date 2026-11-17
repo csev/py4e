@@ -210,7 +210,7 @@ https://www.bilibili.com/video/av46649799</a>
 <li>Persian - Thanks to <a href="https://www.linkedin.com/in/nooshin-zekavat" target="_blank">Nooshin Zekavat</a>
 <ul>
 <li>Free: 
-<a href="translations/FA/2025-12-03-Persian-Translation-Zekavat.pdf" target="_blank" rel="noopener noreferrer">پایتون برای همه</a>
+<a href="translations/FA/2026-11-17-Persian-Translation-Zekavat.pdf" target="_blank" rel="noopener noreferrer">پایتون برای همه</a>
 </li>
 </ul>
 </li>
