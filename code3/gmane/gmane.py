@@ -147,20 +147,20 @@ while True:
         continue
 
     email = None
-    x = re.findall('\nFrom: .* <(\S+@\S+)>\n', hdr)
+    x = re.findall(r'\nFrom: .* <(\S+@\S+)>\n', hdr)
     if len(x) == 1 :
         email = x[0];
         email = email.strip().lower()
         email = email.replace("<","")
     else:
-        x = re.findall('\nFrom: (\S+@\S+)\n', hdr)
+        x = re.findall(r'\nFrom: (\S+@\S+)\n', hdr)
         if len(x) == 1 :
             email = x[0];
             email = email.strip().lower()
             email = email.replace("<","")
 
     date = None
-    y = re.findall('\Date: .*, (.*)\n', hdr)
+    y = re.findall(r'\Date: .*, (.*)\n', hdr)
     if len(y) == 1 :
         tdate = y[0]
         tdate = tdate[:26]
@@ -174,7 +174,7 @@ while True:
             continue
 
     subject = None
-    z = re.findall('\Subject: (.*)\n', hdr)
+    z = re.findall(r'\Subject: (.*)\n', hdr)
     if len(z) == 1 : subject = z[0].strip().lower();
 
     # Reset the fail counter
