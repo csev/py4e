@@ -101,11 +101,11 @@ def parsemaildate(md) :
 def parseheader(hdr, allsenders=None):
     if hdr is None or len(hdr) < 1 : return None
     sender = None
-    x = re.findall('\nFrom: .* <(\S+@\S+)>\n', hdr)
+    x = re.findall(r'\nFrom: .* <(\S+@\S+)>\n', hdr)
     if len(x) >= 1 :
         sender = x[0]
     else:
-        x = re.findall('\nFrom: (\S+@\S+)\n', hdr)
+        x = re.findall(r'\nFrom: (\S+@\S+)\n', hdr)
         if len(x) >= 1 :
             sender = x[0]
 

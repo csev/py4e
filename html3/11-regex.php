@@ -602,7 +602,7 @@ that character with a backslash. For example, we can find money amounts
 with the following regular expression.</p>
 <pre class="python"><code>import re
 x = &#39;We just received $10.00 for cookies.&#39;
-y = re.findall(&#39;\$[0-9.]+&#39;,x)</code></pre>
+y = re.findall(r&#39;\$[0-9.]+&#39;,x)</code></pre>
 <p>Since we prefix the dollar sign with a backslash, it actually matches
 the dollar sign in the input string instead of matching the “end of
 line”, and the rest of the regular expression matches one or more digits
